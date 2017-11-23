@@ -63,7 +63,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 	}
 
 
-	@Test public void testSame()
+	@Test void testSame()
 	{
 		dispatch(8, 8);
 
@@ -77,7 +77,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertPurged(false, false);
 	}
 
-	@Test public void testDifferent()
+	@Test void testDifferent()
 	{
 		dispatch(8, 5);
 
@@ -93,7 +93,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertPurged(false, false);
 	}
 
-	@Test public void testNoPurge()
+	@Test void testNoPurge()
 	{
 		dispatch(8, 5);
 
@@ -116,7 +116,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertPurged(true, true);
 	}
 
-	@Test public void testOmitSuccess()
+	@Test void testOmitSuccess()
 	{
 		dispatch(8, 8);
 
@@ -130,7 +130,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertPurged(true, false);
 	}
 
-	@Test public void testOmitFinalFailure()
+	@Test void testOmitFinalFailure()
 	{
 		dispatch(8, 8);
 
@@ -144,7 +144,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertPurged(false, true);
 	}
 
-	@Test public void testOmitBoth()
+	@Test void testOmitBoth()
 	{
 		dispatch(8, 8);
 
@@ -155,7 +155,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertPurged(true, true);
 	}
 
-	@Test public void testRestriction()
+	@Test void testRestriction()
 	{
 		dispatch(8, 8);
 

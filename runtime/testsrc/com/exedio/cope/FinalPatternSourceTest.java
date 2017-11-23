@@ -35,7 +35,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testViaPattern()
+	@Test void testViaPattern()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
 		assertEquals("createValue", pattern.source.get(item));
@@ -53,7 +53,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 		assertEquals("createValue", pattern.source.get(item));
 	}
 
-	@Test public void testBypassingPattern()
+	@Test void testBypassingPattern()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
 		assertEquals("createValue", pattern.source.get(item));

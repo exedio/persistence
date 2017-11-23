@@ -52,7 +52,7 @@ public class AsStringTest extends TestWithEnvironment
 		itemX = new AsStringItem(null, null, null);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals("13",   intx   .asString().get(item1));
 		assertEquals("15",   longx  .asString().get(item1));

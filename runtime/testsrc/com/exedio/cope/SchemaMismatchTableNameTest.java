@@ -43,7 +43,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 		super(modelA, modelB);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertIt(null, OK, OK, modelA.getVerifiedSchema());
 

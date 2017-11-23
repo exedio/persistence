@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class ArraysTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

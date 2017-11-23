@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class ComputedTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(true,  comp(Super.TYPE));
 		assertEquals(true,  comp(Sub.TYPE));

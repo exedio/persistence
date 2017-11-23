@@ -59,7 +59,7 @@ public class DivideLongTest extends TestWithEnvironment
 		new DivideLongItem(30, 4, 5);
 	}
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		// test model
 		assertEquals(TYPE, divideAB.getType());

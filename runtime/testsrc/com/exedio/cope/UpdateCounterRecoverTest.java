@@ -51,7 +51,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		item = new CacheIsolationItem("name0");
 	}
 
-	@Test public void testSameTransaction() throws SQLException
+	@Test void testSameTransaction() throws SQLException
 	{
 		assertEquals("name0", item.getName());
 		commit();
@@ -90,7 +90,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals("name2", item.getName());
 	}
 
-	@Test public void testSameTransactionDelete() throws SQLException
+	@Test void testSameTransactionDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
 		commit();
@@ -124,7 +124,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals(false, item.existsCopeItem());
 	}
 
-	@Test public void testCommit() throws SQLException
+	@Test void testCommit() throws SQLException
 	{
 		assertEquals("name0", item.getName());
 		commit();
@@ -166,7 +166,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals("name2", item.getName());
 	}
 
-	@Test public void testCommitDelete() throws SQLException
+	@Test void testCommitDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
 		commit();
@@ -203,7 +203,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals(false, item.existsCopeItem());
 	}
 
-	@Test public void testRollback() throws SQLException
+	@Test void testRollback() throws SQLException
 	{
 		assertEquals("name0", item.getName());
 		commit();
@@ -245,7 +245,7 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals("name2", item.getName());
 	}
 
-	@Test public void testRollbackDelete() throws SQLException
+	@Test void testRollbackDelete() throws SQLException
 	{
 		assertEquals(true, item.existsCopeItem());
 		commit();

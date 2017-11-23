@@ -27,13 +27,13 @@ import org.junit.jupiter.api.Test;
 
 public class VaultFileServiceDirectoryTest extends AbstractVaultFileServiceTest
 {
-	@Test public void serviceProperties()
+	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquals(3, service.directoryLength);
 	}
 
-	@Test public void directoryStructure()
+	@Test void directoryStructure()
 	{
 		final File root = getRoot();
 		final File temp = new File(root, ".tempVaultFileService");

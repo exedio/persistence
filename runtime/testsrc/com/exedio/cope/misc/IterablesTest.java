@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class IterablesTest
 {
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Iterator<String> iterator = new Iterator<String>(){
 
@@ -76,7 +76,7 @@ public class IterablesTest
 		}
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{

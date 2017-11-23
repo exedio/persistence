@@ -53,7 +53,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		itemX = new EnumSetFieldItem();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(false, item.containsActiveLanguage(DE));
 		assertEquals(false, item.containsActiveLanguage(EN));
@@ -162,7 +162,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSettable()
+	@Test void testSettable()
 	{
 		final EnumSet<Language> value = EnumSet.noneOf(EnumSetFieldItem.Language.class);
 
@@ -180,7 +180,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(false, initialItem.containsActiveLanguage(PL));
 	}
 
-	@Test public void testSetSettableNull()
+	@Test void testSetSettableNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));
 		final SetValue<EnumSet<Language>> map = activeLanguage.map(null);
@@ -199,7 +199,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test public void testSetSetNull()
+	@Test void testSetSetNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));
 
@@ -216,7 +216,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 	}
 
-	@Test public void testSubClass()
+	@Test void testSubClass()
 	{
 		assertEquals(false, item.containsActiveLanguage(SUBCLASS));
 
@@ -225,7 +225,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{

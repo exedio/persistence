@@ -103,7 +103,7 @@ public class HashConditionTest extends TestWithEnvironment
 		item = new MyItem();
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		assertUnmodifiable(supported);
 
@@ -142,7 +142,7 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testUnsupported()
+	@Test void testUnsupported()
 	{
 		final Condition positive = MyItem.hash.hashMatchesIfSupported     ("NIXUS", MyItem.data);
 		final Condition negative = MyItem.hash.hashDoesNotMatchIfSupported("NIXUS", MyItem.data);
@@ -171,7 +171,7 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testUnsupportedStandard()
+	@Test void testUnsupportedStandard()
 	{
 		for(final Provider provider : Security.getProviders())
 		{

@@ -40,7 +40,7 @@ import org.junit.jupiter.api.Test;
 
 public class VaultPropertiesTest
 {
-	@Test public void probe()
+	@Test void probe()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -50,7 +50,7 @@ public class VaultPropertiesTest
 		final VaultProperties props = factory.create(source);
 		assertEquals("VaultMockService:probeExampleValue", props.probe());
 	}
-	@Test public void probeFailGet()
+	@Test void probeFailGet()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -68,7 +68,7 @@ public class VaultPropertiesTest
 			assertEquals("deliberately fail in VaultMockService#get", e.getMessage());
 		}
 	}
-	@Test public void probeFailPut()
+	@Test void probeFailPut()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -88,7 +88,7 @@ public class VaultPropertiesTest
 	}
 
 
-	@Test public void algorithmNotFound()
+	@Test void algorithmNotFound()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -109,7 +109,7 @@ public class VaultPropertiesTest
 	}
 
 
-	@Test public void servicePropertiesEmpty()
+	@Test void servicePropertiesEmpty()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -133,7 +133,7 @@ public class VaultPropertiesTest
 	}
 
 
-	@Test public void servicePropertiesMissing()
+	@Test void servicePropertiesMissing()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -145,7 +145,7 @@ public class VaultPropertiesTest
 		final ServicePropertiesMissing service = (ServicePropertiesMissing)props.newService();
 		assertSame(props, service.parameters.getVaultProperties());
 	}
-	@Test public void servicePropertiesMissingReference()
+	@Test void servicePropertiesMissingReference()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -173,7 +173,7 @@ public class VaultPropertiesTest
 	}
 
 
-	@Test public void servicePropertiesNoConstructor()
+	@Test void servicePropertiesNoConstructor()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -197,7 +197,7 @@ public class VaultPropertiesTest
 			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 		}
 	}
-	@Test public void servicePropertiesNoConstructorReference()
+	@Test void servicePropertiesNoConstructorReference()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -241,7 +241,7 @@ public class VaultPropertiesTest
 	}
 
 
-	@Test public void servicePropertiesFails()
+	@Test void servicePropertiesFails()
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -264,7 +264,7 @@ public class VaultPropertiesTest
 			assertNull(cause.getCause());
 		}
 	}
-	@Test public void servicePropertiesFailsReference()
+	@Test void servicePropertiesFailsReference()
 	{
 		final Source source =
 				describe("DESC", cascade(

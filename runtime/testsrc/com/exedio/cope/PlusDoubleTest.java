@@ -75,7 +75,7 @@ public class PlusDoubleTest extends TestWithEnvironment
 	private static final Double d10= Double.valueOf(10.4);
 	private static final Double d18= Double.valueOf(20.46);
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		// test model
 		assertEquals(TYPE, plusA9.getType());

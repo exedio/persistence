@@ -45,7 +45,7 @@ public class RangeFieldModelTest
 		MODEL.enableSerialization(RangeFieldModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -95,7 +95,7 @@ public class RangeFieldModelTest
 		assertSerializedSame(text, 387);
 	}
 
-	@Test public void testUnison()
+	@Test void testUnison()
 	{
 		assertEquals(
 				"RangeFieldItem.valid-from<=RangeFieldItem.valid-to",
@@ -105,7 +105,7 @@ public class RangeFieldModelTest
 				text.getUnison().getCondition().toString());
 	}
 
-	@Test public void testBorderTemplateUnique()
+	@Test void testBorderTemplateUnique()
 	{
 		try
 		{
@@ -118,7 +118,7 @@ public class RangeFieldModelTest
 		}
 	}
 
-	@Test public void testContainsNull()
+	@Test void testContainsNull()
 	{
 		try
 		{
@@ -131,7 +131,7 @@ public class RangeFieldModelTest
 		}
 	}
 
-	@Test public void testInitialType()
+	@Test void testInitialType()
 	{
 		assertEquals("com.exedio.cope.pattern.Range<java.lang.Integer>", valid.getInitialType().toString());
 		assertEquals("com.exedio.cope.pattern.Range<java.lang.String>" , text .getInitialType().toString());

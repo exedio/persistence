@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class GenericResolverTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		@SuppressWarnings("rawtypes")
 		final GenericResolver<Interface> gr = neW(Interface.class);

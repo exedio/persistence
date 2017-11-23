@@ -39,7 +39,7 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final AnItem i = new AnItem(date(12, 21,  0,  0,  0));
 

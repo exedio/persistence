@@ -57,13 +57,13 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		otherItem = new SetOrderedFieldItem();
 	}
 
-	@Test public void testQuery()
+	@Test void testQuery()
 	{
 		assertEquals("select element from SetOrderedFieldItem-strings" + " where parent='" + item + "' order by order", item.getStringsQuery().toString());
 	}
 
 	@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		item.assertStrings();
 		assertEquals(0, stringsType.newQuery(null).search().size());
@@ -170,7 +170,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertFalse(r11.existsCopeItem());
 	}
 
-	@Test public void testAddRemove()
+	@Test void testAddRemove()
 	{
 		assertEquals(true, item.addToStrings("bing"));
 		item.assertStrings("bing");
@@ -233,7 +233,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertFalse(r5.existsCopeItem());
 	}
 
-	@Test public void testMandatoryViolation()
+	@Test void testMandatoryViolation()
 	{
 		try
 		{
@@ -247,7 +247,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		item.assertStrings("one1"); // TODO should be empty
 	}
 
-	@Test public void testOtherViolation()
+	@Test void testOtherViolation()
 	{
 		try
 		{
@@ -262,13 +262,13 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		item.assertStrings("one1"); // TODO should be empty
 	}
 
-	@Test public void testDuplicates()
+	@Test void testDuplicates()
 	{
 		item.setStrings(asList("1one", "2dupl", "2dupl", "3two"));
 		item.assertStrings("1one", "2dupl", "3two");
 	}
 
-	@Test public void testOrder()
+	@Test void testOrder()
 	{
 		item.setStrings(asList("4four", "1one", "2two"));
 		item.assertStrings("4four", "1one", "2two");
@@ -277,7 +277,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		item.assertStrings("4four", "1one", "2two", "3three");
 	}
 
-	@Test public void testReOrder()
+	@Test void testReOrder()
 	{
 		item.setStrings(asList("4four", "1one", "3three", "2two"));
 		item.assertStrings("4four", "1one", "3three", "2two");
@@ -287,7 +287,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test public void testMultipleItems() throws Exception
+	@Test void testMultipleItems() throws Exception
 	{
 		final String rot = "1hellrot";
 		final String blau = "2blau";
@@ -314,7 +314,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertContains(getParentsOfStrings(null));
 	}
 
-	@Test public void testEmpty() throws Exception
+	@Test void testEmpty() throws Exception
 	{
 		final Query<SetOrderedFieldItem> q = TYPE.newQuery(strings.getElement().isNull());
 		q.joinOuterLeft(strings.getRelationType(), strings.getParent().equalTarget());

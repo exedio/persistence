@@ -37,13 +37,13 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		return result;
 	}
 
-	@Test public void serviceProperties()
+	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquals(0, service.directoryLength);
 	}
 
-	@Test public void directoryStructure()
+	@Test void directoryStructure()
 	{
 		final File root = getRoot();
 		final File temp = new File(root, ".tempVaultFileService");

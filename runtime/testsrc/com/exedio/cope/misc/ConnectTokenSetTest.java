@@ -62,7 +62,7 @@ public class ConnectTokenSetTest
 
 	private final ConnectTokenRule ctr = new ConnectTokenRule(model);
 
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -78,7 +78,7 @@ public class ConnectTokenSetTest
 		assertNotSet();
 	}
 
-	@Test public void testNormalSupplier()
+	@Test void testNormalSupplier()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -100,7 +100,7 @@ public class ConnectTokenSetTest
 		assertEquals(2, supplied.get());
 	}
 
-	@Test public void testNormalVoid()
+	@Test void testNormalVoid()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -117,7 +117,7 @@ public class ConnectTokenSetTest
 	}
 
 	@SuppressWarnings("resource")
-	@Test public void testSupplierReturnsNull()
+	@Test void testSupplierReturnsNull()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -180,7 +180,7 @@ public class ConnectTokenSetTest
 	}
 
 	@SuppressWarnings("resource")
-	@Test public void testSupplierFails()
+	@Test void testSupplierFails()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -215,7 +215,7 @@ public class ConnectTokenSetTest
 		assertNotSet();
 	}
 
-	@Test public void testRemoveWithoutSet()
+	@Test void testRemoveWithoutSet()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -226,7 +226,7 @@ public class ConnectTokenSetTest
 		assertNotSet();
 	}
 
-	@Test public void testRemoveWithoutSetVoid()
+	@Test void testRemoveWithoutSetVoid()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));
@@ -237,7 +237,7 @@ public class ConnectTokenSetTest
 		assertNotSet();
 	}
 
-	@Test public void testRestartID()
+	@Test void testRestartID()
 	{
 		assertFalse(model.isConnected());
 		assertSame(null, getProperties(model));

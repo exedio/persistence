@@ -68,7 +68,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 	private static final String PASSWORD = "correctPassword8927365";
 	private static final String PASSWORD2 = "correctPassword6576675";
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertNoUpdateCounterColumn(passwordLimited.getRefusalType());
 
@@ -155,7 +155,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertFalse(refusal4.existsCopeItem());
 	}
 
-	@Test public void testReset()
+	@Test void testReset()
 	{
 		final String now = period0;
 		assertEquals(list(), getRefusals());

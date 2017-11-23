@@ -42,7 +42,7 @@ public class EnumSetFieldFinalTest
 		MODEL.enableSerialization(EnumSetFieldFinalTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(TYPE, field.getType());
 		assertEquals("field", field.getName());

@@ -55,7 +55,7 @@ public class TypeIteratorTest extends TestWithEnvironment
 		item4 = new QueryAggregatorItem(4);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

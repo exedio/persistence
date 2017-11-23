@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypeSetModelErrorTest
 {
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -39,7 +39,7 @@ public class TypeSetModelErrorTest
 		}
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		try
 		{
@@ -52,7 +52,7 @@ public class TypeSetModelErrorTest
 		}
 	}
 
-	@Test public void testNullElement()
+	@Test void testNullElement()
 	{
 		try
 		{
@@ -65,7 +65,7 @@ public class TypeSetModelErrorTest
 		}
 	}
 
-	@Test public void testDuplicate()
+	@Test void testDuplicate()
 	{
 		final Type<Item1> type1 = TypesBound.newType(Item1.class);
 		final Type<Item2> type2 = TypesBound.newType(Item2.class);

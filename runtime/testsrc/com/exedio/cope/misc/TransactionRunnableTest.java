@@ -44,7 +44,7 @@ public class TransactionRunnableTest extends TestWithEnvironment
 		item = null;
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertContains(TYPE.search());
 		model.commit();

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 public class DifferentiateTest
 {
 	@Deprecated
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(list(), sampler.differentiate());
 

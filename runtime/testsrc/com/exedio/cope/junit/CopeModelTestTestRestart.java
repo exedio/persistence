@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopeModelTestTestRestart extends CopeModelTestTest
 {
-	@Test public void testRestart()
+	@Test void testRestart()
 	{
 		doTest();
 		model.commit();

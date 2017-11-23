@@ -52,7 +52,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 		return item;
 	}
 
-	@Test public void testTouchLastModified()
+	@Test void testTouchLastModified()
 	{
 		assertIt(".fXD", item[0]);
 
@@ -60,7 +60,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 		assertIt(".fYD", item[0]);
 	}
 
-	@Test public void testGlobalOffsetValue()
+	@Test void testGlobalOffsetValue()
 	{
 		assertEquals(   0, getPrimaryKeyColumnValueL(item[   0]));
 		assertEquals(   1, getPrimaryKeyColumnValueL(item[   1]));
@@ -115,7 +115,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 		assertIt(".fXD", item[1002]);
 	}
 
-	@Test public void testGlobalOffsetRamp()
+	@Test void testGlobalOffsetRamp()
 	{
 		assertIt(".fXD", item[0]);
 		assertIt(".fXD", item[1]);
@@ -233,7 +233,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 		assertIt(".fXD", item[1006]);
 	}
 
-	@Test public void testGlobalOffsetValueAndRamp()
+	@Test void testGlobalOffsetValueAndRamp()
 	{
 		assertIt(".fXD", item[0]);
 		assertIt(".fXD", item[1]);
@@ -367,7 +367,7 @@ public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 		assertIt(".faD", item[1006]);
 	}
 
-	@Test public void testDummy()
+	@Test void testDummy()
 	{
 		assertIt(".fXD", item[0]);
 

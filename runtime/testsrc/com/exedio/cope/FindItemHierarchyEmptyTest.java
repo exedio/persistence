@@ -39,7 +39,7 @@ public class FindItemHierarchyEmptyTest extends TestWithEnvironment
 		superItem = new HierarchyEmptySuper(3);
 	}
 
-	@Test public void test() throws NoSuchIDException
+	@Test void test() throws NoSuchIDException
 	{
 		assertSame(subItem, model.getItem("HierarchyEmptySub-0")); // important to test with zero as well
 		assertSame(superItem, model.getItem("HierarchyEmptySuper-1"));

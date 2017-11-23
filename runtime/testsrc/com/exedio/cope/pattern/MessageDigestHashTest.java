@@ -75,7 +75,7 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		((MockSecureRandom)algo(hash).getSaltSource()).expectNextBytes(Hex.decodeLower(bytes));
 	}
 
-	@Test public void testMD5()
+	@Test void testMD5()
 	{
 		assertEquals(Arrays.asList(
 				TYPE.getThis(),

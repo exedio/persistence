@@ -47,7 +47,7 @@ public class FindItemPatternTest extends TestWithEnvironment
 		item.addToStrings("xxtwo");
 	}
 
-	@Test public void test() throws NoSuchIDException
+	@Test void test() throws NoSuchIDException
 	{
 		final List<? extends Item> items = strings.getRelationType().search(
 				stringsParent().equal(item),

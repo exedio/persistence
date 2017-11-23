@@ -33,7 +33,7 @@ public class CreateLimitMinimumTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(0, getPrimaryKeyColumnValueL(new AnItem(0)));
 		try

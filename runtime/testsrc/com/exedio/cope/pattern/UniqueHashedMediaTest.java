@@ -66,7 +66,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEqualsUnmodifiable(
 				asList(new Feature[]
@@ -105,7 +105,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertSame(value.getMedia().getBody(), hashConstraint.getData());
 	}
 
-	@Test public void testData()
+	@Test void testData()
 	{
 		final Date before = new Date();
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
@@ -122,7 +122,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertEquals("UniqueHashedMediaItem/w300/UniqueHashedMediaItem-0.jpg", mediaItem.getW300Locator().getPath());
 	}
 
-	@Test public void testUniqueness()
+	@Test void testUniqueness()
 	{
 		new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
 
@@ -138,7 +138,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testConditions()
+	@Test void testConditions()
 	{
 		final UniqueHashedMediaItem mediaItem = new UniqueHashedMediaItem(toValue(bytes6, "image/jpeg"));
 		assertEquals(bytes6DigestHex, mediaItem.getHash());
@@ -148,7 +148,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertNull(notExistingMediaItem);
 	}
 
-	@Test public void testGetOrCreate()throws IOException
+	@Test void testGetOrCreate()throws IOException
 	{
 		final UniqueHashedMediaItem mediaItem =  getOrCreate(toValue(bytes8, "image/jpeg"));
 		assertEquals(bytes8DigestHex, mediaItem.getHash());
@@ -170,12 +170,12 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testGetOrCreateNull()throws IOException
+	@Test void testGetOrCreateNull()throws IOException
 	{
 		assertEquals(null, getOrCreate(null));
 	}
 
-	@Test public void testHashMatches()
+	@Test void testHashMatches()
 	{
 		assumeTrue(model.getSupportedDataHashAlgorithms().contains(value.getMessageDigestAlgorithm()));
 		assumeNoVault();

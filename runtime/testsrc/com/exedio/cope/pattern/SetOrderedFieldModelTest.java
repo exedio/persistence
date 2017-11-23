@@ -47,7 +47,7 @@ public class SetOrderedFieldModelTest
 	static final IntegerField stringsOrder = strings.getOrder();
 	static final FunctionField<String> stringsElement = strings.getElement();
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEqualsUnmodifiable(list(
 				TYPE,
@@ -108,7 +108,7 @@ public class SetOrderedFieldModelTest
 		assertEqualsUnmodifiable(list(), strings.getSourceFeatures());
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		assertSerializedSame(strings, 400);
 	}

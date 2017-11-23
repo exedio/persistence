@@ -42,7 +42,7 @@ public class DeleteTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 
@@ -62,7 +62,7 @@ public class DeleteTest extends TestWithEnvironment
 		ctx.assertProgress(2);
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 		final Context ctx = new Context(1);
@@ -71,7 +71,7 @@ public class DeleteTest extends TestWithEnvironment
 		ctx.assertProgress(0);
 	}
 
-	@Test public void testError()
+	@Test void testError()
 	{
 		try
 		{
@@ -94,7 +94,7 @@ public class DeleteTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testAbort()
+	@Test void testAbort()
 	{
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 		q.setOrderBy(TYPE.getThis(), true);
@@ -124,7 +124,7 @@ public class DeleteTest extends TestWithEnvironment
 		ctx.assertProgress(1);
 	}
 
-	@Test public void testTransactions()
+	@Test void testTransactions()
 	{
 		assertPurge(  0, 1);
 		assertPurge(  1, 1);

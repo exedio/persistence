@@ -63,12 +63,12 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		item2 = new TextUrlFilterDelegatorItem();
 	}
 
-	@Test public void testPasteContentTypesAllowed()
+	@Test void testPasteContentTypesAllowed()
 	{
 		assertEquals(list("image/png"), fertig2.getPasteContentTypesAllowed());
 	}
 
-	@Test public void testContentTypeNull() throws IOException
+	@Test void testContentTypeNull() throws IOException
 	{
 		// no raw media set means no content type
 		assertEquals(null, item.getFertig2ContentType());
@@ -84,7 +84,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testPasteItemNotExisting() throws IOException, NotFound
+	@Test void testPasteItemNotExisting() throws IOException, NotFound
 	{
 		item.setFertig2Raw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertig2ContentType());
@@ -100,7 +100,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testGetContentPasteItemNotExisting() throws IOException, NotFound
+	@Test void testGetContentPasteItemNotExisting() throws IOException, NotFound
 	{
 		item.setFertig2Raw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertig2ContentType());
@@ -116,7 +116,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testPasteLocatorUrl() throws IOException, NotFound
+	@Test void testPasteLocatorUrl() throws IOException, NotFound
 	{
 		// paste must be added to fertig filter
 		final String url1 = item.addFertigPaste("uno");
@@ -130,7 +130,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		assertGet("<eins>" + url1 + "<zwei>");
 	}
 
-	@Test public void testPasteLocatorNotFound()
+	@Test void testPasteLocatorNotFound()
 	{
 		try
 		{
@@ -143,7 +143,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testPasteUrlNotFound()
+	@Test void testPasteUrlNotFound()
 	{
 		try
 		{
@@ -156,7 +156,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testDuplicatePasteValue() throws IOException
+	@Test void testDuplicatePasteValue() throws IOException
 	{
 		item.setFertig2Raw("<eins><paste>uno</paste><zwei>");
 		item.addFertigPaste("uno");
@@ -173,7 +173,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		item2.addFertigPaste("uno");
 	}
 
-	@Test public void testUrlReplacement() throws IOException, NotFound
+	@Test void testUrlReplacement() throws IOException, NotFound
 	{
 		item.setFertig2Raw("<eins><paste>uno</paste><zwei>");
 
@@ -197,7 +197,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		assertGet("<eins><extra/><extra/><zwei>");
 	}
 
-	@Test public void testPasteTypo() throws IOException, NotFound
+	@Test void testPasteTypo() throws IOException, NotFound
 	{
 		item.setFertig2Raw("<eins><paste>uno</Xpaste><zwei>");
 		try
@@ -212,7 +212,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testMalformedRawContent() throws IOException, NotFound
+	@Test void testMalformedRawContent() throws IOException, NotFound
 	{
 		item.setFertig2Raw("<eins><paste>");
 		try
@@ -227,7 +227,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testCheckContentTypeNull()
+	@Test void testCheckContentTypeNull()
 	{
 		try
 		{
@@ -240,13 +240,13 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCheckBrokenLink() throws IOException, NotFound
+	@Test void testCheckBrokenLink() throws IOException, NotFound
 	{
 		item.setFertig2Raw("<eins><paste>uno</paste><zwei>");
 		assertEquals(new HashSet<>(Arrays.asList("uno")), item.checkFertig2());
 	}
 
-	@Test public void testCheckMultipleBrokenLink() throws IOException, NotFound
+	@Test void testCheckMultipleBrokenLink() throws IOException, NotFound
 	{
 		item.setFertig2Raw("<eins><paste>uno</paste><paste>duo</paste><zwei>");
 		assertEquals(new HashSet<>(Arrays.asList("uno","duo")), item.checkFertig2());

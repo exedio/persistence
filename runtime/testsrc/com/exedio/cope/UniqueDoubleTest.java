@@ -38,7 +38,7 @@ public class UniqueDoubleTest extends TestWithEnvironment
 		super(UniqueDoubleModelTest.MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		assertEquals(null, forConstraint("a", 1));
 

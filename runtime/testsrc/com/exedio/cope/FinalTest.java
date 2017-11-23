@@ -33,7 +33,7 @@ public final class FinalTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		new FinalSubItem(1, 11);
 		new FinalSubNoneItem(2, 22);
@@ -50,7 +50,7 @@ public final class FinalTest extends TestWithEnvironment
 		assertEquals(22, item2c.getSubIntNone());
 	}
 
-	@Test public void testUpdateCounter()
+	@Test void testUpdateCounter()
 	{
 		assertEquals(synthetic("catch", "FinalSuperItem"), getUpdateCounterColumnName(FinalSuperItem.TYPE));
 		assertEquals(synthetic("catch", "FinalSubNoneItem"), getUpdateCounterColumnName(FinalSubNoneItem.TYPE));

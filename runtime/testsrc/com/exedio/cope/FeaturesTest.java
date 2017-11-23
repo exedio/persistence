@@ -36,7 +36,7 @@ public class FeaturesTest
 		annotationSource = getClass().getDeclaredField("annotationSource");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick);
@@ -65,7 +65,7 @@ public class FeaturesTest
 		}
 	}
 
-	@Test public void testAnnotation()
+	@Test void testAnnotation()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick, annotationSource);
@@ -75,7 +75,7 @@ public class FeaturesTest
 		features.put("zock", zock, (AnnotatedElement)null);
 	}
 
-	@Test public void testDuplicateName()
+	@Test void testDuplicateName()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick);
@@ -94,7 +94,7 @@ public class FeaturesTest
 		features.put("zick", zack);
 	}
 
-	@Test public void testDuplicateFeature()
+	@Test void testDuplicateFeature()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick);
@@ -109,7 +109,7 @@ public class FeaturesTest
 		}
 	}
 
-	@Test public void testDuplicateFeatureWithAnnotation()
+	@Test void testDuplicateFeatureWithAnnotation()
 	{
 		final BooleanField zick = new BooleanField();
 		features.put("zick", zick, annotationSource);

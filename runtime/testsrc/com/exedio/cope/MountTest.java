@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 
 public class MountTest
 {
-	@Test public void testItemType()
+	@Test void testItemType()
 	{
 		final Type<?> t = MyItem.TYPE;
 		assertEquals( MyItem.class, t.getJavaClass());
@@ -47,7 +47,7 @@ public class MountTest
 		assertSerializedSame(t, 259);
 	}
 
-	@Test public void testItemTypeRenamed()
+	@Test void testItemTypeRenamed()
 	{
 		final Type<?> t = PureItem.TYPE;
 		assertEquals(   PureItem.class, t.getJavaClass());
@@ -57,7 +57,7 @@ public class MountTest
 		assertSerializedSame(t, 263);
 	}
 
-	@Test public void testItemField()
+	@Test void testItemField()
 	{
 		final Feature f = MyItem.field;
 		assertEquals(       "field", f.getName());
@@ -69,7 +69,7 @@ public class MountTest
 		assertSerializedSame(f, 362);
 	}
 
-	@Test public void testItemFieldRenamed()
+	@Test void testItemFieldRenamed()
 	{
 		final Feature f = MyItem.pure;
 		assertEquals(       "actual", f.getName());
@@ -81,7 +81,7 @@ public class MountTest
 		assertSerializedSame(f, 363);
 	}
 
-	@Test public void testItemRenamedField()
+	@Test void testItemRenamedField()
 	{
 		final Feature f = PureItem.field;
 		assertEquals(           "field", f.getName());
@@ -93,7 +93,7 @@ public class MountTest
 		assertSerializedSame(f, 366);
 	}
 
-	@Test public void testItemRenamedFieldRenamed()
+	@Test void testItemRenamedFieldRenamed()
 	{
 		final Feature f = PureItem.pure;
 		assertEquals(           "actual", f.getName());
@@ -105,7 +105,7 @@ public class MountTest
 		assertSerializedSame(f, 367);
 	}
 
-	@Test public void testCompositeType()
+	@Test void testCompositeType()
 	{
 		final CompositeType<?> t = MyComposite.TYPE;
 		assertEquals(MyComposite.class, t.getJavaClass());
@@ -114,7 +114,7 @@ public class MountTest
 		assertSerializedSame(t, 234);
 	}
 
-	@Test public void testCompositeTypeRenamed()
+	@Test void testCompositeTypeRenamed()
 	{
 		final CompositeType<?> t = PureComposite.TYPE;
 		assertEquals(PureComposite.class, t.getJavaClass());
@@ -123,7 +123,7 @@ public class MountTest
 		assertSerializedSame(t, 236);
 	}
 
-	@Test public void testCompositeField()
+	@Test void testCompositeField()
 	{
 		final Feature f = MyComposite.field;
 		assertEquals(                     "field", f.getName());
@@ -135,7 +135,7 @@ public class MountTest
 		assertSerializedSame(f, 272);
 	}
 
-	@Test public void testCompositeFieldRenamed()
+	@Test void testCompositeFieldRenamed()
 	{
 		final Feature f = MyComposite.pure;
 		assertEquals(                     "actual", f.getName());
@@ -147,7 +147,7 @@ public class MountTest
 		assertSerializedSame(f, 271);
 	}
 
-	@Test public void testCompositeRenamedField()
+	@Test void testCompositeRenamedField()
 	{
 		final Feature f = PureComposite.field;
 		assertEquals(                       "field", f.getName());
@@ -159,7 +159,7 @@ public class MountTest
 		assertSerializedSame(f, 274);
 	}
 
-	@Test public void testCompositeRenamedFieldRenamed()
+	@Test void testCompositeRenamedFieldRenamed()
 	{
 		final Feature f = PureComposite.pure;
 		assertEquals(                       "actual", f.getName());
@@ -171,7 +171,7 @@ public class MountTest
 		assertSerializedSame(f, 273);
 	}
 
-	@Test public void testBlockType()
+	@Test void testBlockType()
 	{
 		final BlockType<?> t = MyBlock.TYPE;
 		assertEquals(MyBlock.class, t.getJavaClass());
@@ -180,7 +180,7 @@ public class MountTest
 		assertSerializedSame(t, 270);
 	}
 
-	@Test public void testBlockTypeRenamed()
+	@Test void testBlockTypeRenamed()
 	{
 		final BlockType<?> t = PureBlock.TYPE;
 		assertEquals(PureBlock.class, t.getJavaClass());
@@ -189,7 +189,7 @@ public class MountTest
 		assertSerializedSame(t, 272);
 	}
 
-	@Test public void testBlockField()
+	@Test void testBlockField()
 	{
 		final Feature f = MyBlock.field;
 		assertEquals(                 "field", f.getName());
@@ -201,7 +201,7 @@ public class MountTest
 		assertSerializedSame(f, 312);
 	}
 
-	@Test public void testBlockFieldRenamed()
+	@Test void testBlockFieldRenamed()
 	{
 		final Feature f = MyBlock.pure;
 		assertEquals(                 "actual", f.getName());
@@ -213,7 +213,7 @@ public class MountTest
 		assertSerializedSame(f, 311);
 	}
 
-	@Test public void testBlockRenamedField()
+	@Test void testBlockRenamedField()
 	{
 		final Feature f = PureBlock.field;
 		assertEquals(                   "field", f.getName());
@@ -225,7 +225,7 @@ public class MountTest
 		assertSerializedSame(f, 314);
 	}
 
-	@Test public void testBlockRenamedFieldRenamed()
+	@Test void testBlockRenamedFieldRenamed()
 	{
 		final Feature f = PureBlock.pure;
 		assertEquals(                   "actual", f.getName());

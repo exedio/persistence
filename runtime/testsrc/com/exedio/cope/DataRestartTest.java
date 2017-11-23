@@ -39,7 +39,7 @@ public class DataRestartTest extends TestWithEnvironment
 		restartTransaction();
 	}
 
-	@Test public void testCommitSingleString()
+	@Test void testCommitSingleString()
 	{
 		item.setString("zick");
 		assertEquals("zick", item.getString());
@@ -51,7 +51,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testCommitSingleData()
+	@Test void testCommitSingleData()
 	{
 		item.setData("aabbccdd");
 		assertEquals(null, item.getString());
@@ -63,7 +63,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals("aabbccdd", item.getData());
 	}
 
-	@Test public void testCommitMultiEmpty()
+	@Test void testCommitMultiEmpty()
 	{
 		item.set(new SetValue<?>[0]);
 		assertEquals(null, item.getString());
@@ -75,7 +75,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testCommitMultiString()
+	@Test void testCommitMultiString()
 	{
 		item.setString("zick");
 		assertEquals("zick", item.getString());
@@ -87,7 +87,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testCommitMultiData()
+	@Test void testCommitMultiData()
 	{
 		item.setDataMulti("aabbccdd");
 		assertEquals(null, item.getString());
@@ -99,7 +99,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals("aabbccdd", item.getData());
 	}
 
-	@Test public void testCommitMultiBoth()
+	@Test void testCommitMultiBoth()
 	{
 		item.setBothMulti("zick", "aabbccdd");
 		assertEquals("zick", item.getString());
@@ -111,7 +111,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals("aabbccdd", item.getData());
 	}
 
-	@Test public void testRollbackSingleString()
+	@Test void testRollbackSingleString()
 	{
 		item.setString("zick");
 		assertEquals("zick", item.getString());
@@ -123,7 +123,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testRollbackSingleData()
+	@Test void testRollbackSingleData()
 	{
 		item.setData("aabbccdd");
 		assertEquals(null, item.getString());
@@ -135,7 +135,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testRollbackMultiEmpty()
+	@Test void testRollbackMultiEmpty()
 	{
 		item.set(new SetValue<?>[0]);
 		assertEquals(null, item.getString());
@@ -147,7 +147,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testRollbackMultiString()
+	@Test void testRollbackMultiString()
 	{
 		item.setString("zick");
 		assertEquals("zick", item.getString());
@@ -159,7 +159,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testRollbackMultiData()
+	@Test void testRollbackMultiData()
 	{
 		item.setDataMulti("aabbccdd");
 		assertEquals(null, item.getString());
@@ -171,7 +171,7 @@ public class DataRestartTest extends TestWithEnvironment
 		assertEquals(null, item.getData());
 	}
 
-	@Test public void testRollbackMultiBoth()
+	@Test void testRollbackMultiBoth()
 	{
 		item.setBothMulti("zick", "aabbccdd");
 		assertEquals("zick", item.getString());

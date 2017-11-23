@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class PatternBeforeMountTest
 {
-	@Test public void getSourceFeaturesGather()
+	@Test void getSourceFeaturesGather()
 	{
 		final PatternTestPattern pattern = new PatternTestPattern();
 		final Map<String,Feature> expected = new HashMap<>();
@@ -38,7 +38,7 @@ public class PatternBeforeMountTest
 		assertEqualsUnmodifiable(expected, pattern.getSourceFeaturesGather());
 	}
 
-	@Test public void getSourceFeatures()
+	@Test void getSourceFeatures()
 	{
 		try
 		{

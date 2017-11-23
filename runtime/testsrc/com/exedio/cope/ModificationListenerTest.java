@@ -45,7 +45,7 @@ public class ModificationListenerTest extends TestWithEnvironment
 	// dead store is needed to assign null for testing garbage collection
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL")
 	@Deprecated
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(), model.getModificationListeners());
 		assertEquals(0, model.getModificationListenersCleared());

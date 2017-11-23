@@ -98,7 +98,7 @@ public class ReviseTest
 	EnvironmentInfo info;
 	boolean longSyntheticNames = false;
 
-	@Test public void testRevise() throws ParseException
+	@Test void testRevise() throws ParseException
 	{
 		connectionUrl  = props.getConnectionUrl();
 		connectionUser = props.getConnectionUsername();
@@ -381,7 +381,7 @@ public class ReviseTest
 		assertEquals(true, revisionTable.exists());
 	}
 
-	@Test public void testAutoRevise()
+	@Test void testAutoRevise()
 	{
 		revisionsFactory5.put( new Revisions(0) );
 		final Source sourceEnabled = source(true);

@@ -39,7 +39,7 @@ public class CompositeDefaultTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final CompositeDefaultItem isDefault = new CompositeDefaultItem();
 		assertNull(isDefault.getField());

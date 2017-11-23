@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldErrorTest
 {
-	@Test public void testCreateNoInterface()
+	@Test void testCreateNoInterface()
 	{
 		try
 		{
@@ -41,7 +41,7 @@ public class MultiItemFieldErrorTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	@Test public void testCreateNoComponentClass()
+	@Test void testCreateNoComponentClass()
 	{
 		try
 		{
@@ -57,7 +57,7 @@ public class MultiItemFieldErrorTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	@Test public void testCreateOnlyOneComponentClass()
+	@Test void testCreateOnlyOneComponentClass()
 	{
 		try
 		{
@@ -72,7 +72,7 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@Test public void testCreateNull()
+	@Test void testCreateNull()
 	{
 		try
 		{
@@ -87,7 +87,7 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@Test public void testCreateNotAssignable()
+	@Test void testCreateNotAssignable()
 	{
 		try
 		{
@@ -103,7 +103,7 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@Test public void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
+	@Test void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
 		try
 		{
@@ -122,7 +122,7 @@ public class MultiItemFieldErrorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testCreateCopyNullComponent()
+	@Test void testCreateCopyNullComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
 				MultiItemFieldValue.class,
@@ -140,7 +140,7 @@ public class MultiItemFieldErrorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testCreateCopyNoSuchComponent()
+	@Test void testCreateCopyNoSuchComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
 				MultiItemFieldValue.class,
@@ -163,7 +163,7 @@ public class MultiItemFieldErrorTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testCreateCopyNullCopy()
+	@Test void testCreateCopyNullCopy()
 	{
 		final MultiItemField<?> field = MultiItemField.create(
 				MultiItemFieldValue.class,

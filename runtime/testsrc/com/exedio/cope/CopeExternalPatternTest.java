@@ -36,7 +36,7 @@ public class CopeExternalPatternTest
 		MODEL.enableSerialization(CopeExternalPatternTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(false, external(TYPE));
 

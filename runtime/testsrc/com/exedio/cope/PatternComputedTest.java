@@ -38,7 +38,7 @@ public class PatternComputedTest
 		MODEL.enableSerialization(PatternComputedTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(false, comp(virgnComp));
 		assertEquals(true,  comp(compuComp));

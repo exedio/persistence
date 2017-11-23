@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class MediaPathConditionUnsupportedTest
 {
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -48,7 +48,7 @@ public class MediaPathConditionUnsupportedTest
 		}
 	}
 
-	@Test public void testNullJoin()
+	@Test void testNullJoin()
 	{
 		try
 		{
@@ -63,7 +63,7 @@ public class MediaPathConditionUnsupportedTest
 		}
 	}
 
-	@Test public void testNotNull()
+	@Test void testNotNull()
 	{
 		try
 		{
@@ -78,7 +78,7 @@ public class MediaPathConditionUnsupportedTest
 		}
 	}
 
-	@Test public void testNotNullJoin()
+	@Test void testNotNullJoin()
 	{
 		try
 		{

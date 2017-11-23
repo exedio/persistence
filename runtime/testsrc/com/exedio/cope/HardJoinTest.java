@@ -80,7 +80,7 @@ public class HardJoinTest extends TestWithEnvironment
 		assertEquals(list(a), q.search());
 	}
 
-	@Test public void test11()
+	@Test void test11()
 	{
 		assert1x1(a1, b1, 10);
 		assert1x1(a1, b2, 10);
@@ -105,7 +105,7 @@ public class HardJoinTest extends TestWithEnvironment
 		assertEquals(list(a), q.search());
 	}
 
-	@Test public void test2x1()
+	@Test void test2x1()
 	{
 		assert2x1(a1, a2, b1, 20);
 		assert2x1(a1, a3, b1, 20);
@@ -130,7 +130,7 @@ public class HardJoinTest extends TestWithEnvironment
 		assertEquals(list(a), q.search());
 	}
 
-	@Test public void test1x2()
+	@Test void test1x2()
 	{
 		assert1x2(a1, b1, b2, 10);
 		assert1x2(a1, b1, b3, 10);
@@ -143,7 +143,7 @@ public class HardJoinTest extends TestWithEnvironment
 		assert1x2(a3, b2, b3, 12);
 	}
 
-	@Test public void testOuter()
+	@Test void testOuter()
 	{
 		{
 			final Query<HardJoinA3Item> q = aTYPE.newQuery();
@@ -167,7 +167,7 @@ public class HardJoinTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testValid()
+	@Test void testValid()
 	{
 		{
 			final Query<HardJoinA3Item> q = aTYPE.newQuery();

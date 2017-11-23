@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class ItemCacheStatisticsTest
 {
-	@Test public void summarizedFields()
+	@Test void summarizedFields()
 	{
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 141, 151, 161);
 		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, 33, 43, 53, 73, 113, 123, 143, 153, 163);
@@ -42,7 +42,7 @@ public class ItemCacheStatisticsTest
 		assertEquals(324, ms.getSummarizedStampsPurged());
 	}
 
-	@Test public void summarizedFieldsEmpty()
+	@Test void summarizedFieldsEmpty()
 	{
 		final ItemCacheStatistics ms = new ItemCacheStatistics(0, 0, new ItemCacheInfo[0]);
 		assertEquals(0, ms.getSummarizedHits());

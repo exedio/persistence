@@ -34,7 +34,7 @@ public class TimerTest
 	private static final Logger logger = LoggerFactory.getLogger(TimerTest.class);
 	private final LogRule log = new LogRule(TimerTest.class);
 
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		final Timer timer = new Timer(logger, "timerMsg");
 
@@ -57,7 +57,7 @@ public class TimerTest
 		log.assertEmpty();
 	}
 
-	@Test public void testNullTimermsg()
+	@Test void testNullTimermsg()
 	{
 		final Timer timer = new Timer(logger, null);
 
@@ -68,7 +68,7 @@ public class TimerTest
 		log.assertInfoWithoutMilliseconds("interval1Msg1 XXms total XXms");
 	}
 
-	@Test public void testNullLogger()
+	@Test void testNullLogger()
 	{
 		try
 		{

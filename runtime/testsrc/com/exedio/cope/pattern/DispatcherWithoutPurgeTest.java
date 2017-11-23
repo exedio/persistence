@@ -78,7 +78,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		log.setLevelDebug();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertNoUpdateCounterColumn(toTarget.getRunType());
 		assertEquals("success", getColumnName(toTarget.getRunResult()));
@@ -154,7 +154,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -185,7 +185,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testStop0()
+	@Test void testStop0()
 	{
 		dispatch(0, 0);
 		assertPending(item1, 0, list());
@@ -194,7 +194,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 	}
 
-	@Test public void testStop0Probe()
+	@Test void testStop0Probe()
 	{
 		//noinspection PointlessArithmeticExpression
 		dispatch(0, 0 + 1); // 1 probe
@@ -204,7 +204,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 	}
 
-	@Test public void testStop1()
+	@Test void testStop1()
 	{
 		final Date[] d = dispatch(1, 1 + 1); // 1 probe
 		assertSuccess(item1, 1, d[0], list());
@@ -213,7 +213,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 	}
 
-	@Test public void testStop2()
+	@Test void testStop2()
 	{
 		final Date[] d = dispatch(2, 2 + 1); // 1 probe
 		assertSuccess(item1, 1, d[0], list());
@@ -222,7 +222,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 	}
 
-	@Test public void testStop3()
+	@Test void testStop3()
 	{
 		final Date[] d = dispatch(3, 3 + 2); // 2 probes
 		assertSuccess(item1, 1, d[0], list());
@@ -231,7 +231,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 	}
 
-	@Test public void testStop4()
+	@Test void testStop4()
 	{
 		final Date[] d = dispatch(4, 4 + 2, 4 + 2); // 2 probes
 		assertSuccess(item1, 1, d[0], list());
@@ -240,7 +240,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list(d[3]));
 	}
 
-	@Test public void testStop5()
+	@Test void testStop5()
 	{
 		final Date[] d = dispatch(4, 5 + 2, 4 + 2); // 2 probes
 		assertSuccess(item1, 1, d[0], list());

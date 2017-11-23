@@ -33,24 +33,24 @@ import org.junit.jupiter.api.Test;
 
 public class RevisionStatisticsModelTest
 {
-	@Test public void containedIn()
+	@Test void containedIn()
 	{
 		assertEquals(true, isContainedIn(MODEL));
 	}
 
-	@Test public void containedInOther()
+	@Test void containedInOther()
 	{
 		assertEquals(false, isContainedIn(OTHER_MODEL));
 	}
 
-	@Test public void explicitTypes()
+	@Test void explicitTypes()
 	{
 		assertEqualsUnmodifiable(
 				asList(Revstat.TYPE, RevstatBody.TYPE),
 				getExplicitTypes(MODEL));
 	}
 
-	@Test public void explicitTypesOther()
+	@Test void explicitTypesOther()
 	{
 		try
 		{

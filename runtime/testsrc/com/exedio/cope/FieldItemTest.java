@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
 
 public class FieldItemTest extends FieldTest
 {
-	@Test public void testSomeItem()
+	@Test void testSomeItem()
 	{
 		assertEquals(TYPE, someItem.getType());
 		assertEquals(EmptyItem.TYPE, someItem.getValueType());
@@ -74,7 +74,7 @@ public class FieldItemTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -99,7 +99,7 @@ public class FieldItemTest extends FieldTest
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testSomeNotNullItem()
+	@Test void testSomeNotNullItem()
 		throws MandatoryViolationException
 	{
 		assertEquals(TYPE, someNotNullItem.getType());
@@ -143,7 +143,7 @@ public class FieldItemTest extends FieldTest
 		}
 	}
 
-	@Test public void testIntegrity()
+	@Test void testIntegrity()
 	{
 		final EmptyItem2 target = new EmptyItem2();
 		final PointerTargetItem pointer2 = new PointerTargetItem("pointer2");

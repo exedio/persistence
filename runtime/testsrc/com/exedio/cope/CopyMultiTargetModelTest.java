@@ -44,7 +44,7 @@ public class CopyMultiTargetModelTest
 	static final CopyConstraint constraintA = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetA");
 	static final CopyConstraint constraintB = (CopyConstraint)TYPE.getFeature("copyCopyFromtargetB");
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -100,7 +100,7 @@ public class CopyMultiTargetModelTest
 	}
 
 	@SuppressWarnings("deprecation")
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(), targetA.getImplicitCopyConstraints());
 		assertEqualsUnmodifiable(list(), targetB.getImplicitCopyConstraints());

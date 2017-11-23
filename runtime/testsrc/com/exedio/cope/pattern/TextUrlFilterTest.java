@@ -62,12 +62,12 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		item2 = new TextUrlFilterItem();
 	}
 
-	@Test public void testPasteContentTypesAllowed()
+	@Test void testPasteContentTypesAllowed()
 	{
 		assertEquals(list("image/png"), fertig.getPasteContentTypesAllowed());
 	}
 
-	@Test public void testContentTypeNull() throws IOException
+	@Test void testContentTypeNull() throws IOException
 	{
 		assertEquals(null, item.getFertigContentType());
 		try
@@ -82,7 +82,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testTextUrlFilterItemNotExisting() throws IOException, NotFound
+	@Test void testTextUrlFilterItemNotExisting() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertigContentType());
@@ -98,7 +98,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testTextUrlFilterGetContentItemNotExisting() throws IOException, NotFound
+	@Test void testTextUrlFilterGetContentItemNotExisting() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals("text/plain", item.getFertigContentType());
@@ -114,7 +114,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testPasteLocatorUrl() throws IOException, NotFound
+	@Test void testPasteLocatorUrl() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 
@@ -125,7 +125,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertGet("<eins><override>" + url1 + "</override><zwei>");
 	}
 
-	@Test public void testPasteLocatorNotFound()
+	@Test void testPasteLocatorNotFound()
 	{
 		try
 		{
@@ -138,7 +138,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testPasteUrlNotFound()
+	@Test void testPasteUrlNotFound()
 	{
 		try
 		{
@@ -151,7 +151,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testDuplicatePasteValue() throws IOException
+	@Test void testDuplicatePasteValue() throws IOException
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		item.addFertigPaste("uno");
@@ -168,7 +168,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		item2.addFertigPaste("uno");
 	}
 
-	@Test public void testUrlReplacement() throws IOException, NotFound
+	@Test void testUrlReplacement() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 
@@ -192,7 +192,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertGet("<eins><extra/><extra/><zwei>");
 	}
 
-	@Test public void testPasteTypo() throws IOException, NotFound
+	@Test void testPasteTypo() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</Xpaste><zwei>");
 		try
@@ -207,7 +207,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testMalformedRawContent() throws IOException, NotFound
+	@Test void testMalformedRawContent() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>");
 		try
@@ -222,7 +222,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	@Test public void testCheckContentTypeNull()
+	@Test void testCheckContentTypeNull()
 	{
 		try
 		{
@@ -235,13 +235,13 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCheckBrokenLink() throws IOException, NotFound
+	@Test void testCheckBrokenLink() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><zwei>");
 		assertEquals(new HashSet<>(Arrays.asList("uno")), item.checkFertig());
 	}
 
-	@Test public void testCheckMultipleBrokenLink() throws IOException, NotFound
+	@Test void testCheckMultipleBrokenLink() throws IOException, NotFound
 	{
 		item.setFertigRaw("<eins><paste>uno</paste><paste>duo</paste><zwei>");
 		assertEquals(new HashSet<>(Arrays.asList("uno","duo")), item.checkFertig());

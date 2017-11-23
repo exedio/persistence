@@ -57,7 +57,7 @@ public class ModelTest extends TestWithEnvironment
 		super(model);
 	}
 
-	@Test public void testIt() throws Exception
+	@Test void testIt() throws Exception
 	{
 		final String expectedText = "must not be called within a transaction: tx:com.exedio.cope.ModelTest";
 		try

@@ -41,7 +41,7 @@ public class SetFieldCopyModelTest
 {
 	static final Model MODEL = new Model(SetFieldItemWithCopyConstraints.TYPE);
 
-	@Test public void testCopyOnlyForItemFields()
+	@Test void testCopyOnlyForItemFields()
 	{
 		final SetField<Integer> set = SetField.create(new IntegerField());
 		try
@@ -55,7 +55,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testCopyOnlyForFinalFields()
+	@Test void testCopyOnlyForFinalFields()
 	{
 		try
 		{
@@ -68,7 +68,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testCopyConstraints()
+	@Test void testCopyConstraints()
 	{
 		final Type<? extends Item> relationType = SetFieldItemWithCopyConstraints.sameAAndB.getRelationType();
 		final CopyConstraint copyAParent = (CopyConstraint)relationType.getFeature("aCopyFromparent");
@@ -94,7 +94,7 @@ public class SetFieldCopyModelTest
 		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.b), copyBElement.getCopy());
 	}
 
-	@Test public void testGetCopyWithTemplates()
+	@Test void testGetCopyWithTemplates()
 	{
 		assertEquals(
 			emptyList(),
@@ -115,7 +115,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testGetCopyWithCopy()
+	@Test void testGetCopyWithCopy()
 	{
 		final FunctionField<String> aCopy = SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.a);
 		final FunctionField<String> bCopy = SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.b);
@@ -136,7 +136,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testGetCopyFieldWrongField()
+	@Test void testGetCopyFieldWrongField()
 	{
 		try
 		{
@@ -149,7 +149,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testGetCopyFieldNoCopies()
+	@Test void testGetCopyFieldNoCopies()
 	{
 		try
 		{
@@ -162,7 +162,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testGetCopyFieldNotMounted()
+	@Test void testGetCopyFieldNotMounted()
 	{
 		final SetField<String> setField = SetField.create(new StringField());
 		try
@@ -176,7 +176,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testNoTarget()
+	@Test void testNoTarget()
 	{
 		try
 		{
@@ -189,7 +189,7 @@ public class SetFieldCopyModelTest
 		}
 	}
 
-	@Test public void testAddTwice()
+	@Test void testAddTwice()
 	{
 		final StringField stringField = new StringField();
 		final SetField<SetFieldItemWithCopyConstraints> setField = SetField.create(ItemField.create(SetFieldItemWithCopyConstraints.class)).copyWith(stringField);
@@ -208,7 +208,7 @@ public class SetFieldCopyModelTest
 		);
 	}
 
-	@Test public void testCopyWithCopy()
+	@Test void testCopyWithCopy()
 	{
 		final StringField stringField = new StringField();
 		final SetField<SetFieldItemWithCopyConstraints> setField = SetField.create(ItemField.create(SetFieldItemWithCopyConstraints.class)).copyWith(stringField);

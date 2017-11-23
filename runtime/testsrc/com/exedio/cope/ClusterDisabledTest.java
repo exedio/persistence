@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class ClusterDisabledTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		assertEquals(false, model. isClusterEnabled());
 		assertEquals(null,  model.getClusterProperties());

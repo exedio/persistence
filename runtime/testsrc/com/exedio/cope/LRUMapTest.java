@@ -55,7 +55,7 @@ public class LRUMapTest
 		}
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final ArrayList<String> replaced = new ArrayList<>();
 		final LRUMap<String, String> map = new LRUMap<>(3, eldest -> replaced.add(eldest.getKey()));
@@ -98,7 +98,7 @@ public class LRUMapTest
 	}
 
 	@Disabled
-	@Test public void testPerformance()
+	@Test void testPerformance()
 	{
 		final VolatileLong counter = new VolatileLong();
 		for(int j = 0; j<8; j++)

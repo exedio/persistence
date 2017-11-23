@@ -33,7 +33,7 @@ public class DeleteHierarchyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// test model
 		assertEqualsUnmodifiable(list(), DeleteHierarchySource.TYPE.getDeclaredReferences());

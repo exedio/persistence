@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class DataFieldVaultSummaryTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final DataFieldVaultInfo i1 = newInfo(11, 21, 31, 51, 61);
 		final DataFieldVaultInfo i2 = newInfo(13, 23, 33, 53, 63);
@@ -45,7 +45,7 @@ public class DataFieldVaultSummaryTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -59,7 +59,7 @@ public class DataFieldVaultSummaryTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testNullElement()
+	@Test void testNullElement()
 	{
 		final DataFieldVaultInfo i1 = newInfo(11, 21, 31, 41, 51);
 		try
@@ -73,7 +73,7 @@ public class DataFieldVaultSummaryTest
 		}
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final DataFieldVaultSummary ms = new DataFieldVaultSummary(new DataFieldVaultInfo[]{});
 		assertEquals(0, ms.getGetLengthCount());

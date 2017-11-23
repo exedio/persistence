@@ -71,7 +71,7 @@ public class SchemaTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		final boolean nativeDate = supportsNativeDate(model);
 		final boolean dataVault = data.getVaultInfo()!=null;

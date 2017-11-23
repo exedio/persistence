@@ -63,7 +63,7 @@ public class OrderByTest extends TestmodelTest
 		item5 = new AttributeItem("someString5", 2, 3l, 2.3, false, emptyItem2, AttributeItem.SomeEnum.enumValue3);
 	}
 
-	@Test public void testOrderBy()
+	@Test void testOrderBy()
 	{
 		{
 			final Query<AttributeItem> q = TYPE.newQuery(null);

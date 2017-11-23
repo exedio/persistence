@@ -55,20 +55,20 @@ public class GroupByTest extends TestWithEnvironment
 		new AnItem("car", 8);
 	}
 
-	@Test public void testSimpleCount()
+	@Test void testSimpleCount()
 	{
 		final Query<AnItem> items = TYPE.newQuery();
 		assertCount(items, 8, 8);
 	}
 
-	@Test public void testSimpleCountWithLimit()
+	@Test void testSimpleCountWithLimit()
 	{
 		final Query<AnItem> items = TYPE.newQuery();
 		items.setLimit(0, 3);
 		assertCount(items, 3, 8);
 	}
 
-	@Test public void testGroupByCount()
+	@Test void testGroupByCount()
 	{
 		final Selectable<?>[] selection = new Selectable<?>[]{string, integer.min()};
 		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
@@ -76,7 +76,7 @@ public class GroupByTest extends TestWithEnvironment
 		assertCount(items, 4, 4);
 	}
 
-	@Test public void testGroupByCountWithLimit()
+	@Test void testGroupByCountWithLimit()
 	{
 		final Selectable<?>[] selection = new Selectable<?>[]{string, integer.min()};
 		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
@@ -85,7 +85,7 @@ public class GroupByTest extends TestWithEnvironment
 		assertCount(items, 3, 4);
 	}
 
-	@Test public void testGroupByInvalidSelect()
+	@Test void testGroupByInvalidSelect()
 	{
 		final Query<Integer> query = new Query<>(integer);
 		query.setGroupBy(string);
@@ -144,7 +144,7 @@ public class GroupByTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testGroupByInvalidOrderBy()
+	@Test void testGroupByInvalidOrderBy()
 	{
 		final Query<String> query = new Query<>(string);
 		query.setGroupBy(string);
@@ -190,7 +190,7 @@ public class GroupByTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testDistinctInvalidOrderBy()
+	@Test void testDistinctInvalidOrderBy()
 	{
 		final Query<String> query = new Query<>(string);
 		query.setDistinct(true);

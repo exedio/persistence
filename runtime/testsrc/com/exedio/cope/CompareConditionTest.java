@@ -87,7 +87,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		item5.setItem(item5);
 	}
 
-	@Test public void testEqualsHashCode()
+	@Test void testEqualsHashCode()
 	{
 		assertEqualsAndHash(string.less("a"), string.less("a"));
 		assertNotEqualsAndHash(
@@ -97,7 +97,7 @@ public class CompareConditionTest extends TestWithEnvironment
 				string.lessOrEqual("a"));
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals("CompareConditionItem.string='string3'",  string.equal("string3").toString());
 		assertEquals("CompareConditionItem.string<>'string3'", string.notEqual("string3").toString());
@@ -107,7 +107,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertEquals("CompareConditionItem.string>='string3'", string.greaterOrEqual("string3").toString());
 	}
 
-	@Test public void testIsNull()
+	@Test void testIsNull()
 	{
 		assertCondition(itemX, TYPE, string.isNull());
 		assertCondition(itemX, TYPE, intx.isNull());
@@ -120,7 +120,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(TYPE, THIS.isNull());
 	}
 
-	@Test public void testIsNotNull()
+	@Test void testIsNotNull()
 	{
 		assertCondition(item1, item2, item3, item4, item5, TYPE, string.isNotNull());
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNotNull());
@@ -133,7 +133,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item1, item2, item3, item4, item5, itemX, TYPE, THIS.isNotNull());
 	}
 
-	@Test public void testEqual()
+	@Test void testEqual()
 	{
 		assertCondition(item3, TYPE, string.equal("string3"));
 		assertCondition(item3, TYPE, intx.equal(3));
@@ -146,7 +146,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item3, TYPE, THIS.equal(item3));
 	}
 
-	@Test public void testNotEqual()
+	@Test void testNotEqual()
 	{
 		assertCondition(item1, item2, item4, item5, TYPE, string.notEqual("string3"));
 		assertCondition(item1, item2, item4, item5, TYPE, intx.notEqual(3));
@@ -159,7 +159,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item1, item2, item4, item5, itemX, TYPE, THIS.notEqual(item3));
 	}
 
-	@Test public void testLess()
+	@Test void testLess()
 	{
 		assertCondition(item1, item2, TYPE, string.less("string3"));
 		assertCondition(item1, item2, TYPE, intx.less(3));
@@ -172,7 +172,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item1, item2, TYPE, THIS.less(item3));
 	}
 
-	@Test public void testLessOrEqual()
+	@Test void testLessOrEqual()
 	{
 		assertCondition(item1, item2, item3, TYPE, string.lessOrEqual("string3"));
 		assertCondition(item1, item2, item3, TYPE, intx.lessOrEqual(3));
@@ -185,7 +185,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item1, item2, item3, TYPE, THIS.lessOrEqual(item3));
 	}
 
-	@Test public void testGreater()
+	@Test void testGreater()
 	{
 		assertCondition(item4, item5, TYPE, string.greater("string3"));
 		assertCondition(item4, item5, TYPE, intx.greater(3));
@@ -198,7 +198,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item4, item5, itemX, TYPE, THIS.greater(item3));
 	}
 
-	@Test public void testGreaterOrEqual()
+	@Test void testGreaterOrEqual()
 	{
 		assertCondition(item3, item4, item5, TYPE, string.greaterOrEqual("string3"));
 		assertCondition(item3, item4, item5, TYPE, intx.greaterOrEqual(3));
@@ -211,7 +211,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item3, item4, item5, itemX, TYPE, THIS.greaterOrEqual(item3));
 	}
 
-	@Test public void testNot()
+	@Test void testNot()
 	{
 		assertCondition(item1, item2, item3, item4, item5, TYPE, intx.isNull().not());
 		assertCondition(itemX,                             TYPE, intx.isNotNull().not());
@@ -223,7 +223,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item1, item2,                      TYPE, intx.greaterOrEqual(3).not());
 	}
 
-	@Test public void testBetween()
+	@Test void testBetween()
 	{
 		assertCondition(item2, item3, item4, TYPE, string.between("string2", "string4"));
 		assertCondition(item2, item3, item4, TYPE, intx.between(2, 4));
@@ -236,7 +236,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item2, item3, item4, TYPE, THIS.between(item2, item4));
 	}
 
-	@Test public void testIn()
+	@Test void testIn()
 	{
 		assertCondition(item1, item3, TYPE, string.in(asList("string1", "string3", "stringNone")));
 		assertCondition(item1, item3, TYPE, intx.in(asList(1, 3, 25)));
@@ -249,7 +249,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertCondition(item1, item3, TYPE, THIS.in(asList(item1, item3)));
 	}
 
-	@Test public void testMin()
+	@Test void testMin()
 	{
 		assertEquals("select min(" + string.getName() + ") from " + TYPE, new Query<>(string.min()).toString());
 		assertEquals("string1", new Query<>(string.min()).searchSingleton());
@@ -282,7 +282,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertEquals(item1, new Query<>(THIS.min()).searchSingleton());
 	}
 
-	@Test public void testMax()
+	@Test void testMax()
 	{
 		assertEquals("select max(" + string.getName() + ") from " + TYPE, new Query<>(string.max()).toString());
 		assertEquals("string5", new Query<>(string.max()).searchSingleton());
@@ -304,7 +304,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertEquals(String.class, string.max().getValueClass());
 	}
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		{
 			final Query<Integer> q = new Query<>(intx.sum());
@@ -332,7 +332,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testAverage()
+	@Test void testAverage()
 	{
 		{
 			final Query<Double> q = new Query<>(intx.average());
@@ -360,14 +360,14 @@ public class CompareConditionTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCheckUnsupportedConstraints()
+	@Test void testCheckUnsupportedConstraints()
 	{
 		commit();
 		model.checkUnsupportedConstraints();
 		startTransaction();
 	}
 
-	@Test public void testGroup()
+	@Test void testGroup()
 	{
 		new CompareConditionItem("s", 10, 456L, 7.89, new Date(), day(0), YEnum.V1);
 		new CompareConditionItem("s", 20, 456L, 7.89, new Date(), day(2), YEnum.V1);
@@ -402,7 +402,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertEquals(6, q.total());
 	}
 
-	@Test public void testGetAggregate()
+	@Test void testGetAggregate()
 	{
 		final CompareConditionItem item = new CompareConditionItem(null, null, null, null, null, null, null);
 		final Condition c = day.max().greater(new Day(2008,3,14));

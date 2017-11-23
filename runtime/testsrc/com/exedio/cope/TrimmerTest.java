@@ -35,7 +35,7 @@ public class TrimmerTest
 			assertEquals(actualLongString.length(), actual.length());
 	}
 
-	@Test public void testTrim()
+	@Test void testTrim()
 	{
 		assertTrim("F", "FirstSecondThird", 1);
 		assertTrim("FS", "FirstSecondThird", 2);

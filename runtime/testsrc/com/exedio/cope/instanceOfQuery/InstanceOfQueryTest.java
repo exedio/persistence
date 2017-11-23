@@ -39,7 +39,7 @@ public class InstanceOfQueryTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Query<IoqSourceSubA> query = IoqSourceSubA.TYPE.newQuery();
 		final Join joinB = query.join(IoqSourceSubB.TYPE);

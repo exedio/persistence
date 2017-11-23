@@ -68,7 +68,7 @@ public class DivideDoubleTest extends TestWithEnvironment
 	private static final Double dAC = Double.valueOf(2.125);
 	private static final Double dBC = Double.valueOf(0.625);
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		// test model
 		assertEquals(TYPE, divideAB.getType());

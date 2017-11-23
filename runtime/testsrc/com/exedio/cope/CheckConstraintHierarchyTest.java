@@ -42,7 +42,7 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIsSupportedBySchema()
+	@Test void testIsSupportedBySchema()
 	{
 		assertEquals(true,  top   .isSupportedBySchemaIfSupportedByDialect());
 		// TODO
@@ -56,7 +56,7 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		assertEquals(false, cross .isSupportedBySchemaIfSupportedByDialect());
 	}
 
-	@Test public void testTop()
+	@Test void testTop()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
@@ -74,7 +74,7 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		assertIt(item);
 	}
 
-	@Test public void testUp()
+	@Test void testUp()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
@@ -92,7 +92,7 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 		assertIt(item);
 	}
 
-	@Test public void testBottom()
+	@Test void testBottom()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);
@@ -111,7 +111,7 @@ public class CheckConstraintHierarchyTest extends TestWithEnvironment
 	}
 
 
-	@Test public void testCross()
+	@Test void testCross()
 	{
 		final CheckConstraintHierarchyItemBottom item = new CheckConstraintHierarchyItemBottom();
 		assertIt(item);

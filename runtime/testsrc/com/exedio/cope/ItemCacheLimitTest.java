@@ -28,19 +28,19 @@ import org.junit.jupiter.api.Test;
 
 public class ItemCacheLimitTest
 {
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		model.connect(props(10100));
 		assertLimits(10100);
 	}
 
-	@Test public void testMuch()
+	@Test void testMuch()
 	{
 		model.connect(props(101000));
 		assertLimits(101000);
 	}
 
-	@Test public void testOverflow()
+	@Test void testOverflow()
 	{
 		model.connect(props(1010000));
 		assertLimits(1010000);

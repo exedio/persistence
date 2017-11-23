@@ -58,7 +58,7 @@ public final class MediaCatchphraseTest extends TestWithEnvironment
 		wrong  = new MediaCatchPhraseItem("wrong/phrase");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertIt("MediaCatchPhraseSuperItem/feature/", normal, "/normal");
 		assertIt("MediaCatchPhraseSuperItem/feature/", all,    "/all01289ABCYZabcyz-_");

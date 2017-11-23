@@ -44,7 +44,7 @@ public class EnumSetFieldModelTest
 		MODEL.enableSerialization(EnumSetFieldModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(TYPE, activeLanguage.getType());
 		assertEquals("activeLanguage", activeLanguage.getName());
@@ -78,7 +78,7 @@ public class EnumSetFieldModelTest
 		assertSerializedSame(activeLanguage, 401);
 	}
 
-	@Test public void testInitialType()
+	@Test void testInitialType()
 	{
 		assertEquals("java.util.EnumSet<" + Language.class.getName() + ">", activeLanguage.getInitialType().toString());
 	}

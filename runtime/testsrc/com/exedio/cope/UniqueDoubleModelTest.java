@@ -38,7 +38,7 @@ public class UniqueDoubleModelTest
 		MODEL.enableSerialization(UniqueDoubleModelTest.class, "MODEL");
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getDeclaredFeatures());
 		assertEqualsUnmodifiable(list(TYPE.getThis(), string, integer, constraint), TYPE.getFeatures());

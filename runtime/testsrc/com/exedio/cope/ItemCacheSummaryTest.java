@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 @Deprecated // OK: testing deprecated API
 public class ItemCacheSummaryTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 141, 151, 161);
 		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, 33, 43, 53, 73, 113, 123, 143, 153, 163);
@@ -58,7 +58,7 @@ public class ItemCacheSummaryTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -72,7 +72,7 @@ public class ItemCacheSummaryTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testNullElement()
+	@Test void testNullElement()
 	{
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 131, 141, 151);
 		try
@@ -86,7 +86,7 @@ public class ItemCacheSummaryTest
 		}
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final com.exedio.cope.misc.ItemCacheSummary ms = new com.exedio.cope.misc.ItemCacheSummary(new ItemCacheInfo[]{});
 		assertEquals(0, ms.getLimit());

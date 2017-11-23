@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopeModelTestTestBefore extends CopeModelTestTest
 {
-	@Test public void testBefore()
+	@Test void testBefore()
 	{
 		doTest();
 	}

@@ -56,7 +56,7 @@ public class DispatcherModelTest
 	private static final Type<?> runType = toTarget.getRunType();
 
 	@SuppressFBWarnings({"RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN","ES_COMPARING_STRINGS_WITH_EQ"})
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEqualsUnmodifiable(list(
 				TYPE,
@@ -134,7 +134,7 @@ public class DispatcherModelTest
 		assertSame(toTarget.getRunDate(), toTarget.getRunRuns().getOrder());
 	}
 
-	@Test public void testComputed()
+	@Test void testComputed()
 	{
 		assertFalse(toTarget.getPending().isAnnotationPresent(Computed.class));
 		assertFalse(toTarget.getNoPurge().isAnnotationPresent(Computed.class));
@@ -143,18 +143,18 @@ public class DispatcherModelTest
 		assertTrue (toTarget.getRunType().isAnnotationPresent(Computed.class));
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		assertSerializedSame(toTarget, 391);
 	}
 
 	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
-	@Test public void testDefaultPendingTo()
+	@Test void testDefaultPendingTo()
 	{
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
-	@Test public void testPurgePropertiesNull()
+	@Test void testPurgePropertiesNull()
 	{
 		try
 		{
@@ -167,7 +167,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@Test public void testPurgeContextNull()
+	@Test void testPurgeContextNull()
 	{
 		final DispatcherPurgeProperties properties =
 				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
@@ -183,7 +183,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@Test public void testPurgeRestrictedPropertiesNull()
+	@Test void testPurgeRestrictedPropertiesNull()
 	{
 		try
 		{
@@ -196,7 +196,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@Test public void testPurgeRestrictedRestrictionNull()
+	@Test void testPurgeRestrictedRestrictionNull()
 	{
 		final DispatcherPurgeProperties properties =
 				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
@@ -212,7 +212,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@Test public void testPurgeRestrictedContextNull()
+	@Test void testPurgeRestrictedContextNull()
 	{
 		final DispatcherPurgeProperties properties =
 				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
@@ -228,7 +228,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@Test public void testNoDispatchable()
+	@Test void testNoDispatchable()
 	{
 		try
 		{
@@ -244,7 +244,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@Test public void testResult()
+	@Test void testResult()
 	{
 		@SuppressWarnings("deprecation") // OK: testing deprecated api
 		final Result failure = Result.failure;

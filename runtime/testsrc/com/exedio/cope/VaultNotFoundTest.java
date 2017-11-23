@@ -41,7 +41,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class VaultNotFoundTest
 {
-	@Test public void connect()
+	@Test void connect()
 	{
 		assertNotNull(service);
 		assertEquals("SHA-512", service.vaultProperties.getAlgorithm());
@@ -50,7 +50,7 @@ public class VaultNotFoundTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void notFoundGetLength()
+	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -79,7 +79,7 @@ public class VaultNotFoundTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void notFoundGetBytes()
+	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -108,7 +108,7 @@ public class VaultNotFoundTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void notFoundGetStream() throws IOException
+	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putBytes\n");

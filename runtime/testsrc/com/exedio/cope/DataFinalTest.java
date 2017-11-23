@@ -52,7 +52,7 @@ public class DataFinalTest extends TestWithEnvironment
 		item = new DataFinalItem(toValue(bytes4));
 	}
 
-	@Test public void testData() throws MandatoryViolationException, IOException
+	@Test void testData() throws MandatoryViolationException, IOException
 	{
 		// test model
 		assertEquals(true, data.isFinal());

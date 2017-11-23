@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypesBoundAnnotationTest
 {
-	@Test public void testType()
+	@Test void testType()
 	{
 		try
 		{

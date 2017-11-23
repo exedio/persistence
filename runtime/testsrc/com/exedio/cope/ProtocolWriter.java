@@ -35,7 +35,7 @@ public class ProtocolWriter extends TestWithEnvironment
 		super(CompareConditionTest.MODEL);
 	}
 
-	@Test public void testProtocol() throws IOException
+	@Test void testProtocol() throws IOException
 	{
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
 		assertNotNull(prefix);

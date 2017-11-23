@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 
 public class DatePrecisionRoundingTest
 {
-	@Test public void testMillis()
+	@Test void testMillis()
 	{
 		assertRound(Precision.MILLI,
 				date(0, 15, 44, 55, 66),
@@ -45,7 +45,7 @@ public class DatePrecisionRoundingTest
 				date(0, 15, 44, 55, 66));
 	}
 
-	@Test public void testSeconds()
+	@Test void testSeconds()
 	{
 		assertRound(Precision.SECOND,
 				date(9, 15, 44, 55, 66),
@@ -73,7 +73,7 @@ public class DatePrecisionRoundingTest
 				date(0,  0,  0, 56,  0));
 	}
 
-	@Test public void testMinutes()
+	@Test void testMinutes()
 	{
 		assertRound(Precision.MINUTE,
 				date(9, 15, 44, 55, 66),
@@ -117,7 +117,7 @@ public class DatePrecisionRoundingTest
 				date(0,  0, 45,  0,  0));
 	}
 
-	@Test public void testHours()
+	@Test void testHours()
 	{
 		assertRound(Precision.HOUR,
 				date(9, 15, 44, 55, 66),
@@ -161,7 +161,7 @@ public class DatePrecisionRoundingTest
 				date(0, 16,  0,  0,  0));
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		assertRound(Precision.MILLI , null, null, null);
 		assertRound(Precision.SECOND, null, null, null);
@@ -169,7 +169,7 @@ public class DatePrecisionRoundingTest
 		assertRound(Precision.HOUR  , null, null, null);
 	}
 
-	@Test public void testEpochBefore() throws ParseException
+	@Test void testEpochBefore() throws ParseException
 	{
 		assertRound(Precision.MILLI,
 				dateS("1966-05-23 15:44:55.066"),
@@ -189,7 +189,7 @@ public class DatePrecisionRoundingTest
 				dateS("1966-05-23 16:00:00.000"));
 	}
 
-	@Test public void testEpochAfter() throws ParseException
+	@Test void testEpochAfter() throws ParseException
 	{
 		assertRound(Precision.MILLI,
 				dateS("1986-05-23 15:44:55.066"),
@@ -217,7 +217,7 @@ public class DatePrecisionRoundingTest
 		return result.parse(date);
 	}
 
-	@Test public void testFracHourZone() throws ParseException
+	@Test void testFracHourZone() throws ParseException
 	{
 		assertRound(Precision.MILLI,
 				dateI("1986-05-23 15:44:55.066"),
@@ -280,7 +280,7 @@ public class DatePrecisionRoundingTest
 		}
 	}
 
-	@Test public void testMap()
+	@Test void testMap()
 	{
 		final DateField f = new DateField().precisionMinute();
 		final Date value  = date(9, 15, 44, 55, 66);
@@ -325,7 +325,7 @@ public class DatePrecisionRoundingTest
 		assertEquals(value, mapping.value,    "value");
 	}
 
-	@Test public void testMapNullMode()
+	@Test void testMapNullMode()
 	{
 		final DateField f = new DateField().precisionMinute();
 		final Date value  = date(9, 15, 44, 55, 66);
@@ -350,7 +350,7 @@ public class DatePrecisionRoundingTest
 		}
 	}
 
-	@Test public void testIt() throws ParseException
+	@Test void testIt() throws ParseException
 	{
 		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS", Locale.ENGLISH);
 		df.setTimeZone(getTimeZone("Europe/Berlin"));

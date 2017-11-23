@@ -53,13 +53,13 @@ public class VaultReferenceServiceTest
 	}
 
 
-	@Test public void testGetters()
+	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
 		assertEquals("refrEx", refr.serviceProperties.example);
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals(
 				"VaultMockService:mainEx (reference VaultMockService:refrEx)",
@@ -67,7 +67,7 @@ public class VaultReferenceServiceTest
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
-	@Test public void testClose()
+	@Test void testClose()
 	{
 		main.assertIt("");
 		refr.assertIt("");

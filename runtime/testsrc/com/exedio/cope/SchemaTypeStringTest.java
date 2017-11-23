@@ -59,7 +59,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testSchemaTypes()
+	@Test void testSchemaTypes()
 	{
 		// make sure, relation types are as small as possible -
 		// just the primary key and the StringField
@@ -141,7 +141,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 				field.getID());
 	}
 
-	@Test public void testValues()
+	@Test void testValues()
 	{
 		assumeTrue(!oracle);
 
@@ -191,7 +191,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

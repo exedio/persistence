@@ -43,7 +43,7 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		assumeTrue(!oracle); // Oracle violates SQL standard about this
 

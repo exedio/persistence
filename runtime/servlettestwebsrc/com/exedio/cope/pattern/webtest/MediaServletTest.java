@@ -85,7 +85,7 @@ public class MediaServletTest
 		onException.delete();
 	}
 
-	@Test public void testIt() throws Exception
+	@Test void testIt() throws Exception
 	{
 		final String app = "/cope-runtime-servlet/";
 		final URL init = new URL(schemeAndHost + app + "init");

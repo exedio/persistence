@@ -67,7 +67,7 @@ public class ConnectTokenTest
 		ctr.set(props);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertSame(props, getProperties(model));
 		assertNotConnected();
@@ -183,7 +183,7 @@ public class ConnectTokenTest
 		log.assertEmpty();
 	}
 
-	@Test public void testConditionally()
+	@Test void testConditionally()
 	{
 		assertNotConnected();
 
@@ -239,7 +239,7 @@ public class ConnectTokenTest
 		log.assertWarn("" + model + ": returned 0 excessively (token0Name)");
 	}
 
-	@Test public void testReturnOnFailureOfOk()
+	@Test void testReturnOnFailureOfOk()
 	{
 		assertNotConnected();
 
@@ -254,7 +254,7 @@ public class ConnectTokenTest
 		assertSame(token, target.token());
 	}
 
-	@Test public void testReturnOnFailureOfFail()
+	@Test void testReturnOnFailureOfFail()
 	{
 		assertNotConnected();
 
@@ -277,7 +277,7 @@ public class ConnectTokenTest
 		assertSame(token, target.token());
 	}
 
-	@Test public void testReturnOnFailureOfNullTarget()
+	@Test void testReturnOnFailureOfNullTarget()
 	{
 		assertNotConnected();
 
@@ -298,7 +298,7 @@ public class ConnectTokenTest
 		assertTrue(token.isReturned());
 	}
 
-	@Test public void testReturnOnFailureOfReturnedOk()
+	@Test void testReturnOnFailureOfReturnedOk()
 	{
 		assertNotConnected();
 
@@ -322,7 +322,7 @@ public class ConnectTokenTest
 		assertSame(null, target.token());
 	}
 
-	@Test public void testReturnOnFailureOfReturnedFail()
+	@Test void testReturnOnFailureOfReturnedFail()
 	{
 		assertNotConnected();
 
@@ -371,7 +371,7 @@ public class ConnectTokenTest
 	}
 
 	@SuppressWarnings("resource")
-	@Test public void testAutoCloseable()
+	@Test void testAutoCloseable()
 	{
 		assertNotConnected();
 
@@ -387,7 +387,7 @@ public class ConnectTokenTest
 	}
 
 	@SuppressWarnings("resource")
-	@Test public void testAutoCloseableAlreadyReturned()
+	@Test void testAutoCloseableAlreadyReturned()
 	{
 		assertNotConnected();
 
@@ -406,7 +406,7 @@ public class ConnectTokenTest
 		assertTrue(tokenSave.isReturned());
 	}
 
-	@Test public void testNullName()
+	@Test void testNullName()
 	{
 		assertNotConnected();
 
@@ -428,7 +428,7 @@ public class ConnectTokenTest
 		log.assertInfo("" + model + ": disconnected 0 (null)");
 	}
 
-	@Test public void testSetDuplicate()
+	@Test void testSetDuplicate()
 	{
 		try
 		{
@@ -444,7 +444,7 @@ public class ConnectTokenTest
 		}
 	}
 
-	@Test public void testSetDuplicateSupplier()
+	@Test void testSetDuplicateSupplier()
 	{
 		try
 		{

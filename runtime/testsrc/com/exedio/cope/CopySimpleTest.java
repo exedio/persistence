@@ -40,7 +40,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		super(CopySimpleModelTest.MODEL);
 	}
 
-	@Test public void testOk1()
+	@Test void testOk1()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template1", "otherString1", value, new CopyValue());
@@ -60,7 +60,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOk2()
+	@Test void testOk2()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
@@ -78,7 +78,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkNullValue()
+	@Test void testOkNullValue()
 	{
 		final CopySimpleTarget target = new CopySimpleTarget(null, "otherString2", null, new CopyValue());
 
@@ -95,7 +95,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkNullTarget()
+	@Test void testOkNullTarget()
 	{
 		final CopyValue value = new CopyValue();
 
@@ -112,7 +112,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringCreate()
+	@Test void testWrongStringCreate()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
@@ -139,7 +139,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringSetCopy()
+	@Test void testWrongStringSetCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
@@ -168,7 +168,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringSetTarget()
+	@Test void testWrongStringSetTarget()
 	{
 		final CopyValue value1 = new CopyValue();
 		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
@@ -194,7 +194,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkStringSetCopyAndTarget()
+	@Test void testOkStringSetCopyAndTarget()
 	{
 		final CopyValue value1 = new CopyValue();
 		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
@@ -220,7 +220,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringSetCopyAndTarget()
+	@Test void testWrongStringSetCopyAndTarget()
 	{
 		final CopyValue value1 = new CopyValue();
 		final CopySimpleTarget target1 = new CopySimpleTarget("template1", "otherString1", value1, new CopyValue());
@@ -259,7 +259,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringNullCopy()
+	@Test void testWrongStringNullCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
@@ -286,7 +286,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongItem()
+	@Test void testWrongItem()
 	{
 		final CopyValue value1 = new CopyValue();
 		final CopyValue value2 = new CopyValue();
@@ -314,7 +314,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongItemNullCopy()
+	@Test void testWrongItemNullCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template2", "otherString2", value, new CopyValue());
@@ -341,7 +341,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongStringNullTemplate()
+	@Test void testWrongStringNullTemplate()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget(null, "otherString2", null, new CopyValue());
@@ -368,7 +368,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongItemNullTemplate()
+	@Test void testWrongItemNullTemplate()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget(null, "otherString2", null, new CopyValue());
@@ -395,7 +395,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkStringOmittedCopy()
+	@Test void testOkStringOmittedCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySimpleTarget target = new CopySimpleTarget("template1", "otherString1", value, new CopyValue());
@@ -419,7 +419,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		assertEquals(value, source.getTemplateItem());
 	}
 
-	@Test public void testOkStringOmittedTarget()
+	@Test void testOkStringOmittedTarget()
 	{
 		final CopyValue value = new CopyValue();
 
@@ -435,7 +435,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkStringOmittedAll()
+	@Test void testOkStringOmittedAll()
 	{
 		final CopySimpleSource source = CopySimpleSource.omitAll();
 		assertEquals(null, source.getTargetItem());

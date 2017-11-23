@@ -37,7 +37,7 @@ public class PatternCacheWeightTest
 		MODEL.enableSerialization(PatternCacheWeightTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(ABSENT, weight(absent));
 		assertEquals(222,    weight(set222));

@@ -31,7 +31,7 @@ public class DateFieldWrongDefaultNowTest
 {
 	private final LogRule log = new LogRule(DateField.class);
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		newType(AnItem.class);
 		log.assertWarn(

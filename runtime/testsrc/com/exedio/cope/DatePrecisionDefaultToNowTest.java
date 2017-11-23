@@ -48,7 +48,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testRound()
+	@Test void testRound()
 	{
 		assertEquals(true, past  .hasDefault());
 		assertEquals(true, future.hasDefault());
@@ -68,7 +68,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(date(11, 22, 45, 0, 0), item.getFuture());
 	}
 
-	@Test public void testNoRound()
+	@Test void testNoRound()
 	{
 		clockRule.override(clock);
 		clock.add(date(11, 22, 44, 0, 0));
@@ -79,21 +79,21 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(date(11, 22, 44, 0, 0), item.getFuture());
 	}
 
-	@Test public void testSetPast()
+	@Test void testSetPast()
 	{
 		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
 		item.setPastRounded(date(11, 22, 44, 55, 66));
 		assertEquals(date(11, 22, 44, 0, 0), item.getPast());
 	}
 
-	@Test public void testSetFuture()
+	@Test void testSetFuture()
 	{
 		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
 		item.setFutureRounded(date(11, 22, 44, 55, 66));
 		assertEquals(date(11, 22, 45, 0, 0), item.getFuture());
 	}
 
-	@Test public void testSetUnnecessary()
+	@Test void testSetUnnecessary()
 	{
 		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
 		try
@@ -115,7 +115,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(null, item.getNone());
 	}
 
-	@Test public void testTouchPast()
+	@Test void testTouchPast()
 	{
 		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
 		clockRule.override(clock);
@@ -126,7 +126,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(date(11, 22, 44, 0, 0), item.getPast());
 	}
 
-	@Test public void testTouchFuture()
+	@Test void testTouchFuture()
 	{
 		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
 		clockRule.override(clock);
@@ -137,7 +137,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		assertEquals(date(11, 22, 45, 0, 0), item.getFuture());
 	}
 
-	@Test public void testTouchUnnecessary()
+	@Test void testTouchUnnecessary()
 	{
 		final AnItem item = new AnItem(date(9, 9, 9, 0, 0), date(9, 9, 9, 0, 0));
 		clockRule.override(clock);

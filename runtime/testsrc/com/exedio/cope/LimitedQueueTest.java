@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class LimitedQueueTest
 {
-	@Test public void testIt() throws InterruptedException
+	@Test void testIt() throws InterruptedException
 	{
 		final LimitedQueue<String> q = new LimitedQueue<>(2);
 

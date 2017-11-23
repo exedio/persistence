@@ -53,7 +53,7 @@ public class PlusIntegerOrderTest extends TestWithEnvironment
 		item3 = new PlusIntegerItem(6, 2, -1000);
 	}
 
-	@Test public void testSumOrder()
+	@Test void testSumOrder()
 	{
 		assertEquals(valueOf(    7), item1.getPlusAB());
 		assertEquals(valueOf(    3), item2.getPlusAB());

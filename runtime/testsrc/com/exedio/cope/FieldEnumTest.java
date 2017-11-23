@@ -41,7 +41,7 @@ public class FieldEnumTest extends FieldTest
 		enumValue2
 	}
 
-	@Test public void testSomeEnum()
+	@Test void testSomeEnum()
 	{
 		// model
 		assertEquals(TYPE, someEnum.getType());
@@ -112,7 +112,7 @@ public class FieldEnumTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -136,7 +136,7 @@ public class FieldEnumTest extends FieldTest
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testNotNullSomeEnum()
+	@Test void testNotNullSomeEnum()
 			throws MandatoryViolationException
 	{
 		assertEquals(AttributeItem.SomeEnum.enumValue1, item.getSomeNotNullEnum());

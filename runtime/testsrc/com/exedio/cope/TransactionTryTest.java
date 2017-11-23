@@ -39,7 +39,7 @@ public class TransactionTryTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testSuccess()
+	@Test void testSuccess()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -61,7 +61,7 @@ public class TransactionTryTest extends TestWithEnvironment
 		assertEquals("itemName", item.getName());
 	}
 
-	@Test public void testSuccessReturnObject()
+	@Test void testSuccessReturnObject()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -84,7 +84,7 @@ public class TransactionTryTest extends TestWithEnvironment
 		assertEquals("itemName", item.getName());
 	}
 
-	@Test public void testSuccessReturnInt()
+	@Test void testSuccessReturnInt()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -106,7 +106,7 @@ public class TransactionTryTest extends TestWithEnvironment
 		assertEquals("itemName", item.getName());
 	}
 
-	@Test public void testSuccessReturnLong()
+	@Test void testSuccessReturnLong()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -128,7 +128,7 @@ public class TransactionTryTest extends TestWithEnvironment
 		assertEquals("itemName", item.getName());
 	}
 
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		assertFalse(model.hasCurrentTransaction());
 
@@ -160,7 +160,7 @@ public class TransactionTryTest extends TestWithEnvironment
 		assertFalse(item.existsCopeItem());
 	}
 
-	@Test public void testNoCommit()
+	@Test void testNoCommit()
 	{
 		assertFalse(model.hasCurrentTransaction());
 

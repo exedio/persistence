@@ -33,28 +33,28 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class DispatcherConfigTest
 {
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		final Config config = new Config();
 		assertEquals(5, config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 		assertSame(TRUE, config.getNarrowCondition());
 	}
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		final Config config = new Config(3, 2);
 		assertEquals(3, config.getFailureLimit());
 		assertEquals(2, config.getSearchSize());
 		assertSame(TRUE, config.getNarrowCondition());
 	}
-	@Test public void testMinimal()
+	@Test void testMinimal()
 	{
 		final Config config = new Config(1, 1);
 		assertEquals(1, config.getFailureLimit());
 		assertEquals(1, config.getSearchSize());
 		assertSame(TRUE, config.getNarrowCondition());
 	}
-	@Test public void testFailureLimitZero()
+	@Test void testFailureLimitZero()
 	{
 		try
 		{
@@ -66,7 +66,7 @@ public class DispatcherConfigTest
 			assertEquals("failureLimit must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	@Test public void testFailureLimitNegative()
+	@Test void testFailureLimitNegative()
 	{
 		try
 		{
@@ -78,7 +78,7 @@ public class DispatcherConfigTest
 			assertEquals("failureLimit must be greater zero, but was -10", e.getMessage());
 		}
 	}
-	@Test public void testSearchSizeZero()
+	@Test void testSearchSizeZero()
 	{
 		try
 		{
@@ -90,7 +90,7 @@ public class DispatcherConfigTest
 			assertEquals("searchSize must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	@Test public void testSearchSizeNegative()
+	@Test void testSearchSizeNegative()
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class DispatcherConfigTest
 			assertEquals("searchSize must be greater zero, but was -10", e.getMessage());
 		}
 	}
-	@Test public void testNarrow()
+	@Test void testNarrow()
 	{
 		final Config config0 = new Config(55, 66);
 		assertEquals(55, config0.getFailureLimit());
@@ -126,7 +126,7 @@ public class DispatcherConfigTest
 		assertEquals(condition1.and(condition2), config2.getNarrowCondition());
 		assertEquals("("+f+"='1' AND "+f+"='2')", config2.getNarrowCondition().toString());
 	}
-	@Test public void testNarrowReset()
+	@Test void testNarrowReset()
 	{
 		final Config config0 = new Config(55, 66);
 		assertEquals(55, config0.getFailureLimit());
@@ -147,7 +147,7 @@ public class DispatcherConfigTest
 		assertEquals(66, configR.getSearchSize());
 		assertSame(TRUE, configR.getNarrowCondition());
 	}
-	@Test public void testNarrowNull()
+	@Test void testNarrowNull()
 	{
 		final Config c = new Config();
 		try

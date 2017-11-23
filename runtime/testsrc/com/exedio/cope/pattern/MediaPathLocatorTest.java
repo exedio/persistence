@@ -36,7 +36,7 @@ public final class MediaPathLocatorTest extends TestWithEnvironment
 		super(MediaPathTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final MediaPathItem i1 = new MediaPathItem();
 		final MediaPathItem i2 = new MediaPathItem();

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopyConstraintNotFinalTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

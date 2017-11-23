@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopyConstraintNotAFunctionFieldTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

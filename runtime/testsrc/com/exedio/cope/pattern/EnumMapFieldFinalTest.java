@@ -55,7 +55,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 	}
 
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEquals(null, text.getField(DE).getDefaultConstant());
 		assertEquals(null, text.getField(EN).getDefaultConstant());
@@ -68,7 +68,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 		assertEquals(true,  text.isInitial());
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem(EMPTY);
 		assertEquals(null, item.getText(DE));
@@ -98,7 +98,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCreateWithoutMapping()
+	@Test void testCreateWithoutMapping()
 	{
 		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem();
 		assertEquals(null, item.getText(DE));
@@ -107,7 +107,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testCreateNull()
+	@Test void testCreateNull()
 	{
 		try
 		{
@@ -121,7 +121,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testFallbackFails()
+	@Test void testFallbackFails()
 	{
 		final EnumMapFieldFinalItem item = new EnumMapFieldFinalItem();
 		try

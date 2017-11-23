@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopeModelTestTestRolledback extends CopeModelTestTest
 {
-	@Test public void testRolledback()
+	@Test void testRolledback()
 	{
 		doTest();
 		model.rollback();

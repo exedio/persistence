@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class FeatureTest
 {
-	@Test public void testType()
+	@Test void testType()
 	{
 		final StringField f = new StringField().lengthRange(5, 8);
 

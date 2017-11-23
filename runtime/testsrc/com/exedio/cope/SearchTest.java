@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 
 public class SearchTest extends TestmodelTest
 {
-	@Test public void testEqualsAndHash()
+	@Test void testEqualsAndHash()
 	{
 		assertEqualsAndHash(
 				Cope.and(someString.equal("a"),someNotNullString.equal("b")),
@@ -50,7 +50,7 @@ public class SearchTest extends TestmodelTest
 				Cope.and(someNotNullString.equal("b"),someString.equal("a")));
 	}
 
-	@Test public void testIllegalSearch()
+	@Test void testIllegalSearch()
 	{
 		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.equal(0));
 		try
@@ -73,7 +73,7 @@ public class SearchTest extends TestmodelTest
 		}
 	}
 
-	@Test public void testSearch()
+	@Test void testSearch()
 	{
 		final EmptyItem someItem = new EmptyItem();
 		final AttributeItem item = new AttributeItem("someString", 5, 6l, 2.2, true, someItem, AttributeItem.SomeEnum.enumValue1);

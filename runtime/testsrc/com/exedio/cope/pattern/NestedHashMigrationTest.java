@@ -46,7 +46,7 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testSetNull()
+	@Test void testSetNull()
 	{
 		final NestedHashMigrationItem item = new NestedHashMigrationItem("111111", 1.1);
 
@@ -89,7 +89,7 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testMigratePasswordOnChange()
+	@Test void testMigratePasswordOnChange()
 	{
 		final NestedHashMigrationItem item = new NestedHashMigrationItem("111111", 1.1);
 		assertLegacy(item);
@@ -107,7 +107,7 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 		assertFalse(item.checkPassword("111111"));
 	}
 
-	@Test public void testMigratePasswordAutomatically()
+	@Test void testMigratePasswordAutomatically()
 	{
 		final NestedHashMigrationItem itemA = new NestedHashMigrationItem("111111A", 1.1);
 		final NestedHashMigrationItem itemB = new NestedHashMigrationItem("111111B", 1.1);

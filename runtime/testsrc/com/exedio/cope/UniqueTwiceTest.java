@@ -37,7 +37,7 @@ public class UniqueTwiceTest
 		MODEL.enableSerialization(UniqueTwiceTest.class, "MODEL");
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final UniqueConstraint constraintOne    = (UniqueConstraint)TYPE.getFeature("oneImplicitUnique");
 		final UniqueConstraint constraintOneDup = (UniqueConstraint)TYPE.getFeature("oneDupImplicitUnique");

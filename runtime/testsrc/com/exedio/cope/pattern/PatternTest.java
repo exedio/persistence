@@ -45,7 +45,7 @@ public class PatternTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT","ES_COMPARING_STRINGS_WITH_EQ"})
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// type
 		assertEqualsUnmodifiable(
@@ -236,7 +236,7 @@ public class PatternTest extends TestWithEnvironment
 	}
 
 	@Deprecated
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(
 				PatternTestItem.testPattern.ownString,

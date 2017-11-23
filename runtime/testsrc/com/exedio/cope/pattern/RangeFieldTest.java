@@ -42,7 +42,7 @@ public class RangeFieldTest extends TestWithEnvironment
 		super(RangeFieldModelTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final RangeFieldItem item = new RangeFieldItem(3, 5);
 
@@ -95,7 +95,7 @@ public class RangeFieldTest extends TestWithEnvironment
 		assertContains(      TYPE.search(valid.contains(10)));
 	}
 
-	@Test public void testBorderConstraint()
+	@Test void testBorderConstraint()
 	{
 		try
 		{

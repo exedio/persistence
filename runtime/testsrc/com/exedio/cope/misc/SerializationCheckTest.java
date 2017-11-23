@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("StaticVariableMayNotBeInitialized")
 public class SerializationCheckTest
 {
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -56,12 +56,12 @@ public class SerializationCheckTest
 		}
 	}
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		assertEqualsUnmodifiable(asList(), check(MODEL_OK));
 	}
 
-	@Test public void testWrong() throws NoSuchFieldException
+	@Test void testWrong() throws NoSuchFieldException
 	{
 		final Field field1 = Item1.class.getDeclaredField("serializedField1");
 		final Field field2 = Item2.class.getDeclaredField("serializedField2");

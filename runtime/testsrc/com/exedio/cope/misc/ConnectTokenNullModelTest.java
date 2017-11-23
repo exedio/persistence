@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class ConnectTokenNullModelTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{
@@ -77,7 +77,7 @@ public class ConnectTokenNullModelTest
 	}
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		try
 		{
@@ -91,7 +91,7 @@ public class ConnectTokenNullModelTest
 	}
 
 	@SuppressWarnings("resource")
-	@Test public void testIt2()
+	@Test void testIt2()
 	{
 		try
 		{

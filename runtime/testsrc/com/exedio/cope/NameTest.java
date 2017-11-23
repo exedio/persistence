@@ -57,7 +57,7 @@ public class NameTest extends TestWithEnvironment
 		itemcb = new NameCollisionlongaItem("collision B");
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final StringField NameLongItem_codeLongName =
 			NameLongItem.codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName;

@@ -62,7 +62,7 @@ public class StableQueryIteratorTest extends TestWithEnvironment
 		q.setOrderBy(TYPE.getThis(), true);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

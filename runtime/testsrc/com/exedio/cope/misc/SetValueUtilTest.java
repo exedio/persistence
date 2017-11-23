@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 
 public class SetValueUtilTest
 {
-	@Test public void testGetFirst()
+	@Test void testGetFirst()
 	{
 		final StringField f1 = new StringField();
 		final StringField f2 = new StringField();
@@ -71,7 +71,7 @@ public class SetValueUtilTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testGetFirstNullSetValues()
+	@Test void testGetFirstNullSetValues()
 	{
 		final StringField f = new StringField();
 		try
@@ -95,7 +95,7 @@ public class SetValueUtilTest
 	}
 
 	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE")
-	@Test public void testGetFirstNullSettable()
+	@Test void testGetFirstNullSettable()
 	{
 		// Needed because with just null I do get a compiler warning on JDK 1.8:
 		// warning: [deprecation] assertEquals(Object[],Object[]) in Assert has been deprecated
@@ -106,7 +106,7 @@ public class SetValueUtilTest
 		assertEquals(null, getFirst(asList(new SetValue<?>[]{}), nullSettable));
 	}
 
-	@Test public void testAdd()
+	@Test void testAdd()
 	{
 		final SetValue<?> m1 = new StringField().map("v1");
 		final SetValue<?> m2 = new StringField().map("v2");
@@ -117,7 +117,7 @@ public class SetValueUtilTest
 		assertEquals(asList(m1, m2, mX), asList(add(new SetValue<?>[]{m1, m2}, mX)));
 	}
 
-	@Test public void testAddNullSetValues()
+	@Test void testAddNullSetValues()
 	{
 		final SetValue<?> m = new StringField().map("vX");
 		try
@@ -131,7 +131,7 @@ public class SetValueUtilTest
 		}
 	}
 
-	@Test public void testAddNullValue()
+	@Test void testAddNullValue()
 	{
 		try
 		{

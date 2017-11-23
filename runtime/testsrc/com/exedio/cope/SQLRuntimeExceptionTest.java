@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class SQLRuntimeExceptionTest
 {
-	@Test public void testTruncate()
+	@Test void testTruncate()
 	{
 		assertIt("abcd", "abcd");
 		assertIt(

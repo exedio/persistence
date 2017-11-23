@@ -46,7 +46,7 @@ public class SelectBindTest extends TestWithEnvironment
 		new CompareConditionItem("string2", 2, 12l, 2.2, null, null, null);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		{
 			final Query<List<Object>> q = newQuery(new Function<?>[]{string, intx}, TYPE, null);

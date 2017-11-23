@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 
 public class CompositeErrorTest
 {
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -48,7 +48,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testNonFinal()
+	@Test void testNonFinal()
 	{
 		try
 		{
@@ -71,7 +71,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testNoConstructor()
+	@Test void testNoConstructor()
 	{
 		try
 		{
@@ -95,7 +95,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testNoFields()
+	@Test void testNoFields()
 	{
 		try
 		{
@@ -116,7 +116,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testNullField()
+	@Test void testNullField()
 	{
 		try
 		{
@@ -138,7 +138,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testNotFunctionField()
+	@Test void testNotFunctionField()
 	{
 		try
 		{
@@ -163,7 +163,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testCompositeItself()
+	@Test void testCompositeItself()
 	{
 		try
 		{
@@ -180,7 +180,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testFinalField()
+	@Test void testFinalField()
 	{
 		try
 		{
@@ -204,7 +204,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test public void testNonConstantDefaultField()
+	@Test void testNonConstantDefaultField()
 	{
 		try
 		{
@@ -230,7 +230,7 @@ public class CompositeErrorTest
 
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testNoComposite()
+	@Test void testNoComposite()
 	{
 		try
 		{

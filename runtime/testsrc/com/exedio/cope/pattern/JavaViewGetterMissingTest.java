@@ -38,7 +38,7 @@ public class JavaViewGetterMissingTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

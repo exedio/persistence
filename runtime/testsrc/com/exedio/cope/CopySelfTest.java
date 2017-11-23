@@ -36,7 +36,7 @@ public class CopySelfTest extends TestWithEnvironment
 		super(CopySimpleModelTest.MODEL);
 	}
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySelfSource self = new CopySelfSource(null, value);
@@ -56,7 +56,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkNullValue()
+	@Test void testOkNullValue()
 	{
 		final CopySelfSource self = new CopySelfSource(null, null);
 
@@ -67,7 +67,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkNullTarget()
+	@Test void testOkNullTarget()
 	{
 		final CopyValue value = new CopyValue();
 
@@ -78,7 +78,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrong()
+	@Test void testWrong()
 	{
 		final CopyValue value1 = new CopyValue();
 		final CopyValue value2 = new CopyValue();
@@ -104,7 +104,7 @@ public class CopySelfTest extends TestWithEnvironment
 		// testing setter not needed as selfTemplate is final
 	}
 
-	@Test public void testWrongNullCopy()
+	@Test void testWrongNullCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySelfSource target = new CopySelfSource(null, value);
@@ -127,7 +127,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testWrongNullTemplate()
+	@Test void testWrongNullTemplate()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySelfSource target = new CopySelfSource(null, null);
@@ -150,7 +150,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkOmittedCopy()
+	@Test void testOkOmittedCopy()
 	{
 		final CopyValue value = new CopyValue();
 		final CopySelfSource target = new CopySelfSource((CopySelfSource)null, value);
@@ -184,7 +184,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 	}
 
-	@Test public void testOkOmittedTarget()
+	@Test void testOkOmittedTarget()
 	{
 		final CopyValue value = new CopyValue();
 
@@ -198,7 +198,7 @@ public class CopySelfTest extends TestWithEnvironment
 		// testing setter not needed as selfTemplate is final
 	}
 
-	@Test public void testOkOmittedAll()
+	@Test void testOkOmittedAll()
 	{
 		final CopySelfSource source = CopySelfSource.omitAll();
 		assertEquals(null, source.getSelfTarget());

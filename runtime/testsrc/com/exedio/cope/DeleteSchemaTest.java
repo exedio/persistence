@@ -117,7 +117,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 			"tables 0 [] " +
 			"sequences 0 []";
 
-	@Test public void testVirgin()
+	@Test void testVirgin()
 	{
 		log.assertEmpty();
 		model.deleteSchema();
@@ -134,7 +134,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testVirginForTest()
+	@Test void testVirginForTest()
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
@@ -151,7 +151,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testVirginForTestRepeat()
+	@Test void testVirginForTestRepeat()
 	{
 		log.assertEmpty();
 		model.deleteSchemaForTest();
@@ -166,7 +166,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testCommitted()
+	@Test void testCommitted()
 	{
 		assertEmptyAndCreate(true);
 
@@ -185,7 +185,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testCommittedForTest()
+	@Test void testCommittedForTest()
 	{
 		assertEmptyAndCreate(true);
 
@@ -204,7 +204,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testCommittedForTestRepeat()
+	@Test void testCommittedForTestRepeat()
 	{
 		assertEmptyAndCreate(true);
 
@@ -221,7 +221,7 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testRolledback()
+	@Test void testRolledback()
 	{
 		assertEmptyAndCreate(false);
 
@@ -240,15 +240,8 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testRolledbackForTest()
+	@Test void testRolledbackForTest()
 	{
-		assertEmptyAndCreate(false);
-
-		log.assertEmpty();
-		model.deleteSchemaForTest();
-		log.assertDebug(USED_SEQUENCES);
-		assertRevisionLogs();
-
 		assertEmptyAndCreate(false);
 
 		log.assertEmpty();
@@ -256,10 +249,17 @@ public class DeleteSchemaTest extends TestWithEnvironment
 		log.assertDebug(USED_SEQUENCES);
 		assertRevisionLogs();
 
+		assertEmptyAndCreate(false);
+
+		log.assertEmpty();
+		model.deleteSchemaForTest();
+		log.assertDebug(USED_SEQUENCES);
+		assertRevisionLogs();
+
 		assertEmptyAndCreate(true);
 	}
 
-	@Test public void testRolledbackForTestRepeat()
+	@Test void testRolledbackForTestRepeat()
 	{
 		assertEmptyAndCreate(false);
 

@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class QuerySelectTest
 {
-	@Test public void testSetSelectsCheck()
+	@Test void testSetSelectsCheck()
 	{
 		final Query<List<Object>> q = newQuery(new Function<?>[]{field1, field2}, TYPE, null);
 		try
@@ -73,7 +73,7 @@ public class QuerySelectTest
 		}
 	}
 
-	@Test public void testSetSelect()
+	@Test void testSetSelect()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
 		assertEquals(TYPE.getThis(), q.getSelectSingle());
@@ -104,7 +104,7 @@ public class QuerySelectTest
 		assertEquals("select this from AnItem", q.toString());
 	}
 
-	@Test public void testSetSelects()
+	@Test void testSetSelects()
 	{
 		try
 		{
@@ -135,7 +135,7 @@ public class QuerySelectTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes", "RawTypeCanBeGeneric"}) // OK: test bad api usage
-	@Test public void testSetSelectsUnchecked()
+	@Test void testSetSelectsUnchecked()
 	{
 		final Query q = newQuery(new Selectable[]{field1, field2}, TYPE, null);
 		try
@@ -158,7 +158,7 @@ public class QuerySelectTest
 		}
 	}
 
-	@Test public void testSetHaving()
+	@Test void testSetHaving()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
 		assertSame(null, q.getHaving());

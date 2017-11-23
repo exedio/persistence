@@ -37,7 +37,7 @@ public class PostgresqlPropertiesTest
 	 * This tests makes sure, that no properties are changed by accident.
 	 * Adapt if necessary.
 	 */
-	@Test public void testRegression()
+	@Test void testRegression()
 	{
 		final PostgresqlProperties p = new PostgresqlProperties(loadProperties());
 
@@ -54,7 +54,7 @@ public class PostgresqlPropertiesTest
 		p.ensureValidity();
 	}
 
-	@Test public void testPostgresqlSearchPath()
+	@Test void testPostgresqlSearchPath()
 	{
 		final String propKey = "search_path";
 		final Source source =

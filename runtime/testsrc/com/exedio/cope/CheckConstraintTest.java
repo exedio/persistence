@@ -35,13 +35,13 @@ public class CheckConstraintTest extends TestWithEnvironment
 		super(CheckConstraintModelTest.MODEL);
 	}
 
-	@Test public void testIsSupportedBySchema()
+	@Test void testIsSupportedBySchema()
 	{
 		assertEquals(true, einsToZwei .isSupportedBySchemaIfSupportedByDialect());
 		assertEquals(true, alphaToBeta.isSupportedBySchemaIfSupportedByDialect());
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -82,7 +82,7 @@ public class CheckConstraintTest extends TestWithEnvironment
 		assertIt(102, 101, 103, 3, 6, 7, 7, item);
 	}
 
-	@Test public void testSetSuper()
+	@Test void testSetSuper()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -123,7 +123,7 @@ public class CheckConstraintTest extends TestWithEnvironment
 		assertIt(103, 100, 104, 4, 5, 6, 7, item);
 	}
 
-	@Test public void testSetMulti()
+	@Test void testSetMulti()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -164,7 +164,7 @@ public class CheckConstraintTest extends TestWithEnvironment
 		assertIt(102, 101, 103, 4, 8, 9, 7, item);
 	}
 
-	@Test public void testSetMultiSuper()
+	@Test void testSetMultiSuper()
 	{
 		final CheckConstraintItem item = new CheckConstraintItem(102, 101, 103, 4, 5, 6, 7);
 		assertIt(102, 101, 103, 4, 5, 6, 7, item);
@@ -205,7 +205,7 @@ public class CheckConstraintTest extends TestWithEnvironment
 		assertIt(102, 100, 105, 4, 5, 6, 7, item);
 	}
 
-	@Test public void testCreate()
+	@Test void testCreate()
 	{
 		try
 		{
@@ -221,7 +221,7 @@ public class CheckConstraintTest extends TestWithEnvironment
 		assertEquals(list(), TYPE.search());
 	}
 
-	@Test public void testCreateSuper()
+	@Test void testCreateSuper()
 	{
 		try
 		{

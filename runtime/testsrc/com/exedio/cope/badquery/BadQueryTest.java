@@ -53,7 +53,7 @@ public class BadQueryTest extends TestWithEnvironment
 		new SubContainer("right2", leftX, false, middle2);
 	}
 
-	@Test public void testWithSpecifyingjoin()
+	@Test void testWithSpecifyingjoin()
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);
@@ -63,7 +63,7 @@ public class BadQueryTest extends TestWithEnvironment
 		assertContains(leftX, left1, query.search());
 	}
 
-	@Test public void testWithSpecifyingJoinButWithoutCondition()
+	@Test void testWithSpecifyingJoinButWithoutCondition()
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);
@@ -72,7 +72,7 @@ public class BadQueryTest extends TestWithEnvironment
 		assertContains(leftX, left1, left2, query.search());
 	}
 
-	@Test public void testWithoutSpecifyingJoin()
+	@Test void testWithoutSpecifyingJoin()
 	{
 		final Query<QueryItem> query = QueryItem.TYPE.newQuery(null);
 		final Join superJoin = query.join(SuperContainer.TYPE);

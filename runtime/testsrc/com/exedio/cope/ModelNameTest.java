@@ -30,7 +30,7 @@ public class ModelNameTest
 {
 	private static final Model ANONYMOUS = Model.builder().add(Anonymous.TYPE).build();
 
-	@Test public void testAnonymous()
+	@Test void testAnonymous()
 	{
 		assertTrue(ANONYMOUS.toString().startsWith(Model.class.getName() + '@'), ANONYMOUS.toString());
 
@@ -41,7 +41,7 @@ public class ModelNameTest
 
 	private static final Model LITERAL = Model.builder().add(Literal.TYPE).name("literalTestName").build();
 
-	@Test public void testLiteral()
+	@Test void testLiteral()
 	{
 		assertEquals("literalTestName", LITERAL.toString());
 
@@ -52,7 +52,7 @@ public class ModelNameTest
 
 	private static final Model CLASS_NAME = Model.builder().add(ClassNameItem.TYPE).name(ClassNameName.class).build();
 
-	@Test public void testClassName()
+	@Test void testClassName()
 	{
 		assertEquals(ClassNameName.class.getName(), CLASS_NAME.toString());
 
@@ -106,7 +106,7 @@ public class ModelNameTest
 	}
 
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		final ModelBuilder b = Model.builder();
 		try
@@ -120,7 +120,7 @@ public class ModelNameTest
 		}
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final ModelBuilder b = Model.builder();
 		try
@@ -134,7 +134,7 @@ public class ModelNameTest
 		}
 	}
 
-	@Test public void testClassNull()
+	@Test void testClassNull()
 	{
 		final ModelBuilder b = Model.builder();
 		try

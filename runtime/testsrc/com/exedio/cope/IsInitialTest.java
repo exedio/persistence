@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class IsInitialTest
 {
-	@Test public void testIsInitial()
+	@Test void testIsInitial()
 	{
 		assertEquals(true,  new DataField().isInitial());
 		assertEquals(false, new DataField().optional().isInitial());

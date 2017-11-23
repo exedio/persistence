@@ -88,7 +88,7 @@ public class GeneratorTest
 	static final Class<?> INPUT_SUB = DefaultTextInput.class;
 	static final Class<?> INPUT_SUB2 = FullQualifyInput.class;
 
-	@Test public void testStandard()
+	@Test void testStandard()
 	{
 		assertConstructor(STANDARD, new Class<?>[]{
 				STRING, // notNullString
@@ -260,7 +260,7 @@ public class GeneratorTest
 		}
 	}
 
-	@Test public void testDoubleUnique()
+	@Test void testDoubleUnique()
 	{
 		assertConstructor(DOUBLE_UNIQUE, new Class<?>[]{STRING, SUB_TARGET}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
@@ -268,7 +268,7 @@ public class GeneratorTest
 		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class<?>[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PRIVATE|STATIC|FINAL);
 	}
 
-	@Test public void testHierarchy()
+	@Test void testHierarchy()
 	{
 		assertConstructor(SUPER, new Class<?>[]{
 				STRING, // superMandatory

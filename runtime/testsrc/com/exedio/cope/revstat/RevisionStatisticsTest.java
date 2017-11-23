@@ -46,7 +46,7 @@ public class RevisionStatisticsTest
 
 	private static final ConnectProperties props = ConnectProperties.create(TestSources.minimal());
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		revisions.assertEmpty();
 

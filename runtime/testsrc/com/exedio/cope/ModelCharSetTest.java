@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class ModelCharSetTest
 {
-	@Test public void testType()
+	@Test void testType()
 	{
 		new Type<>(AnItem.class, AnItem.class, false, "Zack-Zick123", null, false, null, new Features());
 		try
@@ -40,7 +40,7 @@ public class ModelCharSetTest
 		}
 	}
 
-	@Test public void testFeature()
+	@Test void testFeature()
 	{
 		final StringField f = new StringField();
 		final Features fs = new Features();
@@ -55,7 +55,7 @@ public class ModelCharSetTest
 		}
 	}
 
-	@Test public void testFeatureNaked()
+	@Test void testFeatureNaked()
 	{
 		final Type<AnItem> t = new Type<>(AnItem.class, AnItem.class, false, "Type123", null, false, null, new Features());
 		final StringField f = new StringField();

@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class MediaBase64Test
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertIt(   "",   0);
 		assertIt(  "B",   1);

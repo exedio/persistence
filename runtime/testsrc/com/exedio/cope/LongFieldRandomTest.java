@@ -75,7 +75,7 @@ public class LongFieldRandomTest
 	private final RandomX r = new RandomX();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testUnsupportedMin()
+	@Test void testUnsupportedMin()
 	{
 		final LongField s = new LongField().min(1);
 		try
@@ -90,7 +90,7 @@ public class LongFieldRandomTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testUnsupportedMax()
+	@Test void testUnsupportedMax()
 	{
 		final LongField s = new LongField().max(1);
 		try
@@ -105,7 +105,7 @@ public class LongFieldRandomTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testUnsupportedMinMax()
+	@Test void testUnsupportedMinMax()
 	{
 		final LongField s = new LongField().defaultToRandom(r);
 		try
@@ -128,7 +128,7 @@ public class LongFieldRandomTest
 		}
 	}
 
-	@Test public void testFull()
+	@Test void testFull()
 	{
 		final LongField s = new LongField().defaultToRandom(r);
 		assertIt(s, MIN_VALUE  , MIN_VALUE  );
@@ -148,7 +148,7 @@ public class LongFieldRandomTest
 		assertIt(s, MAX_VALUE  , MAX_VALUE  );
 	}
 
-	@Test public void testPositive()
+	@Test void testPositive()
 	{
 		final LongField s = new LongField().min(0).defaultToRandom(r);
 		assertIt(s,           0, MIN_VALUE  );

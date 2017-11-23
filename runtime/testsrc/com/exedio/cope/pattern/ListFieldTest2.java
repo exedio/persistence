@@ -53,7 +53,7 @@ public class ListFieldTest2 extends TestWithEnvironment
 		item = new ListFieldItem();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Type<?> type = strings.getRelationType();
 		final IntegerField order = strings.getOrder();

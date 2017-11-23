@@ -56,7 +56,7 @@ public class MediaSubTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testIt() throws IOException
+	@Test void testIt() throws IOException
 	{
 		// test model
 

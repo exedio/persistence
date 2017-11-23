@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class FieldMediaTest extends FieldTest
 {
-	@Test public void testSomeData() throws IOException
+	@Test void testSomeData() throws IOException
 	{
 		assertEquals(TYPE, someData.getType());
 		assertEquals("someData", someData.getName());

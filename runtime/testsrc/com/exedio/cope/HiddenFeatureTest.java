@@ -37,7 +37,7 @@ public class HiddenFeatureTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testHierarchy()
+	@Test void testHierarchy()
 	{
 		final This<?> spt = HiddenFeatureSuperItem.TYPE.getThis();
 		final This<?> sbt = HiddenFeatureSubItem.TYPE.getThis();

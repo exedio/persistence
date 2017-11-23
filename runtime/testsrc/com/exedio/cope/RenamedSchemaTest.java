@@ -52,7 +52,7 @@ public class RenamedSchemaTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertEquals(filterTableName("Zain"), getTableName(TYPE));
 		assertPrimaryKeySequenceName("Zain_this_Seq", TYPE);

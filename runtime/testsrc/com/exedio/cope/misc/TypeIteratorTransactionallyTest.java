@@ -74,7 +74,7 @@ public class TypeIteratorTransactionallyTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

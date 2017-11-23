@@ -43,7 +43,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testProvideAllOk()
+	@Test void testProvideAllOk()
 	{
 		final Target target = new Target(euro);
 		final Source source = Source.create(target, euro, valueOf(4.44, euro), valueOf(5.55, euro));
@@ -60,7 +60,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		assertEquals(valueOf(6.66, pounds), source.getShared());
 	}
 
-	@Test public void testProvideAllWrongFixed()
+	@Test void testProvideAllWrongFixed()
 	{
 		final Target target = new Target(euro);
 		try
@@ -76,7 +76,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testProvideAllWrongShared()
+	@Test void testProvideAllWrongShared()
 	{
 		final Target target = new Target(euro);
 		try
@@ -92,7 +92,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testOmitCopy()
+	@Test void testOmitCopy()
 	{
 		final Target target = new Target(euro);
 		final Source source = Source.create(target, valueOf(4.44, euro), valueOf(5.55, euro));
@@ -115,7 +115,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		assertEquals(valueOf(6.66, euro), source.getShared());
 	}
 
-	@Test public void testOmitCopyWrong()
+	@Test void testOmitCopyWrong()
 	{
 		final Target target = new Target(euro);
 		final Source source = Source.create(target, valueOf(4.44, euro), valueOf(5.55, euro));
@@ -142,7 +142,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		assertEquals(valueOf(5.55, euro), source.getShared());
 	}
 
-	@Test public void testOmitTarget()
+	@Test void testOmitTarget()
 	{
 		final Source source = Source.create(euro, valueOf(4.44, euro), valueOf(5.55, euro));
 		assertEquals(null, source.getTarget());

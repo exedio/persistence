@@ -45,7 +45,7 @@ public class CheckConstraintHierarchySchemaTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		final Schema schema = model.getVerifiedSchema();
 

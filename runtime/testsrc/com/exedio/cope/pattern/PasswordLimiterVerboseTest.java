@@ -68,7 +68,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 	private static final String PASSWORD = "correctPassword8927365";
 	private static final String PASSWORD2 = "correctPassword6576675";
 
-	@Test public void testIt() throws ExceededException
+	@Test void testIt() throws ExceededException
 	{
 		assertTrue(i.checkPassword(PASSWORD));
 		assertEquals(list(), getRefusals());

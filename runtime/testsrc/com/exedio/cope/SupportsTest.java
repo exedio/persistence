@@ -38,7 +38,7 @@ public class SupportsTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testSupports()
+	@Test void testSupports()
 	{
 		final ConnectProperties props = model.getConnectProperties();
 
@@ -86,7 +86,7 @@ public class SupportsTest extends TestWithEnvironment
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
-	@Test public void testSchemaSavepoint()
+	@Test void testSchemaSavepoint()
 	{
 		switch(dialect)
 		{
@@ -121,7 +121,7 @@ public class SupportsTest extends TestWithEnvironment
 	}
 
 	@Deprecated
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		assertEquals(true, SchemaInfo.supportsSequences(model));
 		assertEquals(true, SchemaInfo.supportsNotNull(model));

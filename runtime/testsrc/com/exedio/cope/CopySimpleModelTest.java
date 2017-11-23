@@ -49,7 +49,7 @@ public class CopySimpleModelTest
 	static final CopyConstraint templateItemCopyFromTarget   = (CopyConstraint)TYPE.getFeature("templateItemCopyFromtargetItem");
 	static final CopyConstraint selfTemplateCopyFromTarget   = (CopyConstraint)CopySelfSource.TYPE.getFeature("selfTemplateCopyFromselfTarget");
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -141,7 +141,7 @@ public class CopySimpleModelTest
 	}
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(templateStringCopyFromTarget), templateString  .getImplicitCopyConstraints());
 		assertEqualsUnmodifiable(list(templateItemCopyFromTarget  ), templateItem    .getImplicitCopyConstraints());
@@ -172,7 +172,7 @@ public class CopySimpleModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testFailures()
+	@Test void testFailures()
 	{
 		final StringField copy = new StringField();
 		try

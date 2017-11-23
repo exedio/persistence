@@ -50,7 +50,7 @@ public class PlusIntegerOrderNullTest extends TestWithEnvironment
 		item2 = new PlusIntegerItem(3, 13,   null);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertOrder(list(item0, item1, item2), numA);
 		assertOrder(list(item0, item1, item2), numC, numA);

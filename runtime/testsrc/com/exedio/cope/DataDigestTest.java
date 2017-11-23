@@ -42,7 +42,7 @@ public class DataDigestTest
 {
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
 
-	@Test public void testUpdate() throws IOException
+	@Test void testUpdate() throws IOException
 	{
 		assertUpdate("904ac396ac3d50faa666e57146fe7862", bytes4);
 		assertUpdate(
@@ -92,14 +92,14 @@ public class DataDigestTest
 	private static final byte[] bytes4  = {-86,122,-8,23};
 
 
-	@Test public void testExhaustionArray() throws IOException
+	@Test void testExhaustionArray() throws IOException
 	{
 		final Value value = toValue(bytes4);
 		assertAsArray(bytes4, value);
 		assertExhausted(value);
 	}
 
-	@Test public void testExhaustionStream() throws IOException
+	@Test void testExhaustionStream() throws IOException
 	{
 		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
 		final Value value = toValue(stream);
@@ -107,7 +107,7 @@ public class DataDigestTest
 		assertExhausted(value);
 	}
 
-	@Test public void testExhaustionFile() throws IOException
+	@Test void testExhaustionFile() throws IOException
 	{
 		final File inputFile = files.newFile(bytes4);
 		final Value value = toValue(inputFile);
@@ -117,7 +117,7 @@ public class DataDigestTest
 	}
 
 
-	@Test public void testExhaustionArrayUpdate() throws IOException
+	@Test void testExhaustionArrayUpdate() throws IOException
 	{
 		final Value value = toValue(bytes4);
 		messageDigest.reset();
@@ -129,7 +129,7 @@ public class DataDigestTest
 		assertAsArray(bytes4, replacementValue);
 	}
 
-	@Test public void testExhaustionStreamUpdate() throws IOException
+	@Test void testExhaustionStreamUpdate() throws IOException
 	{
 		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
 		final Value value = toValue(stream);
@@ -143,7 +143,7 @@ public class DataDigestTest
 		assertAsArray(bytes4, replacementValue);
 	}
 
-	@Test public void testExhaustionFileUpdate() throws IOException
+	@Test void testExhaustionFileUpdate() throws IOException
 	{
 		final File inputFile = files.newFile(bytes4);
 		final Value value = toValue(inputFile);

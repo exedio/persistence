@@ -47,7 +47,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		assertEquals(false, this0A  .needsCheckTypeColumn());
 		assertEquals(true,  this01C .needsCheckTypeColumn());

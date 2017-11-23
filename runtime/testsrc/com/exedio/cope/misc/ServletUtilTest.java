@@ -65,7 +65,7 @@ public class ServletUtilTest
 		ctrContext.set(props);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertFalse(modelOk.isConnected());
 		assertIt(modelOk, "nameOk", new MockServlet("com.exedio.cope.misc.ServletUtilTest#modelOk", "nameOk"));

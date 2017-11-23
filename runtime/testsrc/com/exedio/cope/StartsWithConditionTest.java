@@ -51,7 +51,7 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		item6x4.setData(bytes6x4);
 	}
 
-	@Test public void testCondition()
+	@Test void testCondition()
 	{
 		if(!isSupported(data.startsWithIfSupported(bytes4)))
 			return;
@@ -61,7 +61,7 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		assertCondition(item6, item6x4, TYPE, data.startsWithIfSupported(bytes6x4));
 	}
 
-	@Test public void testNot()
+	@Test void testNot()
 	{
 		if(!isSupported(data.startsWithIfSupported(bytes4).not()))
 			return;

@@ -43,7 +43,7 @@ public class ImporterModelTest
 		model.enableSerialization(ImporterModelTest.class, "model");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE), model.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), model.getTypesSortedByHierarchy());

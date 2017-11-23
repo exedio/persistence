@@ -76,7 +76,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		txt.setFile(data, "text/plain");
 	}
 
-	@Test public void testThumbs() throws IOException
+	@Test void testThumbs() throws IOException
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{

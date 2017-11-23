@@ -33,7 +33,7 @@ public class AverageRoundingTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testHalf()
+	@Test void testHalf()
 	{
 		create(11, 21l, 31.1);
 		create(12, 22l, 31.2);
@@ -43,7 +43,7 @@ public class AverageRoundingTest extends TestWithEnvironment
 				31.15);
 	}
 
-	@Test public void testBelowHalf()
+	@Test void testBelowHalf()
 	{
 		create(11, 21l, 31.1);
 		create(11, 21l, 31.1);
@@ -54,7 +54,7 @@ public class AverageRoundingTest extends TestWithEnvironment
 				31.1333333);
 	}
 
-	@Test public void testAboveHalf()
+	@Test void testAboveHalf()
 	{
 		create(11, 21l, 31.1);
 		create(12, 22l, 31.2);
@@ -65,7 +65,7 @@ public class AverageRoundingTest extends TestWithEnvironment
 				31.1666666);
 	}
 
-	@Test public void testExact()
+	@Test void testExact()
 	{
 		create(11, 21l, 31.1);
 		create(11, 21l, 31.1);

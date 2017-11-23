@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterModelTest
 {
-	@Test public void testRawNull()
+	@Test void testRawNull()
 	{
 		try
 		{
@@ -43,7 +43,7 @@ public class TextUrlFilterModelTest
 			assertEquals("source", e.getMessage());
 		}
 	}
-	@Test public void testSupportedContentTypeNull()
+	@Test void testSupportedContentTypeNull()
 	{
 		try
 		{
@@ -55,7 +55,7 @@ public class TextUrlFilterModelTest
 			assertEquals("supportedContentType", e.getMessage());
 		}
 	}
-	@Test public void testSupportedContentTypeEmpty()
+	@Test void testSupportedContentTypeEmpty()
 	{
 		try
 		{
@@ -67,7 +67,7 @@ public class TextUrlFilterModelTest
 			assertEquals("supportedContentType must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testCharsetNull()
+	@Test void testCharsetNull()
 	{
 		try
 		{
@@ -80,7 +80,7 @@ public class TextUrlFilterModelTest
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	@Test public void testEncodingNull()
+	@Test void testEncodingNull()
 	{
 		try
 		{
@@ -93,7 +93,7 @@ public class TextUrlFilterModelTest
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	@Test public void testEncondingWrong()
+	@Test void testEncondingWrong()
 	{
 		try
 		{
@@ -105,7 +105,7 @@ public class TextUrlFilterModelTest
 			assertEquals("zack", e.getMessage());
 		}
 	}
-	@Test public void testPasteStartNull()
+	@Test void testPasteStartNull()
 	{
 		try
 		{
@@ -117,7 +117,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteStart", e.getMessage());
 		}
 	}
-	@Test public void testPasteStartEmpty()
+	@Test void testPasteStartEmpty()
 	{
 		try
 		{
@@ -129,7 +129,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteStart must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testPasteStopNull()
+	@Test void testPasteStopNull()
 	{
 		try
 		{
@@ -141,7 +141,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteStop", e.getMessage());
 		}
 	}
-	@Test public void testPasteStopEmpty()
+	@Test void testPasteStopEmpty()
 	{
 		try
 		{
@@ -153,7 +153,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteStop must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testPasteKeyNull()
+	@Test void testPasteKeyNull()
 	{
 		try
 		{
@@ -165,7 +165,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteKey", e.getMessage());
 		}
 	}
-	@Test public void testPasteKeyOptional()
+	@Test void testPasteKeyOptional()
 	{
 		final StringField pasteKey = new StringField().optional();
 		final Media pasteValue = new Media();
@@ -179,7 +179,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteKey must be mandatory", e.getMessage());
 		}
 	}
-	@Test public void testPasteKeyUnique()
+	@Test void testPasteKeyUnique()
 	{
 		final StringField pasteKey = new StringField().unique();
 		final Media pasteValue = new Media();
@@ -193,7 +193,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteKey must not be unique", e.getMessage());
 		}
 	}
-	@Test public void testPasteValueNull()
+	@Test void testPasteValueNull()
 	{
 		try
 		{
@@ -205,7 +205,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteValue", e.getMessage());
 		}
 	}
-	@Test public void testPasteValueFinal()
+	@Test void testPasteValueFinal()
 	{
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().toFinal();
@@ -219,7 +219,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteValue must not be final", e.getMessage());
 		}
 	}
-	@Test public void testPasteValueOptional()
+	@Test void testPasteValueOptional()
 	{
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().optional();
@@ -233,7 +233,7 @@ public class TextUrlFilterModelTest
 			assertEquals("pasteValue must be mandatory", e.getMessage());
 		}
 	}
-	@Test public void testMandatory()
+	@Test void testMandatory()
 	{
 		assertEquals(false, TextUrlFilterItem.fertig.isMandatory());
 		assertEquals(

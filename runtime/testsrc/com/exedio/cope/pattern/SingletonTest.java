@@ -51,7 +51,7 @@ public class SingletonTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{

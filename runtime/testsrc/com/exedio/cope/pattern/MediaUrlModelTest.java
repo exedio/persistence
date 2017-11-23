@@ -46,7 +46,7 @@ public class MediaUrlModelTest
 		MODEL.enableSerialization(MediaUrlModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				TYPE.getThis(),

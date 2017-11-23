@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class NestedHashAlgorithmTest
 {
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		final HashAlgorithm a = NestedHashAlgorithm.create(
 				MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, (SecureRandom)null, 100),
@@ -40,7 +40,7 @@ public class NestedHashAlgorithmTest
 		assertEquals(false, a.check("12345", hash));
 	}
 
-	@Test public void testMigration()
+	@Test void testMigration()
 	{
 		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, (SecureRandom)null, 100);
 
@@ -55,7 +55,7 @@ public class NestedHashAlgorithmTest
 		assertEquals(false, a.check("12345", newHash));
 	}
 
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		try
 		{

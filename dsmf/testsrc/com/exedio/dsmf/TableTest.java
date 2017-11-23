@@ -50,7 +50,7 @@ public class TableTest extends SchemaReadyTest
 		return result;
 	}
 
-	@Test public void testTables()
+	@Test void testTables()
 	{
 		// OK
 		{
@@ -173,7 +173,7 @@ public class TableTest extends SchemaReadyTest
 		}
 	}
 
-	@Test public void testStatementListener()
+	@Test void testStatementListener()
 	{
 		final Schema schema = getVerifiedSchema();
 		final Table table = schema.getTable(TABLE1);

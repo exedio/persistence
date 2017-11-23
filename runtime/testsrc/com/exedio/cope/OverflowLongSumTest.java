@@ -47,7 +47,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 
 	private static final Query<Long> query = new Query<>(field.sum());
 
-	@Test public void testIt() throws SQLException
+	@Test void testIt() throws SQLException
 	{
 		assertEquals(null, query.searchSingleton());
 

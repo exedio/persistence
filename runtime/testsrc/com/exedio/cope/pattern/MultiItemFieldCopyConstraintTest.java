@@ -50,7 +50,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 
-	@Test public void testModelAll()
+	@Test void testModelAll()
 	{
 		final Iterator<? extends CopyConstraint> i = AllCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(A.value, AllCopyConstraintItem.value, AllCopyConstraintItem.field.of(A.class), i.next());
@@ -58,7 +58,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		assertFalse(i.hasNext());
 	}
 
-	@Test public void testModelDouble()
+	@Test void testModelDouble()
 	{
 		final Iterator<? extends CopyConstraint> i = DoubleCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(C.value,    DoubleCopyConstraintItem.value,    DoubleCopyConstraintItem.field.of(C.class), i.next());
@@ -66,7 +66,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		assertFalse(i.hasNext());
 	}
 
-	@Test public void testModelPartial()
+	@Test void testModelPartial()
 	{
 		final Iterator<? extends CopyConstraint> i = PartialCopyConstraintItem.TYPE.getCopyConstraints().iterator();
 		assertIt(A.value, PartialCopyConstraintItem.value, PartialCopyConstraintItem.field.of(A.class), i.next());
@@ -85,7 +85,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		final A a = new A("value1");
 		final PartialCopyConstraintItem test = new PartialCopyConstraintItem("value1", a);
@@ -93,7 +93,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		assertEquals("value1", a.getValue());
 	}
 
-	@Test public void testNoCopyConstraintOnB()
+	@Test void testNoCopyConstraintOnB()
 	{
 		final B b = new B("value2");
 		final PartialCopyConstraintItem test = new PartialCopyConstraintItem("value1", b);
@@ -101,7 +101,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		assertEquals("value2", b.getValue());
 	}
 
-	@Test public void testCopyConstraintOnAllFields()
+	@Test void testCopyConstraintOnAllFields()
 	{
 		final A a = new A("value1");
 		final B b = new B("value2");
@@ -113,7 +113,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		assertEquals("value2", b.getValue());
 	}
 
-	@Test public void testCopyConstraintOnAllFieldsInvalid()
+	@Test void testCopyConstraintOnAllFieldsInvalid()
 	{
 		final A a = new A("value2");
 		final B b = new B("value1");
@@ -138,7 +138,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testDoubleCopyConstraintOnFields()
+	@Test void testDoubleCopyConstraintOnFields()
 	{
 		final C c = new C("value2", "value3");
 		final DoubleCopyConstraintItem item = new DoubleCopyConstraintItem("value2", "value3", c);
@@ -146,7 +146,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		assertEquals("value3", item.getTemplate());
 	}
 
-	@Test public void testDoubleCopyConstraintOnFieldsInvalid()
+	@Test void testDoubleCopyConstraintOnFieldsInvalid()
 	{
 		final C c = new C("value2", "value3");
 		try

@@ -114,7 +114,7 @@ public class TransactionTest extends TestmodelTest
 		actualItem.hashCode(); // test, that hashCode works
 	}
 
-	@Test public void testCommitChange()
+	@Test void testCommitChange()
 	{
 		assertSomeString(null);
 		item.setSomeString("someString");
@@ -132,7 +132,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString(null);
 	}
 
-	@Test public void testCommitCreate()
+	@Test void testCommitCreate()
 	{
 		item.setSomeString("someString");
 		final AttributeItem itemx = newItem("someStringX");
@@ -160,7 +160,7 @@ public class TransactionTest extends TestmodelTest
 		assertTrue(itemy.existsCopeItem());
 	}
 
-	@Test public void testCommitDelete()
+	@Test void testCommitDelete()
 	{
 		final AttributeItem itemx = newItem("someStringX");
 		assertTrue(itemx.existsCopeItem());
@@ -189,7 +189,7 @@ public class TransactionTest extends TestmodelTest
 		assertNotExists(itemy);
 	}
 
-	@Test public void testRollbackChange()
+	@Test void testRollbackChange()
 	{
 		commit();
 
@@ -215,7 +215,7 @@ public class TransactionTest extends TestmodelTest
 		assertSomeString("someString2");
 	}
 
-	@Test public void testRollbackCreate()
+	@Test void testRollbackCreate()
 	{
 		commit();
 
@@ -253,7 +253,7 @@ public class TransactionTest extends TestmodelTest
 		assertTrue(!itemy.existsCopeItem());
 	}
 
-	@Test public void testRollbackDelete()
+	@Test void testRollbackDelete()
 	{
 		final AttributeItem itemx = newItem("someStringX");
 		commit();

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class MediaSummaryTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final MediaInfo i1 = new MediaInfo(null, 11, 21, 111, 31, 41, 51, 61, 71, 81, 91, 101);
 		final MediaInfo i2 = new MediaInfo(null, 13, 23, 113, 33, 43, 53, 63, 73, 83, 93, 103);
@@ -47,7 +47,7 @@ public class MediaSummaryTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -61,7 +61,7 @@ public class MediaSummaryTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testNullElement()
+	@Test void testNullElement()
 	{
 		final MediaInfo i1 = new MediaInfo(null, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111);
 		try
@@ -75,7 +75,7 @@ public class MediaSummaryTest
 		}
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final MediaSummary ms = new MediaSummary(new MediaInfo[]{});
 		assertEquals(0, ms.getRedirectFrom());

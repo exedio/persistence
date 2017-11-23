@@ -41,7 +41,7 @@ public class PartOfTest extends TestWithEnvironment
 		container = new PartOfContainerItem("container");
 	}
 
-	@Test public void testUnordered()
+	@Test void testUnordered()
 	{
 		assertEquals(list(), container.getUnordered());
 
@@ -61,7 +61,7 @@ public class PartOfTest extends TestWithEnvironment
 		assertEquals(list(part1       ), container.getUnordered(PartOfItem.partString.equal("part1")));
 	}
 
-	@Test public void testOrdered()
+	@Test void testOrdered()
 	{
 		assertEquals(list(), container.getOrdered());
 

@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class DefaultToReuseTest
 {
-	@Test public void testRandom()
+	@Test void testRandom()
 	{
 		final LongField f = new LongField().defaultToRandom(new Random());
 		assertEquals(true, f.isMandatory());
@@ -46,7 +46,7 @@ public class DefaultToReuseTest
 		}
 	}
 
-	@Test public void testNext()
+	@Test void testNext()
 	{
 		final IntegerField f = new IntegerField().defaultToNext(55);
 		assertEquals(true, f.isMandatory());

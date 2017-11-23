@@ -73,7 +73,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testIt() throws IOException
+	@Test void testIt() throws IOException
 	{
 		{
 			final DataField.Value dataValue = DataField.toValue(bytes8);

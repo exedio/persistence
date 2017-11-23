@@ -91,7 +91,7 @@ public class ListFieldTest extends TestWithEnvironment
 		item = new ListFieldItem();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Type<?> stringsType = strings.getRelationType();
 		final Type<?> datesType = dates.getRelationType();
@@ -572,7 +572,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testRemoveAllSingle()
+	@Test void testRemoveAllSingle()
 	{
 		item.setStrings(asList("one1", "two2"));
 		assertEquals(asList("one1", "two2"), item.getStrings());
@@ -587,7 +587,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(asList(), item.getStrings());
 	}
 
-	@Test public void testRemoveAllDuplicates()
+	@Test void testRemoveAllDuplicates()
 	{
 		item.setStrings(asList("one1", "two2", "two2", "two2"));
 		assertEquals(asList("one1", "two2", "two2", "two2"), item.getStrings());
@@ -596,7 +596,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(asList("one1"), item.getStrings());
 	}
 
-	@Test public void testRemoveAllNull()
+	@Test void testRemoveAllNull()
 	{
 		item.setStrings(asList("one1", null, null, "two2"));
 		assertEquals(asList("one1", null, null, "two2"), item.getStrings());
@@ -609,7 +609,7 @@ public class ListFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test public void testListSetNull()
+	@Test void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 
@@ -626,12 +626,12 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
-	@Test public void testSetCopyNull()
+	@Test void testSetCopyNull()
 	{
 		checkSetCopy(item, new ListFieldItem(), new ListFieldItem("x"));
 	}
 
-	@Test public void testSetCopyNonnull()
+	@Test void testSetCopyNonnull()
 	{
 		checkSetCopy(new ListFieldItem("A"), new ListFieldItem("A"), item, new ListFieldItem("B"));
 	}
@@ -687,7 +687,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCheckSetFieldCopyConstraint()
+	@Test void testCheckSetFieldCopyConstraint()
 	{
 		final Type<? extends Item> itemsSameValueType = itemsSameValue.getRelationType();
 		assertEquals(asList(copyParent, copyElement), itemsSameValueType.getDeclaredCopyConstraints());
@@ -695,7 +695,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(0, copyElement.check());
 	}
 
-	@Test public void testCopyWithTemplates()
+	@Test void testCopyWithTemplates()
 	{
 		assertEquals(singletonList(value), itemsSameValue.getCopyWithTemplateFields());
 	}

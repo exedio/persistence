@@ -39,25 +39,25 @@ public class ConvertProcessorTest
 {
 	private String lineSeparator=System.lineSeparator();
 
-	@Test public void convertDocumentedWithUnixLineSeparator() throws URISyntaxException
+	@Test void convertDocumentedWithUnixLineSeparator() throws URISyntaxException
 	{
 		lineSeparator="\n";
 		assertDocumented();
 	}
 
-	@Test public void convertDocumentedWithWindowsLineSeparator() throws URISyntaxException
+	@Test void convertDocumentedWithWindowsLineSeparator() throws URISyntaxException
 	{
 		lineSeparator="\r\n";
 		assertDocumented();
 	}
 
-	@Test public void convertUndocumentedWithUnixLineSeparator() throws URISyntaxException
+	@Test void convertUndocumentedWithUnixLineSeparator() throws URISyntaxException
 	{
 		lineSeparator="\n";
 		assertUndocumented();
 	}
 
-	@Test public void convertUndocumentedWithWindowsLineSeparator() throws URISyntaxException
+	@Test void convertUndocumentedWithWindowsLineSeparator() throws URISyntaxException
 	{
 		lineSeparator="\r\n";
 		assertUndocumented();
@@ -95,7 +95,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void singleLineComment() throws URISyntaxException
+	@Test void singleLineComment() throws URISyntaxException
 	{
 		assertConversion(
 			lines(
@@ -117,7 +117,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void endNoWhiteSpace() throws URISyntaxException
+	@Test void endNoWhiteSpace() throws URISyntaxException
 	{
 		assertConversion(
 			lines(
@@ -139,7 +139,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void convertClass() throws URISyntaxException
+	@Test void convertClass() throws URISyntaxException
 	{
 		assertConversion(
 			lines(
@@ -168,7 +168,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void convertClassWithEmptyComment() throws URISyntaxException
+	@Test void convertClassWithEmptyComment() throws URISyntaxException
 	{
 		assertConversion(
 			lines(
@@ -183,7 +183,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void classWithoutPackage() throws URISyntaxException
+	@Test void classWithoutPackage() throws URISyntaxException
 	{
 		assertConversion(
 			lines(
@@ -199,7 +199,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void convertClassWithSeveralRules() throws URISyntaxException
+	@Test void convertClassWithSeveralRules() throws URISyntaxException
 	{
 		assertConversion(
 			lines(
@@ -229,7 +229,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void multiAssignment() throws URISyntaxException
+	@Test void multiAssignment() throws URISyntaxException
 	{
 		assertConversion(
 			lines(
@@ -253,7 +253,7 @@ public class ConvertProcessorTest
 		);
 	}
 
-	@Test public void tolerateDocContentEndBeingZero() throws URISyntaxException
+	@Test void tolerateDocContentEndBeingZero() throws URISyntaxException
 	{
 		assertConversion(
 			lines(

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypeMountWrongTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Type<Item1> type1 = Item1.TYPE;
 		final Type<Item2> type2 = Item2.TYPE;

@@ -46,7 +46,7 @@ public class CompositeFieldRenamedSchemaTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(null,        ann(virgnTemp));
 		assertEquals("namedTemp", ann(wrongTemp));

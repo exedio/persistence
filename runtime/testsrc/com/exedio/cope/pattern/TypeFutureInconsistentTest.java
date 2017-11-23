@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypeFutureInconsistentTest
 {
-	@Test public void testTypeFutureInconsistent()
+	@Test void testTypeFutureInconsistent()
 	{
 		try
 		{

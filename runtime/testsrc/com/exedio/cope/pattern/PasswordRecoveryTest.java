@@ -75,7 +75,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clockRule.override(clock);
 	}
 
-	@Test public void testIt() throws Exception
+	@Test void testIt() throws Exception
 	{
 		// test model
 		assertEquals(Arrays.asList(new Type<?>[]{
@@ -162,7 +162,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 	}
 
-	@Test public void testExpired()
+	@Test void testExpired()
 	{
 		final Config config = new Config(20);
 
@@ -210,7 +210,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testReuse()
+	@Test void testReuse()
 	{
 		final Config config = new Config(15*60*1000, 10*1000);
 
@@ -239,7 +239,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertFalse(token3.equals(token1));
 	}
 
-	@Test public void testNoReuse()
+	@Test void testNoReuse()
 	{
 		final Config config = new Config(15*60*1000, 0);
 
@@ -267,7 +267,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	}
 
 	@Deprecated
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		try
 		{

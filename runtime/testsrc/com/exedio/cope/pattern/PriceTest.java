@@ -65,13 +65,13 @@ public class PriceTest
 	private static final Price mp98 = p98.negate();
 	private static final Price mp99 = p99.negate();
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(5, storeOf(5).store());
 		assertEquals(0, storeOf(0).store());
 	}
 
-	@Test public void testStoreIntExact()
+	@Test void testStoreIntExact()
 	{
 		assertEquals(5, storeOf(5).storeIntExact());
 		assertEquals(0, storeOf(0).storeIntExact());
@@ -79,7 +79,7 @@ public class PriceTest
 		assertEquals(Integer.MIN_VALUE, storeOf(Integer.MIN_VALUE).storeIntExact());
 	}
 
-	@Test public void testStoreIntExactOverflow()
+	@Test void testStoreIntExactOverflow()
 	{
 		final Price p = storeOf(Integer.MAX_VALUE + 1l);
 		try
@@ -93,7 +93,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testStoreIntExactUnderflow()
+	@Test void testStoreIntExactUnderflow()
 	{
 		final Price p = storeOf(Integer.MIN_VALUE - 1l);
 		try
@@ -107,13 +107,13 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testZero()
+	@Test void testZero()
 	{
 		assertEquals(0, ZERO.store());
 		assertEqualBits(0.0, ZERO.doubleValue());
 	}
 
-	@Test public void testStoreOfInt()
+	@Test void testStoreOfInt()
 	{
 		assertEquals(storeOf(1), storeOf(1));
 		assertSame  (storeOf(1), storeOf(1));
@@ -128,7 +128,7 @@ public class PriceTest
 		assertSame( p99, storeOf(MAX_STORE));
 	}
 
-	@Test public void testStoreOfIntOutOfRange()
+	@Test void testStoreOfIntOutOfRange()
 	{
 		try
 		{
@@ -141,7 +141,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testStoreOfLong()
+	@Test void testStoreOfLong()
 	{
 		assertEquals( 5, storeOf(Long.valueOf( 5)).store());
 		assertEquals(-5, storeOf(Long.valueOf(-5)).store());
@@ -149,7 +149,7 @@ public class PriceTest
 		assertEquals(null, storeOf((Long)null));
 	}
 
-	@Test public void testStoreOfInteger()
+	@Test void testStoreOfInteger()
 	{
 		assertEquals( 5, storeOf(Integer.valueOf( 5)).store());
 		assertEquals(-5, storeOf(Integer.valueOf(-5)).store());
@@ -157,7 +157,7 @@ public class PriceTest
 		assertEquals(null, storeOf((Integer)null));
 	}
 
-	@Test public void testNullToZero()
+	@Test void testNullToZero()
 	{
 		final Price x = storeOf(1);
 		assertSame(x,    nullToZero(x));
@@ -165,7 +165,7 @@ public class PriceTest
 		assertSame(ZERO, nullToZero(ZERO));
 	}
 
-	@Test public void testValueOfDouble()
+	@Test void testValueOfDouble()
 	{
 		assertEquals( 222, valueOf( 2.22).store());
 		assertEquals(-222, valueOf(-2.22).store());
@@ -272,7 +272,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testValueOfDoubleRoundSpecialProblem()
+	@Test void testValueOfDoubleRoundSpecialProblem()
 	{
 		final double problem = 0.575;
 		assertEquals( "0.575", Double.toString( problem));
@@ -283,7 +283,7 @@ public class PriceTest
 		assertValueOfDouble(problem, 57, DOWN, HALF_DOWN);
 	}
 
-	@Test public void testValueOfDoubleRoundSpecialProblem2()
+	@Test void testValueOfDoubleRoundSpecialProblem2()
 	{
 		final double problem = 1.435;
 		assertEquals( "1.435", Double.toString( problem));
@@ -303,7 +303,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testRoundSpecialProblemOnDivide()
+	@Test void testRoundSpecialProblemOnDivide()
 	{
 		final Price problem = storeOf(115);
 		assertEquals( "2.0", Double.toString( 2d));
@@ -324,7 +324,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testRoundSpecialProblemOnMultiply()
+	@Test void testRoundSpecialProblemOnMultiply()
 	{
 		final Price problem = storeOf(41);
 		final double multiplier = 3.5;
@@ -346,7 +346,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testValueOfBigDecimal()
+	@Test void testValueOfBigDecimal()
 	{
 		assertEquals( 222, valueOf(bd( 222, 2)).store());
 		assertEquals(-222, valueOf(bd(-222, 2)).store());
@@ -404,7 +404,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testDoubleValue()
+	@Test void testDoubleValue()
 	{
 		assertEqualBits( 2.22, storeOf( 222).doubleValue());
 		assertEqualBits(-2.22, storeOf(-222).doubleValue());
@@ -413,7 +413,7 @@ public class PriceTest
 		assertEqualBits( 0.0,  storeOf(   0).doubleValue());
 	}
 
-	@Test public void testBigValue()
+	@Test void testBigValue()
 	{
 		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
 		assertEquals(bd(-222, 2), storeOf(-222).bigValue());
@@ -425,7 +425,7 @@ public class PriceTest
 		assertSame(BigDecimal.ZERO, storeOf(0).bigValue()); // relies on BigDecimal implementation
 	}
 
-	@Test public void testBigValueAndValueOf()
+	@Test void testBigValueAndValueOf()
 	{
 		assertEquals( p97, valueOf( p97.bigValue()));
 		assertEquals( p98, valueOf( p98.bigValue()));
@@ -437,7 +437,7 @@ public class PriceTest
 		assertValueOfIllegal(mp99.bigValue().subtract(mp98.bigValue()).add(mp99.bigValue()), "too small: -92233720368547758.08");
 	}
 
-	@Test public void testAdd()
+	@Test void testAdd()
 	{
 		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
 		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
@@ -445,7 +445,7 @@ public class PriceTest
 		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
 	}
 
-	@Test public void testAddNeutral()
+	@Test void testAddNeutral()
 	{
 		final Price p = storeOf(555);
 		assertSame(p, p.add(ZERO));
@@ -453,7 +453,7 @@ public class PriceTest
 		assertSame(ZERO, ZERO.add(ZERO));
 	}
 
-	@Test public void testAddOverflow()
+	@Test void testAddOverflow()
 	{
 		assertEquals( p98,  p99.add(storeOf(-1)));
 		assertEquals( p99,  p99.add(storeOf( 0)));
@@ -514,7 +514,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testSubtract()
+	@Test void testSubtract()
 	{
 		assertEquals( 333, storeOf( 555).subtract(storeOf( 222)).store());
 		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).store());
@@ -522,7 +522,7 @@ public class PriceTest
 		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
 	}
 
-	@Test public void testSubtractNeutral()
+	@Test void testSubtractNeutral()
 	{
 		final Price p = storeOf(555);
 		assertSame(p, p.subtract(ZERO));
@@ -530,7 +530,7 @@ public class PriceTest
 		assertSame(ZERO, ZERO.subtract(ZERO));
 	}
 
-	@Test public void testSubtractOverflow()
+	@Test void testSubtractOverflow()
 	{
 		assertEquals( p98,       p99.subtract(storeOf( 1)));
 		assertEquals( p99,       p99.subtract(storeOf( 0)));
@@ -555,7 +555,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testNegate()
+	@Test void testNegate()
 	{
 		assertEquals(storeOf(-555), storeOf( 555).negate());
 		assertEquals(storeOf( 555), storeOf(-555).negate());
@@ -564,7 +564,7 @@ public class PriceTest
 		assertEquals(storeOf(MAX_STORE), mp99.negate());
 	}
 
-	@Test public void testMultiplyInt()
+	@Test void testMultiplyInt()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3).store());
 		assertEquals(-999, storeOf(-333).multiply( 3).store());
@@ -572,7 +572,7 @@ public class PriceTest
 		assertEquals( 999, storeOf(-333).multiply(-3).store());
 	}
 
-	@Test public void testMultiplyIntNeutral()
+	@Test void testMultiplyIntNeutral()
 	{
 		final Price p = storeOf(555);
 		assertSame(ZERO, p.multiply(0));
@@ -580,7 +580,7 @@ public class PriceTest
 		assertEquals(storeOf(-555), p.multiply(-1));
 	}
 
-	@Test public void testMultiplyIntOverflow()
+	@Test void testMultiplyIntOverflow()
 	{
 		assertEquals( p49,  p49.multiply(1));
 		assertEquals( p50,  p50.multiply(1));
@@ -624,7 +624,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testMultiplyDouble()
+	@Test void testMultiplyDouble()
 	{
 		assertEquals( 999, storeOf( 333).multiply( 3d).store());
 		assertEquals(-999, storeOf(-333).multiply( 3d).store());
@@ -632,7 +632,7 @@ public class PriceTest
 		assertEquals( 999, storeOf(-333).multiply(-3d).store());
 	}
 
-	@Test public void testMultiplyDoubleNeutral()
+	@Test void testMultiplyDoubleNeutral()
 	{
 		final Price p = storeOf(555);
 		assertSame(ZERO, p.multiply(0.0));
@@ -640,7 +640,7 @@ public class PriceTest
 		assertEquals(storeOf(-555), p.multiply(-1.0));
 	}
 
-	@Test public void testMultiplyDoubleOverflow()
+	@Test void testMultiplyDoubleOverflow()
 	{
 		assertEquals(p49,  p49.multiply(1d));
 		assertEquals(p50,  p50.multiply(1d));
@@ -663,7 +663,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testDivideDouble()
+	@Test void testDivideDouble()
 	{
 		assertEquals( 333, storeOf( 999).divide( 3d).store());
 		assertEquals(-333, storeOf(-999).divide( 3d).store());
@@ -671,7 +671,7 @@ public class PriceTest
 		assertEquals( 333, storeOf(-999).divide(-3d).store());
 	}
 
-	@Test public void testDivideDoubleNeutral()
+	@Test void testDivideDoubleNeutral()
 	{
 		final Price p = storeOf(555);
 		try
@@ -687,7 +687,7 @@ public class PriceTest
 		assertEquals(storeOf(-555), p.divide(-1.0));
 	}
 
-	@Test public void testDivideDoubleOverflow()
+	@Test void testDivideDoubleOverflow()
 	{
 		assertEquals(p49, p49.divide(1d ));
 		assertEquals(p50, p50.divide(1d ));
@@ -710,7 +710,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testEqualsOrSame()
+	@Test void testEqualsOrSame()
 	{
 		assertSame(         storeOf(  123), storeOf(  123)); // from cache
 		assertEqualsAndHash(storeOf(- 123), storeOf(- 123));
@@ -727,7 +727,7 @@ public class PriceTest
 		assertNotSame(storeOf(4123), storeOf(4123));
 	}
 
-	@Test public void testCompareTo()
+	@Test void testCompareTo()
 	{
 		assertEquals(-1, storeOf( 122).compareTo(storeOf( 123)));
 		assertEquals( 0, storeOf( 123).compareTo(storeOf( 123)));
@@ -737,7 +737,7 @@ public class PriceTest
 		assertEquals(-1, storeOf(-124).compareTo(storeOf(-123)));
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertToString( "1.23", storeOf( 123));
 		assertToString("-1.23", storeOf(-123));
@@ -767,7 +767,7 @@ public class PriceTest
 		assertEquals(expectedShort, actual.toStringShort(), "toStringShort");
 	}
 
-	@Test public void testFormatReal() throws ParseException
+	@Test void testFormatReal() throws ParseException
 	{
 		final DecimalFormat en = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		final DecimalFormat de = (DecimalFormat)NumberFormat.getInstance(Locale.GERMAN);
@@ -781,7 +781,7 @@ public class PriceTest
 		assertParse(de, "0", "0,1", "-0,1", "1,1", "-1,1",  "1234,5",  "-1234,5",      "92233720368547758,07",      "-92233720368547758,07");
 	}
 
-	@Test public void testFormatSynthetic() throws ParseException
+	@Test void testFormatSynthetic() throws ParseException
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -847,7 +847,7 @@ public class PriceTest
 		assertEquals(            mp99, parse(sm99    , format), "mp99");
 	}
 
-	@Test public void testParseTooBig()
+	@Test void testParseTooBig()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -862,7 +862,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testParseTooSmall()
+	@Test void testParseTooSmall()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -877,7 +877,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testParseTooPrecise()
+	@Test void testParseTooPrecise()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -892,7 +892,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testParseBigDecimalNotSupported() throws ParseException
+	@Test void testParseBigDecimalNotSupported() throws ParseException
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		try
@@ -906,7 +906,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testParseNullSource() throws ParseException
+	@Test void testParseNullSource() throws ParseException
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
@@ -921,7 +921,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testParseNullFormat() throws ParseException
+	@Test void testParseNullFormat() throws ParseException
 	{
 		try
 		{
@@ -934,13 +934,13 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testSerialization()
+	@Test void testSerialization()
 	{
 		assertEquals(storeOf( 3456), reserialize(storeOf( 3456)));
 		assertEquals(storeOf(-3456), reserialize(storeOf(-3456)));
 	}
 
-	@Test public void testSerializationCache()
+	@Test void testSerializationCache()
 	{
 		assertEquals(storeOf(  -1), reserialize(storeOf(   -1)));
 		assertEquals(storeOf(   0), reserialize(storeOf(    0)));
@@ -960,42 +960,42 @@ public class PriceTest
 		return Assert.reserialize(value, 66);
 	}
 
-	@Test public void testEqualsZero()
+	@Test void testEqualsZero()
 	{
 		assertEquals(false, storeOf(-1).equalsZero());
 		assertEquals(true,  storeOf( 0).equalsZero());
 		assertEquals(false, storeOf( 1).equalsZero());
 	}
 
-	@Test public void testLessThanZero()
+	@Test void testLessThanZero()
 	{
 		assertEquals(true,  storeOf(-1).lessThanZero());
 		assertEquals(false, storeOf( 0).lessThanZero());
 		assertEquals(false, storeOf( 1).lessThanZero());
 	}
 
-	@Test public void testGreaterThanZero()
+	@Test void testGreaterThanZero()
 	{
 		assertEquals(false, storeOf(-1).greaterThanZero());
 		assertEquals(false, storeOf( 0).greaterThanZero());
 		assertEquals(true,  storeOf( 1).greaterThanZero());
 	}
 
-	@Test public void testLessThanOrEqualZero()
+	@Test void testLessThanOrEqualZero()
 	{
 		assertEquals(true,  storeOf(-1).lessThanOrEqualZero());
 		assertEquals(true,  storeOf( 0).lessThanOrEqualZero());
 		assertEquals(false, storeOf( 1).lessThanOrEqualZero());
 	}
 
-	@Test public void testGreaterThanOrEqualZero()
+	@Test void testGreaterThanOrEqualZero()
 	{
 		assertEquals(false, storeOf(-1).greaterThanOrEqualZero());
 		assertEquals(true,  storeOf( 0).greaterThanOrEqualZero());
 		assertEquals(true,  storeOf( 1).greaterThanOrEqualZero());
 	}
 
-	@Test public void testLessThan()
+	@Test void testLessThan()
 	{
 		assertEquals(true,  storeOf( 122).lessThan(storeOf( 123)));
 		assertEquals(false, storeOf( 123).lessThan(storeOf( 123)));
@@ -1005,7 +1005,7 @@ public class PriceTest
 		assertEquals(true,  storeOf(-124).lessThan(storeOf(-123)));
 	}
 
-	@Test public void testGreaterThan()
+	@Test void testGreaterThan()
 	{
 		assertEquals(false, storeOf( 122).greaterThan(storeOf( 123)));
 		assertEquals(false, storeOf( 123).greaterThan(storeOf( 123)));
@@ -1015,7 +1015,7 @@ public class PriceTest
 		assertEquals(false, storeOf(-124).greaterThan(storeOf(-123)));
 	}
 
-	@Test public void testLessThanOrEqual()
+	@Test void testLessThanOrEqual()
 	{
 		assertEquals(true,  storeOf( 122).lessThanOrEqual(storeOf( 123)));
 		assertEquals(true,  storeOf( 123).lessThanOrEqual(storeOf( 123)));
@@ -1025,7 +1025,7 @@ public class PriceTest
 		assertEquals(true,  storeOf(-124).lessThanOrEqual(storeOf(-123)));
 	}
 
-	@Test public void testGreaterThanOrEqual()
+	@Test void testGreaterThanOrEqual()
 	{
 		assertEquals(false, storeOf( 122).greaterThanOrEqual(storeOf( 123)));
 		assertEquals(true,  storeOf( 123).greaterThanOrEqual(storeOf( 123)));
@@ -1035,7 +1035,7 @@ public class PriceTest
 		assertEquals(false, storeOf(-124).greaterThanOrEqual(storeOf(-123)));
 	}
 
-	@Test public void testMin()
+	@Test void testMin()
 	{
 		assertEquals(storeOf( 122), storeOf( 122).min(storeOf( 123)));
 		assertEquals(storeOf( 123), storeOf( 123).min(storeOf( 123)));
@@ -1045,7 +1045,7 @@ public class PriceTest
 		assertEquals(storeOf(-124), storeOf(-124).min(storeOf(-123)));
 	}
 
-	@Test public void testMax()
+	@Test void testMax()
 	{
 		assertEquals(storeOf( 123), storeOf( 122).max(storeOf( 123)));
 		assertEquals(storeOf( 123), storeOf( 123).max(storeOf( 123)));
@@ -1055,7 +1055,7 @@ public class PriceTest
 		assertEquals(storeOf(-123), storeOf(-124).max(storeOf(-123)));
 	}
 
-	@Test public void testGrossToNetPercent()
+	@Test void testGrossToNetPercent()
 	{
 		assertEquals(storeOf( 100), storeOf( 126).grossToNetPercent(26));
 		assertEquals(storeOf(-100), storeOf(-126).grossToNetPercent(26));
@@ -1085,7 +1085,7 @@ public class PriceTest
 		}
 	}
 
-	@Test public void testGrossToTaxPercent()
+	@Test void testGrossToTaxPercent()
 	{
 		assertEquals(storeOf( 26), storeOf( 126).grossToTaxPercent(26));
 		assertEquals(storeOf(-26), storeOf(-126).grossToTaxPercent(26));

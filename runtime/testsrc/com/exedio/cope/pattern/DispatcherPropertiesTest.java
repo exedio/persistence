@@ -28,14 +28,14 @@ import org.junit.jupiter.api.Test;
 
 public class DispatcherPropertiesTest
 {
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		final Config config = factory().create(Sources.EMPTY).get();
 		assertEquals(5,    config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
 	}
 
-	@Test public void testCustom()
+	@Test void testCustom()
 	{
 		final Properties source = new Properties();
 		source.setProperty("failureLimit", "55");

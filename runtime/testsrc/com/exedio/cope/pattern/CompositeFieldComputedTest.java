@@ -44,7 +44,7 @@ public class CompositeFieldComputedTest
 		MODEL.enableSerialization(CompositeFieldComputedTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(false, comp(virgnTemp));
 		assertEquals(true,  comp(compuTemp));

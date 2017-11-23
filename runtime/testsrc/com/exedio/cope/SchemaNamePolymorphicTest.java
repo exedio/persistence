@@ -49,7 +49,7 @@ public class SchemaNamePolymorphicTest extends TestWithEnvironment
 
 	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@Test public void test() throws SQLException
+	@Test void test() throws SQLException
 	{
 		assertEquals("Super"     , getTypeColumnValue(SchemaNamePolymorphicSuperItem.TYPE));
 		assertEquals("SubRenamed", getTypeColumnValue(SchemaNamePolymorphicSubItem  .TYPE));

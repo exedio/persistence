@@ -58,7 +58,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("MisorderedAssertEqualsArguments")
-	@Test public void testHashCode()
+	@Test void testHashCode()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
@@ -68,7 +68,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(i1, fieldValue);
 	}
 
-	@Test public void testSerialization()
+	@Test void testSerialization()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
@@ -82,7 +82,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals("MultiItemFieldComponentxA-0", i1S.toString());
 	}
 
-	@Test public void testEqual()
+	@Test void testEqual()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		assertEquals(
@@ -90,7 +90,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 				MultiItemFieldItem.field.equal(fieldValue).toString());
 	}
 
-	@Test public void testEqualConditionNull()
+	@Test void testEqualConditionNull()
 	{
 		assertEquals(
 				"(MultiItemFieldItem.field-MultiItemFieldComponentxA is null AND" +
@@ -98,20 +98,20 @@ public class MultiItemFieldTest extends TestWithEnvironment
 				MultiItemFieldItem.field.equal(null).toString());
 	}
 
-	@Test public void testEqualConditionInvalidClass()
+	@Test void testEqualConditionInvalidClass()
 	{
 		final MultiItemFieldComponentxC invalid = new MultiItemFieldComponentxC();
 		assertEquals(Condition.FALSE, MultiItemFieldItem.field.equal(invalid));
 	}
 
-	@Test public void testGet()
+	@Test void testGet()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
 		assertEquals(expected, item.getField());
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldComponentxB expected2 = new MultiItemFieldComponentxB();
@@ -126,7 +126,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(expected2, item.getFieldB());
 	}
 
-	@Test public void testSetNull()
+	@Test void testSetNull()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
@@ -141,7 +141,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getOptionalFieldB());
 	}
 
-	@Test public void testSetNullForMandatory()
+	@Test void testSetNullForMandatory()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);
@@ -158,7 +158,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(expected, item.getField());
 	}
 
-	@Test public void testSetInvalidInterfaceItem()
+	@Test void testSetInvalidInterfaceItem()
 	{
 		final MultiItemFieldComponentxC notExpected = new MultiItemFieldComponentxC();
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
@@ -184,7 +184,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(expected, item.getField());
 	}
 
-	@Test public void testSetClassCast()
+	@Test void testSetClassCast()
 	{
 		@SuppressWarnings({"cast", "unchecked", "rawtypes"}) // OK: test bad API usage
 		final MultiItemField<String> field = (MultiItemField<String>)(MultiItemField)MultiItemFieldItem.field;
@@ -204,7 +204,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(expected, item.getField());
 	}
 
-	@Test public void testConditionIsNull()
+	@Test void testConditionIsNull()
 	{
 		assertEquals(
 				"(" +
@@ -215,7 +215,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 				MultiItemFieldItem.field.isNull().toString());
 	}
 
-	@Test public void testConditionIsNotNull()
+	@Test void testConditionIsNotNull()
 	{
 		assertEquals(
 				"(" +
@@ -226,7 +226,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 				MultiItemFieldItem.field.isNotNull().toString());
 	}
 
-	@Test public void testGetComponents()
+	@Test void testGetComponents()
 	{
 		assertEqualsUnmodifiable(
 				list(MultiItemFieldItem.field.of(MultiItemFieldComponentxA.class),
@@ -234,7 +234,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 				MultiItemFieldItem.field.getComponents());
 	}
 
-	@Test public void testOfNotValidClassParameter()
+	@Test void testOfNotValidClassParameter()
 	{
 		try
 		{
@@ -248,7 +248,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testUniqueSetNull()
+	@Test void testUniqueSetNull()
 	{
 		assertNull(MultiItemFieldItem.field.of(MultiItemFieldComponentxA.class).getImplicitUniqueConstraint());
 		assertNull(MultiItemFieldItem.field.of(MultiItemFieldComponentxB.class).getImplicitUniqueConstraint());
@@ -265,7 +265,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(null, item2.getUniqueField());
 	}
 
-	@Test public void testUnique()
+	@Test void testUnique()
 	{
 		final MultiItemFieldComponentxA value = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item1 = new MultiItemFieldItem(
@@ -287,19 +287,19 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(value, item1.getUniqueField());
 	}
 
-	@Test public void testgetPartOfReverse()
+	@Test void testgetPartOfReverse()
 	{
 		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getPartOfs(MultiItemFieldComponentxA.TYPE));
 		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getDeclaredPartOfs(MultiItemFieldComponentxA.TYPE));
 	}
 
-	@Test public void testgetPartOfReverseEmpty()
+	@Test void testgetPartOfReverseEmpty()
 	{
 		assertEquals(list(), PartOf.getPartOfs(MultiItemFieldComponentxB.TYPE));
 		assertEquals(list(), PartOf.getDeclaredPartOfs(MultiItemFieldComponentxB.TYPE));
 	}
 
-	@Test public void testPartOf()
+	@Test void testPartOf()
 	{
 		final MultiItemFieldComponentxA field = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item1 = new MultiItemFieldItem(
@@ -309,14 +309,14 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(list(item1, item2), MultiItemFieldItem.partOfClassA.getParts(field));
 	}
 
-	@Test public void testPartOfEmpty()
+	@Test void testPartOfEmpty()
 	{
 		final MultiItemFieldComponentxA field = new MultiItemFieldComponentxA();
 		new MultiItemFieldItem(new MultiItemFieldComponentxB());
 		assertEquals(list(), MultiItemFieldItem.partOfClassA.getParts(field));
 	}
 
-	@Test public void testPartOfInvalidClassParameter()
+	@Test void testPartOfInvalidClassParameter()
 	{
 		final MultiItemFieldComponentxB field = new MultiItemFieldComponentxB();
 		try
@@ -332,7 +332,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCascade()
+	@Test void testCascade()
 	{
 		final MultiItemFieldComponentxA item = new MultiItemFieldComponentxA();
 		final AnCascadeItem toBeCascadeDeleted = new AnCascadeItem(item);
@@ -340,7 +340,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(false, toBeCascadeDeleted.existsCopeItem());
 	}
 
-	@Test public void testForbid()
+	@Test void testForbid()
 	{
 		final MultiItemFieldComponentxA item = new MultiItemFieldComponentxA();
 		new MultiItemFieldItem(item);
@@ -358,20 +358,20 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testMap()
+	@Test void testMap()
 	{
 		final MultiItemFieldComponentxA a = new MultiItemFieldComponentxA();
 		assertEquals(SetValue.map(MultiItemFieldItem.field, a), MultiItemFieldItem.field.map(a));
 		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxA-0", MultiItemFieldItem.field.map(a).toString());
 	}
 
-	@Test public void testMapNull()
+	@Test void testMapNull()
 	{
 		assertEquals(SetValue.map(MultiItemFieldItem.optionalField, null), MultiItemFieldItem.optionalField.map(null));
 		assertEquals("MultiItemFieldItem.optionalField=null", MultiItemFieldItem.optionalField.map(null).toString());
 	}
 
-	@Test public void testMapInvalid()
+	@Test void testMapInvalid()
 	{
 		final MultiItemFieldComponentxC c = new MultiItemFieldComponentxC();
 		assertEquals(SetValue.map(MultiItemFieldItem.field, c), MultiItemFieldItem.field.map(c));

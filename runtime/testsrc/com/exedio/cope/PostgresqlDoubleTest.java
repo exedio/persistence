@@ -29,7 +29,7 @@ public class PostgresqlDoubleTest
 		return PostgresqlFormat.format(number);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals( "1.7976931348623157E308", Double.toString( Double.MAX_VALUE));
 		assertEquals("-1.7976931348623157E308", Double.toString(-Double.MAX_VALUE));

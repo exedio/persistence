@@ -46,7 +46,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 
 	private static final Query<Integer> query = new Query<>(field.sum());
 
-	@Test public void testIt() throws SQLException
+	@Test void testIt() throws SQLException
 	{
 		assertEquals(null, query.searchSingleton());
 

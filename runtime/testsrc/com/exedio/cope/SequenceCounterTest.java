@@ -28,7 +28,7 @@ public class SequenceCounterTest
 {
 	private static final StringField feature = new StringField();
 
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);
@@ -41,7 +41,7 @@ public class SequenceCounterTest
 		assertIt(c, 15, 10, 20, 3, 15, 17);
 	}
 
-	@Test public void testLimit()
+	@Test void testLimit()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 10, 10, 12);
@@ -64,7 +64,7 @@ public class SequenceCounterTest
 		assertIt(c, 10, 10, 12, 3, 10, 12);
 	}
 
-	@Test public void testHole()
+	@Test void testHole()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);
@@ -75,7 +75,7 @@ public class SequenceCounterTest
 		assertIt(c, 15, 10, 20, 2, 17, 19);
 	}
 
-	@Test public void testMin()
+	@Test void testMin()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);
@@ -92,7 +92,7 @@ public class SequenceCounterTest
 		assertIt(c, 15, 10, 20);
 	}
 
-	@Test public void testMax()
+	@Test void testMax()
 	{
 		final SequenceCounter c =
 				new SequenceCounter(feature, 15, 10, 20);

@@ -30,7 +30,7 @@ public class TransactionToStringTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testWithName()
+	@Test void testWithName()
 	{
 		final Transaction tx = model.startTransaction("txname");
 		final String id = String.valueOf(tx.getID());
@@ -41,7 +41,7 @@ public class TransactionToStringTest extends TestWithEnvironment
 		assertEquals(id+"(closed):txname", tx.toString());
 	}
 
-	@Test public void testWithoutName()
+	@Test void testWithoutName()
 	{
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		final Transaction tx = model.startTransaction();

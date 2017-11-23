@@ -48,7 +48,7 @@ public class JoinTest extends TestmodelTest
 		item1b = new PointerItem("item1b", item2b);
 	}
 
-	@Test public void testJoin()
+	@Test void testJoin()
 	{
 		// test conditions
 		assertEqualsAndHash(PointerItem.pointer.equalTarget(), PointerItem.pointer.equalTarget());

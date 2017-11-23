@@ -49,7 +49,7 @@ public class SchemaViewTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	@Test public void testIt() throws SQLException
+	@Test void testIt() throws SQLException
 	{
 		final Schema schema1 = MODEL.getVerifiedSchema();
 		assertSame(Color.OK, schema1.getCumulativeColor());

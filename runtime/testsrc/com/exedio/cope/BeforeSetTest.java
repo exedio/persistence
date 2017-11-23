@@ -43,7 +43,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -75,7 +75,7 @@ public class BeforeSetTest extends TestWithEnvironment
 				item.getCalls());
 	}
 
-	@Test public void testActionConstraintViolation()
+	@Test void testActionConstraintViolation()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -99,7 +99,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList("[BeforeSetItem.action=" + constraintViolation + "]"), item.getCalls());
 	}
 
-	@Test public void testActionRuntimeException()
+	@Test void testActionRuntimeException()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -122,7 +122,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList("[BeforeSetItem.action=" + runtimeException + "]"), item.getCalls());
 	}
 
-	@Test public void testActionAddField1()
+	@Test void testActionAddField1()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -137,7 +137,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList("[BeforeSetItem.action=" + addField1 + "]"), item.getCalls());
 	}
 
-	@Test public void testActionAddField1ConstraintViolation()
+	@Test void testActionAddField1ConstraintViolation()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -162,7 +162,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList("[BeforeSetItem.action=" + addField1ConstraintViolation + "]"), item.getCalls());
 	}
 
-	@Test public void testActionReplaceField1()
+	@Test void testActionReplaceField1()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -181,7 +181,7 @@ public class BeforeSetTest extends TestWithEnvironment
 				item.getCalls());
 	}
 
-	@Test public void testActionAddDuplicate()
+	@Test void testActionAddDuplicate()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -204,7 +204,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList("[BeforeSetItem.action=" + addDuplicate + "]"), item.getCalls());
 	}
 
-	@Test public void testSetNull()
+	@Test void testSetNull()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -228,7 +228,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList(), item.getCalls());
 	}
 
-	@Test public void testActionReturnNull()
+	@Test void testActionReturnNull()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -251,7 +251,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList("[BeforeSetItem.action=" + returnNull + "]"), item.getCalls());
 	}
 
-	@Test public void testSetEmpty()
+	@Test void testSetEmpty()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -267,7 +267,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList(), item.getCalls());
 	}
 
-	@Test public void testActionReturnEmpty()
+	@Test void testActionReturnEmpty()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());
@@ -282,7 +282,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList("[BeforeSetItem.action=" + returnEmpty + "]"), item.getCalls());
 	}
 
-	@Test public void testConstraintViolation()
+	@Test void testConstraintViolation()
 	{
 		final BeforeSetItem item = new BeforeSetItem();
 		assertEquals(11, item.getField1());

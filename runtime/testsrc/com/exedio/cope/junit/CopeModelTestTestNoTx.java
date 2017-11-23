@@ -29,7 +29,7 @@ public class CopeModelTestTestNoTx extends CopeModelTestTest
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testNoTx()
+	@Test void testNoTx()
 	{
 		assertFalse(model.hasCurrentTransaction());
 		model.startTransaction("tx:" + CopeModelTestTestNoTx.class.getName());

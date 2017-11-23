@@ -53,7 +53,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 		model.setDatabaseListener(null);
 	}
 
-	@Test public void testDatabaseLog()
+	@Test void testDatabaseLog()
 	{
 		final ExpectingDatabaseListener l = new ExpectingDatabaseListener();
 		model.setTestDatabaseListener(l);

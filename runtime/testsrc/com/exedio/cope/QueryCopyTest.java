@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 
 public class QueryCopyTest
 {
-	@Test public void testSimple()
+	@Test void testSimple()
 	{
 		final Query<?> query = TYPE.newQuery();
 		query.setSearchSizeLimit(77);
@@ -85,7 +85,7 @@ public class QueryCopyTest
 		assertEquals(66, copy.getSearchSizeCacheLimit());
 	}
 
-	@Test public void testAdvanced()
+	@Test void testAdvanced()
 	{
 		final Query<?> query = TYPE.newQuery();
 		assertIt(
@@ -153,7 +153,7 @@ public class QueryCopyTest
 				query);
 	}
 
-	@Test public void testMulti()
+	@Test void testMulti()
 	{
 		final Query<?> query = Query.newQuery(new Selectable<?>[]{string, date}, TYPE, null);
 		query.setGroupBy(date, intx);

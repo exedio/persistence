@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class DatePrecisionModelTest
 {
-	@Test public void testConstrains()
+	@Test void testConstrains()
 	{
 		assertEquals(false, Precision.MILLI .constrains());
 		assertEquals(true , Precision.SECOND.constrains());
@@ -40,7 +40,7 @@ public class DatePrecisionModelTest
 		assertEquals(true , Precision.HOUR  .constrains());
 	}
 
-	@Test public void testGetPrecision()
+	@Test void testGetPrecision()
 	{
 		assertEquals(Precision.MILLI , millis .getPrecision());
 		assertEquals(Precision.SECOND, seconds.getPrecision());
@@ -48,12 +48,12 @@ public class DatePrecisionModelTest
 		assertEquals(Precision.HOUR  , hours  .getPrecision());
 	}
 
-	@Test public void testMillis()
+	@Test void testMillis()
 	{
 		assertOk(millis, date(0, 15, 44, 55,  66));
 	}
 
-	@Test public void testSeconds()
+	@Test void testSeconds()
 	{
 		assertOk   (seconds, date(0, 0, 0, 55,  0));
 		assertFails(seconds,
@@ -62,7 +62,7 @@ public class DatePrecisionModelTest
 				date(0, 0, 0, 56,  0), "1970-01-01 00:00:56.000");
 	}
 
-	@Test public void testMinutes()
+	@Test void testMinutes()
 	{
 		assertOk   (minutes, date(0, 0, 45,  0,  0));
 		assertFails(minutes,
@@ -71,7 +71,7 @@ public class DatePrecisionModelTest
 				date(0, 0, 46,  0,  0), "1970-01-01 00:46:00.000");
 	}
 
-	@Test public void testMinutesWithSeconds()
+	@Test void testMinutesWithSeconds()
 	{
 		assertFails(minutes,
 				date(0, 0, 45, 55, 0), "1970-01-01 00:45:55.000 GMT (55)",
@@ -79,7 +79,7 @@ public class DatePrecisionModelTest
 				date(0, 0, 46,  0, 0), "1970-01-01 00:46:00.000");
 	}
 
-	@Test public void testMinutesWithMillis()
+	@Test void testMinutesWithMillis()
 	{
 		assertFails(minutes,
 				date(0, 0, 45, 0, 66), "1970-01-01 00:45:00.066 GMT (66)",
@@ -87,7 +87,7 @@ public class DatePrecisionModelTest
 				date(0, 0, 46, 0,  0), "1970-01-01 00:46:00.000");
 	}
 
-	@Test public void testHours()
+	@Test void testHours()
 	{
 		assertOk   (hours, date(0, 15,  0,  0,  0));
 		assertFails(hours,
@@ -96,7 +96,7 @@ public class DatePrecisionModelTest
 				date(0, 16,  0,  0,  0), "1970-01-01 16:00:00.000");
 	}
 
-	@Test public void testHoursWithMinutes()
+	@Test void testHoursWithMinutes()
 	{
 		assertFails(hours,
 				date(0, 15, 44, 0, 0), "1970-01-01 15:44:00.000 GMT (44)",
@@ -104,7 +104,7 @@ public class DatePrecisionModelTest
 				date(0, 16,  0, 0, 0), "1970-01-01 16:00:00.000");
 	}
 
-	@Test public void testHoursWithSeconds()
+	@Test void testHoursWithSeconds()
 	{
 		assertFails(hours,
 				date(0, 15, 0, 55, 0), "1970-01-01 15:00:55.000 GMT (55)",
@@ -112,7 +112,7 @@ public class DatePrecisionModelTest
 				date(0, 16, 0,  0, 0), "1970-01-01 16:00:00.000");
 	}
 
-	@Test public void testHoursWithMillis()
+	@Test void testHoursWithMillis()
 	{
 		assertFails(hours,
 				date(0, 15, 0, 0, 66), "1970-01-01 15:00:00.066 GMT (66)",

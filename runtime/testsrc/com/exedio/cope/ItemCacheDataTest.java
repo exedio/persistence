@@ -44,7 +44,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		item = new ItemCacheDataItem();
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -57,7 +57,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCommitSingleString()
+	@Test void testCommitSingleString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -75,7 +75,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(2, 1);
 	}
 
-	@Test public void testCommitSingleData()
+	@Test void testCommitSingleData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -93,7 +93,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(v?2:1, v?1:0);
 	}
 
-	@Test public void testCommitMultiEmpty()
+	@Test void testCommitMultiEmpty()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -111,7 +111,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(1, 0);
 	}
 
-	@Test public void testCommitMultiString()
+	@Test void testCommitMultiString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -129,7 +129,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(2, 1);
 	}
 
-	@Test public void testCommitMultiData()
+	@Test void testCommitMultiData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -147,7 +147,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(v?2:1, v?1:0);
 	}
 
-	@Test public void testCommitMultiBoth()
+	@Test void testCommitMultiBoth()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -165,7 +165,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(2, 1);
 	}
 
-	@Test public void testRollbackSingleString()
+	@Test void testRollbackSingleString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -183,7 +183,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(1, 0);
 	}
 
-	@Test public void testRollbackSingleData()
+	@Test void testRollbackSingleData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -201,7 +201,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(1, 0);
 	}
 
-	@Test public void testRollbackMultiEmpty()
+	@Test void testRollbackMultiEmpty()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -219,7 +219,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(1, 0);
 	}
 
-	@Test public void testRollbackMultiString()
+	@Test void testRollbackMultiString()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -237,7 +237,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(1, 0);
 	}
 
-	@Test public void testRollbackMultiData()
+	@Test void testRollbackMultiData()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 
@@ -255,7 +255,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(1, 0);
 	}
 
-	@Test public void testRollbackMultiBoth()
+	@Test void testRollbackMultiBoth()
 	{
 		assertUpdateCount(0, MIN_VALUE);
 

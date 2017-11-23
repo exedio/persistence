@@ -40,7 +40,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testWrongFromStart()
+	@Test void testWrongFromStart()
 	{
 		assertIt(0, null, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
@@ -57,7 +57,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(3, 5, 3);
 	}
 
-	@Test public void testWrongFromStartWithoutCheck()
+	@Test void testWrongFromStartWithoutCheck()
 	{
 		newManual(5, "first");
 		assertIt(!postgresql?6:5, 5, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
@@ -72,7 +72,7 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 		assertIt(3, 5, 3);
 	}
 
-	@Test public void testWrongLater()
+	@Test void testWrongLater()
 	{
 		assertIt(0, null, !postgresql?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 

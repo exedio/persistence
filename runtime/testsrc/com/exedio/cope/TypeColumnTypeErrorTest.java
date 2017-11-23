@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypeColumnTypeErrorTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

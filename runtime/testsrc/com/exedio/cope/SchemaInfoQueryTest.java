@@ -37,7 +37,7 @@ public class SchemaInfoQueryTest
 {
 	private static final Type<?> TYPE = MyItem.TYPE;
 
-	@Test public void testConditionNone()
+	@Test void testConditionNone()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 
@@ -48,7 +48,7 @@ public class SchemaInfoQueryTest
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
-	@Test public void testConditionTrue()
+	@Test void testConditionTrue()
 	{
 		final Query<?> q = TYPE.newQuery(Condition.TRUE);
 
@@ -59,7 +59,7 @@ public class SchemaInfoQueryTest
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
-	@Test public void testConditionFalse()
+	@Test void testConditionFalse()
 	{
 		final Query<?> q = TYPE.newQuery(Condition.FALSE);
 
@@ -70,7 +70,7 @@ public class SchemaInfoQueryTest
 		assertEquals("skipped because condition==false: select this from " + TYPE + " where FALSE", total(q));
 	}
 
-	@Test public void testLimitZero()
+	@Test void testLimitZero()
 	{
 		final Query<?> q = TYPE.newQuery();
 		q.setLimit(0, 0);
@@ -82,7 +82,7 @@ public class SchemaInfoQueryTest
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
-	@Test public void testOffsetSetLimitZero()
+	@Test void testOffsetSetLimitZero()
 	{
 		final Query<?> q = TYPE.newQuery();
 		q.setLimit(55, 0);
@@ -94,7 +94,7 @@ public class SchemaInfoQueryTest
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
-	@Test public void testLimitSet()
+	@Test void testLimitSet()
 	{
 		final Query<?> q = TYPE.newQuery();
 		q.setLimit(0, 66);
@@ -106,7 +106,7 @@ public class SchemaInfoQueryTest
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
-	@Test public void testOffsetSetLimitSet()
+	@Test void testOffsetSetLimitSet()
 	{
 		final Query<?> q = TYPE.newQuery();
 		q.setLimit(55, 66);
@@ -118,7 +118,7 @@ public class SchemaInfoQueryTest
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
 	}
 
-	@Test public void testOffsetSet()
+	@Test void testOffsetSet()
 	{
 		final Query<?> q = TYPE.newQuery();
 		q.setLimit(55);

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class ErrorLogTest
 {
-	@Test public void testValues()
+	@Test void testValues()
 	{
 		final ErrorLog l = new ErrorLog(3);
 		l.count(new Request(0), null);
@@ -46,7 +46,7 @@ public class ErrorLogTest
 		assertEquals("HeaderUser-Agent0", l0.getUserAgent());
 	}
 
-	@Test public void testSecure()
+	@Test void testSecure()
 	{
 		final ErrorLog l = new ErrorLog(3);
 		l.count(new Request(0, true), null);
@@ -57,7 +57,7 @@ public class ErrorLogTest
 		assertEquals("PathInfo0", l0.getPathInfo());
 	}
 
-	@Test public void testOverflow()
+	@Test void testOverflow()
 	{
 		final ErrorLog l = new ErrorLog(3);
 		assertEquals(0, l.get());
@@ -94,7 +94,7 @@ public class ErrorLogTest
 		assertEquals(list(l2, l3, l4), l.getLogs()); // l1 is gone
 	}
 
-	@Test public void testDate()
+	@Test void testDate()
 	{
 		final ErrorLog l = new ErrorLog(3);
 
@@ -107,7 +107,7 @@ public class ErrorLogTest
 		assertWithin(before, after, l0.getDate());
 	}
 
-	@Test public void testException()
+	@Test void testException()
 	{
 		final IOException e0 = new IOException();
 		final NullPointerException e1 = new NullPointerException();

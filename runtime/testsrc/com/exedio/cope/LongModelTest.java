@@ -38,7 +38,7 @@ public class LongModelTest
 {
 	public/*for web.xml*/ static final Model MODEL = new Model(TYPE);
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
@@ -71,7 +71,7 @@ public class LongModelTest
 		assertContains(LongRangeViolationException.class, min4Max8.getInitialExceptions());
 	}
 
-	@Test public void testCheck()
+	@Test void testCheck()
 	{
 		try
 		{
@@ -104,7 +104,7 @@ public class LongModelTest
 		min4.check(4l);
 	}
 
-	@Test public void testConditions()
+	@Test void testConditions()
 	{
 		assertEqualsStrict(any.equal(1l), any.equal(1l));
 		assertNotEqualsStrict(any.equal(1l), any.equal(2l));

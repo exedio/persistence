@@ -38,7 +38,7 @@ public class TransactionEmptyTest extends TestWithEnvironment
 
 	private final TransactionIdRule txId = new TransactionIdRule(model);
 
-	@Test public void testEmptyTransaction()
+	@Test void testEmptyTransaction()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
 

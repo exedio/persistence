@@ -50,7 +50,7 @@ public class EnumMapFieldModelTest
 		MODEL.enableSerialization(EnumMapFieldModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
@@ -106,7 +106,7 @@ public class EnumMapFieldModelTest
 		assertSerializedSame(nameLength, 397);
 	}
 
-	@Test public void testInitialType()
+	@Test void testInitialType()
 	{
 		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.String>" , name      .getInitialType().toString());
 		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.Integer>", nameLength.getInitialType().toString());
@@ -114,7 +114,7 @@ public class EnumMapFieldModelTest
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{

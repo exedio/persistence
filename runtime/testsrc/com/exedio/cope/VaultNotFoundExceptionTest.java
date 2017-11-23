@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class VaultNotFoundExceptionTest
 {
-	@Test public void notAnonymous()
+	@Test void notAnonymous()
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("0123456789abcdef");
 		assertEquals("0123456789abcdef", e.getHashComplete());
@@ -38,7 +38,7 @@ public class VaultNotFoundExceptionTest
 		assertEquals("hash not found in vault: 0123456789abcdef", e.getMessage());
 	}
 
-	@Test public void anonymous()
+	@Test void anonymous()
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("0123456789abcdef0");
 		assertEquals("0123456789abcdef0", e.getHashComplete());
@@ -47,7 +47,7 @@ public class VaultNotFoundExceptionTest
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testAnonymiseHash()
+	@Test void testAnonymiseHash()
 	{
 		assertEquals("0123456789abcdefxx17", anonymiseHash("0123456789abcdef0"));
 		assertSame("0123456789abcdef", anonymiseHash("0123456789abcdef"));
@@ -57,7 +57,7 @@ public class VaultNotFoundExceptionTest
 
 	@SuppressWarnings("ThrowableNotThrown")
 	@SuppressFBWarnings("RV_EXCEPTION_NOT_THROWN")
-	@Test public void constructor1HashNull()
+	@Test void constructor1HashNull()
 	{
 		try
 		{
@@ -72,7 +72,7 @@ public class VaultNotFoundExceptionTest
 
 	@SuppressWarnings("ThrowableNotThrown")
 	@SuppressFBWarnings("RV_EXCEPTION_NOT_THROWN")
-	@Test public void constructor2HashNull()
+	@Test void constructor2HashNull()
 	{
 		final IOException cause = new IOException();
 		try
@@ -86,7 +86,7 @@ public class VaultNotFoundExceptionTest
 		}
 	}
 
-	@Test public void constructor2CauseNull()
+	@Test void constructor2CauseNull()
 	{
 		final VaultNotFoundException e = new VaultNotFoundException("myHash", null);
 		assertEquals("myHash", e.getHashComplete());
@@ -94,7 +94,7 @@ public class VaultNotFoundExceptionTest
 
 	@SuppressWarnings("ThrowableNotThrown")
 	@SuppressFBWarnings("RV_EXCEPTION_NOT_THROWN")
-	@Test public void constructor2BothNull()
+	@Test void constructor2BothNull()
 	{
 		try
 		{

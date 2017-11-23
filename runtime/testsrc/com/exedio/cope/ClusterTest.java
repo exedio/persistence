@@ -74,7 +74,7 @@ public abstract class ClusterTest
 		cl.close();
 	}
 
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -141,7 +141,7 @@ public abstract class ClusterTest
 		assertInfo(0, 1, 1, 1, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	@Test public void testSplitBeforeTypeSingle()
+	@Test void testSplitBeforeTypeSingle()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -193,7 +193,7 @@ public abstract class ClusterTest
 
 	}
 
-	@Test public void testSplitBeforeType()
+	@Test void testSplitBeforeType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -247,7 +247,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	@Test public void testSplitAtType()
+	@Test void testSplitAtType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -298,7 +298,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	@Test public void testSplitAfterType()
+	@Test void testSplitAfterType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -349,7 +349,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	@Test public void testSplitAfterAfterType()
+	@Test void testSplitAfterAfterType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -400,7 +400,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	@Test public void testSplitAfterAfterAfterType()
+	@Test void testSplitAfterAfterAfterType()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 
@@ -450,7 +450,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	@Test public void testSplitAfterAfterAfterTypeCollapse()
+	@Test void testSplitAfterAfterAfterTypeCollapse()
 	{
 		assertEquals(PACKET_SIZE, csp.packetSize);
 		assertInfo(0, 0, 0, 0, new long[0][]);
@@ -482,7 +482,7 @@ public abstract class ClusterTest
 		assertInfo(1, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 0}});
 	}
 
-	@Test public void testPing()
+	@Test void testPing()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
@@ -599,7 +599,7 @@ public abstract class ClusterTest
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 	}
 
-	@Test public void testPingCount()
+	@Test void testPingCount()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
@@ -629,7 +629,7 @@ public abstract class ClusterTest
 		}
 	}
 
-	@Test public void testPong()
+	@Test void testPong()
 	{
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;

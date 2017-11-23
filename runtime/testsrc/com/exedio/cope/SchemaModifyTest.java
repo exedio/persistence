@@ -42,7 +42,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 	private static final String TABLE1X = "SchemaItemX";
 	private static final String COLUMN1X = "nonFinalIntegerX";
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		final String TABLE1 = getTableName(SchemaItem.TYPE);
 		final String COLUMN1 = getColumnName(SchemaItem.nonFinalInteger);

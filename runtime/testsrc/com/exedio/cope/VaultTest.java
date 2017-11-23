@@ -42,7 +42,7 @@ public class VaultTest
 	static final String VALUE1 = "aabbcc";
 	static final String VALUE2 = "ccddee";
 
-	@Test public void connect()
+	@Test void connect()
 	{
 		assertNotNull(service);
 		assertEquals("SHA-512", service.vaultProperties.getAlgorithm());
@@ -50,7 +50,7 @@ public class VaultTest
 		assertEquals(true, service.writable);
 	}
 
-	@Test public void getBytes()
+	@Test void getBytes()
 	{
 		service.assertIt("");
 

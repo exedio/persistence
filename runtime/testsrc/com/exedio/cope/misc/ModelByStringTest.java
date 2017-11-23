@@ -39,7 +39,7 @@ public class ModelByStringTest
 	public static final Model modelNull = null;
 	public static final String modelNoModel = "hallo";
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertSame(modelOk, get("com.exedio.cope.misc.ModelByStringTest#modelOk"));
 

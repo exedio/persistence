@@ -57,7 +57,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 		item = new TextUrlFilterItem();
 	}
 
-	@Test public void testNormal() throws IOException
+	@Test void testNormal() throws IOException
 	{
 		item.putFertigPastesFromZip(file("TextUrlFilterZipTest.zip"));
 		{
@@ -102,7 +102,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testWrongContentType() throws IOException
+	@Test void testWrongContentType() throws IOException
 	{
 		final File file = file("TextUrlFilterZipTest-wrongContentType.zip");
 		try
@@ -118,7 +118,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testUnknownContentType() throws IOException
+	@Test void testUnknownContentType() throws IOException
 	{
 		final File file = file("TextUrlFilterZipTest-unknownContentType.zip");
 		try
@@ -133,7 +133,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testLong() throws IOException
+	@Test void testLong() throws IOException
 	{
 		final File file = file("TextUrlFilterZipTest-long.zip");
 		try

@@ -55,7 +55,7 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 		FULL.put(SUBCLASS, "full-subclass");
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEquals("defaultDE", text.getField(DE).getDefaultConstant());
 		assertEquals("defaultEN", text.getField(EN).getDefaultConstant());
@@ -66,7 +66,7 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testSet()
+	@Test void testSet()
 	{
 		final EnumMapFieldMandatoryItem item = new EnumMapFieldMandatoryItem(FULL);
 
@@ -99,7 +99,7 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 		assertEquals("full-de", item.getText(DE));
 	}
 
-	@Test public void testCreateEmpty()
+	@Test void testCreateEmpty()
 	{
 		final EnumMap<Language, String> value = new EnumMap<>(Language.class);
 		value.put(PL, "initial-pl");
@@ -115,7 +115,7 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCreateWithoutMapping()
+	@Test void testCreateWithoutMapping()
 	{
 		try
 		{
@@ -130,7 +130,7 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testCreateNull()
+	@Test void testCreateNull()
 	{
 		try
 		{

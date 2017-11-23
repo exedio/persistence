@@ -53,7 +53,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testNames()
+	@Test void testNames()
 	{
 		assertEquals("fixeOpt",            fixeOpt                     .getName());
 		assertEquals("fixeOpt-amount",     fixeOpt.getAmount()         .getName());
@@ -119,7 +119,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals("exclMan_int",      getColumnName(exclMan.getAmount().getInt()));
 		assertEquals("exclMan_currency", getColumnName(exclMan.getCurrencyField()));
 	}
-	@Test public void testFixedConsistencyOkSingle()
+	@Test void testFixedConsistencyOkSingle()
 	{
 		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
@@ -130,12 +130,12 @@ public class MoneyFieldTest extends TestWithEnvironment
 		i.setFixeOpt(null);
 		assertEquals(null, i.getFixeOpt());
 	}
-	@Test public void testFixedConsistencyCreateNull()
+	@Test void testFixedConsistencyCreateNull()
 	{
 		final MoneyFieldItem i = fixeOpt(null);
 		assertEquals(null , i.getFixeOpt());
 	}
-	@Test public void testFixedConsistencyOkMulti()
+	@Test void testFixedConsistencyOkMulti()
 	{
 		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
@@ -146,7 +146,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		i.set(fixeOpt.map(null));
 		assertEquals(null, i.getFixeOpt());
 	}
-	@Test public void testFixedConsistencyBrokenCreate()
+	@Test void testFixedConsistencyBrokenCreate()
 	{
 		try
 		{
@@ -166,7 +166,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 					e.getMessage());
 		}
 	}
-	@Test public void testFixedConsistencyBrokenSingle()
+	@Test void testFixedConsistencyBrokenSingle()
 	{
 		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
@@ -190,7 +190,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		}
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 	}
-	@Test public void testFixedConsistencyBrokenMulti()
+	@Test void testFixedConsistencyBrokenMulti()
 	{
 		final MoneyFieldItem i = fixeOpt(valueOf(5.55, fix));
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
@@ -214,7 +214,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		}
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
 	}
-	@Test public void testFixedEnum()
+	@Test void testFixedEnum()
 	{
 		final MoneyFieldItem i = fixeEnu(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getFixeEnu());
@@ -225,7 +225,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		i.setFixeEnu(null);
 		assertEquals(null, i.getFixeEnu());
 	}
-	@Test public void testSharedConsistencyOkSingle()
+	@Test void testSharedConsistencyOkSingle()
 	{
 		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -239,13 +239,13 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getSharOpt());
 	}
-	@Test public void testSharedConsistencyCreateNull()
+	@Test void testSharedConsistencyCreateNull()
 	{
 		final MoneyFieldItem i = sharOpt(eur, null);
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getSharOpt());
 	}
-	@Test public void testSharedConsistencyOkMulti()
+	@Test void testSharedConsistencyOkMulti()
 	{
 		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -259,7 +259,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getSharOpt());
 	}
-	@Test public void testSharedConsistencyOkMultiWithCurrency()
+	@Test void testSharedConsistencyOkMultiWithCurrency()
 	{
 		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -273,7 +273,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(null, i.getSharOpt());
 	}
-	@Test public void testSharedConsistencyOkMultiWithOtherCurrency()
+	@Test void testSharedConsistencyOkMultiWithOtherCurrency()
 	{
 		final MoneyFieldItem i = sharMan(eur, valueOf(15.55, eur), valueOf(25.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -294,7 +294,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testSharedMandatorySingle()
+	@Test void testSharedMandatorySingle()
 	{
 		final MoneyFieldItem i = sharMan(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -317,7 +317,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharMan());
 	}
-	@Test public void testSharedMandatoryMulti()
+	@Test void testSharedMandatoryMulti()
 	{
 		final MoneyFieldItem i = sharMan(eur, valueOf(5.55, eur));
 		assertEquals(eur , i.getCurrency());
@@ -340,7 +340,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur , i.getCurrency());
 		assertEquals(valueOf(6.66, eur), i.getSharMan());
 	}
-	@Test public void testSharedConsistencyBrokenCreate()
+	@Test void testSharedConsistencyBrokenCreate()
 	{
 		try
 		{
@@ -360,7 +360,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 					e.getMessage());
 		}
 	}
-	@Test public void testSharedConsistencyBrokenSingle()
+	@Test void testSharedConsistencyBrokenSingle()
 	{
 		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
@@ -386,7 +386,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 	}
-	@Test public void testSharedConsistencyBrokenMulti()
+	@Test void testSharedConsistencyBrokenMulti()
 	{
 		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
@@ -412,7 +412,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 	}
-	@Test public void testSharedConsistencyBrokenMultiWithCurrency()
+	@Test void testSharedConsistencyBrokenMultiWithCurrency()
 	{
 		final MoneyFieldItem i = sharOpt(eur, valueOf(5.55, eur));
 		assertEquals(eur, i.getCurrency());
@@ -438,7 +438,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(eur, i.getCurrency());
 		assertEquals(valueOf(5.55, eur), i.getSharOpt());
 	}
-	@Test public void testExclusiveSingle()
+	@Test void testExclusiveSingle()
 	{
 		final MoneyFieldItem i = exclOpt(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclOpt());
@@ -456,13 +456,13 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(null, i.getExclOpt());
 		assertEquals(null, i.getExclOptCurrency());
 	}
-	@Test public void testExclusiveCreateNull()
+	@Test void testExclusiveCreateNull()
 	{
 		final MoneyFieldItem i = exclOpt(null);
 		assertEquals(null, i.getExclOpt());
 		assertEquals(null, i.getExclOptCurrency());
 	}
-	@Test public void testExclusiveMulti()
+	@Test void testExclusiveMulti()
 	{
 		final MoneyFieldItem i = exclOpt(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclOpt());
@@ -481,7 +481,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(null, i.getExclOptCurrency());
 	}
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testExclusiveMandatorySingle()
+	@Test void testExclusiveMandatorySingle()
 	{
 		final MoneyFieldItem i = exclMan(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclMan());
@@ -509,7 +509,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(valueOf(7.77, gbp), i.getExclMan());
 		assertEquals(gbp, i.getExclManCurrency());
 	}
-	@Test public void testExclusiveMandatoryCreateNull()
+	@Test void testExclusiveMandatoryCreateNull()
 	{
 		try
 		{
@@ -523,7 +523,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(exclMan, e.getFeature());
 		}
 	}
-	@Test public void testExclusiveMandatoryMulti()
+	@Test void testExclusiveMandatoryMulti()
 	{
 		final MoneyFieldItem i = exclMan(valueOf(5.55, eur));
 		assertEquals(valueOf(5.55, eur), i.getExclMan());
@@ -551,7 +551,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(valueOf(7.77, gbp), i.getExclMan());
 		assertEquals(gbp, i.getExclManCurrency());
 	}
-	@Test public void testByItem()
+	@Test void testByItem()
 	{
 		final CurrencyItem currency = new CurrencyItem();
 		final MoneyFieldItem i = byItem(valueOf(5.55, currency));

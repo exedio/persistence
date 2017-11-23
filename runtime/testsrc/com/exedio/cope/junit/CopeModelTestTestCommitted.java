@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopeModelTestTestCommitted extends CopeModelTestTest
 {
-	@Test public void testCommitted()
+	@Test void testCommitted()
 	{
 		doTest();
 		model.commit();

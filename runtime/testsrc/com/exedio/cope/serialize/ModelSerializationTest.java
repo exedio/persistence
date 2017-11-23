@@ -55,7 +55,7 @@ public class ModelSerializationTest
 	private static final Class<?> itemClass = MyItem.class;
 	private static final Class<?> testClass = ModelSerializationTest.class;
 
-	@Test public void test() throws IOException
+	@Test void test() throws IOException
 	{
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);

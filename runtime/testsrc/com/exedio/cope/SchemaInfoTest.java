@@ -39,7 +39,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testSchemaInfo()
+	@Test void testSchemaInfo()
 	{
 		// quoteName
 		final char q = mysql ? '`' : '"';

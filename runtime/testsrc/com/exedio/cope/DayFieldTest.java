@@ -65,7 +65,7 @@ public class DayFieldTest extends TestWithEnvironment
 		clockRule.override(clock);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Day thisDay = new Day(2005, 9, 23);
 		final Day beforeDay = new Day(2005, 9, 22);
@@ -146,7 +146,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getOptionalDay());
 	}
 
-	@Test public void testDayPartViews()
+	@Test void testDayPartViews()
 	{
 		final DayPartView dayDpv = day.dayOfMonth();
 		final DayPartView monthDpv = day.month();
@@ -239,7 +239,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(optionalWeekDpv.isNotNull()));
 	}
 
-	@Test public void testDayPartViewsWeekAroundNewYear()
+	@Test void testDayPartViewsWeekAroundNewYear()
 	{
 		assertWeek(new Day(2000, 12, 30), 52); // Saturday
 		assertWeek(new Day(2000, 12, 31), 52); // Sunday
@@ -300,7 +300,7 @@ public class DayFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -323,7 +323,7 @@ public class DayFieldTest extends TestWithEnvironment
 		return new Query<>(selectField, condition).search();
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

@@ -49,7 +49,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),

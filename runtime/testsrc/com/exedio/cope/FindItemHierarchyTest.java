@@ -43,7 +43,7 @@ public class FindItemHierarchyTest extends TestWithEnvironment
 		firstItem2 = new HierarchyFirstSub(4);
 	}
 
-	@Test public void testHierarchy()
+	@Test void testHierarchy()
 			throws NoSuchIDException
 	{
 		assertSame(firstItem, model.getItem("HierarchyFirstSub-0"));

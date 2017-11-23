@@ -37,7 +37,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertEquals(true,  pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
 		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));

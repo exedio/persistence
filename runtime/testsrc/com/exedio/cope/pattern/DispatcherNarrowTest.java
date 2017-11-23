@@ -57,7 +57,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 		item4 = new MyItem(true);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		assertPending(item1);
 		assertPending(item2);

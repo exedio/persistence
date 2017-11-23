@@ -34,7 +34,7 @@ public class FieldDoubleTest extends FieldTest
 {
 	static final Double CONST = 1.1;
 
-	@Test public void testSomeDouble()
+	@Test void testSomeDouble()
 	{
 		assertEquals(TYPE, someDouble.getType());
 		assertEquals(Double.class, someDouble.getValueClass());
@@ -89,7 +89,7 @@ public class FieldDoubleTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class FieldDoubleTest extends FieldTest
 		}
 	}
 
-	@Test public void testSomeNotNullDouble()
+	@Test void testSomeNotNullDouble()
 	{
 		assertEquals(TYPE, someNotNullDouble.getType());
 		assertEquals(2.2, item.getSomeNotNullDouble());

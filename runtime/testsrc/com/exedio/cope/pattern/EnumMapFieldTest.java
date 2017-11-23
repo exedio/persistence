@@ -56,7 +56,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		itemX = new EnumMapFieldItem();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getNameLength(DE));
@@ -121,7 +121,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSettable()
+	@Test void testSettable()
 	{
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getName(EN));
@@ -148,7 +148,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getName(PL));
 	}
 
-	@Test public void testSettableNull()
+	@Test void testSettableNull()
 	{
 		try
 		{
@@ -162,7 +162,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSettableNullValue()
+	@Test void testSettableNullValue()
 	{
 		final EnumMap<Language, String> map = new EnumMap<>(Language.class);
 		map.put(DE, null);
@@ -173,7 +173,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEquals("namePL", item.getName(PL));
 	}
 
-	@Test public void testMapSet()
+	@Test void testMapSet()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -202,7 +202,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test public void testMapSetNull()
+	@Test void testMapSetNull()
 	{
 		try
 		{
@@ -216,7 +216,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testMapSetKeyNull()
+	@Test void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -238,7 +238,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	@Test public void testMapSetValueNull()
+	@Test void testMapSetValueNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -260,7 +260,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	@Test public void testSubClass()
+	@Test void testSubClass()
 	{
 		assertEquals(null, item.getName(SUBCLASS));
 

@@ -50,7 +50,7 @@ public class DispatcherPurgeQueryTest
 	}
 
 
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		clock.add(555);
 		assertEquals(
@@ -64,7 +64,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testSame()
+	@Test void testSame()
 	{
 		clock.add(555);
 		assertEquals(
@@ -76,7 +76,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testDifferent()
+	@Test void testDifferent()
 	{
 		clock.add(555);
 		assertEquals(
@@ -90,7 +90,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testMinimum()
+	@Test void testMinimum()
 	{
 		clock.add(555);
 		assertEquals(
@@ -102,7 +102,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testOmitSuccess()
+	@Test void testOmitSuccess()
 	{
 		clock.add(555);
 		assertEquals(
@@ -114,7 +114,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testOmitFinalFailure()
+	@Test void testOmitFinalFailure()
 	{
 		clock.add(555);
 		assertEquals(
@@ -126,7 +126,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testOmitBoth()
+	@Test void testOmitBoth()
 	{
 		assertEquals(
 				null,
@@ -134,7 +134,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testRestriction()
+	@Test void testRestriction()
 	{
 		clock.add(555);
 		assertEquals(
@@ -149,7 +149,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testRestrictionTrue()
+	@Test void testRestrictionTrue()
 	{
 		clock.add(555);
 		assertEquals(
@@ -163,7 +163,7 @@ public class DispatcherPurgeQueryTest
 		clock.assertEmpty();
 	}
 
-	@Test public void testRestrictionFalse()
+	@Test void testRestrictionFalse()
 	{
 		clock.add(555);
 		assertEquals(

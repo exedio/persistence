@@ -35,7 +35,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		super(CopyMultiTargetModelTest.MODEL);
 	}
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
@@ -55,7 +55,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testOkNullValue()
+	@Test void testOkNullValue()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA(null);
 		final CopyMultiTargetB targetB = new CopyMultiTargetB(null);
@@ -68,7 +68,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(source, TYPE.search());
 	}
 
-	@Test public void testOkNullTargetA()
+	@Test void testOkNullTargetA()
 	{
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
 		assertContains(TYPE.search());
@@ -86,7 +86,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testOkNullTargetAB()
+	@Test void testOkNullTargetAB()
 	{
 		assertContains(TYPE.search());
 
@@ -102,7 +102,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testWrongAcreate()
+	@Test void testWrongAcreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
@@ -123,7 +123,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongAset()
+	@Test void testWrongAset()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
@@ -157,7 +157,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValue", source.getCopy());
 	}
 
-	@Test public void testWrongBcreate()
+	@Test void testWrongBcreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
@@ -178,7 +178,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongBset()
+	@Test void testWrongBset()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
@@ -212,7 +212,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValue", source.getCopy());
 	}
 
-	@Test public void testWrongABcreate()
+	@Test void testWrongABcreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
@@ -236,7 +236,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongABset()
+	@Test void testWrongABset()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
@@ -271,7 +271,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValue", source.getCopy());
 	}
 
-	@Test public void testWrongNullTargetA()
+	@Test void testWrongNullTargetA()
 	{
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
 		try
@@ -294,7 +294,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testOkOmittedCopyA()
+	@Test void testOkOmittedCopyA()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 
@@ -311,7 +311,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testOkOmittedCopyAndTargetA()
+	@Test void testOkOmittedCopyAndTargetA()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 
@@ -328,7 +328,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testOkOmittedCopyB()
+	@Test void testOkOmittedCopyB()
 	{
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
 
@@ -345,7 +345,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testOkOmittedCopyAndTargetB()
+	@Test void testOkOmittedCopyAndTargetB()
 	{
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
 
@@ -362,7 +362,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testOkOmittedCopyAB()
+	@Test void testOkOmittedCopyAB()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");
@@ -381,7 +381,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertEquals("targetValueSet", source.getCopy());
 	}
 
-	@Test public void testOkOmittedCopyAndTargetAB()
+	@Test void testOkOmittedCopyAndTargetAB()
 	{
 		final CopyMultiTargetSource source = CopyMultiTargetSource.omitCopy();
 		assertEquals(null, source.getTargetA());
@@ -390,7 +390,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(source, TYPE.search());
 	}
 
-	@Test public void testWrongOmittedCopyABCollideCreate()
+	@Test void testWrongOmittedCopyABCollideCreate()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValueAx");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValueBx");
@@ -415,7 +415,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongOmittedCopyABCollideSet()
+	@Test void testWrongOmittedCopyABCollideSet()
 	{
 		final CopyMultiTargetA targetA = new CopyMultiTargetA("targetValue");
 		final CopyMultiTargetB targetB = new CopyMultiTargetB("targetValue");

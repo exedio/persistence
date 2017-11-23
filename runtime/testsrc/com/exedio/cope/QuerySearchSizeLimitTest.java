@@ -49,7 +49,7 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 		i5 = new DayItem(d2);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// allows testing influence of query cache
 		restartTransaction();

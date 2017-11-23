@@ -43,7 +43,7 @@ public class BlockComputedTest
 		MODEL.enableSerialization(BlockComputedTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(false, comp(virgnTemp));
 		assertEquals(true,  comp(compuTemp));

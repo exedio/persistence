@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class ModelBuilderTest
 {
-	@Test public void testType()
+	@Test void testType()
 	{
 		final Model m = Model.builder().
 				add(ItemType.TYPE).
@@ -39,7 +39,7 @@ public class ModelBuilderTest
 		assertRevisionsDisabled(m);
 	}
 
-	@Test public void testTypeSet()
+	@Test void testTypeSet()
 	{
 		final Model m = Model.builder().
 				add(new TypeSet(ItemTypeSet.TYPE)).
@@ -48,7 +48,7 @@ public class ModelBuilderTest
 		assertRevisionsDisabled(m);
 	}
 
-	@Test public void testAll()
+	@Test void testAll()
 	{
 		final Model m = Model.builder().
 				add(ItemAllType1.TYPE, ItemAllType2.TYPE).
@@ -61,7 +61,7 @@ public class ModelBuilderTest
 		assertRevisionsEnabled(m);
 	}
 
-	@Test public void testFailTypeNone()
+	@Test void testFailTypeNone()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -75,7 +75,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailTypeNull()
+	@Test void testFailTypeNull()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -89,7 +89,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailTypesNull()
+	@Test void testFailTypesNull()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -103,7 +103,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailTypesEmpty()
+	@Test void testFailTypesEmpty()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -117,7 +117,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailTypeSetNull()
+	@Test void testFailTypeSetNull()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -132,7 +132,7 @@ public class ModelBuilderTest
 	}
 
 	@SuppressWarnings("OverlyStrongTypeCast") // bug in idea inspection
-	@Test public void testFailTypeSetsNull()
+	@Test void testFailTypeSetsNull()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -146,7 +146,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailTypeSetsEmpty()
+	@Test void testFailTypeSetsEmpty()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -160,7 +160,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testFailRevisionsNull()
+	@Test void testFailRevisionsNull()
 	{
 		final ModelBuilder m = Model.builder();
 		try
@@ -174,7 +174,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testAlreadySetTypes()
+	@Test void testAlreadySetTypes()
 	{
 		final ModelBuilder m = Model.builder().add(ItemFail.TYPE);
 		try
@@ -188,7 +188,7 @@ public class ModelBuilderTest
 		}
 	}
 
-	@Test public void testAlreadySetTypeSets()
+	@Test void testAlreadySetTypeSets()
 	{
 		final ModelBuilder m = Model.builder().add(new TypeSet(ItemFail.TYPE));
 		try
@@ -203,7 +203,7 @@ public class ModelBuilderTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	@Test public void testAlreadySetRevisions()
+	@Test void testAlreadySetRevisions()
 	{
 		final ModelBuilder m = Model.builder().add((ctx) -> {throw new RuntimeException();});
 		try

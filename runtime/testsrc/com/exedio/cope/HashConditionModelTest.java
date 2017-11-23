@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class HashConditionModelTest
 {
-	@Test public void identity()
+	@Test void identity()
 	{
 		final DataField data = new DataField();
 		final Condition c = hash.hashMatchesIfSupported("ALGO", data);
@@ -45,7 +45,7 @@ public class HashConditionModelTest
 				hash.hashDoesNotMatchIfSupported("ALGO", data)
 		);
 	}
-	@Test public void identityNot()
+	@Test void identityNot()
 	{
 		final DataField data = new DataField();
 		final Condition c = hash.hashDoesNotMatchIfSupported("ALGO", data);
@@ -57,7 +57,7 @@ public class HashConditionModelTest
 				hash.hashMatchesIfSupported("ALGO", data)
 		);
 	}
-	@Test public void algorithmNull()
+	@Test void algorithmNull()
 	{
 		try
 		{
@@ -69,7 +69,7 @@ public class HashConditionModelTest
 			assertEquals("algorithm", e.getMessage());
 		}
 	}
-	@Test public void algorithmNullNot()
+	@Test void algorithmNullNot()
 	{
 		try
 		{
@@ -82,7 +82,7 @@ public class HashConditionModelTest
 		}
 	}
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void algorithmEmpty()
+	@Test void algorithmEmpty()
 	{
 		try
 		{
@@ -95,7 +95,7 @@ public class HashConditionModelTest
 		}
 	}
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void algorithmEmptyNot()
+	@Test void algorithmEmptyNot()
 	{
 		try
 		{
@@ -107,7 +107,7 @@ public class HashConditionModelTest
 			assertEquals("algorithm must not be empty", e.getMessage());
 		}
 	}
-	@Test public void dataNull()
+	@Test void dataNull()
 	{
 		try
 		{
@@ -119,7 +119,7 @@ public class HashConditionModelTest
 			assertEquals("data", e.getMessage());
 		}
 	}
-	@Test public void dataNullNot()
+	@Test void dataNullNot()
 	{
 		try
 		{
@@ -131,7 +131,7 @@ public class HashConditionModelTest
 			assertEquals("data", e.getMessage());
 		}
 	}
-	@Test public void algorithmConsistentWithMessageDigest()
+	@Test void algorithmConsistentWithMessageDigest()
 	{
 		for(final Algorithm a : Algorithm.values())
 		{

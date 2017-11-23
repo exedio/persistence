@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class ColorFieldRgbTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		assertIt(new Color( 55,  66,  77),  3621453);
 		assertIt(new Color(255, 255, 255), 16777215);
@@ -48,7 +48,7 @@ public class ColorFieldRgbTest
 		assertIt(new Color( 55,  66,  77, 255),  3621453,     3621453);
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{

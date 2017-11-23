@@ -70,13 +70,13 @@ public class InstanceOfTest extends TestWithEnvironment
 		reffN  = new InstanceOfRefItem(null);
 	}
 
-	@Test public void testAll()
+	@Test void testAll()
 	{
 		assertContains(itema, itemb1, itemb2, itemc1,        TYPE_A.search(null));
 		assertContains(reffa, reffb1, reffb2, reffc1, reffN, TYPE_REF.search(null));
 	}
 
-	@Test public void testThis()
+	@Test void testThis()
 	{
 		assertCondition(itema, itemb1, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_C1));
 		assertCondition(itema, itemb2, TYPE_A, TYPE_A.getThis().notInstanceOf(TYPE_B1));
@@ -88,7 +88,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		assertCondition(itemc1, TYPE_A, TYPE_A.getThis().instanceOf(TYPE_C1));
 	}
 
-	@Test public void testRef()
+	@Test void testRef()
 	{
 		assertCondition(reffa, reffb1, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_C1));
 		assertCondition(reffa, reffb2, TYPE_REF, ref.notInstanceOf(TYPE_B1));
@@ -100,18 +100,18 @@ public class InstanceOfTest extends TestWithEnvironment
 		assertCondition(reffc1, TYPE_REF, ref.instanceOf(TYPE_C1));
 	}
 
-	@Test public void testNot()
+	@Test void testNot()
 	{
 		assertCondition(reffc1, TYPE_REF, ref.notInstanceOf(TYPE_C1).not());
 		assertCondition(reffa, reffb1, reffb2, TYPE_REF, ref.instanceOf(TYPE_C1).not());
 	}
 
-	@Test public void testCheckTypeColumns()
+	@Test void testCheckTypeColumns()
 	{
 		model.checkTypeColumns();
 	}
 
-	@Test public void testSelfJoinsAndInheritance()
+	@Test void testSelfJoinsAndInheritance()
 	{
 		{
 			itemc1.setTextc1("textC1");
@@ -161,7 +161,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testPolymorphicJoinCondition()
+	@Test void testPolymorphicJoinCondition()
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
@@ -209,7 +209,7 @@ public class InstanceOfTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "cast", "rawtypes"})
-	@Test public void testPolymorphicJoinConditionUnchecked()
+	@Test void testPolymorphicJoinConditionUnchecked()
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
@@ -218,7 +218,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testPolymorphicJoinCondition2()
+	@Test void testPolymorphicJoinCondition2()
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
@@ -227,7 +227,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNoSubtypes()
+	@Test void testNoSubtypes()
 	{
 		final Condition c = TYPE_B2.getThis().notInstanceOf(TYPE_B2);
 		try
@@ -241,7 +241,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNotAssignableFromBrotherThis()
+	@Test void testNotAssignableFromBrotherThis()
 	{
 		@SuppressWarnings("unchecked") // OK: test bad API usage
 		final Condition c = TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1);
@@ -256,7 +256,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNotAssignableFromBrotherRef()
+	@Test void testNotAssignableFromBrotherRef()
 	{
 		@SuppressWarnings("unchecked") // OK: test bad API usage
 		final Condition c = refb2.notInstanceOf((Type)TYPE_B1);
@@ -271,7 +271,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNotAssignableFromSuperThis()
+	@Test void testNotAssignableFromSuperThis()
 	{
 		@SuppressWarnings("unchecked") // OK: test bad API usage
 		final Condition c = TYPE_B1.getThis().notInstanceOf((Type)TYPE_A);
@@ -286,7 +286,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

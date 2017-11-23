@@ -52,7 +52,7 @@ public class FeatureFieldModelTest
 		MODEL.enableSerialization(FeatureFieldModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE), MODEL.getTypesSortedByHierarchy());
@@ -143,7 +143,7 @@ public class FeatureFieldModelTest
 			restricted.isInvalid().toString());
 	}
 
-	@Test public void testValueClassNull()
+	@Test void testValueClassNull()
 	{
 		try
 		{

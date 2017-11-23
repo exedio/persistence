@@ -41,7 +41,7 @@ public class ItemCacheStampEvaluator
 {
 	private static final int ITERATIONS = 10000000;
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		{
 			final long start = System.nanoTime();

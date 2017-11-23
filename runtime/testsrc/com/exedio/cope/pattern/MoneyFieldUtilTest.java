@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class MoneyFieldUtilTest
 {
-	@Test public void testFixedCurrencyNull()
+	@Test void testFixedCurrencyNull()
 	{
 		try
 		{
@@ -44,7 +44,7 @@ public class MoneyFieldUtilTest
 		}
 	}
 
-	@Test public void testSharedCurrencyNull()
+	@Test void testSharedCurrencyNull()
 	{
 		try
 		{
@@ -62,7 +62,7 @@ public class MoneyFieldUtilTest
 		A, B
 	}
 
-	@Test public void testSharedCurrencyOptional()
+	@Test void testSharedCurrencyOptional()
 	{
 		try
 		{
@@ -75,7 +75,7 @@ public class MoneyFieldUtilTest
 		}
 	}
 
-	@Test public void testSharedCurrencyOtherType()
+	@Test void testSharedCurrencyOtherType()
 	{
 		try
 		{
@@ -119,7 +119,7 @@ public class MoneyFieldUtilTest
 		@SuppressWarnings("unused") private FieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@Test public void testExclusiveCurrencyNull()
+	@Test void testExclusiveCurrencyNull()
 	{
 		try
 		{

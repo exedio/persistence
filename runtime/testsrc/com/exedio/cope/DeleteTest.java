@@ -73,7 +73,7 @@ public class DeleteTest extends TestWithEnvironment
 		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.remove();
 	}
 
-	@Test public void testForbid()
+	@Test void testForbid()
 	{
 		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getDeclaredReferences());
 		assertEqualsUnmodifiable(list(selfForbid, selfNullify, selfCascade, selfCascade2), DeleteItem.TYPE.getReferences());
@@ -122,7 +122,7 @@ public class DeleteTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testNullify()
+	@Test void testNullify()
 	{
 		assertSame(NULLIFY, selfNullify.getDeletePolicy());
 		assertSame(NULLIFY, otherNullify.getDeletePolicy());
@@ -196,7 +196,7 @@ public class DeleteTest extends TestWithEnvironment
 		assertAndResetBeforeDeleteCopeItemCalls("item3b");
 	}
 
-	@Test public void testCascade()
+	@Test void testCascade()
 	{
 		assertSame(CASCADE, selfCascade.getDeletePolicy());
 		assertSame(CASCADE, otherCascade.getDeletePolicy());
@@ -285,7 +285,7 @@ public class DeleteTest extends TestWithEnvironment
 		assertAndResetBeforeDeleteCopeItemCalls("item", "item2");
 	}
 
-	@Test public void testAtomicity()
+	@Test void testAtomicity()
 	{
 		final DeleteItem todelete = new DeleteItem("todelete");
 
@@ -316,7 +316,7 @@ public class DeleteTest extends TestWithEnvironment
 		assertAndResetBeforeDeleteCopeItemCalls();
 	}
 
-	@Test public void testItemObjectPool() throws NoSuchIDException
+	@Test void testItemObjectPool() throws NoSuchIDException
 	{
 		item = new DeleteItem("item1");
 		final DeleteItem item2 = new DeleteItem("item2");
@@ -346,7 +346,7 @@ public class DeleteTest extends TestWithEnvironment
 	/**
 	 * Tests revision on a model without revisions enabled.
 	 */
-	@Test public void testRevise()
+	@Test void testRevise()
 	{
 		assertEquals(ConnectProperties.getDefaultPropertyFile().getAbsolutePath(), model.getConnectProperties().getSource());
 

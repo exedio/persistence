@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnumCopeNameTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		assertEquals("set-normal", MyItem.set.getField(MyEnum.normal).getName());
 		assertEquals("map-normal", MyItem.map.getField(MyEnum.normal).getName());

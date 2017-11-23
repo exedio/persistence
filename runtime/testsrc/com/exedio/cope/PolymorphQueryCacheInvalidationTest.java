@@ -37,7 +37,7 @@ public class PolymorphQueryCacheInvalidationTest extends TestWithEnvironment
 		itema = new InstanceOfAItem("itema");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
 		assertContains(itema, q.search());

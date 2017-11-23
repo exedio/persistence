@@ -41,7 +41,7 @@ public class CheckConstraintSchemaTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testMeta()
+	@Test void testMeta()
 	{
 		final Schema schema = model.getVerifiedSchema();
 

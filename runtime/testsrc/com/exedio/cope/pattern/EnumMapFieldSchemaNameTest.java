@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldSchemaNameTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertIt("alpha-one", "alfa_one", AnItem.alpha, AnEnum.one);
 		assertIt("alpha-two", "alfa_woo", AnItem.alpha, AnEnum.two);

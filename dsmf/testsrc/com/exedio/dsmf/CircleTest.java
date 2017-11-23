@@ -64,7 +64,7 @@ public class CircleTest extends SchemaReadyTest
 		return result;
 	}
 
-	@Test public void testCircles()
+	@Test void testCircles()
 	{
 		final Schema schema = getVerifiedSchema();
 

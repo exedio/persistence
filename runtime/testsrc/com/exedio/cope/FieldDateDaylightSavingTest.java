@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class FieldDateDaylightSavingTest extends FieldTest
 {
-	@Test public void testSpring() throws ParseException
+	@Test void testSpring() throws ParseException
 	{
 		final Date cutoff = date("2014/3/30 02:00:00.000 (+0100)");
 		assertDate(cutoff);
@@ -66,7 +66,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		}
 	}
 
-	@Test public void testAutumnStart() throws ParseException
+	@Test void testAutumnStart() throws ParseException
 	{
 		final Date cutoff = date("2014/10/26 02:00:00.000 (+0200)");
 		assertDate(cutoff);
@@ -103,7 +103,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 		}
 	}
 
-	@Test public void testAutumnEnd() throws ParseException
+	@Test void testAutumnEnd() throws ParseException
 	{
 		final Date cutoff = date("2014/10/26 02:00:00.000 (+0100)");
 		assertDate(cutoff);

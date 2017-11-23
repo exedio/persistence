@@ -71,7 +71,7 @@ public class MediaTest extends TestWithEnvironment
 		item = new MediaItem("test media item");
 	}
 
-	@Test public void testData() throws IOException
+	@Test void testData() throws IOException
 	{
 		assertEquals(0, bytes0.length);
 		assertEquals(4, bytes4.length);
@@ -143,7 +143,7 @@ public class MediaTest extends TestWithEnvironment
 		assertSerializedSame(custom, 374);
 	}
 
-	@Test public void testConditions()
+	@Test void testConditions()
 	{
 		final MediaItem item2 = new MediaItem("other media item");
 		new MediaItemHolder(item);
@@ -181,7 +181,7 @@ public class MediaTest extends TestWithEnvironment
 
 
 	@Deprecated
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		try
 		{

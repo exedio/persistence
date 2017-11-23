@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopeModelTestTestAfter extends CopeModelTestTest
 {
-	@Test public void testAfter()
+	@Test void testAfter()
 	{
 		doTest();
 	}

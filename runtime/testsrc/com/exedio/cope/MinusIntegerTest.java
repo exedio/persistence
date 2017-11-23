@@ -55,7 +55,7 @@ public class MinusIntegerTest extends TestWithEnvironment
 		new MinusIntegerItem(30, 4, 5);
 	}
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		// test model
 		assertEquals(TYPE, viewAB.getType());

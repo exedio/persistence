@@ -57,7 +57,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testItemCreation()
+	@Test void testItemCreation()
 	{
 		{
 			final IntegerTypeBigIntItem item = new IntegerTypeBigIntItem();
@@ -214,7 +214,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			type.newItem();
 	}
 
-	@Test public void testIntegerLongTransition() throws NoSuchIDException, SQLException
+	@Test void testIntegerLongTransition() throws NoSuchIDException, SQLException
 	{
 		setPkTo(IntegerTypeBigIntItem.TYPE, Integer.MAX_VALUE-1);
 
@@ -233,7 +233,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertEquals(Integer.MAX_VALUE + 1l, getPrimaryKeyColumnValueL(item2));
 	}
 
-	@Test public void testBigIntPk() throws NoSuchIDException, SQLException
+	@Test void testBigIntPk() throws NoSuchIDException, SQLException
 	{
 		setPkTo(IntegerTypeBigIntItem.TYPE, 9223372036854770000L);
 
@@ -245,7 +245,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertEquals(9223372036854770001l, getPrimaryKeyColumnValueL(item));
 	}
 
-	@Test public void testIntPk() throws SQLException
+	@Test void testIntPk() throws SQLException
 	{
 		setPkTo(IntegerTypeIntItem.TYPE, 2147480000);
 
@@ -255,7 +255,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertEquals("IntegerTypeIntItem-2147480001", item.getCopeID());
 	}
 
-	@Test public void testMediumIntPk() throws SQLException
+	@Test void testMediumIntPk() throws SQLException
 	{
 		setPkTo(IntegerTypeMediumIntItem.TYPE, 8380000);
 
@@ -265,7 +265,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertEquals("IntegerTypeMediumIntItem-8380001", item.getCopeID());
 	}
 
-	@Test public void testSmallIntPk() throws SQLException
+	@Test void testSmallIntPk() throws SQLException
 	{
 		setPkTo(IntegerTypeSmallIntItem.TYPE, 32000);
 
@@ -275,7 +275,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		assertEquals("IntegerTypeSmallIntItem-32001", item.getCopeID());
 	}
 
-	@Test public void testTinyIntPk() throws SQLException
+	@Test void testTinyIntPk() throws SQLException
 	{
 		setPkTo(IntegerTypeTinyIntItem.TYPE, 20);
 
@@ -332,7 +332,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 

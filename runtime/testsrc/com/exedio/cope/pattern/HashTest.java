@@ -67,7 +67,7 @@ public class HashTest extends TestWithEnvironment
 		item = new HashItem();
 	}
 
-	@Test public void testExplicitExternal()
+	@Test void testExplicitExternal()
 	{
 		assertEquals(Arrays.asList(
 				TYPE.getThis(),
@@ -118,7 +118,7 @@ public class HashTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(explicitExternal.isNotNull()));
 	}
 
-	@Test public void testImplicitExternal()
+	@Test void testImplicitExternal()
 	{
 		assertEquals(TYPE, implicitExternal.getType());
 		assertEquals("implicitExternal", implicitExternal.getName());
@@ -144,7 +144,7 @@ public class HashTest extends TestWithEnvironment
 		assertTrue(item.checkImplicitExternal("03affe05"));
 	}
 
-	@Test public void testInternal()
+	@Test void testInternal()
 	{
 		assertEquals(TYPE, internal.getType());
 		assertEquals("internal", internal.getName());
@@ -194,7 +194,7 @@ public class HashTest extends TestWithEnvironment
 		assertFalse(item3.isInternalNull());
 	}
 
-	@Test public void testLimit()
+	@Test void testLimit()
 	{
 		final String ok = "012345678901234";
 		assertEquals("[" + ok + "]", internal.hash(ok));
@@ -243,7 +243,7 @@ public class HashTest extends TestWithEnvironment
 		assertEquals(true,  item.checkInternal(tooLong));
 	}
 
-	@Test public void testConditions()
+	@Test void testConditions()
 	{
 		final HashItem item2 = new HashItem();
 		item2.setImplicitExternal("123");
@@ -281,7 +281,7 @@ public class HashTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testValidatorValidate()
+	@Test void testValidatorValidate()
 	{
 		// try null as validator
 		try
@@ -312,7 +312,7 @@ public class HashTest extends TestWithEnvironment
 	 * @see Hash#blind(String)
 	 * @see Hash#check(com.exedio.cope.Item, String)
 	 */
-	@Test public void testCheckMustNotCallValidator() throws Exception
+	@Test void testCheckMustNotCallValidator() throws Exception
 	{
 		// validator must not be called from check(..)
 		withCorruptValidator.check(item, "");
@@ -339,7 +339,7 @@ public class HashTest extends TestWithEnvironment
 
 	}
 
-	@Test public void testValidatorSingleSetValue()
+	@Test void testValidatorSingleSetValue()
 	{
 			// with success
 			final HashItem anItem = TYPE.newItem();
@@ -374,7 +374,7 @@ public class HashTest extends TestWithEnvironment
 			assertEquals("[452]", anItem.getWith3PinValidatorwrap()); // <= contains still previous data
 	}
 
-	@Test public void testHashItemMassSetValuesWithValidatedHash()
+	@Test void testHashItemMassSetValuesWithValidatedHash()
 	{
 		// testing mass set
 
@@ -410,7 +410,7 @@ public class HashTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testHashItemConstructionWithValidatedHashValues()
+	@Test void testHashItemConstructionWithValidatedHashValues()
 	{
 		// test with a validator which always throws an exception
 		try
@@ -444,7 +444,7 @@ public class HashTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
-	@Test public void testValidatorNewRandomPassword()
+	@Test void testValidatorNewRandomPassword()
 	{
 		assertEquals("012", with3PinValidator.newRandomPassword(new SecureRandom() {
 			private static final long serialVersionUID = 1l;

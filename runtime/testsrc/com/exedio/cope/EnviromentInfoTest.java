@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnviromentInfoTest
 {
-	@Test public void testInt() throws SQLException
+	@Test void testInt() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -91,7 +91,7 @@ public class EnviromentInfoTest
 		assertEquals(false, i.isDriverVersionAtLeast(15, 19));
 	}
 
-	@Test public void testShortDescription() throws SQLException
+	@Test void testShortDescription() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -134,7 +134,7 @@ public class EnviromentInfoTest
 		}
 	}
 
-	@Test public void testShortDescriptionExact() throws SQLException
+	@Test void testShortDescriptionExact() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -143,7 +143,7 @@ public class EnviromentInfoTest
 		assertEquals("5.3", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionMismatchMajor() throws SQLException
+	@Test void testShortDescriptionMismatchMajor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -152,7 +152,7 @@ public class EnviromentInfoTest
 		assertEquals("6.3 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionMismatchMinor() throws SQLException
+	@Test void testShortDescriptionMismatchMinor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -161,7 +161,7 @@ public class EnviromentInfoTest
 		assertEquals("5.4 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionDotMissing() throws SQLException
+	@Test void testShortDescriptionDotMissing() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -170,7 +170,7 @@ public class EnviromentInfoTest
 		assertEquals("53 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionDotOther() throws SQLException
+	@Test void testShortDescriptionDotOther() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -179,7 +179,7 @@ public class EnviromentInfoTest
 		assertEquals("5x3 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionDigitAfter() throws SQLException
+	@Test void testShortDescriptionDigitAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -188,7 +188,7 @@ public class EnviromentInfoTest
 		assertEquals("5.31 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionDigitBefore() throws SQLException
+	@Test void testShortDescriptionDigitBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -197,7 +197,7 @@ public class EnviromentInfoTest
 		assertEquals("15.3 (5.3)", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionOtherAfter() throws SQLException
+	@Test void testShortDescriptionOtherAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",
@@ -206,7 +206,7 @@ public class EnviromentInfoTest
 		assertEquals("5.3z", i.getDatabaseVersionDescription());
 	}
 
-	@Test public void testShortDescriptionOtherBefore() throws SQLException
+	@Test void testShortDescriptionOtherBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
 				"getCatalog",

@@ -49,7 +49,7 @@ public class ItemTest extends TestmodelTest
 	/**
 	 * Test getType, ID, equals, hashCode etc.
 	 */
-	@Test public void testItemMethods()
+	@Test void testItemMethods()
 			throws IntegrityViolationException, NoSuchIDException
 	{
 		assertEquals(TYPE, TypesBound.forClass(EmptyItem.class));
@@ -145,7 +145,7 @@ public class ItemTest extends TestmodelTest
 		assertDelete(item6);
 	}
 
-	@Test public void testCheckDatabase()
+	@Test void testCheckDatabase()
 	{
 		commit();
 
@@ -172,7 +172,7 @@ public class ItemTest extends TestmodelTest
 		startTransaction();
 	}
 
-	@Test public void testItemCreation()
+	@Test void testItemCreation()
 	{
 		final EmptyItem item1 = TYPE.newItem();
 		final AttributeItem item2 = AttributeItem.TYPE.newItem(

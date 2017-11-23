@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class MakeMaxStringTest
 {
-	@Test public void testBase()
+	@Test void testBase()
 	{
 		final StringField f = new StringField().lengthMax(40);
 		assertEquals( 40, utf8len(makeMax1(f)));
@@ -88,7 +88,7 @@ public class MakeMaxStringTest
 		return new String(buf);
 	}
 
-	@Test public void testExtended()
+	@Test void testExtended()
 	{
 		final String grinningFace = "\ud83d\ude00"; // Unicode code point U+1F600 / UTF-8 F0 9F 98 80
 		final String unamusedFace = "\ud83d\ude12"; // Unicode code point U+1F612 / UTF-8 F0 9F 98 92

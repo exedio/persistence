@@ -43,7 +43,7 @@ public final class MediaPathPostTest
 		servlet.destroy();
 	}
 
-	@Test public void testPost() throws ServletException, IOException
+	@Test void testPost() throws ServletException, IOException
 	{
 		final Response response = new Response();
 		servlet.service(new Request(), response);

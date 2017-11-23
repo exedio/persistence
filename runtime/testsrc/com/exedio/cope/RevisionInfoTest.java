@@ -53,7 +53,7 @@ public class RevisionInfoTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	@Test public void testRevise()
+	@Test void testRevise()
 	{
 		final RevisionInfoRevise i =
 			new RevisionInfoRevise(5, "saveRevise", DATE, env, "comment5",
@@ -225,7 +225,7 @@ public class RevisionInfoTest
 		new Body("x", 0, 0);
 	}
 
-	@Test public void testCreate()
+	@Test void testCreate()
 	{
 		final RevisionInfoCreate i =
 			new RevisionInfoCreate(5, DATE, env);
@@ -279,7 +279,7 @@ public class RevisionInfoTest
 		new RevisionInfoCreate(0, DATE, env);
 	}
 
-	@Test public void testMutex()
+	@Test void testMutex()
 	{
 		final RevisionInfoMutex i =
 			new RevisionInfoMutex("saveMutex", DATE, env, 78, 72);
@@ -349,7 +349,7 @@ public class RevisionInfoTest
 		new RevisionInfoMutex((String)null, DATE, env, 1, 0);
 	}
 
-	@Test public void testParse() throws UnsupportedEncodingException
+	@Test void testParse() throws UnsupportedEncodingException
 	{
 		//noinspection AssertEqualsBetweenInconvertibleTypes
 		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse(("#migrationlogv01" + lineSeparator() + "key1=value1" + lineSeparator() + "key2=value2").getBytes("latin1")));

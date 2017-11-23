@@ -34,27 +34,27 @@ import org.junit.jupiter.api.Test;
 
 public class PartOfReverseTest
 {
-	@Test public void testSuperContainer()
+	@Test void testSuperContainer()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(SuperContainer.TYPE));
 		assertEqualsUnmodifiable(asList(), getPartOfs(SuperContainer.TYPE));
 	}
-	@Test public void testContainer()
+	@Test void testContainer()
 	{
 		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getDeclaredPartOfs(Container.TYPE));
 		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getPartOfs(Container.TYPE));
 	}
-	@Test public void testSubContainer()
+	@Test void testSubContainer()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(SubContainer.TYPE));
 		assertEqualsUnmodifiable(asList(Part.parts, Part.partsOrdered), getPartOfs(SubContainer.TYPE));
 	}
-	@Test public void testPart()
+	@Test void testPart()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(Part.TYPE));
 		assertEqualsUnmodifiable(asList(), getPartOfs(Part.TYPE));
 	}
-	@Test public void testOrder()
+	@Test void testOrder()
 	{
 		assertEqualsUnmodifiable(asList(), getDeclaredPartOfs(Order.TYPE));
 		assertEqualsUnmodifiable(asList(), getPartOfs(Order.TYPE));

@@ -118,7 +118,7 @@ public class DataTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testData() throws MandatoryViolationException, IOException
+	@Test void testData() throws MandatoryViolationException, IOException
 	{
 		assertIt(null);
 
@@ -340,7 +340,7 @@ public class DataTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		data.set(item, bytes8);
 		assertData(bytes8, item.getDataArray());
@@ -371,7 +371,7 @@ public class DataTest extends TestWithEnvironment
 		assertData(bytes8, item.getDataArray());
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

@@ -49,7 +49,7 @@ public class PurgePropertiesTest extends ConnectedTest
 	private final ClockRule clockRule = new ClockRule();
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testPurge() throws ParseException
+	@Test void testPurge() throws ParseException
 	{
 		samplerModel.createSchema();
 
@@ -82,7 +82,7 @@ public class PurgePropertiesTest extends ConnectedTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testPurgeMinimum() throws ParseException
+	@Test void testPurgeMinimum() throws ParseException
 	{
 		samplerModel.createSchema();
 
@@ -115,7 +115,7 @@ public class PurgePropertiesTest extends ConnectedTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testPurgeDisabled()
+	@Test void testPurgeDisabled()
 	{
 		samplerModel.createSchema();
 
@@ -130,7 +130,7 @@ public class PurgePropertiesTest extends ConnectedTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void testDefaults()
+	@Test void testDefaults()
 	{
 		samplerModel.createSchema();
 
@@ -143,7 +143,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		assertEquals(29, props.purgeDays.media);
 	}
 
-	@Test public void testTooSmallTransaction()
+	@Test void testTooSmallTransaction()
 	{
 		samplerModel.createSchema();
 
@@ -166,7 +166,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		}
 	}
 
-	@Test public void testTooSmallItemCache()
+	@Test void testTooSmallItemCache()
 	{
 		samplerModel.createSchema();
 
@@ -189,7 +189,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		}
 	}
 
-	@Test public void testTooSmallClusterNode()
+	@Test void testTooSmallClusterNode()
 	{
 		samplerModel.createSchema();
 
@@ -212,7 +212,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		}
 	}
 
-	@Test public void testTooSmallMedia()
+	@Test void testTooSmallMedia()
 	{
 		samplerModel.createSchema();
 

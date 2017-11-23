@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class JavaFileTest
 {
-	@Test public void fragmentsMustBeSequential()
+	@Test void fragmentsMustBeSequential()
 	{
 		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x"), "y");
 		javaFile.markFragmentAsGenerated(10, 15);
@@ -42,7 +42,7 @@ public class JavaFileTest
 		}
 	}
 
-	@Test public void fragmentsMustHaveValidRange()
+	@Test void fragmentsMustHaveValidRange()
 	{
 		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x"), "y");
 		try
@@ -65,7 +65,7 @@ public class JavaFileTest
 		}
 	}
 
-	@Test public void sourceWithoutGeneratedFragments()
+	@Test void sourceWithoutGeneratedFragments()
 	{
 		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
 		javaFile.markFragmentAsGenerated(1, 2);
@@ -75,7 +75,7 @@ public class JavaFileTest
 		assertSourcesWithoutGeneratedFragments("023456", javaFile);
 	}
 
-	@Test public void generatedFragmentBehindEnd()
+	@Test void generatedFragmentBehindEnd()
 	{
 		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
 		javaFile.markFragmentAsGenerated(1, 2);
@@ -91,7 +91,7 @@ public class JavaFileTest
 		}
 	}
 
-	@Test public void generatedFragmentIncludingEnd()
+	@Test void generatedFragmentIncludingEnd()
 	{
 		final JavaFile javaFile=new JavaFile(createJavaRepository(), new DummyJavaFileObject("x").withDummyBytes(10), "y");
 		javaFile.markFragmentAsGenerated(9, 12);

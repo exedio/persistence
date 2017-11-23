@@ -40,7 +40,7 @@ public class SequenceInfoTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 

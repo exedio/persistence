@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class ServletUtilContextTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		{
 			final Source s = getPropertyContext(new TestContext("/testContextPath", "testContextPath."));

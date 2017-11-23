@@ -58,7 +58,7 @@ public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
 		restartTransaction();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		q.setSearchSizeCacheLimit(5);
 		assertEquals(5, q.getSearchSizeCacheLimit());
@@ -73,7 +73,7 @@ public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
 		assertEquals(cacheEnabled ? list(queryHistogram(1)) : list(), modelHistogram());
 	}
 
-	@Test public void testExceed()
+	@Test void testExceed()
 	{
 		q.setSearchSizeCacheLimit(4);
 		assertEquals(4, q.getSearchSizeCacheLimit());

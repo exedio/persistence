@@ -51,7 +51,7 @@ public class HierarchyCompareTest extends TestWithEnvironment
 		orderby = Arrays.asList(a1, b1, a2, b2);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(orderby, TYPE.search(null, TYPE.getThis(), true));
 		assertCompare(items);

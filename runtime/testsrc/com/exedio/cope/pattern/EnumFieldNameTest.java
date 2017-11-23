@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnumFieldNameTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals("set-normal"   , AnItem.set.getField(AnEnum.normal    ).getName());
 		assertEquals("set-underline", AnItem.set.getField(AnEnum.under_line).getName());

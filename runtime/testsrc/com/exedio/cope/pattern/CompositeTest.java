@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 public class CompositeTest
 {
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testCheck()
+	@Test void testCheck()
 	{
 		try
 		{
@@ -150,7 +150,7 @@ public class CompositeTest
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	@Test public void testGetSet()
+	@Test void testGetSet()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 
@@ -282,7 +282,7 @@ public class CompositeTest
 		}
 	}
 
-	@Test public void testOverrideDefault()
+	@Test void testOverrideDefault()
 	{
 		final Value value = new Value("overrideDefault", false);
 
@@ -299,7 +299,7 @@ public class CompositeTest
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	@Test public void testOverrideDefaultOptional()
+	@Test void testOverrideDefaultOptional()
 	{
 		final Value value = new Value("overrideDefault", true);
 
@@ -316,7 +316,7 @@ public class CompositeTest
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	@Test public void testOverrideDefaultNull()
+	@Test void testOverrideDefaultNull()
 	{
 		try
 		{
@@ -331,7 +331,7 @@ public class CompositeTest
 		}
 	}
 
-	@Test public void testOverrideDefaultNullOptional()
+	@Test void testOverrideDefaultNullOptional()
 	{
 		final Value value = new Value((String)null, true);
 
@@ -348,7 +348,7 @@ public class CompositeTest
 		assertEquals(null, value.getBooleanOptional());
 	}
 
-	@Test public void testWrong()
+	@Test void testWrong()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 
@@ -485,7 +485,7 @@ public class CompositeTest
 		}
 	}
 
-	@Test public void testTouchDate()
+	@Test void testTouchDate()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals(null, value.getDate());
@@ -498,7 +498,7 @@ public class CompositeTest
 		assertEquals(null, value.getDay());
 	}
 
-	@Test public void testTouchDay()
+	@Test void testTouchDay()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals(null, value.getDate());
@@ -510,7 +510,7 @@ public class CompositeTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing bad api usage
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		try

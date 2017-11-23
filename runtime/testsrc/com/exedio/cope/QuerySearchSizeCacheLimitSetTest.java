@@ -32,7 +32,7 @@ public class QuerySearchSizeCacheLimitSetTest extends TestWithEnvironment
 		super(DayFieldTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQueryCacheSizeLimit();
 		final Query<?> q = TYPE.newQuery();

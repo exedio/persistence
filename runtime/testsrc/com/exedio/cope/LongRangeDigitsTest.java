@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class LongRangeDigitsTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final LongField f = new LongField();
 

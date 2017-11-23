@@ -66,7 +66,7 @@ public class ConnectTokenEqualityTest
 	}
 
 
-	@Test public void testSame()
+	@Test void testSame()
 	{
 		final ConnectToken token2 = issue(MODEL, "tokenName2");
 		assertTrue(MODEL.isConnected());
@@ -75,7 +75,7 @@ public class ConnectTokenEqualityTest
 		assertEquals(list(token1, token2), getTokens(MODEL));
 	}
 
-	@Test public void testSameIfConnected()
+	@Test void testSameIfConnected()
 	{
 		final ConnectToken token2 = issueIfConnected(MODEL, "tokenName2");
 		assertTrue(MODEL.isConnected());
@@ -84,7 +84,7 @@ public class ConnectTokenEqualityTest
 		assertEquals(list(token1, token2), getTokens(MODEL));
 	}
 
-	@Test public void testNotSameButEqual()
+	@Test void testNotSameButEqual()
 	{
 		final ConnectProperties properties2 = ConnectProperties.create(TestSources.minimal());
 		PROPERTIES.set(properties2);
@@ -100,7 +100,7 @@ public class ConnectTokenEqualityTest
 		assertEquals(list(token1, token2), getTokens(MODEL));
 	}
 
-	@Test public void testNotSameButEqualIfConnected()
+	@Test void testNotSameButEqualIfConnected()
 	{
 		final ConnectProperties properties2 = ConnectProperties.create(TestSources.minimal());
 		PROPERTIES.set(properties2);
@@ -116,7 +116,7 @@ public class ConnectTokenEqualityTest
 		assertEquals(list(token1, token2), getTokens(MODEL));
 	}
 
-	@Test public void testNotEqual()
+	@Test void testNotEqual()
 	{
 		final ConnectProperties properties2 = ConnectProperties.create(describe("DESC2", cascade(
 				single("connection.url", "jdbc:hsqldb:mem:copeutiltestNotEqual"),
@@ -135,7 +135,7 @@ public class ConnectTokenEqualityTest
 		assertEquals(list(token1, token2), getTokens(MODEL));
 	}
 
-	@Test public void testNotEqualIfConnected()
+	@Test void testNotEqualIfConnected()
 	{
 		final ConnectProperties properties2 = ConnectProperties.create(cascade(
 				single("connection.url", "jdbc:hsqldb:mem:copeutiltestNotEqual"),

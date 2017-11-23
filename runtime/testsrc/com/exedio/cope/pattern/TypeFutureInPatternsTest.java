@@ -32,7 +32,7 @@ public class TypeFutureInPatternsTest extends TestWithEnvironment
 		super(TypeFutureInPatternsModelTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final TypeItem i1 = create(55, null);
 		assertEquals(55, i1.getInteger());

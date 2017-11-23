@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class IntegerFieldTest
 {
-	@Test public void testQueryCanonize()
+	@Test void testQueryCanonize()
 	{
 		final IntegerField any = new IntegerField().optional();
 		final IntegerField mandatory = new IntegerField();
@@ -142,7 +142,7 @@ public class IntegerFieldTest
 		assertEquals(cc(Operator.GreaterEqual, min4Max8, MAX_VALUE), min4Max8.greaterOrEqual(MAX_VALUE));
 	}
 
-	@Test public void testOptional()
+	@Test void testOptional()
 	{
 		final IntegerField orig = new IntegerField().optional();
 		assertEquals(false, orig.isFinal());
@@ -157,7 +157,7 @@ public class IntegerFieldTest
 		assertEquals(MAX_VALUE, copy.getMaximum());
 	}
 
-	@Test public void testMin()
+	@Test void testMin()
 	{
 		final IntegerField orig = new IntegerField().toFinal().optional().min(10);
 		assertEquals(true, orig.isFinal());
@@ -174,7 +174,7 @@ public class IntegerFieldTest
 		assertEquals(MAX_VALUE, copy.getMaximum());
 	}
 
-	@Test public void testUnique()
+	@Test void testUnique()
 	{
 		final IntegerField orig = new IntegerField().toFinal().optional().unique().min(20);
 		assertEquals(true, orig.isFinal());
@@ -191,7 +191,7 @@ public class IntegerFieldTest
 		assertEquals(MAX_VALUE, copy.getMaximum());
 	}
 
-	@Test public void testMax()
+	@Test void testMax()
 	{
 		final IntegerField orig = new IntegerField().toFinal().optional().max(30);
 		assertEquals(true, orig.isFinal());
@@ -208,7 +208,7 @@ public class IntegerFieldTest
 		assertEquals(30, copy.getMaximum());
 	}
 
-	@Test public void testRange()
+	@Test void testRange()
 	{
 		final IntegerField orig = new IntegerField().range(10, 20);
 		assertEquals(false, orig.isFinal());
@@ -223,7 +223,7 @@ public class IntegerFieldTest
 		assertEquals(20, copy.getMaximum());
 	}
 
-	@Test public void testIllegalRange()
+	@Test void testIllegalRange()
 	{
 		assertIllegalRange(0,  0,  "maximum must be greater than minimum, but was 0 and 0");
 		assertIllegalRange(22, 22, "maximum must be greater than minimum, but was 22 and 22");

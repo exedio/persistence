@@ -63,7 +63,7 @@ public class MD5Test extends TestWithEnvironment
 	private static final String FRANK_MD5 = "7e716d0e702df0505fc72e2b89467910";
 	private static final String EMPTY_MD5 = "d41d8cd98f00b204e9800998ecf8427e";
 
-	@Test public void testMD5()
+	@Test void testMD5()
 	{
 		assertEquals(Arrays.asList(
 				TYPE.getThis(),

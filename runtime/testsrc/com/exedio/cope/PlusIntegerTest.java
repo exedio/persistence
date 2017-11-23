@@ -63,7 +63,7 @@ public class PlusIntegerTest extends TestWithEnvironment
 		item2 = new PlusIntegerItem(3, 4, 5);
 	}
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		// test model
 		assertEquals(TYPE, plusA9.getType());

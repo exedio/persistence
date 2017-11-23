@@ -44,7 +44,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		item = new CacheIsolationItem("itemName");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assumeTrue(cache);
 		assumeTrue(!oracle); // TODO

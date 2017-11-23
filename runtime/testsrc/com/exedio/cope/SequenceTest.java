@@ -43,7 +43,7 @@ public class SequenceTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// sequences are not part of a transaction
 		assertFalse(MODEL.hasCurrentTransaction());
@@ -113,7 +113,7 @@ public class SequenceTest extends TestWithEnvironment
 		assertInfo(MODEL.getSequenceInfo(), TYPE.getThis(), full, limited);
 	}
 
-	@Test public void testParallelSequenceAccess() throws InterruptedException
+	@Test void testParallelSequenceAccess() throws InterruptedException
 	{
 		final Thread[] threads = new Thread[ 10 ];
 		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<Integer>() );

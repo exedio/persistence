@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class StringFieldTruncateTest
 {
-	@Test public void testAddRemove()
+	@Test void testAddRemove()
 	{
 		assertIt("'abcd'", "abcd");
 		assertIt(

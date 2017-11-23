@@ -60,7 +60,7 @@ public class ItemSerializationTest extends TestWithEnvironment
 		item = new ItemSerializationItem("eins");
 	}
 
-	@Test public void testItem()
+	@Test void testItem()
 	{
 		final String id = item.getCopeID();
 		assertSame(TYPE, item.getCopeType());
@@ -81,7 +81,7 @@ public class ItemSerializationTest extends TestWithEnvironment
 		assertEquals("zwei", item.getName());
 	}
 
-	@Test public void testUnboundItem()
+	@Test void testUnboundItem()
 	{
 		item.setList(Arrays.asList("zack"));
 		final Item unboundItem =

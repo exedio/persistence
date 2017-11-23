@@ -44,7 +44,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class VaultReferenceTest
 {
-	@Test public void connect()
+	@Test void connect()
 	{
 		assertNotNull(service);
 		assertEquals("VaultMockService:mainExampleValue (reference VaultMockService:referenceExampleValue)", service.toString());
@@ -65,7 +65,7 @@ public class VaultReferenceTest
 		assertNotSame(main.serviceProperties, refr.serviceProperties);
 	}
 
-	@Test public void mainGetLength()
+	@Test void mainGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -79,7 +79,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 	}
 
-	@Test public void mainGetBytes()
+	@Test void mainGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -93,7 +93,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 	}
 
-	@Test public void mainGetStream() throws IOException
+	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -107,7 +107,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 	}
 
-	@Test public void referenceGetLength()
+	@Test void referenceGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -123,7 +123,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "getStream\n");
 	}
 
-	@Test public void referenceGetBytes()
+	@Test void referenceGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -139,7 +139,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "getBytes\n");
 	}
 
-	@Test public void referenceGetStream() throws IOException
+	@Test void referenceGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -156,7 +156,7 @@ public class VaultReferenceTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void notFoundGetLength()
+	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -188,7 +188,7 @@ public class VaultReferenceTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void notFoundGetBytes()
+	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");
@@ -220,7 +220,7 @@ public class VaultReferenceTest
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-	@Test public void notFoundGetStream() throws IOException
+	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
 		main.assertIt(HASH1, VALUE1, "putBytes\n");

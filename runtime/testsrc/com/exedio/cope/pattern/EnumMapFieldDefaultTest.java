@@ -34,7 +34,7 @@ public class EnumMapFieldDefaultTest
 	@SuppressWarnings("unused")
 	private static final Model MODEL = new Model(TYPE);
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEquals(null, text.getValueTemplate().getDefaultConstant());
 		assertEquals("defaultDE", text.getField(DE).getDefaultConstant());

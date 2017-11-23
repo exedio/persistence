@@ -54,7 +54,7 @@ public class CheckTypeColumnAbstractTest extends TestWithEnvironment
 		model.startTransaction("CheckTypeColumnAbstractTest");
 	}
 
-	@Test public void testIt() throws SQLException
+	@Test void testIt() throws SQLException
 	{
 		assertEquals(0, HierarchySingleSuper.TYPE.checkCompletenessL(HierarchySingleSub.TYPE));
 

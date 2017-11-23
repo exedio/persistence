@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class RangeTest
 {
-	@Test public void testAB()
+	@Test void testAB()
 	{
 		final Range<Integer> r = valueOf(1, 3);
 		assertEquals(1, r.getFrom().intValue());
@@ -52,7 +52,7 @@ public class RangeTest
 		}
 	}
 
-	@Test public void testNA()
+	@Test void testNA()
 	{
 		final Range<Integer> r = valueOf(null, 3);
 		assertEquals(null, r.getFrom());
@@ -74,7 +74,7 @@ public class RangeTest
 		}
 	}
 
-	@Test public void testAN()
+	@Test void testAN()
 	{
 		final Range<Integer> r = valueOf(1, null);
 		assertEquals(1, r.getFrom().intValue());
@@ -96,7 +96,7 @@ public class RangeTest
 		}
 	}
 
-	@Test public void testNN()
+	@Test void testNN()
 	{
 		final Range<Integer> r = valueOf((Integer)null, null);
 		assertEquals(null, r.getFrom());
@@ -118,7 +118,7 @@ public class RangeTest
 		}
 	}
 
-	@Test public void testEquals()
+	@Test void testEquals()
 	{
 		assertEqualsStrict(valueOf(1, 3), valueOf(1, 3));
 		assertEqualsStrict(valueOf(null, 3), valueOf(null, 3));

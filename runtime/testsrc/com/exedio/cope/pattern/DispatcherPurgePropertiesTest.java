@@ -29,28 +29,28 @@ import org.junit.jupiter.api.Test;
 
 public class DispatcherPurgePropertiesTest
 {
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		final DispatcherPurgeProperties props = create(factory());
 		assertEquals(0, props.retainDaysSuccess);
 		assertEquals(0, props.retainDaysFinalFailure);
 	}
 
-	@Test public void testCustom()
+	@Test void testCustom()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(4, 6));
 		assertEquals(4, props.retainDaysSuccess);
 		assertEquals(6, props.retainDaysFinalFailure);
 	}
 
-	@Test public void testMinimum()
+	@Test void testMinimum()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(1));
 		assertEquals(1, props.retainDaysSuccess);
 		assertEquals(1, props.retainDaysFinalFailure);
 	}
 
-	@Test public void testOmit()
+	@Test void testOmit()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(0));
 		assertEquals(0, props.retainDaysSuccess);
@@ -58,7 +58,7 @@ public class DispatcherPurgePropertiesTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testNegativeSuccess()
+	@Test void testNegativeSuccess()
 	{
 		final Factory factory = factory();
 		try
@@ -73,7 +73,7 @@ public class DispatcherPurgePropertiesTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testNegativeFailure()
+	@Test void testNegativeFailure()
 	{
 		final Factory factory = factory();
 		try

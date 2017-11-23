@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class MediaUrlFingerOffsetPropertiesTest
 {
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		final Source source = source(null);
 		final ConnectProperties p = ConnectProperties.create(source);
@@ -55,7 +55,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		assertEquals(true, p.mediaFingerprintOffset().isInitial());
 	}
 
-	@Test public void testCustom()
+	@Test void testCustom()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = ConnectProperties.create(source);
@@ -79,7 +79,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		assertEquals(true, p.mediaFingerprintOffset().isInitial());
 	}
 
-	@Test public void testRampFunction()
+	@Test void testRampFunction()
 	{
 		final Source source = source(0);
 		final ConnectProperties p = ConnectProperties.create(source);
@@ -127,7 +127,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		assertEqualBits(0.999, p.mediaFingerprintOffset().getRamp());
 	}
 
-	@Test public void testSetValueResetsRamp()
+	@Test void testSetValueResetsRamp()
 	{
 		final Source source = source(0);
 		final ConnectProperties p = ConnectProperties.create(source);
@@ -143,7 +143,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		assertEquals("5 (initially 0)", p.mediaFingerprintOffset().getInfo());
 	}
 
-	@Test public void testNewFail()
+	@Test void testNewFail()
 	{
 		try
 		{
@@ -156,7 +156,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		}
 	}
 
-	@Test public void testSetValueFail()
+	@Test void testSetValueFail()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = ConnectProperties.create(source);
@@ -173,7 +173,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 	}
 
-	@Test public void testSetRampNegative()
+	@Test void testSetRampNegative()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = ConnectProperties.create(source);
@@ -190,7 +190,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 	}
 
-	@Test public void testSetRampTooLarge()
+	@Test void testSetRampTooLarge()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = ConnectProperties.create(source);
@@ -207,7 +207,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		assertEquals("55", p.mediaFingerprintOffset().getInfo());
 	}
 
-	@Test public void testInvalid()
+	@Test void testInvalid()
 	{
 		final String propKey = "media.fingerprintOffset";
 		final Source source = source(-1);
@@ -225,7 +225,7 @@ public class MediaUrlFingerOffsetPropertiesTest
 		}
 	}
 
-	@Test public void testDummy()
+	@Test void testDummy()
 	{
 		final Source source = source(55);
 		final ConnectProperties p = ConnectProperties.create(source);

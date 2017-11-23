@@ -59,7 +59,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	}
 
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		assertIt(true,  null, null);
 		dispatch(10000);
@@ -73,7 +73,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		assertIt(false, true, 10000);
 	}
 
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		DispatcherItem.logs.put(item, new Log(true));
 		assertIt(true,  null,  null);

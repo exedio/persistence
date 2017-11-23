@@ -49,7 +49,7 @@ public class ConnectTokenNotSetTest
 	}
 
 	@SuppressWarnings("resource")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertFalse(model.isConnected());
 

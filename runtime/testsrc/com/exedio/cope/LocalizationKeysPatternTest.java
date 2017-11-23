@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class LocalizationKeysPatternTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertIt("MyComp", MyComp_TYPE);
 		assertIt("MyComp.compField",       "compField",       MyComp.compField);

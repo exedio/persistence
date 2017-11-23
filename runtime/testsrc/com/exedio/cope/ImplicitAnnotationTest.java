@@ -40,7 +40,7 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final UniqueConstraint uniqCon = uniqFeature.getImplicitUniqueConstraint();
 		final Sequence nextSeq = nextFeature.getDefaultNext();

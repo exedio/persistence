@@ -33,7 +33,7 @@ public class CreateLimitSmallTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt() throws NoSuchIDException
+	@Test void testIt() throws NoSuchIDException
 	{
 		final AnItem i5;
 		assertEquals(0, getPrimaryKeyColumnValueL(new AnItem(0)));

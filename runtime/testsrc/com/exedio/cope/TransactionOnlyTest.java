@@ -38,7 +38,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		super(CacheIsolationTest.MODEL);
 	}
 
-	@Test public void testNesting()
+	@Test void testNesting()
 	{
 		assertEquals( true, model.hasCurrentTransaction() );
 		final Transaction tx = model.currentTransaction();
@@ -76,7 +76,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		assertEquals(tx, model.currentTransaction());
 	}
 
-	@Test public void testJoinClosed()
+	@Test void testJoinClosed()
 	{
 		final Transaction tx = model.currentTransaction();
 		model.commit();
@@ -99,7 +99,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		IllegalStateException e = null;
 	}
 
-	@Test public void testJoinMultiple() throws InterruptedException
+	@Test void testJoinMultiple() throws InterruptedException
 	{
 		final Transaction tx = model.currentTransaction();
 		final IllegalStateExceptionReference rer = new IllegalStateExceptionReference();
@@ -121,7 +121,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		assertEquals("transaction already bound to other thread: " + Thread.currentThread().getId(), rer.e.getMessage());
 	}
 
-	@Test public void testTransactionLifecycle()
+	@Test void testTransactionLifecycle()
 	{
 		final Transaction copeTest = model.currentTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );

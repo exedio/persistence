@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class DatePrecisionDefaultToTest
 {
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testIllegalConstant()
+	@Test void testIllegalConstant()
 	{
 		final DateField f = new DateField().precisionMinute();
 		final Date wrong = date(11, 22, 44, 55, 66);
@@ -56,7 +56,7 @@ public class DatePrecisionDefaultToTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testDefaultToNowWithoutRounding1()
+	@Test void testDefaultToNowWithoutRounding1()
 	{
 		final DateField f = new DateField().precisionMinute();
 		assertEquals(RoundingMode.UNNECESSARY, f.getRoundingMode());
@@ -74,7 +74,7 @@ public class DatePrecisionDefaultToTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testDefaultToNowWithoutRounding2()
+	@Test void testDefaultToNowWithoutRounding2()
 	{
 		final DateField f = new DateField().defaultToNow();
 		assertEquals(RoundingMode.UNNECESSARY, f.getRoundingMode());
@@ -92,7 +92,7 @@ public class DatePrecisionDefaultToTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testDefaultToNowWithoutRounding3()
+	@Test void testDefaultToNowWithoutRounding3()
 	{
 		final DateField f = new DateField().precisionMinute().roundingMode(RoundingMode.PAST).defaultToNow();
 		assertEquals(RoundingMode.PAST, f.getRoundingMode());

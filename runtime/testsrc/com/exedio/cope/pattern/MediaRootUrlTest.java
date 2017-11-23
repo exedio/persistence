@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 
 public class MediaRootUrlTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final ConnectProperties properties = ConnectProperties.create(cascade(
 				single("media.rooturl", "zack/"),

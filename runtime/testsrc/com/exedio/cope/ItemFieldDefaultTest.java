@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class ItemFieldDefaultTest
 {
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		final ItemField<MyItem> f = ItemField.create(MyItem.class);
 		assertEquals(null, f.getDefaultConstant());
@@ -39,7 +39,7 @@ public class ItemFieldDefaultTest
 		assertNotSame(f, f2);
 	}
 
-	@Test public void testNonNull()
+	@Test void testNonNull()
 	{
 		final ItemField<MyItem> f = ItemField.create(MyItem.class);
 		assertEquals(null, f.getDefaultConstant());

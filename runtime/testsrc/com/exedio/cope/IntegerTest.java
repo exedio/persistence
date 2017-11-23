@@ -50,7 +50,7 @@ public class IntegerTest extends TestWithEnvironment
 		numberOfItems = 2;
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// any
 		item.setAny(1234);
@@ -261,7 +261,7 @@ public class IntegerTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -274,7 +274,7 @@ public class IntegerTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

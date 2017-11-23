@@ -42,7 +42,7 @@ import org.junit.jupiter.api.Test;
 
 public class SampleTest extends ConnectedTest
 {
-	@Test public void testIt() throws InterruptedException
+	@Test void testIt() throws InterruptedException
 	{
 		samplerModel.createSchema();
 		sampler.checkInternal();

@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class StrictlyMonotonicallyIncreasingTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertGood(1);
 		assertGood(1, 2);
@@ -40,7 +40,7 @@ public class StrictlyMonotonicallyIncreasingTest
 		assertFail("5>=4 at 5", 1, 2, 3, 4, 5, 4);
 	}
 
-	@Test public void testMin()
+	@Test void testMin()
 	{
 		assertGood(
 				MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE);
@@ -48,7 +48,7 @@ public class StrictlyMonotonicallyIncreasingTest
 				MAX_VALUE-2, MAX_VALUE-1, MAX_VALUE, MAX_VALUE);
 	}
 
-	@Test public void testMax()
+	@Test void testMax()
 	{
 		assertGood(
 				MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2);
@@ -58,7 +58,7 @@ public class StrictlyMonotonicallyIncreasingTest
 				MIN_VALUE, MIN_VALUE, MIN_VALUE+1, MIN_VALUE+2);
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		assertFail("empty");
 	}

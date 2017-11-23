@@ -57,7 +57,7 @@ public class QuoteTest extends SchemaReadyTest
 		return result;
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Schema schema = getVerifiedSchema();
 

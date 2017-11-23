@@ -45,7 +45,7 @@ public class CheckConstraintModelTest
 		MODEL.enableSerialization(CheckConstraintModelTest.class, "MODEL");
 	}
 
-	@Test public void testMeta()
+	@Test void testMeta()
 	{
 		assertEqualsUnmodifiable(
 			list(

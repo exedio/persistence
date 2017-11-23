@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 public class ListUtilTest
 {
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(), trimUnmodifiable(l()));
 		assertEqualsUnmodifiable(list("hallo"), trimUnmodifiable(l("hallo")));

@@ -56,7 +56,7 @@ public class ColorFieldModelTest
 	private static final IntegerField finalColorRGB     = finalColor    .getRGB();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,

@@ -46,7 +46,7 @@ public class NameLengthTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertIt(AnItem  .TYPE, "AnItem");
 		assertIt(LongItem.TYPE, "LooooooooooooooooooooItem");

@@ -33,11 +33,11 @@ import org.junit.jupiter.api.Test;
 
 public class CheckTest
 {
-	@Test public void testRequireGreaterZeroInt()
+	@Test void testRequireGreaterZeroInt()
 	{
 		assertEquals(1, requireGreaterZero(1, "name"));
 	}
-	@Test public void testRequireGreaterZeroIntZero()
+	@Test void testRequireGreaterZeroIntZero()
 	{
 		try
 		{
@@ -49,7 +49,7 @@ public class CheckTest
 			assertEquals("name must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	@Test public void testRequireGreaterZeroIntNegative()
+	@Test void testRequireGreaterZeroIntNegative()
 	{
 		try
 		{
@@ -62,11 +62,11 @@ public class CheckTest
 		}
 	}
 
-	@Test public void testRequireGreaterZeroLong()
+	@Test void testRequireGreaterZeroLong()
 	{
 		assertEquals(1, requireGreaterZero(1l, "name"));
 	}
-	@Test public void testRequireGreaterZeroLongZero()
+	@Test void testRequireGreaterZeroLongZero()
 	{
 		try
 		{
@@ -78,7 +78,7 @@ public class CheckTest
 			assertEquals("name must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	@Test public void testRequireGreaterZeroLongNegative()
+	@Test void testRequireGreaterZeroLongNegative()
 	{
 		try
 		{
@@ -91,15 +91,15 @@ public class CheckTest
 		}
 	}
 
-	@Test public void testRequireNonNegativeInt()
+	@Test void testRequireNonNegativeInt()
 	{
 		assertEquals(1, requireNonNegative(1, "name"));
 	}
-	@Test public void testRequireNonNegativeIntZero()
+	@Test void testRequireNonNegativeIntZero()
 	{
 		assertEquals(0, requireNonNegative(0, "name"));
 	}
-	@Test public void testRequireNonNegativeIntNegative()
+	@Test void testRequireNonNegativeIntNegative()
 	{
 		try
 		{
@@ -112,15 +112,15 @@ public class CheckTest
 		}
 	}
 
-	@Test public void testRequireNonNegativeLong()
+	@Test void testRequireNonNegativeLong()
 	{
 		assertEquals(1l, requireNonNegative(1l, "name"));
 	}
-	@Test public void testRequireNonNegativeLongZero()
+	@Test void testRequireNonNegativeLongZero()
 	{
 		assertEquals(0l, requireNonNegative(0l, "name"));
 	}
-	@Test public void testRequireNonNegativeLongNegative()
+	@Test void testRequireNonNegativeLongNegative()
 	{
 		try
 		{
@@ -134,11 +134,11 @@ public class CheckTest
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testRequireNonEmptyString()
+	@Test void testRequireNonEmptyString()
 	{
 		assertSame("x", requireNonEmpty("x", "name"));
 	}
-	@Test public void testRequireNonEmptyStringNull()
+	@Test void testRequireNonEmptyStringNull()
 	{
 		try
 		{
@@ -150,7 +150,7 @@ public class CheckTest
 			assertEquals("name", e.getMessage());
 		}
 	}
-	@Test public void testRequireNonEmptyStringEmpty()
+	@Test void testRequireNonEmptyStringEmpty()
 	{
 		try
 		{
@@ -163,14 +163,14 @@ public class CheckTest
 		}
 	}
 
-	@Test public void testRequireNonEmptyAndCopyObjectsCopy()
+	@Test void testRequireNonEmptyAndCopyObjectsCopy()
 	{
 		final Object[] original = {"a", "b", "c"};
 		final Object[] copy = requireNonEmptyAndCopy(original, "name");
 		assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList(copy));
 		assertNotSame(original, copy);
 	}
-	@Test public void testRequireNonEmptyAndCopyObjectsNull()
+	@Test void testRequireNonEmptyAndCopyObjectsNull()
 	{
 		try
 		{
@@ -182,7 +182,7 @@ public class CheckTest
 			assertEquals("name", e.getMessage());
 		}
 	}
-	@Test public void testRequireNonEmptyAndCopyObjectsEmpty()
+	@Test void testRequireNonEmptyAndCopyObjectsEmpty()
 	{
 		try
 		{
@@ -194,7 +194,7 @@ public class CheckTest
 			assertEquals("name must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testRequireNonEmptyAndCopyObjectsElementNull()
+	@Test void testRequireNonEmptyAndCopyObjectsElementNull()
 	{
 		try
 		{
@@ -207,14 +207,14 @@ public class CheckTest
 		}
 	}
 
-	@Test public void testRequireNonEmptyAndCopyStringsCopy()
+	@Test void testRequireNonEmptyAndCopyStringsCopy()
 	{
 		final String[] original = {"a", "b", "c"};
 		final String[] copy = requireNonEmptyAndCopy(original, "name");
 		assertEquals(Arrays.asList("a", "b", "c"), Arrays.asList(copy));
 		assertNotSame(original, copy);
 	}
-	@Test public void testRequireNonEmptyAndCopyStringsNull()
+	@Test void testRequireNonEmptyAndCopyStringsNull()
 	{
 		try
 		{
@@ -226,7 +226,7 @@ public class CheckTest
 			assertEquals("name", e.getMessage());
 		}
 	}
-	@Test public void testRequireNonEmptyAndCopyStringsEmpty()
+	@Test void testRequireNonEmptyAndCopyStringsEmpty()
 	{
 		try
 		{
@@ -238,7 +238,7 @@ public class CheckTest
 			assertEquals("name must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testRequireNonEmptyAndCopyStringsElementNull()
+	@Test void testRequireNonEmptyAndCopyStringsElementNull()
 	{
 		try
 		{
@@ -250,7 +250,7 @@ public class CheckTest
 			assertEquals("name[1]", e.getMessage());
 		}
 	}
-	@Test public void testRequireNonEmptyAndCopyStringsElementEmpty()
+	@Test void testRequireNonEmptyAndCopyStringsElementEmpty()
 	{
 		try
 		{

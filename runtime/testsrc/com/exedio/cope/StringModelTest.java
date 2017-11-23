@@ -43,7 +43,7 @@ public class StringModelTest
 		MODEL.enableSerialization(StringModelTest.class, "MODEL");
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
@@ -80,7 +80,7 @@ public class StringModelTest
 		assertEquals("min4Upper", min4Upper.getName());
 	}
 
-	@Test public void testConditions()
+	@Test void testConditions()
 	{
 		assertEqualsStrict(any.equal("hallo"), any.equal("hallo"));
 		assertNotEqualsStrict(any.equal("hallo"), any.equal("bello"));
@@ -90,7 +90,7 @@ public class StringModelTest
 		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
 	}
 
-	@Test public void testConditionsConvenience()
+	@Test void testConditionsConvenience()
 	{
 		assertEquals(any.startsWith("hallo"), any.like("hallo%"));
 		assertEquals(any.endsWith("hallo"), any.like("%hallo"));

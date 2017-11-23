@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class MediaUrlSecretTest
 {
-	@Test public void testOff()
+	@Test void testOff()
 	{
 		final ConnectProperties props = props(null);
 		model.connect(props);
@@ -40,7 +40,7 @@ public class MediaUrlSecretTest
 		assertEquals(null, props.getMediaUrlSecret());
 	}
 
-	@Test public void testOn()
+	@Test void testOn()
 	{
 		final ConnectProperties props = props("1234567890");
 		model.connect(props);
@@ -49,7 +49,7 @@ public class MediaUrlSecretTest
 		assertEquals("1234567890", props.getMediaUrlSecret());
 	}
 
-	@Test public void testTooShort()
+	@Test void testTooShort()
 	{
 		try
 		{
@@ -66,7 +66,7 @@ public class MediaUrlSecretTest
 		}
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final ConnectProperties props = props("");
 		model.connect(props);

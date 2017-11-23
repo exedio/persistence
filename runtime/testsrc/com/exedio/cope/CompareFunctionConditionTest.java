@@ -91,7 +91,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		item5.setItemB(item3);
 	}
 
-	@Test public void testEqualsHashCode()
+	@Test void testEqualsHashCode()
 	{
 		assertEqualsAndHash(stringA.less(stringB), stringA.less(stringB));
 		assertNotEqualsAndHash(
@@ -102,7 +102,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 				stringA.equal(stringB));
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals("CompareFunctionConditionItem.stringA=CompareFunctionConditionItem.stringB",  stringA.equal(stringB).toString());
 		assertEquals("CompareFunctionConditionItem.stringA<CompareFunctionConditionItem.stringB",  stringA.less(stringB).toString());
@@ -111,7 +111,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		assertEquals("CompareFunctionConditionItem.stringA>=CompareFunctionConditionItem.stringB", stringA.greaterOrEqual(stringB).toString());
 	}
 
-	@Test public void testEqual()
+	@Test void testEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item3);
@@ -126,7 +126,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		assertCondition(expected, TYPE, THIS   .equal(itemB));
 	}
 
-	@Test public void testNotEqual()
+	@Test void testNotEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item1, item2, item4, item5);
@@ -141,7 +141,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		assertCondition(expected, TYPE, THIS   .notEqual(itemB));
 	}
 
-	@Test public void testLess()
+	@Test void testLess()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item1, item2);
@@ -156,7 +156,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		assertCondition(expected, TYPE, THIS   .less(itemB));
 	}
 
-	@Test public void testLessOrEqual()
+	@Test void testLessOrEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item1, item2, item3);
@@ -171,7 +171,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		assertCondition(expected, TYPE, THIS   .lessOrEqual(itemB));
 	}
 
-	@Test public void testGreater()
+	@Test void testGreater()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item4, item5);
@@ -186,7 +186,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		assertCondition(expected, TYPE, THIS   .greater(itemB));
 	}
 
-	@Test public void testGreaterOrEqual()
+	@Test void testGreaterOrEqual()
 	{
 		final List<CompareFunctionConditionItem> expected =
 				asList(item3, item4, item5);
@@ -201,7 +201,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 		assertCondition(expected, TYPE, THIS   .greaterOrEqual(itemB));
 	}
 
-	@Test public void testNot()
+	@Test void testNot()
 	{
 		assertCondition(item1, item2,        item4, item5, TYPE, intA.equal(intB).not());
 		assertCondition(              item3,               TYPE, intA.notEqual(intB).not());

@@ -74,7 +74,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		model.startTransaction("CheckTypeColumnTest");
 	}
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		assertEquals(0, getPrimaryKeyColumnValueL(itema));
 		assertEquals(1, getPrimaryKeyColumnValueL(itemb1));
@@ -142,7 +142,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing unchecked usage of api
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -164,7 +164,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testWrongA() throws SQLException
+	@Test void testWrongA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itema, InstanceOfB1Item.TYPE);
 
@@ -180,7 +180,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@Test public void testWrongB1inA() throws SQLException
+	@Test void testWrongB1inA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itemb1, InstanceOfB2Item.TYPE);
 
@@ -196,7 +196,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@Test public void testWrongB1inB1() throws SQLException
+	@Test void testWrongB1inB1() throws SQLException
 	{
 		updateTypeColumn(InstanceOfB1Item.TYPE, itemb1, InstanceOfC1Item.TYPE);
 
@@ -212,7 +212,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@Test public void testWrongB2inA() throws SQLException
+	@Test void testWrongB2inA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itemb2, InstanceOfB1Item.TYPE);
 
@@ -228,7 +228,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@Test public void testWrongC1inA() throws SQLException
+	@Test void testWrongC1inA() throws SQLException
 	{
 		updateTypeColumn(InstanceOfAItem.TYPE, itemc1, InstanceOfB2Item.TYPE);
 
@@ -244,7 +244,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(1, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@Test public void testWrongC1inB1() throws SQLException
+	@Test void testWrongC1inB1() throws SQLException
 	{
 		updateTypeColumn(InstanceOfB1Item.TYPE, itemc1, InstanceOfB1Item.TYPE);
 
@@ -260,7 +260,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@Test public void testMissingB1() throws SQLException
+	@Test void testMissingB1() throws SQLException
 	{
 		deleteRow(InstanceOfB1Item.TYPE, itemb1);
 
@@ -276,7 +276,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@Test public void testMissingC1() throws SQLException
+	@Test void testMissingC1() throws SQLException
 	{
 		deleteRow(InstanceOfC1Item.TYPE, itemc1);
 
@@ -307,7 +307,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	@Test public void testWrongRef() throws SQLException
+	@Test void testWrongRef() throws SQLException
 	{
 		execute(
 				"update " + SI.tab(InstanceOfRefItem.TYPE) + " " +

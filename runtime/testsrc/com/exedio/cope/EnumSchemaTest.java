@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnumSchemaTest
 {
-	@Test public void testRoundUpTo10()
+	@Test void testRoundUpTo10()
 	{
 		assertEquals(-10, roundUpTo10(-12));
 		assertEquals(-10, roundUpTo10(-11));
@@ -47,7 +47,7 @@ public class EnumSchemaTest
 		assertEquals( 20, roundUpTo10( 12));
 	}
 
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		assertColumnValues(Normal.class, 10, 20, 30);
 	}
@@ -57,7 +57,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testNormal2()
+	@Test void testNormal2()
 	{
 		assertColumnValues(Normal2.class, 10, 20);
 
@@ -79,7 +79,7 @@ public class EnumSchemaTest
 
 	@SuppressWarnings({"unchecked","cast", "rawtypes"}) // OK: test bad api usage
 	@Deprecated // OK: test deprecated api
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		final EnumField<Normal2> normal = EnumField.create(Normal2.class);
 		try
@@ -94,7 +94,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testAnnotatedBefore()
+	@Test void testAnnotatedBefore()
 	{
 		assertColumnValues(AnnotatedBefore.class, 10, 11, 20);
 	}
@@ -106,7 +106,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testAnnotatedAfter()
+	@Test void testAnnotatedAfter()
 	{
 		assertColumnValues(AnnotatedAfter.class, 10, 19, 20);
 	}
@@ -118,7 +118,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testAnnotatedStart()
+	@Test void testAnnotatedStart()
 	{
 		assertColumnValues(AnnotatedStart.class, 9, 10, 20);
 	}
@@ -130,7 +130,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testAnnotatedEnd()
+	@Test void testAnnotatedEnd()
 	{
 		assertColumnValues(AnnotatedEnd.class, 10, 20, 21);
 	}
@@ -142,7 +142,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testCollisionBefore()
+	@Test void testCollisionBefore()
 	{
 		assertFails(
 				CollisionBefore.class,
@@ -156,7 +156,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testCollisionAfter()
+	@Test void testCollisionAfter()
 	{
 		assertColumnValues(CollisionAfter.class, 10, 20, 30);
 	}
@@ -168,7 +168,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testCollisionStart()
+	@Test void testCollisionStart()
 	{
 		assertColumnValues(CollisionStart.class, 10, 20, 30);
 	}
@@ -180,7 +180,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testCollisionEnd()
+	@Test void testCollisionEnd()
 	{
 		assertFails(
 				CollisionEnd.class,
@@ -194,7 +194,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testOrderBefore()
+	@Test void testOrderBefore()
 	{
 		assertFails(
 				OrderBefore.class,
@@ -208,7 +208,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testOrderAfter()
+	@Test void testOrderAfter()
 	{
 		assertColumnValues(OrderAfter.class, 10, 21, 30);
 	}
@@ -220,7 +220,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testOrderStart()
+	@Test void testOrderStart()
 	{
 		assertColumnValues(OrderStart.class, 11, 20, 30);
 	}
@@ -232,7 +232,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testOrderEnd()
+	@Test void testOrderEnd()
 	{
 		assertFails(
 				OrderEnd.class,
@@ -246,7 +246,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testSubclass()
+	@Test void testSubclass()
 	{
 		assertColumnValues(Subclass.class, 1, 2);
 	}
@@ -259,7 +259,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testZero()
+	@Test void testZero()
 	{
 		assertColumnValues(Zero.class, 0, 1, 2);
 	}
@@ -271,7 +271,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testNegativeFull()
+	@Test void testNegativeFull()
 	{
 		assertColumnValues(NegativeFull.class, -40, -35, -5, 0, 10);
 	}
@@ -285,7 +285,7 @@ public class EnumSchemaTest
 	}
 
 
-	@Test public void testNegativeFirst()
+	@Test void testNegativeFirst()
 	{
 		assertColumnValues(NegativeFirst.class, -15, -10, 0, 10);
 	}

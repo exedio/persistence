@@ -36,7 +36,7 @@ public class MoneyTest
 	}
 
 
-	@Test public void testStoreOfLong()
+	@Test void testStoreOfLong()
 	{
 		assertEquals( 5, storeOf(Long.valueOf( 5), eur).amountStore(eur));
 		assertEquals(-5, storeOf(Long.valueOf(-5), eur).amountStore(eur));
@@ -44,7 +44,7 @@ public class MoneyTest
 		assertEquals(null, storeOf((Long)null, eur));
 	}
 
-	@Test public void testStoreOfInteger()
+	@Test void testStoreOfInteger()
 	{
 		assertEquals( 5, storeOf(Integer.valueOf( 5), eur).amountStore(eur));
 		assertEquals(-5, storeOf(Integer.valueOf(-5), eur).amountStore(eur));
@@ -52,7 +52,7 @@ public class MoneyTest
 		assertEquals(null, storeOf((Integer)null, eur));
 	}
 
-	@Test public void testNullToZero()
+	@Test void testNullToZero()
 	{
 		final Money<Cy> x = storeOf(1, eur);
 		final Money<Cy> z = zero(eur);
@@ -61,7 +61,7 @@ public class MoneyTest
 		assertEquals(z, nullToZero(z,    eur));
 	}
 
-	@Test public void testNullToZeroMismatch()
+	@Test void testNullToZeroMismatch()
 	{
 		final Money<Cy> z = zero(eur);
 		try
@@ -74,7 +74,7 @@ public class MoneyTest
 		}
 	}
 
-	@Test public void testNegateReuse()
+	@Test void testNegateReuse()
 	{
 		final Money<Cy> z = zero(eur);
 		final Money<Cy> a = storeOf(1, eur);
@@ -82,7 +82,7 @@ public class MoneyTest
 		assertEquals(storeOf(-1, eur), a.negate());
 	}
 
-	@Test public void testAddReuse()
+	@Test void testAddReuse()
 	{
 		final Money<Cy> z = zero(eur);
 		final Money<Cy> a = storeOf(1, eur);

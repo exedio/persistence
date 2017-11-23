@@ -39,7 +39,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testSeconds()
+	@Test void testSeconds()
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 		final Date ok    = date(0, 0, 0, 55, 0 );
@@ -77,7 +77,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		assertEquals(ok, item.getSeconds());
 	}
 
-	@Test public void testMinutes()
+	@Test void testMinutes()
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 		final Date ok    = date(0, 0, 45,  0,  0);
@@ -115,7 +115,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		assertEquals(ok, item.getMinutes());
 	}
 
-	@Test public void testSecondsRound()
+	@Test void testSecondsRound()
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 
@@ -163,7 +163,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		assertEquals(future, item.getSeconds());
 	}
 
-	@Test public void testMinutesRound()
+	@Test void testMinutesRound()
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 
@@ -211,7 +211,7 @@ public class DatePrecisionTest extends TestWithEnvironment
 		assertEquals(future, item.getMinutes());
 	}
 
-	@Test public void testNullMode()
+	@Test void testNullMode()
 	{
 		final DatePrecisionItem item = new DatePrecisionItem();
 		final Date value  = date(0, 0, 44, 55, 66);

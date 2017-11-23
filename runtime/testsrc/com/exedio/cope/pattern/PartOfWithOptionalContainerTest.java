@@ -34,7 +34,7 @@ public class PartOfWithOptionalContainerTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testOptionalContainer()
+	@Test void testOptionalContainer()
 	{
 		final PartOfOptionalContainerItem container = new PartOfOptionalContainerItem();
 		final PartOfWithOptionalContainerItem withContainer = new PartOfWithOptionalContainerItem(container);

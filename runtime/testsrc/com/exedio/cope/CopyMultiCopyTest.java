@@ -39,7 +39,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		super(CopyMultiCopyModelTest.MODEL);
 	}
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -59,7 +59,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(targetSet, source.getTarget());
 	}
 
-	@Test public void testOkValueNull()
+	@Test void testOkValueNull()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget(null, null);
@@ -72,7 +72,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(source, TYPE.search());
 	}
 
-	@Test public void testOkTargetNull()
+	@Test void testOkTargetNull()
 	{
 		final CopyMultiCopySource source = createAB("targetValueA", "targetValueB", null);
 		assertEquals("targetValueA", source.getCopyA());
@@ -86,7 +86,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(null, source.getTarget());
 	}
 
-	@Test public void testOkTargetOmitted()
+	@Test void testOkTargetOmitted()
 	{
 		final CopyMultiCopySource source = createAB("targetValueA", "targetValueB");
 		assertEquals("targetValueA", source.getCopyA());
@@ -100,7 +100,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(null, source.getTarget());
 	}
 
-	@Test public void testWrongAcreate()
+	@Test void testWrongAcreate()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -121,7 +121,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongAset()
+	@Test void testWrongAset()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -148,7 +148,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(target, source.getTarget());
 	}
 
-	@Test public void testWrongBcreate()
+	@Test void testWrongBcreate()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -169,7 +169,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testWrongBset()
+	@Test void testWrongBset()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -196,7 +196,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(target, source.getTarget());
 	}
 
-	@Test public void testWrongCopyANull()
+	@Test void testWrongCopyANull()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -217,7 +217,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testOkCopyAOmitted()
+	@Test void testOkCopyAOmitted()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -236,7 +236,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(targetSet, source.getTarget());
 	}
 
-	@Test public void testWrongCopyBNull()
+	@Test void testWrongCopyBNull()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -257,7 +257,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testOkCopyBOmitted()
+	@Test void testOkCopyBOmitted()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -276,7 +276,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertEquals(targetSet, source.getTarget());
 	}
 
-	@Test public void testWrongCopyABNull()
+	@Test void testWrongCopyABNull()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");
@@ -297,7 +297,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		assertContains(TYPE.search());
 	}
 
-	@Test public void testOkCopyABOmitted()
+	@Test void testOkCopyABOmitted()
 	{
 		final CopyMultiCopyTarget target =
 				new CopyMultiCopyTarget("targetValueA", "targetValueB");

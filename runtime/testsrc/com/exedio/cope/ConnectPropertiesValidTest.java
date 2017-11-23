@@ -28,7 +28,7 @@ public class ConnectPropertiesValidTest extends TestWithEnvironment
 		super(SchemaTest.MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		model.getConnectProperties().ensureValidity("x-build.");
 	}

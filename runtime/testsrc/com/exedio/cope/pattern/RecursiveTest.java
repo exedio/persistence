@@ -43,7 +43,7 @@ public class RecursiveTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// type
 		assertEqualsUnmodifiable(
@@ -143,7 +143,7 @@ public class RecursiveTest extends TestWithEnvironment
 	}
 
 	@Deprecated
-	@Test public void testDeprecated()
+	@Test void testDeprecated()
 	{
 		assertEqualsUnmodifiable(list(
 					testPattern.fetch

@@ -39,7 +39,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		super(modelA, modelB);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(name(ItemA.TYPE   ), name(ItemB.TYPE   ));
 		assertEquals(name(ItemA.hours  ), name(ItemB.hours  ));

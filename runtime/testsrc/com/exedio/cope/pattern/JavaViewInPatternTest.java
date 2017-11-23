@@ -53,7 +53,7 @@ public class JavaViewInPatternTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		TypesBound.newType(AnItem.class);
 	}

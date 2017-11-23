@@ -33,7 +33,7 @@ public class SequenceModelTest
 {
 	static final Model MODEL = new Model(TYPE);
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(
 				list(TYPE.getThis(), full, limited),

@@ -42,7 +42,7 @@ public class SequenceTest extends SchemaReadyTest
 		return result;
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		// OK
 		{

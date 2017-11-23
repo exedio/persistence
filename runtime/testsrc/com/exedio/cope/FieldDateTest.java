@@ -49,7 +49,7 @@ public class FieldDateTest extends FieldTest
 		clockRule.override(clock);
 	}
 
-	@Test public void testSomeDate()
+	@Test void testSomeDate()
 	{
 		final Date date = new Date(1087365298214l);
 		final Date beforeDate = new Date(date.getTime()-1l);
@@ -117,7 +117,7 @@ public class FieldDateTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -130,7 +130,7 @@ public class FieldDateTest extends FieldTest
 		}
 	}
 
-	@Test public void testOrder() throws MandatoryViolationException
+	@Test void testOrder() throws MandatoryViolationException
 	{
 		final Date[] dates = new Date[9];
 		final AttributeItem item3 = new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
@@ -177,7 +177,7 @@ public class FieldDateTest extends FieldTest
 		);
 	}
 
-	@Test public void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
+	@Test void testOrderWithFixedDates() throws MandatoryViolationException, ParseException
 	{
 		final Date[] dates = new Date[9];
 		final AttributeItem item3 = new AttributeItem("item3", 0, 0L, 0.0, true, emptyItem, AttributeItem.SomeEnum.enumValue1);
@@ -225,7 +225,7 @@ public class FieldDateTest extends FieldTest
 		);
 	}
 
-	@Test public void testDateColumnType()
+	@Test void testDateColumnType()
 	{
 		assertEquals(
 				propertiesHsqldbMysql() ? null : dialect.dateTimestampType,
@@ -243,7 +243,7 @@ public class FieldDateTest extends FieldTest
 		assertEquals(expectedDate, actualDate, "ts: "+toString(expectedDate)+" "+toString(actualDate));
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

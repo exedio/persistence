@@ -47,7 +47,7 @@ public class TypeFutureInPatternsModelTest
 	static final IntegerField featureField = feature.field;
 	static final ItemField<?> featureSelf = feature.self();
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(asList(TYPE, featureType, feature2.sourceType()), MODEL.getTypes());
 		assertEquals(asList(TYPE.getThis(), feature, feature2), TYPE.getDeclaredFeatures());
@@ -70,7 +70,7 @@ public class TypeFutureInPatternsModelTest
 		assertEquals(featureType, featureSelf.getValueType());
 	}
 
-	@Test public void testValueClassNull()
+	@Test void testValueClassNull()
 	{
 		try
 		{
@@ -83,7 +83,7 @@ public class TypeFutureInPatternsModelTest
 		}
 	}
 
-	@Test public void testTypeFutureNull()
+	@Test void testTypeFutureNull()
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class TypeFutureInPatternsModelTest
 		}
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		assertSerializedSame(feature, 410);
 	}

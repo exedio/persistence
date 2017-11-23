@@ -94,14 +94,14 @@ public abstract class VaultServiceTest
 	}
 
 
-	@Test public final void vaultPropertiesAlgorithm()
+	@Test final void vaultPropertiesAlgorithm()
 	{
 		assertEquals(ALGORITHM, properties.getAlgorithm());
 		assertEquals(hash("ab").length(), properties.getAlgorithmLength());
 		assertEquals(hash(""), properties.getAlgorithmDigestForEmptyByteSequence());
 	}
 
-	@Test public final void notFoundGetLength()
+	@Test final void notFoundGetLength()
 	{
 		final String hash = hash("ab");
 		try
@@ -115,7 +115,7 @@ public abstract class VaultServiceTest
 		}
 	}
 
-	@Test public final void notFoundGetBytes()
+	@Test final void notFoundGetBytes()
 	{
 		final String hash = hash("ab");
 		try
@@ -129,7 +129,7 @@ public abstract class VaultServiceTest
 		}
 	}
 
-	@Test public final void notFoundGetStream() throws IOException
+	@Test final void notFoundGetStream() throws IOException
 	{
 		final String hash = hash("ab");
 		final ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -144,19 +144,19 @@ public abstract class VaultServiceTest
 		}
 	}
 
-	@Test public final void foundGetLength() throws VaultNotFoundException
+	@Test final void foundGetLength() throws VaultNotFoundException
 	{
 		final String hash = putHash("abcdef01234567");
 		assertEquals(7, service.getLength(hash));
 	}
 
-	@Test public final void foundGetBytes() throws VaultNotFoundException
+	@Test final void foundGetBytes() throws VaultNotFoundException
 	{
 		final String hash = putHash("abcdef01234567");
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 	}
 
-	@Test public final void foundGetStream() throws VaultNotFoundException, IOException
+	@Test final void foundGetStream() throws VaultNotFoundException, IOException
 	{
 		final String hash = putHash("abcdef01234567");
 		final ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -164,7 +164,7 @@ public abstract class VaultServiceTest
 		assertEquals("abcdef01234567", hex(stream.toByteArray()));
 	}
 
-	@Test public final void putBytes() throws VaultNotFoundException
+	@Test final void putBytes() throws VaultNotFoundException
 	{
 		final String hash = hash("abcdef01234567");
 		assertTrue(service.put(hash, unhex("abcdef01234567")));
@@ -173,7 +173,7 @@ public abstract class VaultServiceTest
 		assertEquals(7, service.getLength(hash));
 	}
 
-	@Test public final void putStream() throws VaultNotFoundException, IOException
+	@Test final void putStream() throws VaultNotFoundException, IOException
 	{
 		final String hash = hash("abcdef01234567");
 		final ByteArrayInputStream value = new ByteArrayInputStream(unhex("abcdef01234567"));
@@ -183,7 +183,7 @@ public abstract class VaultServiceTest
 		assertEquals(7, service.getLength(hash));
 	}
 
-	@Test public final void putFile() throws VaultNotFoundException, IOException
+	@Test final void putFile() throws VaultNotFoundException, IOException
 	{
 		final String hash = hash("abcdef01234567");
 		final File value = File.createTempFile("VaultServiceTest", ".dat");
@@ -197,7 +197,7 @@ public abstract class VaultServiceTest
 		assertEquals(7, service.getLength(hash));
 	}
 
-	@Test public final void putMany() throws VaultNotFoundException
+	@Test final void putMany() throws VaultNotFoundException
 	{
 		final String hash = hash("abcdef01234567");
 		final String hash2 = hash("0102abcdef01234567");

@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldFallbackAnnotationTest
 {
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		assertEquals(Ok.fall, create(Ok.class, VALUE).fallback().getFallback());
 	}
@@ -40,7 +40,7 @@ public class EnumMapFieldFallbackAnnotationTest
 
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testMissing()
+	@Test void testMissing()
 	{
 		final EnumMapField<?,?> f = create(Missing.class, VALUE);
 		try
@@ -63,7 +63,7 @@ public class EnumMapFieldFallbackAnnotationTest
 
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testDuplicate()
+	@Test void testDuplicate()
 	{
 		final EnumMapField<?,?> f = create(Duplicate.class, VALUE);
 		try

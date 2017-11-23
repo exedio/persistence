@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class QuerySerializeTest
 {
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		int size=785;

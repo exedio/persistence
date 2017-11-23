@@ -48,7 +48,7 @@ public class ChangeListenersTest
 		model.removeAllChangeListeners();
 	}
 
-	@Test public void testAddRemove()
+	@Test void testAddRemove()
 	{
 		assertInfo(0, 0, 0);
 
@@ -65,7 +65,7 @@ public class ChangeListenersTest
 		assertInfo(0, 0, 1);
 	}
 
-	@Test public void testAddNull()
+	@Test void testAddNull()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -83,7 +83,7 @@ public class ChangeListenersTest
 		assertInfo(0, 0, 0);
 	}
 
-	@Test public void testRemoveNull()
+	@Test void testRemoveNull()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -101,7 +101,7 @@ public class ChangeListenersTest
 		assertInfo(0, 0, 0);
 	}
 
-	@Test public void testRemoveMismatch()
+	@Test void testRemoveMismatch()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -120,7 +120,7 @@ public class ChangeListenersTest
 		assertInfo(1, 0, 0);
 	}
 
-	@Test public void testRemoveAll()
+	@Test void testRemoveAll()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -140,7 +140,7 @@ public class ChangeListenersTest
 		assertInfo(0, 0, 2);
 	}
 
-	@Test public void testRemoveAllEmpty()
+	@Test void testRemoveAllEmpty()
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0);
@@ -151,7 +151,7 @@ public class ChangeListenersTest
 	}
 
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL") // release to GC
-	@Test public void testWeakness()
+	@Test void testWeakness()
 	{
 		assertInfo(0, 0, 0);
 

@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 
 public class PurgeTest extends ConnectedTest
 {
-	@Test public void testPurge() throws InterruptedException
+	@Test void testPurge() throws InterruptedException
 	{
 		samplerModel.createSchema();
 		sampler.checkInternal();

@@ -39,7 +39,7 @@ public class UniqueHierarchyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(list(), UniqueHierarchySuperItem.TYPE.search());
 		assertEquals(list(), UniqueHierarchySubItem.TYPE.search());

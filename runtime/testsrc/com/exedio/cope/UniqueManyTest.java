@@ -35,7 +35,7 @@ public class UniqueManyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final int maximum = 12;
 

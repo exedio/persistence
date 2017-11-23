@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class GenericsTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(asList(), get(""));
 		assertEquals(asList(), get("Raw"));
@@ -43,7 +43,7 @@ public class GenericsTest
 		assertEquals(asList("Gen1<NestGen1A>", "Gen2<NestGen2A,NestGen2B,NestGen2C>"), get("Raw<Gen1<NestGen1A>,Gen2<NestGen2A,NestGen2B,NestGen2C>>"));
 	}
 
-	@Test public void testRemove()
+	@Test void testRemove()
 	{
 		assertEquals("new Foo()", remove("new Foo()"));
 		assertEquals("new Foo()", remove("new Foo<x>()"));

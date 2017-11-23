@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 public class ResolveImportTest
 {
 
-	@Test public void testImports()
+	@Test void testImports()
 	{
 		final JavaRepository repository = new JavaRepository(getClass().getClassLoader());
 		final JavaFile file = new JavaFile(repository, new DummyJavaFileObject("x"), "com.exedio.cope.instrument.findtype");

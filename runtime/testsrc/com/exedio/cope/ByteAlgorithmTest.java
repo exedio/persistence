@@ -60,7 +60,7 @@ public class ByteAlgorithmTest
 			}
 		};
 
-	@Test public void testCharsetNull()
+	@Test void testCharsetNull()
 	{
 		try
 		{
@@ -73,7 +73,7 @@ public class ByteAlgorithmTest
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	@Test public void testEncodingNull()
+	@Test void testEncodingNull()
 	{
 		try
 		{
@@ -86,7 +86,7 @@ public class ByteAlgorithmTest
 		}
 	}
 	@Deprecated // OK: testing deprecated API
-	@Test public void testEncodingWrong()
+	@Test void testEncodingWrong()
 	{
 		try
 		{

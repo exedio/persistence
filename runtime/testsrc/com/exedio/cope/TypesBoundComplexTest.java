@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 public class TypesBoundComplexTest
 {
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testType()
+	@Test void testType()
 	{
 		try
 		{

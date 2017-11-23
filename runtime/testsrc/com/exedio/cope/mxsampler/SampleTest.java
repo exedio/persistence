@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 public class SampleTest
 {
 	@Deprecated
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		@SuppressWarnings("deprecation")
 		final MxSampler sampler = new MxSampler();

@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class PartOfOrderReuseTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),

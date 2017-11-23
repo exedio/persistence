@@ -51,7 +51,7 @@ public class DistinctTest extends TestWithEnvironment
 		item4 = new PlusIntegerItem(2, 4, 0);
 	}
 
-	@Test public void testDistinctSingle()
+	@Test void testDistinctSingle()
 	{
 		final Query<Integer> q = new Query<>(numB, TYPE, null);
 		assertContains(2, 3, 4, 4, 4, q.search());
@@ -80,7 +80,7 @@ public class DistinctTest extends TestWithEnvironment
 		assertEquals(3, q.total());
 	}
 
-	@Test public void testDistinctMulti()
+	@Test void testDistinctMulti()
 	{
 		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numB}, TYPE, null);
 		assertContains(
@@ -181,7 +181,7 @@ public class DistinctTest extends TestWithEnvironment
 		assertEquals(3, q.total());
 	}
 
-	@Test public void testDistinctDuplicateColumns()
+	@Test void testDistinctDuplicateColumns()
 	{
 		final Query<List<Object>> q = newQuery(new Function<?>[]{numA, numA}, TYPE, null);
 		assertContains(

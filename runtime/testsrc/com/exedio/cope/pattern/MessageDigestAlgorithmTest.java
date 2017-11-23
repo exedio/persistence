@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 public class MessageDigestAlgorithmTest
 {
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{
@@ -84,7 +84,7 @@ public class MessageDigestAlgorithmTest
 		}
 	}
 
-	@Test public void testCompatibleTo()
+	@Test void testCompatibleTo()
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
@@ -104,7 +104,7 @@ public class MessageDigestAlgorithmTest
 		}
 	}
 
-	@Test public void testSalted()
+	@Test void testSalted()
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 0, 5).salt(8, new MockSecureRandom());
@@ -127,7 +127,7 @@ public class MessageDigestAlgorithmTest
 			"aeab417a9b5a7cf3868ff1153f6d0807b9e4e859112e559cb1c0ae0de8e00c9046e0722338d820408267487d618d5c5edbdeedf53d6fbd9949896dd92e38bcd386c2f651886b79db");
 	}
 
-	@Test public void testSaltedMinimal()
+	@Test void testSaltedMinimal()
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 0, 2).salt(1, new MockSecureRandom());
@@ -150,7 +150,7 @@ public class MessageDigestAlgorithmTest
 			"ae38e71ccfe981521397d4392ba5931148d99718a127495cdd96ebe2091756ef16511e8ef4a6ea907813e44ff8535fce2c710d82cb55e1d4ea15a0757a80409177");
 	}
 
-	@Test public void testUnsalted()
+	@Test void testUnsalted()
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 0, 5);
@@ -173,7 +173,7 @@ public class MessageDigestAlgorithmTest
 			"33fc82fac82a7c602149d0888b807d94d00a1c44d60dc092a2357ded829e37b9c5440c2ef07d72431ab37f2eaa26b2fee1144d9a9b501e3d4b25875e47689e6b");
 	}
 
-	@Test public void testNoniterated()
+	@Test void testNoniterated()
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 0, 1).salt(8, new MockSecureRandom());
@@ -196,7 +196,7 @@ public class MessageDigestAlgorithmTest
 			"aeab417a9b5a7cf39904017f7a5e22767e17c88ec0b1442490df10531c7806f803b07dac383380623df954bef6ce5da18fdc82d1baf7146fbd3e95be7c00acf08c4062f624510b20");
 	}
 
-	@Test public void testUnsaltedNoniterated()
+	@Test void testUnsaltedNoniterated()
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("SHA-512", 0, 1);
@@ -227,7 +227,7 @@ public class MessageDigestAlgorithmTest
 			"90b30ef9902ae4c4c691d2d78c2f8fa0aa785afbc5545286b310f68e91dd2299c84a2484f0419fc5eaa7de598940799e1091c4948926ae1c9488dddae180bb80");
 	}
 
-	@Test public void testUnsaltedNoniteratedMD5()
+	@Test void testUnsaltedNoniteratedMD5()
 	{
 		final MessageDigestAlgorithm a =
 			new MessageDigestAlgorithm("MD5", 0, 1);

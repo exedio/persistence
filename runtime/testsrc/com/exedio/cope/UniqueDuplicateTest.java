@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class UniqueDuplicateTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		try
 		{

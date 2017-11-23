@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 
 public class CompositeConditionCopeTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);

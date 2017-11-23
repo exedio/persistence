@@ -64,7 +64,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		cache.clearStamps();
 	}
 
-	@Test public void testSequential()
+	@Test void testSequential()
 	{
 		assumeTrue(!ignore);
 
@@ -90,7 +90,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
-	@Test public void testOverlappingOnce()
+	@Test void testOverlappingOnce()
 	{
 		assumeTrue(!ignore);
 
@@ -121,7 +121,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
-	@Test public void testOverlappingOnceWithoutConnection()
+	@Test void testOverlappingOnceWithoutConnection()
 	{
 		assumeTrue(!ignore);
 
@@ -151,7 +151,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
 	}
 
-	@Test public void testOverlappingTwice()
+	@Test void testOverlappingTwice()
 	{
 		assumeTrue(!ignore);
 

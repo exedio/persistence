@@ -47,7 +47,7 @@ public class PriceFieldModelTest
 		MODEL.enableSerialization(PriceFieldModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Feature[]{
 				TYPE.getThis(),
@@ -131,7 +131,7 @@ public class PriceFieldModelTest
 		assertEquals(Long.MAX_VALUE,      bigPrice.getInt().getMaximum());
 	}
 
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		final PriceField f = new PriceField();
 		assertEquals(Price.MIN_VALUE, f.getMinimum());
@@ -141,7 +141,7 @@ public class PriceFieldModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testMin()
+	@Test void testMin()
 	{
 		final PriceField f = new PriceField().min(Price.storeOf(2000));
 		assertEquals(Price.storeOf(2000), f.getMinimum());
@@ -161,7 +161,7 @@ public class PriceFieldModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testMax()
+	@Test void testMax()
 	{
 		final PriceField f = new PriceField().max(Price.storeOf(4000));
 		assertEquals(Price.MIN_VALUE,     f.getMinimum());
@@ -181,7 +181,7 @@ public class PriceFieldModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testRange()
+	@Test void testRange()
 	{
 		final PriceField f = new PriceField().range(Price.storeOf(2000), Price.storeOf(4000));
 		assertEquals(Price.storeOf(2000), f.getMinimum());
@@ -219,7 +219,7 @@ public class PriceFieldModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testDefaultConstant()
+	@Test void testDefaultConstant()
 	{
 		final PriceField f = new PriceField();
 		assertEquals(null, f.getDefaultConstant());

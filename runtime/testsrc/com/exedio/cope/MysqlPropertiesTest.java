@@ -32,7 +32,7 @@ public class MysqlPropertiesTest
 	 * This tests makes sure, that no properties are changed by accident.
 	 * Adapt if necessary.
 	 */
-	@Test public void testRegression()
+	@Test void testRegression()
 	{
 		final MysqlProperties p = new MysqlProperties(loadProperties());
 

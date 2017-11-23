@@ -64,7 +64,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testTypeByte()
+	@Test void testTypeByte()
 	{
 		final String type1;
 		final String type2;
@@ -119,7 +119,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 		assertType(type8, byte8);
 	}
 
-	@Test public void testTypeDecimal()
+	@Test void testTypeDecimal()
 	{
 		final String type1;
 		final String type2;
@@ -173,7 +173,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 				field.getID());
 	}
 
-	@Test public void testValues()
+	@Test void testValues()
 	{
 		final ArrayList<LongField> fields = new ArrayList<>();
 		for(final Field<?> field : TYPE.getFields())
@@ -208,7 +208,7 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 @WrapperIgnore
 public class TypeSetTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Model m = new Model(Item1.TYPE, Item2.TYPE);
 

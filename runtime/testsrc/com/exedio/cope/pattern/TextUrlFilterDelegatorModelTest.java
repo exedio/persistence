@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterDelegatorModelTest
 {
-	@Test public void testRawNull()
+	@Test void testRawNull()
 	{
 		try
 		{
@@ -44,7 +44,7 @@ public class TextUrlFilterDelegatorModelTest
 		}
 	}
 
-	@Test public void testDelegateNull()
+	@Test void testDelegateNull()
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public class TextUrlFilterDelegatorModelTest
 	}
 
 
-	@Test public void testSupportedContentTypeNull()
+	@Test void testSupportedContentTypeNull()
 	{
 		try
 		{
@@ -71,7 +71,7 @@ public class TextUrlFilterDelegatorModelTest
 		}
 	}
 
-	@Test public void testSupportedContentTypeEmpty()
+	@Test void testSupportedContentTypeEmpty()
 	{
 		try
 		{
@@ -84,7 +84,7 @@ public class TextUrlFilterDelegatorModelTest
 		}
 	}
 
-	@Test public void testCharsetNull()
+	@Test void testCharsetNull()
 	{
 		try
 		{
@@ -97,7 +97,7 @@ public class TextUrlFilterDelegatorModelTest
 		}
 	}
 
-	@Test public void testPasteStartNull()
+	@Test void testPasteStartNull()
 	{
 		try
 		{
@@ -110,7 +110,7 @@ public class TextUrlFilterDelegatorModelTest
 		}
 	}
 
-	@Test public void testPasteStartEmpty()
+	@Test void testPasteStartEmpty()
 	{
 		try
 		{
@@ -123,7 +123,7 @@ public class TextUrlFilterDelegatorModelTest
 		}
 	}
 
-	@Test public void testPasteStopNull()
+	@Test void testPasteStopNull()
 	{
 		try
 		{
@@ -136,7 +136,7 @@ public class TextUrlFilterDelegatorModelTest
 		}
 	}
 
-	@Test public void testPasteStopEmpty()
+	@Test void testPasteStopEmpty()
 	{
 		try
 		{

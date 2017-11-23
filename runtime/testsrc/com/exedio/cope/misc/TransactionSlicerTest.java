@@ -37,7 +37,7 @@ public class TransactionSlicerTest extends TestWithEnvironment
 		super(CacheIsolationTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -87,7 +87,7 @@ public class TransactionSlicerTest extends TestWithEnvironment
 		assertEquals(t1.getName() + " slice2", t3.getName());
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final Transaction t1 = model.currentTransaction();
 
@@ -134,7 +134,7 @@ public class TransactionSlicerTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNoname()
+	@Test void testNoname()
 	{
 		model.commit();
 		model.startTransaction(null);

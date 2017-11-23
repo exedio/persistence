@@ -67,7 +67,7 @@ public class PlusLongTest extends TestWithEnvironment
 		new PlusLongItem(3l, 4l, 5l);
 	}
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		// test model
 		assertEquals(TYPE, plusA9.getType());

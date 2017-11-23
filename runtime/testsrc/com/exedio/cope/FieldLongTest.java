@@ -33,7 +33,7 @@ public class FieldLongTest extends FieldTest
 {
 	static final Long CONST = 1l;
 
-	@Test public void testSomeLong()
+	@Test void testSomeLong()
 	{
 		assertEquals(TYPE, someLong.getType());
 		assertEquals(Long.class, someLong.getValueClass());
@@ -89,7 +89,7 @@ public class FieldLongTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class FieldLongTest extends FieldTest
 		}
 	}
 
-	@Test public void testSomeNotNullLong()
+	@Test void testSomeNotNullLong()
 	{
 		assertEquals(TYPE, someNotNullLong.getType());
 		assertEquals(6l, item.getSomeNotNullLong());

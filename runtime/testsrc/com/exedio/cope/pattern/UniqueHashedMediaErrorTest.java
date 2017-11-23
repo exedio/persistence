@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class UniqueHashedMediaErrorTest
 {
-	@Test public void testMediaNull()
+	@Test void testMediaNull()
 	{
 		try
 		{
@@ -48,7 +48,7 @@ public class UniqueHashedMediaErrorTest
 		}
 	}
 
-	@Test public void testMediaOptional()
+	@Test void testMediaOptional()
 	{
 		try
 		{
@@ -62,7 +62,7 @@ public class UniqueHashedMediaErrorTest
 	}
 
 
-	@Test public void testDigestDefault()
+	@Test void testDigestDefault()
 	{
 		final UniqueHashedMedia m = new UniqueHashedMedia(new Media());
 		assertEquals(128, m.getHash().getMinimumLength());
@@ -70,7 +70,7 @@ public class UniqueHashedMediaErrorTest
 		assertEquals("SHA-512", m.getMessageDigestAlgorithm());
 	}
 
-	@Test public void testDigestOther()
+	@Test void testDigestOther()
 	{
 		final UniqueHashedMedia m = new UniqueHashedMedia(new Media(), "SHA-224");
 		assertEquals(56, m.getHash().getMinimumLength());
@@ -78,7 +78,7 @@ public class UniqueHashedMediaErrorTest
 		assertEquals("SHA-224", m.getMessageDigestAlgorithm());
 	}
 
-	@Test public void testDigestNull()
+	@Test void testDigestNull()
 	{
 		try
 		{
@@ -91,7 +91,7 @@ public class UniqueHashedMediaErrorTest
 		}
 	}
 
-	@Test public void testDigestWrong()
+	@Test void testDigestWrong()
 	{
 		try
 		{
@@ -105,7 +105,7 @@ public class UniqueHashedMediaErrorTest
 	}
 
 
-	@Test public void testNonCreateableAbstract()
+	@Test void testNonCreateableAbstract()
 	{
 		try
 		{
@@ -130,7 +130,7 @@ public class UniqueHashedMediaErrorTest
 	}
 
 
-	@Test public void testNonCreateableFunctionField()
+	@Test void testNonCreateableFunctionField()
 	{
 		try
 		{
@@ -157,7 +157,7 @@ public class UniqueHashedMediaErrorTest
 	}
 
 
-	@Test public void testNonCreateableDataField()
+	@Test void testNonCreateableDataField()
 	{
 		try
 		{
@@ -184,7 +184,7 @@ public class UniqueHashedMediaErrorTest
 	}
 
 
-	@Test public void testCreateable()
+	@Test void testCreateable()
 	{
 		// test, that is does not throw an exception
 		new Model(CreateableItem.TYPE);

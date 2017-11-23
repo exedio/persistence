@@ -54,7 +54,7 @@ public class PriceFieldConditionsTest extends TestWithEnvironment
 		i3  = PriceFieldItem.n(p3, p2);
 	}
 
-	@Test public void testSearch()
+	@Test void testSearch()
 	{
 		final PriceField f = optionalPrice;
 		final PriceField f2 = finalPrice;
@@ -88,7 +88,7 @@ public class PriceFieldConditionsTest extends TestWithEnvironment
 		assertEquals(Arrays.asList(expected), query.search());
 	}
 
-	@Test public void testCondition()
+	@Test void testCondition()
 	{
 		final PriceField f = optionalPrice;
 		final String s = f.getInt().getID();

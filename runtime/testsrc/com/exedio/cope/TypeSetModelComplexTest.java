@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypeSetModelComplexTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Type<ItemA1> typeA1 = TypesBound.newType(ItemA1.class);
 		final Type<ItemA2> typeA2 = TypesBound.newType(ItemA2.class);

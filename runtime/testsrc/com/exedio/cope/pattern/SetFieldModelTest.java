@@ -54,7 +54,7 @@ public class SetFieldModelTest
 	static final FunctionField<String> stringsElement = strings.getElement();
 	static final Type<?> datesType = dates.getRelationType();
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEqualsUnmodifiable(list(
 				TYPE,
@@ -150,21 +150,21 @@ public class SetFieldModelTest
 		assertEqualsUnmodifiable(list(), dates.getSourceFeatures());
 	}
 
-	@Test public void testComputed()
+	@Test void testComputed()
 	{
 
 		assertTrue(stringsType.isAnnotationPresent(Computed.class));
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 
 		assertSerializedSame(strings, 386);
 		assertSerializedSame(dates  , 384);
 	}
 
-	@Test public void testElementNull()
+	@Test void testElementNull()
 	{
 		try
 		{
@@ -177,7 +177,7 @@ public class SetFieldModelTest
 		}
 	}
 
-	@Test public void testElementFinal()
+	@Test void testElementFinal()
 	{
 		try
 		{
@@ -190,7 +190,7 @@ public class SetFieldModelTest
 		}
 	}
 
-	@Test public void testElementOptional()
+	@Test void testElementOptional()
 	{
 		try
 		{
@@ -203,7 +203,7 @@ public class SetFieldModelTest
 		}
 	}
 
-	@Test public void testElementUnique()
+	@Test void testElementUnique()
 	{
 		try
 		{
@@ -216,7 +216,7 @@ public class SetFieldModelTest
 		}
 	}
 
-	@Test public void testGetParentFieldStrings()
+	@Test void testGetParentFieldStrings()
 	{
 		try
 		{
@@ -229,7 +229,7 @@ public class SetFieldModelTest
 		}
 	}
 
-	@Test public void testGetParentFieldDates()
+	@Test void testGetParentFieldDates()
 	{
 		try
 		{
@@ -242,7 +242,7 @@ public class SetFieldModelTest
 		}
 	}
 
-	@Test public void testGetParentsStrings()
+	@Test void testGetParentsStrings()
 	{
 		try
 		{
@@ -255,7 +255,7 @@ public class SetFieldModelTest
 		}
 	}
 
-	@Test public void testGetParentsDates()
+	@Test void testGetParentsDates()
 	{
 		try
 		{

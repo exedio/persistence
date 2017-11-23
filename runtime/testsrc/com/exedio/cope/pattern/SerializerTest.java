@@ -67,7 +67,7 @@ public class SerializerTest extends TestWithEnvironment
 		item = new SerializerItem("mandatory");
 	}
 
-	@Test public void testSerializer()
+	@Test void testSerializer()
 	{
 		// test model
 		assertEquals(Arrays.asList(new Feature[]{
@@ -189,7 +189,7 @@ public class SerializerTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testMandatoryMustBeSet()
+	@Test void testMandatoryMustBeSet()
 	{
 		try
 		{

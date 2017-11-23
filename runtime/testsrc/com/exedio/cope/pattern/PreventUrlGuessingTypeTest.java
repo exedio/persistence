@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class PreventUrlGuessingTypeTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertPresent(false, false, AbsentItem .absent );
 		assertPresent(true,  true,  AbsentItem .present);

@@ -69,7 +69,7 @@ public class MediaFinalTest extends TestWithEnvironment
 	private final byte[] data20 = {-54,71,-86,122,-8,23,-23,104,-63,23,19,-45,-63,23,71,-23,19,-45,71,-23};
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testData() throws IOException
+	@Test void testData() throws IOException
 	{
 		assertEquals(19, data19.length);
 		assertEquals(20, data20.length);

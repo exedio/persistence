@@ -58,7 +58,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		p = MODEL.getConnectProperties().primaryKeyGenerator.persistent;
 	}
 
-	@Test public void testWrongFromStart() throws SQLException
+	@Test void testWrongFromStart() throws SQLException
 	{
 		assertIt(0, null, (!p||!postgresql)?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 
@@ -75,7 +75,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertIt(p?3:0, p?5:8, p?3:9);
 	}
 
-	@Test public void testWrongFromStartWithoutCheck() throws SQLException
+	@Test void testWrongFromStartWithoutCheck() throws SQLException
 	{
 		newManual(5, "first");
 		assertIt(p ? !postgresql?6:5 : 0, 5, p ? !postgresql?0:1 : 6); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
@@ -90,7 +90,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 		assertIt(p?3:0, p?5:8, p?3:9);
 	}
 
-	@Test public void testWrongLater() throws SQLException
+	@Test void testWrongLater() throws SQLException
 	{
 		assertIt(0, null, (!p||!postgresql)?0:1); // known problem in PostgreSQL, see PostgresqlDialect#getNextSequence
 

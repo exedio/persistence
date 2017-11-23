@@ -55,12 +55,12 @@ public class StringCharSetTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testCheckOk()
+	@Test void testCheckOk()
 	{
 		alpha.check("abcabc");
 	}
 
-	@Test public void testCheckFail()
+	@Test void testCheckFail()
 	{
 		try
 		{
@@ -79,7 +79,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testCheckUnsupportedConstraints()
+	@Test void testCheckUnsupportedConstraints()
 	{
 		commit();
 		model.checkUnsupportedConstraints();
@@ -87,7 +87,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
-	@Test public void testCondition()
+	@Test void testCondition()
 	{
 		assertEquals(
 				"StringCharSetItem.any conformsTo [A-Z]",
@@ -131,7 +131,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		return TYPE.getID()+"_"+field.getName()+"_CS";
 	}
 
-	@Test public void testNonSubAsciiConstraints()
+	@Test void testNonSubAsciiConstraints()
 	{
 		final Table table = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE));
 		if (mysql)
@@ -141,7 +141,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
 	}
 
-	@Test public void testCheckLEmail() throws SQLException
+	@Test void testCheckLEmail() throws SQLException
 	{
 		any("check", null);
 		checkEmail( "azAZ09!#$%&'*+-/=?^_`{|}~.", " (),:;<>\"[\\]" );
@@ -221,7 +221,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testConditionApos()
+	@Test void testConditionApos()
 	{
 		final CharSet cs = StringCharSetItem.apos.getCharSet();
 		assertEquals("^[',A-Z]*$", cs.getRegularExpression());
@@ -243,7 +243,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNot()
+	@Test void testNot()
 	{
 		final CharSetCondition condition = new CharSetCondition(any, new CharSet('a', 'd'));
 		final Condition conditionNot = condition.not();
@@ -285,7 +285,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class ByteReplacementsTest
 {
-	@Test public void replacementsMustBeSequential()
+	@Test void replacementsMustBeSequential()
 	{
 		final ByteReplacements replacements=new ByteReplacements();
 		replacements.addReplacement(10, 15, "");
@@ -54,7 +54,7 @@ public class ByteReplacementsTest
 		replacements.addReplacement(20, 20, "");
 	}
 
-	@Test public void replacementsMustHaveValidRange()
+	@Test void replacementsMustHaveValidRange()
 	{
 		final ByteReplacements replacements=new ByteReplacements();
 		try
@@ -78,7 +78,7 @@ public class ByteReplacementsTest
 		replacements.addReplacement(10, 10, "");
 	}
 
-	@Test public void applyReplacementsWithDifferentBufferSizes()
+	@Test void applyReplacementsWithDifferentBufferSizes()
 	{
 		for (final ByteReplacements replacements: new ByteReplacements[]{new ByteReplacements(), new ByteReplacements().setBufferSize(1), new ByteReplacements().setBufferSize(3)})
 		{
@@ -93,7 +93,7 @@ public class ByteReplacementsTest
 		}
 	}
 
-	@Test public void manyReplacementsAtSameIndex()
+	@Test void manyReplacementsAtSameIndex()
 	{
 		final ByteReplacements replacements=new ByteReplacements();
 		replacements.addReplacement(3, 3, "a");
@@ -101,14 +101,14 @@ public class ByteReplacementsTest
 		assertReplacements("012ab3456789", replacements);
 	}
 
-	@Test public void replacementsAtBeginning()
+	@Test void replacementsAtBeginning()
 	{
 		final ByteReplacements replacements=new ByteReplacements();
 		replacements.addReplacement(0, 3, "AB");
 		assertReplacements("AB3456789", replacements);
 	}
 
-	@Test public void replacementsBehindEnd()
+	@Test void replacementsBehindEnd()
 	{
 		final ByteReplacements replacements=new ByteReplacements();
 		replacements.addReplacement(1, 2, "");
@@ -124,7 +124,7 @@ public class ByteReplacementsTest
 		}
 	}
 
-	@Test public void replacementsIncludingEnd()
+	@Test void replacementsIncludingEnd()
 	{
 		final ByteReplacements replacements=new ByteReplacements();
 		replacements.addReplacement(9, 12, "");
@@ -150,7 +150,7 @@ public class ByteReplacementsTest
 		assertEquals(expected, new String(replaced, StandardCharsets.US_ASCII));
 	}
 
-	@Test public void positions()
+	@Test void positions()
 	{
 		final ByteReplacements replacements=new ByteReplacements();
 		assertEquals(10, replacements.translateToPositionInOutput(10));

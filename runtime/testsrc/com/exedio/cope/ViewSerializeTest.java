@@ -33,19 +33,19 @@ import org.junit.jupiter.api.Test;
 
 public class ViewSerializeTest
 {
-	@Test public void testField()
+	@Test void testField()
 	{
 		assertSerializedSame(field, 370);
 		assertEquals("AnItem.field", field.toString());
 	}
 
-	@Test public void testView()
+	@Test void testView()
 	{
 		assertSerializedSame(view,  369);
 		assertEquals("AnItem.view", view.toString());
 	}
 
-	@Test public void testViewNonMounted()
+	@Test void testViewNonMounted()
 	{
 		final UppercaseView feature = field.toUpperCase();
 		assertEquals(asList(field), feature.getSources());
@@ -61,7 +61,7 @@ public class ViewSerializeTest
 		assertEquals("upper(AnItem.field)", reserialized.toString());
 	}
 
-	@Test public void testViewWithFieldNonMounted()
+	@Test void testViewWithFieldNonMounted()
 	{
 		final StringField source = new StringField();
 		final UppercaseView feature = source.toUpperCase();
@@ -77,7 +77,7 @@ public class ViewSerializeTest
 		assertEquals("upper(" + toStringObject(source) + ")", feature.toString());
 	}
 
-	@Test public void testFieldNonMounted()
+	@Test void testFieldNonMounted()
 	{
 		final StringField feature = new StringField();
 		try
@@ -92,7 +92,7 @@ public class ViewSerializeTest
 		assertEquals(toStringObject(feature), feature.toString());
 	}
 
-	@Test public void testType()
+	@Test void testType()
 	{
 		assertEquals(asList(TYPE.getThis(), field, view), TYPE.getFeatures());
 	}

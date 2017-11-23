@@ -41,7 +41,7 @@ public class DataModelTest
 		MODEL.enableSerialization(DataModelTest.class, "MODEL");
 	}
 
-	@Test public void testMin() throws MandatoryViolationException
+	@Test void testMin() throws MandatoryViolationException
 	{
 		assertEquals(0, min(0, 0l));
 		assertEquals(0, min(Integer.MAX_VALUE, 0l));
@@ -55,7 +55,7 @@ public class DataModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testMinLeftNegative() throws MandatoryViolationException
+	@Test void testMinLeftNegative() throws MandatoryViolationException
 	{
 		try
 		{
@@ -69,7 +69,7 @@ public class DataModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testMinRightNegative() throws MandatoryViolationException
+	@Test void testMinRightNegative() throws MandatoryViolationException
 	{
 		try
 		{
@@ -83,7 +83,7 @@ public class DataModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testData() throws MandatoryViolationException
+	@Test void testData() throws MandatoryViolationException
 	{
 		assertEquals(TYPE, data.getType());
 		assertEquals("data", data.getName());
@@ -132,7 +132,7 @@ public class DataModelTest
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test public void testStartsWithFieldNullConstructor()
+	@Test void testStartsWithFieldNullConstructor()
 	{
 		try
 		{
@@ -146,7 +146,7 @@ public class DataModelTest
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test public void testStartsWithValueNullConstructor()
+	@Test void testStartsWithValueNullConstructor()
 	{
 		try
 		{
@@ -159,7 +159,7 @@ public class DataModelTest
 		}
 	}
 
-	@Test public void testStartsWithValueNull()
+	@Test void testStartsWithValueNull()
 	{
 		try
 		{
@@ -172,7 +172,7 @@ public class DataModelTest
 		}
 	}
 
-	@Test public void testStartsWithValueEmpty()
+	@Test void testStartsWithValueEmpty()
 	{
 		// TODO treat as to isNotNull
 		try

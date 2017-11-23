@@ -96,12 +96,12 @@ public class ScheduleTest extends TestWithEnvironment
 		ScheduleItem.clearLogs();
 	}
 
-	@Test public void testNoUpdateCounterColumn()
+	@Test void testNoUpdateCounterColumn()
 	{
 		assertNoUpdateCounterColumn(report.getRunType());
 	}
 
-	@Test public void testDaily()
+	@Test void testDaily()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -152,7 +152,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(DAILY, "2008/03/19-00:00", "2008/03/20-00:00", "2008/03/20-00:05"));
 	}
 
-	@Test public void testFail()
+	@Test void testFail()
 	{
 		run(1, "2008/03/17-00:05");
 		assertLogs(
@@ -186,7 +186,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(DAILY, "2008/03/17-00:00", "2008/03/18-00:00", "2008/03/18-00:05"));
 	}
 
-	@Test public void testStop2()
+	@Test void testStop2()
 	{
 		run(1, "2008/03/11-00:05", 2);
 		assertLogs(
@@ -195,21 +195,21 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(DAILY, "2008/03/10-00:00", "2008/03/11-00:00", "2008/03/11-00:05"));
 	}
 
-	@Test public void testStop1()
+	@Test void testStop1()
 	{
 		run(0, "2008/03/11-00:00", 1);
 		assertLogs();
 		assertRuns();
 	}
 
-	@Test public void testStop0()
+	@Test void testStop0()
 	{
 		run(0, "2008/03/11-00:00", 0);
 		assertLogs();
 		assertRuns();
 	}
 
-	@Test public void testHourly()
+	@Test void testHourly()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -261,7 +261,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(HOURLY, "2008/03/14-13:00", "2008/03/14-14:00", "2008/03/14-14:05"));
 	}
 
-	@Test public void testWeekly()
+	@Test void testWeekly()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -307,7 +307,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(WEEKLY, "2008/04/14-00:00", "2008/04/21-00:00", "2008/04/21-00:05"));
 	}
 
-	@Test public void testMonthly()
+	@Test void testMonthly()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -353,7 +353,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(MONTHLY, "2008/08/01-00:00", "2008/09/01-00:00", "2008/09/01-00:05"));
 	}
 
-	@Test public void testEnabled()
+	@Test void testEnabled()
 	{
 		assertEquals(true, item.isReportEnabled());
 		assertEquals(DAILY, item.getReportInterval());
@@ -381,7 +381,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(DAILY, "2008/03/14-00:00", "2008/03/15-00:00", "2008/03/15-00:05"));
 	}
 
-	@Test public void testDaylightSavingDailyShorter()
+	@Test void testDaylightSavingDailyShorter()
 	{
 		assertEquals(24*3600000, date("2014/03/29-00:00").getTime()-date("2014/03/28-00:00").getTime());
 		assertEquals(24*3600000, date("2014/03/30-00:00").getTime()-date("2014/03/29-00:00").getTime());
@@ -425,7 +425,7 @@ public class ScheduleTest extends TestWithEnvironment
 		assertRuns();
 	}
 
-	@Test public void testDaylightSavingDailyLonger()
+	@Test void testDaylightSavingDailyLonger()
 	{
 		assertEquals(24*3600000, date("2014/10/25-00:00").getTime()-date("2014/10/24-00:00").getTime());
 		assertEquals(24*3600000, date("2014/10/26-00:00").getTime()-date("2014/10/25-00:00").getTime());
@@ -469,7 +469,7 @@ public class ScheduleTest extends TestWithEnvironment
 		assertRuns();
 	}
 
-	@Test public void testDaylightSavingHourlyShorter()
+	@Test void testDaylightSavingHourlyShorter()
 	{
 		assertEquals(60000, date("2014/03/30-01:58").getTime()-date("2014/03/30-01:57").getTime());
 		assertEquals(60000, date("2014/03/30-01:59").getTime()-date("2014/03/30-01:58").getTime());
@@ -523,7 +523,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(HOURLY, "2014/03/30-04:00", "2014/03/30-05:00", "2014/03/30-05:05"));
 	}
 
-	@Test public void testDaylightSavingHourlyLonger()
+	@Test void testDaylightSavingHourlyLonger()
 	{
 		assertEquals(   60000, date("2014/10/26-01:58").getTime()-date("2014/10/26-01:57").getTime());
 		assertEquals(   60000, date("2014/10/26-01:59").getTime()-date("2014/10/26-01:58").getTime());
@@ -589,7 +589,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(HOURLY, "TZ+0100 2014/10/26-02:00", "TZ+0100 2014/10/26-03:00", "TZ+0100 2014/10/26-03:05"));
 	}
 
-	@Test public void testReconfigure()
+	@Test void testReconfigure()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -613,7 +613,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(WEEKLY, "2008/01/17-00:00", "2008/01/21-00:00", "2008/01/21-00:05"));
 	}
 
-	@Test public void testReconfigureWithExtraLag()
+	@Test void testReconfigureWithExtraLag()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 
@@ -639,7 +639,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(WEEKLY, "2008/01/21-00:00", "2008/01/28-00:00", "2008/01/28-00:05"));
 	}
 
-	@Test public void testProgress()
+	@Test void testProgress()
 	{
 		assertEquals(DAILY, item.getReportInterval());
 		item.setProgress(5);

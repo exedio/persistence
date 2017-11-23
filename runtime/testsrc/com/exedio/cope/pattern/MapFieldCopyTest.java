@@ -65,7 +65,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEquals(emptyList(), MapFieldCopyItem.TYPE.getDeclaredCopyConstraints());
 		assertEquals(asList(copyKeyParent, copyKeyKey), MapFieldCopyItem.keyShared.getRelationType().getDeclaredCopyConstraints());
@@ -81,7 +81,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		);
 	}
 
-	@Test public void testKey()
+	@Test void testKey()
 	{
 		final MapFieldCopyItem itemA1 = new MapFieldCopyItem("a");
 		final MapFieldCopyItem itemA2 = new MapFieldCopyItem("a");
@@ -101,7 +101,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testValue()
+	@Test void testValue()
 	{
 		final MapFieldCopyItem itemA = new MapFieldCopyItem("a");
 		final MapFieldCopyItem itemB = new MapFieldCopyItem("b");
@@ -133,7 +133,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testBothDifferent()
+	@Test void testBothDifferent()
 	{
 		final MapFieldCopyItem itemAA = new MapFieldCopyItem("a", "A");
 		final MapFieldCopyItem itemAB = new MapFieldCopyItem("a", "B");
@@ -166,7 +166,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testBothSame()
+	@Test void testBothSame()
 	{
 		final MapFieldCopyItem itemA = new MapFieldCopyItem("a");
 		final MapFieldCopyItem itemB = new MapFieldCopyItem("b");

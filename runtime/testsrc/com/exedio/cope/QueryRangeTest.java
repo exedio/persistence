@@ -28,7 +28,7 @@ public class QueryRangeTest
 {
 	static final Model MODEL = new Model(TYPE);
 
-	@Test public void testLimitSimple()
+	@Test void testLimitSimple()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(5);
@@ -36,7 +36,7 @@ public class QueryRangeTest
 		assertEquals(-1, q.getLimit());
 		assertEquals("select this from AnItem offset '5'", q.toString());
 	}
-	@Test public void testLimitSimpleZero()
+	@Test void testLimitSimpleZero()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(0);
@@ -44,7 +44,7 @@ public class QueryRangeTest
 		assertEquals(-1, q.getLimit());
 		assertEquals("select this from AnItem", q.toString());
 	}
-	@Test public void testLimitSimpleOffsetNegative()
+	@Test void testLimitSimpleOffsetNegative()
 	{
 		final Query<?> q = q5533();
 		try
@@ -60,7 +60,7 @@ public class QueryRangeTest
 		}
 	}
 
-	@Test public void testLimitFull()
+	@Test void testLimitFull()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(5, 3);
@@ -68,7 +68,7 @@ public class QueryRangeTest
 		assertEquals(3, q.getLimit());
 		assertEquals("select this from AnItem offset '5' limit '3'", q.toString());
 	}
-	@Test public void testLimitFullZero()
+	@Test void testLimitFullZero()
 	{
 		final Query<?> q = q5533();
 		q.setLimit(0, 0);
@@ -76,7 +76,7 @@ public class QueryRangeTest
 		assertEquals(0, q.getLimit());
 		assertEquals("select this from AnItem limit '0'", q.toString());
 	}
-	@Test public void testLimitFullOffsetNegative()
+	@Test void testLimitFullOffsetNegative()
 	{
 		final Query<?> q = q5533();
 		try
@@ -91,7 +91,7 @@ public class QueryRangeTest
 			assertEquals(33, q.getLimit());
 		}
 	}
-	@Test public void testLimitFullLimitNegative()
+	@Test void testLimitFullLimitNegative()
 	{
 		final Query<?> q = q5533();
 		try

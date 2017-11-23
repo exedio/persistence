@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class ClusterIdToStringTest
 {
-	@Test public void testInt()
+	@Test void testInt()
 	{
 		assertEquals("0", toStringNodeID(0));
 		assertEquals("1", toStringNodeID(1));

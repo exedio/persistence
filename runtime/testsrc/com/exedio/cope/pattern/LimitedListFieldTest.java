@@ -60,7 +60,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		item = new LimitedListFieldItem(1, 2, 3);
 	}
 
-	@Test public void testNum()
+	@Test void testNum()
 	{
 		assertEquals(i1, item.getNum1());
 		assertEquals(i2, item.getNum2());
@@ -131,7 +131,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(list(null, null, null), item.getNums());
 	}
 
-	@Test public void testDate()
+	@Test void testDate()
 	{
 		final Date ts1 = new Date(8172541283976l);
 		final Date ts2 = new Date(3874656234632l);
@@ -141,7 +141,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(ts2, item.getDate1());
 	}
 
-	@Test public void testString()
+	@Test void testString()
 	{
 		item.setStrings(unmodifiableList(asList("hallo", "bello")));
 		assertEqualsUnmodifiable(list("hallo", "bello"), item.getStrings());
@@ -189,7 +189,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(4, item3.getStringLength());
 	}
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		assertEqualsUnmodifiable(list(), item.getStrings());
 
@@ -234,7 +234,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(3, item.getStringLength());
 	}
 
-	@Test public void testListSettableNull()
+	@Test void testListSettableNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 		final SetValue<Collection<String>> map = strings.map(null);
@@ -253,7 +253,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test public void testListSetNull()
+	@Test void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 
@@ -270,7 +270,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
-	@Test public void testContainsInJoin()
+	@Test void testContainsInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
 		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
@@ -283,7 +283,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 			strings.contains(j, null).toString());
 	}
 
-	@Test public void testContainsAny()
+	@Test void testContainsAny()
 	{
 		final String f = "LimitedListFieldItem.strings-";
 		assertEquals("FALSE", strings.containsAny(Collections.emptyList()).toString());
@@ -295,7 +295,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 			strings.containsAny(asList("a","b")).toString());
 	}
 
-	@Test public void testContainsAnyInJoin()
+	@Test void testContainsAnyInJoin()
 	{
 		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
 		final Join join = q.join(TYPE, limitedListFieldItem.equalTarget());

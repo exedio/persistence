@@ -47,7 +47,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		super( MODEL );
 	}
 
-	@Test public void testGroupBy()
+	@Test void testGroupBy()
 	{
 		final GroupItem item1  = new GroupItem(day1, 1);
 		final GroupItem item2a = new GroupItem(day2, 2);
@@ -126,7 +126,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
-	@Test public void testUngroupedSelect()
+	@Test void testUngroupedSelect()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day2, 2);
@@ -187,7 +187,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSingleSelect()
+	@Test void testSingleSelect()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day2, 2);
@@ -208,7 +208,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(2, query.total());
 	}
 
-	@Test public void testMultiGrouping()
+	@Test void testMultiGrouping()
 	{
 		final GroupItem item1  = new GroupItem(day1, 1);
 		item1.setOptionalDouble( 10.0 );
@@ -238,7 +238,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(3, query.total());
 	}
 
-	@Test public void testGroupJoin()
+	@Test void testGroupJoin()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day1, 2);
@@ -265,7 +265,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(2, query.total());
 	}
 
-	@Test public void testSorting()
+	@Test void testSorting()
 	{
 		final GroupItem item2 = new GroupItem(day1, 1);
 		item2.setOptionalDouble( 2.0 );
@@ -288,7 +288,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(3, query.total());
 	}
 
-	@Test public void testHaving()
+	@Test void testHaving()
 	{
 		new GroupItem(day1, 1);
 		new GroupItem(day1, 2);

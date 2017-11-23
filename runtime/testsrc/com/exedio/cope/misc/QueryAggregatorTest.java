@@ -71,7 +71,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 		ag = QueryAggregator.get(q1, q2, q3);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(q1, q2, q3), new QueryAggregator<>(asList(q1, q2, q3)).getQueries());
 		assertEqualsUnmodifiable(list(q1, q2, q3), ag.getQueries());

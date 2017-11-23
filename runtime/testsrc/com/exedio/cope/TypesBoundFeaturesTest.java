@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 public class TypesBoundFeaturesTest
 {
 	@SuppressWarnings("synthetic-access")
-	@Test public void testIt() throws NoSuchFieldException
+	@Test void testIt() throws NoSuchFieldException
 	{
 		final SortedMap<Feature, Field> m = getFeatures(AClass.class);
 		final Iterator<Map.Entry<Feature, Field>> iterator = m.entrySet().iterator();
@@ -74,7 +74,7 @@ public class TypesBoundFeaturesTest
 		}
 	}
 
-	@Test public void testErrors()
+	@Test void testErrors()
 	{
 		try
 		{

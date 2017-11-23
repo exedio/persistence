@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class PasswordRecoveryConfigTest
 {
-	@Test public void testConfigFailure()
+	@Test void testConfigFailure()
 	{
 		try
 		{
@@ -66,35 +66,35 @@ public class PasswordRecoveryConfigTest
 		}
 	}
 
-	@Test public void testConfigDefaultReuse()
+	@Test void testConfigDefaultReuse()
 	{
 		final Config c = new Config(1);
 		assertEquals(1, c.getExpiryMillis());
 		assertEquals(1, c.getReuseMillis());
 	}
 
-	@Test public void testConfigDefaultReuseBig()
+	@Test void testConfigDefaultReuseBig()
 	{
 		final Config c = new Config(10001);
 		assertEquals(10001, c.getExpiryMillis());
 		assertEquals(10000, c.getReuseMillis());
 	}
 
-	@Test public void testConfigMinimal()
+	@Test void testConfigMinimal()
 	{
 		final Config c2 = new Config(20, 10);
 		assertEquals(20, c2.getExpiryMillis());
 		assertEquals(10, c2.getReuseMillis());
 	}
 
-	@Test public void testConfigNoReuse()
+	@Test void testConfigNoReuse()
 	{
 		final Config c2 = new Config(20, 0);
 		assertEquals(20, c2.getExpiryMillis());
 		assertEquals(0, c2.getReuseMillis());
 	}
 
-	@Test public void testPasswordRecovery()
+	@Test void testPasswordRecovery()
 	{
 		try
 		{

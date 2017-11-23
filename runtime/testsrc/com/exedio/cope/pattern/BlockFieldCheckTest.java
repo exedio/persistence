@@ -36,7 +36,7 @@ public class BlockFieldCheckTest extends TestWithEnvironment
 		super(BlockFieldCheckModelTest.MODEL);
 	}
 
-	@Test public void testField()
+	@Test void testField()
 	{
 		final AnItem i1 = new AnItem("item1", 1, 1, 2, 2);
 		final AnItem i2 = new AnItem("item2", 3, 3, 4, 4);

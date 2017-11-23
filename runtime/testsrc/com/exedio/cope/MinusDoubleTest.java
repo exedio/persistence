@@ -68,7 +68,7 @@ public class MinusDoubleTest extends TestWithEnvironment
 	private static final Double dAC = Double.valueOf(4.5);
 	private static final Double dBC = Double.valueOf(-1.5);
 
-	@Test public void testSum()
+	@Test void testSum()
 	{
 		// test model
 		assertEquals(TYPE, viewAB.getType());

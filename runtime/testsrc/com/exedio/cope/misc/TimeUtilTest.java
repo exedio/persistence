@@ -30,7 +30,7 @@ public class TimeUtilTest
 {
 	private final LogRule log = new LogRule(TimeUtil.class);
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(0, toMillies(      0, 0));
 		assertEquals(0, toMillies( 499999, 0));
@@ -44,7 +44,7 @@ public class TimeUtilTest
 		log.assertEmpty();
 	}
 
-	@Test public void testIllegal()
+	@Test void testIllegal()
 	{
 		assertEquals(0, toMillies(-1, 0));
 		log.assertError("backwards nanos 0 -1");

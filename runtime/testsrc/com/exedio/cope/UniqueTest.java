@@ -58,7 +58,7 @@ public class UniqueTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testItemWithSingleUnique()
+	@Test void testItemWithSingleUnique()
 			throws IntegrityViolationException, UniqueViolationException, NoSuchIDException
 	{
 		// test model
@@ -304,7 +304,7 @@ public class UniqueTest extends TestWithEnvironment
 		assertDelete(item);
 	}
 
-	@Test public void testMultipleSet()
+	@Test void testMultipleSet()
 	{
 		final UniqueSingleItem item1 = new UniqueSingleItem();
 		final UniqueSingleItem item2 = new UniqueSingleItem();
@@ -351,7 +351,7 @@ public class UniqueTest extends TestWithEnvironment
 		assertEquals("otherString1", item2.getOtherString());
 	}
 
-	@Test public void testUniqueFinal()
+	@Test void testUniqueFinal()
 	{
 		assertEquals(null, forUniqueFinalString("uniqueString"));
 
@@ -378,7 +378,7 @@ public class UniqueTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testItemWithSingleUniqueNotNull()
+	@Test void testItemWithSingleUniqueNotNull()
 	{
 		assertEquals(null, forUniqueNotNullString("uniqueString"));
 		assertEquals(null, forUniqueNotNullString("uniqueString2"));

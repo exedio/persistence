@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class ClusterIteratorTest
 {
-	@Test public void testInt()
+	@Test void testInt()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff, (byte)0xff, (byte)0xff, (byte)0xff}, 1, 4));
@@ -47,7 +47,7 @@ public class ClusterIteratorTest
 		}
 	}
 
-	@Test public void testLong()
+	@Test void testLong()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(new byte[]{(byte)0xff,
 						(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
@@ -67,7 +67,7 @@ public class ClusterIteratorTest
 		}
 	}
 
-	@Test public void testIntNegative()
+	@Test void testIntNegative()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));
@@ -76,7 +76,7 @@ public class ClusterIteratorTest
 		assertFalse(iter.hasNext());
 	}
 
-	@Test public void testLongNegative()
+	@Test void testLongNegative()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(new byte[]{
 						(byte)0x43, (byte)0x65, (byte)0x87, (byte)0xa9,
@@ -86,7 +86,7 @@ public class ClusterIteratorTest
 		assertFalse(iter.hasNext());
 	}
 
-	@Test public void testCheckInt()
+	@Test void testCheckInt()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0xff, (byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45, (byte)0xff}, 1, 4));
@@ -104,7 +104,7 @@ public class ClusterIteratorTest
 		}
 	}
 
-	@Test public void testCheckIntFalse()
+	@Test void testCheckIntFalse()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0xab, (byte)0x89, (byte)0x67, (byte)0x45}, 4));
@@ -113,7 +113,7 @@ public class ClusterIteratorTest
 		assertTrue(iter.hasNext());
 	}
 
-	@Test public void testCheckIntNegative()
+	@Test void testCheckIntNegative()
 	{
 		final ClusterIterator iter = new ClusterIterator(new DatagramPacket(
 				new byte[]{(byte)0x45, (byte)0x67, (byte)0x89, (byte)0xab}, 4));

@@ -49,7 +49,7 @@ public class EnumTest extends TestWithEnvironment
 		item2 = new EnumItem2(EnumItem2.Status.state1);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(EnumItem.Status.class, EnumItem.status.getValueClass());
 		assertEquals(EnumItem2.Status.class, EnumItem2.status.getValueClass());

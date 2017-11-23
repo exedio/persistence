@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 public class TypeCompareTest
 {
 	@SuppressWarnings("EqualsWithItself")
-	@Test public void testType()
+	@Test void testType()
 	{
 		final Type<AnItem> type1 = newType(AnItem.class);
 		final Type<AnotherItem> type2 = newType(AnotherItem.class);

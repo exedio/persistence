@@ -47,7 +47,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		modelA.tearDownSchema();
 	}
 
-	@Test public void testMulticast() throws InterruptedException, NotAvailableException
+	@Test void testMulticast() throws InterruptedException, NotAvailableException
 	{
 		// when running this test alone, it fails on Windows if modelA is connected before modelB
 		modelB.connect(getPropertiesMulticast());
@@ -60,7 +60,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		test();
 	}
 
-	@Test public void testSinglecast() throws InterruptedException, NotAvailableException
+	@Test void testSinglecast() throws InterruptedException, NotAvailableException
 	{
 		modelA.connect(getPropertiesSinglecast(true));
 		modelB.connect(getPropertiesSinglecast(false));

@@ -30,17 +30,17 @@ import org.junit.jupiter.api.Test;
 
 public class SamplerTest
 {
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals("Sampler#com.exedio.cope.sampler.Stuff#MODEL", sampler.toString());
 	}
 
-	@Test public void testModelToString()
+	@Test void testModelToString()
 	{
 		assertEquals("Sampler(com.exedio.cope.sampler.Stuff#MODEL)", sampler.getModel().toString());
 	}
 
-	@Test public void testConstructorNull()
+	@Test void testConstructorNull()
 	{
 		try
 		{
@@ -53,7 +53,7 @@ public class SamplerTest
 		}
 	}
 
-	@Test public void testPurgeNegativeDays()
+	@Test void testPurgeNegativeDays()
 	{
 		try
 		{
@@ -66,7 +66,7 @@ public class SamplerTest
 		}
 	}
 
-	@Test public void testPurgeNullContext()
+	@Test void testPurgeNullContext()
 	{
 		try
 		{
@@ -79,7 +79,7 @@ public class SamplerTest
 		}
 	}
 
-	@Test public void testPurgeNullLimit()
+	@Test void testPurgeNullLimit()
 	{
 		try
 		{
@@ -92,7 +92,7 @@ public class SamplerTest
 		}
 	}
 
-	@Test public void testPurgeExternal()
+	@Test void testPurgeExternal()
 	{
 		for(final Type<?> type : sampler.getModel().getTypes())
 			assertEquals(

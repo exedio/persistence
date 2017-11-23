@@ -69,7 +69,7 @@ public class DoubleTest extends TestWithEnvironment
 		numberOfItems = 2;
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// test model
 		assertEquals(TYPE, any.getType());
@@ -571,7 +571,7 @@ public class DoubleTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -619,7 +619,7 @@ public class DoubleTest extends TestWithEnvironment
 		return new CompareCondition<>(operator, (Selectable<Double>)field, value);
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

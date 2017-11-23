@@ -46,7 +46,7 @@ public class TypeFieldModelTest
 		MODEL.enableSerialization(TypeFieldModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE, TypeFieldSubItem.TYPE), MODEL.getTypes());
 		assertEqualsUnmodifiable(list(TYPE, TypeFieldSubItem.TYPE), MODEL.getTypesSortedByHierarchy());
@@ -100,7 +100,7 @@ public class TypeFieldModelTest
 			restricted.isInvalid().toString());
 	}
 
-	@Test public void testValueClassNull()
+	@Test void testValueClassNull()
 	{
 		try
 		{

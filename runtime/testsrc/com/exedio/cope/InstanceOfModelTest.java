@@ -43,7 +43,7 @@ public class InstanceOfModelTest
 	private final Type<InstanceOfB2Item> TYPE_B2 = InstanceOfB2Item.TYPE;
 	private final Type<InstanceOfC1Item> TYPE_C1 = InstanceOfC1Item.TYPE;
 
-	@Test public void testFeatures()
+	@Test void testFeatures()
 	{
 		final Type<InstanceOfAItem > a  = InstanceOfAItem .TYPE;
 		final Type<InstanceOfB1Item> b1 = InstanceOfB1Item.TYPE;
@@ -86,7 +86,7 @@ public class InstanceOfModelTest
 		assertEquals(list(codeUnq), c1.getUniqueConstraints());
 	}
 
-	@Test public void testEqualsHashCode()
+	@Test void testEqualsHashCode()
 	{
 		assertNotEqualsAndHash(
 				TYPE_A.getThis().instanceOf(TYPE_B1),
@@ -104,7 +104,7 @@ public class InstanceOfModelTest
 				ref.instanceOf(TYPE_B1));
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals("InstanceOfAItem.this instanceOf InstanceOfC1Item", TYPE_A.getThis().instanceOf(TYPE_C1).toString());
 		assertEquals("InstanceOfAItem.this instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().instanceOf(TYPE_C1, TYPE_B1).toString());
@@ -112,7 +112,7 @@ public class InstanceOfModelTest
 		assertEquals("InstanceOfAItem.this not instanceOf [InstanceOfC1Item, InstanceOfB1Item]", TYPE_A.getThis().notInstanceOf(TYPE_C1, TYPE_B1).toString());
 	}
 
-	@Test public void testFails()
+	@Test void testFails()
 	{
 		try
 		{
@@ -144,7 +144,7 @@ public class InstanceOfModelTest
 		}
 	}
 
-	@Test public void testAsSame()
+	@Test void testAsSame()
 	{
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.as(InstanceOfAItem.class));
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asExtends(InstanceOfAItem.class));
@@ -152,7 +152,7 @@ public class InstanceOfModelTest
 		assertSame(ref, ref.asExtends(InstanceOfAItem.class));
 	}
 
-	@Test public void testAsChildReverse()
+	@Test void testAsChildReverse()
 	{
 		try
 		{
@@ -192,7 +192,7 @@ public class InstanceOfModelTest
 		}
 	}
 
-	@Test public void testAsSameSub()
+	@Test void testAsSameSub()
 	{
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.as(InstanceOfB2Item.class));
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.asExtends(InstanceOfB2Item.class));
@@ -200,7 +200,7 @@ public class InstanceOfModelTest
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfB2Item.class));
 	}
 
-	@Test public void testAsBrother()
+	@Test void testAsBrother()
 	{
 		try
 		{
@@ -240,7 +240,7 @@ public class InstanceOfModelTest
 		}
 	}
 
-	@Test public void testAsSameChild()
+	@Test void testAsSameChild()
 	{
 		try
 		{
@@ -308,7 +308,7 @@ public class InstanceOfModelTest
 			failure.getMessage());
 	}
 
-	@Test public void testGetSubTypes()
+	@Test void testGetSubTypes()
 	{
 		assertEqualsUnmodifiable(
 				list(InstanceOfB1Item.TYPE, InstanceOfB2Item.TYPE), InstanceOfAItem.TYPE.getSubtypes());
@@ -320,7 +320,7 @@ public class InstanceOfModelTest
 				list(), InstanceOfC1Item.TYPE.getSubtypes());
 	}
 
-	@Test public void testGetSubTypesTransitively()
+	@Test void testGetSubTypesTransitively()
 	{
 		assertEqualsUnmodifiable(
 				list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE),
@@ -336,7 +336,7 @@ public class InstanceOfModelTest
 				InstanceOfC1Item.TYPE.getSubtypesTransitively());
 	}
 
-	@Test public void testTypesOfInstances()
+	@Test void testTypesOfInstances()
 	{
 		assertEqualsUnmodifiable(
 				list(InstanceOfAItem.TYPE, InstanceOfB1Item.TYPE, InstanceOfC1Item.TYPE, InstanceOfB2Item.TYPE),
@@ -352,7 +352,7 @@ public class InstanceOfModelTest
 				InstanceOfC1Item.TYPE.getTypesOfInstances());
 	}
 
-	@Test public void testCastTypeExtends()
+	@Test void testCastTypeExtends()
 	{
 		final Type<? extends InstanceOfAItem> t = InstanceOfAItem.TYPE.castTypeExtends(InstanceOfB1Item.TYPE);
 		assertSame(InstanceOfB1Item.TYPE, t);

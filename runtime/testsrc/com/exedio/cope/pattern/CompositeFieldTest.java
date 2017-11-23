@@ -84,7 +84,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// test model
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
@@ -461,7 +461,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertSame(value.getCopeType(), serializedValue.getCopeType());
 	}
 
-	@Test public void testConditions()
+	@Test void testConditions()
 	{
 		final CompositeValue v = new CompositeValue("einsString1", 1, AnEnum.facet1, target1);
 		final CompositeItem i1 = new CompositeItem("i1", v, v);
@@ -484,7 +484,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertEquals(list(target1, target2, o1), CompositeOptionalItem.TYPE.search(duo.isNull(), CompositeOptionalItem.TYPE.getThis(), true));
 	}
 
-	@Test public void testBindingInConditions()
+	@Test void testBindingInConditions()
 	{
 		final CompositeItemHolder h1 = new CompositeItemHolder(target1);
 		new CompositeItemHolder(target2);

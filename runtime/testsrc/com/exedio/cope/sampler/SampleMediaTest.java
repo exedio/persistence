@@ -35,7 +35,7 @@ public class SampleMediaTest extends ConnectedTest
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testNormal() throws InterruptedException
+	@Test void testNormal() throws InterruptedException
 	{
 		samplerModel.createSchema();
 
@@ -67,7 +67,7 @@ public class SampleMediaTest extends ConnectedTest
 		}
 	}
 
-	@Test public void testEmptyStart() throws InterruptedException
+	@Test void testEmptyStart() throws InterruptedException
 	{
 		samplerModel.createSchema();
 

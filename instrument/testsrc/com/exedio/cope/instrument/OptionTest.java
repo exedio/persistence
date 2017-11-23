@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class OptionTest
 {
-	@Test public void testType()
+	@Test void testType()
 	{
 		assertEquals("public,default,default,default,1", desc(forType("@cope.type public")));
 		assertEquals("default,public,default,default,1", desc(forType("@cope.constructor public")));
@@ -39,7 +39,7 @@ public class OptionTest
 		assertEquals("default,default,default,public,1", desc(forType("@cope.activation.constructor public")));
 		assertEquals("default,default,default,default,333", desc(forType("@cope.indent 333")));
 	}
-	@Test public void testTypeVisibility()
+	@Test void testTypeVisibility()
 	{
 		assertEquals("none,default,default,default,1",      desc(forType("@cope.type none")));
 		assertEquals("private,default,default,default,1",   desc(forType("@cope.type private")));
@@ -47,7 +47,7 @@ public class OptionTest
 		assertEquals("protected,default,default,default,1", desc(forType("@cope.type protected")));
 		assertEquals("public,default,default,default,1",    desc(forType("@cope.type public")));
 	}
-	@Test public void testTypeEmpty()
+	@Test void testTypeEmpty()
 	{
 		assertEquals(null, forType(null));
 		assertEquals(null, forType(""));
@@ -62,14 +62,14 @@ public class OptionTest
 				ann.indent();
 	}
 
-	@Test public void testFeatureEmpty()
+	@Test void testFeatureEmpty()
 	{
 		assertEquals(null, forFeature(null, "zack"));
 		assertEquals(null, forFeature("", "zack"));
 		assertEquals(null, forFeature("@cope.zack", "zack"));
 		assertEquals(null, forFeature("@cope.zack public", "zick"));
 	}
-	@Test public void testFeature()
+	@Test void testFeature()
 	{
 		assertEquals("default",           desc(forFeature("@cope.zack ", "zack")));
 		assertEquals("public",            desc(forFeature("@cope.zack public", "zack")));
@@ -99,7 +99,7 @@ public class OptionTest
 		return value.name().toLowerCase(Locale.ENGLISH);
 	}
 
-	@Test public void testIgnore()
+	@Test void testIgnore()
 	{
 		assertNull(forIgnore(null));
 		assertNull(forIgnore(""));
@@ -108,7 +108,7 @@ public class OptionTest
 		assertNull(forIgnore("@cope.ignorex"));
 	}
 
-	@Test public void testInitial()
+	@Test void testInitial()
 	{
 		assertNull(forInitial(null));
 		assertNull(forInitial(""));

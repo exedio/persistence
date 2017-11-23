@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypeColumnTypeTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals("StandardSub", getTypeColumnValue(StandardSub.TYPE));
 		assertEquals("MinLengthSub", getTypeColumnValue(MinLengthSub.TYPE));

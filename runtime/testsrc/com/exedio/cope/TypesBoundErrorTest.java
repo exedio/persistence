@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class TypesBoundErrorTest
 {
-	@Test public void classNull()
+	@Test void classNull()
 	{
 		try
 		{
@@ -44,7 +44,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void classItem()
+	@Test void classItem()
 	{
 		try
 		{
@@ -58,7 +58,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void classNoItem()
+	@Test void classNoItem()
 	{
 		try
 		{
@@ -81,7 +81,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void noActivationConstructor()
+	@Test void noActivationConstructor()
 	{
 		try
 		{
@@ -103,7 +103,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void wrongActivationConstructor()
+	@Test void wrongActivationConstructor()
 	{
 		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);
 		try
@@ -136,7 +136,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void featureNull()
+	@Test void featureNull()
 	{
 		try
 		{
@@ -156,7 +156,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void featureDuplicate()
+	@Test void featureDuplicate()
 	{
 		try
 		{
@@ -177,7 +177,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void nonResolvingItemField()
+	@Test void nonResolvingItemField()
 	{
 		try
 		{
@@ -225,7 +225,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void beforeNewNotStatic()
+	@Test void beforeNewNotStatic()
 	{
 		try
 		{
@@ -259,7 +259,7 @@ public class TypesBoundErrorTest
 	}
 
 
-	@Test public void beforeNewWrongReturn()
+	@Test void beforeNewWrongReturn()
 	{
 		try
 		{
@@ -294,7 +294,7 @@ public class TypesBoundErrorTest
 
 
 	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
-	@Test public void uniqueConstraintOnInheritedFeature()
+	@Test void uniqueConstraintOnInheritedFeature()
 	{
 		// initialize class, otherwise test fails if executed alone (without other tests in this test class):
 		// IllegalArgumentException: there is no type for class com.exedio.cope.TypesBoundErrorTest$UniqueConstraintOnInheritedFeatureSuper

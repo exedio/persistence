@@ -58,7 +58,7 @@ public class MapFieldTest extends TestWithEnvironment
 		itemX = new MapFieldItem();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(null, item.getName(DE));
 		assertEquals(null, item.getNameLength(DE));
@@ -152,7 +152,7 @@ public class MapFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testMapSet()
+	@Test void testMapSet()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -181,7 +181,7 @@ public class MapFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test public void testMapSetNull()
+	@Test void testMapSetNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -202,7 +202,7 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	@Test public void testMapSetKeyNull()
+	@Test void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -223,7 +223,7 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	@Test public void testMapSetValueNull()
+	@Test void testMapSetValueNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
@@ -244,7 +244,7 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
-	@Test public void testGetAndCast()
+	@Test void testGetAndCast()
 	{
 		item.setName(DE, "NAMEde");
 		Object o = DE;
@@ -270,7 +270,7 @@ public class MapFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testSetAndCast()
+	@Test void testSetAndCast()
 	{
 		Object key = DE;
 		Object value = "NAMEde";

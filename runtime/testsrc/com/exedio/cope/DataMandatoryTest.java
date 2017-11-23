@@ -57,7 +57,7 @@ public class DataMandatoryTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testData() throws MandatoryViolationException, IOException
+	@Test void testData() throws MandatoryViolationException, IOException
 	{
 		// test model
 		assertEquals(false, data.isFinal());

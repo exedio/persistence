@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class MediaManyContentTypeTest
 {
-	@Test public void test()
+	@Test void test()
 	{
 		final Media[] medias = {
 			new Media(),

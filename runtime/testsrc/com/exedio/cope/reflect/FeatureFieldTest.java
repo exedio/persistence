@@ -47,7 +47,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		super(FeatureFieldModelTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals("standard", SchemaInfo.getColumnName(standard.getIdField()));
 		assertEquals("newname", SchemaInfo.getColumnName(renamed.getIdField()));
@@ -86,7 +86,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testMandatoryViolation()
+	@Test void testMandatoryViolation()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		assertSame(string1, item.getStandard());
@@ -103,7 +103,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertSame(string1, item.getStandard());
 	}
 
-	@Test public void testFinalViolation()
+	@Test void testFinalViolation()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		assertSame(string2, item.getIsFinal());
@@ -120,7 +120,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertSame(string2, item.getIsFinal());
 	}
 
-	@Test public void testNotFoundNoSuchID()
+	@Test void testNotFoundNoSuchID()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		standard.getIdField().set(item, "zack");
@@ -142,7 +142,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNotFoundWrongValueClass()
+	@Test void testNotFoundWrongValueClass()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		restricted.getIdField().set(item, integer1.getID());
@@ -165,7 +165,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testUnique()
+	@Test void testUnique()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		assertEquals(null, forUnique(string1));

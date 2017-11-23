@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class StringCopyTest
 {
-	@Test public void testOptional()
+	@Test void testOptional()
 	{
 		final StringField orig = new StringField().optional();
 		assertEquals(false, orig.isFinal());
@@ -44,7 +44,7 @@ public class StringCopyTest
 	}
 
 	@Deprecated // OK test deprecated api
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final StringField orig = new StringField(StringField.EMPTY).optional();
 		assertEquals(false, orig.isFinal());
@@ -59,7 +59,7 @@ public class StringCopyTest
 		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
 	}
 
-	@Test public void testMin()
+	@Test void testMin()
 	{
 		final StringField orig = new StringField().toFinal().optional().lengthMin(10);
 		assertEquals(true, orig.isFinal());
@@ -76,7 +76,7 @@ public class StringCopyTest
 		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
 	}
 
-	@Test public void testUnique()
+	@Test void testUnique()
 	{
 		final StringField orig = new StringField().toFinal().optional().unique().lengthMin(20);
 		assertEquals(true, orig.isFinal());
@@ -93,7 +93,7 @@ public class StringCopyTest
 		assertEquals(StringField.DEFAULT_MAXIMUM_LENGTH, copy.getMaximumLength());
 	}
 
-	@Test public void testRange()
+	@Test void testRange()
 	{
 		final StringField orig = new StringField().lengthRange(10, 20);
 		assertEquals(false, orig.isFinal());
@@ -108,7 +108,7 @@ public class StringCopyTest
 		assertEquals(20, copy.getMaximumLength());
 	}
 
-	@Test public void testIllegalRange()
+	@Test void testIllegalRange()
 	{
 		assertWrongLength(-1, 20, "minimumLength must not be negative, but was -1");
 		assertWrongLength( 0,  0, "maximumLength must be greater zero, but was 0");

@@ -44,7 +44,7 @@ import org.junit.jupiter.api.Test;
 
 public class BlockMountTest
 {
-	@Test public void testAbstractType()
+	@Test void testAbstractType()
 	{
 		assertSame(MyBlock.TYPE, MyBlock.string4.getAbstractType());
 		assertSame(MyBlock.TYPE, MyBlock.intMax4.getAbstractType());
@@ -61,7 +61,7 @@ public class BlockMountTest
 		}
 	}
 
-	@Test public void testType()
+	@Test void testType()
 	{
 		try
 		{
@@ -98,7 +98,7 @@ public class BlockMountTest
 		}
 	}
 
-	@Test public void testName()
+	@Test void testName()
 	{
 		assertEquals("string4", MyBlock.string4.getName());
 		assertEquals("intMax4", MyBlock.intMax4.getName());
@@ -115,7 +115,7 @@ public class BlockMountTest
 		}
 	}
 
-	@Test public void testID()
+	@Test void testID()
 	{
 		try
 		{
@@ -152,7 +152,7 @@ public class BlockMountTest
 		}
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals(blockName + "string4", MyBlock.string4.toString());
 		assertEquals(blockName + "intMax4", MyBlock.intMax4.toString());
@@ -161,7 +161,7 @@ public class BlockMountTest
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
 	}
 
-	@Test public void testGetAnnotation()
+	@Test void testGetAnnotation()
 	{
 		assertEquals("stringAnno", MyBlock.string4.getAnnotation(Anno.class).value());
 		assertEquals("intAnno", MyBlock.intMax4.getAnnotation(Anno.class).value());
@@ -180,7 +180,7 @@ public class BlockMountTest
 		}
 	}
 
-	@Test public void testIsAnnotation()
+	@Test void testIsAnnotation()
 	{
 		assertTrue (MyBlock.string4.isAnnotationPresent(Anno.class));
 		assertTrue (MyBlock.intMax4.isAnnotationPresent(Anno.class));
@@ -213,7 +213,7 @@ public class BlockMountTest
 		String value();
 	}
 
-	@Test public void testSerialization() throws IOException
+	@Test void testSerialization() throws IOException
 	{
 		assertSerializedSame(MyBlock.string4, 327);
 		assertSerializedSame(MyBlock.intMax4, 327);

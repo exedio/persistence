@@ -22,7 +22,7 @@ import org.junit.jupiter.api.Test;
 
 public class JPEGCodecAccessTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		System.out.println("JPEGCodecAccess available: " + JPEGCodecAccess.available());
 	}

@@ -58,7 +58,7 @@ public class PlusDoubleOrderTest extends TestWithEnvironment
 
 	private static final double EPS = 0.000000000000001d;
 
-	@Test public void testSumOrder()
+	@Test void testSumOrder()
 	{
 		assertEquals(d7, item1.getPlusAB(), EPS);
 		assertEquals(d3, item2.getPlusAB(), EPS);

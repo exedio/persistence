@@ -44,7 +44,7 @@ public class GraphTest
 		});
 	}
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		final Table tabT = schema.newTable("tabT");
 		final Table tab1 = schema.newTable("tab1");
@@ -59,7 +59,7 @@ public class GraphTest
 		assertEquals(list(), setAsList(graph.getConstraintsBroken()));
 	}
 
-	@Test public void testSelf()
+	@Test void testSelf()
 	{
 		final Table tab = schema.newTable("tab");
 		final Column col = tab.newColumn("col", "type");
@@ -70,7 +70,7 @@ public class GraphTest
 		assertEquals(list(), setAsList(graph.getConstraintsBroken()));
 	}
 
-	@Test public void testReorder()
+	@Test void testReorder()
 	{
 		final Table tab1 = schema.newTable("tab1");
 		final Column col1 = tab1.newColumn("col1", "type1");
@@ -85,7 +85,7 @@ public class GraphTest
 		assertEquals(list(), setAsList(graph.getConstraintsBroken()));
 	}
 
-	@Test public void testBreak()
+	@Test void testBreak()
 	{
 		final Table tab1 = schema.newTable("tab1");
 		final Table tab2 = schema.newTable("tab2");
@@ -100,7 +100,7 @@ public class GraphTest
 		assertEquals(list(fk1), setAsList(graph.getConstraintsBroken()));
 	}
 
-	@Test public void testBreakWeight()
+	@Test void testBreakWeight()
 	{
 		final Table tab1 = schema.newTable("tab1");
 		final Table tab2 = schema.newTable("tab2");

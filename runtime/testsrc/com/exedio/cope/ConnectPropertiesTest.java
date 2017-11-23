@@ -47,7 +47,7 @@ public class ConnectPropertiesTest
 	 * This tests makes sure, that no properties are changed by accident.
 	 * Adapt if necessary.
 	 */
-	@Test public void testRegression()
+	@Test void testRegression()
 	{
 		final HashMap<String,Object> notOnDefault = new HashMap<>();
 		notOnDefault.put("connection.url", "xxxurl");
@@ -76,7 +76,7 @@ public class ConnectPropertiesTest
 		p.ensureValidity();
 	}
 
-	@Test public void testConnectionUrlMissingPrefix()
+	@Test void testConnectionUrlMissingPrefix()
 	{
 		assertConnectionUrlFailure(
 				"someUrl",
@@ -84,7 +84,7 @@ public class ConnectPropertiesTest
 				null);
 	}
 
-	@Test public void testConnectionUrlMissingColon()
+	@Test void testConnectionUrlMissingColon()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:someCode",
@@ -92,7 +92,7 @@ public class ConnectPropertiesTest
 				null);
 	}
 
-	@Test public void testConnectionUrlOneCharacter()
+	@Test void testConnectionUrlOneCharacter()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:a:",
@@ -100,7 +100,7 @@ public class ConnectPropertiesTest
 				null);
 	}
 
-	@Test public void testConnectionUrlTwoCharacters()
+	@Test void testConnectionUrlTwoCharacters()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:ab:",
@@ -108,7 +108,7 @@ public class ConnectPropertiesTest
 				null);
 	}
 
-	@Test public void testConnectionUrlThreeCharacters()
+	@Test void testConnectionUrlThreeCharacters()
 	{
 		assertConnectionUrlFailure(
 				"jdbc:abc:",
@@ -117,7 +117,7 @@ public class ConnectPropertiesTest
 				ClassNotFoundException.class);
 	}
 
-	@Test public void testDialectClassNotFound()
+	@Test void testDialectClassNotFound()
 	{
 		assertDialectFailure(
 				"com.exedio.cope.ClassNotFoundDialect",
@@ -126,7 +126,7 @@ public class ConnectPropertiesTest
 				ClassNotFoundException.class);
 	}
 
-	@Test public void testDialectClassAbstract()
+	@Test void testDialectClassAbstract()
 	{
 		assertDialectFailure(
 				ConnectPropertiesTestClassAbstractDialect.class.getName(),
@@ -135,7 +135,7 @@ public class ConnectPropertiesTest
 				null);
 	}
 
-	@Test public void testDialectClassNotDialect()
+	@Test void testDialectClassNotDialect()
 	{
 		assertDialectFailure(
 				ConnectPropertiesTestClassNotDialectDialect.class.getName(),
@@ -144,7 +144,7 @@ public class ConnectPropertiesTest
 				ClassCastException.class);
 	}
 
-	@Test public void testDialectClassNoConstructor()
+	@Test void testDialectClassNoConstructor()
 	{
 		assertDialectFailure(
 				ConnectPropertiesTestClassNoConstructorDialect.class.getName(),
@@ -203,7 +203,7 @@ public class ConnectPropertiesTest
 		}
 	}
 
-	@Test public void testPrimaryKeyGeneratorDefaultStandard()
+	@Test void testPrimaryKeyGeneratorDefaultStandard()
 	{
 		final ConnectProperties p = factory().
 				create(TestSources.minimal());
@@ -211,7 +211,7 @@ public class ConnectPropertiesTest
 		assertEquals(PrimaryKeyGenerator.memory, p.primaryKeyGenerator);
 	}
 
-	@Test public void testPrimaryKeyGeneratorDefaultSequence()
+	@Test void testPrimaryKeyGeneratorDefaultSequence()
 	{
 		final ConnectProperties p = factory().
 				primaryKeyGeneratorSequence().
@@ -220,7 +220,7 @@ public class ConnectPropertiesTest
 		assertEquals(PrimaryKeyGenerator.sequence, p.primaryKeyGenerator);
 	}
 
-	@Test public void testConnectionPoolIdleInitial()
+	@Test void testConnectionPoolIdleInitial()
 	{
 		final String propKey = "connectionPool.idleInitial";
 		final Source source =
@@ -242,7 +242,7 @@ public class ConnectPropertiesTest
 		}
 	}
 
-	@Test public void testItemCacheLimit()
+	@Test void testItemCacheLimit()
 	{
 		final Source source =
 				cascade(
@@ -252,7 +252,7 @@ public class ConnectPropertiesTest
 		assertEquals(123, ConnectProperties.create(source).getItemCacheLimit());
 	}
 
-	@Test public void testItemCacheLimitFallback()
+	@Test void testItemCacheLimitFallback()
 	{
 		final Source source =
 				cascade(
@@ -262,7 +262,7 @@ public class ConnectPropertiesTest
 		assertEquals(123, ConnectProperties.create(source).getItemCacheLimit());
 	}
 
-	@Test public void testItemCacheLimitOverride()
+	@Test void testItemCacheLimitOverride()
 	{
 		final Source source =
 				cascade(
@@ -273,7 +273,7 @@ public class ConnectPropertiesTest
 		assertEquals(456, ConnectProperties.create(source).getItemCacheLimit());
 	}
 
-	@Test public void testVaultAlgorithmDefault()
+	@Test void testVaultAlgorithmDefault()
 	{
 		final Source source =
 				cascade(
@@ -284,7 +284,7 @@ public class ConnectPropertiesTest
 		assertEquals("SHA-512", ConnectProperties.create(source).getVaultAlgorithm());
 	}
 
-	@Test public void testVaultAlgorithmSet()
+	@Test void testVaultAlgorithmSet()
 	{
 		final Source source =
 				cascade(
@@ -296,7 +296,7 @@ public class ConnectPropertiesTest
 		assertEquals("MD5", ConnectProperties.create(source).getVaultAlgorithm());
 	}
 
-	@Test public void testVaultAlgorithmDisabled()
+	@Test void testVaultAlgorithmDisabled()
 	{
 		final Source source =
 				cascade(
@@ -306,7 +306,7 @@ public class ConnectPropertiesTest
 		assertEquals(null, ConnectProperties.create(source).getVaultAlgorithm());
 	}
 
-	@Test public void testMediaRootUrlStandard()
+	@Test void testMediaRootUrlStandard()
 	{
 		final ConnectProperties p = factory().
 				create(TestSources.minimal());
@@ -314,7 +314,7 @@ public class ConnectPropertiesTest
 		assertEquals("media/", p.getMediaRootUrl());
 	}
 
-	@Test public void testMediaRootUrlCustom()
+	@Test void testMediaRootUrlCustom()
 	{
 		final ConnectProperties p = factory().
 				mediaRootUrl("/custom/").
@@ -323,7 +323,7 @@ public class ConnectPropertiesTest
 		assertEquals("/custom/", p.getMediaRootUrl());
 	}
 
-	@Test public void testMediaRootUrlNull()
+	@Test void testMediaRootUrlNull()
 	{
 		final Factory f = factory().mediaRootUrl(null);
 		final Source s = TestSources.minimal();
@@ -346,7 +346,7 @@ public class ConnectPropertiesTest
 		return Sources.load(ConnectPropertiesTest.class.getResource("connectPropertiesTest.properties"));
 	}
 
-	@Test public void testProbe() throws Exception
+	@Test void testProbe() throws Exception
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 		final String expected =
@@ -361,7 +361,7 @@ public class ConnectPropertiesTest
 		assertEquals("probe", test.toString());
 	}
 
-	@Test public void testProbeVault() throws Exception
+	@Test void testProbeVault() throws Exception
 	{
 		final ConnectProperties p = ConnectProperties.create(cascade(
 				single("dataField.vault", true),

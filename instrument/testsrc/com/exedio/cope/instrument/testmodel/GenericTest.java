@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class GenericTest
 {
-	@Test public void testType()
+	@Test void testType()
 	{
 		assertEquals("GenericSimpleSuper" , GenericSimpleSuper .TYPE.getID());
 		assertEquals("GenericSimpleSub"   , GenericSimpleSub   .TYPE.getID());
@@ -33,7 +33,7 @@ public class GenericTest
 		assertEquals("GenericComplexSub"  , GenericComplexSub  .TYPE.getID());
 	}
 
-	@Test public void testValueClass()
+	@Test void testValueClass()
 	{
 		assertEquals(GenericSimpleSub   .class, GenericSimpleSuper .toSub  .valueClass);
 		assertEquals(GenericSimpleSuper .class, GenericSimpleSuper .toSuper.valueClass);

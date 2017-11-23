@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 public class RevisionTest
 {
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	@Test public void testNumberNegative()
+	@Test void testNumberNegative()
 	{
 		try
 		{
@@ -42,7 +42,7 @@ public class RevisionTest
 		}
 	}
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	@Test public void testNumberZero()
+	@Test void testNumberZero()
 	{
 		try
 		{
@@ -54,7 +54,7 @@ public class RevisionTest
 			assertEquals("number must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	@Test public void testCommentNull()
+	@Test void testCommentNull()
 	{
 		try
 		{
@@ -67,7 +67,7 @@ public class RevisionTest
 		}
 	}
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	@Test public void testCommentEmpty()
+	@Test void testCommentEmpty()
 	{
 		try
 		{
@@ -79,7 +79,7 @@ public class RevisionTest
 			assertEquals("comment must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testBodyNull()
+	@Test void testBodyNull()
 	{
 		try
 		{
@@ -91,7 +91,7 @@ public class RevisionTest
 			assertEquals("body", e.getMessage());
 		}
 	}
-	@Test public void testBodyEmpty()
+	@Test void testBodyEmpty()
 	{
 		try
 		{
@@ -103,7 +103,7 @@ public class RevisionTest
 			assertEquals("body must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testBodyElementNull()
+	@Test void testBodyElementNull()
 	{
 		try
 		{
@@ -115,7 +115,7 @@ public class RevisionTest
 			assertEquals("body[1]", e.getMessage());
 		}
 	}
-	@Test public void testBodyElementEmpty()
+	@Test void testBodyElementEmpty()
 	{
 		try
 		{
@@ -127,7 +127,7 @@ public class RevisionTest
 			assertEquals("body[1] must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testSuccess()
+	@Test void testSuccess()
 	{
 		final Revision m = new Revision(123, "test-comment", "sql1", "sql2");
 		assertEquals(123, m.getNumber());
@@ -135,7 +135,7 @@ public class RevisionTest
 		assertEqualsUnmodifiable(list("sql1", "sql2"), m.getBody());
 		assertEquals("R123:test-comment", m.toString());
 	}
-	@Test public void testCopy()
+	@Test void testCopy()
 	{
 		final String[] body = {"a", "b", "c"};
 		final Revision r = new Revision(5, "comment", body);

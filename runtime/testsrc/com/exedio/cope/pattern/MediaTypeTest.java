@@ -52,7 +52,7 @@ public class MediaTypeTest
 
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
 
-	@Test public void testForFileName()
+	@Test void testForFileName()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
@@ -80,7 +80,7 @@ public class MediaTypeTest
 		assertSame(null, forFileName("."));
 	}
 
-	@Test public void testForName()
+	@Test void testForName()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
@@ -120,7 +120,7 @@ public class MediaTypeTest
 		assertEquals("image/png", png.toString());
 	}
 
-	@Test public void testForNameAlias()
+	@Test void testForNameAlias()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
@@ -144,7 +144,7 @@ public class MediaTypeTest
 		}
 	}
 
-	@Test public void testForMagic() throws IOException
+	@Test void testForMagic() throws IOException
 	{
 		assertEquals(8, MediaType.magicMaxLength());
 
@@ -166,7 +166,7 @@ public class MediaTypeTest
 		assertMagic(stealTail(ZIP));
 	}
 
-	@Test public void testForMagicFails() throws IOException
+	@Test void testForMagicFails() throws IOException
 	{
 		// byte
 		try

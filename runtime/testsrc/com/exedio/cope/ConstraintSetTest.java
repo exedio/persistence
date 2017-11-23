@@ -54,7 +54,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final Table table = model.getSchema().getTable(getTableName(TYPE));
 

@@ -35,7 +35,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testProvideAllOk()
+	@Test void testProvideAllOk()
 	{
 		final Target target = new Target("fieldValue");
 		final Source source = Source.create(target, "fieldValue");
@@ -50,7 +50,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertEquals("fieldValueSet", source.getField());
 	}
 
-	@Test public void testProvideAllWrongCreate()
+	@Test void testProvideAllWrongCreate()
 	{
 		final Target target = new Target("fieldValueT");
 		try
@@ -70,7 +70,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertContains(Source.TYPE.search());
 	}
 
-	@Test public void testProvideAllWrongSet()
+	@Test void testProvideAllWrongSet()
 	{
 		final Target target = new Target("fieldValue");
 		final Source source = Source.create(target, "fieldValue");
@@ -97,7 +97,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertEquals("fieldValue", source.getField());
 	}
 
-	@Test public void testOmitCopy()
+	@Test void testOmitCopy()
 	{
 		final Target target = new Target("fieldValue");
 		final Source source = Source.create(target);
@@ -112,7 +112,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertEquals("fieldValueSet", source.getField());
 	}
 
-	@Test public void testOmitCopyNullCreate()
+	@Test void testOmitCopyNullCreate()
 	{
 		final Target target = new Target((String)null);
 		final Source source = Source.create(target);
@@ -122,7 +122,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertEquals(null, source.getField());
 	}
 
-	@Test public void testOmitCopyNullSet()
+	@Test void testOmitCopyNullSet()
 	{
 		final Target target = new Target("fieldValue");
 		final Source source = Source.create(target);
@@ -137,7 +137,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertEquals(null, source.getField());
 	}
 
-	@Test public void testOmitTarget()
+	@Test void testOmitTarget()
 	{
 		final Source source = Source.create("fieldValue");
 		assertContains(source, Source.TYPE.search());
@@ -150,7 +150,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		assertEquals("fieldValueSet", source.getField());
 	}
 
-	@Test public void testOmitTargetAndCopy()
+	@Test void testOmitTargetAndCopy()
 	{
 		final Source source = Source.create();
 		assertContains(source, Source.TYPE.search());

@@ -55,7 +55,7 @@ public class ScheduleModelTest
 		MODEL.enableSerialization(ScheduleModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(TYPE, report.getRunType()), MODEL.getTypes());
 		assertEquals(ScheduleItem.class, TYPE.getJavaClass());
@@ -111,14 +111,14 @@ public class ScheduleModelTest
 		assertEquals("elapsed",report.getRunElapsed().getName());
 	}
 
-	@Test public void testConstructionParameters()
+	@Test void testConstructionParameters()
 	{
 		assertEquals(ZoneId.of("Europe/Berlin"), report.getZoneId());
 		assertEquals("Europe/Berlin", report.getTimeZone().getID());
 	}
 
 	@Deprecated // OK: testing deprecated api
-	@Test public void testConstructionParametersDeprecated()
+	@Test void testConstructionParametersDeprecated()
 	{
 		try
 		{
@@ -141,7 +141,7 @@ public class ScheduleModelTest
 	}
 
 	@Deprecated // OK: testing deprecated api
-	@Test public void testConstructionParametersByTimeZone()
+	@Test void testConstructionParametersByTimeZone()
 	{
 		final Schedule s = new Schedule(TimeZoneStrict.getTimeZone("Europe/Berlin"), Locale.GERMAN);
 		assertEquals(ZoneId.of("Europe/Berlin"), s.getZoneId());
@@ -152,7 +152,7 @@ public class ScheduleModelTest
 		assertEquals(false, cal.isLenient());
 	}
 
-	@Test public void testZoneIdNull()
+	@Test void testZoneIdNull()
 	{
 		try
 		{
@@ -166,7 +166,7 @@ public class ScheduleModelTest
 	}
 
 	@Deprecated // OK: testing deprecated api
-	@Test public void testTimeZoneNull()
+	@Test void testTimeZoneNull()
 	{
 		try
 		{
@@ -180,7 +180,7 @@ public class ScheduleModelTest
 	}
 
 	@Deprecated // OK: testing deprecated api
-	@Test public void testLocaleNull()
+	@Test void testLocaleNull()
 	{
 		final TimeZone tz = TimeZone.getDefault();
 		try
@@ -194,14 +194,14 @@ public class ScheduleModelTest
 		}
 	}
 
-	@Test public void testMoreGetters()
+	@Test void testMoreGetters()
 	{
 		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
 		assertSame(report.getRunFrom(),   report.getRunRuns().getOrder());
 		assertSame(report.getRunParent(), ScheduleItem.reportRunParent());
 	}
 
-	@Test public void testAnnotations()
+	@Test void testAnnotations()
 	{
 		assertFalse(report.getEnabled   ().isAnnotationPresent(Computed.class));
 		assertFalse(report.getInterval  ().isAnnotationPresent(Computed.class));
@@ -213,12 +213,12 @@ public class ScheduleModelTest
 		assertTrue (report.getRunType   ().isAnnotationPresent(Computed.class));
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		assertSerializedSame(report, 385);
 	}
 
-	@Test public void testEnumSchema()
+	@Test void testEnumSchema()
 	{
 		assertEquals(asList(HOURLY, DAILY, WEEKLY, MONTHLY), asList(Schedule.Interval.values()));
 		assertEquals( 7, getColumnValue(HOURLY ));
@@ -227,7 +227,7 @@ public class ScheduleModelTest
 		assertEquals(30, getColumnValue(MONTHLY));
 	}
 
-	@Test public void testEnumLimit()
+	@Test void testEnumLimit()
 	{
 		assertEquals(720, HOURLY .limit);
 		assertEquals( 62, DAILY  .limit);
@@ -235,7 +235,7 @@ public class ScheduleModelTest
 		assertEquals( 12, MONTHLY.limit);
 	}
 
-	@Test public void testJobContextNull()
+	@Test void testJobContextNull()
 	{
 		try
 		{

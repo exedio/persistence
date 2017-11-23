@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class CreateLimitAnnotationTest
 {
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		assertEquals(Integer.MAX_VALUE, DefaultType.getCreateLimit());
 	}
@@ -43,7 +43,7 @@ public class CreateLimitAnnotationTest
 	}
 
 
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		assertEquals(5, OkType.getCreateLimit());
 	}
@@ -60,7 +60,7 @@ public class CreateLimitAnnotationTest
 	}
 
 
-	@Test public void testMinimum()
+	@Test void testMinimum()
 	{
 		assertEquals(0, MinimumType.getCreateLimit());
 	}
@@ -77,7 +77,7 @@ public class CreateLimitAnnotationTest
 	}
 
 
-	@Test public void testLessMinimum()
+	@Test void testLessMinimum()
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class CreateLimitAnnotationTest
 	}
 
 
-	@Test public void testSubOk()
+	@Test void testSubOk()
 	{
 		assertEquals(5, SubOkType.getCreateLimit());
 	}
@@ -118,7 +118,7 @@ public class CreateLimitAnnotationTest
 	}
 
 
-	@Test public void testSub()
+	@Test void testSub()
 	{
 		try
 		{

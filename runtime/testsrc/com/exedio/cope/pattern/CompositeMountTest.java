@@ -48,7 +48,7 @@ import org.junit.jupiter.api.Test;
 
 public class CompositeMountTest
 {
-	@Test public void testAbstractType()
+	@Test void testAbstractType()
 	{
 		assertSame(field.getValueType(), MyComposite.string4.getAbstractType());
 		assertSame(field.getValueType(), MyComposite.intMax4.getAbstractType());
@@ -65,7 +65,7 @@ public class CompositeMountTest
 		}
 	}
 
-	@Test public void testType()
+	@Test void testType()
 	{
 		try
 		{
@@ -102,7 +102,7 @@ public class CompositeMountTest
 		}
 	}
 
-	@Test public void testName()
+	@Test void testName()
 	{
 		assertEquals("string4", MyComposite.string4.getName());
 		assertEquals("intMax4", MyComposite.intMax4.getName());
@@ -119,7 +119,7 @@ public class CompositeMountTest
 		}
 	}
 
-	@Test public void testTemplateName()
+	@Test void testTemplateName()
 	{
 		assertEquals("string4", getTemplateName(MyComposite.string4));
 		assertEquals("intMax4", getTemplateName(MyComposite.intMax4));
@@ -146,7 +146,7 @@ public class CompositeMountTest
 		}
 	}
 
-	@Test public void testID()
+	@Test void testID()
 	{
 		try
 		{
@@ -183,7 +183,7 @@ public class CompositeMountTest
 		}
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals(valueName + "string4", MyComposite.string4.toString());
 		assertEquals(valueName + "intMax4", MyComposite.intMax4.toString());
@@ -192,7 +192,7 @@ public class CompositeMountTest
 		assertTrue(negative.toString().startsWith(LongField.class.getName() + '@'));
 	}
 
-	@Test public void testGetAnnotation()
+	@Test void testGetAnnotation()
 	{
 		assertEquals("stringAnno", MyComposite.string4.getAnnotation(Anno.class).value());
 		assertEquals("intAnno", MyComposite.intMax4.getAnnotation(Anno.class).value());
@@ -211,7 +211,7 @@ public class CompositeMountTest
 		}
 	}
 
-	@Test public void testIsAnnotation()
+	@Test void testIsAnnotation()
 	{
 		assertTrue (MyComposite.string4.isAnnotationPresent(Anno.class));
 		assertTrue (MyComposite.intMax4.isAnnotationPresent(Anno.class));
@@ -244,7 +244,7 @@ public class CompositeMountTest
 		String value();
 	}
 
-	@Test public void testSerialization() throws IOException
+	@Test void testSerialization() throws IOException
 	{
 		assertSerializedSame(MyComposite.string4, 291);
 		assertSerializedSame(MyComposite.intMax4, 291);
@@ -267,7 +267,7 @@ public class CompositeMountTest
 	}
 
 
-	@Test public void testCompositeType()
+	@Test void testCompositeType()
 	{
 		final CompositeType<MyComposite> type = field.getValueType();
 		assertEquals(MyComposite.class, type.getJavaClass());

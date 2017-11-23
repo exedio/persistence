@@ -29,7 +29,7 @@ public class QueryKeyTest extends TestWithEnvironment
 		super(InstanceOfModelTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Query<InstanceOfAItem> q = InstanceOfAItem.TYPE.newQuery(null);
 		q.join(InstanceOfB1Item.TYPE, InstanceOfAItem.code.isNull());

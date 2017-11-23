@@ -52,7 +52,7 @@ public class DispatcherJobContextMessageTest extends TestWithEnvironment
 		DispatcherItem.historyClear();
 	}
 
-	@Test public void testSupportsOn()
+	@Test void testSupportsOn()
 	{
 		assertPending(item1);
 		assertPending(item2);
@@ -73,7 +73,7 @@ public class DispatcherJobContextMessageTest extends TestWithEnvironment
 		assertPending(item4);
 	}
 
-	@Test public void testSupportsOff()
+	@Test void testSupportsOff()
 	{
 		assertPending(item1);
 		assertPending(item2);

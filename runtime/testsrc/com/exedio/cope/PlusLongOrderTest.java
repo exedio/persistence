@@ -56,7 +56,7 @@ public class PlusLongOrderTest extends TestWithEnvironment
 		item3 = new PlusLongItem(6l, 2l, -1000l);
 	}
 
-	@Test public void testSumOrder()
+	@Test void testSumOrder()
 	{
 		assertEquals(l7, item1.getPlusAB());
 		assertEquals(l3, item2.getPlusAB());

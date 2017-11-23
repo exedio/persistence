@@ -59,7 +59,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void test() throws MandatoryViolationException
+	@Test void test() throws MandatoryViolationException
 	{
 		assertInvalidations(0, 0);
 		model.commit();
@@ -100,7 +100,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
-	@Test public void testRollback() throws MandatoryViolationException
+	@Test void testRollback() throws MandatoryViolationException
 	{
 		assertInvalidations(0, 0);
 		model.commit();
@@ -130,7 +130,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
 
-	@Test public void testSearch() throws MandatoryViolationException
+	@Test void testSearch() throws MandatoryViolationException
 	{
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		assertInvalidations(0, 0);

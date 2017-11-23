@@ -42,7 +42,7 @@ public class VaultMockServiceTest extends VaultServiceTest
 		return result;
 	}
 
-	@Test public void serviceProperties()
+	@Test void serviceProperties()
 	{
 		final VaultMockService service = (VaultMockService)getService();
 		assertSame(getProperties(), service.vaultProperties);

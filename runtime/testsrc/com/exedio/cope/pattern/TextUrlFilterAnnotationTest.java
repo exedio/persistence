@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 
 public class TextUrlFilterAnnotationTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Media simpleVal = pasteValue(AnItem.simple);
 		final Media secretVal = pasteValue(AnItem.secret);
@@ -84,7 +84,7 @@ public class TextUrlFilterAnnotationTest
 		assertPresent(false, secfinRaw, Deprecated.class);
 	}
 
-	@Test public void testKey()
+	@Test void testKey()
 	{
 		final StringField simpleKey = pasteKey(AnItem.simple);
 		final StringField secretKey = pasteKey(AnItem.secret);
@@ -127,7 +127,7 @@ public class TextUrlFilterAnnotationTest
 	}
 
 
-	@Test public void testGetters()
+	@Test void testGetters()
 	{
 		assertPath(false, false, AnItem.simple);
 		assertPath(true,  false, AnItem.secret);

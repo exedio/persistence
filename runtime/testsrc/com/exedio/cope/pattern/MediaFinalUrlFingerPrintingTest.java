@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
  */
 public class MediaFinalUrlFingerPrintingTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(false, AnItem.nonFinal.isFinal());
 		assertEquals(true,  AnItem.isFinal.isFinal());

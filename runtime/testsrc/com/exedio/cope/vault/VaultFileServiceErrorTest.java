@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public class VaultFileServiceErrorTest
 {
-	@Test public void ok()
+	@Test void ok()
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", "MD5");
@@ -50,7 +50,7 @@ public class VaultFileServiceErrorTest
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);
 	}
 
-	@Test public void directoryLengthTooLong()
+	@Test void directoryLengthTooLong()
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", "MD5");
@@ -74,7 +74,7 @@ public class VaultFileServiceErrorTest
 		}
 	}
 
-	@Test public void tempEmpty()
+	@Test void tempEmpty()
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", "MD5");
@@ -97,7 +97,7 @@ public class VaultFileServiceErrorTest
 		}
 	}
 
-	@Test public void tempTrim()
+	@Test void tempTrim()
 	{
 		final Properties source = new Properties();
 		source.setProperty("algorithm", "MD5");

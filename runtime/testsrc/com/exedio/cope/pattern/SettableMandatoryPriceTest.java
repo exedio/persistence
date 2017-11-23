@@ -40,7 +40,7 @@ public class SettableMandatoryPriceTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final SetValue<?> setValue = mandatory.map(null);
 

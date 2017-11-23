@@ -69,7 +69,7 @@ public class CoalesceTest extends TestWithEnvironment
 		item2.setItem(item2);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		try
 		{

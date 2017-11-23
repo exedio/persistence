@@ -55,7 +55,7 @@ public class DispatcherWithoutPurgeModelTest
 	private static final Type<?> runType = toTarget.getRunType();
 
 	@SuppressFBWarnings({"RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN","ES_COMPARING_STRINGS_WITH_EQ"})
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		assertEqualsUnmodifiable(list(
 				TYPE,
@@ -134,18 +134,18 @@ public class DispatcherWithoutPurgeModelTest
 		assertSame(toTarget.getRunDate(), toTarget.getRunRuns().getOrder());
 	}
 
-	@Test public void testComputed()
+	@Test void testComputed()
 	{
 		assertFalse(toTarget.getPending().isAnnotationPresent(Computed.class));
 		assertTrue (toTarget.getRunType().isAnnotationPresent(Computed.class));
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		assertSerializedSame(toTarget, 415);
 	}
 
-	@Test public void testPurgePropertiesNull()
+	@Test void testPurgePropertiesNull()
 	{
 		try
 		{
@@ -158,7 +158,7 @@ public class DispatcherWithoutPurgeModelTest
 		}
 	}
 
-	@Test public void testPurgeContextNull()
+	@Test void testPurgeContextNull()
 	{
 		final DispatcherPurgeProperties properties =
 				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
@@ -174,7 +174,7 @@ public class DispatcherWithoutPurgeModelTest
 		}
 	}
 
-	@Test public void testPurge()
+	@Test void testPurge()
 	{
 		final DispatcherPurgeProperties properties =
 				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);

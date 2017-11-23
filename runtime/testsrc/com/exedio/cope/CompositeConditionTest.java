@@ -48,7 +48,7 @@ public class CompositeConditionTest extends TestWithEnvironment
 		itemXX = new CompareConditionItem(null, null, null, null, null, null, null);
 	}
 
-	@Test public void testNot()
+	@Test void testNot()
 	{
 		final Condition conditionA = intx .greater(1);
 		final Condition conditionB = longx.greater(1l);

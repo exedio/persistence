@@ -43,7 +43,7 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION", "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
-	@Test public void testSetNull()
+	@Test void testSetNull()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111", 1.1);
 
@@ -76,7 +76,7 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testMigratePasswordOnChange()
+	@Test void testMigratePasswordOnChange()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111", 1.1);
 		assertLegacy(item);
@@ -88,7 +88,7 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		assertFalse(item.checkPassword("111111"));
 	}
 
-	@Test public void testMigratePasswordOnCheck()
+	@Test void testMigratePasswordOnCheck()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111A", 1.1);
 		assertLegacy(item);

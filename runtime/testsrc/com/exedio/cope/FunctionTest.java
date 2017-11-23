@@ -62,7 +62,7 @@ public class FunctionTest extends TestWithEnvironment
 		item2 = newItem("6ggggg", "2b");
 	}
 
-	@Test public void testFunctions()
+	@Test void testFunctions()
 	{
 		assertSerializedSame(min4Upper, 376);
 		assertSerializedSame(max4Upper, 376);

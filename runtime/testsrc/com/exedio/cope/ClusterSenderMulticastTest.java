@@ -52,7 +52,7 @@ public final class ClusterSenderMulticastTest
 		sender.close();
 	}
 
-	@Test public void testIt() throws IOException
+	@Test void testIt() throws IOException
 	{
 		final byte[] b = {10, 10, 10, 10, 10, 10, 10};
 		sender.send(b.length, b);

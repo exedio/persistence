@@ -46,7 +46,7 @@ public class BlockFieldStandardModelTest
 		MODEL.enableSerialization(BlockFieldStandardModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),

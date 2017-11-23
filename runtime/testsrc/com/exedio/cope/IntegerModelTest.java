@@ -38,7 +38,7 @@ public class IntegerModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(TYPE, any.getType());
 		assertEquals("any", any.getName());
@@ -71,7 +71,7 @@ public class IntegerModelTest
 		assertContains(IntegerRangeViolationException.class, min4Max8.getInitialExceptions());
 	}
 
-	@Test public void testCheck()
+	@Test void testCheck()
 	{
 		try
 		{
@@ -104,7 +104,7 @@ public class IntegerModelTest
 		min4.check(4);
 	}
 
-	@Test public void testConditions()
+	@Test void testConditions()
 	{
 		assertEqualsStrict(any.equal(1), any.equal(1));
 		assertNotEqualsStrict(any.equal(1), any.equal(2));

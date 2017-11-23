@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class UniqueHashedMediaHashAnnotationTest
 {
-	@Test public void testComputed()
+	@Test void testComputed()
 	{
 		assertPresent(false, AnItem.shorter,            Computed.class);
 		assertPresent(false, AnItem.longer,             Computed.class);
@@ -45,13 +45,13 @@ public class UniqueHashedMediaHashAnnotationTest
 		assertPresent(true,  AnItem.longer .getHash(),  Computed.class);
 	}
 
-	@Test public void testLength()
+	@Test void testLength()
 	{
 		assertEquals(32, AnItem.shorter.getHash().getMaximumLength());
 		assertEquals(40, AnItem.longer .getHash().getMaximumLength());
 	}
 
-	@Test public void testMysqlExtendedVarchar()
+	@Test void testMysqlExtendedVarchar()
 	{
 		assertPresent(false, AnItem.shorter,            MysqlExtendedVarchar.class);
 		assertPresent(false, AnItem.longer,             MysqlExtendedVarchar.class);

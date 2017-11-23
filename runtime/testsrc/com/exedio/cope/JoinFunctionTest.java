@@ -46,7 +46,7 @@ public class JoinFunctionTest extends TestWithEnvironment
 		new JoinFunctionItem("b3", Integer.valueOf(3));
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		{
 			final Query<JoinFunctionItemSingle> q = JoinFunctionItemSingle.TYPE.newQuery(null);

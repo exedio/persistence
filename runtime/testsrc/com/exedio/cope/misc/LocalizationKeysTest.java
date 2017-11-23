@@ -28,13 +28,13 @@ import org.junit.jupiter.api.Test;
 
 public class LocalizationKeysTest
 {
-	@Test public void testTopClass()
+	@Test void testTopClass()
 	{
 		assertIt(LocalizationKeysClass    .class, PACK + "LocalizationKeysClass",       "LocalizationKeysClass");
 		assertIt(LocalizationKeysClassPure.class, PACK + "LocalizationKeysClassActual", "LocalizationKeysClassActual");
 	}
 
-	@Test public void testTopEnum()
+	@Test void testTopEnum()
 	{
 		assertIt(LocalizationKeysEnum.x,     PACK + "LocalizationKeysEnum.x",       "LocalizationKeysEnum.x");
 		assertIt(LocalizationKeysEnumPure.x, PACK + "LocalizationKeysEnumActual.x", "LocalizationKeysEnumActual.x");
@@ -42,7 +42,7 @@ public class LocalizationKeysTest
 
 	private final String PACK = LocalizationKeysTest.class.getPackage().getName() + '.';
 
-	@Test public void testDefaultPackage() throws ClassNotFoundException
+	@Test void testDefaultPackage() throws ClassNotFoundException
 	{
 		assertIt(Class.forName(
 				"LocalizationKeysClassInDefaultPackage"),
@@ -69,7 +69,7 @@ public class LocalizationKeysTest
 		// empty
 	}
 
-	@Test public void testInnerClass()
+	@Test void testInnerClass()
 	{
 		assertIt(InnerLoc              .class, PREFIX1 + "InnerLoc",                 PREFIX2 + "InnerLoc");
 		assertIt(InnerLoc.Innermost    .class, PREFIX1 + "InnerLoc.Innermost",       PREFIX2 + "InnerLoc.Innermost");
@@ -109,7 +109,7 @@ public class LocalizationKeysTest
 		x
 	}
 
-	@Test public void testInnerEnum()
+	@Test void testInnerEnum()
 	{
 		assertIt(InnerEnum.normal, PREFIX1 + "InnerEnum.normal",  PREFIX2 + "InnerEnum.normal");
 		assertIt(InnerEnum.body,   PREFIX1 + "InnerEnum.body",    PREFIX2 + "InnerEnum.body");
@@ -129,7 +129,7 @@ public class LocalizationKeysTest
 	private static final String PREFIX2 = LocalizationKeysTest.class.getSimpleName() + '.';
 
 
-	@Test public void testNullClass()
+	@Test void testNullClass()
 	{
 		try
 		{
@@ -141,7 +141,7 @@ public class LocalizationKeysTest
 			assertEquals(null, e.getMessage());
 		}
 	}
-	@Test public void testNullEnum()
+	@Test void testNullEnum()
 	{
 		try
 		{

@@ -85,7 +85,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					((MediaPathFeature)feature).reset();
 	}
 
-	@Test public void testNotFound() throws ServletException, IOException
+	@Test void testNotFound() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		assertNotFound("zack", "no such path");
@@ -107,7 +107,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound(pathInfo, "not computable");
 	}
 
-	@Test public void testException() throws ServletException, IOException
+	@Test void testException() throws ServletException, IOException
 	{
 		final String pathInfo = "/MediaPathItem/normal/" + id;
 		assertOk(pathInfo);
@@ -123,7 +123,7 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	private static final String prefix = "/testContextPath/testServletPath";
 
-	@Test public void testSpecialMultiple() throws ServletException, IOException
+	@Test void testSpecialMultiple() throws ServletException, IOException
 	{
 		item.setNormalContentType("major/minor");
 		final String ok = "/MediaPathItem/normal/" + id;
@@ -137,7 +137,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/normal/.tTTT/.fFFF/" + id, "invalid special"); // wrong order
 	}
 
-	@Test public void testRedirectFrom() throws ServletException, IOException
+	@Test void testRedirectFrom() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		assertEquals("MediaPathItem/normal/" + id, item.getNormalLocator().getPath());
@@ -149,7 +149,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	@Test public void testRedirectFromExtension() throws ServletException, IOException
+	@Test void testRedirectFromExtension() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		assertEquals("MediaPathItem/normal/" + id + ".jpg", item.getNormalLocator().getPath());
@@ -161,7 +161,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	@Test public void testRedirectFromPhrase() throws ServletException, IOException
+	@Test void testRedirectFromPhrase() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		item.setCatchphrase("phrase");
@@ -174,7 +174,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	@Test public void testRedirectFromPhraseExtension() throws ServletException, IOException
+	@Test void testRedirectFromPhraseExtension() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -187,7 +187,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/normalRedirect2/" + id + "/phrase.jpg", prefix + "/MediaPathItem/normal/" + id + "/phrase.jpg");
 	}
 
-	@Test public void testRedirectFromFinger() throws ServletException, IOException
+	@Test void testRedirectFromFinger() throws ServletException, IOException
 	{
 		item.setFingerContentType("image/jpeg");
 		item.setFingerLastModified(new Date(333338888));
@@ -198,7 +198,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/fingerRedirect1/.f333339000/" + id, prefix + "/MediaPathItem/finger/.f333339000/" + id);
 	}
 
-	@Test public void testCatchphrase() throws ServletException, IOException
+	@Test void testCatchphrase() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		item.setCatchphrase("phrase");
@@ -212,7 +212,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
-	@Test public void testCatchphraseExtension() throws ServletException, IOException
+	@Test void testCatchphraseExtension() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -226,7 +226,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/normal/" + id + "/phrase.png",      prefix + ok);
 	}
 
-	@Test public void testFingerNotFound() throws ServletException, IOException
+	@Test void testFingerNotFound() throws ServletException, IOException
 	{
 		item.setNormalContentType("blah/foo");
 		assertNotFound("/MediaPathItem/normal/."   , "invalid special");
@@ -238,7 +238,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/normal/.fx/", "not an item");
 	}
 
-	@Test public void testFingerWithoutLastModified() throws ServletException, IOException
+	@Test void testFingerWithoutLastModified() throws ServletException, IOException
 	{
 		item.setFingerContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -252,7 +252,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertRedirect("/MediaPathItem/finger/" + id + "/phrase.png",      prefix + ok);
 	}
 
-	@Test public void testFinger() throws ServletException, IOException
+	@Test void testFinger() throws ServletException, IOException
 	{
 		item.setFingerContentType("image/jpeg");
 		item.setFingerLastModified(new Date(333338888));
@@ -280,7 +280,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/finger/.fxxxxx/.fxxxxx/" + id + "/phrase.jpg", "invalid special");
 	}
 
-	@Test public void testConditional() throws ServletException, IOException
+	@Test void testConditional() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -309,7 +309,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		service(new Request(ok).ifModifiedSince(77772001l)).assertNotModified(77772000l);
 	}
 
-	@Test public void testExpires() throws ServletException, IOException
+	@Test void testExpires() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
@@ -326,7 +326,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	 * This test became useless, as there is no connection between
 	 * toFinal and Expires anymore.
 	 */
-	@Test public void testExpiresFinal() throws ServletException, IOException
+	@Test void testExpiresFinal() throws ServletException, IOException
 	{
 		MediaPathItem.normal.setFinal(true);
 		item.setNormalContentType("image/jpeg");
@@ -337,7 +337,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		response.assertOkAndCache(333339000l);
 	}
 
-	@Test public void testGuess() throws ServletException, IOException
+	@Test void testGuess() throws ServletException, IOException
 	{
 		item.setGuessContentType("image/jpeg");
 		final String ok = "/MediaPathItem/guess/.tMediaPathItem.guess-" + id + "/" + id + ".jpg";
@@ -349,7 +349,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/guess/"        + id + ".jpg", "guessed url");
 	}
 
-	@Test public void testGuessMultipleTokens() throws ServletException, IOException
+	@Test void testGuessMultipleTokens() throws ServletException, IOException
 	{
 		item.setGuessContentType("major/minor");
 		final String token = "MediaPathItem.guess-" + id;
@@ -362,7 +362,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/guess/.t" + "xxx" + "/.t" + "xxx" + "/" + id, "invalid special");
 	}
 
-	@Test public void testGuessAndAge() throws ServletException, IOException
+	@Test void testGuessAndAge() throws ServletException, IOException
 	{
 		item.setGuessContentType("image/jpeg");
 		item.setGuessLastModified(new Date(333338888));
@@ -374,7 +374,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				: null);
 	}
 
-	@Test public void testFingerGuess() throws ServletException, IOException
+	@Test void testFingerGuess() throws ServletException, IOException
 	{
 		item.setFingerGuessContentType("image/jpeg");
 		item.setFingerGuessLastModified(new Date(333338888));
@@ -421,7 +421,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/otherPhrase.jpg", "guessed url");
 	}
 
-	@Test public void testCacheControlPrivate() throws ServletException, IOException
+	@Test void testCacheControlPrivate() throws ServletException, IOException
 	{
 		final int offset = MODEL.getConnectProperties().getMediaOffsetExpires();
 		assertTrue(offset>=0, "" + offset);
@@ -435,7 +435,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		service(new Request(ok)).assertOkAndCacheControl("private" + (offset>0 ? ",max-age=5" : ""));
 	}
 
-	@Test public void testAccessControlAllowOriginWildcard() throws ServletException, IOException
+	@Test void testAccessControlAllowOriginWildcard() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
@@ -448,39 +448,39 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	// TODO testInfo with others
 
-	@Test public void testInfoNoSuchPath() throws ServletException, IOException
+	@Test void testInfoNoSuchPath() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/zack/x", "no such path");
 		assertInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
-	@Test public void testInfoNotAnItem() throws ServletException, IOException
+	@Test void testInfoNotAnItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/x", "not an item");
 		assertInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
 	}
 
-	@Test public void testInfoNoSuchItem() throws ServletException, IOException
+	@Test void testInfoNoSuchItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/MediaPathItem-9999.jpg", "no such item");
 		assertInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 	}
 
-	@Test public void testInfoMoved() throws ServletException, IOException
+	@Test void testInfoMoved() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		assertRedirect("/MediaPathItem/normal/" + id, prefix + "/MediaPathItem/normal/" + id + ".jpg");
 		assertInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
 	}
 
-	@Test public void testInfoIsNull() throws ServletException, IOException
+	@Test void testInfoIsNull() throws ServletException, IOException
 	{
 		item.setNormalResult(Result.notFoundIsNull);
 		assertNotFound("/MediaPathItem/normal/" + id, "is null");
 		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 	}
 
-	@Test public void testInfoNotComputable() throws ServletException, IOException
+	@Test void testInfoNotComputable() throws ServletException, IOException
 	{
 		item.setNormalResult(Result.notFoundNotComputable);
 		assertNotFound("/MediaPathItem/normal/" + id, "not computable");
@@ -489,7 +489,7 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	// TODO testInfoNotModified
 
-	@Test public void testInfoDelivered() throws ServletException, IOException
+	@Test void testInfoDelivered() throws ServletException, IOException
 	{
 		assertOk("/MediaPathItem/normal/" + id);
 		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);

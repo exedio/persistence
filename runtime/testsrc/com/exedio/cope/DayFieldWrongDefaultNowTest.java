@@ -32,7 +32,7 @@ public class DayFieldWrongDefaultNowTest
 {
 	private final LogRule log = new LogRule(DayField.class);
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		newType(AnItem.class);
 		log.assertWarn(

@@ -45,7 +45,7 @@ public class PasswordLimiterModelTest
 		MODEL.enableSerialization(PasswordLimiterModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,

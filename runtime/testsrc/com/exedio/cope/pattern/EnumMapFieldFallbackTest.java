@@ -41,7 +41,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testWithoutFallback()
+	@Test void testWithoutFallback()
 	{
 		final EnumMap<AnEnum,String> map = new EnumMap<>(AnEnum.class);
 		map.put(present, "vPres");
@@ -69,7 +69,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		assertSearch(null, null, fallback, "any");
 	}
 
-	@Test public void testWithFallback()
+	@Test void testWithFallback()
 	{
 		final EnumMap<AnEnum,String> map = new EnumMap<>(AnEnum.class);
 		map.put(present, "vPres");
@@ -102,7 +102,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 		assertSearch(null, null, fallback, "any");
 	}
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		final EnumMap<AnEnum,String> map = new EnumMap<>(AnEnum.class);
 		final AnItem item = new AnItem(map);

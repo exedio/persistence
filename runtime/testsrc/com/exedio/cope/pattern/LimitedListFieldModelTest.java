@@ -68,7 +68,7 @@ public class LimitedListFieldModelTest
 	protected static final Integer i3 = 3;
 	protected static final Integer i4 = 4;
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final IntegerField numsL = nums.getLength();
 		final IntegerField datesL = dates.getLength();
@@ -280,7 +280,7 @@ public class LimitedListFieldModelTest
 		return string;
 	}
 
-	@Test public void testInitialType()
+	@Test void testInitialType()
 	{
 		assertEquals("java.util.List<java.lang.Integer>", nums   .getInitialType().toString());
 		assertEquals("java.util.List<java.util.Date>"   , dates  .getInitialType().toString());

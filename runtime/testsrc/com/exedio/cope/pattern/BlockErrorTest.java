@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class BlockErrorTest
 {
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -45,7 +45,7 @@ public class BlockErrorTest
 	}
 
 
-	@Test public void testNonFinal()
+	@Test void testNonFinal()
 	{
 		try
 		{
@@ -71,7 +71,7 @@ public class BlockErrorTest
 	}
 
 
-	@Test public void testNoConstructor()
+	@Test void testNoConstructor()
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class BlockErrorTest
 	}
 
 
-	@Test public void testNoFields()
+	@Test void testNoFields()
 	{
 		try
 		{
@@ -117,7 +117,7 @@ public class BlockErrorTest
 	}
 
 
-	@Test public void testNullField()
+	@Test void testNullField()
 	{
 		try
 		{
@@ -139,7 +139,7 @@ public class BlockErrorTest
 	}
 
 
-	@Test public void testNotCopyable()
+	@Test void testNotCopyable()
 	{
 		try
 		{
@@ -170,7 +170,7 @@ public class BlockErrorTest
 	}
 
 
-	@Test public void testBlockItself()
+	@Test void testBlockItself()
 	{
 		try
 		{
@@ -188,7 +188,7 @@ public class BlockErrorTest
 
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testNoBlock()
+	@Test void testNoBlock()
 	{
 		try
 		{
@@ -205,7 +205,7 @@ public class BlockErrorTest
 	}
 
 
-	@Test public void testAlreadyBound()
+	@Test void testAlreadyBound()
 	{
 		final BlockType<AlreadyBound> TYPE = AlreadyBound.TYPE;
 		assertEquals(AlreadyBound.class.getName(), TYPE.toString());

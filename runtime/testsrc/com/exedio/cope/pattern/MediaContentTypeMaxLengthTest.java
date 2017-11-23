@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class MediaContentTypeMaxLengthTest
 {
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		final Media m = new Media();
 		assertEquals(61, m.getContentTypeMaximumLength());
@@ -53,7 +53,7 @@ public class MediaContentTypeMaxLengthTest
 			assertEquals("maximumLength must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	@Test public void testSub()
+	@Test void testSub()
 	{
 		final Media m = new Media().contentTypeSub("1234");
 		assertEquals(35, m.getContentTypeMaximumLength());
@@ -78,7 +78,7 @@ public class MediaContentTypeMaxLengthTest
 			assertEquals("maximumLength must be greater zero, but was 0", e.getMessage());
 		}
 	}
-	@Test public void testFixed()
+	@Test void testFixed()
 	{
 		final Media m = new Media().contentType("1234/678");
 		assertEquals(8, m.getContentTypeMaximumLength());
@@ -93,7 +93,7 @@ public class MediaContentTypeMaxLengthTest
 			assertEquals("not allowed for 1234/678", e.getMessage());
 		}
 	}
-	@Test public void testEnum()
+	@Test void testEnum()
 	{
 		final Media m = new Media().contentType("1234/678", "1234/6789", "1234/6");
 		assertEquals(9, m.getContentTypeMaximumLength());

@@ -30,19 +30,19 @@ public class MediaServletDefaultTest
 {
 	private final MediaServlet servlet =  new MediaServlet();
 
-	@Test public void testCacheControlPrivateSimple()
+	@Test void testCacheControlPrivateSimple()
 	{
 		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.simple, null));
 	}
-	@Test public void testCacheControlPrivateSecret()
+	@Test void testCacheControlPrivateSecret()
 	{
 		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secret, null));
 	}
-	@Test public void testCacheControlPrivateFinger()
+	@Test void testCacheControlPrivateFinger()
 	{
 		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.finger, null));
 	}
-	@Test public void testCacheControlPrivateSecretFinger()
+	@Test void testCacheControlPrivateSecretFinger()
 	{
 		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secfin, null));
 	}
@@ -68,11 +68,11 @@ public class MediaServletDefaultTest
 	}
 
 
-	@Test public void testAccessControlAllowOriginWildcard()
+	@Test void testAccessControlAllowOriginWildcard()
 	{
 		assertEquals(false, servlet.isAccessControlAllowOriginWildcard(null, null));
 	}
-	@Test public void testFlushBufferOnNotModified()
+	@Test void testFlushBufferOnNotModified()
 	{
 		assertEquals(true, servlet.doFlushBufferOnNotModified(null, null));
 	}

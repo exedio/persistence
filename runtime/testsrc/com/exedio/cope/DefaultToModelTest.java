@@ -58,7 +58,7 @@ public class DefaultToModelTest
 	public static final Model MODEL = new Model(TYPE);
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(list(
 				TYPE.getThis(),

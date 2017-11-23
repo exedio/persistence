@@ -29,7 +29,7 @@ import org.junit.jupiter.api.Test;
 
 public class CastUtilsTest
 {
-	@Test public void testToIntExact()
+	@Test void testToIntExact()
 	{
 		assertEquals(0, toIntExact(0L));
 		assertEquals(10, toIntExact(10L));
@@ -77,7 +77,7 @@ public class CastUtilsTest
 		}
 	}
 
-	@Test public void testToIntCapped()
+	@Test void testToIntCapped()
 	{
 		assertEquals(0, toIntCapped(0L));
 		assertEquals(10, toIntCapped(10L));

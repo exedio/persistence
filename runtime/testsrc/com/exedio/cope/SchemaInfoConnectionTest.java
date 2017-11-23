@@ -37,7 +37,7 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 
 	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@Test public void testIt() throws SQLException
+	@Test void testIt() throws SQLException
 	{
 		connection.execute(
 				"select " +
@@ -49,7 +49,7 @@ public class SchemaInfoConnectionTest extends TestWithEnvironment
 				SI.tab(InstanceOfAItem.TYPE));
 	}
 
-	@Test public void testTypeColumn() throws SQLException
+	@Test void testTypeColumn() throws SQLException
 	{
 		connection.execute(
 				"select " +

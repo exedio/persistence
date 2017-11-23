@@ -42,12 +42,12 @@ public class ImporterTest extends TestWithEnvironment
 
 	private final ImporterRule importerRule = new ImporterRule(ImporterItem.byCode);
 
-	@Test public void testNonInitial()
+	@Test void testNonInitial()
 	{
 		doTest(false);
 	}
 
-	@Test public void testInitial()
+	@Test void testInitial()
 	{
 		doTest(true);
 	}

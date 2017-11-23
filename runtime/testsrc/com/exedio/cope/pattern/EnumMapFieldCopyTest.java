@@ -44,7 +44,7 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final CopyConstraint copyRed = (CopyConstraint)EnumMapFieldCopyItem.TYPE.getFeature("fieldCopyFrommap-red");
 		final CopyConstraint copyGreen = (CopyConstraint)EnumMapFieldCopyItem.TYPE.getFeature("fieldCopyFrommap-green");

@@ -62,7 +62,7 @@ public class ColorFieldConditionsTest extends TestWithEnvironment
 
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final ColorField fieldOpt = optional;
 		final ColorField fieldAlpha = alpha;

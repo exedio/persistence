@@ -32,7 +32,7 @@ public class QuerySearchSizeLimitSetTest extends TestWithEnvironment
 		super(DayFieldTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final int defaulT = model.getConnectProperties().getQuerySearchSizeLimit();
 		final Query<?> q = TYPE.newQuery();

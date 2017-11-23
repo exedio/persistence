@@ -50,7 +50,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 		previousSize = accuSize();
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		final ItemSerializationItem itemA = new ItemSerializationItem("nameA");
 		final ItemSerializationItem itemB = new ItemSerializationItem("nameB");
@@ -89,7 +89,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 		assertAccu(  5, item2B);
 	}
 
-	@Test public void testTypes()
+	@Test void testTypes()
 	{
 		assertAccu(292, ItemSerializationItem.TYPE);
 		assertAccu(  5, ItemSerializationItem.TYPE);
@@ -99,7 +99,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 		assertAccu(  5, ItemSerializationItem2.TYPE);
 	}
 
-	@Test public void testFeatures()
+	@Test void testFeatures()
 	{
 		assertAccu(394, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
@@ -109,7 +109,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 		assertAccu(  5, ItemSerializationItem.name2);
 	}
 
-	@Test public void testFeaturesFromDifferentTypes()
+	@Test void testFeaturesFromDifferentTypes()
 	{
 		assertAccu(394, ItemSerializationItem.name);
 		assertAccu(  5, ItemSerializationItem.name);
@@ -119,7 +119,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 		assertAccu(  5, ItemSerializationItem2.name2);
 	}
 
-	@Test public void testItems()
+	@Test void testItems()
 	{
 		assertAccu(112, new ItemSerializationItem("name"));
 		assertAccu( 14, new ItemSerializationItem("name"));
@@ -128,7 +128,7 @@ public class SerializationSizeTest extends TestWithEnvironment
 		assertAccu( 14, new ItemSerializationItem2());
 	}
 
-	@Test public void testUnboundItems()
+	@Test void testUnboundItems()
 	{
 		final ItemSerializationItem  item1 = new ItemSerializationItem("name");
 		final ItemSerializationItem2 item2 = new ItemSerializationItem2();

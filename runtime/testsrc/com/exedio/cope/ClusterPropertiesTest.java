@@ -33,7 +33,7 @@ import org.junit.jupiter.api.Test;
 
 public class ClusterPropertiesTest
 {
-	@Test public void testOk()
+	@Test void testOk()
 	{
 		final Source s = cascade(
 				TestSources.minimal(),
@@ -51,7 +51,7 @@ public class ClusterPropertiesTest
 		assertEquals(5, p.listenThreads.max);
 	}
 
-	@Test public void testFailListenThreads()
+	@Test void testFailListenThreads()
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
@@ -73,7 +73,7 @@ public class ClusterPropertiesTest
 		}
 	}
 
-	@Test public void testSecretZero()
+	@Test void testSecretZero()
 	{
 		final Source s = describe("DESC",
 				single("secret", 0)
@@ -92,7 +92,7 @@ public class ClusterPropertiesTest
 		}
 	}
 
-	@Test public void testFailPrimaryKeyGeneratorMemory()
+	@Test void testFailPrimaryKeyGeneratorMemory()
 	{
 		final Source s = describe("DESC", cascade(
 				TestSources.minimal(),

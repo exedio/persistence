@@ -42,7 +42,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
 		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
@@ -57,27 +57,27 @@ public class CheckingSettableTest extends TestWithEnvironment
 				"{MyItem.pattern-source=null}(" + item + ")"));
 	}
 
-	@Test public void testCreateNone()
+	@Test void testCreateNone()
 	{
 		new MyItem();
 		pattern.assertLogs();
 	}
 
-	@Test public void testCreateNull()
+	@Test void testCreateNull()
 	{
 		new MyItem(pattern.map(null));
 		pattern.assertLogs(new Log(null, null, null, null, null,
 				"{MyItem.pattern-source=null}"));
 	}
 
-	@Test public void testSource2Create()
+	@Test void testSource2Create()
 	{
 		new MyItem(pattern.map("createValue/2"));
 		pattern.assertLogs(new Log("createValue/2", "createValue/2", "2(createValue/2)", null, null,
 				"{MyItem.pattern-source=createValue/2, MyItem.pattern-source2=2(createValue/2)}"));
 	}
 
-	@Test public void testSource2Set()
+	@Test void testSource2Set()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
 		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
@@ -88,13 +88,13 @@ public class CheckingSettableTest extends TestWithEnvironment
 				"{MyItem.pattern-source=setValue/2, MyItem.pattern-source2=2(setValue/2)}(" + item + ")"));
 	}
 
-	@Test public void testSource2DirectlyCreate()
+	@Test void testSource2DirectlyCreate()
 	{
 		new MyItem(pattern.source2.map("createValue/2"));
 		pattern.assertLogs();
 	}
 
-	@Test public void testSource2DirectlySet()
+	@Test void testSource2DirectlySet()
 	{
 		final MyItem item = new MyItem(pattern.map("createValue"));
 		pattern.assertLogs(new Log("createValue", "createValue", null, null, null,
@@ -104,7 +104,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		pattern.assertLogs();
 	}
 
-	@Test public void testField2()
+	@Test void testField2()
 	{
 		final MyItem item = new MyItem(
 				pattern.map("createValue"),
@@ -125,7 +125,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 				"{MyItem.pattern-source=null, MyItem.field2=null}(" + item + ")"));
 	}
 
-	@Test public void testField2Only()
+	@Test void testField2Only()
 	{
 		final MyItem item = new MyItem(field2.map("createValue2"));
 		pattern.assertLogs();

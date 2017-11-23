@@ -44,7 +44,7 @@ public class MatchTest extends TestWithEnvironment
 		item = new MatchItem();
 	}
 
-	@Test public void testStrings() throws StringLengthViolationException
+	@Test void testStrings() throws StringLengthViolationException
 	{
 		item.setText("hallo bello cnallo");
 		assertEquals(list(item), TYPE.search(new MatchCondition(text, "hallo")));

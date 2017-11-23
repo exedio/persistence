@@ -37,7 +37,7 @@ import org.junit.jupiter.api.Test;
 
 public class CommitHookPostTest
 {
-	@Test public void testOne()
+	@Test void testOne()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -48,7 +48,7 @@ public class CommitHookPostTest
 		assertEquals("one,", bf.toString());
 	}
 
-	@Test public void testTwo()
+	@Test void testTwo()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -60,7 +60,7 @@ public class CommitHookPostTest
 		assertEquals("one,two,", bf.toString());
 	}
 
-	@Test public void testDuplicate()
+	@Test void testDuplicate()
 	{
 		final Runnable two;
 		final StringBuilder bf = new StringBuilder();
@@ -76,7 +76,7 @@ public class CommitHookPostTest
 		assertEquals("one,two/same,three,five,", bf.toString());
 	}
 
-	@Test public void testDuplicateNot()
+	@Test void testDuplicateNot()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -91,7 +91,7 @@ public class CommitHookPostTest
 		assertEquals("one,two/same,three,four/other,five,", bf.toString());
 	}
 
-	@Test public void testThrower()
+	@Test void testThrower()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -114,7 +114,7 @@ public class CommitHookPostTest
 		assertNoTransaction();
 	}
 
-	@Test public void testRollback()
+	@Test void testRollback()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -127,7 +127,7 @@ public class CommitHookPostTest
 		assertNoTransaction();
 	}
 
-	@Test public void testAddInHook()
+	@Test void testAddInHook()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -156,7 +156,7 @@ public class CommitHookPostTest
 		assertNoTransaction();
 	}
 
-	@Test public void testAddPreHookInHook()
+	@Test void testAddPreHookInHook()
 	{
 		final StringBuilder bf = new StringBuilder();
 		model.startTransaction("tx");
@@ -185,7 +185,7 @@ public class CommitHookPostTest
 		assertNoTransaction();
 	}
 
-	@Test public void testNullHook()
+	@Test void testNullHook()
 	{
 		model.startTransaction("tx");
 		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
@@ -204,7 +204,7 @@ public class CommitHookPostTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	@Test public void testNoTransaction()
+	@Test void testNoTransaction()
 	{
 		try
 		{

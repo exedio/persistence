@@ -32,7 +32,7 @@ public class VaultTestServiceTest extends VaultServiceTest
 		return VaultTestService.class;
 	}
 
-	@Test public void testToString()
+	@Test void testToString()
 	{
 		assertEquals("VaultTestService", getService().toString());
 	}

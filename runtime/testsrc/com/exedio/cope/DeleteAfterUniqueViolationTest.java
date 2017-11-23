@@ -45,7 +45,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 		unq = model.connect().supportsUniqueViolation;
 	}
 
-	@Test public void testCommit()
+	@Test void testCommit()
 	{
 		model.startTransaction(getClass().getName());
 
@@ -81,7 +81,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 		model.commit();
 	}
 
-	@Test public void testRollback()
+	@Test void testRollback()
 	{
 		model.startTransaction(getClass().getName());
 

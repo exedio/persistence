@@ -27,47 +27,47 @@ import org.junit.jupiter.api.Test;
 
 public class FunctionFieldTest
 {
-	@Test public void testCopyFromBooleanField()
+	@Test void testCopyFromBooleanField()
 	{
 		checkCopyFrom(new BooleanField());
 	}
 
-	@Test public void testCopyFromDateField()
+	@Test void testCopyFromDateField()
 	{
 		checkCopyFrom(new DateField());
 	}
 
-	@Test public void testCopyFromDayField()
+	@Test void testCopyFromDayField()
 	{
 		checkCopyFrom(new DayField());
 	}
 
-	@Test public void testCopyFromDoubleField()
+	@Test void testCopyFromDoubleField()
 	{
 		checkCopyFrom(new DoubleField());
 	}
 
-	@Test public void testCopyFromEnumField()
+	@Test void testCopyFromEnumField()
 	{
 		checkCopyFrom(EnumField.create(SomeEnum.class));
 	}
 
-	@Test public void testCopyFromIntegerField()
+	@Test void testCopyFromIntegerField()
 	{
 		checkCopyFrom(new IntegerField());
 	}
 
-	@Test public void testCopyFromItemField()
+	@Test void testCopyFromItemField()
 	{
 		checkCopyFrom(ItemField.create(SomeItem.class));
 	}
 
-	@Test public void testCopyFromLongField()
+	@Test void testCopyFromLongField()
 	{
 		checkCopyFrom(new LongField());
 	}
 
-	@Test public void testCopyFromStringField()
+	@Test void testCopyFromStringField()
 	{
 		checkCopyFrom(new StringField());
 	}

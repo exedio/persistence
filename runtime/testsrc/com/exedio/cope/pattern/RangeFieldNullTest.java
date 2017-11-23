@@ -46,7 +46,7 @@ public class RangeFieldNullTest extends TestWithEnvironment
 		nn = new RangeFieldItem((Integer)null, null);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertContainsCondition( 9,     nb,     nn);
 		assertContainsCondition(10, ab, nb, an, nn);

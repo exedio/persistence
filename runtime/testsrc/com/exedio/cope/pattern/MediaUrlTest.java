@@ -57,7 +57,7 @@ public final class MediaUrlTest extends TestWithEnvironment
 		anond = new MediaUrlItem(null);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertFalse(MediaPath.isUrlGuessingPreventedSecurely(model.getConnectProperties()));
 
@@ -154,7 +154,7 @@ public final class MediaUrlTest extends TestWithEnvironment
 		model.connect(ConnectProperties.create(copeRule.getConnectProperties().getSourceObject()));
 	}
 
-	@Test public void testFingerprintLimit()
+	@Test void testFingerprintLimit()
 	{
 		assumeTrue(!model.getConnectProperties().isSupportDisabledForPreparedStatements());
 		assumeTrue(!postgresql);

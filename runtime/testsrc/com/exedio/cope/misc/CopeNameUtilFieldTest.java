@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("unused")
 public class CopeNameUtilFieldTest
 {
-	@Test public void testIt() throws NoSuchFieldException
+	@Test void testIt() throws NoSuchFieldException
 	{
 		assertField(null,           "fieldNaked",   "Naked");
 		assertField("nameAnno",     "nameAnno",     "Name");
@@ -80,7 +80,7 @@ public class CopeNameUtilFieldTest
 		@CopeName("actual") pure,
 		@com.exedio.cope.CopeID("actualID") pureID
 	}
-	@Test public void testEnum()
+	@Test void testEnum()
 	{
 		assertEquals("normal",   CopeNameUtil.getAndFallbackToName(MyEnum.normal));
 		assertEquals("actual",   CopeNameUtil.getAndFallbackToName(MyEnum.pure));

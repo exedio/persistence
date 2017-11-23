@@ -41,7 +41,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test() throws InterruptedException
+	@Test void test() throws InterruptedException
 	{
 		switch(dialect)
 		{

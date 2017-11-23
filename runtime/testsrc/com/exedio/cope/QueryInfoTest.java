@@ -39,7 +39,7 @@ public class QueryInfoTest extends TestWithEnvironment
 		super(SchemaTest.MODEL);
 	}
 
-	@Test public void testExecutionPlan()
+	@Test void testExecutionPlan()
 	{
 		final Transaction transaction = model.currentTransaction();
 		final Query<?> query = SchemaItem.TYPE.newQuery(SchemaItem.uniqueString.equal("zack"));

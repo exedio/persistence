@@ -32,7 +32,7 @@ public class CreateTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void test()
+	@Test void test()
 	{
 		{
 			final CreateItem item = new CreateItem("normal");

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 public class HashPlainTextLimitTest
 {
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Hash vanillaHash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));
 		assertEquals(150, vanillaHash.getPlainTextLimit());

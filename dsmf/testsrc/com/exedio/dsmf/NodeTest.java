@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class NodeTest
 {
-	@Test public void testColumnOk()
+	@Test void testColumnOk()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
@@ -62,7 +62,7 @@ public class NodeTest
 		assertEquals("requiredType", c.getExistingType());
 	}
 
-	@Test public void testColumnWrongName()
+	@Test void testColumnWrongName()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
@@ -123,7 +123,7 @@ public class NodeTest
 		assertEquals("requiredType", c2.getExistingType());
 	}
 
-	@Test public void testColumnWrongType()
+	@Test void testColumnWrongType()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
@@ -156,7 +156,7 @@ public class NodeTest
 		assertEquals("existingType", c.getExistingType());
 	}
 
-	@Test public void testColumnNonRequires()
+	@Test void testColumnNonRequires()
 	{
 		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");

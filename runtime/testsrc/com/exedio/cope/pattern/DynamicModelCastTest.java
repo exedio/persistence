@@ -55,7 +55,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 		item = new ModelItem("item");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Type<Locale> alpha1 = ModelItem.alpha.createType("alpha1");
 		final Type<Locale> alpha2 = ModelItem.alpha.createType("alpha2");

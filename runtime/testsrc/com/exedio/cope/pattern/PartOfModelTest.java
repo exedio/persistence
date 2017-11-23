@@ -38,7 +38,7 @@ public class PartOfModelTest
 		MODEL.enableSerialization(PartOfModelTest.class, "MODEL");
 	}
 
-	@Test public void testTypes()
+	@Test void testTypes()
 	{
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE,
@@ -50,7 +50,7 @@ public class PartOfModelTest
 			), MODEL.getTypesSortedByHierarchy());
 	}
 
-	@Test public void testFeatures()
+	@Test void testFeatures()
 	{
 		assertEqualsUnmodifiable(list(
 				PartOfItem.TYPE.getThis(),
@@ -63,7 +63,7 @@ public class PartOfModelTest
 			), PartOfItem.TYPE.getFeatures());
 	}
 
-	@Test public void testPattern()
+	@Test void testPattern()
 	{
 		assertEquals(PartOfItem.TYPE, PartOfItem.unordered.getType());
 		assertEquals("unordered", PartOfItem.unordered.getName());
@@ -80,7 +80,7 @@ public class PartOfModelTest
 		assertEqualsUnmodifiable(list(PartOfItem.order), PartOfItem.ordered.getSourceFeatures());
 	}
 
-	@Test public void testGetPartOfs()
+	@Test void testGetPartOfs()
 	{
 		assertEqualsUnmodifiable(list(), PartOf.getDeclaredPartOfs(PartOfItem.TYPE));
 		assertEqualsUnmodifiable(list(), PartOf.getPartOfs(PartOfItem.TYPE));
@@ -89,12 +89,12 @@ public class PartOfModelTest
 		assertEquals(list(), PartOf.getPartOfs(PartOfItem.unordered));
 	}
 
-	@Test public void testSerialize()
+	@Test void testSerialize()
 	{
 		assertSerializedSame(PartOfItem.unordered, 384);
 	}
 
-	@Test public void testContainerNull()
+	@Test void testContainerNull()
 	{
 		try
 		{
@@ -107,7 +107,7 @@ public class PartOfModelTest
 		}
 	}
 
-	@Test public void testContainerNullWithOrder()
+	@Test void testContainerNullWithOrder()
 	{
 		try
 		{
@@ -120,7 +120,7 @@ public class PartOfModelTest
 		}
 	}
 
-	@Test public void testOrderNull()
+	@Test void testOrderNull()
 	{
 		try
 		{

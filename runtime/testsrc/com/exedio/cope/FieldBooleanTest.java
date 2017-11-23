@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class FieldBooleanTest extends FieldTest
 {
-	@Test public void testSomeBoolean()
+	@Test void testSomeBoolean()
 	{
 		assertEquals(TYPE, someBoolean.getType());
 		assertEquals(Boolean.class, someBoolean.getValueClass());
@@ -91,7 +91,7 @@ public class FieldBooleanTest extends FieldTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -104,7 +104,7 @@ public class FieldBooleanTest extends FieldTest
 		}
 	}
 
-	@Test public void testSomeNotNullBoolean()
+	@Test void testSomeNotNullBoolean()
 	{
 		assertEquals(TYPE, someNotNullBoolean.getType());
 		assertEquals(true, item.getSomeNotNullBoolean());

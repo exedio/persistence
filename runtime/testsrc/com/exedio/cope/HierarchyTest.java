@@ -51,7 +51,7 @@ public class HierarchyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testHierarchy()
+	@Test void testHierarchy()
 	{
 		// model HierarchySuper
 		assertEquals(null, HierarchySuper.TYPE.getSupertype());
@@ -301,7 +301,7 @@ public class HierarchyTest extends TestWithEnvironment
 		assertCheckUpdateCounters();
 	}
 
-	@Test public void testPolymorphicQueryInvalidation() throws UniqueViolationException
+	@Test void testPolymorphicQueryInvalidation() throws UniqueViolationException
 	{
 		final HierarchyFirstSub item = new HierarchyFirstSub(10);
 
@@ -315,7 +315,7 @@ public class HierarchyTest extends TestWithEnvironment
 		assertEquals(list(item), q2.search());
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		model.commit();
 
@@ -381,7 +381,7 @@ public class HierarchyTest extends TestWithEnvironment
 		startTransaction();
 	}
 
-	@Test public void testPrimaryKeyInfo()
+	@Test void testPrimaryKeyInfo()
 	{
 		MODEL.rollback();
 		// for flushing the info
@@ -421,7 +421,7 @@ public class HierarchyTest extends TestWithEnvironment
 		assertInfo(model.getSequenceInfo(), HierarchySuper.TYPE.getThis(), HierarchySingleSuper.TYPE.getThis());
 	}
 
-	@Test public void testDeleteSchema()
+	@Test void testDeleteSchema()
 	{
 		model.checkEmptySchema();
 
@@ -478,7 +478,7 @@ public class HierarchyTest extends TestWithEnvironment
 		assertFalse(singleB.existsCopeItem());
 	}
 
-	@Test public void testDeleteSchemaForTest()
+	@Test void testDeleteSchemaForTest()
 	{
 		model.checkEmptySchema();
 

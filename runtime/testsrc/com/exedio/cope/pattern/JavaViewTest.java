@@ -66,7 +66,7 @@ public class JavaViewTest extends TestWithEnvironment
 		item2 = new JavaViewItem2();
 	}
 
-	@Test public void testNumber()
+	@Test void testNumber()
 	{
 		assertEquals(asList(new Feature[]{
 				TYPE.getThis(),

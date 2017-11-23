@@ -45,7 +45,7 @@ public class TransactionCountersTest extends TestWithEnvironment
 		rollbackWithConnectionStart    = c.getRollbackWithConnection();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(false, model.hasCurrentTransaction());
 		assertIt(0, 0, 0, 0);

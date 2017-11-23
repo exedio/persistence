@@ -68,7 +68,7 @@ public class StringTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testStrings()
+	@Test void testStrings()
 	{
 		// test check method
 		try
@@ -499,7 +499,7 @@ public class StringTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -727,7 +727,7 @@ public class StringTest extends TestWithEnvironment
 		return !oracle || field.getMaximumLength()<=com.exedio.cope.OracleDialect.VARCHAR_MAX_CHARS;
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		assertSchema();
 	}

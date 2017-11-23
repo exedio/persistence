@@ -50,7 +50,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 
 	final MockListener l = new MockListener();
 
-	@Test public void testIt() throws ChangeEvent.NotAvailableException
+	@Test void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0, 0);
@@ -281,7 +281,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		assertEquals(0, dispatcherInfo.getPending  ());
 	}
 
-	@Test public void testThreadControllers()
+	@Test void testThreadControllers()
 	{
 		final String prefix = "COPE Change Listener Dispatcher ";
 		final String prefix2 = prefix + model + ' ';

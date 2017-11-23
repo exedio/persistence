@@ -30,7 +30,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		final Type<Alpha> alpha = Alpha.TYPE;
 		final Type<Beta > beta  = Beta .TYPE;
@@ -52,13 +52,13 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 		assertEquals(list(gamma.getThis()),        gamma.getDeclaredFeatures());
 	}
 
-	@Test public void testBeta()
+	@Test void testBeta()
 	{
 		final Beta item = new Beta();
 		assertEquals(false, item.getField());
 	}
 
-	@Test public void testGamma()
+	@Test void testGamma()
 	{
 		final Gamma item = new Gamma();
 		assertEquals(false, item.getField());

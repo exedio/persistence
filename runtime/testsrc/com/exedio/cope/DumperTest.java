@@ -67,7 +67,7 @@ public class DumperTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testOk() throws IOException
+	@Test void testOk() throws IOException
 	{
 		assertFalse(model.hasCurrentTransaction());
 		assumeNoVault();
@@ -86,7 +86,7 @@ public class DumperTest extends TestWithEnvironment
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@Test public void testSub() throws IOException
+	@Test void testSub() throws IOException
 	{
 		assertFalse(model.hasCurrentTransaction());
 		assumeNoVault();
@@ -110,7 +110,7 @@ public class DumperTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	@Test public void testMandatory() throws IOException
+	@Test void testMandatory() throws IOException
 	{
 		try
 		{
@@ -128,7 +128,7 @@ public class DumperTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	@Test public void testMandatoryData() throws IOException
+	@Test void testMandatoryData() throws IOException
 	{
 		try
 		{
@@ -146,7 +146,7 @@ public class DumperTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
-	@Test public void testLength() throws IOException
+	@Test void testLength() throws IOException
 	{
 		try
 		{
@@ -164,7 +164,7 @@ public class DumperTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
-	@Test public void testPrepare() throws IOException
+	@Test void testPrepare() throws IOException
 	{
 		final StringBuilder out = new StringBuilder();
 		dumper.prepare(out, model);

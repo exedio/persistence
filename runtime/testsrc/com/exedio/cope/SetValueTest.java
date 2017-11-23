@@ -30,35 +30,35 @@ import org.junit.jupiter.api.Test;
 
 public class SetValueTest
 {
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		final MockSettable settable = new MockSettable("alpha");
 		final SetValue<?> value = map(settable, "alphaValue");
 		assertEquals("alpha=alphaValue", value.toString());
 	}
 
-	@Test public void testNormal2()
+	@Test void testNormal2()
 	{
 		final MockSettable settable = new MockSettable("beta");
 		final SetValue<?> value = map(settable, "betaValue");
 		assertEquals("beta=betaValue", value.toString());
 	}
 
-	@Test public void testNullValue()
+	@Test void testNullValue()
 	{
 		final MockSettable settable = new MockSettable("gamma");
 		final SetValue<?> value = map(settable, null);
 		assertEquals("gamma=null", value.toString());
 	}
 
-	@Test public void testNullValueAndNullToString()
+	@Test void testNullValueAndNullToString()
 	{
 		final MockSettable settable = new MockSettable(null);
 		final SetValue<?> value = map(settable, null);
 		assertEquals("null=null", value.toString());
 	}
 
-	@Test public void testEqualsAndHash()
+	@Test void testEqualsAndHash()
 	{
 		final MockSettable settable = new MockSettable("alpha");
 		assertEqualsAndHash(
@@ -71,7 +71,7 @@ public class SetValueTest
 				map(settable, null));
 	}
 
-	@Test public void testNullFeature()
+	@Test void testNullFeature()
 	{
 		try
 		{

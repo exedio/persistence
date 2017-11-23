@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 public class CompositeConditionUtilTest
 {
 	@SuppressWarnings("OverlyStrongTypeCast") // bug in idea inspection
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
@@ -174,7 +174,7 @@ public class CompositeConditionUtilTest
 		assertEquals(newCompositeCondition(OR,  c1, newCompositeCondition(AND, c2, c3)), c1.or(c2.and(c3)));
 	}
 
-	@Test public void testNot()
+	@Test void testNot()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);
@@ -202,7 +202,7 @@ public class CompositeConditionUtilTest
 		assertSame(c1, c1.not().not());
 	}
 
-	@Test public void testNeutrumAbsolutum()
+	@Test void testNeutrumAbsolutum()
 	{
 		final DoubleField field = new DoubleField().optional();
 		final Condition c1 = field.equal(1d);

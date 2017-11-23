@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 public class PriceProportionatelyTest
 {
-	@Test public void testEquals()
+	@Test void testEquals()
 	{
 		final Price[] weights = values(0.11, 0.11, 0.11);
 		assertIt(values(0.03, 0.03, 0.03), valueOf(0.09), weights);
@@ -45,7 +45,7 @@ public class PriceProportionatelyTest
 		assertIt(values(0.00, 0.00, 0.00), valueOf(0.00), weights);
 	}
 
-	@Test public void testUnEquals()
+	@Test void testUnEquals()
 	{
 		final Price[] weights = values(0.11, 0.22, 0.11);
 		assertIt(values(0.03, 0.06, 0.03), valueOf(0.12), weights);
@@ -63,7 +63,7 @@ public class PriceProportionatelyTest
 		assertIt(values(0.00, 0.00, 0.00), valueOf(0.00), weights);
 	}
 
-	@Test public void testElse()
+	@Test void testElse()
 	{
 		assertIt(values(0.01, 0.02, 0.00), valueOf(0.03), values(0.11, 0.22, 0.11));
 		assertIt(values(0.02, 0.07), valueOf(0.09), values(0.11, 0.44));
@@ -72,7 +72,7 @@ public class PriceProportionatelyTest
 		assertIt(values(0.99), valueOf(0.99), values(1.11));
 	}
 
-	@Test public void testZeroWeight()
+	@Test void testZeroWeight()
 	{
 		assertIt(values(3.33, 3.33, 3.33), valueOf(9.99), values(0.01, 0.01, 0.01));
 		assertIt(values(3.33, 0.00, 3.33), valueOf(6.66), values(0.01, 0.00, 0.01));
@@ -111,7 +111,7 @@ public class PriceProportionatelyTest
 
 
 
-	@Test public void testSpecial()
+	@Test void testSpecial()
 	{
 		try
 		{

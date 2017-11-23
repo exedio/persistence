@@ -53,7 +53,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test public void testSchema()
+	@Test void testSchema()
 	{
 		final Schema schema = model.getSchema();
 		schema.checkUnsupportedConstraints();
@@ -156,7 +156,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		return result;
 	}
 
-	@Test public void testEnumSchemaPrecision()
+	@Test void testEnumSchemaPrecision()
 	{
 		assertEquals(asList(MILLI, SECOND, MINUTE, HOUR), asList(Precision.values()));
 		assertEquals(10, getColumnValue(MILLI ));
@@ -165,7 +165,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		assertEquals(40, getColumnValue(HOUR  ));
 	}
 
-	@Test public void testEnumSchemaRoundingMode()
+	@Test void testEnumSchemaRoundingMode()
 	{
 		assertEquals(asList(FUTURE, PAST, UNNECESSARY), asList(RoundingMode.values()));
 		assertEquals(10, getColumnValue(FUTURE));

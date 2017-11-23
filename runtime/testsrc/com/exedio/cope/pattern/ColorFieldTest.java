@@ -49,7 +49,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		i = new ColorFieldItem(new Color(1, 2, 3), new Color (3, 4, 5));
 	}
 
-	@Test public void testMandatory()
+	@Test void testMandatory()
 	{
 		assertEquals(new Color(1, 2, 3), i.getMandatory());
 
@@ -78,7 +78,7 @@ public class ColorFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testMandatoryViolation()
+	@Test void testMandatoryViolation()
 	{
 		try
 		{
@@ -120,7 +120,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertContains(i, TYPE.search());
 	}
 
-	@Test public void testAlpha()
+	@Test void testAlpha()
 	{
 		assertEquals(new Color(77, 88, 99, 254), i.getAlpha());
 
@@ -151,7 +151,7 @@ public class ColorFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testMandatoryAlpha()
+	@Test void testMandatoryAlpha()
 	{
 		assertEquals(new Color(122, 133, 199, 253), i.getMandatoryAlpha());
 
@@ -191,7 +191,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(color, i.getMandatoryAlpha());
 	}
 
-	@Test public void testAlphaViolation()
+	@Test void testAlphaViolation()
 	{
 		final Color alpha = new Color(55, 66, 77, 254);
 		try
@@ -237,7 +237,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertContains(i, TYPE.search());
 	}
 
-	@Test public void testFinalViolation()
+	@Test void testFinalViolation()
 	{
 		final Color c = new Color(11, 12, 13);
 		try
@@ -254,7 +254,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(new Color(3, 4, 5), i.getFinalColor());
 	}
 
-	@Test public void testOptional()
+	@Test void testOptional()
 	{
 		assertEquals(null, i.getOptional());
 
@@ -272,7 +272,7 @@ public class ColorFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	@Test public void testDefaultTo()
+	@Test void testDefaultTo()
 	{
 		assertEquals(new Color(22, 33, 44), i.getDefaultTo());
 
@@ -293,7 +293,7 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(new Color(11, 12, 13), i.getDefaultTo());
 	}
 
-	@Test public void testPersistence()
+	@Test void testPersistence()
 	{
 		assertPersistence(new Color( 55,  66,  77),  3621453);
 		assertPersistence(new Color(255, 255, 255), 16777215);

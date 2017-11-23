@@ -31,7 +31,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopeNameUtilTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals("naked",        AnItem.naked.getName());
 		assertEquals("nameAnno",     AnItem.name .getName());

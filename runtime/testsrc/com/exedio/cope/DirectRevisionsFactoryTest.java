@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 public class DirectRevisionsFactoryTest
 {
 	@Deprecated // OK: tests deprecated API
-	@Test public void testIt() throws SQLException
+	@Test void testIt() throws SQLException
 	{
 		assertEquals(null, make(null));
 

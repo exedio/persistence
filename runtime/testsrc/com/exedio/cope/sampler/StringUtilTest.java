@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class StringUtilTest
 {
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		final StringField f = new StringField().lengthMax(8);
 		assertIt(null, f, null);
@@ -44,7 +44,7 @@ public class StringUtilTest
 		assertIt("1234 ...", f, "1234567890");
 	}
 
-	@Test public void testMinimal()
+	@Test void testMinimal()
 	{
 		final StringField f = new StringField().lengthMax(4);
 		assertIt(null, f, null);

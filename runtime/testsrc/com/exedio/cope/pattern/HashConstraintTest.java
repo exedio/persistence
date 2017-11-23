@@ -31,28 +31,28 @@ import org.junit.jupiter.api.Test;
 
 public class HashConstraintTest
 {
-	@Test public void testGettersLiteral()
+	@Test void testGettersLiteral()
 	{
 		assertSame(AnItem.hash, AnItem.constraintLiteral.getHash());
 		assertEquals("ALGO-LITERAL", AnItem.constraintLiteral.getAlgorithm());
 		assertSame(AnItem.data, AnItem.constraintLiteral.getData());
 	}
 
-	@Test public void testGettersSupplier()
+	@Test void testGettersSupplier()
 	{
 		assertSame(AnItem.hash, AnItem.constraintSupplier.getHash());
 		assertEquals("ALGO-SUPPLIER", AnItem.constraintSupplier.getAlgorithm());
 		assertSame(AnItem.data, AnItem.constraintSupplier.getData());
 	}
 
-	@Test public void testFeature()
+	@Test void testFeature()
 	{
 		assertEquals("constraintLiteral", AnItem.constraintLiteral.getName());
 		assertEquals("AnItem.constraintLiteral", AnItem.constraintLiteral.getID());
 		assertSame(AnItem.TYPE, AnItem.constraintLiteral.getType());
 	}
 
-	@Test public void testHashMatches()
+	@Test void testHashMatches()
 	{
 		assertEquals(  "AnItem.hash=ALGO-LITERAL(AnItem.data)"  , AnItem.constraintLiteral .hashMatchesIfSupported     ().toString());
 		assertEquals("!(AnItem.hash=ALGO-LITERAL(AnItem.data))" , AnItem.constraintLiteral .hashDoesNotMatchIfSupported().toString());
@@ -60,7 +60,7 @@ public class HashConstraintTest
 		assertEquals("!(AnItem.hash=ALGO-SUPPLIER(AnItem.data))", AnItem.constraintSupplier.hashDoesNotMatchIfSupported().toString());
 	}
 
-	@Test public void testHashNullString()
+	@Test void testHashNullString()
 	{
 		try
 		{
@@ -73,7 +73,7 @@ public class HashConstraintTest
 		}
 	}
 
-	@Test public void testHashNullSupplier()
+	@Test void testHashNullSupplier()
 	{
 		try
 		{
@@ -86,7 +86,7 @@ public class HashConstraintTest
 		}
 	}
 
-	@Test public void testAlgorithmNullString()
+	@Test void testAlgorithmNullString()
 	{
 		final StringField hash = new StringField();
 		final DataField data = new DataField();
@@ -101,7 +101,7 @@ public class HashConstraintTest
 		}
 	}
 
-	@Test public void testAlgorithmNullSupplier()
+	@Test void testAlgorithmNullSupplier()
 	{
 		final StringField hash = new StringField();
 		try
@@ -115,7 +115,7 @@ public class HashConstraintTest
 		}
 	}
 
-	@Test public void testDataNullString()
+	@Test void testDataNullString()
 	{
 		final StringField hash = new StringField();
 		try
@@ -129,7 +129,7 @@ public class HashConstraintTest
 		}
 	}
 
-	@Test public void testDataNullSupplier()
+	@Test void testDataNullSupplier()
 	{
 		final StringField hash = new StringField();
 		try

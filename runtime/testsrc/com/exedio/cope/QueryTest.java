@@ -46,7 +46,7 @@ public class QueryTest extends TestWithEnvironment
 	static final Day d2 = new Day(2006, 2, 20);
 	static final Day d3 = new Day(2006, 2, 21);
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Query<?> q = DayItem.TYPE.newQuery(null);
 		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
@@ -73,7 +73,7 @@ public class QueryTest extends TestWithEnvironment
 		assertFalse(c1.and(c2).equals(c2.and(c1)));
 	}
 
-	@Test public void testLiterals()
+	@Test void testLiterals()
 	{
 		final Condition c1 = DayItem.day.equal(d1);
 		final Condition c2 = DayItem.day.equal(d2);
@@ -130,7 +130,7 @@ public class QueryTest extends TestWithEnvironment
 		assertSerializedSame(FALSE, 103);
 	}
 
-	@Test public void testResult()
+	@Test void testResult()
 	{
 		assertEquals("select this from DayItem where FALSE", DayItem.TYPE.emptyQuery().toString());
 		assertEquals(list(), DayItem.TYPE.emptyQuery().search());
@@ -275,7 +275,7 @@ public class QueryTest extends TestWithEnvironment
 		assertFalse(actual.hashCode()==expected.hashCode());
 	}
 
-	@Test public void testGroupBy()
+	@Test void testGroupBy()
 	{
 		final DayItem item1 =  new DayItem(d1) ;
 		final DayItem item2a =  new DayItem(d2) ;

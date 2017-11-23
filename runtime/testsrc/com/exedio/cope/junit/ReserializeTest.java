@@ -30,7 +30,7 @@ public class ReserializeTest
 {
 	@SuppressWarnings("RedundantStringConstructorCall")
 	@SuppressFBWarnings({"DM_STRING_CTOR","ES_COMPARING_STRINGS_WITH_EQ"})
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final String[] original = {new String("hallo"), new String("hallo")};
 		assertEquals(original[0], original[1]);

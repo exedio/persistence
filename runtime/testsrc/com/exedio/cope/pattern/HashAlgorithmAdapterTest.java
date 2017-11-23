@@ -32,7 +32,7 @@ import org.junit.jupiter.api.Test;
 
 public class HashAlgorithmAdapterTest
 {
-	@Test public void testAlgorithm()
+	@Test void testAlgorithm()
 	{
 		@SuppressWarnings("deprecation")
 		final Hash.Algorithm algorithm = AnItem.hash.getAlgorithm();
@@ -67,7 +67,7 @@ public class HashAlgorithmAdapterTest
 		}
 	}
 
-	@Test public void testEncoding()
+	@Test void testEncoding()
 	{
 		@SuppressWarnings("deprecation")
 		final String encoding = AnItem.hash.getEncoding();

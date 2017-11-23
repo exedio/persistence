@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class ItemFieldValueTypeTest
 {
-	@Test public void testModelTypes()
+	@Test void testModelTypes()
 	{
 		assertEquals(asList(
 				MyItem.TYPE,
@@ -44,7 +44,7 @@ public class ItemFieldValueTypeTest
 				MODEL.getTypes());
 	}
 
-	@Test public void testValueClass()
+	@Test void testValueClass()
 	{
 		assertSame(MyItem.class, MyItem.field.getValueClass());
 		assertSame(MyItem.class, MyItem.set.getParent().getValueClass());
@@ -67,7 +67,7 @@ public class ItemFieldValueTypeTest
 		assertSame(MyItem.class, MyBlok.set.getElement().getValueClass());
 	}
 
-	@Test public void testValueType()
+	@Test void testValueType()
 	{
 		assertSame(MyItem.TYPE, MyItem.field.getValueType());
 		assertSame(MyItem.TYPE, MyItem.set.getParent().getValueType());
@@ -111,7 +111,7 @@ public class ItemFieldValueTypeTest
 		}
 	}
 
-	@Test public void testValueTypeModel()
+	@Test void testValueTypeModel()
 	{
 		assertSame(MyItem.TYPE, MyItem.field.getValueType(MODEL));
 		assertSame(MyItem.TYPE, MyItem.set.getParent().getValueType(MODEL));
@@ -125,7 +125,7 @@ public class ItemFieldValueTypeTest
 		assertSame(MyItem.TYPE, ((ItemField)MyBlok.set.getElement()).getValueType(MODEL));
 	}
 
-	@Test public void testValueTypeModelNull()
+	@Test void testValueTypeModelNull()
 	{
 		try
 		{
@@ -138,7 +138,7 @@ public class ItemFieldValueTypeTest
 		}
 	}
 
-	@Test public void testReferences()
+	@Test void testReferences()
 	{
 		assertEquals(asList(
 				MyItem.field, MyItem.comp.of(MyComp.field), MyItem.blok.of(MyBlok.field),

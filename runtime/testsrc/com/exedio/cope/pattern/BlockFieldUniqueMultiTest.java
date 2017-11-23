@@ -38,7 +38,7 @@ public class BlockFieldUniqueMultiTest extends TestWithEnvironment
 		super(BlockFieldUniqueMultiModelTest.MODEL);
 	}
 
-	@Test public void testField()
+	@Test void testField()
 	{
 		final AnItem i1 = new AnItem("item1", 1);
 		final AnItem i2 = new AnItem("item2", 2);
@@ -72,7 +72,7 @@ public class BlockFieldUniqueMultiTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testPrice()
+	@Test void testPrice()
 	{
 		final AnItem i1 = new AnItem("item1", 1);
 		final AnItem i2 = new AnItem("item2", 2);

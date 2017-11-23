@@ -25,7 +25,7 @@ import org.junit.jupiter.api.Test;
 
 public class IntegerRangeDigitsTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final IntegerField f = new IntegerField();
 

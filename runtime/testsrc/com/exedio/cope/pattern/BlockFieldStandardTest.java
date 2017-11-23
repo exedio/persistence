@@ -43,7 +43,7 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		super(BlockFieldStandardModelTest.MODEL);
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final AnItem i1 = new AnItem("item1", 1);
 		final AnItem i2 = new AnItem("item2", 2);

@@ -80,7 +80,7 @@ public class SelectTest extends TestmodelTest
 		item = item1;
 	}
 
-	@Test public void testSelect()
+	@Test void testSelect()
 	{
 		final Query<List<Object>> query = newQuery(
 				new Function<?>[]{

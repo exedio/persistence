@@ -58,7 +58,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		NULLS_FIRST = (oracle||postgresql) ? " NULLS FIRST" : "";
 	}
 
-	@Test public void noDistinctOrOrder()
+	@Test void noDistinctOrOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -79,7 +79,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(9, query.total());
 	}
 
-	@Test public void noOrder()
+	@Test void noOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -101,7 +101,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(3, query.total());
 	}
 
-	@Test public void noDistinct()
+	@Test void noDistinct()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -125,7 +125,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(9, query.total());
 	}
 
-	@Test public void problemWithoutJoin()
+	@Test void problemWithoutJoin()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		query.setOrderBy(numA, true);
@@ -165,7 +165,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void problemWithJoin()
+	@Test void problemWithJoin()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -211,7 +211,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void problemWithJoinAndOtherOrder()
+	@Test void problemWithJoinAndOtherOrder()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);
@@ -264,7 +264,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testDistinctOrderByAnyAggregate()
+	@Test void testDistinctOrderByAnyAggregate()
 	{
 		final Query<PlusIntegerItem> query = TYPE.newQuery();
 		final Join join = query.join(TYPE);

@@ -52,7 +52,7 @@ public class MapFieldModelTest
 		MODEL.enableSerialization(MapFieldModelTest.class, "MODEL");
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals(TYPE, name.getType());
 		assertEquals("name", name.getName());
@@ -130,7 +130,7 @@ public class MapFieldModelTest
 	}
 
 	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-	@Test public void testFailures()
+	@Test void testFailures()
 	{
 		try
 		{

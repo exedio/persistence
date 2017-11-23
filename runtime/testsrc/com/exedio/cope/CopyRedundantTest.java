@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class CopyRedundantTest
 {
-	@Test public void testIsRedundant()
+	@Test void testIsRedundant()
 	{
 		assertEquals(false, AnItem.targetMan.isRedundantByCopyConstraint());
 		assertEquals(false, AnItem.targetOpt.isRedundantByCopyConstraint());

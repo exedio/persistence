@@ -42,7 +42,7 @@ public class ConnectTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testConnect()
+	@Test void testConnect()
 	{
 		final ConnectProperties defaultProps = copeRule.getConnectProperties();
 		// test duplicate call of connect
@@ -71,7 +71,7 @@ public class ConnectTest extends TestWithEnvironment
 		assertNotSame(connectDate, model.getConnectDate());
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		try
 		{
@@ -93,7 +93,7 @@ public class ConnectTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testDisconnect()
+	@Test void testDisconnect()
 	{
 		assertWithin(beforeModel, afterModel, model.getInitializeDate());
 

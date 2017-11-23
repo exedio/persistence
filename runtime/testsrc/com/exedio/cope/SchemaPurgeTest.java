@@ -66,7 +66,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		nextSeq = getDefaultToNextSequenceName(AnItem.next);
 	}
 
-	@Test public void testPurge() throws SQLException
+	@Test void testPurge() throws SQLException
 	{
 		final JC jc = new JC();
 		final JobContext ctx = mysql ? jc : new AssertionErrorJobContext();
@@ -223,7 +223,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				: oldSequenceColumnName;
 	}
 
-	@Test public void testStop()
+	@Test void testStop()
 	{
 		assumeTrue(sequences);
 		assumeTrue(mysql);
@@ -353,7 +353,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testNullContext()
+	@Test void testNullContext()
 	{
 		try
 		{

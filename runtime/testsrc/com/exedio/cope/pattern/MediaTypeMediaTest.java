@@ -39,7 +39,7 @@ public class MediaTypeMediaTest
 	private static final String ZIP = "504b0304";
 	private static final String PDF = "25504446";
 
-	@Test public void testDefault()
+	@Test void testDefault()
 	{
 		final Media m = new Media();
 		final DataField b = m.getBody();
@@ -59,7 +59,7 @@ public class MediaTypeMediaTest
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
-	@Test public void testFixed()
+	@Test void testFixed()
 	{
 		final Media m = new Media().contentType("image/jpeg");
 		final DataField b = m.getBody();
@@ -68,13 +68,13 @@ public class MediaTypeMediaTest
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
-	@Test public void testFixedNone()
+	@Test void testFixedNone()
 	{
 		final Media m = new Media().contentType("ding/dong");
 		assertEquals(Condition.FALSE, m.bodyMismatchesContentTypeIfSupported());
 	}
 
-	@Test public void testEnum()
+	@Test void testEnum()
 	{
 		final Media m = new Media().contentType("image/jpeg", "image/pjpeg", "image/png", "ding/dong");
 		final DataField b = m.getBody();
@@ -87,7 +87,7 @@ public class MediaTypeMediaTest
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
-	@Test public void testEnumUnique()
+	@Test void testEnumUnique()
 	{
 		final Media m = new Media().contentType("image/jpeg", "image/png", "ding/dong");
 		final DataField b = m.getBody();
@@ -101,7 +101,7 @@ public class MediaTypeMediaTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testEnumFailNull()
+	@Test void testEnumFailNull()
 	{
 		final Media m = new Media();
 		try
@@ -116,7 +116,7 @@ public class MediaTypeMediaTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testEnumFailDuplicate()
+	@Test void testEnumFailDuplicate()
 	{
 		final Media m = new Media();
 		try
@@ -130,7 +130,7 @@ public class MediaTypeMediaTest
 		}
 	}
 
-	@Test public void testSub()
+	@Test void testSub()
 	{
 		final Media m = new Media().contentTypeSub("image");
 		final DataField b = m.getBody();
@@ -146,14 +146,14 @@ public class MediaTypeMediaTest
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
 
-	@Test public void testSubNone()
+	@Test void testSubNone()
 	{
 		final Media m = new Media().contentTypeSub("ding");
 		assertEquals(Condition.FALSE, m.bodyMismatchesContentTypeIfSupported());
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
-	@Test public void testAllowed()
+	@Test void testAllowed()
 	{
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType pdf = forName("application/pdf");

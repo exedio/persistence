@@ -80,7 +80,7 @@ public class DynamicModelTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		// test model
 		assertEquals(String .class, STRING .getValueClass());

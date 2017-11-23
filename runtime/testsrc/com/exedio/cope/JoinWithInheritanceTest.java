@@ -46,7 +46,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testCorrectSubtypeOfJoinWillBeUsed()
+	@Test void testCorrectSubtypeOfJoinWillBeUsed()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());
@@ -63,7 +63,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		assertEquals(asList(container), query.search());
 	}
 
-	@Test public void testCorrectSubtypeOfJoinWillBeUsedEmptyResult()
+	@Test void testCorrectSubtypeOfJoinWillBeUsedEmptyResult()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());
@@ -81,7 +81,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		assertEquals(asList(), query.search());
 	}
 
-	@Test public void testSuperTypeCastNotAllowed()
+	@Test void testSuperTypeCastNotAllowed()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());
@@ -100,7 +100,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 		}
 	}
 
-	@Test public void testInvalidJoinIsBound()
+	@Test void testInvalidJoinIsBound()
 	{
 		final Container container = new Container();
 		container.addToArticles(new SpecificArticle());

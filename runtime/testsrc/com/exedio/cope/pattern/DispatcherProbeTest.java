@@ -46,7 +46,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		DispatcherItem.historyClear();
 	}
 
-	@Test public void testOkRequired()
+	@Test void testOkRequired()
 	{
 		final CountProbe probe = new CountProbe(1);
 		DispatcherItem.toTarget.setProbeRequired(true);
@@ -62,7 +62,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		assertEquals(false, item2.isToTargetPending());
 	}
 
-	@Test public void testOkNotRequired()
+	@Test void testOkNotRequired()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
@@ -77,7 +77,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		assertEquals(false, item2.isToTargetPending());
 	}
 
-	@Test public void testFailInitial()
+	@Test void testFailInitial()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(true);
@@ -91,7 +91,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		assertEquals(true, item2.isToTargetPending());
 	}
 
-	@Test public void testFailFirst()
+	@Test void testFailFirst()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
@@ -106,7 +106,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		assertEquals(true, item2.isToTargetPending());
 	}
 
-	@Test public void testOkFailSecond()
+	@Test void testOkFailSecond()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);
@@ -121,7 +121,7 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		assertEquals(true,  item2.isToTargetPending());
 	}
 
-	@Test public void testFailSecond()
+	@Test void testFailSecond()
 	{
 		final CountProbe probe = new CountProbe(0);
 		DispatcherItem.toTarget.setProbeRequired(false);

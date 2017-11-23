@@ -34,7 +34,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 {
 	private boolean fromMyself = false;
 
-	@Test public void testMulticast() throws InterruptedException
+	@Test void testMulticast() throws InterruptedException
 	{
 		try
 		{
@@ -57,7 +57,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		test();
 	}
 
-	@Test public void testSinglecast() throws InterruptedException
+	@Test void testSinglecast() throws InterruptedException
 	{
 		modelA.connect(getPropertiesSinglecast(true));
 		modelB.connect(getPropertiesSinglecast(false));

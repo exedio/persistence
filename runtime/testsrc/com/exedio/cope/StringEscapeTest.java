@@ -24,7 +24,7 @@ import org.junit.jupiter.api.Test;
 
 public class StringEscapeTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		assertEquals("NULL", e(null));
 		assertEquals("''", e(""));

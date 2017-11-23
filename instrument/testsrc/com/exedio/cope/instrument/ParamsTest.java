@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class ParamsTest
 {
-	@Test public void generateDeprecated() throws HumanReadableException
+	@Test void generateDeprecated() throws HumanReadableException
 	{
 		check("a.b.C#m(int,Bla)", "a.b.C", "m", new String[]{"int", "Bla"});
 		check("X#m()", "X", "m", new String[]{});
@@ -43,7 +43,7 @@ public class ParamsTest
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
-	@Test public void generateDeprecatedInvalid() throws HumanReadableException
+	@Test void generateDeprecatedInvalid() throws HumanReadableException
 	{
 		checkRejected("broken", "invalid <generateDeprecated> syntax in broken");
 		checkRejected("X#y( )", "<generateDeprecated> must not contain space or newline");

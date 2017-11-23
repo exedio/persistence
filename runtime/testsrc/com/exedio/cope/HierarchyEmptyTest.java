@@ -39,7 +39,7 @@ public class HierarchyEmptyTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testHierarchy()
+	@Test void testHierarchy()
 			throws IntegrityViolationException, UniqueViolationException
 	{
 		// model HierarchyEmptySuper
@@ -129,7 +129,7 @@ public class HierarchyEmptyTest extends TestWithEnvironment
 		assertEquals(list(), HierarchyEmptySuper.TYPE.search(HierarchyEmptySuper.superInt.equal(1)));
 	}
 
-	@Test public void testModel()
+	@Test void testModel()
 	{
 		model.commit();
 

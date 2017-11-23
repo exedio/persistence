@@ -66,7 +66,7 @@ public class HistoryTest extends TestWithEnvironment
 		item = new HistoryItem();
 	}
 
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Type<?> eventType = audit.getEventType();
 		final Type<?> featureType = audit.getFeatureType();

@@ -44,7 +44,7 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 
 	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@Test public void testIt() throws SQLException
+	@Test void testIt() throws SQLException
 	{
 		assertEquals(true, alphaLessBeta.isSupportedBySchemaIfSupportedByDialect());
 		model.checkUnsupportedConstraints();

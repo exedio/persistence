@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 
 public class ConditionsTest
 {
-	@Test public void testEqual()
+	@Test void testEqual()
 	{
 		assertEquals(
 				"((AnItem.name1='alpha' AND AnItem.name1='beta') OR" +
@@ -46,7 +46,7 @@ public class ConditionsTest
 				equal(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
-	@Test public void testEqualNull()
+	@Test void testEqualNull()
 	{
 		final Condition c = name1.equal("beta");
 		try
@@ -69,14 +69,14 @@ public class ConditionsTest
 		}
 	}
 
-	@Test public void testImplies()
+	@Test void testImplies()
 	{
 		assertEquals(
 				"(!(AnItem.name1='alpha') OR AnItem.name1='beta')",
 				implies(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
-	@Test public void testImpliesNull()
+	@Test void testImpliesNull()
 	{
 		final Condition c = name1.equal("beta");
 		try
@@ -99,7 +99,7 @@ public class ConditionsTest
 		}
 	}
 
-	@Test public void testUnisonNull()
+	@Test void testUnisonNull()
 	{
 		assertEquals("TRUE", unisonNull(Collections.emptyList()).toString());
 		assertEquals("TRUE", unisonNull(asList(name1)).toString());
@@ -113,7 +113,7 @@ public class ConditionsTest
 			unisonNull(asList(name1, name2, name3)).toString());
 	}
 
-	@Test public void testUnisonNullNull()
+	@Test void testUnisonNullNull()
 	{
 		try
 		{

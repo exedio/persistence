@@ -37,7 +37,7 @@ public class EnumMapFieldFallbackModelTest
 {
 	static final Model MODEL = new Model(AnItem.TYPE);
 
-	@Test public void testIsMandatory()
+	@Test void testIsMandatory()
 	{
 		assertEquals(true,  noneMand.getField(one ).isMandatory());
 		assertEquals(true,  noneMand.getField(two ).isMandatory());
@@ -54,7 +54,7 @@ public class EnumMapFieldFallbackModelTest
 		assertEquals(false, fallOpt .getField(fall).isMandatory());
 	}
 
-	@Test public void testHasFallback()
+	@Test void testHasFallback()
 	{
 		assertEquals(false, noneMand.hasFallbacks());
 		assertEquals(false, noneOpt .hasFallbacks());
@@ -62,7 +62,7 @@ public class EnumMapFieldFallbackModelTest
 		assertEquals(true,  fallOpt .hasFallbacks());
 	}
 
-	@Test public void testGetFallback()
+	@Test void testGetFallback()
 	{
 		assertEquals(null, noneMand.getFallback());
 		assertEquals(null, noneOpt .getFallback());
@@ -70,14 +70,14 @@ public class EnumMapFieldFallbackModelTest
 		assertEquals(fall, fallOpt .getFallback());
 	}
 
-	@Test public void testGetFunctionWithFallback()
+	@Test void testGetFunctionWithFallback()
 	{
 		assertEquals("coalesce(AnItem.fallMand-one,AnItem.fallMand-fall)", fallMand.getFunctionWithFallback(one ).toString());
 		assertEquals("coalesce(AnItem.fallMand-two,AnItem.fallMand-fall)", fallMand.getFunctionWithFallback(two ).toString());
 		assertEquals(                             "AnItem.fallMand-fall" , fallMand.getFunctionWithFallback(fall).toString());
 	}
 
-	@Test public void testGetFunctionWithFallbackWithoutFallback()
+	@Test void testGetFunctionWithFallbackWithoutFallback()
 	{
 		try
 		{
@@ -90,7 +90,7 @@ public class EnumMapFieldFallbackModelTest
 		}
 	}
 
-	@Test public void testGetFunctionWithFallbackNullKey()
+	@Test void testGetFunctionWithFallbackNullKey()
 	{
 		try
 		{
@@ -104,7 +104,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test public void testFallbackToNull()
+	@Test void testFallbackToNull()
 	{
 		final EnumMapField<?,?> f = EnumMapField.create(AnEnum.class, new StringField());
 		try

@@ -27,7 +27,7 @@ import org.junit.jupiter.api.Test;
 
 public class RevisionsTest
 {
-	@Test public void testNumberNegative()
+	@Test void testNumberNegative()
 	{
 		try
 		{
@@ -39,7 +39,7 @@ public class RevisionsTest
 			assertEquals("number must not be negative, but was -1", e.getMessage());
 		}
 	}
-	@Test public void testRevisionsNull()
+	@Test void testRevisionsNull()
 	{
 		try
 		{
@@ -51,7 +51,7 @@ public class RevisionsTest
 			assertEquals("revisions", e.getMessage());
 		}
 	}
-	@Test public void testRevisionsEmpty()
+	@Test void testRevisionsEmpty()
 	{
 		try
 		{
@@ -63,7 +63,7 @@ public class RevisionsTest
 			assertEquals("revisions must not be empty", e.getMessage());
 		}
 	}
-	@Test public void testRevisionsElementNull()
+	@Test void testRevisionsElementNull()
 	{
 		final Revision r = new Revision(1, "revision1", "nonsensesql1");
 		try
@@ -76,7 +76,7 @@ public class RevisionsTest
 			assertEquals("revisions[1]", e.getMessage());
 		}
 	}
-	@Test public void testRevisionsInconsistent()
+	@Test void testRevisionsInconsistent()
 	{
 		final Revision r8 = new Revision(8, "revision8", "nonsensesql8");
 		final Revision r6 = new Revision(6, "revision6", "nonsensesql6");
@@ -91,7 +91,7 @@ public class RevisionsTest
 		}
 	}
 
-	@Test public void testRevisionsCopy()
+	@Test void testRevisionsCopy()
 	{
 		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
 		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
@@ -103,7 +103,7 @@ public class RevisionsTest
 		assertEquals(list(r2, r1), rs.getList());
 	}
 
-	@Test public void testToRun()
+	@Test void testToRun()
 	{
 		final Revision r8 = new Revision(8, "revision8", "nonsensesql8");
 		final Revision r7 = new Revision(7, "revision7", "nonsensesql7");
@@ -173,7 +173,7 @@ public class RevisionsTest
 		}
 	}
 
-	@Test public void testToRunZero()
+	@Test void testToRunZero()
 	{
 		final Revision r2 = new Revision(2, "revision2", "nonsensesql2");
 		final Revision r1 = new Revision(1, "revision1", "nonsensesql1");
@@ -205,7 +205,7 @@ public class RevisionsTest
 		}
 	}
 
-	@Test public void testToRunSingle()
+	@Test void testToRunSingle()
 	{
 		final Revision r3 = new Revision(3, "revision2", "nonsensesql2");
 		final Revisions rs = new Revisions(r3);
@@ -235,7 +235,7 @@ public class RevisionsTest
 		}
 	}
 
-	@Test public void testToRunNumber()
+	@Test void testToRunNumber()
 	{
 		final Revisions rs = new Revisions(5);
 		assertEquals(5, rs.getNumber());
@@ -299,7 +299,7 @@ public class RevisionsTest
 		}
 	}
 
-	@Test public void testToRunNumberZero()
+	@Test void testToRunNumberZero()
 	{
 		final Revisions rs = new Revisions(0);
 		assertEquals(0, rs.getNumber());

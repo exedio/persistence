@@ -33,7 +33,7 @@ public class PolymorphicBoundSelectTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@Test public void testItemField()
+	@Test void testItemField()
 	{
 		final PolymorphicBoundSelectSuperItem superItem = new PolymorphicBoundSelectSuperItem((PolymorphicBoundSelectSuperItem)null);
 		final PolymorphicBoundSelectSubItem subItem = new PolymorphicBoundSelectSubItem(superItem);
@@ -50,7 +50,7 @@ public class PolymorphicBoundSelectTest extends TestWithEnvironment
 		assertEquals(list(list(subItem, null)), q.search());
 	}
 
-	@Test public void testThis()
+	@Test void testThis()
 	{
 		final PolymorphicBoundSelectSuperItem superItem = new PolymorphicBoundSelectSuperItem((PolymorphicBoundSelectSuperItem)null);
 		new PolymorphicBoundSelectSubItem(superItem);

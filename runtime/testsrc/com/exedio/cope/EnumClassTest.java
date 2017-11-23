@@ -28,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnumClassTest
 {
-	@Test public void testNormal()
+	@Test void testNormal()
 	{
 		final EnumField<Normal> f = EnumField.create(Normal.class);
 		assertSame(Normal.class, f.getValueClass());
@@ -42,7 +42,7 @@ public class EnumClassTest
 	}
 
 
-	@Test public void testNull()
+	@Test void testNull()
 	{
 		try
 		{
@@ -56,7 +56,7 @@ public class EnumClassTest
 	}
 
 
-	@Test public void testEmpty()
+	@Test void testEmpty()
 	{
 		try
 		{
@@ -76,7 +76,7 @@ public class EnumClassTest
 
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
-	@Test public void testUnchecked()
+	@Test void testUnchecked()
 	{
 		try
 		{
@@ -96,7 +96,7 @@ public class EnumClassTest
 
 
 	@SuppressFBWarnings("NM_CONFUSING")
-	@Test public void testSubclass()
+	@Test void testSubclass()
 	{
 		final EnumField<Subclass> f = EnumField.create(Subclass.class);
 		assertSame(Subclass.class, f.getValueClass());
@@ -105,7 +105,7 @@ public class EnumClassTest
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
-	@Test public void testSubclassWrong()
+	@Test void testSubclassWrong()
 	{
 		try
 		{
@@ -127,7 +127,7 @@ public class EnumClassTest
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad api usage
-	@Test public void testEnumItself()
+	@Test void testEnumItself()
 	{
 		try
 		{

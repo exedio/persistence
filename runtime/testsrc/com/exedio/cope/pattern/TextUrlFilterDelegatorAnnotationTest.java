@@ -36,7 +36,7 @@ import org.junit.jupiter.api.Test;
 
 public class TextUrlFilterDelegatorAnnotationTest
 {
-	@Test public void testIt()
+	@Test void testIt()
 	{
 		final Media simpleVal = pasteValue(AnItem.simple);
 		final Media secretVal = pasteValue(AnItem.secret);
@@ -99,7 +99,7 @@ public class TextUrlFilterDelegatorAnnotationTest
 	}
 
 
-	@Test public void testGetters()
+	@Test void testGetters()
 	{
 		assertPath(false, false, AnItem.simple);
 		assertPath(true,  false, AnItem.secret);
