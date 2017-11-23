@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.EnumItem.Single;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class EnumTest extends TestWithEnvironment

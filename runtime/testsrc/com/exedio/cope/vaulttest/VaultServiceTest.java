@@ -39,7 +39,7 @@ import java.io.IOException;
 import java.util.Properties;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * This test is to be applied to all implementations of {@link VaultService}

@@ -38,7 +38,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class DataTest extends TestWithEnvironment

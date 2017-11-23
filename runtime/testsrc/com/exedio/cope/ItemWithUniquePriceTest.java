@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Price;
 import com.exedio.cope.pattern.PriceField;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ItemWithUniquePriceTest extends TestWithEnvironment
 {

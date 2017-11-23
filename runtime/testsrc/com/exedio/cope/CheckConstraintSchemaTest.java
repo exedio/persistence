@@ -31,7 +31,7 @@ import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CheckConstraintSchemaTest extends TestWithEnvironment
 {

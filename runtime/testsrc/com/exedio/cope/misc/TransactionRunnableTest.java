@@ -28,7 +28,7 @@ import com.exedio.cope.CacheIsolationItem;
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.TestWithEnvironment;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TransactionRunnableTest extends TestWithEnvironment
 {

@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.TypeFutureInPatternsFeature.TypeItem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TypeFutureInPatternsTest extends TestWithEnvironment
 {

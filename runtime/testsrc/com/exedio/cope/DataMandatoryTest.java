@@ -34,7 +34,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")

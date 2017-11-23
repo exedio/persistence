@@ -33,7 +33,7 @@ import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.util.Day;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class QueryTest extends TestWithEnvironment
 {

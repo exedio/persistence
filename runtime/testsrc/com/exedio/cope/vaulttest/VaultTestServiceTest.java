@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.junit.VaultTestService;
 import com.exedio.cope.vault.VaultService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class VaultTestServiceTest extends VaultServiceTest
 {

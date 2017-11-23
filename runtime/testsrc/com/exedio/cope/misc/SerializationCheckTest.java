@@ -38,7 +38,7 @@ import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("StaticVariableMayNotBeInitialized")
 public class SerializationCheckTest

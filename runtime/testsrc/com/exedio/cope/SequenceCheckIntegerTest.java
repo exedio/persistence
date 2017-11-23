@@ -23,7 +23,7 @@ import static com.exedio.cope.SequenceCheckIntegerTest.AnItem.next;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SequenceCheckIntegerTest extends TestWithEnvironment
 {

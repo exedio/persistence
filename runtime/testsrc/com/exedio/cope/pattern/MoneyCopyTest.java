@@ -34,7 +34,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MoneyCopyTest extends TestWithEnvironment
 {

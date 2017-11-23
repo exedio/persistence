@@ -30,7 +30,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Table;
 import java.util.Date;
 import java.util.Locale;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 {

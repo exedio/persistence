@@ -30,7 +30,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.tojunit.ImporterRule;
 import com.exedio.cope.tojunit.MainRule;
 import java.util.ArrayList;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class ImporterTest extends TestWithEnvironment

@@ -55,7 +55,7 @@ import com.exedio.cope.tojunit.EqualsAssert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CompositeFieldTest extends TestWithEnvironment
 {

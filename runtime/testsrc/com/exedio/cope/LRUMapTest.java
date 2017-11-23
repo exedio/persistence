@@ -27,7 +27,7 @@ import gnu.trove.TLongObjectHashMap;
 import java.util.ArrayList;
 import java.util.HashMap;
 import org.junit.jupiter.api.Disabled;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LRUMapTest
 {

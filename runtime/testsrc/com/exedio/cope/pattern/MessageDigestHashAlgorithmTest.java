@@ -31,7 +31,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.IllegalAlgorithmException;
 import java.security.SecureRandom;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MessageDigestHashAlgorithmTest
 {

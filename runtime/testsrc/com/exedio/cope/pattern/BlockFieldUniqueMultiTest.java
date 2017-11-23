@@ -29,7 +29,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldUniqueMultiModelTest.AnItem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BlockFieldUniqueMultiTest extends TestWithEnvironment
 {

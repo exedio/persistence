@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CheckConstraintConditionItem.TYPE;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CheckConstraintConditionTest extends TestWithEnvironment
 {

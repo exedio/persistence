@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.StringField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.Charset;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TextUrlFilterModelTest

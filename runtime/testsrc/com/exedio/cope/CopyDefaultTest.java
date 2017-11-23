@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CopyDefaultTest extends TestWithEnvironment
 {

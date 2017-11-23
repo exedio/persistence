@@ -35,7 +35,7 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 {

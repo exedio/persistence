@@ -25,7 +25,7 @@ import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Day;
 import java.util.TimeZone;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class DayFieldWrongDefaultNowTest

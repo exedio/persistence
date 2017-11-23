@@ -29,7 +29,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.MessageDigest;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HashConditionModelTest
 {

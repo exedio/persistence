@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.AnnotatedElement;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FeaturesTest
 {

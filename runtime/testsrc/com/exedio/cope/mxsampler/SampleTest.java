@@ -20,7 +20,7 @@ package com.exedio.cope.mxsampler;
 
 import com.exedio.cope.util.JobContexts;
 import java.util.Date;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SampleTest
 {

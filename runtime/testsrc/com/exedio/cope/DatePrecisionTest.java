@@ -28,7 +28,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;
 import java.util.Date;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DatePrecisionTest extends TestWithEnvironment
 {

@@ -31,7 +31,7 @@ import static org.junit.Assert.fail;
 
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LongTest extends TestWithEnvironment
 {

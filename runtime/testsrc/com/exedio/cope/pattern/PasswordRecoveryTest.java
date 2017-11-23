@@ -47,7 +47,7 @@ import com.exedio.cope.tojunit.MainRule;
 import java.util.Arrays;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class PasswordRecoveryTest extends TestWithEnvironment

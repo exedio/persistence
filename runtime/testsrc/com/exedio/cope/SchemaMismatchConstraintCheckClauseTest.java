@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * SchemaMismatchConstraintCheckNameTest is in {@link SchemaMismatchColumnNameTest}.

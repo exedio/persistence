@@ -23,7 +23,7 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.misc.MediaSummary;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MediaSummaryTest
 {

@@ -30,7 +30,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CompositeErrorTest
 {

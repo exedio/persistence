@@ -29,7 +29,7 @@ import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
 import java.util.Map;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class DeleteSchemaTest extends TestWithEnvironment

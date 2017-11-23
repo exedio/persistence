@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.CopeName;
 import java.lang.reflect.Field;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @Deprecated
 @SuppressWarnings("unused")

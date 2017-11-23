@@ -42,7 +42,7 @@ import com.exedio.cope.CompareFunctionCondition.Operator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DoubleTest extends TestWithEnvironment
 {

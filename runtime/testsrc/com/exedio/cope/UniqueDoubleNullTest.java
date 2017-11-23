@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assume.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperInitial;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * See http://bugs.mysql.com/bug.php?id=8173 as well.

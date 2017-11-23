@@ -35,7 +35,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TypeFieldTest extends TestWithEnvironment
 {

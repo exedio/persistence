@@ -40,7 +40,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("MapReplaceableByEnumMap")
 public class MapFieldTest extends TestWithEnvironment

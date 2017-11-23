@@ -29,7 +29,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RevisionStatisticsModelTest
 {

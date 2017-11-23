@@ -27,7 +27,7 @@ import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.WrapperIgnore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BlockErrorTest
 {

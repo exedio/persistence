@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DefaultInheritanceTest extends TestWithEnvironment
 {

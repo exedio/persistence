@@ -39,7 +39,7 @@ import com.exedio.cope.tojunit.TestSources;
 import java.util.concurrent.atomic.AtomicReference;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("resource")
 public class ConnectTokenEqualityTest

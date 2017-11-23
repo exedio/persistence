@@ -24,7 +24,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ReserializeTest
 {

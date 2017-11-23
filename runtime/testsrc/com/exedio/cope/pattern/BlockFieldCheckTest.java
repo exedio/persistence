@@ -27,7 +27,7 @@ import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldCheckModelTest.AnItem;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BlockFieldCheckTest extends TestWithEnvironment
 {

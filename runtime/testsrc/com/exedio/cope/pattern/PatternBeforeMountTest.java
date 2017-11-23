@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.Feature;
 import java.util.HashMap;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PatternBeforeMountTest
 {

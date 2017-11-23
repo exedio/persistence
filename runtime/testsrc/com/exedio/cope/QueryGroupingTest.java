@@ -32,7 +32,7 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.util.Day;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class QueryGroupingTest extends TestWithEnvironment
 {

@@ -53,7 +53,7 @@ import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.Assert.assertEquals;
 
 import java.util.ArrayList;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SchemaTypeIntegerTest extends TestWithEnvironment
 {

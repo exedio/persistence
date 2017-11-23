@@ -31,7 +31,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PartOfOrderReuseTest
 {

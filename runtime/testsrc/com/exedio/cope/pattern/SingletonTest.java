@@ -35,7 +35,7 @@ import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SingletonTest extends TestWithEnvironment
 {

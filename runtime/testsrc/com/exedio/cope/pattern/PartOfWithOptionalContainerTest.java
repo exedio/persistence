@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PartOfWithOptionalContainerTest extends TestWithEnvironment
 {

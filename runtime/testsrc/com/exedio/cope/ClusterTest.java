@@ -35,7 +35,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class") // don't know why this is needed
 public abstract class ClusterTest

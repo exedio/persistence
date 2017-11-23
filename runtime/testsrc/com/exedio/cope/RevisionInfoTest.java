@@ -35,7 +35,7 @@ import java.util.Iterator;
 import java.util.Properties;
 import java.util.TreeMap;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RevisionInfoTest
 {

@@ -22,7 +22,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.assertEquals;
 
 import java.security.SecureRandom;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class NestedHashAlgorithmTest
 {

@@ -32,7 +32,7 @@ import com.exedio.cope.pattern.Media;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PurgeTest extends ConnectedTest
 {

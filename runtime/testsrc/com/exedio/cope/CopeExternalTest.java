@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CopeExternalTest extends TestWithEnvironment
 {

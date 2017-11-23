@@ -29,7 +29,7 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
 import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ClusterPropertiesTest
 {

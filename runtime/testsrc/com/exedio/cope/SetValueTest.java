@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 
 import java.lang.reflect.Type;
 import java.util.Set;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SetValueTest
 {

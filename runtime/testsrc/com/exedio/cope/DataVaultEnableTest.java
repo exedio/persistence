@@ -31,7 +31,7 @@ import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.pattern.Media;
 import com.exedio.cope.vaultmock.VaultMockService;
 import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DataVaultEnableTest
 {

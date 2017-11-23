@@ -34,7 +34,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BlockFieldNestedTest extends TestWithEnvironment
 {

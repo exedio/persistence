@@ -38,7 +38,7 @@ import com.exedio.cope.TestWithEnvironment;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MediaSubTest extends TestWithEnvironment
 {

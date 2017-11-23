@@ -27,7 +27,7 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.Model;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldDefaultTest
 {

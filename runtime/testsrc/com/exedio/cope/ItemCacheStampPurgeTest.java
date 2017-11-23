@@ -27,7 +27,7 @@ import static org.junit.Assume.assumeTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ItemCacheStampPurgeTest extends TestWithEnvironment
 {

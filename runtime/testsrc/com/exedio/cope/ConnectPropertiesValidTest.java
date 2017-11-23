@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @ProtocolWriterTag
 public class ConnectPropertiesValidTest extends TestWithEnvironment

@@ -36,7 +36,7 @@ import java.security.Security;
 import java.util.SortedSet;
 import javax.annotation.Nullable;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HashConditionTest extends TestWithEnvironment
 {

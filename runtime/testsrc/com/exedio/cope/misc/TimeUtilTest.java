@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class TimeUtilTest

@@ -25,7 +25,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.CopeExternalTest.CachedItem;
 import com.exedio.cope.CopeExternalTest.NoCacheItem;
 import com.exedio.cope.instrument.WrapperType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CopeExternalModelTest
 {

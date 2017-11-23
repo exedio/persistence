@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * This test became useless, as there is no connection between

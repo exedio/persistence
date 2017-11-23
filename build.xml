@@ -203,6 +203,8 @@
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="build/classes/junit4" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -629,6 +631,8 @@
 			<classpath>
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="build/classes/junit4" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -791,6 +795,8 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 				<pathelement location="build/classes/junit4" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</classpath>
 			<ignore>
@@ -850,6 +856,8 @@
 				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="build/classes/junit4" />
+				<pathelement location="lib/junit-jupiter-api.jar" />
+				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>

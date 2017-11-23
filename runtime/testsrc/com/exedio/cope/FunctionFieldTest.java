@@ -23,7 +23,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotSame;
 
 import com.exedio.cope.instrument.WrapperIgnore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FunctionFieldTest
 {

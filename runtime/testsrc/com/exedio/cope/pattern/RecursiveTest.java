@@ -32,7 +32,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RecursiveTest extends TestWithEnvironment
 {

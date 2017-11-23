@@ -32,7 +32,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SetOrderedFieldModelTest
 {

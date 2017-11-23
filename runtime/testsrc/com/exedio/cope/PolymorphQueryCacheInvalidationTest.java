@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PolymorphQueryCacheInvalidationTest extends TestWithEnvironment
 {

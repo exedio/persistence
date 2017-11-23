@@ -27,7 +27,7 @@ import java.io.IOException;
 import java.net.SocketException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class ClusterSenderMulticastTest

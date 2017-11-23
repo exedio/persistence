@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ColumnTest extends SchemaReadyTest
 {

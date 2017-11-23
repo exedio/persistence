@@ -27,7 +27,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertNull;
 
 import com.exedio.cope.Type;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SampleItemCacheTest extends ConnectedTest
 {

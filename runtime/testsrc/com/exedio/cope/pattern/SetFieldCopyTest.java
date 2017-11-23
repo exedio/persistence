@@ -42,7 +42,7 @@ import com.exedio.cope.instrument.WrapperType;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SetFieldCopyTest extends TestWithEnvironment
 {

@@ -30,7 +30,7 @@ import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CompositeFieldRenamedSchemaTest extends TestWithEnvironment
 {

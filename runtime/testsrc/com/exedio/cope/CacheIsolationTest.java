@@ -27,7 +27,7 @@ import static org.junit.Assert.fail;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CacheIsolationTest extends TestWithEnvironment
 {

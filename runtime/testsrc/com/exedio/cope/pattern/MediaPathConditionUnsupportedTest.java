@@ -29,7 +29,7 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MediaPathConditionUnsupportedTest
 {

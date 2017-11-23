@@ -28,7 +28,7 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.pattern.Dispatcher.Config;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class DispatcherConfigTest

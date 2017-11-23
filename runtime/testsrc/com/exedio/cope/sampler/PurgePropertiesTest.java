@@ -39,7 +39,7 @@ import java.util.Collection;
 import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Map;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 @SuppressWarnings("HardcodedLineSeparator")

@@ -53,7 +53,7 @@ import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @TestWithEnvironment.Tag
 @MainRule.Tag

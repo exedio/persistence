@@ -27,7 +27,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PatternComputedTest
 {

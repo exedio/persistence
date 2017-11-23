@@ -28,7 +28,7 @@ import com.exedio.cope.testmodel.AttributeItem;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class FieldMediaTest extends FieldTest
 {

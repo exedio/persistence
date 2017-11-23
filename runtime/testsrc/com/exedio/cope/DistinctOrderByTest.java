@@ -33,7 +33,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import java.util.List;
 import java.util.function.Predicate;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 public class DistinctOrderByTest extends TestWithEnvironment

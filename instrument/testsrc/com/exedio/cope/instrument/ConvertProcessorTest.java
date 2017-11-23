@@ -32,7 +32,7 @@ import java.nio.charset.StandardCharsets;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.SimpleJavaFileObject;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings({"synthetic-access", "HardcodedLineSeparator"})
 public class ConvertProcessorTest

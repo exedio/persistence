@@ -24,7 +24,7 @@ import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionTest.MODEL;
 import static org.junit.Assert.assertEquals;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class AverageRoundingTest extends TestWithEnvironment
 {

@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MediaServletDefaultTest
 {

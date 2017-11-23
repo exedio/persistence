@@ -32,7 +32,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import java.util.ArrayList;
 import java.util.stream.Stream;
 import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TransactionUniqueTest extends TestWithEnvironment
 {

@@ -23,7 +23,7 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.Disabled;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test expenses for System.nanoTime against atomic sequences

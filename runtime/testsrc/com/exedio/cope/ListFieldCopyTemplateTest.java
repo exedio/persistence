@@ -30,7 +30,7 @@ import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.ListField;
 import com.exedio.cope.pattern.SetField;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ListFieldCopyTemplateTest extends TestWithEnvironment
 {

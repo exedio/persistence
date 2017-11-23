@@ -32,7 +32,7 @@ import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
 import java.util.Iterator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DeleteTest extends TestWithEnvironment
 {

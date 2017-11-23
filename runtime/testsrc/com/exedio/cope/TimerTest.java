@@ -24,7 +24,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.Timer.Interval;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

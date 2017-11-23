@@ -32,7 +32,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.BeforeSetItem.Action;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BeforeSetTest extends TestWithEnvironment
 {

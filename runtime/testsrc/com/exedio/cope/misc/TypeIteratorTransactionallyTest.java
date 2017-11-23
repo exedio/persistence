@@ -35,7 +35,7 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class TypeIteratorTransactionallyTest extends TestWithEnvironment

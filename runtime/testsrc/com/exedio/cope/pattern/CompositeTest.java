@@ -43,7 +43,7 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CompositeTest
 {

@@ -25,7 +25,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TransactionIdRule;
 import java.util.Date;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class TransactionEmptyTest extends TestWithEnvironment

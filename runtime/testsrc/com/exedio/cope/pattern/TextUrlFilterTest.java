@@ -38,7 +38,7 @@ import java.util.Collections;
 import java.util.HashSet;
 import javax.servlet.ServletOutputStream;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TextUrlFilterTest extends TestWithEnvironment
 {

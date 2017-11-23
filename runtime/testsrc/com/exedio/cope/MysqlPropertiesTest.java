@@ -24,7 +24,7 @@ import static org.junit.Assert.assertTrue;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MysqlPropertiesTest
 {

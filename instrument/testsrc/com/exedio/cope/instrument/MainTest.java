@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.WrapFeature;
 import java.lang.reflect.Method;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MainTest
 {

@@ -30,7 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PartOfReverseTest
 {

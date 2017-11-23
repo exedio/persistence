@@ -23,7 +23,7 @@ import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StringUtilTest
 {

@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DatePrecisionConditionTest extends TestWithEnvironment
 {

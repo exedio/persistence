@@ -33,7 +33,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 {

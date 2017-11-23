@@ -32,7 +32,7 @@ import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.util.CharSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class StringModelTest
 {

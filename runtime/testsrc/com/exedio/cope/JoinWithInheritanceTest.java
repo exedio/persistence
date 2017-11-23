@@ -25,7 +25,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.pattern.ListField;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("OverlyStrongTypeCast")
 public class JoinWithInheritanceTest extends TestWithEnvironment

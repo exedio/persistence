@@ -32,7 +32,7 @@ import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.Field;
 import com.exedio.cope.pattern.DynamicModel.Type;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DynamicModelCastTest extends TestWithEnvironment
 {

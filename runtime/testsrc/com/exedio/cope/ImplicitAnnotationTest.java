@@ -29,7 +29,7 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.dsmf.Constraint;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class ImplicitAnnotationTest extends TestWithEnvironment
 {

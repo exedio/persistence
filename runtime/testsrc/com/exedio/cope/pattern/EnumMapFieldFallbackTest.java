@@ -30,7 +30,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapperInitial;
 import java.util.EnumMap;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldFallbackTest extends TestWithEnvironment
 {

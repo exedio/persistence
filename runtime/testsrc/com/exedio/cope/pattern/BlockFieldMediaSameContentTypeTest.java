@@ -33,7 +33,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 {

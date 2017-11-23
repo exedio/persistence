@@ -34,7 +34,7 @@ import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.AnEnum;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem;
 import com.exedio.cope.tojunit.EqualsAssert;
 import java.awt.Color;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BlockFieldStandardTest extends TestWithEnvironment
 {

@@ -26,7 +26,7 @@ import static org.junit.Assert.assertNotSame;
 import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.misc.HiddenFeatures;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HiddenFeatureTest extends TestWithEnvironment
 {

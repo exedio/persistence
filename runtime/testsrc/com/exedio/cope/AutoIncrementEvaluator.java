@@ -31,7 +31,7 @@ import java.sql.Statement;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.jupiter.api.Disabled;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * Tests, whether there is a significant performance penalty

@@ -28,7 +28,7 @@ import static org.junit.Assert.assertTrue;
 
 import com.exedio.dsmf.Constraint;
 import java.util.EnumSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class HierarchyEmptyTest extends TestWithEnvironment
 {

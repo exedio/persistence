@@ -35,7 +35,7 @@ import static org.junit.Assert.assertTrue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import java.util.Arrays;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MediaUrlModelTest
 {

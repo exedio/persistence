@@ -48,7 +48,7 @@ import static org.junit.Assume.assumeTrue;
 import com.exedio.cope.SchemaTypeStringField.StringItem;
 import java.util.HashMap;
 import java.util.List;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SchemaTypeStringTest extends TestWithEnvironment
 {

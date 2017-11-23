@@ -28,7 +28,7 @@ import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import java.util.EnumSet;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 /**
  * @author baumgaertel

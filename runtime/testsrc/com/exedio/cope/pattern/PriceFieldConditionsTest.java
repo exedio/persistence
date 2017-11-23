@@ -30,7 +30,7 @@ import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PriceFieldConditionsTest extends TestWithEnvironment
 {

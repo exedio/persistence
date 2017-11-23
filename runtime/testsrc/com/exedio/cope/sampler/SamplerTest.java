@@ -26,7 +26,7 @@ import com.exedio.cope.CopeExternal;
 import com.exedio.cope.Type;
 import com.exedio.cope.util.JobContexts;
 import java.util.Date;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class SamplerTest
 {

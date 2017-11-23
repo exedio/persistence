@@ -25,7 +25,7 @@ import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.misc.DataFieldVaultSummary;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.concurrent.atomic.AtomicLong;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DataFieldVaultSummaryTest
 {

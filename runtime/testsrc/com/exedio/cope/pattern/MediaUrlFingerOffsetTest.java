@@ -27,7 +27,7 @@ import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
 import java.util.Date;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class MediaUrlFingerOffsetTest extends TestWithEnvironment
 {

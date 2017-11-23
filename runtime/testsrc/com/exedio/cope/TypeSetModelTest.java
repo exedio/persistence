@@ -22,7 +22,7 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 
 import com.exedio.cope.instrument.WrapperIgnore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class TypeSetModelTest
 {

@@ -31,7 +31,7 @@ import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.pattern.CompositeType;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class LocalizationKeysPatternTest
 {

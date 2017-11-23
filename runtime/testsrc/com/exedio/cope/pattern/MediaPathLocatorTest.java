@@ -27,7 +27,7 @@ import static org.junit.Assert.assertSame;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MediaPath.Locator;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public final class MediaPathLocatorTest extends TestWithEnvironment
 {

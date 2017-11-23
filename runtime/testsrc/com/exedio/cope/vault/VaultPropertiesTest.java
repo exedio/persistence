@@ -36,7 +36,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class VaultPropertiesTest
 {

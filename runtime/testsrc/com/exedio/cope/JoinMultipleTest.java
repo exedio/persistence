@@ -31,7 +31,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.testmodel.PointerItem;
 import com.exedio.cope.testmodel.PointerTargetItem;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class JoinMultipleTest extends TestmodelTest
 {

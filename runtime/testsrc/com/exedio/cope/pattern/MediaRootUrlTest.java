@@ -30,7 +30,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.tojunit.TestSources;
 import org.junit.After;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class MediaRootUrlTest
 {

@@ -33,7 +33,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.TestWithEnvironment;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RangeFieldTest extends TestWithEnvironment
 {

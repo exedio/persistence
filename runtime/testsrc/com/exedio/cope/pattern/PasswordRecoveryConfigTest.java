@@ -22,7 +22,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
 
 import com.exedio.cope.pattern.PasswordRecovery.Config;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class PasswordRecoveryConfigTest
 {

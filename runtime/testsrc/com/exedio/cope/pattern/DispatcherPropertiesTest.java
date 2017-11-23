@@ -24,7 +24,7 @@ import static org.junit.Assert.assertEquals;
 import com.exedio.cope.pattern.Dispatcher.Config;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class DispatcherPropertiesTest
 {

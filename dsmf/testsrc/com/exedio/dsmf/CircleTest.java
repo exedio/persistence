@@ -20,7 +20,7 @@ package com.exedio.dsmf;
 
 import static org.junit.Assert.assertNotNull;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class CircleTest extends SchemaReadyTest
 {

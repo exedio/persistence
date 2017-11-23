@@ -24,7 +24,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class DateFieldWrongDefaultNowTest

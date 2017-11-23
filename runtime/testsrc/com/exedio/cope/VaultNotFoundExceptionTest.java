@@ -26,7 +26,7 @@ import static org.junit.Assert.fail;
 import com.exedio.cope.vault.VaultNotFoundException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class VaultNotFoundExceptionTest
 {

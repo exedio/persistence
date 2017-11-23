@@ -26,7 +26,7 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static org.junit.Assert.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class RenamedPatternSchemaTest extends TestWithEnvironment
 {

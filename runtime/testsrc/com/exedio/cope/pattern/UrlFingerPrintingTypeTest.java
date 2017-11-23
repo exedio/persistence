@@ -28,7 +28,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import java.lang.annotation.Annotation;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class UrlFingerPrintingTypeTest
 {

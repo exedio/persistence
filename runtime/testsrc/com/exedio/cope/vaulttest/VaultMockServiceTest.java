@@ -24,7 +24,7 @@ import static org.junit.Assert.assertSame;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.util.Properties;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class VaultMockServiceTest extends VaultServiceTest
 {

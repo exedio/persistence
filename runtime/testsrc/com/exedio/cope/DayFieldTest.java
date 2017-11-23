@@ -34,7 +34,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Day;
 import java.util.List;
 import org.junit.Before;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
 public class DayFieldTest extends TestWithEnvironment
