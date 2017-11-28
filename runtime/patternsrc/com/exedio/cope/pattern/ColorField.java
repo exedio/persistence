@@ -58,7 +58,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 
 	private ColorField(final IntegerField rgb)
 	{
-		addSource(this.rgb = rgb, "rgb");
+		this.rgb = addSourceFeature(rgb, "rgb");
 		this.isfinal = rgb.isFinal();
 		this.mandatory = rgb.isMandatory();
 		this.alphaAllowed = (rgb.getMinimum()==Integer.MIN_VALUE);

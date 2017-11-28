@@ -151,12 +151,11 @@ public final class Dispatcher extends Pattern
 
 	private Dispatcher(final BooleanField pending, final boolean supportPurge)
 	{
-		this.pending = pending;
-		addSource(pending, "pending");
+		this.pending = addSourceFeature(pending, "pending");
 		if(supportPurge)
 		{
-			addSource(noPurge = new BooleanField().defaultTo(false), "noPurge");
-			addSource(unpend = CompositeField.create(Unpend.class).optional(), "unpend", ComputedElement.get());
+			noPurge = addSourceFeature(new BooleanField().defaultTo(false), "noPurge");
+			unpend = addSourceFeature(CompositeField.create(Unpend.class).optional(), "unpend", ComputedElement.get());
 		}
 		else
 		{

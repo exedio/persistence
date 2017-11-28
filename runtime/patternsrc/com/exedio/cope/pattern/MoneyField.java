@@ -78,21 +78,17 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 
 	private MoneyField(final PriceField amount, final CurrencySource<C> currency)
 	{
-		this.amount = amount;
-		addSource(amount, "amount", CustomAnnotatedElement.create(CopeSchemaNameElement.getEmpty()));
+		this.amount = addSourceFeature(amount, "amount", CustomAnnotatedElement.create(CopeSchemaNameElement.getEmpty()));
 		this.isfinal = amount.isFinal();
 		this.mandatory = amount.isMandatory();
 		this.currency = currency;
 
 		final FunctionField<?> currencySourceToBeAdded = currency.sourceToBeAdded();
 		if(currencySourceToBeAdded!=null)
-			addSource(currencySourceToBeAdded, "currency");
+			addSourceFeature(currencySourceToBeAdded, "currency");
 
 		final Condition unison = currency.unison(amount);
-		if(unison!=null)
-			addSource(this.unison = new CheckConstraint(unison), "unison");
-		else
-			this.unison = null;
+		this.unison = unison!=null ? addSourceFeature(new CheckConstraint(unison), "unison") : null;
 	}
 
 	public MoneyField<C> toFinal()

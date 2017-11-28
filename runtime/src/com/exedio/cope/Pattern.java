@@ -71,31 +71,73 @@ public abstract class Pattern extends Feature
 	private List<Type<?>> sourceTypes = null;
 
 	/**
+	 * @deprecated Use {@link #addSourceFeature(Feature, String)} instead and benefit from result.
 	 * @see #getSourceFeatures()
 	 */
+	@Deprecated
 	protected final void addSource(
 			final Feature feature,
 			final String postfix)
 	{
-		addSource(feature, postfix, null, getClass());
+		addSourceFeature(feature, postfix);
 	}
 
 	/**
+	 * @deprecated Use {@link #addSourceFeature(Feature, String, AnnotatedElement)} instead and benefit from result.
 	 * @see #getSourceFeatures()
 	 */
+	@Deprecated
 	protected final void addSource(
 			final Feature feature,
 			final String postfix,
 			final AnnotatedElement annotationSource)
 	{
-		addSource(feature, postfix, annotationSource, getClass());
+		addSourceFeature(feature, postfix, annotationSource);
 	}
 
 	/**
+	 * @deprecated Use {@link #addSourceFeature(Feature, String, AnnotatedElement, Class)} instead and benefit from result.
 	 * @see #getSourceFeatures()
 	 */
+	@Deprecated
 	protected final void addSource(
 			final Feature feature,
+			final String postfix,
+			final AnnotatedElement annotationSource,
+			final Class<?> precedingLocalizationKeysClass)
+	{
+		addSourceFeature(feature, postfix, annotationSource, precedingLocalizationKeysClass);
+	}
+
+	/**
+	 * @return parameter {@code feature}
+	 * @see #getSourceFeatures()
+	 */
+	protected final <F extends Feature> F addSourceFeature(
+			final F feature,
+			final String postfix)
+	{
+		return addSourceFeature(feature, postfix, null, getClass());
+	}
+
+	/**
+	 * @return parameter {@code feature}
+	 * @see #getSourceFeatures()
+	 */
+	protected final <F extends Feature> F addSourceFeature(
+			final F feature,
+			final String postfix,
+			final AnnotatedElement annotationSource)
+	{
+		return addSourceFeature(feature, postfix, annotationSource, getClass());
+	}
+
+	/**
+	 * @return parameter {@code feature}
+	 * @see #getSourceFeatures()
+	 */
+	protected final <F extends Feature> F addSourceFeature(
+			final F feature,
 			final String postfix,
 			final AnnotatedElement annotationSource,
 			final Class<?> precedingLocalizationKeysClass)
@@ -104,10 +146,11 @@ public abstract class Pattern extends Feature
 		requireNonEmpty(postfix, "postfix");
 		requireNonNull(precedingLocalizationKeysClass, "precedingLocalizationKeysClass");
 		if(sourceFeaturesGather==null)
-			throw new IllegalStateException("addSource can be called only until pattern is mounted, not afterwards");
+			throw new IllegalStateException("addSourceFeature can be called only until pattern is mounted, not afterwards");
 		assert sourceFeatureList==null;
 		feature.registerPattern(this, precedingLocalizationKeysClass, postfix);
 		sourceFeaturesGather.put(postfix, feature, new SourceFeatureAnnotationProxy(annotationSource, postfix));
+		return feature;
 	}
 
 	private final class SourceFeatureAnnotationProxy implements AnnotatedElement
@@ -392,7 +435,7 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @see #addSource(Feature, String)
+	 * @see #addSourceFeature(Feature, String)
 	 * @see Feature#getPattern()
 	 */
 	public final List<? extends Feature> getSourceFeatures()
@@ -456,12 +499,12 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @deprecated Use {@link #addSource(Feature,String)} instead
+	 * @deprecated Use {@link #addSourceFeature(Feature,String)} instead
 	 */
 	@Deprecated
 	protected final void registerSource(final Field<?> field, final String postfix)
 	{
-		addSource(field, postfix);
+		addSourceFeature(field, postfix);
 	}
 
 	/**
@@ -536,11 +579,11 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @deprecated For binary compatibility only, use {@link #addSource(Feature,String,AnnotatedElement)} instead.
+	 * @deprecated For binary compatibility only, use {@link #addSourceFeature(Feature,String,AnnotatedElement)} instead.
 	 */
 	@Deprecated
 	protected final void addSource(final Feature feature, final String postfix, final java.lang.reflect.Field annotationSource)
 	{
-		addSource(feature, postfix, (AnnotatedElement)annotationSource);
+		addSourceFeature(feature, postfix, annotationSource);
 	}
 }

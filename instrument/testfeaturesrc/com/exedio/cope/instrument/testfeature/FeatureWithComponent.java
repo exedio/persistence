@@ -38,8 +38,8 @@ public final class FeatureWithComponent extends Pattern implements Settable<Bool
 
 	public FeatureWithComponent()
 	{
-		addSource(firstComponent, "first");
-		addSource(secondComponent, "second");
+		addSourceFeature(firstComponent, "first");
+		addSourceFeature(secondComponent, "second");
 	}
 
 	public Object firstComponent()

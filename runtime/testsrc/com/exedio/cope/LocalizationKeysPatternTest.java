@@ -147,7 +147,7 @@ public class LocalizationKeysPatternTest
 
 		MyPatt()
 		{
-			addSource(sourceFeature, "sourceFeature");
+			addSourceFeature(sourceFeature, "sourceFeature");
 		}
 
 		@Override

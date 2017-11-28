@@ -51,10 +51,10 @@ public final class PartOf<C extends Item> extends Pattern
 	{
 		this.container = requireNonNull(container, "container");
 		if(!container.isSourceAlready())
-			addSource(container, "Container");
+			addSourceFeature(container, "Container");
 		this.order = order;
 		if(order!=null && !order.isSourceAlready())
-			addSource(order, "Order");
+			addSourceFeature(order, "Order");
 	}
 
 	public static <C extends Item> PartOf<C> create(final ItemField<C> container)

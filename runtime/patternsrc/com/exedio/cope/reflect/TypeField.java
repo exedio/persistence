@@ -68,8 +68,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 	private TypeField(final Class<E> valueClass, final StringField idField)
 	{
 		this.valueClass = requireNonNull(valueClass, "valueClass");
-		this.idField = idField;
-		addSource(idField, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
+		this.idField = addSourceFeature(idField, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
 		this.isfinal = idField.isFinal();
 		this.mandatory = idField.isMandatory();
 	}

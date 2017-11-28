@@ -48,9 +48,8 @@ public final class MediaPattern extends Pattern
 
 	public MediaPattern()
 	{
-		this.sourceFeature = new Media().optional();
+		this.sourceFeature = addSourceFeature(new Media().optional(), "sourceFeature");
 		this.sourceTypeValue = new Media();
-		addSource(sourceFeature, "sourceFeature");
 	}
 
 	public void setSourceFeature(final Item item, final byte[] body, final String contentType, final int hour)

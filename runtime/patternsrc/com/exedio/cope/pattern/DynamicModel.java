@@ -99,13 +99,13 @@ public final class DynamicModel<L> extends Pattern
 
 		int n = 0;
 		for(int i = 0; i<strings.length; i++)
-			addSource(fields[n++] = strings [i] = new StringField().optional(),  "string"+i);
+			fields[n++] = strings [i] = addSourceFeature(new StringField().optional(),  "string"+i);
 		for(int i = 0; i<booleans.length; i++)
-			addSource(fields[n++] = booleans[i] = new BooleanField().optional(), "bool"  +i);
+			fields[n++] = booleans[i] = addSourceFeature(new BooleanField().optional(), "bool"  +i);
 		for(int i = 0; i<integers.length; i++)
-			addSource(fields[n++] = integers[i] = new IntegerField().optional(), "int"   +i);
+			fields[n++] = integers[i] = addSourceFeature(new IntegerField().optional(), "int"   +i);
 		for(int i = 0; i<doubles.length; i++)
-			addSource(fields[n++] = doubles [i] = new DoubleField().optional(),  "double"+i);
+			fields[n++] = doubles [i] = addSourceFeature(new DoubleField().optional(),  "double"+i);
 	}
 
 	private MapField<L, String> newLocalization()
@@ -207,11 +207,12 @@ public final class DynamicModel<L> extends Pattern
 
 			final int enumOffset = strings.length + booleans.length + integers.length + doubles.length;
 			for(int i = 0; i<enums.length; i++)
-				addSource(fields[i+enumOffset] = enums[i] = enumType.newItemField(FORBID).optional(), "enum"+i);
+				fields[i+enumOffset] = enums[i] =
+						addSourceFeature(enumType.newItemField(FORBID).optional(), "enum"+i);
 		}
 
-		final ItemField<Type<L>> type;
-		addSource(type = typeType.newItemField(FORBID).optional(), "type");
+		final ItemField<Type<L>> type =
+				addSourceFeature(typeType.newItemField(FORBID).optional(), "type");
 
 		this.mountIfMounted = new Mount<>(typeType, fieldParent, fieldType, enumParent, enumType, type);
 	}

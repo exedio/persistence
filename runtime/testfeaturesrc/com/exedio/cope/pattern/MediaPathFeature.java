@@ -54,9 +54,9 @@ public final class MediaPathFeature extends MediaPath
 
 	public MediaPathFeature()
 	{
-		addSource(result, "result");
-		addSource(contentType, "contentType");
-		addSource(lastModified, "lastModified");
+		addSourceFeature(result, "result");
+		addSourceFeature(contentType, "contentType");
+		addSourceFeature(lastModified, "lastModified");
 	}
 
 	public void setFinal(final boolean isFinal)

@@ -105,8 +105,8 @@ public class PatternComputedTest
 
 		MyPattern()
 		{
-			addSource(virgnSource, "virgnSource");
-			addSource(compuSource, "compuSource", ComputedElement.get());
+			addSourceFeature(virgnSource, "virgnSource");
+			addSourceFeature(compuSource, "compuSource", ComputedElement.get());
 		}
 
 		Type<?> virgnType = null;

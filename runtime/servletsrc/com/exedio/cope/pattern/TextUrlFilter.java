@@ -78,7 +78,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	{
 		super(raw);
 
-		this.raw = raw;
+		//noinspection ThisEscapedInObjectConstruction
+		this.raw = addSourceFeature(raw, "Raw", new MediaPathFeatureAnnotationProxy(this, false));
 		this.supportedContentType = requireNonEmpty(supportedContentType, "supportedContentType");
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
@@ -95,9 +96,6 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 			throw new IllegalArgumentException("pasteValue must not be final");
 		if(!pasteValue.isMandatory())
 			throw new IllegalArgumentException("pasteValue must be mandatory");
-
-		//noinspection ThisEscapedInObjectConstruction
-		addSource(raw, "Raw", new MediaPathFeatureAnnotationProxy(this, false));
 	}
 
 	Type<Paste> getPasteType()

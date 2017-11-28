@@ -102,19 +102,23 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 
 		final int digestStringLength = messageDigestAlgorithm.getLengthHex();
 		this.messageDigestAlgorithm = messageDigestAlgorithm;
-		this.media = mediaTemplate.toFinal();
 		//noinspection ThisEscapedInObjectConstruction
-		addSource(this.media, "media", new MediaPathFeatureAnnotationProxy(this, true));
-		this.hash = new StringField().toFinal().unique().lengthExact(digestStringLength).charSet(HEX_LOWER);
+		this.media = addSourceFeature(
+				mediaTemplate.toFinal(),
+				"media",
+				new MediaPathFeatureAnnotationProxy(this, true));
 		//noinspection AnonymousInnerClassMayBeStatic
-		addSource(this.hash, "hash",
+		this.hash = addSourceFeature(
+				new StringField().toFinal().unique().lengthExact(digestStringLength).charSet(HEX_LOWER),
+				"hash",
 				digestStringLength<=32
 				? ComputedElement.get()
 				: CustomAnnotatedElement2.create(
 						new Computed() { @Override public Class<? extends Annotation> annotationType() { return Computed.class; } },
 						new MysqlExtendedVarchar() { @Override public Class<? extends Annotation> annotationType() { return MysqlExtendedVarchar.class; } }));
-		this.hashConstraint = new HashConstraint(hash, messageDigestAlgorithm.getAlgorithm(), media.getBody());
-		addSource(this.hashConstraint, "hashConstraint");
+		this.hashConstraint = addSourceFeature(
+				new HashConstraint(hash, messageDigestAlgorithm.getAlgorithm(), media.getBody()),
+				"hashConstraint");
 	}
 
 	@Override

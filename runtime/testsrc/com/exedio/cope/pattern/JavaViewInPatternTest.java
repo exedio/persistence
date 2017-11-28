@@ -31,7 +31,7 @@ public class JavaViewInPatternTest
 	{
 		Muster()
 		{
-			addSource(new JavaView(), "schau");
+			addSourceFeature(new JavaView(), "schau");
 		}
 
 		private static final long serialVersionUID = 1l;

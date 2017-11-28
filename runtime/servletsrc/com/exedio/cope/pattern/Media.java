@@ -82,19 +82,19 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		this.isfinal = isfinal;
 		this.optional = optional;
 		//noinspection ThisEscapedInObjectConstruction
-		addSource(
-				this.body = applyConstraints(new DataField(), isfinal, optional).lengthMax(bodyMaximumLength),
+		this.body = addSourceFeature(
+				applyConstraints(new DataField(), isfinal, optional).lengthMax(bodyMaximumLength),
 				"body",
 				new MediaVaultAnnotationProxy(this));
 		this.contentType = contentType;
 		final FunctionField<?> contentTypeField = contentType.field;
 		if(contentTypeField!=null)
-			addSource(
+			addSourceFeature(
 					contentTypeField,
 					contentType.name,
 					ComputedElement.get());
-		addSource(
-				this.lastModified = applyConstraints(new DateField(), isfinal, optional),
+		this.lastModified = addSourceFeature(
+				applyConstraints(new DateField(), isfinal, optional),
 				"lastModified",
 				ComputedElement.get());
 
@@ -106,12 +106,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 				functions.add(contentTypeField);
 			functions.add(this.lastModified);
 			final Condition condition = Conditions.unisonNull(functions);
-			if(condition!=Condition.TRUE)
-				addSource(
-						this.unison = new CheckConstraint(condition),
-						"unison");
-			else
-				this.unison = null;
+			this.unison = (condition!=Condition.TRUE) ? addSourceFeature(new CheckConstraint(condition), "unison") : null;
 		}
 		else
 		{

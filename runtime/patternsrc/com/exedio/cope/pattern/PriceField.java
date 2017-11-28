@@ -61,8 +61,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 
 	private PriceField(final LongField integer)
 	{
-		this.integer = integer;
-		addSource(integer, "int", ComputedElement.get());
+		this.integer = addSourceFeature(integer, "int", ComputedElement.get());
 		this.isfinal = integer.isFinal();
 		this.mandatory = integer.isMandatory();
 	}

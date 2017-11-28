@@ -84,9 +84,9 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		for(final ItemField<?> component : components)
 		{
 			// TODO: simpleName might not be unique
-			addSource(component, component.getValueClass().getSimpleName());
+			addSourceFeature(component, component.getValueClass().getSimpleName());
 		}
-		addSource(createXORCheckConstraint(), "xor");
+		addSourceFeature(createXORCheckConstraint(), "xor");
 	}
 
 	private static ArrayList<ItemField<?>> createComponents(

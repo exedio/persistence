@@ -69,9 +69,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	private Serializer(final Class<E> valueClass, final DataField source)
 	{
 		this.valueClass = requireNonNull(valueClass, "valueClass");
-		this.source = source;
-
-		addSource(source, "data", ComputedElement.get());
+		this.source = addSourceFeature(source, "data", ComputedElement.get());
 	}
 
 	public static <E> Serializer<E> create(final Class<E> valueClass, final DataField source)

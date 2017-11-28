@@ -36,8 +36,8 @@ class RenamedSchemaPattern extends Pattern
 
 	RenamedSchemaPattern()
 	{
-		this.sourceFeature = new IntegerField();
-		addSource(sourceFeature, "sourceFeature", new AnnotationSource("sourceFeature"));
+		this.sourceFeature = addSourceFeature(
+				new IntegerField(), "sourceFeature", new AnnotationSource("sourceFeature"));
 	}
 
 	private static final class AnnotationSource implements AnnotatedElement

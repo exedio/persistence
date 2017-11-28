@@ -78,7 +78,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 
 		MyPattern()
 		{
-			addSource(source, "source");
+			addSourceFeature(source, "source");
 		}
 
 		@Override

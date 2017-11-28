@@ -40,8 +40,7 @@ public final class SettableSyntheticField extends Pattern implements Settable<In
 
 	private SettableSyntheticField(final IntegerField source)
 	{
-		this.source = source;
-		addSource(source, "source");
+		this.source = addSourceFeature(source, "source");
 	}
 
 	public SettableSyntheticField toFinal()

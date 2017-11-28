@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.jupiter.api.Assertions.assertSame;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
@@ -31,8 +33,8 @@ class RecursivePattern extends Pattern
 
 	RecursivePattern()
 	{
-		addSource(media, "media");
-		addSource(fetch, "fetch");
+		assertSame(media, addSourceFeature(media, "media"));
+		assertSame(fetch, addSourceFeature(fetch, "fetch"));
 	}
 
 	void set(final Item item, final String value)

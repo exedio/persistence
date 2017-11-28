@@ -64,7 +64,7 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 			BooleanField value = new BooleanField().defaultTo(false);
 			if(isFinal)
 				value = value.toFinal();
-			addSource(value, name(element), EnumAnnotatedElement.get(element));
+			addSourceFeature(value, name(element), EnumAnnotatedElement.get(element));
 			fields.put(element, value);
 		}
 	}

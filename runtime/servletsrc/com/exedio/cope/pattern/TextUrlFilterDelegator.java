@@ -57,14 +57,13 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	{
 		super(raw);
 
-		this.raw = raw;
+		//noinspection ThisEscapedInObjectConstruction
+		this.raw = addSourceFeature(raw, "Raw", new MediaPathFeatureAnnotationProxy(this, false));
 		this.delegate = requireNonNull(delegate, "delegate");
 		this.supportedContentType = requireNonEmpty(supportedContentType, "supportedContentType");
 		this.charset    = requireNonNull (charset,    "charset");
 		this.pasteStart = requireNonEmpty(pasteStart, "pasteStart");
 		this.pasteStop  = requireNonEmpty(pasteStop,  "pasteStop");
-		//noinspection ThisEscapedInObjectConstruction
-		addSource(raw, "Raw", new MediaPathFeatureAnnotationProxy(this, false));
 	}
 
 	@Wrap(order=10, thrown=@Wrap.Thrown(IOException.class))

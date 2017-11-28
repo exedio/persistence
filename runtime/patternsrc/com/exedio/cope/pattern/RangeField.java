@@ -50,9 +50,9 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 
 	private RangeField(final FunctionField<E> borderTemplate)
 	{
-		addSource(from = borderTemplate.copy(), "from");
-		addSource(to   = borderTemplate.copy(), "to");
-		addSource(unison = new CheckConstraint(from.lessOrEqual(to)), "unison");
+		this.from = addSourceFeature(borderTemplate.copy(), "from");
+		this.to   = addSourceFeature(borderTemplate.copy(), "to");
+		this.unison = addSourceFeature(new CheckConstraint(from.lessOrEqual(to)), "unison");
 		this.isfinal = from.isFinal();
 	}
 

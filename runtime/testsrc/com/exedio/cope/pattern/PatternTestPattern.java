@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.NULLIFY;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Features;
@@ -59,8 +60,8 @@ class PatternTestPattern extends Pattern
 
 	PatternTestPattern()
 	{
-		addSource(ownString, "ownString", af("ownString"));
-		addSource(ownInt, "ownInt", af("ownInt"));
+		assertSame(ownString, addSourceFeature(ownString, "ownString", af("ownString")));
+		assertSame(ownInt,    addSourceFeature(ownInt, "ownInt", af("ownInt")));
 	}
 
 	@Override
@@ -79,7 +80,8 @@ class PatternTestPattern extends Pattern
 		features.put(SUBTYPE_INTEGER, subTypeInteger, af("subTypeInteger"));
 		this.subType = newSourceType(PatternTestTypeItem.class, false, superType, features, SUBTYPE_POSTFIX);
 
-		addSource(ownItem = subType.newItemField(NULLIFY), "ownItem", af("ownItem"));
+		ownItem = subType.newItemField(NULLIFY);
+		assertSame(ownItem, addSourceFeature(ownItem, "ownItem", af("ownItem")));
 	}
 
 	ItemField<PatternTestTypeItem> getOwnItem()

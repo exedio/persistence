@@ -47,9 +47,9 @@ public final class DrivebyHashMigration extends Pattern implements HashInterface
 	 */
 	public DrivebyHashMigration(final HashAlgorithm legacy, final HashAlgorithm target)
 	{
-		addSource(legacyHash = hash(legacy), "legacy", ComputedElement.get());
-		addSource(targetHash = hash(target), "target");
-		addSource(new CheckConstraint(
+		legacyHash = addSourceFeature(hash(legacy), "legacy", ComputedElement.get());
+		targetHash = addSourceFeature(hash(target), "target");
+		addSourceFeature(new CheckConstraint(
 			Cope.or(
 				legacyHash.isNull().and(targetHash.isNotNull()),
 				legacyHash.isNotNull().and(targetHash.isNull())

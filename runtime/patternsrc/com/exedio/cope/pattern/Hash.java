@@ -110,7 +110,7 @@ public class Hash extends Pattern implements HashInterface
 		if(algorithmID.isEmpty())
 			throw new IllegalArgumentException("algorithmID must not be empty");
 
-		addSource(this.storage = storage, algorithmID, ComputedElement.get());
+		this.storage = addSourceFeature(storage, algorithmID, ComputedElement.get());
 		this.isfinal = storage.isFinal();
 		this.plainTextLimit = plainTextLimit;
 

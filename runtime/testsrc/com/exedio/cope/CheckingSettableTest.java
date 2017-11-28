@@ -150,8 +150,8 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 		MyPattern()
 		{
-			addSource(source, "source");
-			addSource(source2, "source2");
+			addSourceFeature(source, "source");
+			addSourceFeature(source2, "source2");
 		}
 
 		@Override

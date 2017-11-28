@@ -69,8 +69,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	private FeatureField(final Class<E> valueClass, final StringField idField)
 	{
 		this.valueClass = requireNonNull(valueClass, "valueClass");
-		this.idField = idField;
-		addSource(idField, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
+		this.idField = addSourceFeature(idField, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
 		this.isfinal = idField.isFinal();
 		this.mandatory = idField.isMandatory();
 	}
