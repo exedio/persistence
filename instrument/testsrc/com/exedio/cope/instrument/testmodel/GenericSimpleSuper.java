@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
+import com.exedio.cope.misc.ReflectionTypes;
 
 /**
  * @param <N> just for tests
@@ -29,8 +30,8 @@ import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 @SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 public class GenericSimpleSuper<N extends Number> extends Item
 {
-	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class  );
-	static final GenericFeatureReference<GenericSimpleSuper<?>> toSuper = GenericFeatureReference.create(GenericSimpleSuper.classWildcard.value);
+	static final GenericFeatureReference<GenericSimpleSub  > toSub   = GenericFeatureReference.create(GenericSimpleSub.class, GenericSimpleSub.class);
+	static final GenericFeatureReference<GenericSimpleSuper<?>> toSuper = GenericFeatureReference.create(GenericSimpleSuper.classWildcard.value, ReflectionTypes.parameterized(GenericSimpleSuper.class, ReflectionTypes.sub(Object.class)));
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
 
