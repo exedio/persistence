@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.TextUrlFilterItem.roh;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,6 +44,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testSupportedContentTypeNull()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, null, (Charset)null, null, null, null, null);
@@ -57,6 +57,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testSupportedContentTypeEmpty()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "", (Charset)null, null, null, null, null);
@@ -69,6 +70,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testCharsetNull()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", (Charset)null, null, null, null, null);
@@ -82,6 +84,7 @@ public class TextUrlFilterModelTest
 	@Deprecated // OK: testing deprecated API
 	@Test void testEncodingNull()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", (String)null, null, null, null, null);
@@ -95,6 +98,7 @@ public class TextUrlFilterModelTest
 	@Deprecated // OK: testing deprecated API
 	@Test void testEncondingWrong()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", "zack", null, null, null, null);
@@ -107,6 +111,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteStartNull()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF_8, null, null, null, null);
@@ -119,6 +124,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteStartEmpty()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF_8, "", null, null, null);
@@ -131,6 +137,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteStopNull()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF_8, "(", null, null, null);
@@ -143,6 +150,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteStopEmpty()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF_8, "(", "", null, null);
@@ -155,6 +163,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteKeyNull()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", null, null);
@@ -167,6 +176,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteKeyOptional()
 	{
+		final Media roh = new Media();
 		final StringField pasteKey = new StringField().optional();
 		final Media pasteValue = new Media();
 		try
@@ -181,6 +191,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteKeyUnique()
 	{
+		final Media roh = new Media();
 		final StringField pasteKey = new StringField().unique();
 		final Media pasteValue = new Media();
 		try
@@ -195,6 +206,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteValueNull()
 	{
+		final Media roh = new Media();
 		try
 		{
 			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", new StringField(), null);
@@ -207,6 +219,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteValueFinal()
 	{
+		final Media roh = new Media();
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().toFinal();
 		try
@@ -221,6 +234,7 @@ public class TextUrlFilterModelTest
 	}
 	@Test void testPasteValueOptional()
 	{
+		final Media roh = new Media();
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().optional();
 		try

@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
-import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.roh2;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -46,6 +45,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testDelegateNull()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, null, null, (Charset)null, null, null);
@@ -60,6 +60,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testSupportedContentTypeNull()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, fertig, null, (Charset)null, null, null);
@@ -73,6 +74,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testSupportedContentTypeEmpty()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, fertig, "", (Charset)null, null, null);
@@ -86,6 +88,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testCharsetNull()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, fertig, "text/plain", (Charset)null, null, null);
@@ -99,6 +102,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testPasteStartNull()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, null, null);
@@ -112,6 +116,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testPasteStartEmpty()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "", null);
@@ -125,6 +130,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testPasteStopNull()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", null);
@@ -138,6 +144,7 @@ public class TextUrlFilterDelegatorModelTest
 
 	@Test void testPasteStopEmpty()
 	{
+		final Media roh2 = new Media();
 		try
 		{
 			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", "");
