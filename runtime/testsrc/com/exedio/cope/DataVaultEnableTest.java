@@ -35,6 +35,22 @@ import org.junit.jupiter.api.Test;
 
 public class DataVaultEnableTest
 {
+	@Test void testAnnotationsField()
+	{
+		assertEquals(false, MyBlank.blankF.isAnnotationPresent(Vault.class));
+		assertEquals(false, MyBlank.blankM.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyBlank.vaultF.isAnnotationPresent(Vault.class));
+		assertEquals(true,  MyBlank.vaultM.isAnnotationPresent(Vault.class));
+		assertEquals(false, AnVault.blankF.isAnnotationPresent(Vault.class));
+		assertEquals(false, AnVault.blankM.isAnnotationPresent(Vault.class));
+		assertEquals(true,  AnVault.vaultF.isAnnotationPresent(Vault.class));
+		assertEquals(true,  AnVault.vaultM.isAnnotationPresent(Vault.class));
+	}
+	@Test void testAnnotationsType()
+	{
+		assertEquals(false, MyBlank.TYPE.isAnnotationPresent(Vault.class));
+		assertEquals(true,  AnVault.TYPE.isAnnotationPresent(Vault.class));
+	}
 	@Test void testDisabled()
 	{
 		model.connect(ConnectProperties.create(minimal()));
