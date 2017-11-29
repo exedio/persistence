@@ -85,6 +85,13 @@ public final class DataField extends Field<DataField.Value>
 		return maximumLength;
 	}
 
+	public boolean isAnnotatedVault()
+	{
+		return
+				isAnnotationPresent(Vault.class) ||
+				getType().isAnnotationPresent(Vault.class);
+	}
+
 	// second initialization phase ---------------------------------------------------
 
 	private Model model;

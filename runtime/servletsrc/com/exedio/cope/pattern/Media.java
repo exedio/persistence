@@ -335,6 +335,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return unison;
 	}
 
+	public boolean isAnnotatedVault()
+	{
+		return body.isAnnotatedVault();
+	}
+
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{

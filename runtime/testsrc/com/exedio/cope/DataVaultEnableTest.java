@@ -51,6 +51,17 @@ public class DataVaultEnableTest
 		assertEquals(false, MyBlank.TYPE.isAnnotationPresent(Vault.class));
 		assertEquals(true,  AnVault.TYPE.isAnnotationPresent(Vault.class));
 	}
+	@Test void testIsAnnotatedVault()
+	{
+		assertEquals(false, MyBlank.blankF.isAnnotatedVault());
+		assertEquals(false, MyBlank.blankM.isAnnotatedVault());
+		assertEquals(true,  MyBlank.vaultF.isAnnotatedVault());
+		assertEquals(true,  MyBlank.vaultM.isAnnotatedVault());
+		assertEquals(true,  AnVault.blankF.isAnnotatedVault());
+		assertEquals(true,  AnVault.blankM.isAnnotatedVault());
+		assertEquals(true,  AnVault.vaultF.isAnnotatedVault());
+		assertEquals(true,  AnVault.vaultM.isAnnotatedVault());
+	}
 	@Test void testDisabled()
 	{
 		model.connect(ConnectProperties.create(minimal()));
