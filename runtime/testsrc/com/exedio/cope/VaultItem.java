@@ -24,9 +24,16 @@ import static com.exedio.cope.instrument.Visibility.PRIVATE;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Hex;
+import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.util.zip.ZipFile;
+import javax.annotation.Nonnull;
 
 @WrapperType(constructor=PRIVATE)
 final class VaultItem extends Item
@@ -35,12 +42,31 @@ final class VaultItem extends Item
 	@Wrapper(wrap="get", visibility=PRIVATE)
 	@Wrapper(wrap="get", parameters=File.class, visibility=NONE)
 	@Wrapper(wrap="getArray", visibility=PRIVATE)
-	static final DataField field = new DataField().toFinal();
+	@Wrapper(wrap="set", visibility=PRIVATE)
+	static final DataField field = new DataField();
 
 	VaultItem(
 			@javax.annotation.Nonnull final String field)
 	{
 		this(DataField.toValue(Hex.decodeLower(field)));
+	}
+
+	static VaultItem byStream(@Nonnull final String field)
+	{
+		return new VaultItem(DataField.toValue(toStream(field)));
+	}
+
+	static VaultItem byFile(@Nonnull final String field) throws IOException
+	{
+		return new VaultItem(DataField.toValue(toFile(field)));
+	}
+
+	static VaultItem byZip(@Nonnull final String field) throws IOException, URISyntaxException
+	{
+		try(ZipFile zip = new ZipFile(VaultTest.class.getResource("VaultTest.zip").toURI().getPath()))
+		{
+			return new VaultItem(DataField.toValue(zip, zip.getEntry(field)));
+		}
 	}
 
 	long getFieldLength()
@@ -59,6 +85,43 @@ final class VaultItem extends Item
 		getField(s);
 		return Hex.encodeLower(s.toByteArray());
 	}
+
+	void setField(final String field)
+	{
+		setField(Hex.decodeLower(field));
+	}
+
+	void setFieldByStream(final String field) throws IOException
+	{
+		setField(toStream(field));
+	}
+
+	void setFieldByFile(final String field) throws IOException
+	{
+		setField(toFile(field));
+	}
+
+	void setFieldByZip(final String field) throws IOException, URISyntaxException
+	{
+		try(ZipFile zip = new ZipFile(VaultTest.class.getResource("VaultTest.zip").toURI().getPath()))
+		{
+			setField(DataField.toValue(zip, zip.getEntry(field)));
+		}
+	}
+
+
+	private static InputStream toStream(final String field)
+	{
+		return new ByteArrayInputStream(Hex.decodeLower(field));
+	}
+
+	private static File toFile(final String field) throws IOException
+	{
+		final Path path = Files.createTempFile("VaultItem-", ".dat");
+		Files.write(path, Hex.decodeLower(field));
+		return path.toFile();
+	}
+
 
 	/**
 	 * Creates a new VaultItem with all the fields initially needed.
@@ -122,6 +185,52 @@ final class VaultItem extends Item
 				java.io.IOException
 	{
 		VaultItem.field.get(this,field);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #field}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	private final void setField(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
+			throws
+				com.exedio.cope.MandatoryViolationException
+	{
+		VaultItem.field.set(this,field);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #field}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	private final void setField(@javax.annotation.Nonnull final byte[] field)
+			throws
+				com.exedio.cope.MandatoryViolationException
+	{
+		VaultItem.field.set(this,field);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #field}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	private final void setField(@javax.annotation.Nonnull final java.io.InputStream field)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				java.io.IOException
+	{
+		VaultItem.field.set(this,field);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #field}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	private final void setField(@javax.annotation.Nonnull final java.io.File field)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				java.io.IOException
+	{
+		VaultItem.field.set(this,field);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

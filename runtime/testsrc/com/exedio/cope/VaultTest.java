@@ -27,6 +27,8 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.IOException;
+import java.net.URISyntaxException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -50,18 +52,126 @@ public class VaultTest
 		assertEquals(true, service.writable);
 	}
 
-	@Test void getBytes()
+	@Test void testClose()
+	{
+		MODEL.rollback();
+		service.assertIt("");
+
+		MODEL.disconnect();
+		service.assertIt("close\n");
+	}
+
+	@Test void testGetLength()
 	{
 		service.assertIt("");
 
-		new VaultItem(VALUE1);
+		final VaultItem i = new VaultItem(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
+
+		assertEquals(VALUE1.length(), i.getFieldLength());
+		service.assertIt(HASH1, VALUE1, "getLength\n");
+	}
+
+	@Test void testGetBytes()
+	{
+		service.assertIt("");
+
+		final VaultItem i = new VaultItem(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
+
+		assertEquals(VALUE1, i.getFieldBytes());
+		service.assertIt(HASH1, VALUE1, "getBytes\n");
+	}
+
+	@Test void testGetStream() throws IOException
+	{
+		service.assertIt("");
+
+		final VaultItem i = new VaultItem(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putBytes\n");
+
+		assertEquals(VALUE1, i.getFieldStream());
+		service.assertIt(HASH1, VALUE1, "getStream\n");
+	}
+
+	@Test void getPutBytes()
+	{
+		service.assertIt("");
+
+		final VaultItem i1 = new VaultItem(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
 		new VaultItem(VALUE1);
 		service.assertIt(HASH1, VALUE1, "putBytes\n");
 
-		new VaultItem(VALUE2);
+		final VaultItem i3 = new VaultItem(VALUE2);
 		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
+
+		i1.setField(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
+
+		i3.setField(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n");
+	}
+
+	@Test void getPutStream() throws IOException
+	{
+		service.assertIt("");
+
+		final VaultItem i1 = VaultItem.byStream(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putBytes\n"); // TODO putStream
+
+		VaultItem.byStream(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putBytes\n"); // TODO putStream
+
+		final VaultItem i3 = VaultItem.byStream(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
+
+		i1.setFieldByStream(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
+
+		i3.setFieldByStream(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes\n"); // TODO putStream
+	}
+
+	@Test void getPutFile() throws IOException
+	{
+		service.assertIt("");
+
+		final VaultItem i1 = VaultItem.byFile(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putFile\n");
+
+		VaultItem.byFile(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putFile\n");
+
+		final VaultItem i3 = VaultItem.byFile(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+
+		i1.setFieldByFile(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+
+		i3.setFieldByFile(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile\n");
+	}
+
+	@Test void getPutZip() throws IOException, URISyntaxException
+	{
+		service.assertIt("");
+
+		final VaultItem i1 = VaultItem.byZip(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putStream\n");
+
+		VaultItem.byZip(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putStream\n");
+
+		final VaultItem i3 = VaultItem.byZip(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
+
+		i1.setFieldByZip(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
+
+		i3.setFieldByZip(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putStream\n");
 	}
 
 
@@ -84,8 +194,11 @@ public class VaultTest
 
 	@AfterEach void tearDown()
 	{
-		MODEL.rollback();
-		MODEL.disconnect();
+		if(MODEL.isConnected())
+		{
+			MODEL.rollback();
+			MODEL.disconnect();
+		}
 	}
 
 	static String hex(final byte[] bytes)
