@@ -68,7 +68,7 @@ public class VaultReferenceTest
 	@Test void mainGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -82,7 +82,7 @@ public class VaultReferenceTest
 	@Test void mainGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -96,7 +96,7 @@ public class VaultReferenceTest
 	@Test void mainGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		refr.put(HASH1, VALUE1);
@@ -110,7 +110,7 @@ public class VaultReferenceTest
 	@Test void referenceGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -119,14 +119,14 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1.length(), item.getFieldLength());
-		main.assertIt(HASH1, VALUE1, "getLength\nputFile\n");
+		main.assertIt(HASH1, VALUE1, "getLength\nputFile com.exedio.cope.vault.VaultReferenceService\n");
 		refr.assertIt(HASH1, VALUE1, "getStream\n");
 	}
 
 	@Test void referenceGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -135,14 +135,14 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldBytes());
-		main.assertIt(HASH1, VALUE1, "getBytes\nputBytes\n");
+		main.assertIt(HASH1, VALUE1, "getBytes\nputBytes com.exedio.cope.vault.VaultReferenceService\n");
 		refr.assertIt(HASH1, VALUE1, "getBytes\n");
 	}
 
 	@Test void referenceGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -151,7 +151,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldStream());
-		main.assertIt(HASH1, VALUE1, "getStream\nputFile\n");
+		main.assertIt(HASH1, VALUE1, "getStream\nputFile com.exedio.cope.vault.VaultReferenceService\n");
 		refr.assertIt(HASH1, VALUE1, "getStream\n");
 	}
 
@@ -159,7 +159,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -191,7 +191,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		main.clear();
@@ -223,7 +223,7 @@ public class VaultReferenceTest
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);
-		main.assertIt(HASH1, VALUE1, "putBytes\n");
+		main.assertIt(HASH1, VALUE1, "putBytes VaultItem.field " + item + "\n");
 		refr.assertIt("");
 
 		main.clear();

@@ -18,37 +18,35 @@
 
 package com.exedio.cope.vault;
 
-import static java.util.Objects.requireNonNull;
+import com.exedio.cope.DataField;
+import com.exedio.cope.Item;
+import javax.annotation.Nullable;
 
-import javax.annotation.Nonnull;
-
-public final class VaultServiceParameters
+public interface VaultPutInfo
 {
-	private final VaultProperties vaultProperties;
-	private final boolean writable;
-
-	VaultServiceParameters(
-			final VaultProperties vaultProperties,
-			final boolean writable)
+	@Nullable
+	default DataField getField()
 	{
-		this.vaultProperties = requireNonNull(vaultProperties, "vaultProperties");
-		this.writable = writable;
+		return null;
 	}
 
-	@Nonnull
-	public VaultProperties getVaultProperties()
+	@Nullable
+	default String getFieldString()
 	{
-		return vaultProperties;
+		final DataField field = getField();
+		return field!=null ? field.getID() : null;
 	}
 
-	/**
-	 * If this method returns false, put methods such as
-	 * {@link VaultService#put(String, byte[], VaultPutInfo)}
-	 * will not be called.
-	 * This happens typically for {@link VaultReferenceService reference vaults}.
-	 */
-	public boolean isWritable()
+	@Nullable
+	default Item getItem()
 	{
-		return writable;
+		return null;
+	}
+
+	@Nullable
+	default String getItemString()
+	{
+		final Item item = getItem();
+		return item!=null ? item.getCopeID() : null;
 	}
 }

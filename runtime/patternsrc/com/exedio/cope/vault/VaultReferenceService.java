@@ -73,7 +73,7 @@ public final class VaultReferenceService implements VaultService
 			{
 				final File tmp = createTempFileFromReference(hash);
 				final long result = tmp.length();
-				main.put(hash, tmp);
+				main.put(hash, tmp, PUT_INFO);
 				delete(tmp);
 				return result;
 			}
@@ -94,7 +94,7 @@ public final class VaultReferenceService implements VaultService
 		catch(final VaultNotFoundException ignored)
 		{
 			final byte[] result = reference.get(hash);
-			main.put(hash, result);
+			main.put(hash, result, PUT_INFO);
 			return result;
 		}
 	}
@@ -109,7 +109,7 @@ public final class VaultReferenceService implements VaultService
 		catch(final VaultNotFoundException ignored)
 		{
 			final File temp = createTempFileFromReference(hash);
-			main.put(hash, temp);
+			main.put(hash, temp, PUT_INFO);
 			try(FileInputStream in = new FileInputStream(temp))
 			{
 				final byte[] b = new byte[50*1024];
@@ -135,23 +135,25 @@ public final class VaultReferenceService implements VaultService
 		return result;
 	}
 
+	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString(VaultReferenceService.class.getName());
+
 
 	@Override
-	public boolean put(final String hash, final byte[] value)
+	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
-		return main.put(hash, value);
+		return main.put(hash, value, info);
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value) throws IOException
+	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
-		return main.put(hash, value);
+		return main.put(hash, value, info);
 	}
 
 	@Override
-	public boolean put(final String hash, final File value) throws IOException
+	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
 	{
-		return main.put(hash, value);
+		return main.put(hash, value, info);
 	}
 
 

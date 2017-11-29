@@ -114,7 +114,7 @@ public final class VaultFileService implements VaultService
 
 
 	@Override
-	public boolean put(final String hash, final byte[] value)
+	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
 		try
 		{
@@ -127,13 +127,13 @@ public final class VaultFileService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value) throws IOException
+	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
 		return put(hash, (out) -> Files.copy(value, out, REPLACE_EXISTING));
 	}
 
 	@Override
-	public boolean put(final String hash, final File value) throws IOException
+	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
 	{
 		return put(hash, (out) -> Files.copy(value.toPath(), out, REPLACE_EXISTING));
 	}

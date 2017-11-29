@@ -27,6 +27,7 @@ import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.ByteArrayOutputStream;
@@ -87,10 +88,11 @@ public final class VaultTestService implements VaultService
 
 
 	@Override
-	public boolean put(final String hash, final byte[] value)
+	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
 		assertHash(hash);
 		assertNotNull(value);
+		assertNotNull(info);
 		assertFalse(
 				value.length==0,
 				"empty byte sequence is not handled by service implementations");
@@ -103,10 +105,11 @@ public final class VaultTestService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value) throws IOException
+	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
 		assertHash(hash);
 		assertNotNull(value);
+		assertNotNull(info);
 
 		final byte[] bytes;
 		final byte[] b = new byte[55];
@@ -117,18 +120,19 @@ public final class VaultTestService implements VaultService
 			bytes = baos.toByteArray();
 		}
 
-		return put(hash, bytes);
+		return put(hash, bytes, info);
 	}
 
 	@Override
-	public boolean put(final String hash, final File value) throws IOException
+	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
 	{
 		assertHash(hash);
 		assertNotNull(value);
+		assertNotNull(info);
 
 		try(FileInputStream s = new FileInputStream(value))
 		{
-			return put(hash, s);
+			return put(hash, s, info);
 		}
 	}
 

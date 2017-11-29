@@ -29,6 +29,7 @@ import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
@@ -167,7 +168,7 @@ public abstract class VaultServiceTest
 	@Test final void putBytes() throws VaultNotFoundException
 	{
 		final String hash = hash("abcdef01234567");
-		assertTrue(service.put(hash, unhex("abcdef01234567")));
+		assertTrue(service.put(hash, unhex("abcdef01234567"), PUT_INFO));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
@@ -177,7 +178,7 @@ public abstract class VaultServiceTest
 	{
 		final String hash = hash("abcdef01234567");
 		final ByteArrayInputStream value = new ByteArrayInputStream(unhex("abcdef01234567"));
-		assertTrue(service.put(hash, value));
+		assertTrue(service.put(hash, value, PUT_INFO));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
@@ -191,7 +192,7 @@ public abstract class VaultServiceTest
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(service.put(hash, value));
+		assertTrue(service.put(hash, value, PUT_INFO));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
@@ -202,7 +203,7 @@ public abstract class VaultServiceTest
 		final String hash = hash("abcdef01234567");
 		final String hash2 = hash("0102abcdef01234567");
 
-		assertTrue(service.put(hash, unhex("abcdef01234567")));
+		assertTrue(service.put(hash, unhex("abcdef01234567"), PUT_INFO));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
@@ -216,7 +217,7 @@ public abstract class VaultServiceTest
 			assertEquals(hash2, e.getHashComplete());
 		}
 
-		assertFalse(service.put(hash, unhex("abcdef01234567")));
+		assertFalse(service.put(hash, unhex("abcdef01234567"), PUT_INFO));
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
 		try
@@ -229,7 +230,7 @@ public abstract class VaultServiceTest
 			assertEquals(hash2, e.getHashComplete());
 		}
 
-		assertTrue(service.put(hash2, unhex("0102abcdef01234567")));
+		assertTrue(service.put(hash2, unhex("0102abcdef01234567"), PUT_INFO));
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
 		assertEquals("0102abcdef01234567", hex(service.get(hash2)));
@@ -251,9 +252,18 @@ public abstract class VaultServiceTest
 		assertNotNull(value);
 
 		final String hash = hash(value);
-		assertTrue(service.put(hash, unhex(value)));
+		assertTrue(service.put(hash, unhex(value), PUT_INFO));
 		return hash;
 	}
+
+	protected static final VaultPutInfo PUT_INFO = new VaultPutInfo()
+	{
+		@Override
+		public String toString()
+		{
+			return VaultServiceTest.class.getName();
+		}
+	};
 
 	private static String hex(final byte[] bytes)
 	{

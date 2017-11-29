@@ -24,7 +24,9 @@ import javax.annotation.Nonnull;
 
 /**
  * Signals, that an attempt to fetch data by its hash from a {@link VaultService} failed
- * because for this hash nothing was {@link VaultService#put(String, byte[]) put} to the service before.
+ * because for this hash nothing was
+ * {@link VaultService#put(String, byte[], VaultPutInfo) put}
+ * to the service before.
  * <p>
  * Is thrown for valid hashes only, i.e. hashes for which the service could store data.
  * Should not be thrown for invalid hashes, such as hashes which are either too short or too long

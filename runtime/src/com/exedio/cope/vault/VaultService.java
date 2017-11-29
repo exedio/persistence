@@ -63,7 +63,7 @@ public interface VaultService extends AutoCloseable
 	 * The result is used for statistics only.
 	 * If the implementation does not have this information available, simply return {@code true}.
 	 */
-	boolean put(@Nonnull String hash, @Nonnull byte[] value);
+	boolean put(@Nonnull String hash, @Nonnull byte[] value, @Nonnull VaultPutInfo info);
 
 	/**
 	 * Is not called, if service instance was created with
@@ -72,7 +72,7 @@ public interface VaultService extends AutoCloseable
 	 * The result is used for statistics only.
 	 * If the implementation does not have this information available, simply return {@code true}.
 	 */
-	boolean put(@Nonnull String hash, @Nonnull InputStream value) throws IOException;
+	boolean put(@Nonnull String hash, @Nonnull InputStream value, @Nonnull VaultPutInfo info) throws IOException;
 
 	/**
 	 * The caller must make sure, that {@code value} is not modified during the call.
@@ -82,5 +82,5 @@ public interface VaultService extends AutoCloseable
 	 * The result is used for statistics only.
 	 * If the implementation does not have this information available, simply return {@code true}.
 	 */
-	boolean put(@Nonnull String hash, @Nonnull File value) throws IOException;
+	boolean put(@Nonnull String hash, @Nonnull File value, @Nonnull VaultPutInfo info) throws IOException;
 }

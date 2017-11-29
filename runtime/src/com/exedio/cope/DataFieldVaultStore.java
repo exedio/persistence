@@ -24,6 +24,7 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestFactory;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
@@ -178,16 +179,19 @@ final class DataFieldVaultStore extends DataFieldStore
 			entity.put(column, hash);
 			entity.write(null);
 		},
-		data, item);
+		data, item, item);
 	}
 
 	@Override
 	void put(final Entity entity, final Value data, final Item exceptionItem)
 	{
-		put(hash -> entity.put(column, hash), data, exceptionItem);
+		put(hash -> entity.put(column, hash), data, exceptionItem, entity.getItem());
 	}
 
-	private void put(final Consumer<String> entityPutter, Value data, final Item exceptionItem)
+	private void put(
+			final Consumer<String> entityPutter, Value data,
+			final Item exceptionItem,
+			final Item infoItem)
 	{
 		if(data==null)
 		{
@@ -212,15 +216,34 @@ final class DataFieldVaultStore extends DataFieldStore
 		if(hashForEmpty.equals(hash))
 			return;
 
+		final VaultPutInfo info = new VaultPutInfo()
+		{
+			@Override
+			public DataField getField()
+			{
+				return field;
+			}
+			@Override
+			public Item getItem()
+			{
+				return infoItem;
+			}
+			@Override
+			public String toString()
+			{
+				return getFieldString() + ' ' + getItemString();
+			}
+		};
+
 		final boolean result;
 		try
 		{
 			if(data instanceof DataField.ArrayValue)
-				result = service.put(hash, ((DataField.ArrayValue)data).array);
+				result = service.put(hash, ((DataField.ArrayValue)data).array, info);
 			else if(data instanceof DataField.FileValue)
-				result = service.put(hash, ((DataField.FileValue)data).file);
+				result = service.put(hash, ((DataField.FileValue)data).file, info);
 			else
-				result = service.put(hash, ((DataField.AbstractStreamValue)data).openStream());
+				result = service.put(hash, ((DataField.AbstractStreamValue)data).openStream(), info);
 		}
 		catch(final IOException e)
 		{

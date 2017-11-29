@@ -20,35 +20,18 @@ package com.exedio.cope.vault;
 
 import static java.util.Objects.requireNonNull;
 
-import javax.annotation.Nonnull;
-
-public final class VaultServiceParameters
+final class VaultPutInfoString implements VaultPutInfo
 {
-	private final VaultProperties vaultProperties;
-	private final boolean writable;
+	private final String text;
 
-	VaultServiceParameters(
-			final VaultProperties vaultProperties,
-			final boolean writable)
+	VaultPutInfoString(final String text)
 	{
-		this.vaultProperties = requireNonNull(vaultProperties, "vaultProperties");
-		this.writable = writable;
+		this.text = requireNonNull(text);
 	}
 
-	@Nonnull
-	public VaultProperties getVaultProperties()
+	@Override
+	public String toString()
 	{
-		return vaultProperties;
-	}
-
-	/**
-	 * If this method returns false, put methods such as
-	 * {@link VaultService#put(String, byte[], VaultPutInfo)}
-	 * will not be called.
-	 * This happens typically for {@link VaultReferenceService reference vaults}.
-	 */
-	public boolean isWritable()
-	{
-		return writable;
+		return text;
 	}
 }

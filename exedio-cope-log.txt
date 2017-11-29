@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultService#put takes VaultPutInfo.
+	This breaks backwards API compatibility of the Vault API.
+	May cause compiler errors and/or java.lang.NoSuchMethodError on runtime,
+	if vaults are used within your project.
+	You MUST update copevault (if present in your project).
 * bugfix: EnumMapField#fallback fixes @Nonnull/@Nullable.
 	Affects instrumented code.
 * ivy conf "junit" dropped (for exedio-cope-junit.jar)

@@ -28,6 +28,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.ByteArrayOutputStream;
@@ -118,17 +119,18 @@ public final class VaultMockService implements VaultService
 
 
 	@Override
-	public boolean put(final String hash, final byte[] value)
+	public boolean put(final String hash, final byte[] value, final VaultPutInfo info)
 	{
-		history.append("putBytes\n");
+		history.append("putBytes " + info + "\n");
 
-		return putInternal(hash, value);
+		return putInternal(hash, value, info);
 	}
 
-	private boolean putInternal(final String hash, final byte[] value)
+	private boolean putInternal(final String hash, final byte[] value, final VaultPutInfo info)
 	{
 		assertHash(hash);
 		assertNotNull(value);
+		assertNotNull(info);
 		assertFalse(closed);
 
 		assertEquals(hash, Hex.encodeLower(
@@ -144,17 +146,18 @@ public final class VaultMockService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final InputStream value) throws IOException
+	public boolean put(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
-		history.append("putStream\n");
+		history.append("putStream " + info + "\n");
 
-		return putInternal(hash, value);
+		return putInternal(hash, value, info);
 	}
 
-	private boolean putInternal(final String hash, final InputStream value) throws IOException
+	private boolean putInternal(final String hash, final InputStream value, final VaultPutInfo info) throws IOException
 	{
 		assertHash(hash);
 		assertNotNull(value);
+		assertNotNull(info);
 		assertFalse(closed);
 
 		final byte[] b = new byte[55];
@@ -162,20 +165,20 @@ public final class VaultMockService implements VaultService
 		for(int len = value.read(b); len>=0; len = value.read(b))
 			s.write(b, 0, len);
 
-		return putInternal(hash, s.toByteArray());
+		return putInternal(hash, s.toByteArray(), info);
 	}
 
 	@Override
-	public boolean put(final String hash, final File value) throws IOException
+	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
 	{
-		history.append("putFile\n");
+		history.append("putFile " + info + "\n");
 
 		assertHash(hash);
 		assertNotNull(value);
 
 		try(FileInputStream s = new FileInputStream(value))
 		{
-			return putInternal(hash, s);
+			return putInternal(hash, s, info);
 		}
 	}
 

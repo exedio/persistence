@@ -51,21 +51,21 @@ public class VaultFileServiceDirectoryTest extends AbstractVaultFileServiceTest
 		final byte[] value = {1,2,3};
 		final VaultFileService service = (VaultFileService)getService();
 
-		assertTrue(service.put("abcd", value));
+		assertTrue(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
 
-		assertFalse(service.put("abcd", value));
+		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
 
-		assertTrue(service.put("abcf", value));
+		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
 		assertContains(temp);
 		assertContains(abc, d, f);

@@ -144,7 +144,7 @@ public final class VaultProperties extends AbstractVaultProperties
 			final boolean putResult,
 			final String info)
 	{
-		if(service.put(hash, value)!=putResult)
+		if(service.put(hash, value, PUT_INFO)!=putResult)
 			throw new RuntimeException(info + ": put should have returned " + putResult);
 
 		final byte[] gotValue;
@@ -177,6 +177,8 @@ public final class VaultProperties extends AbstractVaultProperties
 					value.length + " vs. " +
 					gotLength);
 	}
+
+	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString(VaultProperties.class.getName() + "#probe");
 
 	private static String encodeValue(final byte[] value)
 	{
