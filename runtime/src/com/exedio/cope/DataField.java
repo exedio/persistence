@@ -103,15 +103,13 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		final Type<?> type = getType();
-		this.model = type.getModel();
+		this.model = getType().getModel();
 		final ConnectProperties properties = model.getConnectProperties();
 		final VaultProperties vaultProperties = properties.dataFieldVault;
 		store = vaultProperties==null ||
 					!(
 						vaultProperties.isAppliedToAllFields() ||
-						isAnnotationPresent(Vault.class) ||
-						type.isAnnotationPresent(Vault.class)
+						isAnnotatedVault()
 					)
 				? new DataFieldBlobStore (this, table, name, optional, maximumLength)
 				: new DataFieldVaultStore(this, table, name, optional, vaultProperties, model.connect());
