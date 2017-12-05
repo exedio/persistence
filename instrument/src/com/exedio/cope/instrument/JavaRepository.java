@@ -136,18 +136,11 @@ final class JavaRepository
 		return result;
 	}
 
-	static final String DUMMY_ITEM_PREFIX = "com.exedio.cope.DummyItem$";
-
 	JavaClass getJavaClass(final String name)
 	{
 		if(name.indexOf('.')<0)
 		{
 			return resolveBySimpleName(name);
-		}
-		else if(name.startsWith(DUMMY_ITEM_PREFIX))
-		{
-			final String s = name.substring(DUMMY_ITEM_PREFIX.length(), name.length());
-			return resolveBySimpleName(s);
 		}
 		else
 		{
