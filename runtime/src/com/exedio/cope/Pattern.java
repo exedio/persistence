@@ -70,6 +70,9 @@ public abstract class Pattern extends Feature
 	private ArrayList<Type<?>> sourceTypesWhileGather = new ArrayList<>();
 	private List<Type<?>> sourceTypes = null;
 
+	/**
+	 * @see #getSourceFeatures()
+	 */
 	protected final void addSource(
 			final Feature feature,
 			final String postfix)
@@ -77,6 +80,9 @@ public abstract class Pattern extends Feature
 		addSource(feature, postfix, null, getClass());
 	}
 
+	/**
+	 * @see #getSourceFeatures()
+	 */
 	protected final void addSource(
 			final Feature feature,
 			final String postfix,
@@ -85,6 +91,9 @@ public abstract class Pattern extends Feature
 		addSource(feature, postfix, annotationSource, getClass());
 	}
 
+	/**
+	 * @see #getSourceFeatures()
+	 */
 	protected final void addSource(
 			final Feature feature,
 			final String postfix,
@@ -203,6 +212,9 @@ public abstract class Pattern extends Feature
 		calledOnMount = true;
 	}
 
+	/**
+	 * @see #getSourceTypes()
+	 */
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features)
@@ -210,6 +222,9 @@ public abstract class Pattern extends Feature
 		return newSourceType(javaClass, features, null);
 	}
 
+	/**
+	 * @see #getSourceTypes()
+	 */
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features,
@@ -218,6 +233,9 @@ public abstract class Pattern extends Feature
 		return newSourceType(javaClass, false, null, features, postfix);
 	}
 
+	/**
+	 * @see #getSourceTypes()
+	 */
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final boolean isAbstract,
@@ -374,6 +392,7 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
+	 * @see #addSource(Feature, String)
 	 * @see Feature#getPattern()
 	 */
 	public final List<? extends Feature> getSourceFeatures()
@@ -385,6 +404,7 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
+	 * @see #newSourceType(Class, Features)
 	 * @see Type#getPattern()
 	 */
 	public final List<Type<?>> getSourceTypes()
