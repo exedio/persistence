@@ -24,8 +24,10 @@ import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
@@ -60,6 +62,8 @@ final class JavaField
 
 	private Object rtvalue = null;
 
+	private final Map<String,String> typeShortcuts=new HashMap<>();
+
 	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	JavaField(
 		final JavaClass parent,
@@ -88,6 +92,19 @@ final class JavaField
 
 		//noinspection ThisEscapedInObjectConstruction
 		parent.add(this);
+	}
+
+	void addTypeShortcut(final String fullType, final String shortType)
+	{
+		final String collision = typeShortcuts.put(fullType, shortType);
+		if (collision!=null && !collision.equals(shortType))
+			throw new RuntimeException("shortcut collision: "+fullType+" -> "+collision+"/"+shortType);
+	}
+
+	String applyTypeShortcuts(final String typeName)
+	{
+		final String shortType = typeShortcuts.get(typeName);
+		return shortType==null ? typeName : shortType;
 	}
 
 	boolean hasInvalidWrapperUsages()

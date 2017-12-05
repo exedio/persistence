@@ -22,8 +22,10 @@ import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.ArrayTypeTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.ParameterizedTypeTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
+import com.sun.source.tree.WildcardTree;
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -93,6 +95,7 @@ class ClassVisitor extends GeneratedAwareScanner
 
 	private String getFullyQualifiedName(final Tree typeTree)
 	{
+		//noinspection EnumSwitchStatementWhichMissesCases
 		switch (typeTree.getKind())
 		{
 			case PRIMITIVE_TYPE:
@@ -117,7 +120,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		{
 			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			final String variableType = getFullyQualifiedName(node.getType());
-			new JavaField(
+			final JavaField javaField = new JavaField(
 				javaClass,
 				TreeApiHelper.toModifiersInt(node.getModifiers()),
 				removeSpacesAfterCommas(node.getType().toString()),
@@ -129,8 +132,41 @@ class ClassVisitor extends GeneratedAwareScanner
 				getAnnotation(WrapperIgnore.class),
 				Arrays.asList(getAnnotations(Wrapper.class))
 			);
+			registerTypeShortcuts(javaField, node.getType());
 		}
 		return null;
+	}
+
+	private void registerTypeShortcuts(final JavaField javaField, final Tree typeTree)
+	{
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch (typeTree.getKind())
+		{
+			case PRIMITIVE_TYPE:
+			case UNBOUNDED_WILDCARD:
+				break;
+			case IDENTIFIER:
+			case MEMBER_SELECT:
+				final TypeElement identifierElement = (TypeElement)context.getElementForTree(typeTree);
+				javaField.addTypeShortcut(identifierElement.getQualifiedName().toString(), typeTree.toString());
+				break;
+			case PARAMETERIZED_TYPE:
+				registerTypeShortcuts(javaField, ((ParameterizedTypeTree)typeTree).getType());
+				for (final Tree typeArgument : ((ParameterizedTypeTree)typeTree).getTypeArguments())
+				{
+					registerTypeShortcuts(javaField, typeArgument);
+				}
+				break;
+			case ARRAY_TYPE:
+				registerTypeShortcuts(javaField, ((ArrayTypeTree)typeTree).getType());
+				break;
+			case EXTENDS_WILDCARD:
+				registerTypeShortcuts(javaField, ((WildcardTree)typeTree).getBound());
+				break;
+			default:
+				throw new RuntimeException(typeTree+" - "+typeTree.getKind());
+		}
+
 	}
 
 	private void addGeneratedFragment(final int start, final int end)
