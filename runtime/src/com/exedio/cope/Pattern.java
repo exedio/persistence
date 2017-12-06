@@ -71,45 +71,6 @@ public abstract class Pattern extends Feature
 	private List<Type<?>> sourceTypes = null;
 
 	/**
-	 * @deprecated Use {@link #addSourceFeature(Feature, String)} instead and benefit from result.
-	 * @see #getSourceFeatures()
-	 */
-	@Deprecated
-	protected final void addSource(
-			final Feature feature,
-			final String postfix)
-	{
-		addSourceFeature(feature, postfix);
-	}
-
-	/**
-	 * @deprecated Use {@link #addSourceFeature(Feature, String, AnnotatedElement)} instead and benefit from result.
-	 * @see #getSourceFeatures()
-	 */
-	@Deprecated
-	protected final void addSource(
-			final Feature feature,
-			final String postfix,
-			final AnnotatedElement annotationSource)
-	{
-		addSourceFeature(feature, postfix, annotationSource);
-	}
-
-	/**
-	 * @deprecated Use {@link #addSourceFeature(Feature, String, AnnotatedElement, Class)} instead and benefit from result.
-	 * @see #getSourceFeatures()
-	 */
-	@Deprecated
-	protected final void addSource(
-			final Feature feature,
-			final String postfix,
-			final AnnotatedElement annotationSource,
-			final Class<?> precedingLocalizationKeysClass)
-	{
-		addSourceFeature(feature, postfix, annotationSource, precedingLocalizationKeysClass);
-	}
-
-	/**
 	 * @return parameter {@code feature}
 	 * @see #getSourceFeatures()
 	 */
@@ -466,6 +427,45 @@ public abstract class Pattern extends Feature
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #addSourceFeature(Feature, String)} instead and benefit from result.
+	 * @see #getSourceFeatures()
+	 */
+	@Deprecated
+	protected final void addSource(
+			final Feature feature,
+			final String postfix)
+	{
+		addSourceFeature(feature, postfix);
+	}
+
+	/**
+	 * @deprecated Use {@link #addSourceFeature(Feature, String, AnnotatedElement)} instead and benefit from result.
+	 * @see #getSourceFeatures()
+	 */
+	@Deprecated
+	protected final void addSource(
+			final Feature feature,
+			final String postfix,
+			final AnnotatedElement annotationSource)
+	{
+		addSourceFeature(feature, postfix, annotationSource);
+	}
+
+	/**
+	 * @deprecated Use {@link #addSourceFeature(Feature, String, AnnotatedElement, Class)} instead and benefit from result.
+	 * @see #getSourceFeatures()
+	 */
+	@Deprecated
+	protected final void addSource(
+			final Feature feature,
+			final String postfix,
+			final AnnotatedElement annotationSource,
+			final Class<?> precedingLocalizationKeysClass)
+	{
+		addSourceFeature(feature, postfix, annotationSource, precedingLocalizationKeysClass);
+	}
 
 	/**
 	 * @deprecated Use {@link #getSourceFeatures()} instead
