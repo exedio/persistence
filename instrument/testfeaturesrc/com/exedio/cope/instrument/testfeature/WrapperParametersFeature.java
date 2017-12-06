@@ -63,6 +63,14 @@ public class WrapperParametersFeature
 		throw new RuntimeException();
 	}
 
+	@Wrap(order=400)
+	public void param(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") final byte[] bytes)
+	{
+		throw new RuntimeException();
+	}
+
 	public enum SomeEnum { a, b }
 
 }

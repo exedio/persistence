@@ -34,6 +34,7 @@ class WrapperParametersItem extends Item
 	@Wrapper(wrap="param", parameters=Integer.class, visibility=DEFAULT)
 	@Wrapper(wrap="param", parameters=int.class, visibility=PROTECTED)
 	@Wrapper(wrap="param", parameters=WrapperParametersFeature.SomeEnum.class, visibility=PRIVATE)
+	@Wrapper(wrap="param", parameters=byte[].class, internal=true, visibility=PUBLIC)
 	static final WrapperParametersFeature feature = new WrapperParametersFeature();
 
 /**
