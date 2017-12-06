@@ -155,7 +155,7 @@ final class JavaField
 				}
 			}
 			details.append(System.lineSeparator());
-			reportSourceProblem(Severity.error, "invalid wrap", details.toString());
+			reportSourceProblem("invalid wrap", details.toString());
 			return true;
 		}
 	}

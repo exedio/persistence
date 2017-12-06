@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Objects;
 
 final class JavaRepository
 {
@@ -35,9 +34,7 @@ final class JavaRepository
 	Stage stage = Stage.BUILD;
 
 	private final ArrayList<JavaFile> files = new ArrayList<>();
-	private final HashMap<String, JavaClass> javaClassBySimpleName = new HashMap<>();
 	private final HashMap<String, JavaClass> javaClassByCanonicalName = new HashMap<>();
-	private final HashMap<String,List<JavaClass>> problematicSimpleNames = new HashMap<>();
 
 	private final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
 
@@ -92,70 +89,13 @@ final class JavaRepository
 	{
 		assert stage==Stage.BUILD;
 
-		final JavaClass previous=javaClassBySimpleName.put(javaClass.name, javaClass);
-
-		if(previous!=null)
-		{
-			List<JavaClass> classes=problematicSimpleNames.get(previous.name);
-			if (classes==null)
-			{
-				problematicSimpleNames.put(previous.name, classes=new ArrayList<>());
-				classes.add(previous);
-			}
-			classes.add(javaClass);
-		}
-
 		if(javaClassByCanonicalName.put(javaClass.getCanonicalName(), javaClass)!=null)
 			throw new RuntimeException(javaClass.getCanonicalName());
 	}
 
-	private JavaClass resolveBySimpleName(final String name)
-	{
-		final JavaClass result=javaClassBySimpleName.get(name);
-		final List<JavaClass> problematicClasses=problematicSimpleNames.remove(name);
-		if (result!=null && problematicClasses!=null)
-		{
-			final Kind resultKind=result.kind;
-			for (final JavaClass checkProblematicClass: problematicClasses)
-			{
-				if (!Objects.equals(checkProblematicClass.kind, resultKind)
-					|| result.isEnum!=checkProblematicClass.isEnum)
-				{
-					System.out.println("Problem resolving '"+name+"' - could be one of ...");
-					for (final JavaClass logProblematicClass: problematicClasses)
-					{
-						logProblematicClass.reportSourceProblem(JavaFeature.Severity.warning, "non-unique simple name "+name, null);
-					}
-					System.out.println("Will use "+result);
-					System.out.println("Try avoiding this, for example by <ignore>ing classes in the <instrument> call.");
-					System.out.println();
-					break;
-				}
-			}
-		}
-		return result;
-	}
-
 	JavaClass getJavaClass(final String name)
 	{
-		if(name.indexOf('.')<0)
-		{
-			return resolveBySimpleName(name);
-		}
-		else
-		{
-			final JavaClass byCanonicalName = javaClassByCanonicalName.get(name);
-			if(byCanonicalName!=null)
-				return byCanonicalName;
-
-			// for inner classes
-			final int dot = name.indexOf('.'); // cannot be negative in else branch
-			final JavaClass outer = resolveBySimpleName(name.substring(0, dot));
-			if(outer!=null)
-				return javaClassByCanonicalName.get(outer.file.getPackageName() + '.' + name);
-
-			return null;
-		}
+		return javaClassByCanonicalName.get(name);
 	}
 
 	void add(final LocalCopeType copeType)

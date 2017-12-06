@@ -70,7 +70,6 @@ class ClassVisitor extends GeneratedAwareScanner
 				TreeApiHelper.toModifiersInt(ct.getModifiers()),
 				getSimpleName(ct),
 				context.getSourcePosition(ct),
-				ct.getKind()==Tree.Kind.ENUM,
 				Kind.valueOf(getAnnotation(WrapType.class)),
 				classExtends,
 				getWrapperType(),

@@ -37,7 +37,6 @@ final class JavaClass extends JavaFeature
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
 	final HashMap<String,JavaClass> innerClasses = new HashMap<>();
 	final int typeParameters;
-	final boolean isEnum;
 	final Kind kind;
 	final String fullyQualifiedSuperclass;
 	final WrapperType typeOption;
@@ -50,7 +49,6 @@ final class JavaClass extends JavaFeature
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String simpleName,
 			final String sourceLocation,
-			final boolean isEnum,
 			final Kind kind,
 			final String fullyQualifiedSuperclass,
 			final WrapperType typeOption,
@@ -58,7 +56,6 @@ final class JavaClass extends JavaFeature
 	{
 		super(file, parent, modifiers, Generics.strip(simpleName), sourceLocation);
 		this.typeParameters = Generics.get(simpleName).size();
-		this.isEnum = isEnum;
 		this.kind = kind;
 		this.fullyQualifiedSuperclass = Generics.strip(fullyQualifiedSuperclass);
 		this.typeOption=typeOption;
