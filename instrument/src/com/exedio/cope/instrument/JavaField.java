@@ -99,6 +99,9 @@ final class JavaField
 		final String collision = typeShortcuts.put(fullType, shortType);
 		if (collision!=null && !collision.equals(shortType))
 			throw new RuntimeException("shortcut collision: "+fullType+" -> "+collision+"/"+shortType);
+		final String collisionArray = typeShortcuts.put(fullType+"[]", shortType+"[]");
+		if (collisionArray!=null && !collisionArray.equals(shortType+"[]"))
+			throw new RuntimeException("shortcut collision: "+fullType+" -> "+collisionArray+"/"+shortType+"[]");
 	}
 
 	String applyTypeShortcuts(final String typeName)

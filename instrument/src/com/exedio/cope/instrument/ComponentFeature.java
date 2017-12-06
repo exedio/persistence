@@ -68,4 +68,9 @@ final class ComponentFeature extends CopeFeature
 		return component;
 	}
 
+	@Override
+	String applyTypeShortcuts(final String type)
+	{
+		return container.applyTypeShortcuts(type);
+	}
 }

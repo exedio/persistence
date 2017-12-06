@@ -76,4 +76,10 @@ final class ExternalCopeFeature extends CopeFeature
 	{
 		return link(getName());
 	}
+
+	@Override
+	String applyTypeShortcuts(final String type)
+	{
+		return type;
+	}
 }

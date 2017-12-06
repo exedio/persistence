@@ -209,39 +209,13 @@ final class Context
 		return write(t.getGenericComponentType(), varArgs) + (varArgs?"...":"[]");
 	}
 
-	private String write(final Generics.SourceType t)
+	String write(final Type t, final boolean varArgs)
 	{
-		final String name = t.name;
-		if(fullyQualified)
-		{
-			if (feature.parent instanceof LocalCopeType)
-			{
-				final JavaFile file = ((LocalCopeType)feature.parent).javaClass.file;
-				final String nameRaw = Generics.strip(name);
-				{
-					final Class<?> clazz = file.findTypeExternally(nameRaw);
-					if(clazz!=null)
-						return clazz.getCanonicalName();
-				}
-				{
-					final JavaClass javaClass = file.repository.getJavaClass(nameRaw);
-					if(javaClass!=null)
-						return javaClass.getCanonicalNameWildcard();
-				}
-				throw new RuntimeException(name);
-			}
-			else
-			{
-				return name;
-			}
-		}
-		else
-		{
-			return name;
-		}
+		final String full = writeFull(t, varArgs);
+		return fullyQualified ? full : feature.applyTypeShortcuts(full);
 	}
 
-	String write(final Type t, final boolean varArgs)
+	private String writeFull(final Type t, final boolean varArgs)
 	{
 		if(t instanceof Class<?>)
 			return write((Class<?>)t, varArgs);
@@ -253,8 +227,6 @@ final class Context
 			return write((TypeVariable<?>)t);
 		else if(t instanceof WildcardType)
 			return write((WildcardType)t, varArgs);
-		else if(t instanceof Generics.SourceType)
-			return write((Generics.SourceType)t);
 		else
 			throw new RuntimeException(t.toString());
 	}

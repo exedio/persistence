@@ -20,7 +20,6 @@
 package com.exedio.cope.instrument;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -76,33 +75,6 @@ final class Generics
 
 		result.add(s.substring(beginOfPart, gt).trim());
 		return result;
-	}
-
-	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
-	static Type[] getTypes(final String s)
-	{
-		final List<String> x = get(s);
-		final Type[] result = new Type[x.size()];
-		//noinspection Java8ArraySetAll OK: performance
-		for(int i = 0; i<result.length; i++)
-			result[i] = new SourceType(x.get(i));
-		return result;
-	}
-
-	static class SourceType implements Type
-	{
-		final String name;
-
-		SourceType(final String name)
-		{
-			this.name = name;
-		}
-
-		@Override
-		public String toString()
-		{
-			return name;
-		}
 	}
 
 	private Generics()

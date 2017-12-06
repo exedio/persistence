@@ -21,6 +21,7 @@ package com.exedio.cope.instrument;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Settable;
 import com.exedio.cope.misc.PrimitiveUtil;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.lang.reflect.Type;
 import java.util.Set;
 import java.util.SortedSet;
@@ -103,14 +104,11 @@ abstract class CopeFeature
 		return initialTypePrimitive;
 	}
 
-	@SuppressWarnings("rawtypes")
-	private static final GenericResolver<Settable> settableResolver = GenericResolver.neW(Settable.class);
-
 	private void makeInitialTypeAndExceptions()
 	{
 		final Settable<?> instance = (Settable<?>)getInstance();
 
-		final Type initialTypeX = settableResolver.get(instance.getClass(), Generics.getTypes(getType()))[0];
+		final Type initialTypeX = instance.getInitialType();
 		final Type initialType;
 		final boolean primitive;
 		if(initialTypeX instanceof Class<?>)
@@ -124,7 +122,7 @@ abstract class CopeFeature
 			}
 			else
 			{
-				initialType = initialClass;
+				initialType = wildcard(initialClass);
 				primitive = false;
 			}
 		}
@@ -145,6 +143,23 @@ abstract class CopeFeature
 		this.initialTypePrimitive = primitive;
 	}
 
+	static final Type wildcard(final Class<?> type)
+	{
+		if (type.getTypeParameters().length==0)
+		{
+			return type;
+		}
+		else
+		{
+			final Type[] parameters = new Type[type.getTypeParameters().length];
+			for (int i = 0; i < type.getTypeParameters().length; i++)
+			{
+				parameters[i] = ReflectionTypes.sub(Object.class);
+			}
+			return ReflectionTypes.parameterized(type, parameters);
+		}
+	}
+
 	final boolean isDefault()
 	{
 		return "defaultFeature".equals(getName());
@@ -162,4 +177,6 @@ abstract class CopeFeature
 	}
 
 	abstract String getJavadocReference();
+
+	abstract String applyTypeShortcuts(String type);
 }

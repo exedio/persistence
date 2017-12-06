@@ -107,4 +107,10 @@ final class LocalCopeFeature extends CopeFeature
 			throw new RuntimeException("cannot resolve parameter "+instance+" for "+getName()+"/"+methodName);
 		return result;
 	}
+
+	@Override
+	String applyTypeShortcuts(final String type)
+	{
+		return javaField.applyTypeShortcuts(type);
+	}
 }
