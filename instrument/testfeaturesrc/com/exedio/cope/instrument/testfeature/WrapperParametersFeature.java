@@ -71,6 +71,14 @@ public class WrapperParametersFeature
 		throw new RuntimeException();
 	}
 
+	@Wrap(order=410)
+	public void param(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") final Item[][] twoDimensional)
+	{
+		throw new RuntimeException();
+	}
+
 	public enum SomeEnum { a, b }
 
 }
