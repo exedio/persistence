@@ -36,6 +36,9 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URISyntaxException;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -339,6 +342,30 @@ public class DataTest extends TestWithEnvironment
 		assertNull(item.getData10Array());
 	}
 
+	@Test void testZipSet() throws IOException, URISyntaxException
+	{
+		assertEquals(null, item.getDataArray());
+
+		try(ZipFile file = openZip())
+		{
+			final ZipEntry entry = file.getEntry("bytes4.dat");
+			final DataField.Value value = DataField.toValue(file, entry);
+			item.setData(value);
+			assertData(bytes4, item.getDataArray());
+		}
+	}
+
+	@Test void testZipCreate() throws IOException, URISyntaxException
+	{
+		try(ZipFile file = openZip())
+		{
+			final ZipEntry entry = file.getEntry("bytes4.dat");
+			final DataField.Value value = DataField.toValue(file, entry);
+			final DataItem item2 = new DataItem(data.map(value));
+			assertData(bytes4, item2.getDataArray());
+		}
+	}
+
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	@Test void testUnchecked()
 	{
@@ -382,4 +409,9 @@ public class DataTest extends TestWithEnvironment
 	private static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
 	private static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
 	private static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
+
+	static ZipFile openZip() throws IOException, URISyntaxException
+	{
+		return new ZipFile(DataTest.class.getResource("DataTest.zip").toURI().getPath());
+	}
 }

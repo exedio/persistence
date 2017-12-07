@@ -33,8 +33,11 @@ import com.exedio.cope.util.MessageDigestUtil;
 import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.security.MessageDigest;
 import java.util.Arrays;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipFile;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
@@ -116,6 +119,17 @@ public class DataDigestTest
 		delete(inputFile);
 	}
 
+	@Test void testExhaustionZip() throws IOException, URISyntaxException
+	{
+		try(ZipFile file = DataTest.openZip())
+		{
+			final ZipEntry entry = file.getEntry("bytes4.dat");
+			final Value value = toValue(file, entry);
+			assertAsArray(bytes4, value);
+			assertExhausted(value);
+		}
+	}
+
 
 	@Test void testExhaustionArrayUpdate() throws IOException
 	{
@@ -157,6 +171,23 @@ public class DataDigestTest
 		assertAsArray(bytes4, replacementValue);
 
 		delete(inputFile);
+	}
+
+	@Test void testExhaustionZipUpdate() throws IOException, URISyntaxException
+	{
+		try(ZipFile file = DataTest.openZip())
+		{
+			final ZipEntry entry = file.getEntry("bytes4.dat");
+			final Value value = toValue(file, entry);
+
+			messageDigest.reset();
+			final Value replacementValue = value.update(messageDigest);
+			assertNotSame(replacementValue, value);
+			assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
+
+			assertExhausted(value);
+			assertAsArray(bytes4, replacementValue);
+		}
 	}
 
 	private static void assertData(final byte[] expectedData, final byte[] actualData)
