@@ -21,8 +21,10 @@ package com.exedio.cope.instrument;
 
 import bsh.NameSpace;
 import bsh.UtilEvalError;
+import java.lang.reflect.Array;
 import java.util.Objects;
 import javax.lang.model.element.ElementKind;
+import javax.lang.model.type.ArrayType;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.TypeKind;
 import javax.lang.model.type.TypeMirror;
@@ -46,6 +48,12 @@ final class TypeMirrorHelper
 							return inner;
 					}
 				}
+			}
+			else if (typeMirror.getKind()==TypeKind.ARRAY)
+			{
+				final ArrayType arrayType = (ArrayType)typeMirror;
+				final Class<?> componentClass = getClass(arrayType.getComponentType(), nameSpace);
+				return Array.newInstance(componentClass, 0).getClass();
 			}
 			else if (typeMirror.getKind().isPrimitive())
 			{
