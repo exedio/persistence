@@ -35,7 +35,7 @@ class DontInstrument extends Item
 	@WrapInterim
 	static final long wouldNotCompileInInterimCode = serialVersionUID;
 
-	/** this file is not visited by the {@link InstrumentorProcessor}, so this does not produce a warning */
 	@Generated("com.exedio.cope.instrument")
+	@SuppressWarnings("non-generated")
 	int generatedVariable;
 }

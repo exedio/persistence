@@ -30,18 +30,10 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import javax.tools.DiagnosticCollector;
-import javax.tools.JavaCompiler;
-import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 
 final class Main
 {
@@ -65,8 +57,6 @@ final class Main
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
 
-		final ClassLoader interimClassLoader = createInterimClassLoader(params);
-
 		try
 		{
 			InstrumentContext.enter();
@@ -78,7 +68,7 @@ final class Main
 			instrumented = 0;
 			skipped = 0;
 
-			runJavac(params, repository, interimClassLoader);
+			final ClassLoader interimClassLoader = runJavac(params, repository);
 
 			repository.endBuildStage();
 
@@ -199,9 +189,12 @@ final class Main
 		}
 	}
 
-	private static void runJavac(final Params params, final JavaRepository repository, final ClassLoader interimClassLoader) throws IOException, HumanReadableException
+	private static ClassLoader runJavac(final Params params, final JavaRepository repository) throws IOException, HumanReadableException
 	{
-		new JavacRunner(new InstrumentorProcessor(repository, interimClassLoader)).run(params);
+		final InterimProcessor interimProcessor = new InterimProcessor(params);
+		final InstrumentorProcessor instrumentorProcessor = new InstrumentorProcessor(repository, interimProcessor);
+		new JavacRunner(interimProcessor, instrumentorProcessor).run(params);
+		return interimProcessor.getInterimClassLoader();
 	}
 
 	boolean verbose;
@@ -269,46 +262,5 @@ final class Main
 			}
 		}
 		return result;
-	}
-
-	private ClassLoader createInterimClassLoader(final Params params) throws IOException, HumanReadableException
-	{
-		final InterimProcessor interimProcessor = new InterimProcessor(params);
-		new JavacRunner(interimProcessor).run(params);
-		return compileInterimFiles(
-			params,
-			interimProcessor.getInterimRootDirectory(),
-			interimProcessor.getInterimFiles()
-		);
-	}
-
-	private ClassLoader compileInterimFiles(final Params params, final Path interimDirectory, final List<File> interimFiles) throws IOException
-	{
-		final JavaCompiler compiler = JavacRunner.getJavaCompiler();
-		final DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
-		final String classpath = JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath));
-		try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null))
-		{
-			final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(interimFiles);
-			final JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, asList("-cp", classpath), null, compilationUnits);
-			if (!task.call())
-				throw new RuntimeException(diagnostics.getDiagnostics().toString());
-		}
-
-		final ClassLoader interimContext = new URLClassLoader(toURLs(classpath), getClass().getClassLoader());
-		final ClassLoader interimClasses = new URLClassLoader(new URL[]{interimDirectory.toUri().toURL()}, interimContext);
-		return interimClasses;
-	}
-
-	private static URL[] toURLs(final String path) throws MalformedURLException
-	{
-		final String[] paths = path.split(File.pathSeparator);
-		final URL[] urls = new URL[paths.length];
-		for (int i = 0; i < paths.length; i++)
-		{
-			final String next = paths[i];
-			urls[i] = new File(next).toURI().toURL();
-		}
-		return urls;
 	}
 }

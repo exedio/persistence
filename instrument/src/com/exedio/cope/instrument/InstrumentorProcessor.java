@@ -37,18 +37,12 @@ import javax.lang.model.element.TypeElement;
 final class InstrumentorProcessor extends JavacProcessor
 {
 	private final JavaRepository javaRepository;
-	private final ClassLoader interimClassLoader;
+	private final InterimProcessor interimProcessor;
 
-	InstrumentorProcessor(final JavaRepository javaRepository, final ClassLoader interimClassLoader)
+	InstrumentorProcessor(final JavaRepository javaRepository, final InterimProcessor interimProcessor)
 	{
 		this.javaRepository = javaRepository;
-		this.interimClassLoader = interimClassLoader;
-	}
-
-	@Override
-	boolean includeIgnoredFiles()
-	{
-		return false;
+		this.interimProcessor = interimProcessor;
 	}
 
 	@Override
@@ -65,13 +59,20 @@ final class InstrumentorProcessor extends JavacProcessor
 			JavaFile javaFile=files.get(compilationUnit);
 			if ( javaFile==null )
 			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
+				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimProcessor.getInterimClassLoader(), compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
 			}
 			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
-			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
-			visitor.scan(tp, null);
+			if (isFileIgnored(compilationUnit.getSourceFile()))
+			{
+				new WarnForGeneratedVisitor(treeApiContext).scan(tp, null);
+			}
+			else
+			{
+				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
+				visitor.scan(tp, null);
+			}
 		}
-		return true;
+		return false;
 	}
 
 	private static String getPackageName(final CompilationUnitTree compilationUnit)

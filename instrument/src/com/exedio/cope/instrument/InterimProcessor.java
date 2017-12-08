@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
 
 import com.sun.source.tree.AnnotationTree;
@@ -44,6 +43,9 @@ import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -67,7 +69,10 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.tools.DiagnosticCollector;
+import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
@@ -76,7 +81,7 @@ final class InterimProcessor extends JavacProcessor
 	private final Path targetDirectory;
 	private final Params params;
 
-	private List<File> interimFiles;
+	private ClassLoader interimClassLoader;
 
 	InterimProcessor(final Params params)
 	{
@@ -92,22 +97,12 @@ final class InterimProcessor extends JavacProcessor
 		}
 	}
 
-	@Override
-	boolean includeIgnoredFiles()
+	/** @return null if compiling interim code failed */
+	ClassLoader getInterimClassLoader()
 	{
-		return true;
-	}
-
-	Path getInterimRootDirectory()
-	{
-		return targetDirectory;
-	}
-
-	List<File> getInterimFiles()
-	{
-		if (interimFiles==null) throw new RuntimeException("not initialized");
-		if (interimFiles.isEmpty()) throw new RuntimeException("no interim files");
-		return unmodifiableList(interimFiles);
+		if (interimClassLoader==null)
+			throw new RuntimeException("not processed");
+		return interimClassLoader;
 	}
 
 	private Path getTargetFile(final JavaFileObject originalFileObject)
@@ -132,7 +127,7 @@ final class InterimProcessor extends JavacProcessor
 	{
 		if (roundEnv.getRootElements().isEmpty())
 			return false;
-		if (interimFiles!=null) throw new RuntimeException();
+		if (interimClassLoader!=null) throw new RuntimeException();
 		final DocTrees docTrees = DocTrees.instance(processingEnv);
 		final List<InterimVisitor> interimVisitors = new ArrayList<>();
 		final Map<Name,Code> blockRegistry = new HashMap<>();
@@ -188,8 +183,45 @@ final class InterimProcessor extends JavacProcessor
 			if (file!=null)
 				interimFiles.add(file);
 		}
-		this.interimFiles = interimFiles;
-		return true;
+		try
+		{
+			this.interimClassLoader = compileInterimFiles(params, targetDirectory, interimFiles);
+		}
+		catch (final IOException e)
+		{
+			throw new RuntimeException(e);
+		}
+		return false;
+	}
+
+	private ClassLoader compileInterimFiles(final Params params, final Path interimDirectory, final List<File> interimFiles) throws IOException
+	{
+		final JavaCompiler compiler = JavacRunner.getJavaCompiler();
+		final DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
+		final String classpath = JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath));
+		try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null))
+		{
+			final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(interimFiles);
+			final JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, asList("-cp", classpath), null, compilationUnits);
+			if (!task.call())
+				throw new RuntimeException(diagnostics.getDiagnostics().toString());
+		}
+
+		final ClassLoader interimContext = new URLClassLoader(toURLs(classpath), getClass().getClassLoader());
+		final ClassLoader interimClasses = new URLClassLoader(new URL[]{interimDirectory.toUri().toURL()}, interimContext);
+		return interimClasses;
+	}
+
+	private static URL[] toURLs(final String path) throws MalformedURLException
+	{
+		final String[] paths = path.split(File.pathSeparator);
+		final URL[] urls = new URL[paths.length];
+		for (int i = 0; i < paths.length; i++)
+		{
+			final String next = paths[i];
+			urls[i] = new File(next).toURI().toURL();
+		}
+		return urls;
 	}
 
 	private static class Import

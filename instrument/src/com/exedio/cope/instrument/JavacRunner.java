@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
 
 import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
@@ -45,11 +44,11 @@ final class JavacRunner
 		return JavacTool.create();
 	}
 
-	private final JavacProcessor processor;
+	private final JavacProcessor[] processors;
 
-	JavacRunner(final JavacProcessor processor)
+	JavacRunner(final JavacProcessor... processors)
 	{
-		this.processor = processor;
+		this.processors = processors.clone();
 	}
 
 	void run(final Params params) throws IOException, HumanReadableException
@@ -57,7 +56,7 @@ final class JavacRunner
 		final JavaCompiler compiler=getJavaCompiler();
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
-			final List<File> sortedSourceFiles=processor.includeIgnoredFiles()?params.getAllJavaSourceFiles():params.getJavaSourceFilesExcludingIgnored();
+			final List<File> sortedSourceFiles=params.getAllJavaSourceFiles();
 			// We have to sort files to have a deterministic order - otherwise, resolving classes by
 			// simple name is not deterministic.
 			Collections.sort(sortedSourceFiles);
@@ -72,8 +71,11 @@ final class JavacRunner
 			optionList.add(params.getMaxwarns());
 			optionList.add("-implicit:none");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
-			processor.prepare(params, fileManager);
-			task.setProcessors(singleton(processor));
+			for (final JavacProcessor processor : processors)
+			{
+				processor.prepare(params, fileManager);
+			}
+			task.setProcessors(asList(processors));
 			if (!task.call())
 				throw new HumanReadableException("cope instrumentor failed");
 		}
