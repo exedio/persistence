@@ -34,6 +34,17 @@ class DoInstrument implements InterfaceThatUsesDontInstrument
 
 	static final int notInterim = x();
 
+	static final byte constantByte = Byte.MAX_VALUE;
+	static final short constantShort = Short.MAX_VALUE;
+	static final int constantInt = Integer.MAX_VALUE;
+	static final long constantLong = Long.MAX_VALUE;
+	static final float constantFloat = 1.0f+1.0f;
+	static final double constantDouble = Double.NaN;
+	@SuppressWarnings("PointlessBooleanExpression")
+	static final boolean constantBoolean = !true;
+	static final char constantChar = 'a'+1;
+
+
 	enum NotInterim
 	{
 		a, b;
