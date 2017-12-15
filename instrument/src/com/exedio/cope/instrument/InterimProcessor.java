@@ -40,7 +40,7 @@ import com.sun.source.util.TreePathScanner;
 import com.sun.source.util.TreeScanner;
 import java.io.File;
 import java.io.IOException;
-import java.io.OutputStreamWriter;
+import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
 import java.net.MalformedURLException;
@@ -105,7 +105,7 @@ final class InterimProcessor extends JavacProcessor
 		return interimClassLoader;
 	}
 
-	private Path getTargetFile(final JavaFileObject originalFileObject)
+	private Path getSourcePath(final JavaFileObject originalFileObject)
 	{
 		final Path originalFile = Paths.get(originalFileObject.toUri());
 		final Path originalPath = originalFile.toAbsolutePath();
@@ -114,9 +114,7 @@ final class InterimProcessor extends JavacProcessor
 			final Path sourcePath = sourceDirectory.toPath().toAbsolutePath();
 			if (originalPath.startsWith(sourcePath))
 			{
-				final Path relative = sourcePath.relativize(originalPath);
-				return targetDirectory.resolve(relative);
-
+				return sourcePath.relativize(originalPath);
 			}
 		}
 		throw new RuntimeException();
@@ -176,10 +174,10 @@ final class InterimProcessor extends JavacProcessor
 				}
 			}
 		}
-		final List<File> interimFiles = new ArrayList<>();
+		final List<InterimFile> interimFiles = new ArrayList<>();
 		for (final InterimVisitor interimVisitor : interimVisitors)
 		{
-			final File file = interimVisitor.finish();
+			final InterimFile file = interimVisitor.finish();
 			if (file!=null)
 				interimFiles.add(file);
 		}
@@ -194,18 +192,23 @@ final class InterimProcessor extends JavacProcessor
 		return false;
 	}
 
-	private ClassLoader compileInterimFiles(final Params params, final Path interimDirectory, final List<File> interimFiles) throws IOException
+	private ClassLoader compileInterimFiles(final Params params, final Path interimDirectory, final List<InterimFile> interimFiles) throws IOException
 	{
 		final JavaCompiler compiler = JavacRunner.getJavaCompiler();
 		final DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
 		final String classpath = JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath));
 		try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null))
 		{
-			final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(interimFiles);
 			final InMemoryClassFileManager classFilesInMemory = new InMemoryClassFileManager(fileManager);
-			final JavaCompiler.CompilationTask task = compiler.getTask(null, classFilesInMemory, diagnostics, asList("-cp", classpath), null, compilationUnits);
+			final JavaCompiler.CompilationTask task = compiler.getTask(null, classFilesInMemory, diagnostics, asList("-cp", classpath), null, interimFiles);
 			if (!task.call())
+			{
+				for (final InterimFile interimFile : interimFiles)
+				{
+					interimFile.dump(params, interimDirectory);
+				}
 				throw new RuntimeException(diagnostics.getDiagnostics().toString());
+			}
 			final ClassLoader interimContext = new URLClassLoader(toURLs(classpath), getClass().getClassLoader());
 			return classFilesInMemory.createInMemoryClassLoader(interimContext);
 		}
@@ -630,20 +633,12 @@ final class InterimProcessor extends JavacProcessor
 			imports.removeIf(nextImport -> nextImport.startsWith(importPrefix));
 		}
 
-		private File finish()
+		private InterimFile finish()
 		{
 			if (writeInterimFile())
 			{
-				final Path file = getTargetFile(sourceFile);
-				try
-				{
-					Files.createDirectories(file.getParent());
-				}
-				catch (final IOException e)
-				{
-					throw new RuntimeException(e);
-				}
-				try (final Writer w = new OutputStreamWriter(Files.newOutputStream(file), params.charset))
+				final String sourceChars;
+				try (final StringWriter w = new StringWriter())
 				{
 					if (packageStatement!=null)
 						w.write(packageStatement+System.lineSeparator());
@@ -652,12 +647,13 @@ final class InterimProcessor extends JavacProcessor
 						w.write(nextImport.getImportStatement());
 					}
 					code.write(w, -1);
+					sourceChars = w.toString();
 				}
 				catch (final IOException e)
 				{
 					throw new RuntimeException(e);
 				}
-				return file.toFile();
+				return new InterimFile(getSourcePath(sourceFile), sourceChars);
 			}
 			else
 			{
