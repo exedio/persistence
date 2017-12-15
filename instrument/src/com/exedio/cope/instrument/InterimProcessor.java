@@ -202,14 +202,13 @@ final class InterimProcessor extends JavacProcessor
 		try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null))
 		{
 			final Iterable<? extends JavaFileObject> compilationUnits = fileManager.getJavaFileObjectsFromFiles(interimFiles);
-			final JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, diagnostics, asList("-cp", classpath), null, compilationUnits);
+			final InMemoryClassFileManager classFilesInMemory = new InMemoryClassFileManager(fileManager);
+			final JavaCompiler.CompilationTask task = compiler.getTask(null, classFilesInMemory, diagnostics, asList("-cp", classpath), null, compilationUnits);
 			if (!task.call())
 				throw new RuntimeException(diagnostics.getDiagnostics().toString());
+			final ClassLoader interimContext = new URLClassLoader(toURLs(classpath), getClass().getClassLoader());
+			return classFilesInMemory.createInMemoryClassLoader(interimContext);
 		}
-
-		final ClassLoader interimContext = new URLClassLoader(toURLs(classpath), getClass().getClassLoader());
-		final ClassLoader interimClasses = new URLClassLoader(new URL[]{interimDirectory.toUri().toURL()}, interimContext);
-		return interimClasses;
 	}
 
 	private static URL[] toURLs(final String path) throws MalformedURLException
