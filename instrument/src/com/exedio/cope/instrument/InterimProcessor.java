@@ -43,9 +43,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
 import java.lang.annotation.Annotation;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -69,10 +66,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
-import javax.tools.DiagnosticCollector;
-import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
-import javax.tools.StandardJavaFileManager;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
@@ -174,56 +168,31 @@ final class InterimProcessor extends JavacProcessor
 				}
 			}
 		}
-		final List<InterimFile> interimFiles = new ArrayList<>();
+		final InMemoryCompiler compiler = new InMemoryCompiler();
 		for (final InterimVisitor interimVisitor : interimVisitors)
 		{
-			final InterimFile file = interimVisitor.finish();
-			if (file!=null)
-				interimFiles.add(file);
+			interimVisitor.finish(compiler);
 		}
 		try
 		{
-			this.interimClassLoader = compileInterimFiles(params, targetDirectory, interimFiles);
+			this.interimClassLoader = compiler.compile(
+				JavacRunner.getJavaCompiler(),
+				JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath))
+			);
 		}
-		catch (final IOException e)
+		catch (final InMemoryCompiler.CompileException e)
 		{
+			try
+			{
+				compiler.dumpJavaFiles(targetDirectory, params.charset);
+			}
+			catch (final IOException ioe)
+			{
+				System.out.println("writing interim source to "+targetDirectory.toAbsolutePath()+" failed: "+ioe.getMessage());
+			}
 			throw new RuntimeException(e);
 		}
 		return false;
-	}
-
-	private ClassLoader compileInterimFiles(final Params params, final Path interimDirectory, final List<InterimFile> interimFiles) throws IOException
-	{
-		final JavaCompiler compiler = JavacRunner.getJavaCompiler();
-		final DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
-		final String classpath = JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath));
-		try (final StandardJavaFileManager fileManager = compiler.getStandardFileManager(diagnostics, null, null))
-		{
-			final InMemoryClassFileManager classFilesInMemory = new InMemoryClassFileManager(fileManager);
-			final JavaCompiler.CompilationTask task = compiler.getTask(null, classFilesInMemory, diagnostics, asList("-cp", classpath), null, interimFiles);
-			if (!task.call())
-			{
-				for (final InterimFile interimFile : interimFiles)
-				{
-					interimFile.dump(params, interimDirectory);
-				}
-				throw new RuntimeException(diagnostics.getDiagnostics().toString());
-			}
-			final ClassLoader interimContext = new URLClassLoader(toURLs(classpath), getClass().getClassLoader());
-			return classFilesInMemory.createInMemoryClassLoader(interimContext);
-		}
-	}
-
-	private static URL[] toURLs(final String path) throws MalformedURLException
-	{
-		final String[] paths = path.split(File.pathSeparator);
-		final URL[] urls = new URL[paths.length];
-		for (int i = 0; i < paths.length; i++)
-		{
-			final String next = paths[i];
-			urls[i] = new File(next).toURI().toURL();
-		}
-		return urls;
 	}
 
 	private static class Import
@@ -633,7 +602,7 @@ final class InterimProcessor extends JavacProcessor
 			imports.removeIf(nextImport -> nextImport.startsWith(importPrefix));
 		}
 
-		private InterimFile finish()
+		private void finish(final InMemoryCompiler compiler)
 		{
 			if (writeInterimFile())
 			{
@@ -653,11 +622,7 @@ final class InterimProcessor extends JavacProcessor
 				{
 					throw new RuntimeException(e);
 				}
-				return new InterimFile(getSourcePath(sourceFile), sourceChars);
-			}
-			else
-			{
-				return null;
+				compiler.addJavaFile(getSourcePath(sourceFile), sourceChars);
 			}
 		}
 
