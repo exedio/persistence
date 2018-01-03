@@ -105,30 +105,11 @@ abstract class JavacRunner<P extends Processor>
 
 	private static String toClasspath(final ClassLoader cl)
 	{
-		if (cl instanceof URLClassLoader)
-		{
-			// this works for JUnit tests
-			final URLClassLoader urlClassLoader=(URLClassLoader)cl;
-			final StringBuilder result=new StringBuilder();
-			for (int i=0; i < urlClassLoader.getURLs().length; i++)
-			{
-				if (i!=0)
-				{
-					result.append(File.pathSeparatorChar);
-				}
-				final URL url=urlClassLoader.getURLs()[i];
-				result.append(url);
-			}
-			return result.toString();
-		}
-		else
-		{
-			// this works for Ant
-			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)]");
-			final String classLoaderString=cl.toString();
-			final Matcher matcher = pattern.matcher(classLoaderString);
-			if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
-			return matcher.group(1);
-		}
+		// this works for Ant
+		final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)]");
+		final String classLoaderString=cl.toString();
+		final Matcher matcher = pattern.matcher(classLoaderString);
+		if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
+		return matcher.group(1);
 	}
 }
