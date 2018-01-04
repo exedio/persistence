@@ -32,7 +32,10 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.annotation.Nullable;
+import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypesException;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.WildcardType;
 
 /**
  * Represents an attribute of a class.
@@ -44,13 +47,8 @@ final class JavaField
 {
 	private static final Class<?>[] PARAMETERS_DEFAULT=new Class<?>[]{WrapperParametersDefault.class};
 
-	/**
-	 * The return type of the method.
-	 * Is null, if it is a constructor, or a class.
-	 */
-	final String type;
+	private final TypeMirror typeMirror;
 
-	final String typeRaw;
 	final String typeFullyQualified;
 
 	private final String initializer;
@@ -68,7 +66,7 @@ final class JavaField
 	JavaField(
 		final JavaClass parent,
 		final int modifiers,
-		final String type,
+		final TypeMirror typeMirror,
 		final String typeFullyQualified,
 		final String name,
 		final String sourceLocation,
@@ -79,10 +77,7 @@ final class JavaField
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, name, sourceLocation);
-		if (type == null)
-			throw new RuntimeException();
-		this.type=type;
-		this.typeRaw=Generics.strip(type);
+		this.typeMirror=typeMirror;
 		this.typeFullyQualified=typeFullyQualified;
 		checkWrapUnique(wrappers);
 		this.initializer=initializer;
@@ -94,6 +89,11 @@ final class JavaField
 		parent.add(this);
 	}
 
+	String getType()
+	{
+		return applyTypeShortcuts(typeMirror);
+	}
+
 	void addTypeShortcut(final String fullType, final String shortType)
 	{
 		final String collision = typeShortcuts.put(fullType, shortType);
@@ -102,6 +102,48 @@ final class JavaField
 		final String collisionArray = typeShortcuts.put(fullType+"[]", shortType+"[]");
 		if (collisionArray!=null && !collisionArray.equals(shortType+"[]"))
 			throw new RuntimeException("shortcut collision: "+fullType+" -> "+collisionArray+"/"+shortType+"[]");
+	}
+
+	String applyTypeShortcuts(final TypeMirror typeMirror)
+	{
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch (typeMirror.getKind())
+		{
+			case DECLARED:
+				final StringBuilder sb = new StringBuilder();
+				sb.append( applyTypeShortcuts(((DeclaredType)typeMirror).asElement().toString()) );
+				final List<? extends TypeMirror> args = ((DeclaredType)typeMirror).getTypeArguments();
+				if (!args.isEmpty())
+				{
+					sb.append( "<" );
+					final StringSeparator separator = new StringSeparator(",");
+					for (final TypeMirror arg : args)
+					{
+						separator.appendTo(sb);
+						sb.append( applyTypeShortcuts(arg) );
+					}
+					sb.append( ">" );
+				}
+				return sb.toString();
+			case WILDCARD:
+				final StringBuilder wsb = new StringBuilder();
+				wsb.append("?");
+				final TypeMirror extendsBound = ((WildcardType)typeMirror).getExtendsBound();
+				if (extendsBound!=null)
+				{
+					wsb.append(" extends ");
+					wsb.append(applyTypeShortcuts(extendsBound));
+				}
+				final TypeMirror superBound = ((WildcardType)typeMirror).getSuperBound();
+				if (superBound!=null)
+				{
+					wsb.append(" super ");
+					wsb.append(applyTypeShortcuts(superBound));
+				}
+				return wsb.toString();
+			default:
+				return applyTypeShortcuts(typeMirror.toString());
+		}
 	}
 
 	String applyTypeShortcuts(final String typeName)

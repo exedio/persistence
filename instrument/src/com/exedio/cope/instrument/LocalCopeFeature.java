@@ -55,7 +55,7 @@ final class LocalCopeFeature extends CopeFeature
 	@Override
 	String getType()
 	{
-		return javaField.type;
+		return javaField.getType();
 	}
 
 	@Override

@@ -34,6 +34,7 @@ import java.util.Set;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 
 class ClassVisitor extends GeneratedAwareScanner
 {
@@ -119,10 +120,11 @@ class ClassVisitor extends GeneratedAwareScanner
 		{
 			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			final String variableType = getFullyQualifiedName(node.getType());
+			final VariableElement fieldElement = (VariableElement)context.getElementForTree(node);
 			final JavaField javaField = new JavaField(
 				javaClass,
 				TreeApiHelper.toModifiersInt(node.getModifiers()),
-				removeSpacesAfterCommas(node.getType().toString()),
+				fieldElement.asType(),
 				variableType,
 				node.getName().toString(),
 				context.getSourcePosition(node),
@@ -254,32 +256,6 @@ class ClassVisitor extends GeneratedAwareScanner
 		return element.getAnnotationsByType(annotationType);
 	}
 
-	private static String removeSpacesAfterCommas(final String s)
-	{
-		final StringBuilder result = new StringBuilder(s.length());
-		boolean foundComma = false;
-		for (int i=0; i < s.length(); i++)
-		{
-			final char c = s.charAt(i);
-			if ( foundComma )
-			{
-				if ( c!=' ' )
-				{
-					foundComma = false;
-					result.append(c);
-				}
-			}
-			else
-			{
-				result.append(c);
-				if ( c==',' )
-				{
-					foundComma = true;
-				}
-			}
-		}
-		return result.toString();
-	}
 	private static String getSimpleName(final ClassTree ct)
 	{
 		String simpleName=ct.getSimpleName().toString();
