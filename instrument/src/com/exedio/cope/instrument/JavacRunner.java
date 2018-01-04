@@ -24,8 +24,6 @@ import static java.util.Collections.singleton;
 import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
