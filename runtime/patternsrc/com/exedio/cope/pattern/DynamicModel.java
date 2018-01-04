@@ -568,6 +568,7 @@ public final class DynamicModel<L> extends Pattern
 		 * @deprecated Use {@link #addField(String,DynamicModel.ValueType)} instead
 		 */
 		@Deprecated
+		@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess") // otherwise javadoc issues warnings
 		public Field<L> addAttribute(final String code, final ValueType valueType)
 		{
 			return addField(code, valueType);

@@ -30,6 +30,7 @@ public final class Sequence extends Node
 	 * @deprecated Use {@link Schema#newSequence(String,Sequence.Type,long)} instead
 	 */
 	@Deprecated
+	@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess") // otherwise javadoc issues warnings
 	public Sequence(final Schema schema, final String name, final Type type, final long start)
 	{
 		this(schema, name, type, start, true);

@@ -302,6 +302,7 @@ public final class Revisions
 	 * is called only while the model is connected and only once for each connect.
 	 */
 	@FunctionalInterface
+	@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess") // otherwise javadoc issues warnings
 	public interface Factory
 	{
 		Revisions create(Context ctx);
