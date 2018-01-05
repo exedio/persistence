@@ -144,15 +144,24 @@ public class InstanceOfModelTest
 		}
 	}
 
-	@Test void testAsSame()
+	@Test void testAsTypeSame()
 	{
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.as(InstanceOfAItem.class));
+	}
+	@Test void testAsTypeSameExtends()
+	{
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asExtends(InstanceOfAItem.class));
+	}
+	@Test void testAsFieldSame()
+	{
 		assertSame(ref, ref.as(InstanceOfAItem.class));
+	}
+	@Test void testAsFieldSameExtends()
+	{
 		assertSame(ref, ref.asExtends(InstanceOfAItem.class));
 	}
 
-	@Test void testAsChildReverse()
+	@Test void testAsTypeChildReverse()
 	{
 		try
 		{
@@ -163,6 +172,9 @@ public class InstanceOfModelTest
 		{
 			assertAsTypeFails(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
+	}
+	@Test void testAsTypeChildReverseExtends()
+	{
 		try
 		{
 			InstanceOfAItem.TYPE.asExtends(InstanceOfB1Item.class);
@@ -172,6 +184,9 @@ public class InstanceOfModelTest
 		{
 			assertAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
+	}
+	@Test void testAsFieldChildReverse()
+	{
 		try
 		{
 			ref.as(InstanceOfB1Item.class);
@@ -181,6 +196,9 @@ public class InstanceOfModelTest
 		{
 			assertAsFieldFails(InstanceOfB1Item.class, InstanceOfAItem.class, e);
 		}
+	}
+	@Test void testAsFieldChildReverseExtends()
+	{
 		try
 		{
 			ref.asExtends(InstanceOfB1Item.class);
@@ -192,15 +210,24 @@ public class InstanceOfModelTest
 		}
 	}
 
-	@Test void testAsSameSub()
+	@Test void testAsTypeSameSub()
 	{
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.as(InstanceOfB2Item.class));
+	}
+	@Test void testAsTypeSameSubExtends()
+	{
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.asExtends(InstanceOfB2Item.class));
+	}
+	@Test void testAsFieldSameSub()
+	{
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
+	}
+	@Test void testAsFieldSameSubExtends()
+	{
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfB2Item.class));
 	}
 
-	@Test void testAsBrother()
+	@Test void testAsTypeBrother()
 	{
 		try
 		{
@@ -211,6 +238,9 @@ public class InstanceOfModelTest
 		{
 			assertAsTypeFails(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
 		}
+	}
+	@Test void testAsTypeBrotherExtends()
+	{
 		try
 		{
 			InstanceOfB2Item.TYPE.asExtends(InstanceOfB1Item.class);
@@ -220,6 +250,9 @@ public class InstanceOfModelTest
 		{
 			assertAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
 		}
+	}
+	@Test void testAsFieldBrother()
+	{
 		try
 		{
 			InstanceOfRefItem.refb2.as(InstanceOfB1Item.class);
@@ -229,6 +262,9 @@ public class InstanceOfModelTest
 		{
 			assertAsFieldFails(InstanceOfB1Item.class, InstanceOfB2Item.class, e);
 		}
+	}
+	@Test void testAsFieldBrotherExtends()
+	{
 		try
 		{
 			InstanceOfRefItem.refb2.asExtends(InstanceOfB1Item.class);
@@ -240,7 +276,7 @@ public class InstanceOfModelTest
 		}
 	}
 
-	@Test void testAsSameChild()
+	@Test void testAsTypeSameChildExtends()
 	{
 		try
 		{
@@ -251,7 +287,13 @@ public class InstanceOfModelTest
 		{
 			assertAsTypeFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
 		}
+	}
+	@Test void testAsTypeSameChildOk()
+	{
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.asExtends(InstanceOfAItem.class));
+	}
+	@Test void testAsFieldSameChildExtends()
+	{
 		try
 		{
 			InstanceOfRefItem.refb2.as(InstanceOfAItem.class);
@@ -261,6 +303,9 @@ public class InstanceOfModelTest
 		{
 			assertAsFieldFails(InstanceOfAItem.class, InstanceOfB2Item.class, e);
 		}
+	}
+	@Test void testAsFieldSameChildOk()
+	{
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfAItem.class));
 	}
 
