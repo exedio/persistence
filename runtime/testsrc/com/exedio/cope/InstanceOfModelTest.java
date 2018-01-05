@@ -153,6 +153,10 @@ public class InstanceOfModelTest
 	{
 		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asExtends(InstanceOfAItem.class));
 	}
+	@Test void testAsTypeSameSuper()
+	{
+		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asSuper(InstanceOfAItem.class));
+	}
 	@Test void testAsFieldSame()
 	{
 		assertSame(ref, ref.as(InstanceOfAItem.class));
@@ -160,6 +164,10 @@ public class InstanceOfModelTest
 	@Test void testAsFieldSameExtends()
 	{
 		assertSame(ref, ref.asExtends(InstanceOfAItem.class));
+	}
+	@Test void testAsFieldSameSuper()
+	{
+		assertSame(ref, ref.asSuper(InstanceOfAItem.class));
 	}
 
 	@Test void testAsTypeChildReverse()
@@ -176,6 +184,10 @@ public class InstanceOfModelTest
 			ClassCastException.class,
 			messageAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class));
 	}
+	@Test void testAsTypeChildReverseSuper()
+	{
+		assertSame(InstanceOfAItem.TYPE, InstanceOfAItem.TYPE.asSuper(InstanceOfB1Item.class));
+	}
 	@Test void testAsFieldChildReverse()
 	{
 		assertFails(() ->
@@ -190,6 +202,10 @@ public class InstanceOfModelTest
 			ClassCastException.class,
 			messageAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class));
 	}
+	@Test void testAsFieldChildReverseSuper()
+	{
+		assertSame(ref, ref.asSuper(InstanceOfB1Item.class));
+	}
 
 	@Test void testAsTypeSameSub()
 	{
@@ -199,6 +215,10 @@ public class InstanceOfModelTest
 	{
 		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.asExtends(InstanceOfB2Item.class));
 	}
+	@Test void testAsTypeSameSubSuper()
+	{
+		assertSame(InstanceOfB2Item.TYPE, InstanceOfB2Item.TYPE.asSuper(InstanceOfB2Item.class));
+	}
 	@Test void testAsFieldSameSub()
 	{
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.as(InstanceOfB2Item.class));
@@ -206,6 +226,10 @@ public class InstanceOfModelTest
 	@Test void testAsFieldSameSubExtends()
 	{
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfB2Item.class));
+	}
+	@Test void testAsFieldSameSubSuper()
+	{
+		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asSuper(InstanceOfB2Item.class));
 	}
 
 	@Test void testAsTypeBrother()
@@ -222,6 +246,13 @@ public class InstanceOfModelTest
 			ClassCastException.class,
 			messageAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class));
 	}
+	@Test void testAsTypeBrotherSuper()
+	{
+		assertFails(() ->
+			InstanceOfB2Item.TYPE.asSuper(InstanceOfB1Item.class),
+			ClassCastException.class,
+			messageAsTypeFailsSuper(InstanceOfB1Item.class, InstanceOfB2Item.class));
+	}
 	@Test void testAsFieldBrother()
 	{
 		assertFails(() ->
@@ -236,6 +267,13 @@ public class InstanceOfModelTest
 			ClassCastException.class,
 			messageAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class));
 	}
+	@Test void testAsFieldBrotherSuper()
+	{
+		assertFails(() ->
+			InstanceOfRefItem.refb2.asSuper(InstanceOfB1Item.class),
+			ClassCastException.class,
+			messageAsFieldFailsSuper(InstanceOfB1Item.class, InstanceOfB2Item.class));
+	}
 
 	@Test void testAsTypeSameChildExtends()
 	{
@@ -243,6 +281,13 @@ public class InstanceOfModelTest
 			InstanceOfB2Item.TYPE.as(InstanceOfAItem.class),
 			ClassCastException.class,
 			messageAsTypeFails(InstanceOfAItem.class, InstanceOfB2Item.class));
+	}
+	@Test void testAsTypeSameChildOkSuper()
+	{
+		assertFails(() ->
+			InstanceOfB2Item.TYPE.asSuper(InstanceOfAItem.class),
+			ClassCastException.class,
+			messageAsTypeFailsSuper(InstanceOfAItem.class, InstanceOfB2Item.class));
 	}
 	@Test void testAsTypeSameChildOk()
 	{
@@ -254,6 +299,13 @@ public class InstanceOfModelTest
 			InstanceOfRefItem.refb2.as(InstanceOfAItem.class),
 			ClassCastException.class,
 			messageAsFieldFails(InstanceOfAItem.class, InstanceOfB2Item.class));
+	}
+	@Test void testAsFieldSameChildSuper()
+	{
+		assertFails(() ->
+			InstanceOfRefItem.refb2.asSuper(InstanceOfAItem.class),
+			ClassCastException.class,
+			messageAsFieldFailsSuper(InstanceOfAItem.class, InstanceOfB2Item.class));
 	}
 	@Test void testAsFieldSameChildOk()
 	{
@@ -278,6 +330,15 @@ public class InstanceOfModelTest
 				"but was " + actual.getName();
 	}
 
+	private static String messageAsTypeFailsSuper(
+			final Class<? extends InstanceOfAItem> expected,
+			final Class<? extends InstanceOfAItem> actual)
+	{
+		return
+				"expected ? super " + expected.getName() + ", " +
+				"but was " + actual.getName();
+	}
+
 	private static String messageAsFieldFails(
 			final Class<? extends InstanceOfAItem> expected,
 			final Class<? extends InstanceOfAItem> actual)
@@ -293,6 +354,15 @@ public class InstanceOfModelTest
 	{
 		return
 				"expected a " + ItemField.class.getName() + "<? extends " + expected.getName() + ">, " +
+				"but was a " + ItemField.class.getName() + '<' + actual.getName() + '>';
+	}
+
+	private static String messageAsFieldFailsSuper(
+			final Class<? extends InstanceOfAItem> expected,
+			final Class<? extends InstanceOfAItem> actual)
+	{
+		return
+				"expected a " + ItemField.class.getName() + "<? super " + expected.getName() + ">, " +
 				"but was a " + ItemField.class.getName() + '<' + actual.getName() + '>';
 	}
 

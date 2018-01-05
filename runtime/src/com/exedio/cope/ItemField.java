@@ -198,6 +198,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	/**
 	 * @see #asExtends(Class)
+	 * @see #asSuper(Class)
 	 * @see EnumField#as(Class)
 	 * @see Class#asSubclass(Class)
 	 */
@@ -229,6 +230,25 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			// exception message consistent with Cope.verboseCast(Class, Object)
 			throw new ClassCastException(
 					"expected a " + n + "<? extends " + clazz.getName() +
+					">, but was a " + n + '<' + valueClass.getName() + '>');
+		}
+
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final ItemField<X> result = (ItemField<X>)this;
+		return result;
+	}
+
+	/**
+	 * @see #as(Class)
+	 */
+	public <X extends Item> ItemField<? super X> asSuper(final Class<X> clazz)
+	{
+		if(!valueClass.isAssignableFrom(clazz))
+		{
+			final String n = ItemField.class.getName();
+			// exception message consistent with Cope.verboseCast(Class, Object)
+			throw new ClassCastException(
+					"expected a " + n + "<? super " + clazz.getName() +
 					">, but was a " + n + '<' + valueClass.getName() + '>');
 		}
 

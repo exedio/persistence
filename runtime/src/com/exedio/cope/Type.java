@@ -127,6 +127,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	/**
 	 * @see #asExtends(Class)
+	 * @see #asSuper(Class)
 	 * @see Class#asSubclass(Class)
 	 */
 	public <X extends Item> Type<X> as(final Class<X> clazz)
@@ -147,6 +148,19 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	{
 		if(!clazz.isAssignableFrom(javaClass))
 			throw new ClassCastException("expected ? extends " + clazz.getName() + ", but was " + javaClass.getName());
+
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final Type<X> result = (Type<X>)this;
+		return result;
+	}
+
+	/**
+	 * @see #as(Class)
+	 */
+	public <X extends Item> Type<? super X> asSuper(final Class<X> clazz)
+	{
+		if(!javaClass.isAssignableFrom(clazz))
+			throw new ClassCastException("expected ? super " + clazz.getName() + ", but was " + javaClass.getName());
 
 		@SuppressWarnings("unchecked") // OK: is checked on runtime
 		final Type<X> result = (Type<X>)this;

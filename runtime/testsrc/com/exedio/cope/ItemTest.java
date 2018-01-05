@@ -92,6 +92,7 @@ public class ItemTest extends TestmodelTest
 
 		assertSame(TYPE, TYPE.as(EmptyItem.class));
 		assertSame(TYPE, TYPE.asExtends(EmptyItem.class));
+		assertSame(TYPE, TYPE.asSuper(EmptyItem.class));
 		try
 		{
 			TYPE.as(EmptyItem2.class);
