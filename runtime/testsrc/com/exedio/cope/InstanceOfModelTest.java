@@ -167,28 +167,28 @@ public class InstanceOfModelTest
 		assertFails(() ->
 			InstanceOfAItem.TYPE.as(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsTypeFails(InstanceOfB1Item.class, InstanceOfAItem.class));
+			messageAsTypeFails(InstanceOfB1Item.class, InstanceOfAItem.class));
 	}
 	@Test void testAsTypeChildReverseExtends()
 	{
 		assertFails(() ->
 			InstanceOfAItem.TYPE.asExtends(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class));
+			messageAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class));
 	}
 	@Test void testAsFieldChildReverse()
 	{
 		assertFails(() ->
 			ref.as(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsFieldFails(InstanceOfB1Item.class, InstanceOfAItem.class));
+			messageAsFieldFails(InstanceOfB1Item.class, InstanceOfAItem.class));
 	}
 	@Test void testAsFieldChildReverseExtends()
 	{
 		assertFails(() ->
 			ref.asExtends(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class));
+			messageAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfAItem.class));
 	}
 
 	@Test void testAsTypeSameSub()
@@ -213,28 +213,28 @@ public class InstanceOfModelTest
 		assertFails(() ->
 			InstanceOfB2Item.TYPE.as(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsTypeFails(InstanceOfB1Item.class, InstanceOfB2Item.class));
+			messageAsTypeFails(InstanceOfB1Item.class, InstanceOfB2Item.class));
 	}
 	@Test void testAsTypeBrotherExtends()
 	{
 		assertFails(() ->
 			InstanceOfB2Item.TYPE.asExtends(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class));
+			messageAsTypeFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class));
 	}
 	@Test void testAsFieldBrother()
 	{
 		assertFails(() ->
 			InstanceOfRefItem.refb2.as(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsFieldFails(InstanceOfB1Item.class, InstanceOfB2Item.class));
+			messageAsFieldFails(InstanceOfB1Item.class, InstanceOfB2Item.class));
 	}
 	@Test void testAsFieldBrotherExtends()
 	{
 		assertFails(() ->
 			InstanceOfRefItem.refb2.asExtends(InstanceOfB1Item.class),
 			ClassCastException.class,
-			assertAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class));
+			messageAsFieldFailsExtends(InstanceOfB1Item.class, InstanceOfB2Item.class));
 	}
 
 	@Test void testAsTypeSameChildExtends()
@@ -242,7 +242,7 @@ public class InstanceOfModelTest
 		assertFails(() ->
 			InstanceOfB2Item.TYPE.as(InstanceOfAItem.class),
 			ClassCastException.class,
-			assertAsTypeFails(InstanceOfAItem.class, InstanceOfB2Item.class));
+			messageAsTypeFails(InstanceOfAItem.class, InstanceOfB2Item.class));
 	}
 	@Test void testAsTypeSameChildOk()
 	{
@@ -253,14 +253,14 @@ public class InstanceOfModelTest
 		assertFails(() ->
 			InstanceOfRefItem.refb2.as(InstanceOfAItem.class),
 			ClassCastException.class,
-			assertAsFieldFails(InstanceOfAItem.class, InstanceOfB2Item.class));
+			messageAsFieldFails(InstanceOfAItem.class, InstanceOfB2Item.class));
 	}
 	@Test void testAsFieldSameChildOk()
 	{
 		assertSame(InstanceOfRefItem.refb2, InstanceOfRefItem.refb2.asExtends(InstanceOfAItem.class));
 	}
 
-	private static String assertAsTypeFails(
+	private static String messageAsTypeFails(
 			final Class<? extends InstanceOfAItem> expected,
 			final Class<? extends InstanceOfAItem> actual)
 	{
@@ -269,7 +269,7 @@ public class InstanceOfModelTest
 				"but was " + actual.getName();
 	}
 
-	private static String assertAsTypeFailsExtends(
+	private static String messageAsTypeFailsExtends(
 			final Class<? extends InstanceOfAItem> expected,
 			final Class<? extends InstanceOfAItem> actual)
 	{
@@ -278,7 +278,7 @@ public class InstanceOfModelTest
 				"but was " + actual.getName();
 	}
 
-	private static String assertAsFieldFails(
+	private static String messageAsFieldFails(
 			final Class<? extends InstanceOfAItem> expected,
 			final Class<? extends InstanceOfAItem> actual)
 	{
@@ -287,7 +287,7 @@ public class InstanceOfModelTest
 				"but was a " + ItemField.class.getName() + '<' + actual.getName() + '>';
 	}
 
-	private static String assertAsFieldFailsExtends(
+	private static String messageAsFieldFailsExtends(
 			final Class<? extends InstanceOfAItem> expected,
 			final Class<? extends InstanceOfAItem> actual)
 	{
