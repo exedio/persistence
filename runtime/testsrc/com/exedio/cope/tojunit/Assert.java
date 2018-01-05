@@ -19,6 +19,8 @@
 package com.exedio.cope.tojunit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.junit.CopeAssert;
@@ -28,9 +30,22 @@ import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import org.junit.jupiter.api.function.Executable;
 
 public final class Assert
 {
+	@SuppressWarnings("UnusedReturnValue")
+	public static <T extends Throwable> T assertFails(
+			final Executable executable,
+			final Class<T> expectedType,
+			final String expectedMessage)
+	{
+		final T result = assertThrows(expectedType, executable);
+		assertSame(expectedType, result.getClass());
+		assertEquals(expectedMessage, result.getMessage());
+		return result;
+	}
+
 	public static void assertContainsList(final List<?> expected, final Collection<?> actual)
 	{
 		CopeAssert.assertContainsList(expected, actual);
