@@ -89,6 +89,8 @@
 				<arg line="--reports-dir build/testresults/@{scansrc}/@{env}" />
 				<sysproperty key="java.io.tmpdir" value="${basedir}/build/testtmpdir" />
 				<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
+				<sysproperty key="user.country"  value="${test-DefaultCountry}" />
+				<sysproperty key="user.language" value="${test-DefaultLanguage}" />
 				<assertions><enable/></assertions>
 			</java>
 		</sequential>
