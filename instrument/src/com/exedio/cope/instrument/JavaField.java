@@ -89,9 +89,11 @@ final class JavaField
 		parent.add(this);
 	}
 
-	String getType()
+	String getTypeParameter(final int number)
 	{
-		return applyTypeShortcuts(typeMirror);
+		if (!(typeMirror instanceof DeclaredType) || ((DeclaredType)typeMirror).getTypeArguments().isEmpty())
+			throw new RuntimeException("type "+typeMirror+" is not parameterized");
+		return applyTypeShortcuts(((DeclaredType)typeMirror).getTypeArguments().get(number));
 	}
 
 	void addTypeShortcut(final String fullType, final String shortType)

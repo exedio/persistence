@@ -52,8 +52,6 @@ abstract class CopeFeature
 
 	abstract Boolean getInitialByConfiguration();
 
-	abstract String getType();
-
 	abstract Object evaluate();
 
 	final Object getInstance()

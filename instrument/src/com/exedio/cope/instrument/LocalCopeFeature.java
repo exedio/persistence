@@ -52,10 +52,9 @@ final class LocalCopeFeature extends CopeFeature
 		return initialByConfiguration;
 	}
 
-	@Override
-	String getType()
+	String getTypeParameter(final int number)
 	{
-		return javaField.getType();
+		return javaField.getTypeParameter(number);
 	}
 
 	@Override

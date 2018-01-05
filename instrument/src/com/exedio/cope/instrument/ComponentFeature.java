@@ -57,12 +57,6 @@ final class ComponentFeature extends CopeFeature
 	}
 
 	@Override
-	String getType()
-	{
-		return "";
-	}
-
-	@Override
 	Object evaluate()
 	{
 		return component;

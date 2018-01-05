@@ -51,12 +51,6 @@ final class ExternalCopeFeature extends CopeFeature
 	}
 
 	@Override
-	String getType()
-	{
-		return field.getGenericType().toString().replace('$', '.');
-	}
-
-	@Override
 	@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 	Object evaluate()
 	{
