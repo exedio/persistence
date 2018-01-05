@@ -68,13 +68,9 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 				continue;
 
 			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeFullyQualified);
-			if(typeClass==null)
-				continue;
-
-			if(typeClass.isAnnotationPresent(WrapFeature.class))
-			{
-				register(new LocalCopeFeature(this, javaField));
-			}
+			if(typeClass==null || !typeClass.isAnnotationPresent(WrapFeature.class))
+				throw new RuntimeException("can't find "+javaField.typeFullyQualified+" for "+javaClass.name+"#"+javaField.name);
+			register(new LocalCopeFeature(this, javaField));
 		}
 	}
 

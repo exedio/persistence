@@ -116,7 +116,10 @@ class ClassVisitor extends GeneratedAwareScanner
 	public Void visitVariable(final VariableTree node, final Void p)
 	{
 		super.visitVariable(node, p);
-		if ( !hasGeneratedAnnotation() && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
+		if ( !hasGeneratedAnnotation()
+			&& node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE)
+			&& (node.getType().getKind()==Tree.Kind.IDENTIFIER||node.getType().getKind()==Tree.Kind.PARAMETERIZED_TYPE)
+			&& context.getElementForTree(node.getType()).getAnnotation(WrapFeature.class)!=null )
 		{
 			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 			final String variableType = getFullyQualifiedName(node.getType());
