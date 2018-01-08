@@ -215,7 +215,7 @@
 	<target name="dsmf.test" depends="dsmf.test.compile">
 		<foreachEnvironment skipSwitch="dsmf.test">
 			<body>
-				<ljunit scansrc="dsmf/testsrc" env="@{env}">
+				<ljunit scansrc="dsmf/testsrc" testproperty="dsmf.test" env="@{env}">
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/dsmf/testsrc" />
