@@ -415,7 +415,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Marshaller<C> marshaller;
 
 		final List<ItemField<C>> declaredReferences;
-		final List<ItemField<?>> references;
+		final List<ItemField<? super C>> references;
 
 		Mount(final Model model, final String id, final Types.MountParameters parameters)
 		{
@@ -458,10 +458,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			final Type<?> supertype = parameters.type.supertype;
 			if(supertype!=null)
 			{
-				final List<ItemField<?>> inherited = supertype.getReferences();
+				@SuppressWarnings("unchecked")
+				final List<ItemField<?>> inherited = (List<ItemField<?>>)supertype.getReferences();
 				final List<ItemField<C>> declared = declaredReferences;
 				if(declared.isEmpty())
-					this.references = inherited;
+					this.references = castReferences(inherited);
 				else if(inherited.isEmpty())
 					this.references = castReferences(declared);
 				else
@@ -469,7 +470,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 					final ArrayList<ItemField<?>> result = new ArrayList<>(inherited);
 					result.addAll(declared);
 					result.trimToSize();
-					this.references = Collections.unmodifiableList(result);
+					this.references = Collections.unmodifiableList(castReferences(result));
 				}
 			}
 			else
@@ -497,7 +498,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 
 		@SuppressWarnings({"unchecked", "rawtypes", "static-method", "MethodMayBeStatic"})
-		private List<ItemField<?>> castReferences(final List l)
+		private List<ItemField<? super C>> castReferences(final List l)
 		{
 			return l;
 		}
@@ -797,7 +798,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * or any of it's super types.
 	 * @see #getDeclaredReferences()
 	 */
-	public List<ItemField<?>> getReferences()
+	public List<ItemField<? super T>> getReferences()
 	{
 		return mount().references;
 	}
