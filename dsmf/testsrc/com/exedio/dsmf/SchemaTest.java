@@ -64,7 +64,7 @@ public abstract class SchemaTest
 		}
 	}
 
-	@BeforeEach final void setUpSchemaTest() throws ClassNotFoundException, SQLException
+	@BeforeEach final void setUpSchemaTest() throws SQLException
 	{
 		final Properties config = new Properties();
 		final String url = config.connectionUrl;
@@ -78,7 +78,6 @@ public abstract class SchemaTest
 		int numberOfConnections = 1;
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
-			Class.forName("org.hsqldb.jdbcDriver");
 			dialect = new HsqldbDialect();
 			numberOfConnections = 2;
 			stringType = "VARCHAR(8)";
@@ -89,14 +88,6 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:mysql:"))
 		{
-			try
-			{
-				Class.forName("com.mysql.jdbc.Driver");
-			}
-			catch(final ClassNotFoundException ignored)
-			{
-				Class.forName("org.mariadb.jdbc.Driver");
-			}
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
 			dialect = new MysqlDialect(
 					"CopeSequenceAutoIncrementColumnForTest",
@@ -109,7 +100,6 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:oracle:"))
 		{
-			Class.forName("oracle.jdbc.driver.OracleDriver");
 			dialect = new OracleDialect(username.toUpperCase(Locale.ENGLISH));
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
@@ -119,7 +109,6 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
-			Class.forName("org.postgresql.Driver");
 			dialect = new PostgresqlDialect(config.connectionPostgresqlSearchPath, false);
 			stringType = "character varying(8)";
 			intType  = "integer";
