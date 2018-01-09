@@ -25,16 +25,16 @@ before_script:
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
     "connection.password=pass\n"\
-    "schema.primaryKeyGenerator=sequence\n"\
+    "disableSupport.preparedStatements=true\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    | tee conf/environment/my-sq.properties
+    | tee conf/environment/my-nprep.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
     "connection.password=pass\n"\
-    "disableSupport.preparedStatements=true\n"\
+    "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=mysql-connector-java.jar\n"\
-    | tee conf/environment/my-nprep.properties
+    | tee conf/environment/my-sq.properties
   - echo -e -n \
     "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
     "connection.username=cope_test_user\n"\
@@ -54,17 +54,17 @@ before_script:
     "connection.username=postgres\n"\
     "connection.password=\n"\
     "dialect.search_path=public\n"\
-    "schema.primaryKeyGenerator=sequence\n"\
+    "disableSupport.preparedStatements=true\n"\
     "x-build.driver=postgresql.jar\n"\
-    | tee conf/environment/pg-sq.properties
+    | tee conf/environment/pg-nprep.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
     "connection.password=\n"\
     "dialect.search_path=public\n"\
-    "disableSupport.preparedStatements=true\n"\
+    "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=postgresql.jar\n"\
-    | tee conf/environment/pg-nprep.properties
+    | tee conf/environment/pg-sq.properties
 
 script: "ant clean jenkins -Dtest-details=none"
 
