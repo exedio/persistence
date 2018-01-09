@@ -32,7 +32,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import org.junit.jupiter.api.Assertions;
+import java.util.ListIterator;
 import org.junit.jupiter.api.extension.AfterEachCallback;
 import org.junit.jupiter.api.extension.BeforeEachCallback;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -77,7 +77,7 @@ public abstract class MainRule
 		public void beforeEach(final ExtensionContext context) throws Exception
 		{
 			assertNull(rules);
-			final ArrayList<MainRule> rules = new ArrayList<>();
+			this.rules = new ArrayList<>();
 
 			final Class<?> testClass = context.getTestClass().get();
 			final LinkedList<Class<?>> classesFromTop = new LinkedList<>();
@@ -99,18 +99,22 @@ public abstract class MainRule
 						rule.beforeCalled = true;
 					}
 			assertFalse(rules.isEmpty(), "no rule in " + testClass);
-			this.rules = rules;
 		}
 
 		@Override
 		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 		public void afterEach(final ExtensionContext context) throws Exception
 		{
-			Assertions.assertNotNull(rules);
-			for(final MainRule rule : rules)
-				rule.after();
-			rules.clear();
-			rules = null;
+			if(rules!=null)
+			{
+				for(final ListIterator<MainRule> i = rules.listIterator(rules.size()); i.hasPrevious(); )
+				{
+					final MainRule rule = i.previous();
+					rule.after();
+					i.remove();
+				}
+				rules = null;
+			}
 		}
 	}
 }
