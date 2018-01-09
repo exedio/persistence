@@ -41,7 +41,7 @@ before_script:
     "connection.password=pass\n"\
     "schema.primaryKeyGenerator=sequence\n"\
     "x-build.driver=mariadb-java-client.jar\n"\
-    | tee conf/environment/my-maria.properties
+    | tee conf/environment/mym.properties
   - echo -e -n \
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
     "connection.username=postgres\n"\
