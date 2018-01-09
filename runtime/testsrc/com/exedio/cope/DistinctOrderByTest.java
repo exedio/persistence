@@ -330,7 +330,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 		catch(final SQLRuntimeException e)
 		{
-			assertEquals(message, e.getCause().getMessage());
+			assertEquals(message, dropMariaConnectionId(e.getCause().getMessage()));
 		}
 	}
 
@@ -356,7 +356,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 		catch(final SQLRuntimeException e)
 		{
-			final String actual = e.getCause().getMessage();
+			final String actual = dropMariaConnectionId(e.getCause().getMessage());
 			assertTrue(message.test(actual), actual);
 		}
 	}
@@ -370,7 +370,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 		catch(final SQLRuntimeException e)
 		{
-			assertEquals(message, e.getCause().getMessage());
+			assertEquals(message, dropMariaConnectionId(e.getCause().getMessage()));
 		}
 	}
 }

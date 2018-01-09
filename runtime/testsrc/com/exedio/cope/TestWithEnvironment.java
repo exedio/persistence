@@ -30,6 +30,7 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.regex.Matcher;
 import org.junit.jupiter.api.BeforeEach;
 
 @TestWithEnvironment.Tag
@@ -262,5 +263,17 @@ public abstract class TestWithEnvironment
 				return ((Properties.BooleanField)field).get();
 
 		throw new AssertionError(key);
+	}
+
+	protected static final String dropMariaConnectionId(final String message)
+	{
+		// TODO do this for MariaDB connector only
+
+		final java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^\\(conn=\\p{Digit}*\\) (.*)$");
+		final Matcher matcher = pattern.matcher(message);
+		if(!matcher.matches())
+			return message;
+
+		return matcher.group(1);
 	}
 }

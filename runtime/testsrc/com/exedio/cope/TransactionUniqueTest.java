@@ -122,7 +122,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 					assertInsert(failure);
 					assertEquals(
 							"Duplicate entry 'collision' for key 'MyItem_field_Unq'",
-							failure.getCause().getMessage());
+							dropMariaConnectionId(failure.getCause().getMessage()));
 				}
 				else
 				{

@@ -63,7 +63,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			{
 				assertEquals(
 						"Duplicate entry 'commit' for key 'Main_uniqueString_Unq'",
-						e.getCause().getMessage());
+						dropMariaConnectionId(e.getCause().getMessage()));
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else
@@ -99,7 +99,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			{
 				assertEquals(
 						"Duplicate entry 'rollback' for key 'Main_uniqueString_Unq'",
-						e.getCause().getMessage());
+						dropMariaConnectionId(e.getCause().getMessage()));
 				assertTrue(e.getCause() instanceof SQLException);
 			}
 			else

@@ -39,6 +39,8 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Properties;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -68,6 +70,7 @@ final class MysqlDialect extends Dialect
 	final String sequenceColumnName;
 	private final boolean supportsAnyValue;
 	private final boolean mariaDriver;
+	private final Pattern extractUniqueViolationMessagePattern;
 
 	MysqlDialect(
 			final CopeProbe probe,
@@ -98,6 +101,7 @@ final class MysqlDialect extends Dialect
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		mariaDriver = env.getDriverName().startsWith("MariaDB");
+		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}*\\) (.*)$") : null;
 	}
 
 	private static String sequenceColumnName(final MysqlProperties properties)
@@ -677,7 +681,16 @@ final class MysqlDialect extends Dialect
 		if(!(exception instanceof SQLIntegrityConstraintViolationException))
 			return null;
 
-		final String message = exception.getMessage();
+		String message = exception.getMessage();
+
+		if(extractUniqueViolationMessagePattern!=null)
+		{
+			final Matcher matcher =
+					extractUniqueViolationMessagePattern.matcher(message);
+			if(matcher.matches())
+				message = matcher.group(1);
+		}
+
 		if(message==null || !message.startsWith(UNIQUE_PREFIX))
 			return null;
 		final int infixPosition = message.indexOf(UNIQUE_INFIX, UNIQUE_PREFIX_LENGTH);
