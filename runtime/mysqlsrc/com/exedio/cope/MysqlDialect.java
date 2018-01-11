@@ -84,7 +84,7 @@ final class MysqlDialect extends Dialect
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
 		final String mb4 = utf8mb4 ? "mb4" : "";
 		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
-		this.deleteTable = properties.avoidTruncate ? "delete from " : "truncate ";
+		this.deleteTable = properties.avoidTruncate ? "DELETE FROM " : "TRUNCATE ";
 		this.smallIntegerTypes = properties.smallIntegerTypes;
 		this.shortConstraintNames = !properties.longConstraintNames;
 		this.sequenceColumnName = sequenceColumnName(properties);
