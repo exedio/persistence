@@ -104,7 +104,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	static final class ABlock extends Block
 	{
 		@Wrapper(wrap="getURL", visibility=NONE)
-		static final Media source = new Media().optional().contentType(MediaType.JPEG, MediaType.PNG);
+		static final Media source = new Media().optional().contentTypes(MediaType.JPEG, MediaType.PNG);
 		@Wrapper(wrap="getURL", visibility=NONE)
 		static final MediaThumbnail filter = new MediaThumbnail(source, 10, 20);
 

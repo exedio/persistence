@@ -43,7 +43,7 @@ public final class MediaItem extends Item
 	static final MediaRedirect foto = new MediaRedirect(photo);
 
 	@Wrapper(wrap="getURL", visibility=NONE)
-	static final Media sheet = new Media().optional().lengthMax(5000).contentType("application/pdf", "image/png");
+	static final Media sheet = new Media().optional().lengthMax(5000).contentTypes("application/pdf", "image/png");
 
 	@WrapperIgnore // required because MediaCustom inherits @WrapFeature
 	static final MediaCustom custom = new MediaCustom(name);

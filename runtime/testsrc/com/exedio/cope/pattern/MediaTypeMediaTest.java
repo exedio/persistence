@@ -79,7 +79,7 @@ public class MediaTypeMediaTest
 
 	@Test void testEnum()
 	{
-		final Media m = new Media().contentType("image/jpeg", "image/pjpeg", "image/png", "ding/dong");
+		final Media m = new Media().contentTypes("image/jpeg", "image/pjpeg", "image/png", "ding/dong");
 		final DataField b = m.getBody();
 		final IntegerField c = (IntegerField)m.getContentType();
 		assertEquals(
@@ -92,7 +92,7 @@ public class MediaTypeMediaTest
 
 	@Test void testEnumUnique()
 	{
-		final Media m = new Media().contentType("image/jpeg", "image/png", "ding/dong");
+		final Media m = new Media().contentTypes("image/jpeg", "image/png", "ding/dong");
 		final DataField b = m.getBody();
 		final IntegerField c = (IntegerField)m.getContentType();
 		assertEquals(
@@ -109,7 +109,7 @@ public class MediaTypeMediaTest
 		final Media m = new Media();
 		try
 		{
-			m.contentType("image/jpeg", null);
+			m.contentTypes("image/jpeg", null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -124,7 +124,7 @@ public class MediaTypeMediaTest
 		final Media m = new Media();
 		try
 		{
-			m.contentType("image/jpeg", "image/jpeg");
+			m.contentTypes("image/jpeg", "image/jpeg");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -177,13 +177,13 @@ public class MediaTypeMediaTest
 		assertEquals(null, png.getAllowed(new Media().contentType("image/jpeg")));
 
 		{
-			final Media m = new Media().contentType("image/jpeg", "application/pdf");
+			final Media m = new Media().contentTypes("image/jpeg", "application/pdf");
 			assertEquals("image/jpeg", jpg.getAllowed(m));
 			assertEquals("application/pdf", pdf.getAllowed(m));
 			assertEquals(null, png.getAllowed(m));
 		}
 		{
-			final Media m = new Media().contentType("image/pjpeg", "application/pdf");
+			final Media m = new Media().contentTypes("image/pjpeg", "application/pdf");
 			assertEquals("image/pjpeg", jpg.getAllowed(m));
 			assertEquals("application/pdf", pdf.getAllowed(m));
 			assertEquals(null, png.getAllowed(m));

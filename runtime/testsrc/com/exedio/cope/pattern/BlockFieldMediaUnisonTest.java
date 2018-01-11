@@ -140,8 +140,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	static final class ABlock extends Block
 	{
-		static final Media uno = new Media().optional().contentType(MediaType.JPEG, MediaType.PNG);
-		static final Media duo = new Media().optional().contentType(MediaType.JPEG, MediaType.PNG);
+		static final Media uno = new Media().optional().contentTypes(MediaType.JPEG, MediaType.PNG);
+		static final Media duo = new Media().optional().contentTypes(MediaType.JPEG, MediaType.PNG);
 
 		void setUnoAndDuo(
 				final byte[] unoBody, final String unoContentType,

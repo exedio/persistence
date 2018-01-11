@@ -18,14 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class MediaManyContentTypeTest
 {
-	@Test void test()
+	@Deprecated
+	@Test void testContentType()
 	{
 		final Media[] medias = {
 			new Media(),
@@ -51,5 +55,34 @@ public class MediaManyContentTypeTest
 
 			assertEquals(expected, medias[index].getContentTypesAllowed());
 		}
+	}
+
+	@Test void testContentTypes()
+	{
+		final Media[] medias = {
+			new Media().contentTypes("ct/0"),
+			new Media().contentTypes("ct/0", "ct/1"),
+			new Media().contentTypes("ct/0", "ct/1", "ct/2"),
+			new Media().contentTypes("ct/0", "ct/1", "ct/2", "ct/3"),
+		};
+
+		for(int index = 0; index<medias.length; index++)
+		{
+			final ArrayList<String> expected = new ArrayList<>();
+			for(int i = 0; i<index+1; i++)
+				expected.add("ct/" + i);
+
+			assertEquals(expected, medias[index].getContentTypesAllowed());
+		}
+	}
+
+	@Test void testContentTypesEmpty()
+	{
+		final Media m = new Media();
+		assertFails(
+				m::contentTypes,
+				IllegalArgumentException.class,
+				"must provide at least one content type"
+		);
 	}
 }

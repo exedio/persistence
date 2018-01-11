@@ -256,7 +256,7 @@ public class TextUrlFilterModelTest
 		);
 		assertEquals(
 			false,
-			new TextUrlFilter(new Media().contentType("eins", "zwei"), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
+			new TextUrlFilter(new Media().contentTypes("eins", "zwei"), "eins", UTF_8, "{", "}", new StringField(), new Media()).isMandatory()
 		);
 		assertEquals(
 			false,

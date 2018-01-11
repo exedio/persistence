@@ -30,7 +30,7 @@ public class MediaFilterItem extends Item
 	static final Media optionalText = new Media().contentType("text/plain").optional();
 	static final MediaFilterThatConvertsText optionalTextConverted = new MediaFilterThatConvertsText(optionalText);
 
-	static final Media textOrImage = new Media().contentType("text/plain", "image/gif");
+	static final Media textOrImage = new Media().contentTypes("text/plain", "image/gif");
 	static final MediaFilterThatConvertsText textOrImageConverted = new MediaFilterThatConvertsText(textOrImage);
 
 	/**

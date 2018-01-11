@@ -160,7 +160,7 @@ public class BlockFieldStandardModelTest
 		static final ItemField<AnItem> anItem = ItemField.create(AnItem.class).optional();
 		static final ColorField aColor = new ColorField();
 		@Wrapper(wrap="getURL", visibility=NONE)
-		static final Media aMedia = new Media().optional().contentType("text/plain", "text/html");
+		static final Media aMedia = new Media().optional().contentTypes("text/plain", "text/html");
 		static final ListField<String> aList = ListField.create(new StringField());
 		static final SetField<Integer> aSet = SetField.create(new IntegerField());
 		static final EnumMapField<AnEnum,Integer> anEnumMap = EnumMapField.create(AnEnum.class, new IntegerField().optional());

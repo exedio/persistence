@@ -41,6 +41,7 @@ import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.Vault;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.Conditions;
 import com.exedio.cope.misc.SetValueUtil;
@@ -175,79 +176,111 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2)
 	{
-		return contentTypes(contentType1, contentType2);
+		return contentTypesInternal(contentType1, contentType2);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3)
 	{
-		return contentTypes(contentType1, contentType2, contentType3);
+		return contentTypesInternal(contentType1, contentType2, contentType3);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4)
 	{
-		return contentTypes(contentType1, contentType2, contentType3, contentType4);
+		return contentTypesInternal(contentType1, contentType2, contentType3, contentType4);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5)
 	{
-		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5);
+		return contentTypesInternal(contentType1, contentType2, contentType3, contentType4, contentType5);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6)
 	{
-		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6);
+		return contentTypesInternal(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7)
 	{
-		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7);
+		return contentTypesInternal(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7, final String contentType8)
 	{
-		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8);
+		return contentTypesInternal(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7, final String contentType8, final String contentType9)
 	{
-		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8, contentType9);
+		return contentTypesInternal(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8, contentType9);
 	}
 
 	/**
 	 * Creates a new media, that must contain one of the given content types only.
+	 * @deprecated use {@link #contentTypes(String...)}
 	 */
+	@Deprecated
 	public Media contentType(final String contentType1, final String contentType2, final String contentType3, final String contentType4, final String contentType5, final String contentType6, final String contentType7, final String contentType8, final String contentType9, final String contentType10)
 	{
-		return contentTypes(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8, contentType9, contentType10);
+		return contentTypesInternal(contentType1, contentType2, contentType3, contentType4, contentType5, contentType6, contentType7, contentType8, contentType9, contentType10);
 	}
 
-	// cannot make this method public, because the instrumentor (i.e. beanshell) does not work with varargs
-	// BEWARE: if this method was public it had to copy parameter
-	private Media contentTypes(final String... types)
+	/**
+	 * Creates a new media that must contain one of the given content types only.
+	 */
+	public Media contentTypes(final String... types)
+	{
+		switch (types.length)
+		{
+			case 0:
+				throw new IllegalArgumentException("must provide at least one content type");
+			case 1:
+				return contentType(types[0]);
+			default:
+				return contentTypesInternal(Arrays.copyOf(types));
+		}
+	}
+
+	private Media contentTypesInternal(final String... types)
 	{
 		return new Media(isfinal, optional, body.getMaximumLength(), new EnumContentType(types, isfinal, optional));
 	}

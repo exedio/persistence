@@ -95,7 +95,7 @@ public class MediaContentTypeMaxLengthTest
 	}
 	@Test void testEnum()
 	{
-		final Media m = new Media().contentType("1234/678", "1234/6789", "1234/6");
+		final Media m = new Media().contentTypes("1234/678", "1234/6789", "1234/6");
 		assertEquals(9, m.getContentTypeMaximumLength());
 		assertEquals(2, ((IntegerField)m.getContentType()).getMaximum());
 		try
