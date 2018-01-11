@@ -29,7 +29,7 @@ public class Input extends Item
 {
 	public static final StringField string = new StringField().toFinal();
 	public static final IntegerField integer = new IntegerField().toFinal();
-	public static final UniqueConstraint unique = new UniqueConstraint( string, integer );
+	public static final UniqueConstraint unique = UniqueConstraint.create( string, integer );
 
 	/**
 	 * Creates a new Input with all the fields initially needed.

@@ -130,7 +130,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		@Wrapper(wrap="*", visibility=NONE)
 		private static final IntegerField b = new IntegerField();
 
-		static final UniqueConstraint aAndB = new UniqueConstraint(a, b);
+		static final UniqueConstraint aAndB = UniqueConstraint.create(a, b);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private UniqueConstraintItem(

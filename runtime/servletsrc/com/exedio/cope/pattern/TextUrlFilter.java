@@ -179,7 +179,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		final Type<?> type = getType();
 
 		final ItemField<?> pasteParent = type.newItemField(CASCADE).toFinal();
-		final UniqueConstraint pasteParentAndKey = new UniqueConstraint(pasteParent, pasteKey);
+		final UniqueConstraint pasteParentAndKey = UniqueConstraint.create(pasteParent, pasteKey);
 		final Features features = new Features();
 		features.put("parent", pasteParent);
 		features.put("key", pasteKey);

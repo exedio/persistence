@@ -28,7 +28,7 @@ final class UniqueDoubleItem extends Item
 
 	static final IntegerField integer = new IntegerField();
 
-	static final UniqueConstraint constraint = new UniqueConstraint(string, integer);
+	static final UniqueConstraint constraint = UniqueConstraint.create(string, integer);
 
 	/**
 	 * Creates a new UniqueDoubleItem with all the fields initially needed.

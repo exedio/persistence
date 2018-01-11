@@ -47,7 +47,7 @@ final class RevstatBody extends Item
 
 	private static final IntegerField bodyNumber = new IntegerField().toFinal().min(0);
 	@SuppressWarnings("unused")
-	private static final UniqueConstraint revisionAndBodyNumber = new UniqueConstraint(revision, bodyNumber);
+	private static final UniqueConstraint revisionAndBodyNumber = UniqueConstraint.create(revision, bodyNumber);
 	private static final PartOf<Revstat> body = PartOf.create(revision, bodyNumber);
 	private static final IntegerField rows = new IntegerField().toFinal().min(0);
 	private static final LongField elapsed = new LongField().toFinal().min(0);

@@ -50,7 +50,7 @@ final class SamplerItemCache extends Item
 	private static final ItemField<SamplerTypeId> type  = ItemField.create(SamplerTypeId.class).toFinal();
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
-	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = new UniqueConstraint(date, type); // date must be first, so purging can use the index
+	@SuppressWarnings("unused") private static final UniqueConstraint dateAndType = UniqueConstraint.create(date, type); // date must be first, so purging can use the index
 
 	static SetValue<?> mapIt(final SamplerModel m)
 	{

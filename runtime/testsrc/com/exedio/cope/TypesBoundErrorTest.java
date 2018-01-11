@@ -337,7 +337,7 @@ public class TypesBoundErrorTest
 		@WrapperIgnore private static final IntegerField subField=new IntegerField();
 
 		@SuppressWarnings("unused")
-		@WrapperIgnore private static final UniqueConstraint superAndSub=new UniqueConstraint(superField, subField);
+		@WrapperIgnore private static final UniqueConstraint superAndSub=UniqueConstraint.create(superField, subField);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

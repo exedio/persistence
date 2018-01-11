@@ -123,8 +123,8 @@ public final class SetField<E> extends Pattern implements Copyable
 		final Type<?> type = getType();
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
-		final UniqueConstraint uniqueOrder = ordered ? new UniqueConstraint(parent, order) : null;
-		final UniqueConstraint uniqueElement = new UniqueConstraint(parent, element);
+		final UniqueConstraint uniqueOrder = ordered ? UniqueConstraint.create(parent, order) : null;
+		final UniqueConstraint uniqueElement = UniqueConstraint.create(parent, element);
 		final Features features = new Features();
 		features.put("parent", parent);
 		if(ordered)

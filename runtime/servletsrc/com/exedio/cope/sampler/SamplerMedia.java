@@ -51,7 +51,7 @@ final class SamplerMedia extends Item
 	private static final ItemField<SamplerMediaId> media = field(SamplerMediaId.class);
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
-	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = new UniqueConstraint(date, media); // date must be first, so purging can use the index
+	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = UniqueConstraint.create(date, media); // date must be first, so purging can use the index
 
 	static SetValue<?> mapIt(final SamplerModel m)
 	{

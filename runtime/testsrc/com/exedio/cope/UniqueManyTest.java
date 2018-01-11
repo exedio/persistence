@@ -37,7 +37,7 @@ public class UniqueManyTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		final int maximum = 12;
+		final int maximum = 13;
 
 		for(int index = 2; index<=maximum; index++)
 		{
@@ -76,18 +76,31 @@ public class UniqueManyTest extends TestWithEnvironment
 		static final StringField field10= new StringField().lengthMax(10);
 		static final StringField field11= new StringField().lengthMax(10);
 		static final StringField field12= new StringField().lengthMax(10);
+		static final StringField field13= new StringField().lengthMax(10);
 
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint2 = new UniqueConstraint(field1, field2);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint3 = new UniqueConstraint(field1, field2, field3);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint4 = new UniqueConstraint(field1, field2, field3, field4);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint5 = new UniqueConstraint(field1, field2, field3, field4, field5);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint6 = new UniqueConstraint(field1, field2, field3, field4, field5, field6);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint7 = new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint8 = new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint9 = new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint10= new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint11= new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11);
+		@SuppressWarnings("deprecation")
 		static final UniqueConstraint constraint12= new UniqueConstraint(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12);
+		static final UniqueConstraint constraint13= UniqueConstraint.create(field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12, field13);
 
 		static StringField field(final int index)
 		{
@@ -314,6 +327,23 @@ public class UniqueManyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.lang.String getField13()
+		{
+			return MyItem.field13.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setField13(@javax.annotation.Nonnull final java.lang.String field13)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.UniqueViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.field13.set(this,field13);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
 		static MyItem forConstraint2(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2)
 		{
@@ -487,6 +517,22 @@ public class UniqueManyTest extends TestWithEnvironment
 					java.lang.IllegalArgumentException
 		{
 			return MyItem.constraint12.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static MyItem forConstraint13(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11,@javax.annotation.Nonnull final java.lang.String field12,@javax.annotation.Nonnull final java.lang.String field13)
+		{
+			return MyItem.constraint13.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static MyItem forConstraint13Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11,@javax.annotation.Nonnull final java.lang.String field12,@javax.annotation.Nonnull final java.lang.String field13)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.constraint13.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

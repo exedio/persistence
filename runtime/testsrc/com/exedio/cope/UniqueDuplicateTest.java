@@ -49,8 +49,8 @@ public class UniqueDuplicateTest
 		static final StringField one = new StringField();
 		static final StringField two = new StringField();
 
-		static final UniqueConstraint constraintA = new UniqueConstraint(one, two);
-		static final UniqueConstraint constraintB = new UniqueConstraint(one, two);
+		static final UniqueConstraint constraintA = UniqueConstraint.create(one, two);
+		static final UniqueConstraint constraintB = UniqueConstraint.create(one, two);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}

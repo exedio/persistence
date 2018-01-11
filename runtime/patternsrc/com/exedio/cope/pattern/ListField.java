@@ -99,7 +99,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		final Type<?> type = getType();
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
-		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, order);
+		final UniqueConstraint uniqueConstraint = UniqueConstraint.create(parent, order);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("order", order);

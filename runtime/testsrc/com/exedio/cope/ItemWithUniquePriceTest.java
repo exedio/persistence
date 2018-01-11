@@ -68,7 +68,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 
 		public static final StringField other = new StringField();
 
-		public static final UniqueConstraint priceAndOther = new UniqueConstraint(price.getInt(), other);
+		public static final UniqueConstraint priceAndOther = UniqueConstraint.create(price.getInt(), other);
 
 		/**
 		 * Creates a new ItemWithUniquePrice with all the fields initially needed.

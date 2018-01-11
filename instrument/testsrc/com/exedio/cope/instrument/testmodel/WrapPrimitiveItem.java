@@ -31,12 +31,12 @@ final class WrapPrimitiveItem extends Item
 	static final IntegerField integer = new IntegerField();
 	static final DateField date = new DateField();
 	static final IntegerField integerOptional = new IntegerField().optional();
-	static final UniqueConstraint mixed = new UniqueConstraint(integer, date, integerOptional);
+	static final UniqueConstraint mixed = UniqueConstraint.create(integer, date, integerOptional);
 
 	static final BooleanField booleanField = new BooleanField();
 	static final LongField longField = new LongField();
 	static final DoubleField doubleField = new DoubleField();
-	static final UniqueConstraint primitive = new UniqueConstraint(booleanField, integer, longField, doubleField);
+	static final UniqueConstraint primitive = UniqueConstraint.create(booleanField, integer, longField, doubleField);
 
 	/**
 	 * Creates a new WrapPrimitiveItem with all the fields initially needed.

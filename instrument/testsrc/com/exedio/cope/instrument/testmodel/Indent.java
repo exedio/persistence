@@ -28,7 +28,7 @@ final class Indent extends Item
 {
 	static final StringField one = new StringField().optional();
 	static final StringField two = new StringField();
-	static final UniqueConstraint unq = new UniqueConstraint(one, two);
+	static final UniqueConstraint unq = UniqueConstraint.create(one, two);
 
 			/**
 			 * Creates a new Indent with all the fields initially needed.

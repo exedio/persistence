@@ -97,7 +97,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		final Type<?> type = getType();
 
 		final ItemField<?> parent = type.newItemField(CASCADE).toFinal();
-		final UniqueConstraint uniqueConstraint = new UniqueConstraint(parent, key);
+		final UniqueConstraint uniqueConstraint = UniqueConstraint.create(parent, key);
 		final Features features = new Features();
 		features.put("parent", parent);
 		features.put("key", key);

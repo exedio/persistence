@@ -136,7 +136,7 @@ public final class Standard extends Item
 
 	public static final StringField doubleUnique1 = new StringField().optional();
 	public static final IntegerField doubleUnique2 = new IntegerField().optional();
-	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
+	public static final UniqueConstraint doubleUnique = UniqueConstraint.create(doubleUnique1, doubleUnique2);
 
 	@WrapperIgnore
 	@SuppressWarnings("unused") // OK: test bad API usage

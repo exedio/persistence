@@ -29,7 +29,7 @@ package com.exedio.cope;
 	static final StringField uniqueDouble1 = new StringField();
 	static final IntegerField uniqueDouble2 = new IntegerField();
 	@CopeSchemaName("zuniqueDouble")
-	static final UniqueConstraint uniqueDouble = new UniqueConstraint(uniqueDouble1, uniqueDouble2);
+	static final UniqueConstraint uniqueDouble = UniqueConstraint.create(uniqueDouble1, uniqueDouble2);
 
 	@CopeSchemaName("zring")
 	static final StringField string = new StringField().optional().lengthMax(4);

@@ -110,11 +110,11 @@ public class BlockFieldUniqueMultiModelTest
 	{
 		static final StringField alpha = new StringField();
 		static final IntegerField beta = new IntegerField();
-		static final UniqueConstraint constraint = new UniqueConstraint(alpha, beta);
+		static final UniqueConstraint constraint = UniqueConstraint.create(alpha, beta);
 
 		static final PriceField alphaPrice = new PriceField();
 		static final PriceField betaPrice  = new PriceField();
-		static final UniqueConstraint constraintPrice = new UniqueConstraint(alphaPrice.getInt(), betaPrice.getInt());
+		static final UniqueConstraint constraintPrice = UniqueConstraint.create(alphaPrice.getInt(), betaPrice.getInt());
 
 
 	/**

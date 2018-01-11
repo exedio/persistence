@@ -66,7 +66,7 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 		static final IntegerField field1 = new IntegerField().toFinal(); // avoid update counter
 		static final IntegerField field2 = new IntegerField().toFinal(); // avoid update counter
 
-		static final UniqueConstraint uniqueA = new UniqueConstraint(field1, field2);
+		static final UniqueConstraint uniqueA = UniqueConstraint.create(field1, field2);
 
 	/**
 	 * Creates a new ItemA with all the fields initially needed.
@@ -162,7 +162,7 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 		static final IntegerField field1 = new IntegerField().toFinal(); // avoid update counter
 		static final IntegerField field2 = new IntegerField().toFinal(); // avoid update counter
 
-		static final UniqueConstraint uniqueB = new UniqueConstraint(field1, field2);
+		static final UniqueConstraint uniqueB = UniqueConstraint.create(field1, field2);
 
 	/**
 	 * Creates a new ItemB with all the fields initially needed.

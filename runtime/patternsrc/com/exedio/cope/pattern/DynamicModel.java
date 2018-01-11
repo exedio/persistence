@@ -182,12 +182,12 @@ public final class DynamicModel<L> extends Pattern
 		final ItemField<Type<L>> fieldParent = typeType.newItemField(CASCADE).toFinal();
 		features.put("parent", fieldParent);
 		features.put("position", fieldPosition);
-		features.put("uniqueConstraint", new UniqueConstraint(fieldParent, fieldPosition));
+		features.put("uniqueConstraint", UniqueConstraint.create(fieldParent, fieldPosition));
 		features.put("valueType", fieldValueType);
 		features.put("positionPerValueType", fieldPositionPerValueType);
-		features.put("uniqueConstraintPerValueType", new UniqueConstraint(fieldParent, fieldValueType, fieldPositionPerValueType));
+		features.put("uniqueConstraintPerValueType", UniqueConstraint.create(fieldParent, fieldValueType, fieldPositionPerValueType));
 		features.put("code", fieldCode);
-		features.put("uniqueConstraintCode", new UniqueConstraint(fieldParent, fieldCode));
+		features.put("uniqueConstraintCode", UniqueConstraint.create(fieldParent, fieldCode));
 		features.put("name", fieldLocalization);
 		final com.exedio.cope.Type<Field<L>> fieldType = castField(newSourceType(Field.class, features, "Field"));
 
@@ -199,9 +199,9 @@ public final class DynamicModel<L> extends Pattern
 			enumParent = fieldType.newItemField(CASCADE).toFinal();
 			features.put("parent", enumParent);
 			features.put("position", enumPosition);
-			features.put("uniquePosition", new UniqueConstraint(enumParent, enumPosition));
+			features.put("uniquePosition", UniqueConstraint.create(enumParent, enumPosition));
 			features.put("code", enumCode);
-			features.put("uniqueCode", new UniqueConstraint(enumParent, enumCode));
+			features.put("uniqueCode", UniqueConstraint.create(enumParent, enumCode));
 			features.put("name", enumLocalization);
 			enumType = castEnum(newSourceType(Enum.class, features, "Enum"));
 

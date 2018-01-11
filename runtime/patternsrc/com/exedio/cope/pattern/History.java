@@ -330,7 +330,7 @@ public final class History extends Pattern
 			final Features features = new Features();
 			event = parentType.type.newItemField(CASCADE).toFinal();
 			this.features = PartOf.create(event);
-			uniqueConstraint = new UniqueConstraint(event, id.getIdField());
+			uniqueConstraint = UniqueConstraint.create(event, id.getIdField());
 			features.put("event", event);
 			features.put("features", this.features);
 			features.put("id", id);

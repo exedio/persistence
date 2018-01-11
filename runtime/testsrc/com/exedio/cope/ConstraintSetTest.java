@@ -157,7 +157,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 
 		static final BooleanField uniqueA = new BooleanField().optional();
 		static final BooleanField uniqueB = new BooleanField().optional();
-		static final UniqueConstraint uniqueDouble = new UniqueConstraint(uniqueA, uniqueB);
+		static final UniqueConstraint uniqueDouble = UniqueConstraint.create(uniqueA, uniqueB);
 
 		/**
 		 * Creates a new AnItem and sets the given fields initially.

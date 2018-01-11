@@ -33,7 +33,7 @@ public final class DoubleUnique extends Item
 	public static final ItemField<SubTarget> item = ItemField.create(SubTarget.class).cascade().toFinal();
 
 	@Wrapper(wrap="finder", visibility=NONE)
-	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
+	public static final UniqueConstraint unique = UniqueConstraint.create(string, item);
 
 
 	/**

@@ -94,7 +94,7 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 		@WrapperInitial static final IntegerField integer = new IntegerField().optional();
 
-		static final UniqueConstraint constraint = new UniqueConstraint(string, integer);
+		static final UniqueConstraint constraint = UniqueConstraint.create(string, integer);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		MyItem(

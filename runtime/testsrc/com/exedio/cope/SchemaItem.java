@@ -47,7 +47,7 @@ final class SchemaItem extends Item
 	static final ItemField<SchemaTargetPolymorphicItem> polyOpt = ItemField.create(SchemaTargetPolymorphicItem.class).optional();
 
 	static final StringField uniqueString = new StringField().optional().unique();
-	static final UniqueConstraint doubleUnique = new UniqueConstraint(string, anEnum);
+	static final UniqueConstraint doubleUnique = UniqueConstraint.create(string, anEnum);
 
 	static final StringField stringMin4 = new StringField().optional().lengthMin(4);
 	static final StringField stringMax4 = new StringField().optional().lengthMax(4);

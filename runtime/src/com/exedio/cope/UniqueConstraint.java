@@ -41,7 +41,6 @@ public final class UniqueConstraint extends Feature implements Copyable
 	private final List<FunctionField<?>> fieldList;
 	private String databaseID;
 
-	// cannot make this method public, because the instrumentor (i.e. beanshell) does not work with varargs
 	private UniqueConstraint(final FunctionField<?>[] fields)
 	{
 		this.fields = fields;
@@ -59,59 +58,98 @@ public final class UniqueConstraint extends Feature implements Copyable
 		this(new FunctionField<?>[]{field});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2)
 	{
 		this(new FunctionField<?>[]{field1, field2});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9, final FunctionField<?> field10)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9, field10});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9, final FunctionField<?> field10, final FunctionField<?> field11)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11});
 	}
 
+	/** @deprecated use {@link UniqueConstraint#create} */
+	@Deprecated
 	public UniqueConstraint(final FunctionField<?> field1, final FunctionField<?> field2, final FunctionField<?> field3, final FunctionField<?> field4, final FunctionField<?> field5, final FunctionField<?> field6, final FunctionField<?> field7, final FunctionField<?> field8, final FunctionField<?> field9, final FunctionField<?> field10, final FunctionField<?> field11, final FunctionField<?> field12)
 	{
 		this(new FunctionField<?>[]{field1, field2, field3, field4, field5, field6, field7, field8, field9, field10, field11, field12});
+	}
+
+	/**
+	 * Create a UniqueConstraint on two or more fields.
+	 * Use {@link FunctionField#unique()} to create an UniqueConstraint on a single field.
+	 */
+	public static UniqueConstraint create(final FunctionField<?>... fields)
+	{
+		switch (fields.length)
+		{
+			case 0:
+				throw new IllegalArgumentException("must provide at least two fields");
+			case 1:
+				throw new IllegalArgumentException("use FunctionField#unique() to create an unique constraint on a single field");
+			default:
+				return new UniqueConstraint(com.exedio.cope.misc.Arrays.copyOf(fields));
+		}
 	}
 
 	@Override
