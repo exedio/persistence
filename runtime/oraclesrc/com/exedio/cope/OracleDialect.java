@@ -53,6 +53,8 @@ final class OracleDialect extends Dialect
 		super(
 				new com.exedio.dsmf.OracleDialect(
 						probe.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
+
+		requireDatabaseVersionAtLeast(11, 2, probe);
 	}
 
 	@Override

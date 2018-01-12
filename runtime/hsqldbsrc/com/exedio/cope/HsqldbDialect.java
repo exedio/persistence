@@ -57,6 +57,8 @@ final class HsqldbDialect extends Dialect
 		super(
 				new com.exedio.dsmf.HsqldbDialect());
 
+		requireDatabaseVersionAtLeast(2, 2, probe);
+
 		this.props = props;
 	}
 

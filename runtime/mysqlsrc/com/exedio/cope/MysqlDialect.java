@@ -80,6 +80,9 @@ final class MysqlDialect extends Dialect
 				new com.exedio.dsmf.MysqlDialect(
 						sequenceColumnName(properties),
 						properties.rowFormat.sql()));
+
+		requireDatabaseVersionAtLeast(5, 5, probe);
+
 		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
 		final String mb4 = utf8mb4 ? "mb4" : "";
