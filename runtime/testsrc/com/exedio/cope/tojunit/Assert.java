@@ -34,7 +34,6 @@ import org.junit.jupiter.api.function.Executable;
 
 public final class Assert
 {
-	@SuppressWarnings("UnusedReturnValue")
 	public static <T extends Throwable> T assertFails(
 			final Executable executable,
 			final Class<T> expectedType,

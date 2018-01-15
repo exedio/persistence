@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
+import static java.time.ZoneOffset.UTC;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
@@ -28,6 +29,7 @@ import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
+import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -44,6 +46,20 @@ public final class DateField extends FunctionField<Date>
 
 	private static final long serialVersionUID = 1l;
 
+	public static Date getDefaultMinimum()
+	{
+		return new Date(minimum);
+	}
+
+	public static Date getDefaultMaximum()
+	{
+		return new Date(maximum);
+	}
+
+
+	// TODO allow customization of minimum and maximum
+	private static final long minimum = LocalDateTime.of( 1600, 1, 1, 0, 0).toInstant(UTC).toEpochMilli(); // TODO allow earlier dates, but see DateConsistencyTest
+	private static final long maximum = LocalDateTime.of(10000, 1, 1, 0, 0).toInstant(UTC).toEpochMilli() - 1;
 	private final Precision precision;
 	private final RoundingMode roundingMode;
 
@@ -173,6 +189,16 @@ public final class DateField extends FunctionField<Date>
 	public boolean isDefaultNow()
 	{
 		return defaultSource instanceof DefaultNow;
+	}
+
+	public Date getMinimum()
+	{
+		return new Date(minimum);
+	}
+
+	public Date getMaximum()
+	{
+		return new Date(maximum);
 	}
 
 
@@ -413,8 +439,8 @@ public final class DateField extends FunctionField<Date>
 	{
 		return
 				getType().getModel().connect().supportsNativeDate
-				? new TimestampColumn(table, name, optional, precision)
-				: new IntegerColumn  (table, name, false, optional, Long.MIN_VALUE, Long.MAX_VALUE, true, precision);
+				? new TimestampColumn(table, name, optional, precision) // TODO minimum, maximum
+				: new IntegerColumn  (table, name, false, optional, minimum, maximum, true, precision);
 	}
 
 	@Override
@@ -433,6 +459,12 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	void checkNotNull(final Date value, final Item exceptionItem)
 	{
+		final long valueMillis = value.getTime();
+		if(valueMillis<minimum)
+			throw new DateRangeViolationException(this, exceptionItem, valueMillis, true, minimum);
+		if(valueMillis>maximum)
+			throw new DateRangeViolationException(this, exceptionItem, valueMillis, false, maximum);
+
 		precision.check(this, value, exceptionItem);
 	}
 

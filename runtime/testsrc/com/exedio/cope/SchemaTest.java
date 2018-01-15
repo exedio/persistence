@@ -88,8 +88,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_integ_MX", q(integ)+"<=10");
 		assertCheckConstraint(table, "Main_doub_MN", q(doub)+">=-11.1");
 		assertCheckConstraint(table, "Main_doub_MX", q(doub)+"<=11.1");
-		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+Long.MIN_VALUE, !nativeDate);
-		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+Long.MAX_VALUE, !nativeDate);
+		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+DateField.getDefaultMinimum().getTime(), !nativeDate);
+		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+DateField.getDefaultMaximum().getTime(), !nativeDate);
 		assertCheckConstraint(table, "Main_day_MN", null, false);
 		assertCheckConstraint(table, "Main_day_MX", null, false);
 		assertCheckConstraint(table, "Main_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+sac()+hp("1")+")");
@@ -107,8 +107,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_integOpt_MX", q(integOpt)+"<=10");
 		assertCheckConstraint(table, "Main_doubOpt_MN", q(doubOpt)+">=-11.1");
 		assertCheckConstraint(table, "Main_doubOpt_MX", q(doubOpt)+"<=11.1");
-		assertCheckConstraint(table, "Main_dateOpt_MN", q(dateOpt)+">="+Long.MIN_VALUE, !nativeDate);
-		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+Long.MAX_VALUE, !nativeDate);
+		assertCheckConstraint(table, "Main_dateOpt_MN", q(dateOpt)+">="+DateField.getDefaultMinimum().getTime(), !nativeDate);
+		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+DateField.getDefaultMaximum().getTime(), !nativeDate);
 		assertCheckConstraint(table, "Main_dayOpt_MN", null, false);
 		assertCheckConstraint(table, "Main_dayOpt_MX", null, false);
 		assertCheckConstraint(table, "Main_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+sac()+hp("1")+")");
