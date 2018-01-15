@@ -63,13 +63,10 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void completeConnection(final Connection connection) throws SQLException
+	void completeConnectionInfo(final java.util.Properties info)
 	{
-		try(java.sql.Statement st = connection.createStatement())
-		{
-			// http://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
-			st.execute("SET DATABASE TRANSACTION CONTROL MVCC");
-		}
+		// http://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
+		requireConnectionInfo(info, "hsqldb.tx", "mvcc");
 	}
 
 	@Override

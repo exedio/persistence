@@ -62,6 +62,15 @@ final class ConnectionProperties extends Properties
 		final java.util.Properties result = new java.util.Properties();
 		result.setProperty("user", username);
 		result.setProperty("password", password);
+
+		// properties that must be set for probe connection as well
+		// TODO dialect specific code should be in runtime/<dialect>src
+		if(url.startsWith("jdbc:hsqldb:"))
+		{
+			// see HsqldbDialect#completeConnectionInfo
+			result.setProperty("hsqldb.tx", "mvcc");
+		}
+
 		return result;
 	}
 
