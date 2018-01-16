@@ -29,6 +29,7 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 @ServiceProperties(PostgresqlProperties.class)
@@ -128,6 +129,15 @@ final class PostgresqlDialect extends Dialect
 	String getDateTimestampType()
 	{
 		return "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field;
+	}
+
+	@Override
+	String toLiteral(final Date value)
+	{
+		return DateField.format(
+				((value.getTime()%1000)!=0)
+				? "''yyyy-MM-dd HH:mm:ss.SSS'''::timestamp without time zone'"
+				: "''yyyy-MM-dd HH:mm:ss"+ "'''::timestamp without time zone'").format(value);
 	}
 
 	@Override

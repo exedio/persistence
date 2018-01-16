@@ -74,6 +74,20 @@ public class SchemaTest extends TestWithEnvironment
 	@Test void testSchema()
 	{
 		final boolean nativeDate = supportsNativeDate(model);
+		final String dateMinimum;
+		final String dateMaximum;
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch(dialect)
+		{
+			case postgresql:
+				dateMinimum = "'1600-01-01 00:00:00" +"'::timestamp without time zone";
+				dateMaximum = "'9999-12-31 23:59:59.999'::timestamp without time zone";
+				break;
+			default:
+				dateMinimum = "TIMESTAMP'1600-01-01 00:00:00.000'";
+				dateMaximum = "TIMESTAMP'9999-12-31 23:59:59.999'";
+				break;
+		}
 		final boolean dataVault = data.getVaultInfo()!=null;
 		final Schema schema = model.getVerifiedSchema();
 
@@ -88,8 +102,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_integ_MX", q(integ)+"<=10");
 		assertCheckConstraint(table, "Main_doub_MN", q(doub)+">=-11.1");
 		assertCheckConstraint(table, "Main_doub_MX", q(doub)+"<=11.1");
-		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+DateField.getDefaultMinimum().getTime(), !nativeDate);
-		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+DateField.getDefaultMaximum().getTime(), !nativeDate);
+		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+(nativeDate?dateMinimum:DateField.getDefaultMinimum().getTime()));
+		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+(nativeDate?dateMaximum:DateField.getDefaultMaximum().getTime()));
 		assertCheckConstraint(table, "Main_day_MN", null, false);
 		assertCheckConstraint(table, "Main_day_MX", null, false);
 		assertCheckConstraint(table, "Main_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+sac()+hp("1")+")");
@@ -107,8 +121,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_integOpt_MX", q(integOpt)+"<=10");
 		assertCheckConstraint(table, "Main_doubOpt_MN", q(doubOpt)+">=-11.1");
 		assertCheckConstraint(table, "Main_doubOpt_MX", q(doubOpt)+"<=11.1");
-		assertCheckConstraint(table, "Main_dateOpt_MN", q(dateOpt)+">="+DateField.getDefaultMinimum().getTime(), !nativeDate);
-		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+DateField.getDefaultMaximum().getTime(), !nativeDate);
+		assertCheckConstraint(table, "Main_dateOpt_MN", q(dateOpt)+">="+(nativeDate?dateMinimum:DateField.getDefaultMinimum().getTime()));
+		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+(nativeDate?dateMaximum:DateField.getDefaultMaximum().getTime()));
 		assertCheckConstraint(table, "Main_dayOpt_MN", null, false);
 		assertCheckConstraint(table, "Main_dayOpt_MX", null, false);
 		assertCheckConstraint(table, "Main_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+sac()+hp("1")+")");

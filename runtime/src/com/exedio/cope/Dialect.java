@@ -32,6 +32,7 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Objects;
@@ -308,6 +309,15 @@ abstract class Dialect
 	 * The framework will then fall back to store the number of milliseconds.
 	 */
 	abstract String getDateTimestampType();
+
+	/**
+	 * Don't use a static instance,
+	 * since then access must be synchronized
+	 */
+	String toLiteral(final Date value)
+	{
+		return DateField.format("'TIMESTAMP'''yyyy-MM-dd HH:mm:ss.SSS''").format(value);
+	}
 
 	String getDateExtract(final String quotedName, final Precision precision)
 	{

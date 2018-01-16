@@ -27,7 +27,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -36,16 +35,22 @@ import java.util.TimeZone;
 
 final class TimestampColumn extends Column
 {
+	private final long minimum;
+	private final long maximum;
 	private final Precision precision;
 
 	TimestampColumn(
 			final Table table,
 			final String id,
 			final boolean optional,
+			final long minimum,
+			final long maximum,
 			final Precision precision)
 	{
 		super(table, id, false, false, optional);
 		assert table.database.dialect.getDateTimestampType()!=null;
+		this.minimum = minimum;
+		this.maximum = maximum;
 		this.precision = precision;
 	}
 
@@ -61,6 +66,9 @@ final class TimestampColumn extends Column
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		final Dialect dialect = table.database.dialect;
+		newCheck(dsmf, "MN", quotedID + ">=" + dialect.toLiteral(new Date(minimum)));
+		newCheck(dsmf, "MX", quotedID + "<=" + dialect.toLiteral(new Date(maximum)));
+
 		switch(precision)
 		{
 			case HOUR:
@@ -111,7 +119,7 @@ final class TimestampColumn extends Column
 		if(cache==null)
 			return "NULL";
 		else
-			return newLiteralFormat().format(new Date((Long)cache));
+			return table.database.dialect.toLiteral(new Date((Long)cache));
 	}
 
 	@Override
@@ -128,15 +136,6 @@ final class TimestampColumn extends Column
 	private static boolean noNanos(final Timestamp ts)
 	{
 		return (ts.getNanos()%1000000)==0;
-	}
-
-	/**
-	 * Don't use a static instance,
-	 * since then access must be synchronized
-	 */
-	static SimpleDateFormat newLiteralFormat()
-	{
-		return DateField.format("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
 	}
 
 	static Calendar newGMTCalendar()

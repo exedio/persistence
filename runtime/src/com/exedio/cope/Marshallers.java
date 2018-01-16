@@ -34,7 +34,9 @@ final class Marshallers
 {
 	private final HashMap<Class<?>, Marshaller<?>> marshallers = new HashMap<>();
 
-	Marshallers(final boolean supportsNativeDate)
+	Marshallers(
+			final Dialect dialect,
+			final boolean supportsNativeDate)
 	{
 		put(SimpleSelectType.STRING, new Marshaller<String>(1) {
 			@Override
@@ -191,7 +193,7 @@ final class Marshallers
 				@Override
 				String marshalLiteral(final Date value)
 				{
-					return TimestampColumn.newLiteralFormat().format(value);
+					return dialect.toLiteral(value);
 				}
 
 				@Override

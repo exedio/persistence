@@ -19,12 +19,11 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.time.ZoneOffset.UTC;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.MainRule;
@@ -81,16 +80,10 @@ public class DateRangeTest extends TestWithEnvironment
 		final Table tab = model.getSchema().getTable(getTableName(MyItem.TYPE));
 		final Constraint min = tab.getConstraint("MyItem_field_MN");
 		final Constraint max = tab.getConstraint("MyItem_field_MX");
-		if(supportsNativeDate(model))
-		{
-			assertNull(min);
-			assertNull(max);
-		}
-		else
-		{
-			assertEquals(0, min.checkL());
-			assertEquals(0, max.checkL());
-		}
+		assertNotNull(min);
+		assertNotNull(max);
+		assertEquals(0, min.checkL());
+		assertEquals(0, max.checkL());
 	}
 
 	@Test void testMinimumExceeded() throws ParseException

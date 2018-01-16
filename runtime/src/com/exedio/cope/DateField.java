@@ -437,7 +437,7 @@ public final class DateField extends FunctionField<Date>
 	{
 		return
 				getType().getModel().connect().supportsNativeDate
-				? new TimestampColumn(table, name, optional, precision) // TODO minimum, maximum
+				? new TimestampColumn(table, name, optional, minimum, maximum, precision)
 				: new IntegerColumn  (table, name, false, optional, minimum, maximum, true, precision);
 	}
 

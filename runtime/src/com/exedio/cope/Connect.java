@@ -93,7 +93,7 @@ final class Connect
 				properties.connectionPool,
 				new PoolCounter());
 		this.connectionPool = new ConnectionPool(pool);
-		this.marshallers = new Marshallers(supportsNativeDate);
+		this.marshallers = new Marshallers(dialect, supportsNativeDate);
 		this.executor = new Executor(dialect, supportsUniqueViolation, properties, marshallers);
 		this.database = new Database(
 				dialect.dsmfDialect,
