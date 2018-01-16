@@ -40,7 +40,7 @@ public class MediaUrlFingerPrintingTest
 	{
 		assertIt(MIN_VALUE + 2, ".-_________H");
 		assertIt(MIN_VALUE + 1, ".__________H");
-		assertIt(MIN_VALUE,     ".__________H");
+		assertIt(MIN_VALUE,     ".__________H"); // special case, same as MIN_VALUE + 1
 	}
 
 	@Test void testMaximum()
