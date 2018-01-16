@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.TestWithEnvironment;
@@ -152,22 +151,6 @@ public final class MediaUrlTest extends TestWithEnvironment
 		model.commit();
 		model.disconnect();
 		model.connect(ConnectProperties.create(copeRule.getConnectProperties().getSourceObject()));
-	}
-
-	@Test void testFingerprintLimit()
-	{
-		assumeTrue(!model.getConnectProperties().isSupportDisabledForPreparedStatements());
-		assumeTrue(!postgresql);
-
-		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE + 2));
-		assertIt("MediaUrlItem/fileFinger/.f.-_________H/", fileFinger, anond, "");
-
-		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE + 1));
-		assertIt("MediaUrlItem/fileFinger/.f.__________H/", fileFinger, anond, "");
-
-		fileFinger.getLastModified().set(anond, new Date(Long.MIN_VALUE));
-		assertEquals(new Date(Long.MIN_VALUE), fileFinger.getLastModified().get(anond));
-		assertIt("MediaUrlItem/fileFinger/.f.__________H/", fileFinger, anond, "");
 	}
 
 	private static void assertIt(final String prefix, final Media path, final MediaUrlItem item, final String postfix)
