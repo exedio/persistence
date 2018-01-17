@@ -27,62 +27,111 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldStandardTest
 {
-	@WrapperIgnore
+	@WrapperType(indent=2, comments=false)
 	static final class AnMandatoryItem extends com.exedio.cope.Item
 	{
-		private static final long serialVersionUID = 1l;
-
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
 				MultiItemFieldComponentB.class);
 
-		static final Type<AnMandatoryItem> TYPE = TypesBound.newType(AnMandatoryItem.class);
-		private AnMandatoryItem(final ActivationParameters ap) { super(ap); }
-	}
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		AnMandatoryItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
 
-	@WrapperIgnore
-	static final class AnOptionalItem extends com.exedio.cope.Item
-	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private AnMandatoryItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<AnMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(AnMandatoryItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private AnMandatoryItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(indent=2, comments=false)
+	static final class AnOptionalItem extends com.exedio.cope.Item
+	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
 				MultiItemFieldComponentB.class).optional();
 
-		static final Type<AnOptionalItem> TYPE = TypesBound.newType(AnOptionalItem.class);
-		private AnOptionalItem(final ActivationParameters ap) { super(ap); }
-	}
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		AnOptionalItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
 
-	@WrapperIgnore
-	static final class AnFinalItem extends com.exedio.cope.Item
-	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private AnOptionalItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<AnOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(AnOptionalItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private AnOptionalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(indent=2, comments=false)
+	static final class AnFinalItem extends com.exedio.cope.Item
+	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
 				MultiItemFieldComponentB.class).toFinal();
-	}
 
-	@WrapperIgnore
-	static final class ThreeItem extends com.exedio.cope.Item
-	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		AnFinalItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private AnFinalItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<AnFinalItem> TYPE = com.exedio.cope.TypesBound.newType(AnFinalItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private AnFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(indent=2, comments=false)
+	static final class ThreeItem extends com.exedio.cope.Item
+	{
 		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
@@ -96,22 +145,58 @@ public class MultiItemFieldStandardTest
 				MultiItemFieldComponentC.class).
 				optional();
 
-		static final Type<ThreeItem> TYPE = TypesBound.newType(ThreeItem.class);
-		private ThreeItem(final ActivationParameters ap) { super(ap); }
-	}
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		ThreeItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
 
-	@WrapperIgnore
-	static final class AnCascadeItem extends com.exedio.cope.Item
-	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ThreeItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ThreeItem> TYPE = com.exedio.cope.TypesBound.newType(ThreeItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private ThreeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(indent=2, comments=false)
+	static final class AnCascadeItem extends com.exedio.cope.Item
+	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
 				MultiItemFieldValue.class,
 				MultiItemFieldComponentA.class,
 				MultiItemFieldComponentB.class).cascade();
 
-		static final Type<AnCascadeItem> TYPE = TypesBound.newType(AnCascadeItem.class);
-		private AnCascadeItem(final ActivationParameters ap) { super(ap); }
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		AnCascadeItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Test void testGetComponentClasses()
