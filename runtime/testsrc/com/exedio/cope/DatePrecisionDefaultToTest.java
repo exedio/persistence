@@ -45,10 +45,10 @@ public class DatePrecisionDefaultToTest
 			assertEquals(
 					"The default constant of the field does not comply to one of it's own constraints, " +
 					"caused a DatePrecisionViolationException: " +
-					"precision violation, 1970-01-12 22:44:55.066 GMT (66) is too precise for MINUTE, " +
+					"precision violation, 1970/01/12 22:44:55.066 GMT (66) is too precise for MINUTE, " +
 					"round either to " +
-					"1970-01-12 22:44:00.000 in the past or " +
-					"1970-01-12 22:45:00.000 in the future. " +
+					"1970/01/12 22:44:00.000 in the past or " +
+					"1970/01/12 22:45:00.000 in the future. " +
 					"Default constant was '" + wrong + "'.",
 					e.getMessage());
 			assertNull(e.getCause());

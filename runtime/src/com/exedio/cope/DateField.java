@@ -29,6 +29,7 @@ import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
+import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -353,9 +354,6 @@ public final class DateField extends FunctionField<Date>
 			result.setTime(value);
 			return result;
 		}
-
-		static final String ZONE_ID = "GMT";
-		static final TimeZone ZONE = getTimeZone(ZONE_ID);
 	}
 
 	/**
@@ -531,4 +529,20 @@ public final class DateField extends FunctionField<Date>
 	{
 		set(item, precision.round(Clock.newDate(), roundingMode, this, item)); // TODO: make a more efficient implementation
 	}
+
+
+	static SimpleDateFormat format()
+	{
+		return format("yyyy/MM/dd HH:mm:ss.SSS");
+	}
+
+	static SimpleDateFormat format(final String pattern)
+	{
+		final SimpleDateFormat result = new SimpleDateFormat(pattern, Locale.ENGLISH);
+		result.setTimeZone(ZONE);
+		result.setLenient(false);
+		return result;
+	}
+
+	private static final TimeZone ZONE = getTimeZone("GMT");
 }

@@ -19,10 +19,8 @@
 package com.exedio.cope;
 
 import com.exedio.cope.instrument.ConstructorComment;
-import com.exedio.cope.util.TimeZoneStrict;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Signals, that an attempt to write an {@link DateField} has been failed,
@@ -88,12 +86,10 @@ public final class DateRangeViolationException extends ConstraintViolationExcept
 	@Override
 	public String getMessage(final boolean withFeature)
 	{
-		final SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
-		format.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
-
+		final SimpleDateFormat format = DateField.format();
 		return
 				"range violation" + getItemPhrase() +
-				", " + format.format(getValue()) + " is too " +
+				", " + format.format(getValue()) + ' ' + format.getTimeZone().getID() + " is too " +
 				(isTooSmall?"small":"big") +
 				(withFeature ? (" for " + feature) : "") +
 				", must be at " + (isTooSmall?"least":"most") +

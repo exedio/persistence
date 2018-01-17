@@ -23,7 +23,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -31,7 +30,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Locale;
 import java.util.Map;
 
 final class Statement
@@ -408,7 +406,7 @@ final class Statement
 		else if(o instanceof Item)
 			((Item)o).appendCopeID(bf);
 		else if(o instanceof Date)
-			bf.append(new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH).format((Date)o));
+			bf.append(DateField.format().format((Date)o));
 		else if(o instanceof String)
 			bf.append(StringField.truncateValue((String)o));
 		else if(o instanceof byte[])

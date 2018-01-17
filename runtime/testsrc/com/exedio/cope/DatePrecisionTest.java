@@ -57,17 +57,17 @@ public class DatePrecisionTest extends TestWithEnvironment
 		{
 			assertEquals(
 					"precision violation on Main-0, " +
-					"1970-01-01 00:00:55.066 GMT (66) is too precise for SECOND of Main.seconds, " +
+					"1970/01/01 00:00:55.066 GMT (66) is too precise for SECOND of Main.seconds, " +
 					"round either to " +
-					"1970-01-01 00:00:55.000 in the past or " +
-					"1970-01-01 00:00:56.000 in the future.",
+					"1970/01/01 00:00:55.000 in the past or " +
+					"1970/01/01 00:00:56.000 in the future.",
 					e.getMessage());
 			assertEquals(
 					"precision violation on Main-0, " +
-					"1970-01-01 00:00:55.066 GMT (66) is too precise for SECOND, " +
+					"1970/01/01 00:00:55.066 GMT (66) is too precise for SECOND, " +
 					"round either to " +
-					"1970-01-01 00:00:55.000 in the past or " +
-					"1970-01-01 00:00:56.000 in the future.",
+					"1970/01/01 00:00:55.000 in the past or " +
+					"1970/01/01 00:00:56.000 in the future.",
 					e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(seconds, e.getFeature());
@@ -95,17 +95,17 @@ public class DatePrecisionTest extends TestWithEnvironment
 		{
 			assertEquals(
 					"precision violation on Main-0, " +
-					"1970-01-01 00:45:55.066 GMT (66) is too precise for MINUTE of Main.minutes, " +
+					"1970/01/01 00:45:55.066 GMT (66) is too precise for MINUTE of Main.minutes, " +
 					"round either to " +
-					"1970-01-01 00:45:00.000 in the past or " +
-					"1970-01-01 00:46:00.000 in the future.",
+					"1970/01/01 00:45:00.000 in the past or " +
+					"1970/01/01 00:46:00.000 in the future.",
 					e.getMessage());
 			assertEquals(
 					"precision violation on Main-0, " +
-					"1970-01-01 00:45:55.066 GMT (66) is too precise for MINUTE, " +
+					"1970/01/01 00:45:55.066 GMT (66) is too precise for MINUTE, " +
 					"round either to " +
-					"1970-01-01 00:45:00.000 in the past or " +
-					"1970-01-01 00:46:00.000 in the future.",
+					"1970/01/01 00:45:00.000 in the past or " +
+					"1970/01/01 00:46:00.000 in the future.",
 					e.getMessageWithoutFeature());
 			assertEquals(item, e.getItem());
 			assertEquals(minutes, e.getFeature());

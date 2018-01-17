@@ -136,11 +136,7 @@ final class TimestampColumn extends Column
 	 */
 	static SimpleDateFormat newLiteralFormat()
 	{
-		final SimpleDateFormat result =
-				new SimpleDateFormat("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}", Locale.ENGLISH);
-		result.setTimeZone(GMT);
-		result.setLenient(false);
-		return result;
+		return DateField.format("{'ts' ''yyyy-MM-dd HH:mm:ss.SSS''}");
 	}
 
 	static Calendar newGMTCalendar()
