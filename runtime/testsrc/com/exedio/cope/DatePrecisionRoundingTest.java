@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DateField.Precision.ZONE;
 import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.Assert.fail;
@@ -212,7 +211,7 @@ public class DatePrecisionRoundingTest
 	private static Date dateS(final String date) throws ParseException
 	{
 		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
-		result.setTimeZone(ZONE);
+		result.setTimeZone(getTimeZone("GMT"));
 		result.setLenient(false);
 		return result.parse(date);
 	}
