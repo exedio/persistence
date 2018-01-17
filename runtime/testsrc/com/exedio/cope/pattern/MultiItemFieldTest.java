@@ -37,6 +37,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldTest extends TestWithEnvironment
@@ -378,6 +379,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals("MultiItemFieldItem.field=MultiItemFieldComponentxC-0", MultiItemFieldItem.field.map(c).toString());
 	}
 
+	@WrapperType(indent=2)
 	static final class AnCascadeItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
@@ -391,39 +393,39 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		}
 
 
-	/**
-	 * Creates a new AnCascadeItem with all the fields initially needed.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	AnCascadeItem()
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		/**
+		 * Creates a new AnCascadeItem with all the fields initially needed.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		AnCascadeItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		/**
+		 * Creates a new AnCascadeItem and sets the given fields initially.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		/**
+		 * The persistent type information for anCascadeItem.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new AnCascadeItem and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for anCascadeItem.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 }
