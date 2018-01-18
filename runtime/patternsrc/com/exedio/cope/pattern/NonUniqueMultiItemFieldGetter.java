@@ -18,11 +18,13 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.instrument.WrapImplementsInterim;
-import java.io.Serializable;
+import com.exedio.cope.instrument.BooleanGetter;
 
-@SuppressWarnings("MarkerInterface") // OK: empty interface is enough for test
-@WrapImplementsInterim
-public interface MultiItemFieldValuex extends Serializable
+final class NonUniqueMultiItemFieldGetter implements BooleanGetter<MultiItemField<?>>
 {
+	@Override
+	public boolean get(final MultiItemField<?> feature)
+	{
+		return !feature.isUnique();
+	}
 }

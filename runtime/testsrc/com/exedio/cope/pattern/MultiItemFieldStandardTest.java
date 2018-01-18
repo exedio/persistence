@@ -45,14 +45,33 @@ public class MultiItemFieldStandardTest
 				MultiItemFieldComponentB.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		AnMandatoryItem()
+		AnMandatoryItem(
+					@javax.annotation.Nonnull final MultiItemFieldValue field)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
+				AnMandatoryItem.field.map(field),
 			});
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private AnMandatoryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		MultiItemFieldValue getField()
+		{
+			return AnMandatoryItem.field.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setField(@javax.annotation.Nonnull final MultiItemFieldValue field)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			AnMandatoryItem.field.set(this,field);
+		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -83,6 +102,19 @@ public class MultiItemFieldStandardTest
 		private AnOptionalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		MultiItemFieldValue getField()
+		{
+			return AnOptionalItem.field.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setField(@javax.annotation.Nullable final MultiItemFieldValue field)
+		{
+			AnOptionalItem.field.set(this,field);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -101,14 +133,25 @@ public class MultiItemFieldStandardTest
 				MultiItemFieldComponentB.class).toFinal();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		AnFinalItem()
+		AnFinalItem(
+					@javax.annotation.Nonnull final MultiItemFieldValue field)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
+				AnFinalItem.field.map(field),
 			});
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private AnFinalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		MultiItemFieldValue getField()
+		{
+			return AnFinalItem.field.get(this);
+		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -137,14 +180,46 @@ public class MultiItemFieldStandardTest
 				optional();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		ThreeItem()
+		ThreeItem(
+					@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
+				ThreeItem.mandatory.map(mandatory),
 			});
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private ThreeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		MultiItemFieldValue getMandatory()
+		{
+			return ThreeItem.mandatory.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setMandatory(@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			ThreeItem.mandatory.set(this,mandatory);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		MultiItemFieldValue getOptional()
+		{
+			return ThreeItem.optional.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setOptional(@javax.annotation.Nullable final MultiItemFieldValue optional)
+		{
+			ThreeItem.optional.set(this,optional);
+		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -181,14 +256,46 @@ public class MultiItemFieldStandardTest
 				optional();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		FourItem()
+		FourItem(
+					@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
+				FourItem.mandatory.map(mandatory),
 			});
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private FourItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		MultiItemFieldValue getMandatory()
+		{
+			return FourItem.mandatory.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setMandatory(@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			FourItem.mandatory.set(this,mandatory);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		MultiItemFieldValue getOptional()
+		{
+			return FourItem.optional.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setOptional(@javax.annotation.Nullable final MultiItemFieldValue optional)
+		{
+			FourItem.optional.set(this,optional);
+		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -209,14 +316,33 @@ public class MultiItemFieldStandardTest
 				MultiItemFieldComponentB.class).cascade();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		AnCascadeItem()
+		AnCascadeItem(
+					@javax.annotation.Nonnull final MultiItemFieldValue field)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
+				AnCascadeItem.field.map(field),
 			});
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		MultiItemFieldValue getField()
+		{
+			return AnCascadeItem.field.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setField(@javax.annotation.Nonnull final MultiItemFieldValue field)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			AnCascadeItem.field.set(this,field);
+		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

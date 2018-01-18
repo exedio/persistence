@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.WrapperIgnore;
 
 final class MultiItemFieldItem extends Item
 {
@@ -58,62 +57,22 @@ final class MultiItemFieldItem extends Item
 			MultiItemFieldValuex.class,
 			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class).optional().unique();
 
-	@WrapperIgnore
 	static final PartOf<MultiItemFieldComponentxA> partOfClassA = PartOf.create(field.of(MultiItemFieldComponentxA.class));
-
-	MultiItemFieldItem(final MultiItemFieldValuex field)
-			throws com.exedio.cope.MandatoryViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]
-		{
-				MultiItemFieldItem.field.map(field),
-		});
-	}
-
-	// TODO generate by instrumentor
-	MultiItemFieldValuex getField()
-	{
-		return field.get(this);
-	}
-
-	// TODO generate by instrumentor
-	void setField(final MultiItemFieldValuex value)
-	{
-		field.set(this, value);
-	}
-
-	// TODO generate by instrumentor
-	MultiItemFieldValuex getOptionalField()
-	{
-		return optionalField.get(this);
-	}
-
-	// TODO generate by instrumentor
-	void setOptionalField(final MultiItemFieldValuex value)
-	{
-		optionalField.set(this, value);
-	}
-
-	// TODO generate by instrumentor
-	MultiItemFieldValuex getUniqueField()
-	{
-		return uniqueField.get(this);
-	}
-
-	// TODO generate by instrumentor
-	void setUniqueField(final MultiItemFieldValuex value)
-	{
-		uniqueField.set(this, value);
-	}
 
 
 	/**
 	 * Creates a new MultiItemFieldItem with all the fields initially needed.
+	 * @param field the initial value for field {@link #field}.
+	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	MultiItemFieldItem()
+	MultiItemFieldItem(
+				@javax.annotation.Nonnull final MultiItemFieldValuex field)
+			throws
+				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
+			MultiItemFieldItem.field.map(field),
 		});
 	}
 
@@ -122,6 +81,123 @@ final class MultiItemFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	private MultiItemFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+	/**
+	 * Returns the value of {@link #field}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nonnull
+	MultiItemFieldValuex getField()
+	{
+		return MultiItemFieldItem.field.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #field}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	void setField(@javax.annotation.Nonnull final MultiItemFieldValuex field)
+			throws
+				com.exedio.cope.MandatoryViolationException
+	{
+		MultiItemFieldItem.field.set(this,field);
+	}
+
+	/**
+	 * Returns the value of {@link #optionalField}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	MultiItemFieldValuex getOptionalField()
+	{
+		return MultiItemFieldItem.optionalField.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #optionalField}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	void setOptionalField(@javax.annotation.Nullable final MultiItemFieldValuex optionalField)
+	{
+		MultiItemFieldItem.optionalField.set(this,optionalField);
+	}
+
+	/**
+	 * Returns the value of {@link #uniqueField}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	MultiItemFieldValuex getUniqueField()
+	{
+		return MultiItemFieldItem.uniqueField.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #uniqueField}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	void setUniqueField(@javax.annotation.Nullable final MultiItemFieldValuex uniqueField)
+			throws
+				com.exedio.cope.UniqueViolationException
+	{
+		MultiItemFieldItem.uniqueField.set(this,uniqueField);
+	}
+
+	/**
+	 * Finds a multiItemFieldItem by its {@link #uniqueField}.
+	 * @param uniqueField shall be equal to field {@link #uniqueField}.
+	 * @return null if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@javax.annotation.Nullable
+	static MultiItemFieldItem forUniqueField(@javax.annotation.Nonnull final MultiItemFieldValuex uniqueField)
+	{
+		return MultiItemFieldItem.uniqueField.searchUnique(MultiItemFieldItem.class,uniqueField);
+	}
+
+	/**
+	 * Finds a multiItemFieldItem by its {@link #uniqueField}.
+	 * @param uniqueField shall be equal to field {@link #uniqueField}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static MultiItemFieldItem forUniqueFieldStrict(@javax.annotation.Nonnull final MultiItemFieldValuex uniqueField)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return MultiItemFieldItem.uniqueField.searchUniqueStrict(MultiItemFieldItem.class,uniqueField);
+	}
+
+	/**
+	 * Returns the container this item is part of by {@link #partOfClassA}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
+	@javax.annotation.Nullable
+	MultiItemFieldComponentxA getPartOfClassAContainer()
+	{
+		return MultiItemFieldItem.partOfClassA.getContainer(this);
+	}
+
+	/**
+	 * Returns the parts of the given container.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@javax.annotation.Nonnull
+	static java.util.List<MultiItemFieldItem> getPartOfClassAParts(@javax.annotation.Nullable final MultiItemFieldComponentxA container)
+	{
+		return MultiItemFieldItem.partOfClassA.getParts(MultiItemFieldItem.class,container);
+	}
+
+	/**
+	 * Returns the parts of the given container matching the given condition.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@javax.annotation.Nonnull
+	static java.util.List<MultiItemFieldItem> getPartOfClassAParts(@javax.annotation.Nullable final MultiItemFieldComponentxA container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
+	{
+		return MultiItemFieldItem.partOfClassA.getParts(MultiItemFieldItem.class,container,condition);
+	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

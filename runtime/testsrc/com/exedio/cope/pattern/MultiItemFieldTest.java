@@ -35,6 +35,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.WrapperType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldTest extends TestWithEnvironment
@@ -114,6 +115,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getOptionalFieldB());
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testCreateWithNullForMandatory()
 	{
 		try
@@ -127,6 +129,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testSetNullForMandatory()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
@@ -273,6 +276,73 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(value, item1.getUniqueField());
 	}
 
+	@Test void testSearch()
+	{
+		final MultiItemFieldValuex value1 = new MultiItemFieldComponentxA();
+		final MultiItemFieldValuex value2 = new MultiItemFieldComponentxA();
+		final MultiItemFieldValuex value3 = new MultiItemFieldComponentxA();
+		final MultiItemFieldValuex valueNotStoreable = new NotStoreableMultiItemFieldValuex();
+		final MultiItemFieldItem item1 = new MultiItemFieldItem(value1);
+		item1.setUniqueField(value1);
+		final MultiItemFieldItem item2 = new MultiItemFieldItem(value1);
+		item2.setUniqueField(value2);
+
+		assertEquals(item1, MultiItemFieldItem.forUniqueField(value1));
+		assertEquals(item2, MultiItemFieldItem.forUniqueField(value2));
+		assertEquals(null, MultiItemFieldItem.forUniqueField(value3));
+		assertEquals(null, MultiItemFieldItem.forUniqueField(valueNotStoreable));
+		try
+		{
+			MultiItemFieldItem.forUniqueField(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("cannot search uniquely for null on MultiItemFieldItem.uniqueField", e.getMessage());
+		}
+
+		assertEquals(item1, MultiItemFieldItem.forUniqueFieldStrict(value1));
+		assertEquals(item2, MultiItemFieldItem.forUniqueFieldStrict(value2));
+		try
+		{
+			MultiItemFieldItem.forUniqueFieldStrict(value3);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"expected result of size one, but was empty for query: select this from MultiItemFieldItem where uniqueField-MultiItemFieldComponentxA='MultiItemFieldComponentxA-2'",
+				e.getMessage()
+			);
+		}
+		try
+		{
+			MultiItemFieldItem.forUniqueFieldStrict(valueNotStoreable);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals(
+				"expected result of size one, but was empty for query: select this from MultiItemFieldItem where FALSE",
+				e.getMessage()
+			);
+		}
+		try
+		{
+			MultiItemFieldItem.forUniqueFieldStrict(null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("cannot search uniquely for null on MultiItemFieldItem.uniqueField", e.getMessage());
+		}
+	}
+
+	private static class NotStoreableMultiItemFieldValuex implements MultiItemFieldValuex
+	{
+		private static final long serialVersionUID = 1L;
+	}
+
 	@Test void testgetPartOfReverse()
 	{
 		assertEquals(list(MultiItemFieldItem.partOfClassA), PartOf.getPartOfs(MultiItemFieldComponentxA.TYPE));
@@ -372,19 +442,19 @@ public class MultiItemFieldTest extends TestWithEnvironment
 				MultiItemFieldComponentxA.class,
 				MultiItemFieldComponentxB.class).cascade();
 
-		AnCascadeItem(final MultiItemFieldValuex value)
-		{
-			this(field.map(value));
-		}
-
-
 		/**
 		 * Creates a new AnCascadeItem with all the fields initially needed.
+		 * @param field the initial value for field {@link #field}.
+		 * @throws com.exedio.cope.MandatoryViolationException if field is null.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-		AnCascadeItem()
+		AnCascadeItem(
+					@javax.annotation.Nonnull final MultiItemFieldValuex field)
+				throws
+					com.exedio.cope.MandatoryViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
+				AnCascadeItem.field.map(field),
 			});
 		}
 
@@ -393,6 +463,27 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		/**
+		 * Returns the value of {@link #field}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		MultiItemFieldValuex getField()
+		{
+			return AnCascadeItem.field.get(this);
+		}
+
+		/**
+		 * Sets a new value for {@link #field}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setField(@javax.annotation.Nonnull final MultiItemFieldValuex field)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			AnCascadeItem.field.set(this,field);
+		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

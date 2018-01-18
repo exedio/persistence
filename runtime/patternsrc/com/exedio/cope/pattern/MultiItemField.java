@@ -33,7 +33,13 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.instrument.Parameter;
+import com.exedio.cope.instrument.Wrap;
+import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Arrays;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
+import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
+import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -42,7 +48,10 @@ import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
+@WrapFeature
 public final class MultiItemField<E> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1L;
@@ -210,6 +219,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return Collections.unmodifiableList(java.util.Arrays.asList(componentClasses));
 	}
 
+	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
 	public E get(final Item item)
 	{
 		for(final ItemField<?> component : components)
@@ -227,9 +237,47 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			return null;
 	}
 
-	public void set(final Item item, final E value)
+	@Wrap(order=20, doc="Sets a new value for {0}.", hide=FinalSettableGetter.class, thrownGetter=InitialExceptionsSettableGetter.class)
+	public void set(final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		item.set(map(value));
+	}
+
+	/**
+	 * Finds an item by its unique fields.
+	 * @return null if there is no matching item.
+	 * @throws NullPointerException if value is null.
+	 */
+	@Wrap(order=100, name="for{0}",
+			doc="Finds a {2} by its {0}.",
+			docReturn="null if there is no matching item.",
+			hide=NonUniqueMultiItemFieldGetter.class)
+	@Nullable
+	public <P extends Item> P searchUnique(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
+	{
+		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
+		return getType().as(typeClass).searchSingleton(equal(value));
+	}
+
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws NullPointerException if value is null.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	@Wrap(order=110, name="for{0}Strict",
+			doc="Finds a {2} by its {0}.",
+			hide=NonUniqueMultiItemFieldGetter.class,
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+	@Nonnull
+	public <P extends Item> P searchUniqueStrict(
+			final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
+		throws IllegalArgumentException
+	{
+		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
+		return getType().as(typeClass).searchSingletonStrict(equal(value));
 	}
 
 	public List<ItemField<?>> getComponents()
@@ -374,6 +422,11 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return isFinal() || isMandatory();
 	}
 
+	public boolean isUnique()
+	{
+		return unique;
+	}
+
 	@Override
 	public Class<E> getInitialType()
 	{
@@ -386,6 +439,8 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		final LinkedHashSet<Class<? extends Throwable>> result = new LinkedHashSet<>();
 		if(isMandatory())
 			result.add(MandatoryViolationException.class);
+		for (final ItemField<?> component : components)
+			result.addAll(component.getInitialExceptions());
 		return result;
 	}
 

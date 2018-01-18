@@ -182,24 +182,20 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 				A.class,
 				C.class).toFinal().copyTo(C.class, value).copyTo(C.class, template);
 
-		DoubleCopyConstraintItem(final String value, final String template, final MultiItemFieldValuex field)
-		{
-			this(DoubleCopyConstraintItem.value.map(value), DoubleCopyConstraintItem.template.map(template), DoubleCopyConstraintItem.field.map(field));
-		}
-
-
 
 		/**
 		 * Creates a new DoubleCopyConstraintItem with all the fields initially needed.
 		 * @param value the initial value for field {@link #value}.
 		 * @param template the initial value for field {@link #template}.
-		 * @throws com.exedio.cope.MandatoryViolationException if value, template is null.
+		 * @param field the initial value for field {@link #field}.
+		 * @throws com.exedio.cope.MandatoryViolationException if value, template, field is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value, template violates its length constraint.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 		DoubleCopyConstraintItem(
 					@javax.annotation.Nonnull final java.lang.String value,
-					@javax.annotation.Nonnull final java.lang.String template)
+					@javax.annotation.Nonnull final java.lang.String template,
+					@javax.annotation.Nonnull final MultiItemFieldValuex field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException
@@ -207,6 +203,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 			this(new com.exedio.cope.SetValue<?>[]{
 				DoubleCopyConstraintItem.value.map(value),
 				DoubleCopyConstraintItem.template.map(template),
+				DoubleCopyConstraintItem.field.map(field),
 			});
 		}
 
@@ -236,6 +233,16 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 			return DoubleCopyConstraintItem.template.get(this);
 		}
 
+		/**
+		 * Returns the value of {@link #field}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		MultiItemFieldValuex getField()
+		{
+			return DoubleCopyConstraintItem.field.get(this);
+		}
+
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
@@ -263,28 +270,25 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 				A.class,
 				B.class).toFinal().copyTo(A.class, value).copyTo(B.class, value);
 
-		AllCopyConstraintItem(final String value, final MultiItemFieldValuex field)
-		{
-			this(AllCopyConstraintItem.value.map(value), AllCopyConstraintItem.field.map(field));
-		}
-
-
 
 		/**
 		 * Creates a new AllCopyConstraintItem with all the fields initially needed.
 		 * @param value the initial value for field {@link #value}.
-		 * @throws com.exedio.cope.MandatoryViolationException if value is null.
+		 * @param field the initial value for field {@link #field}.
+		 * @throws com.exedio.cope.MandatoryViolationException if value, field is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value violates its length constraint.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 		AllCopyConstraintItem(
-					@javax.annotation.Nonnull final java.lang.String value)
+					@javax.annotation.Nonnull final java.lang.String value,
+					@javax.annotation.Nonnull final MultiItemFieldValuex field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 				AllCopyConstraintItem.value.map(value),
+				AllCopyConstraintItem.field.map(field),
 			});
 		}
 
@@ -302,6 +306,16 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		java.lang.String getValue()
 		{
 			return AllCopyConstraintItem.value.get(this);
+		}
+
+		/**
+		 * Returns the value of {@link #field}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		MultiItemFieldValuex getField()
+		{
+			return AllCopyConstraintItem.field.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -331,28 +345,25 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 				A.class,
 				B.class).toFinal().copyTo(A.class, value);
 
-		PartialCopyConstraintItem(final String template, final MultiItemFieldValuex field)
-		{
-			this(value.map(template), PartialCopyConstraintItem.field.map(field));
-		}
-
-
 
 		/**
 		 * Creates a new PartialCopyConstraintItem with all the fields initially needed.
 		 * @param value the initial value for field {@link #value}.
-		 * @throws com.exedio.cope.MandatoryViolationException if value is null.
+		 * @param field the initial value for field {@link #field}.
+		 * @throws com.exedio.cope.MandatoryViolationException if value, field is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value violates its length constraint.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 		PartialCopyConstraintItem(
-					@javax.annotation.Nonnull final java.lang.String value)
+					@javax.annotation.Nonnull final java.lang.String value,
+					@javax.annotation.Nonnull final MultiItemFieldValuex field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 				PartialCopyConstraintItem.value.map(value),
+				PartialCopyConstraintItem.field.map(field),
 			});
 		}
 
@@ -370,6 +381,16 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		java.lang.String getValue()
 		{
 			return PartialCopyConstraintItem.value.get(this);
+		}
+
+		/**
+		 * Returns the value of {@link #field}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		MultiItemFieldValuex getField()
+		{
+			return PartialCopyConstraintItem.field.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

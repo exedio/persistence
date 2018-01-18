@@ -18,9 +18,11 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.instrument.WrapImplementsInterim;
 import java.io.Serializable;
 
 @SuppressWarnings("MarkerInterface") // OK: empty interface is enough for test
+@WrapImplementsInterim
 public interface MultiItemFieldValue extends Serializable
 {
 }
