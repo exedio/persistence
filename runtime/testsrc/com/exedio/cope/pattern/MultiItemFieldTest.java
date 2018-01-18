@@ -114,6 +114,19 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getOptionalFieldB());
 	}
 
+	@Test void testCreateWithNullForMandatory()
+	{
+		try
+		{
+			new MultiItemFieldItem(null);
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(MultiItemFieldItem.field, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
+	}
+
 	@Test void testSetNullForMandatory()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
