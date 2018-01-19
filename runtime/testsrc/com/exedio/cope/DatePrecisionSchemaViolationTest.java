@@ -83,20 +83,20 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 			final Date hours,
 			final Date minutes,
 			final Date seconds,
-			final String contraintNameNative,
-			final String contraintNameInteger,
+			final String constraintNameNative,
+			final String constraintNameInteger,
 			final int hoursCheck,
 			final int minutesCheck,
 			final int secondsCheck)
 	{
-		final String contraintName =
+		final String constraintName =
 				supportsNativeDate(model)
-				? contraintNameNative
-				: contraintNameInteger;
+				? constraintNameNative
+				: constraintNameInteger;
 
 		final String tableName = getTableName(ItemB.TYPE);
 
-		try(TransactionTry tx = modelB.startTransactionTry("itemB wrong " + contraintName))
+		try(TransactionTry tx = modelB.startTransactionTry("itemB wrong " + constraintName))
 		{
 			if(supportsCheckConstraints(modelB))
 			{
@@ -113,21 +113,21 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 						case hsqldb:
 							assertEquals(
 									"integrity constraint violation: " +
-									"check constraint; " + contraintName + " " +
+									"check constraint; " + constraintName + " " +
 									"table: " + tableName,
 									message);
 							break;
 						case oracle:
 							assertEquals(
 									"ORA-02290: " +
-									"check constraint (" + schema() + "." + contraintName + ") violated\n",
+									"check constraint (" + schema() + "." + constraintName + ") violated\n",
 									message);
 							break;
 						case postgresql:
 							assertTrue(
 									message.startsWith(
 									"ERROR: new row for relation \"" + tableName + "\" " +
-									"violates check constraint \"" + contraintName + "\"\n"),
+									"violates check constraint \"" + constraintName + "\"\n"),
 									message);
 							break;
 
