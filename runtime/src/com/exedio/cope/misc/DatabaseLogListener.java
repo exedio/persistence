@@ -70,7 +70,7 @@ public final class DatabaseLogListener implements DatabaseListener
 			( (sql==null)    || (statement.contains(sql)) ))
 		{
 			final StringBuilder bf = new StringBuilder(
-					new SimpleDateFormat("yyyy/dd/MM HH:mm:ss.SSS", Locale.ENGLISH).format(new Date()));
+					new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(new Date()));
 
 			bf.append('|');
 			bf.append(durationPrepare);

@@ -98,7 +98,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		final byte[] value = (
 				"Test file for " + VaultProperties.class.getName() + "#probe " +
 				"from " + hostname + " " +
-				"on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS Z (z)", Locale.ENGLISH).format(new Date())).
+				"on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(new Date())).
 				getBytes(StandardCharsets.US_ASCII);
 		final String hash = Hex.encodeLower(algorithm.digest(value));
 

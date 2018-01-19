@@ -660,7 +660,7 @@ public final class Model implements Serializable
 					"tried to start a new transaction " +
 					(name!=null ? name : Transaction.ANONYMOUS) +
 					", but there is already a transaction " + previousTransaction +
-					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH).format(previousTransaction.getStartDate()) +
+					" started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(previousTransaction.getStartDate()) +
 					" bound to current thread");
 		}
 

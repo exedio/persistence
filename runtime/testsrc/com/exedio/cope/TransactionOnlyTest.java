@@ -53,7 +53,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 					"tried to start a new transaction nested, " +
 					"but there is already a transaction " + model.currentTransaction().getID() +
 					":tx:com.exedio.cope.TransactionOnlyTest " +
-					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH).format(tx.getStartDate()) +
+					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());
 		}
@@ -69,7 +69,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 					"tried to start a new transaction ANONYMOUS_TRANSACTION, " +
 					"but there is already a transaction " + model.currentTransaction().getID() +
 					":tx:com.exedio.cope.TransactionOnlyTest " +
-					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH).format(tx.getStartDate()) +
+					"started on " + new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(tx.getStartDate()) +
 					" bound to current thread",
 					e.getMessage());
 		}
