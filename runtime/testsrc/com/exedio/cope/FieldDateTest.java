@@ -227,8 +227,9 @@ public class FieldDateTest extends FieldTest
 
 	@Test void testDateColumnType()
 	{
+		final EnvironmentInfo env = model.getEnvironmentInfo();
 		assertEquals(
-				propertiesHsqldbMysql55() ? null : dialect.dateTimestampType,
+				propertiesHsqldbMysql55() || (mysql && !env.isDatabaseVersionAtLeast(5, 6)) ? null : dialect.dateTimestampType,
 				model.connect().database.dialect.getDateTimestampType());
 	}
 

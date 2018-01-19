@@ -41,6 +41,7 @@ public class SupportsTest extends TestWithEnvironment
 	@Test void testSupports()
 	{
 		final ConnectProperties props = model.getConnectProperties();
+		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		boolean emptyStrings = true;
 		boolean utf8mb4 = true;
@@ -62,7 +63,7 @@ public class SupportsTest extends TestWithEnvironment
 				utf8mb4 = propertiesUtf8mb4();
 				random = true;
 				checkConstraints = false;
-				nativeDate = false;
+				nativeDate = env.isDatabaseVersionAtLeast(5, 6);
 				uniqueViolation = true;
 				break;
 			case oracle:

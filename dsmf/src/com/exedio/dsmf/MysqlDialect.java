@@ -22,14 +22,17 @@ import java.sql.ResultSet;
 
 public final class MysqlDialect extends Dialect
 {
+	private final boolean datetime;
 	final String sequenceColumnName;
 	private final String rowFormat;
 
 	public MysqlDialect(
+			final boolean datetime,
 			final String sequenceColumnName,
 			final String rowFormat)
 	{
 		super(null);
+		this.datetime = datetime;
 		this.sequenceColumnName = sequenceColumnName;
 		this.rowFormat = rowFormat;
 	}
@@ -88,6 +91,7 @@ public final class MysqlDialect extends Dialect
 						"c.IS_NULLABLE," + // 3
 						"c.DATA_TYPE," + // 4
 						"c.CHARACTER_MAXIMUM_LENGTH," + // 5
+						(datetime?"c.DATETIME_PRECISION,":"") + // 6
 						"c.CHARACTER_SET_NAME," + // 6
 						"c.COLLATION_NAME," + // 7
 						"c.COLUMN_KEY " + // 8
@@ -100,6 +104,7 @@ public final class MysqlDialect extends Dialect
 				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
+			final int datetimeOffset = datetime ? 1 : 0;
 			while(resultSet.next())
 			{
 				final String tableName = resultSet.getString(1);
@@ -117,19 +122,26 @@ public final class MysqlDialect extends Dialect
 				final StringBuilder type = new StringBuilder(dataType);
 				if("varchar".equals(dataType))
 					type.append('(').append(resultSet.getInt(5)).append(')');
+
+				if(datetime)
 				{
-					final String characterSet = resultSet.getString(6);
+					final int datetimePrecision = resultSet.getInt(6);
+					if(!resultSet.wasNull())
+						type.append('(').append(datetimePrecision).append(')');
+				}
+				{
+					final String characterSet = resultSet.getString(6+datetimeOffset);
 					if(characterSet!=null)
 						type.append(" CHARACTER SET ").append(characterSet);
 				}
 				{
-					final String collation = resultSet.getString(7);
+					final String collation = resultSet.getString(7+datetimeOffset);
 					if(collation!=null)
 						type.append(" COLLATE ").append(collation);
 				}
 
 				if(!getBooleanStrict(resultSet, 3, "YES", "NO") &&
-						!"PRI".equals(resultSet.getString(8)))
+						!"PRI".equals(resultSet.getString(8+datetimeOffset)))
 					type.append(NOT_NULL);
 
 				final Table table = schema.getTableStrict(resultSet, 1);

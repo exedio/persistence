@@ -7,6 +7,17 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MySQL supports nativeDate.
+	This heavily affects database schema on MySQL. Use disableSupport.nativeDate=true
+	in ConnectProperties to revert to previous behaviour.
+	For converting a database schema use SQL like this:
+
+		SET time_zone = '+00:00'; -- UTC needed for from_unixtime
+		ALTER TABLE `SomeTable` CHANGE `someDate` `someDateOld` bigint;
+		ALTER TABLE `SomeTable` ADD COLUMN `someDate` datetime(3) AFTER `someDateOld`; -- use "datetime(3) not null" if field is mandatory
+		UPDATE      `SomeTable` SET `someDate`=from_unixtime(`someDateOld`/1000);
+		ALTER TABLE `SomeTable` DROP COLUMN `someDateOld`; -- you may want to omit this to keep the old data for some time
+
 * require mysql connector 5.1.45
 * Media#setLastModified added.
 * DateField creates check constraints for value range if native dates are supported.

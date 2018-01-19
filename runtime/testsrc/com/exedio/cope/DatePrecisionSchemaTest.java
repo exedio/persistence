@@ -74,9 +74,9 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		{
 			assertEquals(extract(hours  , MINUTE)+"=0",   hoursPM.getRequiredCondition());
 
-			assertEquals(extract(seconds, SECOND)+"=" + floor(extract(seconds, SECOND)), secondsPS.getRequiredCondition());
-			assertEquals(extract(minutes, SECOND)+"=0", minutesPS.getRequiredCondition());
-			assertEquals(extract(hours  , SECOND)+"=0",   hoursPS.getRequiredCondition());
+			assertEquals(mysql?"EXTRACT("+    "MICROSECOND FROM `seconds`)=0":extract(seconds, SECOND)+"=" + floor(extract(seconds, SECOND)), secondsPS.getRequiredCondition());
+			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `minutes`)=0":extract(minutes, SECOND)+"=0", minutesPS.getRequiredCondition());
+			assertEquals(mysql?"EXTRACT(SECOND_MICROSECOND FROM `hours`)=0"  :extract(hours  , SECOND)+"=0",   hoursPS.getRequiredCondition());
 
 			assertEquals(asList(
 					secondsPS, minutesPS, hoursPM, hoursPS),
@@ -103,11 +103,11 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb    : // fall through
+			case mysql     : // fall through
 			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
 
 			case postgresql: return "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
 
-			case mysql: // MySQL does not support native date
 			default:
 				throw new RuntimeException("" + dialect);
 		}
@@ -118,11 +118,11 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb    : // fall through
+			case mysql     : // fall through
 			case oracle    : return "FLOOR(" + s + ")";
 
 			case postgresql: return "\"floor\"(" + s + ")";
 
-			case mysql: // MySQL does not support native date
 			default:
 				throw new RuntimeException("" + dialect);
 		}

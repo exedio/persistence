@@ -92,6 +92,7 @@ public abstract class SchemaTest
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
 			info.setProperty("useSSL", "false");
 			dialect = new MysqlDialect(
+					false, // TODO test true as well
 					"CopeSequenceAutoIncrementColumnForTest",
 					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
 			stringType = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";

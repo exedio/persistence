@@ -69,6 +69,7 @@ final class MysqlDialect extends Dialect
 	private final boolean shortConstraintNames;
 	final String sequenceColumnName;
 	private final boolean supportsAnyValue;
+	private final boolean supportsNativeDate;
 	private final boolean mariaDriver;
 	private final Pattern extractUniqueViolationMessagePattern;
 
@@ -78,6 +79,7 @@ final class MysqlDialect extends Dialect
 	{
 		super(
 				new com.exedio.dsmf.MysqlDialect(
+						probe.environmentInfo.isDatabaseVersionAtLeast(5, 6), // supportsNativeDate
 						sequenceColumnName(properties),
 						properties.rowFormat.sql()));
 
@@ -103,6 +105,7 @@ final class MysqlDialect extends Dialect
 					env.getDatabaseVersionDescription());
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
+		supportsNativeDate = env.isDatabaseVersionAtLeast(5, 6);
 		mariaDriver = env.getDriverName().startsWith("MariaDB");
 		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}*\\) (.*)$") : null;
 	}
@@ -293,13 +296,22 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getDateTimestampType()
 	{
-		// TODO
-		// would require type "timestamp(14,3) null default null"
-		// but (14,3) is not yet supported
-		// "null default null" is needed to allow null and
-		// make null the default value
-		// This works with 4.1.6 and higher only
-		return null;
+		// requires MySQL 5.6.4
+		// cannot use timestamp as it supports year 1970-2038 only
+		// https://dev.mysql.com/doc/refman/5.6/en/datetime.html
+		// https://dev.mysql.com/doc/refman/5.6/en/fractional-seconds.html
+		return
+				supportsNativeDate
+				? "datetime(3)" // 3 digits fractional seconds
+				: null;
+	}
+
+	@Override
+	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String quotedName)
+	{
+		return
+				"EXTRACT(" + (isSecond?"MICROSECOND":"SECOND_MICROSECOND") + ' ' +
+				"FROM " + quotedName + ")=0";
 	}
 
 	@Override

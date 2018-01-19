@@ -48,7 +48,7 @@ final class RuntimeTester
 	enum Dialect
 	{
 		hsqldb("TIMESTAMP(3) WITHOUT TIME ZONE"),
-		mysql(null),
+		mysql("datetime(3)"),
 		oracle("TIMESTAMP(3)"),
 		postgresql("timestamp (3) without time zone");
 
