@@ -24,6 +24,7 @@ import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.dsmf.SQLRuntimeException;
@@ -144,6 +145,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 				tx.commit();
 
 				final Table table = modelA.getSchema().getTable(tableName);
+				assertNotNull(table);
 				assertEquals(hoursCheck,   table.getConstraint("ItemAB_hours_PR"  ).checkL(), "hoursCheck");
 				assertEquals(minutesCheck, table.getConstraint("ItemAB_minutes_PR").checkL(), "minutesCheck");
 				assertEquals(secondsCheck, table.getConstraint("ItemAB_seconds_PR").checkL(), "secondsCheck");
