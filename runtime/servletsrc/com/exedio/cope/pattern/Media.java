@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.CopyMapper;
@@ -385,6 +387,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	public Date getLastModified(@Nonnull final Item item)
 	{
 		return lastModified.get(item);
+	}
+
+	public void setLastModified(@Nonnull final Item item, @Nonnull final Date value)
+	{
+		lastModified.set(item, requireNonNull(value));
 	}
 
 	/**

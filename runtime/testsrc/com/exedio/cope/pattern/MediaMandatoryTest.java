@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaMandatoryItem.TYPE;
 import static com.exedio.cope.pattern.MediaMandatoryItem.file;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
@@ -231,5 +232,23 @@ public class MediaMandatoryTest extends TestWithEnvironment
 		final File tempFile = files.newFileNotExists();
 		item.getFileBody(tempFile);
 		assertEqualContent(expectedData, tempFile);
+	}
+
+	@Test void testSetLastModified()
+	{
+		final MediaMandatoryItem item = new MediaMandatoryItem(data20, "major/minor");
+		file.setLastModified(item, new Date(987654321));
+
+		assertEquals(new Date(987654321), file.getLastModified().get(item));
+		assertEquals(new Date(987654321), file.getLastModified(item));
+		assertEquals(new Date(987654321), item.getFileLastModified());
+
+		assertFails(
+				() -> file.setLastModified(item, null),
+				NullPointerException.class, null);
+
+		assertEquals(new Date(987654321), file.getLastModified().get(item));
+		assertEquals(new Date(987654321), file.getLastModified(item));
+		assertEquals(new Date(987654321), item.getFileLastModified());
 	}
 }
