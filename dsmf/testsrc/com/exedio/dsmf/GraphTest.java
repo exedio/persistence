@@ -34,7 +34,7 @@ public class GraphTest
 
 	@BeforeEach final void setUp()
 	{
-		schema = new Schema(new HsqldbDialect(), new ConnectionProvider(){
+		schema = new Schema(new HsqldbDialect(true), new ConnectionProvider(){
 			@Override
 			public Connection getConnection() { throw new RuntimeException(); }
 			@Override

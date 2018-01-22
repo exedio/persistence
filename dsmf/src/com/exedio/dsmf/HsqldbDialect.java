@@ -24,9 +24,18 @@ import java.sql.Types;
 
 public final class HsqldbDialect extends Dialect
 {
-	public HsqldbDialect()
+	private final boolean supportsCheckConstraints;
+
+	public HsqldbDialect(final boolean supportsCheckConstraints)
 	{
 		super(null);
+		this.supportsCheckConstraints = supportsCheckConstraints;
+	}
+
+	@Override
+	public boolean supportsCheckConstraints()
+	{
+		return supportsCheckConstraints;
 	}
 
 	@Override

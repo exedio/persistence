@@ -55,7 +55,7 @@ final class HsqldbDialect extends Dialect
 	HsqldbDialect(final CopeProbe probe, final Props props)
 	{
 		super(
-				new com.exedio.dsmf.HsqldbDialect());
+				new com.exedio.dsmf.HsqldbDialect(props.approximate!=mysql));
 
 		requireDatabaseVersionAtLeast(2, 4, probe);
 

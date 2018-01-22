@@ -30,7 +30,7 @@ public class NodeTest
 {
 	@Test void testColumnOk()
 	{
-		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -64,7 +64,7 @@ public class NodeTest
 
 	@Test void testColumnWrongName()
 	{
-		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -125,7 +125,7 @@ public class NodeTest
 
 	@Test void testColumnWrongType()
 	{
-		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -158,7 +158,7 @@ public class NodeTest
 
 	@Test void testColumnNonRequires()
 	{
-		final Schema schema = new Schema(new HsqldbDialect(), connectionProvider);
+		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 
 		final Column c = table.notifyExistentColumn("colName", "existingType");

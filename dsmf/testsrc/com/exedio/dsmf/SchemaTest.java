@@ -78,7 +78,7 @@ public abstract class SchemaTest
 		int numberOfConnections = 1;
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
-			dialect = new HsqldbDialect();
+			dialect = new HsqldbDialect(true);
 			numberOfConnections = 2;
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
