@@ -214,9 +214,14 @@ public abstract class TestWithEnvironment
 	}
 
 
-	protected final boolean propertiesHsqldbMysql()
+	protected final boolean propertiesHsqldbMysql55()
 	{
-		return propertiesHsqldb("mysql");
+		return propertiesHsqldb("mysql55");
+	}
+
+	protected final boolean propertiesHsqldbMysql56()
+	{
+		return propertiesHsqldb("mysql56");
 	}
 
 	protected final boolean propertiesHsqldbOracle()

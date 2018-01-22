@@ -228,7 +228,7 @@ public class FieldDateTest extends FieldTest
 	@Test void testDateColumnType()
 	{
 		assertEquals(
-				propertiesHsqldbMysql() ? null : dialect.dateTimestampType,
+				propertiesHsqldbMysql55() ? null : dialect.dateTimestampType,
 				model.connect().database.dialect.getDateTimestampType());
 	}
 

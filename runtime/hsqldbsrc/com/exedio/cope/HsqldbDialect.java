@@ -48,10 +48,15 @@ final class HsqldbDialect extends Dialect
 	{
 		nothing,
 		@SuppressWarnings("unused")
-		mysql
+		mysql55
 		{
 			@Override boolean supportsCheckConstraints() { return false; }
 			@Override boolean supportsNativeDate() { return false; }
+		},
+		@SuppressWarnings("unused")
+		mysql56
+		{
+			@Override boolean supportsCheckConstraints() { return false; }
 		},
 		oracle;
 

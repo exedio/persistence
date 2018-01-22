@@ -25,8 +25,10 @@ import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Table;
 import java.util.Date;
@@ -54,17 +56,17 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 		newItemOk(ok, ok, ok);
 
-		newItemBad(minutes, ok, ok, "ItemAB_hours_PM", "ItemAB_hours_PR", 1, 0, 0);
-		newItemBad(seconds, ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR", 2, 0, 0);
-		newItemBad(millis , ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR", 3, 0, 0);
+		newItemBad(minutes, ok, ok, "ItemAB_hours_PM", "ItemAB_hours_PR", 1, 1, 0,  0, 0);
+		newItemBad(seconds, ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR", 2, 1, 1,  0, 0);
+		newItemBad(millis , ok, ok, "ItemAB_hours_PS", "ItemAB_hours_PR", 3, 1, 2,  0, 0);
 
 		newItemOk (ok, minutes, ok);
-		newItemBad(ok, seconds, ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR", 3, 1, 0);
-		newItemBad(ok, millis , ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR", 3, 2, 0);
+		newItemBad(ok, seconds, ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR", 3, 1, 2,  1, 0);
+		newItemBad(ok, millis , ok, "ItemAB_minutes_PS", "ItemAB_minutes_PR", 3, 1, 2,  2, 0);
 
 		newItemOk (ok, ok, minutes);
 		newItemOk (ok, ok, seconds);
-		newItemBad(ok, ok, millis , "ItemAB_seconds_PS", "ItemAB_seconds_PR", 3, 2, 1);
+		newItemBad(ok, ok, millis , "ItemAB_seconds_PS", "ItemAB_seconds_PR", 3, 1, 2,  2, 1);
 	}
 
 	private static void newItemOk(
@@ -86,12 +88,13 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 			final Date seconds,
 			final String constraintNameNative,
 			final String constraintNameInteger,
-			final int hoursCheck,
+			final int hoursPRCheck, final int hoursPMCheck, final int hoursPSCheck,
 			final int minutesCheck,
 			final int secondsCheck)
 	{
+		final boolean sNative = supportsNativeDate(model);
 		final String constraintName =
-				supportsNativeDate(model)
+				sNative
 				? constraintNameNative
 				: constraintNameInteger;
 
@@ -146,11 +149,30 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 				final Table table = modelA.getSchema().getTable(tableName);
 				assertNotNull(table);
-				assertEquals(hoursCheck,   table.getConstraint("ItemAB_hours_PR"  ).checkL(), "hoursCheck");
-				assertEquals(minutesCheck, table.getConstraint("ItemAB_minutes_PR").checkL(), "minutesCheck");
-				assertEquals(secondsCheck, table.getConstraint("ItemAB_seconds_PR").checkL(), "secondsCheck");
+				assertIt(!sNative, hoursPRCheck, table, "ItemAB_hours_PR"  );
+				assertIt(!sNative, minutesCheck, table, "ItemAB_minutes_PR");
+				assertIt(!sNative, secondsCheck, table, "ItemAB_seconds_PR");
+				assertIt( sNative, hoursPMCheck, table, "ItemAB_hours_PM"  );
+				assertIt( false,   -1,           table, "ItemAB_minutes_PM");
+				assertIt( false,   -1,           table, "ItemAB_seconds_PM");
+				assertIt( sNative, hoursPSCheck, table, "ItemAB_hours_PS"  );
+				assertIt( sNative, minutesCheck, table, "ItemAB_minutes_PS");
+				assertIt( sNative, secondsCheck, table, "ItemAB_seconds_PS");
 			}
 		}
+	}
+
+	private static void assertIt(
+			final boolean exists,
+			final int expected,
+			final Table table,
+			final String constraintName)
+	{
+		final Constraint constraint = table.getConstraint(constraintName);
+		if(exists)
+			assertEquals(expected, constraint.checkL(), constraintName);
+		else
+			assertNull(constraint, constraintName);
 	}
 
 	private static String schema()
