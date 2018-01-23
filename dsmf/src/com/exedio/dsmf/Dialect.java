@@ -155,7 +155,7 @@ public abstract class Dialect
 		});
 	}
 
-	boolean getBooleanStrict(
+	static final boolean getBooleanStrict(
 			final ResultSet resultSet,
 			final int columnIndex,
 			final String trueValue,
@@ -180,7 +180,7 @@ public abstract class Dialect
 		throw new IllegalStateException(bf.toString());
 	}
 
-	static void append(
+	static final void append(
 			final StringBuilder bf, final ResultSet resultSet,
 			final int columnIndexMarked)
 	throws SQLException
