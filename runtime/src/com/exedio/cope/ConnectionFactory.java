@@ -23,7 +23,6 @@ import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.Driver;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Properties;
 import org.slf4j.Logger;
@@ -38,6 +37,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final Dialect dialect;
 	private final Properties info;
 	private final int transactionIsolation;
+	private final int isValidOnGetTimeout;
 
 	ConnectionFactory(
 			final ConnectionProperties properties,
@@ -52,6 +52,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		dialect.completeConnectionInfo(info);
 
 		this.transactionIsolation = dialect.getTransationIsolation();
+		this.isValidOnGetTimeout = properties.isValidOnGetTimeout;
 	}
 
 	@Override
@@ -95,35 +96,21 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public boolean isValidOnGet(final Connection e)
 	{
-		final String sql = dialect.isValidOnGet42();
-		final int result;
-		try(
-				java.sql.Statement stat = e.createStatement();
-				ResultSet rs = stat.executeQuery(sql))
+		final boolean result;
+		try
 		{
-			//final long start = System.currentTimeMillis();
-			rs.next();
-			result = rs.getInt(1);
-			//timeInChecks += (System.currentTimeMillis()-start);
-			//numberOfChecks++;
-			//System.out.println("------------------"+timeInChecks+"---"+numberOfChecks+"---"+(timeInChecks/numberOfChecks));
+			result = e.isValid(isValidOnGetTimeout);
 		}
 		catch(final SQLException ex)
 		{
-			if(logger.isWarnEnabled())
-				//noinspection StringConcatenationArgumentToLogCall
-				logger.warn("invalid on get: " + sql, ex);
-			if(isValidOnGetFails)
-				throw new SQLRuntimeException(ex, sql);
-			return false;
+			throw new SQLRuntimeException(ex, "isValid(" + isValidOnGetTimeout + ')');
 		}
 
-		if(result!=42)
-			throw new RuntimeException("expected 42, but was " + result);
-		return true;
-	}
+		if(result && logger.isWarnEnabled())
+			logger.warn("invalid on get");
 
-	boolean isValidOnGetFails = false;
+		return result;
+	}
 
 	@Override
 	public boolean isValidOnPut(final Connection e)

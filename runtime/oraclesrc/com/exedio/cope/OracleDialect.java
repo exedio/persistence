@@ -85,15 +85,6 @@ final class OracleDialect extends Dialect
 				trimmers.put(c, dataTrimmer);
 	}
 
-	/**
-	 * See https://en.wikipedia.org/wiki/DUAL_table
-	 */
-	@Override
-	String isValidOnGet42()
-	{
-		return "SELECT 42 FROM DUAL";
-	}
-
 	@Override
 	int getTransationIsolation()
 	{

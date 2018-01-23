@@ -102,12 +102,6 @@ final class HsqldbDialect extends Dialect
 		}
 	}
 
-	@Override
-	String isValidOnGet42()
-	{
-		return "VALUES(42)";
-	}
-
 	/**
 	 * Additional parenthesis are needed for hsqldb,
 	 */

@@ -69,7 +69,6 @@ public abstract class TestWithEnvironment
 	@BeforeEach final void setUpAbstractRuntimeModelTest()
 	{
 		tester.setUp();
-		model.connect().connectionFactory.isValidOnGetFails = true;
 		dialect = tester.dialect;
 		hsqldb = tester.hsqldb;
 		mysql  = tester.mysql;

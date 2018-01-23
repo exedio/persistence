@@ -31,6 +31,7 @@ final class ConnectionProperties extends Properties
 	final String url = value("url", (String)null);
 	final String username = value("username", (String)null);
 	final String password = valueHidden("password", (String)null);
+	final int isValidOnGetTimeout = value("isValidOnGetTimeoutSeconds", 5, 1);
 
 
 	CopeProbe probe(final ConnectProperties outer)

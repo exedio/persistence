@@ -131,11 +131,6 @@ abstract class Dialect
 		trimmers.put(TrimClass. PrimaryKeyCheckConstraint, constraintTrimmer);
 	}
 
-	String isValidOnGet42()
-	{
-		return "SELECT 42";
-	}
-
 	int getTransationIsolation()
 	{
 		return Connection.TRANSACTION_REPEATABLE_READ;
