@@ -45,7 +45,17 @@ final class HsqldbDialect extends Dialect
 		Props(final Source source) { super(source); }
 	}
 
-	enum Approximate { nothing, mysql, oracle }
+	enum Approximate
+	{
+		nothing,
+		mysql
+		{
+			@Override boolean supportsCheckConstraints() { return false; }
+		},
+		oracle;
+
+		boolean supportsCheckConstraints() { return true; }
+	}
 
 	private final Props props;
 
@@ -55,7 +65,7 @@ final class HsqldbDialect extends Dialect
 	HsqldbDialect(final CopeProbe probe, final Props props)
 	{
 		super(
-				new com.exedio.dsmf.HsqldbDialect(props.approximate!=mysql));
+				new com.exedio.dsmf.HsqldbDialect(props.approximate.supportsCheckConstraints()));
 
 		requireDatabaseVersionAtLeast(2, 4, probe);
 
