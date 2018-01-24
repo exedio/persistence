@@ -319,6 +319,15 @@ abstract class Dialect
 		return DateField.format("'TIMESTAMP'''yyyy-MM-dd HH:mm:ss.SSS''").format(value);
 	}
 
+	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String quotedName)
+	{
+		final String seconds = getDateExtract(quotedName, DateField.Precision.SECOND);
+		return
+				isSecond
+				? (seconds + '=' + getFloor(seconds)) // is an integer
+				: (seconds + "=0");
+	}
+
 	String getDateExtract(final String quotedName, final Precision precision)
 	{
 		return "EXTRACT(" + precision.sql() + " FROM " + quotedName + ')';

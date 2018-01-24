@@ -78,11 +78,8 @@ final class TimestampColumn extends Column
 
 			case MINUTE:
 			case SECOND:
-				final String seconds = dialect.getDateExtract(quotedID, SECOND);
 				newCheck(dsmf, "PS",
-						precision==SECOND
-						? (seconds + '=' + dialect.getFloor(seconds)) // is an integer
-						: (seconds + "=0"));
+						dialect.getDateTimestampPrecisionMinuteSecond(precision==SECOND, quotedID));
 				// fall through
 
 			case MILLI:
