@@ -43,10 +43,13 @@ public final class EnvironmentInfo
 				dmd.getDatabaseMinorVersion());
 		driver = new Product(
 				dmd.getDriverName(),
-				dmd.getDriverVersion(),
+				driverVersionPattern.matcher(dmd.getDriverVersion()).replaceAll("$1"),
 				dmd.getDriverMajorVersion(),
 				dmd.getDriverMinorVersion());
 	}
+
+	private static final Pattern driverVersionPattern =
+			Pattern.compile("\\b([0-9,a-f]{7})[0-9,a-f]{33}\\b");
 
 	/**
 	 * Provides {@link java.sql.Connection#getCatalog()}.
