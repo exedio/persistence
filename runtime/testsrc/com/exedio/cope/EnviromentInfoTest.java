@@ -214,4 +214,56 @@ public class EnviromentInfoTest
 
 		assertEquals("z5.3", i.getDatabaseVersionDescription());
 	}
+
+	@Test void testDriverDescriptionGitMatch() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
+				new VersionDatabaseMetaData("XX", 77, 777,
+						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 or so", 5, 1));
+
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 or so",
+				i.getDriverVersion());
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 or so (5.1)",
+				i.getDriverVersionDescription());
+	}
+
+	@Test void testDriverDescriptionGitTooShort() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
+				new VersionDatabaseMetaData("XX", 77, 777,
+						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5b or so", 5, 1));
+
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5b or so",
+				i.getDriverVersion());
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5b or so (5.1)",
+				i.getDriverVersionDescription());
+	}
+
+	@Test void testDriverDescriptionGitTooLong() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
+				new VersionDatabaseMetaData("XX", 77, 777,
+						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2a or so", 5, 1));
+
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2a or so",
+				i.getDriverVersion());
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2a or so (5.1)",
+				i.getDriverVersionDescription());
+	}
+
+	@Test void testDriverDescriptionGitNoHex() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				"getCatalog",
+				new VersionDatabaseMetaData("XX", 77, 777,
+						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5bX or so", 5, 1));
+
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5bX or so",
+				i.getDriverVersion());
+		assertEquals("revision: 9131eefa398531c7dc98776e8a3fe839e544c5bX or so (5.1)",
+				i.getDriverVersionDescription());
+	}
 }
