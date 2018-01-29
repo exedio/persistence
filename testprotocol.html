@@ -1,0 +1,129 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"  "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+	<head>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8">
+		<title>COPE - Test Environments</title>
+		<link rel="STYLESHEET" type="text/css" href="testprotocol.css">
+	</head>
+	<body>
+		<h2>Test Environments</h2>
+		<div>
+			Environments cope has been tested in. See <a href="https://exedio.github.io/">exedio.github.io</a>.
+		</div>
+		<div>
+			git TravisGithubPages2 561e7720fa130ca62c6e48ad6cefea47c416421b travis-ci 353 353.1 335044823 2018-01-30_08:06:10
+		</div>
+		<table>
+			<tr>
+				<th colspan="2">DBMS</th>
+				<th colspan="2">JDBC driver</th>
+				<th rowspan="2">Env</th>
+				<th rowspan="2">Connect Properties</th>
+			</tr>
+			<tr>
+				<th>Name</th>
+				<th>Version</th>
+				<th>Name</th>
+				<th>Version</th>
+			</tr>
+			<tr>
+				<td class="text" rowspan="13">HSQL Database Engine <small>(13x)</small></td>
+				<td class="text" rowspan="13">2.4.0</td>
+				<td class="text" rowspan="13">HSQL Database Engine Driver</td>
+				<td class="text" rowspan="13">2.4.0</td>
+				<td class="text">hy</td>
+				<td class="text">connectionPool.idleInitial=2<br>dataField.bufferSizeDefault=1000<br>dataField.bufferSizeLimit=2000<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-extra</td>
+				<td class="text">cache.item.limit=200<br>cache.query.limit=200<br>changeListeners.queueCapacity=10<br>changeListeners.threads.initial=2<br>changeListeners.threads.max=3<br>changeListeners.threads.priority.set=true<br>changeListeners.threads.priority.value=1<br>connectionPool.idleLimit=200<br>dataField.bufferSizeDefault=1000<br>dataField.bufferSizeLimit=2000<br>dialect=com.exedio.cope.HsqldbDialect<br>disableSupport.emptyStrings=true<br>disableSupport.nativeDate=true<br>disableSupport.semicolon=true<br>disableSupport.uniqueViolation=true<br>media.rooturl=mediaroot<br>query.searchSizeLimit=160<br>revise.savepoint=true<br>schema.revision.table=whilex<br>schema.revision.unique=protectedx<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-low</td>
+				<td class="text">schema.mysql.lower_case_table_names=true<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-low-sq</td>
+				<td class="text">schema.mysql.lower_case_table_names=true<br>schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-my55</td>
+				<td class="text">dialect.approximate=mysql55<br>schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-my56</td>
+				<td class="text">dialect.approximate=mysql56<br>schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-nprep</td>
+				<td class="text">disableSupport.preparedStatements=true<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-nstmp</td>
+				<td class="text">cache.stamps=false<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-ora</td>
+				<td class="text">dialect.approximate=oracle<br>schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-sq</td>
+				<td class="text">schema.primaryKeyGenerator=sequence<br>schema.tableInNames=true<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-sqb</td>
+				<td class="text">schema.primaryKeyGenerator=batchedSequence<br>schema.tableInNames=true<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-vault</td>
+				<td class="text">dataField.bufferSizeDefault=1000<br>dataField.bufferSizeLimit=2000<br>dataField.vault=true<br>dataField.vault.isAppliedToAllFields=true<br></td>
+			</tr>
+			<tr>
+				<td class="text">hy-zero</td>
+				<td class="text">cache.item.limit=0<br>cache.query.limit=0<br>connectionPool.idleLimit=0<br>dataField.bufferSizeDefault=1<br>dataField.bufferSizeLimit=2<br>media.offsetExpires=0<br></td>
+			</tr>
+			<tr>
+				<td class="text" rowspan="4">MySQL <small>(4x)</small></td>
+				<td class="text" rowspan="4">5.6.33-0ubuntu0.14.04.1</td>
+				<td class="text" rowspan="3">MySQL Connector Java <small>(3x)</small></td>
+				<td class="text" rowspan="3">mysql-connector-java-5.1.45 ( Revision: 9131eef )</td>
+				<td class="text">my</td>
+				<td class="text"></td>
+			</tr>
+			<tr>
+				<td class="text">my-nprep</td>
+				<td class="text">disableSupport.preparedStatements=true<br></td>
+			</tr>
+			<tr>
+				<td class="text">my-sq</td>
+				<td class="text" rowspan="2">schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+			<tr>
+				<td class="text">MariaDB connector/J</td>
+				<td class="text">2.2.1</td>
+				<td class="text">mym</td>
+			</tr>
+			<tr>
+				<td class="text" rowspan="3">PostgreSQL <small>(3x)</small></td>
+				<td class="text" rowspan="3">9.5.10</td>
+				<td class="text" rowspan="3">PostgreSQL Native Driver</td>
+				<td class="text" rowspan="3">PostgreSQL 9.3 JDBC4.1 (build 1102)</td>
+				<td class="text">pg</td>
+				<td class="text">dialect.search_path=public<br></td>
+			</tr>
+			<tr>
+				<td class="text">pg-nprep</td>
+				<td class="text">dialect.search_path=public<br>disableSupport.preparedStatements=true<br></td>
+			</tr>
+			<tr>
+				<td class="text">pg-sq</td>
+				<td class="text">dialect.search_path=public<br>schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+		</table>
+		<address>
+			Copyright &copy;
+			<a href="http://www.exedio.com/" target="_top">exedio</a>
+			Gesellschaft f&uuml;r Softwareentwicklung mbH.
+		</address>
+	</body>
+</html>

@@ -1,0 +1,34 @@
+table
+{
+	margin-top:12pt;
+}
+
+table th
+{
+	text-align:left;
+	vertical-align:top;
+	background:#ccc;
+	border:solid 1px #ccc;
+	padding:1px 3px;
+	font-weight:normal;
+}
+
+table td
+{
+	text-align:left;
+	vertical-align:top;
+	border:solid 1px #ccc;
+	padding:1px 3px;
+}
+
+address
+{
+	width:100%;
+	font-size:8pt;
+	font-style:normal;
+	padding-top:5px;
+	border-top-width:1px;
+	border-top-style:solid;
+	margin-top:40px;
+	margin-bottom:40px;
+}
