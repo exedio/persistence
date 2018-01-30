@@ -26,7 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class PasswordRecoveryConfigTest
 {
-	@Test void testConfigFailure()
+	@Test void testConfigExpiryZero()
 	{
 		try
 		{
@@ -37,6 +37,10 @@ public class PasswordRecoveryConfigTest
 		{
 			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
 		}
+	}
+
+	@Test void testConfigExpiryZeroWithReuse()
+	{
 		try
 		{
 			new Config(0, -1);
@@ -46,6 +50,10 @@ public class PasswordRecoveryConfigTest
 		{
 			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
 		}
+	}
+
+	@Test void testConfigReuseNegative()
+	{
 		try
 		{
 			new Config(1, -1);
@@ -55,6 +63,10 @@ public class PasswordRecoveryConfigTest
 		{
 			assertEquals("reuseMillis must not be negative, but was -1", e.getMessage());
 		}
+	}
+
+	@Test void testConfigReuseGreaterExpiry()
+	{
 		try
 		{
 			new Config(1, 2);
@@ -94,7 +106,7 @@ public class PasswordRecoveryConfigTest
 		assertEquals(0, c.getReuseMillis());
 	}
 
-	@Test void testPasswordRecovery()
+	@Test void testPasswordRecoveryHashNull()
 	{
 		try
 		{
@@ -105,6 +117,10 @@ public class PasswordRecoveryConfigTest
 		{
 			assertEquals("password", e.getMessage());
 		}
+	}
+
+	@Test void testPasswordRecoveryHashNullWithRandom()
+	{
 		try
 		{
 			new PasswordRecovery(null, null);
@@ -114,6 +130,10 @@ public class PasswordRecoveryConfigTest
 		{
 			assertEquals("password", e.getMessage());
 		}
+	}
+
+	@Test void testPasswordRecoveryRandomNull()
+	{
 		final Hash hash = new Hash(MessageDigestHash.algorithm(20));
 		try
 		{
