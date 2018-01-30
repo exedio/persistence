@@ -18,33 +18,25 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
-import static com.exedio.cope.pattern.PasswordRecoveryItem.TYPE;
-import static com.exedio.cope.pattern.PasswordRecoveryItem.password;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.passwordRecovery;
 import static com.exedio.cope.pattern.PasswordRecoveryItem.purgePasswordRecovery;
+import static com.exedio.cope.pattern.PasswordRecoveryModelTest.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.exedio.cope.Feature;
-import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.Type;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
-import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.DeleteJobContext;
 import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
-import java.util.Arrays;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,13 +44,6 @@ import org.junit.jupiter.api.Test;
 @MainRule.Tag
 public class PasswordRecoveryTest extends TestWithEnvironment
 {
-	private static final Model MODEL = new Model(TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(PasswordRecoveryTest.class, "MODEL");
-	}
-
 	public PasswordRecoveryTest()
 	{
 		super(MODEL);
@@ -77,44 +62,6 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testIt() throws Exception
 	{
-		// test model
-		assertEquals(Arrays.asList(new Type<?>[]{
-				TYPE,
-				passwordRecovery.getTokenType(),
-		}), MODEL.getTypes());
-		assertEquals(Arrays.asList(new Feature[]{
-				TYPE.getThis(),
-				password,
-				password.getStorage(),
-				passwordRecovery,
-			}), TYPE.getFeatures());
-		assertEquals(Arrays.asList(new Feature[]{
-				TYPE.getThis(),
-				password,
-				password.getStorage(),
-				passwordRecovery,
-			}), TYPE.getDeclaredFeatures());
-
-		assertEquals(TYPE, password.getType());
-		assertEquals(passwordRecovery.getTokenType(), passwordRecovery.getSecret().getType());
-		assertEquals(passwordRecovery.getTokenType(), passwordRecovery.getExpires().getType());
-		assertEquals("password", password.getName());
-		assertEquals("secret", passwordRecovery.getSecret().getName());
-		assertEquals("expires", passwordRecovery.getExpires().getName());
-
-		assertEquals(list(), passwordRecovery.getSourceFeatures());
-		assertEquals(null, passwordRecovery.getSecret().getPattern());
-		assertEquals(passwordRecovery.getTokens(), passwordRecovery.getExpires().getPattern());
-
-		assertSame(password, passwordRecovery.getPassword());
-
-		assertFalse(password                       .isAnnotationPresent(Computed.class));
-		assertFalse(passwordRecovery               .isAnnotationPresent(Computed.class));
-		assertTrue (passwordRecovery.getTokenType().isAnnotationPresent(Computed.class));
-
-		assertSerializedSame(passwordRecovery, 406);
-
-		// test persistence
 		assertNoUpdateCounterColumn(passwordRecovery.getTokenType());
 
 		final Config config = new Config(60*1000);
