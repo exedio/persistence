@@ -82,16 +82,16 @@ public class PasswordRecoveryConfigTest
 
 	@Test void testConfigMinimal()
 	{
-		final Config c2 = new Config(20, 10);
-		assertEquals(20, c2.getExpiryMillis());
-		assertEquals(10, c2.getReuseMillis());
+		final Config c = new Config(20, 10);
+		assertEquals(20, c.getExpiryMillis());
+		assertEquals(10, c.getReuseMillis());
 	}
 
 	@Test void testConfigNoReuse()
 	{
-		final Config c2 = new Config(20, 0);
-		assertEquals(20, c2.getExpiryMillis());
-		assertEquals(0, c2.getReuseMillis());
+		final Config c = new Config(20, 0);
+		assertEquals(20, c.getExpiryMillis());
+		assertEquals(0, c.getReuseMillis());
 	}
 
 	@Test void testPasswordRecovery()
