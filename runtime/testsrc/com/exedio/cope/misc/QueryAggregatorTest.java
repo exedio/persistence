@@ -79,7 +79,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 			final Query<QueryAggregatorItem> q1Bad = TYPE.newQuery(intx.between(0, 1));
 			final Query<QueryAggregatorItem> q2Bad = TYPE.newQuery(intx.between(2, 3));
 			final QueryAggregator<QueryAggregatorItem> agBad = QueryAggregator.get(q1Bad, q2Bad);
-			agBad.setLimit(1, 2);
+			agBad.setPage(1, 2);
 			assertEquals(list(item1, item2), agBad.searchAndTotal().getData());
 
 			q1Bad.setPageUnlimited(1);
@@ -103,7 +103,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 		}
 		try
 		{
-			ag.setLimit(-1, -1);
+			ag.setPage(-1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -112,7 +112,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 		}
 		try
 		{
-			ag.setLimit(0, -1);
+			ag.setPage(0, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -121,7 +121,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 		}
 		try
 		{
-			ag.setLimit(-1);
+			ag.setPageUnlimited(-1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -159,12 +159,12 @@ public class QueryAggregatorTest extends TestWithEnvironment
 	private void assertIt(final int offset, final int limit, final List<?> expected)
 	{
 		if(limit>=0)
-			ag.setLimit(offset, limit);
+			ag.setPage(offset, limit);
 		else
-			ag.setLimit(offset);
+			ag.setPageUnlimited(offset);
 
-		assertEquals(offset, ag.getOffset());
-		assertEquals(limit,  ag.getLimit());
+		assertEquals(offset, ag.getPageOffset());
+		assertEquals(limit,  ag.getPageLimitOrMinusOne());
 
 		final Query.Result<?> result = ag.searchAndTotal();
 		assertEquals(offset, result.getPageOffset());

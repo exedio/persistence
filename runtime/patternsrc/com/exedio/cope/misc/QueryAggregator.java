@@ -70,25 +70,52 @@ public final class QueryAggregator<R>
 	}
 
 	/**
+	 * @deprecated Use {@link #getPageOffset()} instead.
+	 */
+	@Deprecated
+	public int getOffset()
+	{
+		return getPageOffset();
+	}
+
+	/**
 	 * @see Query#getPageOffset()
 	 */
-	public int getOffset()
+	public int getPageOffset()
 	{
 		return offset;
 	}
 
 	/**
+	 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
+	 */
+	@Deprecated
+	public int getLimit()
+	{
+		return getPageLimitOrMinusOne();
+	}
+
+	/**
 	 * @see Query#getPageLimitOrMinusOne()
 	 */
-	public int getLimit()
+	public int getPageLimitOrMinusOne()
 	{
 		return limit!=UNLIMITED ? limit : -1;
 	}
 
 	/**
+	 * @deprecated Use {@link #setPage(int, int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset, final int limit)
+	{
+		setPage(offset, limit);
+	}
+
+	/**
 	 * @see Query#setPage(int,int)
 	 */
-	public void setLimit(final int offset, final int limit)
+	public void setPage(final int offset, final int limit)
 	{
 		if(offset<0)
 			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
@@ -100,9 +127,18 @@ public final class QueryAggregator<R>
 	}
 
 	/**
+	 * @deprecated Use {@link #setPageUnlimited(int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset)
+	{
+		setPageUnlimited(offset);
+	}
+
+	/**
 	 * @see Query#setPageUnlimited(int)
 	 */
-	public void setLimit(final int offset)
+	public void setPageUnlimited(final int offset)
 	{
 		if(offset<0)
 			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
@@ -195,7 +231,7 @@ public final class QueryAggregator<R>
 	{
 		return
 			(limit!=UNLIMITED)
-			? new Query.Result<>(data, total, offset, getLimit())
+			? new Query.Result<>(data, total, offset, getPageLimitOrMinusOne())
 			: new Query.Result<>(data, total, offset);
 	}
 }
