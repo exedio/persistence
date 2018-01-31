@@ -179,7 +179,7 @@ public final class PasswordLimiter extends Pattern
 		if(query.total()>=limit)
 		{
 			query.setOrderBy(date, true);
-			query.setLimit(0, 1);
+			query.setPage(0, 1);
 			// TODO use one query to compute both
 			throw new ExceededException(
 					this,

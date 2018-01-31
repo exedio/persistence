@@ -60,7 +60,7 @@ public class QueryCopyTest
 		final Condition conditionQuery = string.equal("zack");
 		query.setCondition(conditionQuery);
 		query.addOrderBy(date, false);
-		query.setLimit(33, 44);
+		query.setPage(33, 44);
 		query.setSearchSizeLimit(177);
 		query.setSearchSizeCacheLimit(166);
 
@@ -98,7 +98,7 @@ public class QueryCopyTest
 		final Condition conditionQuery = string.equal("zack");
 		query.setCondition(conditionQuery);
 		query.addOrderBy(date, false);
-		query.setLimit(33, 44);
+		query.setPage(33, 44);
 
 		assertIt(
 				true, TYPE,
@@ -128,7 +128,7 @@ public class QueryCopyTest
 		final Condition conditionCopy = intx.equal(1);
 		copy.setCondition(conditionCopy);
 		copy.resetOrderBy();
-		copy.setLimit(0);
+		copy.setPageUnlimited(0);
 
 		assertIt(
 				false, TYPE,
@@ -234,8 +234,8 @@ public class QueryCopyTest
 		assertEquals(nullToEmpty(orderBy), query.getOrderByFunctions());
 		assertEquals(nullToEmpty(orderByAscending), query.getOrderByAscending());
 		assertEquals(nullToEmpty(groupBy), query.getGroupBy());
-		assertEquals(offset, query.getOffset());
-		assertEquals(limit, query.getLimit());
+		assertEquals(offset, query.getPageOffset());
+		assertEquals(limit, query.getPageLimitOrMinusOne());
 		assertEquals(toString, query.toString());
 	}
 

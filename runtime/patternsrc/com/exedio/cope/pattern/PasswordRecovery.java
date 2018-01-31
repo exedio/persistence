@@ -153,7 +153,7 @@ public final class PasswordRecovery extends Pattern
 					Cope.equalAndCast(parent, item),
 					expires.greaterOrEqual(new Date(now + expiry - reuse))));
 			tokens.setOrderBy(expires, false);
-			tokens.setLimit(0, 1);
+			tokens.setPage(0, 1);
 			final Token token = tokens.searchSingleton();
 			if(token!=null)
 				return token;

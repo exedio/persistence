@@ -89,7 +89,7 @@ public final class QueryIterators
 
 			this.query  = type.newQuery(condition);
 			query.setOrderBy(typeThis, true);
-			query.setLimit(0, slice);
+			query.setPage(0, slice);
 			this.iterator = search();
 		}
 
@@ -141,7 +141,7 @@ public final class QueryIterators
 				result = query.search();
 			}
 
-			limitExhausted = (result.size()==query.getLimit());
+			limitExhausted = (result.size()==query.getPageLimitOrMinusOne());
 
 			return result.iterator();
 		}
@@ -167,10 +167,10 @@ public final class QueryIterators
 		requireNonNull(query, "query");
 		requireGreaterZero(slice, "slice");
 
-		//System.out.println("-- " + query.getOffset() + " " + query.getLimit() + " " + slice);
+		//System.out.println("-- " + query.getPageOffset() + " " + query.getPageLimitOrMinusOne() + " " + slice);
 
 		final Query<E> queryCopy = new Query<>(query);
-		final int queryLimit = queryCopy.getLimit();
+		final int queryLimit = queryCopy.getPageLimitOrMinusOne();
 		return (queryLimit==-1)
 			? new ByStableQueryUnlimited<>(queryCopy, slice)
 			: new ByStableQueryLimited  <>(queryCopy, slice, queryLimit);
@@ -191,14 +191,14 @@ public final class QueryIterators
 			this.query = query;
 			this.slice = slice;
 
-			this.offset = query.getOffset();
+			this.offset = query.getPageOffset();
 			this.iterator = iterator();
 		}
 
 		private Iterator<E> iterator()
 		{
 			//System.out.println("--   " + offset + " " + slice);
-			query.setLimit(offset, slice);
+			query.setPage(offset, slice);
 			return query.search().iterator();
 		}
 
@@ -240,7 +240,7 @@ public final class QueryIterators
 			this.query = query;
 			this.slice = slice;
 
-			this.offset = query.getOffset();
+			this.offset = query.getPageOffset();
 			this.queryEnd = offset + queryLimit;
 			this.iterator = iterator();
 		}
@@ -258,7 +258,7 @@ public final class QueryIterators
 			//System.out.println("--   " + offset + " " + newLimit);
 			assert 0<newLimit : newLimit;
 			assert newLimit<=slice : newLimit;
-			query.setLimit(offset, newLimit);
+			query.setPage(offset, newLimit);
 			return query.search().iterator();
 		}
 

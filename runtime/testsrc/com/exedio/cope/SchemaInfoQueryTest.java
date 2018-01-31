@@ -73,7 +73,7 @@ public class SchemaInfoQueryTest
 	@Test void testLimitZero()
 	{
 		final Query<?> q = TYPE.newQuery();
-		q.setLimit(0, 0);
+		q.setPage(0, 0);
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
@@ -85,7 +85,7 @@ public class SchemaInfoQueryTest
 	@Test void testOffsetSetLimitZero()
 	{
 		final Query<?> q = TYPE.newQuery();
-		q.setLimit(55, 0);
+		q.setPage(55, 0);
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
@@ -97,7 +97,7 @@ public class SchemaInfoQueryTest
 	@Test void testLimitSet()
 	{
 		final Query<?> q = TYPE.newQuery();
-		q.setLimit(0, 66);
+		q.setPage(0, 66);
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
@@ -109,7 +109,7 @@ public class SchemaInfoQueryTest
 	@Test void testOffsetSetLimitSet()
 	{
 		final Query<?> q = TYPE.newQuery();
-		q.setLimit(55, 66);
+		q.setPage(55, 66);
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
@@ -121,7 +121,7 @@ public class SchemaInfoQueryTest
 	@Test void testOffsetSet()
 	{
 		final Query<?> q = TYPE.newQuery();
-		q.setLimit(55);
+		q.setPageUnlimited(55);
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());

@@ -82,7 +82,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 			agBad.setLimit(1, 2);
 			assertEquals(list(item1, item2), agBad.searchAndTotal().getData());
 
-			q1Bad.setLimit(1);
+			q1Bad.setPageUnlimited(1);
 			try
 			{
 				agBad.searchAndTotal();
@@ -91,7 +91,7 @@ public class QueryAggregatorTest extends TestWithEnvironment
 			{
 				assertEquals("queries must not be limited, but was: " + q1Bad, e.getMessage());
 			}
-			q1Bad.setLimit(0, 1);
+			q1Bad.setPage(0, 1);
 			try
 			{
 				agBad.searchAndTotal();
@@ -167,8 +167,8 @@ public class QueryAggregatorTest extends TestWithEnvironment
 		assertEquals(limit,  ag.getLimit());
 
 		final Query.Result<?> result = ag.searchAndTotal();
-		assertEquals(offset, result.getOffset());
-		assertEquals(limit, result.getLimit());
+		assertEquals(offset, result.getPageOffset());
+		assertEquals(limit, result.getPageLimitOrMinusOne());
 		assertEqualsUnmodifiable(expected, result.getData());
 		assertEquals(10, result.getTotal());
 	}

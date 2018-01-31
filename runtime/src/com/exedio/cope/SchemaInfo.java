@@ -267,7 +267,7 @@ public final class SchemaInfo
 	{
 		if(query.getCondition()==Condition.FALSE)
 			return "skipped because condition==false: " + query;
-		if(query.getLimit()==0)
+		if(query.getPageLimitOrMinusOne()==0)
 			return "skipped because limit==0: " + query;
 
 		return search(query, false);

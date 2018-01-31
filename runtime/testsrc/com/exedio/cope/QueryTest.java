@@ -137,8 +137,8 @@ public class QueryTest extends TestWithEnvironment
 
 		assertEquals(list(), Query.Result.empty().getData());
 		assertEquals(0, Query.Result.empty().getTotal());
-		assertEquals(0, Query.Result.empty().getOffset());
-		assertEquals(-1, Query.Result.empty().getLimit());
+		assertEquals(0, Query.Result.empty().getPageOffset());
+		assertEquals(-1, Query.Result.empty().getPageLimitOrMinusOne());
 		assertSame(Query.Result.empty(), Query.Result.empty());
 		assertEquals(Query.Result.empty(), Query.Result.empty());
 		assertEquals(Query.Result.empty().hashCode(), Query.Result.empty().hashCode());
@@ -151,8 +151,8 @@ public class QueryTest extends TestWithEnvironment
 		new DayItem(d3);
 		assertEquals(list(d2, d3, d1, d2), r(1, 4).getData());
 		assertEquals(6, r(1, 4).getTotal());
-		assertEquals(1, r(1, 4).getOffset());
-		assertEquals(4, r(1, 4).getLimit());
+		assertEquals(1, r(1, 4).getPageOffset());
+		assertEquals(4, r(1, 4).getPageLimitOrMinusOne());
 		assertEqualsResult(r(0, 3), r(0, 3));
 		assertEqualsResult(r(1, 3), r(1, 3));
 		assertNotEqualsResult(r(0, 3), r(1, 3));
@@ -164,29 +164,29 @@ public class QueryTest extends TestWithEnvironment
 			final Query.Result<Day> r = new Query.Result<>(asList(d1), 0, 0);
 			assertEquals(list(d1), r.getData());
 			assertEquals(0, r.getTotal());
-			assertEquals(0, r.getOffset());
-			assertEquals(-1, r.getLimit());
+			assertEquals(0, r.getPageOffset());
+			assertEquals(-1, r.getPageLimitOrMinusOne());
 		}
 		{
 			final Query.Result<Day> r = new Query.Result<>(asList(d1), 0, 0, 0);
 			assertEquals(list(d1), r.getData());
 			assertEquals(0, r.getTotal());
-			assertEquals(0, r.getOffset());
-			assertEquals(0, r.getLimit());
+			assertEquals(0, r.getPageOffset());
+			assertEquals(0, r.getPageLimitOrMinusOne());
 		}
 		{
 			final Query.Result<Day> r = new Query.Result<>(asList(d1), 11, 22);
 			assertEquals(list(d1), r.getData());
 			assertEquals(11, r.getTotal());
-			assertEquals(22, r.getOffset());
-			assertEquals(-1, r.getLimit());
+			assertEquals(22, r.getPageOffset());
+			assertEquals(-1, r.getPageLimitOrMinusOne());
 		}
 		{
 			final Query.Result<Day> r = new Query.Result<>(asList(d1), 11, 22, 33);
 			assertEquals(list(d1), r.getData());
 			assertEquals(11, r.getTotal());
-			assertEquals(22, r.getOffset());
-			assertEquals(33, r.getLimit());
+			assertEquals(22, r.getPageOffset());
+			assertEquals(33, r.getPageLimitOrMinusOne());
 		}
 		try
 		{
@@ -257,7 +257,7 @@ public class QueryTest extends TestWithEnvironment
 	{
 		final Query<Day> q = new Query<>(DayItem.day);
 		q.setOrderBy(DayItem.TYPE.getThis(), true);
-		q.setLimit(offset, limit);
+		q.setPage(offset, limit);
 		return q.searchAndTotal();
 	}
 

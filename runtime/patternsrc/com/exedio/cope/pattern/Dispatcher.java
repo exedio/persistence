@@ -522,7 +522,7 @@ public final class Dispatcher extends Pattern
 				Cope.equalAndCast(mount.runParent, item),
 				runResult.equal(Result.success)));
 		q.setOrderBy(mount.runType.getThis(), false);
-		q.setLimit(0, 1);
+		q.setPage(0, 1);
 		return q.searchSingleton();
 	}
 

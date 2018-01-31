@@ -213,12 +213,12 @@ public class OrderByTest extends TestmodelTest
 			query.setOrderByAndThis(orderFunction, true);
 
 			if(limit==-1)
-				query.setLimit(offset);
+				query.setPageUnlimited(offset);
 			else
-				query.setLimit(offset, limit);
+				query.setPage(offset, limit);
 
-			assertEquals(offset, query.getOffset());
-			assertEquals(limit, query.getLimit());
+			assertEquals(offset, query.getPageOffset());
+			assertEquals(limit, query.getPageLimitOrMinusOne());
 			assertEquals(expectedOrder, query.search());
 			assertNotNull(query.toString());
 		}
@@ -227,12 +227,12 @@ public class OrderByTest extends TestmodelTest
 			query.setOrderByAndThis(orderFunction, false);
 
 			if(limit==-1)
-				query.setLimit(offset);
+				query.setPageUnlimited(offset);
 			else
-				query.setLimit(offset, limit);
+				query.setPage(offset, limit);
 
-			assertEquals(offset, query.getOffset());
-			assertEquals(limit, query.getLimit());
+			assertEquals(offset, query.getPageOffset());
+			assertEquals(limit, query.getPageLimitOrMinusOne());
 			assertEquals(expectedReverseOrder, query.search());
 		}
 		{
@@ -240,12 +240,12 @@ public class OrderByTest extends TestmodelTest
 			query2.setOrderByAndThis(orderFunction, true);
 
 			if(limit==-1)
-				query2.setLimit(offset);
+				query2.setPageUnlimited(offset);
 			else
-				query2.setLimit(offset, limit);
+				query2.setPage(offset, limit);
 
-			assertEquals(offset, query2.getOffset());
-			assertEquals(limit, query2.getLimit());
+			assertEquals(offset, query2.getPageOffset());
+			assertEquals(limit, query2.getPageLimitOrMinusOne());
 
 			final ArrayList<String> expected = new ArrayList<>(expectedOrder.size());
 			for(final Object object : expectedOrder)
@@ -258,19 +258,19 @@ public class OrderByTest extends TestmodelTest
 			query.setOrderByAndThis(orderFunction, true);
 
 			if(limit==-1)
-				query.setLimit(offset);
+				query.setPageUnlimited(offset);
 			else
-				query.setLimit(offset, limit);
+				query.setPage(offset, limit);
 
-			assertEquals(offset, query.getOffset());
-			assertEquals(limit, query.getLimit());
+			assertEquals(offset, query.getPageOffset());
+			assertEquals(limit, query.getPageLimitOrMinusOne());
 
 			final Query.Result<AttributeItem> resultAndTotal = query.searchAndTotal();
 			assertEquals(expectedOrder, resultAndTotal.getData());
 			assertEquals(5, resultAndTotal.getTotal());
-			assertEquals(offset, resultAndTotal.getOffset());
-			assertEquals(limit, resultAndTotal.getLimit());
-			query.setLimit(0);
+			assertEquals(offset, resultAndTotal.getPageOffset());
+			assertEquals(limit, resultAndTotal.getPageLimitOrMinusOne());
+			query.setPageUnlimited(0);
 			final Collection<AttributeItem> resultWithoutLimit = query.search();
 			assertEquals(5, resultWithoutLimit.size());
 		}

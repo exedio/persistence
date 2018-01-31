@@ -38,7 +38,7 @@ public final class Delete
 		requireNonNull(ctx, "ctx");
 
 		final int LIMIT = 100;
-		query.setLimit(0, LIMIT);
+		query.setPage(0, LIMIT);
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; ; transaction++)
 		{

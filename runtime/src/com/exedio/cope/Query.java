@@ -405,24 +405,51 @@ public final class Query<R> implements Serializable
 
 	// offset / limit
 
+	/**
+	 * @deprecated Use {@link #getPageOffset()} instead.
+	 */
+	@Deprecated
 	public int getOffset()
+	{
+		return getPageOffset();
+	}
+
+	public int getPageOffset()
 	{
 		return offset;
 	}
 
+	/**
+	 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
+	 */
+	@Deprecated
 	public int getLimit()
+	{
+		return getPageLimitOrMinusOne();
+	}
+
+	public int getPageLimitOrMinusOne()
 	{
 		return limit!=UNLIMITED ? limit : -1;
 	}
 
 	/**
-	 * @see #setLimit(int)
+	 * @deprecated Use {@link #setPage(int, int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset, final int limit)
+	{
+		setPage(offset, limit);
+	}
+
+	/**
+	 * @see #setPageUnlimited(int)
 	 * @param limit the maximum number of items to be found.
-	 *        For specifying no limit use {@link #setLimit(int)} instead.
+	 *        For specifying offset but no limit use {@link #setPageUnlimited(int)} instead.
 	 * @throws IllegalArgumentException if offset is a negative value
 	 * @throws IllegalArgumentException if limit is a negative value
 	 */
-	public void setLimit(final int offset, final int limit)
+	public void setPage(final int offset, final int limit)
 	{
 		requireNonNegative(offset, "offset");
 		requireNonNegative(limit, "limit");
@@ -432,10 +459,19 @@ public final class Query<R> implements Serializable
 	}
 
 	/**
-	 * @see #setLimit(int, int)
+	 * @deprecated Use {@link #setPageUnlimited(int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset)
+	{
+		setPageUnlimited(offset);
+	}
+
+	/**
+	 * @see #setPage(int, int)
 	 * @throws IllegalArgumentException if offset is a negative value
 	 */
-	public void setLimit(final int offset)
+	public void setPageUnlimited(final int offset)
 	{
 		requireNonNegative(offset, "offset");
 
@@ -557,7 +593,7 @@ public final class Query<R> implements Serializable
 	 * Returns the
 	 * {@link Collection#size() size} of what
 	 * {@link #search()} would have returned for this query with
-	 * {@link #setLimit(int)} reset set to <tt>(0)</tt>.
+	 * {@link #setPageUnlimited(int)} reset set to <tt>(0)</tt>.
 	 */
 	public int total()
 	{
@@ -635,8 +671,8 @@ public final class Query<R> implements Serializable
 		{
 			this.data = query.search();
 			final int dataSize = data.size();
-			this.offset = query.getOffset();
-			this.limit = query.getLimit();
+			this.offset = query.getPageOffset();
+			this.limit = query.getPageLimitOrMinusOne();
 
 			this.total =
 					(((dataSize>0) || (offset==0))  &&  ((dataSize<limit) || (limit==-1)))
@@ -690,23 +726,41 @@ public final class Query<R> implements Serializable
 		}
 
 		/**
+		 * @deprecated Use {@link #getPageOffset()} instead.
+		 */
+		@Deprecated
+		public int getOffset()
+		{
+			return getPageOffset();
+		}
+
+		/**
 		 * @return
-		 * the result of {@link Query#getOffset()}
+		 * the result of {@link Query#getPageOffset()}
 		 * evaluated within the execution of {@link Query#searchAndTotal()}
 		 * that created this {@code Result}.
 		 */
-		public int getOffset()
+		public int getPageOffset()
 		{
 			return offset;
 		}
 
 		/**
+		 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
+		 */
+		@Deprecated
+		public int getLimit()
+		{
+			return getPageLimitOrMinusOne();
+		}
+
+		/**
 		 * @return
-		 * the result of {@link Query#getLimit()}
+		 * the result of {@link Query#getPageLimitOrMinusOne()}
 		 * evaluated within the execution of {@link Query#searchAndTotal()}
 		 * that created this {@code Result}.
 		 */
-		public int getLimit()
+		public int getPageLimitOrMinusOne()
 		{
 			return limit;
 		}

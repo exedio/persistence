@@ -49,7 +49,7 @@ public class QuerySerializeTest
 		q.setHaving(field.equal("zick"));
 		assertSerializedEquals(q, size += 22);
 
-		q.setLimit(10, 20);
+		q.setPage(10, 20);
 		assertSerializedEquals(q, size);
 
 		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{field, TYPE.getThis()}, TYPE, null);

@@ -70,7 +70,7 @@ public final class QueryAggregator<R>
 	}
 
 	/**
-	 * @see Query#getOffset()
+	 * @see Query#getPageOffset()
 	 */
 	public int getOffset()
 	{
@@ -78,7 +78,7 @@ public final class QueryAggregator<R>
 	}
 
 	/**
-	 * @see Query#getLimit()
+	 * @see Query#getPageLimitOrMinusOne()
 	 */
 	public int getLimit()
 	{
@@ -86,7 +86,7 @@ public final class QueryAggregator<R>
 	}
 
 	/**
-	 * @see Query#setLimit(int,int)
+	 * @see Query#setPage(int,int)
 	 */
 	public void setLimit(final int offset, final int limit)
 	{
@@ -100,7 +100,7 @@ public final class QueryAggregator<R>
 	}
 
 	/**
-	 * @see Query#setLimit(int)
+	 * @see Query#setPageUnlimited(int)
 	 */
 	public void setLimit(final int offset)
 	{
@@ -117,7 +117,7 @@ public final class QueryAggregator<R>
 	public Result<R> searchAndTotal()
 	{
 		for(final Query<?> q : queries)
-			if(q.getOffset()!=0 || q.getLimit()!=-1)
+			if(q.getPageOffset()!=0 || q.getPageLimitOrMinusOne()!=-1)
 				throw new IllegalArgumentException("queries must not be limited, but was: " + q);
 
 		final List<R> data;
@@ -167,9 +167,9 @@ public final class QueryAggregator<R>
 			final int nowLimit = limit+offset-totalBeforeLast;
 			if(nowLimit>0)
 			{
-				last.setLimit(0, nowLimit);
+				last.setPage(0, nowLimit);
 				data.addAll(last.search());
-				last.setLimit(0);
+				last.setPageUnlimited(0);
 			}
 		}
 
@@ -182,12 +182,12 @@ public final class QueryAggregator<R>
 	private List<? extends R> search(final Query<? extends R> query, final int offset)
 	{
 		if(limit!=UNLIMITED)
-			query.setLimit(offset, limit);
+			query.setPage(offset, limit);
 		else
-			query.setLimit(offset);
+			query.setPageUnlimited(offset);
 
 		final List<? extends R> result = query.search();
-		query.setLimit(0);
+		query.setPageUnlimited(0);
 		return result;
 	}
 

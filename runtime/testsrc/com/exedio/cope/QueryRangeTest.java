@@ -31,17 +31,17 @@ public class QueryRangeTest
 	@Test void testLimitSimple()
 	{
 		final Query<?> q = q5533();
-		q.setLimit(5);
-		assertEquals(5, q.getOffset());
-		assertEquals(-1, q.getLimit());
+		q.setPageUnlimited(5);
+		assertEquals(5, q.getPageOffset());
+		assertEquals(-1, q.getPageLimitOrMinusOne());
 		assertEquals("select this from AnItem offset '5'", q.toString());
 	}
 	@Test void testLimitSimpleZero()
 	{
 		final Query<?> q = q5533();
-		q.setLimit(0);
-		assertEquals(0, q.getOffset());
-		assertEquals(-1, q.getLimit());
+		q.setPageUnlimited(0);
+		assertEquals(0, q.getPageOffset());
+		assertEquals(-1, q.getPageLimitOrMinusOne());
 		assertEquals("select this from AnItem", q.toString());
 	}
 	@Test void testLimitSimpleOffsetNegative()
@@ -49,31 +49,31 @@ public class QueryRangeTest
 		final Query<?> q = q5533();
 		try
 		{
-			q.setLimit(-1);
+			q.setPageUnlimited(-1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
-			assertEquals(55, q.getOffset());
-			assertEquals(33, q.getLimit());
+			assertEquals(55, q.getPageOffset());
+			assertEquals(33, q.getPageLimitOrMinusOne());
 		}
 	}
 
 	@Test void testLimitFull()
 	{
 		final Query<?> q = q5533();
-		q.setLimit(5, 3);
-		assertEquals(5, q.getOffset());
-		assertEquals(3, q.getLimit());
+		q.setPage(5, 3);
+		assertEquals(5, q.getPageOffset());
+		assertEquals(3, q.getPageLimitOrMinusOne());
 		assertEquals("select this from AnItem offset '5' limit '3'", q.toString());
 	}
 	@Test void testLimitFullZero()
 	{
 		final Query<?> q = q5533();
-		q.setLimit(0, 0);
-		assertEquals(0, q.getOffset());
-		assertEquals(0, q.getLimit());
+		q.setPage(0, 0);
+		assertEquals(0, q.getPageOffset());
+		assertEquals(0, q.getPageLimitOrMinusOne());
 		assertEquals("select this from AnItem limit '0'", q.toString());
 	}
 	@Test void testLimitFullOffsetNegative()
@@ -81,14 +81,14 @@ public class QueryRangeTest
 		final Query<?> q = q5533();
 		try
 		{
-			q.setLimit(-1, 10);
+			q.setPage(-1, 10);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("offset must not be negative, but was -1", e.getMessage());
-			assertEquals(55, q.getOffset());
-			assertEquals(33, q.getLimit());
+			assertEquals(55, q.getPageOffset());
+			assertEquals(33, q.getPageLimitOrMinusOne());
 		}
 	}
 	@Test void testLimitFullLimitNegative()
@@ -96,23 +96,23 @@ public class QueryRangeTest
 		final Query<?> q = q5533();
 		try
 		{
-			q.setLimit(0, -1);
+			q.setPage(0, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("limit must not be negative, but was -1", e.getMessage());
-			assertEquals(55, q.getOffset());
-			assertEquals(33, q.getLimit());
+			assertEquals(55, q.getPageOffset());
+			assertEquals(33, q.getPageLimitOrMinusOne());
 		}
 	}
 
 	private static Query<AnItem> q5533()
 	{
 		final Query<AnItem> result = TYPE.newQuery(null);
-		result.setLimit(55, 33);
-		assertEquals(55, result.getOffset());
-		assertEquals(33, result.getLimit());
+		result.setPage(55, 33);
+		assertEquals(55, result.getPageOffset());
+		assertEquals(33, result.getPageLimitOrMinusOne());
 		return result;
 	}
 

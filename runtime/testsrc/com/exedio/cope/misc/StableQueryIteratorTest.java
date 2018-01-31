@@ -85,19 +85,19 @@ public class StableQueryIteratorTest extends TestWithEnvironment
 
 		assertIt(asList(item0, item1, item2, item3, item4, item5, item6, item7, item8, item9), q);
 
-		q.setLimit(4);
+		q.setPageUnlimited(4);
 		assertIt(asList(item4, item5, item6, item7, item8, item9), q);
 
-		q.setLimit(0, 6);
+		q.setPage(0, 6);
 		assertIt(asList(item0, item1, item2, item3, item4, item5), q);
 
-		q.setLimit(0, 5);
+		q.setPage(0, 5);
 		assertIt(asList(item0, item1, item2, item3, item4), q);
 
-		q.setLimit(2, 6);
+		q.setPage(2, 6);
 		assertIt(asList(item2, item3, item4, item5, item6, item7), q);
 
-		q.setLimit(2, 5);
+		q.setPage(2, 5);
 		assertIt(asList(item2, item3, item4, item5, item6), q);
 	}
 

@@ -65,7 +65,7 @@ public class GroupByTest extends TestWithEnvironment
 	@Test void testSimpleCountWithLimit()
 	{
 		final Query<AnItem> items = TYPE.newQuery();
-		items.setLimit(0, 3);
+		items.setPage(0, 3);
 		assertCount(items, 3, 8);
 	}
 
@@ -82,7 +82,7 @@ public class GroupByTest extends TestWithEnvironment
 		final Selectable<?>[] selection = new Selectable<?>[]{string, integer.min()};
 		final Query<List<Object>> items = Query.newQuery(selection, TYPE, null);
 		items.setGroupBy(string);
-		items.setLimit(0, 3);
+		items.setPage(0, 3);
 		assertCount(items, 3, 4);
 	}
 
