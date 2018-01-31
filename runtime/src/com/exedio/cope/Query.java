@@ -667,21 +667,45 @@ public final class Query<R> implements Serializable
 			this.limit  = -1;
 		}
 
+		/**
+		 * @return
+		 * the result of {@link Query#search()}
+		 * evaluated within the execution of {@link Query#searchAndTotal()}
+		 * that created this {@code Result}.
+		 */
 		public List<R> getData()
 		{
 			return data;
 		}
 
+		/**
+		 * @return
+		 * the result of {@link Query#total()}
+		 * evaluated within the execution of {@link Query#searchAndTotal()}
+		 * that created this {@code Result}.
+		 */
 		public int getTotal()
 		{
 			return total;
 		}
 
+		/**
+		 * @return
+		 * the result of {@link Query#getOffset()}
+		 * evaluated within the execution of {@link Query#searchAndTotal()}
+		 * that created this {@code Result}.
+		 */
 		public int getOffset()
 		{
 			return offset;
 		}
 
+		/**
+		 * @return
+		 * the result of {@link Query#getLimit()}
+		 * evaluated within the execution of {@link Query#searchAndTotal()}
+		 * that created this {@code Result}.
+		 */
 		public int getLimit()
 		{
 			return limit;
