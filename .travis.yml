@@ -13,57 +13,67 @@ before_script:
   - sudo service mysql restart
   - mysql -e "SET GLOBAL max_allowed_packet=64000000;"
   - mysql -e 'CREATE DATABASE cope_test_db;'
-  - mysql -u root --password= -e "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE VIEW ON cope_test_db.* TO 'cope_test_user'@'localhost' IDENTIFIED BY 'pass';"
+  - >
+    mysql -u root --password= -e
+    "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE VIEW
+    ON cope_test_db.* TO 'cope_test_user'@'localhost' IDENTIFIED BY 'pass';"
   - psql  -c 'CREATE DATABASE cope_test_db;' -U postgres
-  - echo -e -n \
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
-    "connection.username=cope_test_user\n"\
-    "connection.password=pass\n"\
-    "x-build.driver=mysql-connector-java.jar\n"\
+  - >
+    echo -e -n
+    "connection.url=jdbc:mysql://localhost/cope_test_db\n
+    connection.username=cope_test_user\n
+    connection.password=pass\n
+    x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my.properties
-  - echo -e -n \
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
-    "connection.username=cope_test_user\n"\
-    "connection.password=pass\n"\
-    "disableSupport.preparedStatements=true\n"\
-    "x-build.driver=mysql-connector-java.jar\n"\
+  - >
+    echo -e -n
+    "connection.url=jdbc:mysql://localhost/cope_test_db\n
+    connection.username=cope_test_user\n
+    connection.password=pass\n
+    disableSupport.preparedStatements=true\n
+    x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my-nprep.properties
-  - echo -e -n \
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
-    "connection.username=cope_test_user\n"\
-    "connection.password=pass\n"\
-    "schema.primaryKeyGenerator=sequence\n"\
-    "x-build.driver=mysql-connector-java.jar\n"\
+  - >
+    echo -e -n
+    "connection.url=jdbc:mysql://localhost/cope_test_db\n
+    connection.username=cope_test_user\n
+    connection.password=pass\n
+    schema.primaryKeyGenerator=sequence\n
+    x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my-sq.properties
-  - echo -e -n \
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n"\
-    "connection.username=cope_test_user\n"\
-    "connection.password=pass\n"\
-    "schema.primaryKeyGenerator=sequence\n"\
-    "x-build.driver=mariadb-java-client.jar\n"\
+  - >
+    echo -e -n
+    "connection.url=jdbc:mysql://localhost/cope_test_db\n
+    connection.username=cope_test_user\n
+    connection.password=pass\n
+    schema.primaryKeyGenerator=sequence\n
+    x-build.driver=mariadb-java-client.jar\n"
     | tee conf/environment/mym.properties
-  - echo -e -n \
-    "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
-    "connection.username=postgres\n"\
-    "connection.password=\n"\
-    "dialect.search_path=public\n"\
-    "x-build.driver=postgresql.jar\n"\
+  - >
+    echo -e -n
+    "connection.url=jdbc:postgresql://localhost/cope_test_db\n
+    connection.username=postgres\n
+    connection.password=\n
+    dialect.search_path=public\n
+    x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg.properties
-  - echo -e -n \
-    "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
-    "connection.username=postgres\n"\
-    "connection.password=\n"\
-    "dialect.search_path=public\n"\
-    "disableSupport.preparedStatements=true\n"\
-    "x-build.driver=postgresql.jar\n"\
+  - >
+    echo -e -n
+    "connection.url=jdbc:postgresql://localhost/cope_test_db\n
+    connection.username=postgres\n
+    connection.password=\n
+    dialect.search_path=public\n
+    disableSupport.preparedStatements=true\n
+    x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg-nprep.properties
-  - echo -e -n \
-    "connection.url=jdbc:postgresql://localhost/cope_test_db\n"\
-    "connection.username=postgres\n"\
-    "connection.password=\n"\
-    "dialect.search_path=public\n"\
-    "schema.primaryKeyGenerator=sequence\n"\
-    "x-build.driver=postgresql.jar\n"\
+  - >
+    echo -e -n
+    "connection.url=jdbc:postgresql://localhost/cope_test_db\n
+    connection.username=postgres\n
+    connection.password=\n
+    dialect.search_path=public\n
+    schema.primaryKeyGenerator=sequence\n
+    x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg-sq.properties
 
 script:
