@@ -106,11 +106,18 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 			throw new SQLRuntimeException(ex, "isValid(" + isValidOnGetTimeout + ')');
 		}
 
-		if(result && logger.isWarnEnabled())
-			logger.warn("invalid on get");
+		if(!result)
+		{
+			if(logger.isWarnEnabled())
+				logger.warn("invalid on get");
+			if(isValidOnGetFails)
+				throw new AssertionError("isValid(" + isValidOnGetTimeout + ')');
+		}
 
 		return result;
 	}
+
+	boolean isValidOnGetFails = false;
 
 	@Override
 	public boolean isValidOnPut(final Connection e)
