@@ -533,7 +533,7 @@ public final class DateField extends FunctionField<Date>
 
 	static SimpleDateFormat format()
 	{
-		return format("yyyy/MM/dd HH:mm:ss.SSS");
+		return format("yyyy-MM-dd HH:mm:ss.SSS");
 	}
 
 	static SimpleDateFormat format(final String pattern)

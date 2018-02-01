@@ -73,11 +73,11 @@ public class PurgePropertiesTest extends ConnectedTest
 		props.purge(sampler, mc);
 		clock.assertEmpty();
 		assertEquals(
-				"purge select this from SamplerTransaction where date<'1987/08/10 " + time + "'\n"+
-				"purge select this from SamplerItemCache where date<'1987/08/09 " + time + "'\n"+
-				"purge select this from SamplerClusterNode where date<'1987/08/08 " + time + "'\n"+
-				"purge select this from SamplerMedia where date<'1987/08/07 " + time + "'\n"+
-				"purge select this from SamplerModel where date<'1987/08/04 " + time + "'\n",
+				"purge select this from SamplerTransaction where date<'1987-08-10 " + time + "'\n"+
+				"purge select this from SamplerItemCache where date<'1987-08-09 " + time + "'\n"+
+				"purge select this from SamplerClusterNode where date<'1987-08-08 " + time + "'\n"+
+				"purge select this from SamplerMedia where date<'1987-08-07 " + time + "'\n"+
+				"purge select this from SamplerModel where date<'1987-08-04 " + time + "'\n",
 				mc.getMessages());
 	}
 
@@ -106,11 +106,11 @@ public class PurgePropertiesTest extends ConnectedTest
 		props.purge(sampler, mc);
 		clock.assertEmpty();
 		assertEquals(
-				"purge select this from SamplerTransaction where date<'1987/08/19 " + time + "'\n"+
-				"purge select this from SamplerItemCache where date<'1987/08/19 " + time + "'\n"+
-				"purge select this from SamplerClusterNode where date<'1987/08/19 " + time + "'\n"+
-				"purge select this from SamplerMedia where date<'1987/08/19 " + time + "'\n"+
-				"purge select this from SamplerModel where date<'1987/08/19 " + time + "'\n",
+				"purge select this from SamplerTransaction where date<'1987-08-19 " + time + "'\n"+
+				"purge select this from SamplerItemCache where date<'1987-08-19 " + time + "'\n"+
+				"purge select this from SamplerClusterNode where date<'1987-08-19 " + time + "'\n"+
+				"purge select this from SamplerMedia where date<'1987-08-19 " + time + "'\n"+
+				"purge select this from SamplerModel where date<'1987-08-19 " + time + "'\n",
 				mc.getMessages());
 	}
 
