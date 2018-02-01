@@ -276,7 +276,7 @@ public final class CopeAssert
 		assertTrue(expected.hashCode()!=actual.hashCode());
 	}
 
-	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
+	private static final String DATE_FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.SSS";
 
 	public static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)
 	{

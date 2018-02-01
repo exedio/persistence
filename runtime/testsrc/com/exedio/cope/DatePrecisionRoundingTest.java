@@ -351,11 +351,11 @@ public class DatePrecisionRoundingTest
 
 	@Test void testIt() throws ParseException
 	{
-		final SimpleDateFormat df = new SimpleDateFormat("dd.MM.yyyy HH:mm:ss.SSS", Locale.ENGLISH);
+		final SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		df.setTimeZone(getTimeZone("Europe/Berlin"));
-		assertEquals(1409234400000l, df.parse("28.08.2014 16:00:00.000").getTime());
+		assertEquals(1409234400000l, df.parse("2014-08-28 16:00:00.000").getTime());
 		// leap second on June 30th, 2015
-		assertEquals(1440770400000l, df.parse("28.08.2015 16:00:00.000").getTime());
+		assertEquals(1440770400000l, df.parse("2015-08-28 16:00:00.000").getTime());
 		assertEquals(DateField.Precision.HOUR, DateField.Precision.HOUR);
 	}
 }

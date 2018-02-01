@@ -64,12 +64,12 @@ public class PurgePropertiesTest extends ConnectedTest
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
 		clockRule.override(clock);
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH);
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
-		clock.add(result.parse("1987/08/20 " + time));
+		clock.add(result.parse("1987-08-20 " + time));
 		// for SamplerPurge instances
 		for(int i = 0; i<5; i++)
-			clock.add(result.parse("1999/09/09 " + time));
+			clock.add(result.parse("1999-09-09 " + time));
 		props.purge(sampler, mc);
 		clock.assertEmpty();
 		assertEquals(
@@ -97,12 +97,12 @@ public class PurgePropertiesTest extends ConnectedTest
 		final MC mc = new MC();
 		final String time = "12:34:56.789";
 		clockRule.override(clock);
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS", Locale.ENGLISH);
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.ENGLISH);
 		result.setTimeZone(TimeZoneStrict.getTimeZone("UTC"));
-		clock.add(result.parse("1987/08/20 " + time));
+		clock.add(result.parse("1987-08-20 " + time));
 		// for SamplerPurge instances
 		for(int i = 0; i<5; i++)
-			clock.add(result.parse("1999/09/09 " + time));
+			clock.add(result.parse("1999-09-09 " + time));
 		props.purge(sampler, mc);
 		clock.assertEmpty();
 		assertEquals(

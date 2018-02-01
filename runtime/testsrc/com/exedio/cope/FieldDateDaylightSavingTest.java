@@ -31,36 +31,36 @@ public class FieldDateDaylightSavingTest extends FieldTest
 {
 	@Test void testSpring() throws ParseException
 	{
-		final Date cutoff = date("2014/3/30 02:00:00.000 (+0100)");
+		final Date cutoff = date("2014-3-30 02:00:00.000 (+0100)");
 		assertDate(cutoff);
 
 		{
-			final Date minus1000 = date("2014/3/30 01:59:59.000 (+0100)");
+			final Date minus1000 = date("2014-3-30 01:59:59.000 (+0100)");
 			assertDiff(-1000, cutoff, minus1000);
 			assertDate(minus1000);
 		}
 		{
-			final Date minus2 = date("2014/3/30 01:59:59.998 (+0100)");
+			final Date minus2 = date("2014-3-30 01:59:59.998 (+0100)");
 			assertDiff(-2, cutoff, minus2);
 			assertDate(minus2);
 		}
 		{
-			final Date minus1 = date("2014/3/30 01:59:59.999 (+0100)");
+			final Date minus1 = date("2014-3-30 01:59:59.999 (+0100)");
 			assertDiff(-1, cutoff, minus1);
 			assertDate(minus1);
 		}
 		{
-			final Date plus1 = date("2014/3/30 03:00:00.001 (+0200)");
+			final Date plus1 = date("2014-3-30 03:00:00.001 (+0200)");
 			assertDiff(1, cutoff, plus1);
 			assertDate(plus1);
 		}
 		{
-			final Date plus2 = date("2014/3/30 03:00:00.002 (+0200)");
+			final Date plus2 = date("2014-3-30 03:00:00.002 (+0200)");
 			assertDiff(2, cutoff, plus2);
 			assertDate(plus2);
 		}
 		{
-			final Date plus1000 = date("2014/3/30 03:00:01.000 (+0200)");
+			final Date plus1000 = date("2014-3-30 03:00:01.000 (+0200)");
 			assertDiff(1000, cutoff, plus1000);
 			assertDate(plus1000);
 		}
@@ -68,36 +68,36 @@ public class FieldDateDaylightSavingTest extends FieldTest
 
 	@Test void testAutumnStart() throws ParseException
 	{
-		final Date cutoff = date("2014/10/26 02:00:00.000 (+0200)");
+		final Date cutoff = date("2014-10-26 02:00:00.000 (+0200)");
 		assertDate(cutoff);
 
 		{
-			final Date minus1000 = date("2014/10/26 01:59:59.000 (+0200)");
+			final Date minus1000 = date("2014-10-26 01:59:59.000 (+0200)");
 			assertDiff(-1000, cutoff, minus1000);
 			assertDate(minus1000);
 		}
 		{
-			final Date minus2 = date("2014/10/26 01:59:59.998 (+0200)");
+			final Date minus2 = date("2014-10-26 01:59:59.998 (+0200)");
 			assertDiff(-2, cutoff, minus2);
 			assertDate(minus2);
 		}
 		{
-			final Date minus1 = date("2014/10/26 01:59:59.999 (+0200)");
+			final Date minus1 = date("2014-10-26 01:59:59.999 (+0200)");
 			assertDiff(-1, cutoff, minus1);
 			assertDate(minus1);
 		}
 		{
-			final Date plus1 = date("2014/10/26 02:00:00.001 (+0200)");
+			final Date plus1 = date("2014-10-26 02:00:00.001 (+0200)");
 			assertDiff(1, cutoff, plus1);
 			assertDate(plus1);
 		}
 		{
-			final Date plus2 = date("2014/10/26 02:00:00.002 (+0200)");
+			final Date plus2 = date("2014-10-26 02:00:00.002 (+0200)");
 			assertDiff(2, cutoff, plus2);
 			assertDate(plus2);
 		}
 		{
-			final Date plus1000 = date("2014/10/26 02:00:01.000 (+0200)");
+			final Date plus1000 = date("2014-10-26 02:00:01.000 (+0200)");
 			assertDiff(1000, cutoff, plus1000);
 			assertDate(plus1000);
 		}
@@ -105,36 +105,36 @@ public class FieldDateDaylightSavingTest extends FieldTest
 
 	@Test void testAutumnEnd() throws ParseException
 	{
-		final Date cutoff = date("2014/10/26 02:00:00.000 (+0100)");
+		final Date cutoff = date("2014-10-26 02:00:00.000 (+0100)");
 		assertDate(cutoff);
 
 		{
-			final Date minus1000 = date("2014/10/26 02:59:59.000 (+0200)");
+			final Date minus1000 = date("2014-10-26 02:59:59.000 (+0200)");
 			assertDiff(-1000, cutoff, minus1000);
 			assertDate(minus1000);
 		}
 		{
-			final Date minus2 = date("2014/10/26 02:59:59.998 (+0200)");
+			final Date minus2 = date("2014-10-26 02:59:59.998 (+0200)");
 			assertDiff(-2, cutoff, minus2);
 			assertDate(minus2);
 		}
 		{
-			final Date minus1 = date("2014/10/26 02:59:59.999 (+0200)");
+			final Date minus1 = date("2014-10-26 02:59:59.999 (+0200)");
 			assertDiff(-1, cutoff, minus1);
 			assertDate(minus1);
 		}
 		{
-			final Date plus1 = date("2014/10/26 02:00:00.001 (+0100)");
+			final Date plus1 = date("2014-10-26 02:00:00.001 (+0100)");
 			assertDiff(1, cutoff, plus1);
 			assertDate(plus1);
 		}
 		{
-			final Date plus2 = date("2014/10/26 02:00:00.002 (+0100)");
+			final Date plus2 = date("2014-10-26 02:00:00.002 (+0100)");
 			assertDiff(2, cutoff, plus2);
 			assertDate(plus2);
 		}
 		{
-			final Date plus1000 = date("2014/10/26 02:00:01.000 (+0100)");
+			final Date plus1000 = date("2014-10-26 02:00:01.000 (+0100)");
 			assertDiff(1000, cutoff, plus1000);
 			assertDate(plus1000);
 		}
@@ -148,7 +148,7 @@ public class FieldDateDaylightSavingTest extends FieldTest
 
 	private static SimpleDateFormat df()
 	{
-		final SimpleDateFormat result = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss.SSS (z)", Locale.ENGLISH);
+		final SimpleDateFormat result = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS (z)", Locale.ENGLISH);
 		result.setTimeZone(getTimeZone("Europe/Berlin"));
 		result.setLenient(false);
 		return result;

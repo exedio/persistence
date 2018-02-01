@@ -646,7 +646,7 @@ public class MediaServletTest
 
 	// ----------------------------------- adapted from CopeAssert
 
-	private static final String DATE_FORMAT_FULL = "dd.MM.yyyy HH:mm:ss.SSS";
+	private static final String DATE_FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.SSS";
 
 	private static void assertEqualsDate(final Date expected, final Date actual)
 	{
