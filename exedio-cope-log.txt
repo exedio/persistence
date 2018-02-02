@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Generate getValid*Token for PasswordRecovery to get a valid token for postponed redemption
+	Affects instrumented code.
+	To disable the new getter, adapt your <instrument> call:
+	<instrument ...>
+		<disableWrap>com.exedio.cope.pattern.PasswordRecovery#getValidToken(com.exedio.cope.Item,long)</disableWrap>
+	</instrument>
 * Change Javadoc of PasswordRecovery#redeem
 	This affects instrumented code
 * ChangeHook added.

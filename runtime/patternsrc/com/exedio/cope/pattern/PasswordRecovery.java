@@ -171,11 +171,11 @@ public final class PasswordRecovery extends Pattern
 
 	/**
 	 * @param secret a secret for password recovery
-	 * @return a new password, if the secret was valid, otherwise null
+	 * @return a valid token, if existing, otherwise null
 	 */
-	@Wrap(order=20, docReturn="a new password, if the secret was valid, otherwise null")
+	@Wrap(order=20, name="getValid{0}Token", docReturn="a valid token, if existing, otherwise null")
 	@Nullable
-	public String redeem(
+	public Token getValidToken(
 			@Nonnull final Item item,
 			@Parameter(value="secret", doc="a secret for password recovery") final long secret)
 	{
@@ -190,14 +190,32 @@ public final class PasswordRecovery extends Pattern
 
 		if(!tokens.isEmpty())
 		{
-			final String newPassword = password.newRandomPassword(random);
-			this.password.set(item, newPassword);
-			for(final Token t : tokens)
-				t.deleteCopeItem();
-			return newPassword;
+			return tokens.get(0);
 		}
 
 		return null;
+	}
+
+	/**
+	 * @param secret a secret for password recovery
+	 * @return a new password, if the secret was valid, otherwise null
+	 */
+	@Wrap(order=30, docReturn="a new password, if the secret was valid, otherwise null")
+	@Nullable
+	public String redeem(
+			@Nonnull final Item item,
+			@Parameter(value="secret", doc="a secret for password recovery") final long secret)
+	{
+		final Token validToken = getValidToken(item, secret);
+
+		if(validToken != null)
+		{
+			return validToken.redeemAndSetNewPassword();
+		}
+		else
+		{
+			return null;
+		}
 	}
 
 	public static final class Config
@@ -278,6 +296,27 @@ public final class PasswordRecovery extends Pattern
 		public Date getExpires()
 		{
 			return getPattern().expires.get(this);
+		}
+
+		public void redeem()
+		{
+			final PasswordRecovery passwordRecovery = getPattern();
+			final List<Token> tokens = passwordRecovery.tokenType.search(Cope.and(
+					Cope.equalAndCast(passwordRecovery.parent, getParent()),
+					passwordRecovery.secret.equal(getSecret()),
+					passwordRecovery.expires.greaterOrEqual(Clock.newDate())));
+			for(final Token t : tokens)
+				t.deleteCopeItem();
+		}
+
+		public String redeemAndSetNewPassword()
+		{
+			final Item parent = getParent();
+			redeem();
+			final HashInterface password = getPattern().password;
+			final String newPassword = password.newRandomPassword(getPattern().random);
+			password.set(parent, newPassword);
+			return newPassword;
 		}
 	}
 

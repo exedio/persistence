@@ -124,6 +124,17 @@ public final class PasswordRecoveryItem extends Item
 
 	/**
 	 * @param secret a secret for password recovery
+	 * @return a valid token, if existing, otherwise null
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getValidToken")
+	@javax.annotation.Nullable
+	final com.exedio.cope.pattern.PasswordRecovery.Token getValidPasswordRecoveryToken(final long secret)
+	{
+		return PasswordRecoveryItem.passwordRecovery.getValidToken(this,secret);
+	}
+
+	/**
+	 * @param secret a secret for password recovery
 	 * @return a new password, if the secret was valid, otherwise null
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="redeem")

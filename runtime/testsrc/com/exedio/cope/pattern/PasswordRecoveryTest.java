@@ -65,6 +65,96 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertNoUpdateCounterColumn(passwordRecovery.getTokenType());
 	}
 
+	@Test void testGetValidTokenAndRedeemWithNewPassword()
+	{
+		final Config config = new Config(60*1000);
+
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:11:22.333");
+		final Token token = i.issuePasswordRecovery(config);
+		clock.assertEmpty();
+		final long tokenSecret = token.getSecret();
+		assertTrue(i.checkPassword("oldpass"));
+		final Date expires = token.getExpires();
+		assertEqualsDate("2005-05-12 13:12:22.333", expires);
+		assertEquals(list(token), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret+1));
+		clock.assertEmpty();
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(tokenSecret, token.getSecret());
+		assertEquals(expires, token.getExpires());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		final Token aToken = i.getValidPasswordRecoveryToken(tokenSecret);
+		assertEquals(token, aToken);
+		clock.assertEmpty();
+		clock.add("2005-05-12 13:12:22.333");  // at expiry
+		final String newPassword = aToken.redeemAndSetNewPassword();
+		clock.assertEmpty();
+		assertNotNull(newPassword);
+		assertTrue(i.checkPassword(newPassword));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
+		clock.assertEmpty();
+		assertTrue(i.checkPassword(newPassword));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		assertEquals(0, purge());
+		clock.assertEmpty();
+		assertTrue(i.checkPassword(newPassword));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+	}
+
+	@Test void testGetValidTokenAndRedeem()
+	{
+		final Config config = new Config(60*1000);
+
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:11:22.333");
+		final Token token = i.issuePasswordRecovery(config);
+		clock.assertEmpty();
+		final long tokenSecret = token.getSecret();
+		assertTrue(i.checkPassword("oldpass"));
+		final Date expires = token.getExpires();
+		assertEqualsDate("2005-05-12 13:12:22.333", expires);
+		assertEquals(list(token), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		final Token aToken = i.getValidPasswordRecoveryToken(tokenSecret);
+		assertEquals(token, aToken);
+		clock.assertEmpty();
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		aToken.redeem();
+		clock.assertEmpty();
+		assertTrue(i.checkPassword("oldpass"));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
+		clock.assertEmpty();
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		assertEquals(0, purge());
+		clock.assertEmpty();
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+	}
+
 	@Test void testRedeem()
 	{
 		final Config config = new Config(60*1000);
@@ -89,6 +179,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertEquals(expires, token.getExpires());
 
 		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		clock.add("2005-05-12 13:12:22.333"); // OK: this is for deleting tokens in Token#redeem
 		final String newPassword = i.redeemPasswordRecovery(tokenSecret);
 		clock.assertEmpty();
 		assertNotNull(newPassword);
@@ -108,6 +199,35 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertEquals(0, purge());
 		clock.assertEmpty();
 		assertTrue(i.checkPassword(newPassword));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+	}
+
+	@Test void testGetExpiredToken()
+	{
+		final Config config = new Config(20);
+
+		clock.add("2005-05-12 13:11:22.333");
+		final Token token = i.issuePasswordRecovery(config);
+		clock.assertEmpty();
+		final long tokenSecret = token.getSecret();
+		assertTrue(i.checkPassword("oldpass"));
+		final Date expires = token.getExpires();
+		assertEqualsDate("2005-05-12 13:11:22.353", expires);
+		assertEquals(list(token), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
+		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
+		clock.assertEmpty();
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(tokenSecret, token.getSecret());
+		assertEquals(expires, token.getExpires());
+		assertEquals(list(token), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
+		assertEquals(1, purge());
+		clock.assertEmpty();
+		assertTrue(i.checkPassword("oldpass"));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 	}
@@ -139,6 +259,62 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertTrue(i.checkPassword("oldpass"));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), passwordRecovery.getTokenType().search());
+	}
+
+	@Test void testPostponedRedemption()
+	{
+		final Config config = new Config(60*1000);
+
+		assertTrue(i.checkPassword("oldpass"));
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:11:22.333");
+		final Token token = i.issuePasswordRecovery(config);
+		clock.assertEmpty();
+		final long tokenSecret = token.getSecret();
+		assertTrue(i.checkPassword("oldpass"));
+		final Date expires = token.getExpires();
+		assertEqualsDate("2005-05-12 13:12:22.333", expires);
+		assertEquals(list(token), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.333"); // at expiry
+		final Token aToken = i.getValidPasswordRecoveryToken(tokenSecret);
+		assertEquals(token, aToken);
+		clock.assertEmpty();
+		clock.add("2005-05-12 13:12:22.353");  // exactly after expiry
+		final String newPassword = aToken.redeemAndSetNewPassword();
+		clock.assertEmpty();
+		assertNotNull(newPassword);
+		assertTrue(i.checkPassword(newPassword));
+		assertTrue(token.existsCopeItem());
+		assertEquals(list(token), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.353"); // exactly after expiry
+		assertEquals(null, i.getValidPasswordRecoveryToken(tokenSecret));
+		clock.assertEmpty();
+		assertTrue(i.checkPassword(newPassword));
+		assertTrue(token.existsCopeItem());
+		assertEquals(list(token), passwordRecovery.getTokenType().search());
+
+		clock.add("2005-05-12 13:12:22.353"); // at expiry
+		assertEquals(1, purge());
+		clock.assertEmpty();
+		assertTrue(i.checkPassword(newPassword));
+		assertFalse(token.existsCopeItem());
+		assertEquals(list(), passwordRecovery.getTokenType().search());
+	}
+
+	@Test void testGetValidTokenWithNotASecret()
+	{
+		try
+		{
+			i.getValidPasswordRecoveryToken(0);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("not a valid secret: 0", e.getMessage());
+		}
 	}
 
 	@Test void testRedeemWithNotASecret()
