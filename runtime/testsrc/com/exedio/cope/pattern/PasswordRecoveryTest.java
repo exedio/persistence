@@ -60,10 +60,13 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clockRule.override(clock);
 	}
 
-	@Test void testIt() throws Exception
+	@Test void testNoUpdateCounterColumn()
 	{
 		assertNoUpdateCounterColumn(passwordRecovery.getTokenType());
+	}
 
+	@Test void testRedeem()
+	{
 		final Config config = new Config(60*1000);
 
 		assertTrue(i.checkPassword("oldpass"));
@@ -109,7 +112,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertEquals(list(), passwordRecovery.getTokenType().search());
 	}
 
-	@Test void testExpired()
+	@Test void testExpiredRedeem()
 	{
 		final Config config = new Config(20);
 
@@ -136,7 +139,10 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertTrue(i.checkPassword("oldpass"));
 		assertFalse(token.existsCopeItem());
 		assertEquals(list(), passwordRecovery.getTokenType().search());
+	}
 
+	@Test void testRedeemWithNotASecret()
+	{
 		try
 		{
 			i.redeemPasswordRecovery(0);
@@ -146,6 +152,10 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		{
 			assertEquals("not a valid secret: 0", e.getMessage());
 		}
+	}
+
+	@Test void testIssueWithNullConfig()
+	{
 		try
 		{
 			i.issuePasswordRecovery(null);
@@ -204,17 +214,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertFalse(token3.equals(token1));
 	}
 
-	private int purge()
-	{
-		final DeleteJobContext ctx = new DeleteJobContext(MODEL);
-		model.commit();
-		purgePasswordRecovery(ctx);
-		model.startTransaction("PasswordRecoveryTest");
-		return ctx.getProgress();
-	}
-
 	@Deprecated
-	@Test void testDeprecated()
+	@Test void testIssueDeprecated()
 	{
 		try
 		{
@@ -225,6 +226,15 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		{
 			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
 		}
+	}
+
+	private int purge()
+	{
+		final DeleteJobContext ctx = new DeleteJobContext(MODEL);
+		model.commit();
+		purgePasswordRecovery(ctx);
+		model.startTransaction("PasswordRecoveryTest");
+		return ctx.getProgress();
 	}
 
 	private void assertEqualsDate(final String expected, final Date actual)
