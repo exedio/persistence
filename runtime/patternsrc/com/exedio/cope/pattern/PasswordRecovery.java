@@ -170,14 +170,14 @@ public final class PasswordRecovery extends Pattern
 	}
 
 	/**
-	 * @param secret a token for password recovery
-	 * @return a new password, if the token was valid, otherwise null
+	 * @param secret a secret for password recovery
+	 * @return a new password, if the secret was valid, otherwise null
 	 */
-	@Wrap(order=20, docReturn="a new password, if the token was valid, otherwise null")
+	@Wrap(order=20, docReturn="a new password, if the secret was valid, otherwise null")
 	@Nullable
 	public String redeem(
 			@Nonnull final Item item,
-			@Parameter(value="secret", doc="a token secret for password recovery") final long secret)
+			@Parameter(value="secret", doc="a secret for password recovery") final long secret)
 	{
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
