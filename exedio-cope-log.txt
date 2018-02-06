@@ -20,6 +20,32 @@ The items are sorted inversely, i.e. latest items are on top
 		ALTER TABLE `SomeTable` DROP COLUMN `someDateOld`; -- you may want to omit this to keep the old data for some time
 
 * require mysql connector 5.1.45
+
+	BEWARE: Within a web application, the new mysql connector may cause the
+	following warning on shutdown (tomcat 8.5.14):
+
+		org.apache.catalina.loader.WebappClassLoaderBase.clearReferencesThreads
+		The web application [myapp] appears to have started a thread named
+		[Abandoned connection cleanup thread] but has failed to stop it.
+		This is very likely to create a memory leak. Stack trace of thread:
+			java.lang.Object.wait(Native Method)
+			java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:143)
+			com.mysql.jdbc.AbandonedConnectionCleanupThread.run(AbandonedConnectionCleanupThread.java:64)
+			java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1149)
+			java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:624)
+			java.lang.Thread.run(Thread.java:748)
+
+	This may be fixed with the following piece of code in
+	javax.servlet.ServletContextListener#contextDestroyed:
+
+		com.mysql.jdbc.AbandonedConnectionCleanupThread.checkedShutdown();
+
+	You may want to use reflection, if mysql connector is not available on compile time:
+
+		Class.forName("com.mysql.jdbc.AbandonedConnectionCleanupThread").
+			getDeclaredMethod("checkedShutdown").
+			invoke(null);
+
 * Media#setLastModified added.
 * DateField creates check constraints for value range if native dates are supported.
 	This heavily affects database schema, except on MySQL.
