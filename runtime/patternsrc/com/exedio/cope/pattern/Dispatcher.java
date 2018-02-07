@@ -172,6 +172,7 @@ public final class Dispatcher extends Pattern
 	/**
 	 * Disables {@link #purge(DispatcherPurgeProperties, JobContext)} functionality.
 	 * Avoids additional columns in database needed for purge functionality.
+	 * Additionally disables resetting failureLimit on unpend.
 	 */
 	public Dispatcher withoutPurge()
 	{
@@ -413,6 +414,13 @@ public final class Dispatcher extends Pattern
 					final boolean isFinal;
 					{
 						final Query<Run> query = mount.runType.newQuery(runParent.equal(item));
+						if(supportsPurge())
+						{
+							final Date unpendDate = unpend.of(Unpend.date).get(item);
+							// effectively resets failureLimit on unpend
+							if(unpendDate!=null)
+								query.narrow(runDate.greater(unpendDate));
+						}
 						isFinal = query.total() >=
 							config.getFailureLimit() - 1;
 					}

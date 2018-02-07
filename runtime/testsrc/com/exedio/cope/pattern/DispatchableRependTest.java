@@ -51,10 +51,13 @@ public class DispatchableRependTest extends TestWithEnvironment
 		assertIt(true, 1, 2, item);
 
 		dispatch();
-		assertIt(false, 1, 3, item); // TODO failureLimit should be reset
+		assertIt(true, 1, 3, item); // failureLimit was reset
 
 		dispatch();
-		assertIt(false, 1, 3, item);
+		assertIt(false, 1, 4, item);
+
+		dispatch();
+		assertIt(false, 1, 4, item);
 	}
 
 	@Test void testFailure()
@@ -79,10 +82,16 @@ public class DispatchableRependTest extends TestWithEnvironment
 		assertIt(true, 0, 3, item);
 
 		dispatch();
-		assertIt(false, 0, 4, item); // TODO failureLimit should be reset
+		assertIt(true, 0, 4, item); // failureLimit was reset
 
 		dispatch();
-		assertIt(false, 0, 4, item);
+		assertIt(true, 0, 5, item);
+
+		dispatch();
+		assertIt(false, 0, 6, item);
+
+		dispatch();
+		assertIt(false, 0, 6, item);
 	}
 
 
