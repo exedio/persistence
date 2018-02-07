@@ -410,9 +410,12 @@ public final class Dispatcher extends Pattern
 
 					tx.startTransaction(id + " register failure " + itemID);
 
-					final boolean isFinal =
-							mount.runType.newQuery(runParent.equal(item)).total() >=
+					final boolean isFinal;
+					{
+						final Query<Run> query = mount.runType.newQuery(runParent.equal(item));
+						isFinal = query.total() >=
 							config.getFailureLimit() - 1;
+					}
 
 					mount.runType.newItem(
 						runParent.map(item),
