@@ -39,6 +39,8 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Result;
+import com.exedio.cope.util.EmptyJobContext;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
@@ -152,6 +154,48 @@ public class DispatcherModelTest
 	@Test void testDefaultPendingTo()
 	{
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@Test void testDispatchUnchecked()
+	{
+		try
+		{
+			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
+			fail();
+		}
+		catch(final ClassCastException e)
+		{
+			assertEquals("expected " + HashItem.class.getName() + ", but was " + DispatcherItem.class.getName(), e.getMessage());
+		}
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@Test void testDispatchConfigNull()
+	{
+		try
+		{
+			toTarget.dispatch((Class)HashItem.class, null, (JobContext)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("config", e.getMessage());
+		}
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@Test void testDispatchContextNull()
+	{
+		try
+		{
+			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), (JobContext)null);
+			fail();
+		}
+		catch(final NullPointerException e)
+		{
+			assertEquals("ctx", e.getMessage());
+		}
 	}
 
 	@Test void testPurgePropertiesNull()
