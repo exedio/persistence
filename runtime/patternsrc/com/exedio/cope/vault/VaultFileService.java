@@ -25,11 +25,13 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.FileAlreadyExistsException;
+import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
@@ -237,6 +239,60 @@ public final class VaultFileService implements VaultService
 		Path tempDir()
 		{
 			return root.resolve(temp);
+		}
+
+		@Probe(name="root.Exists")
+		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // OK: @Probe
+		private Path probeRootExists()
+		{
+			return probeDirectoryExists(root);
+		}
+
+		@Probe(name="root.Free")
+		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // OK: @Probe
+		private String probeRootFree() throws IOException
+		{
+			final FileStore store = Files.getFileStore(root);
+			final long total = store.getTotalSpace();
+			return
+					(store.getUsableSpace()*100/total) + "% of " +
+					(total/(1024*1024*1024)) + "GiB";
+		}
+
+		@Probe(name="temp.Exists")
+		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // OK: @Probe
+		private Path probeTempExists()
+		{
+			return probeDirectoryExists(tempDir());
+		}
+
+		private static Path probeDirectoryExists(final Path directory)
+		{
+			final Path absolute = directory.toAbsolutePath();
+			if(!Files.exists(directory))
+				throw new IllegalArgumentException("does not exist: " + absolute);
+			if(!Files.isDirectory(directory))
+				throw new IllegalArgumentException("is not a directory: " + absolute);
+			if(!Files.isReadable(directory))
+				throw new IllegalArgumentException("is not readable: " + absolute); // TODO test
+			if(!Files.isWritable(directory))
+				throw new IllegalArgumentException("is not writable: " + absolute); // TODO test
+			return absolute;
+		}
+
+		@Probe(name="temp.Store")
+		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // OK: @Probe
+		private FileStore probeTempStore() throws IOException
+		{
+			final FileStore rootStore = Files.getFileStore(root);
+			final Path tempDir = tempDir();
+			final FileStore tempStore = Files.getFileStore(tempDir);
+			if(!rootStore.equals(tempStore))
+				throw new IllegalArgumentException( // TODO test
+						"not the same file store: " +
+						"root " + root   .toAbsolutePath() + " on " + rootStore + ", but " +
+						"temp " + tempDir.toAbsolutePath() + " on " + tempStore);
+			return rootStore;
 		}
 	}
 
