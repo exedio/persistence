@@ -56,7 +56,7 @@ import org.junit.jupiter.api.function.Executable;
  */
 public abstract class VaultServiceTest
 {
-	private static final String ALGORITHM = "SHA-512";
+	protected static final String ALGORITHM = "SHA-512";
 
 	private VaultProperties properties;
 	private VaultService service;

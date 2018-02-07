@@ -27,6 +27,7 @@ import com.exedio.cope.vaulttest.VaultServiceTest;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 import java.util.TreeSet;
 import org.junit.jupiter.api.BeforeEach;
@@ -62,7 +63,9 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 
 	@BeforeEach final void setUpAbstractVaultFileServiceTest() throws IOException
 	{
-		Files.createDirectory(((VaultFileService)getService()).tempDir);
+		final Path tempDir = ((VaultFileService)getService()).tempDir;
+		if(tempDir!=null)
+			Files.createDirectory(tempDir);
 	}
 
 	@Test final void testToString()

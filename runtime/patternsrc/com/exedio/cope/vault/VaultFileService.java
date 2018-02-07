@@ -53,7 +53,7 @@ public final class VaultFileService implements VaultService
 		final DirectoryProps directory = properties.directory;
 		this.directoryLength = directory!=null ? directory.length : 0;
 		this.directoryCreate = directory!=null && directory.createAsNeeded;
-		this.tempDir = properties.tempDir();
+		this.tempDir = parameters.isWritable() ? properties.tempDir() : null;
 
 		{
 			final int algorithmLength = parameters.getVaultProperties().getAlgorithmLength();
