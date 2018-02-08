@@ -405,41 +405,14 @@ public final class Query<R> implements Serializable
 
 	// offset / limit
 
-	/**
-	 * @deprecated Use {@link #getPageOffset()} instead.
-	 */
-	@Deprecated
-	public int getOffset()
-	{
-		return getPageOffset();
-	}
-
 	public int getPageOffset()
 	{
 		return offset;
 	}
 
-	/**
-	 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
-	 */
-	@Deprecated
-	public int getLimit()
-	{
-		return getPageLimitOrMinusOne();
-	}
-
 	public int getPageLimitOrMinusOne()
 	{
 		return limit!=UNLIMITED ? limit : -1;
-	}
-
-	/**
-	 * @deprecated Use {@link #setPage(int, int)} instead.
-	 */
-	@Deprecated
-	public void setLimit(final int offset, final int limit)
-	{
-		setPage(offset, limit);
 	}
 
 	/**
@@ -456,15 +429,6 @@ public final class Query<R> implements Serializable
 
 		this.offset = offset;
 		this.limit = limit;
-	}
-
-	/**
-	 * @deprecated Use {@link #setPageUnlimited(int)} instead.
-	 */
-	@Deprecated
-	public void setLimit(final int offset)
-	{
-		setPageUnlimited(offset);
 	}
 
 	/**
@@ -726,15 +690,6 @@ public final class Query<R> implements Serializable
 		}
 
 		/**
-		 * @deprecated Use {@link #getPageOffset()} instead.
-		 */
-		@Deprecated
-		public int getOffset()
-		{
-			return getPageOffset();
-		}
-
-		/**
 		 * @return
 		 * the result of {@link Query#getPageOffset()}
 		 * evaluated within the execution of {@link Query#searchAndTotal()}
@@ -743,15 +698,6 @@ public final class Query<R> implements Serializable
 		public int getPageOffset()
 		{
 			return offset;
-		}
-
-		/**
-		 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
-		 */
-		@Deprecated
-		public int getLimit()
-		{
-			return getPageLimitOrMinusOne();
 		}
 
 		/**
@@ -798,6 +744,24 @@ public final class Query<R> implements Serializable
 		private static final Result EMPTY = new Result(Collections.emptyList(), 0, 0);
 
 		// ------------------- deprecated stuff -------------------
+
+		/**
+		 * @deprecated Use {@link #getPageOffset()} instead.
+		 */
+		@Deprecated
+		public int getOffset()
+		{
+			return getPageOffset();
+		}
+
+		/**
+		 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
+		 */
+		@Deprecated
+		public int getLimit()
+		{
+			return getPageLimitOrMinusOne();
+		}
 
 		/**
 		 * @deprecated Use {@link #getTotal()} instead
@@ -1233,6 +1197,42 @@ public final class Query<R> implements Serializable
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getPageOffset()} instead.
+	 */
+	@Deprecated
+	public int getOffset()
+	{
+		return getPageOffset();
+	}
+
+	/**
+	 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
+	 */
+	@Deprecated
+	public int getLimit()
+	{
+		return getPageLimitOrMinusOne();
+	}
+
+	/**
+	 * @deprecated Use {@link #setPage(int, int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset, final int limit)
+	{
+		setPage(offset, limit);
+	}
+
+	/**
+	 * @deprecated Use {@link #setPageUnlimited(int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset)
+	{
+		setPageUnlimited(offset);
+	}
 
 	/**
 	 * @deprecated Use {@link #searchAndTotal()} instead
