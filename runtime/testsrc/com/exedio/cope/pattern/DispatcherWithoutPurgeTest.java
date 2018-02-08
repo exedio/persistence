@@ -92,11 +92,11 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item2);
-		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 2 of 3 runs remaining");
 		log.assertDebug("dispatching " + item3);
 		log.assertInfo("success for " + item3 + ", took " + item3.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
-		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 2 of 3 runs remaining");
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1]));
@@ -105,9 +105,9 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 		final Date[] d2 = dispatch(2);
 		log.assertDebug("dispatching " + item2);
-		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 1 of 3 runs remaining");
 		log.assertDebug("dispatching " + item4);
-		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 1 of 3 runs remaining");
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], list());
 		assertPending(item2, 0, list(d1[1], d2[0]));
@@ -119,7 +119,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item2);
 		log.assertInfo("success for " + item2 + ", took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
-		log.assertError("final failure for " + item4 + ", took " + item4.lastElapsed() + "ms" );
+		log.assertError("final failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 3 runs exhausted" );
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], list());
 		assertSuccess(item2, 1, d3[0], list(d1[1], d2[0]));

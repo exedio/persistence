@@ -411,7 +411,9 @@ public final class Dispatcher extends Pattern
 
 					tx.startTransaction(id + " register failure " + itemID);
 
+					final int limit = config.getFailureLimit();
 					final boolean isFinal;
+					final int remaining;
 					{
 						final Query<Run> query = mount.runType.newQuery(runParent.equal(item));
 						if(supportsPurge())
@@ -421,8 +423,9 @@ public final class Dispatcher extends Pattern
 							if(unpendDate!=null)
 								query.narrow(runDate.greater(unpendDate));
 						}
-						isFinal = query.total() >=
-							config.getFailureLimit() - 1;
+						final int total = query.total();
+						isFinal = total >= limit - 1;
+						remaining = isFinal ? 0 : (limit - 1 - total);
 					}
 
 					mount.runType.newItem(
@@ -441,14 +444,22 @@ public final class Dispatcher extends Pattern
 					{
 						if(logger.isErrorEnabled())
 							//noinspection StringConcatenationArgumentToLogCall
-							logger.error("final failure for " + itemID + ", took " + elapsed + "ms", cause);
+							logger.error(
+									"final failure for " + itemID + ", " +
+									"took " + elapsed + "ms, " +
+									limit + " runs exhausted",
+									cause);
 						item.notifyFinalFailure(this, cause);
 					}
 					else
 					{
 						if(logger.isWarnEnabled())
 							//noinspection StringConcatenationArgumentToLogCall
-							logger.warn("transient failure for " + itemID + ", took " + elapsed + "ms", cause);
+							logger.warn(
+									"transient failure for " + itemID + ", " +
+									"took " + elapsed + "ms, " +
+									remaining + " of " + limit + " runs remaining",
+									cause);
 					}
 				}
 			}
