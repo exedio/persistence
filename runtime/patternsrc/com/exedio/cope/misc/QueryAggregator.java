@@ -70,15 +70,6 @@ public final class QueryAggregator<R>
 	}
 
 	/**
-	 * @deprecated Use {@link #getPageOffset()} instead.
-	 */
-	@Deprecated
-	public int getOffset()
-	{
-		return getPageOffset();
-	}
-
-	/**
 	 * @see Query#getPageOffset()
 	 */
 	public int getPageOffset()
@@ -87,29 +78,11 @@ public final class QueryAggregator<R>
 	}
 
 	/**
-	 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
-	 */
-	@Deprecated
-	public int getLimit()
-	{
-		return getPageLimitOrMinusOne();
-	}
-
-	/**
 	 * @see Query#getPageLimitOrMinusOne()
 	 */
 	public int getPageLimitOrMinusOne()
 	{
 		return limit!=UNLIMITED ? limit : -1;
-	}
-
-	/**
-	 * @deprecated Use {@link #setPage(int, int)} instead.
-	 */
-	@Deprecated
-	public void setLimit(final int offset, final int limit)
-	{
-		setPage(offset, limit);
 	}
 
 	/**
@@ -124,15 +97,6 @@ public final class QueryAggregator<R>
 
 		this.offset = offset;
 		this.limit = limit;
-	}
-
-	/**
-	 * @deprecated Use {@link #setPageUnlimited(int)} instead.
-	 */
-	@Deprecated
-	public void setLimit(final int offset)
-	{
-		setPageUnlimited(offset);
 	}
 
 	/**
@@ -233,5 +197,43 @@ public final class QueryAggregator<R>
 			(limit!=UNLIMITED)
 			? new Query.Result<>(data, total, offset, getPageLimitOrMinusOne())
 			: new Query.Result<>(data, total, offset);
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #getPageOffset()} instead.
+	 */
+	@Deprecated
+	public int getOffset()
+	{
+		return getPageOffset();
+	}
+
+	/**
+	 * @deprecated Use {@link #getPageLimitOrMinusOne()} instead.
+	 */
+	@Deprecated
+	public int getLimit()
+	{
+		return getPageLimitOrMinusOne();
+	}
+
+	/**
+	 * @deprecated Use {@link #setPage(int, int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset, final int limit)
+	{
+		setPage(offset, limit);
+	}
+
+	/**
+	 * @deprecated Use {@link #setPageUnlimited(int)} instead.
+	 */
+	@Deprecated
+	public void setLimit(final int offset)
+	{
+		setPageUnlimited(offset);
 	}
 }
