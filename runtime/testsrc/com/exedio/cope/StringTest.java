@@ -508,7 +508,10 @@ public class StringTest extends TestWithEnvironment
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + String.class.getName() + ", " + "but was a " + Integer.class.getName() + " for " + any + '.', e.getMessage());
+			assertEquals(
+					"expected a " + String.class.getName() + ", " +
+					"but was a " + Integer.class.getName() + " for " + any + '.',
+					e.getMessage());
 		}
 	}
 

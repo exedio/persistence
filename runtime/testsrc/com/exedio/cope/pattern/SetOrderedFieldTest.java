@@ -59,7 +59,12 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 
 	@Test void testQuery()
 	{
-		assertEquals("select element from SetOrderedFieldItem-strings" + " where parent='" + item + "' order by order", item.getStringsQuery().toString());
+		assertEquals(
+				"select element " +
+				"from SetOrderedFieldItem-strings " +
+				"where parent='" + item + "' " +
+				"order by order",
+				item.getStringsQuery().toString());
 	}
 
 	@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})

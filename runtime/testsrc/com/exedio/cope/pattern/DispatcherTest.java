@@ -98,13 +98,13 @@ public class DispatcherTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "clock", "dispatch " + item3, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
 		log.assertDebug("dispatching " + item1);
-		log.assertInfo("success for " + item1 + ", " + "took " + item1.lastElapsed() + "ms");
+		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item2);
-		log.assertWarn("transient failure for " + item2 + ", " + "took " + item2.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item3);
-		log.assertInfo("success for " + item3 + ", " + "took " + item3.lastElapsed() + "ms");
+		log.assertInfo("success for " + item3 + ", took " + item3.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
-		log.assertWarn("transient failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms");
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertPending(item2, failure(d1[1]));
@@ -118,9 +118,9 @@ public class DispatcherTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
 		log.assertDebug("dispatching " + item2);
-		log.assertWarn("transient failure for " + item2 + ", " + "took " + item2.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
-		log.assertWarn("transient failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms");
+		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms");
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertPending(item2, failure(d1[1]), failure(d2[0]));
@@ -134,9 +134,9 @@ public class DispatcherTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "notifyFinalFailure " + item4, "ctx progress");
 		log.assertDebug("dispatching " + item2);
-		log.assertInfo("success for " + item2 + ", " + "took " + item2.lastElapsed() + "ms");
+		log.assertInfo("success for " + item2 + ", took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
-		log.assertError("final failure for " + item4 + ", " + "took " + item4.lastElapsed() + "ms" );
+		log.assertError("final failure for " + item4 + ", took " + item4.lastElapsed() + "ms" );
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
@@ -157,7 +157,7 @@ public class DispatcherTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress");
 		log.assertDebug("dispatching " + item1);
-		log.assertInfo("success for " + item1 + ", " + "took " + item1.lastElapsed() + "ms");
+		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();
 		assertSuccess(item1, 2, d4[0], success(d1[0]), success(d4[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));

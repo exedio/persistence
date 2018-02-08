@@ -109,7 +109,7 @@ public class ServletUtilTest
 		final ConnectToken token = ServletUtil.getConnectedModel(servlet);
 		assertSame(model, token.getModel());
 		assertEquals(
-				"servlet" + " \"" + tokenName + "\" " +
+				"servlet \"" + tokenName + "\" " +
 				"(" + MockServlet.class.getName() + '@' + System.identityHashCode(servlet) + ')',
 				token.getName());
 	}
@@ -124,7 +124,7 @@ public class ServletUtilTest
 		final ConnectToken token = ServletUtil.getConnectedModel(filter, config);
 		assertSame(model, token.getModel());
 		assertEquals(
-				"filter" + " \"" + tokenName + "\" " +
+				"filter \"" + tokenName + "\" " +
 				"(" + MockFilter.class.getName() + '@' + System.identityHashCode(filter) + ')',
 				token.getName());
 	}
