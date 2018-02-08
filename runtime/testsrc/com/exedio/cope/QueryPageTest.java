@@ -18,13 +18,13 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.QueryRangeTest.AnItem.TYPE;
+import static com.exedio.cope.QueryPageTest.AnItem.TYPE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-public class QueryRangeTest
+public class QueryPageTest
 {
 	static final Model MODEL = new Model(TYPE);
 
