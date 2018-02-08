@@ -98,6 +98,8 @@ public class DispatcherModelTest
 				toTarget.getRunDate(),
 				toTarget.getRunRuns(),
 				toTarget.getRunElapsed(),
+				toTarget.getRunRemaining(),
+				toTarget.getRunLimit(),
 				toTarget.getRunResult(),
 				toTarget.getRunFailure()
 			), runType.getFeatures());

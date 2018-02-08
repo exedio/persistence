@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Dispatcher.Run#remaining and #limit added.
+	Affects database schema, adds columns to table of Dispatcher.Run type.
+	For previous behaviour use: new Dispatcher().withoutRemaining().
+	When fixing database schema be aware that values for #limit must be at least 1!
 * The instrumentor no longer supports
 	<instrument serialVersionUID="false" ... />
 	which is now always "true".

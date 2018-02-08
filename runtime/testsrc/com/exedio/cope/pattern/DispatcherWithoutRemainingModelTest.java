@@ -19,15 +19,13 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
-import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.TYPE;
-import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.body;
-import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.dispatchCountCommitted;
-import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.purgeToTarget;
-import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.toTarget;
-import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.toTargetRunParent;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.TYPE;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.body;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.dispatchCountCommitted;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.toTarget;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -37,19 +35,17 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.util.AssertionErrorJobContext;
-import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class DispatcherWithoutPurgeModelTest
+public class DispatcherWithoutRemainingModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(DispatcherWithoutPurgeModelTest.class, "MODEL");
+		MODEL.enableSerialization(DispatcherWithoutRemainingModelTest.class, "MODEL");
 	}
 
 	private static final Type<?> runType = toTarget.getRunType();
@@ -65,7 +61,7 @@ public class DispatcherWithoutPurgeModelTest
 				TYPE,
 				runType
 			), MODEL.getTypesSortedByHierarchy());
-		assertEquals(DispatcherWithoutPurgeItem.class, TYPE.getJavaClass());
+		assertEquals(DispatcherWithoutRemainingItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
 
@@ -82,25 +78,24 @@ public class DispatcherWithoutPurgeModelTest
 				body,
 				dispatchCountCommitted,
 				toTarget,
-				toTarget.getPending()
+				toTarget.getPending(),
+				toTarget.getNoPurge(),
+				toTarget.getUnpend(),
+				toTarget.getUnpendSuccess(),
+				toTarget.getUnpendDate(),
+				toTarget.getUnpendUnison()
 			), TYPE.getFeatures());
-		assertEquals(null, toTarget.getNoPurge());
-		assertEquals(null, toTarget.getUnpend());
-		assertEquals(null, toTarget.getUnpendSuccess());
-		assertEquals(null, toTarget.getUnpendDate());
-		assertEquals(null, toTarget.getUnpendUnison());
-
 		assertEqualsUnmodifiable(list(
 				runType.getThis(),
 				toTargetRunParent(),
 				toTarget.getRunDate(),
 				toTarget.getRunRuns(),
 				toTarget.getRunElapsed(),
-				toTarget.getRunRemaining(),
-				toTarget.getRunLimit(),
 				toTarget.getRunResult(),
 				toTarget.getRunFailure()
 			), runType.getFeatures());
+		assertEquals(null, toTarget.getRunRemaining());
+		assertEquals(null, toTarget.getRunLimit());
 
 		assertEquals(TYPE, toTarget.getType());
 		assertEquals("toTarget", toTarget.getName());
@@ -110,7 +105,7 @@ public class DispatcherWithoutPurgeModelTest
 		assertSame(toTarget, toTarget.getPending().getPattern());
 		assertSame(Boolean.TRUE, toTarget.getPending().getDefaultConstant());
 
-		assertEquals("DispatcherWithoutPurgeItem-toTarget-Run", runType.getID());
+		assertEquals("DispatcherWithoutRemainingItem-toTarget-Run", runType.getID());
 		assertEquals(Dispatcher.Run.class, runType.getJavaClass());
 		assertEquals(false, runType.isBound());
 		assertSame(toTarget, runType.getPattern());
@@ -129,7 +124,7 @@ public class DispatcherWithoutPurgeModelTest
 		assertEquals("date", toTarget.getRunDate().getName());
 		assertEquals("failure", toTarget.getRunFailure().getName());
 
-		assertSame(DispatcherWithoutPurgeItem.class, toTargetRunParent().getValueClass());
+		assertSame(DispatcherWithoutRemainingItem.class, toTargetRunParent().getValueClass());
 		assertSame(TYPE, toTargetRunParent().getValueType());
 
 		assertSame(toTargetRunParent(), toTarget.getRunRuns().getContainer());
@@ -139,60 +134,14 @@ public class DispatcherWithoutPurgeModelTest
 	@Test void testComputed()
 	{
 		assertFalse(toTarget.getPending().isAnnotationPresent(Computed.class));
+		assertFalse(toTarget.getNoPurge().isAnnotationPresent(Computed.class));
+		assertTrue (toTarget.getUnpendSuccess().isAnnotationPresent(Computed.class));
+		assertTrue (toTarget.getUnpendDate().isAnnotationPresent(Computed.class));
 		assertTrue (toTarget.getRunType().isAnnotationPresent(Computed.class));
 	}
 
 	@Test void testSerialize()
 	{
-		assertSerializedSame(toTarget, 415);
-	}
-
-	@Test void testPurgePropertiesNull()
-	{
-		try
-		{
-			purgeToTarget(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("properties", e.getMessage());
-		}
-	}
-
-	@Test void testPurgeContextNull()
-	{
-		final DispatcherPurgeProperties properties =
-				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
-
-		try
-		{
-			purgeToTarget(properties, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("ctx", e.getMessage());
-		}
-	}
-
-	@Test void testPurge()
-	{
-		final DispatcherPurgeProperties properties =
-				DispatcherPurgeProperties.factory().retainDaysDefault(5).create(Sources.EMPTY);
-
-		final AssertionErrorJobContext ctx = new AssertionErrorJobContext();
-		try
-		{
-			purgeToTarget(properties, ctx);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"purge has been disabled for Dispatcher DispatcherWithoutPurgeItem.toTarget " +
-					"by method withoutPurge()",
-					e.getMessage());
-		}
+		assertSerializedSame(toTarget, 423);
 	}
 }

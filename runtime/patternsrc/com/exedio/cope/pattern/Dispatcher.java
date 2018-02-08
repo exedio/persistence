@@ -36,6 +36,7 @@ import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Features;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.LongField;
@@ -52,6 +53,7 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.misc.Iterables;
+import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.TimeZoneStrict;
@@ -136,6 +138,8 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
+	private final boolean supportRemaining;
+
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private RunType runTypeIfMounted = null;
 
@@ -143,10 +147,10 @@ public final class Dispatcher extends Pattern
 
 	public Dispatcher()
 	{
-		this(new BooleanField().defaultTo(true), true);
+		this(new BooleanField().defaultTo(true), true, true);
 	}
 
-	private Dispatcher(final BooleanField pending, final boolean supportPurge)
+	private Dispatcher(final BooleanField pending, final boolean supportPurge, final boolean supportRemaining)
 	{
 		this.pending = addSourceFeature(pending, "pending");
 		if(supportPurge)
@@ -159,11 +163,12 @@ public final class Dispatcher extends Pattern
 			noPurge = null;
 			unpend = null;
 		}
+		this.supportRemaining = supportRemaining;
 	}
 
 	public Dispatcher defaultPendingTo(final boolean defaultConstant)
 	{
-		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge());
+		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge(), supportRemaining);
 	}
 
 	/**
@@ -173,12 +178,21 @@ public final class Dispatcher extends Pattern
 	 */
 	public Dispatcher withoutPurge()
 	{
-		return new Dispatcher(pending.copy(), false);
+		return new Dispatcher(pending.copy(), false, supportRemaining);
 	}
 
 	boolean supportsPurge()
 	{
 		return unpend!=null;
+	}
+
+	/**
+	 * Disables {@link Run#getRemaining()} and {@link Run#getLimit()} fields.
+	 * Avoids additional columns in database.
+	 */
+	public Dispatcher withoutRemaining()
+	{
+		return new Dispatcher(pending.copy(), supportsPurge(), false);
 	}
 
 	@Override
@@ -244,6 +258,16 @@ public final class Dispatcher extends Pattern
 	public LongField getRunElapsed()
 	{
 		return runType().elapsed;
+	}
+
+	public IntegerField getRunRemaining()
+	{
+		return runType().remaining;
+	}
+
+	public IntegerField getRunLimit()
+	{
+		return runType().limit;
 	}
 
 	public EnumField<Result> getRunResult()
@@ -335,6 +359,7 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
+				final int limit = config.getFailureLimit();
 				if(logger.isDebugEnabled())
 					logger.debug("dispatching {}", itemID);
 				final long start = Clock.currentTimeMillis();
@@ -347,6 +372,7 @@ public final class Dispatcher extends Pattern
 					unpend(item, true, new Date(start));
 					runType.newItem(
 							parentClass, item, new Date(start), elapsed,
+							0, limit,
 							Result.success, null);
 
 					tx.commit();
@@ -370,7 +396,6 @@ public final class Dispatcher extends Pattern
 
 					tx.startTransaction(id + " register failure " + itemID);
 
-					final int limit = config.getFailureLimit();
 					final boolean isFinal;
 					final int remaining;
 					{
@@ -389,6 +414,7 @@ public final class Dispatcher extends Pattern
 
 					runType.newItem(
 							parentClass, item, new Date(start), elapsed,
+							remaining, limit,
 							Result.failure(isFinal), baos.toByteArray());
 
 					if(isFinal)
@@ -572,6 +598,8 @@ public final class Dispatcher extends Pattern
 		final DateField date = new DateField().toFinal();
 		final PartOf<?> runs;
 		final LongField elapsed = new LongField().toFinal().min(0);
+		final IntegerField remaining = supportRemaining ? new IntegerField().toFinal().min(0) : null;
+		final IntegerField limit     = supportRemaining ? new IntegerField().toFinal().min(1) : null;
 		final EnumField<Result> result = EnumField.create(Result.class).toFinal();
 		final DataField failure = new DataField().toFinal().optional();
 		final Type<Run> type;
@@ -585,6 +613,11 @@ public final class Dispatcher extends Pattern
 			features.put("date", date);
 			features.put("runs", runs);
 			features.put("elapsed", elapsed);
+			if(supportRemaining)
+			{
+				features.put("remaining", remaining);
+				features.put("limit", limit);
+			}
 			features.put("result", result, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
 			features.put("failure", failure);
 			type = newSourceType(Run.class, features, "Run");
@@ -595,15 +628,23 @@ public final class Dispatcher extends Pattern
 				final P parent,
 				final Date date,
 				final long elapsed,
+				final int remaining,
+				final int limit,
 				final Result result,
 				final byte[] failure)
 		{
-			type.newItem(
+			SetValue<?>[] setValues = {
 					this.parent.as(parentClass).map(parent),
 					this.date.map(date),
 					this.elapsed.map(elapsed),
 					this.result.map(result),
-					this.failure.map(failure));
+					this.failure.map(failure)};
+			if(supportRemaining)
+			{
+				setValues = SetValueUtil.add(setValues, this.remaining.map(remaining));
+				setValues = SetValueUtil.add(setValues, this.limit.map(limit));
+			}
+			type.newItem(setValues);
 		}
 
 		private Run getLastSuccess(final Item item)
@@ -664,6 +705,25 @@ public final class Dispatcher extends Pattern
 		public long getElapsed()
 		{
 			return type().elapsed.getMandatory(this);
+		}
+
+		public int getRemaining()
+		{
+			return requireRemaining(type().remaining).getMandatory(this);
+		}
+
+		public int getLimit()
+		{
+			return requireRemaining(type().limit).getMandatory(this);
+		}
+
+		private IntegerField requireRemaining(final IntegerField f)
+		{
+			if(f==null)
+				throw new IllegalArgumentException(
+						"remaining has been disabled for Dispatcher " + getPattern().getID() +
+						" by method withoutRemaining()");
+			return f;
 		}
 
 		public Result getResult()

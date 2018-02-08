@@ -20,9 +20,10 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
-import static com.exedio.cope.pattern.DispatcherItem.historyAdd;
-import static com.exedio.cope.pattern.DispatcherItem.historyAssert;
-import static com.exedio.cope.pattern.DispatcherItem.toTarget;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.historyAdd;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.historyAssert;
+import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.toTarget;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,32 +53,32 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-public class DispatcherTest extends TestWithEnvironment
+public class DispatcherWithoutRemainingTest extends TestWithEnvironment
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);
 
-	public DispatcherTest()
+	public DispatcherWithoutRemainingTest()
 	{
-		super(DispatcherModelTest.MODEL);
+		super(DispatcherWithoutRemainingModelTest.MODEL);
 	}
 
 	private final ClockRule clockRule = new ClockRule();
 
 	private final LogRule log = new LogRule(Dispatcher.class.getName() + '.' + toTarget.getID());
 
-	DispatcherItem item1;
-	DispatcherItem item2;
-	DispatcherItem item3;
-	DispatcherItem item4;
+	DispatcherWithoutRemainingItem item1;
+	DispatcherWithoutRemainingItem item2;
+	DispatcherWithoutRemainingItem item3;
+	DispatcherWithoutRemainingItem item4;
 
 	@BeforeEach final void setUp()
 	{
-		item1 = new DispatcherItem("item1", false);
-		item2 = new DispatcherItem("item2", true);
-		item3 = new DispatcherItem("item3", false);
-		item4 = new DispatcherItem("item4", true);
+		item1 = new DispatcherWithoutRemainingItem("item1", false);
+		item2 = new DispatcherWithoutRemainingItem("item2", true);
+		item3 = new DispatcherWithoutRemainingItem("item3", false);
+		item4 = new DispatcherWithoutRemainingItem("item4", true);
 		log.setLevelDebug();
-		DispatcherItem.historyClear();
+		DispatcherWithoutRemainingItem.historyClear();
 	}
 
 	@Test void testIt()
@@ -124,11 +125,11 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 1 of 3 runs remaining");
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
-		assertPending(item2, failure(d1[1]), failure(d2[0], 1));
+		assertPending(item2, failure(d1[1]), failure(d2[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertPending(item4, failure(d1[3]), failure(d2[1], 1));
+		assertPending(item4, failure(d1[3]), failure(d2[1]));
 
-		DispatcherItem.logs.get(item2).fail = false;
+		DispatcherWithoutRemainingItem.logs.get(item2).fail = false;
 		final Date[] d3 = dispatch();
 		historyAssert(
 				"ctx stop", "ctx defer", "probe",
@@ -140,17 +141,17 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertError("final failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 3 runs exhausted" );
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
-		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
+		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1], 1), finalFailure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		dispatch();
 		historyAssert();
 		log.assertEmpty();
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
-		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
+		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1], 1), finalFailure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		item1.setToTargetPending(true);
 		final Date[] d4 = dispatch();
@@ -161,17 +162,17 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();
 		assertSuccess(item1, 2, d4[0], success(d1[0]), success(d4[0]));
-		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
+		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1], 1), finalFailure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		dispatch();
 		historyAssert();
 		log.assertEmpty();
 		assertSuccess(item1, 2, d4[0], success(d1[0]), success(d4[0]));
-		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
+		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0]), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
-		assertFailed (item4, failure(d1[3]), failure(d2[1], 1), finalFailure(d3[1]));
+		assertFailed (item4, failure(d1[3]), failure(d2[1]), finalFailure(d3[1]));
 
 		log.assertEmpty();
 	}
@@ -290,7 +291,7 @@ public class DispatcherTest extends TestWithEnvironment
 		clockRule.override(clock);
 		try
 		{
-			DispatcherItem.dispatchToTarget(config, probe, ctx);
+			DispatcherWithoutRemainingItem.dispatchToTarget(config, probe, ctx);
 		}
 		catch(final JobStop js)
 		{
@@ -372,7 +373,7 @@ public class DispatcherTest extends TestWithEnvironment
 	}
 
 	private static void assertSuccess(
-			final DispatcherItem item,
+			final DispatcherWithoutRemainingItem item,
 			final int dispatchCountCommitted,
 			final Date date,
 			final ExpectedRun... expectedRuns)
@@ -383,7 +384,7 @@ public class DispatcherTest extends TestWithEnvironment
 	}
 
 	private static void assertPending(
-			final DispatcherItem item,
+			final DispatcherWithoutRemainingItem item,
 			final ExpectedRun... expectedRuns)
 	{
 		assertTrue(item.isToTargetPending());
@@ -393,7 +394,7 @@ public class DispatcherTest extends TestWithEnvironment
 	}
 
 	private static void assertFailed(
-			final DispatcherItem item,
+			final DispatcherWithoutRemainingItem item,
 			final ExpectedRun... expectedRuns)
 	{
 		assertFalse(item.isToTargetPending());
@@ -406,17 +407,17 @@ public class DispatcherTest extends TestWithEnvironment
 			final int dispatchCountCommitted,
 			final int dispatchCount,
 			final List<ExpectedRun> expectedRuns,
-			final DispatcherItem item,
+			final DispatcherWithoutRemainingItem item,
 			final int notifyFinalFailureCount)
 	{
 		assertEquals(dispatchCountCommitted, item.getDispatchCountCommitted());
-		assertEquals(dispatchCount, DispatcherItem.logs.get(item).dispatchCount);
+		assertEquals(dispatchCount, DispatcherWithoutRemainingItem.logs.get(item).dispatchCount);
 
 		final List<Run> actualRuns = item.getToTargetRuns();
 		assertTrue(actualRuns.size()<=3);
 		assertEquals(expectedRuns.size(), actualRuns.size());
 
-		final List<Long> runsElapsed = DispatcherItem.logs.get(item).dispatchRunElapsed;
+		final List<Long> runsElapsed = DispatcherWithoutRemainingItem.logs.get(item).dispatchRunElapsed;
 		assertEquals(expectedRuns.size(), runsElapsed.size());
 		final Iterator<Long> runElapsedIter = runsElapsed.iterator();
 
@@ -441,45 +442,34 @@ public class DispatcherTest extends TestWithEnvironment
 			}
 		}
 		assertEquals(expectedFailures, item.getToTargetFailures());
-		assertEquals(notifyFinalFailureCount, DispatcherItem.logs.get(item).notifyFinalFailureCount);
+		assertEquals(notifyFinalFailureCount, DispatcherWithoutRemainingItem.logs.get(item).notifyFinalFailureCount);
 	}
 
 
 	private static ExpectedRun success(final Date date)
 	{
-		return new ExpectedRun(date, 0, Result.success, true);
+		return new ExpectedRun(date, Result.success, true);
 	}
 
 	private static ExpectedRun failure(final Date date)
 	{
-		return failure(date, 2);
-	}
-
-	private static ExpectedRun failure(final Date date, final int remaining)
-	{
-		return new ExpectedRun(date, remaining, Result.transientFailure, false);
+		return new ExpectedRun(date, Result.transientFailure, false);
 	}
 
 	private static ExpectedRun finalFailure(final Date date)
 	{
-		return new ExpectedRun(date, 0, Result.finalFailure, false);
+		return new ExpectedRun(date, Result.finalFailure, false);
 	}
 
 	private static final class ExpectedRun
 	{
 		final Date date;
-		final int remaining;
 		final Result result;
 		final boolean success;
 
-		ExpectedRun(
-				final Date date,
-				final int remaining,
-				final Result result,
-				final boolean success)
+		ExpectedRun(final Date date, final Result result, final boolean success)
 		{
 			this.date = new Date(date.getTime()); // Date is not immutable
-			this.remaining = remaining;
 			this.result = result;
 			this.success = success;
 			assertNotNull(date);
@@ -487,10 +477,14 @@ public class DispatcherTest extends TestWithEnvironment
 
 		void assertIt(final Run actual)
 		{
+			final String unsupportedMessage =
+					"remaining has been disabled " +
+					"for Dispatcher DispatcherWithoutRemainingItem.toTarget " +
+					"by method withoutRemaining()";
 			assertAll(
 					() -> assertEquals(date, actual.getDate(), "date"),
-					() -> assertEquals(remaining, actual.getRemaining(), "remaining"),
-					() -> assertEquals(3, actual.getLimit(), "limit"),
+					() -> assertFails(actual::getRemaining, IllegalArgumentException.class, unsupportedMessage),
+					() -> assertFails(actual::getLimit,     IllegalArgumentException.class, unsupportedMessage),
 					() -> assertEquals(result, actual.getResult(), "result"),
 					() -> assertEquals(success, actual.isSuccess(), "success"));
 		}
@@ -499,6 +493,6 @@ public class DispatcherTest extends TestWithEnvironment
 	@AfterEach void afterEach()
 	{
 		toTarget.reset();
-		DispatcherItem.historyClear();
+		DispatcherWithoutRemainingItem.historyClear();
 	}
 }
