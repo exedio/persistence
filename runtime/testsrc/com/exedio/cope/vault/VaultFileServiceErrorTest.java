@@ -47,6 +47,7 @@ public class VaultFileServiceErrorTest
 		final VaultFileService service = (VaultFileService)properties.newService();
 
 		assertEquals(31, service.directoryLength);
+		assertEquals(true, service.directoryCreate);
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);
 	}
 

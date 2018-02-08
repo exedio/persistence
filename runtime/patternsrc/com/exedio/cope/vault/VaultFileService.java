@@ -34,6 +34,7 @@ import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.util.Arrays;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,6 +43,7 @@ public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
 	final int directoryLength;
+	final boolean directoryCreate;
 	final Path tempDir;
 
 	VaultFileService(
@@ -50,6 +52,7 @@ public final class VaultFileService implements VaultService
 	{
 		this.rootDir = properties.root;
 		this.directoryLength = properties.directory!=null ? properties.directory.length : 0;
+		this.directoryCreate = properties.directory!=null && properties.directory.createAsNeeded;
 		this.tempDir = properties.tempDir();
 
 		{
@@ -149,7 +152,7 @@ public final class VaultFileService implements VaultService
 
 		value.accept(temp);
 
-		if(directoryLength>0)
+		if(directoryCreate)
 			createDirectoryIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
 
 		return moveIfDestDoesNotExist(temp, file);
@@ -294,6 +297,50 @@ public final class VaultFileService implements VaultService
 						"temp " + tempDir.toAbsolutePath() + " on " + tempStore);
 			return rootStore;
 		}
+
+		@Probe(name="directory.Exists")
+		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // OK: @Probe
+		private String probeDirectoryExists()
+		{
+			if(directory==null)
+				return "directories disabled";
+			if(directory.createAsNeeded)
+				return "directories created as needed";
+
+			final char[] c = new char[directory.length];
+			Arrays.fill(c, '0');
+			int ok = 0;
+			dir_loop: do
+			{
+				final Path dir = root.resolve(new String(c));
+				if(Files.isDirectory(dir))
+					ok++;
+				else
+					throw new IllegalStateException(dir.toString());
+
+				inc_loop: for(int i = c.length-1; i>=0; i--)
+				{
+					switch(c[i])
+					{
+						//noinspection DefaultNotLastCaseInSwitch
+						default : c[i]++;     break inc_loop;
+						case '9': c[i] = 'a'; break inc_loop;
+						case 'f':
+							if(i>0)
+							{
+								c[i] = '0';
+								break;
+							}
+							else
+								break dir_loop;
+
+					}
+				}
+			}
+			while(true);
+
+			return "directories " + ok;
+		}
 	}
 
 
@@ -309,6 +356,12 @@ public final class VaultFileService implements VaultService
 		final int length = value("length", 3, 1);
 
 		// TODO implement levels equivalent to CacheDirLevels, default to 1
+
+		/**
+		 * Specify, whether directories are created as needed on put operation.
+		 * May be set to {@code false} if all directories do exist already.
+		 */
+		final boolean createAsNeeded = value("createAsNeeded", true);
 
 		DirectoryProps(final Source source)
 		{

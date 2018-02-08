@@ -25,8 +25,10 @@ import static com.exedio.cope.util.Sources.cascade;
 import static java.nio.file.Files.createDirectory;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
@@ -41,6 +43,7 @@ import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
 import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,6 +71,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
+		assertEquals("directory.Exists", probes.next().toString());
 		final Callable<?> rootExists = probes.next();
 		final Callable<?> rootFree   = probes.next();
 		final Callable<?> tempExists = probes.next();
@@ -244,5 +248,155 @@ public class VaultFileServicePropertiesProbeTest
 		assumeTrue(
 				Files.getFileAttributeView(p, PosixFileAttributeView.class)!=null,
 				"does not support read only directories");
+	}
+
+	@Test void probeDirectoryExistsDisabled() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("directory", false)
+				));
+
+		final Props p = new Props(source);
+		assertNull(p.directory);
+		final Callable<?> dirs = p.getProbes().stream().
+				filter(c -> "directory.Exists".equals(c.toString())).
+				findFirst().
+				get();
+
+		assertEquals("directories disabled", dirs.call());
+	}
+
+	@Test void probeDirectoryExistsCreateAsNeeded() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(true, p.directory.createAsNeeded);
+		final Callable<?> dirs = p.getProbes().stream().
+				filter(c -> "directory.Exists".equals(c.toString())).
+				findFirst().
+				get();
+
+		assertEquals("directories created as needed", dirs.call());
+	}
+
+	@Test void probeDirectoryExistsOne() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("directory.length", 1),
+						single("directory.createAsNeeded", false)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(1, p.directory.length);
+		assertEquals(false, p.directory.createAsNeeded);
+		final Callable<?> dirs = p.getProbes().stream().
+				filter(c -> "directory.Exists".equals(c.toString())).
+				findFirst().
+				get();
+
+		assertFails(dirs::call, IllegalStateException.class, root + "/0");
+		assertFails(dirs::call, IllegalStateException.class, root + "/0");
+
+		createDirectory(root.toPath());
+		assertFails(dirs::call, IllegalStateException.class, root + "/0");
+
+		createDirectory(root.toPath().resolve("0"));
+		assertFails(dirs::call, IllegalStateException.class, root + "/1");
+
+		createDirectory(root.toPath().resolve("1"));
+		assertFails(dirs::call, IllegalStateException.class, root + "/2");
+
+		for(final String s : asList("2","3","4","5","6","7","8","9","a","b","c","d","e"))
+			createDirectory(root.toPath().resolve(s));
+		assertFails(dirs::call, IllegalStateException.class, root + "/f");
+
+		createDirectory(root.toPath().resolve("f"));
+		assertEquals("directories 16", dirs.call());
+	}
+
+	@Test void probeDirectoryExistsTwo() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("directory.length", 2),
+						single("directory.createAsNeeded", false)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(2, p.directory.length);
+		assertEquals(false, p.directory.createAsNeeded);
+		final Callable<?> dirs = p.getProbes().stream().
+				filter(c -> "directory.Exists".equals(c.toString())).
+				findFirst().
+				get();
+
+		createDirectory(root.toPath());
+		assertFails(dirs::call, IllegalStateException.class, root + "/00");
+
+		createDirectory(root.toPath().resolve("00"));
+		assertFails(dirs::call, IllegalStateException.class, root + "/01");
+
+		createDirectory(root.toPath().resolve("01"));
+		assertFails(dirs::call, IllegalStateException.class, root + "/02");
+
+		for(final String s : asList("2","3","4","5","6","7","8","9","a","b","c","d","e"))
+			createDirectory(root.toPath().resolve("0"+s));
+		assertFails(dirs::call, IllegalStateException.class, root + "/0f");
+
+		createDirectory(root.toPath().resolve("0f"));
+		assertFails(dirs::call, IllegalStateException.class, root + "/10");
+
+		for(final String s1 : asList("1","2","3","4","5","6","7","8","9","a","b","c","d","e"))
+			for(final String s2 : asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"))
+				createDirectory(root.toPath().resolve(s1+s2));
+		assertFails(dirs::call, IllegalStateException.class, root + "/f0");
+
+		for(final String s : asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e"))
+			createDirectory(root.toPath().resolve("f"+s));
+		assertFails(dirs::call, IllegalStateException.class, root + "/ff");
+
+		createDirectory(root.toPath().resolve("ff"));
+		assertEquals("directories 256", dirs.call());
+	}
+
+	@Test void probeDirectoryExistsThree() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("directory.createAsNeeded", false)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(3, p.directory.length);
+		assertEquals(false, p.directory.createAsNeeded);
+		final Callable<?> dirs = p.getProbes().stream().
+				filter(c -> "directory.Exists".equals(c.toString())).
+				findFirst().
+				get();
+
+		createDirectory(root.toPath());
+		assertFails(dirs::call, IllegalStateException.class, root + "/000");
+
+		final List<String> hexDigits = asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
+		for(final String s1 : hexDigits)
+			for(final String s2 : hexDigits)
+				for(final String s3 : hexDigits)
+					createDirectory(root.toPath().resolve(s1+s2+s3));
+		assertEquals("directories 4096", dirs.call());
 	}
 }
