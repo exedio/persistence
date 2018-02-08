@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Collections.unmodifiableList;
 
 import com.exedio.cope.Query;
@@ -90,10 +91,8 @@ public final class QueryAggregator<R>
 	 */
 	public void setPage(final int offset, final int limit)
 	{
-		if(offset<0)
-			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
-		if(limit<0)
-			throw new IllegalArgumentException("limit must not be negative, but was " + limit);
+		requireNonNegative(offset, "offset");
+		requireNonNegative(limit, "limit");
 
 		this.offset = offset;
 		this.limit = limit;
@@ -104,8 +103,7 @@ public final class QueryAggregator<R>
 	 */
 	public void setPageUnlimited(final int offset)
 	{
-		if(offset<0)
-			throw new IllegalArgumentException("offset must not be negative, but was " + offset);
+		requireNonNegative(offset, "offset");
 
 		this.offset = offset;
 		this.limit = UNLIMITED;
