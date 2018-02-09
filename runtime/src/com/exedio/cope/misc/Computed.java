@@ -27,29 +27,36 @@ import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
 /**
- * This annotation marks a feature or type as <i>computed</i>.
- * This means, that the persistent contents of that feature or type
- * are typically not modified by human users, but by some computational process.
- * So any generic editing facility is advised to not let a human user
- * modify this type or feature.
+ * This annotation marks a
+ * {@link com.exedio.cope.Type type} or
+ * {@link com.exedio.cope.Feature feature}
+ * as <i>computed</i>.
+ * This means, that the persistent contents of that type or feature
+ * are not allowed to be modified by human users directly,
+ * using some generic editing facility.
+ * Typically such a type or feature is modified (computed)
+ * by some application logic instead.
  * <p>
- * For types, this means, that items of the type shall not be created or deleted
- * by human users. For features this means, that the state of the feature shall
- * not be modified by a human user. A <i>computed</i> type does not imply, that the type's
+ * <b>Types</b><br>
+ * A generic editing facility for human users MUST NOT
+ * allow the human user to directly cause
+ * creation or deletion of items
+ * of any <i>computed</i> type.
+ * <p>
+ * Making a type <i>computed</i> does not imply, that the type's
  * features are <i>computed</i> as well.
  * <p>
- * When creating items, a <i>computed</i> feature must not be specified
- * via a {@link com.exedio.cope.SetValue SetValue}
- * given to
- * {@link com.exedio.cope.Type#newItem(com.exedio.cope.SetValue[]) Type.newItem},
- * so that any default mechanisms such as
- * {@link com.exedio.cope.FunctionField#defaultTo(Object) defaultTo}
- * can take effect.
- * As a consequence, items of types with <i>computed</i> features, that are
- * {@link com.exedio.cope.FunctionField#isMandatory() mandatory} and
- * have no default mechanisms, cannot be created.
+ * <b>Features</b><br>
+ * A generic editing facility for human users MUST NOT
+ * allow the human user to directly specify the value
+ * of any <i>computed</i> feature.
+ * This applies both to creation and modification of items.
  * <p>
- * This annotation does not specify, whether this feature or type shall be
+ * A generic editing facility for human users MAY allow human users
+ * to trigger application logic that (indirectly) modifies
+ * <i>computed</i> types or features.
+ * <p>
+ * This annotation does not specify, whether a feature or type shall be
  * shown to a human user.
  */
 @Target({TYPE, FIELD})
