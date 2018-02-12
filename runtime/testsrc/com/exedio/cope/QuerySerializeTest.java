@@ -31,7 +31,7 @@ public class QuerySerializeTest
 	@Test void testSerialize()
 	{
 		final Query<?> q = TYPE.newQuery(null);
-		int size=785;
+		int size=793;
 		assertSerializedEquals(q, size);
 
 		q.setCondition(field.isNotNull());

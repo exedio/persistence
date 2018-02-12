@@ -70,17 +70,17 @@ class ConnectPropertiesTestClassNoConstructorDialect extends Dialect
 		throw new RuntimeException();
 	}
 	@Override
-	LimitSupport getLimitSupport()
+	PageSupport getPageSupport()
 	{
 		throw new RuntimeException();
 	}
 	@Override
-	void appendLimitClause(final Statement bf, final int offset, final int limit)
+	void appendPageClause(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException();
 	}
 	@Override
-	void appendLimitClause2(final Statement bf, final int offset, final int limit)
+	void appendPageClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException();
 	}

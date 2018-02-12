@@ -385,13 +385,13 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	LimitSupport getLimitSupport()
+	PageSupport getPageSupport()
 	{
-		return LimitSupport.CLAUSE_AFTER_WHERE;
+		return PageSupport.CLAUSE_AFTER_WHERE;
 	}
 
 	@Override
-	void appendLimitClause(final Statement bf, final int offset, final int limit)
+	void appendPageClause(final Statement bf, final int offset, final int limit)
 	{
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
@@ -408,7 +408,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void appendLimitClause2(final Statement bf, final int offset, final int limit)
+	void appendPageClause2(final Statement bf, final int offset, final int limit)
 	{
 		throw new RuntimeException(bf.toString());
 	}

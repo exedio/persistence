@@ -210,13 +210,13 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	LimitSupport getLimitSupport()
+	PageSupport getPageSupport()
 	{
-		return LimitSupport.CLAUSES_AROUND;
+		return PageSupport.CLAUSES_AROUND;
 	}
 
 	@Override
-	void appendLimitClause(final Statement bf, final int offset, final int limit)
+	void appendPageClause(final Statement bf, final int offset, final int limit)
 	{
 		// TODO Oracle 12 OFFSET/LIMIT
 		assert offset>=0;
@@ -231,7 +231,7 @@ final class OracleDialect extends Dialect
 	}
 
 	@Override
-	void appendLimitClause2(final Statement bf, final int offset, final int limit)
+	void appendPageClause2(final Statement bf, final int offset, final int limit)
 	{
 		// TODO Oracle 12 OFFSET/LIMIT
 		assert offset>=0;

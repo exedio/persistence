@@ -43,7 +43,7 @@ final class Executor
 	final Marshallers marshallers;
 	final boolean prepare;
 	private final boolean supportsUniqueViolation;
-	final Dialect.LimitSupport limitSupport;
+	final Dialect.PageSupport pageSupport;
 	final boolean fulltextIndex;
 	private final HashMap<String, UniqueConstraint> uniqueConstraints = new HashMap<>();
 	volatile DatabaseListener listener = null;
@@ -58,7 +58,7 @@ final class Executor
 		this.marshallers = marshallers;
 		this.prepare = !properties.isSupportDisabledForPreparedStatements();
 		this.supportsUniqueViolation = supportsUniqueViolation;
-		this.limitSupport = requireNonNull(dialect.getLimitSupport(), dialect.toString());
+		this.pageSupport = requireNonNull(dialect.getPageSupport(), dialect.toString());
 		this.fulltextIndex = properties.getFulltextIndex();
 	}
 

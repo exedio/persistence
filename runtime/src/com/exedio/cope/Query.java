@@ -54,8 +54,8 @@ public final class Query<R> implements Serializable
 	private Selectable<?>[] orderBy = null;
 	private boolean[] orderAscending;
 
-	private int offset = 0;
-	private int limit = UNLIMITED;
+	private int pageOffset = 0;
+	private int pageLimit = UNLIMITED;
 
 	private static final int SEARCH_SIZE_LIMIT_DEFAULT = Integer.MIN_VALUE;
 	private int searchSizeLimit = SEARCH_SIZE_LIMIT_DEFAULT;
@@ -93,8 +93,8 @@ public final class Query<R> implements Serializable
 		this.having = query.having;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
-		this.offset = query.offset;
-		this.limit = query.limit;
+		this.pageOffset = query.pageOffset;
+		this.pageLimit = query.pageLimit;
 		this.searchSizeLimit = query.searchSizeLimit;
 		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
 	}
@@ -115,8 +115,8 @@ public final class Query<R> implements Serializable
 		this.having = query.having;
 		this.orderBy = query.orderBy;
 		this.orderAscending = query.orderAscending;
-		this.offset = query.offset;
-		this.limit = query.limit;
+		this.pageOffset = query.pageOffset;
+		this.pageLimit = query.pageLimit;
 		this.searchSizeLimit = query.searchSizeLimit;
 		this.searchSizeCacheLimit = query.searchSizeCacheLimit;
 	}
@@ -407,12 +407,12 @@ public final class Query<R> implements Serializable
 
 	public int getPageOffset()
 	{
-		return offset;
+		return pageOffset;
 	}
 
 	public int getPageLimitOrMinusOne()
 	{
-		return limit!=UNLIMITED ? limit : -1;
+		return pageLimit!=UNLIMITED ? pageLimit : -1;
 	}
 
 	/**
@@ -427,8 +427,8 @@ public final class Query<R> implements Serializable
 		requireNonNegative(offset, "offset");
 		requireNonNegative(limit, "limit");
 
-		this.offset = offset;
-		this.limit = limit;
+		this.pageOffset = offset;
+		this.pageLimit = limit;
 	}
 
 	/**
@@ -439,8 +439,8 @@ public final class Query<R> implements Serializable
 	{
 		requireNonNegative(offset, "offset");
 
-		this.offset = offset;
-		this.limit = UNLIMITED;
+		this.pageOffset = offset;
+		this.pageLimit = UNLIMITED;
 	}
 
 
@@ -534,11 +534,11 @@ public final class Query<R> implements Serializable
 	{
 		final Transaction transaction = model.currentTransaction();
 
-		if(limit==0 || condition==Condition.FALSE)
+		if(pageLimit==0 || condition==Condition.FALSE)
 		{
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
-				queryInfos.add(new QueryInfo("skipped search because " + (limit==0 ? "limit==0" : "condition==false")));
+				queryInfos.add(new QueryInfo("skipped search because " + (pageLimit==0 ? "limit==0" : "condition==false")));
 			return Collections.emptyList();
 		}
 
@@ -921,14 +921,14 @@ public final class Query<R> implements Serializable
 				}
 			}
 
-			if(offset>0)
+			if(pageOffset>0)
 				bf.append(" offset '").
-					append(offset).
+					append(pageOffset).
 					append('\'');
 
-			if(limit!=UNLIMITED)
+			if(pageLimit!=UNLIMITED)
 				bf.append(" limit '").
-					append(limit).
+					append(pageLimit).
 					append('\'');
 		}
 
@@ -961,12 +961,12 @@ public final class Query<R> implements Serializable
 		executor.testListener().search(connection, this, totalOnly);
 
 		final Dialect dialect = executor.dialect;
-		final Dialect.LimitSupport limitSupport = executor.limitSupport;
-		final int offset = this.offset;
-		final int limit = this.limit;
-		final boolean limitActive = offset>0 || limit!=UNLIMITED;
+		final Dialect.PageSupport pageSupport = executor.pageSupport;
+		final int pageOffset = this.pageOffset;
+		final int pageLimit = this.pageLimit;
+		final boolean pageActive = pageOffset>0 || pageLimit!=UNLIMITED;
 		final boolean distinct = this.distinct;
-		if(offset<0)
+		if(pageOffset<0)
 			throw new RuntimeException();
 
 		final ArrayList<Join> joins = this.joins;
@@ -978,8 +978,8 @@ public final class Query<R> implements Serializable
 			bf.append("SELECT COUNT(*) FROM ( ");
 		}
 
-		if(!totalOnly && limitActive && limitSupport==Dialect.LimitSupport.CLAUSES_AROUND)
-			dialect.appendLimitClause(bf, offset, limit);
+		if(!totalOnly && pageActive && pageSupport==Dialect.PageSupport.CLAUSES_AROUND)
+			dialect.appendPageClause(bf, pageOffset, pageLimit);
 
 		bf.append("SELECT ");
 
@@ -1086,14 +1086,14 @@ public final class Query<R> implements Serializable
 				}
 			}
 
-			if(limitActive)
+			if(pageActive)
 			{
-				switch(limitSupport)
+				switch(pageSupport)
 				{
-					case CLAUSE_AFTER_WHERE: dialect.appendLimitClause (bf, offset, limit); break;
-					case CLAUSES_AROUND:     dialect.appendLimitClause2(bf, offset, limit); break;
+					case CLAUSE_AFTER_WHERE: dialect.appendPageClause (bf, pageOffset, pageLimit); break;
+					case CLAUSES_AROUND:     dialect.appendPageClause2(bf, pageOffset, pageLimit); break;
 					default:
-						throw new RuntimeException(limitSupport.name());
+						throw new RuntimeException(pageSupport.name());
 				}
 			}
 		}

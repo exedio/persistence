@@ -363,16 +363,16 @@ abstract class Dialect
 				: " NULLS LAST" );
 	}
 
-	abstract LimitSupport getLimitSupport();
+	abstract PageSupport getPageSupport();
 
-	enum LimitSupport
+	enum PageSupport
 	{
 		CLAUSE_AFTER_WHERE,
 		CLAUSES_AROUND
 	}
 
 	/**
-	 * Appends a clause to the statement causing the database limiting the query result.
+	 * Appends a clause to the statement causing the database paging the query result.
 	 * This method is never called for <tt>offset==0 &amp;&amp; limit=={@link Query#UNLIMITED}</tt>.
 	 * NOTE: Don't forget the space before the keyword 'limit'!
 	 * @param offset the number of rows to be skipped
@@ -382,14 +382,14 @@ abstract class Dialect
 	 *        or {@link Query#UNLIMITED} if all rows to be returned.
 	 *        Is always positive (greater zero).
 	 */
-	abstract void appendLimitClause(Statement bf, int offset, int limit);
+	abstract void appendPageClause(Statement bf, int offset, int limit);
 
 	/**
-	 * Same as {@link #appendLimitClause(Statement, int, int)}.
-	 * Is used for {@link LimitSupport#CLAUSES_AROUND} only,
+	 * Same as {@link #appendPageClause(Statement, int, int)}.
+	 * Is used for {@link PageSupport#CLAUSES_AROUND} only,
 	 * for the postfix.
 	 */
-	abstract void appendLimitClause2(Statement bf, int offset, int limit);
+	abstract void appendPageClause2(Statement bf, int offset, int limit);
 
 	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
 
