@@ -33,8 +33,8 @@ public final class QueryAggregator<R>
 	private static final int UNLIMITED = -77;
 
 	private final List<Query<? extends R>> queries;
-	private int offset = 0;
-	private int limit = -1;
+	private int pageOffset = 0;
+	private int pageLimit = -1;
 
 	private QueryAggregator(
 			final List<Query<? extends R>> queries,
@@ -75,7 +75,7 @@ public final class QueryAggregator<R>
 	 */
 	public int getPageOffset()
 	{
-		return offset;
+		return pageOffset;
 	}
 
 	/**
@@ -83,7 +83,7 @@ public final class QueryAggregator<R>
 	 */
 	public int getPageLimitOrMinusOne()
 	{
-		return limit!=UNLIMITED ? limit : -1;
+		return pageLimit!=UNLIMITED ? pageLimit : -1;
 	}
 
 	/**
@@ -94,8 +94,8 @@ public final class QueryAggregator<R>
 		requireNonNegative(offset, "offset");
 		requireNonNegative(limit, "limit");
 
-		this.offset = offset;
-		this.limit = limit;
+		this.pageOffset = offset;
+		this.pageLimit = limit;
 	}
 
 	/**
@@ -105,8 +105,8 @@ public final class QueryAggregator<R>
 	{
 		requireNonNegative(offset, "offset");
 
-		this.offset = offset;
-		this.limit = UNLIMITED;
+		this.pageOffset = offset;
+		this.pageLimit = UNLIMITED;
 	}
 
 	/**
@@ -130,7 +130,7 @@ public final class QueryAggregator<R>
 				final Query<? extends R> query = i.next();
 				totalBeforeFirst = total;
 				total += query.total();
-				if(total>offset)
+				if(total>pageOffset)
 				{
 					first = query;
 					break;
@@ -139,10 +139,10 @@ public final class QueryAggregator<R>
 			if(first==null)
 				return result(Collections.emptyList(), total);
 
-			data = new ArrayList<>(search(first, offset-totalBeforeFirst));
+			data = new ArrayList<>(search(first, pageOffset-totalBeforeFirst));
 		}
 		{
-			final int totalBreak = (limit!=UNLIMITED) ? (offset+limit) : Integer.MAX_VALUE;
+			final int totalBreak = (pageLimit!=UNLIMITED) ? (pageOffset+pageLimit) : Integer.MAX_VALUE;
 			Query<? extends R> last = null;
 			int totalBeforeLast = 0;
 			while(i.hasNext())
@@ -160,9 +160,9 @@ public final class QueryAggregator<R>
 			if(last==null)
 				return result(unmodifiableList(data), total);
 
-			assert limit!=UNLIMITED;
+			assert pageLimit!=UNLIMITED;
 
-			final int nowLimit = limit+offset-totalBeforeLast;
+			final int nowLimit = pageLimit+pageOffset-totalBeforeLast;
 			if(nowLimit>0)
 			{
 				last.setPage(0, nowLimit);
@@ -179,8 +179,8 @@ public final class QueryAggregator<R>
 
 	private List<? extends R> search(final Query<? extends R> query, final int offset)
 	{
-		if(limit!=UNLIMITED)
-			query.setPage(offset, limit);
+		if(pageLimit!=UNLIMITED)
+			query.setPage(offset, pageLimit);
 		else
 			query.setPageUnlimited(offset);
 
@@ -192,9 +192,9 @@ public final class QueryAggregator<R>
 	private Query.Result<R> result(final List<R> data, final int total)
 	{
 		return
-			(limit!=UNLIMITED)
-			? new Query.Result<>(data, total, offset, getPageLimitOrMinusOne())
-			: new Query.Result<>(data, total, offset);
+			(pageLimit!=UNLIMITED)
+			? new Query.Result<>(data, total, pageOffset, getPageLimitOrMinusOne())
+			: new Query.Result<>(data, total, pageOffset);
 	}
 
 	// ------------------- deprecated stuff -------------------
