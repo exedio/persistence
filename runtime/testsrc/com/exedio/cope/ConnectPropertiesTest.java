@@ -203,6 +203,14 @@ public class ConnectPropertiesTest
 		}
 	}
 
+	@Test void testSupportDisabledForNativeDateStandard()
+	{
+		final ConnectProperties p = factory().
+				create(TestSources.minimal());
+
+		assertEquals(false, p.isSupportDisabledForNativeDate());
+	}
+
 	@Test void testPrimaryKeyGeneratorDefaultStandard()
 	{
 		final ConnectProperties p = factory().
