@@ -168,9 +168,8 @@ public class ConnectPropertiesTest
 	{
 		assertConnectionUrlFailure(
 				"jdbc:abc:",
-				"property dialect in DESC must name a class, " +
-				"but was 'com.exedio.cope.AbcDialect'",
-				ClassNotFoundException.class);
+				"property dialect in DESC must be specified as there is no default",
+				null);
 	}
 
 	@Test void testDialectClassNotFound()

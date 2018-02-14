@@ -392,6 +392,7 @@
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/runtime/testfeaturesrc" />
 				<pathelement location="build/classes/runtime/testsrc" />
+				<pathelement location=              "runtime/testresources" />
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />

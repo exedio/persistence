@@ -28,7 +28,9 @@ import com.exedio.cope.vault.VaultProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.Locale;
+import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 
@@ -347,22 +349,18 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	private static String fromUrl(final String url)
 	{
-		final String prefix = "jdbc:";
-		if(!url.startsWith(prefix))
-			return null;
-		final int pos = url.indexOf(':', prefix.length());
-		if(pos<0)
-			return null;
-
-		final String code = url.substring(prefix.length(), pos);
-		if(code.length()<=2)
-			return null;
+		final HashSet<Class<? extends Dialect>> result = new HashSet<>();
+		for(final DialectUrlMapper mapper : ServiceLoader.load(DialectUrlMapper.class))
+		{
+			final Class<? extends Dialect> clazz = mapper.map(url);
+			if(clazz!=null)
+				result.add(clazz);
+		}
 
 		return
-			"com.exedio.cope." +
-			Character.toUpperCase(code.charAt(0)) +
-			code.substring(1) +
-			"Dialect";
+				(result.size()==1)
+				? result.iterator().next().getName()
+				: null;
 	}
 
 	public String getDialect()
