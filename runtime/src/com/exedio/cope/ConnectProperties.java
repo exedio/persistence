@@ -286,9 +286,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		@Override
 		public ConnectProperties create(final Source source)
 		{
-			return new ConnectProperties(source,
-					primaryKeyGenerator,
-					mediaRootUrl);
+			return new ConnectProperties(source, this);
 		}
 	}
 
@@ -310,18 +308,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	@SuppressWarnings("deprecation") // needed for idea
 	public static ConnectProperties create(final Source source)
 	{
-		return new ConnectProperties(source, null);
+		return new ConnectProperties(source, (Source)null);
 	}
 
-	ConnectProperties(
-			final Source source,
-			final PrimaryKeyGenerator primaryKeyGeneratorDefault,
-			final String mediaRootUrlDefault)
+	ConnectProperties(final Source source, final Factory factory)
 	{
 		super(source);
 
-		this.primaryKeyGenerator = value("schema.primaryKeyGenerator", primaryKeyGeneratorDefault);
-		this.mediaRooturl = value("media.rooturl", mediaRootUrlDefault);
+		this.primaryKeyGenerator = value("schema.primaryKeyGenerator", factory.primaryKeyGenerator);
+		this.mediaRooturl = value("media.rooturl", factory.mediaRootUrl);
 
 		if(cluster!=null && !primaryKeyGenerator.persistent)
 			throw newException("cluster",
@@ -441,9 +436,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	@Deprecated
 	public ConnectProperties(final Source source, final Source context)
 	{
-		this(noContext(source, context),
-				primaryKeyGeneratorDEFAULT,
-				mediaRooturlDEFAULT);
+		this(noContext(source, context), factory());
 	}
 
 	@Deprecated
