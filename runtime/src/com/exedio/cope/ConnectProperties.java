@@ -90,7 +90,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// schema
 
-	private static final PrimaryKeyGenerator primaryKeyGeneratorDEFAULT = PrimaryKeyGenerator.memory;
 	final PrimaryKeyGenerator primaryKeyGenerator;
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
@@ -190,7 +189,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 
 
-	private static final String mediaRooturlDEFAULT = "media/";
 	private final String mediaRooturl;
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
@@ -256,8 +254,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public static Factory factory()
 	{
 		return new Factory(
-				primaryKeyGeneratorDEFAULT,
-				mediaRooturlDEFAULT);
+				PrimaryKeyGenerator.memory,
+				"media/");
 	}
 
 	public static class Factory implements Properties.Factory<ConnectProperties>
