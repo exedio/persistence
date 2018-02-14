@@ -40,7 +40,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
-	private final boolean disableNativeDate         = value("disableSupport.nativeDate", false);
+	private final boolean disableNativeDate;
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
 
@@ -254,31 +254,40 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	public static Factory factory()
 	{
 		return new Factory(
+				false, // disableNativeDate
 				PrimaryKeyGenerator.memory,
 				"media/");
 	}
 
 	public static class Factory implements Properties.Factory<ConnectProperties>
 	{
+		private final boolean disableNativeDate;
 		private final PrimaryKeyGenerator primaryKeyGenerator;
 		private final String mediaRootUrl;
 
 		Factory(
+				final boolean disableNativeDate,
 				final PrimaryKeyGenerator primaryKeyGenerator,
 				final String mediaRootUrl)
 		{
+			this.disableNativeDate = disableNativeDate;
 			this.primaryKeyGenerator = primaryKeyGenerator;
 			this.mediaRootUrl = mediaRootUrl;
 		}
 
+		public Factory disableNativeDate()
+		{
+			return new Factory(true, primaryKeyGenerator, mediaRootUrl);
+		}
+
 		public Factory primaryKeyGeneratorSequence()
 		{
-			return new Factory(PrimaryKeyGenerator.sequence, mediaRootUrl);
+			return new Factory(disableNativeDate, PrimaryKeyGenerator.sequence, mediaRootUrl);
 		}
 
 		public Factory mediaRootUrl(final String mediaRootUrl)
 		{
-			return new Factory(primaryKeyGenerator, mediaRootUrl);
+			return new Factory(disableNativeDate, primaryKeyGenerator, mediaRootUrl);
 		}
 
 		@Override
@@ -313,6 +322,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	{
 		super(source);
 
+		this.disableNativeDate = value("disableSupport.nativeDate", factory.disableNativeDate);
 		this.primaryKeyGenerator = value("schema.primaryKeyGenerator", factory.primaryKeyGenerator);
 		this.mediaRooturl = value("media.rooturl", factory.mediaRootUrl);
 

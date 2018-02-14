@@ -18,8 +18,9 @@ The items are sorted inversely, i.e. latest items are on top
 	This affects instrumented code
 * ChangeHook added.
 * MySQL supports nativeDate.
-	This heavily affects database schema on MySQL. Use disableSupport.nativeDate=true
-	in ConnectProperties to revert to previous behaviour.
+	This heavily affects database schema on MySQL. Use Factory#disableNativeDate()
+	or disableSupport.nativeDate=true in ConnectProperties to revert to previous
+	behaviour.
 	For converting a database schema use SQL like this:
 
 		SET time_zone = '+00:00'; -- UTC needed for from_unixtime
