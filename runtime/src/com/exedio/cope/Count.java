@@ -81,4 +81,41 @@ public final class Count implements Selectable<Integer>
 	{
 		bf.append("COUNT(*)");
 	}
+
+	// convenience methods for conditions and views ---------------------------------
+
+	public Condition equal(final Integer value)
+	{
+		return value!=null ? new CompareCondition<>(CompareFunctionCondition.Operator.Equal, this, value) : new IsNullCondition<>(this, false);
+	}
+
+	public Condition notEqual(final Integer value)
+	{
+		return value!=null ? new CompareCondition<>(CompareFunctionCondition.Operator.NotEqual, this, value) : new IsNullCondition<>(this, true);
+	}
+
+	public CompareCondition<Integer> less(final Integer value)
+	{
+		return new CompareCondition<>(CompareFunctionCondition.Operator.Less, this, value);
+	}
+
+	public CompareCondition<Integer> lessOrEqual(final Integer value)
+	{
+		return new CompareCondition<>(CompareFunctionCondition.Operator.LessEqual, this, value);
+	}
+
+	public CompareCondition<Integer> greater(final Integer value)
+	{
+		return new CompareCondition<>(CompareFunctionCondition.Operator.Greater, this, value);
+	}
+
+	public CompareCondition<Integer> greaterOrEqual(final Integer value)
+	{
+		return new CompareCondition<>(CompareFunctionCondition.Operator.GreaterEqual, this, value);
+	}
+
+	public Condition between(final Integer lowerBound, final Integer upperBound)
+	{
+		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
+	}
 }
