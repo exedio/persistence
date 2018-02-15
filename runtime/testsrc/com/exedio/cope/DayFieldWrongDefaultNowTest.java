@@ -35,7 +35,7 @@ public class DayFieldWrongDefaultNowTest
 	@Test void testIt()
 	{
 		newType(AnItem.class);
-		log.assertWarn(
+		log.assertError(
 				"Very probably you called \"DayField.defaultTo(new Day())\" on field AnItem.wrong. " +
 				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();

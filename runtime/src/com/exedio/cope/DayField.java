@@ -165,8 +165,8 @@ public final class DayField extends FunctionField<Day>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
-			logger.warn(
+		if(suspiciousForWrongDefaultNow() && logger.isErrorEnabled())
+			logger.error(
 					"Very probably you called \"DayField.defaultTo(new Day())\" on field {}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					getID());

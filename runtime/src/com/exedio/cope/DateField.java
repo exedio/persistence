@@ -416,8 +416,8 @@ public final class DateField extends FunctionField<Date>
 	{
 		super.mount(type, name, annotationSource);
 
-		if(suspiciousForWrongDefaultNow() && logger.isWarnEnabled())
-			logger.warn(
+		if(suspiciousForWrongDefaultNow() && logger.isErrorEnabled())
+			logger.error(
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field {}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					getID());
