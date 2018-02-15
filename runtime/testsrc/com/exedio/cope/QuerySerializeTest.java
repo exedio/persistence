@@ -35,7 +35,7 @@ public class QuerySerializeTest
 		assertSerializedEquals(q, size);
 
 		q.setCondition(field.isNotNull());
-		assertSerializedEquals(q, size += 153);
+		assertSerializedEquals(q, size += 129);
 
 		final Join j = q.join(TYPE);
 		assertSerializedEquals(q, size += 253);
@@ -53,7 +53,7 @@ public class QuerySerializeTest
 		assertSerializedEquals(q, size);
 
 		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{field, TYPE.getThis()}, TYPE, null);
-		assertSerializedEquals(qMulti, size - 684);
+		assertSerializedEquals(qMulti, size - 660);
 	}
 
 	private static void assertSerializedEquals(final Query<?> value, final int expectedSize)

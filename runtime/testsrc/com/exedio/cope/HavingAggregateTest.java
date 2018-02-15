@@ -63,6 +63,42 @@ public class HavingAggregateTest extends TestWithEnvironment
 		assertIt(asList(asList(group1, 11  ), asList(group2, 43  ), asList(group3, 96  ), asList(groupN, null)), sumQ);
 		assertIt(asList(asList(group1, 11.0), asList(group2, 21.5), asList(group3, 32.0), asList(groupN, null)), avgQ);
 
+		minQ.setHaving(min.equal(21));
+		maxQ.setHaving(max.equal(22));
+		sumQ.setHaving(sum.equal(43));
+		avgQ.setHaving(avg.equal(21.5));
+		assertIt(asList(asList(group2, 21  )), minQ);
+		assertIt(asList(asList(group2, 22  )), maxQ);
+		assertIt(asList(asList(group2, 43  )), sumQ);
+		assertIt(asList(asList(group2, 21.5)), avgQ);
+
+		minQ.setHaving(min.notEqual(21));
+		maxQ.setHaving(max.notEqual(22));
+		sumQ.setHaving(sum.notEqual(43));
+		avgQ.setHaving(avg.notEqual(21.5));
+		assertIt(asList(asList(group1, 11  ), asList(group3, 31  )), minQ);
+		assertIt(asList(asList(group1, 11  ), asList(group3, 33  )), maxQ);
+		assertIt(asList(asList(group1, 11  ), asList(group3, 96  )), sumQ);
+		assertIt(asList(asList(group1, 11.0), asList(group3, 32.0)), avgQ);
+
+		minQ.setHaving(min.equal(null));
+		maxQ.setHaving(max.equal(null));
+		sumQ.setHaving(sum.equal(null));
+		avgQ.setHaving(avg.equal(null));
+		assertIt(asList(asList(groupN, null)), minQ);
+		assertIt(asList(asList(groupN, null)), maxQ);
+		assertIt(asList(asList(groupN, null)), sumQ);
+		assertIt(asList(asList(groupN, null)), avgQ);
+
+		minQ.setHaving(min.notEqual(null));
+		maxQ.setHaving(max.notEqual(null));
+		sumQ.setHaving(sum.notEqual(null));
+		avgQ.setHaving(avg.notEqual(null));
+		assertIt(asList(asList(group1, 11  ), asList(group2, 21  ), asList(group3, 31  )), minQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 22  ), asList(group3, 33  )), maxQ);
+		assertIt(asList(asList(group1, 11  ), asList(group2, 43  ), asList(group3, 96  )), sumQ);
+		assertIt(asList(asList(group1, 11.0), asList(group2, 21.5), asList(group3, 32.0)), avgQ);
+
 		minQ.setHaving(min.less(21));
 		maxQ.setHaving(max.less(22));
 		sumQ.setHaving(sum.less(43));

@@ -22,9 +22,9 @@ import static java.util.Objects.requireNonNull;
 
 public final class IsNullCondition<E> extends Condition
 {
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 2l;
 
-	private final Function<E> function;
+	private final Selectable<E> function;
 	private final boolean not;
 
 	/**
@@ -35,11 +35,18 @@ public final class IsNullCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#isNotNull()
 	 */
 	public IsNullCondition(
-			final Function<E> function,
+			final Selectable<E> function,
 			final boolean not)
 	{
 		this.function = requireNonNull(function, "function");
 		this.not = not;
+	}
+
+	public IsNullCondition(
+			final Function<E> function,
+			final boolean not)
+	{
+		this((Selectable<E>)function, not);
 	}
 
 	@Override
@@ -52,7 +59,11 @@ public final class IsNullCondition<E> extends Condition
 	@Override
 	Trilean getTri(final Item item)
 	{
-		return Trilean.valueOf( (function.get(item)==null) ^ not );
+		// TODO do something nicer
+		if(!(function instanceof Function))
+			throw new IllegalArgumentException("not supported for non-function: " + function + " on " + item);
+
+		return Trilean.valueOf( (((Function<E>)function).get(item)==null) ^ not );
 	}
 
 	@Override
