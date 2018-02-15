@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
@@ -39,14 +40,22 @@ public final class Singleton extends Pattern
 		new IntegerField().toFinal().unique().
 				defaultTo(THE_ONE_OBJECT).range(THE_ONE, THE_ONE+1);
 
+	private final CheckConstraint check = new CheckConstraint(source.equal(THE_ONE));
+
 	public Singleton()
 	{
 		addSourceFeature(source, "once", ComputedElement.get());
+		addSourceFeature(check, "check");
 	}
 
 	public IntegerField getSource()
 	{
 		return source;
+	}
+
+	CheckConstraint getCheck()
+	{
+		return check;
 	}
 
 	@Wrap(order=10,
