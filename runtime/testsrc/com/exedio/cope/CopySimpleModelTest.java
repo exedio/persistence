@@ -131,9 +131,17 @@ public class CopySimpleModelTest
 		assertSame(CopySimpleTarget.templateItem,   templateItemCopyFromTarget.getTemplate());
 		assertSame(selfTemplate, selfTemplateCopyFromTarget.getTemplate());
 
-		assertSame(templateString, templateStringCopyFromTarget.getCopy());
-		assertSame(templateItem,   templateItemCopyFromTarget.getCopy());
-		assertSame(selfTemplate,   selfTemplateCopyFromTarget.getCopy());
+		assertEquals(false, templateStringCopyFromTarget.isChoice());
+		assertEquals(false,   templateItemCopyFromTarget.isChoice());
+		assertEquals(false,   selfTemplateCopyFromTarget.isChoice());
+
+		assertSame(templateString, templateStringCopyFromTarget.getCopyField());
+		assertSame(templateItem,     templateItemCopyFromTarget.getCopyField());
+		assertSame(selfTemplate,     selfTemplateCopyFromTarget.getCopyField());
+
+		assertSame(templateString, templateStringCopyFromTarget.getCopyFunction());
+		assertSame(templateItem,     templateItemCopyFromTarget.getCopyFunction());
+		assertSame(selfTemplate,     selfTemplateCopyFromTarget.getCopyFunction());
 
 		assertSerializedSame(templateStringCopyFromTarget , 409);
 		assertSerializedSame(templateItemCopyFromTarget   , 407);

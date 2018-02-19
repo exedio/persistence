@@ -20,14 +20,17 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.Serializable;
 import java.util.Objects;
+import javax.annotation.Nonnull;
 
 public final class CopyConstraint extends Feature
 {
 	private static final long serialVersionUID = 1l;
 
 	private final ItemField<?> target;
-	private final FunctionField<?> copy;
+	private final Copy copy;
 
 	/**
 	 * @deprecated
@@ -39,7 +42,7 @@ public final class CopyConstraint extends Feature
 	public CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
 	{
 		this.target = requireNonNull(target, "target");
-		this.copy   = requireNonNull(copy,   "copy"  );
+		this.copy = new CopyField(requireNonNull(copy, "copy"));
 
 		if(target.isMandatory())
 			copy.setRedundantByCopyConstraint();
@@ -51,14 +54,73 @@ public final class CopyConstraint extends Feature
 		return new CopyConstraint(target, copy);
 	}
 
+
+	static CopyConstraint choice(final ItemField<?> target, final String backPointerName)
+	{
+		return new CopyConstraint(target, backPointerName);
+	}
+
+	private CopyConstraint(final ItemField<?> target, final String backPointerName)
+	{
+		this.target = target;
+		this.copy = new CopyChoice(backPointerName);
+	}
+
+
 	public ItemField<?> getTarget()
 	{
 		return target;
 	}
 
+	/**
+	 * Returns whether this copy constraint is a choice constraint.
+	 * A choice constraint is a special copy constraint.
+	 * It constrains {@link #getTarget() target} values to items,
+	 * that do point back to the source of {@code target}.
+	 * Such constraints are created by {@link ItemField#choice(String)}.
+	 */
+	public boolean isChoice()
+	{
+		return copy instanceof CopyChoice;
+	}
+
+	/**
+	 * @deprecated
+	 * Use either {@link #getCopyField()} or {@link #getCopyFunction()} instead.
+	 * Choose carefully!
+	 * <b>BEWARE:</b> {@link #getCopyField()} may throw IllegalArgumentException
+	 */
+	@Nonnull
+	@Deprecated
 	public FunctionField<?> getCopy()
 	{
-		return copy;
+		return getCopyField();
+	}
+
+	/**
+	 * Returns the copy of this copy constraint,
+	 * if it is not a {@link CopyConstraint#isChoice() choice constraint}.
+	 *
+	 * @see #getCopyFunction()
+	 * @throws IllegalArgumentException if this is a {@link ItemField#choice(String) choice constraint}
+	 */
+	@Nonnull
+	public FunctionField<?> getCopyField()
+	{
+		return copy.getField();
+	}
+
+	/**
+	 * Returns the copy of this copy constraint.
+	 * It is either a {@link FunctionField} or
+	 * (for {@link CopyConstraint#isChoice() choice constraints}) a {@link This}.
+	 *
+	 * @see #getCopyField()
+	 */
+	@Nonnull
+	public Function<?> getCopyFunction()
+	{
+		return copy.getFunction();
 	}
 
 	private FunctionField<?> templateIfSet = null;
@@ -68,7 +130,7 @@ public final class CopyConstraint extends Feature
 		if(templateIfSet!=null)
 			throw new RuntimeException(toString());
 
-		final Feature feature = target.getValueType().getFeature(copy.getName());
+		final Feature feature = target.getValueType().getFeature(copy.getTemplateName());
 		if(feature==null)
 			throw new IllegalArgumentException(
 					"insufficient template for CopyConstraint " + this + ": " +
@@ -106,15 +168,15 @@ public final class CopyConstraint extends Feature
 			return;
 
 		final Object expectedValue = getTemplate().get(targetItem);
-		final Object actualValue = fieldValues.get(copy);
+		final Object actualValue = copy.getActualValueAndCheck(fieldValues, targetItem, expectedValue);
 		if(!Objects.equals(expectedValue, actualValue))
 			throw new CopyViolationException(fieldValues, targetItem, this, expectedValue, actualValue);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static Condition notEqual(final FunctionField f1, final Function f2)
+	private static Condition notEqual(final Copy f1, final Function f2)
 	{
-		return f1.notEqual(f2);
+		return f1.getFunction().notEqual(f2);
 	}
 
 	public int check()
@@ -124,5 +186,112 @@ public final class CopyConstraint extends Feature
 		j.setCondition(target.equalTarget(j));
 		q.setCondition(notEqual(copy, getTemplate().bind(j)));
 		return q.total();
+	}
+
+
+	private abstract static class Copy implements Serializable
+	{
+		abstract String getTemplateName();
+		abstract boolean overlaps(FunctionField<?> template);
+		abstract Class<?> getValueClass();
+		@Nonnull abstract Function<?> getFunction();
+		@Nonnull abstract FunctionField<?> getField();
+		abstract Object getActualValueAndCheck(FieldValues fieldValues, Item targetItem, Object expectedValue);
+		@Override public abstract String toString();
+		private static final long serialVersionUID = -1l;
+	}
+
+	private static final class CopyField extends Copy
+	{
+		final FunctionField<?> field;
+
+		CopyField(final FunctionField<?> field)
+		{
+			this.field = field;
+		}
+
+		@Override String getTemplateName()
+		{
+			return field.getName();
+		}
+		@Override boolean overlaps(final FunctionField<?> template)
+		{
+			return field.overlaps(template);
+		}
+		@Override Class<?> getValueClass()
+		{
+			return field.getValueClass();
+		}
+		@Override Function<?> getFunction()
+		{
+			return field;
+		}
+		@Override FunctionField<?> getField()
+		{
+			return field;
+		}
+		@Override Object getActualValueAndCheck(
+				final FieldValues fieldValues,
+				final Item targetItem,
+				final Object expectedValue)
+		{
+			return fieldValues.get(field);
+		}
+		@Override public String toString()
+		{
+			return field.toString();
+		}
+		private static final long serialVersionUID = -1l;
+	}
+
+	@SuppressFBWarnings("SE_INNER_CLASS")
+	private final class CopyChoice extends Copy
+	{
+		final String backPointerName;
+
+		private CopyChoice(final String backPointerName)
+		{
+			this.backPointerName = backPointerName;
+		}
+
+		@Override String getTemplateName()
+		{
+			return backPointerName;
+		}
+		@Override boolean overlaps(final FunctionField<?> template)
+		{
+			if(!(template instanceof ItemField))
+				return false;
+			final ItemField<?> t = (ItemField<?>)template;
+			return getType().overlaps(t.getValueType());
+		}
+		@Override Class<?> getValueClass()
+		{
+			return getType().getJavaClass();
+		}
+		@Override Function<?> getFunction()
+		{
+			return getType().getThis();
+		}
+		@Override FunctionField<?> getField()
+		{
+			throw new IllegalArgumentException(getID() + " is choice");
+		}
+		@Override Object getActualValueAndCheck(
+				final FieldValues fieldValues,
+				final Item targetItem,
+				final Object expectedValue)
+		{
+			final Object actualValue = fieldValues.getBackingItem();
+			// special case if actualValue is an item about to be created
+			if(actualValue==null)
+				throw new CopyViolationException(targetItem, CopyConstraint.this, expectedValue, fieldValues.backingType);
+			return actualValue;
+		}
+		@Override public String toString()
+		{
+			return getType().getThis().toString();
+		}
+		private static final long serialVersionUID = -1l;
 	}
 }

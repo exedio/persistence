@@ -89,8 +89,14 @@ public class CopyMultiCopyModelTest
 		assertSame(CopyMultiCopyTarget.copyA, constraintA.getTemplate());
 		assertSame(CopyMultiCopyTarget.copyB, constraintB.getTemplate());
 
-		assertSame(copyA, constraintA.getCopy());
-		assertSame(copyB, constraintB.getCopy());
+		assertEquals(false, constraintA.isChoice());
+		assertEquals(false, constraintB.isChoice());
+
+		assertSame(copyA, constraintA.getCopyField());
+		assertSame(copyB, constraintB.getCopyField());
+
+		assertSame(copyA, constraintA.getCopyFunction());
+		assertSame(copyB, constraintB.getCopyFunction());
 
 		assertSerializedSame(constraintA, 402);
 		assertSerializedSame(constraintB, 402);

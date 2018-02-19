@@ -23,6 +23,7 @@ import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyMapper;
@@ -79,19 +80,27 @@ public class SetFieldCopyModelTest
 
 		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getParent(), copyAParent.getTarget());
 		assertEquals(SetFieldItemWithCopyConstraints.a, copyAParent.getTemplate());
-		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.a), copyAParent.getCopy());
+		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.a), copyAParent.getCopyField());
+		assertSame(copyAParent.getCopyField(), copyAParent.getCopyFunction());
+		assertEquals(false, copyAParent.isChoice());
 
 		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getElement(), copyAElement.getTarget());
 		assertEquals(SetFieldItemWithCopyConstraints.a, copyAElement.getTemplate());
-		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.a), copyAElement.getCopy());
+		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.a), copyAElement.getCopyField());
+		assertSame(copyAElement.getCopyField(), copyAElement.getCopyFunction());
+		assertEquals(false, copyAElement.isChoice());
 
 		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getParent(), copyBParent.getTarget());
 		assertEquals(SetFieldItemWithCopyConstraints.b, copyBParent.getTemplate());
-		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.b), copyBParent.getCopy());
+		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.b), copyBParent.getCopyField());
+		assertEquals(copyBParent.getCopyField(), copyBParent.getCopyFunction());
+		assertEquals(false, copyBParent.isChoice());
 
 		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getElement(), copyBElement.getTarget());
 		assertEquals(SetFieldItemWithCopyConstraints.b, copyBElement.getTemplate());
-		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.b), copyBElement.getCopy());
+		assertEquals(SetFieldItemWithCopyConstraints.sameAAndB.getCopyWithCopyField(SetFieldItemWithCopyConstraints.b), copyBElement.getCopyField());
+		assertEquals(copyBElement.getCopyField(), copyBElement.getCopyFunction());
+		assertEquals(false, copyBElement.isChoice());
 	}
 
 	@Test void testGetCopyWithTemplates()

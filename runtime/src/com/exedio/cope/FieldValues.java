@@ -32,7 +32,7 @@ public final class FieldValues
 	private final LinkedHashMap<Field<?>, Object> dirt = new LinkedHashMap<>();
 	private final Set<Map.Entry<Field<?>, Object>> dirtEntrySet = unmodifiableSet(dirt.entrySet());
 	private final Item backingItem;
-	private final Type<?> backingType;
+	final Type<?> backingType;
 
 	FieldValues(final Type<?> backingType, final SetValue<?>[] initialDirt)
 	{

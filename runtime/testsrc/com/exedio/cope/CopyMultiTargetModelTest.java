@@ -92,8 +92,14 @@ public class CopyMultiTargetModelTest
 		assertSame(CopyMultiTargetA.copy, constraintA.getTemplate());
 		assertSame(CopyMultiTargetB.copy, constraintB.getTemplate());
 
-		assertSame(copy, constraintA.getCopy());
-		assertSame(copy, constraintB.getCopy());
+		assertEquals(false, constraintA.isChoice());
+		assertEquals(false, constraintB.isChoice());
+
+		assertSame(copy, constraintA.getCopyField());
+		assertSame(copy, constraintB.getCopyField());
+
+		assertSame(copy, constraintA.getCopyFunction());
+		assertSame(copy, constraintB.getCopyFunction());
 
 		assertSerializedSame(constraintA, 406);
 		assertSerializedSame(constraintB, 406);

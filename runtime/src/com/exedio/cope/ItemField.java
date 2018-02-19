@@ -22,6 +22,7 @@ import static com.exedio.cope.CastUtils.toIntCapped;
 import static com.exedio.cope.CopyConstraint.newCopyConstraint;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.TypesBound.future;
+import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -40,6 +41,8 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	private final DeletePolicy policy;
 	private final FunctionField<?>[] copyTo;
 	private final CopyConstraint[] implicitCopyConstraintsTo;
+	private final String choiceBackPointerName;
+	private final CopyConstraint choice;
 
 	private ItemField(
 			final boolean isfinal,
@@ -48,6 +51,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
 			final FunctionField<?>[] copyTo,
+			final String choiceBackPointerName,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
@@ -66,6 +70,16 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		}
 		this.copyTo = copyTo;
 		this.implicitCopyConstraintsTo = (copyTo!=null) ? newCopyConstraintsTo(copyTo) : null;
+		this.choiceBackPointerName = choiceBackPointerName;
+		//noinspection ThisEscapedInObjectConstruction
+		this.choice = (this.choiceBackPointerName!=null) ? CopyConstraint.choice(this, this.choiceBackPointerName) : null;
+		if(choiceBackPointerName!=null)
+		{
+			if(isfinal)
+				throw new IllegalArgumentException("final item field cannot have choice constraint");
+			if(!optional)
+				throw new IllegalArgumentException("mandatory item field cannot have choice constraint");
+		}
 		mountDefaultSource();
 	}
 
@@ -80,7 +94,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	ItemField(final Class<E> valueClass, final TypeFuture<E> valueTypeFuture, final DeletePolicy policy)
 	{
-		this(false, policy==DeletePolicy.NULLIFY, valueClass, false, null, null, valueTypeFuture, policy);
+		this(false, policy==DeletePolicy.NULLIFY, valueClass, false, null, null, null, valueTypeFuture, policy);
 	}
 
 	public static <E extends Item> ItemField<E> create(final Class<E> valueClass)
@@ -104,37 +118,37 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public ItemField<E> copy()
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, choiceBackPointerName, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> toFinal()
 	{
-		return new ItemField<>(true, optional, valueClass, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(true, optional, valueClass, unique, copyFrom, copyTo, choiceBackPointerName, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> optional()
 	{
-		return new ItemField<>(isfinal, true, valueClass, unique, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, true, valueClass, unique, copyFrom, copyTo, choiceBackPointerName, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> unique()
 	{
-		return new ItemField<>(isfinal, optional, valueClass, true, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, true, copyFrom, copyTo, choiceBackPointerName, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> nonUnique()
 	{
-		return new ItemField<>(isfinal, optional, valueClass, false, copyFrom, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, false, copyFrom, copyTo, choiceBackPointerName, valueTypeFuture, policy);
 	}
 
 	@Override
 	public ItemField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), copyTo, choiceBackPointerName, valueTypeFuture, policy);
 	}
 
 	/**
@@ -142,7 +156,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> copyTo(final FunctionField<?> copyTo)
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copyTo), valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, addCopyTo(copyTo), choiceBackPointerName, valueTypeFuture, policy);
 	}
 
 	private FunctionField<?>[] addCopyTo(final FunctionField<?> copyTo)
@@ -161,7 +175,27 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	@Override
 	public ItemField<E> noCopyFrom()
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, null, copyTo, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, null, copyTo, choiceBackPointerName, valueTypeFuture, policy);
+	}
+
+	/**
+	 * Causes this ItemField to create a {@link CopyConstraint#isChoice() choice constraint}.
+	 * <p>
+	 * This ItemField becomes the {@link CopyConstraint#getTarget() target} of the copy constraint.
+	 * The field pointing back becomes the {@link CopyConstraint#getTemplate() template},
+	 * and {@link Type#getThis()} of the type of this ItemField becomes the {@link CopyConstraint#getCopyFunction() copy}.
+	 *
+	 * @param backPointerName the name of the field pointing back; at {@code E}, this has to be the name of an
+	 *        {@link ItemField} where the {@link #getValueType() value type} overlaps with this
+	 *        item field's {@link #getType()}
+	 */
+	public ItemField<E> choice(final String backPointerName)
+	{
+		requireNonEmpty(backPointerName, "backPointerName");
+		if(choiceBackPointerName!=null)
+			throw new IllegalArgumentException("choice already set: " + choiceBackPointerName);
+
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, backPointerName, valueTypeFuture, policy);
 	}
 
 	@Override
@@ -175,12 +209,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 */
 	public ItemField<E> nullify()
 	{
-		return new ItemField<>(isfinal, true, valueClass, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.NULLIFY);
+		return new ItemField<>(isfinal, true, valueClass, unique, copyFrom, copyTo, choiceBackPointerName, valueTypeFuture, DeletePolicy.NULLIFY);
 	}
 
 	public ItemField<E> cascade()
 	{
-		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, valueTypeFuture, DeletePolicy.CASCADE);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, choiceBackPointerName, valueTypeFuture, DeletePolicy.CASCADE);
 	}
 
 	/**
@@ -203,6 +237,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return
 				super.overlaps(other) &&
 				getValueType().overlaps(((ItemField<?>)other).getValueType());
+	}
+
+	public CopyConstraint getChoice()
+	{
+		return choice;
 	}
 
 	/**
@@ -279,7 +318,11 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		if(implicitCopyConstraintsTo!=null)
 			for(final CopyConstraint constraint : implicitCopyConstraintsTo)
-				constraint.mount(type, constraint.getCopy().getName() + "CopyFrom" + name, null);
+				//noinspection ConstantConditions OK: implicitCopyConstraintsTo have always a field
+				constraint.mount(type, constraint.getCopyField().getName() + "CopyFrom" + name, null);
+
+		if(choice!=null)
+			choice.mount(type, name + "Choice" + choiceBackPointerName, null);
 	}
 
 	private Type<E> valueType = null;

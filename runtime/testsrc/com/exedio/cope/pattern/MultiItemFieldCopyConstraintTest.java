@@ -81,7 +81,9 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 			final CopyConstraint actual)
 	{
 		assertEquals(template, actual.getTemplate());
-		assertEquals(copy, actual.getCopy());
+		assertEquals(false, actual.isChoice());
+		assertEquals(copy, actual.getCopyField());
+		assertEquals(copy, actual.getCopyFunction());
 		assertEquals(target, actual.getTarget());
 	}
 

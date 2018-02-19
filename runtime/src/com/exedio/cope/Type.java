@@ -95,7 +95,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<CopyConstraint> copyConstraints;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private final Map<FunctionField<?>,List<CopyConstraint>> copyConstraintsByCopy;
+	private final Map<FunctionField<?>,List<CopyConstraint>> copyConstraintsByCopyField;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> activationConstructor;
@@ -284,9 +284,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		{
 			final LinkedHashMap<FunctionField<?>,List<CopyConstraint>> byCopy = new LinkedHashMap<>();
 			for(final CopyConstraint cc : copyConstraints.all)
-				byCopy.computeIfAbsent(cc.getCopy(), k -> new ArrayList<>()).add(cc);
+				if(!cc.isChoice())
+					byCopy.computeIfAbsent(cc.getCopyField(), k -> new ArrayList<>()).add(cc);
 
-			this.copyConstraintsByCopy = byCopy.isEmpty() ? emptyMap() : unmodifiableMap(byCopy);
+			this.copyConstraintsByCopyField = byCopy.isEmpty() ? emptyMap() : unmodifiableMap(byCopy);
 		}
 		checkForDuplicateUniqueConstraint(id, uniqueConstraints.all);
 
@@ -1032,7 +1033,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	void executeCopyConstraints(final FieldValues fieldValues)
 	{
-		for(final Map.Entry<FunctionField<?>,List<CopyConstraint>> e : copyConstraintsByCopy.entrySet())
+		for(final Map.Entry<FunctionField<?>,List<CopyConstraint>> e : copyConstraintsByCopyField.entrySet())
 		{
 			final FunctionField<?> copy = e.getKey();
 			if(fieldValues.isDirty(copy))

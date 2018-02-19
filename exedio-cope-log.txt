@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Choice constraint added.
+	Implements the "default address" scenario using copy constraints.
+	Call ItemField#choice to create a choice constraint.
+	Breaks backwards API compatibility of CopyConstraint#getCopy(),
+	if choice constraints are present within your model.
+	Then updates of copeview and outliner are required.
 * drop support for instrumentor control via javadoc tags
 	* to upgrade a project that uses tags, first upgrade cope to build 9741
 	* these instrumentor parameters that are no longer supported:
