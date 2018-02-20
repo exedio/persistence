@@ -1108,4 +1108,28 @@ public class PriceTest
 			assertEquals("rate must not be negative, but was -1", e.getMessage());
 		}
 	}
+
+	@Test void testGrossToTaxPercentDouble()
+	{
+		assertEquals(storeOf( 26), storeOf( 126).grossToTaxPercent(26d));
+		assertEquals(storeOf(-26), storeOf(-126).grossToTaxPercent(26d));
+		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(26d));
+		assertEquals(storeOf(  0), storeOf(   0).grossToTaxPercent(0d));
+		assertEquals(storeOf(  0), storeOf( 126).grossToTaxPercent(0d));
+		assertEquals(storeOf(  0), storeOf(-126).grossToTaxPercent(0d));
+		assertEquals(storeOf( 58), storeOf( 120).grossToTaxPercent(92d));
+		assertEquals(storeOf(-58), storeOf(-120).grossToTaxPercent(92d));
+		assertEquals(storeOf( 57), storeOf( 120).grossToTaxPercent(92d, HALF_DOWN));
+		assertEquals(storeOf(-57), storeOf(-120).grossToTaxPercent(92d, HALF_DOWN));
+
+		try
+		{
+			ZERO.grossToTaxPercent(-0.001d);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("rate must not be negative, but was -0.001", e.getMessage());
+		}
+	}
 }

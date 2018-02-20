@@ -471,6 +471,14 @@ public final class Price implements Serializable, Comparable<Price>
 	/**
 	 * @throws IllegalArgumentException if rate is negative
 	 */
+	public Price grossToTaxPercent(final double rate)
+	{
+		return grossToTaxPercent(rate, DEFAULT_ROUNDING_MODE);
+	}
+
+	/**
+	 * @throws IllegalArgumentException if rate is negative
+	 */
 	public Price grossToTaxPercent(final int rate, final RoundingMode roundingMode)
 	{
 		checkRatePercent(rate);
@@ -482,7 +490,27 @@ public final class Price implements Serializable, Comparable<Price>
 		return multiply(rate).divide(100 + rate, roundingMode);
 	}
 
+	/**
+	 * @throws IllegalArgumentException if rate is negative
+	 */
+	public Price grossToTaxPercent(final double rate, final RoundingMode roundingMode)
+	{
+		checkRatePercent(rate);
+
+		// shortcut for computation below
+		if(rate==0)
+			return ZERO;
+
+		return multiply(rate).divide(100d + rate, roundingMode);
+	}
+
 	private static void checkRatePercent(final int rate)
+	{
+		if(rate<0)
+			throw new IllegalArgumentException("rate must not be negative, but was " + rate);
+	}
+
+	private static void checkRatePercent(final double rate)
 	{
 		if(rate<0)
 			throw new IllegalArgumentException("rate must not be negative, but was " + rate);

@@ -262,6 +262,11 @@ public final class Money<C extends Currency>
 		return wrap( amount.grossToTaxPercent(rate) );
 	}
 
+	public Money<C> grossToTaxPercent(final double rate)
+	{
+		return wrap( amount.grossToTaxPercent(rate) );
+	}
+
 	public static <C extends Currency> Money<C>[] splitProportionately(final Money<C> total, final Money<C>[] weights)
 	{
 		final C currency = total.currency;
