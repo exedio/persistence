@@ -62,7 +62,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraint, "fieldValueT", "fieldValueC", target,
-					"copy violation on " + constraint + ", " +
+					"copy violation for " + constraint + ", " +
 					"expected 'fieldValueT' " +
 					"from target " + target + ", " +
 					"but was 'fieldValueC'", e);
@@ -88,7 +88,8 @@ public class CopyDefaultTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraint, source, "fieldValue", "fieldValueSet", target,
-					"copy violation on " + constraint + ", " +
+					"copy violation on " + source + " " +
+					"for " + constraint + ", " +
 					"expected 'fieldValue' " +
 					"from target " + target + ", " +
 					"but was 'fieldValueSet'", e);

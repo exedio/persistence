@@ -95,7 +95,9 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyKeyParent+" and "+copyKeyKey+", expected 'a' from target "+itemA1+" but also 'b' from target "+itemB,
+				"copy violation for " + copyKeyParent + " and " + copyKeyKey + ", " +
+				"expected 'a' from target " + itemA1 + " " +
+				"but also 'b' from target " + itemB,
 				e.getMessage()
 			);
 		}
@@ -114,7 +116,9 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyValueValue+", expected 'b' from target "+itemB+", but was 'a'",
+				"copy violation on MapFieldCopyItem-valueShared-0 " +
+				"for " + copyValueValue + ", " +
+				"expected 'b' from target " + itemB + ", but was 'a'",
 				e.getMessage()
 			);
 		}
@@ -127,7 +131,9 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyValueParent+" and "+copyValueValue+", expected 'a' from target "+itemA+" but also 'b' from target "+itemB,
+				"copy violation for " + copyValueParent + " and " + copyValueValue + ", " +
+				"expected 'a' from target " + itemA + " " +
+				"but also 'b' from target " + itemB,
 				e.getMessage()
 			);
 		}
@@ -148,7 +154,9 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyBothDifferentParent+" and "+copyBothDifferentKey+", expected 'a' from target "+itemAA+" but also 'b' from target "+itemBA,
+				"copy violation for " + copyBothDifferentParent + " and " + copyBothDifferentKey + ", " +
+				"expected 'a' from target " + itemAA + " " +
+				"but also 'b' from target " + itemBA,
 				e.getMessage()
 			);
 		}
@@ -160,7 +168,10 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyBothDifferentValue+", expected 'B' from target "+itemAB+", but was 'A'",
+				"copy violation on MapFieldCopyItem-bothDifferentShared-0 " +
+				"for " + copyBothDifferentValue + ", " +
+				"expected 'B' from target " + itemAB + ", " +
+				"but was 'A'",
 				e.getMessage()
 			);
 		}
@@ -180,7 +191,9 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyBothSameParent+" and "+copyBothSameKey+", expected 'a' from target "+itemA+" but also 'b' from target "+itemB,
+				"copy violation for " + copyBothSameParent + " and " + copyBothSameKey + ", " +
+				"expected 'a' from target " + itemA + " " +
+				"but also 'b' from target " + itemB,
 				e.getMessage()
 			);
 		}
@@ -193,7 +206,9 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyBothSameParent+" and "+copyBothSameValue+", expected 'a' from target "+itemA+" but also 'b' from target "+itemB,
+				"copy violation for " + copyBothSameParent + " and " + copyBothSameValue + ", " +
+				"expected 'a' from target " + itemA + " " +
+				"but also 'b' from target " + itemB,
 				e.getMessage()
 			);
 		}
@@ -207,7 +222,10 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyBothSameValue+", expected 'b' from target "+itemB+", but was 'a'",
+				"copy violation on MapFieldCopyItem-bothSameShared-1 " +
+				"for " + copyBothSameValue + ", " +
+				"expected 'b' from target " + itemB + ", " +
+				"but was 'a'",
 				e.getMessage()
 			);
 		}

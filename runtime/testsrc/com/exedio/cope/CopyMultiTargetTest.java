@@ -115,7 +115,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintA, "targetValueAx", "targetValue", targetA,
-					"copy violation on " + constraintA + ", " +
+					"copy violation for " + constraintA + ", " +
 					"expected 'targetValueAx' " +
 					"from target " + targetA.getCopeID() + ", " +
 					"but was 'targetValue'", e);
@@ -146,7 +146,8 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 				source,
 				"targetValueAx", "targetValue",
 				targetAx, targetB,
-				"copy violation on " + constraintA + " and " + constraintB + ", " +
+				"copy violation on " + source + " " +
+					"for " + constraintA + " and " + constraintB + ", " +
 					"expected 'targetValueAx' from target " + targetAx.getCopeID() +
 					" but also 'targetValue' from target " + targetB.getCopeID(),
 				e
@@ -170,7 +171,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintB, "targetValueBx", "targetValue", targetB,
-					"copy violation on " + constraintB + ", " +
+					"copy violation for " + constraintB + ", " +
 					"expected 'targetValueBx' " +
 					"from target " + targetB.getCopeID() + ", " +
 					"but was 'targetValue'", e);
@@ -201,7 +202,8 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 				source,
 				"targetValue", "targetValueBx",
 				targetA, targetBx,
-				"copy violation on " + constraintA + " and " + constraintB + ", " +
+				"copy violation on " + source + " " +
+					"for " + constraintA + " and " + constraintB + ", " +
 					"expected 'targetValue' from target " + targetA.getCopeID() +
 					" but also 'targetValueBx' from target " + targetBx.getCopeID(),
 				e
@@ -227,7 +229,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 				constraintA,
 				"targetValueAx", "targetValue",
 				targetA,
-				"copy violation on " + constraintA + ", " +
+				"copy violation for " + constraintA + ", " +
 					"expected 'targetValueAx' from target " + targetA.getCopeID() + ", " +
 					"but was 'targetValue'",
 				e
@@ -260,7 +262,8 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 				source,
 				"targetValueAx", "targetValueBx",
 				targetAset, targetBset,
-				"copy violation on " + constraintA + " and " + constraintB + ", " +
+				"copy violation on " + source + " " +
+					"for " + constraintA + " and " + constraintB + ", " +
 					"expected 'targetValueAx' from target " + targetAset.getCopeID() +
 					" but also 'targetValueBx' from target " + targetBset.getCopeID(),
 				e
@@ -285,7 +288,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 				constraintB,
 				"targetValueBx", "targetValue",
 				targetB,
-				"copy violation on " + constraintB + ", " +
+				"copy violation for " + constraintB + ", " +
 					"expected 'targetValueBx' from target " + targetB.getCopeID() + ", " +
 					"but was 'targetValue'",
 				e
@@ -406,7 +409,7 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 				null,
 				"targetValueAx", "targetValueBx",
 				targetA, targetB,
-				"copy violation on " + constraintA + " and " + constraintB + ", " +
+				"copy violation for " + constraintA + " and " + constraintB + ", " +
 					"expected 'targetValueAx' from target " + targetA.getCopeID() +
 					" but also 'targetValueBx' from target " + targetB.getCopeID(),
 				e
@@ -439,7 +442,8 @@ public class CopyMultiTargetTest extends TestWithEnvironment
 				source,
 				"targetValueAx", "targetValueBx",
 				targetAset, targetBset,
-				"copy violation on " + constraintA + " and " + constraintB + ", " +
+				"copy violation on " + source + " " +
+					"for " + constraintA + " and " + constraintB + ", " +
 					"expected 'targetValueAx' from target " + targetAset.getCopeID() +
 					" but also 'targetValueBx' from target " + targetBset.getCopeID(),
 				e

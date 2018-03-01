@@ -55,7 +55,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 				null,
 				1, 2,
 				targetOne, targetTwo,
-				"copy violation on Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
+				"copy violation for Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
 					"expected '1' from target "+targetOne+" but also '2' from target "+targetTwo,
 				e
 			);
@@ -93,7 +93,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 				constraintA,
 				null,
 				1, 3, targetOne,
-				"copy violation on Source.copyCopyFromtargetA, expected '1' from target "+targetOne+", but was '3'",
+				"copy violation for Source.copyCopyFromtargetA, expected '1' from target "+targetOne+", but was '3'",
 				e
 			);
 		}
@@ -118,7 +118,8 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 				source,
 				6, 7,
 				target6, target7b,
-				"copy violation on Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
+				"copy violation on " + source + " " +
+					"for Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
 					"expected '6' from target "+target6+" but also '7' from target "+target7b,
 				e
 			);
@@ -137,7 +138,8 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 				source,
 				7, 6,
 				target7a, target6,
-				"copy violation on Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
+				"copy violation on " + source + " " +
+					"for Source.copyCopyFromtargetA and Source.copyCopyFromtargetB, " +
 					"expected '7' from target "+target7a+" but also '6' from target "+target6,
 				e
 			);
@@ -179,7 +181,8 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 				source,
 				0, 1,
 				t0b, t1,
-				"copy violation on " + constraintA + " and " + constraintB + ", " +
+				"copy violation on " + source + " " +
+					"for " + constraintA + " and " + constraintB + ", " +
 					"expected '0' from target "+t0b+" but also '1' from target "+t1,
 				e
 			);

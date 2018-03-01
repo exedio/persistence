@@ -62,7 +62,7 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+copyRed+", expected 'y' from target "+valueY+", but was 'x'",
+				"copy violation on "+item+" for "+copyRed+", expected 'y' from target "+valueY+", but was 'x'",
 				e.getMessage()
 			);
 		}

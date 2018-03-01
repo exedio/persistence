@@ -662,7 +662,7 @@ public class ListFieldTest extends TestWithEnvironment
 				final String validString = validValue==null ? "null" : ("'"+validValue+"'");
 				final String invalidString = invalidValue==null ? "null" : ("'"+invalidValue+"'");
 				assertEquals(
-					"copy violation on " + copyElement + ", " +
+					"copy violation on ListFieldItem-itemsSameValue-0 for " + copyElement + ", " +
 						"expected " + invalidString + " from target " + invalid + ", but was " + validString,
 					e.getMessage()
 				);
@@ -678,7 +678,7 @@ public class ListFieldTest extends TestWithEnvironment
 				final String validString = validValue==null ? "null" : ("'"+validValue+"'");
 				final String invalidString = invalidValue==null ? "null" : ("'"+invalidValue+"'");
 				assertEquals(
-					"copy violation on " + copyParent + " and " + copyElement + ", " +
+					"copy violation for " + copyParent + " and " + copyElement + ", " +
 						"expected " + validString + " from target " + valid1 + " but also " + invalidString + " from target " + invalid,
 					e.getMessage()
 				);

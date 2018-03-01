@@ -112,7 +112,8 @@ public final class CopyViolationException extends ConstraintViolationException
 		if (additionalFeature==null)
 		{
 			return
-				"copy violation on " + feature +
+				"copy violation" + getItemPhrase() +
+				" for " + feature +
 				", expected " + toString(expectedValue) +
 				" from target " + targetItem.getCopeID() +
 				", but was " + toString(actualValue);
@@ -121,7 +122,8 @@ public final class CopyViolationException extends ConstraintViolationException
 		{
 			assert additionalTargetItem!=null; // suppresses idea inspection ConstantConditions
 			return
-				"copy violation on " + feature + " and " + additionalFeature +
+				"copy violation" + getItemPhrase() +
+				" for " + feature + " and " + additionalFeature +
 				", expected " + toString(expectedValue) +
 				" from target " + targetItem.getCopeID() +
 				" but also " + toString(actualValue) +

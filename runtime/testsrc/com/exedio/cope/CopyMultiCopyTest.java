@@ -113,7 +113,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintA, "targetValueA", "targetValueAx", target,
-					"copy violation on " + constraintA + ", " +
+					"copy violation for " + constraintA + ", " +
 					"expected 'targetValueA' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'targetValueAx'", e);
@@ -138,7 +138,8 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintA, source, "targetValueA", "targetValueAx", target,
-					"copy violation on " + constraintA + ", " +
+					"copy violation on " + source + " " +
+					"for " + constraintA + ", " +
 					"expected 'targetValueA' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'targetValueAx'", e);
@@ -161,7 +162,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintB, "targetValueB", "targetValueBx", target,
-					"copy violation on " + constraintB + ", " +
+					"copy violation for " + constraintB + ", " +
 					"expected 'targetValueB' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'targetValueBx'", e);
@@ -186,7 +187,8 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintB, source, "targetValueB", "targetValueBx", target,
-					"copy violation on " + constraintB + ", " +
+					"copy violation on " + source + " " +
+					"for " + constraintB + ", " +
 					"expected 'targetValueB' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'targetValueBx'", e);
@@ -209,7 +211,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintA, "targetValueA", null, target,
-					"copy violation on " + constraintA + ", " +
+					"copy violation for " + constraintA + ", " +
 					"expected 'targetValueA' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was null", e);
@@ -249,7 +251,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintB, "targetValueB", null, target,
-					"copy violation on " + constraintB + ", " +
+					"copy violation for " + constraintB + ", " +
 					"expected 'targetValueB' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was null", e);
@@ -289,7 +291,7 @@ public class CopyMultiCopyTest extends TestWithEnvironment
 		{
 			assertFails(
 					constraintA, "targetValueA", null, target,
-					"copy violation on " + constraintA + ", " +
+					"copy violation for " + constraintA + ", " +
 					"expected 'targetValueA' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was null", e);

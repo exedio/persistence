@@ -92,7 +92,7 @@ public class CopySelfTest extends TestWithEnvironment
 		{
 			assertFails(
 					selfTemplateCopyFromTarget, value2, value1, target,
-					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"copy violation for " + selfTemplateCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'", e);
@@ -117,7 +117,7 @@ public class CopySelfTest extends TestWithEnvironment
 		{
 			assertFails(
 					selfTemplateCopyFromTarget, value, null, target,
-					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"copy violation for " + selfTemplateCopyFromTarget + ", " +
 					"expected '" + value.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was null", e);
@@ -140,7 +140,7 @@ public class CopySelfTest extends TestWithEnvironment
 		{
 			assertFails(
 					selfTemplateCopyFromTarget, null, value, target,
-					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"copy violation for " + selfTemplateCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + target.getCopeID() + ", " +
 					"but was '" + value.getCopeID() + "'", e);
@@ -174,7 +174,8 @@ public class CopySelfTest extends TestWithEnvironment
 			// failure is ok, as selfTemplate is final and therefore cannot be set consistent to targetSet
 			assertFails(
 					selfTemplateCopyFromTarget, source, valueSet, value, targetSet,
-					"copy violation on " + selfTemplateCopyFromTarget + ", " +
+					"copy violation on " + source.getCopeID() + " " +
+					"for " + selfTemplateCopyFromTarget + ", " +
 					"expected '" + valueSet.getCopeID() + "' " +
 					"from target " + targetSet.getCopeID() + ", " +
 					"but was '" + value.getCopeID() + "'", e);

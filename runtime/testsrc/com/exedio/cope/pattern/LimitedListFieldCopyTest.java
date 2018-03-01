@@ -62,7 +62,7 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on LimitedListCopyItem.valueCopyFromlist-0, expected '8' from target LimitedListCopyItem-1, but was '7'",
+				"copy violation on LimitedListCopyItem-0 for LimitedListCopyItem.valueCopyFromlist-0, expected '8' from target LimitedListCopyItem-1, but was '7'",
 				e.getMessage()
 			);
 		}
@@ -75,7 +75,7 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on LimitedListCopyItem.valueCopyFromlist-1, expected '8' from target "+i8+", but was '7'",
+				"copy violation on LimitedListCopyItem-0 for LimitedListCopyItem.valueCopyFromlist-1, expected '8' from target "+i8+", but was '7'",
 				e.getMessage()
 			);
 		}

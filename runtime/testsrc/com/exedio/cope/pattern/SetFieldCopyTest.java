@@ -101,7 +101,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+constraintCatalogParent+" and "+constraintCatalogElement+", "+
+				"copy violation for "+constraintCatalogParent+" and "+constraintCatalogElement+", "+
 					"expected '"+c1+"' from target "+p+" but also '"+c2+"' from target "+e2,
 				e.getMessage()
 			);
@@ -132,7 +132,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+constraintCatalogElement+", "+
+				"copy violation on ParentInCatalog-elementsSameCatalog-0 for "+constraintCatalogElement+", "+
 					"expected '"+c2+"' from target "+e2+", but was '"+c1+"'",
 				e.getMessage()
 			);
@@ -147,7 +147,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+constraintCatalogParent+" and "+constraintCatalogElement+", "+
+				"copy violation for "+constraintCatalogParent+" and "+constraintCatalogElement+", "+
 					"expected '"+c1+"' from target "+p+" but also '"+c2+"' from target "+e2,
 				e.getMessage()
 			);
@@ -164,7 +164,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+constraintCatalogElement+", "+
+				"copy violation on ParentInCatalog-elementsSameCatalog-0 for "+constraintCatalogElement+", "+
 					"expected '"+c2+"' from target "+e2+", but was '"+c1+"'",
 				e.getMessage()
 			);
@@ -191,7 +191,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+constraintNumberParent+" and "+constraintNumberElement+", "+
+				"copy violation for "+constraintNumberParent+" and "+constraintNumberElement+", "+
 					"expected '0' from target "+p0+" but also '1' from target "+e1,
 				e.getMessage()
 			);
@@ -217,7 +217,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		catch (final CopyViolationException e)
 		{
 			assertEquals(
-				"copy violation on "+constraintNumberParent+" and "+constraintNumberElement+", "+
+				"copy violation for "+constraintNumberParent+" and "+constraintNumberElement+", "+
 					"expected '0' from target "+p0+" but also '1' from target "+e1,
 				e.getMessage()
 			);

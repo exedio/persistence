@@ -126,7 +126,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals("copy violation on AllCopyConstraintItem.valueCopyFromfield-A, expected 'value2' from target A-0, but was 'value1'", e.getMessage());
+			assertEquals("copy violation for AllCopyConstraintItem.valueCopyFromfield-A, expected 'value2' from target A-0, but was 'value1'", e.getMessage());
 		}
 		try
 		{
@@ -135,7 +135,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals("copy violation on AllCopyConstraintItem.valueCopyFromfield-B, expected 'value1' from target B-0, but was 'value2'", e.getMessage());
+			assertEquals("copy violation for AllCopyConstraintItem.valueCopyFromfield-B, expected 'value1' from target B-0, but was 'value2'", e.getMessage());
 		}
 	}
 
@@ -157,7 +157,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals("copy violation on DoubleCopyConstraintItem.valueCopyFromfield-C, expected 'value2' from target C-0, but was 'x'", e.getMessage());
+			assertEquals("copy violation for DoubleCopyConstraintItem.valueCopyFromfield-C, expected 'value2' from target C-0, but was 'x'", e.getMessage());
 		}
 		try
 		{
@@ -166,7 +166,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		}
 		catch(final CopyViolationException e)
 		{
-			assertEquals("copy violation on DoubleCopyConstraintItem.templateCopyFromfield-C, expected 'value3' from target C-0, but was 'x'", e.getMessage());
+			assertEquals("copy violation for DoubleCopyConstraintItem.templateCopyFromfield-C, expected 'value3' from target C-0, but was 'x'", e.getMessage());
 		}
 	}
 

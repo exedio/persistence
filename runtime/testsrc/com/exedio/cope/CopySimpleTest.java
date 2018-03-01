@@ -125,7 +125,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateStringCopyFromTarget, "template2", "template1", target,
-					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"copy violation for " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'template1'", e);
@@ -157,7 +157,8 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateStringCopyFromTarget, source, "template2", "template1", target,
-					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"copy violation on " + source.getCopeID() + " " +
+					"for " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'template1'", e);
@@ -245,7 +246,8 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateStringCopyFromTarget, source, "template2", "template1", target2,
-					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"copy violation on " + source.getCopeID() + " " +
+					"for " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target2.getCopeID() + ", " +
 					"but was 'template1'", e);
@@ -272,7 +274,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateStringCopyFromTarget, "template2", null, target,
-					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"copy violation for " + templateStringCopyFromTarget + ", " +
 					"expected 'template2' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was null", e);
@@ -300,7 +302,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateItemCopyFromTarget, value2, value1, target,
-					"copy violation on " + templateItemCopyFromTarget + ", " +
+					"copy violation for " + templateItemCopyFromTarget + ", " +
 					"expected '" + value2.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was '" + value1.getCopeID() + "'", e);
@@ -327,7 +329,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateItemCopyFromTarget, value, null, target,
-					"copy violation on " + templateItemCopyFromTarget + ", " +
+					"copy violation for " + templateItemCopyFromTarget + ", " +
 					"expected '" + value.getCopeID() + "' " +
 					"from target " + target.getCopeID() + ", " +
 					"but was null", e);
@@ -354,7 +356,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateStringCopyFromTarget, null, "template1", target,
-					"copy violation on " + templateStringCopyFromTarget + ", " +
+					"copy violation for " + templateStringCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + target.getCopeID() + ", " +
 					"but was 'template1'", e);
@@ -381,7 +383,7 @@ public class CopySimpleTest extends TestWithEnvironment
 		{
 			assertFails(
 					templateItemCopyFromTarget, null, value, target,
-					"copy violation on " + templateItemCopyFromTarget + ", " +
+					"copy violation for " + templateItemCopyFromTarget + ", " +
 					"expected null " +
 					"from target " + target.getCopeID() + ", " +
 					"but was '" + value.getCopeID() + "'", e);
