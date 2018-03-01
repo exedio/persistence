@@ -4,18 +4,26 @@ language: java
 jdk:
   - oraclejdk8
 
+before_install:
+  - sudo mysql_upgrade
+  - sudo service mysql restart
+
 addons:
+  apt:
+    sources:
+      - mysql-5.7-trusty
+    packages:
+      - mysql-server
+      - mysql-client
   postgresql: "9.5"
 
 before_script:
   - ant -version
-  - echo -e "[server]\ninnodb_log_file_size=640M" | sudo tee -a /etc/mysql/conf.d/cope.cnf
-  - sudo service mysql restart
   - mysql -e "SET GLOBAL max_allowed_packet=64000000;"
   - mysql -e 'CREATE DATABASE cope_test_db;'
   - >
     mysql -u root --password= -e
-    "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, INDEX, ALTER, CREATE VIEW
+    "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE VIEW
     ON cope_test_db.* TO 'cope_test_user'@'localhost' IDENTIFIED BY 'pass';"
   - psql  -c 'CREATE DATABASE cope_test_db;' -U postgres
   - >
