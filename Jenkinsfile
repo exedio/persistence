@@ -17,7 +17,6 @@ timestamps
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
 				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-				def antHome = tool 'Ant version 1.9.3'
 
 				def isRelease = env.BRANCH_NAME.toString().equals("master");
 
@@ -38,7 +37,7 @@ timestamps
 						' BUILD_ID -${BUILD_ID}-' +
 						' isRelease=' + isRelease
 
-				sh "${antHome}/bin/ant clean jenkins" +
+				sh "ant/bin/ant clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dinstrument.verify=true' +

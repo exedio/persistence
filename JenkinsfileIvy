@@ -15,7 +15,6 @@ timestamps
 
 				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-				def antHome = tool 'Ant version 1.9.3'
 
 				properties([
 						buildDiscarder(logRotator(
@@ -23,7 +22,7 @@ timestamps
 						))
 				])
 
-				sh "${antHome}/bin/ant -buildfile ivy"
+				sh "ant/bin/ant -buildfile ivy"
 				archive 'ivy/artifacts/*.html,ivy/artifacts/*.css'
 
 				sh "git status --porcelain --untracked-files=normal > git-status.txt"

@@ -14,7 +14,6 @@
     <libelement value="jar://$MODULE_DIR$/lib/slf4j-api.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/slf4j-log4j12.jar!/" />
     <libelement value="jar://$MODULE_DIR$/lib/exedio-cope-servletutil.jar!/" />
-    <varelement var="jar://$ANT_JAR$!/" value="ANT_JAR" />
     <varelement var="jar://$TOOLS_JAR$!/" value="TOOLS_JAR" />
     <src_description expected_position="0">
       <src_folder value="file://$MODULE_DIR$/dsmf/src" expected_position="0" />
@@ -60,6 +59,7 @@
       <sourceFolder url="file://$MODULE_DIR$/instrument/completionsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/junit4" isTestSource="true" />
       <excludeFolder url="file://$MODULE_DIR$/.eclipse-output" />
+      <excludeFolder url="file://$MODULE_DIR$/ant" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/ivy/artifacts" />
       <excludeFolder url="file://$MODULE_DIR$/nbproject" />
@@ -67,9 +67,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="module-library">
-      <library name="ANT_JAR">
+      <library>
         <CLASSES>
-          <root url="jar://$ANT_JAR$!/" />
+          <root url="jar://$MODULE_DIR$/ant/lib/ant.jar!/" />
         </CLASSES>
         <JAVADOC />
         <SOURCES />
