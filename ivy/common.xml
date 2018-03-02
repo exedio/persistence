@@ -3,6 +3,9 @@
 		xmlns:ivy="antlib:org.apache.ivy.ant"
 		name="ivy-common">
 
+	<echo taskname="which ant" message="${ant.version}" />
+	<echo taskname="which java" message="${java.vm.name} ${java.version}" />
+
 	<target name="prepare">
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />

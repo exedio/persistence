@@ -19,9 +19,6 @@ timestamps
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 				def antHome = tool 'Ant version 1.9.3'
 
-				sh "java -version"
-				sh "${antHome}/bin/ant -version"
-
 				def isRelease = env.BRANCH_NAME.toString().equals("master");
 
 				properties([
