@@ -18,12 +18,15 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
@@ -76,5 +79,23 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(temp);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
+	}
+
+	@Test void notFoundAnonymous()
+	{
+		final VaultFileService service = (VaultFileService)getService();
+		final VaultNotFoundException notFound = assertFails(
+				() -> service.getLength("abcdefghijklmnopq"),
+				VaultNotFoundException.class,
+				"hash not found in vault: abcdefghijklmnopxx17");
+		assertEquals("abcdefghijklmnopq", notFound.getHashComplete());
+		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
+
+		final Throwable cause = notFound.getCause();
+		assertEquals(
+				getRoot() + "/abcdefghijklmnopq",
+				cause.getMessage());
+		assertEquals(NoSuchFileException.class.getName(), cause.getClass().getName());
+		assertNull(cause.getCause());
 	}
 }
