@@ -20,6 +20,8 @@ package com.exedio.cope.vault;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.IdentityHashMap;
+import java.util.Objects;
 import javax.annotation.Nonnull;
 
 /**
@@ -50,7 +52,7 @@ public final class VaultNotFoundException extends Exception
 	{
 		// Specifying message==null avoids detailMessage computed from cause in
 		// Throwable constructor, not needed because getMessage is overridden anyway.
-		super(null, cause);
+		super(null, anonymiseHash(hash, cause));
 		this.hash = requireNonNull(hash);
 	}
 
@@ -97,5 +99,91 @@ public final class VaultNotFoundException extends Exception
 				length>16
 				? (hash.substring(0, 16) + "xx" + length)
 				: hash;
+	}
+
+	private static Throwable anonymiseHash(@Nonnull final String hash, final Throwable throwable)
+	{
+		if(throwable==null)
+			return null;
+
+		final String hashAnon = anonymiseHash(hash);
+		if(hash.equals(hashAnon))
+			return throwable;
+
+		return anonymiseHash(hash, hashAnon, throwable, new IdentityHashMap<>(), 30);
+	}
+
+	private static Throwable anonymiseHash(
+			@Nonnull final String hash,
+			@Nonnull final String hashAnon,
+			final Throwable throwable,
+			// IdentityHashMap guards against malicious overrides of Throwable#equals
+			final IdentityHashMap<Throwable,Void> mapping,
+			final int recursionLimit)
+	{
+		if(throwable==null || mapping.containsKey(throwable))
+			return null;
+		mapping.put(throwable, null);
+
+		if(recursionLimit<0)
+			throw new RuntimeException(hashAnon, throwable);
+
+		final String messageOrig = throwable.getMessage();
+		final String messageAnon = anonymiseHash(hash, hashAnon, messageOrig);
+
+		final Throwable causeOrig = throwable.getCause();
+		final Throwable causeAnon = anonymiseHash(hash, hashAnon, causeOrig, mapping, recursionLimit - 1);
+
+		if(Objects.equals(messageOrig, messageAnon) &&
+			causeOrig==causeAnon)
+			return throwable;
+
+		final Anonymous result = new Anonymous(messageAnon, causeAnon, throwable);
+		result.setStackTrace(throwable.getStackTrace());
+		return result;
+	}
+
+	private static String anonymiseHash(
+			@Nonnull final String hash,
+			@Nonnull final String hashAnon,
+			final String message)
+	{
+		if(message==null)
+			return null;
+
+		final int PREFIX_LENGTH = 10;
+		final String hashPart = hash.substring(PREFIX_LENGTH);
+
+		return message.replace(hashPart, hashAnon.substring(PREFIX_LENGTH));
+	}
+
+	private static final class Anonymous extends Exception
+	{
+		private final String messageAnon;
+		private final Throwable origin;
+
+		Anonymous(
+				final String messageAnon,
+				final Throwable cause,
+				@Nonnull final Throwable origin)
+		{
+			// Specifying message==null avoids detailMessage computed from cause in
+			// Throwable constructor, not needed because getMessage is overridden anyway.
+			super(null, cause);
+			this.messageAnon = messageAnon;
+			this.origin = origin;
+		}
+
+		@Override
+		public String getMessage()
+		{
+			final String originName = origin.getClass().getName();
+			return
+					messageAnon!=null
+					? originName + ": " + messageAnon
+					: originName;
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 }

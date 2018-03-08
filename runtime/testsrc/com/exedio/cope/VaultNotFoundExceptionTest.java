@@ -150,11 +150,11 @@ public class VaultNotFoundExceptionTest
 		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
 
 		final Throwable cause = notFound.getCause();
-		assertSame(causeOrigin, cause);
+		assertNotSame(causeOrigin, cause);
 		assertEquals(
-				"PRE-abcdefghijklmnopq-IN-abcdefghijklmnopq-POST",
+				causeName + ": PRE-abcdefghijklmnopxx17-IN-abcdefghijklmnopxx17-POST",
 				cause.getMessage());
-		assertEquals(Cause.class, cause.getClass());
+		assertEquals(notFoundAnonymous, cause.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause.getStackTrace()[0]);
 		assertNull(cause.getCause());
 	}
@@ -173,25 +173,25 @@ public class VaultNotFoundExceptionTest
 		final Throwable cause3 = notFound.getCause();
 		assertNotSame(causeOrigin1, cause3);
 		assertNotSame(causeOrigin2, cause3);
-		assertSame(causeOrigin3, cause3);
-		assertEquals("3=abcdefghijklmnopq", cause3.getMessage());
-		assertEquals(Cause.class, cause3.getClass());
+		assertNotSame(causeOrigin3, cause3);
+		assertEquals(causeName + ": 3=abcdefghijklmnopxx17", cause3.getMessage());
+		assertEquals(notFoundAnonymous, cause3.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause3.getStackTrace()[0]);
 
 		final Throwable cause2 = cause3.getCause();
 		assertNotSame(causeOrigin1, cause2);
-		assertSame(causeOrigin2, cause2);
+		assertNotSame(causeOrigin2, cause2);
 		assertNotSame(causeOrigin3, cause2);
-		assertEquals("2=abcdefghijklmnopq", cause2.getMessage());
-		assertEquals(Cause.class, cause2.getClass());
+		assertEquals(causeName + ": 2=abcdefghijklmnopxx17", cause2.getMessage());
+		assertEquals(notFoundAnonymous, cause2.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause2.getStackTrace()[0]);
 
 		final Throwable cause1 = cause2.getCause();
-		assertSame(causeOrigin1, cause1);
+		assertNotSame(causeOrigin1, cause1);
 		assertNotSame(causeOrigin2, cause1);
 		assertNotSame(causeOrigin3, cause1);
-		assertEquals("1=abcdefghijklmnopq", cause1.getMessage());
-		assertEquals(Cause.class, cause1.getClass());
+		assertEquals(causeName + ": 1=abcdefghijklmnopxx17", cause1.getMessage());
+		assertEquals(notFoundAnonymous, cause1.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause1.getStackTrace()[0]);
 
 		assertNull(cause1.getCause());
@@ -211,17 +211,17 @@ public class VaultNotFoundExceptionTest
 		final Throwable cause3 = notFound.getCause();
 		assertNotSame(causeOrigin1, cause3);
 		assertNotSame(causeOrigin2, cause3);
-		assertSame(causeOrigin3, cause3);
-		assertEquals("3=abcdefghijklmnopz", cause3.getMessage());
-		assertEquals(Cause.class, cause3.getClass());
+		assertNotSame(causeOrigin3, cause3);
+		assertEquals(causeName + ": 3=abcdefghijklmnopz", cause3.getMessage());
+		assertEquals(notFoundAnonymous, cause3.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause3.getStackTrace()[0]);
 
 		final Throwable cause2 = cause3.getCause();
 		assertNotSame(causeOrigin1, cause2);
-		assertSame(causeOrigin2, cause2);
+		assertNotSame(causeOrigin2, cause2);
 		assertNotSame(causeOrigin3, cause2);
-		assertEquals("2=abcdefghijklmnopq", cause2.getMessage());
-		assertEquals(Cause.class, cause2.getClass());
+		assertEquals(causeName + ": 2=abcdefghijklmnopxx17", cause2.getMessage());
+		assertEquals(notFoundAnonymous, cause2.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause2.getStackTrace()[0]);
 
 		assertSame(causeOrigin1, cause2.getCause());
@@ -241,17 +241,17 @@ public class VaultNotFoundExceptionTest
 		final Throwable cause3 = notFound.getCause();
 		assertNotSame(causeOrigin1, cause3);
 		assertNotSame(causeOrigin2, cause3);
-		assertSame(causeOrigin3, cause3);
-		assertEquals(null, cause3.getMessage());
-		assertEquals(Cause.class, cause3.getClass());
+		assertNotSame(causeOrigin3, cause3);
+		assertEquals(causeName, cause3.getMessage());
+		assertEquals(notFoundAnonymous, cause3.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause3.getStackTrace()[0]);
 
 		final Throwable cause2 = cause3.getCause();
 		assertNotSame(causeOrigin1, cause2);
-		assertSame(causeOrigin2, cause2);
+		assertNotSame(causeOrigin2, cause2);
 		assertNotSame(causeOrigin3, cause2);
-		assertEquals("2=abcdefghijklmnopq", cause2.getMessage());
-		assertEquals(Cause.class, cause2.getClass());
+		assertEquals(causeName + ": 2=abcdefghijklmnopxx17", cause2.getMessage());
+		assertEquals(notFoundAnonymous, cause2.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause2.getStackTrace()[0]);
 
 		assertSame(causeOrigin1, cause2.getCause());
@@ -267,11 +267,11 @@ public class VaultNotFoundExceptionTest
 		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
 
 		final Throwable cause = notFound.getCause();
-		assertSame(causeOrigin, cause);
+		assertNotSame(causeOrigin, cause);
 		assertEquals(
-				"PRE-klmnopq-IN-klmnopq-POST",
+				causeName + ": PRE-klmnopxx17-IN-klmnopxx17-POST",
 				cause.getMessage());
-		assertEquals(Cause.class, cause.getClass());
+		assertEquals(notFoundAnonymous, cause.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause.getStackTrace()[0]);
 		assertNull(cause.getCause());
 	}
@@ -303,19 +303,19 @@ public class VaultNotFoundExceptionTest
 
 		final Throwable cause2 = notFound.getCause();
 		assertNotSame(causeOrigin1, cause2);
-		assertSame(causeOrigin2, cause2);
-		assertEquals("2=abcdefghijklmnopq", cause2.getMessage());
-		assertEquals(Cause.class, cause2.getClass());
+		assertNotSame(causeOrigin2, cause2);
+		assertEquals(causeName + ": 2=abcdefghijklmnopxx17", cause2.getMessage());
+		assertEquals(notFoundAnonymous, cause2.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause2.getStackTrace()[0]);
 
 		final Throwable cause1 = cause2.getCause();
-		assertSame(causeOrigin1, cause1);
+		assertNotSame(causeOrigin1, cause1);
 		assertNotSame(causeOrigin2, cause1);
-		assertEquals("1=abcdefghijklmnopq", cause1.getMessage());
-		assertEquals(Cause.class, cause1.getClass());
+		assertEquals(causeName + ": 1=abcdefghijklmnopxx17", cause1.getMessage());
+		assertEquals(notFoundAnonymous, cause1.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause1.getStackTrace()[0]);
 
-		assertSame(cause2, cause1.getCause());
+		assertNull(cause1.getCause());
 	}
 
 	@Test void anonymousCauseLoopFirst()
@@ -333,19 +333,19 @@ public class VaultNotFoundExceptionTest
 
 		final Throwable cause2 = notFound.getCause();
 		assertNotSame(causeOrigin1, cause2);
-		assertSame(causeOrigin2, cause2);
-		assertEquals("2=abcdefghijklmnopz", cause2.getMessage());
-		assertEquals(Cause.class, cause2.getClass());
+		assertNotSame(causeOrigin2, cause2);
+		assertEquals(causeName + ": 2=abcdefghijklmnopz", cause2.getMessage());
+		assertEquals(notFoundAnonymous, cause2.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause2.getStackTrace()[0]);
 
 		final Throwable cause1 = cause2.getCause();
-		assertSame(causeOrigin1, cause1);
+		assertNotSame(causeOrigin1, cause1);
 		assertNotSame(causeOrigin2, cause1);
-		assertEquals("1=abcdefghijklmnopq", cause1.getMessage());
-		assertEquals(Cause.class, cause1.getClass());
+		assertEquals(causeName + ": 1=abcdefghijklmnopxx17", cause1.getMessage());
+		assertEquals(notFoundAnonymous, cause1.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause1.getStackTrace()[0]);
 
-		assertSame(cause2, cause1.getCause());
+		assertNull(cause1.getCause());
 	}
 
 	@Test void anonymousCauseLoopSecond()
@@ -363,19 +363,19 @@ public class VaultNotFoundExceptionTest
 
 		final Throwable cause2 = notFound.getCause();
 		assertNotSame(causeOrigin1, cause2);
-		assertSame(causeOrigin2, cause2);
-		assertEquals("2=abcdefghijklmnopq", cause2.getMessage());
-		assertEquals(Cause.class, cause2.getClass());
+		assertNotSame(causeOrigin2, cause2);
+		assertEquals(causeName + ": 2=abcdefghijklmnopxx17", cause2.getMessage());
+		assertEquals(notFoundAnonymous, cause2.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause2.getStackTrace()[0]);
 
 		final Throwable cause1 = cause2.getCause();
-		assertSame(causeOrigin1, cause1);
+		assertNotSame(causeOrigin1, cause1);
 		assertNotSame(causeOrigin2, cause1);
-		assertEquals("1=abcdefghijklmnopz", cause1.getMessage());
-		assertEquals(Cause.class, cause1.getClass());
+		assertEquals(causeName + ": 1=abcdefghijklmnopz", cause1.getMessage());
+		assertEquals(notFoundAnonymous, cause1.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause1.getStackTrace()[0]);
 
-		assertSame(cause2, cause1.getCause());
+		assertNull(cause1.getCause());
 	}
 
 	@Test void anonymousCauseLoopSelf()
@@ -390,12 +390,12 @@ public class VaultNotFoundExceptionTest
 		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
 
 		final Throwable cause = notFound.getCause();
-		assertSame(causeOrigin, cause);
-		assertEquals("1=abcdefghijklmnopq", cause.getMessage());
-		assertEquals(Cause.class, cause.getClass());
+		assertNotSame(causeOrigin, cause);
+		assertEquals(causeName + ": 1=abcdefghijklmnopxx17", cause.getMessage());
+		assertEquals(notFoundAnonymous, cause.getClass());
 		assertStacktrace(VaultNotFoundExceptionTest.class, "newCause", cause.getStackTrace()[0]);
 
-		assertSame(cause, cause.getCause());
+		assertNull(cause.getCause());
 	}
 
 
@@ -462,6 +462,8 @@ public class VaultNotFoundExceptionTest
 		private static final long serialVersionUID = 1l;
 	}
 
+	private static final String causeName = Cause.class.getName();
+
 	private static void assertStacktrace(
 			final Class<?> className,
 			final String methodName,
@@ -470,5 +472,20 @@ public class VaultNotFoundExceptionTest
 		assertAll(
 				() -> assertEquals(className.getName(), element.getClassName(), "className"),
 				() -> assertEquals(methodName, element.getMethodName(), "methodName"));
+	}
+
+	private static final Class<?> notFoundAnonymous = classForName(
+			"com.exedio.cope.vault.VaultNotFoundException$Anonymous");
+
+	private static Class<?> classForName(final String className)
+	{
+		try
+		{
+			return Class.forName(className);
+		}
+		catch(final ClassNotFoundException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }
