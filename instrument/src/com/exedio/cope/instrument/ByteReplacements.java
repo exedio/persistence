@@ -107,11 +107,6 @@ final class ByteReplacements
 		}
 	}
 
-	boolean isEmpty()
-	{
-		return replacements.isEmpty();
-	}
-
 	int translateToPositionInOutput(final int positionInInput)
 	{
 		int droppedBytes = 0;

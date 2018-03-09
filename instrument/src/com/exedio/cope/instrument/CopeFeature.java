@@ -28,9 +28,6 @@ import java.util.TreeSet;
 
 abstract class CopeFeature
 {
-	static final String TAG_PREFIX = "cope.";
-	static final String TAG_INITIAL = TAG_PREFIX + "initial";
-
 	final CopeType<?> parent;
 
 	private Object value;

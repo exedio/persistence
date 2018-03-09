@@ -39,15 +39,12 @@ import javax.lang.model.element.TypeElement;
 final class InstrumentorProcessor extends AbstractProcessor
 {
 
-	private final Params params;
 	private final JavaRepository javaRepository;
 
 	boolean processHasBeenCalled = false;
-	boolean foundJavadocControlTags = false;
 
-	InstrumentorProcessor(final Params params, final JavaRepository javaRepository)
+	InstrumentorProcessor(final JavaRepository javaRepository)
 	{
-		this.params = params;
 		this.javaRepository = javaRepository;
 	}
 
@@ -75,13 +72,9 @@ final class InstrumentorProcessor extends AbstractProcessor
 					}
 				}
 			}
-			final TreeApiContext treeApiContext=new TreeApiContext(params.configByTags, params.hintFormat==HintFormat.forAnnotations, processingEnv, javaFile, compilationUnit);
+			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
 			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
 			visitor.scan(tp, null);
-			if (treeApiContext.foundJavadocControlTags)
-			{
-				foundJavadocControlTags=true;
-			}
 		}
 		return true;
 	}

@@ -52,8 +52,6 @@ abstract class JavaFeature
 
 	final String name;
 
-	final String docComment;
-
 	private final String sourceLocation;
 
 	JavaFeature(
@@ -61,14 +59,12 @@ abstract class JavaFeature
 							final JavaClass parent,
 							final int modifier,
 							final String name,
-							final String docComment,
 							final String sourceLocation)
 	{
 		this.file=file;
 		this.parent=parent;
 		this.modifier=modifier;
 		this.name=name;
-		this.docComment=docComment;
 		this.sourceLocation=sourceLocation;
 
 		if(file==null)

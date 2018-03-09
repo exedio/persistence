@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import static com.exedio.cope.instrument.CopeFeature.TAG_PREFIX;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.PROTECTED;
 import static java.util.Objects.requireNonNull;
@@ -37,12 +36,6 @@ import java.util.TreeSet;
 
 abstract class CopeType<F extends CopeFeature>
 {
-	static final String TAG_TYPE                   = TAG_PREFIX + "type";
-	static final String TAG_INITIAL_CONSTRUCTOR    = TAG_PREFIX + "constructor";
-	static final String TAG_GENERIC_CONSTRUCTOR    = TAG_PREFIX + "generic.constructor";
-	static final String TAG_ACTIVATION_CONSTRUCTOR = TAG_PREFIX + "activation.constructor";
-	static final String TAG_INDENT                 = TAG_PREFIX + "indent";
-
 	final Kind kind;
 
 	private final ArrayList<F> features = new ArrayList<>();

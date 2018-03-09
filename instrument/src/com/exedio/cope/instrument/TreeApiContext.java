@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import com.sun.source.doctree.DocCommentTree;
 import com.sun.source.tree.CompilationUnitTree;
-import com.sun.source.tree.ImportTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.util.DocSourcePositions;
 import com.sun.source.util.DocTrees;
@@ -30,19 +29,13 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
-import javax.tools.Diagnostic;
 
 final class TreeApiContext
 {
-	private final ConfigurationByJavadocTags javadocTagHandling;
-	final boolean extendGeneratedFragmentsToLineBreaks;
 	private final DocTrees docTrees;
 	final Messager messager;
 	final JavaFile javaFile;
@@ -50,12 +43,9 @@ final class TreeApiContext
 	private final DocSourcePositions sourcePositions;
 
 	private byte[] allBytes;
-	boolean foundJavadocControlTags=false;
 
-	TreeApiContext(final ConfigurationByJavadocTags javadocTagHandling, final boolean extendGeneratedFragmentsToLineBreaks, final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
+	TreeApiContext(final ProcessingEnvironment processingEnv, final JavaFile javaFile, final CompilationUnitTree compilationUnit)
 	{
-		this.javadocTagHandling=javadocTagHandling;
-		this.extendGeneratedFragmentsToLineBreaks=extendGeneratedFragmentsToLineBreaks;
 		this.docTrees=DocTrees.instance(processingEnv);
 		this.messager=processingEnv.getMessager();
 		this.javaFile=javaFile;
@@ -71,33 +61,6 @@ final class TreeApiContext
 	void markFragmentAsGenerated(final int start, final int end)
 	{
 		javaFile.markFragmentAsGenerated(start, end);
-	}
-
-	String getDocComment(final TreePath path)
-	{
-		if (javadocTagHandling==ConfigurationByJavadocTags.ignore)
-		{
-			return null;
-		}
-		final String docComment=docTrees.getDocComment(path);
-		if (javadocTagHandling==ConfigurationByJavadocTags.warn||javadocTagHandling==ConfigurationByJavadocTags.error)
-		{
-			if (docComment!=null && docComment.contains('@'+CopeFeature.TAG_PREFIX))
-			{
-				final Diagnostic.Kind messageKind;
-				if (javadocTagHandling==ConfigurationByJavadocTags.warn)
-				{
-					messageKind=Diagnostic.Kind.WARNING;
-				}
-				else
-				{
-					messageKind=Diagnostic.Kind.ERROR;
-				}
-				messager.printMessage(messageKind, "use of javadoc tags to control instrumentor is deprecated", getElement(path));
-				foundJavadocControlTags=true;
-			}
-		}
-		return docComment;
 	}
 
 	long getStartPosition(final Tree mt)
@@ -227,57 +190,6 @@ final class TreeApiContext
 			}
 		}
 		return true;
-	}
-
-	long getImportsStartPosition()
-	{
-		final List<? extends ImportTree> imports=compilationUnit.getImports();
-		if (imports.isEmpty())
-		{
-			return getFallbackImportsPosition();
-		}
-		else
-		{
-			return getStartPosition(imports.get(0));
-		}
-	}
-
-	long getImportsEndPosition()
-	{
-		final List<? extends ImportTree> imports=compilationUnit.getImports();
-		if (imports.isEmpty())
-		{
-			return getFallbackImportsPosition();
-		}
-		else
-		{
-			return getEndPosition(imports.get(imports.size()-1));
-		}
-	}
-
-	private long getFallbackImportsPosition()
-	{
-		if (compilationUnit.getPackageName()==null)
-		{
-			return 0;
-		}
-		else
-		{
-			return getEndPosition(compilationUnit.getPackageName())+1/* for ;*/+System.lineSeparator().length();
-		}
-	}
-
-	Set<String> getImports(final boolean staticImports)
-	{
-		final Set<String> result=new HashSet<>();
-		for (final ImportTree aImport: compilationUnit.getImports())
-		{
-			if (aImport.isStatic()==staticImports)
-			{
-				result.add(aImport.getQualifiedIdentifier().toString());
-			}
-		}
-		return result;
 	}
 
 	String getFullyQualifiedSuperclass(final TreePath typePath)

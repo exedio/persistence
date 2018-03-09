@@ -127,21 +127,6 @@ public final class AntTask extends Task
 		setCharset(value);
 	}
 
-	public void setConfigByTags(final ConfigurationByJavadocTags value)
-	{
-		params.configByTags = value;
-	}
-
-	public void setLongJavadoc(final boolean value)
-	{
-		params.longJavadoc = value;
-	}
-
-	public void setFinalArgs(final boolean value)
-	{
-		params.finalArgs = value;
-	}
-
 	public void setNullabilityAnnotations(final boolean value)
 	{
 		params.nullabilityAnnotations = value;
@@ -168,11 +153,6 @@ public final class AntTask extends Task
 		params.serialVersionUIDSuffix = value;
 	}
 
-	public void setGenericSetValueArray(final boolean value)
-	{
-		params.genericSetValueArray = value;
-	}
-
 	public void setDirectSetValueMap(final boolean value)
 	{
 		params.directSetValueMap = value;
@@ -181,26 +161,6 @@ public final class AntTask extends Task
 	public void setHidingWarningSuppressor(final String value)
 	{
 		params.hidingWarningSuppressor = value;
-	}
-
-	public void setParenthesesOnEmptyMemberAnnotations(final boolean value)
-	{
-		params.parenthesesOnEmptyMemberAnnotations = value;
-	}
-
-	public void setDeprecatedFullyQualified(final boolean value)
-	{
-		params.deprecatedFullyQualified = value;
-	}
-
-	public void setOverrideOnSeparateLine(final boolean value)
-	{
-		params.overrideOnSeparateLine = value;
-	}
-
-	public void setHintFormat(final HintFormat value)
-	{
-		params.hintFormat = value;
 	}
 
 	public void setVerbose(final boolean value)
@@ -265,46 +225,10 @@ public final class AntTask extends Task
 					params.ignoreFiles = listedFiles;
 				}
 			}
-			if (params.hintFormat!=HintFormat.forTags)
-			{
-				final StringBuilder invalidParameters=new StringBuilder();
-				//noinspection PointlessBooleanExpression
-				if (params.longJavadoc!=true)
-					invalidParameters.append("longJavadoc=\"true\" ");
-				//noinspection PointlessBooleanExpression
-				if (params.finalArgs!=true)
-					invalidParameters.append("finalArgs=\"true\" ");
-				//noinspection PointlessBooleanExpression
-				if (params.genericSetValueArray!=true)
-					invalidParameters.append("genericSetValueArray=\"true\" ");
-				//noinspection PointlessBooleanExpression
-				if (params.parenthesesOnEmptyMemberAnnotations!=false)
-					invalidParameters.append("parenthesesOnEmptyMemberAnnotations=\"false\" ");
-				//noinspection PointlessBooleanExpression
-				if (params.deprecatedFullyQualified!=true)
-					invalidParameters.append("deprecatedFullyQualified=\"true\" ");
-				//noinspection PointlessBooleanExpression
-				if (params.overrideOnSeparateLine!=true)
-					invalidParameters.append("overrideOnSeparateLine=\"true\" ");
-				if (invalidParameters.length()!=0)
-					throw new BuildException(
-						"unsupported <instrument> arguments for hintFormat other than \"forTags\" - please use:"+System.lineSeparator()+"\t"+invalidParameters+System.lineSeparator()+
-						"(these are the defaults, so you can also drop the arguments completely)"
-					);
-			}
 
-			if (params.hintFormat==HintFormat.forTags && params.configByTags!=ConfigurationByJavadocTags.support)
-			{
-				System.out.println("<instrument ... uses deprecated combination of hintFormat and configByTags - use hintFormat=\"forAnnotations\" instead.");
-			}
 			final File buildFile = getProject().resolveFile(getLocation().getFileName());
 			params.resources.add(buildFile);
 
-			if (params.configByTags==ConfigurationByJavadocTags.convertToAnnotations)
-			{
-				ConvertTagsToAnnotations.convert(params);
-				throw new HumanReadableException("convertToAnnotations - stopping build");
-			}
 			new Main().run(params);
 		}
 		catch(final HumanReadableException e)

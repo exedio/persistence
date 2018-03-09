@@ -33,8 +33,6 @@ import javax.lang.model.type.MirroredTypesException;
 
 /**
  * Represents an attribute of a class.
- * Contains additional information about this attribute
- * described in the doccomment of this attribute.
  *
  * @author Ralf Wiebicke
  */
@@ -67,7 +65,6 @@ final class JavaField
 		final int modifiers,
 		final String type,
 		final String name,
-		final String docComment,
 		final String sourceLocation,
 		final String initializer,
 		final WrapperInitial wrapperInitial,
@@ -75,7 +72,7 @@ final class JavaField
 		final List<Wrapper> wrappers)
 	{
 		// parent must not be null
-		super(parent.file, parent, modifiers, name, docComment, sourceLocation);
+		super(parent.file, parent, modifiers, name, sourceLocation);
 		if (type == null)
 			throw new RuntimeException();
 		this.type=type;

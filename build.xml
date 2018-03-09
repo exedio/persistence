@@ -578,8 +578,7 @@
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forAnnotations">
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
@@ -784,12 +783,10 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
-				configByTags="support"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forTags"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
 			<classpath>
@@ -816,12 +813,10 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
-				configByTags="support"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
-				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				hintFormat="forTags">
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<classpath>
 				<pathelement location="build/classes/instrument/testfeaturesrc" />

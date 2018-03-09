@@ -7,6 +7,18 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* drop support for instrumentor control via javadoc tags
+	* to upgrade a project that uses tags, first upgrade cope to build 9741
+	* these instrumentor parameters that are no longer supported:
+		* configByTags (now always "ignore")
+		 (the below were only supported for configByTags="support":)
+		* hintFormat (now always "forAnnotations")
+		* longJavadoc (now always "true")
+		* finalArgs (now always "true")
+		* genericSetValueArray (now always "true")
+		* parenthesesOnEmptyMemberAnnotations (now always "false")
+		* deprecatedFullyQualified (now always "true")
+		* overrideOnSeparateLine (now always "true")
 * Price and Money now offer grossToTaxPercent(double)
 * Singleton creates check constraint.
 	This affects database schema, except on MySQL.
@@ -262,6 +274,7 @@ The items are sorted inversely, i.e. latest items are on top
 	1. <instrument configByTags="support"> - verify that everthing works as before
 	2. <instrument configByTags="convertToAnnotations"> - run once to get tags auto-transformed into annotations; review code changes
 	3. <instrument configByTags="error"> - if necessary, manually convert tags that have not been auto-transformed
+	Legacy support for tags and the conversion tool ends after cope build 9741.
 * bugfix: in instrumentor tags "internal" together with "package", "protected",
 	or "public" does work now. Before, "internal" methods always became private.
 * dsmf.Column#getConstraints() added.
