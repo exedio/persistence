@@ -91,8 +91,18 @@ script:
   - mkdir build/travis
   - cp build/testprotocol.* build/travis
 
+deploy:
+  provider: pages
+  skip-cleanup: true
+  github-token: $GITHUB_TOKEN  # Set in travis-ci.org dashboard, marked secure
+  local-dir: build/travis
+  keep-history: true
+  allow-empty-commit: true
+  debug: true
+  on:
+    all_branches: true
+
 after_script:
-  - cat build/testprotocol.html
   - cat build/*-catalina-start.log
   - cat build/*-catalina-stop.log
   - cat tomcat/logs/*.log
