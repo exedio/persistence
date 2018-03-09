@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.BooleanField;
@@ -92,9 +93,10 @@ public class DispatchableRependWithoutPurgeTest extends TestWithEnvironment
 			final int runCount,
 			final AnItem item)
 	{
-		assertEquals(pending, item.isToTargetPending(), "pending");
-		assertEquals(dispatchCount, item.getDispatchCount(), "dispatchCount");
-		assertEquals(runCount, item.getToTargetRuns().size(), "runCount");
+		assertAll(
+				() -> assertEquals(pending, item.isToTargetPending(), "pending"),
+				() -> assertEquals(dispatchCount, item.getDispatchCount(), "dispatchCount"),
+				() -> assertEquals(runCount, item.getToTargetRuns().size(), "runCount"));
 	}
 
 	private void dispatch()
