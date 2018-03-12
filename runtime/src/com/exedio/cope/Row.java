@@ -31,9 +31,9 @@ final class Row
 	// IdentityHashMap is more efficient than HashMap because it uses linear-probe instead of chaining
 	private final IdentityHashMap<Column, Object> impl;
 
-	Row()
+	Row(final Type<?> type)
 	{
-		impl = new IdentityHashMap<>(); // TODO set expectedMaxSize
+		impl = new IdentityHashMap<>(type.expectedMaxRowSize);
 	}
 
 	Row(final Row row)

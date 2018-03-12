@@ -103,6 +103,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final boolean uniqueConstraintsProblem;
 
 	final boolean external;
+	final int expectedMaxRowSize;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<T> mountIfMounted = null;
@@ -323,6 +324,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			throw new IllegalArgumentException(
 					"@"+CopeExternal.class.getSimpleName() +
 					" must be set consistently at type and supertype");
+
+		this.expectedMaxRowSize =
+				fields.all.size() +
+				(1/*this*/ + 1/*class*/ + 1/*catch*/) * ((supertypes!=null?supertypes.size():0) + 1/*myself*/);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO remove

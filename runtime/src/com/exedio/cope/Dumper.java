@@ -66,7 +66,7 @@ public final class Dumper
 	throws IOException
 	{
 		final FieldValues fieldValues = type.executeCreate(setValues);
-		final Row row = new Row();
+		final Row row = new Row(type);
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())
 		{
 			final Field<?> field = e.getKey();

@@ -22,12 +22,13 @@ import java.util.IdentityHashMap;
 
 final class CreatedState extends State
 {
-	private Row row = new Row();
+	private Row row;
 
 	CreatedState(final Transaction transaction, final Item item)
 	{
 		super(item, -1); // on insert -1 becomes 0
 		transaction.addInvalidation(item);
+		row = new Row(item.type);
 	}
 
 	@Override

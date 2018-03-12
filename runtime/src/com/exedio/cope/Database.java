@@ -290,7 +290,7 @@ final class Database
 				if(!resultSet.next())
 					throw new NoSuchItemException(item);
 
-				final Row row = new Row();
+				final Row row = new Row(type);
 				int columnIndex = 1;
 				int updateCount = Integer.MIN_VALUE;
 				for(Type<?> superType = type; superType!=null; superType = superType.supertype)
