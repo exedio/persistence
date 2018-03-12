@@ -24,7 +24,7 @@ import com.exedio.cope.misc.ListUtil;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -32,12 +32,12 @@ import java.util.Map;
 public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
-	private final HashMap<Feature, AnnotatedElement> annotationSources;
+	private final IdentityHashMap<Feature, AnnotatedElement> annotationSources;
 
 	public Features()
 	{
 		map = new LinkedHashMap<>();
-		annotationSources = new HashMap<>();
+		annotationSources = new IdentityHashMap<>();
 	}
 
 	Map<String,Feature> getNamedFeatures()
@@ -129,7 +129,7 @@ public final class Features
 	Features(final LinkedHashMap<String, Feature> map)
 	{
 		this.map = new LinkedHashMap<>(map);
-		this.annotationSources = new HashMap<>();
+		this.annotationSources = new IdentityHashMap<>();
 		for(final Feature feature : map.values())
 			annotationSources.put(feature, null);
 
