@@ -419,11 +419,31 @@ public abstract class Pattern extends Feature
 		return sourceTypes;
 	}
 
-	// Make non-final method from super class final
+	/**
+	 * Forbid override by subclasses.
+	 */
 	@Override
 	public final Type<?> getType()
 	{
 		return super.getType();
+	}
+
+	/**
+	 * Forbid override by subclasses.
+	 */
+	@Override
+	public final boolean equals(final Object other)
+	{
+		return super.equals(other);
+	}
+
+	/**
+	 * Forbid override by subclasses.
+	 */
+	@Override
+	public final int hashCode()
+	{
+		return super.hashCode();
 	}
 
 	// ------------------- deprecated stuff -------------------
