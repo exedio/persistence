@@ -50,6 +50,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -72,7 +73,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	final boolean isAbstract;
 	final Type<? super T> supertype;
 	final Type<? super T> toptype;
-	private final HashSet<Type<?>> supertypes;
+	private final IdentityHashMap<Type<?>,Object> supertypes;
 
 	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	final This<T> thisFunction = new This<>(this);
@@ -217,13 +218,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		{
 			this.toptype = supertype.toptype;
 
-			final HashSet<Type<?>> superSupertypes = supertype.supertypes;
+			final IdentityHashMap<Type<?>,Object> superSupertypes = supertype.supertypes;
 			if(superSupertypes==null)
-				this.supertypes = new HashSet<>();
+				this.supertypes = new IdentityHashMap<>(1);
 			else
-				this.supertypes = new HashSet<>(superSupertypes);
+				this.supertypes = new IdentityHashMap<>(superSupertypes);
 
-			this.supertypes.add(supertype);
+			this.supertypes.put(supertype, null);
 		}
 
 		// declared features
@@ -749,11 +750,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(this==type)
 			return true;
 
-		final HashSet<Type<?>> typeSupertypes = type.supertypes;
+		final IdentityHashMap<Type<?>,Object> typeSupertypes = type.supertypes;
 		if(typeSupertypes==null)
 			return false;
 
-		return typeSupertypes.contains(this);
+		return typeSupertypes.containsKey(this);
 	}
 
 	/**
