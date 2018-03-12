@@ -44,7 +44,9 @@ public final class NoSuchIDException extends Exception
 
 	NoSuchIDException(final String id, final NumberFormatException cause, final String numberString)
 	{
-		super(cause);
+		// Specifying message==null avoids detailMessage computed from cause in
+		// Throwable constructor, not needed because getMessage is overridden anyway.
+		super(null, cause);
 		this.id = id;
 		this.notAnID = true;
 		this.detail = "wrong number format <"+numberString+">";

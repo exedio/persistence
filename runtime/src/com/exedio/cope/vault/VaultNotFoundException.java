@@ -48,7 +48,9 @@ public final class VaultNotFoundException extends Exception
 
 	public VaultNotFoundException(@Nonnull final String hash, final Throwable cause)
 	{
-		super(cause);
+		// Specifying message==null avoids detailMessage computed from cause in
+		// Throwable constructor, not needed because getMessage is overridden anyway.
+		super(null, cause);
 		this.hash = requireNonNull(hash);
 	}
 

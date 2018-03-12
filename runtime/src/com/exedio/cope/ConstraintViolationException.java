@@ -31,7 +31,9 @@ public abstract class ConstraintViolationException extends RuntimeException
 
 	protected ConstraintViolationException(final Item item, final Throwable cause)
 	{
-		super(cause);
+		// Specifying message==null avoids detailMessage computed from cause in
+		// Throwable constructor, not needed because getMessage is overridden anyway.
+		super(null, cause);
 		this.item = item;
 	}
 
