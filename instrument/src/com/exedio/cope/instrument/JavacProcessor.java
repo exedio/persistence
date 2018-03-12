@@ -45,6 +45,4 @@ abstract class JavacProcessor extends AbstractProcessor
 			throw new IllegalStateException();
 		return ignoreFiles.contains(requireNonNull(e));
 	}
-
-	abstract void validate() throws HumanReadableException;
 }

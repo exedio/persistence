@@ -69,8 +69,8 @@ final class JavacRunner
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
 			processor.prepare(params, fileManager);
 			task.setProcessors(singleton(processor));
-			task.call();
-			processor.validate();
+			if (!task.call())
+				throw new HumanReadableException("cope instrumentor failed");
 		}
 	}
 

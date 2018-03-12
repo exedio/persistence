@@ -39,8 +39,6 @@ final class InstrumentorProcessor extends JavacProcessor
 {
 	private final JavaRepository javaRepository;
 
-	boolean processHasBeenCalled = false;
-
 	InstrumentorProcessor(final JavaRepository javaRepository)
 	{
 		this.javaRepository = javaRepository;
@@ -49,7 +47,6 @@ final class InstrumentorProcessor extends JavacProcessor
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
-		processHasBeenCalled=true;
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
 		final DocTrees docTrees = DocTrees.instance(processingEnv);
 		for (final Element e: roundEnv.getRootElements())
@@ -84,15 +81,5 @@ final class InstrumentorProcessor extends JavacProcessor
 				packageName!=null
 				? packageName.toString()
 				: null;
-	}
-
-	@Override
-	void validate() throws HumanReadableException
-	{
-		if (!processHasBeenCalled)
-		{
-			// InstrumentorProcessor has not been invoked - this happens if parsing failed
-			throw new HumanReadableException("fix compiler errors");
-		}
 	}
 }
