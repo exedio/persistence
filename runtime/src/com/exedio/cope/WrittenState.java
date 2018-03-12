@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.Map;
+import java.util.HashMap;
 
 final class WrittenState extends State
 {
@@ -62,7 +62,7 @@ final class WrittenState extends State
 	}
 
 	@Override
-	State write(final Transaction transaction, final Map<BlobColumn, byte[]> blobs)
+	State write(final Transaction transaction, final HashMap<BlobColumn, byte[]> blobs)
 	{
 		if(blobs!=null && !blobs.isEmpty())
 			transaction.connect.database.store(transaction.getConnection(), this, true, false, blobs);

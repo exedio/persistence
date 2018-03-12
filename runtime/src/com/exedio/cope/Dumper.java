@@ -102,7 +102,7 @@ public final class Dumper
 	private static void insert(
 			final Dialect dialect,
 			final Marshallers marshallers,
-			final Map<BlobColumn, byte[]> blobs,
+			final HashMap<BlobColumn, byte[]> blobs,
 			final Type<?> type,
 			final long pk,
 			final Row row,

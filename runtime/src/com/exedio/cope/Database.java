@@ -28,8 +28,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -334,7 +334,7 @@ final class Database
 			final State state,
 			final boolean present,
 			final boolean incrementUpdateCounter,
-			final Map<BlobColumn, byte[]> blobs)
+			final HashMap<BlobColumn, byte[]> blobs)
 	{
 		store(connection, state, present, incrementUpdateCounter, blobs, state.type);
 	}
@@ -344,7 +344,7 @@ final class Database
 			final State state,
 			final boolean present,
 			final boolean incrementUpdateCounter,
-			final Map<BlobColumn, byte[]> blobs,
+			final HashMap<BlobColumn, byte[]> blobs,
 			final Type<?> type)
 	{
 		buildStage = false;

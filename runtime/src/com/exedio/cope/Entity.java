@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.util.HashMap;
 import java.util.Map;
 
 final class Entity
@@ -64,7 +65,7 @@ final class Entity
 		}
 	}
 
-	void write(final Map<BlobColumn, byte[]> blobs)
+	void write(final HashMap<BlobColumn, byte[]> blobs)
 	{
 		boolean discard = true;
 		try
