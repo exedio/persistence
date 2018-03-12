@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 
 /**
  * This is essentially a typed map from {@link Column}s to {@link Object}s.
@@ -28,16 +28,17 @@ final class Row
 {
 
 	// TODO: use arrays for String/int/double instead of the HashMap
-	private final HashMap<Column, Object> impl;
+	// IdentityHashMap is more efficient than HashMap because it uses linear-probe instead of chaining
+	private final IdentityHashMap<Column, Object> impl;
 
 	Row()
 	{
-		impl = new HashMap<>();
+		impl = new IdentityHashMap<>(); // TODO set expectedMaxSize
 	}
 
 	Row(final Row row)
 	{
-		impl = new HashMap<>(row.impl);
+		impl = new IdentityHashMap<>(row.impl);
 	}
 
 	Object get(final Column column)

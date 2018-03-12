@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -78,7 +79,7 @@ public final class Dumper
 		}
 		final long pk = nextPk(type);
 		final E result = type.activate(pk);
-		final HashMap<BlobColumn, byte[]> blobs = fieldValues.toBlobs();
+		final IdentityHashMap<BlobColumn, byte[]> blobs = fieldValues.toBlobs();
 		final Connect connect = type.getModel().connect();
 		insert(connect.dialect, connect.marshallers, blobs, type, pk, row, type, out);
 		return result;
@@ -102,7 +103,7 @@ public final class Dumper
 	private static void insert(
 			final Dialect dialect,
 			final Marshallers marshallers,
-			final HashMap<BlobColumn, byte[]> blobs,
+			final IdentityHashMap<BlobColumn, byte[]> blobs,
 			final Type<?> type,
 			final long pk,
 			final Row row,

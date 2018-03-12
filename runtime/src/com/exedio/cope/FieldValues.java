@@ -21,7 +21,7 @@ package com.exedio.cope;
 import static java.util.Collections.unmodifiableSet;
 import static java.util.Objects.requireNonNull;
 
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Set;
@@ -110,9 +110,10 @@ public final class FieldValues
 				throw MandatoryViolationException.create(field, null);
 	}
 
-	HashMap<BlobColumn, byte[]> toBlobs()
+	// IdentityHashMap is more efficient than HashMap because it uses linear-probe instead of chaining
+	IdentityHashMap<BlobColumn, byte[]> toBlobs()
 	{
-		final HashMap<BlobColumn, byte[]> result = new HashMap<>();
+		final IdentityHashMap<BlobColumn, byte[]> result = new IdentityHashMap<>(); // TODO set expectedMaxSize
 
 		for(final Map.Entry<Field<?>, Object> e : dirt.entrySet())
 		{

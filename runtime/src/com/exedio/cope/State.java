@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 
 abstract class State
 {
@@ -43,7 +43,7 @@ abstract class State
 	abstract <E> State put(Transaction transaction, FunctionField<E> field, E value);
 	abstract State put(Transaction transaction, StringColumn column, String value); // just for DataVault
 
-	abstract State write(Transaction transaction, HashMap<BlobColumn, byte[]> blobs);
+	abstract State write(Transaction transaction, IdentityHashMap<BlobColumn, byte[]> blobs);
 
 
 	abstract Object store(final Column column);

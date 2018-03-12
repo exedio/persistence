@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import java.util.HashMap;
+import java.util.IdentityHashMap;
 
 final class CreatedState extends State
 {
@@ -64,7 +64,7 @@ final class CreatedState extends State
 	}
 
 	@Override
-	State write(final Transaction transaction, final HashMap<BlobColumn, byte[]> blobs)
+	State write(final Transaction transaction, final IdentityHashMap<BlobColumn, byte[]> blobs)
 	{
 		boolean discard = true;
 		try
