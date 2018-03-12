@@ -25,7 +25,6 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -33,13 +32,12 @@ import java.util.Map;
 public final class Features
 {
 	private final LinkedHashMap<String, Feature> map;
-	private final HashSet<Feature> set;
-	private HashMap<Feature, AnnotatedElement> annotationSources = null;
+	private final HashMap<Feature, AnnotatedElement> annotationSources;
 
 	public Features()
 	{
 		map = new LinkedHashMap<>();
-		set = new HashSet<>();
+		annotationSources = new HashMap<>();
 	}
 
 	Map<String,Feature> getNamedFeatures()
@@ -59,18 +57,12 @@ public final class Features
 		requireNonNull(feature, "feature");
 		if(map.containsKey(name))
 			throw new IllegalArgumentException("already contains the name >" + name + '<');
-		if(set.contains(feature))
+		if(annotationSources.containsKey(feature))
 			throw new IllegalArgumentException("already contains the feature >" + feature + '<');
 
 		map.put(name, feature);
-		set.add(feature);
-		if(annotationSource!=null)
-		{
-			if(annotationSources==null)
-				annotationSources = new HashMap<>();
-			if(annotationSources.put(feature, annotationSource)!=null)
-				throw new RuntimeException();
-		}
+		if(annotationSources.put(feature, annotationSource)!=null)
+			throw new RuntimeException();
 	}
 
 	public void put(final String name, final Feature feature)
@@ -81,9 +73,7 @@ public final class Features
 	public void clear()
 	{
 		map.clear();
-		set.clear();
-		if(annotationSources!=null)
-			annotationSources.clear();
+		annotationSources.clear();
 	}
 
 	int size()
@@ -139,8 +129,11 @@ public final class Features
 	Features(final LinkedHashMap<String, Feature> map)
 	{
 		this.map = new LinkedHashMap<>(map);
-		this.set = new HashSet<>(map.values());
-		if(map.size()!=set.size())
+		this.annotationSources = new HashMap<>();
+		for(final Feature feature : map.values())
+			annotationSources.put(feature, null);
+
+		if(map.size()!=annotationSources.size())
 			throw new IllegalArgumentException("map contains duplicate features: " + map);
 	}
 
