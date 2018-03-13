@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,6 +29,9 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.JobContexts;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -103,7 +107,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 			final AnItem item)
 	{
 		assertAll(
-				() -> assertEquals(pending, item.isToTargetPending(), "pending"),
+				() -> assertEquals(pending, item.isToTargetPending(), () -> "pending - " + item.getPendingMessage()),
 				() -> assertEquals(dispatchCount, item.getDispatchCount(), "dispatchCount"),
 				() -> assertEquals(runCount, item.getToTargetRuns().size(), "runCount"));
 	}
@@ -129,6 +133,32 @@ public class DispatchableRependTest extends TestWithEnvironment
 			if(getDispatchFails())
 				throw new RuntimeException("dispatch " + dispatcher + " " + this);
 			setDispatchCount(getDispatchCount()+1);
+		}
+
+		String getPendingMessage() // prepares for spurious failure
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append("-----------");
+			final ByteArrayOutputStream baos = new ByteArrayOutputStream();
+			try(PrintStream ps = new PrintStream(baos, false, US_ASCII.name()))
+			{
+				new Exception("Stack trace").printStackTrace(ps);
+			}
+			catch(final UnsupportedEncodingException e)
+			{
+				throw new RuntimeException(e);
+			}
+			bf.append(new String(baos.toByteArray(), US_ASCII));
+			bf.append("-----------");
+			for(final Dispatcher.Run run : getToTargetRuns())
+			{
+				bf.append(run.getCopeID()).append('/').
+					append(run.getResult()).append('/').
+					append(run.getElapsed()).append('/').
+					append(run.getFailure()).
+					append("-----------");
+			}
+			return bf.toString();
 		}
 
 
