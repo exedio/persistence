@@ -73,7 +73,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	final boolean isAbstract;
 	final Type<? super T> supertype;
 	final Type<? super T> toptype;
-	private final IdentityHashMap<Type<?>,Object> supertypes;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final IdentityHashMap<Type<?>,Void> supertypes;
 
 	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	final This<T> thisFunction = new This<>(this);
@@ -218,7 +219,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		{
 			this.toptype = supertype.toptype;
 
-			final IdentityHashMap<Type<?>,Object> superSupertypes = supertype.supertypes;
+			final IdentityHashMap<Type<?>,Void> superSupertypes = supertype.supertypes;
 			if(superSupertypes==null)
 				this.supertypes = new IdentityHashMap<>(1);
 			else
@@ -750,7 +751,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(this==type)
 			return true;
 
-		final IdentityHashMap<Type<?>,Object> typeSupertypes = type.supertypes;
+		final IdentityHashMap<Type<?>,Void> typeSupertypes = type.supertypes;
 		if(typeSupertypes==null)
 			return false;
 
