@@ -59,10 +59,10 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		this.policy = requireNonNull(policy, "policy");
 		if(policy==DeletePolicy.NULLIFY)
 		{
-			if(!optional)
-				throw new IllegalArgumentException("mandatory item field cannot have delete policy nullify");
 			if(isfinal)
 				throw new IllegalArgumentException("final item field cannot have delete policy nullify");
+			if(!optional)
+				throw new IllegalArgumentException("mandatory item field cannot have delete policy nullify");
 		}
 		this.copyTo = copyTo;
 		this.implicitCopyConstraintsTo = (copyTo!=null) ? newCopyConstraintsTo(copyTo) : null;
