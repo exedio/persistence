@@ -48,6 +48,12 @@ final class InstrumentorProcessor extends JavacProcessor
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
+		final ClassLoader interimClassLoader = interimProcessor.getInterimClassLoader();
+		if (interimClassLoader==null)
+		{
+			// InterimProcessor failed
+			return false;
+		}
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
 		final DocTrees docTrees = DocTrees.instance(processingEnv);
 		for (final Element e: roundEnv.getRootElements())
@@ -59,7 +65,7 @@ final class InstrumentorProcessor extends JavacProcessor
 			JavaFile javaFile=files.get(compilationUnit);
 			if ( javaFile==null )
 			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimProcessor.getInterimClassLoader(), compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
+				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
 			}
 			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
 			if (isFileIgnored(compilationUnit.getSourceFile()))

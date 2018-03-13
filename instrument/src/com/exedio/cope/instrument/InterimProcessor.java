@@ -66,6 +66,7 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
@@ -94,8 +95,6 @@ final class InterimProcessor extends JavacProcessor
 	/** @return null if compiling interim code failed */
 	ClassLoader getInterimClassLoader()
 	{
-		if (interimClassLoader==null)
-			throw new RuntimeException("not processed");
 		return interimClassLoader;
 	}
 
@@ -184,13 +183,22 @@ final class InterimProcessor extends JavacProcessor
 		{
 			try
 			{
+				System.out.println("compile error in interim code - writing to "+targetDirectory.toAbsolutePath()+" for review");
+				System.out.println("line numbers in errors below are in interim code, not in original code");
 				compiler.dumpJavaFiles(targetDirectory, params.charset);
 			}
 			catch (final IOException ioe)
 			{
 				System.out.println("writing interim source to "+targetDirectory.toAbsolutePath()+" failed: "+ioe.getMessage());
 			}
-			throw new RuntimeException(e);
+			if (e.getDiagnostics().isEmpty())
+			{
+				processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "unspecific failure");
+			}
+			for (final Diagnostic<? extends JavaFileObject> diagnostic : e.getDiagnostics())
+			{
+				processingEnv.getMessager().printMessage(diagnostic.getKind(), diagnostic.toString());
+			}
 		}
 		return false;
 	}
