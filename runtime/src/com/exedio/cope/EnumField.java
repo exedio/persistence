@@ -105,6 +105,14 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		return new EnumField<>(isfinal, optional, valueClass, unique, copyFrom, defaultConstant(defaultConstant));
 	}
 
+	@Override
+	boolean overlaps(final FunctionField<?> other)
+	{
+		return
+				super.overlaps(other) &&
+				valueType==((EnumField<?>)other).valueType;
+	}
+
 	public List<E> getValues()
 	{
 		return valueType.values;

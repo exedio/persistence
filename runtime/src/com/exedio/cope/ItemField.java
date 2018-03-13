@@ -196,6 +196,15 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		return copy(); // no defaults for item fields
 	}
 
+	@Override
+	boolean overlaps(final FunctionField<?> other)
+	{
+		//noinspection OverlyStrongTypeCast ItemFunction
+		return
+				super.overlaps(other) &&
+				getValueType().overlaps(((ItemField<?>)other).getValueType());
+	}
+
 	/**
 	 * @see #asExtends(Class)
 	 * @see #asSuper(Class)

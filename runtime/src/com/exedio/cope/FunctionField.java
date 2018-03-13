@@ -247,6 +247,11 @@ public abstract class FunctionField<E> extends Field<E>
 	public abstract FunctionField<E> noDefault();
 	public abstract FunctionField<E> defaultTo(E defaultConstant);
 
+	boolean overlaps(final FunctionField<?> other)
+	{
+		return getClass().equals(other.getClass());
+	}
+
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 

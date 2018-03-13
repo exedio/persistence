@@ -758,6 +758,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return typeSupertypes.containsKey(this);
 	}
 
+	boolean overlaps(final Type<?> other)
+	{
+		return
+				this .isAssignableFrom(other) ||
+				other.isAssignableFrom(this);
+	}
+
 	/**
 	 * @see Class#cast(Object)
 	 */

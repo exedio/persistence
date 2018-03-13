@@ -82,6 +82,10 @@ public final class CopyConstraint extends Feature
 			throw new IllegalArgumentException(
 					"insufficient template for CopyConstraint " + this + ": " +
 					result + " is not final");
+		if(!copy.overlaps(result))
+			throw new IllegalArgumentException(
+					"insufficient template for CopyConstraint " + this + ": " +
+					result + "'s values do not overlap values of copy " + copy);
 
 		templateIfSet = result;
 	}
