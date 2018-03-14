@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.junit.CopeAssert.sleepLongerThan;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +38,7 @@ import org.junit.jupiter.api.Test;
 
 public class DispatchableRependTest extends TestWithEnvironment
 {
-	@Test void testSuccess()
+	@Test void testSuccess() throws InterruptedException
 	{
 		final AnItem item = new AnItem();
 		assertIt(true, 0, 0, item);
@@ -65,7 +66,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		assertIt(false, 1, 4, item);
 	}
 
-	@Test void testFailure()
+	@Test void testFailure() throws InterruptedException
 	{
 		final AnItem item = new AnItem();
 		item.setDispatchFails(true);
@@ -112,10 +113,12 @@ public class DispatchableRependTest extends TestWithEnvironment
 				() -> assertEquals(runCount, item.getToTargetRuns().size(), "runCount"));
 	}
 
-	private void dispatch()
+	private void dispatch() throws InterruptedException
 	{
 		model.commit();
+		sleepLongerThan(1);
 		AnItem.dispatchToTarget(new Dispatcher.Config(3, 100), JobContexts.EMPTY);
+		sleepLongerThan(1);
 		model.startTransaction(DispatchableDeferrableTest.class.getName());
 	}
 
