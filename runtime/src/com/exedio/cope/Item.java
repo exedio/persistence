@@ -215,7 +215,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * If you want to postpone your action until the current transaction commits,
 	 * use either
 	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
-	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
+	 * {@link Model#addPostCommitHookIfAbsent(Runnable) post}-commit hooks.
 	 *
 	 * @see ChangeHook#afterNew(Item)
 	 */
@@ -239,7 +239,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * If you want to postpone your action until the current transaction commits,
 	 * use either
 	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
-	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
+	 * {@link Model#addPostCommitHookIfAbsent(Runnable) post}-commit hooks.
 	 *
 	 * @see Item#set(SetValue[])
 	 * @see Item#set(FunctionField, Object)
@@ -385,7 +385,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 * If you want to postpone your action until the current transaction commits,
 	 * use either
 	 * {@link Model#addPreCommitHookIfAbsent(Runnable) pre}- or
-	 * {@link Model#addPreCommitHookIfAbsent(Runnable) post}-commit hooks.
+	 * {@link Model#addPostCommitHookIfAbsent(Runnable) post}-commit hooks.
 	 *
 	 * @see ChangeHook#beforeDelete(Item)
 	 */
