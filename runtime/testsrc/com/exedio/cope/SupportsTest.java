@@ -25,10 +25,12 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class SupportsTest extends TestWithEnvironment
 {
@@ -90,37 +92,59 @@ public class SupportsTest extends TestWithEnvironment
 
 	@Test void testSchemaSavepoint()
 	{
-		switch(dialect)
+		final String conf = System.getProperty(SupportsTest.class.getName() + ".testSchemaSavepoint");
+		final String expectedResult;
+		final String expectedFailure;
+		final String OK = "OK: ";
+		final String FAILS = "FAILS: ";
+		if(conf.startsWith("${") && // not specified
+			conf.endsWith(".x-build.schemasavepoint}"))
 		{
-			case mysql:
-				try
-				{
-					final String result = model.getSchemaSavepoint();
-					//System.out.println(result);
-					assertNotNull(result);
-				}
-				catch(final SQLException ignored)
-				{
-					// ok
-				}
-				break;
-			case hsqldb:
-			case oracle:
-			case postgresql:
-				try
-				{
-					final String result = model.getSchemaSavepoint();
-					fail(result);
-				}
-				catch(final SQLException e)
-				{
-					assertEquals("not supported", e.getMessage());
-				}
-				break;
-			default:
-				fail("" + dialect);
+			expectedResult = null;
+			expectedFailure = NOT_SUPPORTED;
+		}
+		else if(conf.startsWith(OK))
+		{
+			expectedResult = conf.substring(OK.length());
+			expectedFailure = null;
+		}
+		else if(conf.startsWith(FAILS))
+		{
+			expectedResult = null;
+			expectedFailure = conf.substring(FAILS.length());
+		}
+		else
+			throw new AssertionFailedError(
+					"x-build.schemasavepoint must start with either >" + OK + "< or >" + FAILS + "<, " +
+					"but was " + conf);
+
+		try
+		{
+			assertMatches(expectedResult, model.getSchemaSavepoint());
+		}
+		catch(final SQLException e)
+		{
+			assertMatches(expectedFailure, e.getMessage());
 		}
 	}
+
+	private static void assertMatches(
+			final String expected,
+			final String actual)
+	{
+		if(!NOT_SUPPORTED.equals(expected) ||
+			!NOT_SUPPORTED.equals(actual))
+		{
+			System.out.println(SupportsTest.class.getName() + "#testSchemaSavepoint");
+			System.out.println("---" + expected + "---");
+			System.out.println("---" + actual   + "---");
+		}
+		assertNotNull(expected);
+		assertNotNull(actual);
+		assertTrue(actual.matches(expected), () -> "---" + expected + "---" + actual + "---");
+	}
+
+	private static final String NOT_SUPPORTED = "not supported";
 
 	@Deprecated
 	@Test void testDeprecated()
