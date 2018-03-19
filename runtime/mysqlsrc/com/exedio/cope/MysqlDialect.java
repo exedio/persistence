@@ -70,6 +70,7 @@ final class MysqlDialect extends Dialect
 	final String sequenceColumnName;
 	private final boolean supportsAnyValue;
 	private final boolean supportsNativeDate;
+	private final boolean supportsGtid;
 	private final boolean mariaDriver;
 	private final Pattern extractUniqueViolationMessagePattern;
 
@@ -105,7 +106,7 @@ final class MysqlDialect extends Dialect
 					env.getDatabaseVersionDescription());
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
-		supportsNativeDate = env.isDatabaseVersionAtLeast(5, 6);
+		supportsNativeDate = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
 		mariaDriver = env.getDriverName().startsWith("MariaDB");
 		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}*\\) (.*)$") : null;
 	}
@@ -816,6 +817,14 @@ final class MysqlDialect extends Dialect
 					first = false;
 				else
 					bf.append(" newLine");
+
+				if(supportsGtid)
+				{
+					// https://dev.mysql.com/doc/refman/5.7/en/replication-gtids.html
+					final String s = rs.getString("Executed_Gtid_Set");
+					if(s!=null && !s.isEmpty())
+						bf.append(" Gtid=").append(s);
+				}
 
 				bf.append(' ').append(rs.getString("File")).
 					append(':').append(rs.getInt   ("Position"));
