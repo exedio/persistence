@@ -108,7 +108,7 @@ final class MysqlDialect extends Dialect
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		supportsNativeDate = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
 		mariaDriver = env.getDriverName().startsWith("MariaDB");
-		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}*\\) (.*)$") : null;
+		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$") : null;
 	}
 
 	private static String sequenceColumnName(final MysqlProperties properties)
