@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 public class SupportsTest extends TestWithEnvironment
 {
@@ -93,38 +92,20 @@ public class SupportsTest extends TestWithEnvironment
 	@Test void testSchemaSavepoint()
 	{
 		final String conf = System.getProperty(SupportsTest.class.getName() + ".testSchemaSavepoint");
-		final String expectedResult;
-		final String expectedFailure;
-		final String OK = "OK: ";
-		final String FAILS = "FAILS: ";
+		final String expected;
 		if(conf.startsWith("${") && // not specified
 			conf.endsWith(".x-build.schemasavepoint}"))
-		{
-			expectedResult = null;
-			expectedFailure = NOT_SUPPORTED;
-		}
-		else if(conf.startsWith(OK))
-		{
-			expectedResult = conf.substring(OK.length());
-			expectedFailure = null;
-		}
-		else if(conf.startsWith(FAILS))
-		{
-			expectedResult = null;
-			expectedFailure = conf.substring(FAILS.length());
-		}
+			expected = NOT_SUPPORTED;
 		else
-			throw new AssertionFailedError(
-					"x-build.schemasavepoint must start with either >" + OK + "< or >" + FAILS + "<, " +
-					"but was " + conf);
+			expected = conf;
 
 		try
 		{
-			assertMatches(expectedResult, model.getSchemaSavepoint());
+			assertMatches(expected, "OK: " + model.getSchemaSavepoint());
 		}
 		catch(final SQLException e)
 		{
-			assertMatches(expectedFailure, e.getMessage());
+			assertMatches(expected, "FAILS: " + e.getMessage());
 		}
 	}
 
@@ -144,7 +125,7 @@ public class SupportsTest extends TestWithEnvironment
 		assertTrue(actual.matches(expected), () -> "---" + expected + "---" + actual + "---");
 	}
 
-	private static final String NOT_SUPPORTED = "not supported";
+	private static final String NOT_SUPPORTED = "FAILS: not supported";
 
 	@Deprecated
 	@Test void testDeprecated()
