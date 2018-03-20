@@ -57,11 +57,13 @@ final class HsqldbDialect extends Dialect
 		mysql56
 		{
 			@Override boolean supportsCheckConstraints() { return false; }
+			@Override boolean supportsSchemaSavepoint() { return true; }
 		},
 		oracle;
 
 		boolean supportsCheckConstraints() { return true; }
 		boolean supportsNativeDate() { return true; }
+		boolean supportsSchemaSavepoint() { return false; }
 	}
 
 	private final Props props;
@@ -401,5 +403,34 @@ final class HsqldbDialect extends Dialect
 			append(" RESTART WITH ").
 			append(start).
 			append(';');
+	}
+
+	@Override
+	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SQLException
+	{
+		if(!props.approximate.supportsSchemaSavepoint())
+			return super.getSchemaSavepoint(connectionPool);
+
+		final Connection connection = connectionPool.get(true);
+		try(
+				java.sql.Statement statement = connection.createStatement();
+				ResultSet rs = statement.executeQuery("VALUES NOW()"))
+		{
+			if(!rs.next())
+				throw new SQLException("empty result");
+
+			final String now = rs.getString(1);
+			if(now==null)
+				throw new SQLException("null");
+
+			if(rs.next())
+				throw new SQLException("multiple lines");
+
+			return "hsqldb approximate schemaSavepoint " + props.approximate + ' ' + now;
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
 	}
 }
