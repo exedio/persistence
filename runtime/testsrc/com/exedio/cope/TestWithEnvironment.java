@@ -281,7 +281,7 @@ public abstract class TestWithEnvironment
 	{
 		// TODO do this for MariaDB connector only
 
-		final java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^\\(conn=\\p{Digit}*\\) (.*)$");
+		final java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$");
 		final Matcher matcher = pattern.matcher(message);
 		if(!matcher.matches())
 			return message;
