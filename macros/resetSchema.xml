@@ -5,6 +5,19 @@
 	<property file="${file}" />
 	<echo message="resetting ${connection.url} ${connection.username} ${x-build.schema}" />
 
+	<target name="mysql">
+		<sql
+				classpath="lib/${x-build.driver}"
+				driver="com.mysql.jdbc.Driver"
+				url="${connection.url}"
+				userid="${connection.username}"
+				password="${connection.password}"
+		>
+			DROP   DATABASE IF EXISTS ${x-build.schema};
+			CREATE DATABASE           ${x-build.schema};
+		</sql>
+	</target>
+
 	<target name="postgresql">
 		<sql
 				classpath="lib/${x-build.driver}"
