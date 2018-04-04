@@ -1,0 +1,123 @@
+
+timestamps
+{
+	//noinspection GroovyAssignabilityCheck
+	node('GitCloneExedio && Mysql57database11')
+	{
+		try
+		{
+			abortable
+			{
+				echo("Delete working dir before build")
+				deleteDir()
+
+				def scmResult = checkout scm
+				computeGitTree(scmResult)
+
+				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
+				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
+				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+				env.SCHEMA = "ci_${HOSTNAME}_${EXECUTOR_NUMBER}"
+
+				properties([
+						buildDiscarder(logRotator(
+								numToKeepStr : '30'
+						))
+				])
+
+				sh 'echo' +
+						' HOSTNAME -${HOSTNAME}-' +
+						' EXECUTOR_NUMBER -${EXECUTOR_NUMBER}-' +
+						' scmResult=' + scmResult +
+						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
+						' BRANCH_NAME -${BRANCH_NAME}-' +
+						' BUILD_NUMBER -${BUILD_NUMBER}-' +
+						' BUILD_ID -${BUILD_ID}-' +
+						' SCHEMA=' + env.SCHEMA
+
+				writeFile(
+						file: 'clearMysql.sql',
+						text:
+								'DROP   DATABASE IF EXISTS ' + env.SCHEMA + ';\n' +
+								'CREATE DATABASE           ' + env.SCHEMA + ';\n'
+				)
+				sh 'mysql ' +
+						' -h database11.exedio.com' +
+						' -u ' + env.SCHEMA +
+						' --password=' + env.DATABASE_PASSWORD +
+						' < clearMysql.sql'
+
+				sh 'rm -f conf/environment/*.properties'
+
+				writeFile(
+						file: 'conf/environment/my57.properties',
+						text:
+								'connection.url=jdbc:mysql://database11.exedio.com/' + env.SCHEMA + '\n' +
+								'connection.username=' + env.SCHEMA + '\n' +
+								'connection.password=' + env.DATABASE_PASSWORD + '\n' +
+								'schema.primaryKeyGenerator=sequence\n' +
+								'x-build.schemasavepoint=' +
+										/OK: SHOW MASTER STATUS mysql-bin.\\d{6}:\\d+ doDB=binlogtest/ + '\n' +
+								'x-build.driver=mysql-connector-java.jar\n'
+				)
+
+				sh "ant/bin/ant clean testWithEnv" +
+						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
+						' -Dinstrument.verify=true' +
+						' -Dtest-details=none' +
+						' -Ddisable-ansi-colors=true'
+			}
+		}
+		catch(Exception e)
+		{
+			//todo handle script returned exit code 143
+			throw e;
+		}
+		finally
+		{
+			// because junit failure aborts ant
+			junit(
+					allowEmptyResults: false,
+					testResults: 'build/testresults/**/*.xml',
+			)
+			archive 'build/testprotocol.*,build/*.log,build/testtmpdir'
+
+			def to = emailextrecipients([
+					[$class: 'CulpritsRecipientProvider'],
+					[$class: 'RequesterRecipientProvider']
+			])
+			//TODO details
+			step([$class: 'Mailer',
+					recipients: to,
+					attachLog: true,
+					notifyEveryUnstableBuild: true])
+
+			if('SUCCESS'.equals(currentBuild.result) ||
+				'UNSTABLE'.equals(currentBuild.result))
+			{
+				echo("Delete working dir after " + currentBuild.result)
+				deleteDir()
+			}
+		}
+	}
+}
+
+def abortable(Closure body)
+{
+	try
+	{
+		body.call();
+	}
+	catch(hudson.AbortException e)
+	{
+		if(e.getMessage().contains("exit code 143"))
+			return
+		throw e;
+	}
+}
+
+def computeGitTree(scmResult)
+{
+	sh "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //' > .git/jenkins-head-tree"
+	scmResult.GIT_TREE = readFile('.git/jenkins-head-tree').trim()
+}
