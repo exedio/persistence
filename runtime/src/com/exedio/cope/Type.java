@@ -1216,6 +1216,9 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 	public int compareTo(final Type<?> o)
 	{
+		if(this==o)
+			return 0;
+
 		return mount().compareTo(o.mount());
 	}
 
