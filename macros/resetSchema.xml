@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+
+<project name="resetSchema" default="drop" basedir="..">
+
+	<property file="${file}" />
+	<echo message="resetting ${connection.url} ${connection.username} ${x-build.schema}" />
+
+	<target name="postgresql">
+		<sql
+				classpath="lib/${x-build.driver}"
+				driver="org.postgresql.Driver"
+				url="${connection.url}"
+				userid="${connection.username}"
+				password="${connection.password}"
+		>
+			DROP   SCHEMA IF EXISTS ${x-build.schema} CASCADE;
+			CREATE SCHEMA           ${x-build.schema};
+		</sql>
+	</target>
+
+</project>
