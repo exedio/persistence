@@ -2,10 +2,12 @@
 
 <project name="resetSchema" default="drop" basedir="..">
 
-	<property file="${file}" />
-	<echo message="resetting ${connection.url} ${connection.username} ${x-build.schema}" />
+	<target name="prepare">
+		<property file="${file}" />
+		<echo message="resetting ${connection.url} ${connection.username} ${x-build.schema}" />
+	</target>
 
-	<target name="mysql">
+	<target name="mysql" depends="prepare">
 		<sql
 				classpath="lib/${x-build.driver}"
 				driver="com.mysql.jdbc.Driver"
@@ -18,7 +20,7 @@
 		</sql>
 	</target>
 
-	<target name="oracle">
+	<target name="oracle" depends="prepare">
 		<get
 				src="https://jenkins.exedio.com/job/ivyartifacts/lastSuccessfulBuild/artifact/repository/com.oracle/ojdbc6/11.2.0.4/ojdbc6-jar.jar"
 				dest="lib/ojdbc.jar"
@@ -50,7 +52,7 @@ purge recyclebin
 		</sql>
 	</target>
 
-	<target name="postgresql">
+	<target name="postgresql" depends="prepare">
 		<sql
 				classpath="lib/${x-build.driver}"
 				driver="org.postgresql.Driver"
