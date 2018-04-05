@@ -37,14 +37,13 @@ timestamps
 
 				sh 'rm -f conf/environment/*.properties'
 
-				writeFile(
-						file: 'conf/environment/ora.properties',
-						text:
-								'connection.url=jdbc:oracle:thin:@database3.exedio.com:1521:DB3\n' +
-								'connection.username=' + env.SCHEMA + '\n' +
-								'connection.password=' + env.DATABASE_PASSWORD + '\n' +
-								'schema.primaryKeyGenerator=sequence\n' +
-								'x-build.driver=ojdbc.jar\n'
+				writeEnv(
+						'ora',
+						''
+				)
+				writeEnv(
+						'ora-sq',
+						'schema.primaryKeyGenerator=sequence\n'
 				)
 
 				sh 'ant/bin/ant' +
@@ -111,4 +110,17 @@ def computeGitTree(scmResult)
 {
 	sh "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //' > .git/jenkins-head-tree"
 	scmResult.GIT_TREE = readFile('.git/jenkins-head-tree').trim()
+}
+
+def writeEnv(name, text)
+{
+	writeFile(
+			file: 'conf/environment/' + name + '.properties',
+			text:
+					'connection.url=jdbc:oracle:thin:@database3.exedio.com:1521:DB3\n' +
+					'connection.username=' + env.SCHEMA + '\n' +
+					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
+					'x-build.driver=ojdbc.jar\n' +
+					text
+	)
 }

@@ -37,15 +37,21 @@ timestamps
 
 				sh 'rm -f conf/environment/*.properties'
 
-				writeFile(
-						file: 'conf/environment/pg95.properties',
-						text:
-								'connection.url=jdbc:postgresql://database11.exedio.com/' + env.SCHEMA + '\n' +
-								'connection.username=' + env.SCHEMA + '\n' +
-								'connection.password=' + env.DATABASE_PASSWORD + '\n' +
-								'schema.primaryKeyGenerator=sequence\n' +
-								'x-build.schema=' + env.SCHEMA + '\n' +
-								'x-build.driver=postgresql.jar\n'
+				writeEnv(
+						'pg95',
+						''
+				)
+				writeEnv(
+						'pg95-mysql',
+						'disableSupport.nativeDate=true\n'
+				)
+				writeEnv(
+						'pg95-nprep',
+						'disableSupport.preparedStatements=true\n'
+				)
+				writeEnv(
+						'pg95-sq',
+						'schema.primaryKeyGenerator=sequence\n'
 				)
 
 				sh 'ant/bin/ant' +
@@ -112,4 +118,18 @@ def computeGitTree(scmResult)
 {
 	sh "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //' > .git/jenkins-head-tree"
 	scmResult.GIT_TREE = readFile('.git/jenkins-head-tree').trim()
+}
+
+def writeEnv(name, text)
+{
+	writeFile(
+			file: 'conf/environment/' + name + '.properties',
+			text:
+					'connection.url=jdbc:postgresql://database11.exedio.com/' + env.SCHEMA + '\n' +
+					'connection.username=' + env.SCHEMA + '\n' +
+					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
+					'x-build.schema=' + env.SCHEMA + '\n' +
+					'x-build.driver=postgresql.jar\n' +
+					text
+	)
 }
