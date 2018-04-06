@@ -3,6 +3,7 @@
 <project name="resetSchema" default="drop" basedir="..">
 
 	<target name="prepare">
+		<!--suppress AntMissingPropertiesFileInspection -->
 		<property file="${file}" />
 		<echo message="resetting ${connection.url} ${connection.username} ${x-build.schema}" />
 	</target>
