@@ -4,9 +4,4 @@
 		<Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
 		<!-- Used often for ResultSethandler -->
 	</Match>
-	<Match>
-		<!-- org.junit.rules.RuleChain is accessed by reflection -->
-		<Bug pattern="URF_UNREAD_PUBLIC_OR_PROTECTED_FIELD" />
-		<Field name="~ruleChain$" />
-	</Match>
 </FindBugsFilter>
