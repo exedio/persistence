@@ -18,8 +18,19 @@
 		>
 			<!-- see MysqlDialect#completeConnectionInfo -->
 			<connectionProperty name="useSSL" value="false" />
-			DROP   DATABASE IF EXISTS ${x-build.schema};
-			CREATE DATABASE           ${x-build.schema};
+			SET @myschema = CONCAT("`", DATABASE(), "`");
+			<!--
+				* IF EXISTS not needed for DROP SCHEMA, because connection
+					fails anyway if schema does not exist.
+				* CHARACTER SET and COLLATE should have no effect for cope,
+					but we still set it to be more deterministic.
+			-->
+			SET @stmtdrop   = CONCAT("DROP   SCHEMA ", @myschema);
+			SET @stmtcreate = CONCAT("CREATE SCHEMA ", @myschema, "CHARACTER SET utf8 COLLATE utf8_general_ci");
+			PREPARE stmt FROM @stmtdrop;
+			EXECUTE stmt;
+			PREPARE stmt FROM @stmtcreate;
+			EXECUTE stmt;
 		</sql>
 	</target>
 

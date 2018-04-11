@@ -173,7 +173,6 @@ def writeEnv(name, text)
 					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
 					'x-build.schemasavepoint=' +
 							/OK: SHOW MASTER STATUS mysql-bin.\\d{6}:\\d+ doDB=binlogtest/ + '\n' +
-					'x-build.schema=' + env.SCHEMA + '\n' +
 					'x-build.driver=mysql-connector-java.jar\n' +
 					text
 	)
