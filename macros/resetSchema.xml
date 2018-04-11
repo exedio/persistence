@@ -16,6 +16,8 @@
 				userid="${connection.username}"
 				password="${connection.password}"
 		>
+			<!-- see MysqlDialect#completeConnectionInfo -->
+			<connectionProperty name="useSSL" value="false" />
 			DROP   DATABASE IF EXISTS ${x-build.schema};
 			CREATE DATABASE           ${x-build.schema};
 		</sql>
