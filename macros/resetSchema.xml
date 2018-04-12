@@ -74,8 +74,8 @@ purge recyclebin
 				userid="${connection.username}"
 				password="${connection.password}"
 		>
-			DROP   SCHEMA IF EXISTS ${x-build.schema} CASCADE;
-			CREATE SCHEMA           ${x-build.schema};
+			DROP   SCHEMA IF EXISTS "${x-build.schema}" CASCADE;
+			CREATE SCHEMA           "${x-build.schema}";
 		</sql>
 	</target>
 
