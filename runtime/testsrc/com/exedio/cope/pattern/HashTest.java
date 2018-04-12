@@ -202,6 +202,22 @@ public class HashTest extends TestWithEnvironment
 		final String tooLong = ok + "x";
 		try
 		{
+			limited15.checkPlainText(tooLong);
+			fail();
+		}
+		catch(final InvalidPlainTextException e)
+		{
+			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage());
+			assertEquals(limited15, e.getFeature());
+			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage(true));
+			assertEquals("plain text length violation, must be no longer than 15, but was 16", e.getMessage(false));
+			assertEquals(tooLong, e.getPlainText());
+			assertEquals(null, e.getItem());
+		}
+		limited15.checkPlainText(ok);
+
+		try
+		{
 			limited15.hash(tooLong);
 			fail();
 		}
@@ -415,6 +431,15 @@ public class HashTest extends TestWithEnvironment
 		// test with a validator which always throws an exception
 		try
 		{
+			withCorruptValidator.checkPlainText("03affe10");
+			fail();
+		}
+		catch(final IllegalStateException ise)
+		{
+			assertEquals("validate", ise.getMessage());
+		}
+		try
+		{
 			TYPE.newItem(withCorruptValidator.map("03affe10"));
 			fail();
 		}
@@ -424,6 +449,18 @@ public class HashTest extends TestWithEnvironment
 		}
 
 		// testing  with validator that discards the given pin string
+		try
+		{
+			with3PinValidator.checkPlainText("99x");
+			fail();
+		}
+		catch(final Hash.InvalidPlainTextException e)
+		{
+			assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
+			assertEquals("99x", e.getPlainText());
+			assertEquals(with3PinValidator, e.getFeature());
+			assertEquals(null, e.getItem());
+		}
 		try
 		{
 			TYPE.newItem(with3PinValidator.map("99x"));
@@ -438,6 +475,7 @@ public class HashTest extends TestWithEnvironment
 		}
 
 		// test with validator that accepts the given pin string
+		with3PinValidator.checkPlainText("978");
 		final SetValue<?> setValue = with3PinValidator.map("978");
 		final HashItem anItem = TYPE.newItem(setValue);
 		assertEquals("[978]", anItem.get(with3PinValidator.getStorage()));

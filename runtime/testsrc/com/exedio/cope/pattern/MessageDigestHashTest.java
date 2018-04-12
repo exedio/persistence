@@ -269,6 +269,18 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		catch(final MandatoryViolationException e)
 		{
 			assertEquals(passwordMandatory.getStorage(), e.getFeature());
+			assertEquals(item, e.getItem());
+		}
+		password.checkPlainText(null);
+		try
+		{
+			passwordMandatory.checkPlainText(null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(passwordMandatory, e.getFeature());
+			assertEquals(null, e.getItem());
 		}
 		assertEquals(EMPTY_HASH, item.getPasswordMandatorySHA512s8i5());
 		assertTrue(!item.checkPasswordMandatory("musso"));

@@ -27,6 +27,7 @@ import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringCharSetViolationException;
@@ -365,6 +366,29 @@ public class Hash extends Pattern implements HashInterface
 		if(plainText==null)
 			return null;
 
+		checkPlainText(plainText, exceptionItem);
+
+		final String result = algorithmHash(plainText);
+		if(result==null)
+			throw new NullPointerException();
+		return result;
+	}
+
+	public final void checkPlainText(final String plainText)
+	{
+		if(plainText==null)
+		{
+			if(isMandatory())
+				throw MandatoryViolationException.create(this, null);
+		}
+		else
+		{
+			checkPlainText(plainText, null);
+		}
+	}
+
+	private void checkPlainText(final String plainText, final Item exceptionItem)
+	{
 		if(!checkPlainTextLimit(plainText))
 			throw new InvalidPlainTextException(
 					"plain text length violation, " +
@@ -373,11 +397,6 @@ public class Hash extends Pattern implements HashInterface
 					plainText, exceptionItem, this);
 
 		validator.validate(plainText, exceptionItem, this);
-
-		final String result = algorithmHash(plainText);
-		if(result==null)
-			throw new NullPointerException();
-		return result;
 	}
 
 	private boolean checkPlainTextLimit(final String plainText)
