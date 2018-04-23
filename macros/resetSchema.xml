@@ -16,6 +16,8 @@
 				userid="${connection.username}"
 				password="${connection.password}"
 		>
+			<!-- otherwise connect fails if database does not yet exist -->
+			<connectionProperty name="createDatabaseIfNotExist" value="true" />
 			<!-- see MysqlDialect#completeConnectionInfo -->
 			<connectionProperty name="useSSL" value="false" />
 			SET @myschema = CONCAT("`", DATABASE(), "`");
