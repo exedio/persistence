@@ -405,7 +405,7 @@ public class Hash extends Pattern implements HashInterface
 					"plain text length violation, " +
 					"must be no longer than " + plainTextLimit + ", " +
 					"but was " + plainText.length(),
-					plainText, exceptionItem, this);
+					plainText, true, exceptionItem, this);
 
 		validator.validate(plainText, exceptionItem, this);
 	}
@@ -476,6 +476,7 @@ public class Hash extends Pattern implements HashInterface
 	{
 		private static final long serialVersionUID = 1l;
 		private final String plainText;
+		private final boolean wasLimit;
 		private final String message;
 		private final Hash feature;
 
@@ -485,9 +486,20 @@ public class Hash extends Pattern implements HashInterface
 				final Item item,
 				final Hash feature)
 		{
+			this(message, plainText, false, item, feature);
+		}
+
+		private InvalidPlainTextException(
+				final String message,
+				final String plainText,
+				final boolean wasLimit,
+				final Item item,
+				final Hash feature)
+		{
 			super(item, /*cause*/ null);
 			this.message = message;
 			this.plainText = plainText;
+			this.wasLimit = wasLimit;
 			this.feature = feature;
 		}
 
@@ -507,6 +519,16 @@ public class Hash extends Pattern implements HashInterface
 		public String getPlainText()
 		{
 			return plainText;
+		}
+
+		/**
+		 * Returns true if this exception was raised because the
+		 * {@link Hash#getPlainTextLimit() plain text limit}
+		 * was exceeded.
+		 */
+		public boolean wasLimit()
+		{
+			return wasLimit;
 		}
 	}
 

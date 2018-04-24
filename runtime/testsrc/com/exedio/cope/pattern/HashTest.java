@@ -212,6 +212,7 @@ public class HashTest extends TestWithEnvironment
 			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage(true));
 			assertEquals("plain text length violation, must be no longer than 15, but was 16", e.getMessage(false));
 			assertEquals(tooLong, e.getPlainText());
+			assertEquals(true, e.wasLimit());
 			assertEquals(null, e.getItem());
 		}
 		limited15.checkPlainText(ok);
@@ -228,6 +229,7 @@ public class HashTest extends TestWithEnvironment
 			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage(true));
 			assertEquals("plain text length violation, must be no longer than 15, but was 16", e.getMessage(false));
 			assertEquals(tooLong, e.getPlainText());
+			assertEquals(true, e.wasLimit());
 			assertEquals(null, e.getItem());
 		}
 
@@ -246,6 +248,7 @@ public class HashTest extends TestWithEnvironment
 			assertEquals("plain text length violation, must be no longer than 15, but was 16 for HashItem.limited15", e.getMessage(true));
 			assertEquals("plain text length violation, must be no longer than 15, but was 16", e.getMessage(false));
 			assertEquals(tooLong, e.getPlainText());
+			assertEquals(true, e.wasLimit());
 			assertEquals(item, e.getItem());
 		}
 		assertEquals(true, item.checkLimited15(ok));
@@ -371,6 +374,7 @@ public class HashTest extends TestWithEnvironment
 			catch (final Hash.InvalidPlainTextException e)
 			{
 				assertEquals("4544", e.getPlainText());
+				assertEquals(false, e.wasLimit());
 				assertEquals("Pin greater than 3 digits for HashItem.with3PinValidator", e.getMessage());
 				assertEquals(with3PinValidator, e.getFeature());
 				assertEquals(anItem, e.getItem());
@@ -409,6 +413,7 @@ public class HashTest extends TestWithEnvironment
 		catch (final Hash.InvalidPlainTextException e)
 		{
 			assertEquals("1", e.getPlainText());
+			assertEquals(false, e.wasLimit());
 			assertEquals("Pin less than 3 digits for HashItem.with3PinValidator", e.getMessage());
 			assertEquals(with3PinValidator, e.getFeature());
 			assertEquals(anItem, e.getItem());
@@ -458,6 +463,7 @@ public class HashTest extends TestWithEnvironment
 		{
 			assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
 			assertEquals("99x", e.getPlainText());
+			assertEquals(false, e.wasLimit());
 			assertEquals(with3PinValidator, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
@@ -470,6 +476,7 @@ public class HashTest extends TestWithEnvironment
 		{
 			assertEquals("Pin is not a number for HashItem.with3PinValidator", e.getMessage());
 			assertEquals("99x", e.getPlainText());
+			assertEquals(false, e.wasLimit());
 			assertEquals(with3PinValidator, e.getFeature());
 			assertEquals(null, e.getItem());
 		}
