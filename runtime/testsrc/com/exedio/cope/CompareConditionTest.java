@@ -414,7 +414,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					"not supported for non-function: max(CompareConditionItem.day) on " + item,
+					"not supported for non-function: max(CompareConditionItem.day)",
 					e.getMessage());
 		}
 	}

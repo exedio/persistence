@@ -64,7 +64,7 @@ public final class CompareCondition<E> extends Condition
 	{
 		// TODO do something nicer
 		if(!(left instanceof Function))
-			throw new IllegalArgumentException("not supported for non-function: " + left + " on " + item);
+			throw new IllegalArgumentException("not supported for non-function: " + left);
 
 		return operator.evaluate(((Function<E>)left).get(item), right);
 	}

@@ -61,7 +61,7 @@ public final class IsNullCondition<E> extends Condition
 	{
 		// TODO do something nicer
 		if(!(function instanceof Function))
-			throw new IllegalArgumentException("not supported for non-function: " + function + " on " + item);
+			throw new IllegalArgumentException("not supported for non-function: " + function);
 
 		return Trilean.valueOf( (((Function<E>)function).get(item)==null) ^ not );
 	}
