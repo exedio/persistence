@@ -48,10 +48,14 @@ import java.security.SecureRandom;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @WrapFeature
 public class Hash extends Pattern implements HashInterface
 {
+	private static final Logger logger = LoggerFactory.getLogger(Hash.class);
+
 	private static final int DEFAULT_PLAINTEXT_LIMIT = 150;
 	private static final DefaultPlainTextValidator DEFAULT_VALIDATOR = new DefaultPlainTextValidator();
 	private static final long serialVersionUID = 1l;
@@ -497,10 +501,25 @@ public class Hash extends Pattern implements HashInterface
 				final Hash feature)
 		{
 			super(item, /*cause*/ null);
-			this.message = message;
+			this.message = wipePlainTextFromMessage(message, plainText, feature);
 			this.plainText = plainText;
 			this.wasLimit = wasLimit;
 			this.feature = feature;
+		}
+
+		private static String wipePlainTextFromMessage(
+				final String message,
+				final String plainText,
+				final Hash feature)
+		{
+			if(message==null ||
+				plainText==null ||
+				plainText.length()<=3 ||
+				!message.contains(plainText))
+				return message;
+
+			logger.warn("wipePlainTextFromMessage {}", feature);
+			return message.replace(plainText, "<plainText wiped>");
 		}
 
 		@Override public Hash getFeature()
