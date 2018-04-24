@@ -52,7 +52,8 @@ public final class LikeCondition extends Condition
 	@Override
 	Trilean getTri(final Item item)
 	{
-		throw new RuntimeException("not yet implemented");
+		throw new IllegalArgumentException("not yet implemented: " + this); // TODO
+		// once this method is implemented, implementation of #copy(CopyMapper) is needed to support blocks
 	}
 
 	@Override

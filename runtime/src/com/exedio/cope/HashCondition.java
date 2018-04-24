@@ -55,7 +55,8 @@ final class HashCondition extends Condition
 	@Override
 	Trilean getTri(final Item item)
 	{
-		throw new IllegalArgumentException("not supported: " + hash);
+		throw new IllegalArgumentException("not yet implemented: " + this); // TODO
+		// once this method is implemented, implementation of #copy(CopyMapper) is needed to support blocks
 	}
 
 	@Override
@@ -68,7 +69,9 @@ final class HashCondition extends Condition
 	@Override
 	HashCondition copy(final CopyMapper mapper)
 	{
-		throw new RuntimeException("not yet implemented"); // TODO
+		// This is ok as long as getTri is not implemented as well.
+		// Then we cannot use it in CheckConstraint, which is what copy is for.
+		throw new RuntimeException("not yet implemented");
 	}
 
 	@Override
