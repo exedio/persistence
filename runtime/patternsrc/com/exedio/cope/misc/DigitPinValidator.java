@@ -44,13 +44,14 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 		this.pinLen = pinLen;
 	}
 
-	@Override public void validate(String pinString, final Item exceptionItem, final Hash hash) throws
+	@Override public void validate(
+			final String pinString,
+			final Item exceptionItem,
+			final Hash hash) throws
 		Hash.InvalidPlainTextException
 	{
 		if(pinString==null)
 			throw new NullPointerException();
-
-		pinString = pinString.trim();
 
 		if (pinString.length() < pinLen)
 			throw new Hash.InvalidPlainTextException("Pin less than " + pinLen + " digits",
