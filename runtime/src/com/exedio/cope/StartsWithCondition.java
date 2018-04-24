@@ -55,20 +55,16 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
+	void supportsGetTri()
+	{
+		throw new IllegalArgumentException("not yet implemented: " + this); // TODO
+	}
+
+	@Override
 	Trilean getTri(final Item item)
 	{
-		// TODO wastes performance, fetch only the first bytes
-		final byte[] v = field.getArray(item);
-		if(v==null)
-			return Trilean.Null;
-		if(v.length<value.length)
-			return Trilean.False;
-
-		for(int i = 0; i<value.length; i++)
-			if(v[i]!=value[i])
-				return Trilean.False;
-
-		return Trilean.True;
+		throw new RuntimeException(); // TODO
+		// once this method is implemented, implementation of #copy(CopyMapper) is needed to support blocks
 	}
 
 	@Override
@@ -80,7 +76,9 @@ public final class StartsWithCondition extends Condition
 	@Override
 	StartsWithCondition copy(final CopyMapper mapper)
 	{
-		throw new RuntimeException("not yet implemented"); // TODO
+		// This is ok as long as getTri is not implemented as well.
+		// Then we cannot use it in CheckConstraint, which is what copy is for.
+		throw new RuntimeException("not yet implemented");
 	}
 
 	@Override

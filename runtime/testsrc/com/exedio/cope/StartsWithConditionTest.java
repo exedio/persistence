@@ -66,9 +66,9 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		if(!isSupported(data.startsWithIfSupported(bytes4).not()))
 			return;
 
-		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWithIfSupported(bytes4  ).not());
-		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWithIfSupported(bytes6  ).not());
-		assertCondition(reduce(item0, item4         ), TYPE, data.startsWithIfSupported(bytes6x4).not());
+		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWithIfSupported(bytes4  ).not(), data.startsWithIfSupported(bytes4  ));
+		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWithIfSupported(bytes6  ).not(), data.startsWithIfSupported(bytes6  ));
+		assertCondition(reduce(item0, item4         ), TYPE, data.startsWithIfSupported(bytes6x4).not(), data.startsWithIfSupported(bytes6x4));
 	}
 
 

@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.fail;
@@ -119,11 +120,44 @@ public final class RuntimeAssert
 			final Type<T> type,
 			final Condition actual)
 	{
+		assertCondition(expected, type, actual, actual);
+	}
+
+	public static <T extends Item> void assertCondition(
+			final List<T> expected,
+			final Type<T> type,
+			final Condition actual,
+			final Condition actualNotSupported)
+	{
 		final List<T> actualResult = type.search(actual);
 		assertContainsList(expected, actualResult);
 		assertUnmodifiable(actualResult);
+
+		boolean supportsGetTri = false;
+		try
+		{
+			actual.supportsGetTri();
+			supportsGetTri = true;
+		}
+		catch(final IllegalArgumentException e)
+		{
+			// supports stays false
+			assertSame(IllegalArgumentException.class, e.getClass());
+		}
 		for(final T item : type.search())
-			assertEquals(expected.contains(item), actual.get(item), item.getCopeID());
+		{
+			if(supportsGetTri)
+			{
+				assertEquals(expected.contains(item), actual.get(item), item.getCopeID());
+			}
+			else
+			{
+				assertFails(
+						() -> actual.get(item),
+						IllegalArgumentException.class,
+						"not yet implemented: " + actualNotSupported);
+			}
+		}
 	}
 
 
