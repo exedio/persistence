@@ -82,6 +82,13 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
+	void supportsGetTri()
+	{
+		for(final Condition condition : conditions)
+			condition.supportsGetTri();
+	}
+
+	@Override
 	Trilean getTri(final Item item)
 	{
 		final Trilean absorber = operator.absorber.valueTri;

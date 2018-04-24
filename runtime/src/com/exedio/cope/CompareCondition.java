@@ -60,12 +60,16 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	void supportsGetTri()
 	{
 		// TODO do something nicer
 		if(!(left instanceof Function))
 			throw new IllegalArgumentException("not supported for non-function: " + left);
+	}
 
+	@Override
+	Trilean getTri(final Item item)
+	{
 		return operator.evaluate(((Function<E>)left).get(item), right);
 	}
 

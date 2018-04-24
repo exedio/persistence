@@ -121,6 +121,16 @@ public class CheckConstraintModelTest
 		{
 			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
 		}
+		final Condition unsupportedCondition = new MatchCondition(new StringField(), "literal");
+		try
+		{
+			new CheckConstraint(unsupportedCondition);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("not yet implemented: " + unsupportedCondition, e.getMessage());
+		}
 
 		assertSerializedSame(alphaToBeta, 381);
 	}

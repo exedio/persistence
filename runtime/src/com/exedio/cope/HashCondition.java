@@ -53,9 +53,15 @@ final class HashCondition extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	void supportsGetTri()
 	{
 		throw new IllegalArgumentException("not yet implemented: " + this); // TODO
+	}
+
+	@Override
+	Trilean getTri(final Item item)
+	{
+		throw new RuntimeException(); // TODO
 		// once this method is implemented, implementation of #copy(CopyMapper) is needed to support blocks
 	}
 

@@ -57,12 +57,16 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	Trilean getTri(final Item item)
+	void supportsGetTri()
 	{
 		// TODO do something nicer
 		if(!(function instanceof Function))
 			throw new IllegalArgumentException("not supported for non-function: " + function);
+	}
 
+	@Override
+	Trilean getTri(final Item item)
+	{
 		return Trilean.valueOf( (((Function<E>)function).get(item)==null) ^ not );
 	}
 

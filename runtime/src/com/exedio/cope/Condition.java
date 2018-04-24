@@ -34,7 +34,13 @@ public abstract class Condition implements Serializable
 		// ensures same behaviour for different implementations of getTri, avoid hiding bugs
 		requireNonNull(item, "item");
 
+		supportsGetTri();
 		return getTri(item).applies;
+	}
+
+	void supportsGetTri()
+	{
+		// empty default implementation means condition does always support getTri
 	}
 
 	abstract Trilean getTri(@Nonnull Item item);
