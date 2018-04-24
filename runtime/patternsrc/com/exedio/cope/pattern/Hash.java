@@ -151,6 +151,14 @@ public class Hash extends Pattern implements HashInterface
 		return AlgorithmAdapter.unwrapEncoding(algorithm);
 	}
 
+	/**
+	 * @see #validate(PlainTextValidator)
+	 */
+	public final PlainTextValidator getPlainTextValidator()
+	{
+		return validator!=DEFAULT_VALIDATOR ? validator : null;
+	}
+
 	@Override
 	public final boolean isInitial()
 	{
@@ -263,6 +271,9 @@ public class Hash extends Pattern implements HashInterface
 		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
 	}
 
+	/**
+	 * @see #getPlainTextValidator()
+	 */
 	public final Hash validate(final PlainTextValidator validator)
 	{
 		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
