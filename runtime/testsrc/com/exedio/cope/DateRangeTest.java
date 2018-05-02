@@ -29,7 +29,6 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Table;
-import java.text.ParseException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
@@ -37,7 +36,7 @@ import org.junit.jupiter.api.Test;
 @MainRule.Tag
 public class DateRangeTest extends TestWithEnvironment
 {
-	@Test void testMinimum() throws ParseException
+	@Test void testMinimum()
 	{
 		final MyItem item = new MyItem();
 		final Date value = toDate(LocalDateTime.of(1600, 1, 1, 0, 0));
@@ -56,7 +55,7 @@ public class DateRangeTest extends TestWithEnvironment
 		assertConstraints();
 	}
 
-	@Test void testMaximum() throws ParseException
+	@Test void testMaximum()
 	{
 		final MyItem item = new MyItem();
 		final Date value = toDate(LocalDateTime.of(9999, 12, 31, 23, 59, 59, 999000000));
@@ -86,7 +85,7 @@ public class DateRangeTest extends TestWithEnvironment
 		assertEquals(0, max.checkL());
 	}
 
-	@Test void testMinimumExceeded() throws ParseException
+	@Test void testMinimumExceeded()
 	{
 		final MyItem item = new MyItem();
 		final Date value = toDate(LocalDateTime.of(1599, 12, 31, 23, 59, 59, 999000000));
@@ -105,7 +104,7 @@ public class DateRangeTest extends TestWithEnvironment
 		assertEquals(null, item.getField());
 	}
 
-	@Test void testMaximumExceeded() throws ParseException
+	@Test void testMaximumExceeded()
 	{
 		final MyItem item = new MyItem();
 		final Date value = toDate(LocalDateTime.of(10000, 1, 1, 0, 0, 0));

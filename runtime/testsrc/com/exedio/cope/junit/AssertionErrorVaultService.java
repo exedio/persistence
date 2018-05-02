@@ -39,6 +39,7 @@ import java.io.OutputStream;
  * to make your subclass cope with new methods
  * in {@link VaultService}.
  */
+@SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 public class AssertionErrorVaultService implements VaultService
 {
 	public AssertionErrorVaultService()
