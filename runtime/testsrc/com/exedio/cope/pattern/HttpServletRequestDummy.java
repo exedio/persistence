@@ -41,6 +41,7 @@ import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
 @SuppressFBWarnings("NM_CONFUSING")
+@SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 class HttpServletRequestDummy implements HttpServletRequest
 {
 	@Override
