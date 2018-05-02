@@ -52,7 +52,7 @@ public abstract class Node
 	final ConnectionProvider connectionProvider;
 
 	private final boolean required;
-	private boolean exists = false;
+	private boolean exists;
 
 	private Result resultIfSet;
 
