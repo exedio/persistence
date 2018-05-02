@@ -232,6 +232,7 @@ abstract class ClusterSender
 	}
 
 	abstract long nanoTime();
+	@SuppressWarnings("RedundantThrows") // IDEA bug - IOException is not redundant
 	abstract void send(final int length, final byte[] buf) throws IOException;
 	abstract int getLocalPort();
 	abstract int getSendBufferSize();

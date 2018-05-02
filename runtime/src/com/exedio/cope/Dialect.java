@@ -86,6 +86,7 @@ abstract class Dialect
 	 * @param connection used in subclasses
 	 * @throws SQLException thrown by subclasses
 	 */
+	@SuppressWarnings("RedundantThrows") // IDEA bug - SQLException is not redundant
 	void completeConnection(final Connection connection) throws SQLException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
@@ -95,6 +96,7 @@ abstract class Dialect
 	 * @param out used in subclasses
 	 * @throws IOException thrown by subclasses
 	 */
+	@SuppressWarnings("RedundantThrows") // IDEA bug - IOException is not redundant
 	void prepareDumperConnection(final Appendable out) throws IOException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
@@ -104,6 +106,7 @@ abstract class Dialect
 	 * @param out used in subclasses
 	 * @throws IOException thrown by subclasses
 	 */
+	@SuppressWarnings("RedundantThrows") // IDEA bug - IOException is not redundant
 	void unprepareDumperConnection(final Appendable out) throws IOException
 	{
 		// default implementation does nothing, may be overwritten by subclasses
