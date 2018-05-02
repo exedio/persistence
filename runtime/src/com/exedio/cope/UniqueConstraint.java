@@ -284,7 +284,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 		final Item collision = search(values);
 		final Item item = fieldValues.getBackingItem();
-		if(collision!=null && (item==null || !item.equals(collision)))
+		if(collision!=null && !collision.equals(item))
 			throw new UniqueViolationException(this, item, null);
 	}
 
