@@ -774,7 +774,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(subtype==null)
 			return null;
 		if(!isAssignableFrom(subtype))
-			throw new ClassCastException("expected a " + toString() + ", but was a " + subtype);
+			throw new ClassCastException("expected a " + this + ", but was a " + subtype);
 
 		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: checked at runtime
 		final Type<T> result = (Type)subtype;

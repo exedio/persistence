@@ -116,7 +116,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		 */
 		void checkLoad(final Connection connection, final Item item)
 		{
-			throw new RuntimeException( "load in "+toString() );
+			throw new RuntimeException( "load in " + this );
 		}
 
 		/**
@@ -125,7 +125,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		 */
 		void checkSearch( final Connection connection, final Query<?> query )
 		{
-			throw new RuntimeException( "search in "+toString() );
+			throw new RuntimeException( "search in " + this );
 		}
 
 		@SuppressWarnings("resource")
@@ -133,7 +133,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		{
 			if ( ! tx.getConnection().equals(connection) )
 			{
-				throw new RuntimeException( "connection mismatch in "+toString()+": expected <"+connection+"> but was <"+tx.getConnection()+">" );
+				throw new RuntimeException( "connection mismatch in "+this+": expected <"+connection+"> but was <"+tx.getConnection()+">" );
 			}
 		}
 	}
@@ -154,7 +154,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 			checkConnection( connection );
 			if ( !this.item.equals(item) )
 			{
-				throw new RuntimeException( "item mismatch in "+toString()+" (got "+item.getCopeID()+")" );
+				throw new RuntimeException( "item mismatch in "+this+" (got "+item.getCopeID()+")" );
 			}
 		}
 
@@ -181,7 +181,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 			checkConnection( connection );
 			if ( !type.equals(query.getType()) )
 			{
-				throw new RuntimeException( "search type mismatch in "+toString()+" (got "+query.getType()+")" );
+				throw new RuntimeException( "search type mismatch in "+this+" (got "+query.getType()+")" );
 			}
 		}
 

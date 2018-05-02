@@ -44,7 +44,7 @@ class CopeNameSpace extends NameSpace
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	private void debugStart(final String message)
 	{
-		debug(message+" in "+toString());
+		debug(message+" in "+this);
 		depth++;
 	}
 

@@ -101,7 +101,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		@SuppressWarnings("unchecked")
 		final X result = (X)templateToComponent.get(template);
 		if(result==null)
-			throw new IllegalArgumentException(template + " is not a template of " + toString());
+			throw new IllegalArgumentException(template + " is not a template of " + this);
 		return result;
 	}
 
@@ -115,7 +115,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		@SuppressWarnings("unchecked")
 		final X result = (X)componentToTemplate.get(component);
 		if(result==null)
-			throw new IllegalArgumentException(component + " is not a component of " + toString());
+			throw new IllegalArgumentException(component + " is not a component of " + this);
 		return result;
 	}
 

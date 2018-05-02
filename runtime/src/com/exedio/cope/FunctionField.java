@@ -267,11 +267,11 @@ public abstract class FunctionField<E> extends Field<E>
 	final E getMandatoryObject(final Item item)
 	{
 		if(optional)
-			throw new IllegalArgumentException("field " + toString() + " is not mandatory");
+			throw new IllegalArgumentException("field " + this + " is not mandatory");
 
 		final E result = get(item);
 		if(result==null)
-			throw new NullPointerException("field " + toString() + " returns null in getMandatory");
+			throw new NullPointerException("field " + this + " returns null in getMandatory");
 		return result;
 	}
 

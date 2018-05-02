@@ -354,7 +354,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	private void assertFallbacks()
 	{
 		if(fallback==null)
-			throw new IllegalArgumentException("field " + toString() + " has no fallbacks");
+			throw new IllegalArgumentException("field " + this + " has no fallbacks");
 	}
 
 	private K getFallbackByAnnotation()

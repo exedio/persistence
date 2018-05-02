@@ -170,7 +170,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 				throw new ClassCastException(
 						"expected a " + valueClass.getName() +
 						", but was a " + value.getClass().getName() +
-						" for " + toString() + '.');
+						" for " + this + '.');
 			}
 
 			checkNotNull(valueClass.cast(value), exceptionItem);

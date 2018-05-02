@@ -157,7 +157,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		@SuppressWarnings("unchecked")
 		final X result = (X)templateToComponent.get(template);
 		if(result==null)
-			throw new IllegalArgumentException(template + " is not a template of " + toString());
+			throw new IllegalArgumentException(template + " is not a template of " + this);
 		return result;
 	}
 
@@ -170,7 +170,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		@SuppressWarnings("unchecked")
 		final X result = (X)componentToTemplate.get(component);
 		if(result==null)
-			throw new IllegalArgumentException(component + " is not a component of " + toString());
+			throw new IllegalArgumentException(component + " is not a component of " + this);
 		return result;
 	}
 
@@ -196,7 +196,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	{
 		if(!(f instanceof FunctionField))
 			throw new IllegalArgumentException(
-					f + " is not a template/component of " + toString() + " " +
+					f + " is not a template/component of " + this + " " +
 					"because it is not a FunctionField, but a " + f.getClass().getName());
 	}
 

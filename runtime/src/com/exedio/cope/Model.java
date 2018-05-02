@@ -997,10 +997,10 @@ public final class Model implements Serializable
 			}
 			catch(final NoSuchFieldException e)
 			{
-				throw new IllegalArgumentException(toString() + " does not exist.", e);
+				throw new IllegalArgumentException(this + " does not exist.", e);
 			}
 			if((field.getModifiers()&STATIC_FINAL)!=STATIC_FINAL)
-				throw new IllegalArgumentException(toString() + " is not static final.");
+				throw new IllegalArgumentException(this + " is not static final.");
 			field.setAccessible(true);
 			final Object result;
 			try
@@ -1013,9 +1013,9 @@ public final class Model implements Serializable
 			}
 
 			if(result==null)
-				throw new IllegalArgumentException(toString() + " is null.");
+				throw new IllegalArgumentException(this + " is null.");
 			if(!(result instanceof Model))
-				throw new IllegalArgumentException(toString() + " is not a model, but " + result.getClass().getName() + '.');
+				throw new IllegalArgumentException(this + " is not a model, but " + result.getClass().getName() + '.');
 
 			return result;
 		}

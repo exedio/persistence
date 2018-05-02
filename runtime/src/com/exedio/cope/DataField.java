@@ -538,7 +538,7 @@ public final class DataField extends Field<DataField.Value>
 		{
 			if(exhausted)
 				throw new IllegalStateException(
-						"Value already exhausted: " + toString() + "." +
+						"Value already exhausted: " + this + "." +
 						" Each DataField.Value can be used for at most one setter action.");
 			exhausted = true;
 		}

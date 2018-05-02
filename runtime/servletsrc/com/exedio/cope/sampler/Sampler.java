@@ -158,7 +158,7 @@ public class Sampler
 
 	SamplerModel sampleInternal(final long transactionDuration, final String buildTag)
 	{
-		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample environment"))
+		try(TransactionTry tx = samplerModel.startTransactionTry(this + " sample environment"))
 		{
 			SamplerEnvironment.sample(sampledModel, buildTag);
 			tx.commit();
@@ -172,7 +172,7 @@ public class Sampler
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
-		try(TransactionTry tx = samplerModel.startTransactionTry(toString() + " sample"))
+		try(TransactionTry tx = samplerModel.startTransactionTry(this + " sample"))
 		{
 			sv.clear();
 			sv.add(SamplerModel.from.map(from.date));

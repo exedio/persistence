@@ -242,7 +242,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 			throw new ClassCastException(
 					"expected a Type<? extends " + valueClass.getName() + ">" +
 					", but was a Type<" + value.getJavaClass().getName() + ">" +
-					" for " + toString() + '.');
+					" for " + this + '.');
 	}
 
 	public List<Type<? extends E>> getValues()

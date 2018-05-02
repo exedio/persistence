@@ -799,7 +799,7 @@ public final class Query<R> implements Serializable
 				throw new IllegalArgumentException(
 						"expected result of size one or less, " +
 						"but was " + resultList +
-						" for query: " + toString());
+						" for query: " + this);
 		}
 	}
 
@@ -823,14 +823,14 @@ public final class Query<R> implements Serializable
 			case 0:
 				throw new IllegalArgumentException(
 						"expected result of size one, " +
-						"but was empty for query: " + toString());
+						"but was empty for query: " + this);
 			case 1:
 				return resultList.get(0);
 			default:
 				throw new IllegalArgumentException(
 						"expected result of size one, " +
 						"but was " + resultList +
-						" for query: " + toString());
+						" for query: " + this);
 		}
 	}
 

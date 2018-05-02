@@ -119,7 +119,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	{
 		super.mount(type, name, annotationSource);
 		for(final FunctionField<?> f : fields)
-			if (f.getType()!=type) throw new IllegalArgumentException("UniqueConstraint "+toString()+" cannot include field "+f);
+			if (f.getType()!=type) throw new IllegalArgumentException("UniqueConstraint "+this+" cannot include field "+f);
 	}
 
 	@Override

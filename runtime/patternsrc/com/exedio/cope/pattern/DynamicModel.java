@@ -330,7 +330,7 @@ public final class DynamicModel<L> extends Pattern
 		if(type!=null && !this.equals(type.getModel()))
 			throw new IllegalArgumentException(
 					"dynamic model mismatch: new type has model " + type.getModel() +
-					", but must be " + toString());
+					", but must be " + this);
 
 		final SetValue<?>[] values = new SetValue<?>[1+fields.length];
 		values[0] = mount().type.map(type);
