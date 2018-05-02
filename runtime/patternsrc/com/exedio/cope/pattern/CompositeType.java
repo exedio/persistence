@@ -138,12 +138,14 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		return Collections.emptyList();
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
 		return templateList;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getFeatures()
 	{
@@ -165,6 +167,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	private List<String> localizationKeysIfInitialized = null;
 
 	@Override
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // result of LocalizationKeys#get is unmodifiable
 	public List<String> getLocalizationKeys()
 	{
 		if(localizationKeysIfInitialized!=null)

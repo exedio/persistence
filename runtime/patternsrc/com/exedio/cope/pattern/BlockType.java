@@ -97,12 +97,14 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 		return Collections.emptyList();
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
 		return templateList;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getFeatures()
 	{
@@ -123,6 +125,7 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 
 	private List<String> localizationKeysIfInitialized = null;
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // result of LocalizationKeys#get is unmodifiable
 	@Override
 	public List<String> getLocalizationKeys()
 	{

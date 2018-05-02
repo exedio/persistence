@@ -399,6 +399,7 @@ public abstract class Pattern extends Feature
 	 * @see #addSourceFeature(Feature, String)
 	 * @see Feature#getPattern()
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // sourceFeatureList is unmodifiable
 	public final List<? extends Feature> getSourceFeatures()
 	{
 		if(sourceFeatureList==null)
@@ -411,6 +412,7 @@ public abstract class Pattern extends Feature
 	 * @see #newSourceType(Class, Features)
 	 * @see Type#getPattern()
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // sourceTypes is unmodifiable
 	public final List<Type<?>> getSourceTypes()
 	{
 		if(sourceTypes==null)

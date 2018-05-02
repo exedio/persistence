@@ -200,11 +200,13 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 					"because it is not a FunctionField, but a " + f.getClass().getName());
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	public List<? extends FunctionField<?>> getTemplates()
 	{
 		return valueType.templateList;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // componentList is unmodifiable
 	@Override
 	public List<? extends FunctionField<?>> getComponents()
 	{

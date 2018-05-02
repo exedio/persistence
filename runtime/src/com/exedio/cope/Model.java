@@ -274,16 +274,19 @@ public final class Model implements Serializable
 		return Date.from(connect.date);
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // typeList is unmodifiable
 	public List<Type<?>> getTypes()
 	{
 		return types.typeList;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // typeListSorted is unmodifiable
 	public List<Type<?>> getTypesSortedByHierarchy()
 	{
 		return types.typeListSorted;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // concreteTypes is unmodifiable
 	public List<Type<?>> getConcreteTypes()
 	{
 		return types.concreteTypes;
@@ -340,6 +343,7 @@ public final class Model implements Serializable
 	/**
 	 * @see StringField#hashMatchesIfSupported(String, DataField)
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // supportedDataHashAlgorithms is unmodifiable
 	public SortedSet<String> getSupportedDataHashAlgorithms()
 	{
 		return connect().supportedDataHashAlgorithms;

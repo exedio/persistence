@@ -82,6 +82,7 @@ public abstract class Feature implements Serializable
 
 		private List<String> localizationKeysIfInitialized = null;
 
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // result of ListUtil#trimUnmodifiable is unmodifiable
 		final List<String> getLocalizationKeys()
 		{
 			if(localizationKeysIfInitialized!=null)
