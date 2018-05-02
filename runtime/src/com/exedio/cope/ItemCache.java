@@ -88,12 +88,8 @@ final class ItemCache
 				if (entry.getKey()<connectionStamp) continue;
 				if (entry.getValue().contains(item)) return true;
 			}
-			return false;
 		}
-		else
-		{
-			return false;
-		}
+		return false;
 	}
 
 	WrittenState getState(final Transaction tx, final Item item)

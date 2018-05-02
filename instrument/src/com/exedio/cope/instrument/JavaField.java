@@ -122,7 +122,6 @@ final class JavaField
 			if (unusedValidWrapKeys.isEmpty())
 			{
 				details.append("\tThere are no unused valid wrap values.");
-				details.append(System.lineSeparator());
 			}
 			else
 			{
@@ -131,8 +130,8 @@ final class JavaField
 				{
 					details.append(" ").append(validWrapKey);
 				}
-				details.append(System.lineSeparator());
 			}
+			details.append(System.lineSeparator());
 			reportSourceProblem(Severity.error, "invalid wrap", details.toString());
 			return true;
 		}

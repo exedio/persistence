@@ -150,7 +150,6 @@ public final class Transaction
 			}
 			result = new Entity(this, state);
 			entityMap.put(pk, result);
-			return result;
 		}
 		else
 		{
@@ -158,8 +157,8 @@ public final class Transaction
 			{
 				throw new RuntimeException("tried to create entity that is already in cache: " + item.getCopeID() + '/' + result);
 			}
-			return result;
 		}
+		return result;
 	}
 
 	void removeEntity(final Item item)
