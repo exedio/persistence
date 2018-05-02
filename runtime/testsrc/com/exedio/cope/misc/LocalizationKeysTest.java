@@ -90,6 +90,7 @@ public class LocalizationKeysTest
 		normal,
 		body
 		{
+			@SuppressWarnings("RedundantMethodOverride") // OK: method just has to be present for testing
 			@Override void method()
 			{
 				// empty
