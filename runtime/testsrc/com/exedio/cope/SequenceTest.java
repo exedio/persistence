@@ -116,7 +116,7 @@ public class SequenceTest extends TestWithEnvironment
 	@Test void testParallelSequenceAccess() throws InterruptedException
 	{
 		final Thread[] threads = new Thread[ 10 ];
-		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<Integer>() );
+		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<>() );
 		final Set<Integer> expected = new HashSet<>();
 		for ( int i=0; i<threads.length; i++ )
 		{
