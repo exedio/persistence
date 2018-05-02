@@ -535,6 +535,7 @@ final class Generator
 			writeIndent(1);
 			if(!methodReturnType.equals(void.class))
 				write("return ");
+		//noinspection IfStatementWithIdenticalBranches keep opening and closing parenthesis together
 		if(kind.revertFeatureBody)
 		{
 			write(methodName);
