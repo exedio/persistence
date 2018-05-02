@@ -43,7 +43,7 @@ public class DigitPinValidatorTest
 		this.validator = new DigitPinValidator(4);
 	}
 
-	@Test void testValidate() throws Exception
+	@Test void testValidate()
 	{
 		// test some valid pins
 		for (final String validPin : new String[] {"1233", "0000", "9999", "8376"})
@@ -105,7 +105,7 @@ public class DigitPinValidatorTest
 		}
 	}
 
-	@Test void testNewRandomPlainText() throws Exception
+	@Test void testNewRandomPlainText()
 	{
 		assertIt(1, asList("0", "1", "2", "3", "4"));
 		assertIt(2, asList("01", "23", "45", "67", "89"));
