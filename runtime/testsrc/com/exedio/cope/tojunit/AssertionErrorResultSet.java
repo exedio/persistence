@@ -40,7 +40,7 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Map;
 
-@SuppressWarnings("unused")
+@SuppressWarnings({"unused", "RedundantThrows"}) // RedundantThrows: allow subclasses to throw SQLException
 class AssertionErrorResultSet implements ResultSet
 {
 	@Override
