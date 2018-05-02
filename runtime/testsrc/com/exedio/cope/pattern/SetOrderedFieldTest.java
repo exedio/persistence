@@ -292,7 +292,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
-	@Test void testMultipleItems() throws Exception
+	@Test void testMultipleItems()
 	{
 		final String rot = "1hellrot";
 		final String blau = "2blau";
@@ -319,7 +319,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertContains(getParentsOfStrings(null));
 	}
 
-	@Test void testEmpty() throws Exception
+	@Test void testEmpty()
 	{
 		final Query<SetOrderedFieldItem> q = TYPE.newQuery(strings.getElement().isNull());
 		q.joinOuterLeft(strings.getRelationType(), strings.getParent().equalTarget());

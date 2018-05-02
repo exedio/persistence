@@ -331,7 +331,7 @@ public class HashTest extends TestWithEnvironment
 	 * @see Hash#blind(String)
 	 * @see Hash#check(com.exedio.cope.Item, String)
 	 */
-	@Test void testCheckMustNotCallValidator() throws Exception
+	@Test void testCheckMustNotCallValidator()
 	{
 		// validator must not be called from check(..)
 		withCorruptValidator.check(item, "");

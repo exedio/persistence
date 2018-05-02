@@ -43,7 +43,7 @@ public class ParamsTest
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
-	@Test void generateDeprecatedInvalid() throws HumanReadableException
+	@Test void generateDeprecatedInvalid()
 	{
 		checkRejected("broken", "invalid <generateDeprecated> syntax in broken");
 		checkRejected("X#y( )", "<generateDeprecated> must not contain space or newline");

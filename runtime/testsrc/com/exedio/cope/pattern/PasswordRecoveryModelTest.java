@@ -44,7 +44,7 @@ public class PasswordRecoveryModelTest
 		MODEL.enableSerialization(PasswordRecoveryModelTest.class, "MODEL");
 	}
 
-	@Test void testIt() throws Exception
+	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{
 				TYPE,
