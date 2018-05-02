@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -366,10 +367,10 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:11:32.334"); // out of reuse
 		final Token token3 = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
-		assertFalse(token3.equals(token1));
+		assertNotEquals(token3, token1);
 		assertEqualsDate("2005-05-12 13:26:32.334", token3.getExpires());
 		assertContains(token1, token3, passwordRecovery.getTokenType().search());
-		assertFalse(token3.equals(token1));
+		assertNotEquals(token3, token1);
 	}
 
 	@Test void testNoReuse()
@@ -384,10 +385,10 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.add("2005-05-12 13:11:22.333"); // same time
 		final Token token3 = i.issuePasswordRecovery(config);
 		clock.assertEmpty();
-		assertFalse(token3.equals(token1));
+		assertNotEquals(token3, token1);
 		assertEqualsDate("2005-05-12 13:26:22.333", token3.getExpires());
 		assertContains(token1, token3, passwordRecovery.getTokenType().search());
-		assertFalse(token3.equals(token1));
+		assertNotEquals(token3, token1);
 	}
 
 	@Deprecated

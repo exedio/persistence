@@ -25,7 +25,7 @@ import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.Wrapper;
@@ -81,7 +81,7 @@ public class HashConditionTest extends TestWithEnvironment
 			this.empty = empty;
 			this.franz = franz;
 			assertEquals(empty.length(), franz.length());
-			assertFalse(empty.equals(franz));
+			assertNotEquals(empty, franz);
 		}
 
 		static Algorithm forCode(final String code)
@@ -110,7 +110,7 @@ public class HashConditionTest extends TestWithEnvironment
 		for(final String algorithm : supported)
 		{
 			assertTrue(!algorithm.isEmpty(), algorithm);
-			assertTrue(algorithm.equals(algorithm.trim()), algorithm);
+			assertEquals(algorithm, algorithm.trim(), algorithm);
 
 			final Algorithm a = Algorithm.forCode(algorithm);
 			if(!isSupported(MyItem.hash.hashMatchesIfSupported(algorithm, MyItem.data)))

@@ -20,6 +20,7 @@ package com.exedio.cope.vaultmock;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.util.CharSet;
@@ -188,9 +189,7 @@ public final class VaultMockService implements VaultService
 		assertNotNull(hash);
 		assertEquals(vaultProperties.getAlgorithmLength(), hash.length(), hash);
 		assertEquals(-1, CharSet.HEX_LOWER.indexOfNotContains(hash),      hash);
-		assertFalse(
-				hash.equals(vaultProperties.getAlgorithmDigestForEmptyByteSequence()),
-				"empty byte sequence is not handled by service implementations");
+		assertNotEquals(hash, vaultProperties.getAlgorithmDigestForEmptyByteSequence(), "empty byte sequence is not handled by service implementations");
 	}
 
 	public void clear()

@@ -170,7 +170,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 				throw new RuntimeException(e);
 			}
 
-			assertTrue(this.event==null);
+			assertNull(this.event);
 
 			assertContains(model.getOpenTransactions());
 			try
