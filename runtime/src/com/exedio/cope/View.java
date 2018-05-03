@@ -66,6 +66,7 @@ public abstract class View<E> extends Feature
 		}
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // sourceList is unmodifiable
 	public final List<Function<?>> getSources()
 	{
 		return sourceList;

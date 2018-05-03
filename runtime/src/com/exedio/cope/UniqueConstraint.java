@@ -128,6 +128,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		return new UniqueConstraint(mapper.get(fields));
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // fieldList is unmodifiable
 	public List<FunctionField<?>> getFields()
 	{
 		return fieldList;

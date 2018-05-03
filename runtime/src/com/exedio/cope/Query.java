@@ -673,6 +673,7 @@ public final class Query<R> implements Serializable
 		 * evaluated within the execution of {@link Query#searchAndTotal()}
 		 * that created this {@code Result}.
 		 */
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // data is unmodifiable
 		public List<R> getData()
 		{
 			return data;

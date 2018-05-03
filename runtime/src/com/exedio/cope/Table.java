@@ -126,6 +126,7 @@ final class Table
 	 * @see #getAllColumns()
 	 * @see #primaryKey
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // columns is unmodifiable
 	List<Column> getColumns()
 	{
 		if(columns==null)
@@ -140,6 +141,7 @@ final class Table
 	 * @see #getColumns()
 	 * @see #primaryKey
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // allColumns is unmodifiable
 	List<Column> getAllColumns()
 	{
 		if(allColumns==null)
@@ -163,7 +165,7 @@ final class Table
 		this.uniqueConstraints = uniqueConstraints;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
 	List<? extends UniqueConstraint> getUniqueConstraints()
 	{
 		if(uniqueConstraints==null)
@@ -187,7 +189,7 @@ final class Table
 		this.checkConstraints = checkConstraints;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
 	List<? extends CheckConstraint> getCheckConstraints()
 	{
 		if(checkConstraints==null)

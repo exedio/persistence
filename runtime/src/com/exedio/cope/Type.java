@@ -648,6 +648,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * and including this type itself,
 	 * which are not abstract.
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // typesOfInstances is unmodifiable
 	public List<Type<? extends T>> getTypesOfInstances()
 	{
 		return mount().typesOfInstances;
@@ -668,6 +669,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return mount().marshaller;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // typesOfInstancesColumnValues is unmodifiable
 	SortedSet<String> getTypesOfInstancesColumnValues()
 	{
 		return mount().typesOfInstancesColumnValues;
@@ -728,7 +730,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @see #getSubtypesTransitively()
 	 */
 	@Override
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubtypes()
 	{
 		return mount().subtypes;
@@ -741,7 +743,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * own zeroth-order subtype.
 	 * @see #getSubtypes()
 	 */
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubtypesTransitively()
 	{
 		return mount().subtypesTransitively;
@@ -802,6 +804,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * which {@link ItemField#getValueType value type} equals this type.
 	 * @see #getReferences()
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // declaredReferences is unmodifiable
 	public List<ItemField<T>> getDeclaredReferences()
 	{
 		return mount().declaredReferences;
@@ -813,6 +816,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * or any of it's super types.
 	 * @see #getDeclaredReferences()
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // references is unmodifiable
 	public List<ItemField<? super T>> getReferences()
 	{
 		return mount().references;
@@ -831,6 +835,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Naming of this method is inspired by Java Reflection API
 	 * method {@link Class#getDeclaredFields() getDeclaredFields}.
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // declared is unmodifiable
 	public List<? extends Field<?>> getDeclaredFields()
 	{
 		return fields.declared;
@@ -848,17 +853,20 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * excluding fields inherited from super types,
 	 * use {@link #getDeclaredFields()}.
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // all is unmodifiable
 	public List<? extends Field<?>> getFields()
 	{
 		return fields.all;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // featuresDeclared is unmodifiable
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
 		return featuresDeclared;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // features is unmodifiable
 	@Override
 	public List<? extends Feature> getFeatures()
 	{
@@ -879,6 +887,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	private List<String> localizationKeysIfInitialized = null;
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // result of LocalizationKeys#get is unmodifiable
 	@Override
 	public List<String> getLocalizationKeys()
 	{
@@ -889,37 +898,37 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return localizationKeysIfInitialized;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
 	public List<? extends UniqueConstraint> getDeclaredUniqueConstraints()
 	{
 		return uniqueConstraints.declared;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; all is unmodifiable
 	public List<? extends UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints.all;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
 	public List<? extends CheckConstraint> getDeclaredCheckConstraints()
 	{
 		return checkConstraints.declared;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; all is unmodifiable
 	public List<? extends CheckConstraint> getCheckConstraints()
 	{
 		return checkConstraints.all;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; declared is unmodifiable
 	public List<? extends CopyConstraint> getDeclaredCopyConstraints()
 	{
 		return copyConstraints.declared;
 	}
 
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable; all is unmodifiable
 	public List<? extends CopyConstraint> getCopyConstraints()
 	{
 		return copyConstraints.all;

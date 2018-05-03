@@ -76,6 +76,7 @@ public final class ClusterListenerInfo
 		return fromMyself;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // nodes is unmodifiable
 	public List<Node> getNodes()
 	{
 		return nodes;
