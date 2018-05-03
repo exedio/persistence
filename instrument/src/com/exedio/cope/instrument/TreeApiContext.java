@@ -100,7 +100,7 @@ final class TreeApiContext
 		return docTrees.getElement(tp);
 	}
 
-	byte[] getAllBytes()
+	private byte[] getAllBytes()
 	{
 		if ( allBytes==null )
 		{
