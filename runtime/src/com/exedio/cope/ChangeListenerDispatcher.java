@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import gnu.trove.TLongHashSet;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -95,9 +97,7 @@ final class ChangeListenerDispatcher implements Runnable
 					return;
 				}
 
-				final ChangeEvent event = queue.take();
-				if(event==null)
-					throw new RuntimeException("null take");
+				final ChangeEvent event = requireNonNull(queue.take());
 
 				if(!threadRun)
 				{
