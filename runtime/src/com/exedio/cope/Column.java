@@ -112,6 +112,7 @@ abstract class Column
 	}
 
 	@Override
+	@SuppressWarnings("Contract")
 	@SuppressFBWarnings("EQ_UNUSUAL")
 	public final boolean equals(final Object other)
 	{
