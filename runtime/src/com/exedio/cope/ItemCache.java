@@ -50,7 +50,7 @@ final class ItemCache
 				typesStatsList.add(cachingDisabled?null:new TypeStats(type));
 			}
 
-		typeStats=typesStatsList.toArray(new TypeStats[typesStatsList.size()]);
+		typeStats=typesStatsList.toArray(new TypeStats[0]);
 		for(int i = 0; i<typeStats.length; i++)
 		{
 			final TypeStats stats = typeStats[i];
@@ -271,7 +271,7 @@ final class ItemCache
 				details.add( typeStat.createItemCacheInfo(levels, stampsSizes) );
 		}
 
-		return new ItemCacheStatistics(map.maxSize, level, details.toArray(new ItemCacheInfo[details.size()]));
+		return new ItemCacheStatistics(map.maxSize, level, details.toArray(new ItemCacheInfo[0]));
 	}
 
 	static class TypeStats

@@ -278,7 +278,7 @@ public final class ConnectToken implements AutoCloseable
 			final ConnectToken[] result;
 			synchronized(lock)
 			{
-				result = tokens.toArray(new ConnectToken[tokens.size()]);
+				result = tokens.toArray(new ConnectToken[0]);
 			}
 			return Collections.unmodifiableList(Arrays.asList(result));
 		}

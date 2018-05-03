@@ -278,7 +278,7 @@ final class WrapperX
 		// TODO use String[] from the beginning
 		return
 			comments!=null
-			? comments.toArray(new String[comments.size()])
+			? comments.toArray(new String[0])
 			: EMPTY_STRING_ARRAY;
 	}
 

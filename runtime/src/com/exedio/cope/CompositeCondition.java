@@ -41,7 +41,7 @@ public final class CompositeCondition extends Condition
 			final Operator operator,
 			final List<? extends Condition> conditions)
 	{
-		this(operator, conditions.toArray(new Condition[conditions.size()]));
+		this(operator, conditions.toArray(new Condition[0]));
 	}
 
 	/**

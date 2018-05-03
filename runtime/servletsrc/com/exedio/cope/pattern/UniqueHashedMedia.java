@@ -356,7 +356,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		}
 		final List<SetValue<?>> setValues = new ArrayList<>(Arrays.asList(this.media.execute(media, exceptionItem)));
 		setValues.add(this.hash.map(hash));
-		return setValues.toArray(new SetValue<?>[setValues.size()]);
+		return setValues.toArray(new SetValue<?>[0]);
 	}
 
 

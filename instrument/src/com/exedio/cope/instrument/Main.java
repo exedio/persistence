@@ -172,7 +172,7 @@ final class Main
 			}
 		}
 		//noinspection ClassLoaderInstantiation OK: not used in production but only on build time
-		return new URLClassLoader(urls.toArray(new URL[urls.size()]), getClass().getClassLoader());
+		return new URLClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader());
 	}
 
 	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles

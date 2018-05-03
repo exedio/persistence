@@ -59,7 +59,7 @@ final class Graph
 					}
 				allEdgesM.addAll(edges);
 
-				final Node node = new Node(table, edges.toArray(new Edge[edges.size()]));
+				final Node node = new Node(table, edges.toArray(new Edge[0]));
 				allNodesM.add(node);
 				if(nodeByTableName.putIfAbsent(table.name, node)!=null)
 					throw new RuntimeException(table.name);

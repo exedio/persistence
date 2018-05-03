@@ -473,7 +473,7 @@ public final class Dispatcher extends Pattern
 		sv.add(pending.map(false));
 		if(supportsPurge())
 			sv.add(unpend.map(new Unpend(success, date)));
-		item.set(sv.toArray(new SetValue<?>[sv.size()]));
+		item.set(sv.toArray(new SetValue<?>[0]));
 	}
 
 	/**

@@ -83,7 +83,7 @@ public class Sampler
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPath)
 					medias.add((MediaPath)feature);
-		this.medias = medias.toArray(new MediaPath[medias.size()]);
+		this.medias = medias.toArray(new MediaPath[0]);
 	}
 
 	public final Model getModel()

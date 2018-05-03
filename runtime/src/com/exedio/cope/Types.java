@@ -136,7 +136,7 @@ final class Types
 		this.typeList = Collections.unmodifiableList(typesL);
 		this.concreteTypeCount = concreteTypeCount;
 		this.concreteTypes = Collections.unmodifiableList(concreteTypes);
-		this.typesSorted = typesSorted.toArray(new Type<?>[typesSorted.size()]);
+		this.typesSorted = typesSorted.toArray(new Type<?>[0]);
 		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
 
 		assert this.concreteTypeCount==this.concreteTypes.size();
@@ -157,7 +157,7 @@ final class Types
 		if(typesWithoutSets!=null)
 			result.addAll(Arrays.asList(typesWithoutSets));
 
-		return result.toArray(new Type<?>[result.size()]);
+		return result.toArray(new Type<?>[0]);
 	}
 
 	private static Type<?>[] sort(final Type<?>[] types)
@@ -198,7 +198,7 @@ final class Types
 			throw new RuntimeException(done+"<->"+typeSet);
 
 		//System.out.println("<--------------------"+result);
-		return result.toArray(new Type<?>[result.size()]);
+		return result.toArray(new Type<?>[0]);
 	}
 
 	private static void addTypeIncludingSourceTypes(

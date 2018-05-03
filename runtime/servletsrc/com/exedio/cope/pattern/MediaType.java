@@ -379,7 +379,7 @@ public final class MediaType
 		Magic(final String magic, final ArrayList<MediaType> types)
 		{
 			this.magic = Hex.decodeLower(magic);
-			this.types = types.toArray(new MediaType[types.size()]);
+			this.types = types.toArray(new MediaType[0]);
 			this.typeNames = names(this.types);
 			assert magic!=null && this.magic.length<=MAGIC_MAX_LENGTH : magic;
 		}
@@ -389,7 +389,7 @@ public final class MediaType
 			final ArrayList<String> result = new ArrayList<>();
 			for(final MediaType type : types)
 				type.addNameAndAliases(result);
-			return result.toArray(new String[result.size()]);
+			return result.toArray(new String[0]);
 		}
 
 		void addAllTypes(final LinkedHashSet<MediaType> set)

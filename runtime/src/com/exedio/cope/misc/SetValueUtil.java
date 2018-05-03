@@ -32,7 +32,7 @@ public final class SetValueUtil
 	{
 		return
 			list!=null
-			? list.toArray(list.toArray(new SetValue<?>[list.size()]))
+			? list.toArray(list.toArray(new SetValue<?>[0]))
 			: null;
 	}
 

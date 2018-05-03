@@ -168,6 +168,6 @@ public final class RevisionInfoRevise extends RevisionInfo
 				date,
 				environment,
 				comment,
-				body.toArray(new Body[body.size()]));
+				body.toArray(new Body[0]));
 	}
 }
