@@ -86,6 +86,7 @@ abstract class CopeFeature
 		return initialType;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 	final SortedSet<Class<? extends Throwable>> getInitialExceptions()
 	{
 		if(initialExceptions==null)

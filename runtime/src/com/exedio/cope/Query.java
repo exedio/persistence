@@ -148,6 +148,7 @@ public final class Query<R> implements Serializable
 		return new Query<>(selects, type, condition);
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 	Selectable<?>[] selects()
 	{
 		if(selectSingle!=null)

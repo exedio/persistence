@@ -107,6 +107,7 @@ final class JavaRepository
 		files.add(file);
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 	List<JavaFile> getFiles()
 	{
 		assert stage==Stage.GENERATE;

@@ -563,6 +563,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		@Override
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 		byte[] asArraySub(final DataField field, final Item exceptionItem)
 		{
 			assertNotExhausted();

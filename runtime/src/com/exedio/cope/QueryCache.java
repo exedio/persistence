@@ -46,6 +46,7 @@ final class QueryCache
 		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.inc()) : null;
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 	ArrayList<Object> search(
 			final Transaction transaction,
 			final Query<?> query,

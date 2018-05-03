@@ -176,6 +176,7 @@ abstract class CopeType<F extends CopeFeature>
 		constructorExceptions.remove(FinalViolationException.class);
 	}
 
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 	final List<CopeFeature> getInitialFeatures()
 	{
 		if(initialFeatures == null)
@@ -190,6 +191,7 @@ abstract class CopeType<F extends CopeFeature>
 	 * but without the FinalViolationException,
 	 * because final attributes can only be written in the constructor.
 	 */
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 	final SortedSet<Class<? extends Throwable>> getConstructorExceptions()
 	{
 		if(constructorExceptions == null)
