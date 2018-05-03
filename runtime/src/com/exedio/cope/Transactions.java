@@ -116,7 +116,7 @@ final class Transactions
 		final Transaction[] result;
 		synchronized(open)
 		{
-			result = open.toArray(new Transaction[open.size()]);
+			result = open.toArray(new Transaction[0]);
 		}
 		return Collections.unmodifiableCollection(Arrays.asList(result));
 	}
