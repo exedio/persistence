@@ -69,6 +69,7 @@ public final class WrapVarargs
 	private static final class VarargsGetter implements FeaturesGetter<WrapVarargs>
 	{
 		@Override
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // just for test
 		public List<?> get(final WrapVarargs feature)
 		{
 			return feature.varargs;
