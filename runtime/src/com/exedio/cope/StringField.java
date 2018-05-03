@@ -288,9 +288,9 @@ public final class StringField extends FunctionField<String>
 		bf.append('\'');
 		if(truncate)
 		{
-			bf.append(value.substring(0, 100)).
+			bf.append(value, 0, 100).
 				append(" ... ").
-				append(value.substring(length-20, length));
+				append(value, length-20, length);
 		}
 		else
 		{

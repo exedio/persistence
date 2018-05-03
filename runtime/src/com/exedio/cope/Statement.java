@@ -387,7 +387,7 @@ final class Statement
 			final Iterator<?> pi = parameters.iterator();
 			for(int pos = text.indexOf(QUESTION_MARK); pos>=0&&pi.hasNext(); pos = text.indexOf(QUESTION_MARK, lastPos))
 			{
-				result.append(text.substring(lastPos, pos));
+				result.append(text, lastPos, pos);
 				result.append(QUESTION_MARK);
 				appendValue(result, pi.next());
 				result.append(QUESTION_MARK);

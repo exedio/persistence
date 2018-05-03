@@ -95,11 +95,11 @@ final class Trimmer
 			//System.out.println("word "+word+" remainder:"+remainder);
 			if((word.length()>wordLength) && remainder>0)
 			{
-				result.append(word.substring(0, wordLength+1));
+				result.append(word, 0, wordLength+1);
 				remainder--;
 			}
 			else if(word.length()>wordLength)
-				result.append(word.substring(0, wordLength));
+				result.append(word, 0, wordLength);
 			else
 				result.append(word);
 		}

@@ -177,7 +177,7 @@ class StringColumn extends Column
 				for(pos = taintedCache.indexOf('\''); pos>=0; pos = taintedCache.indexOf('\'', lastpos))
 				{
 					//System.out.println("---"+lastpos+"-"+pos+">"+taintedCache.substring(lastpos, pos)+"<");
-					buf.append(taintedCache.substring(lastpos, pos)).append("''");
+					buf.append(taintedCache, lastpos, pos).append("''");
 					lastpos = pos+1;
 				}
 				//System.out.println("---"+lastpos+"-END>"+taintedCache.substring(lastpos)+"<");

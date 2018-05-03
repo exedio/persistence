@@ -177,7 +177,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 			final String key = srcString.substring(start + pasteStartLen, stop);
 			if(bf!=null)
 			{
-				bf.append( srcString.substring( nextStart, start ) );
+				bf.append(srcString, nextStart, start);
 				appendKey(bf, item, key, request);
 			}
 			if(brokenCodes!=null)

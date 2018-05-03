@@ -153,7 +153,7 @@ final class JavaRepository
 					}
 					System.out.println("Will use "+result);
 					System.out.println("Try avoiding this, for example by <ignore>ing classes in the <instrument> call.");
-					System.out.println("");
+					System.out.println();
 					break;
 				}
 			}
