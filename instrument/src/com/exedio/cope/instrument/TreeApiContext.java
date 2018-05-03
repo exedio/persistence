@@ -28,7 +28,6 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
@@ -116,15 +115,9 @@ final class TreeApiContext
 		return allBytes;
 	}
 
-	private byte[] getSourceBytes(final int start, final int end)
-	{
-		if (start<0) throw new IllegalArgumentException("start "+start);
-		return Arrays.copyOfRange(getAllBytes(), start, end);
-	}
-
 	String getSourceString(final int start, final int end)
 	{
-		return new String(getSourceBytes(start, end), StandardCharsets.US_ASCII);
+		return new String(getAllBytes(), start, end-start, StandardCharsets.US_ASCII);
 	}
 
 	private static byte[] readFully(final InputStream fis) throws IOException
