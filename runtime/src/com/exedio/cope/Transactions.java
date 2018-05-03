@@ -25,6 +25,8 @@ import java.util.HashSet;
 
 final class Transactions
 {
+	private static final Transaction[] EMPTY_TRANSACTION_ARRAY = new Transaction[0];
+
 	private final HashSet<Transaction> open = new HashSet<>();
 
 	@SuppressWarnings("ThreadLocalNotStaticFinal") // OK: class is instantiated on static context only
@@ -116,7 +118,7 @@ final class Transactions
 		final Transaction[] result;
 		synchronized(open)
 		{
-			result = open.toArray(new Transaction[0]);
+			result = open.toArray(EMPTY_TRANSACTION_ARRAY);
 		}
 		return Collections.unmodifiableCollection(Arrays.asList(result));
 	}
