@@ -45,6 +45,8 @@ final class Main
 
 	static final int INITIAL_BUFFER_SIZE=16384;
 
+	private static final URL[] EMPTY_URL_ARRAY = new URL[0];
+
 	void run(final Params params) throws HumanReadableException, IOException
 	{
 		final List<File> files = params.getJavaSourceFilesExcludingIgnored();
@@ -172,7 +174,7 @@ final class Main
 			}
 		}
 		//noinspection ClassLoaderInstantiation OK: not used in production but only on build time
-		return new URLClassLoader(urls.toArray(new URL[0]), getClass().getClassLoader());
+		return new URLClassLoader(urls.toArray(EMPTY_URL_ARRAY), getClass().getClassLoader());
 	}
 
 	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles

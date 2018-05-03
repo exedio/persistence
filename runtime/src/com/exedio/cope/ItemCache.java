@@ -30,6 +30,9 @@ import java.util.Set;
 
 final class ItemCache
 {
+	private static final TypeStats[] EMPTY_TYPE_STATS_ARRAY = new TypeStats[0];
+	private static final ItemCacheInfo[] EMPTY_ITEM_CACHE_INFO_ARRAY = new ItemCacheInfo[0];
+
 	private final LRUMap<Item,WrittenState> map;
 	private final LinkedHashMap<Long,Set<Item>> stampList;
 
@@ -50,7 +53,7 @@ final class ItemCache
 				typesStatsList.add(cachingDisabled?null:new TypeStats(type));
 			}
 
-		typeStats=typesStatsList.toArray(new TypeStats[0]);
+		typeStats=typesStatsList.toArray(EMPTY_TYPE_STATS_ARRAY);
 		for(int i = 0; i<typeStats.length; i++)
 		{
 			final TypeStats stats = typeStats[i];
@@ -271,7 +274,7 @@ final class ItemCache
 				details.add( typeStat.createItemCacheInfo(levels, stampsSizes) );
 		}
 
-		return new ItemCacheStatistics(map.maxSize, level, details.toArray(new ItemCacheInfo[0]));
+		return new ItemCacheStatistics(map.maxSize, level, details.toArray(EMPTY_ITEM_CACHE_INFO_ARRAY));
 	}
 
 	static class TypeStats

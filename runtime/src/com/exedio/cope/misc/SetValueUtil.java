@@ -27,12 +27,14 @@ import java.util.List;
 
 public final class SetValueUtil
 {
+	private static final SetValue<?>[] EMPTY_SET_VALUE_ARRAY = new SetValue<?>[0];
+
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public static SetValue<?>[] toArray(final List<SetValue<?>> list)
 	{
 		return
 			list!=null
-			? list.toArray(list.toArray(new SetValue<?>[0]))
+			? list.toArray(list.toArray(EMPTY_SET_VALUE_ARRAY))
 			: null;
 	}
 

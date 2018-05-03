@@ -78,6 +78,7 @@ public final class Dispatcher extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	static final Charset ENCODING = StandardCharsets.UTF_8;
+	private static final SetValue<?>[] EMPTY_SET_VALUE_ARRAY = new SetValue<?>[0];
 
 	private final BooleanField pending;
 	private final BooleanField noPurge;
@@ -473,7 +474,7 @@ public final class Dispatcher extends Pattern
 		sv.add(pending.map(false));
 		if(supportsPurge())
 			sv.add(unpend.map(new Unpend(success, date)));
-		item.set(sv.toArray(new SetValue<?>[0]));
+		item.set(sv.toArray(EMPTY_SET_VALUE_ARRAY));
 	}
 
 	/**

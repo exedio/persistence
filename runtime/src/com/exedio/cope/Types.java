@@ -32,6 +32,8 @@ import java.util.ListIterator;
 
 final class Types
 {
+	private static final Type<?>[] EMPTY_TYPE_ARRAY = new Type<?>[0];
+
 	private final Type<?>[] typesSorted;
 	private final Type<?>[] typesByCacheIdTransiently;
 	final int concreteTypeCount;
@@ -136,7 +138,7 @@ final class Types
 		this.typeList = Collections.unmodifiableList(typesL);
 		this.concreteTypeCount = concreteTypeCount;
 		this.concreteTypes = Collections.unmodifiableList(concreteTypes);
-		this.typesSorted = typesSorted.toArray(new Type<?>[0]);
+		this.typesSorted = typesSorted.toArray(EMPTY_TYPE_ARRAY);
 		this.typeListSorted = Collections.unmodifiableList(Arrays.asList(this.typesSorted));
 
 		assert this.concreteTypeCount==this.concreteTypes.size();
@@ -157,7 +159,7 @@ final class Types
 		if(typesWithoutSets!=null)
 			result.addAll(Arrays.asList(typesWithoutSets));
 
-		return result.toArray(new Type<?>[0]);
+		return result.toArray(EMPTY_TYPE_ARRAY);
 	}
 
 	private static Type<?>[] sort(final Type<?>[] types)
@@ -198,7 +200,7 @@ final class Types
 			throw new RuntimeException(done+"<->"+typeSet);
 
 		//System.out.println("<--------------------"+result);
-		return result.toArray(new Type<?>[0]);
+		return result.toArray(EMPTY_TYPE_ARRAY);
 	}
 
 	private static void addTypeIncludingSourceTypes(

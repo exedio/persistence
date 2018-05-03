@@ -38,6 +38,9 @@ import java.util.Set;
 
 public final class MediaType
 {
+	private static final MediaType[] EMPTY_MEDIA_TYPE_ARRAY = new MediaType[0];
+	private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
 	private final byte[] magic;
 	private final String[] extensions;
 	private final String name;
@@ -379,7 +382,7 @@ public final class MediaType
 		Magic(final String magic, final ArrayList<MediaType> types)
 		{
 			this.magic = Hex.decodeLower(magic);
-			this.types = types.toArray(new MediaType[0]);
+			this.types = types.toArray(EMPTY_MEDIA_TYPE_ARRAY);
 			this.typeNames = names(this.types);
 			assert magic!=null && this.magic.length<=MAGIC_MAX_LENGTH : magic;
 		}
@@ -389,7 +392,7 @@ public final class MediaType
 			final ArrayList<String> result = new ArrayList<>();
 			for(final MediaType type : types)
 				type.addNameAndAliases(result);
-			return result.toArray(new String[0]);
+			return result.toArray(EMPTY_STRING_ARRAY);
 		}
 
 		void addAllTypes(final LinkedHashSet<MediaType> set)

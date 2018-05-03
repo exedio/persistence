@@ -53,6 +53,8 @@ import java.util.Map;
 
 public class Sampler
 {
+	private static final MediaPath[] EMPTY_MEDIA_PATH_ARRAY = new MediaPath[0];
+
 	private final Model samplerModel;
 
 	private final Model sampledModel;
@@ -83,7 +85,7 @@ public class Sampler
 			for(final Feature feature : type.getDeclaredFeatures())
 				if(feature instanceof MediaPath)
 					medias.add((MediaPath)feature);
-		this.medias = medias.toArray(new MediaPath[0]);
+		this.medias = medias.toArray(EMPTY_MEDIA_PATH_ARRAY);
 	}
 
 	public final Model getModel()
