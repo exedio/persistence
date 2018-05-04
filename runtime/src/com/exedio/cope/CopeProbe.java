@@ -20,31 +20,22 @@ package com.exedio.cope;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 
 final class CopeProbe
 {
 	final ConnectProperties properties;
-	final Driver driver;
 
 	// probed on the initial connection
 	final EnvironmentInfo environmentInfo;
 
 	CopeProbe(
 			final ConnectProperties properties,
-			final Driver driver,
-			final Connection connection)
-		throws SQLException
+			final EnvironmentInfo environmentInfo)
 	{
 		this.properties = properties;
-		this.driver = driver;
-		this.environmentInfo = new EnvironmentInfo(
-				connection.getCatalog(),
-				connection.getMetaData());
+		this.environmentInfo = environmentInfo;
 	}
 
 	Map<String, String> getRevisionEnvironment()

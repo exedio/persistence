@@ -30,6 +30,7 @@ public class EnviromentInfoTest
 	@Test void testInt() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData(5, 3, 14, 18));
 
@@ -94,6 +95,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescription() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("5.3.1", 5, 3, "14.18a", 14, 18));
 
@@ -137,6 +139,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionExact() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("5.3", 5, 3, "14.18", 14, 18));
 
@@ -146,6 +149,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionMismatchMajor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("6.3", 5, 3, "14.18", 14, 18));
 
@@ -155,6 +159,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionMismatchMinor() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("5.4", 5, 3, "14.18", 14, 18));
 
@@ -164,6 +169,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionDotMissing() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("53", 5, 3, "14.18", 14, 18));
 
@@ -173,6 +179,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionDotOther() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("5x3", 5, 3, "14.18", 14, 18));
 
@@ -182,6 +189,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionDigitAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("5.31", 5, 3, "14.18", 14, 18));
 
@@ -191,6 +199,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionDigitBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("15.3", 5, 3, "14.18", 14, 18));
 
@@ -200,6 +209,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionOtherAfter() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("5.3z", 5, 3, "14.18", 14, 18));
 
@@ -209,6 +219,7 @@ public class EnviromentInfoTest
 	@Test void testShortDescriptionOtherBefore() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("z5.3", 5, 3, "14.18", 14, 18));
 
@@ -218,6 +229,7 @@ public class EnviromentInfoTest
 	@Test void testDriverDescriptionGitMatch() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("XX", 77, 777,
 						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 or so", 5, 1));
@@ -231,6 +243,7 @@ public class EnviromentInfoTest
 	@Test void testDriverDescriptionGitTooShort() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("XX", 77, 777,
 						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5b or so", 5, 1));
@@ -244,6 +257,7 @@ public class EnviromentInfoTest
 	@Test void testDriverDescriptionGitTooLong() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("XX", 77, 777,
 						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2a or so", 5, 1));
@@ -257,6 +271,7 @@ public class EnviromentInfoTest
 	@Test void testDriverDescriptionGitNoHex() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
+				null,
 				"getCatalog",
 				new VersionDatabaseMetaData("XX", 77, 777,
 						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5bX or so", 5, 1));

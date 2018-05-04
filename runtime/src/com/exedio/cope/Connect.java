@@ -73,7 +73,7 @@ final class Connect
 	{
 		this.properties = properties;
 
-		final CopeProbe probe = properties.probeInternal();
+		final CopeProbe probe = new CopeProbe(properties, properties.connection.probe());
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
 		this.dialect = properties.dialect.newInstance(probe);
@@ -87,7 +87,7 @@ final class Connect
 		supportsNativeDate = !properties.isSupportDisabledForNativeDate() && (dialect.getDateTimestampType()!=null);
 		supportsUniqueViolation = !properties.isSupportDisabledForUniqueViolation() && dialect.supportsUniqueViolation();
 
-		this.connectionFactory = new ConnectionFactory(properties.connection, probe.driver, dialect);
+		this.connectionFactory = new ConnectionFactory(properties.connection, probe.environmentInfo.sqlDriver, dialect);
 		final Pool<Connection> pool = new Pool<>(
 				connectionFactory,
 				properties.connectionPool,

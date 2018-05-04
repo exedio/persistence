@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.sql.DatabaseMetaData;
+import java.sql.Driver;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
@@ -26,15 +27,18 @@ import java.util.regex.Pattern;
 
 public final class EnvironmentInfo
 {
+	final Driver sqlDriver;
 	private final String catalog;
 	private final Product database;
 	private final Product driver;
 
 	EnvironmentInfo(
+			final Driver sqlDriver,
 			final String catalog,
 			final DatabaseMetaData dmd)
 		throws SQLException
 	{
+		this.sqlDriver = sqlDriver;
 		this.catalog = catalog;
 		database = new Product(
 				dmd.getDatabaseProductName(),

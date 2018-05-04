@@ -351,11 +351,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			"Dialect";
 	}
 
-	CopeProbe probeInternal()
-	{
-		return connection.probe(this);
-	}
-
 	public String getDialect()
 	{
 		return dialect.getServiceClass().getName();
@@ -408,7 +403,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public String probe()
 	{
-		final EnvironmentInfo info = probeInternal().environmentInfo;
+		final EnvironmentInfo info = connection.probe();
 		return
 				info.getDatabaseProductName() + ' ' +
 				info.getDatabaseVersionDescription() + ' ' +

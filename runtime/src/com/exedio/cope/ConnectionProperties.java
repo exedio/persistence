@@ -34,7 +34,7 @@ final class ConnectionProperties extends Properties
 	final int isValidOnGetTimeout = value("isValidOnGetTimeoutSeconds", 5, 1);
 
 
-	CopeProbe probe(final ConnectProperties outer)
+	EnvironmentInfo probe()
 	{
 		final Driver driver;
 		try
@@ -50,7 +50,7 @@ final class ConnectionProperties extends Properties
 
 		try(Connection connection = driver.connect(url, newInfo()))
 		{
-			return new CopeProbe(outer, driver, connection);
+			return new EnvironmentInfo(driver, connection.getCatalog(), connection.getMetaData());
 		}
 		catch(final SQLException e)
 		{
