@@ -369,6 +369,7 @@ public class ConnectPropertiesTest
 		final String expected =
 				"HSQL Database Engine 2.4.0 " +
 				"HSQL Database Engine Driver 2.4.0 " +
+				"org.hsqldb.jdbc.JDBCDriver " +
 				"PUBLIC";
 
 		assertEquals(expected, p.probe());
@@ -388,6 +389,7 @@ public class ConnectPropertiesTest
 		final String expected =
 				"HSQL Database Engine 2.4.0 " +
 				"HSQL Database Engine Driver 2.4.0 " +
+				"org.hsqldb.jdbc.JDBCDriver " +
 				"PUBLIC " +
 				"VaultMockService:probeExampleValue";
 

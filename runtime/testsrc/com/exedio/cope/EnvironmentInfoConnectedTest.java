@@ -43,7 +43,8 @@ public class EnvironmentInfoConnectedTest
 				() -> assertEquals("2.4.0", ei.getDriverVersion()),
 				() -> assertEquals(2, ei.getDriverMajorVersion()),
 				() -> assertEquals(4, ei.getDriverMinorVersion()),
-				() -> assertEquals("2.4.0", ei.getDriverVersionDescription()));
+				() -> assertEquals("2.4.0", ei.getDriverVersionDescription()),
+				() -> assertEquals("org.hsqldb.jdbc.JDBCDriver", ei.getDriverClass()));
 	}
 
 	@BeforeEach final void setUp()

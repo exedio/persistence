@@ -409,6 +409,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				info.getDatabaseVersionDescription() + ' ' +
 				info.getDriverName() + ' ' +
 				info.getDriverVersionDescription() + ' ' +
+				info.getDriverClass() + ' ' +
 				info.getCatalog() +
 				(dataFieldVault!=null ? ' ' + dataFieldVault.probe() : "");
 	}

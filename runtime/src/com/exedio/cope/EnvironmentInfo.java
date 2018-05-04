@@ -149,6 +149,11 @@ public final class EnvironmentInfo
 		return driver.getVersionDescription();
 	}
 
+	public String getDriverClass()
+	{
+		return sqlDriver.getClass().getName();
+	}
+
 	public Properties asProperties()
 	{
 		final Properties result = new Properties();
