@@ -43,7 +43,7 @@ public class CompositeConditionUtilTest
 		final Condition c2 = field.equal(2d);
 		final Condition c3 = field.equal(3d);
 
-		assertNotEqualsAndHash(TRUE, FALSE, c1);
+		assertNotEqualsAndHash(TRUE, FALSE, c1, c2, c3);
 
 		try
 		{

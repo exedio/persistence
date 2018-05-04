@@ -69,9 +69,8 @@ public class QueryTest extends TestWithEnvironment
 		final Condition c2 = DayItem.day.equal(d2);
 
 		assertEqualsAndHash(c1, DayItem.day.equal(d1));
-		assertNotEqualsAndHash(c1, c2);
 		assertEqualsAndHash(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
-		assertNotEqualsAndHash(c1.and(c2), c2.and(c1));
+		assertNotEqualsAndHash(c1, c2, c1.and(c2), c2.and(c1));
 	}
 
 	@Test void testLiterals()
