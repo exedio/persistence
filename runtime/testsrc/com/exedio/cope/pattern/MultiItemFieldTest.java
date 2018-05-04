@@ -20,12 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.Condition;
@@ -58,32 +55,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@SuppressWarnings("MisorderedAssertEqualsArguments")
-	@Test void testHashCode()
-	{
-		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
-		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
-		final MultiItemFieldComponentxA i1 = (MultiItemFieldComponentxA)expected.getField();
-		final MultiItemFieldComponentxA i2 = (MultiItemFieldComponentxA)expected.getField();
-		assertEquals(i1, i2);
-		assertEquals(i1, fieldValue);
-	}
-
-	@Test void testSerialization()
-	{
-		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
-		final MultiItemFieldItem expected = new MultiItemFieldItem(fieldValue);
-		final MultiItemFieldValuex i1 = expected.getField();
-		final MultiItemFieldValuex i2 = expected.getOptionalField();
-		final MultiItemFieldValuex i1S = reserialize(i1, 118);
-		assertEquals(i1S, i1);
-		assertEquals(i1S.hashCode(), i1.hashCode());
-		assertNotSame(i1S, i1);
-		assertFalse(i1S.equals(i2));
-		assertEquals("MultiItemFieldComponentxA-0", i1S.toString());
-	}
-
-	@Test void testEqual()
+	@Test void testEqualCondition()
 	{
 		final MultiItemFieldComponentxA fieldValue = new MultiItemFieldComponentxA();
 		assertEquals(
