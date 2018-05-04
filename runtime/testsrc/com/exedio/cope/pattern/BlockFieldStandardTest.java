@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.reserialize;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singleton;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -30,7 +32,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.ABlock.AnEnum;
 import com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem;
-import com.exedio.cope.tojunit.EqualsAssert;
 import java.awt.Color;
 import org.junit.jupiter.api.Test;
 
@@ -112,8 +113,8 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals(emptySet(), b2a.getASet());
 		assertEquals(emptySet(), b2b.getASet());
 
-		EqualsAssert.assertEqualsAndHash(b1a, b1A);
-		EqualsAssert.assertNotEqualsAndHash(b1a, b1b, b2a);
+		assertEqualsAndHash(b1a, b1A);
+		assertNotEqualsAndHash(b1a, b1b, b2a);
 
 		// toString
 		assertEquals("AnItem.eins#AnItem-0", b1a.toString());
@@ -128,8 +129,8 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 
 		// serialization
 		final ABlock b1aS = reserialize(b1a, 708);
-		EqualsAssert.assertEqualsAndHash(b1aS, b1a);
-		EqualsAssert.assertNotEqualsAndHash(b1aS, b1b, b2a);
+		assertEqualsAndHash(b1aS, b1a);
+		assertNotEqualsAndHash(b1aS, b1b, b2a);
 		assertEquals("AnItem.eins#AnItem-0", b1aS.toString());
 	}
 }
