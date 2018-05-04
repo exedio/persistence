@@ -24,8 +24,6 @@ import static com.exedio.cope.tojunit.Assert.reserialize;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singleton;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.TestWithEnvironment;
@@ -130,11 +128,8 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 
 		// serialization
 		final ABlock b1aS = reserialize(b1a, 708);
-		assertEquals(b1aS, b1a);
-		assertNotSame(b1aS, b1a);
-		assertFalse(b1aS.equals(b1b));
-		assertFalse(b1aS.equals(b2a));
-		assertEquals(b1aS.hashCode(), b1a.hashCode());
+		EqualsAssert.assertEqualsAndHash(b1aS, b1a);
+		EqualsAssert.assertNotEqualsAndHash(b1aS, b1b, b2a);
 		assertEquals("AnItem.eins#AnItem-0", b1aS.toString());
 	}
 }

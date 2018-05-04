@@ -25,6 +25,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -68,9 +69,9 @@ public class QueryTest extends TestWithEnvironment
 		final Condition c2 = DayItem.day.equal(d2);
 
 		assertEqualsAndHash(c1, DayItem.day.equal(d1));
-		assertFalse(c1.equals(c2));
+		assertNotEqualsAndHash(c1, c2);
 		assertEqualsAndHash(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
-		assertFalse(c1.and(c2).equals(c2.and(c1)));
+		assertNotEqualsAndHash(c1.and(c2), c2.and(c1));
 	}
 
 	@Test void testLiterals()

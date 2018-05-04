@@ -22,10 +22,10 @@ import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.CompositeCondition.Operator;
@@ -43,15 +43,7 @@ public class CompositeConditionUtilTest
 		final Condition c2 = field.equal(2d);
 		final Condition c3 = field.equal(3d);
 
-		assertEquals(TRUE, TRUE);
-		assertEquals(FALSE, FALSE);
-		assertFalse(TRUE.equals(FALSE));
-		assertFalse(FALSE.equals(TRUE));
-
-		assertFalse(TRUE.equals(c1));
-		assertFalse(c1.equals(TRUE));
-		assertFalse(FALSE.equals(c1));
-		assertFalse(c1.equals(FALSE));
+		assertNotEqualsAndHash(TRUE, FALSE, c1);
 
 		try
 		{
