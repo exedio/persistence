@@ -23,6 +23,7 @@ import com.exedio.cope.EnumField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.CopeWarnings;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class CompositeValue extends Composite
@@ -38,9 +39,10 @@ public final class CompositeValue extends Composite
 	static final ItemField<CompositeOptionalItem> anItem = ItemField.create(CompositeOptionalItem.class);
 
 	// test, that these fields do not become fields of the composite value
-	@SuppressWarnings("TransientFieldNotInitialized")
+	@SuppressWarnings({"TransientFieldNotInitialized", CopeWarnings.FEATURE_NOT_STATIC_FINAL})
 	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	final transient BooleanField notStatic = new BooleanField();
+	@SuppressWarnings(CopeWarnings.FEATURE_NOT_STATIC_FINAL)
 	static BooleanField notFinal = new BooleanField();
 	static final Object noFeature = new BooleanField();
 

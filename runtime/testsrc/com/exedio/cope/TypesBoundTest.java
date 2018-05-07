@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.instrument.CopeWarnings;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -214,7 +215,9 @@ public class TypesBoundTest
 		static final BooleanField boolField = new BooleanField();
 
 		// test, that these fields do not become features of the type
+		@SuppressWarnings(CopeWarnings.FEATURE_NOT_STATIC_FINAL)
 		final BooleanField notStatic = new BooleanField();
+		@SuppressWarnings(CopeWarnings.FEATURE_NOT_STATIC_FINAL)
 		static BooleanField notFinal = new BooleanField();
 		static final Object noFeature = new BooleanField();
 
