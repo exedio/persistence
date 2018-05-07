@@ -229,5 +229,21 @@ public final class EnvironmentInfo
 			else
 				return minor<=minorVersion;
 		}
+
+		@Override
+		public String toString()
+		{
+			return name + ' ' + getVersionDescription();
+		}
+	}
+
+	@Override
+	public String toString()
+	{
+		return
+				database + " " +
+				driver + ' ' +
+				getDriverClass() + ' ' +
+				catalog;
 	}
 }
