@@ -116,28 +116,52 @@ class ClassVisitor extends GeneratedAwareScanner
 	public Void visitVariable(final VariableTree node, final Void p)
 	{
 		super.visitVariable(node, p);
-		if ( !hasGeneratedAnnotation()
-			&& node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE)
-			&& (node.getType().getKind()==Tree.Kind.IDENTIFIER||node.getType().getKind()==Tree.Kind.PARAMETERIZED_TYPE)
-			&& context.getElementForTree(node.getType()).getAnnotation(WrapFeature.class)!=null )
+		if(javaClass.kind==null)
+			// we only care about items, composites and blocks
+			return null;
+		if(hasGeneratedAnnotation())
+			// we don't look at elements we have generated ourselves
+			return null;
+		final Tree.Kind kindOfNode = node.getType().getKind();
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch(kindOfNode)
 		{
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			final String variableType = getFullyQualifiedName(node.getType());
-			final VariableElement fieldElement = (VariableElement)context.getElementForTree(node);
-			final JavaField javaField = new JavaField(
-				javaClass,
-				TreeApiHelper.toModifiersInt(node.getModifiers()),
-				fieldElement.asType(),
-				variableType,
-				node.getName().toString(),
-				context.getSourcePosition(node),
-				node.getInitializer()==null?null:node.getInitializer().toString(),
-				getAnnotation(WrapperInitial.class),
-				getAnnotation(WrapperIgnore.class),
-				Arrays.asList(getAnnotations(Wrapper.class))
-			);
-			registerTypeShortcuts(javaField, node.getType());
+			case IDENTIFIER:
+			case PARAMETERIZED_TYPE:
+				// expected, handled
+				break;
+			case PRIMITIVE_TYPE:
+			case MEMBER_SELECT:
+			case ARRAY_TYPE:
+				// expected, not handled
+				return null;
+			default:
+				// unexpected
+				throw new RuntimeException("unexpected kind of node "+kindOfNode+" for "+node);
 		}
+		if(context.getElementForTree(node.getType()).getAnnotation(WrapFeature.class)==null)
+			return null;
+		if( !node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
+		{
+			printWarning(CopeWarnings.FEATURE_NOT_STATIC_FINAL, "non-static/final feature");
+			return null;
+		}
+		//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+		final String variableType = getFullyQualifiedName(node.getType());
+		final VariableElement fieldElement = (VariableElement)context.getElementForTree(node);
+		final JavaField javaField = new JavaField(
+			javaClass,
+			TreeApiHelper.toModifiersInt(node.getModifiers()),
+			fieldElement.asType(),
+			variableType,
+			node.getName().toString(),
+			context.getSourcePosition(node),
+			node.getInitializer()==null?null:node.getInitializer().toString(),
+			getAnnotation(WrapperInitial.class),
+			getAnnotation(WrapperIgnore.class),
+			Arrays.asList(getAnnotations(Wrapper.class))
+		);
+		registerTypeShortcuts(javaField, node.getType());
 		return null;
 	}
 

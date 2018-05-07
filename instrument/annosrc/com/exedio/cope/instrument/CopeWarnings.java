@@ -26,6 +26,13 @@ public final class CopeWarnings
 	 */
 	public static final String NON_GENERATED = "non-generated";
 
+	/**
+	 * In a class that is instrumented (i.e. {@link com.exedio.cope.Item}, {@link com.exedio.cope.pattern.Block} or
+	 * {@link com.exedio.cope.pattern.Composite}), a variable was found whose type has a {@link WrapFeature} annotation
+	 * but that is not {@code static} and {@code final}. Such variables don't get instrumented, and no
+	 * cope {@link com.exedio.cope.Feature}s are created for them.
+	 */
+	public static final String FEATURE_NOT_STATIC_FINAL = "FeatureNotStaticFinal";
 
 	private CopeWarnings()
 	{
