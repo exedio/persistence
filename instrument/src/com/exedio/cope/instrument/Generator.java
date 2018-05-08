@@ -131,9 +131,8 @@ final class Generator
 	{
 		write(lineSeparator);
 		if (addComments && !commentLines.isEmpty())
-			writeIndent();
-		if (addComments && !commentLines.isEmpty())
 		{
+			writeIndent();
 			write("/**");
 			write(lineSeparator);
 
