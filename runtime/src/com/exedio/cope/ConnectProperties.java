@@ -384,6 +384,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			: tableName;
 	}
 
+	/**
+	 * @deprecated
+	 * Calling this method within methods overriding {@link Properties#getTests()}
+	 * is no longer needed, as class {@code ConnectProperties}
+	 * provides {@link com.exedio.cope.util.Properties.Probe probes} anyway.
+	 */
+	@Deprecated
 	public Callable<?> getProbeTest()
 	{
 		return new Callable<String>()
@@ -401,6 +408,13 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		};
 	}
 
+	/**
+	 * @deprecated
+	 * Calling this method within {@link com.exedio.cope.util.Properties.Probe probes}
+	 * is no longer needed, as class {@code ConnectProperties}
+	 * provides {@link com.exedio.cope.util.Properties.Probe probes} anyway.
+	 */
+	@Deprecated
 	public String probe()
 	{
 		return

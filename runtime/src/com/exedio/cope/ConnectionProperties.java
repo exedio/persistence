@@ -34,6 +34,7 @@ final class ConnectionProperties extends Properties
 	final int isValidOnGetTimeout = value("isValidOnGetTimeoutSeconds", 5, 1);
 
 
+	@Probe
 	EnvironmentInfo probe()
 	{
 		final Driver driver;

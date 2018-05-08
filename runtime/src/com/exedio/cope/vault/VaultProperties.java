@@ -74,6 +74,7 @@ public final class VaultProperties extends AbstractVaultProperties
 
 
 
+	@Probe
 	public String probe()
 	{
 		try(VaultService service = newService())
