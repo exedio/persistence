@@ -19,7 +19,6 @@
 	<classpathentry kind="src" path="instrument/testsrc"/>
 	<classpathentry kind="var" path="TOOLS_JAR"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
-	<classpathentry kind="lib" path="lib/bsh-core.jar" sourcepath="lib/bsh-src.jar"/>
 	<classpathentry kind="lib" path="lib/javax.servlet-api.jar" sourcepath="lib/javax.servlet-api-source.jar"/>
 	<classpathentry kind="lib" path="lib/trove4j.jar" sourcepath="lib/trove4j-source.jar"/>
 	<classpathentry kind="lib" path="lib/exedio-cope-util.jar" sourcepath="lib/exedio-cope-util-src.zip"/>
