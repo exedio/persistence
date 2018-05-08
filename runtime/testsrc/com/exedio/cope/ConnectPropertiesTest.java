@@ -366,16 +366,11 @@ public class ConnectPropertiesTest
 	@Test void testProbe() throws Exception
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
-		final String expected =
-				"HSQL Database Engine 2.4.0 " +
-				"HSQL Database Engine Driver 2.4.0 " +
-				"org.hsqldb.jdbc.JDBCDriver " +
-				"PUBLIC";
 
-		assertEquals(expected, p.probe());
+		assertEquals(CONNECTION, p.probe());
 
 		final Callable<?> test = p.getProbeTest();
-		assertEquals(expected, test.call());
+		assertEquals(CONNECTION, test.call());
 		assertEquals("probe", test.toString());
 	}
 
@@ -386,17 +381,18 @@ public class ConnectPropertiesTest
 				single("dataField.vault.service", VaultMockService.class),
 				single("dataField.vault.service.example", "probeExampleValue"),
 				TestSources.minimal()));
-		final String expected =
-				"HSQL Database Engine 2.4.0 " +
-				"HSQL Database Engine Driver 2.4.0 " +
-				"org.hsqldb.jdbc.JDBCDriver " +
-				"PUBLIC " +
-				"VaultMockService:probeExampleValue";
+		final String VAULT = "VaultMockService:probeExampleValue";
 
-		assertEquals(expected, p.probe());
+		assertEquals(CONNECTION + " " + VAULT, p.probe());
 
 		final Callable<?> test = p.getProbeTest();
-		assertEquals(expected, test.call());
+		assertEquals(CONNECTION + " " + VAULT, test.call());
 		assertEquals("probe", test.toString());
 	}
+
+	private static final String CONNECTION =
+			"HSQL Database Engine 2.4.0 " +
+			"HSQL Database Engine Driver 2.4.0 " +
+			"org.hsqldb.jdbc.JDBCDriver " +
+			"PUBLIC";
 }
