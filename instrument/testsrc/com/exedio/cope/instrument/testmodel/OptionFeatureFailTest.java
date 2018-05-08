@@ -16,34 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.testfeature;
+package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapFeature;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-@WrapFeature
-public final class OptionFeature
+import com.exedio.cope.instrument.testfeature.OptionFeature;
+import org.junit.jupiter.api.Test;
+
+public class OptionFeatureFailTest
 {
-	@SuppressWarnings("static-method")
-	@Wrap(order=10)
-	public void simple(@SuppressWarnings("unused") final Item item)
+	@Test
+	public void loadOptionFeatureItem()
 	{
-		throw new RuntimeException();
-	}
-
-	@SuppressWarnings("static-method")
-	public OptionFeature fail()
-	{
-		// fail if run during instrumentation:
-		try
-		{
-			Class.forName("com.exedio.cope.instrument.testmodel.DontInstrument");
-		}
-		catch (final ClassNotFoundException e)
-		{
-			throw new RuntimeException("this method must not be called during instrumentation", e);
-		}
-		return this;
+		// just make sure the class gets loaded:
+		assertEquals(OptionFeature.class, OptionFeatureItem.ignore.getClass());
 	}
 }
