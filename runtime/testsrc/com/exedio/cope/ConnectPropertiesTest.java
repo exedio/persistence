@@ -25,6 +25,8 @@ import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.ConnectProperties.Factory;
@@ -368,10 +370,7 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
 		assertEquals(CONNECTION, p.probe());
-
-		final Callable<?> test = p.getProbeTest();
-		assertEquals(CONNECTION, test.call());
-		assertEquals("probe", test.toString());
+		assertIt("probe", CONNECTION, String.class, p.getProbeTest());
 	}
 
 	@Test void testProbeVault() throws Exception
@@ -384,10 +383,7 @@ public class ConnectPropertiesTest
 		final String VAULT = "VaultMockService:probeExampleValue";
 
 		assertEquals(CONNECTION + " " + VAULT, p.probe());
-
-		final Callable<?> test = p.getProbeTest();
-		assertEquals(CONNECTION + " " + VAULT, test.call());
-		assertEquals("probe", test.toString());
+		assertIt("probe", CONNECTION + " " + VAULT, String.class, p.getProbeTest());
 	}
 
 	private static final String CONNECTION =
@@ -395,4 +391,16 @@ public class ConnectPropertiesTest
 			"HSQL Database Engine Driver 2.4.0 " +
 			"org.hsqldb.jdbc.JDBCDriver " +
 			"PUBLIC";
+
+	private static void assertIt(
+			final String expectedName,
+			final String expectedResultString,
+			final Class<?> expectedResultClass,
+			final Callable<?> actual) throws Exception
+	{
+		assertEquals(expectedName, actual.toString());
+		final Object actualResult = actual.call();
+		assertEquals(expectedResultString, actualResult.toString());
+		assertSame(expectedResultClass, actualResult.getClass());
+	}
 }
