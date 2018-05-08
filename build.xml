@@ -83,7 +83,7 @@
 				<arg line="--details ${test-details}" />
 				<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
 				<classpath />
-				<arg line="--include-classname .*" unless:set="@{testproperty}" />
+				<arg line="--include-classname .{0,}" unless:set="@{testproperty}" /> <!-- regexp ".*" doesn't work on Windows -->
 				<arg line="--scan-class-path build/classes/@{scansrc}" unless:set="@{testproperty}" />
 				<arg line="@{line}" unless:set="@{testproperty}" />
 				<arg line="--select-class ${@{testproperty}}" if:set="@{testproperty}" unless:set="method" />
