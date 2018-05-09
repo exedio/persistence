@@ -30,11 +30,7 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.net.URLClassLoader;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -44,8 +40,6 @@ final class Main
 	static final String GENERATED_VALUE = "com.exedio.cope.instrument";
 
 	static final int INITIAL_BUFFER_SIZE=16384;
-
-	private static final URL[] EMPTY_URL_ARRAY = new URL[0];
 
 	void run(final Params params) throws HumanReadableException, IOException
 	{
@@ -63,118 +57,90 @@ final class Main
 		if(params.verify)
 			System.out.println("Instrumenting in verify mode.");
 
-		try
+		final Charset charset = params.charset;
+		final JavaRepository repository = new JavaRepository();
+
+		this.verbose = params.verbose;
+		instrumented = 0;
+		skipped = 0;
+
+		final ClassLoader interimClassLoader = runJavac(params, repository);
+
+		repository.endBuildStage();
+
+		for(final JavaFile javaFile: repository.getFiles())
 		{
-			InstrumentContext.enter();
-
-			final Charset charset = params.charset;
-			final ClassLoader classLoader = createClassLoader(params.classpath);
-			final JavaRepository repository = new JavaRepository(classLoader);
-
-			this.verbose = params.verbose;
-			instrumented = 0;
-			skipped = 0;
-
-			runJavac(params, repository);
-
-			repository.endBuildStage();
-
-			for(final JavaFile javaFile: repository.getFiles())
+			for(final JavaClass javaClass : javaFile.getClasses())
 			{
-				for(final JavaClass javaClass : javaFile.getClasses())
+				final LocalCopeType type = LocalCopeType.getCopeType(javaClass);
+				if(type!=null)
 				{
-					final LocalCopeType type = LocalCopeType.getCopeType(javaClass);
-					if(type!=null)
+					if(!type.isInterface())
 					{
-						if(!type.isInterface())
-						{
-							for(final LocalCopeFeature feature : type.getFeatures())
-								feature.getInstance();
-						}
+						for(final LocalCopeFeature feature : type.getFeatures())
+							feature.getInstance();
 					}
 				}
 			}
+		}
 
-			final Set<Method> generateDeprecateds = findMethods(classLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
-			final Set<Method> disabledWraps = findMethods(classLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
-			for(final JavaFile javaFile: repository.getFiles())
-			{
-				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
-				final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds, disabledWraps);
-				generator.write(charset);
+		final Set<Method> generateDeprecateds = findMethods(interimClassLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
+		final Set<Method> disabledWraps = findMethods(interimClassLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
+		for(final JavaFile javaFile: repository.getFiles())
+		{
+			final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
+			final Generator generator = new Generator(javaFile, buffer, params, generateDeprecateds, disabledWraps);
+			generator.write(charset);
 
-				if(!javaFile.inputEqual(buffer, charset))
-				{
-					if(params.verify)
-						throw new HumanReadableException(
-								"Not yet instrumented " + javaFile.getSourceFileName() + lineSeparator() +
-								"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
-								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
-								"but you did not run the instrumentor.");
-					logInstrumented(javaFile);
-					javaFile.overwrite(buffer, charset);
-				}
-				else
-				{
-					logSkipped(javaFile);
-				}
-			}
-
-			int invalidWraps=0;
-			for(final JavaFile javaFile: repository.getFiles())
+			if(!javaFile.inputEqual(buffer, charset))
 			{
-				for (final JavaClass clazz: javaFile.classes)
-				{
-					for (final JavaField field: clazz.getFields())
-					{
-						if (field.hasInvalidWrapperUsages())
-						{
-							invalidWraps++;
-						}
-					}
-				}
-			}
-			if (invalidWraps>0)
-			{
-				throw new HumanReadableException("fix invalid wraps at "+invalidWraps+" field(s)");
-			}
-
-			if ( params.getTimestampFile().exists() )
-			{
-				StrictFile.setLastModified(params.getTimestampFile(), Clock.currentTimeMillis());
+				if(params.verify)
+					throw new HumanReadableException(
+							"Not yet instrumented " + javaFile.getSourceFileName() + lineSeparator() +
+							"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
+							"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
+							"but you did not run the instrumentor.");
+				logInstrumented(javaFile);
+				javaFile.overwrite(buffer, charset);
 			}
 			else
 			{
-				if (!params.getTimestampFile().getParentFile().isDirectory())
-					StrictFile.mkdirs(params.getTimestampFile().getParentFile());
-				StrictFile.createNewFile(params.getTimestampFile());
+				logSkipped(javaFile);
 			}
 		}
-		finally
+
+		int invalidWraps=0;
+		for(final JavaFile javaFile: repository.getFiles())
 		{
-			InstrumentContext.leave();
+			for (final JavaClass clazz: javaFile.classes)
+			{
+				for (final JavaField field: clazz.getFields())
+				{
+					if (field.hasInvalidWrapperUsages())
+					{
+						invalidWraps++;
+					}
+				}
+			}
+		}
+		if (invalidWraps>0)
+		{
+			throw new HumanReadableException("fix invalid wraps at "+invalidWraps+" field(s)");
+		}
+
+		if ( params.getTimestampFile().exists() )
+		{
+			StrictFile.setLastModified(params.getTimestampFile(), Clock.currentTimeMillis());
+		}
+		else
+		{
+			if (!params.getTimestampFile().getParentFile().isDirectory())
+				StrictFile.mkdirs(params.getTimestampFile().getParentFile());
+			StrictFile.createNewFile(params.getTimestampFile());
 		}
 
 		if(verbose || instrumented>0)
 			System.out.println("Instrumented " + instrumented + ' ' + (instrumented==1 ? "file" : "files") + ", skipped " + skipped + " in " + files.iterator().next().getParentFile().getAbsolutePath());
-	}
-
-	private ClassLoader createClassLoader(final Iterable<File> classpathFiles)
-	{
-		final List<URL> urls=new ArrayList<>();
-		for (final File classpathFile: classpathFiles)
-		{
-			try
-			{
-				urls.add(classpathFile.toURI().toURL());
-			}
-			catch (final MalformedURLException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
-		//noinspection ClassLoaderInstantiation OK: not used in production but only on build time
-		return new URLClassLoader(urls.toArray(EMPTY_URL_ARRAY), getClass().getClassLoader());
 	}
 
 	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
@@ -214,27 +180,12 @@ final class Main
 		}
 	}
 
-	private static void runJavac(final Params params, final JavaRepository repository) throws IOException, HumanReadableException
+	private static ClassLoader runJavac(final Params params, final JavaRepository repository) throws IOException, HumanReadableException
 	{
-		new JavacRunner<InstrumentorProcessor>()
-		{
-			@Override
-			InstrumentorProcessor createProcessor()
-			{
-				return new InstrumentorProcessor(repository);
-			}
-
-			@Override
-			void validateProcessor(final InstrumentorProcessor instrumentorProcessor) throws HumanReadableException
-			{
-				if (!instrumentorProcessor.processHasBeenCalled)
-				{
-					// InstrumentorProcessor has not been invoked - this happens if parsing failed
-					throw new HumanReadableException("fix compiler errors");
-				}
-			}
-
-		}.run(params);
+		final InterimProcessor interimProcessor = new InterimProcessor(params);
+		final InstrumentorProcessor instrumentorProcessor = new InstrumentorProcessor(repository, interimProcessor);
+		new JavacRunner(interimProcessor, instrumentorProcessor).run(params);
+		return interimProcessor.getInterimClassLoader();
 	}
 
 	boolean verbose;

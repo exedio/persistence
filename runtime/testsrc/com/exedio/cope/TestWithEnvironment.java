@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
 import com.exedio.cope.tojunit.MainRule;
@@ -35,6 +36,7 @@ import org.junit.jupiter.api.BeforeEach;
 
 @TestWithEnvironment.Tag
 @MainRule.Tag
+@WrapInterim
 public abstract class TestWithEnvironment
 {
 	@org.junit.jupiter.api.Tag("TestWithEnvironment")

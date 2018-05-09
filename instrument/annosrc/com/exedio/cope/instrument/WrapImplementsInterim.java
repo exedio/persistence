@@ -16,9 +16,27 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.findtype.subfindtype;
+package com.exedio.cope.instrument;
 
-public class CollideType
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * If an interface is marked with this annotation, it will be added to the 'interim code', and classes implementing it will
+ * have the "implements" clause added.
+ *
+ * @see WrapInterim
+ * @see WrapAnnotateInterim
+ */
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.CLASS)
+public @interface WrapImplementsInterim
 {
-	// just a class for testing imports
+	/**
+	 * If addMethods is set to {@code true}, dummy implementations of the interface methods will be added to the
+	 * 'interim' versions of implementing classes.
+	 */
+	boolean addMethods() default false;
 }

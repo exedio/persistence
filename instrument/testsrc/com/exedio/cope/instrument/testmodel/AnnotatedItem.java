@@ -39,9 +39,11 @@ import com.exedio.cope.instrument.testfeature.SimpleSettable;
 	activationConstructor=PACKAGE,
 	indent=2
 )
+@AnnotationNotInInterim
 public class AnnotatedItem extends Item implements OneOverrideFeatureable
 {
 	@WrapperInitial
+	@AnnotationNotInInterim
 	static final SimpleSettable initialFeature = new SimpleSettable();
 
 	@WrapperIgnore
@@ -77,6 +79,12 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 
 	@Wrapper(wrap="one", override=true, visibility=PUBLIC)
 	private static final SimpleSettable overrideFeature = new SimpleSettable();
+
+	@AnnotationNotInInterim
+	static final void annotatedMethod()
+	{
+		// empty
+	}
 
 	// marker for end of hand-written code
 		/**

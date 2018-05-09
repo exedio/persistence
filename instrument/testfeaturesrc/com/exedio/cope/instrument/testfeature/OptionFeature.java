@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 
@@ -36,9 +35,15 @@ public final class OptionFeature
 	@SuppressWarnings("static-method")
 	public OptionFeature fail()
 	{
-		if(InstrumentContext.isRunning())
-			throw new RuntimeException("deliberatly fail");
-
+		// fail if run during instrumentation:
+		try
+		{
+			Class.forName("com.exedio.cope.instrument.testmodel.DontInstrument");
+		}
+		catch (final ClassNotFoundException e)
+		{
+			throw new RuntimeException("this method must not be called during instrumentation", e);
+		}
 		return this;
 	}
 }

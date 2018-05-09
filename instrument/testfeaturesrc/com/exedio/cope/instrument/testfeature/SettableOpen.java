@@ -30,6 +30,13 @@ import java.util.Set;
 @WrapFeature
 public class SettableOpen<Z> implements Settable<Z>
 {
+	private final Type type;
+
+	public SettableOpen(final Type type)
+	{
+		this.type = type;
+	}
+
 	@Wrap(order=10)
 	public Z method(@SuppressWarnings("unused") final Z z)
 	{
@@ -79,6 +86,6 @@ public class SettableOpen<Z> implements Settable<Z>
 	@Override
 	public Type getInitialType()
 	{
-		throw new AssertionError();
+		return type;
 	}
 }

@@ -16,9 +16,23 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.findtype.subfindtype;
+package com.exedio.cope.instrument;
 
-public class BothFindType2
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * Code elements marked with this annotation become part of the 'interim code', which is compiled while the instrumentor
+ * runs to instantiate {@link WrapFeature features}.
+ *
+ * @see WrapImplementsInterim
+ * @see WrapAnnotateInterim
+ */
+@Target({ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.FIELD})
+@Retention(RetentionPolicy.CLASS)
+public @interface WrapInterim
 {
-	// just a class for testing imports
+
 }

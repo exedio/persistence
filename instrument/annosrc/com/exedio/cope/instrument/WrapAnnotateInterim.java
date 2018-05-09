@@ -16,9 +16,22 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.findtype;
+package com.exedio.cope.instrument;
 
-public class BothFindType
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+
+/**
+ * If an annotation is marked with this annotation, usages of the annotation will be transferred into 'interim code'.
+ *
+ * @see WrapInterim
+ * @see WrapImplementsInterim
+ */
+@Target(ElementType.ANNOTATION_TYPE)
+@Retention(RetentionPolicy.CLASS)
+public @interface WrapAnnotateInterim
 {
-	// just a class for testing imports
+
 }

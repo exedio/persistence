@@ -31,15 +31,17 @@ import java.util.Set;
 public final class GenericFeatureReference<E> implements Settable<E>
 {
 	public final Class<E> valueClass;
+	public final Type valueType;
 
-	public static <E> GenericFeatureReference<E> create(final Class<E> valueClass)
+	public static <E> GenericFeatureReference<E> create(final Class<E> valueClass, final Type valueType)
 	{
-		return new GenericFeatureReference<>(valueClass);
+		return new GenericFeatureReference<>(valueClass, valueType);
 	}
 
-	private GenericFeatureReference(final Class<E> valueClass)
+	private GenericFeatureReference(final Class<E> valueClass, final Type valueType)
 	{
 		this.valueClass = valueClass;
+		this.valueType = valueType;
 
 		final Class<?> superClass = Item.class;
 		if(!superClass.isAssignableFrom(valueClass))
@@ -86,7 +88,7 @@ public final class GenericFeatureReference<E> implements Settable<E>
 	@Override
 	public Type getInitialType()
 	{
-		throw new RuntimeException();
+		return valueType;
 	}
 
 	@Override

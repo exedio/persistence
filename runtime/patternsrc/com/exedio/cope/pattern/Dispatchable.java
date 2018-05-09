@@ -18,7 +18,10 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.instrument.WrapImplementsInterim;
+
 @FunctionalInterface
+@WrapImplementsInterim(addMethods=true)
 public interface Dispatchable
 {
 	void dispatch(Dispatcher dispatcher) throws Exception;

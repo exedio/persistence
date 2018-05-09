@@ -7,6 +7,18 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor no longer uses an interpreter, but now extracts a selection of the source code (called "interim code")
+	and compiles that. Interim code includes:
+	* classes that inherit a @WrapType annotation (i.e. items, composites and blocks)
+	* in these, static variables whose type has a @WrapFeature annotation
+	* classes, variables and methods that have a @WrapInterim annotation
+	* classes and enums that are part of the type of interim variables
+	* interface implemenation relations where the interface has a @WrapImplementsInterim annotation
+	Interim code must compile without the rest of the project code. Use @WrapInterim and @WrapImplementsInterim to add
+	code.
+	This removes the instrument-time dependency on bsh.core.
+* Access to ignored fields (annotated with @WrapperIgnore) in feature initialization no longer supported.
+	Use @Wrapper(wrap="*", visibility=NONE) instead.
 * EnvironmentInfo#getDriverClass added.
 * Hash#getPlainTextValidator added.
 * Choice constraint added.

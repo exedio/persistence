@@ -20,21 +20,14 @@ package com.exedio.cope.instrument;
 
 public final class InstrumentContext
 {
-	private static final ThreadLocal<Boolean> tl = new ThreadLocal<>();
-
+	/**
+	 * @deprecated no longer supported - should not be necessary any more since the interpreter uses "interim code"
+	 *   instead of interpretation
+	 */
+	@Deprecated
 	public static boolean isRunning()
 	{
-		return tl.get()!=null;
-	}
-
-	static void enter()
-	{
-		tl.set(Boolean.TRUE);
-	}
-
-	static void leave()
-	{
-		tl.remove();
+		return false;
 	}
 
 	private InstrumentContext()

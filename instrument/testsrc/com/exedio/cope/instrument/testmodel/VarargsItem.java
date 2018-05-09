@@ -21,16 +21,20 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.instrument.testfeature.SettableVarargs;
 import com.exedio.cope.instrument.testfeature.SettableVarargsInteger;
 import com.exedio.cope.instrument.testfeature.WrapVarargs;
+import java.util.List;
 
 final class VarargsItem extends VarargsSuper
 {
 	static final SettableVarargsInteger integerValue = new SettableVarargsInteger(false);
 	static final SettableVarargsInteger integerMandatoryValue = new SettableVarargsInteger(true);
-	static final SettableVarargs<Double> doubleValue = new SettableVarargs<>();
+	static final SettableVarargs<Double> doubleValue = new SettableVarargs<>(Double.class);
+	@SuppressWarnings("unchecked")
+	static final SettableVarargs<List<?>> listValue = new SettableVarargs<>((Class<List<?>>)(Class)List.class);
 
 	static final WrapVarargs integerOnly = new WrapVarargs(integerValue);
 	static final WrapVarargs integerAndDouble = new WrapVarargs(integerValue, doubleValue);
 	static final WrapVarargs integerMandatoryOnly = new WrapVarargs(integerMandatoryValue);
+	static final WrapVarargs listOnly = new WrapVarargs(listValue);
 
 	static final WrapVarargs onlySuper = new WrapVarargs(superInteger);
 	static final WrapVarargs subAndSuper = new WrapVarargs(superInteger, doubleValue);
@@ -118,6 +122,27 @@ final class VarargsItem extends VarargsSuper
 	static final VarargsItem staticIntegerMandatoryOnlyToken(final int integerMandatoryValue)
 	{
 		return VarargsItem.integerMandatoryOnly.staticToken(VarargsItem.class,integerMandatoryValue);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	static final void simpleListOnly(final List<?> listValue)
+	{
+		VarargsItem.listOnly.simple(listValue);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	static final void moreListOnlyParameters(final int listOnly,final List<?> listValue)
+	{
+		VarargsItem.listOnly.moreParameters(listOnly,listValue);
+	}
+
+	/**
+	 * @param listValue myDoc/{@link #listValue}/listValue/varargsItem/
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	static final VarargsItem staticListOnlyToken(final List<?> listValue)
+	{
+		return VarargsItem.listOnly.staticToken(VarargsItem.class,listValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")

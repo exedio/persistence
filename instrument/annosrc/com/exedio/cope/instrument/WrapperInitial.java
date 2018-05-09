@@ -28,6 +28,7 @@ import java.lang.annotation.Target;
  */
 @Target(ElementType.FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@WrapAnnotateInterim
 public @interface WrapperInitial
 {
 	boolean value() default true;

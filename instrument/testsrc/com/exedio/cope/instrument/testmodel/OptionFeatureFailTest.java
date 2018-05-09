@@ -16,12 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope;
+package com.exedio.cope.instrument.testmodel;
 
-final class DummyItem extends Item
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import com.exedio.cope.instrument.testfeature.OptionFeature;
+import org.junit.jupiter.api.Test;
+
+public class OptionFeatureFailTest
 {
-	private static final long serialVersionUID = 1l;
-	@SuppressWarnings("unused")
-	static final Type<DummyItem> TYPE = TypesBound.newType(DummyItem.class);
-	private DummyItem(final ActivationParameters ap) { super(ap); }
+	@Test
+	public void loadOptionFeatureItem()
+	{
+		// just make sure the class gets loaded:
+		assertEquals(OptionFeature.class, OptionFeatureItem.ignore.getClass());
+	}
 }

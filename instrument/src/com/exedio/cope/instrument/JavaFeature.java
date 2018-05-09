@@ -30,8 +30,6 @@ import java.lang.reflect.Modifier;
  */
 abstract class JavaFeature
 {
-	enum Severity { warning, error }
-
 	/**
 	 * The java file, which contains this feature.
 	 * Is never null.
@@ -66,6 +64,7 @@ abstract class JavaFeature
 		this.modifier=modifier;
 		this.name=name;
 		this.sourceLocation=sourceLocation;
+		if (name.contains("-")) throw new RuntimeException(name);
 
 		if(file==null)
 			throw new RuntimeException();
@@ -81,9 +80,9 @@ abstract class JavaFeature
 			" of type "+getClass().getName()+'.');
 	}
 
-	void reportSourceProblem(final Severity severity, final String message, final String details)
+	void reportSourceProblem(final String message, final String details)
 	{
-		System.out.println(sourceLocation+": "+severity+": "+message);
+		System.out.println(sourceLocation+": error: "+message);
 		if (details!=null)
 			System.out.println(details);
 	}

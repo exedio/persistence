@@ -24,6 +24,7 @@ public final class SettableVarargsInteger extends SettableVarargs<Integer>
 
 	public SettableVarargsInteger(final boolean mandatory)
 	{
+		super(Integer.class);
 		this.mandatory = mandatory;
 	}
 

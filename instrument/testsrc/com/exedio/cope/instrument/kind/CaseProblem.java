@@ -21,15 +21,17 @@ package com.exedio.cope.instrument.kind;
 import com.exedio.cope.Item;
 
 /**
- * This is a test case for a class loading problem:
+ * This is a test case for a potential class loading problem:
  * <ul>
  *		<li>class pkg.SomeClass exists externally
  *		<li>instrumented source has class pkg.someclass.OtherClass (and a subclass)
  * </ul>
  *	(Here, we use the class {@link com.exedio.cope.instrument.Kind} for the collision - that's why the package name is "kind".)
  *
- * Now, bsh tries to resolve pkg.someclass externally.
+ * Depending on how names are resolved during instrumentation, we might now try to check if a class pkg.someclass exists.
  * On Linux, this gets a ClassNotFoundException (fine) - but on Windows a NoClassDefFoundError.
+ *
+ * This test case asserts that we don't run into that problem.
  */
 public class CaseProblem extends Item
 {

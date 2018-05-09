@@ -24,7 +24,6 @@ import com.exedio.cope.Item;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.HashMap;
 import java.util.function.Supplier;
-import javax.lang.model.type.MirroredTypeException;
 
 final class Kind
 {
@@ -38,7 +37,6 @@ final class Kind
 	final String featurePrefix;
 	final String featurePostfix;
 	final String featureThis;
-	final Class<?> dummy;
 	final boolean isItem; // TODO remove dependency on this field
 
 	private Kind(final WrapType anno)
@@ -52,27 +50,7 @@ final class Kind
 		featurePostfix = anno.featurePostfix();
 		featureThis = anno.featureThis();
 
-		Class<?> dummy;
-		try
-		{
-			dummy = anno.dummy();
-		}
-		catch(final MirroredTypeException e)
-		{
-			try
-			{
-				dummy = Class.forName(e.getTypeMirror().toString());
-			}
-			catch(final ClassNotFoundException e1)
-			{
-				throw new RuntimeException(e1);
-			}
-		}
-		this.dummy = dummy;
-
-		final Class<?> topClass = dummy.getSuperclass();
-		if(topClass.getDeclaredAnnotation(WrapType.class)==null)
-			throw new RuntimeException("" + topClass);
+		final Class<?> topClass = TypeMirrorHelper.get(anno::top, false);
 		top = topClass.getName();
 		topSimple = topClass.getSimpleName();
 
@@ -124,21 +102,14 @@ final class Kind
 	}
 
 
-	static String name(final Supplier<Class<?>> clazz)
+	static <T> String name(final Supplier<Class<T>> clazz)
 	{
-		try
-		{
-			return clazz.get().getName();
-		}
-		catch(final MirroredTypeException e)
-		{
-			final String result = e.getTypeMirror().toString();
+		final String result = TypeMirrorHelper.get(clazz, false).getName();
 
-			if(result.equals(DEFAULT_NAME))
-				return null;
+		if(result.equals(DEFAULT_NAME))
+			return null;
 
-			return result;
-		}
+		return result;
 	}
 
 	private static final String DEFAULT_NAME = StringGetterDefault.class.getName();

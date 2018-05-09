@@ -16,9 +16,33 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.instrument.findtype;
+package com.exedio.cope.instrument;
 
-public class FindType
+import static java.util.Objects.requireNonNull;
+
+import java.util.HashSet;
+import java.util.Set;
+import javax.annotation.processing.AbstractProcessor;
+import javax.tools.JavaFileObject;
+import javax.tools.StandardJavaFileManager;
+
+abstract class JavacProcessor extends AbstractProcessor
 {
-	// just a class for testing imports
+	private Set<JavaFileObject> ignoreFiles;
+
+	final void prepare(final Params params, final StandardJavaFileManager fileManager)
+	{
+		ignoreFiles = new HashSet<>();
+		for (final JavaFileObject ignoreFile : fileManager.getJavaFileObjectsFromFiles(params.ignoreFiles))
+		{
+			ignoreFiles.add(ignoreFile);
+		}
+	}
+
+	public boolean isFileIgnored(final JavaFileObject e)
+	{
+		if (ignoreFiles==null)
+			throw new IllegalStateException();
+		return ignoreFiles.contains(requireNonNull(e));
+	}
 }

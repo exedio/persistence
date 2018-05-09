@@ -18,8 +18,32 @@
 
 package com.exedio.cope.instrument;
 
-@FunctionalInterface
-interface Evaluatable
+import java.util.HashMap;
+import java.util.Map;
+
+@SuppressWarnings("CustomClassloader")
+final class InMemoryClassLoader extends ClassLoader
 {
-	Object evaluate();
+	private final Map<String,byte[]> classes = new HashMap<>();
+
+	InMemoryClassLoader(final ClassLoader parent)
+	{
+		super(parent);
+	}
+
+	public void addClass(final String name, final byte[] bytes)
+	{
+		classes.put(name, bytes);
+	}
+
+	@Override
+	protected Class<?> findClass(final String name) throws ClassNotFoundException
+	{
+		final byte[] bytes = classes.get(name);
+		if (bytes == null)
+		{
+			throw new ClassNotFoundException(name);
+		}
+		return defineClass(name, bytes, 0, bytes.length);
+	}
 }

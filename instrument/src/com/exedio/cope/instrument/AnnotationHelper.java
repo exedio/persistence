@@ -18,53 +18,27 @@
 
 package com.exedio.cope.instrument;
 
-final class ComponentFeature extends CopeFeature
+import java.lang.annotation.Annotation;
+
+final class AnnotationHelper
 {
-	private final CopeFeature container;
-	private final Object component;
-	private final String postfix;
-
-	ComponentFeature(final CopeFeature container, final Object component, final String postfix)
+	private static final WrapperType OPTION_DEFAULT = new WrapperType()
 	{
-		super(container.parent);
-		this.container = container;
-		this.component = component;
-		this.postfix = postfix;
+		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+		@Override public Visibility type() { return Visibility.DEFAULT; }
+		@Override public Visibility constructor() { return Visibility.DEFAULT; }
+		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }
+		@Override public Visibility activationConstructor() { return Visibility.DEFAULT; }
+		@Override public int indent() { return 1; }
+		@Override public boolean comments() { return true; }
+	};
+
+	private AnnotationHelper()
+	{
 	}
 
-	@Override
-	String getName()
+	static WrapperType getOrDefault(final WrapperType typeOption)
 	{
-		return container.getName()+"_"+postfix;
-	}
-
-	@Override
-	int getModifier()
-	{
-		return container.getModifier();
-	}
-
-	@Override
-	String getJavadocReference()
-	{
-		return "'"+postfix+"' of "+container.getJavadocReference();
-	}
-
-	@Override
-	Boolean getInitialByConfiguration()
-	{
-		return false;
-	}
-
-	@Override
-	Object evaluate()
-	{
-		return component;
-	}
-
-	@Override
-	String applyTypeShortcuts(final String type)
-	{
-		return container.applyTypeShortcuts(type);
+		return typeOption!=null ? typeOption : OPTION_DEFAULT;
 	}
 }

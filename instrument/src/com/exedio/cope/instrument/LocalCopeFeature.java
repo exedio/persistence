@@ -52,10 +52,9 @@ final class LocalCopeFeature extends CopeFeature
 		return initialByConfiguration;
 	}
 
-	@Override
-	String getType()
+	String getTypeParameter(final int number)
 	{
-		return javaField.type;
+		return javaField.getTypeParameter(number);
 	}
 
 	@Override
@@ -106,5 +105,11 @@ final class LocalCopeFeature extends CopeFeature
 		if(result==null)
 			throw new RuntimeException("cannot resolve parameter "+instance+" for "+getName()+"/"+methodName);
 		return result;
+	}
+
+	@Override
+	String applyTypeShortcuts(final String type)
+	{
+		return javaField.applyTypeShortcuts(type);
 	}
 }

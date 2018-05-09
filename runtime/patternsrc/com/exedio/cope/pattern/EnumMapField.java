@@ -29,7 +29,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -359,9 +358,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 	private K getFallbackByAnnotation()
 	{
-		if(InstrumentContext.isRunning())
-			return keyClass.getEnumConstants()[0];
-
 		K result = null;
 		for(final K key : keyClass.getEnumConstants())
 		{

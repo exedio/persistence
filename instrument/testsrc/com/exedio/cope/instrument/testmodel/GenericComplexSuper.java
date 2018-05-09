@@ -19,8 +19,10 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
+import com.exedio.cope.misc.ReflectionTypes;
 import java.util.Collection;
 
 /**
@@ -30,20 +32,22 @@ import java.util.Collection;
 @SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
-	static final GenericFeatureReference<GenericComplexSub  > toSub   = GenericFeatureReference.create(GenericComplexSub  .class);
+	static final GenericFeatureReference<GenericComplexSub> toSub = GenericFeatureReference.create(GenericComplexSub.class, GenericComplexSub.class);
 	@SuppressWarnings({"unchecked", "StaticInitializerReferencesSubClass"}) // "unchecked" is probably a bug in javac, not needed in eclipse
-	static final GenericFeatureReference<GenericComplexMid<?>> toMid   = GenericFeatureReference.create(GenericComplexMid  .classWildcard.value);
-	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard.value);
+	static final GenericFeatureReference<GenericComplexMid<?>> toMid  = GenericFeatureReference.create(GenericComplexMid.classWildcard.value, ReflectionTypes.parameterized(GenericComplexMid.class, ReflectionTypes.sub(Object.class)));
+	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard.value, ReflectionTypes.parameterized(GenericComplexSuper.class, ReflectionTypes.sub(Object.class), ReflectionTypes.sub(Object.class)));
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
 
-
+	@WrapInterim
 	public static final class classWildcard
 	{
+		@WrapInterim
 		public static final Class<GenericComplexSuper<?,?>> value = make();
 
 		// method needed because there is probably a bug in javac, not needed in eclipse
 		@SuppressWarnings("unchecked")
+		@WrapInterim
 		private static Class<GenericComplexSuper<?,?>> make()
 		{
 			return (Class<GenericComplexSuper<?,?>>)(Class<?>)GenericComplexSuper.class;

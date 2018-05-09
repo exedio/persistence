@@ -31,7 +31,7 @@ import java.io.Serializable;
 		activationConstructor=BlockActivationParameters.class,
 		allowStaticClassToken=false,
 		featurePrefix="field().of(", featurePostfix=")", featureThis="item()",
-		dummy=DummyBlock.class
+		top=Block.class
 )
 public abstract class Block implements Serializable, TemplatedValue
 {

@@ -64,7 +64,7 @@ class WrapperParametersItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
-	public final void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature feature)
+	public final void paramFeature(final WrapperParametersFeature feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}

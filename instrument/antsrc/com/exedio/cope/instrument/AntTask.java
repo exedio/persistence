@@ -265,7 +265,7 @@ public final class AntTask extends Task
 		File check = file;
 		while (check!=null)
 		{
-			if (params.sourceDirectories.contains(check))
+			if (params.getSourceDirectories().contains(check))
 				return true;
 			check = check.getParentFile();
 		}

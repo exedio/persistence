@@ -19,17 +19,23 @@
 
 package com.exedio.cope.instrument;
 
+import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.annotation.Nullable;
+import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypesException;
+import javax.lang.model.type.TypeMirror;
+import javax.lang.model.type.WildcardType;
 
 /**
  * Represents an attribute of a class.
@@ -38,17 +44,12 @@ import javax.lang.model.type.MirroredTypesException;
  */
 final class JavaField
 	extends JavaFeature
-	implements Evaluatable
 {
 	private static final Class<?>[] PARAMETERS_DEFAULT=new Class<?>[]{WrapperParametersDefault.class};
 
-	/**
-	 * The return type of the method.
-	 * Is null, if it is a constructor, or a class.
-	 */
-	final String type;
+	private final TypeMirror typeMirror;
 
-	final String typeRaw;
+	final String typeFullyQualified;
 
 	private final String initializer;
 	final WrapperInitial wrapperInitial;
@@ -59,11 +60,14 @@ final class JavaField
 
 	private Object rtvalue = null;
 
+	private final Map<String,String> typeShortcuts=new HashMap<>();
+
 	@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 	JavaField(
 		final JavaClass parent,
 		final int modifiers,
-		final String type,
+		final TypeMirror typeMirror,
+		final String typeFullyQualified,
 		final String name,
 		final String sourceLocation,
 		final String initializer,
@@ -73,10 +77,8 @@ final class JavaField
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, name, sourceLocation);
-		if (type == null)
-			throw new RuntimeException();
-		this.type=type;
-		this.typeRaw=Generics.strip(type);
+		this.typeMirror=typeMirror;
+		this.typeFullyQualified=typeFullyQualified;
 		checkWrapUnique(wrappers);
 		this.initializer=initializer;
 		this.wrapperInitial=wrapperInitial;
@@ -85,6 +87,71 @@ final class JavaField
 
 		//noinspection ThisEscapedInObjectConstruction
 		parent.add(this);
+	}
+
+	String getTypeParameter(final int number)
+	{
+		if (!(typeMirror instanceof DeclaredType) || ((DeclaredType)typeMirror).getTypeArguments().isEmpty())
+			throw new RuntimeException("type "+typeMirror+" is not parameterized");
+		return applyTypeShortcuts(((DeclaredType)typeMirror).getTypeArguments().get(number));
+	}
+
+	void addTypeShortcut(final String fullType, final String shortType)
+	{
+		final String collision = typeShortcuts.put(fullType, shortType);
+		if (collision!=null && !collision.equals(shortType))
+			throw new RuntimeException("shortcut collision: "+fullType+" -> "+collision+"/"+shortType);
+		final String collisionArray = typeShortcuts.put(fullType+"[]", shortType+"[]");
+		if (collisionArray!=null && !collisionArray.equals(shortType+"[]"))
+			throw new RuntimeException("shortcut collision: "+fullType+" -> "+collisionArray+"/"+shortType+"[]");
+	}
+
+	String applyTypeShortcuts(final TypeMirror typeMirror)
+	{
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch (typeMirror.getKind())
+		{
+			case DECLARED:
+				final StringBuilder sb = new StringBuilder();
+				sb.append( applyTypeShortcuts(((DeclaredType)typeMirror).asElement().toString()) );
+				final List<? extends TypeMirror> args = ((DeclaredType)typeMirror).getTypeArguments();
+				if (!args.isEmpty())
+				{
+					sb.append( "<" );
+					final StringSeparator separator = new StringSeparator(",");
+					for (final TypeMirror arg : args)
+					{
+						separator.appendTo(sb);
+						sb.append( applyTypeShortcuts(arg) );
+					}
+					sb.append( ">" );
+				}
+				return sb.toString();
+			case WILDCARD:
+				final StringBuilder wsb = new StringBuilder();
+				wsb.append("?");
+				final TypeMirror extendsBound = ((WildcardType)typeMirror).getExtendsBound();
+				if (extendsBound!=null)
+				{
+					wsb.append(" extends ");
+					wsb.append(applyTypeShortcuts(extendsBound));
+				}
+				final TypeMirror superBound = ((WildcardType)typeMirror).getSuperBound();
+				if (superBound!=null)
+				{
+					wsb.append(" super ");
+					wsb.append(applyTypeShortcuts(superBound));
+				}
+				return wsb.toString();
+			default:
+				return applyTypeShortcuts(typeMirror.toString());
+		}
+	}
+
+	String applyTypeShortcuts(final String typeName)
+	{
+		final String shortType = typeShortcuts.get(typeName);
+		return shortType==null ? typeName : shortType;
 	}
 
 	boolean hasInvalidWrapperUsages()
@@ -132,7 +199,7 @@ final class JavaField
 				}
 			}
 			details.append(System.lineSeparator());
-			reportSourceProblem(Severity.error, "invalid wrap", details.toString());
+			reportSourceProblem("invalid wrap", details.toString());
 			return true;
 		}
 	}
@@ -230,8 +297,14 @@ final class JavaField
 			final Class<?>[] result = new Class<?>[e.getTypeMirrors().size()];
 			for (int i = 0; i < result.length; i++)
 			{
-				result[i] = TypeMirrorHelper.getClass(e.getTypeMirrors().get(i), parent.nameSpace);
-				if (result[i]==null) throw new NullPointerException(e.getTypeMirrors()+"  "+i);
+				try
+				{
+					result[i] = TypeMirrorHelper.getClass(e.getTypeMirrors().get(i), parent.file.interimClassLoader);
+				}
+				catch (final ClassNotFoundException cnf)
+				{
+					throw new RuntimeException(cnf);
+				}
 			}
 			return result;
 		}
@@ -248,19 +321,36 @@ final class JavaField
 		return initializer;
 	}
 
-	@Override
-	public Object evaluate()
+	Object evaluate()
 	{
 		assert !file.repository.isBuildStage();
+
+		if (wrapperIgnore!=null)
+			throw new RuntimeException("evaluate ignored");
 
 		if(rtvalue==null)
 		{
 			if ( getInitializer()==null ) throw new RuntimeException("getInitializer() null");
-			rtvalue = parent.evaluate(getInitializer());
+			rtvalue = getValueFromInterimClassLoader(); // parent.evaluate(getInitializer());
 			assert rtvalue!=null : getInitializer()+'/'+parent+'/'+name;
 			parent.registerInstance(this, rtvalue);
 		}
 
 		return rtvalue;
+	}
+
+	private Object getValueFromInterimClassLoader()
+	{
+		try
+		{
+			final Class<?> interimClass = file.interimClassLoader.loadClass(parent.getFullName());
+			final Field field = interimClass.getDeclaredField(name);
+			field.setAccessible(true);
+			return field.get(null);
+		}
+		catch (final ClassNotFoundException|NoSuchFieldException|IllegalAccessException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }

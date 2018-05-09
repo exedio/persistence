@@ -16,15 +16,13 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.pattern;
+package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.BooleanField;
+import com.exedio.cope.instrument.WrapImplementsInterim;
 
-public final class DummyBlock extends Block
+@SuppressWarnings({"InterfaceMayBeAnnotatedFunctional", "unused"})
+@WrapImplementsInterim
+interface InterfaceThatUsesDontInstrument
 {
-	@SuppressWarnings("unused")
-	static final BooleanField field = new BooleanField();
-	private static final long serialVersionUID = 1l;
-	public static final BlockType<DummyBlock> TYPE = BlockType.newType(DummyBlock.class);
-	private DummyBlock(final BlockActivationParameters ap) { super(ap); }
+	void method(DontInstrument param);
 }

@@ -25,6 +25,7 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
 import java.io.File;
 import java.io.IOException;
@@ -115,6 +116,7 @@ final class MediaServletItem extends Item
 
 	static final DateField nameServerLastModified = new DateField().optional();
 
+	@WrapperIgnore // required because MediaNameServer inherits @WrapFeature
 	static final MediaNameServer nameServer = new MediaNameServer(name, nameServerLastModified);
 
 

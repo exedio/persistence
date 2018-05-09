@@ -23,7 +23,6 @@ import com.exedio.cope.Copyable;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -54,30 +53,21 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 
 		this.valueType = valueType;
 
-		if(!InstrumentContext.isRunning())
-		{
-			final LinkedHashMap<Feature, Feature> templateToComponent = new LinkedHashMap<>();
-			final HashMap<Feature, Feature> componentToTemplate = new HashMap<>();
+		final LinkedHashMap<Feature, Feature> templateToComponent = new LinkedHashMap<>();
+		final HashMap<Feature, Feature> componentToTemplate = new HashMap<>();
 
-			final CopyMapper mapper = new CopyMapper();
-			for(final Map.Entry<String, Feature> e : valueType.getTemplateMap().entrySet())
-			{
-				final Feature template = e.getValue();
-				final Feature component = mapper.put(template, ((Copyable)template).copy(mapper));
-				addSourceFeature(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
-				templateToComponent.put(template, component);
-				componentToTemplate.put(component, template);
-			}
-			this.templateToComponent = templateToComponent;
-			this.componentToTemplate = componentToTemplate;
-			this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
-		}
-		else
+		final CopyMapper mapper = new CopyMapper();
+		for(final Map.Entry<String, Feature> e : valueType.getTemplateMap().entrySet())
 		{
-			this.templateToComponent = null;
-			this.componentToTemplate = null;
-			this.componentList = null;
+			final Feature template = e.getValue();
+			final Feature component = mapper.put(template, ((Copyable)template).copy(mapper));
+			addSourceFeature(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
+			templateToComponent.put(template, component);
+			componentToTemplate.put(component, template);
 		}
+		this.templateToComponent = templateToComponent;
+		this.componentToTemplate = componentToTemplate;
+		this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
 	}
 
 	public static <E extends Block> BlockField<E> create(final BlockType<E> valueType)

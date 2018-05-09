@@ -19,10 +19,6 @@
 
 package com.exedio.cope.instrument;
 
-import bsh.EvalError;
-import bsh.Primitive;
-import bsh.UtilEvalError;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -37,13 +33,10 @@ import java.util.List;
  */
 final class JavaClass extends JavaFeature
 {
-	final CopeNameSpace nameSpace;
-
 	private final HashMap<String, JavaField> fields = new HashMap<>();
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
 	final HashMap<String,JavaClass> innerClasses = new HashMap<>();
 	final int typeParameters;
-	final boolean isEnum;
 	final Kind kind;
 	final String fullyQualifiedSuperclass;
 	final WrapperType typeOption;
@@ -56,16 +49,13 @@ final class JavaClass extends JavaFeature
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String simpleName,
 			final String sourceLocation,
-			final boolean isEnum,
 			final Kind kind,
 			final String fullyQualifiedSuperclass,
 			final WrapperType typeOption,
 			final int classEndPosition)
 	{
 		super(file, parent, modifiers, Generics.strip(simpleName), sourceLocation);
-		this.nameSpace = new NS(file.nameSpace);
 		this.typeParameters = Generics.get(simpleName).size();
-		this.isEnum = isEnum;
 		this.kind = kind;
 		this.fullyQualifiedSuperclass = Generics.strip(fullyQualifiedSuperclass);
 		this.typeOption=typeOption;
@@ -86,13 +76,6 @@ final class JavaClass extends JavaFeature
 		if(fields.putIfAbsent(javaField.name, javaField)!=null)
 			throw new RuntimeException(name+'/'+javaField.name);
 		fieldList.add(javaField);
-	}
-
-	JavaField getField(final String name)
-	{
-		assert !file.repository.isBuildStage();
-
-		return fields.get(name);
 	}
 
 	List<JavaField> getFields()
@@ -177,87 +160,9 @@ final class JavaClass extends JavaFeature
 		return file.translateToPositionInSourceWithoutGeneratedFragments(classEndPosition);
 	}
 
-	Object evaluate(final String s)
-	{
-		assert !file.repository.isBuildStage();
-
-		try
-		{
-			//System.out.println("--------evaluate("+s+")");
-			@SuppressWarnings("UnnecessaryLocalVariable")
-			final Object result = file.repository.interpreter.eval(Generics.remove(s), nameSpace);
-			//System.out.println("--------evaluate("+s+") == "+result);
-			return result;
-		}
-		catch(final NoClassDefFoundError | EvalError e)
-		{
-			throw new RuntimeException("In class " + getFullName() + " evaluated " + s, e);
-		}
-	}
-
 	void addInnerClass(final JavaClass c)
 	{
 		innerClasses.put(c.name, c);
-	}
-
-	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
-	@SuppressFBWarnings("SE_BAD_FIELD_INNER_CLASS") // Non-serializable class has a serializable inner class
-	private final class NS extends CopeNameSpace
-	{
-		private static final long serialVersionUID = 1l;
-
-		NS(final CopeNameSpace parent)
-		{
-			super(parent, name);
-		}
-
-		@Override
-		Class<?> getClassInternal(final String name) throws UtilEvalError
-		{
-			final String innerClassName;
-			// Un-prefixing DUMMY_ITEM_PREFIX is not a clean solution.
-			// See SameInnerTypeCollision for an example where the hack does not work.
-			if ( name.startsWith(JavaRepository.DUMMY_ITEM_PREFIX) )
-			{
-				innerClassName=name.substring(JavaRepository.DUMMY_ITEM_PREFIX.length());
-			}
-			else
-			{
-				innerClassName=name;
-			}
-			final JavaClass inner=innerClasses.get(innerClassName);
-			if ( inner==null || !inner.isEnum )
-			{
-				return super.getClassInternal(name);
-			}
-			else
-			{
-				return JavaRepository.EnumBeanShellHackClass.class;
-			}
-		}
-
-		@Override
-		Object getVariableInternal(final String name) throws UtilEvalError
-		{
-			//System.out.println("++++++++++++++++1--------getVariable(\""+name+"\")");
-			final Object superResult = super.getVariableInternal(name);
-			if(superResult!=Primitive.VOID)
-			{
-				//System.out.println("#####"+superResult+"--"+superResult.getClass());
-				return superResult;
-			}
-
-			//System.out.println("++++++++++++++++2--------getVariable(\""+name+"\")");
-			for(CopeType<?> ct = LocalCopeType.getCopeType(JavaClass.this); ct!=null; ct = ct.getSuperclass())
-			{
-				final Evaluatable eval = ct.getField(name);
-				if(eval!=null)
-					return eval.evaluate();
-			}
-
-			return Primitive.VOID;
-		}
-
 	}
 
 	final HashMap<Object, JavaField> javaFieldsByInstance = new HashMap<>();

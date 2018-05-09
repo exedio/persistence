@@ -31,7 +31,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import com.exedio.cope.instrument.InstrumentContext;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -78,49 +77,37 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.valueType = CompositeType.get(valueClass);
 		this.componentSize = valueType.componentSize;
 
-		if(!InstrumentContext.isRunning())
-		{
-			final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent = new LinkedHashMap<>();
-			final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate = new HashMap<>();
-			FunctionField<?> mandatoryComponent = null;
-			final ArrayList<Condition> isNull    = optional ? new ArrayList<>() : null;
-			final ArrayList<Condition> isNotNull = optional ? new ArrayList<>() : null;
+		final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent = new LinkedHashMap<>();
+		final HashMap<FunctionField<?>, FunctionField<?>> componentToTemplate = new HashMap<>();
+		FunctionField<?> mandatoryComponent = null;
+		final ArrayList<Condition> isNull    = optional ? new ArrayList<>() : null;
+		final ArrayList<Condition> isNotNull = optional ? new ArrayList<>() : null;
 
-			for(final Map.Entry<String, FunctionField<?>> e : valueType.getTemplateMap().entrySet())
+		for(final Map.Entry<String, FunctionField<?>> e : valueType.getTemplateMap().entrySet())
+		{
+			final FunctionField<?> template = e.getValue();
+			final FunctionField<?> component = copy(template);
+			addSourceFeature(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
+			templateToComponent.put(template, component);
+			componentToTemplate.put(component, template);
+			if(optional && mandatoryComponent==null && template.isMandatory())
+				mandatoryComponent = component;
+			if(optional)
 			{
-				final FunctionField<?> template = e.getValue();
-				final FunctionField<?> component = copy(template);
-				addSourceFeature(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
-				templateToComponent.put(template, component);
-				componentToTemplate.put(component, template);
-				if(optional && mandatoryComponent==null && template.isMandatory())
-					mandatoryComponent = component;
-				if(optional)
-				{
-					isNull.add(component.isNull());
-					if(template.isMandatory())
-						isNotNull.add(component.isNotNull());
-				}
+				isNull.add(component.isNull());
+				if(template.isMandatory())
+					isNotNull.add(component.isNotNull());
 			}
-			if(optional && mandatoryComponent==null)
-				throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
+		}
+		if(optional && mandatoryComponent==null)
+			throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
 
-			this.templateToComponent = templateToComponent;
-			this.componentToTemplate = componentToTemplate;
-			this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
-			this.mandatoryComponent = mandatoryComponent;
-			this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
-			this.unison = optional ? addSourceFeature(new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison") : null;
-		}
-		else
-		{
-			this.templateToComponent = null;
-			this.componentToTemplate = null;
-			this.componentList = null;
-			this.mandatoryComponent = null;
-			this.isNullComponent = null;
-			this.unison = null;
-		}
+		this.templateToComponent = templateToComponent;
+		this.componentToTemplate = componentToTemplate;
+		this.componentList = Collections.unmodifiableList(new ArrayList<>(templateToComponent.values()));
+		this.mandatoryComponent = mandatoryComponent;
+		this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
+		this.unison = optional ? addSourceFeature(new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison") : null;
 	}
 
 	public static <E extends Composite> CompositeField<E> create(final Class<E> valueClass)

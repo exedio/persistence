@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.instrument.WrapImplementsInterim;
 import com.exedio.cope.pattern.Money.Currency;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -35,6 +36,7 @@ public final class Money<C extends Currency>
 	 * otherwise {@link Money#toString() Money.toString} will not be useful.
 	 */
 	@SuppressWarnings("MarkerInterface") // OK: maybe we get methods in the future
+	@WrapImplementsInterim(addMethods=true)
 	public interface Currency
 	{
 		// empty

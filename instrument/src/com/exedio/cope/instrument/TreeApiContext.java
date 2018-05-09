@@ -99,6 +99,17 @@ final class TreeApiContext
 		return docTrees.getElement(tp);
 	}
 
+	Element getElementForTree(final Tree tree)
+	{
+		final TreePath path = docTrees.getPath(compilationUnit, tree);
+		if (path==null)
+			throw new IllegalArgumentException("can't find '"+tree+" ("+tree.getKind()+") in "+compilationUnit);
+		final Element element = docTrees.getElement(path);
+		if (element==null)
+			throw new NullPointerException("can't find element for '"+tree+"' ("+tree.getKind()+")");
+		return element;
+	}
+
 	private byte[] getAllBytes()
 	{
 		if ( allBytes==null )

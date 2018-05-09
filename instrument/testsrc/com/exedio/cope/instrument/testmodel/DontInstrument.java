@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import javax.annotation.Generated;
 
@@ -31,7 +32,10 @@ class DontInstrument extends Item
 
 	static final SimpleSettable makeInstrumentorFail = null;
 
-	/** this file is not visited by the {@link InstrumentorProcessor}, so this does not produce a warning */
+	@WrapInterim
+	static final long wouldNotCompileInInterimCode = serialVersionUID;
+
 	@Generated("com.exedio.cope.instrument")
+	@SuppressWarnings("non-generated")
 	int generatedVariable;
 }

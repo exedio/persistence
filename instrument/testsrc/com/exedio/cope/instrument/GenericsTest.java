@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import static com.exedio.cope.instrument.Generics.get;
-import static com.exedio.cope.instrument.Generics.remove;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,17 +40,5 @@ public class GenericsTest
 		assertEquals(asList("Gen1<NestGen1A>", "Gen2"), get("Raw<Gen1<NestGen1A>,Gen2>"));
 		assertEquals(asList("Gen1<NestGen1A>", "Gen2<NestGen2A>"), get("Raw<Gen1<NestGen1A>,Gen2<NestGen2A>>"));
 		assertEquals(asList("Gen1<NestGen1A>", "Gen2<NestGen2A,NestGen2B,NestGen2C>"), get("Raw<Gen1<NestGen1A>,Gen2<NestGen2A,NestGen2B,NestGen2C>>"));
-	}
-
-	@Test void testRemove()
-	{
-		assertEquals("new Foo()", remove("new Foo()"));
-		assertEquals("new Foo()", remove("new Foo<x>()"));
-		assertEquals("new Foo().x(\"y\")", remove("new Foo<x>().x(\"y\")"));
-		assertEquals("new Foo().x(\"\\u003C\")", remove("new Foo<x>().x(\"\\u003C\")"));
-		assertEquals("new Foo().x(\"<\")", remove("new Foo().x(\"<\")"));
-		assertEquals("new Foo('>')", remove("new Foo('>')"));
-		assertEquals("'\"'", remove("'\"'<>"));
-		assertEquals("'\\''", remove("'\\''"));
 	}
 }

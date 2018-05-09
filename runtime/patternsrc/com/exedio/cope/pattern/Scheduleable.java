@@ -18,10 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.instrument.WrapImplementsInterim;
 import com.exedio.cope.util.JobContext;
 import java.util.Date;
 
 @FunctionalInterface
+@WrapImplementsInterim(addMethods=true)
 public interface Scheduleable
 {
 	void run(Schedule schedule, Date from, Date until, JobContext ctx);

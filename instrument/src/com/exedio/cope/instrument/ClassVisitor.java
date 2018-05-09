@@ -19,10 +19,13 @@
 package com.exedio.cope.instrument;
 
 import com.sun.source.doctree.DocCommentTree;
+import com.sun.source.tree.ArrayTypeTree;
 import com.sun.source.tree.BlockTree;
 import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.ParameterizedTypeTree;
 import com.sun.source.tree.Tree;
 import com.sun.source.tree.VariableTree;
+import com.sun.source.tree.WildcardTree;
 import java.lang.annotation.Annotation;
 import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
@@ -30,6 +33,8 @@ import java.util.EnumSet;
 import java.util.Set;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.Modifier;
+import javax.lang.model.element.TypeElement;
+import javax.lang.model.element.VariableElement;
 
 class ClassVisitor extends GeneratedAwareScanner
 {
@@ -66,7 +71,6 @@ class ClassVisitor extends GeneratedAwareScanner
 				TreeApiHelper.toModifiersInt(ct.getModifiers()),
 				getSimpleName(ct),
 				context.getSourcePosition(ct),
-				ct.getKind()==Tree.Kind.ENUM,
 				Kind.valueOf(getAnnotation(WrapType.class)),
 				classExtends,
 				getWrapperType(),
@@ -89,17 +93,42 @@ class ClassVisitor extends GeneratedAwareScanner
 		return includeLeadingWhitespaceLine(positionOfClosingBrace-1, false);
 	}
 
+	private String getFullyQualifiedName(final Tree typeTree)
+	{
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch (typeTree.getKind())
+		{
+			case PRIMITIVE_TYPE:
+				return typeTree.toString();
+			case ARRAY_TYPE:
+				return getFullyQualifiedName(((ArrayTypeTree)typeTree).getType())+"[]";
+			case IDENTIFIER:
+			case PARAMETERIZED_TYPE:
+			case MEMBER_SELECT:
+				//noinspection RedundantCast: make sure this is a TypeElement
+				return ((TypeElement)context.getElementForTree(typeTree)).toString();
+			default:
+				throw new RuntimeException("unhandled kind "+typeTree.getKind()+" for '"+typeTree+"'");
+		}
+	}
+
 	@Override
 	public Void visitVariable(final VariableTree node, final Void p)
 	{
 		super.visitVariable(node, p);
-		if ( !hasGeneratedAnnotation() && node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE) )
+		if ( !hasGeneratedAnnotation()
+			&& node.getModifiers().getFlags().containsAll(REQUIRED_MODIFIERS_FOR_COPE_FEATURE)
+			&& (node.getType().getKind()==Tree.Kind.IDENTIFIER||node.getType().getKind()==Tree.Kind.PARAMETERIZED_TYPE)
+			&& context.getElementForTree(node.getType()).getAnnotation(WrapFeature.class)!=null )
 		{
 			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new JavaField(
+			final String variableType = getFullyQualifiedName(node.getType());
+			final VariableElement fieldElement = (VariableElement)context.getElementForTree(node);
+			final JavaField javaField = new JavaField(
 				javaClass,
 				TreeApiHelper.toModifiersInt(node.getModifiers()),
-				removeSpacesAfterCommas(node.getType().toString()),
+				fieldElement.asType(),
+				variableType,
 				node.getName().toString(),
 				context.getSourcePosition(node),
 				node.getInitializer()==null?null:node.getInitializer().toString(),
@@ -107,8 +136,41 @@ class ClassVisitor extends GeneratedAwareScanner
 				getAnnotation(WrapperIgnore.class),
 				Arrays.asList(getAnnotations(Wrapper.class))
 			);
+			registerTypeShortcuts(javaField, node.getType());
 		}
 		return null;
+	}
+
+	private void registerTypeShortcuts(final JavaField javaField, final Tree typeTree)
+	{
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch (typeTree.getKind())
+		{
+			case PRIMITIVE_TYPE:
+			case UNBOUNDED_WILDCARD:
+				break;
+			case IDENTIFIER:
+			case MEMBER_SELECT:
+				final TypeElement identifierElement = (TypeElement)context.getElementForTree(typeTree);
+				javaField.addTypeShortcut(identifierElement.getQualifiedName().toString(), typeTree.toString());
+				break;
+			case PARAMETERIZED_TYPE:
+				registerTypeShortcuts(javaField, ((ParameterizedTypeTree)typeTree).getType());
+				for (final Tree typeArgument : ((ParameterizedTypeTree)typeTree).getTypeArguments())
+				{
+					registerTypeShortcuts(javaField, typeArgument);
+				}
+				break;
+			case ARRAY_TYPE:
+				registerTypeShortcuts(javaField, ((ArrayTypeTree)typeTree).getType());
+				break;
+			case EXTENDS_WILDCARD:
+				registerTypeShortcuts(javaField, ((WildcardTree)typeTree).getBound());
+				break;
+			default:
+				throw new RuntimeException(typeTree+" - "+typeTree.getKind());
+		}
+
 	}
 
 	private void addGeneratedFragment(final int start, final int end)
@@ -197,32 +259,6 @@ class ClassVisitor extends GeneratedAwareScanner
 		return element.getAnnotationsByType(annotationType);
 	}
 
-	private static String removeSpacesAfterCommas(final String s)
-	{
-		final StringBuilder result = new StringBuilder(s.length());
-		boolean foundComma = false;
-		for (int i=0; i < s.length(); i++)
-		{
-			final char c = s.charAt(i);
-			if ( foundComma )
-			{
-				if ( c!=' ' )
-				{
-					foundComma = false;
-					result.append(c);
-				}
-			}
-			else
-			{
-				result.append(c);
-				if ( c==',' )
-				{
-					foundComma = true;
-				}
-			}
-		}
-		return result.toString();
-	}
 	private static String getSimpleName(final ClassTree ct)
 	{
 		String simpleName=ct.getSimpleName().toString();

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import java.util.Collection;
 
@@ -26,9 +27,11 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	static final GenericFeatureClass fromMid = new GenericFeatureClass();
 
 
+	@WrapInterim
 	public static final class classWildcard
 	{
 		@SuppressWarnings("unchecked")
+		@WrapInterim
 		public static final Class<GenericComplexMid<?>> value = (Class<GenericComplexMid<?>>)(Class<?>)GenericComplexMid.class;
 
 		private classWildcard()

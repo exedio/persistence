@@ -45,5 +45,5 @@ public @interface WrapType
 	String featurePrefix() default "";
 	String featurePostfix() default "";
 	String featureThis() default "this";
-	Class<?> dummy();
+	Class<?> top();
 }

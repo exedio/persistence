@@ -113,7 +113,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	@WrapperIgnore
 	static final OptionFeature ignoreAnnotated = new OptionFeature().fail();
 
-	@WrapperIgnore
+	@Wrapper(wrap="*", visibility=NONE)
 	static final OptionFeature ignoreDontFail = new OptionFeature();
 
 	static final FilterFeature wrapTheIgnored = new FilterFeature(ignoreDontFail).sourceNotNull();

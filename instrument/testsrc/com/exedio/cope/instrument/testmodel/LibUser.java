@@ -18,11 +18,13 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.FilterFeature;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import com.exedio.cope.instrument.testfeature.WrapVarargs;
 import com.exedio.cope.instrument.testlib.LibItem;
+import com.exedio.cope.misc.ReflectionTypes;
 
 /** test extening an item that is imported from a library */
 class LibUser extends LibItem<String>
@@ -32,7 +34,7 @@ class LibUser extends LibItem<String>
 
 	static final FilterFeature filter=new FilterFeature(option);
 
-	static final GenericFeatureReference<LibItem<?>> ref=GenericFeatureReference.create(LibItem.classWildcard.value);
+	static final GenericFeatureReference<LibItem<?>> ref=GenericFeatureReference.create(LibItem.classWildcard.value, ReflectionTypes.parameterized(LibItem.class, ReflectionTypes.sub(Object.class)));
 
 	static final SimpleSettable simple=new SimpleSettable(CONSTANT_FOR_FALSE);
 	static final SimpleSettable simple2=new SimpleSettable(CONSTANT_FOR_FALSE_IN_LIBITEM);
@@ -40,6 +42,7 @@ class LibUser extends LibItem<String>
 	static final WrapVarargs wrapLibSuper=new WrapVarargs(inSuper);
 
 	@Override
+	@WrapInterim
 	public String makeTee()
 	{
 		return "tee";

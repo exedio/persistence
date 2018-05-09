@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
-import static java.util.Collections.singleton;
 
 import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
@@ -30,30 +29,41 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
-import javax.annotation.processing.Processor;
 import javax.tools.JavaCompiler;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
-abstract class JavacRunner<P extends Processor>
+final class JavacRunner
 {
-	void run(final Params params) throws IOException, HumanReadableException
+	static JavaCompiler getJavaCompiler()
 	{
 		// "JavacTool.create()" is not part of the "exported" API
 		// (not annotated with https://docs.oracle.com/javase/8/docs/jdk/api/javac/tree/jdk/Exported.html).
 		// The more stable alternative would be calling "ToolProvider.getSystemJavaCompiler()", but that causes
-		// class path issues with when run as an ant task.
-		final JavaCompiler compiler=JavacTool.create();
+		// class path issues when run as an ant task.
+		return JavacTool.create();
+	}
+
+	private final JavacProcessor[] processors;
+
+	JavacRunner(final JavacProcessor... processors)
+	{
+		this.processors = processors.clone();
+	}
+
+	void run(final Params params) throws IOException, HumanReadableException
+	{
+		final JavaCompiler compiler=getJavaCompiler();
 		try (final StandardJavaFileManager fileManager=compiler.getStandardFileManager(null, null, null))
 		{
-			final List<File> sortedSourceFiles=params.getJavaSourceFilesExcludingIgnored();
+			final List<File> sortedSourceFiles=params.getAllJavaSourceFiles();
 			// We have to sort files to have a deterministic order - otherwise, resolving classes by
 			// simple name is not deterministic.
 			Collections.sort(sortedSourceFiles);
 			final Iterable<? extends JavaFileObject> sources=fileManager.getJavaFileObjectsFromFiles(sortedSourceFiles);
 			final List<String> optionList = new ArrayList<>();
 			optionList.addAll(asList("-classpath", combineClasspath(getCurrentClasspath(), toClasspathString(params.classpath))));
-			optionList.addAll(asList("-sourcepath", toClasspathString(params.sourceDirectories)));
+			optionList.addAll(asList("-sourcepath", toClasspathString(params.getSourceDirectories())));
 			optionList.add("-proc:only");
 			optionList.add("-encoding");
 			optionList.add(params.charset.name());
@@ -61,18 +71,17 @@ abstract class JavacRunner<P extends Processor>
 			optionList.add(params.getMaxwarns());
 			optionList.add("-implicit:none");
 			final JavaCompiler.CompilationTask task = compiler.getTask(null, null, null, optionList, null, sources);
-			final P processor=createProcessor();
-			task.setProcessors(singleton(processor));
-			task.call();
-			validateProcessor(processor);
+			for (final JavacProcessor processor : processors)
+			{
+				processor.prepare(params, fileManager);
+			}
+			task.setProcessors(asList(processors));
+			if (!task.call())
+				throw new HumanReadableException("cope instrumentor failed");
 		}
 	}
 
-	abstract P createProcessor();
-
-	abstract void validateProcessor(P processor) throws HumanReadableException;
-
-	private static String combineClasspath(final String classpathA, final String classpathB)
+	static String combineClasspath(final String classpathA, final String classpathB)
 	{
 		if (classpathA.isEmpty())
 		{
@@ -88,12 +97,12 @@ abstract class JavacRunner<P extends Processor>
 		}
 	}
 
-	private static String toClasspathString(final List<File> classpathFiles)
+	static String toClasspathString(final List<File> classpathFiles)
 	{
 		return classpathFiles.stream().map(File::getAbsolutePath).collect(Collectors.joining(File.pathSeparator));
 	}
 
-	private static String getCurrentClasspath()
+	static String getCurrentClasspath()
 	{
 		// This is a hack:
 		// We want to use the current classpath also in the javac task that's being started, so we

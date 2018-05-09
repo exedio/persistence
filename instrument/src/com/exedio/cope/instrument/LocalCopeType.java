@@ -19,23 +19,11 @@
 package com.exedio.cope.instrument;
 
 import com.exedio.cope.Item;
-import java.lang.annotation.Annotation;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
 final class LocalCopeType extends CopeType<LocalCopeFeature>
 {
-	private static final WrapperType OPTION_DEFAULT = new WrapperType()
-	{
-		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
-		@Override public Visibility type() { return Visibility.DEFAULT; }
-		@Override public Visibility constructor() { return Visibility.DEFAULT; }
-		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }
-		@Override public Visibility activationConstructor() { return Visibility.DEFAULT; }
-		@Override public int indent() { return 1; }
-		@Override public boolean comments() { return true; }
-	};
-
 	private static final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
 
 	static LocalCopeType getCopeType(final JavaClass javaClass)
@@ -58,11 +46,10 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		super(kind);
 		this.javaClass=javaClass;
 		this.name = javaClass.name;
-		this.option = javaClass.typeOption!=null ? javaClass.typeOption : OPTION_DEFAULT;
+		this.option = AnnotationHelper.getOrDefault(javaClass.typeOption);
 		//noinspection ThisEscapedInObjectConstruction
 		copeTypeByJavaClass.put(javaClass, this);
 
-		javaClass.nameSpace.importStatic(Item.class);
 		//noinspection ThisEscapedInObjectConstruction
 		javaClass.file.repository.add(this);
 
@@ -80,14 +67,10 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 			if(javaField.wrapperIgnore!=null)
 				continue;
 
-			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeRaw);
-			if(typeClass==null)
-				continue;
-
-			if(typeClass.isAnnotationPresent(WrapFeature.class))
-			{
-				register(new LocalCopeFeature(this, javaField));
-			}
+			final Class<?> typeClass = javaField.file.findTypeExternally(javaField.typeFullyQualified);
+			if(typeClass==null || !typeClass.isAnnotationPresent(WrapFeature.class))
+				throw new RuntimeException("can't find "+javaField.typeFullyQualified+" for "+javaClass.name+"#"+javaField.name);
+			register(new LocalCopeFeature(this, javaField));
 		}
 	}
 
@@ -106,13 +89,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	boolean isInterface()
 	{
 		return javaClass.isInterface();
-	}
-
-	/** @return null if the type has no field with that name */
-	@Override
-	JavaField getField(final String name)
-	{
-		return javaClass.getField(name);
 	}
 
 	void endBuildStage()

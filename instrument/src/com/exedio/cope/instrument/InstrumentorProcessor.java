@@ -20,13 +20,11 @@ package com.exedio.cope.instrument;
 
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.ExpressionTree;
-import com.sun.source.tree.ImportTree;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
-import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.annotation.processing.SupportedSourceVersion;
@@ -36,22 +34,26 @@ import javax.lang.model.element.TypeElement;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
-final class InstrumentorProcessor extends AbstractProcessor
+final class InstrumentorProcessor extends JavacProcessor
 {
-
 	private final JavaRepository javaRepository;
+	private final InterimProcessor interimProcessor;
 
-	boolean processHasBeenCalled = false;
-
-	InstrumentorProcessor(final JavaRepository javaRepository)
+	InstrumentorProcessor(final JavaRepository javaRepository, final InterimProcessor interimProcessor)
 	{
 		this.javaRepository = javaRepository;
+		this.interimProcessor = interimProcessor;
 	}
 
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
-		processHasBeenCalled=true;
+		final ClassLoader interimClassLoader = interimProcessor.getInterimClassLoader();
+		if (interimClassLoader==null)
+		{
+			// InterimProcessor failed
+			return false;
+		}
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
 		final DocTrees docTrees = DocTrees.instance(processingEnv);
 		for (final Element e: roundEnv.getRootElements())
@@ -63,20 +65,20 @@ final class InstrumentorProcessor extends AbstractProcessor
 			JavaFile javaFile=files.get(compilationUnit);
 			if ( javaFile==null )
 			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
-				for (final ImportTree aImport: compilationUnit.getImports())
-				{
-					if (!aImport.isStatic())
-					{
-						javaFile.addImport(aImport.getQualifiedIdentifier().toString());
-					}
-				}
+				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
 			}
 			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
-			final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
-			visitor.scan(tp, null);
+			if (isFileIgnored(compilationUnit.getSourceFile()))
+			{
+				new WarnForGeneratedVisitor(treeApiContext).scan(tp, null);
+			}
+			else
+			{
+				final CompilationUnitVisitor visitor=new CompilationUnitVisitor(treeApiContext);
+				visitor.scan(tp, null);
+			}
 		}
-		return true;
+		return false;
 	}
 
 	private static String getPackageName(final CompilationUnitTree compilationUnit)

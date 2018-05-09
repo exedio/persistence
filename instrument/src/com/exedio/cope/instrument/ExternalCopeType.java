@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument;
 
 import com.exedio.cope.Item;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -59,27 +58,6 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	WrapperType getOption()
 	{
 		throw new RuntimeException("unexpected call - should only be needed for generating the class itself");
-	}
-
-	@Override
-	Evaluatable getField(final String name)
-	{
-		try
-		{
-			final Field field=itemClass.getDeclaredField(name);
-			if (Modifier.isStatic(field.getModifiers()))
-			{
-				return new ExternalEvaluatable(field);
-			}
-			else
-			{
-				return null;
-			}
-		}
-		catch (final NoSuchFieldException ignored)
-		{
-			return null;
-		}
 	}
 
 	@Override
@@ -132,31 +110,5 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	void assertNotGenerateStage()
 	{
 		// empty
-	}
-
-	private static class ExternalEvaluatable implements Evaluatable
-	{
-		private final Field field;
-
-		ExternalEvaluatable(final Field field)
-		{
-			if (!Modifier.isStatic(field.getModifiers())) throw new RuntimeException();
-			this.field=field;
-		}
-
-		@Override
-		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
-		public Object evaluate()
-		{
-			field.setAccessible(true);
-			try
-			{
-				return field.get(null);
-			}
-			catch (IllegalArgumentException | IllegalAccessException e)
-			{
-				throw new RuntimeException(e);
-			}
-		}
 	}
 }
