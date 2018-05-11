@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.TypesBound.forClass;
 import static com.exedio.cope.TypesBound.forClassUnchecked;
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
@@ -203,22 +205,23 @@ public class TypesBoundTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(indent=2, comments=false, type=NONE, constructor=NONE, genericConstructor=NONE)
 	static final class AnItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		private AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		@WrapperIgnore
 		static final IntegerField intField = new IntegerField();
+		@WrapperIgnore
 		static final BooleanField boolField = new BooleanField();
 
 		// test, that these fields do not become features of the type
 		final BooleanField notStatic = new BooleanField();
 		static BooleanField notFinal = new BooleanField();
 		static final Object noFeature = new BooleanField();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
