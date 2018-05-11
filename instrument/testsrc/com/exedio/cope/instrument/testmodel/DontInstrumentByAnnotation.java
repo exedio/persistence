@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.CopeWarnings;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import javax.annotation.Generated;
@@ -34,7 +35,7 @@ class DontInstrumentByAnnotation extends Item
 	static final SimpleSettable makeInstrumentorFail = null;
 
 	@Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("non-generated")
+	@SuppressWarnings(CopeWarnings.NON_GENERATED)
 	int generatedVariable;
 
 	@Generated("other.than.com.exedio.cope.instrument")

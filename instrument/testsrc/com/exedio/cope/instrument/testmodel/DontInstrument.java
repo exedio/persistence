@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.CopeWarnings;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 import javax.annotation.Generated;
@@ -36,6 +37,6 @@ class DontInstrument extends Item
 	static final long wouldNotCompileInInterimCode = serialVersionUID;
 
 	@Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("non-generated")
+	@SuppressWarnings(CopeWarnings.NON_GENERATED)
 	int generatedVariable;
 }
