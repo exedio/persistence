@@ -374,8 +374,8 @@ public class ConnectPropertiesTest
 		assertIt("connection.probe", CONNECTION, EnvironmentInfo.class, probes.next());
 		assertFalse(probes.hasNext());
 
-		assertEquals(CONNECTION, p.probe());
-		assertIt("probe", CONNECTION, String.class, p.getProbeTest());
+		assertEquals(CONNECTION, probe(p));
+		assertIt("probe", CONNECTION, String.class, getProbeTest(p));
 	}
 
 	@Test void testProbeVault() throws Exception
@@ -392,8 +392,8 @@ public class ConnectPropertiesTest
 		assertIt("dataField.vault.probe", VAULT, String.class, probes.next());
 		assertFalse(probes.hasNext());
 
-		assertEquals(CONNECTION + " " + VAULT, p.probe());
-		assertIt("probe", CONNECTION + " " + VAULT, String.class, p.getProbeTest());
+		assertEquals(CONNECTION + " " + VAULT, probe(p));
+		assertIt("probe", CONNECTION + " " + VAULT, String.class, getProbeTest(p));
 	}
 
 	private static final String CONNECTION =
@@ -412,5 +412,17 @@ public class ConnectPropertiesTest
 		final Object actualResult = actual.call();
 		assertEquals(expectedResultString, actualResult.toString());
 		assertSame(expectedResultClass, actualResult.getClass());
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static String probe(final ConnectProperties p)
+	{
+		return p.probe();
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static Callable<?> getProbeTest(final ConnectProperties p)
+	{
+		return p.getProbeTest();
 	}
 }
