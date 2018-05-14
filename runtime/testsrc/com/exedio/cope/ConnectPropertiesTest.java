@@ -40,6 +40,7 @@ import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.File;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
 
@@ -369,6 +370,9 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
+		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
+		assertFalse(probes.hasNext());
+
 		assertEquals(CONNECTION, p.probe());
 		assertIt("probe", CONNECTION, String.class, p.getProbeTest());
 	}
@@ -381,6 +385,9 @@ public class ConnectPropertiesTest
 				single("dataField.vault.service.example", "probeExampleValue"),
 				TestSources.minimal()));
 		final String VAULT = "VaultMockService:probeExampleValue";
+
+		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
+		assertFalse(probes.hasNext());
 
 		assertEquals(CONNECTION + " " + VAULT, p.probe());
 		assertIt("probe", CONNECTION + " " + VAULT, String.class, p.getProbeTest());
