@@ -384,6 +384,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 			: tableName;
 	}
 
+	// ------------------- deprecated stuff -------------------
+
 	/**
 	 * @deprecated
 	 * Calling this method within methods overriding {@link Properties#getTests()}
@@ -421,8 +423,6 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				connection.probe() +
 				(dataFieldVault!=null ? ' ' + dataFieldVault.probe() : "");
 	}
-
-	// ------------------- deprecated stuff -------------------
 
 	/**
 	 * @deprecated Use {@link #ConnectProperties(File)} instead as {@code context} is no longer supported.
