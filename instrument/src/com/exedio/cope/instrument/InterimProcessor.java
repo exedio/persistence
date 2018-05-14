@@ -305,7 +305,8 @@ final class InterimProcessor extends JavacProcessor
 		{
 			if (isWrapperIgnore()) return null;
 			final TypeElement element = (TypeElement) docTrees.getElement(getCurrentPath());
-			if (element.getAnnotation(WrapImplementsInterim.class)!=null && ct.getKind()!=Tree.Kind.INTERFACE)
+			final WrapImplementsInterim implementsInterim = element.getAnnotation(WrapImplementsInterim.class);
+			if (implementsInterim!=null && ct.getKind()!=Tree.Kind.INTERFACE)
 				throw new RuntimeException(""+WrapImplementsInterim.class.getSimpleName()+" can only be used at interfaces, not at "+element);
 			final Kind kind = Kind.valueOf(element.getAnnotation(WrapType.class));
 			if (ct.getKind()==Tree.Kind.ANNOTATION_TYPE) return null;
@@ -351,6 +352,17 @@ final class InterimProcessor extends JavacProcessor
 			if (kind!=null || isWrapInterim())
 				code.require();
 			final Void result = super.visitClass(ct, p);
+			if (implementsInterim!=null && implementsInterim.addMethods())
+			{
+				for (final Element enclosedElement : element.getEnclosedElements())
+				{
+					if(enclosedElement.getKind() == ElementKind.METHOD)
+					{
+						final ExecutableElement method = (ExecutableElement) enclosedElement;
+						code.addLine(getMethodDeclaration(method, false)+";");
+					}
+				}
+			}
 			for (final TypeElement implementedInterface : implementedInterfaces)
 			{
 				for (final Element enclosedElement : implementedInterface.getEnclosedElements())
