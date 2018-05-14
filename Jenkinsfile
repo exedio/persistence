@@ -71,6 +71,62 @@ timestamps
 						useStableBuildAsReference: false,
 				)
 				archive 'build/success/*'
+				step([$class: 'PlotBuilder',
+						csvFileName: 'plots.csv',
+						exclZero: false,
+						keepRecords: false,
+						group: 'Sizes',
+						title: '1: exedio-cope.jar',
+						numBuilds: '1000',
+						style: 'line',
+						useDescr: false,
+						propertiesSeries: [
+							[ file: 'build/exedio-cope.jar-plot.properties',     label: 'exedio-cope.jar' ],
+							[ file: 'build/exedio-cope-src.zip-plot.properties', label: 'exedio-cope-src.zip' ],
+						],
+				])
+				step([$class: 'PlotBuilder',
+						csvFileName: 'plots-instrument.csv',
+						exclZero: false,
+						keepRecords: false,
+						group: 'Sizes',
+						title: '2: exedio-cope-instrument.jar',
+						numBuilds: '1000',
+						style: 'line',
+						useDescr: false,
+						propertiesSeries: [[
+							file: 'build/exedio-cope-instrument.jar-plot.properties',
+							label:      'exedio-cope-instrument.jar',
+						]],
+				])
+				step([$class: 'PlotBuilder',
+						csvFileName: 'plots-instrument-annotations.csv',
+						exclZero: false,
+						keepRecords: false,
+						group: 'Sizes',
+						title: '3: exedio-cope-instrument-annotations.jar',
+						numBuilds: '1000',
+						style: 'line',
+						useDescr: false,
+						propertiesSeries: [[
+							file: 'build/exedio-cope-instrument-annotations.jar-plot.properties',
+							label:      'exedio-cope-instrument-annotations.jar',
+						]],
+				])
+				step([$class: 'PlotBuilder',
+						csvFileName: 'plots-instrument-completion.csv',
+						exclZero: false,
+						keepRecords: false,
+						group: 'Sizes',
+						title: '4: exedio-cope-instrument-completion.jar',
+						numBuilds: '1000',
+						style: 'line',
+						useDescr: false,
+						propertiesSeries: [[
+							file: 'build/exedio-cope-instrument-completion.jar-plot.properties',
+							label:      'exedio-cope-instrument-completion.jar',
+						]],
+				])
 			}
 		}
 		catch(Exception e)

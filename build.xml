@@ -338,6 +338,7 @@
 			<zipfileset dir="${basedir}/runtime/servletsrc"><include name="**/*.java"/></zipfileset>
 			<zipfileset dir="${basedir}/instrument/annosrc"><include name="**/*.java"/></zipfileset>
 		</zip>
+		<plot file="build/exedio-cope-src.zip" />
 	</target>
 
 	<target name="runtime.test.feature.compile"
