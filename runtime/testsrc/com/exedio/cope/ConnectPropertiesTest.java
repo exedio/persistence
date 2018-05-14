@@ -384,12 +384,14 @@ public class ConnectPropertiesTest
 				single("dataField.vault", true),
 				single("dataField.vault.service", VaultMockService.class),
 				single("dataField.vault.service.example", "probeExampleValue"),
+				single("dataField.vault.service.probe.result", "probeMockResultOverride"),
 				TestSources.minimal()));
 		final String VAULT = "VaultMockService:probeExampleValue";
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		assertIt("connection.probe", CONNECTION, EnvironmentInfo.class, probes.next());
 		assertIt("dataField.vault.probe", VAULT, String.class, probes.next());
+		assertIt("dataField.vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
 		assertFalse(probes.hasNext());
 
 		assertEquals(CONNECTION + " " + VAULT, probe(p));
