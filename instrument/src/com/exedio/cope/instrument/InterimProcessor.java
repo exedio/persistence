@@ -360,24 +360,7 @@ final class InterimProcessor extends JavacProcessor
 						final ExecutableElement method = (ExecutableElement)enclosedElement;
 						if (method.isDefault())
 							continue;
-						final StringBuilder methodDeclaration = new StringBuilder();
-						methodDeclaration.
-							append("@java.lang.Override public ").
-							append(method.getReturnType()).
-							append(" ").
-							append(method.getSimpleName()).
-							append("(");
-						final StringSeparator comma = new StringSeparator(", ");
-						for (final VariableElement parameter : method.getParameters())
-						{
-							comma.appendTo(methodDeclaration);
-							methodDeclaration.
-								append(parameter.asType()).
-								append(" ").
-								append(parameter.getSimpleName());
-						}
-						methodDeclaration.append(")");
-						code = code.openBlock(null, methodDeclaration, true);
+						code = code.openBlock(null, getMethodDeclaration(method, true), true);
 						code.addLine("throw new RuntimeException(\"don't call in interim code\");");
 						code = code.closeBlock();
 					}
@@ -405,6 +388,30 @@ final class InterimProcessor extends JavacProcessor
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
 			return result;
+		}
+
+		private String getMethodDeclaration(final ExecutableElement method, final boolean override)
+		{
+			final StringBuilder methodDeclaration = new StringBuilder();
+			if (override)
+				methodDeclaration.append("@java.lang.Override ");
+			methodDeclaration.
+				append("public ").
+				append(method.getReturnType()).
+				append(" ").
+				append(method.getSimpleName()).
+				append("(");
+			final StringSeparator comma = new StringSeparator(", ");
+			for (final VariableElement parameter : method.getParameters())
+			{
+				comma.appendTo(methodDeclaration);
+				methodDeclaration.
+					append(parameter.asType()).
+					append(" ").
+					append(parameter.getSimpleName());
+			}
+			methodDeclaration.append(")");
+			return methodDeclaration.toString();
 		}
 
 		private String getTypeToken(final ClassTree ct)
