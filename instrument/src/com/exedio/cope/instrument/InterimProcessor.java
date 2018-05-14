@@ -347,6 +347,7 @@ final class InterimProcessor extends JavacProcessor
 					}
 					line.continueLine(enumValue.getName().toString());
 				}
+				line.continueLine(";");
 				line.endLine();
 			}
 			if (kind!=null || isWrapInterim())
