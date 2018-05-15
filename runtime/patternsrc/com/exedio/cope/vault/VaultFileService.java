@@ -49,7 +49,7 @@ public final class VaultFileService implements VaultService
 	{
 		this.rootDir = properties.root;
 		this.directoryLength = properties.directory!=null ? properties.directory.length : 0;
-		this.tempDir = rootDir.resolve(properties.temp);
+		this.tempDir = properties.tempDir();
 
 		{
 			final int algorithmLength = parameters.getVaultProperties().getAlgorithmLength();
@@ -222,7 +222,7 @@ public final class VaultFileService implements VaultService
 	{
 		final Path root = valueFile("root").toPath();
 		final DirectoryProps directory = value("directory", true, DirectoryProps::new);
-		final String temp = value("temp", ".tempVaultFileService");
+		private final String temp = value("temp", ".tempVaultFileService");
 
 		Props(final Source source)
 		{
@@ -232,6 +232,11 @@ public final class VaultFileService implements VaultService
 				throw newException("temp", "must not be empty");
 			if(!temp.equals(temp.trim()))
 				throw newException("temp", "must be trimmed, but was >" + temp + '<');
+		}
+
+		Path tempDir()
+		{
+			return root.resolve(temp);
 		}
 	}
 
