@@ -305,7 +305,8 @@ final class InterimProcessor extends JavacProcessor
 		{
 			if (isWrapperIgnore()) return null;
 			final TypeElement element = (TypeElement) docTrees.getElement(getCurrentPath());
-			if (element.getAnnotation(WrapImplementsInterim.class)!=null && ct.getKind()!=Tree.Kind.INTERFACE)
+			final WrapImplementsInterim implementsInterim = element.getAnnotation(WrapImplementsInterim.class);
+			if (implementsInterim!=null && ct.getKind()!=Tree.Kind.INTERFACE)
 				throw new RuntimeException(""+WrapImplementsInterim.class.getSimpleName()+" can only be used at interfaces, not at "+element);
 			final Kind kind = Kind.valueOf(element.getAnnotation(WrapType.class));
 			if (ct.getKind()==Tree.Kind.ANNOTATION_TYPE) return null;
@@ -346,11 +347,23 @@ final class InterimProcessor extends JavacProcessor
 					}
 					line.continueLine(enumValue.getName().toString());
 				}
+				line.continueLine(";");
 				line.endLine();
 			}
 			if (kind!=null || isWrapInterim())
 				code.require();
 			final Void result = super.visitClass(ct, p);
+			if (implementsInterim!=null && implementsInterim.addMethods())
+			{
+				for (final Element enclosedElement : element.getEnclosedElements())
+				{
+					if(enclosedElement.getKind() == ElementKind.METHOD)
+					{
+						final ExecutableElement method = (ExecutableElement) enclosedElement;
+						code.addLine(getMethodDeclaration(method, false)+";");
+					}
+				}
+			}
 			for (final TypeElement implementedInterface : implementedInterfaces)
 			{
 				for (final Element enclosedElement : implementedInterface.getEnclosedElements())
@@ -360,24 +373,7 @@ final class InterimProcessor extends JavacProcessor
 						final ExecutableElement method = (ExecutableElement)enclosedElement;
 						if (method.isDefault())
 							continue;
-						final StringBuilder methodDeclaration = new StringBuilder();
-						methodDeclaration.
-							append("@java.lang.Override public ").
-							append(method.getReturnType()).
-							append(" ").
-							append(method.getSimpleName()).
-							append("(");
-						final StringSeparator comma = new StringSeparator(", ");
-						for (final VariableElement parameter : method.getParameters())
-						{
-							comma.appendTo(methodDeclaration);
-							methodDeclaration.
-								append(parameter.asType()).
-								append(" ").
-								append(parameter.getSimpleName());
-						}
-						methodDeclaration.append(")");
-						code = code.openBlock(null, methodDeclaration, true);
+						code = code.openBlock(null, getMethodDeclaration(method, true), true);
 						code.addLine("throw new RuntimeException(\"don't call in interim code\");");
 						code = code.closeBlock();
 					}
@@ -405,6 +401,30 @@ final class InterimProcessor extends JavacProcessor
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
 			return result;
+		}
+
+		private String getMethodDeclaration(final ExecutableElement method, final boolean override)
+		{
+			final StringBuilder methodDeclaration = new StringBuilder();
+			if (override)
+				methodDeclaration.append("@java.lang.Override ");
+			methodDeclaration.
+				append("public ").
+				append(method.getReturnType()).
+				append(" ").
+				append(method.getSimpleName()).
+				append("(");
+			final StringSeparator comma = new StringSeparator(", ");
+			for (final VariableElement parameter : method.getParameters())
+			{
+				comma.appendTo(methodDeclaration);
+				methodDeclaration.
+					append(parameter.asType()).
+					append(" ").
+					append(parameter.getSimpleName());
+			}
+			methodDeclaration.append(")");
+			return methodDeclaration.toString();
 		}
 
 		private String getTypeToken(final ClassTree ct)
