@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.FilterFeature;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
@@ -42,7 +41,6 @@ class LibUser extends LibItem<String>
 	static final WrapVarargs wrapLibSuper=new WrapVarargs(inSuper);
 
 	@Override
-	@WrapInterim
 	public String makeTee()
 	{
 		return "tee";

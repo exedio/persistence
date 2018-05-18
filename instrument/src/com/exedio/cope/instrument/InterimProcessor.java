@@ -66,6 +66,8 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
+import javax.lang.model.type.TypeKind;
+import javax.lang.model.type.TypeMirror;
 import javax.tools.Diagnostic;
 import javax.tools.JavaFileObject;
 
@@ -379,6 +381,13 @@ final class InterimProcessor extends JavacProcessor
 					}
 				}
 			}
+			for (final ExecutableElement method: getMethodsThatNeedImplementation(element))
+			{
+				code = code.openBlock(null, getMethodDeclaration(method, true), true);
+				code.addLine("throw new RuntimeException(\"don't call in interim code\");");
+				code = code.closeBlock();
+			}
+
 			if (kind!=null)
 			{
 				final WrapperType wrapperType = AnnotationHelper.getOrDefault(getCurrentPathAnnotation(WrapperType.class));
@@ -401,6 +410,51 @@ final class InterimProcessor extends JavacProcessor
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
 			return result;
+		}
+
+		private List<ExecutableElement> getMethodsThatNeedImplementation(final TypeElement element)
+		{
+			final List<ExecutableElement> result = new ArrayList<>();
+			for (final Element enclosedElement : element.getEnclosedElements())
+			{
+				if (enclosedElement.getKind()!=ElementKind.METHOD) continue;
+				final ExecutableElement method = (ExecutableElement) enclosedElement;
+				if (isOverrideOfExternallyDefinedAbstractMethod(method, element))
+					result.add(method);
+			}
+			return result;
+		}
+
+		private boolean isOverrideOfExternallyDefinedAbstractMethod(final ExecutableElement method, final TypeElement type)
+		{
+			TypeElement parentElement = type;
+			while ((parentElement=getSuperclass(parentElement))!=null)
+			{
+				final boolean parentIsInSourcePath = DocTrees.instance(processingEnv).getPath(parentElement)!=null;
+				if (!parentIsInSourcePath)
+				{
+					// the parent class is in an external library, so abstract methods it declares need an implementation
+					for(final Element parentEnclosedElement : parentElement.getEnclosedElements())
+					{
+						if(parentEnclosedElement.getKind() != ElementKind.METHOD) continue;
+						final ExecutableElement parentMethod = (ExecutableElement) parentEnclosedElement;
+						if (parentMethod.getModifiers().contains(Modifier.ABSTRACT)
+							 && processingEnv.getElementUtils().overrides(method, parentMethod, type))
+						{
+							return true;
+						}
+					}
+				}
+			}
+			return false;
+		}
+
+		private TypeElement getSuperclass(final TypeElement typeElement)
+		{
+			final TypeMirror superMirror = typeElement.getSuperclass();
+			if (superMirror.getKind() == TypeKind.NONE)
+				return null;
+			return (TypeElement) processingEnv.getTypeUtils().asElement(superMirror);
 		}
 
 		private String getMethodDeclaration(final ExecutableElement method, final boolean override)
