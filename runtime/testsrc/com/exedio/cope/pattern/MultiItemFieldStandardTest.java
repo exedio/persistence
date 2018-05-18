@@ -157,6 +157,50 @@ public class MultiItemFieldStandardTest
 	}
 
 	@WrapperType(indent=2, comments=false)
+	static final class FourItem extends com.exedio.cope.Item
+	{
+		@SuppressWarnings({"rawtypes", "unchecked"})
+		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(
+				MultiItemFieldValue.class,
+				new Class[]{
+						MultiItemFieldComponentA.class,
+						MultiItemFieldComponentB.class,
+						MultiItemFieldComponentC.class,
+						MultiItemFieldComponentD.class
+				});
+
+		@SuppressWarnings({"rawtypes", "unchecked"})
+		static final MultiItemField<MultiItemFieldValue> optional = MultiItemField.create(
+				MultiItemFieldValue.class,
+				new Class[]{
+						MultiItemFieldComponentA.class,
+						MultiItemFieldComponentB.class,
+						MultiItemFieldComponentC.class,
+						MultiItemFieldComponentD.class
+				}).
+				optional();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		FourItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private FourItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<FourItem> TYPE = com.exedio.cope.TypesBound.newType(FourItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private FourItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(indent=2, comments=false)
 	static final class AnCascadeItem extends com.exedio.cope.Item
 	{
 		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
@@ -197,6 +241,13 @@ public class MultiItemFieldStandardTest
 						MultiItemFieldComponentB.class,
 						MultiItemFieldComponentC.class),
 				ThreeItem.mandatory.getComponentClasses());
+		assertEqualsUnmodifiable(
+				asList(
+						MultiItemFieldComponentA.class,
+						MultiItemFieldComponentB.class,
+						MultiItemFieldComponentC.class,
+						MultiItemFieldComponentD.class),
+				FourItem.mandatory.getComponentClasses());
 	}
 
 	@Test void testOf()
@@ -295,6 +346,26 @@ public class MultiItemFieldStandardTest
 			" ThreeItem.mandatory-MultiItemFieldComponentC is not null)" +
 			")",
 			check(ThreeItem.mandatory).getCondition().toString());
+		assertEquals(
+				"(" +
+				"(FourItem.mandatory-MultiItemFieldComponentA is not null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentD is null) OR " +
+				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentB is not null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentD is null) OR " +
+				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentC is not null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentD is null) OR " +
+				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentD is not null)" +
+				")",
+				check(FourItem.mandatory).getCondition().toString());
 	}
 
 	@Test void testOptionalCheckConstraint()
@@ -313,6 +384,22 @@ public class MultiItemFieldStandardTest
 			" ThreeItem.optional-MultiItemFieldComponentB is null)" +
 			")",
 			check(ThreeItem.optional).getCondition().toString());
+		assertEquals(
+				"(" +
+				"(FourItem.optional-MultiItemFieldComponentB is null AND" +
+				" FourItem.optional-MultiItemFieldComponentC is null AND" +
+				" FourItem.optional-MultiItemFieldComponentD is null) OR " +
+				"(FourItem.optional-MultiItemFieldComponentA is null AND" +
+				" FourItem.optional-MultiItemFieldComponentC is null AND" +
+				" FourItem.optional-MultiItemFieldComponentD is null) OR " +
+				"(FourItem.optional-MultiItemFieldComponentA is null AND" +
+				" FourItem.optional-MultiItemFieldComponentB is null AND" +
+				" FourItem.optional-MultiItemFieldComponentD is null) OR " +
+				"(FourItem.optional-MultiItemFieldComponentA is null AND" +
+				" FourItem.optional-MultiItemFieldComponentB is null AND" +
+				" FourItem.optional-MultiItemFieldComponentC is null)" +
+				")",
+				check(FourItem.optional).getCondition().toString());
 	}
 
 	private static CheckConstraint check(final MultiItemField<?> field)
@@ -341,5 +428,15 @@ public class MultiItemFieldStandardTest
 				" ThreeItem.mandatory-MultiItemFieldComponentB is null AND" +
 				" ThreeItem.mandatory-MultiItemFieldComponentC is null)",
 				ThreeItem.mandatory.equal(null).toString());
+	}
+
+	@Test void testEqualConditionNull4Classes()
+	{
+		assertEquals(
+				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
+				" FourItem.mandatory-MultiItemFieldComponentD is null)",
+				FourItem.mandatory.equal(null).toString());
 	}
 }
