@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
@@ -180,6 +181,23 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
+	@SuppressWarnings({"unchecked", "rawtypes"})
+	@Test void testNonItem()
+	{
+		try
+		{
+			MultiItemField.create(
+					MultiItemFieldValue.class,
+					new Class[]{MultiItemFieldComponentA.class, MultiItemFieldComponentB.class, NonItemMultiItemFieldValue.class}
+			);
+			fail();
+		}
+		catch(final RuntimeException e)
+		{
+			assertEquals("is not a subclass of " + Item.class.getName() + ": " + NonItemMultiItemFieldValue.class.getName(), e.getMessage());
+		}
+	}
+
 	@WrapperIgnore
 	static final class AnotherItem1 extends com.exedio.cope.Item
 	{
@@ -188,6 +206,11 @@ public class MultiItemFieldErrorTest
 
 	@WrapperIgnore
 	static final class AnotherItem2 extends com.exedio.cope.Item
+	{
+		private static final long serialVersionUID = 1l;
+	}
+
+	static final class NonItemMultiItemFieldValue implements MultiItemFieldValue
 	{
 		private static final long serialVersionUID = 1l;
 	}
