@@ -437,10 +437,10 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	@WrapperType(indent=2)
 	static final class AnCascadeItem extends Item
 	{
-		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
-				MultiItemFieldValuex.class,
-				MultiItemFieldComponentxA.class,
-				MultiItemFieldComponentxB.class).cascade();
+		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(MultiItemFieldValuex.class).
+				canBe(MultiItemFieldComponentxA.class).
+				canBe(MultiItemFieldComponentxB.class).
+				cascade();
 
 		/**
 		 * Creates a new AnCascadeItem with all the fields initially needed.

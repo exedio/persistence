@@ -18,11 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
@@ -32,7 +36,7 @@ public class MultiItemFieldErrorTest
 	{
 		try
 		{
-			MultiItemField.create(null, AnotherItem1.class, AnotherItem2.class);
+			MultiItemField.create(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -41,13 +45,11 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test void testCreateNoComponentClass()
 	{
 		try
 		{
-			MultiItemField.create(MultiItemFieldValue.class, new Class[]
-					{});
+			TypesBound.newType(TestCreateNoComponentClass.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -57,13 +59,22 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@WrapperType(indent=2, comments=false, type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE)
+	private static final class TestCreateNoComponentClass extends Item
+	{
+		@SuppressWarnings("unused")
+		@Wrapper(wrap="*", visibility=NONE)
+		private static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+	}
+
 	@Test void testCreateOnlyOneComponentClass()
 	{
 		try
 		{
-			MultiItemField.create(MultiItemFieldValue.class, new Class[]
-					{MultiItemFieldComponentA.class});
+			TypesBound.newType(TestCreateOnlyOneComponent.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -73,12 +84,24 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
+	@WrapperType(indent=2, comments=false, type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE)
+	private static final class TestCreateOnlyOneComponent extends Item
+	{
+		@SuppressWarnings("unused")
+		@Wrapper(wrap="*", visibility=NONE)
+		private static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+	}
+
 	@Test void testCreateNull()
 	{
+		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);
 		try
 		{
-			MultiItemField.create(MultiItemFieldValue.class,
-					null, null);
+			field.canBe(null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -88,12 +111,13 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
+	@SuppressWarnings("unchecked")
 	@Test void testCreateNotAssignable()
 	{
+		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);
 		try
 		{
-			MultiItemField.create(MultiItemFieldValue.class,
-					AnotherItem1.class, AnotherItem2.class);
+			field.canBe((Class)AnotherItem1.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -106,11 +130,10 @@ public class MultiItemFieldErrorTest
 
 	@Test void testCreateComponentClassesNotAllowedToBeSuperClassesOfEachOther()
 	{
+		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).canBe(MultiItemFieldComponentA.class);
 		try
 		{
-			MultiItemField.create(MultiItemFieldValue.class,
-					MultiItemFieldComponentA.class,
-					MultiItemFieldComponentASub.class);
+			field.canBe(MultiItemFieldComponentASub.class);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -125,10 +148,9 @@ public class MultiItemFieldErrorTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testCreateCopyNullComponent()
 	{
-		final MultiItemField<?> field = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class);
+		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class);
 		try
 		{
 			field.copyTo(null, null);
@@ -143,10 +165,9 @@ public class MultiItemFieldErrorTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testCreateCopyNoSuchComponent()
 	{
-		final MultiItemField<?> field = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class);
+		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class);
 		try
 		{
 			field.copyTo(MultiItemFieldComponentC.class, null);
@@ -166,10 +187,9 @@ public class MultiItemFieldErrorTest
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testCreateCopyNullCopy()
 	{
-		final MultiItemField<?> field = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class);
+		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class);
 		try
 		{
 			field.copyTo(MultiItemFieldComponentA.class, null);
@@ -181,15 +201,14 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
 	@Test void testNonItem()
 	{
+		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class);
 		try
 		{
-			MultiItemField.create(
-					MultiItemFieldValue.class,
-					new Class[]{MultiItemFieldComponentA.class, MultiItemFieldComponentB.class, NonItemMultiItemFieldValue.class}
-			);
+			field.canBe(NonItemMultiItemFieldValue.class);
 			fail();
 		}
 		catch(final RuntimeException e)
@@ -200,12 +219,6 @@ public class MultiItemFieldErrorTest
 
 	@WrapperIgnore
 	static final class AnotherItem1 extends com.exedio.cope.Item
-	{
-		private static final long serialVersionUID = 1l;
-	}
-
-	@WrapperIgnore
-	static final class AnotherItem2 extends com.exedio.cope.Item
 	{
 		private static final long serialVersionUID = 1l;
 	}

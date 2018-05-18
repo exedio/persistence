@@ -39,10 +39,9 @@ public class MultiItemFieldStandardTest
 	@WrapperType(indent=2, comments=false)
 	static final class AnMandatoryItem extends com.exedio.cope.Item
 	{
-		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class);
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		AnMandatoryItem(
@@ -86,10 +85,10 @@ public class MultiItemFieldStandardTest
 	@WrapperType(indent=2, comments=false)
 	static final class AnOptionalItem extends com.exedio.cope.Item
 	{
-		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class).optional();
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class).
+				optional();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		AnOptionalItem()
@@ -127,10 +126,10 @@ public class MultiItemFieldStandardTest
 	@WrapperType(indent=2, comments=false)
 	static final class AnFinalItem extends com.exedio.cope.Item
 	{
-		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class).toFinal();
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class).
+				toFinal();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		AnFinalItem(
@@ -166,17 +165,15 @@ public class MultiItemFieldStandardTest
 	@WrapperType(indent=2, comments=false)
 	static final class ThreeItem extends com.exedio.cope.Item
 	{
-		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class,
-				MultiItemFieldComponentC.class);
+		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class).
+				canBe(MultiItemFieldComponentC.class);
 
-		static final MultiItemField<MultiItemFieldValue> optional = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class,
-				MultiItemFieldComponentC.class).
+		static final MultiItemField<MultiItemFieldValue> optional = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class).
+				canBe(MultiItemFieldComponentC.class).
 				optional();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -234,25 +231,17 @@ public class MultiItemFieldStandardTest
 	@WrapperType(indent=2, comments=false)
 	static final class FourItem extends com.exedio.cope.Item
 	{
-		@SuppressWarnings({"rawtypes", "unchecked"})
-		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(
-				MultiItemFieldValue.class,
-				new Class[]{
-						MultiItemFieldComponentA.class,
-						MultiItemFieldComponentB.class,
-						MultiItemFieldComponentC.class,
-						MultiItemFieldComponentD.class
-				});
+		static final MultiItemField<MultiItemFieldValue> mandatory = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class).
+				canBe(MultiItemFieldComponentC.class).
+				canBe(MultiItemFieldComponentD.class);
 
-		@SuppressWarnings({"rawtypes", "unchecked"})
-		static final MultiItemField<MultiItemFieldValue> optional = MultiItemField.create(
-				MultiItemFieldValue.class,
-				new Class[]{
-						MultiItemFieldComponentA.class,
-						MultiItemFieldComponentB.class,
-						MultiItemFieldComponentC.class,
-						MultiItemFieldComponentD.class
-				}).
+		static final MultiItemField<MultiItemFieldValue> optional = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class).
+				canBe(MultiItemFieldComponentC.class).
+				canBe(MultiItemFieldComponentD.class).
 				optional();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -310,10 +299,10 @@ public class MultiItemFieldStandardTest
 	@WrapperType(indent=2, comments=false)
 	static final class AnCascadeItem extends com.exedio.cope.Item
 	{
-		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(
-				MultiItemFieldValue.class,
-				MultiItemFieldComponentA.class,
-				MultiItemFieldComponentB.class).cascade();
+		static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
+				canBe(MultiItemFieldComponentA.class).
+				canBe(MultiItemFieldComponentB.class).
+				cascade();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		AnCascadeItem(

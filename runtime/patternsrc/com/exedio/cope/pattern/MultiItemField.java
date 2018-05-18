@@ -55,6 +55,8 @@ import javax.annotation.Nullable;
 public final class MultiItemField<E> extends Pattern implements Settable<E>
 {
 	private static final long serialVersionUID = 1L;
+	@SuppressWarnings("rawtypes")
+	public static final Class[] EMPTY_CLASS_ARRAY = {};
 
 	private final Class<E> valueClass;
 	private final Class<? extends Item>[] componentClasses;
@@ -65,11 +67,11 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	private final DeletePolicy policy;
 	private final LinkedHashMap<Class<? extends Item>, FunctionField<?>[]> copyToMap;
 
+	@SuppressWarnings("unchecked")
 	private MultiItemField(
-			final Class<E> valueClass,
-			final Class<? extends Item>[] componentClasses)
+			final Class<E> valueClass)
 	{
-		this(false, false, false, DeletePolicy.FORBID, new LinkedHashMap<>(), valueClass, componentClasses);
+		this(false, false, false, DeletePolicy.FORBID, new LinkedHashMap<>(), valueClass, EMPTY_CLASS_ARRAY);
 	}
 
 	private MultiItemField(
@@ -95,7 +97,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			// TODO: simpleName might not be unique
 			addSourceFeature(component, component.getValueClass().getSimpleName());
 		}
-		addSourceFeature(createXORCheckConstraint(), "xor");
 	}
 
 	private static ArrayList<ItemField<?>> createComponents(
@@ -106,10 +107,6 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Class<?> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
-		if(componentClasses.length<=1)
-		{
-			throw new IllegalArgumentException("must use at least 2 componentClasses");
-		}
 		final ArrayList<ItemField<?>> components = new ArrayList<>();
 		for(int i = 0; i<componentClasses.length; i++)
 		{
@@ -163,6 +160,17 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return components;
 	}
 
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		if(componentClasses.length<=1)
+		{
+			throw new IllegalArgumentException("must use at least 2 componentClasses");
+		}
+		addSourceFeature(createXORCheckConstraint(), "xor");
+	}
+
 	private CheckConstraint createXORCheckConstraint()
 	{
 		final List<Condition> ors = new ArrayList<>(components.size());
@@ -188,14 +196,32 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return new CheckConstraint(Cope.or(ors));
 	}
 
+	public static <E> MultiItemField<E> create(final Class<E> valueClass)
+	{
+		return new MultiItemField<>(valueClass);
+	}
+
+	/**
+	 * @deprecated use {@link #create(Class)} and {@link #canBe(Class)} instead
+	 */
+	@Deprecated
 	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,
 			final Class<? extends Item>[] componentClasses)
 	{
-		return new MultiItemField<>(valueClass, componentClasses);
+		MultiItemField<E> result = create(valueClass);
+		for(final Class<? extends Item> componentClass: componentClasses)
+		{
+			result = result.canBe(componentClass.asSubclass(valueClass));
+		}
+		return result;
 	}
 
+	/**
+	 * @deprecated use {@link #create(Class)} and {@link #canBe(Class)} instead
+	 */
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
+	@Deprecated
 	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,
 			final Class<? extends Item> componentClass1,
@@ -204,7 +230,11 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return create(valueClass, new Class[]{componentClass1, componentClass2});
 	}
 
+	/**
+	 * @deprecated use {@link #create(Class)} and {@link #canBe(Class)} instead
+	 */
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
+	@Deprecated
 	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,
 			final Class<? extends Item> componentClass1,
@@ -447,6 +477,15 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	public DeletePolicy getDeletePolicy()
 	{
 		return policy;
+	}
+
+	public MultiItemField<E> canBe(final Class<? extends E> componentClass)
+	{
+		if (!Item.class.isAssignableFrom(requireNonNull(componentClass, "componentClass")))
+			throw new IllegalArgumentException("is not a subclass of "+Item.class.getName()+": "+componentClass.getName());
+		final Class<? extends Item>[] newComponentClasses = java.util.Arrays.copyOf(componentClasses, componentClasses.length+1);
+		newComponentClasses[componentClasses.length] = componentClass.asSubclass(Item.class);
+		return new MultiItemField<>(isFinal, optional, unique, policy, copyToMap, valueClass, newComponentClasses);
 	}
 
 	public MultiItemField<E> toFinal()

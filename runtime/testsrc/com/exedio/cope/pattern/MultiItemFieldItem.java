@@ -22,9 +22,9 @@ import com.exedio.cope.Item;
 
 final class MultiItemFieldItem extends Item
 {
-	static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
-			MultiItemFieldValuex.class,
-			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class);
+	static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(MultiItemFieldValuex.class).
+			canBe(MultiItemFieldComponentxA.class).
+			canBe(MultiItemFieldComponentxB.class);
 
 	MultiItemFieldComponentxA getFieldA()
 	{
@@ -37,10 +37,10 @@ final class MultiItemFieldItem extends Item
 	}
 
 
-	static final MultiItemField<MultiItemFieldValuex> optionalField = MultiItemField.create(
-			MultiItemFieldValuex.class,
-			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class)
-			.optional();
+	static final MultiItemField<MultiItemFieldValuex> optionalField = MultiItemField.create(MultiItemFieldValuex.class).
+			canBe(MultiItemFieldComponentxA.class).
+			canBe(MultiItemFieldComponentxB.class).
+			optional();
 
 	MultiItemFieldComponentxA getOptionalFieldA()
 	{
@@ -53,9 +53,11 @@ final class MultiItemFieldItem extends Item
 	}
 
 
-	static final MultiItemField<MultiItemFieldValuex> uniqueField = MultiItemField.create(
-			MultiItemFieldValuex.class,
-			MultiItemFieldComponentxA.class, MultiItemFieldComponentxB.class).optional().unique();
+	static final MultiItemField<MultiItemFieldValuex> uniqueField = MultiItemField.create(MultiItemFieldValuex.class).
+			canBe(MultiItemFieldComponentxA.class).
+			canBe(MultiItemFieldComponentxB.class).
+			optional().
+			unique();
 
 	static final PartOf<MultiItemFieldComponentxA> partOfClassA = PartOf.create(field.of(MultiItemFieldComponentxA.class));
 

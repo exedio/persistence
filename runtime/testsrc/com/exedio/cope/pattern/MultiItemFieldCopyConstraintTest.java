@@ -177,10 +177,9 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		static final StringField value = new StringField().toFinal();
 		static final StringField template = new StringField().toFinal();
 
-		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
-				MultiItemFieldValuex.class,
-				A.class,
-				C.class).toFinal().copyTo(C.class, value).copyTo(C.class, template);
+		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(MultiItemFieldValuex.class).
+				canBe(A.class).canBe(C.class).
+				toFinal().copyTo(C.class, value).copyTo(C.class, template);
 
 
 		/**
@@ -265,10 +264,9 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	{
 		static final StringField value = new StringField().toFinal();
 
-		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
-				MultiItemFieldValuex.class,
-				A.class,
-				B.class).toFinal().copyTo(A.class, value).copyTo(B.class, value);
+		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(MultiItemFieldValuex.class).
+				canBe(A.class).canBe(B.class).
+				toFinal().copyTo(A.class, value).copyTo(B.class, value);
 
 
 		/**
@@ -340,10 +338,9 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	{
 		static final StringField value = new StringField().toFinal();
 
-		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(
-				MultiItemFieldValuex.class,
-				A.class,
-				B.class).toFinal().copyTo(A.class, value);
+		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(MultiItemFieldValuex.class).
+				canBe(A.class).canBe(B.class).
+				toFinal().copyTo(A.class, value);
 
 
 		/**
