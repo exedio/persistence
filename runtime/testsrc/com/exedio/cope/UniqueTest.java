@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.SchemaInfo.getConstraintName;
 import static com.exedio.cope.UniqueFinalItem.forUniqueFinalString;
 import static com.exedio.cope.UniqueFinalItem.uniqueFinalString;
 import static com.exedio.cope.UniqueSingleItem.forUniqueString;
@@ -102,6 +103,12 @@ public class UniqueTest extends TestWithEnvironment
 		assertSerializedSame(uniqueString.getImplicitUniqueConstraint(), 394);
 
 		// test persistence
+		assertEquals(
+				oracle || propertiesHsqldbOracle() || (mysql && !propertiesLongConstraintNames())
+				? "UniquSingItem_uniStri_Unq"
+				: "UniqueSingleItem_uniqueString_Unq",
+				getConstraintName(uniqueString.getImplicitUniqueConstraint()));
+
 		assertEquals(null, forUniqueString("uniqueString"));
 		try
 		{

@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
+import static com.exedio.cope.SchemaInfo.getConstraintName;
 import static com.exedio.cope.UniqueDoubleItem.TYPE;
 import static com.exedio.cope.UniqueDoubleItem.constraint;
 import static com.exedio.cope.UniqueDoubleItem.forConstraint;
@@ -40,6 +41,12 @@ public class UniqueDoubleTest extends TestWithEnvironment
 
 	@Test void test()
 	{
+		assertEquals(
+				oracle || propertiesHsqldbOracle() || (mysql && !propertiesLongConstraintNames())
+				? "UniqueDoubleItem_cons_Unq"
+				: "UniqueDoubleItem_constraint_Unq",
+				getConstraintName(constraint));
+
 		assertEquals(null, forConstraint("a", 1));
 
 		final UniqueDoubleItem a1 = new UniqueDoubleItem("a", 1);

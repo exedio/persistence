@@ -158,7 +158,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 		databaseID = null;
 	}
 
-	private String getDatabaseID()
+	String getDatabaseID()
 	{
 		if(databaseID==null)
 			throw new RuntimeException();

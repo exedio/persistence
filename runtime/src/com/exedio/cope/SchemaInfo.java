@@ -263,6 +263,11 @@ public final class SchemaInfo
 		return sequence.sequenceX.getSchemaName();
 	}
 
+	public static String getConstraintName(final UniqueConstraint constraint)
+	{
+		return constraint.getDatabaseID();
+	}
+
 	public static String search(final Query<?> query)
 	{
 		if(query.getCondition()==Condition.FALSE)
