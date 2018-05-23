@@ -54,7 +54,7 @@ public class MultiItemFieldErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "must use at least 2 componentClasses";
+			final String expected = "must use at least 2 componentClasses in TestCreateNoComponentClass.field";
 			assertEquals(expected, e.getMessage());
 		}
 	}
@@ -79,7 +79,7 @@ public class MultiItemFieldErrorTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			final String expected = "must use at least 2 componentClasses";
+			final String expected = "must use at least 2 componentClasses in TestCreateOnlyOneComponent.field";
 			assertEquals(expected, e.getMessage());
 		}
 	}

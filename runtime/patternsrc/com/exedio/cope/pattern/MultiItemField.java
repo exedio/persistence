@@ -166,7 +166,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		super.onMount();
 		if(componentClasses.length<=1)
 		{
-			throw new IllegalArgumentException("must use at least 2 componentClasses");
+			throw new IllegalArgumentException("must use at least 2 componentClasses in "+getID());
 		}
 		addSourceFeature(createXORCheckConstraint(), "xor");
 	}
