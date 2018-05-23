@@ -224,6 +224,11 @@ public final class SchemaInfo
 		return column.id;
 	}
 
+	public static String getForeignKeyConstraintName(final ItemField<?> field)
+	{
+		return ((ItemColumn)field.getColumn()).integrityConstraintName;
+	}
+
 	/**
 	 * Returns the value of database column for the field
 	 * and the given enum value.

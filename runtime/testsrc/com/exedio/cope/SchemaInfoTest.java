@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTableName;
@@ -99,6 +100,7 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("code", getColumnName(InstanceOfAItem.code));
 		assertEquals("ref", getColumnName(InstanceOfRefItem.ref));
 		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
+		assertEquals("InstanceOfRefItem_ref_Fk", getForeignKeyConstraintName(InstanceOfRefItem.ref));
 
 		// without sub types
 		assertEquals(filterTableName("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));

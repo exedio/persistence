@@ -23,7 +23,7 @@ import static com.exedio.cope.Intern.intern;
 final class ItemColumn extends IntegerColumn
 {
 	private final Type<?> targetType;
-	private final String integrityConstraintName;
+	final String integrityConstraintName;
 
 	ItemColumn(
 			final Table table,

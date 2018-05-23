@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
+import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
@@ -100,6 +101,11 @@ public class NameTest extends TestWithEnvironment
 		assertEquals("codeLooooooooooooooooName", getColumnName(NameLongItem_codeLongName));
 		assertEquals("pointerLoooooooooooooName", getColumnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLoooooooooNameType", getTypeColumnName(NameLongItem_pointerLongName));
+		assertEquals(
+				oracle || propertiesHsqldbOracle() || (mysql && !propertiesLongConstraintNames())
+				? "NameLongItem_poiLooNam_Fk"
+				: "NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
+				getForeignKeyConstraintName(NameLongItem_pointerLongName));
 
 		assertEquals(filterTableName("NameCollisionloooooooItem"), getTableName(NameCollisionlongaItem.TYPE));
 		assertEquals(synthetic("this", "NameCollisionloooItem"), getPrimaryKeyColumnName(NameCollisionlongaItem.TYPE));
