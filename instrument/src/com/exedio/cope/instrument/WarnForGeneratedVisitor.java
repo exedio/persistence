@@ -18,12 +18,10 @@
 
 package com.exedio.cope.instrument;
 
-import javax.tools.Diagnostic;
+import static com.exedio.cope.instrument.CopeWarnings.NON_GENERATED;
 
 final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 {
-	private static final String NON_GENERATED="non-generated";
-
 	WarnForGeneratedVisitor(final TreeApiContext context)
 	{
 		super(context);
@@ -32,15 +30,6 @@ final class WarnForGeneratedVisitor extends GeneratedAwareScanner
 	@Override
 	void visitGeneratedPath()
 	{
-		final SuppressWarnings suppressWarnings=getAnnotation(SuppressWarnings.class);
-		if (suppressWarnings!=null)
-		{
-			for (final String string: suppressWarnings.value())
-			{
-				if (NON_GENERATED.equals(string))
-					return;
-			}
-		}
-		context.messager.printMessage(Diagnostic.Kind.WARNING, "["+NON_GENERATED+"] @Generated annotation in non-generated code", context.getElement(getCurrentPath()));
+		printWarning(NON_GENERATED, "@Generated annotation in non-generated code");
 	}
 }

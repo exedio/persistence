@@ -24,6 +24,7 @@ import com.sun.source.util.TreePathScanner;
 import java.lang.annotation.Annotation;
 import javax.annotation.Generated;
 import javax.lang.model.element.Element;
+import javax.tools.Diagnostic;
 
 abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 {
@@ -70,6 +71,20 @@ abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 	{
 		final Element element=context.getElement(getCurrentPath());
 		return element.getAnnotation(annotationType);
+	}
+
+	final void printWarning(final String key, final String message)
+	{
+		final SuppressWarnings suppressWarnings=getAnnotation(SuppressWarnings.class);
+		if (suppressWarnings!=null)
+		{
+			for (final String string: suppressWarnings.value())
+			{
+				if (key.equals(string))
+					return;
+			}
+		}
+		context.messager.printMessage(Diagnostic.Kind.WARNING, "[" + key + "] "+message, context.getElement(getCurrentPath()));
 	}
 
 }
