@@ -5,7 +5,7 @@
 	<macrodef name="compile">
 		<attribute name="srcdir" />
 		<attribute name="includeAntRuntime" default="false" />
-		<element name="classpath" optional="true" implicit="true" />
+		<element name="implicit-element" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local compile @{srcdir}" /-->
 			<mkdir dir="build/classes/@{srcdir}" />
@@ -15,7 +15,7 @@
 					 deprecation="on"
 					 debug="on"
 					 optimize="off">
-				<classpath />
+				<implicit-element />
 				<compilerarg value="-Xlint:all,-path" />
 				<compilerarg value="-encoding" />
 				<compilerarg value="ascii" />

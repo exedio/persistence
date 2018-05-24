@@ -25,11 +25,11 @@
 	<macrodef name="ljarn">
 		<attribute name="jarfile" />
 		<attribute name="name" />
-		<element name="fileset" optional="true" implicit="true" />
+		<element name="implicit-element" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local jar @{jarfile}" /-->
 			<jar jarfile="@{jarfile}" filesonly="true" duplicate="fail" strict="fail" level="9">
-				<fileset />
+				<implicit-element />
 				<manifest>
 					<attribute name="Specification-Title" value="exedio @{name}" />
 					<attribute name="Specification-Version" value="${build.tag}" />
@@ -47,11 +47,11 @@
 		<attribute name="jarfile" />
 		<attribute name="name" />
 		<attribute name="classpath" />
-		<element name="fileset" optional="true" implicit="true" />
+		<element name="implicit-element" optional="true" implicit="true" />
 		<sequential>
 			<!--echo message="local jar @{jarfile}" /-->
 			<jar jarfile="@{jarfile}" filesonly="true" duplicate="fail" strict="fail" level="9">
-				<fileset />
+				<implicit-element />
 				<manifest>
 					<attribute name="Specification-Title" value="exedio @{name}" />
 					<attribute name="Specification-Version" value="${build.tag}" />
@@ -71,7 +71,7 @@
 		<attribute name="testproperty" default="testproperty.default.XXX" />
 		<attribute name="line" default="" />
 		<attribute name="env" default="N" />
-		<element name="classpath" optional="true" implicit="true" />
+		<element name="implicit-element" optional="true" implicit="true" />
 		<sequential>
 			<mkdir dir="build/testresults" />
 			<mkdir dir="build/testtmpdir" />
@@ -82,7 +82,7 @@
 				<jvmarg value="-agentlib:jdwp=transport=dt_socket,server=y,address=${debug.address}" if:set="debug.address"/>
 				<arg line="--details ${test-details}" />
 				<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
-				<classpath />
+				<implicit-element />
 				<arg line="--include-classname .{0,}" unless:set="@{testproperty}" /> <!-- regexp ".*" doesn't work on Windows -->
 				<arg line="--scan-class-path build/classes/@{scansrc}" unless:set="@{testproperty}" />
 				<arg line="@{line}" unless:set="@{testproperty}" />
