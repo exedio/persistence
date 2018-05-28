@@ -29,21 +29,22 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 final class QueryCache
 {
 	// TODO use guava ComputingMap
 	// http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap<Key, Value> map;
-	private final VolatileLong hits = new VolatileLong();
-	private final VolatileLong misses = new VolatileLong();
-	private final VolatileLong invalidations = new VolatileLong();
-	private final VolatileLong concurrentLoads = new VolatileLong();
-	private final VolatileLong replacements = new VolatileLong();
+	private final AtomicLong hits = new AtomicLong();
+	private final AtomicLong misses = new AtomicLong();
+	private final AtomicLong invalidations = new AtomicLong();
+	private final AtomicLong concurrentLoads = new AtomicLong();
+	private final AtomicLong replacements = new AtomicLong();
 
 	QueryCache(final int limit)
 	{
-		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.inc()) : null;
+		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.incrementAndGet()) : null;
 	}
 
 	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
@@ -77,15 +78,15 @@ final class QueryCache
 					collision = map.put(key, result);
 				}
 				if(collision!=null)
-					concurrentLoads.inc();
+					concurrentLoads.incrementAndGet();
 			}
-			misses.inc();
+			misses.incrementAndGet();
 			return resultList;
 		}
 		else
 		{
-			hits.inc();
-			result.hits.inc();
+			hits.incrementAndGet();
+			result.hits.incrementAndGet();
 
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
 			if(queryInfos!=null)
@@ -131,7 +132,7 @@ final class QueryCache
 					}
 				}
 			}
-			this.invalidations.inc(invalidationsCounter);
+			this.invalidations.addAndGet(invalidationsCounter);
 		}
 	}
 
@@ -239,7 +240,7 @@ final class QueryCache
 	{
 		final ArrayList<Object> list;
 		final int[] invalidationTypesTransiently;
-		final VolatileLong hits = new VolatileLong();
+		final AtomicLong hits = new AtomicLong();
 
 		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Value(final Query<?> query, final ArrayList<Object> list)
