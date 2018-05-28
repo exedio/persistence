@@ -27,6 +27,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicLong;
 
 final class ItemCache
 {
@@ -117,7 +118,7 @@ final class ItemCache
 			state = tx.connect.database.load(tx.getConnection(), item);
 			if (typeStat!=null)
 			{
-				typeStat.misses.inc();
+				typeStat.misses.incrementAndGet();
 				synchronized (map)
 				{
 					if (isStamped(item, tx.getCacheStamp()))
@@ -136,7 +137,7 @@ final class ItemCache
 		}
 		else
 		{
-			typeStat.hits.inc();
+			typeStat.hits.incrementAndGet();
 		}
 		return state;
 	}
@@ -280,8 +281,8 @@ final class ItemCache
 	static class TypeStats
 	{
 		final Type<?> type;
-		final VolatileLong hits = new VolatileLong();
-		final VolatileLong misses = new VolatileLong();
+		final AtomicLong hits = new AtomicLong();
+		final AtomicLong misses = new AtomicLong();
 		long concurrentLoads = 0;
 		long replacements = 0;
 		long invalidationsOrdered = 0;
