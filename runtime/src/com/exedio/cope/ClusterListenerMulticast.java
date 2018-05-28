@@ -100,7 +100,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			{
 				if(threadRun)
 				{
-					exception.inc();
+					exception.incrementAndGet();
 					logger.error("fail", e);
 				}
 				else
@@ -114,7 +114,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 			catch(final Exception | AssertionError e)
 			{
-				exception.inc();
+				exception.incrementAndGet();
 				if(logger.isErrorEnabled())
 					logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ), e);
 			}

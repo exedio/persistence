@@ -37,6 +37,7 @@ import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -67,20 +68,20 @@ abstract class ClusterListener
 
 		if(!iter.checkBytes(MAGIC))
 		{
-			missingMagic.inc();
+			missingMagic.incrementAndGet();
 			return;
 		}
 
 		if(secret!=iter.next())
 		{
-			wrongSecret.inc();
+			wrongSecret.incrementAndGet();
 			return;
 		}
 
 		final int remoteNode = iter.next();
 		if(localNode==remoteNode)
 		{
-			fromMyself.inc();
+			fromMyself.incrementAndGet();
 			return;
 		}
 
@@ -172,10 +173,10 @@ abstract class ClusterListener
 
 	// info
 
-	final VolatileLong exception = new VolatileLong();
-	private final VolatileLong missingMagic = new VolatileLong();
-	private final VolatileLong wrongSecret = new VolatileLong();
-	private final VolatileLong fromMyself = new VolatileLong();
+	final AtomicLong exception = new AtomicLong();
+	private final AtomicLong missingMagic = new AtomicLong();
+	private final AtomicLong wrongSecret = new AtomicLong();
+	private final AtomicLong fromMyself = new AtomicLong();
 	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<>();
 
 	private static final class Node
