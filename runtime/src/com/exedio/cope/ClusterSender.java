@@ -31,6 +31,7 @@ import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 
 abstract class ClusterSender
 {
@@ -127,7 +128,7 @@ abstract class ClusterSender
 	}
 
 	// info
-	private final VolatileLong invalidationSplit = new VolatileLong();
+	private final AtomicLong invalidationSplit = new AtomicLong();
 
 	final void invalidate(final TLongHashSet[] invalidations)
 	{
@@ -213,7 +214,7 @@ abstract class ClusterSender
 			}
 			while(true);
 
-			invalidationSplit.inc(packetCount-1);
+			invalidationSplit.addAndGet(packetCount-1);
 		}
 		catch(final IOException e)
 		{
