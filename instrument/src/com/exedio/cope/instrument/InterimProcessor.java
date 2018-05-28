@@ -366,22 +366,7 @@ final class InterimProcessor extends JavacProcessor
 					}
 				}
 			}
-			for (final TypeElement implementedInterface : implementedInterfaces)
-			{
-				for (final Element enclosedElement : implementedInterface.getEnclosedElements())
-				{
-					if (enclosedElement.getKind()==ElementKind.METHOD)
-					{
-						final ExecutableElement method = (ExecutableElement)enclosedElement;
-						if (method.isDefault())
-							continue;
-						code = code.openBlock(null, getMethodDeclaration(method, true), true);
-						code.addLine("throw new RuntimeException(\"don't call in interim code\");");
-						code = code.closeBlock();
-					}
-				}
-			}
-			for (final ExecutableElement method: getMethodsThatNeedImplementation(element))
+			for (final ExecutableElement method: getMethodsThatNeedImplementation(element, implementedInterfaces))
 			{
 				code = code.openBlock(null, getMethodDeclaration(method, true), true);
 				code.addLine("throw new RuntimeException(\"don't call in interim code\");");
@@ -412,14 +397,15 @@ final class InterimProcessor extends JavacProcessor
 			return result;
 		}
 
-		private List<ExecutableElement> getMethodsThatNeedImplementation(final TypeElement element)
+		private List<ExecutableElement> getMethodsThatNeedImplementation(final TypeElement element, final List<TypeElement> implementedInterfaces)
 		{
 			final List<ExecutableElement> result = new ArrayList<>();
 			for (final Element enclosedElement : element.getEnclosedElements())
 			{
 				if (enclosedElement.getKind()!=ElementKind.METHOD) continue;
 				final ExecutableElement method = (ExecutableElement) enclosedElement;
-				if (isOverrideOfExternallyDefinedAbstractMethod(method, element))
+				if ( isOverrideOfExternallyDefinedAbstractMethod(method, element) ||
+					  isOverrideOfMethodDefinedInInterface(method, element, implementedInterfaces) )
 					result.add(method);
 			}
 			return result;
@@ -444,6 +430,21 @@ final class InterimProcessor extends JavacProcessor
 							return true;
 						}
 					}
+				}
+			}
+			return false;
+		}
+
+		private boolean isOverrideOfMethodDefinedInInterface(final ExecutableElement method, final TypeElement type, final List<TypeElement> interfaces)
+		{
+			for (final TypeElement interfaceType : interfaces)
+			{
+				for (final Element elementInInterface : interfaceType.getEnclosedElements())
+				{
+					if (elementInInterface.getKind() != ElementKind.METHOD) continue;
+					final ExecutableElement methodInInterface = (ExecutableElement) elementInInterface;
+					if (processingEnv.getElementUtils().overrides(method, methodInInterface, type))
+						return true;
 				}
 			}
 			return false;
