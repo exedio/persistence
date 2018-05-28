@@ -165,9 +165,9 @@ final class ItemCache
 	{
 		final boolean stampsEnabled = stampsEnabled();
 		final long stamp = stampsEnabled?ItemCacheStamp.next():0;
+		final Set<Item> invalidated=stampsEnabled?new HashSet<>():null;
 		synchronized (map)
 		{
-			final Set<Item> invalidated=stampsEnabled?new HashSet<>():null;
 			for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 			{
 				final TLongHashSet invalidatedPKs = invalidations[typeTransiently];
