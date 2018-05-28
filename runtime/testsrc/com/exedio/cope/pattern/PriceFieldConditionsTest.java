@@ -21,11 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Condition;
-import com.exedio.cope.Join;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Arrays;
@@ -86,51 +84,5 @@ public class PriceFieldConditionsTest extends TestWithEnvironment
 		final Query<PriceFieldItem> query = PriceFieldItem.TYPE.newQuery(condition);
 		query.setOrderBy(PriceFieldItem.TYPE.getThis(), true);
 		assertEquals(Arrays.asList(expected), query.search());
-	}
-
-	@Test void testCondition()
-	{
-		final PriceField f = optionalPrice;
-		final String s = f.getInt().getID();
-
-		assertEquals(s+" is null"    , f.isNull()    .toString());
-		assertEquals(s+" is not null", f.isNotNull() .toString());
-		assertEquals(s+" is null"    , f.equal(pN)   .toString());
-		assertEquals(s+" is not null", f.notEqual(pN).toString());
-		assertEquals(s+"='111'"      , f.equal(p1)   .toString());
-		assertEquals(s+"<>'111'"     , f.notEqual(p1).toString());
-
-		assertEquals(s+"<'222'" , f.less          (p2).toString());
-		assertEquals(s+"<='222'", f.lessOrEqual   (p2).toString());
-		assertEquals(s+">='222'", f.greaterOrEqual(p2).toString());
-		assertEquals(s+">'222'" , f.greater       (p2).toString());
-		assertEquals("("+s+">='222' AND "+s+"<='333')", f.between(p2, p3).toString());
-
-		final Query<?> q = PriceFieldItem.TYPE.newQuery();
-		final Join j = q.join(PriceFieldItem.TYPE);
-		assertEquals("p1."+s, f.bind(j).toString());
-
-		assertEquals("p1."+s+" is null"    , f.bind(j).isNull()    .toString());
-		assertEquals("p1."+s+" is not null", f.bind(j).isNotNull() .toString());
-		assertEquals("p1."+s+" is null"    , f.bind(j).equal(pN)   .toString());
-		assertEquals("p1."+s+" is not null", f.bind(j).notEqual(pN).toString());
-		assertEquals("p1."+s+"='111'"      , f.bind(j).equal(p1)   .toString());
-		assertEquals("p1."+s+"<>'111'"     , f.bind(j).notEqual(p1).toString());
-
-		assertEquals("p1."+s+"<'222'" , f.bind(j).less          (p2).toString());
-		assertEquals("p1."+s+"<='222'", f.bind(j).lessOrEqual   (p2).toString());
-		assertEquals("p1."+s+">='222'", f.bind(j).greaterOrEqual(p2).toString());
-		assertEquals("p1."+s+">'222'" , f.bind(j).greater       (p2).toString());
-		assertEquals("(p1."+s+">='222' AND p1."+s+"<='333')", f.bind(j).between(p2, p3).toString());
-
-		try
-		{
-			f.bind(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("join", e.getMessage());
-		}
 	}
 }
