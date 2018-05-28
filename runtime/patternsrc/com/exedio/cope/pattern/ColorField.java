@@ -27,6 +27,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.IsNullCondition;
 import com.exedio.cope.Item;
+import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
@@ -269,6 +270,11 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	}
 
 	// convenience methods for conditions and views ---------------------------------
+
+	public ColorFunction bind(final Join join)
+	{
+		return new ColorBindFunction(this, join);
+	}
 
 	public IsNullCondition<?> isNull()
 	{
