@@ -31,10 +31,10 @@ import org.junit.jupiter.api.Test;
 public class PriceFieldConditionsStringTest
 {
 	private static final Price
-				pN = null,
-				p1 = storeOf(111),
-				p2 = storeOf(222),
-				p3 = storeOf(333);
+			vN = null,
+			v1 = storeOf(111),
+			v2 = storeOf(222),
+			v3 = storeOf(333);
 
 	private static final PriceField f = optionalPrice;
 	private static final String s = f.getInt().getID();
@@ -51,25 +51,25 @@ public class PriceFieldConditionsStringTest
 		assertEquals("p1."+s+" is null"    , b.isNull()    .toString());
 		assertEquals(      s+" is not null", f.isNotNull() .toString());
 		assertEquals("p1."+s+" is not null", b.isNotNull() .toString());
-		assertEquals(      s+" is null"    , f.equal(pN)   .toString());
-		assertEquals("p1."+s+" is null"    , b.equal(pN)   .toString());
-		assertEquals(      s+" is not null", f.notEqual(pN).toString());
-		assertEquals("p1."+s+" is not null", b.notEqual(pN).toString());
-		assertEquals(      s+"='111'"      , f.equal(p1)   .toString());
-		assertEquals("p1."+s+"='111'"      , b.equal(p1)   .toString());
-		assertEquals(      s+"<>'111'"     , f.notEqual(p1).toString());
-		assertEquals("p1."+s+"<>'111'"     , b.notEqual(p1).toString());
+		assertEquals(      s+" is null"    , f.equal(vN)   .toString());
+		assertEquals("p1."+s+" is null"    , b.equal(vN)   .toString());
+		assertEquals(      s+" is not null", f.notEqual(vN).toString());
+		assertEquals("p1."+s+" is not null", b.notEqual(vN).toString());
+		assertEquals(      s+"='111'"      , f.equal(v1)   .toString());
+		assertEquals("p1."+s+"='111'"      , b.equal(v1)   .toString());
+		assertEquals(      s+"<>'111'"     , f.notEqual(v1).toString());
+		assertEquals("p1."+s+"<>'111'"     , b.notEqual(v1).toString());
 
-		assertEquals(      s+"<'222'" , f.less          (p2).toString());
-		assertEquals("p1."+s+"<'222'" , b.less          (p2).toString());
-		assertEquals(      s+"<='222'", f.lessOrEqual   (p2).toString());
-		assertEquals("p1."+s+"<='222'", b.lessOrEqual   (p2).toString());
-		assertEquals(      s+">='222'", f.greaterOrEqual(p2).toString());
-		assertEquals("p1."+s+">='222'", b.greaterOrEqual(p2).toString());
-		assertEquals(      s+">'222'" , f.greater       (p2).toString());
-		assertEquals("p1."+s+">'222'" , b.greater       (p2).toString());
-		assertEquals("("   +s+">='222' AND "   +s+"<='333')", f.between(p2, p3).toString());
-		assertEquals("(p1."+s+">='222' AND p1."+s+"<='333')", b.between(p2, p3).toString());
+		assertEquals(      s+"<'222'" , f.less          (v2).toString());
+		assertEquals("p1."+s+"<'222'" , b.less          (v2).toString());
+		assertEquals(      s+"<='222'", f.lessOrEqual   (v2).toString());
+		assertEquals("p1."+s+"<='222'", b.lessOrEqual   (v2).toString());
+		assertEquals(      s+">='222'", f.greaterOrEqual(v2).toString());
+		assertEquals("p1."+s+">='222'", b.greaterOrEqual(v2).toString());
+		assertEquals(      s+">'222'" , f.greater       (v2).toString());
+		assertEquals("p1."+s+">'222'" , b.greater       (v2).toString());
+		assertEquals("("   +s+">='222' AND "   +s+"<='333')", f.between(v2, v3).toString());
+		assertEquals("(p1."+s+">='222' AND p1."+s+"<='333')", b.between(v2, v3).toString());
 	}
 
 	@Test void testJoinNull()
