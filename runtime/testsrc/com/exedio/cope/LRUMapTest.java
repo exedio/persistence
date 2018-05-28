@@ -26,6 +26,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongObjectHashMap;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -100,11 +101,11 @@ public class LRUMapTest
 	@Disabled
 	@Test void testPerformance()
 	{
-		final VolatileLong counter = new VolatileLong();
+		final AtomicLong counter = new AtomicLong();
 		for(int j = 0; j<8; j++)
 		{
 			assertPerformance(new HashMap<>());
-			assertPerformance(new LRUMap<>(2_000_000, x -> counter.inc()));
+			assertPerformance(new LRUMap<>(2_000_000, x -> counter.incrementAndGet()));
 			assertPerformance(new DateMap<>());
 			assertPerformance(new TLongObjectHashMap<>());
 			System.out.println();
