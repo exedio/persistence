@@ -22,12 +22,13 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.servlet.http.HttpServletRequest;
 
 final class ErrorLog
 {
 	private final int capacity;
-	private final VolatileInt value = new VolatileInt();
+	private final AtomicInteger value = new AtomicInteger();
 	private final ArrayDeque<MediaRequestLog> logs;
 
 	ErrorLog()
@@ -48,7 +49,7 @@ final class ErrorLog
 				exception,
 				request);
 
-		value.inc();
+		value.incrementAndGet();
 
 		synchronized(logs)
 		{
