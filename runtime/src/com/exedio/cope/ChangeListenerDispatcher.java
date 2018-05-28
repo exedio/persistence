@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import gnu.trove.TLongHashSet;
 import java.text.MessageFormat;
 import java.util.ArrayList;
+import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,8 +37,8 @@ final class ChangeListenerDispatcher implements Runnable
 
 	private final ThreadSwarm threads;
 	private volatile boolean threadRun = true;
-	private final VolatileLong overflow = new VolatileLong();
-	private final VolatileLong exception = new VolatileLong();
+	private final AtomicLong overflow  = new AtomicLong();
+	private final AtomicLong exception = new AtomicLong();
 
 	ChangeListenerDispatcher(
 			final Types types,
@@ -73,7 +74,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 		if(!queue.offer(event))
 		{
-			overflow.inc();
+			overflow.incrementAndGet();
 			if(logger.isErrorEnabled())
 				logger.error("overflows {} {}", overflow.get(), transactionInfo);
 		}
@@ -114,7 +115,7 @@ final class ChangeListenerDispatcher implements Runnable
 			}
 			catch(final Exception | AssertionError e)
 			{
-				exception.inc();
+				exception.incrementAndGet();
 				if(logger.isErrorEnabled())
 					logger.error("ChangeListenerDispatcher", e);
 			}
