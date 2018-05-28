@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.PriceFieldItem.optionalPrice;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Join;
@@ -74,15 +74,9 @@ public class PriceFieldConditionsStringTest
 
 	@Test void testJoinNull()
 	{
-		try
-		{
-			f.bind(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("join", e.getMessage());
-		}
+		assertFails(
+				() -> f.bind(null),
+				NullPointerException.class, "join");
 	}
 
 	@SuppressWarnings("unused") // OK: initializes types
