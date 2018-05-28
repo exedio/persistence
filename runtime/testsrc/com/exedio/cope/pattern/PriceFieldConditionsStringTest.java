@@ -56,20 +56,21 @@ public class PriceFieldConditionsStringTest
 
 		final Query<?> q = PriceFieldItem.TYPE.newQuery();
 		final Join j = q.join(PriceFieldItem.TYPE);
-		assertEquals("p1."+s, f.bind(j).toString());
+		final PriceFunction b = f.bind(j);
+		assertEquals("p1."+s, b.toString());
 
-		assertEquals("p1."+s+" is null"    , f.bind(j).isNull()    .toString());
-		assertEquals("p1."+s+" is not null", f.bind(j).isNotNull() .toString());
-		assertEquals("p1."+s+" is null"    , f.bind(j).equal(pN)   .toString());
-		assertEquals("p1."+s+" is not null", f.bind(j).notEqual(pN).toString());
-		assertEquals("p1."+s+"='111'"      , f.bind(j).equal(p1)   .toString());
-		assertEquals("p1."+s+"<>'111'"     , f.bind(j).notEqual(p1).toString());
+		assertEquals("p1."+s+" is null"    , b.isNull()    .toString());
+		assertEquals("p1."+s+" is not null", b.isNotNull() .toString());
+		assertEquals("p1."+s+" is null"    , b.equal(pN)   .toString());
+		assertEquals("p1."+s+" is not null", b.notEqual(pN).toString());
+		assertEquals("p1."+s+"='111'"      , b.equal(p1)   .toString());
+		assertEquals("p1."+s+"<>'111'"     , b.notEqual(p1).toString());
 
-		assertEquals("p1."+s+"<'222'" , f.bind(j).less          (p2).toString());
-		assertEquals("p1."+s+"<='222'", f.bind(j).lessOrEqual   (p2).toString());
-		assertEquals("p1."+s+">='222'", f.bind(j).greaterOrEqual(p2).toString());
-		assertEquals("p1."+s+">'222'" , f.bind(j).greater       (p2).toString());
-		assertEquals("(p1."+s+">='222' AND p1."+s+"<='333')", f.bind(j).between(p2, p3).toString());
+		assertEquals("p1."+s+"<'222'" , b.less          (p2).toString());
+		assertEquals("p1."+s+"<='222'", b.lessOrEqual   (p2).toString());
+		assertEquals("p1."+s+">='222'", b.greaterOrEqual(p2).toString());
+		assertEquals("p1."+s+">'222'" , b.greater       (p2).toString());
+		assertEquals("(p1."+s+">='222' AND p1."+s+"<='333')", b.between(p2, p3).toString());
 
 		try
 		{
