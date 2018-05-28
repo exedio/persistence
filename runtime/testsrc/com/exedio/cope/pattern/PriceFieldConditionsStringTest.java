@@ -70,7 +70,10 @@ public class PriceFieldConditionsStringTest
 		assertEquals("p1."+s+">'222'" , b.greater       (p2).toString());
 		assertEquals("("   +s+">='222' AND "   +s+"<='333')", f.between(p2, p3).toString());
 		assertEquals("(p1."+s+">='222' AND p1."+s+"<='333')", b.between(p2, p3).toString());
+	}
 
+	@Test void testJoinNull()
+	{
 		try
 		{
 			f.bind(null);
