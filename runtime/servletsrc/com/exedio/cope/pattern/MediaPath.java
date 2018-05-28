@@ -42,6 +42,7 @@ import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -414,21 +415,21 @@ public abstract class MediaPath extends Pattern
 
 
 	private static final ErrorLog noSuchPath = new ErrorLog();
-	private final VolatileInt redirectFrom = new VolatileInt();
+	private final AtomicInteger redirectFrom = new AtomicInteger();
 	private final ErrorLog    exception = new ErrorLog();
 	private final ErrorLog    invalidSpecial = new ErrorLog();
 	private final ErrorLog    guessedUrl = new ErrorLog();
 	private final ErrorLog    notAnItem = new ErrorLog();
 	private final ErrorLog    noSuchItem = new ErrorLog();
-	private final VolatileInt moved = new VolatileInt();
+	private final AtomicInteger moved = new AtomicInteger();
 	private final ErrorLog    isNull = new ErrorLog();
 	private final ErrorLog    notComputable = new ErrorLog();
-	private final VolatileInt notModified = new VolatileInt();
-	private final VolatileInt delivered = new VolatileInt();
+	private final AtomicInteger notModified = new AtomicInteger();
+	private final AtomicInteger delivered = new AtomicInteger();
 
 	final void incRedirectFrom()
 	{
-		redirectFrom.inc();
+		redirectFrom.incrementAndGet();
 	}
 
 	final void countException(
@@ -549,7 +550,7 @@ public abstract class MediaPath extends Pattern
 	 */
 	public final void incrementDelivered()
 	{
-		delivered.inc();
+		delivered.incrementAndGet();
 	}
 
 	public static final List<MediaRequestLog> getNoSuchPathLogs()
@@ -685,7 +686,7 @@ public abstract class MediaPath extends Pattern
 
 						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
-						moved.inc();
+						moved.incrementAndGet();
 						return;
 					}
 				}
@@ -775,7 +776,7 @@ public abstract class MediaPath extends Pattern
 			if(flush)
 				response.flushBuffer();
 
-			notModified.inc();
+			notModified.incrementAndGet();
 		}
 		else
 		{
@@ -839,7 +840,7 @@ public abstract class MediaPath extends Pattern
 		throws IOException, NotFound
 	{
 		doGetAndCommit(request, response, item);
-		delivered.inc();
+		delivered.incrementAndGet();
 	}
 
 	/**
