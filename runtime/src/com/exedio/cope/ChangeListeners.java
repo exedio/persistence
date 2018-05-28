@@ -27,6 +27,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +40,7 @@ final class ChangeListeners
 	private int cleared = 0;
 	private int removed = 0;
 
-	private final VolatileInt failed = new VolatileInt();
+	private final AtomicInteger failed = new AtomicInteger();
 
 	List<ChangeListener> get()
 	{
@@ -149,7 +150,7 @@ final class ChangeListeners
 			}
 			catch(final Exception | AssertionError e)
 			{
-				failed.inc();
+				failed.incrementAndGet();
 				if(logger.isErrorEnabled())
 					logger.error(MessageFormat.format("change listener {0} {1}", event, listener), e);
 			}
