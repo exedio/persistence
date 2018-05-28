@@ -36,11 +36,11 @@ public class PriceFieldConditionsStringTest
 				p2 = storeOf(222),
 				p3 = storeOf(333);
 
+	private static final PriceField f = optionalPrice;
+	private static final String s = f.getInt().getID();
+
 	@Test void testCondition()
 	{
-		final PriceField f = optionalPrice;
-		final String s = f.getInt().getID();
-
 		assertEquals(s+" is null"    , f.isNull()    .toString());
 		assertEquals(s+" is not null", f.isNotNull() .toString());
 		assertEquals(s+" is null"    , f.equal(pN)   .toString());
