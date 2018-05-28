@@ -18,16 +18,18 @@
 
 package com.exedio.cope;
 
+import java.util.concurrent.atomic.AtomicLong;
+
 final class TransactionCounter
 {
-	private final VolatileLong commitWithout = new VolatileLong();
-	private final VolatileLong commitWith = new VolatileLong();
-	private final VolatileLong rollbackWithout = new VolatileLong();
-	private final VolatileLong rollbackWith = new VolatileLong();
+	private final AtomicLong commitWithout   = new AtomicLong();
+	private final AtomicLong commitWith      = new AtomicLong();
+	private final AtomicLong rollbackWithout = new AtomicLong();
+	private final AtomicLong rollbackWith    = new AtomicLong();
 
 	void count(final boolean commit, final boolean hadConnection)
 	{
-		final VolatileLong c;
+		final AtomicLong c;
 
 		if(hadConnection)
 			if(commit)
@@ -40,7 +42,7 @@ final class TransactionCounter
 			else
 				c = rollbackWithout;
 
-		c.inc();
+		c.incrementAndGet();
 	}
 
 	TransactionCounters get()
