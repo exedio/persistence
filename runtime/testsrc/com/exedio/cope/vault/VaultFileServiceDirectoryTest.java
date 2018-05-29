@@ -88,7 +88,7 @@ public class VaultFileServiceDirectoryTest extends AbstractVaultFileServiceTest
 
 		final Throwable cause = notFound.getCause();
 		assertEquals(
-				NoSuchFileException.class.getName() + ": " + getRoot() + "/abc/defghijklmnopxx17",
+				NoSuchFileException.class.getName() + ": " + getRoot() + File.separator + "abc" + File.separator + "defghijklmnopxx17",
 				cause.getMessage());
 		assertEquals(VaultNotFoundException.class.getName() + "$Anonymous", cause.getClass().getName());
 		assertNull(cause.getCause());
