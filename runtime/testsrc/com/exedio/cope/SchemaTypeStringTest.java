@@ -143,7 +143,7 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 
 	@Test void testValues()
 	{
-		assumeTrue(!oracle);
+		assumeTrue(!oracle, "not oracle");
 
 		final List<SchemaTypeStringField> fields = SchemaTypeStringField.get(TYPE);
 		assertEquals(17, fields.size());

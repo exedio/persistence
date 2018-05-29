@@ -225,8 +225,8 @@ public class SchemaPurgeTest extends TestWithEnvironment
 
 	@Test void testStop()
 	{
-		assumeTrue(sequences);
-		assumeTrue(mysql);
+		assumeTrue(sequences, "sequences");
+		assumeTrue(mysql, "mysql");
 
 		{
 			final JC ctx = new JC(5);

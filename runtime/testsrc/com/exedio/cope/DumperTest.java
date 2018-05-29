@@ -215,7 +215,7 @@ public class DumperTest extends TestWithEnvironment
 			assertEquals(
 					"Dumper does not support DataField Vault: DumperItem.data",
 					e.getMessage());
-			assumeTrue(false);
+			assumeTrue(false, "no vault");
 		}
 	}
 

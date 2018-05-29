@@ -177,7 +177,10 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 
 	@Test void testHashMatches()
 	{
-		assumeTrue(model.getSupportedDataHashAlgorithms().contains(value.getMessageDigestAlgorithm()));
+		assumeTrue(
+				model.getSupportedDataHashAlgorithms().contains(value.getMessageDigestAlgorithm()),
+				model.getSupportedDataHashAlgorithms() + " contains " + value.getMessageDigestAlgorithm()
+		);
 		assumeNoVault();
 
 		final UniqueHashedMediaItem item1 = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
@@ -209,7 +212,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 			assertEquals(
 					"DataField UniqueHashedMediaItem.value-media-body does not support hashMatches as it has vault enabled",
 					e.getMessage());
-			assumeTrue(false);
+			assumeTrue(false, "no vault");
 		}
 	}
 

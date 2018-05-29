@@ -45,7 +45,7 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		assumeTrue(!oracle); // Oracle violates SQL standard about this
+		assumeTrue(!oracle, "not oracle"); // Oracle violates SQL standard about this
 
 		assertEquals(asList(), TYPE.search(null, TYPE.getThis(), true));
 

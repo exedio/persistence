@@ -46,8 +46,8 @@ public class CacheTouchTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		assumeTrue(cache);
-		assumeTrue(!oracle); // TODO
+		assumeTrue(cache, "cache");
+		assumeTrue(!oracle, "not oracle"); // TODO
 		initCache();
 
 		assertUpdateCount(0, MIN_VALUE);
