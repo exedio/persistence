@@ -26,6 +26,7 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Properties.Source;
@@ -169,14 +170,12 @@ public class VaultFileServicePropertiesProbeTest
 				IllegalArgumentException.class,
 				"does not exist: " + p.root.toAbsolutePath());
 
-		if (supportsReadOnlyDirectories(p.root))
-		{
-			Files.createDirectory(p.root, asFileAttribute(EnumSet.of(OWNER_READ)));
-			assertFails(
-					rootExists::call,
-					IllegalArgumentException.class,
-					"is not writable: " + p.root);
-		}
+		assumeSupportsReadOnlyDirectories(p.root);
+		Files.createDirectory(p.root, asFileAttribute(EnumSet.of(OWNER_READ)));
+		assertFails(
+				rootExists::call,
+				IllegalArgumentException.class,
+				"is not writable: " + p.root);
 	}
 
 	@Test void probeTempRegularFile() throws Exception
@@ -242,18 +241,18 @@ public class VaultFileServicePropertiesProbeTest
 				IllegalArgumentException.class,
 				"does not exist: " + p.tempDir().toAbsolutePath());
 
-		if ( supportsReadOnlyDirectories(p.tempDir()) )
-		{
-			Files.createDirectory(p.tempDir(), asFileAttribute(EnumSet.of(OWNER_READ)));
-			assertFails(
-					tempExists::call,
-					IllegalArgumentException.class,
-					"is not writable: " + p.tempDir().toAbsolutePath());
-		}
+		assumeSupportsReadOnlyDirectories(p.root);
+		Files.createDirectory(p.tempDir(), asFileAttribute(EnumSet.of(OWNER_READ)));
+		assertFails(
+				tempExists::call,
+				IllegalArgumentException.class,
+				"is not writable: " + p.tempDir().toAbsolutePath());
 	}
 
-	private static boolean supportsReadOnlyDirectories(final Path p)
+	private static void assumeSupportsReadOnlyDirectories(final Path p)
 	{
-		return Files.getFileAttributeView(p, PosixFileAttributeView.class)!=null;
+		assumeTrue(
+				Files.getFileAttributeView(p, PosixFileAttributeView.class)!=null,
+				"does not support read only directories");
 	}
 }
