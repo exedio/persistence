@@ -34,6 +34,8 @@ import java.io.IOException;
 import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.attribute.PosixFileAttributeView;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.concurrent.Callable;
@@ -167,11 +169,14 @@ public class VaultFileServicePropertiesProbeTest
 				IllegalArgumentException.class,
 				"does not exist: " + p.root.toAbsolutePath());
 
-		Files.createDirectory(p.root, asFileAttribute(EnumSet.of(OWNER_READ)));
-		assertFails(
-				rootExists::call,
-				IllegalArgumentException.class,
-				"is not writable: " + p.root);
+		if (supportsReadOnlyDirectories(p.root))
+		{
+			Files.createDirectory(p.root, asFileAttribute(EnumSet.of(OWNER_READ)));
+			assertFails(
+					rootExists::call,
+					IllegalArgumentException.class,
+					"is not writable: " + p.root);
+		}
 	}
 
 	@Test void probeTempRegularFile() throws Exception
@@ -237,10 +242,18 @@ public class VaultFileServicePropertiesProbeTest
 				IllegalArgumentException.class,
 				"does not exist: " + p.tempDir().toAbsolutePath());
 
-		Files.createDirectory(p.tempDir(), asFileAttribute(EnumSet.of(OWNER_READ)));
-		assertFails(
-				tempExists::call,
-				IllegalArgumentException.class,
-				"is not writable: " + p.tempDir().toAbsolutePath());
+		if ( supportsReadOnlyDirectories(p.tempDir()) )
+		{
+			Files.createDirectory(p.tempDir(), asFileAttribute(EnumSet.of(OWNER_READ)));
+			assertFails(
+					tempExists::call,
+					IllegalArgumentException.class,
+					"is not writable: " + p.tempDir().toAbsolutePath());
+		}
+	}
+
+	private static boolean supportsReadOnlyDirectories(final Path p)
+	{
+		return Files.getFileAttributeView(p, PosixFileAttributeView.class)!=null;
 	}
 }
