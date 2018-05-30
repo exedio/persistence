@@ -42,7 +42,7 @@
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" conf="runtime->default; build->sources" />
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4" conf="runtime->default; build->sources" />
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
-		<dependency org="com.exedio" name="copeutil" rev="623" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="copeutil" rev="823" conf="runtime->runtime; build->runtime,sources,changelog" />
 		<dependency org="com.exedio" name="copeservletutil" rev="71" conf="runtime->runtime; build->runtime,sources,changelog" />
 
 		<!-- dialects -->
@@ -61,7 +61,7 @@
 		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.0.2" conf="build->default" />
 		<dependency org="org.apiguardian"    name="apiguardian-api"        rev="1.0.0" conf="build->default" />
 		<dependency org="findbugs-x" name="findbugs" rev="3.0.1" conf="build->default" />
-		<dependency org="com.exedio" name="copeconsole" rev="6677" conf="build->runtime,changelog">
+		<dependency org="com.exedio" name="copeconsole" rev="7003" conf="build->runtime,changelog">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
 		</dependency>
 	</dependencies>

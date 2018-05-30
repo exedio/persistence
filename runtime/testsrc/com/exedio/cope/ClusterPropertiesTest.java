@@ -62,7 +62,7 @@ public class ClusterPropertiesTest
 		)));
 		final String ADDRESS = "230.0.0.1";
 		final int PORT = 14446;
-		final Iterator<Field> fields = p.getFields().iterator();
+		final Iterator<Field<?>> fields = p.getFields().iterator();
 		assertIt("secret", 0, 1234, fields);
 		assertIt("nodeAuto", true, fields);
 		assertIt("node", 0, fields);
@@ -105,7 +105,7 @@ public class ClusterPropertiesTest
 				single("sendAddress", ADDRESS)
 		)));
 		final int PORT = 14446;
-		final Iterator<Field> fields = p.getFields().iterator();
+		final Iterator<Field<?>> fields = p.getFields().iterator();
 		assertIt("secret", 0, 1234, fields);
 		assertIt("nodeAuto", true, fields);
 		assertIt("node", 0, fields);
@@ -134,7 +134,7 @@ public class ClusterPropertiesTest
 	private static void assertIt(
 			final String expectedKey,
 			final Object expectedValue,
-			final Iterator<Field> actualIterator)
+			final Iterator<Field<?>> actualIterator)
 	{
 		assertIt(expectedKey, expectedValue, expectedValue, actualIterator);
 	}
@@ -143,7 +143,7 @@ public class ClusterPropertiesTest
 			final String expectedKey,
 			final Object expectedDefault,
 			final Object expectedValue,
-			final Iterator<Field> actualIterator)
+			final Iterator<Field<?>> actualIterator)
 	{
 		final Field actual = actualIterator.next();
 		assertAll(

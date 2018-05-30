@@ -57,13 +57,13 @@ public class ConnectPropertiesTest
 		notOnDefault.put("connection.url", "xxxurl");
 		notOnDefault.put("connection.username", "xxxusername");
 		notOnDefault.put("connection.password", "xxxpassword");
-		notOnDefault.put("dialect", HsqldbDialect.class.getName());
-		notOnDefault.put("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
+		notOnDefault.put("dialect", HsqldbDialect.class);
+		notOnDefault.put("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence);
 		notOnDefault.put("dataField.vault", true);
-		notOnDefault.put("dataField.vault.service", VaultReferenceService.class.getName());
-		notOnDefault.put("dataField.vault.service.main", VaultFileService.class.getName());
+		notOnDefault.put("dataField.vault.service", VaultReferenceService.class);
+		notOnDefault.put("dataField.vault.service.main", VaultFileService.class);
 		notOnDefault.put("dataField.vault.service.main.root", new File("vaultFileRoot"));
-		notOnDefault.put("dataField.vault.service.reference", VaultMockService.class.getName());
+		notOnDefault.put("dataField.vault.service.reference", VaultMockService.class);
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
 		final ConnectProperties p = ConnectProperties.create(loadProperties());

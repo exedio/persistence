@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Properties.Field becomes final, its subclasses are dropped.
+	This breaks backwards API compatibility.
+	Update copeconsole to build 7003 at least, otherwise tabs Connect / Connect Tokens will be broken.
+* Properties#fieldMap and Properties.MapField dropped.
+	This breaks backwards API compatibility.
+* Properties do support Duration with plain milliseconds - useful for migration
+* Properties.Source#reload() and Sources#reloadable added.
+* ProxyPropertiesSource added.
+* Properties#getField(key) added.
 * JobContext#deferOrStopIfRequested, #requestsDeferral and #sleepAndStopIfRequested added.
 	This breaks backwards API compatibility.
 * JobContext#requestedToStop dropped.

@@ -238,7 +238,7 @@ public abstract class TestWithEnvironment
 
 		for(final Properties.Field field : model.getConnectProperties().getFields())
 			if("dialect.approximate".equals(field.getKey()))
-				return approximate.equals(((Properties.StringField)field).get());
+				return approximate.equals(((Enum<?>)field.get()).name());
 
 		throw new AssertionError(approximate);
 	}
@@ -267,7 +267,7 @@ public abstract class TestWithEnvironment
 	{
 		for(final Properties.Field field : model.getConnectProperties().getFields())
 			if(key.equals(field.getKey()))
-				return ((Properties.BooleanField)field).get();
+				return (Boolean)field.get();
 
 		throw new AssertionError(key);
 	}
