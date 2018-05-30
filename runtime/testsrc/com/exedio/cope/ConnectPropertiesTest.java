@@ -57,7 +57,7 @@ public class ConnectPropertiesTest
 		notOnDefault.put("connection.username", "xxxusername");
 		notOnDefault.put("connection.password", "xxxpassword");
 		notOnDefault.put("dialect", HsqldbDialect.class.getName());
-		notOnDefault.put("schema.primaryKeyGenerator", "sequence");
+		notOnDefault.put("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence.name());
 		notOnDefault.put("dataField.vault", true);
 		notOnDefault.put("dataField.vault.service", VaultReferenceService.class.getName());
 		notOnDefault.put("dataField.vault.service.main", VaultFileService.class.getName());
