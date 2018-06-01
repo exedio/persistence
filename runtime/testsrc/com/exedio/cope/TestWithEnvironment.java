@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
@@ -236,11 +238,9 @@ public abstract class TestWithEnvironment
 		if(!hsqldb)
 			return false;
 
-		for(final Properties.Field<?> field : model.getConnectProperties().getFields())
-			if("dialect.approximate".equals(field.getKey()))
-				return approximate.equals(((Enum<?>)field.get()).name());
-
-		throw new AssertionError(approximate);
+		final Properties.Field<?> field = model.getConnectProperties().getField("dialect.approximate");
+		assertNotNull(field);
+		return approximate.equals(((Enum<?>)field.get()).name());
 	}
 
 	protected final boolean propertiesUtf8mb4()
@@ -265,11 +265,9 @@ public abstract class TestWithEnvironment
 
 	private boolean propertiesBoolean(final String key)
 	{
-		for(final Properties.Field<?> field : model.getConnectProperties().getFields())
-			if(key.equals(field.getKey()))
-				return (Boolean)field.get();
-
-		throw new AssertionError(key);
+		final Properties.Field<?> field = model.getConnectProperties().getField(key);
+		assertNotNull(field);
+		return (Boolean)field.get();
 	}
 
 	protected final String ifPrep(final String s)
