@@ -328,7 +328,7 @@ abstract class Dialect
 	{
 		final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
 		nf.setMinimumIntegerDigits(2);
-		return "DATE'" + value.getYear() + '-' + nf.format(value.getMonth()) + '-' + nf.format(value.getDay()) + '\'';
+		return "DATE'" + value.getYear() + '-' + nf.format(value.getMonthValue()) + '-' + nf.format(value.getDayOfMonth()) + '\'';
 	}
 
 	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String quotedName)

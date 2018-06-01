@@ -87,7 +87,7 @@ public class DayRangeTest extends TestWithEnvironment
 	{
 		final MyItem item = new MyItem();
 		final Day value = new Day(1599, 12, 31);
-		assertEquals(value.add(1), MyItem.field.getMinimum());
+		assertEquals(value.plusDays(1), MyItem.field.getMinimum());
 
 		final DayRangeViolationException e = assertFails(
 				() -> item.setField(value),

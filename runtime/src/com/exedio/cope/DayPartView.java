@@ -52,7 +52,7 @@ public final class DayPartView extends NumberView<Integer>
 			@Override
 			int getPart(final Day day)
 			{
-				return day.getMonth();
+				return day.getMonthValue();
 			}
 
 			@Override
@@ -84,7 +84,7 @@ public final class DayPartView extends NumberView<Integer>
 			@Override
 			int getPart(final Day day)
 			{
-				return day.getDay();
+				return day.getDayOfMonth();
 			}
 
 			@Override

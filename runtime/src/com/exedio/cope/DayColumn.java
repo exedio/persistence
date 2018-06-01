@@ -57,7 +57,7 @@ final class DayColumn extends Column
 
 	static int getTransientNumber(final Day day)
 	{
-		return (((day.getYear()*12) + (day.getMonth()-1))*31) + (day.getDay()-1);
+		return (((day.getYear()*12) + (day.getMonthValue()-1))*31) + (day.getDayOfMonth()-1);
 	}
 
 	static Day getDay(final int transientNumber)
@@ -85,7 +85,7 @@ final class DayColumn extends Column
 			final Day day = getDay((Integer)cache);
 			final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
 			nf.setMinimumIntegerDigits(2);
-			return "{d '"+day.getYear()+'-'+nf.format(day.getMonth())+'-'+nf.format(day.getDay())+"'}";
+			return "{d '"+day.getYear()+'-'+nf.format(day.getMonthValue())+'-'+nf.format(day.getDayOfMonth())+"'}";
 		}
 	}
 

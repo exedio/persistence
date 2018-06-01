@@ -235,7 +235,7 @@ final class Marshallers
 				// since then access must be synchronized
 				final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
 				nf.setMinimumIntegerDigits(2);
-				return "{d '"+value.getYear()+'-'+nf.format(value.getMonth())+'-'+nf.format(value.getDay())+"'}";
+				return "{d '"+value.getYear()+'-'+nf.format(value.getMonthValue())+'-'+nf.format(value.getDayOfMonth())+"'}";
 			}
 			@Override
 			Object marshalPrepared(final Day value)

@@ -151,7 +151,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
 		nf.setMinimumIntegerDigits(2);
-		return "'" + value.getYear() + '-' + nf.format(value.getMonth()) + '-' + nf.format(value.getDay()) + "'::\"date\"";
+		return "'" + value.getYear() + '-' + nf.format(value.getMonthValue()) + '-' + nf.format(value.getDayOfMonth()) + "'::\"date\"";
 	}
 
 	@Override

@@ -71,7 +71,7 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 
 	private Day day(final int offset)
 	{
-		return day.add(offset);
+		return day.plusDays(offset);
 	}
 
 	@BeforeEach final void setUp()
