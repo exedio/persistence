@@ -9,8 +9,8 @@
 	<target name="prepare">
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
-		<get src="http://jenkins.exedio.com/job/ivyartifacts/lastSuccessfulBuild/artifact/ivy.jar" dest="artifacts/ivy.jar" />
-		<get src="http://jenkins.exedio.com/job/ivyartifacts/lastSuccessfulBuild/artifact/ivysettings.xml" dest="artifacts/ivysettings.xml" />
+		<get src="https://ivyartifacts.exedio.com/ivy.jar" dest="artifacts/ivy.jar" />
+		<get src="https://ivyartifacts.exedio.com/ivysettings.xml" dest="artifacts/ivysettings.xml" />
 		<taskdef
 			resource="org/apache/ivy/ant/antlib.xml"
 			classpath="artifacts/ivy.jar"

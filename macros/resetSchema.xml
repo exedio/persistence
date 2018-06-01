@@ -38,7 +38,7 @@
 
 	<target name="oracle" depends="prepare">
 		<get
-				src="https://jenkins.exedio.com/job/ivyartifacts/lastSuccessfulBuild/artifact/repository/com.oracle/ojdbc6/11.2.0.4/ojdbc6-jar.jar"
+				src="https://ivyartifacts.exedio.com/com.oracle/ojdbc6/11.2.0.4/ojdbc6-jar.jar"
 				dest="lib/ojdbc.jar"
 				maxtime="30" />
 		<!-- BEWARE: the slash in the SQL below actually triggers execution - do not remove -->
