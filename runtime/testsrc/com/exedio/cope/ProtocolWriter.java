@@ -53,8 +53,7 @@ public class ProtocolWriter extends TestWithEnvironment
 		{
 			if(field.getDefaultValue()!=null
 				&& !field.hasHiddenValue()
-				&& field.isSpecified()
-				&& field.getValue()!=null)
+				&& field.isSpecified())
 				prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValue().toString());
 		}
 		try(FileOutputStream out = new FileOutputStream(file, true))
