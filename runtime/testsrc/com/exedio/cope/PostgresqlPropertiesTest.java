@@ -41,7 +41,7 @@ public class PostgresqlPropertiesTest
 	{
 		final PostgresqlProperties p = new PostgresqlProperties(loadProperties());
 
-		for(final Field field : p.getFields())
+		for(final Field<?> field : p.getFields())
 		{
 			final String key = field.getKey();
 			assertTrue(field.isSpecified(), "not specified: " + key);

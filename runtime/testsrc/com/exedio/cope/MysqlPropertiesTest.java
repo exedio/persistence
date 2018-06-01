@@ -36,7 +36,7 @@ public class MysqlPropertiesTest
 	{
 		final MysqlProperties p = new MysqlProperties(loadProperties());
 
-		for(final Field field : p.getFields())
+		for(final Field<?> field : p.getFields())
 		{
 			final String key = field.getKey();
 			assertTrue(field.isSpecified(), "not specified: " + key);

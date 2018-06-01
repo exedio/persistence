@@ -145,7 +145,7 @@ public class ClusterPropertiesTest
 			final Object expectedValue,
 			final Iterator<Field<?>> actualIterator)
 	{
-		final Field actual = actualIterator.next();
+		final Field<?> actual = actualIterator.next();
 		assertAll(
 				() -> assertEquals(expectedKey,     actual.getKey(), "key"),
 				() -> assertEquals(expectedDefault, actual.getDefaultValue(), expectedKey + " default"),

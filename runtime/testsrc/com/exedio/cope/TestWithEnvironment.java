@@ -236,7 +236,7 @@ public abstract class TestWithEnvironment
 		if(!hsqldb)
 			return false;
 
-		for(final Properties.Field field : model.getConnectProperties().getFields())
+		for(final Properties.Field<?> field : model.getConnectProperties().getFields())
 			if("dialect.approximate".equals(field.getKey()))
 				return approximate.equals(((Enum<?>)field.get()).name());
 
@@ -265,7 +265,7 @@ public abstract class TestWithEnvironment
 
 	private boolean propertiesBoolean(final String key)
 	{
-		for(final Properties.Field field : model.getConnectProperties().getFields())
+		for(final Properties.Field<?> field : model.getConnectProperties().getFields())
 			if(key.equals(field.getKey()))
 				return (Boolean)field.get();
 
