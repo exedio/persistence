@@ -239,7 +239,7 @@ class IntegerColumn extends Column
 				final Object o = resultSet.getObject(1);
 				if(o!=null)
 				{
-					final long result = Executor.convertSQLResult(o);
+					final long result = ((Number)o).longValue();
 					if(result<minimum || result>maximum)
 						throw new RuntimeException("invalid maximum " + result + " in column " + id);
 					return result;
