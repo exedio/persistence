@@ -62,7 +62,7 @@ public final class CompareCondition<E> extends Condition
 	@Override
 	Trilean getTri(final Item item)
 	{
-		 // TODO do something nicer
+		// TODO do something nicer
 		if(!(left instanceof Function))
 			throw new IllegalArgumentException("not supported for non-function: " + left + " on " + item);
 
