@@ -402,10 +402,20 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertEquals(6, q.total());
 	}
 
-	@Test void testGetAggregate()
+	@Test void testGetAggregateCompare()
 	{
 		final CompareConditionItem item = new CompareConditionItem(null, null, null, null, null, null, null);
 		final Condition c = day.max().greater(new Day(2008,3,14));
+		assertFails(
+				() -> c.get(item),
+				IllegalArgumentException.class,
+				"not supported for non-function: max(CompareConditionItem.day)");
+	}
+
+	@Test void testGetAggregateIsNull()
+	{
+		final CompareConditionItem item = new CompareConditionItem(null, null, null, null, null, null, null);
+		final Condition c = new IsNullCondition<>(day.max(), true);
 		assertFails(
 				() -> c.get(item),
 				IllegalArgumentException.class,
