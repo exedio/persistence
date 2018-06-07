@@ -31,6 +31,7 @@ import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -38,7 +39,6 @@ import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
@@ -406,16 +406,9 @@ public class CompareConditionTest extends TestWithEnvironment
 	{
 		final CompareConditionItem item = new CompareConditionItem(null, null, null, null, null, null, null);
 		final Condition c = day.max().greater(new Day(2008,3,14));
-		try
-		{
-			c.get(item);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"not supported for non-function: max(CompareConditionItem.day)",
-					e.getMessage());
-		}
+		assertFails(
+				() -> c.get(item),
+				IllegalArgumentException.class,
+				"not supported for non-function: max(CompareConditionItem.day)");
 	}
 }
