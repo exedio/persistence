@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-public class Random implements NumberFunction<Double>
+public final class Random implements NumberFunction<Double>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -58,7 +58,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Override
-	public final boolean equals(final Object other)
+	public boolean equals(final Object other)
 	{
 		if(!(other instanceof Random))
 			return false;
@@ -68,7 +68,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Override
-	public final int hashCode()
+	public int hashCode()
 	{
 		return type.hashCode() ^ seed;
 	}
@@ -86,7 +86,7 @@ public class Random implements NumberFunction<Double>
 	}
 
 	@Override
-	public final String toString()
+	public String toString()
 	{
 		final StringBuilder bf = new StringBuilder();
 		toString(bf, null);
