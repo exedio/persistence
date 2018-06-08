@@ -160,6 +160,11 @@ public final class Standard extends Item
 	static final StringField XMLReader = new StringField().optional();
 
 	/**
+	 *  fully-qualified variable type
+	 */
+	public static final com.exedio.cope.StringField stringFullyQualified = new StringField().optional();
+
+	/**
 	 * Some other variable
 	 */
 	private static final String SUPER = "duper";
