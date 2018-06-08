@@ -180,6 +180,18 @@ final class InterimProcessor extends JavacProcessor
 				JavacRunner.getJavaCompiler(),
 				JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath))
 			);
+			if (params.verbose)
+			{
+				System.out.println("verbose, writing interim code to "+targetDirectory.toAbsolutePath());
+				try
+				{
+					compiler.dumpJavaFiles(targetDirectory, params.charset);
+				}
+				catch (final IOException ioe)
+				{
+					System.out.println("writing interim source to "+targetDirectory.toAbsolutePath()+" failed: "+ioe.getMessage());
+				}
+			}
 		}
 		catch (final InMemoryCompiler.CompileException e)
 		{
