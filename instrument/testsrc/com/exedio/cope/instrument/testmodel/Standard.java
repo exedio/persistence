@@ -160,6 +160,11 @@ public final class Standard extends Item
 	static final StringField XMLReader = new StringField().optional();
 
 	/**
+	 *  fully-qualified variable type
+	 */
+	public static final com.exedio.cope.StringField stringFullyQualified = new StringField().optional();
+
+	/**
 	 * Some other variable
 	 */
 	private static final String SUPER = "duper";
@@ -1367,6 +1372,27 @@ public final class Standard extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		Standard.XMLReader.set(this,XMLReader);
+	}
+
+	/**
+	 * Returns the value of {@link #stringFullyQualified}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	public final java.lang.String getStringFullyQualified()
+	{
+		return Standard.stringFullyQualified.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #stringFullyQualified}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	public final void setStringFullyQualified(@javax.annotation.Nullable final java.lang.String stringFullyQualified)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		Standard.stringFullyQualified.set(this,stringFullyQualified);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

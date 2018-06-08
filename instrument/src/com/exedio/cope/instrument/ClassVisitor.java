@@ -128,10 +128,10 @@ class ClassVisitor extends GeneratedAwareScanner
 		{
 			case IDENTIFIER:
 			case PARAMETERIZED_TYPE:
+			case MEMBER_SELECT:
 				// expected, handled
 				break;
 			case PRIMITIVE_TYPE:
-			case MEMBER_SELECT:
 			case ARRAY_TYPE:
 				// expected, not handled
 				return null;
