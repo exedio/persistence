@@ -1374,6 +1374,27 @@ public final class Standard extends Item
 		Standard.XMLReader.set(this,XMLReader);
 	}
 
+	/**
+	 * Returns the value of {@link #stringFullyQualified}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	public final java.lang.String getStringFullyQualified()
+	{
+		return Standard.stringFullyQualified.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #stringFullyQualified}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	public final void setStringFullyQualified(@javax.annotation.Nullable final java.lang.String stringFullyQualified)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		Standard.stringFullyQualified.set(this,stringFullyQualified);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 
