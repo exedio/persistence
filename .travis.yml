@@ -31,6 +31,7 @@ before_script:
     connection.username=cope_test_user\n
     connection.password=pass\n
     x-build.schemasavepoint=FAILS: Access denied; you need \\\\\(at least one of\\\\\) the SUPER\\\\\p{Punct} REPLICATION CLIENT privilege\\\\\(s\\\\\) for this operation\n
+    x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my.properties
   - >
@@ -40,6 +41,7 @@ before_script:
     connection.password=pass\n
     disableSupport.preparedStatements=true\n
     x-build.schemasavepoint=FAILS: Access denied; you need \\\\\(at least one of\\\\\) the SUPER\\\\\p{Punct} REPLICATION CLIENT privilege\\\\\(s\\\\\) for this operation\n
+    x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my-nprep.properties
   - >
@@ -49,6 +51,7 @@ before_script:
     connection.password=pass\n
     schema.primaryKeyGenerator=sequence\n
     x-build.schemasavepoint=FAILS: Access denied; you need \\\\\(at least one of\\\\\) the SUPER\\\\\p{Punct} REPLICATION CLIENT privilege\\\\\(s\\\\\) for this operation\n
+    x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my-sq.properties
   - >
@@ -58,6 +61,7 @@ before_script:
     connection.password=pass\n
     schema.primaryKeyGenerator=sequence\n
     x-build.schemasavepoint=FAILS: \\\\\(conn=\\\\\d*\\\\\) Access denied; you need \\\\\(at least one of\\\\\) the SUPER\\\\\p{Punct} REPLICATION CLIENT privilege\\\\\(s\\\\\) for this operation\n
+    x-build.dialect=mysql\n
     x-build.driver=mariadb-java-client.jar\n"
     | tee conf/environment/mym.properties
   - >
@@ -66,6 +70,7 @@ before_script:
     connection.username=postgres\n
     connection.password=\n
     dialect.search_path=public\n
+    x-build.dialect=postgresql\n
     x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg.properties
   - >
@@ -75,6 +80,7 @@ before_script:
     connection.password=\n
     dialect.search_path=public\n
     disableSupport.preparedStatements=true\n
+    x-build.dialect=postgresql\n
     x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg-nprep.properties
   - >
@@ -84,6 +90,7 @@ before_script:
     connection.password=\n
     dialect.search_path=public\n
     schema.primaryKeyGenerator=sequence\n
+    x-build.dialect=postgresql\n
     x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg-sq.properties
 

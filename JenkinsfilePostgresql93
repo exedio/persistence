@@ -133,6 +133,7 @@ def writeEnv(name, text)
 					'connection.username=' + env.SCHEMA + '\n' +
 					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
 					'x-build.schema=' + env.SCHEMA + '\n' +
+					'x-build.dialect=postgresql\n' +
 					'x-build.driver=postgresql.jar\n' +
 					text
 	)

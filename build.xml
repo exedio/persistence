@@ -456,7 +456,7 @@
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
-						<pathelement location="build/classes/runtime/dialects" />
+						<pathelement location="build/classes/runtime/@{env.dialect}src" />
 						<pathelement location="build/classes/runtime/patternsrc" />
 						<pathelement location="build/classes/runtime/servletsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
@@ -499,7 +499,7 @@
 					<classpath>
 						<pathelement location="build/classes/dsmf/src" />
 						<pathelement location="build/classes/runtime/src" />
-						<pathelement location="build/classes/runtime/dialects" />
+						<pathelement location="build/classes/runtime/@{env.dialect}src" />
 						<pathelement location="build/classes/runtime/patternsrc" />
 						<pathelement location="build/classes/runtime/servletsrc" />
 						<pathelement location="build/classes/runtime/testfeaturesrc" />
@@ -539,7 +539,7 @@
 				<copy todir="build/runtime/web-@{env}/WEB-INF/classes">
 					<fileset dir="build/classes/dsmf/src" />
 					<fileset dir="build/classes/runtime/src" />
-					<fileset dir="build/classes/runtime/dialects" />
+					<fileset dir="build/classes/runtime/@{env.dialect}src" />
 					<fileset dir="build/classes/runtime/patternsrc" />
 					<fileset dir="build/classes/runtime/servletsrc" />
 					<fileset dir="build/classes/runtime/testfeaturesrc" />

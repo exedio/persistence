@@ -20,7 +20,11 @@
 								<sequential>
 									<for param="env.schemasavepoint" list="${@{env.file}.x-build.schemasavepoint}"><!-- dummy loop for creating attribute -->
 										<sequential>
-											<body />
+											<for param="env.dialect" list="${@{env.file}.x-build.dialect}"><!-- dummy loop for creating attribute -->
+												<sequential>
+													<body />
+												</sequential>
+											</for>
 										</sequential>
 									</for>
 								</sequential>
