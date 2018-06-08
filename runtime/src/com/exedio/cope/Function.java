@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import java.util.Collection;
 
@@ -27,7 +29,7 @@ public interface Function<E> extends Selectable<E>
 
 	default E get(final FieldValues item)
 	{
-		return get(item.getBackingItem());
+		return get(requireNonNull(item.getBackingItem(), "backingItem"));
 	}
 
 	// convenience methods for conditions and views ---------------------------------
