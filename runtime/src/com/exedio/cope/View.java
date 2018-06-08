@@ -89,6 +89,12 @@ public abstract class View<E> extends Feature
 	@Wrap(order=10, doc="Returns the value of {0}.") // TODO box into primitives
 	public final E get(@Nonnull final Item item)
 	{
+		return get(new FieldValues(item));
+	}
+
+	@Override
+	public final E get(final FieldValues item)
+	{
 		final Object[] values = new Object[sources.length];
 		int pos = 0;
 		for(final Function<?> source : sources)

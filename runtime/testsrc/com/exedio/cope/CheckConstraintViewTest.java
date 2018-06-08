@@ -38,18 +38,31 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 
 	@Test void test()
 	{
+		final AnItem item = new AnItem(33, 44, 77);
+		assertEquals(33, item.getOne());
+		assertEquals(44, item.getTwo());
+		assertEquals(77, item.getSum());
+
+		item.set(333, 444, 777);
+		assertEquals(333, item.getOne());
+		assertEquals(444, item.getTwo());
+		assertEquals(777, item.getSum());
+
 		assertFails(
-				() -> new AnItem(33, 44, 77),
-				NullPointerException.class,
-				"backingItem");
+				() -> item.set(33, 44, 88),
+				CheckViolationException.class,
+				"check violation on " + item + " for AnItem.check");
+		assertEquals(333, item.getOne());
+		assertEquals(444, item.getTwo());
+		assertEquals(777, item.getSum());
 	}
 
 	@Test void testCreateFails()
 	{
 		assertFails(
 				() -> new AnItem(33, 44, 88),
-				NullPointerException.class,
-				"backingItem");
+				CheckViolationException.class,
+				"check violation for AnItem.check");
 		assertEquals(asList(), TYPE.search());
 	}
 
