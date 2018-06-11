@@ -282,7 +282,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		item.assertStrings("4four", "1one", "2two", "3three");
 	}
 
-	@Test void testReOrder()
+	@Test void testReorder()
 	{
 		item.setStrings(asList("4four", "1one", "3three", "2two"));
 		item.assertStrings("4four", "1one", "3three", "2two");
