@@ -51,7 +51,7 @@ public abstract class SchemaTest
 		return new File(result);
 	}
 
-	private final class Properties extends com.exedio.cope.util.Properties
+	private static final class Properties extends com.exedio.cope.util.Properties
 	{
 		final String connectionUrl      = value      ("connection.url",      (String)null);
 		final String connectionUsername = value      ("connection.username", (String)null);
