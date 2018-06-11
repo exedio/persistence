@@ -119,12 +119,6 @@
                     <location>runtime/servlettestwebsrc</location>
                     <encoding>UTF-8</encoding>
                 </source-folder>
-                <source-folder>
-                    <label>dsmf/testsrc</label>
-                    <type>java</type>
-                    <location>dsmf/testsrc</location>
-                    <encoding>UTF-8</encoding>
-                </source-folder>
             </folders>
             <ide-actions>
                 <action name="build">
@@ -289,10 +283,6 @@
                         <label>dsmf/src</label>
                         <location>dsmf/src</location>
                     </source-folder>
-                    <source-folder style="packages">
-                        <label>dsmf/testsrc</label>
-                        <location>dsmf/testsrc</location>
-                    </source-folder>
                     <source-file>
                         <location>build.xml</location>
                     </source-file>
@@ -330,7 +320,6 @@
                 <package-root>runtime/testfeaturesrc</package-root>
                 <package-root>runtime/servlettestsrc</package-root>
                 <package-root>runtime/servlettestwebsrc</package-root>
-                <package-root>dsmf/testsrc</package-root>
 					 <package-root>junit4</package-root>
                 <unit-tests/>
                 <classpath mode="compile">${libraries}:instrument/annosrc:instrument/src:instrument/completionsrc:instrument/antsrc:runtime/src:runtime/patternsrc:runtime/servletsrc:dsmf/src:runtime/mysqlsrc:runtime/postgresqlsrc</classpath>

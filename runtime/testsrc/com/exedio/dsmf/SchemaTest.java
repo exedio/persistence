@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
@@ -30,6 +31,7 @@ import java.util.Locale;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
+@TestWithEnvironment.Tag
 public abstract class SchemaTest
 {
 	private Dialect dialect;
@@ -66,7 +68,7 @@ public abstract class SchemaTest
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
-	@BeforeEach final void setUpSchemaTest() throws SQLException
+	@BeforeEach final void setUpSchemaTest() throws SQLException, ReflectiveOperationException
 	{
 		final Properties config = new Properties();
 		final String url = config.connectionUrl;
@@ -80,7 +82,7 @@ public abstract class SchemaTest
 		int numberOfConnections = 1;
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
-			dialect = new HsqldbDialect(true);
+			dialect = newD("HsqldbDialect", true);
 			numberOfConnections = 2;
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
@@ -93,7 +95,7 @@ public abstract class SchemaTest
 			// see MysqlDialect#completeConnectionInfo
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
 			info.setProperty("useSSL", "false");
-			dialect = new MysqlDialect(
+			dialect = newD("MysqlDialect",
 					false, // TODO test true as well
 					"CopeSequenceAutoIncrementColumnForTest",
 					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
@@ -105,7 +107,7 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:oracle:"))
 		{
-			dialect = new OracleDialect(username.toUpperCase(Locale.ENGLISH));
+			dialect = newD("OracleDialect", username.toUpperCase(Locale.ENGLISH));
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
@@ -114,7 +116,7 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
-			dialect = new PostgresqlDialect(config.connectionPostgresqlSearchPath, false);
+			dialect = newD("PostgresqlDialect", config.connectionPostgresqlSearchPath, false);
 			stringType = "character varying(8)";
 			intType  = "integer";
 			intType2 = "bigint";
@@ -141,6 +143,22 @@ public abstract class SchemaTest
 		}
 
 		provider = new SimpleConnectionProvider(connections);
+	}
+
+	private static Dialect newD(final String simpleName, final Object... initargs) throws ReflectiveOperationException
+	{
+		final Class<?>[] parameterTypes = new Class<?>[initargs.length];
+		for(int i = 0; i<parameterTypes.length; i++)
+		{
+			Class<?> clazz = initargs[i]!=null ? initargs[i].getClass() : String.class;
+			if(clazz==Boolean.class)
+				clazz=boolean.class;
+			parameterTypes[i] = clazz;
+		}
+		return (Dialect)
+				Class.forName("com.exedio.dsmf." + simpleName).
+				getConstructor(parameterTypes).
+				newInstance(initargs);
 	}
 
 	@AfterEach final void tearDownSchemaTest() throws SQLException

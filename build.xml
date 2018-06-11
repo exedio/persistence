@@ -201,46 +201,6 @@
 		</compile>
 	</target>
 
-	<target name="dsmf.test.compile" depends="junit4, dsmf.compile">
-		<compile srcdir="dsmf/testsrc">
-			<classpath>
-				<pathelement location="build/classes/dsmf/src" />
-				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="build/classes/junit4" />
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
-			</classpath>
-		</compile>
-	</target>
-
-	<target name="dsmf.test" depends="dsmf.test.compile">
-		<foreachEnvironment skipSwitch="dsmf.test">
-			<body>
-				<ljunit scansrc="dsmf/testsrc" testproperty="dsmf.test" env="@{env}">
-					<classpath>
-						<pathelement location="build/classes/dsmf/src" />
-						<pathelement location="build/classes/dsmf/testsrc" />
-						<pathelement location="lib/@{env.driver}" />
-						<pathelement location="lib/slf4j-api.jar" />
-						<pathelement location="lib/slf4j-log4j12.jar" />
-						<pathelement location="lib/log4j-bundle.jar" />
-						<pathelement location="build/classes/junit4" />
-						<pathelement location="lib/junit-jupiter-api.jar" />
-						<pathelement location="lib/junit-jupiter-engine.jar" />
-						<pathelement location="lib/junit-platform-console.jar" />
-						<pathelement location="lib/junit-platform-launcher.jar" />
-						<pathelement location="lib/junit-platform-engine.jar" />
-						<pathelement location="lib/junit-platform-commons.jar" />
-						<pathelement location="lib/opentest4j.jar" />
-						<pathelement location="lib/exedio-cope-util.jar" />
-					</classpath>
-					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
-				</ljunit>
-			</body>
-		</foreachEnvironment>
-	</target>
-
 	<target name="dsmf.clean">
 		<delete dir="build/dsmf" />
 	</target>
@@ -910,7 +870,6 @@
 
 	<target name="compile"
 			  depends="dsmf.compile,
-			  dsmf.test.compile,
 			  runtime.compile,
 			  runtime.servlet.test.web,
 			  runtime.test.compile,
@@ -918,9 +877,9 @@
 
 	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar, instrument.completion.jar" />
 
-	<target name="testWithEnv" depends="dsmf.test, runtime.test.withEnv, testprotocol" />
+	<target name="testWithEnv" depends="runtime.test.withEnv, testprotocol" />
 
-	<target name="test" depends="dsmf.test, runtime.test, instrument.test" />
+	<target name="test" depends="runtime.test, instrument.test" />
 
 	<target name="web" depends="runtime.web" />
 
@@ -1015,7 +974,6 @@
 					effort="max"
 					reportlevel="low">
 			<class location="${basedir}/build/classes/dsmf/src" />
-			<class location="${basedir}/build/classes/dsmf/testsrc" />
 			<class location="${basedir}/build/classes/runtime/src" />
 			<class location="${basedir}/build/classes/runtime/dialects" />
 			<class location="${basedir}/build/classes/runtime/patternsrc" />

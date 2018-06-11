@@ -43,7 +43,7 @@ public abstract class TestWithEnvironment
 	@Target(ElementType.TYPE)
 	@Inherited
 	@Retention(RetentionPolicy.RUNTIME)
-	@interface Tag {}
+	public @interface Tag {}
 
 	public final CopeRule copeRule;
 
