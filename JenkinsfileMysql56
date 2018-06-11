@@ -82,16 +82,6 @@ timestamps
 						'my56-unique',
 						'disableSupport.uniqueViolation=true\n'
 				)
-				writeEnv(
-						'my56m-nprep',
-						'x-build.driver=mariadb-java-client.jar\n' +
-						'disableSupport.preparedStatements=true\n'
-				)
-				writeEnv(
-						'my56m-sq',
-						'x-build.driver=mariadb-java-client.jar\n' +
-						'schema.primaryKeyGenerator=sequence\n'
-				)
 
 				sh 'ant/bin/ant' +
 						' -f macros/resetSchema.xml' +
