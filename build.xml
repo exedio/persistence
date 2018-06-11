@@ -909,7 +909,9 @@
 	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
 
 	<target name="compile"
-			  depends="runtime.compile,
+			  depends="dsmf.compile,
+			  dsmf.test.compile,
+			  runtime.compile,
 			  runtime.servlet.test.web,
 			  runtime.test.compile,
 			  instrument.compile" />
@@ -1013,6 +1015,7 @@
 					effort="max"
 					reportlevel="low">
 			<class location="${basedir}/build/classes/dsmf/src" />
+			<class location="${basedir}/build/classes/dsmf/testsrc" />
 			<class location="${basedir}/build/classes/runtime/src" />
 			<class location="${basedir}/build/classes/runtime/dialects" />
 			<class location="${basedir}/build/classes/runtime/patternsrc" />

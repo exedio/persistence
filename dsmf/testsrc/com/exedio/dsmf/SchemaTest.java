@@ -19,6 +19,7 @@
 package com.exedio.dsmf;
 
 import com.exedio.cope.util.Sources;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -64,6 +65,7 @@ public abstract class SchemaTest
 		}
 	}
 
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@BeforeEach final void setUpSchemaTest() throws SQLException
 	{
 		final Properties config = new Properties();
