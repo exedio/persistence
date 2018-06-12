@@ -183,6 +183,8 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 		return dataFieldVault!=null ? dataFieldVault.getAlgorithm() : null;
 	}
 
+	final boolean comparableCheck = value("comparableCheck", true); // TODO remove, is just a panic button
+
 	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
 	final ThreadSwarmProperties chaListThreads = valnp("changeListeners.threads", ThreadSwarmProperties::new);
 

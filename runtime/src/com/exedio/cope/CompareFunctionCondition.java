@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.CompareCondition.isComparableCheckEnabled;
+import static com.exedio.cope.CompareCondition.topItemClass;
 import static java.util.Objects.requireNonNull;
 
 public final class CompareFunctionCondition<E> extends Condition
@@ -47,6 +49,27 @@ public final class CompareFunctionCondition<E> extends Condition
 		this.operator = requireNonNull(operator, "operator");
 		this.left = requireNonNull(left, "left");
 		this.right = requireNonNull(right, "right");
+
+		if(!isComparable(left.getValueClass(), right.getValueClass()) &&
+			isComparableCheckEnabled(left))
+			throw new IllegalArgumentException(
+					left + " not comparable to " + right);
+	}
+
+	@SuppressWarnings("RedundantIfStatement")
+	private static boolean isComparable(
+			final Class<?> left,
+			final Class<?> right)
+	{
+		if(left==right)
+			return true;
+
+		if(Item.class.isAssignableFrom(left) &&
+			Item.class.isAssignableFrom(right) &&
+			topItemClass(left)==topItemClass(right))
+			return true;
+
+		return false;
 	}
 
 	@Override

@@ -49,6 +49,77 @@ public final class CompareCondition<E> extends Condition
 		this.operator = requireNonNull(operator, "operator");
 		this.left = requireNonNull(left, "left");
 		this.right = requireNonNull(right, "right");
+
+		if(!isComparable(left.getValueClass(), right.getClass(), right) &&
+			isComparableCheckEnabled(left))
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append(left).
+				append(" not comparable to '");
+			toStringForValue(bf, right, false);
+			bf.append("' (").
+				append(right.getClass().getName()).
+				append(')');
+			throw new IllegalArgumentException(bf.toString());
+		}
+	}
+
+	@SuppressWarnings("RedundantIfStatement")
+	private static boolean isComparable(
+			final Class<?> left,
+			final Class<?> right,
+			final Object rightValue)
+	{
+		if(left==right)
+			return true;
+
+		if(rightValue instanceof Enum &&
+			left==((Enum)rightValue).getDeclaringClass())
+			return true;
+
+		if(Item.class.isAssignableFrom(left) &&
+			Item.class.isAssignableFrom(right) &&
+			topItemClass(left)==topItemClass(right))
+			return true;
+
+		return false;
+	}
+
+	static Class<?> topItemClass(Class<?> valueClass)
+	{
+		do
+		{
+			final Class<?> superclass = valueClass.getSuperclass();
+			if(superclass==Item.class)
+				return valueClass;
+			valueClass = superclass;
+		}
+		while(true);
+	}
+
+	static boolean isComparableCheckEnabled(final Selectable<?> left)
+	{
+		final Type<?> type;
+		try
+		{
+			type = left.getType();
+		}
+		catch(final IllegalStateException e)
+		{
+			return true;
+		}
+		final Model model;
+		try
+		{
+			model = type.getModel();
+		}
+		catch(final IllegalStateException e)
+		{
+			return true;
+		}
+		return
+				!model.isConnected() ||
+				model.getConnectProperties().comparableCheck;
 	}
 
 	@Override
