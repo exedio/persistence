@@ -26,18 +26,33 @@ import java.util.Locale;
 
 final class DayColumn extends Column
 {
+	private final Day minimum;
+	private final Day maximum;
+
 	DayColumn(
 			final Table table,
 			final String id,
-			final boolean optional)
+			final boolean optional,
+			final Day minimum,
+			final Day maximum)
 	{
 		super(table, id, false, false, optional);
+		this.minimum = minimum;
+		this.maximum = maximum;
 	}
 
 	@Override
 	String getDatabaseType()
 	{
 		return table.database.dialect.getDayType();
+	}
+
+	@Override
+	void makeSchema(final com.exedio.dsmf.Column dsmf)
+	{
+		final Dialect dialect = table.database.dialect;
+		newCheck(dsmf, "MN", quotedID + ">=" + dialect.toLiteral(minimum));
+		newCheck(dsmf, "MX", quotedID + "<=" + dialect.toLiteral(maximum));
 	}
 
 	static int getTransientNumber(final Day day)

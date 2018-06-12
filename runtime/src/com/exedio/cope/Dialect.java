@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.util.Day;
 import com.exedio.cope.util.JobContext;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -32,9 +33,11 @@ import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
+import java.util.Locale;
 import java.util.Objects;
 import java.util.Properties;
 
@@ -315,6 +318,17 @@ abstract class Dialect
 	String toLiteral(final Date value)
 	{
 		return DateField.format("'TIMESTAMP'''yyyy-MM-dd HH:mm:ss.SSS''").format(value);
+	}
+
+	/**
+	 * Don't use a static instance,
+	 * since then access must be synchronized
+	 */
+	String toLiteral(final Day value)
+	{
+		final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
+		nf.setMinimumIntegerDigits(2);
+		return "DATE'" + value.getYear() + '-' + nf.format(value.getMonth()) + '-' + nf.format(value.getDay()) + '\'';
 	}
 
 	String getDateTimestampPrecisionMinuteSecond(final boolean isSecond, final String quotedName)

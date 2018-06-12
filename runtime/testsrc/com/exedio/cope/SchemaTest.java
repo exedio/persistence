@@ -30,6 +30,8 @@ import static com.exedio.cope.SchemaItem.boolOpt;
 import static com.exedio.cope.SchemaItem.data;
 import static com.exedio.cope.SchemaItem.date;
 import static com.exedio.cope.SchemaItem.dateOpt;
+import static com.exedio.cope.SchemaItem.day;
+import static com.exedio.cope.SchemaItem.dayOpt;
 import static com.exedio.cope.SchemaItem.doub;
 import static com.exedio.cope.SchemaItem.doubOpt;
 import static com.exedio.cope.SchemaItem.enumOpt;
@@ -76,16 +78,22 @@ public class SchemaTest extends TestWithEnvironment
 		final boolean nativeDate = supportsNativeDate(model);
 		final String dateMinimum;
 		final String dateMaximum;
+		final String dayMinimum;
+		final String dayMaximum;
 		//noinspection EnumSwitchStatementWhichMissesCases
 		switch(dialect)
 		{
 			case postgresql:
 				dateMinimum = "'1600-01-01 00:00:00" +"'::timestamp without time zone";
 				dateMaximum = "'9999-12-31 23:59:59.999'::timestamp without time zone";
+				dayMinimum = "'1600-01-01'::\"date\"";
+				dayMaximum = "'9999-12-31'::\"date\"";
 				break;
 			default:
 				dateMinimum = "TIMESTAMP'1600-01-01 00:00:00.000'";
 				dateMaximum = "TIMESTAMP'9999-12-31 23:59:59.999'";
+				dayMinimum = "DATE'1600-01-01'";
+				dayMaximum = "DATE'9999-12-31'";
 				break;
 		}
 		final boolean dataVault = data.getVaultInfo()!=null;
@@ -104,8 +112,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_doub_MX", q(doub)+"<=11.1");
 		assertCheckConstraint(table, "Main_date_MN", q(date)+">="+(nativeDate?dateMinimum:DateField.getDefaultMinimum().getTime()));
 		assertCheckConstraint(table, "Main_date_MX", q(date)+"<="+(nativeDate?dateMaximum:DateField.getDefaultMaximum().getTime()));
-		assertCheckConstraint(table, "Main_day_MN", null, false);
-		assertCheckConstraint(table, "Main_day_MX", null, false);
+		assertCheckConstraint(table, "Main_day_MN", q(day)+">="+dayMinimum);
+		assertCheckConstraint(table, "Main_day_MX", q(day)+"<="+dayMaximum);
 		assertCheckConstraint(table, "Main_bool_EN", hp(q(bool  ))+" IN ("+hp("0")+","+sac()+hp("1")+")");
 		assertCheckConstraint(table, "Main_anEnum_EN", hp(q(anEnum))+" IN ("+hp("10")+","+sac()+hp("20")+","+sac()+hp("30")+")");
 		assertCheckConstraint(table, "Main_item_MN", q(item)+">=0");
@@ -123,8 +131,8 @@ public class SchemaTest extends TestWithEnvironment
 		assertCheckConstraint(table, "Main_doubOpt_MX", q(doubOpt)+"<=11.1");
 		assertCheckConstraint(table, "Main_dateOpt_MN", q(dateOpt)+">="+(nativeDate?dateMinimum:DateField.getDefaultMinimum().getTime()));
 		assertCheckConstraint(table, "Main_dateOpt_MX", q(dateOpt)+"<="+(nativeDate?dateMaximum:DateField.getDefaultMaximum().getTime()));
-		assertCheckConstraint(table, "Main_dayOpt_MN", null, false);
-		assertCheckConstraint(table, "Main_dayOpt_MX", null, false);
+		assertCheckConstraint(table, "Main_dayOpt_MN", q(dayOpt)+">="+dayMinimum);
+		assertCheckConstraint(table, "Main_dayOpt_MX", q(dayOpt)+"<="+dayMaximum);
 		assertCheckConstraint(table, "Main_boolOpt_EN", hp(q(boolOpt))+" IN ("+hp("0")+","+sac()+hp("1")+")");
 		assertCheckConstraint(table, "Main_enumOpt_EN", hp(q(enumOpt))+" IN ("+hp("10")+","+sac()+hp("20")+","+sac()+hp("30")+")");
 		assertCheckConstraint(table, "Main_itemOpt_MN", q(itemOpt)+">=0");

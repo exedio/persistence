@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
+import com.exedio.cope.util.Day;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.Sequence;
@@ -29,8 +30,10 @@ import java.io.OutputStream;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.NumberFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 @ServiceProperties(PostgresqlProperties.class)
 final class PostgresqlDialect extends Dialect
@@ -138,6 +141,18 @@ final class PostgresqlDialect extends Dialect
 				((value.getTime()%1000)!=0)
 				? "''yyyy-MM-dd HH:mm:ss.SSS'''::timestamp without time zone'"
 				: "''yyyy-MM-dd HH:mm:ss"+ "'''::timestamp without time zone'").format(value);
+	}
+
+	/**
+	 * Don't use a static instance,
+	 * since then access must be synchronized
+	 */
+	@Override
+	String toLiteral(final Day value)
+	{
+		final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
+		nf.setMinimumIntegerDigits(2);
+		return "'" + value.getYear() + '-' + nf.format(value.getMonth()) + '-' + nf.format(value.getDay()) + "'::\"date\"";
 	}
 
 	@Override

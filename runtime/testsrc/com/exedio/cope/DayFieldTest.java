@@ -119,7 +119,7 @@ public class DayFieldTest extends TestWithEnvironment
 		restartTransaction();
 		assertEquals(nextDay, item.getDay());
 
-		final Day firstDay = new Day(1000, 1, 1);
+		final Day firstDay = new Day(1600, 1, 1);
 		item.setDay(firstDay);
 		restartTransaction();
 		assertEquals(firstDay, item.getDay());

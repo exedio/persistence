@@ -38,6 +38,21 @@ public final class DayField extends FunctionField<Day>
 
 	private static final long serialVersionUID = 1l;
 
+	public static Day getDefaultMinimum()
+	{
+		return minimum;
+	}
+
+	public static Day getDefaultMaximum()
+	{
+		return maximum;
+	}
+
+
+	// TODO allow customization of minimum and maximum
+	private static final Day minimum = new Day(1600,  1,  1); // TODO allow earlier days, but see DayConsistencyTest
+	private static final Day maximum = new Day(9999, 12, 31);
+
 	private DayField(
 			final boolean isfinal,
 			final boolean optional,
@@ -154,6 +169,16 @@ public final class DayField extends FunctionField<Day>
 			: null;
 	}
 
+	public Day getMinimum()
+	{
+		return minimum;
+	}
+
+	public Day getMaximum()
+	{
+		return maximum;
+	}
+
 	@Override
 	public SelectType<Day> getValueType()
 	{
@@ -184,7 +209,7 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		return new DayColumn(table, name, optional);
+		return new DayColumn(table, name, optional, minimum, maximum);
 	}
 
 	@Override
@@ -198,6 +223,15 @@ public final class DayField extends FunctionField<Day>
 	void set(final Row row, final Day surface)
 	{
 		row.put(getColumn(), surface==null ? null : DayColumn.getTransientNumber(surface));
+	}
+
+	@Override
+	void checkNotNull(final Day value, final Item exceptionItem)
+	{
+		if(value.compareTo(minimum)<0)
+			throw new DayRangeViolationException(this, exceptionItem, value, minimum);
+		if(value.compareTo(maximum)>0)
+			throw new RuntimeException(value.toString());
 	}
 
 	/**
