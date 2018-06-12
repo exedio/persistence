@@ -45,7 +45,7 @@ final class DefaultToItem extends Item
 	static final DateField dateNowOpt = new DateField().optional().defaultToNow();
 	static final DateField dateNone = new DateField().optional();
 
-	static final DayField dayEight = new DayField().defaultTo(new Day(1008, 8, 8));
+	static final DayField dayEight = new DayField().defaultTo(new Day(1608, 8, 8));
 	static final DayField dayNow = new DayField().defaultToNow(TimeZoneStrict.getTimeZone("Europe/Berlin"));
 	static final DayField dayNowOpt = new DayField().optional().defaultToNow(TimeZoneStrict.getTimeZone("Europe/Berlin"));
 	static final DayField dayNone = new DayField().optional();

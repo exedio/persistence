@@ -130,7 +130,7 @@ public class DefaultToModelTest
 		assertEquals(true,  dateNowOpt.isDefaultNow());
 		assertEquals(false, dateNone.isDefaultNow());
 
-		assertEquals(day(1008, 8, 8), dayEight.getDefaultConstant());
+		assertEquals(day(1608, 8, 8), dayEight.getDefaultConstant());
 		assertEquals(null, dayNow.getDefaultConstant());
 		assertEquals(null, dayNowOpt.getDefaultConstant());
 		assertEquals(null, dayNone.getDefaultConstant());

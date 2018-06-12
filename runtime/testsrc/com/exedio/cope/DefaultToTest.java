@@ -102,7 +102,7 @@ public class DefaultToTest extends TestWithEnvironment
 			assertEquals(now, item.getDateNow());
 			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(day(1008, 8, 8), item.getDayEight());
+			assertEquals(day(1608, 8, 8), item.getDayEight());
 			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
 			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
@@ -158,7 +158,7 @@ public class DefaultToTest extends TestWithEnvironment
 					dateNow.map(date(501)),
 					dateNowOpt.map(date(502)),
 					dateNone.map(date(503)),
-					dayEight.map(day(1009, 9, 9)),
+					dayEight.map(day(1609, 9, 9)),
 					dayNow.map(day(2010, 1, 13)),
 					dayNowOpt.map(day(2010, 1, 14)),
 					dayNone.map(day(2010, 1, 15)),
@@ -180,7 +180,7 @@ public class DefaultToTest extends TestWithEnvironment
 			assertEquals(date(501), item.getDateNow());
 			assertEquals(date(502), item.getDateNowOpt());
 			assertEquals(date(503), item.getDateNone());
-			assertEquals(day(1009, 9, 9), item.getDayEight());
+			assertEquals(day(1609, 9, 9), item.getDayEight());
 			assertEquals(day(2010, 1, 13), item.getDayNow());
 			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
 			assertEquals(day(2010, 1, 15), item.getDayNone());
@@ -223,7 +223,7 @@ public class DefaultToTest extends TestWithEnvironment
 			assertEquals(now, item.getDateNow());
 			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(day(1008, 8, 8), item.getDayEight());
+			assertEquals(day(1608, 8, 8), item.getDayEight());
 			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
 			assertEquals(null, item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
