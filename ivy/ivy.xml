@@ -20,7 +20,7 @@
 
 		<!-- dialects -->
 		<conf extends="runtime" name="hsqldb"     description="dialect for HSQLDB" />
-		<conf extends="runtime" name="mysql"      description="dialect for MySQL" />
+		<conf extends="runtime" name="mysql"      description="dialect for MySQL via MySQL Connector/J" />
 		<conf extends="runtime" name="mariadb"    description="dialect for MySQL via MariaDB Connector/J" />
 		<conf extends="runtime" name="oracle"     description="dialect for Oracle Database" />
 		<conf extends="runtime" name="postgresql" description="dialect for PostgreSQL" />
