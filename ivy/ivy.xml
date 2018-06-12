@@ -28,7 +28,7 @@
 	<publications defaultconf="SPECIFY_A_CONFIGURATION">
 		<artifact name="exedio-cope" conf="runtime" />
 		<artifact name="exedio-cope-hsqldb" conf="hsqldb" />
-		<artifact name="exedio-cope-mysql" conf="mysql" />
+		<artifact name="exedio-cope-mysql" conf="mysql,mariadb" />
 		<artifact name="exedio-cope-oracle" conf="oracle" />
 		<artifact name="exedio-cope-postgresql" conf="postgresql" />
 		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
