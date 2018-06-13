@@ -92,9 +92,9 @@ public final class MysqlDialect extends Dialect
 						"c.DATA_TYPE," + // 4
 						"c.CHARACTER_MAXIMUM_LENGTH," + // 5
 						(datetime?"c.DATETIME_PRECISION,":"") + // 6
-						"c.CHARACTER_SET_NAME," + // 6
-						"c.COLLATION_NAME," + // 7
-						"c.COLUMN_KEY " + // 8
+						"c.CHARACTER_SET_NAME," + // 7
+						"c.COLLATION_NAME," + // 8
+						"c.COLUMN_KEY " + // 9
 				"FROM information_schema.COLUMNS c " +
 				"JOIN information_schema.TABLES t " +
 					"ON c.TABLE_SCHEMA=t.TABLE_SCHEMA " +
@@ -104,7 +104,7 @@ public final class MysqlDialect extends Dialect
 				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
-			final int datetimeOffset = datetime ? 1 : 0;
+			final int datetimeOffset = datetime ? 0 : 1;
 			while(resultSet.next())
 			{
 				final String tableName = resultSet.getString(1);
@@ -130,18 +130,18 @@ public final class MysqlDialect extends Dialect
 						type.append('(').append(datetimePrecision).append(')');
 				}
 				{
-					final String characterSet = resultSet.getString(6+datetimeOffset);
+					final String characterSet = resultSet.getString(7-datetimeOffset);
 					if(characterSet!=null)
 						type.append(" CHARACTER SET ").append(characterSet);
 				}
 				{
-					final String collation = resultSet.getString(7+datetimeOffset);
+					final String collation = resultSet.getString(8-datetimeOffset);
 					if(collation!=null)
 						type.append(" COLLATE ").append(collation);
 				}
 
 				if(!getBooleanStrict(resultSet, 3, "YES", "NO") &&
-						!"PRI".equals(resultSet.getString(8+datetimeOffset)))
+						!"PRI".equals(resultSet.getString(9-datetimeOffset)))
 					type.append(NOT_NULL);
 
 				final Table table = schema.getTableStrict(resultSet, 1);
