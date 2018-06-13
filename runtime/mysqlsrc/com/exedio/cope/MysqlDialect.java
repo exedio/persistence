@@ -71,7 +71,6 @@ final class MysqlDialect extends Dialect
 	private final boolean supportsAnyValue;
 	private final boolean supportsNativeDate;
 	private final boolean supportsGtid;
-	private final boolean mariaDriver;
 	private final Pattern extractUniqueViolationMessagePattern;
 
 	MysqlDialect(
@@ -107,7 +106,7 @@ final class MysqlDialect extends Dialect
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		supportsNativeDate = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
-		mariaDriver = env.getDriverName().startsWith("MariaDB");
+		final boolean mariaDriver = env.getDriverName().startsWith("MariaDB");
 		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$") : null;
 	}
 
@@ -143,11 +142,6 @@ final class MysqlDialect extends Dialect
 		requireConnectionInfo(info, "useSSL", "false");
 
 		//info.setProperty("profileSQL", TRUE);
-
-		// We do put query into SQLRuntimeException anyway, and query may be large.
-		// Also junit tests are easier that way.
-		if(mariaDriver)
-			info.setProperty("dumpQueriesOnException", "false");
 	}
 
 	@Override
