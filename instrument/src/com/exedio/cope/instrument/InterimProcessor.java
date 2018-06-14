@@ -343,7 +343,7 @@ final class InterimProcessor extends JavacProcessor
 			{
 				declaration.append(" extends ").append(ct.getExtendsClause());
 			}
-			final List<TypeElement> implementedInterfaces = appendImplements(declaration, ct);
+			appendImplements(declaration, ct);
 			code = code.openBlock(element.getQualifiedName(), declaration, false);
 			blockRegistry.put(element.getQualifiedName(), code);
 			if (ct.getKind()==Tree.Kind.ENUM)
@@ -378,7 +378,7 @@ final class InterimProcessor extends JavacProcessor
 					}
 				}
 			}
-			for (final ExecutableElement method: getMethodsThatNeedImplementation(element, implementedInterfaces))
+			for (final ExecutableElement method: getMethodsThatNeedImplementation(element, getInterfacesThatAddMethods(element)))
 			{
 				code = code.openBlock(null, getMethodDeclaration(method, true), true);
 				code.addLine("throw new RuntimeException(\"don't call in interim code\");");
@@ -407,6 +407,32 @@ final class InterimProcessor extends JavacProcessor
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
 			return result;
+		}
+
+		private List<TypeElement> getInterfacesThatAddMethods(final TypeElement typeElement)
+		{
+			final List<TypeElement> result = new ArrayList<>();
+			addInterfacesThatAddMethods(typeElement, result);
+			return result;
+		}
+
+		private void addInterfacesThatAddMethods(final TypeElement type, final List<TypeElement> interfaces)
+		{
+			if (type.getKind()==ElementKind.INTERFACE && type.getAnnotation(WrapImplementsInterim.class)!=null && type.getAnnotation(WrapImplementsInterim.class).addMethods())
+			{
+				interfaces.add(type);
+			}
+			final TypeElement superClass = getSuperclass(type);
+			if (superClass!=null)
+				addInterfacesThatAddMethods(superClass, interfaces);
+			for(final TypeMirror interfaceMirror : type.getInterfaces())
+			{
+				final TypeElement interfaceType = (TypeElement) processingEnv.getTypeUtils().asElement(interfaceMirror);
+				if (interfaceType.getAnnotation(WrapImplementsInterim.class)!=null)
+				{
+					addInterfacesThatAddMethods(interfaceType, interfaces);
+				}
+			}
 		}
 
 		private List<ExecutableElement> getMethodsThatNeedImplementation(final TypeElement element, final List<TypeElement> implementedInterfaces)
@@ -512,13 +538,9 @@ final class InterimProcessor extends JavacProcessor
 			return currentClass.getAnnotation(WrapType.class)!=null;
 		}
 
-		/**
-		 * @return the implemented interfaces that have {@link WrapImplementsInterim#addMethods()} set to true
-		 */
-		private List<TypeElement> appendImplements(final StringBuilder sb, final ClassTree ct)
+		private void appendImplements(final StringBuilder sb, final ClassTree ct)
 		{
 			final List<Tree> implementsInterim = new ArrayList<>();
-			final List<TypeElement> implementsInterimTypes = new ArrayList<>();
 			for (final Tree implementsClause : ct.getImplementsClause())
 			{
 				final TypeElement implementsType = (TypeElement) getElement(implementsClause);
@@ -526,13 +548,11 @@ final class InterimProcessor extends JavacProcessor
 				if (wrapImplementsInterim!=null)
 				{
 					implementsInterim.add(implementsClause);
-					if (wrapImplementsInterim.addMethods())
-						implementsInterimTypes.add(implementsType);
 				}
 			}
 			if (!implementsInterim.isEmpty())
 			{
-				sb.append(" implements ");
+				sb.append(ct.getKind()==Tree.Kind.INTERFACE?" extends ":" implements ");
 				final StringSeparator comma = new StringSeparator(", ");
 				for (final Tree implementsClause : implementsInterim)
 				{
@@ -540,7 +560,6 @@ final class InterimProcessor extends JavacProcessor
 					sb.append(implementsClause);
 				}
 			}
-			return implementsInterimTypes;
 		}
 
 		@Override

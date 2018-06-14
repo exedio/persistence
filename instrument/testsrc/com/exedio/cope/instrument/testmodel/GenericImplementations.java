@@ -21,12 +21,37 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericInterface;
 
-@WrapInterim
-public class GenericImplementation implements GenericInterface<Integer>
+@SuppressWarnings({"EmptyClass", "unused"})
+public class GenericImplementations
 {
-	@Override
-	public Integer getNumber()
+	@WrapInterim
+	class DirectImplementation implements GenericInterface<Integer>
 	{
-		return 42;
+		@Override
+		public Integer getNumber()
+		{
+			return 42;
+		}
+	}
+
+	@WrapInterim
+	@SuppressWarnings("InterfaceMayBeAnnotatedFunctional")
+	interface SubInterface extends GenericInterface<Long>
+	{
+	}
+
+	@WrapInterim
+	abstract class AbstractImplementation implements SubInterface
+	{
+	}
+
+	@WrapInterim
+	class IndirectImplementation extends AbstractImplementation
+	{
+		@Override
+		public Long getNumber()
+		{
+			return 42L;
+		}
 	}
 }
