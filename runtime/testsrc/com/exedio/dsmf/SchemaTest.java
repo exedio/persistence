@@ -82,6 +82,8 @@ public abstract class SchemaTest
 		int numberOfConnections = 1;
 		if(url.startsWith("jdbc:hsqldb:"))
 		{
+			// see HsqldbDialect#completeConnectionInfo
+			info.setProperty("hsqldb.tx", "mvcc"); // fixes sparse dead locks when running tests, mostly on travis-ci
 			dialect = newD("HsqldbDialect", true);
 			numberOfConnections = 2;
 			stringType = "VARCHAR(8)";
