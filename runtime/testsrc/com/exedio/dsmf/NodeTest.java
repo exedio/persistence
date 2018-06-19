@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import static com.exedio.dsmf.GraphTest.newHsqldbDialect;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -28,9 +29,9 @@ import org.junit.jupiter.api.Test;
 
 public class NodeTest
 {
-	@Test void testColumnOk()
+	@Test void testColumnOk() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -62,9 +63,9 @@ public class NodeTest
 		assertEquals("requiredType", c.getExistingType());
 	}
 
-	@Test void testColumnWrongName()
+	@Test void testColumnWrongName() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -123,9 +124,9 @@ public class NodeTest
 		assertEquals("requiredType", c2.getExistingType());
 	}
 
-	@Test void testColumnWrongType()
+	@Test void testColumnWrongType() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -156,9 +157,9 @@ public class NodeTest
 		assertEquals("existingType", c.getExistingType());
 	}
 
-	@Test void testColumnNonRequires()
+	@Test void testColumnNonRequires() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(new HsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 
 		final Column c = table.notifyExistentColumn("colName", "existingType");

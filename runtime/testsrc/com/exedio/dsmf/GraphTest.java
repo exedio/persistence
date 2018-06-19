@@ -32,9 +32,9 @@ public class GraphTest
 {
 	private Schema schema = null;
 
-	@BeforeEach final void setUp()
+	@BeforeEach final void setUp() throws ReflectiveOperationException
 	{
-		schema = new Schema(new HsqldbDialect(true), new ConnectionProvider(){
+		schema = new Schema(newHsqldbDialect(true), new ConnectionProvider(){
 			@Override
 			public Connection getConnection() { throw new RuntimeException(); }
 			@Override
@@ -42,6 +42,18 @@ public class GraphTest
 			@Override
 			public boolean isSemicolonEnabled() { throw new RuntimeException(); }
 		});
+	}
+
+	static Dialect newHsqldbDialect(final boolean supportsCheckConstraints) throws ReflectiveOperationException
+	{
+		// Use reflection because otherwise class fails to load when running
+		// ant target runtime.test.withEnv causing
+		// ClassNotFoundException: com.exedio.dsmf.HsqldbDialect
+		// during classpath scanning.
+		return (Dialect)
+				Class.forName("com.exedio.dsmf.HsqldbDialect").
+						getDeclaredConstructor(boolean.class).
+						newInstance(supportsCheckConstraints);
 	}
 
 	@Test void testOk()
