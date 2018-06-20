@@ -534,7 +534,7 @@ final class InterimProcessor extends JavacProcessor
 
 		private boolean currentClassIsFeatureContainer()
 		{
-			final TypeElement currentClass = requireNonNull(currentClassStack.peek());
+			final TypeElement currentClass = getCurrentClass();
 			return currentClass.getAnnotation(WrapType.class)!=null;
 		}
 
@@ -585,9 +585,14 @@ final class InterimProcessor extends JavacProcessor
 			}
 			else if (mt.getModifiers().getFlags().contains(Modifier.STATIC))
 			{
-				staticDropped.add(requireNonNull(currentClassStack.peek()).getQualifiedName()+"."+mt.getName());
+				staticDropped.add(getCurrentClass().getQualifiedName() + "." + mt.getName());
 			}
 			return null;
+		}
+
+		private TypeElement getCurrentClass()
+		{
+			return requireNonNull(currentClassStack.peek());
 		}
 
 		private <A extends Annotation> A getCurrentPathAnnotation(final Class<A> annotationType)
@@ -688,7 +693,7 @@ final class InterimProcessor extends JavacProcessor
 			}
 			else if (vt.getModifiers().getFlags().contains(Modifier.STATIC))
 			{
-				staticDropped.add(requireNonNull(currentClassStack.peek()).getQualifiedName()+"."+vt.getName());
+				staticDropped.add(getCurrentClass().getQualifiedName() + "." + vt.getName());
 			}
 			return super.visitVariable(vt, p);
 		}
