@@ -95,7 +95,7 @@ public final class HsqldbDialect extends Dialect
 			{
 				final String constraintName = resultSet.getString(1);
 				final String constraintType = resultSet.getString(2);
-				final Table table = schema.getTableStrict(resultSet, 3);
+				final Table table = getTableStrict(schema, resultSet, 3);
 
 				if("CHECK".equals(constraintType))
 				{

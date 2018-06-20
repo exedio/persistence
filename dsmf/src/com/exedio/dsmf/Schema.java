@@ -21,8 +21,6 @@ package com.exedio.dsmf;
 import static java.util.Collections.unmodifiableList;
 import static java.util.Objects.requireNonNull;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.HashMap;
@@ -85,23 +83,6 @@ public final class Schema extends Node
 	public Table getTable(final String name)
 	{
 		return tableMap.get(name);
-	}
-
-	Table getTableStrict(final ResultSet resultSet, final int columnIndex) throws SQLException
-	{
-		final String name = resultSet.getString(columnIndex);
-		final Table result = getTable(name);
-		if(result!=null)
-			return result;
-
-		final StringBuilder bf = new StringBuilder();
-		bf.append("table \"").
-			append(name).
-			append("\" required");
-
-		Dialect.append(bf, resultSet, columnIndex);
-
-		throw new IllegalStateException(bf.toString());
 	}
 
 	public List<Table> getTables()

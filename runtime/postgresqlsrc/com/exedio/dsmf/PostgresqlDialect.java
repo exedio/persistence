@@ -120,7 +120,7 @@ public final class PostgresqlDialect extends Dialect
 		{
 			while(resultSet.next())
 			{
-				final Table table = schema.getTableStrict(resultSet, 1);
+				final Table table = getTableStrict(schema, resultSet, 1);
 				final String columnName = resultSet.getString(2);
 
 				final String notNull =
@@ -164,7 +164,7 @@ public final class PostgresqlDialect extends Dialect
 		{
 			while(resultSet.next())
 			{
-				final Table table = schema.getTableStrict(resultSet, 1);
+				final Table table = getTableStrict(schema, resultSet, 1);
 				final String constraintName = resultSet.getString(2);
 				//System.out.println("tableName:"+tableName+" constraintName:"+constraintName+" constraintType:>"+constraintType+"<");
 				if(getBooleanStrict(resultSet, 3, "c", "p"))

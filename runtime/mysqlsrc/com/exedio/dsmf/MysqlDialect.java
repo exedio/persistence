@@ -144,7 +144,7 @@ public final class MysqlDialect extends Dialect
 						!"PRI".equals(resultSet.getString(9-datetimeOffset)))
 					type.append(NOT_NULL);
 
-				final Table table = schema.getTableStrict(resultSet, 1);
+				final Table table = getTableStrict(schema, resultSet, 1);
 				table.notifyExistentColumn(columnName, type.toString());
 			}
 		});
@@ -190,7 +190,7 @@ public final class MysqlDialect extends Dialect
 				if(sequence!=null && sequence.required())
 					continue;
 
-				final Table table = schema.getTableStrict(resultSet, 2);
+				final Table table = getTableStrict(schema, resultSet, 2);
 
 				if(getBooleanStrict(resultSet, 3, PRIMARY_KEY, UNIQUE))
 				{

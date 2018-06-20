@@ -119,7 +119,7 @@ public final class OracleDialect extends Dialect
 		{
 			while(resultSet.next())
 			{
-				final Table table = schema.getTableStrict(resultSet, 1);
+				final Table table = getTableStrict(schema, resultSet, 1);
 				final String constraintName = resultSet.getString(2);
 				if(getBooleanStrict(resultSet, 3, "C", "P"))
 				{

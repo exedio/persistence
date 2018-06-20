@@ -99,7 +99,7 @@ public abstract class Dialect
 				final String columnName = resultSet.getString(COLUMN_NAME);
 				final int    dataType   = resultSet.getInt   (DATA_TYPE  );
 
-				final Table table = schema.getTableStrict(resultSet, TABLE_NAME);
+				final Table table = getTableStrict(schema, resultSet, TABLE_NAME);
 				String columnType = getColumnType(dataType, resultSet);
 				if(columnType==null)
 					columnType = "DATA_TYPE(" + dataType + ')';
@@ -115,7 +115,7 @@ public abstract class Dialect
 		{
 			while(resultSet.next())
 			{
-				final Table table = schema.getTableStrict(resultSet, 2);
+				final Table table = getTableStrict(schema, resultSet, 2);
 				table.notifyExistentForeignKey(
 						resultSet.getString(1), // constraintName
 						resultSet.getString(3), // foreignKeyColumn
@@ -133,7 +133,7 @@ public abstract class Dialect
 					new UniqueConstraintCollector(schema);
 			while(resultSet.next())
 			{
-				final Table table = schema.getTableStrict(resultSet, 1);
+				final Table table = getTableStrict(schema, resultSet, 1);
 				final String constraintName = resultSet.getString(2);
 				final String columnName = resultSet.getString(3);
 				collector.onColumn(table, constraintName, columnName);
@@ -180,7 +180,27 @@ public abstract class Dialect
 		throw new IllegalStateException(bf.toString());
 	}
 
-	static final void append(
+	static final Table getTableStrict(
+			final Schema schema,
+			final ResultSet resultSet,
+			final int columnIndex) throws SQLException
+	{
+		final String name = resultSet.getString(columnIndex);
+		final Table result = schema.getTable(name);
+		if(result!=null)
+			return result;
+
+		final StringBuilder bf = new StringBuilder();
+		bf.append("table \"").
+				append(name).
+				append("\" required");
+
+		append(bf, resultSet, columnIndex);
+
+		throw new IllegalStateException(bf.toString());
+	}
+
+	private static void append(
 			final StringBuilder bf, final ResultSet resultSet,
 			final int columnIndexMarked)
 	throws SQLException
