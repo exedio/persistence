@@ -50,8 +50,9 @@ public class GraphTest
 		// ant target runtime.test.withEnv causing
 		// ClassNotFoundException: com.exedio.dsmf.HsqldbDialect
 		// during classpath scanning.
-		return (Dialect)
+		return
 				Class.forName("com.exedio.dsmf.HsqldbDialect").
+						asSubclass(Dialect.class).
 						getDeclaredConstructor(boolean.class).
 						newInstance(supportsCheckConstraints);
 	}
