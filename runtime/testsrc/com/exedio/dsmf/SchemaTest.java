@@ -157,8 +157,9 @@ public abstract class SchemaTest
 				clazz=boolean.class;
 			parameterTypes[i] = clazz;
 		}
-		return (Dialect)
+		return
 				Class.forName("com.exedio.dsmf." + simpleName).
+				asSubclass(Dialect.class).
 				getConstructor(parameterTypes).
 				newInstance(initargs);
 	}
