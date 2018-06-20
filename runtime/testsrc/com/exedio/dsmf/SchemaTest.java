@@ -22,6 +22,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
+import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -157,11 +158,12 @@ public abstract class SchemaTest
 				clazz=boolean.class;
 			parameterTypes[i] = clazz;
 		}
-		return
-				Class.forName("com.exedio.dsmf." + name + "Dialect").
+		final Constructor<? extends Dialect> c =
+				Class.forName("com.exedio.cope." + name + "SchemaDialect").
 				asSubclass(Dialect.class).
-				getConstructor(parameterTypes).
-				newInstance(initargs);
+				getDeclaredConstructor(parameterTypes);
+		c.setAccessible(true);
+		return c.newInstance(initargs);
 	}
 
 	@AfterEach final void tearDownSchemaTest() throws SQLException

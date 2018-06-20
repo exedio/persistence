@@ -216,7 +216,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	private String sequenceColumnName()
 	{
 		@SuppressWarnings("deprecation")
-		final String oldSequenceColumnName = com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN;
+		final String oldSequenceColumnName = MysqlSchemaDialect.SEQUENCE_COLUMN;
 		return
 				propertiesFullSequenceColumnName()
 				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"

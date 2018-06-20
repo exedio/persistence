@@ -16,15 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.dsmf;
+package com.exedio.cope;
 
+import com.exedio.dsmf.Dialect;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
+import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public final class OracleDialect extends Dialect
+final class OracleSchemaDialect extends Dialect
 {
-	public OracleDialect(final String schema)
+	OracleSchemaDialect(final String schema)
 	{
 		super(schema);
 	}
@@ -36,7 +40,7 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
-	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final String withoutNullable = getColumnTypeWithoutNullable(dataType, resultSet);
 		if(withoutNullable==null)
@@ -89,9 +93,9 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
-	void verify(final Schema schema)
+	protected void verify(final Schema schema)
 	{
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT TABLE_NAME FROM user_tables",
 		resultSet ->
 		{
@@ -104,7 +108,7 @@ public final class OracleDialect extends Dialect
 
 		verifyColumnsByMetaData(schema, null);
 
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT " +
 				"TABLE_NAME," + // 1
 				"CONSTRAINT_NAME," + // 2
@@ -185,20 +189,20 @@ public final class OracleDialect extends Dialect
 	}
 
 	@Override
-	void appendForeignKeyCreateStatement(final StringBuilder bf)
+	protected void appendForeignKeyCreateStatement(final StringBuilder bf)
 	{
 		bf.append(" DEFERRABLE");
 	}
 
 	@Override
-	void createSequence(
+	protected void createSequence(
 			final StringBuilder bf, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{
 		createSequenceStatic(bf, sequenceName, type, start);
 	}
 
-	public static void createSequenceStatic(
+	static void createSequenceStatic(
 			final StringBuilder bf, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{

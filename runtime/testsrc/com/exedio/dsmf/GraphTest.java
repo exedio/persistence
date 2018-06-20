@@ -20,6 +20,7 @@ package com.exedio.dsmf;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -48,13 +49,14 @@ public class GraphTest
 	{
 		// Use reflection because otherwise class fails to load when running
 		// ant target runtime.test.withEnv causing
-		// ClassNotFoundException: com.exedio.dsmf.HsqldbDialect
+		// ClassNotFoundException: com.exedio.cope.HsqldbSchemaDialect
 		// during classpath scanning.
-		return
-				Class.forName("com.exedio.dsmf.HsqldbDialect").
+		final Constructor<? extends Dialect> c =
+				Class.forName("com.exedio.cope.HsqldbSchemaDialect").
 						asSubclass(Dialect.class).
-						getDeclaredConstructor(boolean.class).
-						newInstance(supportsCheckConstraints);
+						getDeclaredConstructor(boolean.class);
+		c.setAccessible(true);
+		return c.newInstance(supportsCheckConstraints);
 	}
 
 	@Test void testOk()

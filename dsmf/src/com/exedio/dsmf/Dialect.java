@@ -33,12 +33,12 @@ public abstract class Dialect
 
 	private final String schema;
 
-	Dialect(final String schema)
+	protected Dialect(final String schema)
 	{
 		this.schema = schema;
 	}
 
-	final String getSchema()
+	protected final String getSchema()
 	{
 		return schema;
 	}
@@ -67,16 +67,16 @@ public abstract class Dialect
 		return true;
 	}
 
-	String adjustExistingCheckConstraintCondition(final String s)
+	protected String adjustExistingCheckConstraintCondition(final String s)
 	{
 		return s;
 	}
 
-	abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
+	protected abstract String getColumnType(int dataType, ResultSet resultSet) throws SQLException;
 
-	abstract void verify(Schema schema);
+	protected abstract void verify(Schema schema);
 
-	static final void verifyTablesByMetaData(final Schema schema)
+	protected static final void verifyTablesByMetaData(final Schema schema)
 	{
 		schema.querySQL(GET_TABLES, resultSet ->
 		{
@@ -92,7 +92,7 @@ public abstract class Dialect
 	/**
 	 * @param tableSchema null means any schema is allowed
 	 */
-	final void verifyColumnsByMetaData(final Schema schema, final String tableSchema)
+	protected final void verifyColumnsByMetaData(final Schema schema, final String tableSchema)
 	{
 		schema.querySQL(GET_COLUMNS, resultSet ->
 		{
@@ -119,7 +119,7 @@ public abstract class Dialect
 		});
 	}
 
-	static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
+	protected static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
 	{
 		schema.querySQL(sql, resultSet ->
 		{
@@ -135,7 +135,7 @@ public abstract class Dialect
 		});
 	}
 
-	static final void verifyUniqueConstraints(final String sql, final Schema schema)
+	protected static final void verifyUniqueConstraints(final String sql, final Schema schema)
 	{
 		schema.querySQL(sql, resultSet ->
 		{
@@ -152,7 +152,7 @@ public abstract class Dialect
 		});
 	}
 
-	static final void verifySequences(final String sql, final Schema schema)
+	protected static final void verifySequences(final String sql, final Schema schema)
 	{
 		schema.querySQL(sql, resultSet ->
 		{
@@ -165,7 +165,7 @@ public abstract class Dialect
 		});
 	}
 
-	static final void notifyExistentTable(final Schema schema, final String tableName)
+	protected static final void notifyExistentTable(final Schema schema, final String tableName)
 	{
 		final Table result = schema.getTable(tableName);
 		if(result==null)
@@ -175,7 +175,7 @@ public abstract class Dialect
 			result.notifyExists();
 	}
 
-	static final Column notifyExistentColumn(
+	protected static final Column notifyExistentColumn(
 			final Table table,
 			final String columnName,
 			final String existingType)
@@ -189,7 +189,7 @@ public abstract class Dialect
 		return result;
 	}
 
-	static final void notifyExistentCheck(
+	protected static final void notifyExistentCheck(
 			final Table table,
 			final String constraintName,
 			final String condition)
@@ -203,7 +203,7 @@ public abstract class Dialect
 			result.notifyExistsCondition(condition);
 	}
 
-	static final void notifyExistentPrimaryKey(
+	protected static final void notifyExistentPrimaryKey(
 			final Table table,
 			final String constraintName)
 	{
@@ -234,7 +234,7 @@ public abstract class Dialect
 			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
 	}
 
-	static final void notifyExistentUnique(
+	protected static final void notifyExistentUnique(
 			final Table table,
 			final String constraintName,
 			final String condition)
@@ -248,11 +248,16 @@ public abstract class Dialect
 			result.notifyExistsCondition(condition);
 	}
 
-	static final class UniqueConstraintCollector
+	protected static final void notifyExists(final Sequence sequence, final Sequence.Type existingType)
+	{
+		sequence.notifyExists(existingType);
+	}
+
+	protected static final class UniqueConstraintCollector
 	{
 		private final Schema schema;
 
-		UniqueConstraintCollector(final Schema schema)
+		public UniqueConstraintCollector(final Schema schema)
 		{
 			this.schema = requireNonNull(schema);
 		}
@@ -261,7 +266,7 @@ public abstract class Dialect
 		private String name = null;
 		private final ArrayList<String> columns = new ArrayList<>();
 
-		void onColumn(
+		public void onColumn(
 				final Table table,
 				final String name,
 				final String column)
@@ -289,7 +294,7 @@ public abstract class Dialect
 			}
 		}
 
-		void finish()
+		public void finish()
 		{
 			if(table!=null)
 				flush();
@@ -318,18 +323,18 @@ public abstract class Dialect
 		}
 	}
 
-	static final class SequenceTypeMapper
+	protected static final class SequenceTypeMapper
 	{
 		private final String bit31;
 		private final String bit63;
 
-		SequenceTypeMapper(final String bit31, final String bit63)
+		public SequenceTypeMapper(final String bit31, final String bit63)
 		{
 			this.bit31 = requireNonNull(bit31);
 			this.bit63 = requireNonNull(bit63);
 		}
 
-		String map(final Sequence.Type type)
+		public String map(final Sequence.Type type)
 		{
 			switch(type)
 			{
@@ -340,7 +345,7 @@ public abstract class Dialect
 			}
 		}
 
-		Sequence.Type unmap(final String string, final String message)
+		public Sequence.Type unmap(final String string, final String message)
 		{
 			if(string.equals(bit31))
 				return Sequence.Type.bit31;
@@ -351,7 +356,7 @@ public abstract class Dialect
 		}
 	}
 
-	static final boolean getBooleanStrict(
+	protected static final boolean getBooleanStrict(
 			final ResultSet resultSet,
 			final int columnIndex,
 			final String trueValue,
@@ -376,7 +381,7 @@ public abstract class Dialect
 		throw new IllegalStateException(bf.toString());
 	}
 
-	static final Table getTableStrict(
+	protected static final Table getTableStrict(
 			final Schema schema,
 			final ResultSet resultSet,
 			final int columnIndex) throws SQLException
@@ -425,9 +430,18 @@ public abstract class Dialect
 	private static final String GET_COLUMNS = "getColumns";
 
 	@FunctionalInterface
-	interface ResultSetHandler
+	protected interface ResultSetHandler
 	{
 		void run(ResultSet resultSet) throws SQLException;
+	}
+
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
+	protected final void querySQL(
+			final Schema schema,
+			final String statement,
+			final ResultSetHandler resultSetHandler)
+	{
+		querySQL(schema.connectionProvider, statement, resultSetHandler);
 	}
 
 	@SuppressWarnings("StringEquality")
@@ -490,7 +504,7 @@ public abstract class Dialect
 		}
 	}
 
-	static final String getCatalog(final Schema schema)
+	protected static final String getCatalog(final Schema schema)
 	{
 		final ConnectionProvider connectionProvider = schema.connectionProvider;
 		try
@@ -514,12 +528,12 @@ public abstract class Dialect
 	/**
 	 * @param bf used in subclasses
 	 */
-	void appendTableCreateStatement(final StringBuilder bf)
+	protected void appendTableCreateStatement(final StringBuilder bf)
 	{
 		// empty default implementation
 	}
 
-	boolean needsTargetColumnName()
+	protected boolean needsTargetColumnName()
 	{
 		return false;
 	}
@@ -527,7 +541,7 @@ public abstract class Dialect
 	/**
 	 * @param bf used in subclasses
 	 */
-	void appendForeignKeyCreateStatement(final StringBuilder bf)
+	protected void appendForeignKeyCreateStatement(final StringBuilder bf)
 	{
 		// empty default implementation
 	}
@@ -552,26 +566,26 @@ public abstract class Dialect
 			append(constraintName);
 	}
 
-	void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		dropConstraint(bf, tableName, constraintName);
 	}
 
-	void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		dropConstraint(bf, tableName, constraintName);
 	}
 
-	void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		dropConstraint(bf, tableName, constraintName);
 	}
 
-	abstract void createSequence(
+	protected abstract void createSequence(
 			StringBuilder bf, String sequenceName,
 			Sequence.Type type, long start);
 
-	void dropSequence(final StringBuilder bf, final String sequenceName)
+	protected void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
 		bf.append("DROP SEQUENCE ").
 			append(sequenceName);

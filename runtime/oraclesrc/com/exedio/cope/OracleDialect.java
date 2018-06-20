@@ -51,7 +51,7 @@ final class OracleDialect extends Dialect
 	OracleDialect(final CopeProbe probe)
 	{
 		super(
-				new com.exedio.dsmf.OracleDialect(
+				new OracleSchemaDialect(
 						probe.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
 
 		requireDatabaseVersionAtLeast(11, 2, probe);
@@ -460,7 +460,7 @@ final class OracleDialect extends Dialect
 			"EXECUTE IMMEDIATE " +
 				"'DROP SEQUENCE ").append(quotedName).append("';" +
 			"EXECUTE IMMEDIATE '");
-				com.exedio.dsmf.OracleDialect.createSequenceStatic(
+				OracleSchemaDialect.createSequenceStatic(
 						bf, quotedName,
 						type, start);
 				bf.append("';");

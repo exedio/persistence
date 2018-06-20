@@ -74,7 +74,7 @@ final class HsqldbDialect extends Dialect
 	HsqldbDialect(final CopeProbe probe, final Props props)
 	{
 		super(
-				new com.exedio.dsmf.HsqldbDialect(props.approximate.supportsCheckConstraints()));
+				new HsqldbSchemaDialect(props.approximate.supportsCheckConstraints()));
 
 		requireDatabaseVersionAtLeast(2, 4, probe);
 

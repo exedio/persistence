@@ -16,15 +16,19 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.dsmf;
+package com.exedio.cope;
 
+import com.exedio.dsmf.Dialect;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
+import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.regex.Pattern;
 
-public final class PostgresqlDialect extends Dialect
+final class PostgresqlSchemaDialect extends Dialect
 {
-	public PostgresqlDialect(final String schema)
+	PostgresqlSchemaDialect(final String schema)
 	{
 		super(schema);
 
@@ -55,7 +59,7 @@ public final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	String adjustExistingCheckConstraintCondition(String s)
+	protected String adjustExistingCheckConstraintCondition(String s)
 	{
 		for(final Replacement replacement : adjustExistingCheckConstraintCondition)
 			s = replacement.apply(s);
@@ -82,19 +86,19 @@ public final class PostgresqlDialect extends Dialect
 	private final ArrayList<Replacement> adjustExistingCheckConstraintCondition = new ArrayList<>();
 
 	@Override
-	String getColumnType(final int dataType, final ResultSet resultSet)
+	protected String getColumnType(final int dataType, final ResultSet resultSet)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	void verify(final Schema schema)
+	protected void verify(final Schema schema)
 	{
 		verifyTablesByMetaData(schema);
 
 		final String catalog = getCatalog(schema);
 
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT " +
 						"table_name, " + // 1
 						"column_name, " + // 2
@@ -140,7 +144,7 @@ public final class PostgresqlDialect extends Dialect
 			}
 		});
 
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT " +
 						"ut.relname," + // 1
 						"uc.conname," + // 2
@@ -198,7 +202,7 @@ public final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void appendTableCreateStatement(final StringBuilder bf)
+	protected void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(" WITH (OIDS=FALSE)");
 	}
@@ -230,7 +234,7 @@ public final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	void createSequence(
+	protected void createSequence(
 			final StringBuilder bf, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{

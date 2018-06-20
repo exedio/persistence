@@ -49,7 +49,7 @@ final class PostgresqlDialect extends Dialect
 			final PostgresqlProperties properties)
 	{
 		super(
-				new com.exedio.dsmf.PostgresqlDialect(
+				new PostgresqlSchemaDialect(
 						properties.schema(probe.properties)));
 
 		requireDatabaseVersionAtLeast(9, 5, probe);

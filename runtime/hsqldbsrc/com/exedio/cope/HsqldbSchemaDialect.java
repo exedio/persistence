@@ -16,17 +16,21 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.dsmf;
+package com.exedio.cope;
 
+import com.exedio.dsmf.Dialect;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
+import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Types;
 
-public final class HsqldbDialect extends Dialect
+final class HsqldbSchemaDialect extends Dialect
 {
 	private final boolean supportsCheckConstraints;
 
-	public HsqldbDialect(final boolean supportsCheckConstraints)
+	HsqldbSchemaDialect(final boolean supportsCheckConstraints)
 	{
 		super(null);
 		this.supportsCheckConstraints = supportsCheckConstraints;
@@ -39,7 +43,7 @@ public final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
+	protected String getColumnType(final int dataType, final ResultSet resultSet) throws SQLException
 	{
 		final String withoutNullable = getColumnTypeWithoutNullable(dataType, resultSet);
 		if(withoutNullable==null)
@@ -70,12 +74,12 @@ public final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void verify(final Schema schema)
+	protected void verify(final Schema schema)
 	{
 		verifyTablesByMetaData(schema);
 		verifyColumnsByMetaData(schema, "PUBLIC");
 
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT " +
 						"tc.CONSTRAINT_NAME, " + // 1
 						"tc.CONSTRAINT_TYPE, " + // 2
@@ -107,7 +111,7 @@ public final class HsqldbDialect extends Dialect
 				else if("UNIQUE".equals(constraintType))
 				{
 					final StringBuilder clause = new StringBuilder();
-					schema.querySQL(
+					querySQL(schema,
 							"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_" +
 							constraintName +
 							"_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION",
@@ -175,7 +179,7 @@ public final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void createSequence(
+	protected void createSequence(
 			final StringBuilder bf, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{

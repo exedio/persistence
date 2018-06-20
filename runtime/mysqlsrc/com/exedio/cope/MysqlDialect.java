@@ -78,7 +78,7 @@ final class MysqlDialect extends Dialect
 			final MysqlProperties properties)
 	{
 		super(
-				new com.exedio.dsmf.MysqlDialect(
+				new MysqlSchemaDialect(
 						probe.environmentInfo.isDatabaseVersionAtLeast(5, 6), // supportsNativeDate
 						sequenceColumnName(properties),
 						properties.rowFormat.sql()));
@@ -113,7 +113,7 @@ final class MysqlDialect extends Dialect
 	private static String sequenceColumnName(final MysqlProperties properties)
 	{
 		@SuppressWarnings("deprecation")
-		final String oldSequenceColumnName = com.exedio.dsmf.MysqlDialect.SEQUENCE_COLUMN;
+		final String oldSequenceColumnName = MysqlSchemaDialect.SEQUENCE_COLUMN;
 		return
 				properties.fullSequenceColumnName
 				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
@@ -532,7 +532,7 @@ final class MysqlDialect extends Dialect
 		bf.append("TRUNCATE ").
 			append(quotedName);
 
-		com.exedio.dsmf.MysqlDialect.initializeSequence(bf, quotedName, start);
+		MysqlSchemaDialect.initializeSequence(bf, quotedName, start);
 
 		bf.append(';');
 	}

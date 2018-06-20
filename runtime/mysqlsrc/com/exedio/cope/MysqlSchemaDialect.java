@@ -16,17 +16,23 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.dsmf;
+package com.exedio.cope;
 
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Dialect;
+import com.exedio.dsmf.PrimaryKeyConstraint;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Sequence;
+import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
 
-public final class MysqlDialect extends Dialect
+final class MysqlSchemaDialect extends Dialect
 {
 	private final boolean datetime;
 	final String sequenceColumnName;
 	private final String rowFormat;
 
-	public MysqlDialect(
+	MysqlSchemaDialect(
 			final boolean datetime,
 			final String sequenceColumnName,
 			final String rowFormat)
@@ -59,17 +65,17 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	String getColumnType(final int dataType, final ResultSet resultSet)
+	protected String getColumnType(final int dataType, final ResultSet resultSet)
 	{
 		throw new RuntimeException();
 	}
 
 	@Override
-	void verify(final Schema schema)
+	protected void verify(final Schema schema)
 	{
 		final String catalog = getCatalog(schema);
 
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT TABLE_NAME " +
 				"FROM information_schema.TABLES " +
 				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
@@ -84,7 +90,7 @@ public final class MysqlDialect extends Dialect
 			}
 		});
 
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT " +
 						"c.TABLE_NAME," + // 1
 						"c.COLUMN_NAME," + // 2
@@ -114,7 +120,7 @@ public final class MysqlDialect extends Dialect
 					final Sequence sequence = schema.getSequence(tableName);
 					if(sequence!=null && sequenceColumnName.equals(columnName))
 					{
-						sequence.notifyExists(sequenceTypeMapper.unmap(dataType, columnName));
+						notifyExists(sequence, sequenceTypeMapper.unmap(dataType, columnName));
 						continue;
 					}
 				}
@@ -162,7 +168,7 @@ public final class MysqlDialect extends Dialect
 
 		final String PRIMARY_KEY = "PRIMARY KEY";
 		final String UNIQUE = "UNIQUE";
-		schema.querySQL(
+		querySQL(schema,
 				"SELECT " +
 						"tc.CONSTRAINT_NAME," + // 1
 						"tc.TABLE_NAME," + // 2
@@ -223,7 +229,7 @@ public final class MysqlDialect extends Dialect
 	private static final String ENGINE = " ENGINE=innodb";
 
 	@Override
-	void appendTableCreateStatement(final StringBuilder bf)
+	protected void appendTableCreateStatement(final StringBuilder bf)
 	{
 		bf.append(ENGINE);
 		appendRowFormat(bf);
@@ -237,7 +243,7 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	boolean needsTargetColumnName()
+	protected boolean needsTargetColumnName()
 	{
 		return true;
 	}
@@ -268,7 +274,7 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropPrimaryKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		bf.append("ALTER TABLE ").
 			append(tableName).
@@ -276,7 +282,7 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropForeignKeyConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		bf.append("ALTER TABLE ").
 			append(tableName).
@@ -285,7 +291,7 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
+	protected void dropUniqueConstraint(final StringBuilder bf, final String tableName, final String constraintName)
 	{
 		bf.append("ALTER TABLE ").
 			append(tableName).
@@ -300,10 +306,10 @@ public final class MysqlDialect extends Dialect
 	 * Internally use {@link #sequenceColumnName} instead.
 	 */
 	@Deprecated
-	public static final String SEQUENCE_COLUMN = "x";
+	static final String SEQUENCE_COLUMN = "x";
 
 	@Override
-	void createSequence(
+	protected void createSequence(
 			final StringBuilder bf, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{
@@ -325,7 +331,7 @@ public final class MysqlDialect extends Dialect
 
 	static final SequenceTypeMapper sequenceTypeMapper = new SequenceTypeMapper("int", "bigint");
 
-	public static void initializeSequence(
+	static void initializeSequence(
 			final StringBuilder bf, final String sequenceName,
 			final long start)
 	{
@@ -348,7 +354,7 @@ public final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	void dropSequence(final StringBuilder bf, final String sequenceName)
+	protected void dropSequence(final StringBuilder bf, final String sequenceName)
 	{
 		bf.append("DROP TABLE ").
 			append(sequenceName);
