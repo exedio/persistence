@@ -55,9 +55,16 @@ class DoInstrument implements InterfaceThatUsesDontInstrument
 		}
 	}
 
+	@WrapInterim
+	DoInstrument()
+	{
+
+	}
+
 	@Override
 	public void method(final DontInstrument param)
 	{
 		// empty
 	}
+
 }

@@ -568,10 +568,18 @@ final class InterimProcessor extends JavacProcessor
 			if (isWrapInterim())
 			{
 				final LineCodePart part = code.startLine(toStringWithoutMostAnnotations(mt.getModifiers()));
-				part.continueLine(" ");
-				part.continueLine(mt.getReturnType().toString());
-				part.continueLine(" ");
-				part.continueLine(mt.getName().toString());
+				if (mt.getReturnType()==null)
+				{
+					// This is a constructor.
+					part.continueLine(getCurrentClass().getSimpleName().toString());
+				}
+				else
+				{
+					part.continueLine(" ");
+					part.continueLine(mt.getReturnType().toString());
+					part.continueLine(" ");
+					part.continueLine(mt.getName().toString());
+				}
 				part.continueLine("(");
 				final StringSeparator comma = new StringSeparator(", ");
 				for (final VariableTree parameter : mt.getParameters())
