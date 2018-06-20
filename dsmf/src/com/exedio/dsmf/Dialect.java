@@ -18,6 +18,8 @@
 
 package com.exedio.dsmf;
 
+import static java.util.Objects.requireNonNull;
+
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -153,6 +155,39 @@ public abstract class Dialect
 				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 			}
 		});
+	}
+
+	static final class SequenceTypeMapper
+	{
+		private final String bit31;
+		private final String bit63;
+
+		SequenceTypeMapper(final String bit31, final String bit63)
+		{
+			this.bit31 = requireNonNull(bit31);
+			this.bit63 = requireNonNull(bit63);
+		}
+
+		String map(final Sequence.Type type)
+		{
+			switch(type)
+			{
+				case bit31: return bit31;
+				case bit63: return bit63;
+				default:
+					throw new RuntimeException("" + type);
+			}
+		}
+
+		Sequence.Type unmap(final String string, final String message)
+		{
+			if(string.equals(bit31))
+				return Sequence.Type.bit31;
+			else if(string.equals(bit63))
+				return Sequence.Type.bit63;
+			else
+				throw new IllegalArgumentException(string + '/' + message);
+		}
 	}
 
 	static final boolean getBooleanStrict(
