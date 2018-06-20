@@ -122,67 +122,6 @@ public final class Table extends Node
 		notifyExistsNode();
 	}
 
-	Column notifyExistentColumn(final String columnName, final String existingType)
-	{
-		Column result = columnMap.get(columnName);
-		if(result==null)
-			result = new Column(this, columnName, existingType, false);
-		else
-			result.notifyExists(existingType);
-
-		return result;
-	}
-
-	void notifyExistentCheck(final String constraintName, final String condition)
-	{
-		final Constraint result = constraintMap.get(constraintName);
-
-		if(result==null)
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new CheckConstraint(this, null, constraintName, false, condition);
-		else
-			result.notifyExistsCondition(condition);
-	}
-
-	void notifyExistentPrimaryKey(final String constraintName)
-	{
-		final Constraint result = constraintMap.get(constraintName);
-
-		if(result==null)
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new PrimaryKeyConstraint(this, null, constraintName, false, null);
-		else
-			result.notifyExists();
-	}
-
-	void notifyExistentForeignKey(
-			final String constraintName,
-			final String foreignKeyColumn,
-			final String targetTable,
-			final String targetColumn)
-	{
-		final ForeignKeyConstraint result = (ForeignKeyConstraint)constraintMap.get(constraintName);
-
-		if(result==null)
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new ForeignKeyConstraint(
-					this, getColumn(foreignKeyColumn), constraintName, false,
-					foreignKeyColumn, targetTable, targetColumn);
-		else
-			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
-	}
-
-	void notifyExistentUnique(final String constraintName, final String condition)
-	{
-		final Constraint result = constraintMap.get(constraintName);
-
-		if(result==null)
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new UniqueConstraint(this, null, constraintName, false, condition);
-		else
-			result.notifyExistsCondition(condition);
-	}
-
 	public Collection<Column> getColumns()
 	{
 		return unmodifiableList(columnList);

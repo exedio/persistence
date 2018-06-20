@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import static com.exedio.dsmf.Dialect.notifyExistentUnique;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
@@ -84,7 +85,7 @@ final class UniqueConstraintCollector
 			bf.append(schema.quoteName(column));
 		}
 		bf.append(')');
-		table.notifyExistentUnique(name, bf.toString());
+		notifyExistentUnique(table, name, bf.toString());
 
 		this.table = null;
 		this.name = null;

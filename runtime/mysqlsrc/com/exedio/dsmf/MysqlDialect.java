@@ -145,7 +145,7 @@ public final class MysqlDialect extends Dialect
 					type.append(NOT_NULL);
 
 				final Table table = getTableStrict(schema, resultSet, 1);
-				table.notifyExistentColumn(columnName, type.toString());
+				notifyExistentColumn(table, columnName, type.toString());
 			}
 		});
 
@@ -202,13 +202,13 @@ public final class MysqlDialect extends Dialect
 							if(c instanceof PrimaryKeyConstraint &&
 								((PrimaryKeyConstraint)c).primaryKeyColumn.equals(columnName))
 							{
-								table.notifyExistentPrimaryKey(c.name);
+								notifyExistentPrimaryKey(table, c.name);
 								found = true;
 								break;
 							}
 						}
 						if(!found)
-							table.notifyExistentPrimaryKey(columnName+"_Pk");
+							notifyExistentPrimaryKey(table, columnName+"_Pk");
 					}
 				}
 				else

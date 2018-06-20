@@ -147,7 +147,7 @@ public final class PostgresqlDialect extends Dialect
 						break;
 				}
 
-				table.notifyExistentColumn(columnName, type);
+				notifyExistentColumn(table, columnName, type);
 			}
 		});
 
@@ -173,10 +173,10 @@ public final class PostgresqlDialect extends Dialect
 					//System.out.println("searchCondition:>"+searchCondition+"<");
 					if(searchCondition.startsWith("(")&& searchCondition.endsWith(")"))
 						searchCondition = searchCondition.substring(1, searchCondition.length()-1);
-					table.notifyExistentCheck(constraintName, searchCondition);
+					notifyExistentCheck(table, constraintName, searchCondition);
 				}
 				else
-					table.notifyExistentPrimaryKey(constraintName);
+					notifyExistentPrimaryKey(table, constraintName);
 
 				//System.out.println("EXISTS:"+tableName);
 			}

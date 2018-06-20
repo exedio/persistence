@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import static com.exedio.dsmf.Dialect.notifyExistentColumn;
 import static com.exedio.dsmf.GraphTest.newHsqldbDialect;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,7 +53,7 @@ public class NodeTest
 			assertEquals("not existing", e.getMessage());
 		}
 
-		assertSame(c, table.notifyExistentColumn("colName", "requiredType"));
+		assertSame(c, notifyExistentColumn(table, "colName", "requiredType"));
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
 		assertEquals("requiredType", c.getType());
@@ -86,7 +87,7 @@ public class NodeTest
 			assertEquals("not existing", e.getMessage());
 		}
 
-		final Column c2 = table.notifyExistentColumn("colName2", "requiredType");
+		final Column c2 = notifyExistentColumn(table, "colName2", "requiredType");
 		assertNotSame(c, c2);
 
 		assertSame(table, c.getTable());
@@ -146,7 +147,7 @@ public class NodeTest
 			assertEquals("not existing", e.getMessage());
 		}
 
-		assertSame(c, table.notifyExistentColumn("colName", "existingType"));
+		assertSame(c, notifyExistentColumn(table, "colName", "existingType"));
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
 		assertEquals("requiredType", c.getType());
@@ -162,7 +163,7 @@ public class NodeTest
 		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
 		final Table table = schema.newTable("tabName");
 
-		final Column c = table.notifyExistentColumn("colName", "existingType");
+		final Column c = notifyExistentColumn(table, "colName", "existingType");
 		assertSame(table, c.getTable());
 		assertEquals("colName", c.getName());
 		assertEquals("existingType", c.getType());

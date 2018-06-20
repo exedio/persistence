@@ -106,7 +106,7 @@ public abstract class Dialect
 				if(columnType==null)
 					columnType = "DATA_TYPE(" + dataType + ')';
 
-				table.notifyExistentColumn(columnName, columnType);
+				notifyExistentColumn(table, columnName, columnType);
 			}
 		});
 	}
@@ -118,7 +118,7 @@ public abstract class Dialect
 			while(resultSet.next())
 			{
 				final Table table = getTableStrict(schema, resultSet, 2);
-				table.notifyExistentForeignKey(
+				notifyExistentForeignKey(table,
 						resultSet.getString(1), // constraintName
 						resultSet.getString(3), // foreignKeyColumn
 						resultSet.getString(4), // targetTable
@@ -155,6 +155,79 @@ public abstract class Dialect
 				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 			}
 		});
+	}
+
+	static final Column notifyExistentColumn(
+			final Table table,
+			final String columnName,
+			final String existingType)
+	{
+		Column result = table.getColumn(columnName);
+		if(result==null)
+			result = new Column(table, columnName, existingType, false);
+		else
+			result.notifyExists(existingType);
+
+		return result;
+	}
+
+	static final void notifyExistentCheck(
+			final Table table,
+			final String constraintName,
+			final String condition)
+	{
+		final Constraint result = table.getConstraint(constraintName);
+
+		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+			new CheckConstraint(table, null, constraintName, false, condition);
+		else
+			result.notifyExistsCondition(condition);
+	}
+
+	static final void notifyExistentPrimaryKey(
+			final Table table,
+			final String constraintName)
+	{
+		final Constraint result = table.getConstraint(constraintName);
+
+		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+			new PrimaryKeyConstraint(table, null, constraintName, false, null);
+		else
+			result.notifyExists();
+	}
+
+	static final void notifyExistentForeignKey(
+			final Table table,
+			final String constraintName,
+			final String foreignKeyColumn,
+			final String targetTable,
+			final String targetColumn)
+	{
+		final ForeignKeyConstraint result = (ForeignKeyConstraint)table.getConstraint(constraintName);
+
+		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+			new ForeignKeyConstraint(
+					table, table.getColumn(foreignKeyColumn), constraintName, false,
+					foreignKeyColumn, targetTable, targetColumn);
+		else
+			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
+	}
+
+	static final void notifyExistentUnique(
+			final Table table,
+			final String constraintName,
+			final String condition)
+	{
+		final Constraint result = table.getConstraint(constraintName);
+
+		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+			new UniqueConstraint(table, null, constraintName, false, condition);
+		else
+			result.notifyExistsCondition(condition);
 	}
 
 	static final class SequenceTypeMapper

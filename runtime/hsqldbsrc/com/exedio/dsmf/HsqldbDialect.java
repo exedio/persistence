@@ -102,10 +102,10 @@ public final class HsqldbDialect extends Dialect
 					final String tablePrefix = "PUBLIC." + quoteName(table.getName()) + '.';
 					String checkClause = resultSet.getString(4);
 					checkClause = checkClause.replace(tablePrefix, "");
-					table.notifyExistentCheck(constraintName, checkClause);
+					notifyExistentCheck(table, constraintName, checkClause);
 				}
 				else if("PRIMARY KEY".equals(constraintType))
-					table.notifyExistentPrimaryKey(constraintName);
+					notifyExistentPrimaryKey(table, constraintName);
 				else if("UNIQUE".equals(constraintType))
 				{
 					final StringBuilder clause = new StringBuilder();
@@ -129,7 +129,7 @@ public final class HsqldbDialect extends Dialect
 						clause.append(')');
 					});
 
-					table.notifyExistentUnique(constraintName, clause.toString());
+					notifyExistentUnique(table, constraintName, clause.toString());
 				}
 				else
 					throw new RuntimeException(constraintType+'-'+constraintName);
