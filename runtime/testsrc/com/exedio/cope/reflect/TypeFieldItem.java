@@ -22,6 +22,7 @@ import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
+import com.exedio.cope.instrument.WrapperInitial;
 
 public final class TypeFieldItem extends Item
 {
@@ -31,6 +32,7 @@ public final class TypeFieldItem extends Item
 	static final TypeField<Item> unique   = TypeField.create().optional().unique();
 	@CopeSchemaName("newname")
 	static final TypeField<Item> renamed = TypeField.create().optional();
+	@WrapperInitial
 	static final TypeField<TypeFieldSubItem> restricted = TypeField.create(TypeFieldSubItem.class).optional();
 
 
@@ -55,13 +57,15 @@ public final class TypeFieldItem extends Item
 	 * Creates a new TypeFieldItem with all the fields initially needed.
 	 * @param standard the initial value for field {@link #standard}.
 	 * @param isFinal the initial value for field {@link #isFinal}.
+	 * @param restricted the initial value for field {@link #restricted}.
 	 * @throws com.exedio.cope.MandatoryViolationException if standard, isFinal is null.
-	 * @throws com.exedio.cope.StringLengthViolationException if standard, isFinal violates its length constraint.
+	 * @throws com.exedio.cope.StringLengthViolationException if standard, isFinal, restricted violates its length constraint.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 	TypeFieldItem(
 				@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> standard,
-				@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> isFinal)
+				@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> isFinal,
+				@javax.annotation.Nullable final com.exedio.cope.Type<? extends TypeFieldSubItem> restricted)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -69,6 +73,7 @@ public final class TypeFieldItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			TypeFieldItem.standard.map(standard),
 			TypeFieldItem.isFinal.map(isFinal),
+			TypeFieldItem.restricted.map(restricted),
 		});
 	}
 

@@ -49,7 +49,7 @@ public class TypeFieldTest extends TestWithEnvironment
 		assertEquals("standard", SchemaInfo.getColumnName(standard.getIdField()));
 		assertEquals("newname", SchemaInfo.getColumnName(renamed.getIdField()));
 
-		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertSame(TYPE, item.getStandard());
 		assertSame(TypeFieldSubItem.TYPE, item.getIsFinal());
 		assertSame(null, item.getOptional());
@@ -85,7 +85,7 @@ public class TypeFieldTest extends TestWithEnvironment
 	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testMandatoryViolation()
 	{
-		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertSame(TYPE, item.getStandard());
 		try
 		{
@@ -102,7 +102,7 @@ public class TypeFieldTest extends TestWithEnvironment
 
 	@Test void testFinalViolation()
 	{
-		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertSame(TypeFieldSubItem.TYPE, item.getIsFinal());
 		try
 		{
@@ -119,7 +119,7 @@ public class TypeFieldTest extends TestWithEnvironment
 
 	@Test void testNotFoundNoSuchID()
 	{
-		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		standard.getIdField().set(item, "zack");
 		try
 		{
@@ -141,7 +141,7 @@ public class TypeFieldTest extends TestWithEnvironment
 
 	@Test void testNotFoundWrongValueClass()
 	{
-		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		restricted.getIdField().set(item, TYPE.getID());
 		try
 		{
@@ -164,7 +164,7 @@ public class TypeFieldTest extends TestWithEnvironment
 
 	@Test void testUnique()
 	{
-		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertEquals(null, forUnique(TYPE));
 		assertEquals(null, forUnique(TypeFieldSubItem.TYPE));
 		item.setUnique(TYPE);
@@ -199,7 +199,7 @@ public class TypeFieldTest extends TestWithEnvironment
 
 	@Test void testRestrictionViolatedSetter()
 	{
-		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE);
+		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertEquals(null, item.getRestricted());
 
 		try
