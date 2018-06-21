@@ -18,15 +18,11 @@
 
 package com.exedio.cope.reflect;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
-
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.WrapperType;
 
-@WrapperType(constructor=NONE)
 public final class TypeFieldItem extends Item
 {
 	static final TypeField<Item> standard = TypeField.create();
@@ -55,12 +51,22 @@ public final class TypeFieldItem extends Item
 	}
 
 
-	// TODO generate by instrumentor
+	/**
+	 * Creates a new TypeFieldItem with all the fields initially needed.
+	 * @param standard the initial value for field {@link #standard}.
+	 * @param isFinal the initial value for field {@link #isFinal}.
+	 * @throws com.exedio.cope.MandatoryViolationException if standard, isFinal is null.
+	 * @throws com.exedio.cope.StringLengthViolationException if standard, isFinal violates its length constraint.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 	TypeFieldItem(
-				final Type<? extends Item> standard,
-				final Type<? extends Item> isFinal)
+				@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> standard,
+				@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> isFinal)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.StringLengthViolationException
 	{
-		this(new SetValue<?>[]{
+		this(new com.exedio.cope.SetValue<?>[]{
 			TypeFieldItem.standard.map(standard),
 			TypeFieldItem.isFinal.map(isFinal),
 		});

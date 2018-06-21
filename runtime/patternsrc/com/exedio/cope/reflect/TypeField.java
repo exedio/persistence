@@ -35,6 +35,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.CopeSchemaNameElement;
+import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
@@ -117,9 +118,9 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 	}
 
 	@Override
-	public Class<?> getInitialType()
+	public java.lang.reflect.Type getInitialType()
 	{
-		return valueClass;
+		return ReflectionTypes.parameterized(Type.class, ReflectionTypes.sub(valueClass));
 	}
 
 	@Override
