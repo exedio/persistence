@@ -32,6 +32,7 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -103,7 +104,7 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 	{
 		try
 		{
-			new AnItem((List<String>)null);
+			new AnItem((Collection<String>)null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -128,7 +129,7 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		AnItem(
-					@javax.annotation.Nonnull final java.util.List<String> text)
+					@javax.annotation.Nonnull final java.util.Collection<String> text)
 				throws
 					com.exedio.cope.StringLengthViolationException
 		{

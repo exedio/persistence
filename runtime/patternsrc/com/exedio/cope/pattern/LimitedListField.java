@@ -193,7 +193,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	@Override
 	public java.lang.reflect.Type getInitialType()
 	{
-		return ReflectionTypes.parameterized(List.class, sources[0].getValueClass());
+		return ReflectionTypes.parameterized(Collection.class, sources[0].getValueClass());
 	}
 
 	@Override

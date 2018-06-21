@@ -291,8 +291,8 @@ public class LimitedListFieldModelTest
 
 	@Test void testInitialType()
 	{
-		assertEquals("java.util.List<java.lang.Integer>", nums   .getInitialType().toString());
-		assertEquals("java.util.List<java.util.Date>"   , dates  .getInitialType().toString());
-		assertEquals("java.util.List<java.lang.String>" , strings.getInitialType().toString());
+		assertEquals("java.util.Collection<java.lang.Integer>", nums   .getInitialType().toString());
+		assertEquals("java.util.Collection<java.util.Date>"   , dates  .getInitialType().toString());
+		assertEquals("java.util.Collection<java.lang.String>" , strings.getInitialType().toString());
 	}
 }
