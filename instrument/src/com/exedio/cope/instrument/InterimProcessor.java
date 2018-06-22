@@ -286,25 +286,33 @@ final class InterimProcessor extends JavacProcessor
 		@Override
 		public Void visitCompilationUnit(final CompilationUnitTree cut, final Void p)
 		{
-			if (classNames!=null) throw new RuntimeException();
-			if (sourceFile!=null) throw new RuntimeException();
-
-			classNames = new ArrayList<>();
-			for (final Tree typeDecl : cut.getTypeDecls())
+			try
 			{
-				final TypeElement typeElement = (TypeElement)docTrees.getElement(docTrees.getPath(cut, typeDecl));
-				classNames.add(typeElement.getQualifiedName());
+				if(classNames != null) throw new RuntimeException();
+				if(sourceFile != null) throw new RuntimeException();
+
+				classNames = new ArrayList<>();
+				for(final Tree typeDecl : cut.getTypeDecls())
+				{
+					final TypeElement typeElement = (TypeElement) docTrees.getElement(docTrees.getPath(cut, typeDecl));
+					requireNonNull(typeElement);
+					classNames.add(typeElement.getQualifiedName());
+				}
+
+				sourceFile = cut.getSourceFile();
+
+				if(cut.getPackageName() != null)
+					packageStatement = "package " + cut.getPackageName() + ";";
+
+				if(isFileIgnored(sourceFile))
+					return null;
+				else
+					return super.visitCompilationUnit(cut, p);
 			}
-
-			sourceFile = cut.getSourceFile();
-
-			if (cut.getPackageName()!=null)
-				packageStatement = "package "+cut.getPackageName()+";";
-
-			if (isFileIgnored(sourceFile))
-				return null;
-			else
-				return super.visitCompilationUnit(cut, p);
+			catch (final RuntimeException e)
+			{
+				throw new RuntimeException("runtime error while processing "+cut.getSourceFile());
+			}
 		}
 
 		@Override
