@@ -85,7 +85,7 @@ public class HistoryTest extends TestWithEnvironment
 		assertEquals(HistoryItem.class, TYPE.getJavaClass());
 		assertEquals(true, TYPE.isBound());
 		assertEquals(null, TYPE.getPattern());
-		assertEqualsUnmodifiable(list(audit.eventType, audit.featureType), audit.getSourceTypes());
+		assertEqualsUnmodifiable(list(audit.getEventType(), audit.getFeatureType()), audit.getSourceTypes());
 
 		assertEqualsUnmodifiable(list(
 				TYPE.getThis(),
@@ -190,7 +190,7 @@ public class HistoryTest extends TestWithEnvironment
 		final PartOf<?> eventPartOf = historyPartOfs.get(0);
 		assertSame(eventType, eventPartOf.getType());
 		assertEquals(list(eventPartOf), PartOf.getPartOfs(audit));
-		final List<PartOf<?>> eventPartOfs = PartOf.getPartOfs(audit.eventType);
+		final List<PartOf<?>> eventPartOfs = PartOf.getPartOfs(audit.getEventType());
 		assertEquals(1, eventPartOfs.size());
 		final PartOf<?> featurePartOf = eventPartOfs.get(0);
 		assertSame(featureType, featurePartOf.getType());
