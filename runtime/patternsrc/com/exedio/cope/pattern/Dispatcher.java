@@ -642,13 +642,6 @@ public final class Dispatcher extends Pattern
 	@Computed
 	public static final class Run extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		Run(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
 		public Dispatcher getPattern()
 		{
 			return (Dispatcher)getCopeType().getPattern();
@@ -688,10 +681,14 @@ public final class Dispatcher extends Pattern
 					: null;
 		}
 
+		private static final long serialVersionUID = 1l;
+
 		private RunType type()
 		{
 			return getPattern().runType();
 		}
+
+		private Run(final ActivationParameters ap) { super(ap); }
 	}
 
 
