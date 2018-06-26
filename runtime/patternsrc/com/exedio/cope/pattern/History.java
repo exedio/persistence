@@ -39,6 +39,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -50,68 +51,34 @@ public final class History extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	ItemField<?> eventParent = null;
-	PartOf<?> eventEvents = null;
-	final DateField eventDate = new DateField().toFinal().defaultToNow();
-	final StringField eventAuthor = new StringField().toFinal();
-	final BooleanField eventNew = new BooleanField().toFinal();
-	Type<Event> eventType = null;
-
-	ItemField<Event> featureEvent = null;
-	PartOf<Event> featureFeatures = null;
-	final FeatureField<com.exedio.cope.Feature> featureId = FeatureField.create().toFinal();
-	private UniqueConstraint featureUnique = null;
-	final StringField featureName = new StringField().toFinal();
-	final StringField featureOld = new StringField().toFinal().optional();
-	final StringField featureNew = new StringField().toFinal().optional();
-	Type<Feature> featureType = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private EventType eventTypeIfMounted = null;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private FeatureType featureTypeIfMounted = null;
 
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
-		final Type<?> type = getType();
-
-		eventParent = type.newItemField(CASCADE).toFinal();
-		eventEvents = PartOf.create(eventParent, eventDate);
-		final Features features = new Features();
-		features.put("parent", eventParent);
-		features.put("date", eventDate);
-		features.put("events", eventEvents);
-		features.put("author", eventAuthor);
-		features.put("new", eventNew);
-		eventType = newSourceType(Event.class, features, "Event");
-
-		features.clear();
-		featureEvent = eventType.newItemField(CASCADE).toFinal();
-		featureFeatures = PartOf.create(featureEvent);
-		featureUnique = new UniqueConstraint(featureEvent, featureId.getIdField());
-		features.put("event", featureEvent);
-		features.put("features", featureFeatures);
-		features.put("id", featureId);
-		features.put("uniqueConstraint", featureUnique);
-		features.put("name", featureName);
-		features.put("old", featureOld);
-		features.put("new", featureNew);
-		featureType = newSourceType(Feature.class, features, "Feature");
+		eventTypeIfMounted = new EventType(getType());
+		featureTypeIfMounted = new FeatureType(eventTypeIfMounted);
 	}
 
 	@Wrap(order=100, name="{1}EventParent", doc="Returns the parent field of the event type of {0}.")
 	@Nonnull
 	public <P extends Item> ItemField<P> getEventParent(@Nonnull final Class<P> parentClass)
 	{
-		assert eventParent!=null;
-		return eventParent.as(parentClass);
+		return eventType().parent.as(parentClass);
 	}
 
 	public PartOf<?> getEventEvents()
 	{
-		return eventEvents;
+		return eventType().events;
 	}
 
 	public DateField getEventDate()
 	{
-		return eventDate;
+		return eventType().date;
 	}
 
 	/**
@@ -125,7 +92,7 @@ public final class History extends Pattern
 
 	public StringField getEventAuthor()
 	{
-		return eventAuthor;
+		return eventType().author;
 	}
 
 	/**
@@ -139,70 +106,66 @@ public final class History extends Pattern
 
 	public BooleanField getEventNew()
 	{
-		return eventNew;
+		return eventType().New;
 	}
 
 	public Type<Event> getEventType()
 	{
-		assert eventType!=null;
-		return eventType;
+		return eventType().type;
 	}
 
 	public ItemField<Event> getFeatureEvent()
 	{
-		assert featureEvent!=null;
-		return featureEvent;
+		return featureType().event;
 	}
 
 	public PartOf<?> getFeatureFeatures()
 	{
-		return featureFeatures;
+		return featureType().features;
 	}
 
 	public FeatureField<?> getFeature()
 	{
-		return featureId;
+		return featureType().id;
 	}
 
 	public StringField getFeatureId()
 	{
-		return featureId.getIdField();
+		return featureType().id.getIdField();
 	}
 
 	public UniqueConstraint getFeatureUniqueConstraint()
 	{
-		assert featureUnique!=null;
-		return featureUnique;
+		return featureType().uniqueConstraint;
 	}
 
 	public StringField getFeatureName()
 	{
-		return featureName;
+		return featureType().name;
 	}
 
 	public StringField getFeatureOld()
 	{
-		return featureOld;
+		return featureType().old;
 	}
 
 	public StringField getFeatureNew()
 	{
-		return featureNew;
+		return featureType().New;
 	}
 
 	public Type<Feature> getFeatureType()
 	{
-		assert featureType!=null;
-		return featureType;
+		return featureType().type;
 	}
 
 	@Wrap(order=10, doc="Returns the events of the history {0}.")
 	@Nonnull
 	public List<Event> getEvents(final Item item)
 	{
-		final Query<Event> q = eventType.newQuery(Cope.equalAndCast(eventParent, item));
+		final Query<Event> q = eventType().type.newQuery(Cope.equalAndCast(eventType().parent, item));
 		q.setOrderBy(
-				new Function<?>[]{ eventDate, eventType.getThis() },
+				new Function<?>[]{ eventType().date, eventType().type.getThis() },
 				new boolean    []{ false,     false });
 		return q.search();
 	}
@@ -214,11 +177,41 @@ public final class History extends Pattern
 			@Nonnull @Parameter("author") final String author,
 			@Parameter("isNew") final boolean isNew)
 	{
-		return eventType.newItem(
-				Cope.mapAndCast(eventParent, item),
-				eventAuthor.map(author),
-				eventNew.map(isNew)
+		return eventType().type.newItem(
+				Cope.mapAndCast(eventType().parent, item),
+				eventType().author.map(author),
+				eventType().New.map(isNew)
 			);
+	}
+
+
+	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
+	private final class EventType
+	{
+		final ItemField<?> parent;
+		final DateField date = new DateField().toFinal().defaultToNow();
+		final PartOf<?> events;
+		final StringField author = new StringField().toFinal();
+		final BooleanField New = new BooleanField().toFinal();
+		final Type<Event> type;
+
+		EventType(final Type<?> parentType)
+		{
+			parent = parentType.newItemField(CASCADE).toFinal();
+			events = PartOf.create(parent, date);
+			final Features features = new Features();
+			features.put("parent", parent);
+			features.put("date", date);
+			features.put("events", events);
+			features.put("author", author);
+			features.put("new", New);
+			type = newSourceType(Event.class, features, "Event");
+		}
+	}
+
+	private EventType eventType()
+	{
+		return requireMounted(eventTypeIfMounted);
 	}
 
 	@Computed
@@ -238,12 +231,12 @@ public final class History extends Pattern
 
 		public Item getParent()
 		{
-			return getPattern().eventParent.get(this);
+			return type().parent.get(this);
 		}
 
 		public Date getDate()
 		{
-			return getPattern().eventDate.get(this);
+			return type().date.get(this);
 		}
 
 		/**
@@ -257,7 +250,7 @@ public final class History extends Pattern
 
 		public String getAuthor()
 		{
-			return getPattern().eventAuthor.get(this);
+			return type().author.get(this);
 		}
 
 		/**
@@ -271,14 +264,14 @@ public final class History extends Pattern
 
 		public boolean isNew()
 		{
-			return getPattern().eventNew.getMandatory(this);
+			return type().New.getMandatory(this);
 		}
 
 		@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 		public List<? extends Feature> getFeatures()
 		{
-			final History pattern = getPattern();
-			return pattern.featureType.search(Cope.equalAndCast(pattern.featureEvent, this), pattern.featureType.getThis(), true);
+			final FeatureType type = getPattern().featureType();
+			return type.type.search(Cope.equalAndCast(type.event, this), type.type.getThis(), true);
 		}
 
 		private static SetValue<?> cut(final StringField f, final Object o)
@@ -301,15 +294,55 @@ public final class History extends Pattern
 
 		public Feature createFeature(final com.exedio.cope.Feature f, final String name, final Object oldValue, final Object newValue)
 		{
-			final History pattern = getPattern();
-			return pattern.featureType.newItem(
-					Cope.mapAndCast(pattern.featureEvent, this),
-					pattern.featureId.map(f),
-					pattern.featureName.map(name),
-					cut(pattern.featureOld, oldValue),
-					cut(pattern.featureNew, newValue)
+			final FeatureType type = getPattern().featureType();
+			return type.type.newItem(
+					Cope.mapAndCast(type.event, this),
+					type.id.map(f),
+					type.name.map(name),
+					cut(type.old, oldValue),
+					cut(type.New, newValue)
 				);
 		}
+
+		private EventType type()
+		{
+			return getPattern().eventType();
+		}
+	}
+
+
+	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
+	private final class FeatureType
+	{
+		final ItemField<Event> event;
+		final PartOf<Event> features;
+		final FeatureField<com.exedio.cope.Feature> id = FeatureField.create().toFinal();
+		final UniqueConstraint uniqueConstraint;
+		final StringField name = new StringField().toFinal();
+		final StringField old = new StringField().toFinal().optional();
+		final StringField New = new StringField().toFinal().optional();
+		final Type<Feature> type;
+
+		FeatureType(final EventType parentType)
+		{
+			final Features features = new Features();
+			event = parentType.type.newItemField(CASCADE).toFinal();
+			this.features = PartOf.create(event);
+			uniqueConstraint = new UniqueConstraint(event, id.getIdField());
+			features.put("event", event);
+			features.put("features", this.features);
+			features.put("id", id);
+			features.put("uniqueConstraint", uniqueConstraint);
+			features.put("name", name);
+			features.put("old", old);
+			features.put("new", New);
+			type = newSourceType(Feature.class, features, "Feature");
+		}
+	}
+
+	private FeatureType featureType()
+	{
+		return requireMounted(featureTypeIfMounted);
 	}
 
 	@Computed
@@ -329,13 +362,12 @@ public final class History extends Pattern
 
 		public Event getEvent()
 		{
-			return getPattern().featureEvent.get(this);
+			return type().event.get(this);
 		}
 
 		public com.exedio.cope.Feature getFeature()
 		{
-			final History pattern = getPattern();
-			return pattern.featureId.get(this);
+			return type().id.get(this);
 		}
 
 		/**
@@ -349,22 +381,27 @@ public final class History extends Pattern
 
 		public String getFeatureID()
 		{
-			return getPattern().featureId.getId(this);
+			return type().id.getId(this);
 		}
 
 		public String getName()
 		{
-			return getPattern().featureName.get(this);
+			return type().name.get(this);
 		}
 
 		public String getOld()
 		{
-			return getPattern().featureOld.get(this);
+			return type().old.get(this);
 		}
 
 		public String getNew()
 		{
-			return getPattern().featureNew.get(this);
+			return type().New.get(this);
+		}
+
+		private FeatureType type()
+		{
+			return getPattern().featureType();
 		}
 	}
 
