@@ -345,11 +345,7 @@ public final class Dispatcher extends Pattern
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					unpend(item, true, new Date(start));
-					runType.type.newItem(
-							runParent.map(item),
-							runType.date.map(new Date(start)),
-							runType.elapsed.map(elapsed),
-							runType.result.map(Result.success));
+					runType.newItem(parentClass, item, new Date(start), elapsed, Result.success, null);
 
 					tx.commit();
 					logger.info("success for {}, took {}ms", itemID, elapsed);
@@ -389,12 +385,7 @@ public final class Dispatcher extends Pattern
 						remaining = isFinal ? 0 : (limit - 1 - total);
 					}
 
-					runType.type.newItem(
-						runParent.map(item),
-						runType.date.map(new Date(start)),
-						runType.elapsed.map(elapsed),
-						runType.result.map(Result.failure(isFinal)),
-						runType.failure.map(baos.toByteArray()));
+					runType.newItem(parentClass, item, new Date(start), elapsed, Result.failure(isFinal), baos.toByteArray());
 
 					if(isFinal)
 						unpend(item, false, new Date(start));
@@ -617,6 +608,22 @@ public final class Dispatcher extends Pattern
 			features.put("result", result, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
 			features.put("failure", failure);
 			type = newSourceType(Run.class, features, "Run");
+		}
+
+		private <P extends Item & Dispatchable> void newItem(
+				@Nonnull final Class<P> parentClass,
+				final P parent,
+				final Date date,
+				final long elapsed,
+				final Result result,
+				final byte[] failure)
+		{
+			type.newItem(
+					this.parent.as(parentClass).map(parent),
+					this.date.map(date),
+					this.elapsed.map(elapsed),
+					this.result.map(result),
+					this.failure.map(failure));
 		}
 	}
 
