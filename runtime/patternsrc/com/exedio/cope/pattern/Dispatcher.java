@@ -499,14 +499,7 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getFailures(final Item item)
 	{
-		final RunType runType = runType();
-		return
-			runType.type.search(
-					Cope.and(
-							Cope.equalAndCast(runType.parent, item),
-							runType.result.notEqual(Result.success)),
-					runType.type.getThis(),
-					true);
+		return runType().getFailures(item);
 	}
 
 	public static final class Config
@@ -625,6 +618,17 @@ public final class Dispatcher extends Pattern
 			return
 					type.search(
 							Cope.equalAndCast(parent, item),
+							type.getThis(),
+							true);
+		}
+
+		private List<Run> getFailures(final Item item)
+		{
+			return
+					type.search(
+							Cope.and(
+									Cope.equalAndCast(parent, item),
+									result.notEqual(Result.success)),
 							type.getThis(),
 							true);
 		}
