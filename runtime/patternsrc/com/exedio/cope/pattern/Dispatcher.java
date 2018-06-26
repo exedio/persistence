@@ -634,7 +634,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	RunType runType()
+	private RunType runType()
 	{
 		return requireMounted(runTypeIfMounted);
 	}
