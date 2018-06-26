@@ -605,9 +605,9 @@ public final class Dispatcher extends Pattern
 		final DataField runFailure = new DataField().toFinal().optional();
 		final Type<Run> runType;
 
-		RunType(final Type<?> type)
+		RunType(final Type<?> parentType)
 		{
-			runParent = type.newItemField(CASCADE).toFinal();
+			runParent = parentType.newItemField(CASCADE).toFinal();
 			runRuns = PartOf.create(runParent, runDate);
 			final Features features = new Features();
 			features.put("parent", runParent);
