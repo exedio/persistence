@@ -311,7 +311,7 @@ final class InterimProcessor extends JavacProcessor
 			}
 			catch (final RuntimeException e)
 			{
-				throw new RuntimeException("runtime error while processing "+cut.getSourceFile());
+				throw new RuntimeException("runtime error while processing "+cut.getSourceFile(), e);
 			}
 		}
 
