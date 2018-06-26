@@ -641,22 +641,22 @@ public final class Dispatcher extends Pattern
 
 		public Item getParent()
 		{
-			return mount().runParent.get(this);
+			return type().runParent.get(this);
 		}
 
 		public Date getDate()
 		{
-			return mount().runDate.get(this);
+			return type().runDate.get(this);
 		}
 
 		public long getElapsed()
 		{
-			return mount().runElapsed.getMandatory(this);
+			return type().runElapsed.getMandatory(this);
 		}
 
 		public Result getResult()
 		{
-			return mount().runResult.get(this);
+			return type().runResult.get(this);
 		}
 
 		public boolean isSuccess()
@@ -666,14 +666,14 @@ public final class Dispatcher extends Pattern
 
 		public String getFailure()
 		{
-			final byte[] bytes = mount().runFailure.getArray(this);
+			final byte[] bytes = type().runFailure.getArray(this);
 			return
 					bytes!=null
 					? new String(bytes, ENCODING)
 					: null;
 		}
 
-		private RunType mount()
+		private RunType type()
 		{
 			return getPattern().runType();
 		}
