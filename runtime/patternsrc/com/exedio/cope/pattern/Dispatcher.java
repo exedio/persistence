@@ -324,10 +324,10 @@ public final class Dispatcher extends Pattern
 		requireNonNull(probe, "probe");
 		requireNonNull(ctx, "ctx");
 
-		final RunType mount = runType();
+		final RunType runType = runType();
 		final Type<P> type = getType().as(parentClass);
 		final String id = getID();
-		final ItemField<P> runParent = mount.runParent.as(parentClass);
+		final ItemField<P> runParent = runType.runParent.as(parentClass);
 		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
 
 		for(final P item : Iterables.once(
@@ -376,11 +376,11 @@ public final class Dispatcher extends Pattern
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					unpend(item, true, new Date(start));
-					mount.runType.newItem(
+					runType.runType.newItem(
 							runParent.map(item),
-							mount.runDate.map(new Date(start)),
-							mount.runElapsed.map(elapsed),
-							mount.runResult.map(Result.success));
+							runType.runDate.map(new Date(start)),
+							runType.runElapsed.map(elapsed),
+							runType.runResult.map(Result.success));
 
 					tx.commit();
 					logger.info("success for {}, took {}ms", itemID, elapsed);
@@ -407,25 +407,25 @@ public final class Dispatcher extends Pattern
 					final boolean isFinal;
 					final int remaining;
 					{
-						final Query<Run> query = mount.runType.newQuery(runParent.equal(item));
+						final Query<Run> query = runType.runType.newQuery(runParent.equal(item));
 						if(supportsPurge())
 						{
 							final Date unpendDate = unpend.of(Unpend.date).get(item);
 							// effectively resets failureLimit on unpend
 							if(unpendDate!=null)
-								query.narrow(mount.runDate.greater(unpendDate));
+								query.narrow(runType.runDate.greater(unpendDate));
 						}
 						final int total = query.total();
 						isFinal = total >= limit - 1;
 						remaining = isFinal ? 0 : (limit - 1 - total);
 					}
 
-					mount.runType.newItem(
+					runType.runType.newItem(
 						runParent.map(item),
-						mount.runDate.map(new Date(start)),
-						mount.runElapsed.map(elapsed),
-						mount.runResult.map(Result.failure(isFinal)),
-						mount.runFailure.map(baos.toByteArray()));
+						runType.runDate.map(new Date(start)),
+						runType.runElapsed.map(elapsed),
+						runType.runResult.map(Result.failure(isFinal)),
+						runType.runFailure.map(baos.toByteArray()));
 
 					if(isFinal)
 						unpend(item, false, new Date(start));
@@ -530,12 +530,12 @@ public final class Dispatcher extends Pattern
 
 	private Run getLastSuccess(final Item item)
 	{
-		final RunType mount = runType();
+		final RunType runType = runType();
 		final Query<Run> q =
-			mount.runType.newQuery(Cope.and(
-				Cope.equalAndCast(mount.runParent, item),
-				runType().runResult.equal(Result.success)));
-		q.setOrderBy(mount.runType.getThis(), false);
+			runType.runType.newQuery(Cope.and(
+				Cope.equalAndCast(runType.runParent, item),
+				runType.runResult.equal(Result.success)));
+		q.setOrderBy(runType.runType.getThis(), false);
 		q.setPage(0, 1);
 		return q.searchSingleton();
 	}
@@ -544,11 +544,11 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getRuns(final Item item)
 	{
-		final RunType mount = runType();
+		final RunType runType = runType();
 		return
-			mount.runType.search(
-					Cope.equalAndCast(mount.runParent, item),
-					mount.runType.getThis(),
+			runType.runType.search(
+					Cope.equalAndCast(runType.runParent, item),
+					runType.runType.getThis(),
 					true);
 	}
 
@@ -556,13 +556,13 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getFailures(final Item item)
 	{
-		final RunType mount = runType();
+		final RunType runType = runType();
 		return
-			mount.runType.search(
+			runType.runType.search(
 					Cope.and(
-							Cope.equalAndCast(mount.runParent, item),
-							mount.runResult.notEqual(Result.success)),
-					mount.runType.getThis(),
+							Cope.equalAndCast(runType.runParent, item),
+							runType.runResult.notEqual(Result.success)),
+					runType.runType.getThis(),
 					true);
 	}
 
