@@ -476,7 +476,7 @@ public final class Dispatcher extends Pattern
 	@Nullable
 	public Date getLastSuccessDate(@Nonnull final Item item)
 	{
-		final Run success = getLastSuccess(item);
+		final Run success = runType().getLastSuccess(item);
 		return success!=null ? success.getDate() : null;
 	}
 
@@ -484,20 +484,8 @@ public final class Dispatcher extends Pattern
 	@Nullable
 	public Long getLastSuccessElapsed(@Nonnull final Item item)
 	{
-		final Run success = getLastSuccess(item);
+		final Run success = runType().getLastSuccess(item);
 		return success!=null ? success.getElapsed() : null;
-	}
-
-	private Run getLastSuccess(final Item item)
-	{
-		final RunType runType = runType();
-		final Query<Run> q =
-			runType.type.newQuery(Cope.and(
-				Cope.equalAndCast(runType.parent, item),
-				runType.result.equal(Result.success)));
-		q.setOrderBy(runType.type.getThis(), false);
-		q.setPage(0, 1);
-		return q.searchSingleton();
 	}
 
 	@Wrap(order=70, doc="Returns the attempts to dispatch this item by {0}.")
@@ -624,6 +612,17 @@ public final class Dispatcher extends Pattern
 					this.elapsed.map(elapsed),
 					this.result.map(result),
 					this.failure.map(failure));
+		}
+
+		private Run getLastSuccess(final Item item)
+		{
+			final Query<Run> q =
+					type.newQuery(Cope.and(
+							Cope.equalAndCast(parent, item),
+							result.equal(Result.success)));
+			q.setOrderBy(type.getThis(), false);
+			q.setPage(0, 1);
+			return q.searchSingleton();
 		}
 	}
 
