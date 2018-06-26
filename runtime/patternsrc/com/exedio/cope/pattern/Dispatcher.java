@@ -477,7 +477,7 @@ public final class Dispatcher extends Pattern
 	public Date getLastSuccessDate(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
-		return success!=null ? runType().date.get(success) : null;
+		return success!=null ? success.getDate() : null;
 	}
 
 	@Wrap(order=60, doc="Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
@@ -485,7 +485,7 @@ public final class Dispatcher extends Pattern
 	public Long getLastSuccessElapsed(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
-		return success!=null ? runType().elapsed.get(success) : null;
+		return success!=null ? success.getElapsed() : null;
 	}
 
 	private Run getLastSuccess(final Item item)
