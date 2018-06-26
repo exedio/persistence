@@ -220,7 +220,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	RunType mount()
+	RunType runType()
 	{
 		return requireMounted(runTypeIfMounted);
 	}
@@ -259,37 +259,37 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public <P extends Item> ItemField<P> getRunParent(@Nonnull final Class<P> parentClass)
 	{
-		return mount().runParent.as(parentClass);
+		return runType().runParent.as(parentClass);
 	}
 
 	public PartOf<?> getRunRuns()
 	{
-		return mount().runRuns;
+		return runType().runRuns;
 	}
 
 	public DateField getRunDate()
 	{
-		return mount().runDate;
+		return runType().runDate;
 	}
 
 	public LongField getRunElapsed()
 	{
-		return mount().runElapsed;
+		return runType().runElapsed;
 	}
 
 	public EnumField<Result> getRunResult()
 	{
-		return mount().runResult;
+		return runType().runResult;
 	}
 
 	public DataField getRunFailure()
 	{
-		return mount().runFailure;
+		return runType().runFailure;
 	}
 
 	public Type<Run> getRunType()
 	{
-		return mount().runType;
+		return runType().runType;
 	}
 
 	@Wrap(order=20, doc="Dispatch by {0}.")
@@ -324,7 +324,7 @@ public final class Dispatcher extends Pattern
 		requireNonNull(probe, "probe");
 		requireNonNull(ctx, "ctx");
 
-		final RunType mount = mount();
+		final RunType mount = runType();
 		final Type<P> type = getType().as(parentClass);
 		final String id = getID();
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
@@ -517,7 +517,7 @@ public final class Dispatcher extends Pattern
 	public Date getLastSuccessDate(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
-		return success!=null ? mount().runDate.get(success) : null;
+		return success!=null ? runType().runDate.get(success) : null;
 	}
 
 	@Wrap(order=60, doc="Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
@@ -525,16 +525,16 @@ public final class Dispatcher extends Pattern
 	public Long getLastSuccessElapsed(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
-		return success!=null ? mount().runElapsed.get(success) : null;
+		return success!=null ? runType().runElapsed.get(success) : null;
 	}
 
 	private Run getLastSuccess(final Item item)
 	{
-		final RunType mount = mount();
+		final RunType mount = runType();
 		final Query<Run> q =
 			mount.runType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.runParent, item),
-				mount().runResult.equal(Result.success)));
+				runType().runResult.equal(Result.success)));
 		q.setOrderBy(mount.runType.getThis(), false);
 		q.setPage(0, 1);
 		return q.searchSingleton();
@@ -544,7 +544,7 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getRuns(final Item item)
 	{
-		final RunType mount = mount();
+		final RunType mount = runType();
 		return
 			mount.runType.search(
 					Cope.equalAndCast(mount.runParent, item),
@@ -556,7 +556,7 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getFailures(final Item item)
 	{
-		final RunType mount = mount();
+		final RunType mount = runType();
 		return
 			mount.runType.search(
 					Cope.and(
@@ -675,7 +675,7 @@ public final class Dispatcher extends Pattern
 
 		private RunType mount()
 		{
-			return getPattern().mount();
+			return getPattern().runType();
 		}
 	}
 
