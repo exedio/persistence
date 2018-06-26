@@ -163,9 +163,10 @@ public final class History extends Pattern
 	@Nonnull
 	public List<Event> getEvents(final Item item)
 	{
-		final Query<Event> q = eventType().type.newQuery(Cope.equalAndCast(eventType().parent, item));
+		final EventType type = eventType();
+		final Query<Event> q = type.type.newQuery(Cope.equalAndCast(type.parent, item));
 		q.setOrderBy(
-				new Function<?>[]{ eventType().date, eventType().type.getThis() },
+				new Function<?>[]{ type.date, type.type.getThis() },
 				new boolean    []{ false,     false });
 		return q.search();
 	}
@@ -177,10 +178,11 @@ public final class History extends Pattern
 			@Nonnull @Parameter("author") final String author,
 			@Parameter("isNew") final boolean isNew)
 	{
-		return eventType().type.newItem(
-				Cope.mapAndCast(eventType().parent, item),
-				eventType().author.map(author),
-				eventType().New.map(isNew)
+		final EventType type = eventType();
+		return type.type.newItem(
+				Cope.mapAndCast(type.parent, item),
+				type.author.map(author),
+				type.New.map(isNew)
 			);
 	}
 
