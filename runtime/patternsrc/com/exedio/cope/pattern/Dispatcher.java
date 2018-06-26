@@ -137,7 +137,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private RunType mountIfMounted = null;
+	private RunType runTypeIfMounted = null;
 
 	private volatile boolean probeRequired = true;
 
@@ -191,7 +191,7 @@ public final class Dispatcher extends Pattern
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
 
-		this.mountIfMounted = new RunType(type);
+		this.runTypeIfMounted = new RunType(type);
 	}
 
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
@@ -222,7 +222,7 @@ public final class Dispatcher extends Pattern
 
 	RunType mount()
 	{
-		return requireMounted(mountIfMounted);
+		return requireMounted(runTypeIfMounted);
 	}
 
 	public BooleanField getPending()
