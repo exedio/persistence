@@ -228,37 +228,37 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public <P extends Item> ItemField<P> getRunParent(@Nonnull final Class<P> parentClass)
 	{
-		return runType().runParent.as(parentClass);
+		return runType().parent.as(parentClass);
 	}
 
 	public PartOf<?> getRunRuns()
 	{
-		return runType().runRuns;
+		return runType().runs;
 	}
 
 	public DateField getRunDate()
 	{
-		return runType().runDate;
+		return runType().date;
 	}
 
 	public LongField getRunElapsed()
 	{
-		return runType().runElapsed;
+		return runType().elapsed;
 	}
 
 	public EnumField<Result> getRunResult()
 	{
-		return runType().runResult;
+		return runType().result;
 	}
 
 	public DataField getRunFailure()
 	{
-		return runType().runFailure;
+		return runType().failure;
 	}
 
 	public Type<Run> getRunType()
 	{
-		return runType().runType;
+		return runType().type;
 	}
 
 	@Wrap(order=20, doc="Dispatch by {0}.")
@@ -296,7 +296,7 @@ public final class Dispatcher extends Pattern
 		final RunType runType = runType();
 		final Type<P> type = getType().as(parentClass);
 		final String id = getID();
-		final ItemField<P> runParent = runType.runParent.as(parentClass);
+		final ItemField<P> runParent = runType.parent.as(parentClass);
 		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
 
 		for(final P item : Iterables.once(
@@ -345,11 +345,11 @@ public final class Dispatcher extends Pattern
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					unpend(item, true, new Date(start));
-					runType.runType.newItem(
+					runType.type.newItem(
 							runParent.map(item),
-							runType.runDate.map(new Date(start)),
-							runType.runElapsed.map(elapsed),
-							runType.runResult.map(Result.success));
+							runType.date.map(new Date(start)),
+							runType.elapsed.map(elapsed),
+							runType.result.map(Result.success));
 
 					tx.commit();
 					logger.info("success for {}, took {}ms", itemID, elapsed);
@@ -376,25 +376,25 @@ public final class Dispatcher extends Pattern
 					final boolean isFinal;
 					final int remaining;
 					{
-						final Query<Run> query = runType.runType.newQuery(runParent.equal(item));
+						final Query<Run> query = runType.type.newQuery(runParent.equal(item));
 						if(supportsPurge())
 						{
 							final Date unpendDate = unpend.of(Unpend.date).get(item);
 							// effectively resets failureLimit on unpend
 							if(unpendDate!=null)
-								query.narrow(runType.runDate.greater(unpendDate));
+								query.narrow(runType.date.greater(unpendDate));
 						}
 						final int total = query.total();
 						isFinal = total >= limit - 1;
 						remaining = isFinal ? 0 : (limit - 1 - total);
 					}
 
-					runType.runType.newItem(
+					runType.type.newItem(
 						runParent.map(item),
-						runType.runDate.map(new Date(start)),
-						runType.runElapsed.map(elapsed),
-						runType.runResult.map(Result.failure(isFinal)),
-						runType.runFailure.map(baos.toByteArray()));
+						runType.date.map(new Date(start)),
+						runType.elapsed.map(elapsed),
+						runType.result.map(Result.failure(isFinal)),
+						runType.failure.map(baos.toByteArray()));
 
 					if(isFinal)
 						unpend(item, false, new Date(start));
@@ -486,7 +486,7 @@ public final class Dispatcher extends Pattern
 	public Date getLastSuccessDate(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
-		return success!=null ? runType().runDate.get(success) : null;
+		return success!=null ? runType().date.get(success) : null;
 	}
 
 	@Wrap(order=60, doc="Returns the milliseconds, this item needed to be last successfully dispatched by {0}.")
@@ -494,17 +494,17 @@ public final class Dispatcher extends Pattern
 	public Long getLastSuccessElapsed(@Nonnull final Item item)
 	{
 		final Run success = getLastSuccess(item);
-		return success!=null ? runType().runElapsed.get(success) : null;
+		return success!=null ? runType().elapsed.get(success) : null;
 	}
 
 	private Run getLastSuccess(final Item item)
 	{
 		final RunType runType = runType();
 		final Query<Run> q =
-			runType.runType.newQuery(Cope.and(
-				Cope.equalAndCast(runType.runParent, item),
-				runType.runResult.equal(Result.success)));
-		q.setOrderBy(runType.runType.getThis(), false);
+			runType.type.newQuery(Cope.and(
+				Cope.equalAndCast(runType.parent, item),
+				runType.result.equal(Result.success)));
+		q.setOrderBy(runType.type.getThis(), false);
 		q.setPage(0, 1);
 		return q.searchSingleton();
 	}
@@ -515,9 +515,9 @@ public final class Dispatcher extends Pattern
 	{
 		final RunType runType = runType();
 		return
-			runType.runType.search(
-					Cope.equalAndCast(runType.runParent, item),
-					runType.runType.getThis(),
+			runType.type.search(
+					Cope.equalAndCast(runType.parent, item),
+					runType.type.getThis(),
 					true);
 	}
 
@@ -527,11 +527,11 @@ public final class Dispatcher extends Pattern
 	{
 		final RunType runType = runType();
 		return
-			runType.runType.search(
+			runType.type.search(
 					Cope.and(
-							Cope.equalAndCast(runType.runParent, item),
-							runType.runResult.notEqual(Result.success)),
-					runType.runType.getThis(),
+							Cope.equalAndCast(runType.parent, item),
+							runType.result.notEqual(Result.success)),
+					runType.type.getThis(),
 					true);
 	}
 
@@ -597,26 +597,26 @@ public final class Dispatcher extends Pattern
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
 	private final class RunType
 	{
-		final ItemField<?> runParent;
-		final DateField runDate = new DateField().toFinal();
-		final PartOf<?> runRuns;
-		final LongField runElapsed = new LongField().toFinal().min(0);
-		final EnumField<Result> runResult = EnumField.create(Result.class).toFinal();
-		final DataField runFailure = new DataField().toFinal().optional();
-		final Type<Run> runType;
+		final ItemField<?> parent;
+		final DateField date = new DateField().toFinal();
+		final PartOf<?> runs;
+		final LongField elapsed = new LongField().toFinal().min(0);
+		final EnumField<Result> result = EnumField.create(Result.class).toFinal();
+		final DataField failure = new DataField().toFinal().optional();
+		final Type<Run> type;
 
 		RunType(final Type<?> parentType)
 		{
-			runParent = parentType.newItemField(CASCADE).toFinal();
-			runRuns = PartOf.create(runParent, runDate);
+			parent = parentType.newItemField(CASCADE).toFinal();
+			runs = PartOf.create(parent, date);
 			final Features features = new Features();
-			features.put("parent", runParent);
-			features.put("date", runDate);
-			features.put("runs", runRuns);
-			features.put("elapsed", runElapsed);
-			features.put("result", runResult, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
-			features.put("failure", runFailure);
-			runType = newSourceType(Run.class, features, "Run");
+			features.put("parent", parent);
+			features.put("date", date);
+			features.put("runs", runs);
+			features.put("elapsed", elapsed);
+			features.put("result", result, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
+			features.put("failure", failure);
+			type = newSourceType(Run.class, features, "Run");
 		}
 	}
 
@@ -642,22 +642,22 @@ public final class Dispatcher extends Pattern
 
 		public Item getParent()
 		{
-			return type().runParent.get(this);
+			return type().parent.get(this);
 		}
 
 		public Date getDate()
 		{
-			return type().runDate.get(this);
+			return type().date.get(this);
 		}
 
 		public long getElapsed()
 		{
-			return type().runElapsed.getMandatory(this);
+			return type().elapsed.getMandatory(this);
 		}
 
 		public Result getResult()
 		{
-			return type().runResult.get(this);
+			return type().result.get(this);
 		}
 
 		public boolean isSuccess()
@@ -667,7 +667,7 @@ public final class Dispatcher extends Pattern
 
 		public String getFailure()
 		{
-			final byte[] bytes = type().runFailure.getArray(this);
+			final byte[] bytes = type().failure.getArray(this);
 			return
 					bytes!=null
 					? new String(bytes, ENCODING)
