@@ -194,37 +194,6 @@ public final class Dispatcher extends Pattern
 		this.runTypeIfMounted = new RunType(type);
 	}
 
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
-	private final class RunType
-	{
-		final ItemField<?> runParent;
-		final DateField runDate = new DateField().toFinal();
-		final PartOf<?> runRuns;
-		final LongField runElapsed = new LongField().toFinal().min(0);
-		final EnumField<Result> runResult = EnumField.create(Result.class).toFinal();
-		final DataField runFailure = new DataField().toFinal().optional();
-		final Type<Run> runType;
-
-		RunType(final Type<?> type)
-		{
-			runParent = type.newItemField(CASCADE).toFinal();
-			runRuns = PartOf.create(runParent, runDate);
-			final Features features = new Features();
-			features.put("parent", runParent);
-			features.put("date", runDate);
-			features.put("runs", runRuns);
-			features.put("elapsed", runElapsed);
-			features.put("result", runResult, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
-			features.put("failure", runFailure);
-			runType = newSourceType(Run.class, features, "Run");
-		}
-	}
-
-	RunType runType()
-	{
-		return requireMounted(runTypeIfMounted);
-	}
-
 	public BooleanField getPending()
 	{
 		return pending;
@@ -622,6 +591,38 @@ public final class Dispatcher extends Pattern
 		{
 			return narrowCondition;
 		}
+	}
+
+
+	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
+	private final class RunType
+	{
+		final ItemField<?> runParent;
+		final DateField runDate = new DateField().toFinal();
+		final PartOf<?> runRuns;
+		final LongField runElapsed = new LongField().toFinal().min(0);
+		final EnumField<Result> runResult = EnumField.create(Result.class).toFinal();
+		final DataField runFailure = new DataField().toFinal().optional();
+		final Type<Run> runType;
+
+		RunType(final Type<?> type)
+		{
+			runParent = type.newItemField(CASCADE).toFinal();
+			runRuns = PartOf.create(runParent, runDate);
+			final Features features = new Features();
+			features.put("parent", runParent);
+			features.put("date", runDate);
+			features.put("runs", runRuns);
+			features.put("elapsed", runElapsed);
+			features.put("result", runResult, CustomAnnotatedElement.create(CopeSchemaNameElement.get("success")));
+			features.put("failure", runFailure);
+			runType = newSourceType(Run.class, features, "Run");
+		}
+	}
+
+	RunType runType()
+	{
+		return requireMounted(runTypeIfMounted);
 	}
 
 	@Computed
