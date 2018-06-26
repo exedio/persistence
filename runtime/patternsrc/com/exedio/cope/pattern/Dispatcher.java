@@ -137,7 +137,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
-	private Mount mountIfMounted = null;
+	private RunType mountIfMounted = null;
 
 	private volatile boolean probeRequired = true;
 
@@ -191,11 +191,11 @@ public final class Dispatcher extends Pattern
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
 
-		this.mountIfMounted = new Mount(type);
+		this.mountIfMounted = new RunType(type);
 	}
 
 	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
-	private final class Mount
+	private final class RunType
 	{
 		final ItemField<?> runParent;
 		final DateField runDate = new DateField().toFinal();
@@ -205,7 +205,7 @@ public final class Dispatcher extends Pattern
 		final DataField runFailure = new DataField().toFinal().optional();
 		final Type<Run> runType;
 
-		Mount(final Type<?> type)
+		RunType(final Type<?> type)
 		{
 			runParent = type.newItemField(CASCADE).toFinal();
 			runRuns = PartOf.create(runParent, runDate);
@@ -220,7 +220,7 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	Mount mount()
+	RunType mount()
 	{
 		return requireMounted(mountIfMounted);
 	}
@@ -324,7 +324,7 @@ public final class Dispatcher extends Pattern
 		requireNonNull(probe, "probe");
 		requireNonNull(ctx, "ctx");
 
-		final Mount mount = mount();
+		final RunType mount = mount();
 		final Type<P> type = getType().as(parentClass);
 		final String id = getID();
 		final ItemField<P> runParent = mount.runParent.as(parentClass);
@@ -530,7 +530,7 @@ public final class Dispatcher extends Pattern
 
 	private Run getLastSuccess(final Item item)
 	{
-		final Mount mount = mount();
+		final RunType mount = mount();
 		final Query<Run> q =
 			mount.runType.newQuery(Cope.and(
 				Cope.equalAndCast(mount.runParent, item),
@@ -544,7 +544,7 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getRuns(final Item item)
 	{
-		final Mount mount = mount();
+		final RunType mount = mount();
 		return
 			mount.runType.search(
 					Cope.equalAndCast(mount.runParent, item),
@@ -556,7 +556,7 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getFailures(final Item item)
 	{
-		final Mount mount = mount();
+		final RunType mount = mount();
 		return
 			mount.runType.search(
 					Cope.and(
@@ -673,7 +673,7 @@ public final class Dispatcher extends Pattern
 					: null;
 		}
 
-		private Mount mount()
+		private RunType mount()
 		{
 			return getPattern().mount();
 		}
