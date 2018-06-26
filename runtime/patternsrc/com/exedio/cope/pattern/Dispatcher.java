@@ -492,12 +492,7 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public List<Run> getRuns(final Item item)
 	{
-		final RunType runType = runType();
-		return
-			runType.type.search(
-					Cope.equalAndCast(runType.parent, item),
-					runType.type.getThis(),
-					true);
+		return runType().getRuns(item);
 	}
 
 	@Wrap(order=80, doc="Returns the failed attempts to dispatch this item by {0}.")
@@ -623,6 +618,15 @@ public final class Dispatcher extends Pattern
 			q.setOrderBy(type.getThis(), false);
 			q.setPage(0, 1);
 			return q.searchSingleton();
+		}
+
+		private List<Run> getRuns(final Item item)
+		{
+			return
+					type.search(
+							Cope.equalAndCast(parent, item),
+							type.getThis(),
+							true);
 		}
 	}
 
