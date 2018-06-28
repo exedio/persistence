@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* EnumMapField omits instrumented setters if final.
+	Affects instrumented code.
 * DayField constrains value range to between Jan 1st, 1600 and Dec 31st, 9999.
 	This heavily affects database schema, except on MySQL.
 * Jar files for dialects split off exedio-cope.jar.

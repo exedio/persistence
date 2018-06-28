@@ -35,6 +35,7 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.EnumAnnotatedElement;
 import com.exedio.cope.misc.ReflectionTypes;
+import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashSet;
@@ -145,7 +146,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	@Wrap(order=20, doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
+	@Wrap(order=20,
+			doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.",
+			hide=FinalSettableGetter.class)
 	public void set(
 			@Nonnull final Item item,
 			@Nonnull @Parameter(KEY) final K key,
@@ -172,7 +175,7 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	@Wrap(order=120)
+	@Wrap(order=120, hide=FinalSettableGetter.class)
 	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
 		FinalViolationException.check(this, item);
