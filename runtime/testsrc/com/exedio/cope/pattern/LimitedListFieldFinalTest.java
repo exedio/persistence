@@ -53,7 +53,7 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		assertEquals(null, textSources.get(0).getDefaultConstant());
 		assertEquals(null, textSources.get(1).getDefaultConstant());
 		assertEquals(null, textSources.get(2).getDefaultConstant());
-		assertEquals(false, text.getLength().isFinal()); // TODO
+		assertEquals(true, text.getLength().isFinal());
 		assertEquals(true, textSources.get(0).isFinal());
 		assertEquals(true, textSources.get(1).isFinal());
 		assertEquals(true, textSources.get(2).isFinal());
