@@ -356,7 +356,7 @@ public class MediaServletTest
 			conn.setIfModifiedSince(ifModifiedSince);
 		conn.connect();
 		assertEquals(expectNotModified ? HTTP_NOT_MODIFIED : HTTP_OK, conn.getResponseCode());
-		assertEquals(expectNotModified ? "Not Modified" : "OK", conn.getResponseMessage());
+		assertEquals(null, conn.getResponseMessage()); // is null since tomcat 8.5
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
@@ -409,7 +409,7 @@ public class MediaServletTest
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(HTTP_MOVED_PERM, conn.getResponseCode(), "responseCode");
-		assertEquals("Moved Permanently", conn.getResponseMessage(), "responseMessage");
+		assertEquals(null, conn.getResponseMessage(), "responseMessage"); // is null since tomcat 8.5
 		assertEquals(target, conn.getHeaderField("Location"), "location");
 		assertEquals(null, conn.getContentType(), "contentType");
 		assertEquals(null, conn.getHeaderField(EXPIRES));
@@ -442,7 +442,7 @@ public class MediaServletTest
 		if(HTTP_NOT_FOUND!=conn.getResponseCode())
 			print(conn, url);
 		assertEquals(HTTP_NOT_FOUND, conn.getResponseCode());
-		assertEquals("Not Found", conn.getResponseMessage());
+		assertEquals(null, conn.getResponseMessage()); // is null since tomcat 8.5
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 		if(lastModified!=null)
 			assertEquals(lastModified, new Date(conn.getLastModified()), "lastModified");
@@ -511,7 +511,7 @@ public class MediaServletTest
 		HttpURLConnection.setFollowRedirects(false);
 		conn.connect();
 		assertEquals(HTTP_OK, conn.getResponseCode(), "url=" + url);
-		assertEquals("OK", conn.getResponseMessage());
+		assertEquals(null, conn.getResponseMessage()); // is null since tomcat 8.5
 		final long date = conn.getDate();
 		final Date after = new Date();
 		//System.out.println("Date: "+new Date(date));
@@ -537,7 +537,7 @@ public class MediaServletTest
 		if(HTTP_INTERNAL_ERROR!=conn.getResponseCode())
 			print(conn, url);
 		assertEquals(HTTP_INTERNAL_ERROR, conn.getResponseCode());
-		assertEquals("Internal Server Error", conn.getResponseMessage());
+		assertEquals(null, conn.getResponseMessage()); // is null since tomcat 8.5
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 		assertEquals(0, conn.getLastModified(), "LastModified");
 		assertEquals(null, conn.getHeaderField(EXPIRES));
