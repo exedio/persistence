@@ -154,7 +154,7 @@
 
 	<target name="catalina">
 		<property name="catalina.root" value="apache-tomcat-7.0.67" />
-		<untar src="lib/apache-tomcat.tar.gz"
+		<untar src="lib/tomcat.tar.gz"
 				 compression="gzip"
 				 dest="${basedir}">
 			<patternset>
