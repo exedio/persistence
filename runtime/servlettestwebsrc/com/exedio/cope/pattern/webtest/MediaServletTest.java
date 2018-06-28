@@ -73,6 +73,7 @@ public class MediaServletTest
 	private static final String ITEM_NAME_ERR_LM = "MediaServletItem-15";
 
 	private static final String CACHE_CONTROL = "Cache-Control";
+	private static final String EXPIRES = "Expires";
 
 	private static final File onException = new File("tomcat/bin/MediaTestServlet.log");
 
@@ -362,7 +363,7 @@ public class MediaServletTest
 		//System.out.println("LastModified: "+new Date(actualLastModified));
 		assertEqualsDate(lastModified, new Date(actualLastModified));
 		assertEquals(expectNotModified ? null : contentType, conn.getContentType());
-		assertEquals(0, conn.getExpiration());
+		assertEquals(null, conn.getHeaderField(EXPIRES));
 		assertEquals("max-age=5", conn.getHeaderField(CACHE_CONTROL));
 		final String data = lines(
 			"This is an example file",
@@ -409,6 +410,7 @@ public class MediaServletTest
 		assertEquals("Moved Permanently", conn.getResponseMessage(), "responseMessage");
 		assertEquals(target, conn.getHeaderField("Location"), "location");
 		assertEquals(null, conn.getContentType(), "contentType");
+		assertEquals(null, conn.getHeaderField(EXPIRES));
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL), "cacheControl");
 		assertEquals(0, conn.getContentLength(), "contentLength");
 		try(InputStream is = conn.getInputStream())
@@ -445,6 +447,7 @@ public class MediaServletTest
 		else
 			assertEquals(0, conn.getLastModified(), "lastModified");
 
+		assertEquals(null, conn.getHeaderField(EXPIRES));
 		assertFalse(conn.getHeaderField(CACHE_CONTROL) != null && conn.getHeaderField(CACHE_CONTROL).contains("private"), "private");
 
 		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream(), US_ASCII)))
@@ -468,7 +471,7 @@ public class MediaServletTest
 		//System.out.println("Date: "+new Date(date));
 		assertWithinHttpDate(before, after, new Date(date));
 
-		assertEquals(0, conn.getExpiration());
+		assertEquals(null, conn.getHeaderField(EXPIRES));
 		if(lastModified!=null)
 			assertEquals("max-age=5", conn.getHeaderField(CACHE_CONTROL));
 		else
@@ -518,7 +521,7 @@ public class MediaServletTest
 			print(conn, url);
 		assertEquals(contentType, conn.getContentType());
 		assertEquals(cacheControl, conn.getHeaderField(CACHE_CONTROL));
-		assertEquals(0L, conn.getExpiration());
+		assertEquals(null, conn.getHeaderField(EXPIRES));
 
 		assertOnExceptionEmpty();
 	}
@@ -535,7 +538,7 @@ public class MediaServletTest
 		assertEquals("Internal Server Error", conn.getResponseMessage());
 		assertEquals("text/html;charset=us-ascii", conn.getContentType());
 		assertEquals(0, conn.getLastModified(), "LastModified");
-		assertEquals(0, conn.getExpiration(), "Expires");
+		assertEquals(null, conn.getHeaderField(EXPIRES));
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 
 		try(BufferedReader is = new BufferedReader(new InputStreamReader(conn.getErrorStream(), US_ASCII)))
@@ -575,6 +578,7 @@ public class MediaServletTest
 		conn.connect();
 		assertEquals(200, conn.getResponseCode());
 		assertEquals("text/plain;charset=UTF-8", conn.getContentType());
+		assertEquals(null, conn.getHeaderField(EXPIRES));
 		assertEquals(null, conn.getHeaderField(CACHE_CONTROL));
 		assertEquals(12, conn.getContentLength());
 
