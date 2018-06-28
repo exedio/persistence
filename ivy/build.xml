@@ -16,6 +16,5 @@
 			<fileset dir="artifacts/lib">
 			</fileset>
 		</copy>
-		
 	</target>
 </project>
