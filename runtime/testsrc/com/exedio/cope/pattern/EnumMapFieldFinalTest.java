@@ -74,6 +74,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 		assertEquals(null, item.getText(DE));
 		assertEquals(null, item.getText(EN));
 		assertEquals(null, item.getText(PL));
+		assertEquals(EMPTY, item.getTextMap());
 
 		try
 		{
@@ -85,6 +86,19 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 			assertEquals(item, e.getItem());
 			assertEquals(text, e.getFeature());
 		}
+		assertEquals(EMPTY, item.getTextMap());
+
+		try
+		{
+			item.setTextMap(FULL);
+			fail();
+		}
+		catch(final FinalViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(text, e.getFeature());
+		}
+		assertEquals(EMPTY, item.getTextMap());
 
 		try
 		{
@@ -96,6 +110,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 			assertEquals(item, e.getItem());
 			assertEquals(text, e.getFeature());
 		}
+		assertEquals(EMPTY, item.getTextMap());
 	}
 
 	@Test void testCreateWithoutMapping()
