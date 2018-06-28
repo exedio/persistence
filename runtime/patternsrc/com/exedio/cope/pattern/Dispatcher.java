@@ -345,7 +345,9 @@ public final class Dispatcher extends Pattern
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					unpend(item, true, new Date(start));
-					runType.newItem(parentClass, item, new Date(start), elapsed, Result.success, null);
+					runType.newItem(
+							parentClass, item, new Date(start), elapsed,
+							Result.success, null);
 
 					tx.commit();
 					logger.info("success for {}, took {}ms", itemID, elapsed);
@@ -385,7 +387,9 @@ public final class Dispatcher extends Pattern
 						remaining = isFinal ? 0 : (limit - 1 - total);
 					}
 
-					runType.newItem(parentClass, item, new Date(start), elapsed, Result.failure(isFinal), baos.toByteArray());
+					runType.newItem(
+							parentClass, item, new Date(start), elapsed,
+							Result.failure(isFinal), baos.toByteArray());
 
 					if(isFinal)
 						unpend(item, false, new Date(start));
