@@ -120,6 +120,15 @@ public class LimitedListFieldModelTest
 		assertEquals(3, nums   .getMaximumSize());
 		assertEquals(2, dates  .getMaximumSize());
 		assertEquals(4, strings.getMaximumSize());
+		assertEquals(0, numsL   .getMinimum());
+		assertEquals(0, datesL  .getMinimum());
+		assertEquals(0, stringsL.getMinimum());
+		assertEquals(3, numsL   .getMaximum());
+		assertEquals(2, datesL  .getMaximum());
+		assertEquals(4, stringsL.getMaximum());
+		assertEquals(false, numsL   .isFinal());
+		assertEquals(false, datesL  .isFinal());
+		assertEquals(false, stringsL.isFinal());
 
 		assertEquals(TYPE, dates.getType());
 		assertEquals("dates", dates.getName());
