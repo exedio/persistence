@@ -56,23 +56,27 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private LimitedListField(final FunctionField<E>[] sources)
 	{
+		{
+			boolean initial = false;
+			boolean isFinal = false;
+			for(final FunctionField<E> source : sources)
+			{
+				initial = initial || source.isInitial();
+				isFinal = isFinal || source.isFinal();
+			}
+			this.initial = initial;
+			this.isFinal = isFinal;
+		}
+
 		this.length = addSourceFeature(
 				new IntegerField().range(0, sources.length).defaultTo(0),
 				"Len", ComputedElement.get());
 
 		this.sources = sources;
 
-		boolean initial = false;
-		boolean isFinal = false;
 		int i = 0;
 		for(final FunctionField<E> source : sources)
-		{
 			addSourceFeature(source, String.valueOf(i++), ComputedElement.get());
-			initial = initial || source.isInitial();
-			isFinal = isFinal || source.isFinal();
-		}
-		this.initial = initial;
-		this.isFinal = isFinal;
 
 		final Condition[] unisonConditions = new Condition[sources.length];
 		for(int a = 0; a<sources.length; a++)
