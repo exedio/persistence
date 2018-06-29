@@ -24,24 +24,15 @@ import java.util.regex.Pattern;
 
 public final class PostgresqlDialect extends Dialect
 {
-	public PostgresqlDialect(final String schema, final boolean version95)
+	public PostgresqlDialect(final String schema)
 	{
 		super(schema);
 
 		final String digits = "\\d*";
 		// TODO do omit outside string literals only
 		add(p("(" + digits + ")")+"::bigint\\b", "$1"); // for DateField precision without native date
-		if(version95)
-		{
-			add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
-			add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
-		}
-		else
-		{
-			add(p(p("(-" + digits + ")")+"::numeric")+"::double precision\\b", "$1");
-			add(p(  "("  + digits + ")" +"::numeric")+"::double precision\\b", "$1");
-			add("(" + digits + ")::bigint\\b", "$1");
-		}
+		add(p("'(-?" + digits + "(?:\\." + digits + ")?)'::numeric")+"::double precision\\b", "$1");
+		add("'(-?" + digits + ")'::(?:integer|bigint)\\b", "$1"); // bug 14296 https://www.postgresql.org/message-id/20160826144958.15674.41360%40wrigleys.postgresql.org
 		add(  p("("  + digits + "(?:\\." + digits + ")?)") +"::double precision\\b", "$1");
 		add(p(p("(-" + digits +    "\\." + digits +   ")"))+"::double precision\\b", "$1");
 		add("('.*?')::character varying\\b", "$1");
@@ -51,8 +42,6 @@ public final class PostgresqlDialect extends Dialect
 		add( " = ANY "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " IN ($1)");
 		add(" <> ALL "+p(p("ARRAY\\[(.*?)]")+"::\"text\"\\[\\]"), " NOT IN ($1)");
 		add(" (=|<>|>=|<=|>|<) ", "$1");
-		if(!version95)
-			add(p("(-" + digits + ")"), "$1");
 	}
 
 	private static String p(final String s)

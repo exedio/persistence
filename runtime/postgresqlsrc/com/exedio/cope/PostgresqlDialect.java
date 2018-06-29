@@ -50,8 +50,7 @@ final class PostgresqlDialect extends Dialect
 	{
 		super(
 				new com.exedio.dsmf.PostgresqlDialect(
-						properties.schema(probe.properties),
-						probe.environmentInfo.isDatabaseVersionAtLeast(9, 5)));
+						properties.schema(probe.properties)));
 
 		requireDatabaseVersionAtLeast(9, 5, probe);
 

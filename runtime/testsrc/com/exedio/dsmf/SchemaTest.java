@@ -118,7 +118,7 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
-			dialect = newD("PostgresqlDialect", config.connectionPostgresqlSearchPath, false);
+			dialect = newD("PostgresqlDialect", config.connectionPostgresqlSearchPath);
 			stringType = "character varying(8)";
 			intType  = "integer";
 			intType2 = "bigint";
