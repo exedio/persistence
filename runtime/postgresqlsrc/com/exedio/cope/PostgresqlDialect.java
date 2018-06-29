@@ -53,7 +53,7 @@ final class PostgresqlDialect extends Dialect
 						properties.schema(probe.properties),
 						probe.environmentInfo.isDatabaseVersionAtLeast(9, 5)));
 
-		requireDatabaseVersionAtLeast(9, 3, probe);
+		requireDatabaseVersionAtLeast(9, 5, probe);
 
 		searchPath = properties.searchPath;
 	}
