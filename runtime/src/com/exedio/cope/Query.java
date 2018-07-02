@@ -1100,8 +1100,6 @@ public final class Query<R> implements Serializable
 			}
 		}
 
-		final ArrayList<Object> result = new ArrayList<>();
-
 		if(countSubSelect)
 		{
 			bf.append(" )");
@@ -1124,6 +1122,7 @@ public final class Query<R> implements Serializable
 
 		//System.out.println(bf.toString());
 
+		final ArrayList<Object> result = new ArrayList<>();
 		final int sizeLimit = getSearchSizeLimit();
 		executor.query(connection, bf, queryInfo, false, resultSet ->
 			{
