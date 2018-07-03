@@ -251,6 +251,18 @@ public final class MediaItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFile(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaItem.file.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #file}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFile(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -380,6 +392,18 @@ public final class MediaItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setImage(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaItem.image.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #image}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setImage(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -488,6 +512,18 @@ public final class MediaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setPhoto(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaItem.photo.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #photo}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setPhoto(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -627,6 +663,18 @@ public final class MediaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSheet(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaItem.sheet.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #sheet}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setSheet(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

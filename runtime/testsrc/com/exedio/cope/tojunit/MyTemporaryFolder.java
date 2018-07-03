@@ -24,10 +24,16 @@ import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.file.Path;
 import org.junit.rules.TemporaryFolder;
 
 public final class MyTemporaryFolder extends TemporaryFolder
 {
+	public Path newPath(final byte[] bytes) throws IOException
+	{
+		return newFile(bytes).toPath();
+	}
+
 	public File newFile(final byte[] bytes) throws IOException
 	{
 		final File result = newFile();

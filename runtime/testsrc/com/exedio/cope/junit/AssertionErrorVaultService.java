@@ -24,10 +24,10 @@ import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
 
 /**
  * An implementation of {@link VaultService} where
@@ -89,7 +89,7 @@ public class AssertionErrorVaultService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
 		throw new AssertionError(anonymiseHash(hash) + '/' + info);
 	}

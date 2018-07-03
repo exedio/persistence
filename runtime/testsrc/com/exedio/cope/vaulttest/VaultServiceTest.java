@@ -218,7 +218,7 @@ public abstract class VaultServiceTest
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(service.put(hash, value, PUT_INFO));
+		assertTrue(service.put(hash, value.toPath(), PUT_INFO)); // TODO natively use Path and rename test
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
@@ -232,7 +232,7 @@ public abstract class VaultServiceTest
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(service.put(hash, value, PUT_INFO_REGULAR));
+		assertTrue(service.put(hash, value.toPath(), PUT_INFO_REGULAR)); // TODO natively use Path and rename test
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));

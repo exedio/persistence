@@ -47,6 +47,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -196,6 +197,14 @@ public class MediaDefaultTest extends TestWithEnvironment
 		assertContentNull();
 		{
 			clock.add(123457);
+			item.setFile(files.newPath(bytes8), "empty-major/empty-minor");
+			clock.assertEmpty();
+			assertContent(bytes8, new Date(123457), "empty-major/empty-minor", "");
+		}
+		item.setFile((Path)null, null);
+		assertContentNull();
+		{
+			clock.add(123457);
 			item.setFile(files.newFile(bytes8), "empty-major/empty-minor");
 			clock.assertEmpty();
 			assertContent(bytes8, new Date(123457), "empty-major/empty-minor", "");
@@ -248,6 +257,42 @@ public class MediaDefaultTest extends TestWithEnvironment
 			try
 			{
 				new MediaItem(Media.toValue(bytes21, "empty-major-long/empty-minor-long"));
+				fail();
+			}
+			catch(final DataLengthViolationException e)
+			{
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(null, e.getItem());
+				assertEquals(21, e.getLength());
+				assertEquals(true, e.isLengthExact());
+				assertEquals("length violation, 21 bytes is too long for " + body, e.getMessage());
+			}
+			clock.assertEmpty();
+
+			// path
+			clock.add(123456009);
+			try
+			{
+				item.setFile(files.newPath(bytes21), "empty-major-long/empty-minor-long");
+				fail();
+			}
+			catch(final DataLengthViolationException e)
+			{
+				assertSame(body, e.getFeature());
+				assertSame(body, e.getFeature());
+				assertSame(item, e.getItem());
+				assertEquals(21, e.getLength());
+				assertEquals(true, e.isLengthExact());
+				assertEquals("length violation on " + item + ", 21 bytes is too long for " + body, e.getMessage());
+			}
+			clock.assertEmpty();
+			assertContent(bytes20, new Date(123456006), "empty-major/empty-minor", "");
+
+			clock.add(123456010);
+			try
+			{
+				new MediaItem(Media.toValue(files.newPath(bytes21), "empty-major-long/empty-minor-long"));
 				fail();
 			}
 			catch(final DataLengthViolationException e)

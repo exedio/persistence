@@ -27,6 +27,8 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.junit.jupiter.api.Test;
@@ -62,6 +64,14 @@ public class DataValueTest
 	@Test void streamNull()
 	{
 		assertEquals(null, toValue((InputStream)null));
+	}
+	@Test void path()
+	{
+		assertEquals("DataField.Value:hallo.txt", toValue(Paths.get("hallo.txt")).toString());
+	}
+	@Test void pathNull()
+	{
+		assertEquals(null, toValue((Path)null));
 	}
 	@Test void file()
 	{

@@ -34,11 +34,11 @@ import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -171,14 +171,14 @@ public final class VaultMockService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
 		history.append("putFile " + info + "\n");
 
 		assertHash(hash);
 		assertNotNull(value);
 
-		try(FileInputStream s = new FileInputStream(value))
+		try(InputStream s = Files.newInputStream(value))
 		{
 			return putInternal(hash, s, info);
 		}

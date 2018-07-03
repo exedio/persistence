@@ -134,6 +134,26 @@ public class VaultTest
 		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putBytes VaultItem.field " + i3 + "\n"); // TODO putStream
 	}
 
+	@Test void getPutPath() throws IOException
+	{
+		service.assertIt("");
+
+		final VaultItem i1 = VaultItem.byPath(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field " + i1 + "\n");
+
+		VaultItem.byPath(VALUE1);
+		service.assertIt(HASH1, VALUE1, "putFile VaultItem.field VaultItem-1\n");
+
+		final VaultItem i3 = VaultItem.byPath(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultItem.field " + i3 + "\n");
+
+		i1.setFieldByPath(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultItem.field " + i1 + "\n");
+
+		i3.setFieldByPath(VALUE2);
+		service.assertIt(HASH1, VALUE1, HASH2, VALUE2, "putFile VaultItem.field " + i3 + "\n");
+	}
+
 	@Test void getPutFile() throws IOException
 	{
 		service.assertIt("");

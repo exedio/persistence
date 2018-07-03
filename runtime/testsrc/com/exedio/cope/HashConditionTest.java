@@ -313,6 +313,14 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setDataInternal(@javax.annotation.Nullable final java.nio.file.Path data)
+				throws
+					java.io.IOException
+		{
+			MyItem.data.set(this,data);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		final void setDataInternal(@javax.annotation.Nullable final java.io.File data)
 				throws
 					java.io.IOException

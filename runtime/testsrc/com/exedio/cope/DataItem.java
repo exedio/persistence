@@ -144,6 +144,17 @@ class DataItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setData(@javax.annotation.Nullable final java.nio.file.Path data)
+			throws
+				java.io.IOException
+	{
+		DataItem.data.set(this,data);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #data}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
@@ -224,6 +235,17 @@ class DataItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData10(@javax.annotation.Nullable final java.io.InputStream data10)
+			throws
+				java.io.IOException
+	{
+		DataItem.data10.set(this,data10);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #data10}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setData10(@javax.annotation.Nullable final java.nio.file.Path data10)
 			throws
 				java.io.IOException
 	{
@@ -324,6 +346,17 @@ class DataItem extends Item
 	 * Sets a new value for the persistent field {@link #data10k}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setData10k(@javax.annotation.Nullable final java.nio.file.Path data10k)
+			throws
+				java.io.IOException
+	{
+		DataItem.data10k.set(this,data10k);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #data10k}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData10k(@javax.annotation.Nullable final java.io.File data10k)
 			throws
 				java.io.IOException
@@ -404,6 +437,17 @@ class DataItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData100M(@javax.annotation.Nullable final java.io.InputStream data100M)
+			throws
+				java.io.IOException
+	{
+		DataItem.data100M.set(this,data100M);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #data100M}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setData100M(@javax.annotation.Nullable final java.nio.file.Path data100M)
 			throws
 				java.io.IOException
 	{

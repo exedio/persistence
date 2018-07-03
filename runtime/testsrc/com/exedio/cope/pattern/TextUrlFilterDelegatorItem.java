@@ -228,6 +228,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setRoh(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		TextUrlFilterDelegatorItem.roh.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #roh}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRoh(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -434,6 +446,18 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRoh2(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		TextUrlFilterDelegatorItem.roh2.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #roh2}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setRoh2(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

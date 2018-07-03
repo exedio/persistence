@@ -33,6 +33,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -96,6 +97,21 @@ public class DataMandatoryTest extends TestWithEnvironment
 		}
 		assertData(bytes4, item.getDataArray());
 
+		item.setData(files.newPath(bytes5));
+		assertData(bytes5, item.getDataArray());
+
+		try
+		{
+			item.setData((Path)null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertSame(data, e.getFeature());
+			assertSame(item, e.getItem());
+		}
+		assertData(bytes5, item.getDataArray());
+
 		item.setData(files.newFile(bytes6));
 		assertData(bytes6, item.getDataArray());
 
@@ -137,5 +153,6 @@ public class DataMandatoryTest extends TestWithEnvironment
 	}
 
 	private static final byte[] bytes4  = {-86,122,-8,23};
+	private static final byte[] bytes5  = {-55,56,-3,15};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};
 }

@@ -45,6 +45,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
@@ -138,6 +139,18 @@ public class MediaMandatoryTest extends TestWithEnvironment
 		try
 		{
 			item.setFile((InputStream)null, null);
+			fail();
+		}
+		catch(final MandatoryViolationException e)
+		{
+			assertEquals(file, e.getFeature());
+			assertEquals(item, e.getItem());
+		}
+		assertContent(item, data20, before, after, "major/minor", "");
+
+		try
+		{
+			item.setFile((Path)null, null);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

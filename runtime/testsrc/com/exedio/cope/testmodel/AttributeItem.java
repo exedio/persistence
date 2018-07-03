@@ -661,6 +661,18 @@ public final class AttributeItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	public final void setSomeData(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		AttributeItem.someData.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #someData}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	public final void setSomeData(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException

@@ -31,13 +31,13 @@ import com.exedio.cope.vault.VaultProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -328,6 +328,26 @@ public final class DataField extends Field<DataField.Value>
 	 *         if data is longer than {@link #getMaximumLength()}
 	 * @throws IOException if reading data throws an IOException.
 	 */
+	@Wrap(order=128,
+			doc="Sets a new value for the persistent field {0}.", // TODO better text
+			thrownGetter=InitialAndIOThrown.class,
+			hide=FinalSettableGetter.class)
+	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Path data)
+			throws IOException
+	{
+		set(item, toValue(data));
+	}
+
+	/**
+	 * Provides data for this persistent data field.
+	 * @param data give null to remove data.
+	 * @throws MandatoryViolationException
+	 *         if data is null and field is {@link Field#isMandatory() mandatory}.
+	 * @throws DataLengthViolationException
+	 *         if data is longer than {@link #getMaximumLength()}
+	 * @throws IOException if reading data throws an IOException.
+	 */
 	@Wrap(order=130,
 			doc="Sets a new value for the persistent field {0}.", // TODO better text
 			thrownGetter=InitialAndIOThrown.class,
@@ -358,9 +378,17 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Returns null, if {@code file} is null.
 	 */
+	public static Value toValue(final Path path)
+	{
+		return path!=null ? new FileValue(path) : null;
+	}
+
+	/**
+	 * Returns null, if {@code file} is null.
+	 */
 	public static Value toValue(final File file)
 	{
-		return file!=null ? new FileValue(file) : null;
+		return file!=null ? new FileValue(file.toPath()) : null;
 	}
 
 	/**
@@ -392,6 +420,11 @@ public final class DataField extends Field<DataField.Value>
 	public SetValue<?> map(final InputStream stream)
 	{
 		return map(toValue(stream));
+	}
+
+	public SetValue<?> map(final Path path)
+	{
+		return map(toValue(path));
 	}
 
 	public SetValue<?> map(final File file)
@@ -750,9 +783,9 @@ public final class DataField extends Field<DataField.Value>
 
 	static final class FileValue extends AbstractStreamValue
 	{
-		final File file;
+		final Path file; // TODO rename
 
-		FileValue(final File file)
+		FileValue(final Path file)
 		{
 			this.file = file;
 
@@ -762,13 +795,20 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		long estimateLength()
 		{
-			return file.length();
+			try
+			{
+				return Files.size(file);
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(file.toAbsolutePath().toString(), e);
+			}
 		}
 
 		@Override
-		InputStream openStream() throws FileNotFoundException
+		InputStream openStream() throws IOException
 		{
-			return new FileInputStream(file);
+			return Files.newInputStream(file);
 		}
 
 		@Override

@@ -221,6 +221,18 @@ public final class TextUrlFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setRoh(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		TextUrlFilterItem.roh.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #roh}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setRoh(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException

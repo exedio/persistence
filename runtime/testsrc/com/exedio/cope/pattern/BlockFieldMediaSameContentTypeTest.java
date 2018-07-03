@@ -236,6 +236,14 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setUno(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.uno).set(item(),body,contentType);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		final void setUno(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -322,6 +330,14 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		final void setDuo(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.duo).set(item(),body,contentType);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setDuo(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{

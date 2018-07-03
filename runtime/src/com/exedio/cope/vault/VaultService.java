@@ -19,10 +19,10 @@
 package com.exedio.cope.vault;
 
 import com.exedio.cope.ConnectProperties;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
 import javax.annotation.Nonnull;
 
 /**
@@ -82,5 +82,5 @@ public interface VaultService extends AutoCloseable
 	 * The result is used for statistics only.
 	 * If the implementation does not have this information available, simply return {@code true}.
 	 */
-	boolean put(@Nonnull String hash, @Nonnull File value, @Nonnull VaultPutInfo info) throws IOException;
+	boolean put(@Nonnull String hash, @Nonnull Path value, @Nonnull VaultPutInfo info) throws IOException;
 }

@@ -848,6 +848,17 @@ final class SchemaItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setData(@javax.annotation.Nullable final java.nio.file.Path data)
+			throws
+				java.io.IOException
+	{
+		SchemaItem.data.set(this,data);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #data}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException

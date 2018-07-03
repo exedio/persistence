@@ -18,16 +18,15 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.util.StrictFile.delete;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
+import static java.nio.file.Files.delete;
 
 import com.exedio.cope.util.ServiceProperties;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 @ServiceProperties(VaultReferenceService.Props.class)
 public final class VaultReferenceService implements VaultService
@@ -71,8 +70,8 @@ public final class VaultReferenceService implements VaultService
 		{
 			try
 			{
-				final File tmp = createTempFileFromReference(hash);
-				final long result = tmp.length();
+				final Path tmp = createTempFileFromReference(hash);
+				final long result = Files.size(tmp);
 				main.put(hash, tmp, PUT_INFO);
 				delete(tmp);
 				return result;
@@ -108,9 +107,9 @@ public final class VaultReferenceService implements VaultService
 		}
 		catch(final VaultNotFoundException ignored)
 		{
-			final File temp = createTempFileFromReference(hash);
+			final Path temp = createTempFileFromReference(hash);
 			main.put(hash, temp, PUT_INFO);
-			try(FileInputStream in = new FileInputStream(temp))
+			try(InputStream in = Files.newInputStream(temp))
 			{
 				final byte[] b = new byte[50*1024];
 				for(int len = in.read(b); len>=0; len = in.read(b))
@@ -122,12 +121,12 @@ public final class VaultReferenceService implements VaultService
 		}
 	}
 
-	private File createTempFileFromReference(final String hash)
+	private Path createTempFileFromReference(final String hash)
 			throws VaultNotFoundException, IOException
 	{
-		final File result = File.createTempFile("VaultReferenceService-" + anonymiseHash(hash), ".dat");
+		final Path result = Files.createTempFile("VaultReferenceService-" + anonymiseHash(hash), ".dat");
 
-		try(FileOutputStream s = new FileOutputStream(result))
+		try(OutputStream s = Files.newOutputStream(result))
 		{
 			reference.get(hash, s);
 		}
@@ -151,7 +150,7 @@ public final class VaultReferenceService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
 		return main.put(hash, value, info);
 	}

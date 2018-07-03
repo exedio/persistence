@@ -224,6 +224,15 @@ public class DataVaultInfoTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void setField(@javax.annotation.Nonnull final java.nio.file.Path field)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					java.io.IOException
+		{
+			MyItem.field.set(this,field);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		final void setField(@javax.annotation.Nonnull final java.io.File field)
 				throws
 					com.exedio.cope.MandatoryViolationException,

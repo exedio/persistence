@@ -56,6 +56,11 @@ final class VaultItem extends Item
 		return new VaultItem(DataField.toValue(toStream(field)));
 	}
 
+	static VaultItem byPath(@Nonnull final String field) throws IOException
+	{
+		return new VaultItem(DataField.toValue(toPath(field)));
+	}
+
 	static VaultItem byFile(@Nonnull final String field) throws IOException
 	{
 		return new VaultItem(DataField.toValue(toFile(field)));
@@ -96,6 +101,11 @@ final class VaultItem extends Item
 		setField(toStream(field));
 	}
 
+	void setFieldByPath(final String field) throws IOException
+	{
+		setField(toPath(field));
+	}
+
 	void setFieldByFile(final String field) throws IOException
 	{
 		setField(toFile(field));
@@ -115,11 +125,16 @@ final class VaultItem extends Item
 		return new ByteArrayInputStream(Hex.decodeLower(field));
 	}
 
-	private static File toFile(final String field) throws IOException
+	private static Path toPath(final String field) throws IOException
 	{
 		final Path path = Files.createTempFile("VaultItem-", ".dat");
 		Files.write(path, Hex.decodeLower(field));
-		return path.toFile();
+		return path;
+	}
+
+	private static File toFile(final String field) throws IOException
+	{
+		return toPath(field).toFile();
 	}
 
 
@@ -214,6 +229,18 @@ final class VaultItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	private final void setField(@javax.annotation.Nonnull final java.io.InputStream field)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				java.io.IOException
+	{
+		VaultItem.field.set(this,field);
+	}
+
+	/**
+	 * Sets a new value for the persistent field {@link #field}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	private final void setField(@javax.annotation.Nonnull final java.nio.file.Path field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException

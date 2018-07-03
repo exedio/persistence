@@ -191,6 +191,18 @@ final class MediaFilterFallbackItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setAny(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.any.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #any}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setAny(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -350,6 +362,18 @@ final class MediaFilterFallbackItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNonSupported(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.nonSupported.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #nonSupported}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setNonSupported(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -521,6 +545,18 @@ final class MediaFilterFallbackItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setSupported(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.supported.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #supported}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSupported(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -660,6 +696,18 @@ final class MediaFilterFallbackItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setSupportedTwo(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.supportedTwo.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #supportedTwo}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setSupportedTwo(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

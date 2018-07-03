@@ -34,6 +34,8 @@ import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.security.MessageDigest;
 import java.util.Arrays;
 import java.util.zip.ZipEntry;
@@ -83,6 +85,12 @@ public class DataDigestTest
 		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
 
 		messageDigest.reset();
+		final Path inputPath = files.newPath(input);
+		toValue(inputPath).update(messageDigest);
+		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
+		Files.delete(inputPath);
+
+		messageDigest.reset();
 		final File inputFile = files.newFile(input);
 		toValue(inputFile).update(messageDigest);
 		assertEquals(hash, Hex.encodeLower(messageDigest.digest()));
@@ -108,6 +116,15 @@ public class DataDigestTest
 		final Value value = toValue(stream);
 		assertAsArray(bytes4, value);
 		assertExhausted(value);
+	}
+
+	@Test void testExhaustionPath() throws IOException
+	{
+		final Path inputPath = files.newPath(bytes4);
+		final Value value = toValue(inputPath);
+		assertAsArray(bytes4, value);
+		assertExhausted(value);
+		Files.delete(inputPath);
 	}
 
 	@Test void testExhaustionFile() throws IOException
@@ -155,6 +172,22 @@ public class DataDigestTest
 
 		assertExhausted(value);
 		assertAsArray(bytes4, replacementValue);
+	}
+
+	@Test void testExhaustionPathUpdate() throws IOException
+	{
+		final Path inputPath = files.newPath(bytes4);
+		final Value value = toValue(inputPath);
+
+		messageDigest.reset();
+		final Value replacementValue = value.update(messageDigest);
+		assertNotSame(replacementValue, value);
+		assertEquals("904ac396ac3d50faa666e57146fe7862", Hex.encodeLower(messageDigest.digest()));
+
+		assertExhausted(value);
+		assertAsArray(bytes4, replacementValue);
+
+		Files.delete(inputPath);
 	}
 
 	@Test void testExhaustionFileUpdate() throws IOException

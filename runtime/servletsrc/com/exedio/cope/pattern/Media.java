@@ -52,6 +52,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.LinkedHashSet;
@@ -545,6 +546,23 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		this.body.get(item, body);
 	}
 
+	@Wrap(order=138,
+			doc="Sets the content of media {0}.",
+			hide=FinalSettableGetter.class,
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+	public void set(
+			@Nonnull final Item item,
+			@Parameter(value="body", nullability=NullableIfOptional.class) final Path body,
+			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
+		throws IOException
+	{
+		FinalViolationException.check(this, item);
+		if((body==null||contentType==null) && !optional)
+			throw MandatoryViolationException.create(this, item);
+
+		set(item, DataField.toValue(body), contentType);
+	}
+
 	/**
 	 * Sets the contents of this media.
 	 * @param body give null to make this media null.
@@ -564,11 +582,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 			@Parameter(value="contentType", nullability=NullableIfOptional.class) final String contentType)
 		throws IOException
 	{
-		FinalViolationException.check(this, item);
-		if((body==null||contentType==null) && !optional)
-			throw MandatoryViolationException.create(this, item);
-
-		set(item, DataField.toValue(body), contentType);
+		set(item, body!=null ? body.toPath() : null, contentType);
 	}
 
 	/**
@@ -610,6 +624,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	}
 
 	public static Value toValue(final InputStream body, final String contentType)
+	{
+		return toValue(DataField.toValue(body), contentType);
+	}
+
+	public static Value toValue(final Path body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);
 	}

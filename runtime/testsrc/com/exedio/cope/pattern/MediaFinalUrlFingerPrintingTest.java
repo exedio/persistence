@@ -210,6 +210,18 @@ public class MediaFinalUrlFingerPrintingTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setNonFinal(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		AnItem.nonFinal.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #nonFinal}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNonFinal(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -414,6 +426,18 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setNonFinalFinger(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		AnItem.nonFinalFinger.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #nonFinalFinger}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setNonFinalFinger(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

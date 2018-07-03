@@ -286,6 +286,18 @@ final class MediaServletItem extends Item
 	}
 
 	/**
+	 * Sets the content of media {@link #content}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	private final void setContentInternal(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaServletItem.content.set(this,body,contentType);
+	}
+
+	/**
 	 * Returns a Locator the content of {@link #redirect} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")

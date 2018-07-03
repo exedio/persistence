@@ -162,6 +162,18 @@ public class MediaCatchPhraseSuperItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setFeature(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaCatchPhraseSuperItem.feature.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #feature}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setFeature(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException

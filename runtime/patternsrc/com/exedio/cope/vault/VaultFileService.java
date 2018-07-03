@@ -26,7 +26,6 @@ import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -135,9 +134,9 @@ public final class VaultFileService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
-		return put(hash, (out) -> Files.copy(value.toPath(), out, REPLACE_EXISTING));
+		return put(hash, (out) -> Files.copy(value, out, REPLACE_EXISTING));
 	}
 
 	private boolean put(final String hash, final Consumer value) throws IOException

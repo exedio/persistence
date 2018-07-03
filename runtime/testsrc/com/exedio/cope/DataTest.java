@@ -37,6 +37,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URISyntaxException;
+import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.junit.jupiter.api.AfterEach;
@@ -163,6 +164,20 @@ public class DataTest extends TestWithEnvironment
 		assertIt(null);
 
 
+		// set Path
+		item.setData(files.newPath(bytes8));
+		assertIt(bytes8);
+
+		item.setData(files.newPath(bytes0));
+		assertIt(bytes0);
+
+		item.setData(files.newPath(dataBig));
+		assertIt(dataBig);
+
+		item.setData((Path)null);
+		assertIt(null);
+
+
 		// set File
 		item.setData(files.newFile(bytes8));
 		assertIt(bytes8);
@@ -239,6 +254,21 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(11, e.getLength());
 			assertEquals(false, e.isLengthExact());
 			assertEquals("length violation on " + item + ", 11 bytes or more is too long for " + data10, e.getMessage(), e.getMessage());
+		}
+		assertData(bytes10, item.getData10Array());
+		try
+		{
+			item.setData10(files.newPath(bytes11));
+			fail();
+		}
+		catch(final DataLengthViolationException e)
+		{
+			assertEquals(item, e.getItem());
+			assertEquals(data10, e.getFeature());
+			assertEquals(data10, e.getFeature());
+			assertEquals(11, e.getLength());
+			assertEquals(true, e.isLengthExact());
+			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
 		}
 		assertData(bytes10, item.getData10Array());
 		try

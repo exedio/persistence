@@ -294,6 +294,18 @@ public class HashConstraintTest
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		final void setData(@javax.annotation.Nonnull final java.nio.file.Path data)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					java.io.IOException
+		{
+			AnItem.data.set(this,data);
+		}
+
+		/**
+		 * Sets a new value for the persistent field {@link #data}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		final void setData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					com.exedio.cope.MandatoryViolationException,

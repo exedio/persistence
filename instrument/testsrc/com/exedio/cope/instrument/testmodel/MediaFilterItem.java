@@ -174,6 +174,18 @@ public class MediaFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setText(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaFilterItem.text.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #text}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setText(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -322,6 +334,18 @@ public class MediaFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalText(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaFilterItem.optionalText.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #optionalText}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setOptionalText(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -482,6 +506,18 @@ public class MediaFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setTextOrImage(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
+			throws
+				java.io.IOException
+	{
+		MediaFilterItem.textOrImage.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #textOrImage}.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	final void setTextOrImage(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

@@ -31,11 +31,11 @@ import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.HashMap;
 
 /**
@@ -124,13 +124,13 @@ public final class VaultTestService implements VaultService
 	}
 
 	@Override
-	public boolean put(final String hash, final File value, final VaultPutInfo info) throws IOException
+	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
 		assertHash(hash);
 		assertNotNull(value);
 		assertNotNull(info);
 
-		try(FileInputStream s = new FileInputStream(value))
+		try(InputStream s = Files.newInputStream(value))
 		{
 			return put(hash, s, info);
 		}
