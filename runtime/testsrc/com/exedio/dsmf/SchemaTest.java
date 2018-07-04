@@ -84,7 +84,7 @@ public abstract class SchemaTest
 		{
 			// see HsqldbDialect#completeConnectionInfo
 			info.setProperty("hsqldb.tx", "mvcc"); // fixes sparse dead locks when running tests, mostly on travis-ci
-			dialect = newD("HsqldbDialect", true);
+			dialect = newD("Hsqldb", true);
 			numberOfConnections = 2;
 			stringType = "VARCHAR(8)";
 			intType = "INTEGER";
@@ -97,7 +97,7 @@ public abstract class SchemaTest
 			// see MysqlDialect#completeConnectionInfo
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
 			info.setProperty("useSSL", "false");
-			dialect = newD("MysqlDialect",
+			dialect = newD("Mysql",
 					false, // TODO test true as well
 					"CopeSequenceAutoIncrementColumnForTest",
 					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
@@ -109,7 +109,7 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:oracle:"))
 		{
-			dialect = newD("OracleDialect", username.toUpperCase(Locale.ENGLISH));
+			dialect = newD("Oracle", username.toUpperCase(Locale.ENGLISH));
 			stringType = "VARCHAR2(8 BYTE)";
 			intType = "NUMBER(12)";
 			intType2 = "NUMBER(15)";
@@ -118,7 +118,7 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
-			dialect = newD("PostgresqlDialect", config.connectionPostgresqlSearchPath);
+			dialect = newD("Postgresql", config.connectionPostgresqlSearchPath);
 			stringType = "character varying(8)";
 			intType  = "integer";
 			intType2 = "bigint";
@@ -147,7 +147,7 @@ public abstract class SchemaTest
 		provider = new SimpleConnectionProvider(connections);
 	}
 
-	private static Dialect newD(final String simpleName, final Object... initargs) throws ReflectiveOperationException
+	private static Dialect newD(final String name, final Object... initargs) throws ReflectiveOperationException
 	{
 		final Class<?>[] parameterTypes = new Class<?>[initargs.length];
 		for(int i = 0; i<parameterTypes.length; i++)
@@ -158,7 +158,7 @@ public abstract class SchemaTest
 			parameterTypes[i] = clazz;
 		}
 		return
-				Class.forName("com.exedio.dsmf." + simpleName).
+				Class.forName("com.exedio.dsmf." + name + "Dialect").
 				asSubclass(Dialect.class).
 				getConstructor(parameterTypes).
 				newInstance(initargs);
