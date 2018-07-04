@@ -20,6 +20,8 @@ package com.exedio.dsmf;
 
 import static java.util.Objects.requireNonNull;
 
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -70,7 +72,7 @@ public abstract class Dialect
 
 	static final void verifyTablesByMetaData(final Schema schema)
 	{
-		schema.querySQL(Node.GET_TABLES, resultSet ->
+		schema.querySQL(GET_TABLES, resultSet ->
 		{
 			final int TABLE_NAME = resultSet.findColumn("TABLE_NAME");
 			while(resultSet.next())
@@ -86,7 +88,7 @@ public abstract class Dialect
 	 */
 	final void verifyColumnsByMetaData(final Schema schema, final String tableSchema)
 	{
-		schema.querySQL(Node.GET_COLUMNS, resultSet ->
+		schema.querySQL(GET_COLUMNS, resultSet ->
 		{
 			final int TABLE_SCHEMA= resultSet.findColumn("TABLE_SCHEM"); // sic
 			final int TABLE_NAME  = resultSet.findColumn("TABLE_NAME" );
@@ -330,6 +332,75 @@ public abstract class Dialect
 				bf.append('*');
 			bf.append('=').
 				append(o);
+		}
+	}
+
+	private static final String GET_TABLES = "getTables";
+	private static final String GET_COLUMNS = "getColumns";
+
+	@FunctionalInterface
+	interface ResultSetHandler
+	{
+		void run(ResultSet resultSet) throws SQLException;
+	}
+
+	@SuppressWarnings("StringEquality")
+	@SuppressFBWarnings({"ES_COMPARING_PARAMETER_STRING_WITH_EQ", "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"}) // Comparison of String parameter using == or !=
+	final void querySQL(
+			final ConnectionProvider connectionProvider,
+			final String statement,
+			final ResultSetHandler resultSetHandler)
+	{
+		Connection connection = null;
+		try
+		{
+			//noinspection resource OK: have to use putConnection
+			connection = connectionProvider.getConnection();
+			//System.err.println(statement);
+
+			if(GET_TABLES==statement)
+			{
+				try(ResultSet resultSet = connection.getMetaData().
+						getTables(null, schema, null, new String[]{"TABLE"}))
+				{
+					resultSetHandler.run(resultSet);
+				}
+			}
+			else if(GET_COLUMNS==statement)
+			{
+				try(ResultSet resultSet = connection.getMetaData().
+						getColumns(null, schema, null, null))
+				{
+					resultSetHandler.run(resultSet);
+				}
+			}
+			else
+			{
+				try(
+					java.sql.Statement sqlStatement = connection.createStatement();
+					ResultSet resultSet = sqlStatement.executeQuery(statement))
+				{
+					resultSetHandler.run(resultSet);
+				}
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, statement);
+		}
+		finally
+		{
+			if(connection!=null)
+			{
+				try
+				{
+					connectionProvider.putConnection(connection);
+				}
+				catch(final SQLException ignored)
+				{
+					// exception is already thrown
+				}
+			}
 		}
 	}
 

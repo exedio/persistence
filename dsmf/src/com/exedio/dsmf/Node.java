@@ -20,9 +20,9 @@ package com.exedio.dsmf;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.dsmf.Dialect.ResultSetHandler;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import javax.annotation.Nonnull;
 
@@ -69,70 +69,10 @@ public abstract class Node
 		return dialect.quoteName(name);
 	}
 
-	static final String GET_TABLES = "getTables";
-	static final String GET_COLUMNS = "getColumns";
-
-	@FunctionalInterface
-	interface ResultSetHandler
-	{
-		void run(ResultSet resultSet) throws SQLException;
-	}
-
-	@SuppressWarnings("StringEquality")
-	@SuppressFBWarnings({"ES_COMPARING_PARAMETER_STRING_WITH_EQ", "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"}) // Comparison of String parameter using == or !=
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
-		Connection connection = null;
-		try
-		{
-			//noinspection resource OK: have to use putConnection
-			connection = connectionProvider.getConnection();
-			//System.err.println(statement);
-
-			if(GET_TABLES==statement)
-			{
-				try(ResultSet resultSet = connection.getMetaData().
-						getTables(null, dialect.schema, null, new String[]{"TABLE"}))
-				{
-					resultSetHandler.run(resultSet);
-				}
-			}
-			else if(GET_COLUMNS==statement)
-			{
-				try(ResultSet resultSet = connection.getMetaData().
-						getColumns(null, dialect.schema, null, null))
-				{
-					resultSetHandler.run(resultSet);
-				}
-			}
-			else
-			{
-				try(
-					java.sql.Statement sqlStatement = connection.createStatement();
-					ResultSet resultSet = sqlStatement.executeQuery(statement))
-				{
-					resultSetHandler.run(resultSet);
-				}
-			}
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, statement);
-		}
-		finally
-		{
-			if(connection!=null)
-			{
-				try
-				{
-					connectionProvider.putConnection(connection);
-				}
-				catch(final SQLException ignored)
-				{
-					// exception is already thrown
-				}
-			}
-		}
+		dialect.querySQL(connectionProvider, statement, resultSetHandler);
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")

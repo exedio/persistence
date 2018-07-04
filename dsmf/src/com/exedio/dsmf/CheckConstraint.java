@@ -18,6 +18,7 @@
 
 package com.exedio.dsmf;
 
+import com.exedio.dsmf.Dialect.ResultSetHandler;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
