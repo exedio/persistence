@@ -238,12 +238,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		final boolean result;
 		try
 		{
-			if(data instanceof DataField.ArrayValue)
-				result = service.put(hash, ((DataField.ArrayValue)data).array, info);
-			else if(data instanceof DataField.PathValue)
-				result = service.put(hash, ((DataField.PathValue)data).path, info);
-			else
-				result = service.put(hash, ((DataField.AbstractStreamValue)data).openStream(), info);
+			result = data.put(service, hash, info);
 		}
 		catch(final IOException e)
 		{

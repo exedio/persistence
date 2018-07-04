@@ -28,6 +28,8 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultProperties;
+import com.exedio.cope.vault.VaultPutInfo;
+import com.exedio.cope.vault.VaultService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -575,6 +577,11 @@ public final class DataField extends Field<DataField.Value>
 						" Each DataField.Value can be used for at most one setter action.");
 			exhausted = true;
 		}
+
+		abstract boolean put(
+				@Nonnull VaultService service,
+				@Nonnull String hash,
+				@Nonnull VaultPutInfo info) throws IOException;
 	}
 
 	static final class ArrayValue extends Value
@@ -639,6 +646,15 @@ public final class DataField extends Field<DataField.Value>
 				throw new DataLengthViolationException(field, exceptionItem, array.length, true);
 			digest.update(array, 0, array.length);
 			return new ArrayValue(array);
+		}
+
+		@Override
+		boolean put(
+				final VaultService service,
+				final String hash,
+				final VaultPutInfo info)
+		{
+			return service.put(hash, array, info);
 		}
 	}
 
@@ -737,6 +753,15 @@ public final class DataField extends Field<DataField.Value>
 				return copyAfterExhaustion();
 			}
 		}
+
+		@Override
+		boolean put(
+				final VaultService service,
+				final String hash,
+				final VaultPutInfo info) throws IOException
+		{
+			return service.put(hash, openStream(), info);
+		}
 	}
 
 	static final class StreamValue extends AbstractStreamValue
@@ -821,6 +846,15 @@ public final class DataField extends Field<DataField.Value>
 		AbstractStreamValue copyAfterExhaustion()
 		{
 			return new PathValue(path);
+		}
+
+		@Override
+		boolean put(
+				final VaultService service,
+				final String hash,
+				final VaultPutInfo info) throws IOException
+		{
+			return service.put(hash, path, info);
 		}
 
 		@Override
