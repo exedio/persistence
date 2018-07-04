@@ -64,9 +64,5 @@
 		<dependency org="com.exedio" name="copeconsole" rev="6677" conf="build->runtime,changelog">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
 		</dependency>
-
-		<!-- we use servlet-api 3.0, which goes in a different 'module' (javax.servlet-api) -->
-		<!-- this 'exclude' can be removed once we use copeservletutil >= 71 and copeconsole >= 6651 -->
-		<exclude org="javax.servlet" module="servlet-api"/> <!-- for servlet API < 3.0 -->
 	</dependencies>
 </ivy-module>
