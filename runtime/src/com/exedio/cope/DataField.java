@@ -783,13 +783,13 @@ public final class DataField extends Field<DataField.Value>
 
 	static final class FileValue extends AbstractStreamValue
 	{
-		final Path file; // TODO rename
+		final Path path;
 
-		FileValue(final Path file)
+		FileValue(final Path path)
 		{
-			this.file = file;
+			this.path = path;
 
-			assert file!=null;
+			assert path!=null;
 		}
 
 		@Override
@@ -797,18 +797,18 @@ public final class DataField extends Field<DataField.Value>
 		{
 			try
 			{
-				return Files.size(file);
+				return Files.size(path);
 			}
 			catch(final IOException e)
 			{
-				throw new RuntimeException(file.toAbsolutePath().toString(), e);
+				throw new RuntimeException(path.toAbsolutePath().toString(), e);
 			}
 		}
 
 		@Override
 		InputStream openStream() throws IOException
 		{
-			return Files.newInputStream(file);
+			return Files.newInputStream(path);
 		}
 
 		@Override
@@ -820,13 +820,13 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		AbstractStreamValue copyAfterExhaustion()
 		{
-			return new FileValue(file);
+			return new FileValue(path);
 		}
 
 		@Override
 		public String toString()
 		{
-			return "DataField.Value:" + file;
+			return "DataField.Value:" + path;
 		}
 	}
 
