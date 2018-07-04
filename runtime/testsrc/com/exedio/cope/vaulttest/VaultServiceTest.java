@@ -40,10 +40,11 @@ import com.exedio.cope.vault.VaultService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.lang.reflect.Constructor;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -210,29 +211,29 @@ public abstract class VaultServiceTest
 		assertEquals(7, service.getLength(hash));
 	}
 
-	@Test final void putFile() throws VaultNotFoundException, IOException
+	@Test final void putPath() throws VaultNotFoundException, IOException
 	{
 		final String hash = hash("abcdef01234567");
-		final File value = File.createTempFile("VaultServiceTest", ".dat");
-		try(FileOutputStream s = new FileOutputStream(value))
+		final Path value = Files.createTempFile("VaultServiceTest", ".dat");
+		try(OutputStream s = Files.newOutputStream(value))
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(service.put(hash, value.toPath(), PUT_INFO)); // TODO natively use Path and rename test
+		assertTrue(service.put(hash, value, PUT_INFO));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
 	}
 
-	@Test final void putFileInfo() throws VaultNotFoundException, IOException
+	@Test final void putPathInfo() throws VaultNotFoundException, IOException
 	{
 		final String hash = hash("abcdef01234567");
-		final File value = File.createTempFile("VaultServiceTest", ".dat");
-		try(FileOutputStream s = new FileOutputStream(value))
+		final Path value = Files.createTempFile("VaultServiceTest", ".dat");
+		try(OutputStream s = Files.newOutputStream(value))
 		{
 			s.write(unhex("abcdef01234567"));
 		}
-		assertTrue(service.put(hash, value.toPath(), PUT_INFO_REGULAR)); // TODO natively use Path and rename test
+		assertTrue(service.put(hash, value, PUT_INFO_REGULAR));
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
