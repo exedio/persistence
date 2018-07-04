@@ -63,9 +63,7 @@ public final class HsqldbDialect extends Dialect
 			case Types.TIMESTAMP: return "TIMESTAMP(3) WITHOUT TIME ZONE"; // TODO fetch precision and time zone from resultSet
 			case Types.DATE:      return "DATE";
 			case Types.BLOB:      return "BLOB";
-			case Types.VARCHAR:
-				final int columnSize = resultSet.getInt("COLUMN_SIZE");
-				return "VARCHAR("+columnSize+')';
+			case Types.VARCHAR:   return "VARCHAR(" + resultSet.getInt("COLUMN_SIZE") + ')';
 			default:
 				return null;
 		}
