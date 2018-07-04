@@ -380,7 +380,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public static Value toValue(final Path path)
 	{
-		return path!=null ? new FileValue(path) : null;
+		return path!=null ? new PathValue(path) : null;
 	}
 
 	/**
@@ -388,7 +388,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public static Value toValue(final File file)
 	{
-		return file!=null ? new FileValue(file.toPath()) : null;
+		return file!=null ? new PathValue(file.toPath()) : null;
 	}
 
 	/**
@@ -781,11 +781,11 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
-	static final class FileValue extends AbstractStreamValue
+	static final class PathValue extends AbstractStreamValue
 	{
 		final Path path;
 
-		FileValue(final Path path)
+		PathValue(final Path path)
 		{
 			this.path = path;
 
@@ -820,7 +820,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		AbstractStreamValue copyAfterExhaustion()
 		{
-			return new FileValue(path);
+			return new PathValue(path);
 		}
 
 		@Override
