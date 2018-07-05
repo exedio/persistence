@@ -19,6 +19,15 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.HsqldbDialect.Approximate.oracle;
+import static com.exedio.cope.HsqldbSchemaDialect.BIGINT;
+import static com.exedio.cope.HsqldbSchemaDialect.BLOB;
+import static com.exedio.cope.HsqldbSchemaDialect.DATE;
+import static com.exedio.cope.HsqldbSchemaDialect.DOUBLE;
+import static com.exedio.cope.HsqldbSchemaDialect.INTEGER;
+import static com.exedio.cope.HsqldbSchemaDialect.SMALLINT;
+import static com.exedio.cope.HsqldbSchemaDialect.TIMESTAMP_3;
+import static com.exedio.cope.HsqldbSchemaDialect.TINYINT;
+import static com.exedio.cope.HsqldbSchemaDialect.VARCHAR;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Hex;
@@ -117,16 +126,16 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
 	{
-		if(minimum>=Byte   .MIN_VALUE && maximum<=Byte   .MAX_VALUE) return "TINYINT";
-		if(minimum>=Short  .MIN_VALUE && maximum<=Short  .MAX_VALUE) return "SMALLINT";
-		if(minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) return "INTEGER";
-		return "BIGINT";
+		if(minimum>=Byte   .MIN_VALUE && maximum<=Byte   .MAX_VALUE) return TINYINT;
+		if(minimum>=Short  .MIN_VALUE && maximum<=Short  .MAX_VALUE) return SMALLINT;
+		if(minimum>=Integer.MIN_VALUE && maximum<=Integer.MAX_VALUE) return INTEGER;
+		return BIGINT;
 	}
 
 	@Override
 	String getDoubleType()
 	{
-		return "DOUBLE";
+		return DOUBLE;
 	}
 
 	@Override
@@ -134,7 +143,7 @@ final class HsqldbDialect extends Dialect
 			final int maxChars,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		return "VARCHAR("+maxChars+")";
+		return VARCHAR(maxChars);
 	}
 
 	@Override
@@ -149,7 +158,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getDayType()
 	{
-		return "DATE";
+		return DATE;
 	}
 
 	@Override
@@ -164,7 +173,7 @@ final class HsqldbDialect extends Dialect
 		if(!props.approximate.supportsNativeDate())
 			return null;
 
-		return "TIMESTAMP(3) WITHOUT TIME ZONE";
+		return TIMESTAMP_3;
 	}
 
 	@Override
@@ -195,7 +204,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return "BLOB";
+		return BLOB;
 	}
 
 	@Override

@@ -59,19 +59,29 @@ final class HsqldbSchemaDialect extends Dialect
 	{
 		switch(dataType)
 		{
-			case Types.TINYINT:   return "TINYINT";
-			case Types.SMALLINT:  return "SMALLINT";
-			case Types.INTEGER:   return "INTEGER";
-			case Types.BIGINT:    return "BIGINT";
-			case Types.DOUBLE:    return "DOUBLE";
-			case Types.TIMESTAMP: return "TIMESTAMP(3) WITHOUT TIME ZONE"; // TODO fetch precision and time zone from resultSet
-			case Types.DATE:      return "DATE";
-			case Types.BLOB:      return "BLOB";
-			case Types.VARCHAR:   return "VARCHAR(" + resultSet.getInt("COLUMN_SIZE") + ')';
+			case Types.TINYINT:   return TINYINT;
+			case Types.SMALLINT:  return SMALLINT;
+			case Types.INTEGER:   return INTEGER;
+			case Types.BIGINT:    return BIGINT;
+			case Types.DOUBLE:    return DOUBLE;
+			case Types.TIMESTAMP: return TIMESTAMP_3; // TODO fetch precision and time zone from resultSet
+			case Types.DATE:      return DATE;
+			case Types.BLOB:      return BLOB;
+			case Types.VARCHAR:   return VARCHAR(resultSet.getInt("COLUMN_SIZE"));
 			default:
 				return null;
 		}
 	}
+
+	static final String TINYINT = "TINYINT";
+	static final String SMALLINT = "SMALLINT";
+	static final String INTEGER = "INTEGER";
+	static final String BIGINT = "BIGINT";
+	static final String DOUBLE = "DOUBLE";
+	static final String TIMESTAMP_3 = "TIMESTAMP(3) WITHOUT TIME ZONE";
+	static final String DATE = "DATE";
+	static final String BLOB = "BLOB";
+	static String VARCHAR(final int size) { return "VARCHAR(" + size + ')'; }
 
 	@Override
 	protected void verify(final Schema schema)
