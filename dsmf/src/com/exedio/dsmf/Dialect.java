@@ -25,6 +25,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 public abstract class Dialect
 {
@@ -240,6 +241,76 @@ public abstract class Dialect
 			new UniqueConstraint(table, null, constraintName, false, condition);
 		else
 			result.notifyExistsCondition(condition);
+	}
+
+	static final class UniqueConstraintCollector
+	{
+		private final Schema schema;
+
+		UniqueConstraintCollector(final Schema schema)
+		{
+			this.schema = requireNonNull(schema);
+		}
+
+		private Table table = null;
+		private String name = null;
+		private final ArrayList<String> columns = new ArrayList<>();
+
+		void onColumn(
+				final Table table,
+				final String name,
+				final String column)
+		{
+			requireNonNull(table);
+			requireNonNull(name);
+			requireNonNull(column);
+
+			if(this.table==null)
+			{
+				this.table = table;
+				this.name = name;
+				this.columns.add(column);
+			}
+			else if(this.table==table && this.name.equals(name))
+			{
+				this.columns.add(column);
+			}
+			else
+			{
+				flush();
+				this.table = table;
+				this.name = name;
+				this.columns.add(column);
+			}
+		}
+
+		void finish()
+		{
+			if(table!=null)
+				flush();
+		}
+
+		private void flush()
+		{
+			final StringBuilder bf = new StringBuilder();
+			bf.append('(');
+			boolean first = true;
+			for(final String column: columns)
+			{
+				if(first)
+					first = false;
+				else
+					bf.append(',');
+
+				bf.append(schema.quoteName(column));
+			}
+			bf.append(')');
+			notifyExistentUnique(table, name, bf.toString());
+
+			this.table = null;
+			this.name = null;
+			this.columns.clear();
+		}
 	}
 
 	static final class SequenceTypeMapper
