@@ -202,7 +202,7 @@ public final class MysqlDialect extends Dialect
 							if(c instanceof PrimaryKeyConstraint &&
 								((PrimaryKeyConstraint)c).primaryKeyColumn.equals(columnName))
 							{
-								notifyExistentPrimaryKey(table, c.name);
+								notifyExistentPrimaryKey(table, c.getName());
 								found = true;
 								break;
 							}
