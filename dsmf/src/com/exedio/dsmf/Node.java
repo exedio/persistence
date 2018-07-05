@@ -121,26 +121,6 @@ public abstract class Node
 			listener.afterExecute(statement, rows);
 	}
 
-	final String getCatalog()
-	{
-		try
-		{
-			final Connection connection = connectionProvider.getConnection();
-			try
-			{
-				return connection.getCatalog();
-			}
-			finally
-			{
-				connectionProvider.putConnection(connection);
-			}
-		}
-		catch(final SQLException e)
-		{
-			throw new SQLRuntimeException(e, "getCatalog");
-		}
-	}
-
 	final void notifyExistsNode()
 	{
 		if(exists)

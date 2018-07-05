@@ -92,7 +92,7 @@ public final class PostgresqlDialect extends Dialect
 	{
 		verifyTablesByMetaData(schema);
 
-		final String catalog = schema.getCatalog();
+		final String catalog = getCatalog(schema);
 
 		schema.querySQL(
 				"SELECT " +

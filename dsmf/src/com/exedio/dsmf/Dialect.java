@@ -404,6 +404,27 @@ public abstract class Dialect
 		}
 	}
 
+	static final String getCatalog(final Schema schema)
+	{
+		final ConnectionProvider connectionProvider = schema.connectionProvider;
+		try
+		{
+			final Connection connection = connectionProvider.getConnection();
+			try
+			{
+				return connection.getCatalog();
+			}
+			finally
+			{
+				connectionProvider.putConnection(connection);
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new SQLRuntimeException(e, "getCatalog");
+		}
+	}
+
 	/**
 	 * @param bf used in subclasses
 	 */

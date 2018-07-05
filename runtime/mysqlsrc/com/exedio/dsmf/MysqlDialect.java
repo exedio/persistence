@@ -67,7 +67,7 @@ public final class MysqlDialect extends Dialect
 	@Override
 	void verify(final Schema schema)
 	{
-		final String catalog = schema.getCatalog();
+		final String catalog = getCatalog(schema);
 
 		schema.querySQL(
 				"SELECT TABLE_NAME " +
