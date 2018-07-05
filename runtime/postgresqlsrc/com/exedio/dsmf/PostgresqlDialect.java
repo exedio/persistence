@@ -103,7 +103,7 @@ public final class PostgresqlDialect extends Dialect
 						"character_maximum_length, " + // 5
 						"datetime_precision " + // 6
 				"FROM information_schema.columns " +
-				"WHERE table_catalog='" + catalog + "' AND table_schema='" + this.schema + "' " +
+				"WHERE table_catalog='" + catalog + "' AND table_schema='" + getSchema() + "' " +
 				"ORDER BY ordinal_position", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{

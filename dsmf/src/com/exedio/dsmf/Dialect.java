@@ -31,11 +31,16 @@ public abstract class Dialect
 {
 	public static final String NOT_NULL = " not null";
 
-	final String schema;
+	private final String schema;
 
 	Dialect(final String schema)
 	{
 		this.schema = schema;
+	}
+
+	final String getSchema()
+	{
+		return schema;
 	}
 
 	/**
