@@ -78,7 +78,7 @@ public abstract class Dialect
 			while(resultSet.next())
 			{
 				final String tableName = resultSet.getString(TABLE_NAME);
-				schema.notifyExistentTable(tableName);
+				notifyExistentTable(schema, tableName);
 			}
 		});
 	}
@@ -157,6 +157,16 @@ public abstract class Dialect
 				schema.notifyExistentSequence(name, Sequence.Type.fromMaxValueExact(maxValue));
 			}
 		});
+	}
+
+	static void notifyExistentTable(final Schema schema, final String tableName)
+	{
+		final Table result = schema.getTable(tableName);
+		if(result==null)
+			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
+			new Table(schema, tableName, false);
+		else
+			result.notifyExists();
 	}
 
 	static final Column notifyExistentColumn(

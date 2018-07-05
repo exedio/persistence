@@ -98,7 +98,7 @@ public final class OracleDialect extends Dialect
 			while(resultSet.next())
 			{
 				final String tableName = resultSet.getString(1);
-				schema.notifyExistentTable(tableName);
+				notifyExistentTable(schema, tableName);
 			}
 		});
 

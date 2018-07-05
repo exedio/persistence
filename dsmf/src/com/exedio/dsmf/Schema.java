@@ -70,16 +70,6 @@ public final class Schema extends Node
 		tableList.add(table);
 	}
 
-	void notifyExistentTable(final String tableName)
-	{
-		final Table result = tableMap.get(tableName);
-		if(result==null)
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new Table(this, tableName, false);
-		else
-			result.notifyExists();
-	}
-
 	public Table getTable(final String name)
 	{
 		return tableMap.get(name);

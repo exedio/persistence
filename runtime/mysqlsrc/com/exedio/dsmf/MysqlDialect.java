@@ -80,7 +80,7 @@ public final class MysqlDialect extends Dialect
 				final String tableName = resultSet.getString(1);
 				final Sequence sequence = schema.getSequence(tableName);
 				if(sequence==null || !sequence.required())
-					schema.notifyExistentTable(tableName);
+					notifyExistentTable(schema, tableName);
 			}
 		});
 
