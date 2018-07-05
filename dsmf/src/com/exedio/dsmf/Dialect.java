@@ -165,7 +165,7 @@ public abstract class Dialect
 		});
 	}
 
-	static void notifyExistentTable(final Schema schema, final String tableName)
+	static final void notifyExistentTable(final Schema schema, final String tableName)
 	{
 		final Table result = schema.getTable(tableName);
 		if(result==null)
