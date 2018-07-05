@@ -60,10 +60,7 @@ final class OracleSchemaDialect extends Dialect
 		{
 			case Types.DECIMAL:
 				final int decimalDigits = resultSet.getInt("DECIMAL_DIGITS");
-				if(decimalDigits>0)
-					return "NUMBER("+columnSize+','+decimalDigits+')';
-				else
-					return "NUMBER("+columnSize+')';
+				return NUMBER(columnSize, decimalDigits);
 			case Types.OTHER:
 			{
 				final String typeName = resultSet.getString("TYPE_NAME");
@@ -74,23 +71,36 @@ final class OracleSchemaDialect extends Dialect
 
 					return "NVARCHAR2("+(columnSize/2)+')';
 				}
-				else if("TIMESTAMP(3)".equals(typeName))
-					return "TIMESTAMP(3)";
+				else if(TIMESTAMP_3.equals(typeName))
+					return TIMESTAMP_3;
 				else if("NCLOB".equals(typeName))
 					return "NCLOB";
 
 				return "error: unknown TYPE_NAME for Types.OTHER: "+typeName;
 			}
-			case Types.VARCHAR:     return "VARCHAR2("+columnSize+" BYTE)";
+			case Types.VARCHAR:     return VARCHAR2(columnSize);
 			case Types.TIMESTAMP:
-			case Types.DATE:        return "DATE";
+			case Types.DATE:        return DATE;
 			case Types.LONGVARCHAR: return "LONG";
-			case Types.BLOB:        return "BLOB";
-			case Types.CLOB:        return "CLOB";
+			case Types.BLOB:        return BLOB;
+			case Types.CLOB:        return CLOB;
 			default:
 				return null;
 		}
 	}
+
+	static String NUMBER(final int size, final int decimalDigits)
+	{
+		return
+				decimalDigits>0
+				? "NUMBER("+size+','+decimalDigits+')'
+				: "NUMBER("+size+')';
+	}
+	static final String TIMESTAMP_3 = "TIMESTAMP(3)";
+	static String VARCHAR2(final int bytes) { return "VARCHAR2("+bytes+" BYTE)"; }
+	static final String DATE = "DATE";
+	static final String BLOB = "BLOB";
+	static final String CLOB = "CLOB";
 
 	@Override
 	protected void verify(final Schema schema)

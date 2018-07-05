@@ -18,6 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.OracleSchemaDialect.BLOB;
+import static com.exedio.cope.OracleSchemaDialect.CLOB;
+import static com.exedio.cope.OracleSchemaDialect.DATE;
+import static com.exedio.cope.OracleSchemaDialect.NUMBER;
+import static com.exedio.cope.OracleSchemaDialect.TIMESTAMP_3;
+import static com.exedio.cope.OracleSchemaDialect.VARCHAR2;
+
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DayPartView.Part;
 import com.exedio.cope.util.Hex;
@@ -96,13 +103,13 @@ final class OracleDialect extends Dialect
 	{
 		final long max = Math.max(Math.abs(minimum), Math.abs(maximum));
 		final int length = max == 0 ? 1 : (int)Math.log10(max)+1;
-		return "NUMBER(" + length + ')';
+		return NUMBER(length, 0);
 	}
 
 	@Override
 	String getDoubleType()
 	{
-		return "NUMBER(30,8)";
+		return NUMBER(30, 8);
 	}
 
 	@Override
@@ -127,9 +134,9 @@ final class OracleDialect extends Dialect
 	{
 		// TODO Oracle 12 varchar2 with up to 32k characters
 		if(maxChars<=VARCHAR_MAX_CHARS)
-			return "VARCHAR2(" + (maxChars*MAX_BYTES_PER_CHARACTER_UTF8) + " BYTE)";
+			return VARCHAR2(maxChars*MAX_BYTES_PER_CHARACTER_UTF8);
 		else
-			return "CLOB"; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
+			return CLOB; // TODO may be should be (varchar?"CLOB":"NCLOB") , but does not work, gets in charset trouble
 	}
 
 	@Override
@@ -141,7 +148,7 @@ final class OracleDialect extends Dialect
 	@Override
 	String getDayType()
 	{
-		return "DATE";
+		return DATE;
 	}
 
 	@Override
@@ -162,7 +169,7 @@ final class OracleDialect extends Dialect
 	@Override
 	String getDateTimestampType()
 	{
-		return "TIMESTAMP(3)";
+		return TIMESTAMP_3;
 	}
 
 	@Override
@@ -174,7 +181,7 @@ final class OracleDialect extends Dialect
 	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return "BLOB";
+		return BLOB;
 	}
 
 	@Override
