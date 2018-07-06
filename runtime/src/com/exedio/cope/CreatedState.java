@@ -26,7 +26,7 @@ final class CreatedState extends State
 
 	CreatedState(final Transaction transaction, final Item item)
 	{
-		super(item, -1); // on insert -1 becomes 0
+		super(item, Integer.MAX_VALUE); // on insert MAX_VALUE becomes 0
 		transaction.addInvalidation(item);
 		row = new Row(item.type);
 	}

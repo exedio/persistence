@@ -19,14 +19,17 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
+import static java.lang.Integer.MAX_VALUE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -280,8 +283,133 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		assertEquals(false, item.existsCopeItem());
 	}
 
+	@Test void testOverflow() throws SQLException
+	{
+		final String count = "select " + SI.update(TYPE) + " from " + SI.tab(TYPE);
+
+		assertEquals("name0", item.getName());
+		commit();
+		assertEquals(0, queryLong(count));
+
+		startTransaction();
+		assertEquals("name0", item.getName());
+		item.setName("name1");
+		assertEquals("name1", item.getName());
+		commit();
+		assertEquals(1, queryLong(count));
+
+		startTransaction();
+		assertEquals("name1", item.getName());
+		item.setName("name2");
+		assertEquals("name2", item.getName());
+		commit();
+		assertEquals(2, queryLong(count));
+
+		execute(
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=" + (MAX_VALUE-1));
+		assertEquals(MAX_VALUE-1, queryLong(count));
+		model.clearCache();
+
+		startTransaction();
+		assertEquals("name2", item.getName());
+		item.setName("name3");
+		assertEquals("name3", item.getName());
+		commit();
+		assertEquals(MAX_VALUE, queryLong(count));
+
+		startTransaction();
+		assertEquals("name3", item.getName());
+		item.setName("name4");
+		assertEquals("name4", item.getName());
+		commit();
+		assertEquals(0, queryLong(count));
+
+		startTransaction();
+		assertEquals("name4", item.getName());
+		item.setName("name5");
+		assertEquals("name5", item.getName());
+		commit();
+		assertEquals(1, queryLong(count));
+	}
+
+	/**
+	 * Needed additionally to {@link #testOverflow()} to test
+	 * counter incrementation in {@link WrittenState#WrittenState(State)}.
+	 */
+	@Test void testOverflowWrittenState() throws SQLException
+	{
+		final String count = "select " + SI.update(TYPE) + " from " + SI.tab(TYPE);
+
+		assertEquals("name0", item.getName());
+		commit();
+		assertEquals(0, queryLong(count));
+
+		startTransaction();
+		assertEquals("name0", item.getName());
+		item.setName("name1");
+		assertEquals("name1", item.getName());
+		item.setName("name2");
+		assertEquals("name2", item.getName());
+		commit();
+		assertEquals(2, queryLong(count));
+
+		startTransaction();
+		assertEquals("name2", item.getName());
+		item.setName("name3");
+		assertEquals("name3", item.getName());
+		item.setName("name4");
+		assertEquals("name4", item.getName());
+		commit();
+		assertEquals(4, queryLong(count));
+
+		execute(
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=" + (MAX_VALUE-2));
+		assertEquals(MAX_VALUE-2, queryLong(count));
+		model.clearCache();
+
+		startTransaction();
+		assertEquals("name4", item.getName());
+		item.setName("name5");
+		assertEquals("name5", item.getName());
+		item.setName("name6");
+		assertEquals("name6", item.getName());
+		commit();
+		assertEquals(MAX_VALUE, queryLong(count));
+
+		startTransaction();
+		assertEquals("name6", item.getName());
+		item.setName("name7");
+		assertEquals("name7", item.getName());
+		item.setName("name8");
+		assertEquals("name8", item.getName());
+		commit();
+		assertEquals(1, queryLong(count));
+
+		startTransaction();
+		assertEquals("name8", item.getName());
+		item.setName("name9");
+		assertEquals("name9", item.getName());
+		item.setName("name10");
+		assertEquals("name10", item.getName());
+		commit();
+		assertEquals(3, queryLong(count));
+	}
+
 	private void execute(final String sql) throws SQLException
 	{
 		assertEquals(1, connection.executeUpdate(sql));
+	}
+
+	private long queryLong(final String sql) throws SQLException
+	{
+		try(ResultSet rs = connection.executeQuery(sql))
+		{
+			assertTrue(rs.next());
+			final long result = rs.getLong(1);
+			assertFalse(rs.next());
+			return result;
+		}
 	}
 }

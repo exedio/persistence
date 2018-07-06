@@ -32,7 +32,7 @@ final class WrittenState extends State
 
 	WrittenState(final State original)
 	{
-		super(original.item, original.updateCount+1);
+		super(original.item, original.updateCountNext());
 		row = original.stealValues();
 		if(row==null) throw new RuntimeException(original.getClass().getName());
 	}

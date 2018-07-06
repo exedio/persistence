@@ -55,4 +55,9 @@ public class ProxyResultSet extends AssertionErrorResultSet
 	{
 		return origin.getInt(columnIndex);
 	}
+	@Override
+	public long getLong(final int columnIndex) throws SQLException
+	{
+		return origin.getLong(columnIndex);
+	}
 }

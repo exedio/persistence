@@ -327,7 +327,7 @@ final class Database
 					}
 				}
 
-				return new WrittenState(item, row, updateCount);
+				return new WrittenState(item, row, updateCount!=Integer.MIN_VALUE ? updateCount : 0);
 			}
 		);
 	}
@@ -376,7 +376,7 @@ final class Database
 			{
 				bf.append(updateCounter.quotedID).
 					append('=').
-					appendParameter(updateCounter, state.updateCount+1);
+					appendParameter(updateCounter, state.updateCountNext());
 				first = false;
 			}
 
@@ -454,7 +454,7 @@ final class Database
 
 			if(updateCounter!=null)
 			{
-				assert state.updateCount==-1 : state.updateCount; // comes from CreatedState
+				assert state.updateCount==Integer.MAX_VALUE : state.updateCount; // comes from CreatedState
 				bf.append(",0");
 			}
 

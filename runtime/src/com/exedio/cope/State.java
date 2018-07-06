@@ -35,6 +35,12 @@ abstract class State
 		this.updateCount = updateCount;
 
 		assert PK.isValid(pk) : pk;
+		assert updateCount>=0 : updateCount;
+	}
+
+	int updateCountNext()
+	{
+		return updateCount!=Integer.MAX_VALUE ? updateCount+1 : 0;
 	}
 
 	abstract Object get(FunctionField<?> field);
