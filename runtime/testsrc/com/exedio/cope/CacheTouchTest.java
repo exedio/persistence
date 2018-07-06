@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
-import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -50,25 +49,25 @@ public class CacheTouchTest extends TestWithEnvironment
 		assumeTrue(!oracle, "not oracle"); // TODO
 		initCache();
 
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 		model.commit();
 		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		assertSame(loader, model.leaveTransaction());
 
 		// change row
 		model.startTransaction("CacheTouchTest changer");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		item.setName("itemName2");
@@ -80,13 +79,13 @@ public class CacheTouchTest extends TestWithEnvironment
 
 		// load row
 		model.joinTransaction(loader);
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 1, 2, 1, 1, 0, 1);
 
 		final boolean st = model.getConnectProperties().itemCacheStamps;
 
 		assertEquals("itemName", item.getName());
-		assertUpdateCount(0, st?MIN_VALUE:0);
+		assertUpdateCount(0, st?NONE:0);
 		assertCache(st?0:1, 0, 2, 2, 1, 1, 1, 1);
 
 		model.commit();
@@ -94,7 +93,7 @@ public class CacheTouchTest extends TestWithEnvironment
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertUpdateCount(MIN_VALUE, st?MIN_VALUE:0);
+		assertUpdateCount(NONE, st?NONE:0);
 		assertCache(st?0:1, 0, 2, 2, 1, 0, 1, 2);
 
 		if(st)
@@ -118,7 +117,7 @@ public class CacheTouchTest extends TestWithEnvironment
 			{
 				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: UPDATE"), e.getMessage());
 			}
-			assertUpdateCount(MIN_VALUE, MIN_VALUE);
+			assertUpdateCount(NONE, NONE);
 			assertCache(0, 1, 2, 2, 1, 0, 0, 0);
 
 			assertEquals("itemName2", item.getName());
@@ -131,6 +130,8 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertEquals(expected, item.getUpdateCountIfActive(), "transaction");
 		assertEquals(global, item.getUpdateCountGlobal(), "global");
 	}
+
+	private static final int NONE = Integer.MIN_VALUE;
 
 
 	private long

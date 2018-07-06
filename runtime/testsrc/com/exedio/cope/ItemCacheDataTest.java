@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ItemCacheDataItem.TYPE;
-import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -59,17 +58,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testCommitSingleString()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zick");
 		assertUpdateCount(1, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zack");
 		assertUpdateCount(2, 1);
@@ -77,17 +76,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testCommitSingleData()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setData("aabbccdd");
-		assertUpdateCount(v ? 1 : MIN_VALUE, v ? 0 : MIN_VALUE);
+		assertUpdateCount(v ? 1 : NONE, v ? 0 : NONE);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zack");
 		assertUpdateCount(v?2:1, v?1:0);
@@ -95,17 +94,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testCommitMultiEmpty()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.set(new SetValue<?>[0]);
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -113,17 +112,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testCommitMultiString()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zick");
 		assertUpdateCount(1, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zack");
 		assertUpdateCount(2, 1);
@@ -131,17 +130,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testCommitMultiData()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setDataMulti("aabbccdd");
 		assertUpdateCount(v?1:0, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, v ? MIN_VALUE : 0);
+		assertUpdateCount(NONE, v ? NONE : 0);
 
 		item.setString("zack");
 		assertUpdateCount(v?2:1, v?1:0);
@@ -149,17 +148,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testCommitMultiBoth()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setBothMulti("zick", "aabbccdd");
 		assertUpdateCount(1, 0);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zack");
 		assertUpdateCount(2, 1);
@@ -167,17 +166,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testRollbackSingleString()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zick");
 		assertUpdateCount(1, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, 0);
+		assertUpdateCount(NONE, 0);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -185,17 +184,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testRollbackSingleData()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setData("aabbccdd");
-		assertUpdateCount(v ? 1 : MIN_VALUE, v ? 0 : MIN_VALUE);
+		assertUpdateCount(v ? 1 : NONE, v ? 0 : NONE);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, v ? 0 : MIN_VALUE);
+		assertUpdateCount(NONE, v ? 0 : NONE);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -203,17 +202,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testRollbackMultiEmpty()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.set(new SetValue<?>[0]);
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -221,17 +220,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testRollbackMultiString()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zick");
 		assertUpdateCount(1, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, 0);
+		assertUpdateCount(NONE, 0);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -239,17 +238,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testRollbackMultiData()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setDataMulti("aabbccdd");
 		assertUpdateCount(v?1:0, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, 0);
+		assertUpdateCount(NONE, 0);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -257,17 +256,17 @@ public class ItemCacheDataTest extends TestWithEnvironment
 
 	@Test void testRollbackMultiBoth()
 	{
-		assertUpdateCount(0, MIN_VALUE);
+		assertUpdateCount(0, NONE);
 
 		restartTransaction();
-		assertUpdateCount(MIN_VALUE, MIN_VALUE);
+		assertUpdateCount(NONE, NONE);
 
 		item.setBothMulti("zick", "aabbccdd");
 		assertUpdateCount(1, 0);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(MIN_VALUE, 0);
+		assertUpdateCount(NONE, 0);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
@@ -281,6 +280,8 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		if(props.getItemCacheLimit()>0)
 			assertEquals(global, item.getUpdateCountGlobal(), "global");
 		else
-			assertEquals(MIN_VALUE, item.getUpdateCountGlobal(), "global");
+			assertEquals(NONE, item.getUpdateCountGlobal(), "global");
 	}
+
+	private static final int NONE = Integer.MIN_VALUE;
 }
