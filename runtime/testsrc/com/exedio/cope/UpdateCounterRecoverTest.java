@@ -19,8 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
-import static com.exedio.cope.SchemaInfo.getTableName;
-import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -62,8 +60,8 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		commit();
 
 		execute(
-				"update " + q(getTableName(TYPE)) +
-				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=99");
 
 		startTransaction();
 		assertEquals("name0", item.getName());
@@ -101,8 +99,8 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		commit();
 
 		execute(
-				"update " + q(getTableName(TYPE)) +
-				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=99");
 
 		startTransaction();
 		assertEquals(true, item.existsCopeItem());
@@ -135,8 +133,8 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		commit();
 
 		execute(
-				"update " + q(getTableName(TYPE)) +
-				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=99");
 
 		startTransaction();
 		assertEquals("name0", item.getName());
@@ -177,8 +175,8 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		commit();
 
 		execute(
-				"update " + q(getTableName(TYPE)) +
-				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=99");
 
 		startTransaction();
 		assertEquals(true, item.existsCopeItem());
@@ -214,8 +212,8 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 		commit();
 
 		execute(
-				"update " + q(getTableName(TYPE)) +
-				" set " + q(getUpdateCounterColumnName(TYPE)) + "=99");
+				"update " + SI.tab(TYPE) +
+				" set " + SI.update(TYPE) + "=99");
 
 		startTransaction();
 		assertEquals("name0", item.getName());
@@ -285,10 +283,5 @@ public final class UpdateCounterRecoverTest extends TestWithEnvironment
 	private void execute(final String sql) throws SQLException
 	{
 		assertEquals(1, connection.executeUpdate(sql));
-	}
-
-	private String q(final String s)
-	{
-		return SchemaInfo.quoteName(model, s);
 	}
 }
