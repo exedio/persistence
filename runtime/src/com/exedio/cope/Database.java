@@ -454,8 +454,8 @@ final class Database
 
 			if(updateCounter!=null)
 			{
-				bf.append(',').
-					appendParameter(state.updateCount+1); // is initialized to -1
+				assert state.updateCount==-1 : state.updateCount; // comes from CreatedState
+				bf.append(",0");
 			}
 
 			for(final Column column : columns)
