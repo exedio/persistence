@@ -299,15 +299,6 @@ final class MysqlSchemaDialect extends Dialect
 			append(constraintName);
 	}
 
-	/**
-	 * @deprecated not used anymore.
-	 * BEWARE:
-	 * The actual name of the column may be different.
-	 * Internally use {@link #sequenceColumnName} instead.
-	 */
-	@Deprecated
-	static final String SEQUENCE_COLUMN = "x";
-
 	@Override
 	protected void createSequence(
 			final StringBuilder bf, final String sequenceName,

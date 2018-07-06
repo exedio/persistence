@@ -215,12 +215,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	// duplicate from MysqlDialect
 	private String sequenceColumnName()
 	{
-		@SuppressWarnings("deprecation")
-		final String oldSequenceColumnName = MysqlSchemaDialect.SEQUENCE_COLUMN;
-		return
-				propertiesFullSequenceColumnName()
-				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
-				: oldSequenceColumnName;
+		return MysqlDialect.sequenceColumnName(propertiesFullSequenceColumnName());
 	}
 
 	@Test void testStop()

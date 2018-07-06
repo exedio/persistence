@@ -112,12 +112,15 @@ final class MysqlDialect extends Dialect
 
 	private static String sequenceColumnName(final MysqlProperties properties)
 	{
-		@SuppressWarnings("deprecation")
-		final String oldSequenceColumnName = MysqlSchemaDialect.SEQUENCE_COLUMN;
+		return sequenceColumnName(properties.fullSequenceColumnName);
+	}
+
+	static String sequenceColumnName(final boolean full)
+	{
 		return
-				properties.fullSequenceColumnName
+				full
 				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
-				: oldSequenceColumnName;
+				: "x";
 	}
 
 	@Override
