@@ -277,10 +277,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		assertEquals(expected, item.getUpdateCountIfActive(), "transaction");
-		if(props.getItemCacheLimit()>0)
-			assertEquals(global, item.getUpdateCountGlobal(), "global");
-		else
-			assertEquals(NONE, item.getUpdateCountGlobal(), "global");
+		assertEquals(props.getItemCacheLimit()>0 ? global : NONE, item.getUpdateCountGlobal(), "global");
 	}
 
 	private static final int NONE = Integer.MIN_VALUE;
