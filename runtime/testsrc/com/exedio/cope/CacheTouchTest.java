@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -127,8 +128,10 @@ public class CacheTouchTest extends TestWithEnvironment
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
 	private void assertUpdateCount(final int expected, final int global)
 	{
-		assertEquals(expected, item.getUpdateCountIfActive(), "transaction");
-		assertEquals(global, item.getUpdateCountGlobal(), "global");
+		assertAll(
+				() -> assertEquals(expected, item.getUpdateCountIfActive(), "transaction"),
+				() -> assertEquals(global,   item.getUpdateCountGlobal(),   "global")
+		);
 	}
 
 	private static final int NONE = Integer.MIN_VALUE;

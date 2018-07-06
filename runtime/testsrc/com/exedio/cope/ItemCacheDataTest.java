@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.ItemCacheDataItem.TYPE;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -276,8 +277,10 @@ public class ItemCacheDataTest extends TestWithEnvironment
 	private void assertUpdateCount(final int expected, final int global)
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		assertEquals(expected, item.getUpdateCountIfActive(), "transaction");
-		assertEquals(props.getItemCacheLimit()>0 ? global : NONE, item.getUpdateCountGlobal(), "global");
+		assertAll(
+				() -> assertEquals(expected, item.getUpdateCountIfActive(), "transaction"),
+				() -> assertEquals(props.getItemCacheLimit()>0 ? global : NONE, item.getUpdateCountGlobal(), "global")
+		);
 	}
 
 	private static final int NONE = Integer.MIN_VALUE;
