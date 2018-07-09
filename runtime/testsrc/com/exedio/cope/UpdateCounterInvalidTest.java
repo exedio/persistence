@@ -65,8 +65,9 @@ public final class UpdateCounterInvalidTest extends TestWithEnvironment
 		startTransaction();
 		assertFails(
 				item::existsCopeItem,
-				RuntimeException.class,
-				"invalid update counter for row 0 in table MyItem: -1");
+				IllegalStateException.class,
+				"update counter must be positive: " +
+				SI.tab(TYPE) + "." + SI.update(TYPE) + "=-1 where " + SI.pk(TYPE) + "=0");
 	}
 
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac

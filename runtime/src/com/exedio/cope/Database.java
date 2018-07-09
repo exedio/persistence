@@ -304,7 +304,10 @@ final class Database
 						if(updateCount==Integer.MIN_VALUE)
 						{
 							if(value<0)
-								throw new RuntimeException("invalid update counter for row " + item.pk + " in table " + table.id + ": " + value);
+								throw new IllegalStateException(
+										"update counter must be positive: " +
+										table.quotedID + '.' + updateCounter.quotedID + '=' + value +
+										" where " + table.primaryKey.quotedID + '=' + item.pk);
 							updateCount = value;
 						}
 						else
