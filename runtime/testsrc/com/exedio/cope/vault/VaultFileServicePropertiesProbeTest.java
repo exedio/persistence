@@ -22,6 +22,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.nio.file.Files.createDirectory;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -94,7 +95,7 @@ public class VaultFileServicePropertiesProbeTest
 				NoSuchFileException.class,
 				p.root.toAbsolutePath().toString());
 
-		Files.createDirectory(p.root);
+		createDirectory(p.root);
 		final FileStore store = Files.getFileStore(root.toPath());
 		final String free =
 				(store.getUsableSpace()*100/store.getTotalSpace()) + "% of " +
@@ -111,7 +112,7 @@ public class VaultFileServicePropertiesProbeTest
 				NoSuchFileException.class,
 				p.tempDir().toAbsolutePath().toString());
 
-		Files.createDirectory(p.tempDir());
+		createDirectory(p.tempDir());
 
 		assertEquals(p.root, rootExists.call());
 		assertEquals(free, rootFree.call());
@@ -171,7 +172,7 @@ public class VaultFileServicePropertiesProbeTest
 				"does not exist: " + p.root.toAbsolutePath());
 
 		assumeSupportsReadOnlyDirectories(p.root);
-		Files.createDirectory(p.root, asFileAttribute(EnumSet.of(OWNER_READ)));
+		createDirectory(p.root, asFileAttribute(EnumSet.of(OWNER_READ)));
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
@@ -200,7 +201,7 @@ public class VaultFileServicePropertiesProbeTest
 				IllegalArgumentException.class,
 				"does not exist: " + p.tempDir().toAbsolutePath());
 
-		Files.createDirectory(p.root);
+		createDirectory(p.root);
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
@@ -235,14 +236,14 @@ public class VaultFileServicePropertiesProbeTest
 				IllegalArgumentException.class,
 				"does not exist: " + p.tempDir().toAbsolutePath());
 
-		Files.createDirectory(p.root);
+		createDirectory(p.root);
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
 				"does not exist: " + p.tempDir().toAbsolutePath());
 
 		assumeSupportsReadOnlyDirectories(p.root);
-		Files.createDirectory(p.tempDir(), asFileAttribute(EnumSet.of(OWNER_READ)));
+		createDirectory(p.tempDir(), asFileAttribute(EnumSet.of(OWNER_READ)));
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
