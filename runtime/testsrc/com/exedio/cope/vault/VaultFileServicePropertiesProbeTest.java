@@ -129,14 +129,11 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		final Callable<?> rootExists = probes.next();
-		assertEquals("root.Free",   probes.next().toString());
-		assertEquals("temp.Exists", probes.next().toString());
-		assertEquals("temp.Store",  probes.next().toString());
-		assertFalse(probes.hasNext());
+		final Callable<?> rootExists = p.getProbes().stream().
+				filter(c -> "root.Exists".equals(c.toString())).
+				findFirst().
+				get();
 
-		assertEquals("root.Exists", rootExists.toString());
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
@@ -158,14 +155,11 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		final Callable<?> rootExists = probes.next();
-		assertEquals("root.Free",   probes.next().toString());
-		assertEquals("temp.Exists", probes.next().toString());
-		assertEquals("temp.Store",  probes.next().toString());
-		assertFalse(probes.hasNext());
+		final Callable<?> rootExists = p.getProbes().stream().
+				filter(c -> "root.Exists".equals(c.toString())).
+				findFirst().
+				get();
 
-		assertEquals("root.Exists", rootExists.toString());
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
@@ -188,14 +182,11 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertEquals("root.Exists", probes.next().toString());
-		assertEquals("root.Free",   probes.next().toString());
-		final Callable<?> tempExists = probes.next();
-		assertEquals("temp.Store",  probes.next().toString());
-		assertFalse(probes.hasNext());
+		final Callable<?> tempExists = p.getProbes().stream().
+				filter(c -> "temp.Exists".equals(c.toString())).
+				findFirst().
+				get();
 
-		assertEquals("temp.Exists", tempExists.toString());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
@@ -223,14 +214,11 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertEquals("root.Exists", probes.next().toString());
-		assertEquals("root.Free",   probes.next().toString());
-		final Callable<?> tempExists = probes.next();
-		assertEquals("temp.Store",  probes.next().toString());
-		assertFalse(probes.hasNext());
+		final Callable<?> tempExists = p.getProbes().stream().
+				filter(c -> "temp.Exists".equals(c.toString())).
+				findFirst().
+				get();
 
-		assertEquals("temp.Exists", tempExists.toString());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
