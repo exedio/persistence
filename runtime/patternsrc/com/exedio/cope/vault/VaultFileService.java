@@ -152,8 +152,7 @@ public final class VaultFileService implements VaultService
 		if(directoryLength>0)
 			mkdirIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
 
-		renameToIfDestFileDoesNotExist(temp, file);
-		return true;
+		return renameToIfDestFileDoesNotExist(temp, file);
 	}
 
 	private static void mkdirIfNotExists(final Path file) throws IOException
@@ -168,7 +167,7 @@ public final class VaultFileService implements VaultService
 		}
 	}
 
-	private static void renameToIfDestFileDoesNotExist(final Path file, final Path dest) throws IOException
+	private static boolean renameToIfDestFileDoesNotExist(final Path file, final Path dest) throws IOException
 	{
 		try
 		{
@@ -177,7 +176,9 @@ public final class VaultFileService implements VaultService
 		catch(final FileAlreadyExistsException e)
 		{
 			logger.error("concurrent upload (should happen rarely)", e); // may be just warn
+			return false;
 		}
+		return true;
 	}
 
 	@FunctionalInterface
