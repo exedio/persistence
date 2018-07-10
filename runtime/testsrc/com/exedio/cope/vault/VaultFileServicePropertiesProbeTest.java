@@ -61,7 +61,7 @@ public class VaultFileServicePropertiesProbeTest
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
-						single("root", root.getPath())
+						single("root", root)
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
@@ -124,7 +124,7 @@ public class VaultFileServicePropertiesProbeTest
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
-						single("root", root.getPath())
+						single("root", root)
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
@@ -153,7 +153,7 @@ public class VaultFileServicePropertiesProbeTest
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
-						single("root", root.getPath())
+						single("root", root)
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
@@ -183,7 +183,7 @@ public class VaultFileServicePropertiesProbeTest
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
-						single("root", root.getPath())
+						single("root", root)
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
@@ -218,7 +218,7 @@ public class VaultFileServicePropertiesProbeTest
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
-						single("root", root.getPath())
+						single("root", root)
 				));
 
 		final VaultFileService.Props p = new VaultFileService.Props(source);
