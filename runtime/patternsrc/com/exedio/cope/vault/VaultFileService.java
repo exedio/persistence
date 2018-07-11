@@ -150,12 +150,12 @@ public final class VaultFileService implements VaultService
 		value.accept(temp);
 
 		if(directoryLength>0)
-			mkdirIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
+			createDirectoryIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
 
-		return renameToIfDestFileDoesNotExist(temp, file);
+		return moveIfDestDoesNotExist(temp, file);
 	}
 
-	private static void mkdirIfNotExists(final Path file) throws IOException
+	private static void createDirectoryIfNotExists(final Path file) throws IOException
 	{
 		try
 		{
@@ -167,7 +167,7 @@ public final class VaultFileService implements VaultService
 		}
 	}
 
-	private static boolean renameToIfDestFileDoesNotExist(final Path file, final Path dest) throws IOException
+	private static boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
 	{
 		try
 		{
