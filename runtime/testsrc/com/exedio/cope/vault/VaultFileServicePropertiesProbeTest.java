@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.vault.VaultFileService.Props;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileStore;
@@ -65,7 +66,7 @@ public class VaultFileServicePropertiesProbeTest
 						single("root", root)
 				));
 
-		final VaultFileService.Props p = new VaultFileService.Props(source);
+		final Props p = new Props(source);
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		final Callable<?> rootExists = probes.next();
 		final Callable<?> rootFree   = probes.next();
@@ -128,7 +129,7 @@ public class VaultFileServicePropertiesProbeTest
 						single("root", root)
 				));
 
-		final VaultFileService.Props p = new VaultFileService.Props(source);
+		final Props p = new Props(source);
 		final Callable<?> rootExists = p.getProbes().stream().
 				filter(c -> "root.Exists".equals(c.toString())).
 				findFirst().
@@ -154,7 +155,7 @@ public class VaultFileServicePropertiesProbeTest
 						single("root", root)
 				));
 
-		final VaultFileService.Props p = new VaultFileService.Props(source);
+		final Props p = new Props(source);
 		final Callable<?> rootExists = p.getProbes().stream().
 				filter(c -> "root.Exists".equals(c.toString())).
 				findFirst().
@@ -181,7 +182,7 @@ public class VaultFileServicePropertiesProbeTest
 						single("root", root)
 				));
 
-		final VaultFileService.Props p = new VaultFileService.Props(source);
+		final Props p = new Props(source);
 		final Callable<?> tempExists = p.getProbes().stream().
 				filter(c -> "temp.Exists".equals(c.toString())).
 				findFirst().
@@ -213,7 +214,7 @@ public class VaultFileServicePropertiesProbeTest
 						single("root", root)
 				));
 
-		final VaultFileService.Props p = new VaultFileService.Props(source);
+		final Props p = new Props(source);
 		final Callable<?> tempExists = p.getProbes().stream().
 				filter(c -> "temp.Exists".equals(c.toString())).
 				findFirst().
