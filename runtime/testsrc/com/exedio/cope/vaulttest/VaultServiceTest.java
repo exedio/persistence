@@ -66,6 +66,7 @@ public abstract class VaultServiceTest
 	/**
 	 * Default implementation returns empty properties.
 	 */
+	@SuppressWarnings("RedundantThrows") // needed by copies of this file in other projects
 	protected Properties getServiceProperties() throws Exception
 	{
 		return new Properties();
@@ -279,7 +280,7 @@ public abstract class VaultServiceTest
 	}
 
 
-	private static String hash(final String value)
+	protected static String hash(final String value) // protected visibility needed by copies of this file in other projects
 	{
 		assertNotNull(value);
 
