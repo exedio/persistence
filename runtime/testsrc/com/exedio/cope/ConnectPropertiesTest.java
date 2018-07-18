@@ -301,6 +301,7 @@ public class ConnectPropertiesTest
 						single("dataField.vault.service", VaultMockService.class),
 						TestSources.minimal()
 				));
+		assertEquals("SHA-512", p.getVaultProperties().getAlgorithm());
 		assertEquals("SHA-512", p.getVaultAlgorithm());
 	}
 
@@ -313,6 +314,7 @@ public class ConnectPropertiesTest
 						single("dataField.vault.algorithm", "MD5"),
 						TestSources.minimal()
 				));
+		assertEquals("MD5", p.getVaultProperties().getAlgorithm());
 		assertEquals("MD5", p.getVaultAlgorithm());
 	}
 
@@ -323,6 +325,7 @@ public class ConnectPropertiesTest
 						single("dataField.vault", false),
 						TestSources.minimal()
 				));
+		assertEquals(null, p.getVaultProperties());
 		assertEquals(null, p.getVaultAlgorithm());
 	}
 

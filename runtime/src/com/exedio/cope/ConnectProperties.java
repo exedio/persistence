@@ -178,6 +178,11 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
 	final VaultProperties dataFieldVault = value("dataField.vault", false, VaultProperties.factory());
 
+	public VaultProperties getVaultProperties()
+	{
+		return dataFieldVault;
+	}
+
 	public String getVaultAlgorithm()
 	{
 		return dataFieldVault!=null ? dataFieldVault.getAlgorithm() : null;
