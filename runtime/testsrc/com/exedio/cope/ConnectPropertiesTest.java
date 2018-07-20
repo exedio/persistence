@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ConnectProperties.factory;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.erase;
 import static com.exedio.cope.tojunit.TestSources.single;
@@ -303,6 +304,7 @@ public class ConnectPropertiesTest
 				));
 		assertEquals("SHA-512", p.getVaultProperties().getAlgorithm());
 		assertEquals("SHA-512", p.getVaultAlgorithm());
+		assertSame(p.getVaultProperties(), p.getVaultPropertiesStrict());
 	}
 
 	@Test void testVaultAlgorithmSet()
@@ -316,17 +318,22 @@ public class ConnectPropertiesTest
 				));
 		assertEquals("MD5", p.getVaultProperties().getAlgorithm());
 		assertEquals("MD5", p.getVaultAlgorithm());
+		assertSame(p.getVaultProperties(), p.getVaultPropertiesStrict());
 	}
 
 	@Test void testVaultAlgorithmDisabled()
 	{
 		final ConnectProperties p = ConnectProperties.create(
-				cascade(
+				describe("DESC", cascade(
 						single("dataField.vault", false),
 						TestSources.minimal()
-				));
+				)));
 		assertEquals(null, p.getVaultProperties());
 		assertEquals(null, p.getVaultAlgorithm());
+		assertFails(
+				p::getVaultPropertiesStrict,
+				IllegalArgumentException.class,
+				"vaults are disabled (dataField.vault=false) in DESC");
 	}
 
 	@Test void testMediaRootUrlStandard()

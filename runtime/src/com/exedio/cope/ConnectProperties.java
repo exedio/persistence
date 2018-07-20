@@ -29,6 +29,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.Callable;
+import javax.annotation.Nonnull;
 
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends com.exedio.cope.util.Properties
@@ -180,6 +181,15 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	public VaultProperties getVaultProperties()
 	{
+		return dataFieldVault;
+	}
+
+	@Nonnull
+	public VaultProperties getVaultPropertiesStrict()
+	{
+		if(dataFieldVault==null)
+			throw new IllegalArgumentException(
+					"vaults are disabled (dataField.vault=false) in " + getSource());
 		return dataFieldVault;
 	}
 
