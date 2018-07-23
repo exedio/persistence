@@ -305,21 +305,21 @@ public class VaultFileServicePropertiesProbeTest
 				findFirst().
 				get();
 
-		assertFails(dirs::call, IllegalStateException.class, root + "/0");
-		assertFails(dirs::call, IllegalStateException.class, root + "/0");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0");
 
 		createDirectory(root.toPath());
-		assertFails(dirs::call, IllegalStateException.class, root + "/0");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0");
 
 		createDirectory(root.toPath().resolve("0"));
-		assertFails(dirs::call, IllegalStateException.class, root + "/1");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "1");
 
 		createDirectory(root.toPath().resolve("1"));
-		assertFails(dirs::call, IllegalStateException.class, root + "/2");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "2");
 
 		for(final String s : asList("2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			createDirectory(root.toPath().resolve(s));
-		assertFails(dirs::call, IllegalStateException.class, root + "/f");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "f");
 
 		createDirectory(root.toPath().resolve("f"));
 		assertEquals("directories 16", dirs.call());
@@ -344,29 +344,29 @@ public class VaultFileServicePropertiesProbeTest
 				get();
 
 		createDirectory(root.toPath());
-		assertFails(dirs::call, IllegalStateException.class, root + "/00");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "00");
 
 		createDirectory(root.toPath().resolve("00"));
-		assertFails(dirs::call, IllegalStateException.class, root + "/01");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "01");
 
 		createDirectory(root.toPath().resolve("01"));
-		assertFails(dirs::call, IllegalStateException.class, root + "/02");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "02");
 
 		for(final String s : asList("2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			createDirectory(root.toPath().resolve("0"+s));
-		assertFails(dirs::call, IllegalStateException.class, root + "/0f");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0f");
 
 		createDirectory(root.toPath().resolve("0f"));
-		assertFails(dirs::call, IllegalStateException.class, root + "/10");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "10");
 
 		for(final String s1 : asList("1","2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			for(final String s2 : asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"))
 				createDirectory(root.toPath().resolve(s1+s2));
-		assertFails(dirs::call, IllegalStateException.class, root + "/f0");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "f0");
 
 		for(final String s : asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			createDirectory(root.toPath().resolve("f"+s));
-		assertFails(dirs::call, IllegalStateException.class, root + "/ff");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "ff");
 
 		createDirectory(root.toPath().resolve("ff"));
 		assertEquals("directories 256", dirs.call());
@@ -390,7 +390,7 @@ public class VaultFileServicePropertiesProbeTest
 				get();
 
 		createDirectory(root.toPath());
-		assertFails(dirs::call, IllegalStateException.class, root + "/000");
+		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "000");
 
 		final List<String> hexDigits = asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
 		for(final String s1 : hexDigits)
