@@ -103,13 +103,16 @@ final class QueryCache
 
 	void invalidate(final TLongHashSet[] invalidations)
 	{
+		if(map==null)
+			return;
+
 		final TIntArrayList invalidatedTypesTransientlyList = new TIntArrayList();
 
 		for(int typeTransiently=0; typeTransiently<invalidations.length; typeTransiently++)
 			if(invalidations[typeTransiently]!=null)
 				invalidatedTypesTransientlyList.add(typeTransiently);
 
-		if(map!=null && !invalidatedTypesTransientlyList.isEmpty())
+		if(!invalidatedTypesTransientlyList.isEmpty())
 		{
 			final int[] invalidatedTypesTransiently = invalidatedTypesTransientlyList.toNativeArray();
 			long invalidationsCounter = 0;
