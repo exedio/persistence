@@ -48,16 +48,17 @@ final class ClusterProperties extends Properties
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
 	private final InetAddress sendInterface   = valAd("sendInterface");
-	final   InetAddress   sendAddress         = valAd("sendAddress",         MULTICAST_ADDRESS);
+	final   InetAddress   sendAddress         = valAd("sendAddress",         multicast?MULTICAST_ADDRESS:null);
 	        final int     sendDestinationPort = value("sendDestinationPort", MULTICAST_PORT, 1);
 	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
-	final   InetAddress   listenAddress       = valAd("listenAddress",       MULTICAST_ADDRESS);
+	final   InetAddress   listenAddress       = multicast ? valAd("listenAddress", MULTICAST_ADDRESS) : null;
 	private final int     listenPort          = value("listenPort",          MULTICAST_PORT, 1);
-	private final InetAddress listenInterface = valAd("listenInterface");
-	private final boolean listenDisableLoopbk = value("listenDisableLoopback", false);
+	private final InetAddress listenInterface = multicast ? valAd("listenInterface") : null;
+	@SuppressWarnings("SimplifiableConditionalExpression")
+	private final boolean listenDisableLoopbk = multicast ? value("listenDisableLoopback", false) : false;
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
 	final ThreadSwarmProperties listenThreads = valnp("listen.threads"     , ThreadSwarmProperties::new);

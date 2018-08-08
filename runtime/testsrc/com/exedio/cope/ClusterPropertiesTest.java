@@ -93,11 +93,17 @@ public class ClusterPropertiesTest
 
 	@Test void testSinglecast()
 	{
+		// https://tools.ietf.org/html/rfc5737
+		// The blocks 192.0.2.0/24 (TEST-NET-1), 198.51.100.0/24 (TEST-NET-2),
+		// and 203.0.113.0/24 (TEST-NET-3) are provided for use in
+		// documentation.
+		final String ADDRESS = "192.0.2.88";
+
 		final ClusterProperties p = ClusterProperties.factory().create(describe("DESC", cascade(
 				single("secret", 1234),
-				single("multicast", false)
+				single("multicast", false),
+				single("sendAddress", ADDRESS)
 		)));
-		final String ADDRESS = "230.0.0.1";
 		final int PORT = 14446;
 		final Iterator<Field> fields = p.getFields().iterator();
 		assertIt("secret", 0, 1234, fields);
@@ -107,16 +113,13 @@ public class ClusterPropertiesTest
 		assertIt("sendSourcePortAuto", true, fields);
 		assertIt("sendSourcePort", 14445, fields);
 		assertIt("sendInterface", "DEFAULT", fields);
-		assertIt("sendAddress", ADDRESS, fields);
+		assertIt("sendAddress", null, ADDRESS, fields);
 		assertIt("sendDestinationPort", PORT, fields);
 		assertIt("sendBufferDefault", true, fields);
 		assertIt("sendBuffer", 50000, fields);
 		assertIt("sendTrafficDefault", true, fields);
 		assertIt("sendTraffic", 0, fields);
-		assertIt("listenAddress", ADDRESS, fields);
 		assertIt("listenPort", PORT, fields);
-		assertIt("listenInterface", "DEFAULT", fields);
-		assertIt("listenDisableLoopback", false, fields);
 		assertIt("listenBufferDefault", true, fields);
 		assertIt("listenBuffer", 50000, fields);
 		assertIt("listen.threads.initial", 1, fields);
