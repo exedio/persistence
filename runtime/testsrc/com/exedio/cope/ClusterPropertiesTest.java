@@ -22,12 +22,16 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
+import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
+import java.util.Iterator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -49,6 +53,100 @@ public class ClusterPropertiesTest
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(5, p.listenThreads.initial);
 		assertEquals(5, p.listenThreads.max);
+	}
+
+	@Test void testMulticast()
+	{
+		final ClusterProperties p = ClusterProperties.factory().create(describe("DESC", cascade(
+				single("secret", 1234)
+		)));
+		final String ADDRESS = "230.0.0.1";
+		final int PORT = 14446;
+		final Iterator<Field> fields = p.getFields().iterator();
+		assertIt("secret", 0, 1234, fields);
+		assertIt("nodeAuto", true, fields);
+		assertIt("node", 0, fields);
+		assertIt("sendSourcePortAuto", true, fields);
+		assertIt("sendSourcePort", 14445, fields);
+		assertIt("sendInterface", "DEFAULT", fields);
+		assertIt("sendAddress", ADDRESS, fields);
+		assertIt("sendDestinationPort", PORT, fields);
+		assertIt("sendBufferDefault", true, fields);
+		assertIt("sendBuffer", 50000, fields);
+		assertIt("sendTrafficDefault", true, fields);
+		assertIt("sendTraffic", 0, fields);
+		assertIt("listenAddress", ADDRESS, fields);
+		assertIt("listenPort", PORT, fields);
+		assertIt("listenInterface", "DEFAULT", fields);
+		assertIt("listenDisableLoopback", false, fields);
+		assertIt("listenBufferDefault", true, fields);
+		assertIt("listenBuffer", 50000, fields);
+		assertIt("listen.threads.initial", 1, fields);
+		assertIt("listen.threads.max", 10, fields);
+		assertIt("listen.threads.priority.set", false, fields);
+		assertIt("listen.threads.priority.value", Thread.MAX_PRIORITY, fields);
+		assertIt("listenSequenceCheckerCapacity", 200, fields);
+		assertIt("multicast", true, fields);
+		assertIt("packetSize", 1400, fields);
+		assertFalse(fields.hasNext());
+	}
+
+	@Test void testSinglecast()
+	{
+		final ClusterProperties p = ClusterProperties.factory().create(describe("DESC", cascade(
+				single("secret", 1234),
+				single("multicast", false)
+		)));
+		final String ADDRESS = "230.0.0.1";
+		final int PORT = 14446;
+		final Iterator<Field> fields = p.getFields().iterator();
+		assertIt("secret", 0, 1234, fields);
+		assertIt("nodeAuto", true, fields);
+		assertIt("node", 0, fields);
+		assertIt("sendSourcePortAuto", true, fields);
+		assertIt("sendSourcePort", 14445, fields);
+		assertIt("sendInterface", "DEFAULT", fields);
+		assertIt("sendAddress", ADDRESS, fields);
+		assertIt("sendDestinationPort", PORT, fields);
+		assertIt("sendBufferDefault", true, fields);
+		assertIt("sendBuffer", 50000, fields);
+		assertIt("sendTrafficDefault", true, fields);
+		assertIt("sendTraffic", 0, fields);
+		assertIt("listenAddress", ADDRESS, fields);
+		assertIt("listenPort", PORT, fields);
+		assertIt("listenInterface", "DEFAULT", fields);
+		assertIt("listenDisableLoopback", false, fields);
+		assertIt("listenBufferDefault", true, fields);
+		assertIt("listenBuffer", 50000, fields);
+		assertIt("listen.threads.initial", 1, fields);
+		assertIt("listen.threads.max", 10, fields);
+		assertIt("listen.threads.priority.set", false, fields);
+		assertIt("listen.threads.priority.value", Thread.MAX_PRIORITY, fields);
+		assertIt("listenSequenceCheckerCapacity", 200, fields);
+		assertIt("multicast", true, false, fields);
+		assertIt("packetSize", 1400, fields);
+		assertFalse(fields.hasNext());
+	}
+
+	private static void assertIt(
+			final String expectedKey,
+			final Object expectedValue,
+			final Iterator<Field> actualIterator)
+	{
+		assertIt(expectedKey, expectedValue, expectedValue, actualIterator);
+	}
+
+	private static void assertIt(
+			final String expectedKey,
+			final Object expectedDefault,
+			final Object expectedValue,
+			final Iterator<Field> actualIterator)
+	{
+		final Field actual = actualIterator.next();
+		assertAll(
+				() -> assertEquals(expectedKey,     actual.getKey(), "key"),
+				() -> assertEquals(expectedDefault, actual.getDefaultValue(), expectedKey + " default"),
+				() -> assertEquals(expectedValue,   actual.getValue(),        expectedKey + " value"));
 	}
 
 	@Test void testFailListenThreads()
