@@ -66,6 +66,7 @@ public class ClusterPropertiesTest
 		assertIt("secret", 0, 1234, fields);
 		assertIt("nodeAuto", true, fields);
 		assertIt("node", 0, fields);
+		assertIt("multicast", true, fields);
 		assertIt("sendSourcePortAuto", true, fields);
 		assertIt("sendSourcePort", 14445, fields);
 		assertIt("sendInterface", "DEFAULT", fields);
@@ -86,7 +87,6 @@ public class ClusterPropertiesTest
 		assertIt("listen.threads.priority.set", false, fields);
 		assertIt("listen.threads.priority.value", Thread.MAX_PRIORITY, fields);
 		assertIt("listenSequenceCheckerCapacity", 200, fields);
-		assertIt("multicast", true, fields);
 		assertIt("packetSize", 1400, fields);
 		assertFalse(fields.hasNext());
 	}
@@ -103,6 +103,7 @@ public class ClusterPropertiesTest
 		assertIt("secret", 0, 1234, fields);
 		assertIt("nodeAuto", true, fields);
 		assertIt("node", 0, fields);
+		assertIt("multicast", true, false, fields);
 		assertIt("sendSourcePortAuto", true, fields);
 		assertIt("sendSourcePort", 14445, fields);
 		assertIt("sendInterface", "DEFAULT", fields);
@@ -123,7 +124,6 @@ public class ClusterPropertiesTest
 		assertIt("listen.threads.priority.set", false, fields);
 		assertIt("listen.threads.priority.value", Thread.MAX_PRIORITY, fields);
 		assertIt("listenSequenceCheckerCapacity", 200, fields);
-		assertIt("multicast", true, false, fields);
 		assertIt("packetSize", 1400, fields);
 		assertFalse(fields.hasNext());
 	}

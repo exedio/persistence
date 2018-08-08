@@ -44,6 +44,7 @@ final class ClusterProperties extends Properties
 	        final int     secret              = value("secret", 0, MIN_VALUE);
 	private final boolean nodeAuto            = value("nodeAuto" , true);
 	private final int     nodeField           = value("node"     , 0, MIN_VALUE);
+	private final boolean multicast           = value("multicast",           true);
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
 	private final InetAddress sendInterface   = valAd("sendInterface");
@@ -61,7 +62,6 @@ final class ClusterProperties extends Properties
 	private final int     listenBuffer        = value("listenBuffer"       , 50000, 1);
 	final ThreadSwarmProperties listenThreads = valnp("listen.threads"     , ThreadSwarmProperties::new);
 	        final int     listenSeqCheckCap   = value("listenSequenceCheckerCapacity", 200, 1);
-	private final boolean multicast           = value("multicast",           true);
 	private final int     packetSizeField     = value("packetSize",          1400, 32);
 
 	final int node;
