@@ -39,7 +39,7 @@ final class ClusterProperties extends Properties
 	private static final Logger logger = LoggerFactory.getLogger(ClusterProperties.class);
 
 	private static final String MULTICAST_ADDRESS = "230.0.0.1";
-	private static final int    MULTICAST_PORT = 14446;
+	private static final int PORT = 14446;
 
 	        final int     secret              = value("secret", 0, MIN_VALUE);
 	private final boolean nodeAuto            = value("nodeAuto" , true);
@@ -49,13 +49,13 @@ final class ClusterProperties extends Properties
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
 	private final InetAddress sendInterface   = valAd("sendInterface");
 	final   InetAddress   sendAddress         = valAd("sendAddress",         multicast?MULTICAST_ADDRESS:null);
-	        final int     sendDestinationPort = value("sendDestinationPort", MULTICAST_PORT, 1);
+	        final int     sendDestinationPort = value("sendDestinationPort", PORT, 1);
 	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
 	final   InetAddress   listenAddress       = multicast ? valAd("listenAddress", MULTICAST_ADDRESS) : null;
-	private final int     listenPort          = value("listenPort",          MULTICAST_PORT, 1);
+	private final int     listenPort          = value("listenPort",          PORT, 1);
 	private final InetAddress listenInterface = multicast ? valAd("listenInterface") : null;
 	@SuppressWarnings("SimplifiableConditionalExpression")
 	private final boolean listenDisableLoopbk = multicast ? value("listenDisableLoopback", false) : false;
