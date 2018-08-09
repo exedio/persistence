@@ -84,7 +84,7 @@ final class ClusterProperties extends Properties
 		{
 			node = nodeField;
 			if(node==0)
-				throw new IllegalArgumentException(); // must not be left at default value
+				throw newException("node", "must not be zero"); // must not be left at default value
 		}
 		if(logger.isInfoEnabled())
 			logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));

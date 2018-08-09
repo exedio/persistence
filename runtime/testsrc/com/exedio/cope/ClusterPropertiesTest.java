@@ -193,6 +193,27 @@ public class ClusterPropertiesTest
 		}
 	}
 
+	@Test void testNodeZero()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("nodeAuto", false),
+				single("node", 0)
+		));
+		try
+		{
+			ClusterProperties.factory().create(s);
+			fail();
+		}
+		catch(final IllegalPropertiesException e)
+		{
+			assertEquals(
+					"property node in DESC " +
+					"must not be zero",
+					e.getMessage());
+		}
+	}
+
 	@Test void testFailPrimaryKeyGeneratorMemory()
 	{
 		final Source s = describe("DESC", cascade(
