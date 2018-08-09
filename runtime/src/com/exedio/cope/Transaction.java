@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.dsmf.SQLRuntimeException;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongObjectHashMap;
 import java.sql.Connection;
@@ -47,6 +48,8 @@ public final class Transaction
 	 */
 	private final TLongObjectHashMap<Entity>[] entityMaps;
 	private TLongHashSet[] invalidations = null;
+	@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
+	private volatile int invalidationSize = 0;
 	private Thread boundThread = null;
 	ArrayList<QueryInfo> queryInfos = null;
 	private Connection connection = null;
@@ -272,6 +275,13 @@ public final class Transaction
 			invalidations[typeTransiently] = invalidationsForType;
 		}
 		invalidationsForType.add(item.pk);
+		//noinspection NonAtomicOperationOnVolatileField OK: is never incremented concurrently, as this works on current transaction only
+		invalidationSize++;
+	}
+
+	public int getInvalidationSize()
+	{
+		return invalidationSize;
 	}
 
 	Entity getEntityIfActive(final Type<?> type, final long pk)

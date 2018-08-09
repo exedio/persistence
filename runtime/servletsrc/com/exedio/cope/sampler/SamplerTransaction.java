@@ -59,6 +59,7 @@ final class SamplerTransaction extends Item
 	private static final DateField startDate = new DateField().toFinal();
 	private static final CompositeField<SamplerThread> thread  = CompositeField.create(SamplerThread.class).toFinal().optional();
 
+	private static final IntegerField invalidationSize         = new IntegerField().toFinal().min(0);
 	private static final IntegerField preCommitHookCount       = new IntegerField().toFinal().min(0);
 	private static final IntegerField preCommitHookDuplicates  = new IntegerField().toFinal().min(0);
 	private static final IntegerField postCommitHookCount      = new IntegerField().toFinal().min(0);
@@ -71,6 +72,7 @@ final class SamplerTransaction extends Item
 			maC(name,      transaction.getName()),
 			map(startDate, transaction.getStartDate()),
 			map(thread,    SamplerThread.create(transaction.getBoundThread())),
+			map(invalidationSize,         transaction.getInvalidationSize()),
 			map(preCommitHookCount,       transaction.getPreCommitHookCount()),
 			map(preCommitHookDuplicates,  transaction.getPreCommitHookDuplicates()),
 			map(postCommitHookCount,      transaction.getPostCommitHookCount()),

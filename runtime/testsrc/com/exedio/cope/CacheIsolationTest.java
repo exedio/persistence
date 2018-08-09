@@ -65,10 +65,15 @@ public class CacheIsolationTest extends TestWithEnvironment
 		model.commit();
 		assertInvalidations(2, 0);
 		final Transaction txChangeItem = model.startTransaction( "change item" );
+		assertEquals(0, txChangeItem.getInvalidationSize());
 		model.leaveTransaction();
+		assertEquals(0, txChangeItem.getInvalidationSize());
 		final Transaction txChangeCollisionItem = model.startTransaction( "change collision item" );
+		assertEquals(0, txChangeCollisionItem.getInvalidationSize());
 		collisionItem.setName( "othercollision" );
+		assertEquals(1, txChangeCollisionItem.getInvalidationSize());
 		assertEquals( "othercollision", collisionItem.getName() );
+		assertEquals(1, txChangeCollisionItem.getInvalidationSize());
 		assertEquals( txChangeCollisionItem, model.leaveTransaction() );
 		model.joinTransaction( txChangeItem );
 		assertEquals( "collision", collisionItem.getName() );
@@ -81,6 +86,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		{
 			assertEquals( CacheIsolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature() );
 		}
+		assertEquals(0, txChangeItem.getInvalidationSize());
 		assertEquals( null, txChangeItem.getEntityIfActive(item.type, item.pk) );
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setTestDatabaseListener(listener));

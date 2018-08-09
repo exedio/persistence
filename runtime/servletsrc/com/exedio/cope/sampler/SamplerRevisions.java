@@ -38,6 +38,11 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(16, "add SamplerTransaction invalidationSize",
+				"ALTER TABLE `DiffTransaction` " +
+					"ADD COLUMN `invalidationSize` int not null " +
+						"AFTER `thread_stackTrace`"
+			),
 			new Revision(15, "add SamplerTransaction commit-hooks",
 				"ALTER TABLE `DiffTransaction` " +
 					"ADD COLUMN `preCommitHookCount` int not null, " +
