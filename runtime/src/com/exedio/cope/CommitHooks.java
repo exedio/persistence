@@ -68,7 +68,6 @@ final class CommitHooks
 	private static final class Content
 	{
 		private final LinkedHashMap<Runnable,Runnable> list = new LinkedHashMap<>();
-		@SuppressWarnings("NonAtomicOperationOnVolatileField")
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
 		volatile int count = 0;
 		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
