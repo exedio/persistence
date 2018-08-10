@@ -46,6 +46,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	public SchemaPurgeTest()
 	{
 		super(MODEL);
+		copeRule.omitTransaction();
 	}
 
 	private final ConnectionRule connection = new ConnectionRule(model);
@@ -75,9 +76,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, "AnItem_sequence");
 
-		model.commit();
 		model.purgeSchema(ctx);
-		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" + STOP ) +
@@ -92,14 +91,14 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, "AnItem_sequence");
 
+		model.startTransaction(SchemaPurgeTest.class.getName());
 		new AnItem(0);
+		model.commit();
 		assertEquals(2000, AnItem.nextSequence());
 		assertSeq(   1, 1, thisSeq);
 		assertSeq(1001, 2, nextSeq);
 		assertSeq(2001, 2, "AnItem_sequence");
-		model.commit();
 		model.purgeSchema(ctx);
-		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" + STOP +
@@ -116,9 +115,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, "AnItem_sequence");
 
-		model.commit();
 		model.purgeSchema(ctx);
-		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" + STOP +
@@ -135,16 +132,16 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, "AnItem_sequence");
 
+		model.startTransaction(SchemaPurgeTest.class.getName());
 		new AnItem(0);
 		new AnItem(0);
+		model.commit();
 		assertEquals(2001, AnItem.nextSequence());
 		assertEquals(2002, AnItem.nextSequence());
 		assertSeq(batch?1:3, batch?1:3, thisSeq);
 		assertSeq(1003, 3, nextSeq);
 		assertSeq(2003, 3, "AnItem_sequence");
-		model.commit();
 		model.purgeSchema(ctx);
-		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" + STOP +
@@ -161,9 +158,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, "AnItem_sequence");
 
-		model.commit();
 		model.purgeSchema(ctx);
-		model.startTransaction(SchemaPurgeTest.class.getName());
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query" + STOP +
@@ -197,7 +192,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		if(!mysql || NO_SEQUENCE.equals(name))
 			return;
 
-		model.commit();
+		assertFalse(model.hasCurrentTransaction());
 		try(ResultSet rs = connection.
 					executeQuery(
 							"select max(" +
@@ -209,7 +204,6 @@ public class SchemaPurgeTest extends TestWithEnvironment
 			assertEquals(max,   rs.getInt(1), "max");
 			assertEquals(count, rs.getInt(2), "count");
 		}
-		model.startTransaction(SchemaPurgeTest.class.getName());
 	}
 
 	// duplicate from MysqlDialect
@@ -225,9 +219,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 
 		{
 			final JC ctx = new JC(5);
-			model.commit();
 			model.purgeSchema(ctx);
-			model.startTransaction(SchemaPurgeTest.class.getName());
 			assertEquals(
 					"MESSAGE sequence " + thisSeq + " query" + STOP +
 					"MESSAGE sequence " + nextSeq + " query" + STOP +
@@ -264,8 +256,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 
 	private void assertStop(final int n, final String message)
 	{
+		assertFalse(model.hasCurrentTransaction());
+
 		final JC ctx = new JC(n);
-		model.commit();
 		try
 		{
 			model.purgeSchema(ctx);
@@ -276,7 +269,6 @@ public class SchemaPurgeTest extends TestWithEnvironment
 			assertEquals("JobStopMessage", s.getMessage());
 		}
 		assertEquals(message, ctx.fetchEvents());
-		model.startTransaction(SchemaPurgeTest.class.getName());
 	}
 
 	private static final String STOP = "STOPDEFER";
