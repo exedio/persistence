@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
@@ -53,6 +54,12 @@ public final class VaultTestService implements VaultService
 	{
 		this.properties = parameters.getVaultProperties();
 		assertNotNull(properties);
+	}
+
+	@Override
+	public void purgeSchema(final JobContext ctx)
+	{
+		assertNotNull(ctx);
 	}
 
 

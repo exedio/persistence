@@ -20,6 +20,7 @@ package com.exedio.cope.junit;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
@@ -49,6 +50,12 @@ public class AssertionErrorVaultService implements VaultService
 
 	public AssertionErrorVaultService(@SuppressWarnings("unused") final VaultServiceParameters parameters)
 	{
+	}
+
+	@Override
+	public void purgeSchema(final JobContext ctx)
+	{
+		throw new AssertionError();
 	}
 
 	@Override

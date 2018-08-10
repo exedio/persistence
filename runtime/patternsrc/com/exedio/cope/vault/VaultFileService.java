@@ -64,6 +64,8 @@ public final class VaultFileService implements VaultService
 		}
 	}
 
+	// TODO implement purgeSchema, delete old files in tempDir if VaultServiceParameters#isWritable()==false
+
 
 	@Override
 	public long getLength(final String hash) throws VaultNotFoundException

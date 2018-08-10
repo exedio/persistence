@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.nio.file.Files.delete;
 
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ServiceProperties;
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,6 +40,13 @@ public final class VaultReferenceService implements VaultService
 	{
 		main = properties.main.newService(parameters.getVaultProperties());
 		reference = properties.reference.newService(parameters.getVaultProperties());
+	}
+
+	@Override
+	public void purgeSchema(final JobContext ctx)
+	{
+		main.purgeSchema(ctx);
+		reference.purgeSchema(ctx);
 	}
 
 	@Override

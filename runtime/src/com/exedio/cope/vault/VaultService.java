@@ -19,6 +19,7 @@
 package com.exedio.cope.vault;
 
 import com.exedio.cope.ConnectProperties;
+import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -38,6 +39,13 @@ import javax.annotation.Nonnull;
  */
 public interface VaultService extends AutoCloseable
 {
+	/**
+	 * Gives this service the chance to purge / cleanup whatever it needs to.
+	 * Is called by {@link com.exedio.cope.Model#purgeSchema(JobContext)}.
+	 * The default implementation does nothing.
+	 */
+	default void purgeSchema(@Nonnull final JobContext ctx) {}
+
 	/**
 	 * Overrides method from {@link AutoCloseable} to add empty default implementation.
 	 * Also requires implementations not to declare any checked exception to be thrown.

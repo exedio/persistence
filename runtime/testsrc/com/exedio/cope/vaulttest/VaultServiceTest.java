@@ -31,6 +31,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.MessageDigestUtil;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultNotFoundException;
@@ -109,6 +110,11 @@ public abstract class VaultServiceTest
 		assertEquals(ALGORITHM, properties.getAlgorithm());
 		assertEquals(hash("ab").length(), properties.getAlgorithmLength());
 		assertEquals(hash(""), properties.getAlgorithmDigestForEmptyByteSequence());
+	}
+
+	@Test final void testPurgeSchema()
+	{
+		service.purgeSchema(JobContexts.EMPTY);
 	}
 
 	@Test final void notFoundGetLength()

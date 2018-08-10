@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -64,6 +65,17 @@ public class VaultReferenceServiceTest
 		assertEquals(
 				"VaultMockService:mainEx (reference VaultMockService:refrEx)",
 				service.toString());
+	}
+
+	@SuppressWarnings("HardcodedLineSeparator")
+	@Test void testPurge()
+	{
+		main.assertIt("");
+		refr.assertIt("");
+
+		service.purgeSchema(new AssertionErrorJobContext());
+		main.assertIt("purgeSchema\n");
+		refr.assertIt("purgeSchema\n");
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")

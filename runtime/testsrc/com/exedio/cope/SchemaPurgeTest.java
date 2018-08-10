@@ -27,6 +27,7 @@ import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
@@ -34,6 +35,7 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
+import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -63,6 +65,9 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	private String nextSeq;
 	private String typeSeq;
 
+	private boolean vault;
+	private VaultMockService vaultService;
+
 	@BeforeEach final void setUp()
 	{
 		final PrimaryKeyGenerator pkg = model.getConnectProperties().primaryKeyGenerator;
@@ -71,16 +76,19 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		thisSeq = sequences ? getPrimaryKeySequenceName(AnItem.TYPE) : NO_SEQUENCE;
 		nextSeq = getDefaultToNextSequenceName(AnItem.next);
 		typeSeq = getSequenceName(AnItem.sequence);
+		vault = MODEL.getConnectProperties().getVaultProperties()!=null;
+		vaultService = (VaultMockService)MODEL.connect().vault;
 	}
 
 	@Test void testPurge() throws SQLException
 	{
 		final JC jc = new JC();
-		final JobContext ctx = mysql ? jc : new AssertionErrorJobContext();
+		final JobContext ctx = (mysql||vault) ? jc : new AssertionErrorJobContext();
 
 		assertSeq(   0, 0, thisSeq);
 		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, typeSeq);
+		assertVault("");
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -91,8 +99,10 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
 				"MESSAGE sequence " + typeSeq + " purge less 2000 limit 10000\n" + STOP +
-				"PROGRESS 0\n"),
+				"PROGRESS 0\n") +
+			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
+		assertVault("purgeSchema\n");
 		assertSeq(   0, 0, thisSeq);
 		assertSeq(1000, 1, nextSeq);
 		assertSeq(2000, 1, typeSeq);
@@ -104,6 +114,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(   1, 1, thisSeq);
 		assertSeq(1001, 2, nextSeq);
 		assertSeq(2001, 2, typeSeq);
+		assertVault("");
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
@@ -115,11 +126,14 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 1\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
 				"MESSAGE sequence " + typeSeq + " purge less 2001 limit 10000\n" + STOP +
-				"PROGRESS 1\n"),
+				"PROGRESS 1\n") +
+			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
+		assertVault("purgeSchema\n");
 		assertSeq(   1, 1, thisSeq);
 		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, typeSeq);
+		assertVault("");
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -132,8 +146,10 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
 				"MESSAGE sequence " + typeSeq + " purge less 2001 limit 10000\n" + STOP +
-				"PROGRESS 0\n"),
+				"PROGRESS 0\n") +
+			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
+		assertVault("purgeSchema\n");
 		assertSeq(   1, 1, thisSeq);
 		assertSeq(1001, 1, nextSeq);
 		assertSeq(2001, 1, typeSeq);
@@ -147,6 +163,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertSeq(batch?1:3, batch?1:3, thisSeq);
 		assertSeq(1003, 3, nextSeq);
 		assertSeq(2003, 3, typeSeq);
+		assertVault("");
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
 			ifSequences(
@@ -158,11 +175,14 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 2\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
 				"MESSAGE sequence " + typeSeq + " purge less 2003 limit 10000\n" + STOP +
-				"PROGRESS 2\n"),
+				"PROGRESS 2\n") +
+			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
+		assertVault("purgeSchema\n");
 		assertSeq(batch?1:3, 1, thisSeq);
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, typeSeq);
+		assertVault("");
 
 		model.purgeSchema(ctx);
 		assertEquals(ifMysql(
@@ -175,8 +195,10 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
 				"MESSAGE sequence " + typeSeq + " purge less 2003 limit 10000\n" + STOP +
-				"PROGRESS 0\n"),
+				"PROGRESS 0\n") +
+			ifVault("MESSAGE vault VaultMockService:exampleDefault\n" + STOP),
 				jc.fetchEvents());
+		assertVault("purgeSchema\n");
 		assertSeq(batch?1:3, 1, thisSeq);
 		assertSeq(1003, 1, nextSeq);
 		assertSeq(2003, 1, typeSeq);
@@ -190,6 +212,17 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	private String ifSequences(final String message)
 	{
 		return sequences ? message : "";
+	}
+
+	private String ifVault(final String message)
+	{
+		return vault ? message : "";
+	}
+
+	private void assertVault(final String history)
+	{
+		if(vault)
+			vaultService.assertIt(history);
 	}
 
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
@@ -222,6 +255,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	{
 		assumeTrue(sequences, "sequences");
 		assumeTrue(mysql, "mysql");
+		assumeFalse(vault);
 
 		model.startTransaction(SchemaPurgeTest.class.getName());
 		for(int i = 0; i<20; i++)
@@ -263,6 +297,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	{
 		assumeTrue(sequences, "sequences");
 		assumeTrue(mysql, "mysql");
+		assumeFalse(vault);
 
 		{
 			final JC ctx = new JC(5);

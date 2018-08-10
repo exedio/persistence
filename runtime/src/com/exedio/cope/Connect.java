@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
+
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.PoolCounter;
@@ -195,6 +197,14 @@ final class Connect
 	void purgeSchema(final JobContext ctx)
 	{
 		dialect.purgeSchema(ctx, database, connectionPool);
+
+		if(vault!=null)
+		{
+			if(ctx.supportsMessage())
+				ctx.setMessage("vault " + vault);
+			deferOrStopIfRequested(ctx);
+			vault.purgeSchema(ctx);
+		}
 	}
 
 	Revisions getRevisions()
