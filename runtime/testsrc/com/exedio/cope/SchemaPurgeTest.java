@@ -22,6 +22,8 @@ import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -214,6 +216,41 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	private String sequenceColumnName()
 	{
 		return MysqlDialect.sequenceColumnName(propertiesFullSequenceColumnName());
+	}
+
+	@Test void testPurgeLimit()
+	{
+		assumeTrue(sequences, "sequences");
+		assumeTrue(mysql, "mysql");
+
+		model.startTransaction(SchemaPurgeTest.class.getName());
+		for(int i = 0; i<20; i++)
+			new AnItem(0);
+		model.commit();
+		for(int i = 0; i<20; i++)
+			assertEquals(2000+i, AnItem.nextSequence());
+
+		final JC ctx = new JC();
+
+		model.disconnect();
+		model.connect(ConnectProperties.create(cascade(
+				single("dialect.purgeSequenceLimit", 7),
+				copeRule.getConnectProperties().getSourceObject()
+		)));
+		model.purgeSchema(ctx);
+		model.disconnect();
+		model.connect(ConnectProperties.create(copeRule.getConnectProperties().getSourceObject()));
+
+		assertEquals(
+				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
+			(batch
+			 ? "MESSAGE sequence " + thisSeq + " purge less 1\n" + STOP + "PROGRESS 0\n"
+			 : "MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 19\n") + // just 19 because pk sequence starts with zero and is therefore initially empty
+				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 20\n" +
+				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
+				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 20\n",
+				ctx.fetchEvents());
 	}
 
 	@Test void testStop()
