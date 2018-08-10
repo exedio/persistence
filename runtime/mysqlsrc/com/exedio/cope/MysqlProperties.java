@@ -29,6 +29,12 @@ final class MysqlProperties extends Properties
 	final MysqlRowFormat rowFormat = value("rowFormat", MysqlRowFormat.NONE);
 	final boolean avoidTruncate = value("avoidTruncate", false);
 
+	/**
+	 * Limits how many rows are purged from sequence tables at once.
+	 * Avoids long write locks on sequence tables.
+	 */
+	final int purgeSequenceLimit = value("purgeSequenceLimit", 10000, 1);
+
 	MysqlProperties(final Source source)
 	{
 		super(source);

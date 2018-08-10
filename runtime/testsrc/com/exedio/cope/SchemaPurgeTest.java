@@ -245,11 +245,17 @@ public class SchemaPurgeTest extends TestWithEnvironment
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 			(batch
 			 ? "MESSAGE sequence " + thisSeq + " purge less 1\n" + STOP + "PROGRESS 0\n"
-			 : "MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 19\n") + // just 19 because pk sequence starts with zero and is therefore initially empty
+			 : "MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 5\n") + // just 5 because pk sequence starts with zero and is therefore initially empty
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 20\n" +
+				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 6\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 20\n",
+				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 6\n",
 				ctx.fetchEvents());
 	}
 

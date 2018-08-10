@@ -72,6 +72,7 @@ final class MysqlDialect extends Dialect
 	private final boolean supportsNativeDate;
 	private final boolean supportsGtid;
 	private final Pattern extractUniqueViolationMessagePattern;
+	private final int purgeSequenceLimit;
 
 	MysqlDialect(
 			final CopeProbe probe,
@@ -108,6 +109,7 @@ final class MysqlDialect extends Dialect
 		supportsNativeDate = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
 		final boolean mariaDriver = env.getDriverName().startsWith("MariaDB");
 		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$") : null;
+		purgeSequenceLimit = properties.purgeSequenceLimit;
 	}
 
 	private static String sequenceColumnName(final MysqlProperties properties)
@@ -775,17 +777,24 @@ final class MysqlDialect extends Dialect
 
 				final long max = maxObject.longValue();
 
-				if(ctx.supportsMessage())
-					ctx.setMessage("sequence " + name + " purge less " + max);
-				deferOrStopIfRequested(ctx);
+				do
+				{
+					if(ctx.supportsMessage())
+						ctx.setMessage("sequence " + name + " purge less " + max); // + " limit " + purgeSequenceLimit TODO
+					deferOrStopIfRequested(ctx);
 
-				final int rows = Executor.update(
-						connection,
-						"DELETE FROM " + table + " WHERE " + column + " < " + max);
-				ctx.incrementProgress(rows);
+					final int rows = Executor.update(
+							connection,
+							"DELETE FROM " + table + " WHERE " + column + " < " + max + " LIMIT " + purgeSequenceLimit);
+					ctx.incrementProgress(rows);
 
-				if(rows>0 && logger.isInfoEnabled())
-					logger.info("sequence {} purge less {} rows {}", new Object[]{name, max, rows});
+					if(rows>0 && logger.isInfoEnabled())
+						logger.info("sequence {} purge less {} rows {}", new Object[]{name, max, rows});
+
+					if(rows<purgeSequenceLimit)
+						break;
+				}
+				while(true);
 			}
 		}
 		finally
