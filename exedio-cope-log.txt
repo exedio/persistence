@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* QueryCacheInfo#getStamps[Size|Hits|Purged]() added.
 * bugfix in instrumentor: 'package protected' is "more private" than 'protected'
 	Affects instrumented code: constructor covering features that are 'protected'
 	and 'package protected', but not 'private' will become 'package protected'

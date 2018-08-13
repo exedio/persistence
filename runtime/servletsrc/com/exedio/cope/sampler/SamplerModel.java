@@ -145,6 +145,9 @@ final class SamplerModel extends Item
 	private static final IntegerField queryCacheReplacements    = field(0);
 	private static final IntegerField queryCacheInvalidations   = field(0);
 	private static final IntegerField queryCacheConcurrentLoads = field(0);
+	private static final IntegerField queryCacheStampsSize      = field(0);
+	private static final IntegerField queryCacheStampsHits      = field(0);
+	private static final IntegerField queryCacheStampsPurged    = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final QueryCacheInfo from,
@@ -155,7 +158,10 @@ final class SamplerModel extends Item
 			maD(queryCacheMisses,          from.getMisses         (), to.getMisses         ()),
 			maD(queryCacheReplacements,    from.getReplacements   (), to.getReplacements   ()),
 			maD(queryCacheInvalidations,   from.getInvalidations  (), to.getInvalidations  ()),
-			maD(queryCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()));
+			maD(queryCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
+			maD(queryCacheStampsSize,      from.getStampsSize     (), to.getStampsSize     ()),
+			maD(queryCacheStampsHits,      from.getStampsHits     (), to.getStampsHits     ()),
+			maD(queryCacheStampsPurged,    from.getStampsPurged   (), to.getStampsPurged   ()));
 	}
 
 

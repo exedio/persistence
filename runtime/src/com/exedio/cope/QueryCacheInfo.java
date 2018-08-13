@@ -25,6 +25,9 @@ public final class QueryCacheInfo
 	private final long replacements;
 	private final long invalidations;
 	private final long concurrentLoads;
+	private final int  stampsSize;
+	private final long stampsHits;
+	private final long stampsPurged;
 	private final int level;
 
 	QueryCacheInfo(
@@ -33,6 +36,9 @@ public final class QueryCacheInfo
 			final long replacements,
 			final long invalidations,
 			final long concurrentLoads,
+			final int  stampsSize,
+			final long stampsHits,
+			final long stampsPurged,
 			final int level)
 	{
 		this.hits = hits;
@@ -40,6 +46,9 @@ public final class QueryCacheInfo
 		this.replacements = replacements;
 		this.invalidations = invalidations;
 		this.concurrentLoads = concurrentLoads;
+		this.stampsSize   = stampsSize;
+		this.stampsHits   = stampsHits;
+		this.stampsPurged = stampsPurged;
 		this.level = level;
 	}
 
@@ -68,6 +77,21 @@ public final class QueryCacheInfo
 		return concurrentLoads;
 	}
 
+	public int getStampsSize()
+	{
+		return stampsSize;
+	}
+
+	public long getStampsHits()
+	{
+		return stampsHits;
+	}
+
+	public long getStampsPurged()
+	{
+		return stampsPurged;
+	}
+
 	public int getLevel()
 	{
 		return level;
@@ -87,6 +111,9 @@ public final class QueryCacheInfo
 				replacements==o.replacements &&
 				invalidations==o.invalidations &&
 				concurrentLoads==o.concurrentLoads &&
+				stampsSize==o.stampsSize &&
+				stampsHits==o.stampsHits &&
+				stampsPurged==o.stampsPurged &&
 				level==o.level;
 	}
 
@@ -99,6 +126,9 @@ public final class QueryCacheInfo
 				((int)replacements) ^
 				((int)invalidations) ^
 				((int)concurrentLoads) ^
+				stampsSize ^
+				((int)stampsHits) ^
+				((int)stampsPurged) ^
 				level ^
 				938675923;
 	}
@@ -112,6 +142,9 @@ public final class QueryCacheInfo
 				replacements + '/' +
 				invalidations + '/' +
 				concurrentLoads + '/' +
+				stampsSize + '/' +
+				stampsHits + '/' +
+				stampsPurged + '/' +
 				level;
 	}
 }

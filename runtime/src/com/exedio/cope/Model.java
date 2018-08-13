@@ -775,6 +775,7 @@ public final class Model implements Serializable
 				within.run();
 
 			connect.itemCache.purgeStamps(oldestStamp);
+			connect.queryCache.purgeStamps(oldestStamp);
 		}
 
 		// NOTE:

@@ -53,8 +53,15 @@ public class QueryCacheStampPurgeTest extends TestWithEnvironment
 		item2 = new CacheIsolationItem("item2");
 		itemX = new CacheIsolationItem("itemX");
 		model.commit();
+		clearStamps(model.connect().queryCache);
 		model.startTransaction("QueryCacheStampPurgeTest");
 		initCache();
+	}
+
+	@SuppressWarnings("deprecation")
+	private static void clearStamps(final QueryCache cache)
+	{
+		cache.clearStamps();
 	}
 
 	@Test void testSequential()
@@ -211,7 +218,10 @@ public class QueryCacheStampPurgeTest extends TestWithEnvironment
 				() -> assertEquals(level,         curr.getLevel(),                                   "level(1)"),
 				() -> assertEquals(hits,          curr.getHits()          - last.getHits(),          "hits(2)"),
 				() -> assertEquals(misses,        curr.getMisses()        - last.getMisses(),        "misses(3)"),
-				() -> assertEquals(invalidations, curr.getInvalidations() - last.getInvalidations(), "invalidations(4)")
+				() -> assertEquals(invalidations, curr.getInvalidations() - last.getInvalidations(), "invalidations(4)"),
+				() -> assertEquals(stampsSize,    curr.getStampsSize(),                              "stampsSize(5)"),
+				() -> assertEquals(stampsHits,    curr.getStampsHits()    - last.getStampsHits(),    "stampsHits(6)"),
+				() -> assertEquals(stampsPurged,  curr.getStampsPurged()  - last.getStampsPurged(),  "stampsPurged(7)")
 		);
 		last = curr;
 	}

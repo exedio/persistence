@@ -28,7 +28,9 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
 
 final class QueryCache
@@ -36,15 +38,19 @@ final class QueryCache
 	// TODO use guava ComputingMap
 	// https://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap<Key, Value> map;
+	private final LinkedHashMap<Long,TIntArrayList> stampList;
 	private final AtomicLong hits = new AtomicLong();
 	private final AtomicLong misses = new AtomicLong();
 	private final AtomicLong invalidations = new AtomicLong();
 	private final AtomicLong concurrentLoads = new AtomicLong();
 	private final AtomicLong replacements = new AtomicLong();
+	private final AtomicLong stampsHit = new AtomicLong(0);
+	private final AtomicLong stampsPurged = new AtomicLong(0);
 
-	QueryCache(final int limit)
+	QueryCache(final int limit, final boolean stamps)
 	{
 		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.incrementAndGet()) : null;
+		this.stampList = (stamps && map!=null) ? new LinkedHashMap<>() : null;
 	}
 
 	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
@@ -71,14 +77,21 @@ final class QueryCache
 			if(totalOnly ||
 				resultList.size()<=query.getSearchSizeCacheLimit())
 			{
-				result = new Value(query, resultList);
-				final Object collision;
-				synchronized(map)
+				if(isStamped(query, transaction.getCacheStamp()))
 				{
-					collision = map.put(key, result);
+					stampsHit.incrementAndGet();
 				}
-				if(collision!=null)
-					concurrentLoads.incrementAndGet();
+				else
+				{
+					result = new Value(query, resultList);
+					final Object collision;
+					synchronized(map)
+					{
+						collision = map.put(key, result);
+					}
+					if(collision!=null)
+						concurrentLoads.incrementAndGet();
+				}
 			}
 			misses.incrementAndGet();
 			return resultList;
@@ -96,12 +109,44 @@ final class QueryCache
 		}
 	}
 
+	private boolean isStamped(final Query<?> query, final long connectionStamp)
+	{
+		if(stampList!=null)
+		{
+			for(final Map.Entry<Long, TIntArrayList> entry: stampList.entrySet())
+			{
+				if(entry.getKey()<connectionStamp)
+					continue;
+
+				final TIntArrayList value = entry.getValue();
+
+				if(contains(value, query.type))
+					return true;
+
+				if(query.joins!=null)
+					for(final Join join : query.joins)
+						if(contains(value, join.type))
+							return true;
+			}
+		}
+		return false;
+	}
+
+	private static boolean contains(final TIntArrayList value, final Type<?> type)
+	{
+		for(Type<?> t = type; t!=null; t = t.supertype)
+			if(value.contains(t.cacheIdTransiently))
+				return true;
+
+		return false;
+	}
+
 	boolean isEnabled()
 	{
 		return map!=null;
 	}
 
-	void invalidate(final TLongHashSet[] invalidations)
+	void invalidate(final TLongHashSet[] invalidations, final long stamp)
 	{
 		if(map==null)
 			return;
@@ -117,6 +162,7 @@ final class QueryCache
 			final int[] invalidatedTypesTransiently = invalidatedTypesTransientlyList.toNativeArray();
 			long invalidationsCounter = 0;
 
+			final boolean stampsEnabled = stampList!=null;
 			synchronized(map)
 			{
 				final Iterator<Value> values = map.values().iterator();
@@ -134,6 +180,8 @@ final class QueryCache
 						}
 					}
 				}
+				if(stampsEnabled)
+					stampList.put(stamp, invalidatedTypesTransientlyList);
 			}
 			this.invalidations.addAndGet(invalidationsCounter);
 		}
@@ -150,19 +198,66 @@ final class QueryCache
 		}
 	}
 
+	void purgeStamps(final long untilStamp)
+	{
+		if(stampList==null)
+			return;
+
+		long count = 0;
+		synchronized(map)
+		{
+			for(final Iterator<Map.Entry<Long, TIntArrayList>> iter =
+					stampList.entrySet().iterator(); iter.hasNext(); )
+			{
+				final Map.Entry<Long, TIntArrayList> entry = iter.next();
+				if(entry.getKey()<untilStamp)
+				{
+					iter.remove();
+					count++;
+				}
+				else
+				{
+					break;
+				}
+			}
+		}
+		if(count>0)
+			stampsPurged.addAndGet(count);
+	}
+
+	/**
+	 * @deprecated for unit tests only
+	 */
+	@Deprecated
+	void clearStamps()
+	{
+		if(stampList==null)
+			return;
+
+		synchronized(map)
+		{
+			stampList.clear();
+		}
+	}
+
 	QueryCacheInfo getInfo()
 	{
 		final int level;
+		final int stampListSize;
 
 		if(map!=null)
 		{
 			synchronized(map)
 			{
 				level = map.size();
+				stampListSize = stampList!=null ? stampList.size() : 0;
 			}
 		}
 		else
+		{
 			level = 0;
+			stampListSize = 0;
+		}
 
 		return new QueryCacheInfo(
 				hits.get(),
@@ -170,6 +265,9 @@ final class QueryCache
 				replacements.get(),
 				invalidations.get(),
 				concurrentLoads.get(),
+				stampListSize,
+				stampsHit.get(),
+				stampsPurged.get(),
 				level);
 	}
 

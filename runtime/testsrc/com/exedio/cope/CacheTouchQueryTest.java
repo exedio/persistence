@@ -76,7 +76,7 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 		model.joinTransaction(loader);
 		assertCache(0, 0, 0, 0, 1, 0, 0);
 
-		final boolean st = false;
+		final boolean st = model.getConnectProperties().cacheStamps;
 
 		final Query<String> query = new Query<>(name);
 		assertEquals(oracle?"itemName2":"itemName", query.searchSingleton());
@@ -120,12 +120,16 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 			final long stampsHits,
 			final long stampsPurged)
 	{
+		final boolean st = model.getConnectProperties().cacheStamps;
 		final QueryCacheInfo curr = model.getQueryCacheInfo();
 		assertAll(
 				() -> assertEquals(level,             curr.getLevel(),                                   "level(1)"),
 				() -> assertEquals(hits,              curr.getHits()          - last.getHits(),          "hits(2)"),
 				() -> assertEquals(misses,            curr.getMisses()        - last.getMisses(),        "misses(3)"),
-				() -> assertEquals(invalidations,     curr.getInvalidations() - last.getInvalidations(), "invalidations(4)")
+				() -> assertEquals(invalidations,     curr.getInvalidations() - last.getInvalidations(), "invalidations(4)"),
+				() -> assertEquals(st?stampsSize  :0, curr.getStampsSize(),                              "stampsSize(5)"),
+				() -> assertEquals(st?stampsHits  :0, curr.getStampsHits()    - last.getStampsHits(),    "stampsHits(6)"),
+				() -> assertEquals(st?stampsPurged:0, curr.getStampsPurged()  - last.getStampsPurged(),  "stampsPurged(7)")
 		);
 		last = curr;
 	}

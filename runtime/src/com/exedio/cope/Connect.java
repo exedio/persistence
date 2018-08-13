@@ -113,7 +113,7 @@ final class Connect
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
-		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
+		this.queryCache = new QueryCache(properties.getQueryCacheLimit(), properties.cacheStamps);
 
 		{
 			final ClusterProperties props = properties.cluster;
@@ -160,7 +160,7 @@ final class Connect
 	{
 		final long cacheStamp = this.cacheStamp.next();
 		itemCache.invalidate(invalidations, cacheStamp);
-		queryCache.invalidate(invalidations);
+		queryCache.invalidate(invalidations, cacheStamp);
 		if(propagateToCluster && cluster!=null)
 			cluster.sendInvalidate(invalidations);
 		changeListenerDispatcher.invalidate(invalidations, transactionInfo);
