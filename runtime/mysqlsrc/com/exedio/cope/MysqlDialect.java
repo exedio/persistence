@@ -780,7 +780,7 @@ final class MysqlDialect extends Dialect
 				do
 				{
 					if(ctx.supportsMessage())
-						ctx.setMessage("sequence " + name + " purge less " + max); // + " limit " + purgeSequenceLimit TODO
+						ctx.setMessage("sequence " + name + " purge less " + max + " limit " + purgeSequenceLimit);
 					deferOrStopIfRequested(ctx);
 
 					final int rows = Executor.update(

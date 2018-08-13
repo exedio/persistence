@@ -87,10 +87,10 @@ public class SchemaPurgeTest extends TestWithEnvironment
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP ) +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1000\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1000 limit 10000\n" + STOP +
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2000\n" + STOP +
+				"MESSAGE sequence " + typeSeq + " purge less 2000 limit 10000\n" + STOP +
 				"PROGRESS 0\n"),
 				jc.fetchEvents());
 		assertSeq(   0, 0, thisSeq);
@@ -108,13 +108,13 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
-				"MESSAGE sequence " + thisSeq + " purge less 1\n" + STOP +
+				"MESSAGE sequence " + thisSeq + " purge less 1 limit 10000\n" + STOP +
 				"PROGRESS 0\n" ) +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1001\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1001 limit 10000\n" + STOP +
 				"PROGRESS 1\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2001\n" + STOP +
+				"MESSAGE sequence " + typeSeq + " purge less 2001 limit 10000\n" + STOP +
 				"PROGRESS 1\n"),
 				jc.fetchEvents());
 		assertSeq(   1, 1, thisSeq);
@@ -125,13 +125,13 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
-				"MESSAGE sequence " + thisSeq + " purge less 1\n" + STOP +
+				"MESSAGE sequence " + thisSeq + " purge less 1 limit 10000\n" + STOP +
 				"PROGRESS 0\n" ) +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1001\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1001 limit 10000\n" + STOP +
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2001\n" + STOP +
+				"MESSAGE sequence " + typeSeq + " purge less 2001 limit 10000\n" + STOP +
 				"PROGRESS 0\n"),
 				jc.fetchEvents());
 		assertSeq(   1, 1, thisSeq);
@@ -151,13 +151,13 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
-				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) + "\n" + STOP +
+				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) + " limit 10000\n" + STOP +
 				"PROGRESS " + (batch?0:2) + "\n" ) +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1003\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1003 limit 10000\n" + STOP +
 				"PROGRESS 2\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2003\n" + STOP +
+				"MESSAGE sequence " + typeSeq + " purge less 2003 limit 10000\n" + STOP +
 				"PROGRESS 2\n"),
 				jc.fetchEvents());
 		assertSeq(batch?1:3, 1, thisSeq);
@@ -168,13 +168,13 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertEquals(ifMysql(
 			ifSequences(
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
-				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) + "\n" + STOP +
+				"MESSAGE sequence " + thisSeq + " purge less " + (batch?1:3) + " limit 10000\n" + STOP +
 				"PROGRESS 0\n" ) +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1003\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1003 limit 10000\n" + STOP +
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2003\n" + STOP +
+				"MESSAGE sequence " + typeSeq + " purge less 2003 limit 10000\n" + STOP +
 				"PROGRESS 0\n"),
 				jc.fetchEvents());
 		assertSeq(batch?1:3, 1, thisSeq);
@@ -244,18 +244,18 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 			(batch
-			 ? "MESSAGE sequence " + thisSeq + " purge less 1\n" + STOP + "PROGRESS 0\n"
-			 : "MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 7\n" +
-				"MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 7\n" +
-				"MESSAGE sequence " + thisSeq + " purge less 20\n" + STOP + "PROGRESS 5\n") + // just 5 because pk sequence starts with zero and is therefore initially empty
+			 ? "MESSAGE sequence " + thisSeq + " purge less 1 limit 7\n" + STOP + "PROGRESS 0\n"
+			 : "MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + thisSeq + " purge less 20 limit 7\n" + STOP + "PROGRESS 5\n") + // just 5 because pk sequence starts with zero and is therefore initially empty
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 7\n" +
-				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 7\n" +
-				"MESSAGE sequence " + nextSeq + " purge less 1020\n" + STOP + "PROGRESS 6\n" +
+				"MESSAGE sequence " + nextSeq + " purge less 1020 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + nextSeq + " purge less 1020 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + nextSeq + " purge less 1020 limit 7\n" + STOP + "PROGRESS 6\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 7\n" +
-				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 7\n" +
-				"MESSAGE sequence " + typeSeq + " purge less 2020\n" + STOP + "PROGRESS 6\n",
+				"MESSAGE sequence " + typeSeq + " purge less 2020 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + typeSeq + " purge less 2020 limit 7\n" + STOP + "PROGRESS 7\n" +
+				"MESSAGE sequence " + typeSeq + " purge less 2020 limit 7\n" + STOP + "PROGRESS 6\n",
 				ctx.fetchEvents());
 	}
 
@@ -270,30 +270,30 @@ public class SchemaPurgeTest extends TestWithEnvironment
 			assertEquals(
 					"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 					"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-					"MESSAGE sequence " + nextSeq + " purge less 1000\n" + STOP +
+					"MESSAGE sequence " + nextSeq + " purge less 1000 limit 10000\n" + STOP +
 					"PROGRESS 0\n" +
 					"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-					"MESSAGE sequence " + typeSeq + " purge less 2000\n" + STOP +
+					"MESSAGE sequence " + typeSeq + " purge less 2000 limit 10000\n" + STOP +
 					"PROGRESS 0\n",
 					ctx.fetchEvents());
 		}
 		assertStop(4,
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1000\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1000 limit 10000\n" + STOP +
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOP +
-				"MESSAGE sequence " + typeSeq + " purge less 2000\n" + STOPPING);
+				"MESSAGE sequence " + typeSeq + " purge less 2000 limit 10000\n" + STOPPING);
 		assertStop(3,
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1000\n" + STOP +
+				"MESSAGE sequence " + nextSeq + " purge less 1000 limit 10000\n" + STOP +
 				"PROGRESS 0\n" +
 				"MESSAGE sequence " + typeSeq + " query\n" + STOPPING);
 		assertStop(2,
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOP +
-				"MESSAGE sequence " + nextSeq + " purge less 1000\n" + STOPPING);
+				"MESSAGE sequence " + nextSeq + " purge less 1000 limit 10000\n" + STOPPING);
 		assertStop(1,
 				"MESSAGE sequence " + thisSeq + " query\n" + STOP +
 				"MESSAGE sequence " + nextSeq + " query\n" + STOPPING);
