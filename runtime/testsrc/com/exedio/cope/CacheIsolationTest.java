@@ -86,7 +86,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		{
 			assertEquals( CacheIsolationItem.uniqueString.getImplicitUniqueConstraint(), e.getFeature() );
 		}
-		assertEquals(0, txChangeItem.getInvalidationSize());
+		assertEquals(unq?1:0, txChangeItem.getInvalidationSize());
 		assertEquals( null, txChangeItem.getEntityIfActive(item.type, item.pk) );
 		final ExpectingDatabaseListener listener = new ExpectingDatabaseListener();
 		assertNull(model.setTestDatabaseListener(listener));
