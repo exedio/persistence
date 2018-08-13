@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import com.exedio.cope.Transaction;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 public abstract class CopeRule extends MainRule
@@ -65,6 +66,13 @@ public abstract class CopeRule extends MainRule
 		// do rollback even if manageTransactions is false
 		// because test could have started a transaction
 		model.rollbackIfNotCommitted();
+
+		// test may have started multiple transactions with Model#leaveTransaction
+		for(final Transaction tx : model.getOpenTransactions())
+		{
+			model.joinTransaction(tx);
+			model.rollbackIfNotCommitted();
+		}
 
 		if(model.isConnected())
 		{
