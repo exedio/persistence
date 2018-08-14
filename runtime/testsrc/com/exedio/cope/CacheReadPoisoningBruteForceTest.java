@@ -150,12 +150,12 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 					item.setName("itemName" + i);
 					model.commit();
 				}
-				assertTrue("stamps " + stamps + " " + i, stamps);
+				assertTrue(stamps, "stamps " + stamps + " " + i);
 			}
 			catch(final TemporaryTransactionException e)
 			{
-				assertNotNull("TemporaryTransactionException message", e.getMessage());
-				assertFalse("stamps " + stamps + " " + i, stamps);
+				assertNotNull(e.getMessage(), "TemporaryTransactionException message");
+				assertFalse(stamps, "stamps " + stamps + " " + i);
 			}
 			finally
 			{
@@ -166,8 +166,8 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 		for(final ThreadStoppable thread : threads)
 		{
-			assertEquals("finished too early " + thread, false, thread.finished);
-			assertNotEquals("not finished " + thread, Thread.State.TERMINATED, thread.getState());
+			assertEquals(false, thread.finished, "finished too early " + thread);
+			assertNotEquals(Thread.State.TERMINATED, thread.getState(), "not finished " + thread);
 		}
 		for(final ThreadStoppable thread : threads)
 			thread.proceed = false;
@@ -176,40 +176,40 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			thread.join();
 			if(thread.failure!=null)
 				thread.failure.printStackTrace();
-			assertEquals("error name " + thread, null, thread.errorName);
-			assertEquals("not finished normally " + thread, true, thread.finished);
-			assertEquals("finished with exception " + thread, null, thread.failure);
-			assertEquals("state " + thread, Thread.State.TERMINATED, thread.getState());
+			assertEquals(null, thread.errorName, "error name " + thread);
+			assertEquals(true, thread.finished, "not finished normally " + thread);
+			assertEquals(null, thread.failure, "finished with exception " + thread);
+			assertEquals(Thread.State.TERMINATED, thread.getState(), "state " + thread);
 		}
 
 		Assertions.assertEquals("", failures.toString());
 	}
 
-	private void assertNotNull(final String message, final Object actual)
+	private void assertNotNull(final Object actual, final String message)
 	{
 		if(actual==null)
 			failures.append(message + " is null" + lineSeparator());
 	}
 
-	private void assertTrue(final String message, final boolean actual)
+	private void assertTrue(final boolean actual, final String message)
 	{
 		if(!actual)
 			failures.append(message + lineSeparator());
 	}
 
-	private void assertFalse(final String message, final boolean actual)
+	private void assertFalse(final boolean actual, final String message)
 	{
 		if(actual)
 			failures.append(message + lineSeparator());
 	}
 
-	private void assertEquals(final String message, final Object expected, final Object actual)
+	private void assertEquals(final Object expected, final Object actual, final String message)
 	{
 		if(!Objects.equals(expected,  actual))
 			failures.append(message + " expected: " + expected + ", but was: " + actual + lineSeparator());
 	}
 
-	private void assertNotEquals(final String message, final Object expected, final Object actual)
+	private void assertNotEquals(final Object expected, final Object actual, final String message)
 	{
 		if(Objects.equals(expected,  actual))
 			failures.append(message + " expected: " + expected + ", but was: " + actual + lineSeparator());
