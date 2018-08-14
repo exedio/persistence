@@ -304,6 +304,8 @@ final class MysqlSchemaDialect extends Dialect
 			final StringBuilder bf, final String sequenceName,
 			final Sequence.Type type, final long start)
 	{
+		// TODO support CREATE SEQUENCE in MariaDB 10.3 https://mariadb.com/kb/en/library/create-sequence/
+
 		bf.append("CREATE TABLE ").
 			append(sequenceName).
 			append("(").
