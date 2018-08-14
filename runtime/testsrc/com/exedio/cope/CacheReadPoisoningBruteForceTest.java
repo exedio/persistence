@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.lang.System.lineSeparator;
+
 import com.exedio.cope.tojunit.MainRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
@@ -186,30 +188,30 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 	private void assertNotNull(final String message, final Object actual)
 	{
 		if(actual==null)
-			failures.append(message + " is null" + System.lineSeparator());
+			failures.append(message + " is null" + lineSeparator());
 	}
 
 	private void assertTrue(final String message, final boolean actual)
 	{
 		if(!actual)
-			failures.append(message + System.lineSeparator());
+			failures.append(message + lineSeparator());
 	}
 
 	private void assertFalse(final String message, final boolean actual)
 	{
 		if(actual)
-			failures.append(message + System.lineSeparator());
+			failures.append(message + lineSeparator());
 	}
 
 	private void assertEquals(final String message, final Object expected, final Object actual)
 	{
 		if(!Objects.equals(expected,  actual))
-			failures.append(message + " expected: " + expected + ", but was: " + actual + System.lineSeparator());
+			failures.append(message + " expected: " + expected + ", but was: " + actual + lineSeparator());
 	}
 
 	private void assertNotEquals(final String message, final Object expected, final Object actual)
 	{
 		if(Objects.equals(expected,  actual))
-			failures.append(message + " expected: " + expected + ", but was: " + actual + System.lineSeparator());
+			failures.append(message + " expected: " + expected + ", but was: " + actual + lineSeparator());
 	}
 }
