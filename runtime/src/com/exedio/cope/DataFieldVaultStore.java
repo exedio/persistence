@@ -229,6 +229,11 @@ final class DataFieldVaultStore extends DataFieldStore
 				return infoItem;
 			}
 			@Override
+			public String getOrigin()
+			{
+				return ORIGIN; // do not compute again and again
+			}
+			@Override
 			public String toString()
 			{
 				return getFieldString() + ' ' + getItemString();
@@ -246,6 +251,8 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 		(result ? putInitial : putRedundant).incrementAndGet();
 	}
+
+	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
 
 
 	private final AtomicLong

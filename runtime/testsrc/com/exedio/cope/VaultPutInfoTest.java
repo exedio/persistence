@@ -19,17 +19,20 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.vault.VaultPutInfo.getOriginDefault;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.vault.VaultPutInfo;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import org.junit.jupiter.api.Test;
 
 public class VaultPutInfoTest
 {
-	@Test void testDefault()
+	@Test void testDefault() throws UnknownHostException
 	{
 		final VaultPutInfo info = new VaultPutInfo() {};
 
@@ -37,6 +40,8 @@ public class VaultPutInfoTest
 		assertEquals(null, info.getFieldString());
 		assertEquals(null, info.getItem());
 		assertEquals(null, info.getItemString());
+		assertEquals(InetAddress.getLocalHost().getHostName(), info.getOrigin());
+		assertEquals(InetAddress.getLocalHost().getHostName(), getOriginDefault());
 	}
 
 	@Test void testStandard()

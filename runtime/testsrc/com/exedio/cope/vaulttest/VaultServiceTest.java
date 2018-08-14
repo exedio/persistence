@@ -307,6 +307,11 @@ public abstract class VaultServiceTest
 	protected static final VaultPutInfo PUT_INFO = new VaultPutInfo()
 	{
 		@Override
+		public String getOrigin()
+		{
+			return null;
+		}
+		@Override
 		public String toString()
 		{
 			return "VaultServiceTest#PUT_INFO";
@@ -334,6 +339,11 @@ public abstract class VaultServiceTest
 			{
 				throw new RuntimeException(e);
 			}
+		}
+		@Override
+		public String getOrigin()
+		{
+			return "VaultServiceTest#PUT_INFO_REGULAR#origin";
 		}
 		@Override
 		public String toString()

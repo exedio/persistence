@@ -20,6 +20,8 @@ package com.exedio.cope.vault;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import javax.annotation.Nullable;
 
 public interface VaultPutInfo
@@ -48,5 +50,32 @@ public interface VaultPutInfo
 	{
 		final Item item = getItem();
 		return item!=null ? item.getCopeID() : null;
+	}
+
+	/**
+	 * A description of the origin of the put request.
+	 * Could be the host name or source IP address for instance.
+	 * The default implementation returns {@link #getOriginDefault()}.
+	 */
+	@Nullable
+	default String getOrigin()
+	{
+		return getOriginDefault();
+	}
+
+	/**
+	 * Returns the local host name.
+	 * Is the default implementation of {@link #getOrigin()}.
+	 */
+	static String getOriginDefault()
+	{
+		try
+		{
+			return InetAddress.getLocalHost().getHostName();
+		}
+		catch(final UnknownHostException ignored)
+		{
+			return null;
+		}
 	}
 }
