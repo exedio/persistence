@@ -99,6 +99,10 @@ public class CacheTouchTest extends TestWithEnvironment
 
 		if(st)
 		{
+			assertEquals("itemName2", item.getName());
+			assertUpdateCount(1, 1);
+			assertCache(1, 0, 3, 2, 1, 0, 1, 2);
+
 			item.setName("itemName3");
 			assertUpdateCount(2, 1);
 			assertCache(1, 0, 3, 2, 1, 0, 1, 2);
@@ -107,6 +111,10 @@ public class CacheTouchTest extends TestWithEnvironment
 		}
 		else
 		{
+			assertEquals("itemName", item.getName()); // this is wrong and fixed by itemCacheStamps
+			assertUpdateCount(0, 0);
+			assertCache(1, 1, 2, 2, 1, 0, 0, 0);
+
 			try
 			{
 				item.setName("itemName3");
