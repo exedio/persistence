@@ -99,8 +99,6 @@ public class CacheTouchTest extends TestWithEnvironment
 
 		if(st)
 		{
-			// the following fails, if transaction does run in
-			// repeatable-read isolation and does no itemCacheStamp.
 			item.setName("itemName3");
 			assertUpdateCount(2, 1);
 			assertCache(1, 0, 3, 2, 1, 0, 1, 2);
