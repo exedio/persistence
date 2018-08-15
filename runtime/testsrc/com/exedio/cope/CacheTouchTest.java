@@ -126,11 +126,11 @@ public class CacheTouchTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("deprecation") // OK: using special accessors for tests
-	private void assertUpdateCount(final int expected, final int global)
+	private void assertUpdateCount(final int transaction, final int global)
 	{
 		assertAll(
-				() -> assertEquals(expected, item.getUpdateCountIfActive(), "transaction"),
-				() -> assertEquals(global,   item.getUpdateCountGlobal(),   "global")
+				() -> assertEquals(transaction, item.getUpdateCountIfActive(), "transaction"),
+				() -> assertEquals(global,      item.getUpdateCountGlobal(),   "global")
 		);
 	}
 
