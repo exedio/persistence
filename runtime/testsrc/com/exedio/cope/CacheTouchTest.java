@@ -171,14 +171,16 @@ public class CacheTouchTest extends TestWithEnvironment
 		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo ici = icis[0];
-		assertSame(TYPE, ici.getType());
-		assertEquals(level,                ici.getLevel(), "level");
-		assertEquals(hits,                 ici.getHits()                 - initHits,                 "hits");
-		assertEquals(misses,               ici.getMisses()               - initMisses,               "misses");
-		assertEquals(invalidationsOrdered, ici.getInvalidationsOrdered() - initInvalidationsOrdered, "invalidationsOrdered");
-		assertEquals(invalidationsDone,    ici.getInvalidationsDone()    - initInvalidationsDone,    "invalidationsDone");
-		assertEquals(st?stampsSize  :0,    ici.getStampsSize()           - initStampsSize,           "stampsSize");
-		assertEquals(st?stampsHits  :0,    ici.getStampsHits()           - initStampsHits,           "stampsHits");
-		assertEquals(st?stampsPurged:0,    ici.getStampsPurged()         - initStampsPurged,         "stampsPurged");
+		assertAll(
+				() -> assertSame(TYPE, ici.getType()),
+				() -> assertEquals(level,                ici.getLevel(), "level"),
+				() -> assertEquals(hits,                 ici.getHits()                 - initHits,                 "hits"),
+				() -> assertEquals(misses,               ici.getMisses()               - initMisses,               "misses"),
+				() -> assertEquals(invalidationsOrdered, ici.getInvalidationsOrdered() - initInvalidationsOrdered, "invalidationsOrdered"),
+				() -> assertEquals(invalidationsDone,    ici.getInvalidationsDone()    - initInvalidationsDone,    "invalidationsDone"),
+				() -> assertEquals(st?stampsSize  :0,    ici.getStampsSize()           - initStampsSize,           "stampsSize"),
+				() -> assertEquals(st?stampsHits  :0,    ici.getStampsHits()           - initStampsHits,           "stampsHits"),
+				() -> assertEquals(st?stampsPurged:0,    ici.getStampsPurged()         - initStampsPurged,         "stampsPurged")
+		);
 	}
 }
