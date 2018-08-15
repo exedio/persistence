@@ -47,7 +47,7 @@ public class CacheTouchTest extends TestWithEnvironment
 	@Test void testIt()
 	{
 		assumeTrue(cache, "cache");
-		assumeTrue(!oracle, "not oracle"); // TODO
+		int o = oracle ? 1 : 0; // oracle does not provide repeatable read
 		initCache();
 
 		assertUpdateCount(0, NONE);
@@ -85,8 +85,8 @@ public class CacheTouchTest extends TestWithEnvironment
 
 		final boolean st = model.getConnectProperties().itemCacheStamps;
 
-		assertEquals("itemName", item.getName());
-		assertUpdateCount(0, st?NONE:0);
+		assertEquals(oracle?"itemName2":"itemName", item.getName());
+		assertUpdateCount(o, st?NONE:o);
 		assertCache(st?0:1, 0, 2, 2, 1, 1, 1, 1);
 
 		model.commit();
@@ -94,18 +94,20 @@ public class CacheTouchTest extends TestWithEnvironment
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
-		assertUpdateCount(NONE, st?NONE:0);
+		assertUpdateCount(NONE, st?NONE:o);
 		assertCache(st?0:1, 0, 2, 2, 1, 0, 1, 2);
 
-		if(st)
+		if(st||oracle)
 		{
+			if(st)
+				o = 0;
 			assertEquals("itemName2", item.getName());
 			assertUpdateCount(1, 1);
-			assertCache(1, 0, 3, 2, 1, 0, 1, 2);
+			assertCache(1, o, 3-o, 2, 1, 0, 1, 2);
 
 			item.setName("itemName3");
 			assertUpdateCount(2, 1);
-			assertCache(1, 0, 3, 2, 1, 0, 1, 2);
+			assertCache(1, o, 3-o, 2, 1, 0, 1, 2);
 
 			assertEquals("itemName3", item.getName());
 		}
