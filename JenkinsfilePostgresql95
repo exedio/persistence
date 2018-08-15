@@ -50,6 +50,10 @@ timestamps
 						'disableSupport.preparedStatements=true\n'
 				)
 				writeEnv(
+						'pg95-nstmp',
+						'cache.stamps=false\n'
+				)
+				writeEnv(
 						'pg95-sq',
 						'schema.primaryKeyGenerator=sequence\n'
 				)

@@ -42,6 +42,10 @@ timestamps
 						''
 				)
 				writeEnv(
+						'ora-nstmp',
+						'cache.stamps=false\n'
+				)
+				writeEnv(
 						'ora-sq',
 						'schema.primaryKeyGenerator=sequence\n'
 				)
