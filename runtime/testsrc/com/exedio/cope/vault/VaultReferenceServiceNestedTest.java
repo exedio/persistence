@@ -31,67 +31,83 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings({"UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR", "BC_UNCONFIRMED_CAST_OF_RETURN_VALUE"})
-public class VaultReferenceServiceTest
+public class VaultReferenceServiceNestedTest
 {
 	private VaultReferenceService service;
+	private VaultReferenceService serviceNested;
 	private VaultMockService main;
-	private VaultMockService refr;
+	private VaultMockService ref1;
+	private VaultMockService ref2;
 
 	@BeforeEach void before()
 	{
 		final Source source =
 				describe("DESC", cascade(
 						single("service", VaultReferenceService.class),
-						single("service.main", VaultMockService.class),
-						single("service.main.example", "mainEx"),
+						single("service.main", VaultReferenceService.class),
+						single("service.main.main", VaultMockService.class),
+						single("service.main.main.example", "mainEx"),
+						single("service.main.reference", VaultMockService.class),
+						single("service.main.reference.example", "ref1Ex"),
 						single("service.reference", VaultMockService.class),
-						single("service.reference.example", "refrEx")
+						single("service.reference.example", "ref2Ex")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
 		service = (VaultReferenceService)props.newService();
-		main = (VaultMockService)service.getMainService();
-		refr = (VaultMockService)service.getReferenceService();
+		serviceNested = (VaultReferenceService)service.getMainService();
+		ref2 = (VaultMockService)service.getReferenceService();
+		main = (VaultMockService)serviceNested.getMainService();
+		ref1 = (VaultMockService)serviceNested.getReferenceService();
 	}
 
 
 	@Test void testWritable()
 	{
 		assertEquals(true,  main.writable);
-		assertEquals(false, refr.writable);
+		assertEquals(false, ref1.writable);
+		assertEquals(false, ref2.writable);
 	}
 
 	@Test void testGetters()
 	{
 		assertEquals("mainEx", main.serviceProperties.example);
-		assertEquals("refrEx", refr.serviceProperties.example);
+		assertEquals("ref1Ex", ref1.serviceProperties.example);
+		assertEquals("ref2Ex", ref2.serviceProperties.example);
 	}
 
 	@Test void testToString()
 	{
 		assertEquals(
-				"VaultMockService:mainEx (reference VaultMockService:refrEx)",
+				"VaultMockService:mainEx (reference VaultMockService:ref1Ex) (reference VaultMockService:ref2Ex)",
 				service.toString());
+		assertEquals(
+				"VaultMockService:mainEx (reference VaultMockService:ref1Ex)",
+				serviceNested.toString());
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testPurge()
 	{
 		main.assertIt("");
-		refr.assertIt("");
+		ref1.assertIt("");
+		ref2.assertIt("");
 
 		service.purgeSchema(new AssertionErrorJobContext());
 		main.assertIt("purgeSchema\n");
-		refr.assertIt("purgeSchema\n");
+		ref1.assertIt("purgeSchema\n");
+		ref2.assertIt("purgeSchema\n");
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
 	@Test void testClose()
 	{
 		main.assertIt("");
-		refr.assertIt("");
+		ref1.assertIt("");
+		ref2.assertIt("");
 
 		service.close();
 		main.assertIt("close\n");
-		refr.assertIt("close\n");
+		ref1.assertIt("close\n");
+		ref2.assertIt("close\n");
 	}
 }
