@@ -49,6 +49,11 @@ abstract class AbstractVaultProperties extends Properties
 			return factory.newInstance(new VaultServiceParameters(
 					vaultProperties, writable));
 		}
+
+		Class<? extends VaultService> getServiceClass()
+		{
+			return factory.getServiceClass();
+		}
 	}
 
 	AbstractVaultProperties(final Source source)

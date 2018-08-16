@@ -179,6 +179,9 @@ public final class VaultReferenceService implements VaultService
 		Props(final Source source)
 		{
 			super(source);
+			if(reference.getServiceClass()==VaultReferenceService.class)
+				throw newException("reference",
+						"must not nest another VaultReferenceService, nest into main instead");
 		}
 	}
 }
