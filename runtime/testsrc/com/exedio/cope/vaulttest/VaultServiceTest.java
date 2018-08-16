@@ -286,7 +286,7 @@ public abstract class VaultServiceTest
 	}
 
 
-	protected static String hash(final String value) // protected visibility needed by copies of this file in other projects
+	protected static final String hash(final String value) // protected visibility needed by copies of this file in other projects
 	{
 		assertNotNull(value);
 
