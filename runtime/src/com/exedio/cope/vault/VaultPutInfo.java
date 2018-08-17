@@ -24,14 +24,33 @@ import java.net.InetAddress;
 import java.net.UnknownHostException;
 import javax.annotation.Nullable;
 
+/**
+ * Supplies additional information to put methods such as
+ * {@link VaultService#put(String, byte[], VaultPutInfo)}.
+ * Implementations of {@link VaultService} may choose to
+ * store this information for statistical purposes,
+ * but no functionality should depend on it.
+ */
 public interface VaultPutInfo
 {
+	/**
+	 * The {@link DataField field} this vault entry is put for.
+	 * <p>
+	 * Implementation may not be able to implement this method,
+	 * but only {@link #getFieldString()}.
+	 */
 	@Nullable
 	default DataField getField()
 	{
 		return null;
 	}
 
+	/**
+	 * The {@link com.exedio.cope.Feature#getID() id} of the
+	 * {@link DataField field} this vault entry is put for.
+	 *
+	 * @see #getField()
+	 */
 	@Nullable
 	default String getFieldString()
 	{
@@ -39,12 +58,24 @@ public interface VaultPutInfo
 		return field!=null ? field.getID() : null;
 	}
 
+	/**
+	 * The {@link Item item} this vault entry is put for.
+	 * <p>
+	 * Implementation may not be able to implement this method,
+	 * but only {@link #getItemString()}.
+	 */
 	@Nullable
 	default Item getItem()
 	{
 		return null;
 	}
 
+	/**
+	 * The {@link Item#getCopeID() id} of the
+	 * {@link Item item} this vault entry is put for.
+	 *
+	 * @see #getItem()
+	 */
 	@Nullable
 	default String getItemString()
 	{
