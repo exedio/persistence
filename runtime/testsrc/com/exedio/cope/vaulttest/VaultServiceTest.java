@@ -90,8 +90,11 @@ public abstract class VaultServiceTest
 
 	@AfterEach final void tearDownVaultServiceTest()
 	{
-		service.close();
-		service = null;
+		if(service!=null)
+		{
+			service.close();
+			service = null;
+		}
 	}
 
 	protected final VaultProperties getProperties()
