@@ -19,10 +19,12 @@
 package com.exedio.cope.tojunit;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
+import com.exedio.cope.misc.ConnectToken;
 import org.junit.jupiter.api.extension.ExtensionContext;
 
 public abstract class CopeRule extends MainRule
@@ -52,6 +54,7 @@ public abstract class CopeRule extends MainRule
 	@Override
 	protected final void before(final ExtensionContext context)
 	{
+		assertEquals(null, ConnectToken.getProperties(model));
 		ModelConnector.connectAndCreate(model, getConnectProperties());
 		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
 
