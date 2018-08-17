@@ -56,7 +56,7 @@ public class DataDigestTest
 				"knolloknolloknolloknolloknolloknolloknolloknolloknolloknolloknollo" +
 				"knolloknolloknolloknolloknollo");
 
-		// reference example from http://de.wikipedia.org/wiki/MD5
+		// reference example from https://de.wikipedia.org/wiki/MD5
 		assertUpdate(
 				"d41d8cd98f00b204e9800998ecf8427e",
 				bytes0);

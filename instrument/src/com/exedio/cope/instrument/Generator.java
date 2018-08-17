@@ -572,7 +572,7 @@ final class Generator
 						write(feature.parent.getName());
 						write(".class");
 						// Classes of non-toplevel types must override this constant
-						// for working around http://bugs.java.com/view_bug.do?bug_id=7101374
+						// for working around https://bugs.java.com/view_bug.do?bug_id=7101374
 						if(feature.parent.getTypeParameters()>0)
 							write("Wildcard.value");
 					}

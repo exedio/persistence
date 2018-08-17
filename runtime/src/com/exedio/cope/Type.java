@@ -1413,7 +1413,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private static final long serialVersionUID = 1l;
 
 	/**
-	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
 	private Object writeReplace() throws ObjectStreamException
 	{
@@ -1458,7 +1458,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 
 		/**
-		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
 		private Object readResolve() throws InvalidObjectException
 		{

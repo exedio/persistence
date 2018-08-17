@@ -55,7 +55,7 @@ public class MD5Test extends TestWithEnvironment
 		item = new MD5Item(FRANK);
 	}
 
-	// reference example from http://de.wikipedia.org/wiki/MD5
+	// reference example from https://de.wikipedia.org/wiki/MD5
 	// duplicated in  MessageDigestAlgorithmTest
 	private static final String FRANZ = "Franz jagt im komplett verwahrlosten Taxi quer durch Bayern";
 	private static final String FRANK = "Frank jagt im komplett verwahrlosten Taxi quer durch Bayern";

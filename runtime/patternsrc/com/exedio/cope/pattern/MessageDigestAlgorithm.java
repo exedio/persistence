@@ -115,7 +115,7 @@ public final class MessageDigestAlgorithm implements Hash.Algorithm
 
 		final byte[] result = new byte[saltLength + digestLength];
 
-		// http://www.owasp.org/index.php/Hashing_Java
+		// https://www.owasp.org/index.php/Hashing_Java
 		if(saltLength>0)
 		{
 			final byte[] salt = new byte[saltLength];

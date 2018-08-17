@@ -653,7 +653,7 @@ public class StringTest extends TestWithEnvironment
 		assertStringSet(item, sa, "''ab");
 
 		// PostgreSQL does not support \0 in characters:
-		// http://www.postgresql.org/message-id/45DAE076.1060407@opencloud.com
+		// https://www.postgresql.org/message-id/45DAE076.1060407@opencloud.com
 		// Error message is
 		// ERROR: invalid byte sequence for encoding "UTF8": 0x00
 		if(!postgresql)

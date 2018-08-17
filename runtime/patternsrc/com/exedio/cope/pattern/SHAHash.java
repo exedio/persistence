@@ -27,7 +27,7 @@ public final class SHAHash extends Hash
 	/**
 	 * @deprecated
 	 *    This hash is insecure, because it does neither use salts nor iterations.
-	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 *    For a full description see https://www.owasp.org/index.php/Hashing_Java.
 	 */
 	@Deprecated
 	public SHAHash(final String encoding)
@@ -38,7 +38,7 @@ public final class SHAHash extends Hash
 	/**
 	 * @deprecated
 	 *    This hash is insecure, because it does neither use salts nor iterations.
-	 *    For a full description see http://www.owasp.org/index.php/Hashing_Java.
+	 *    For a full description see https://www.owasp.org/index.php/Hashing_Java.
 	 */
 	@Deprecated
 	public SHAHash()

@@ -22,7 +22,7 @@ import com.exedio.cope.StringField;
 
 /**
  * Implements a hash migration strategy using nested hashes.
- * @see <a href="http://crypto.stackexchange.com/questions/2945/is-this-password-migration-strategy-secure">stackexchange</a>
+ * @see <a href="https://crypto.stackexchange.com/questions/2945/is-this-password-migration-strategy-secure">stackexchange</a>
  */
 public final class NestedHashAlgorithm
 {

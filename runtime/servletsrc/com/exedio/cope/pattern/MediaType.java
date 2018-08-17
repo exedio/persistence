@@ -186,7 +186,7 @@ public final class MediaType
 					JAVASCRIPT, "text/javascript", "application/x-javascript"),
 			new MediaType(
 					new String[]{".jpg",".jpeg"},
-					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)0xFF, (byte)0xD8, (byte)0xFF},
 					JPEG, "image/pjpeg"),
 			new MediaType(
@@ -196,22 +196,22 @@ public final class MediaType
 					PNG, "image/x-png"),
 			new MediaType(
 					".gif",
-					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
 					GIF),
 			new MediaType(
 					new String[]{".tif",".tiff"},
-					// http://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
+					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'I', (byte)'I', 42, 0}, // TODO allow MM (big endian) as well
 					TIFF),
 			new MediaType(
 					".ico",
-					// http://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
+					// https://en.wikipedia.org/wiki/ICO_(icon_image_file_format)
 					new byte[]{0, 0, 1, 0},
 					ICON, "image/icon", "image/x-icon"),
 			new MediaType(
 					".zip",
-					// http://en.wikipedia.org/wiki/ZIP_(file_format)
+					// https://en.wikipedia.org/wiki/ZIP_(file_format)
 					ZIP_MAGIC,
 					ZIP),
 			new MediaType(
@@ -224,15 +224,15 @@ public final class MediaType
 					DOCX),
 			new MediaType(
 					".svg",
-					// http://www.w3.org/TR/SVG/mimereg.html
+					// https://www.w3.org/TR/SVG/mimereg.html
 					SVG),
 			new MediaType(
 					".eot",
-					// http://www.w3.org/Submission/EOT/
+					// https://www.w3.org/Submission/EOT/
 					EOT),
 			new MediaType(
 					".woff",
-					// http://www.w3.org/TR/WOFF/
+					// https://www.w3.org/TR/WOFF/
 					new byte[]{(byte)'w', (byte)'O', (byte)'F', (byte)'F'},
 					WOFF,
 					"font/woff", // https://tools.ietf.org/html/rfc8081#section-4.4.5
@@ -245,21 +245,21 @@ public final class MediaType
 					WOFF2),
 			new MediaType(
 					".ttf",
-					// http://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc
+					// https://www.microsoft.com/typography/tt/ttf_spec/ttch02.doc
 					new byte[]{0x00,0x01,0x00,0x00,0x00},
 					TTF,
 					"application/x-font-truetype",
 					"font/ttf"),
 			new MediaType(
 					".pdf",
-					// http://en.wikipedia.org/wiki/PDF
+					// https://en.wikipedia.org/wiki/PDF
 					new byte[]{(byte)'%', (byte)'P', (byte)'D', (byte)'F'},
-					// http://tools.ietf.org/html/rfc3778
+					// https://tools.ietf.org/html/rfc3778
 					PDF,
 					"text/pdf" // seen on Firefox 5.0
 			),
 			new MediaType(
-					// http://en.wikipedia.org/wiki/Office_Open_XML
+					// https://en.wikipedia.org/wiki/Office_Open_XML
 					new String[]{".xlsx", ".xlsm"},
 					ZIP_MAGIC,
 					XLSX,

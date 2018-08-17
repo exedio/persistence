@@ -29,7 +29,7 @@
 				<doctitle><![CDATA[@{title}]]></doctitle>
 				<header><![CDATA[@{title}]]></header>
 				<footer><![CDATA[@{title}]]></footer>
-				<bottom><![CDATA[Copyright &copy; 2004-2015 <a href="http://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.<br>${build.tag}]]></bottom>
+				<bottom><![CDATA[Copyright &copy; 2004-2015 <a href="https://www.exedio.com/" target="_top">exedio</a> Gesellschaft f&uuml;r Softwareentwicklung mbH. All rights reserved.<br>${build.tag}]]></bottom>
 				<classpath>
 					<myClasspath />
 				</classpath>

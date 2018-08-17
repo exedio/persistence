@@ -218,7 +218,7 @@ public class MessageDigestAlgorithmTest
 			"knolloknolloknolloknolloknollo",
 			"cb7e2023fc2372d06a876501b2f8f6c5347ac23fd8e92c02b5efd8ce60e03240a60ca82d760849103455dfd26cd1c28695e5f51b41001f71496e8126d168eb84");
 
-		// reference example from http://de.wikipedia.org/wiki/SHA-512
+		// reference example from https://de.wikipedia.org/wiki/SHA-512
 		assertDigest(a,
 			"Franz jagt im komplett verwahrlosten Taxi quer durch Bayern",
 			"af9ed2de700433b803240a552b41b5a472a6ef3fe1431a722b2063c75e9f07451f67a28e37d09cde769424c96aea6f8971389db9e1993d6c565c3c71b855723c");
@@ -249,7 +249,7 @@ public class MessageDigestAlgorithmTest
 			"knolloknolloknolloknolloknollo",
 			"6ce62d0dbd8e8b3f453ba742c102cd0b");
 
-		// reference example from http://de.wikipedia.org/wiki/MD5
+		// reference example from https://de.wikipedia.org/wiki/MD5
 		assertDigest(a,
 			"Franz jagt im komplett verwahrlosten Taxi quer durch Bayern",
 			"a3cca2b2aa1e3b5b3b5aad99a8529074");

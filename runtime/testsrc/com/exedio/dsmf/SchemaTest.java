@@ -139,7 +139,7 @@ public abstract class SchemaTest
 			{
 				try(java.sql.Statement st = connection.createStatement())
 				{
-					// http://www.postgresql.org/docs/9.3/interactive/runtime-config-client.html#GUC-SEARCH-PATH
+					// https://www.postgresql.org/docs/9.3/interactive/runtime-config-client.html#GUC-SEARCH-PATH
 					st.execute("SET search_path TO " + config.connectionPostgresqlSearchPath);
 				}
 			}

@@ -119,7 +119,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	boolean inRequiresParenthesis()
 	{
-		// http://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
+		// https://sourceforge.net/tracker/?func=detail&atid=378131&aid=3101603&group_id=23316
 		return true;
 	}
 

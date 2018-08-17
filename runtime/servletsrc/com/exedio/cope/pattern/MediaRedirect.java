@@ -105,7 +105,7 @@ public final class MediaRedirect extends MediaPath
 
 		final StringBuilder location = new StringBuilder();
 		location.
-			// There is no need for absolute url anymore: http://en.wikipedia.org/wiki/HTTP_location
+			// There is no need for absolute url anymore: https://en.wikipedia.org/wiki/HTTP_location
 			append(request.getContextPath()).
 			append(request.getServletPath()).
 			append('/');

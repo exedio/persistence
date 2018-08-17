@@ -27,7 +27,7 @@ import com.exedio.cope.instrument.WrapperInitial;
 import org.junit.jupiter.api.Test;
 
 /**
- * See http://bugs.mysql.com/bug.php?id=8173 as well.
+ * See https://bugs.mysql.com/bug.php?id=8173 as well.
  */
 public class UniqueDoubleNullTest extends TestWithEnvironment
 {

@@ -107,7 +107,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			{
 				if(mysql && !MODEL.getEnvironmentInfo().getDriverName().startsWith("MariaDB"))
 				{
-					assertEquals(MAX_VALUE, rs.getLong(1)); // http://bugs.mysql.com/bug.php?id=82032
+					assertEquals(MAX_VALUE, rs.getLong(1)); // https://bugs.mysql.com/bug.php?id=82032
 				}
 				else
 				{

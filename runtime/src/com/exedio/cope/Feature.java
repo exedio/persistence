@@ -459,7 +459,7 @@ public abstract class Feature implements Serializable
 	private static final long serialVersionUID = 1l;
 
 	/**
-	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
 	protected final Object writeReplace() throws ObjectStreamException
 	{
@@ -518,7 +518,7 @@ public abstract class Feature implements Serializable
 		}
 
 		/**
-		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
 		private Object readResolve() throws InvalidObjectException
 		{

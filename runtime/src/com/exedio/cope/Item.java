@@ -505,7 +505,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	private static final long serialVersionUID = 2l;
 
 	/**
-	 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
 	 */
 	protected final Object writeReplace()
 	{
@@ -532,7 +532,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 		}
 
 		/**
-		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
 		private Object readResolve()
 		{

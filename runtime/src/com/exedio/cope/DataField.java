@@ -883,7 +883,7 @@ public final class DataField extends Field<DataField.Value>
 		{
 			// NOTICE
 			// The following code is needed to avoid the zip bomb,
-			// see http://en.wikipedia.org/wiki/Zip_bomb
+			// see https://en.wikipedia.org/wiki/Zip_bomb
 			return entry.getSize();
 		}
 

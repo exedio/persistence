@@ -136,7 +136,7 @@ public abstract class Condition implements Serializable
 		/**
 		 * Enforces singleton on deserialization,
 		 * otherwise {@link #equals(Object)} would be wrong.
-		 * <a href="http://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
 		 */
 		private Object readResolve()
 		{

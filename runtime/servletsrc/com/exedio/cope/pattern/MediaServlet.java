@@ -172,7 +172,7 @@ public class MediaServlet extends HttpServlet
 				{
 					response.setStatus(SC_MOVED_PERMANENTLY);
 					response.setHeader(RESPONSE_LOCATION,
-							// There is no need for absolute url anymore: http://en.wikipedia.org/wiki/HTTP_location
+							// There is no need for absolute url anymore: https://en.wikipedia.org/wiki/HTTP_location
 							request.getContextPath() +
 							request.getServletPath() + '/' +
 							alt.getType().getID() + '/' +

@@ -273,7 +273,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		// This is very probably caused by a bug in MySQL 4, which has been
 		// fixed in MySQL 5:
 		//
-		// http://bugs.mysql.com/bug.php?id=11039
+		// https://bugs.mysql.com/bug.php?id=11039
 		//
 		// This bug occurs for columns with an index only (that is created by
 		// the foreign key constraint here) and only when using the min()

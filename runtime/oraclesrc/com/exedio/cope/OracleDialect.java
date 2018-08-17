@@ -462,7 +462,7 @@ final class OracleDialect extends Dialect
 		// TODO Oracle 12
 		// There seems to be a restart command in Oracle 12c:
 		// ALTER SEQUENCE SERIAL RESTART START WITH start
-		// http://stackoverflow.com/questions/51470/how-do-i-reset-a-sequence-in-oracle
+		// https://stackoverflow.com/questions/51470/how-do-i-reset-a-sequence-in-oracle
 		bf.append(
 			"EXECUTE IMMEDIATE " +
 				"'DROP SEQUENCE ").append(quotedName).append("';" +
@@ -510,8 +510,8 @@ final class OracleDialect extends Dialect
 				// BEWARE:
 				// In contrast to what the name suggests, LAST_NUMBER does not contain
 				// the last result returned by NEXTVAL, but the next result to be returned.
-				// http://stackoverflow.com/questions/4596220/how-to-verify-oracle-sequences
-				// http://docs.oracle.com/cd/B28359_01/server.111/b28320/statviews_2053.htm#i1588488
+				// https://stackoverflow.com/questions/4596220/how-to-verify-oracle-sequences
+				// https://docs.oracle.com/cd/B28359_01/server.111/b28320/statviews_2053.htm#i1588488
 				// BEWARE 2:
 				// Without NOCACHE in CREATE SEQUENCE wrong results are returned by LAST_NUMBER.
 				"SELECT LAST_NUMBER " +

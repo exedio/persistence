@@ -78,11 +78,11 @@ performance / memory consumption
 - ItemCache: store values in three arrays int[], double[], String[] instead of a Map,
 	saves lots of objects going through full GC.
 	* implement pooling for various classes, especcially when trove LinkedHashMap is done
-	* use LRU with guava ComputingMap: http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
+	* use LRU with guava ComputingMap: https://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 - QueryCache:
 	* implement similar compact representation as for Cache
 	* special handling for empty/singleton results saving memory
-	* use LRU with guava ComputingMap: http://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
+	* use LRU with guava ComputingMap: https://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 - compress strings in cache, using special algorithm such as Snappy.
 - ActivationCache
 	cache instance of subclasses of Item independently of ItemCache,

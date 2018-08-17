@@ -323,7 +323,7 @@ public class Hash extends Pattern implements HashInterface
 	 * Wastes (almost) as much cpu cycles, as a call to
 	 * {@link #check(Item, String)}  would have needed.
 	 * Needed to prevent Timing Attacks.
-	 * See http://en.wikipedia.org/wiki/Timing_attack
+	 * See https://en.wikipedia.org/wiki/Timing_attack
 	 */
 	@Override
 	@Wrap(order=20,
