@@ -19,9 +19,11 @@ timestamps
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 				env.SCHEMA = "ci_${HOSTNAME}_${EXECUTOR_NUMBER}"
 
+				def isRelease = env.BRANCH_NAME.toString().equals("master");
+
 				properties([
 						buildDiscarder(logRotator(
-								numToKeepStr : '30'
+								numToKeepStr : isRelease ? '1000' : '30'
 						))
 				])
 
