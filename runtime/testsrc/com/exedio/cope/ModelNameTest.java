@@ -19,9 +19,10 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static java.lang.Integer.toHexString;
+import static java.lang.System.identityHashCode;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
@@ -32,7 +33,7 @@ public class ModelNameTest
 
 	@Test void testAnonymous()
 	{
-		assertTrue(ANONYMOUS.toString().startsWith(Model.class.getName() + '@'), ANONYMOUS.toString());
+		assertEquals(Model.class.getName() + '@' + toHexString(identityHashCode(ANONYMOUS)), ANONYMOUS.toString());
 
 		ANONYMOUS.enableSerialization(ModelNameTest.class, "ANONYMOUS");
 		assertEquals(ModelNameTest.class.getName() + "#ANONYMOUS", ANONYMOUS.toString());
