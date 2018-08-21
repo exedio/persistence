@@ -4,7 +4,7 @@ import groovy.transform.stc.ClosureParams
 import groovy.transform.stc.SimpleType
 
 @Field
-String jdk = 'openjdk-11'
+String jdk = 'openjdk-17'
 @Field
 String idea = '2023.2'
 @Field

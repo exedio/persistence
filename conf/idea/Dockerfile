@@ -11,7 +11,7 @@ curl \
 EOF
 
 
-FROM debian:buster-20220418
+FROM debian:bullseye-20220418
 
 ARG JDK
 RUN <<EOF

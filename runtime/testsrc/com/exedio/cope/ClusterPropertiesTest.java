@@ -66,8 +66,8 @@ public class ClusterPropertiesTest
 		model.connect(props);
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(0, gauge("trafficClass", model));
-		assertEquals(NaN, gauge("sendLoopback", model));
-		assertEquals(1, gauge("listenLoopback", model));
+		assertEquals(1, gauge("sendLoopback", model));
+		assertEquals(0, gauge("listenLoopback", model));
 		assertEquals(1, gauge("listenThreads", model));
 		assertEquals(NORM_PRIORITY, gauge("listenThreadPriority", model));
 		assertEquals(1400, gauge("packetSize", model));
@@ -201,7 +201,7 @@ public class ClusterPropertiesTest
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(14888, gauge("sendBufferSize", model));
 		assertEquals(44,    gauge("trafficClass", model));
-		assertEquals(1,     gauge("sendLoopback", model));
+		assertEquals(0,     gauge("sendLoopback", model));
 		assertEquals(0,     gauge("listenLoopback", model));
 		assertEquals(15888, gauge("receiveBufferSize", model));
 		assertEquals(8,     gauge("listenThreads", model));
@@ -251,7 +251,7 @@ public class ClusterPropertiesTest
 		assertEquals(true, model.isClusterEnabled());
 		assertEquals(14999, gauge("sendBufferSize", model));
 		assertEquals(66,    gauge("trafficClass", model));
-		assertEquals(NaN,   gauge("sendLoopback", model));
+		assertEquals(1,     gauge("sendLoopback", model));
 		assertEquals(NaN,   gauge("listenLoopback", model));
 		assertEquals(15999, gauge("receiveBufferSize", model));
 		assertEquals(9,     gauge("listenThreads", model));

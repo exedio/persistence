@@ -39,6 +39,7 @@ import org.junit.jupiter.api.Test;
  * This option is {@code FALSE} by default, thus it is affected by the same negation semantics as
  * {@link MulticastSocket#setLoopbackMode(boolean)} and {@link MulticastSocket#getLoopbackMode()}.
  */
+@SuppressWarnings("deprecation") // for set/getLoopbackMode
 public class LoopbackTest
 {
 	private MulticastSocket socket;
@@ -54,7 +55,7 @@ public class LoopbackTest
 		socket = new MulticastSocket(14446);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(false, socket.getLoopbackMode());
-		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
+		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
 	}
 
 	@Test void testOldDefaultSet() throws IOException
@@ -63,7 +64,7 @@ public class LoopbackTest
 		socket.setLoopbackMode(false);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(false, socket.getLoopbackMode());
-		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
+		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
 	}
 
 	@Test void testOldSet() throws IOException
@@ -72,7 +73,7 @@ public class LoopbackTest
 		socket.setLoopbackMode(true);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
 		assertEquals(true, socket.getLoopbackMode());
-		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
+		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
 	}
 
 	@Test void testNewDefaultSet() throws IOException
@@ -80,7 +81,7 @@ public class LoopbackTest
 		socket = new MulticastSocket(14446);
 		socket.setOption(IP_MULTICAST_LOOP, false);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
-		assertEquals(false, socket.getLoopbackMode());
+		assertEquals(true, socket.getLoopbackMode());
 		assertEquals(false, socket.getOption(IP_MULTICAST_LOOP));
 	}
 
@@ -89,7 +90,7 @@ public class LoopbackTest
 		socket = new MulticastSocket(14446);
 		socket.setOption(IP_MULTICAST_LOOP, true);
 		socket.joinGroup(new InetSocketAddress(InetAddress.getByName("224.0.0.50"), 0), networkInterface());
-		assertEquals(true, socket.getLoopbackMode());
+		assertEquals(false, socket.getLoopbackMode());
 		assertEquals(true, socket.getOption(IP_MULTICAST_LOOP));
 	}
 
