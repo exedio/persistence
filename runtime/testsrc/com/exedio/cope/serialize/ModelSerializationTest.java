@@ -121,7 +121,7 @@ public class ModelSerializationTest
 		assertSerializable();
 
 		assertFails(
-				() -> model.enableSerialization(itemClass, "modelx"),
+				() -> model.enableSerialization(testClass, "modelx"),
 				IllegalStateException.class,
 				"enableSerialization already been called for " + testClassName + "#model");
 		assertSerializable();
