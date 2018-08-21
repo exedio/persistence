@@ -55,6 +55,8 @@ public class ModelSerializationTest
 
 	private static final Class<?> itemClass = MyItem.class;
 	private static final Class<?> testClass = ModelSerializationTest.class;
+	private static final String itemClassName = itemClass.getName();
+	private static final String testClassName = testClass.getName();
 
 	@Test void test() throws IOException
 	{
@@ -86,37 +88,37 @@ public class ModelSerializationTest
 		assertFails(
 				() -> model.enableSerialization(itemClass, "model"),
 				IllegalArgumentException.class,
-				itemClass.getName() + "#model does not exist.");
+				itemClassName + "#model does not exist.");
 		assertEquals(false, model.isSerializationEnabled());
 
 		assertFails(
 				() -> model.enableSerialization(testClass, "modelx"),
 				IllegalArgumentException.class,
-				testClass.getName() + "#modelx does not exist.");
+				testClassName + "#modelx does not exist.");
 		assertEquals(false, model.isSerializationEnabled());
 
 		assertFails(
 				() -> model.enableSerialization(testClass, "modelNonStatic"),
 				IllegalArgumentException.class,
-				testClass.getName() + "#modelNonStatic is not static final.");
+				testClassName + "#modelNonStatic is not static final.");
 		assertEquals(false, model.isSerializationEnabled());
 
 		assertFails(
 				() -> model.enableSerialization(testClass, "modelNonFinal"),
 				IllegalArgumentException.class,
-				testClass.getName() + "#modelNonFinal is not static final.");
+				testClassName + "#modelNonFinal is not static final.");
 		assertEquals(false, model.isSerializationEnabled());
 
 		assertFails(
 				() -> model.enableSerialization(testClass, "modelNull"),
 				IllegalArgumentException.class,
-				testClass.getName() + "#modelNull is null.");
+				testClassName + "#modelNull is null.");
 		assertEquals(false, model.isSerializationEnabled());
 
 		assertFails(
 				() -> model.enableSerialization(testClass, "modelWrong"),
 				IllegalArgumentException.class,
-				testClass.getName() + "#modelWrong is not a model, but java.lang.String.");
+				testClassName + "#modelWrong is not a model, but java.lang.String.");
 		assertEquals(false, model.isSerializationEnabled());
 
 		assertFails(
@@ -141,12 +143,12 @@ public class ModelSerializationTest
 		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
-		assertEquals(testClass.getName() + "#model", model.toString());
+		assertEquals(testClassName + "#model", model.toString());
 
 		assertFails(
 				() -> model.enableSerialization(itemClass, "modelx"),
 				IllegalStateException.class,
-				"enableSerialization already been called for " + testClass.getName() + "#model");
+				"enableSerialization already been called for " + testClassName + "#model");
 		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
 		assertSerializedSame(MyItem.TYPE, 282);
