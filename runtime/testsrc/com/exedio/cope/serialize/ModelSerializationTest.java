@@ -21,9 +21,10 @@ package com.exedio.cope.serialize;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.lang.Integer.toHexString;
+import static java.lang.System.identityHashCode;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Item;
@@ -71,7 +72,7 @@ public class ModelSerializationTest
 		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
-		assertNotNull(model.toString());
+		assertEquals("com.exedio.cope.Model@" + toHexString(identityHashCode(model)), model.toString());
 
 		assertFails(
 				() -> model.enableSerialization(null, null),
@@ -130,6 +131,7 @@ public class ModelSerializationTest
 		assertNotSerializable(model, Model.class);
 		assertNotSerializable(MyItem.TYPE, Model.class);
 		assertNotSerializable(NotItem.TYPE, Type.class);
+		assertEquals("com.exedio.cope.Model@" + toHexString(identityHashCode(model)), model.toString());
 
 		model.enableSerialization(testClass, "model");
 		assertEquals(true, model.isSerializationEnabled());
@@ -160,6 +162,7 @@ public class ModelSerializationTest
 		assertNotSerializable(NotItem.pattern, Type.class);
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
+		assertEquals(testClassName + "#model", model.toString());
 	}
 
 	private static void assertNotSerializable(final Serializable value, final Class<?> exceptionMessage) throws IOException
