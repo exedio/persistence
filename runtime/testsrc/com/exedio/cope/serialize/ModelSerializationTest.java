@@ -61,6 +61,74 @@ public class ModelSerializationTest
 
 	@Test void test() throws IOException
 	{
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(null, null),
+				NullPointerException.class,
+				"type");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(itemClass, null),
+				NullPointerException.class,
+				"name");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(itemClass, "model"),
+				IllegalArgumentException.class,
+				itemClassName + "#model does not exist.");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(testClass, "modelx"),
+				IllegalArgumentException.class,
+				testClassName + "#modelx does not exist.");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(testClass, "modelNonStatic"),
+				IllegalArgumentException.class,
+				testClassName + "#modelNonStatic is not static final.");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(testClass, "modelNonFinal"),
+				IllegalArgumentException.class,
+				testClassName + "#modelNonFinal is not static final.");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(testClass, "modelNull"),
+				IllegalArgumentException.class,
+				testClassName + "#modelNull is null.");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(testClass, "modelWrong"),
+				IllegalArgumentException.class,
+				testClassName + "#modelWrong is not a model, but java.lang.String.");
+		assertNotSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(CacheIsolationTest.class, "MODEL"),
+				IllegalArgumentException.class,
+				"enableSerialization does not resolve to itself com.exedio.cope.CacheIsolationTest#MODEL");
+		assertNotSerializable();
+
+		model.enableSerialization(testClass, "model");
+		assertSerializable();
+
+		assertFails(
+				() -> model.enableSerialization(itemClass, "modelx"),
+				IllegalStateException.class,
+				"enableSerialization already been called for " + testClassName + "#model");
+		assertSerializable();
+	}
+
+	private static void assertNotSerializable() throws IOException
+	{
 		assertEquals(false, model.isSerializationEnabled());
 		assertNotSerializable(model, Model.class);
 		assertNotSerializable(MyItem.TYPE, Model.class);
@@ -73,84 +141,10 @@ public class ModelSerializationTest
 		assertNotSerializable(new StringField(), StringField.class);
 		assertNotSerializable(ListField.create(new StringField()), ListField.class);
 		assertEquals("com.exedio.cope.Model@" + toHexString(identityHashCode(model)), model.toString());
+	}
 
-		assertFails(
-				() -> model.enableSerialization(null, null),
-				NullPointerException.class,
-				"type");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(itemClass, null),
-				NullPointerException.class,
-				"name");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(itemClass, "model"),
-				IllegalArgumentException.class,
-				itemClassName + "#model does not exist.");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(testClass, "modelx"),
-				IllegalArgumentException.class,
-				testClassName + "#modelx does not exist.");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(testClass, "modelNonStatic"),
-				IllegalArgumentException.class,
-				testClassName + "#modelNonStatic is not static final.");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(testClass, "modelNonFinal"),
-				IllegalArgumentException.class,
-				testClassName + "#modelNonFinal is not static final.");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(testClass, "modelNull"),
-				IllegalArgumentException.class,
-				testClassName + "#modelNull is null.");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(testClass, "modelWrong"),
-				IllegalArgumentException.class,
-				testClassName + "#modelWrong is not a model, but java.lang.String.");
-		assertEquals(false, model.isSerializationEnabled());
-
-		assertFails(
-				() -> model.enableSerialization(CacheIsolationTest.class, "MODEL"),
-				IllegalArgumentException.class,
-				"enableSerialization does not resolve to itself com.exedio.cope.CacheIsolationTest#MODEL");
-
-		assertEquals(false, model.isSerializationEnabled());
-		assertNotSerializable(model, Model.class);
-		assertNotSerializable(MyItem.TYPE, Model.class);
-		assertNotSerializable(NotItem.TYPE, Type.class);
-		assertEquals("com.exedio.cope.Model@" + toHexString(identityHashCode(model)), model.toString());
-
-		model.enableSerialization(testClass, "model");
-		assertEquals(true, model.isSerializationEnabled());
-		assertSerializedSame(model, 181);
-		assertSerializedSame(MyItem.TYPE, 282);
-		assertNotSerializable(NotItem.TYPE, Type.class);
-		assertSerializedSame(MyItem.TYPE.getThis(), 384);
-		assertSerializedSame(MyItem.name, 384);
-		assertSerializedSame(MyItem.list, 384);
-		assertNotSerializable(NotItem.field, Type.class);
-		assertNotSerializable(NotItem.pattern, Type.class);
-		assertNotSerializable(new StringField(), StringField.class);
-		assertNotSerializable(ListField.create(new StringField()), ListField.class);
-		assertEquals(testClassName + "#model", model.toString());
-
-		assertFails(
-				() -> model.enableSerialization(itemClass, "modelx"),
-				IllegalStateException.class,
-				"enableSerialization already been called for " + testClassName + "#model");
+	private static void assertSerializable() throws IOException
+	{
 		assertEquals(true, model.isSerializationEnabled());
 		assertSerializedSame(model, 181);
 		assertSerializedSame(MyItem.TYPE, 282);
