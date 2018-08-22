@@ -47,7 +47,7 @@ public class InMemoryCompilerTest
 		{
 			final Class<?> clazz = cl.loadClass(className);
 			final Method method = clazz.getMethod(methodName);
-			return method.invoke(clazz.newInstance());
+			return method.invoke(clazz.getConstructor().newInstance());
 		}
 		catch (final ReflectiveOperationException e)
 		{
