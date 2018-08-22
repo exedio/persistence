@@ -33,22 +33,12 @@ public final class NameFeatureItem extends Item
 	@Wrapper(wrap="withinMethod", visibility=PUBLIC)
 	static final NameFeature alpha = new NameFeature();
 
-	@Wrapper(wrap="withinMethod", visibility=PUBLIC)
-	static final NameFeature alphaAnnotated = new NameFeature();
-
 	@Wrapper(wrap="", visibility=PROTECTED)
 	static final NameFeature beta = new NameFeature();
-
-	@Wrapper(wrap="", visibility=PROTECTED)
-	static final NameFeature betaAnnotated = new NameFeature();
 
 	@Wrapper(wrap="", visibility=NONE)
 	@Wrapper(wrap="withinMethod", visibility=NONE)
 	static final NameFeature gamma = new NameFeature();
-
-	@Wrapper(wrap="", visibility=NONE)
-	@Wrapper(wrap="withinMethod", visibility=NONE)
-	static final NameFeature gammaAnnotated = new NameFeature();
 
 	/**
 	 * Creates a new NameFeatureItem with all the fields initially needed.
@@ -118,30 +108,6 @@ public final class NameFeatureItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	public final void withinAlphaAnnotatedMethod()
-	{
-		NameFeatureItem.alphaAnnotated.within0(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	public final void withinalphaAnnotatedMethod()
-	{
-		NameFeatureItem.alphaAnnotated.within1(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	final void AlphaAnnotated()
-	{
-		NameFeatureItem.alphaAnnotated.only0(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	final void alphaAnnotated()
-	{
-		NameFeatureItem.alphaAnnotated.only1(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
 	final void withinBetaMethod()
 	{
 		NameFeatureItem.beta.within0(this);
@@ -163,30 +129,6 @@ public final class NameFeatureItem extends Item
 	protected final void beta()
 	{
 		NameFeatureItem.beta.only1(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	final void withinBetaAnnotatedMethod()
-	{
-		NameFeatureItem.betaAnnotated.within0(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	final void withinbetaAnnotatedMethod()
-	{
-		NameFeatureItem.betaAnnotated.within1(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	protected final void BetaAnnotated()
-	{
-		NameFeatureItem.betaAnnotated.only0(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	protected final void betaAnnotated()
-	{
-		NameFeatureItem.betaAnnotated.only1(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
