@@ -55,6 +55,7 @@ final class Params
 		return String.valueOf(maxwarns);
 	}
 
+	boolean javaxAnnotationGenerated = false;
 	boolean nullabilityAnnotations = false;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean directSetValueMap = false;

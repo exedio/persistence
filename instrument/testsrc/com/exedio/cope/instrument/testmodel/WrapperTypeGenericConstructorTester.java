@@ -62,6 +62,7 @@ public final class WrapperTypeGenericConstructorTester
 
 	@WrapperType(genericConstructor=PUBLIC,
 			type=NONE, constructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("PublicConstructorInNonPublicClass")
 	static final class SetPublic extends Item
 	{
 		/**
@@ -76,6 +77,7 @@ public final class WrapperTypeGenericConstructorTester
 
 	@WrapperType(genericConstructor=PROTECTED,
 			type=NONE, constructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("ProtectedMemberInFinalClass")
 	static final class SetProtected extends Item
 	{
 		/**

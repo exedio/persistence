@@ -48,6 +48,7 @@ public final class WrapperTypeTypeTester
 
 	@WrapperType(type=DEFAULT,
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("ProtectedMemberInFinalClass")
 	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 	protected static final class DefaultProtected extends Item
 	{
@@ -106,6 +107,7 @@ public final class WrapperTypeTypeTester
 
 	@WrapperType(type=PROTECTED,
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("ProtectedMemberInFinalClass")
 	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 	static final class SetProtected extends Item
 	{

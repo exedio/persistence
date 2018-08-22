@@ -360,6 +360,7 @@
 		<instrument
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
+				javaxAnnotationGenerated="true"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				buildDirectory="build/instrument/runtime.test">
@@ -546,6 +547,7 @@
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
+				javaxAnnotationGenerated="true"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
@@ -748,6 +750,7 @@
 		<instrument
 				dir="instrument/testsrc"
 				verify="${instrument.verify}"
+				javaxAnnotationGenerated="true"
 				charset="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"
@@ -778,6 +781,7 @@
 		<instrument
 				dir="instrument/testparamssrc"
 				verify="${instrument.verify}"
+				javaxAnnotationGenerated="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<suppressWarnings>
@@ -792,6 +796,7 @@
 		<instrument
 				dir="instrument/testlibsrc"
 				verify="${instrument.verify}"
+				javaxAnnotationGenerated="true"
 				charset="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"

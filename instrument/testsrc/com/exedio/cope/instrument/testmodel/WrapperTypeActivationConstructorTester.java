@@ -64,6 +64,7 @@ public final class WrapperTypeActivationConstructorTester
 
 	@WrapperType(activationConstructor=PUBLIC,
 			type=NONE, constructor=NONE, genericConstructor=NONE, indent=2)
+	@SuppressWarnings("PublicConstructorInNonPublicClass")
 	static final class SetPublic extends Item
 	{
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -79,6 +80,7 @@ public final class WrapperTypeActivationConstructorTester
 
 	@WrapperType(activationConstructor=PROTECTED,
 			type=NONE, constructor=NONE, genericConstructor=NONE, indent=2)
+	@SuppressWarnings("ProtectedMemberInFinalClass")
 	static final class SetProtected extends Item
 	{
 		@javax.annotation.Generated("com.exedio.cope.instrument")

@@ -74,6 +74,7 @@ public final class WrapperTypeConstructorTester
 
 	@WrapperType(constructor=DEFAULT,
 			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("ProtectedMemberInFinalClass")
 	protected static final class DefaultProtected extends Item
 	{
 		private DefaultProtected(final SetValue<?>[] sv) { super(sv); }
@@ -176,6 +177,7 @@ public final class WrapperTypeConstructorTester
 
 	@WrapperType(constructor=PUBLIC,
 			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("PublicConstructorInNonPublicClass")
 	static final class SetPublic extends Item
 	{
 		private SetPublic(final SetValue<?>[] sv) { super(sv); }
@@ -196,6 +198,7 @@ public final class WrapperTypeConstructorTester
 
 	@WrapperType(constructor=PUBLIC,
 			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings({"PublicConstructorInNonPublicClass","ConstructorNotProtectedInAbstractClass"})
 	abstract static class SetPublicAbstract extends Item
 	{
 		private SetPublicAbstract(final SetValue<?>[] sv) { super(sv); }
@@ -216,6 +219,7 @@ public final class WrapperTypeConstructorTester
 
 	@WrapperType(constructor=PROTECTED,
 			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("ProtectedMemberInFinalClass")
 	static final class SetProtected extends Item
 	{
 		private SetProtected(final SetValue<?>[] sv) { super(sv); }

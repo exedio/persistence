@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import static com.exedio.cope.ItemWildcardCast.cast;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
@@ -27,6 +26,7 @@ import static com.exedio.cope.instrument.Visibility.PROTECTED;
 import static com.exedio.cope.instrument.Visibility.PUBLIC;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -54,6 +54,7 @@ public final class WrapperTypeWildcardClassTester
 		public static final com.exedio.cope.Type<DefaultPublic<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 	}
 
+	@SuppressWarnings("ProtectedMemberInFinalClass")
 	@WrapperType(wildcardClass=DEFAULT,
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
@@ -203,7 +204,7 @@ public final class WrapperTypeWildcardClassTester
 		@WrapInterim
 		private static final class classWildcard
 		{
-			public static final Class<SetNone<?>> value = cast(SetNone.class);
+			public static final Class<SetNone<?>> value = ItemWildcardCast.cast(SetNone.class);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

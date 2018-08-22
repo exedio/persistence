@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @com.exedio.cope.instrument.Generated replaces @javax.annotation.Generated("com.exedio.cope.instrument").
+	Heavily affects instrumented code!
+	Use this parameter:
+		<instrument javaxAnnotationGenerated="true" ...
+	to enable previous behaviour.
 * Feature#getSuspicions() added.
 * bugfix: for*Strict finders for fields of primitives added.
 	Affects instrumented code.

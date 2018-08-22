@@ -123,6 +123,11 @@ public final class AntTask extends Task
 		pathToFiles(value, params.classpath, false);
 	}
 
+	public void setJavaxAnnotationGenerated(final boolean value)
+	{
+		params.javaxAnnotationGenerated = value;
+	}
+
 	public void setNullabilityAnnotations(final boolean value)
 	{
 		params.nullabilityAnnotations = value;
