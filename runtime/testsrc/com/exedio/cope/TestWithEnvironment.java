@@ -93,7 +93,7 @@ public abstract class TestWithEnvironment
 		model.commit();
 	}
 
-	protected void assertIDFails(final String id, final String detail, final boolean notAnID)
+	protected final void assertIDFails(final String id, final String detail, final boolean notAnID)
 	{
 		tester.assertIDFails(id, detail, notAnID);
 	}
@@ -108,7 +108,7 @@ public abstract class TestWithEnvironment
 		tester.assertStreamClosed();
 	}
 
-	protected void assertSchema()
+	protected final void assertSchema()
 	{
 		tester.assertSchema();
 	}
@@ -119,7 +119,7 @@ public abstract class TestWithEnvironment
 	}
 
 	// copied from CopeTest
-	protected void restartTransaction()
+	protected final void restartTransaction()
 	{
 		final String oldName = model.currentTransaction().getName();
 		model.commit();
@@ -192,7 +192,7 @@ public abstract class TestWithEnvironment
 		tester.assertCheckUpdateCounters();
 	}
 
-	void assertSameCache(final Object o1, final Object o2)
+	final void assertSameCache(final Object o1, final Object o2)
 	{
 		tester.assertSameCache(o1, o2);
 	}
