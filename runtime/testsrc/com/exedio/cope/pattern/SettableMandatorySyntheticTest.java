@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import static com.exedio.cope.pattern.SettableMandatorySyntheticTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.SettableMandatorySyntheticTest.AnItem.mandatory;
 import static org.junit.Assert.fail;
@@ -71,7 +70,6 @@ public class SettableMandatorySyntheticTest extends TestWithEnvironment
 	}
 
 
-	@com.exedio.cope.instrument.WrapperType(genericConstructor=PUBLIC) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final SettableSyntheticField mandatory = new SettableSyntheticField();
@@ -93,7 +91,7 @@ public class SettableMandatorySyntheticTest extends TestWithEnvironment
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	public AnItem(final com.exedio.cope.SetValue<?>... setValues)
+	private AnItem(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
 	}

@@ -18,19 +18,15 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import static com.exedio.cope.instrument.Visibility.PUBLIC;
-
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.StringField;
-import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 
 @SuppressWarnings("EmptyClass")
 final class InnerContainer
 {
-	@WrapperType(genericConstructor=PUBLIC)
 	static class Super extends Item
 	{
 		static final ItemField<Target> superField = ItemField.create(Target.class).toFinal();
@@ -73,7 +69,7 @@ final class InnerContainer
 	 * Creates a new Super and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	public Super(final com.exedio.cope.SetValue<?>... setValues)
+	protected Super(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
 	}
