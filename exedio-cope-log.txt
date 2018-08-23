@@ -7,6 +7,21 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* com.exedio.dsmf.Schema forbids calling a number of methods after becoming
+	verified via Schema#verify():
+		create()
+		create(StatementListener)
+		drop()
+		drop(StatementListener)
+		tearDown()
+		tearDown(StatementListener)
+		createConstraints  (EnumSet<Constraint.Type>)
+		createConstraints  (EnumSet<Constraint.Type>, StatementListener)
+		dropConstraints    (EnumSet<Constraint.Type>)
+		dropConstraints    (EnumSet<Constraint.Type>, StatementListener)
+		tearDownConstraints(EnumSet<Constraint.Type>)
+		tearDownConstraints(EnumSet<Constraint.Type>, StatementListener)
+	Check, whether your code calls one of these methods (probably not).
 * VaultPutInfo#getOrigin added.
 * VaultService#purgeSchema added.
 * Transaction#getInvalidationSize() added.

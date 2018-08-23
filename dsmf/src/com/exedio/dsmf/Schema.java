@@ -118,12 +118,17 @@ public final class Schema extends Node
 
 	public void verify()
 	{
-		if(verified)
-			throw new RuntimeException("alread verified");
+		assertNotYetVerified();
 		verified = true;
 
 		dialect.verify(this);
 		finish();
+	}
+
+	private void assertNotYetVerified()
+	{
+		if(verified)
+			throw new IllegalStateException("already verified");
 	}
 
 	@Override
@@ -144,6 +149,8 @@ public final class Schema extends Node
 
 	public void create(final StatementListener listener)
 	{
+		assertNotYetVerified();
+
 		final Graph graph = new Graph(this);
 		final Set<ForeignKeyConstraint> constraintsBroken = graph.getConstraintsBroken();
 
@@ -193,6 +200,8 @@ public final class Schema extends Node
 
 	public void drop(final StatementListener listener)
 	{
+		assertNotYetVerified();
+
 		final Graph graph = new Graph(this);
 
 		// must delete in reverse order, to obey integrity constraints
@@ -243,6 +252,8 @@ public final class Schema extends Node
 
 	public void tearDown(final StatementListener listener)
 	{
+		assertNotYetVerified();
+
 		for(final Sequence sequence : sequenceList)
 		{
 			try
@@ -320,6 +331,8 @@ public final class Schema extends Node
 
 	public void createConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
+		assertNotYetVerified();
+
 		for(final Table t : tableList)
 			t.createConstraints(types, false, listener);
 		for(final Table t : tableList)
@@ -333,6 +346,8 @@ public final class Schema extends Node
 
 	public void dropConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
+		assertNotYetVerified();
+
 		for(final Table t : reverse(tableList))
 			t.dropConstraints(types, true, listener);
 		for(final Table t : reverse(tableList))
@@ -346,6 +361,8 @@ public final class Schema extends Node
 
 	public void tearDownConstraints(final EnumSet<Constraint.Type> types, final StatementListener listener)
 	{
+		assertNotYetVerified();
+
 		System.err.println("TEAR DOWN CONSTRAINTS");
 		for(final Table t : reverse(tableList))
 			t.tearDownConstraints(types, true, listener);
@@ -355,6 +372,8 @@ public final class Schema extends Node
 
 	public void checkUnsupportedConstraints()
 	{
+		assertNotYetVerified();
+
 		for(final Table t : tableList)
 			t.checkUnsupportedConstraints();
 	}

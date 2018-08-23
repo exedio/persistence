@@ -57,7 +57,7 @@ public class QuoteTest extends SchemaReadyTest
 		return result;
 	}
 
-	@Test void testIt()
+	@Test void testVerified()
 	{
 		final Schema schema = getVerifiedSchema();
 
@@ -106,6 +106,17 @@ public class QuoteTest extends SchemaReadyTest
 		assertEquals(CHK_NAME, ckc.getName());
 		assertEquals("(" + p(FK_COLUMN)+" IS NOT NULL) OR (" + p(FK_COLUMN) + " IS NOT NULL)", ckc.getRequiredCondition());
 		assertEquals(supportsCheckConstraints ? null : "not supported", ckc.getError());
+	}
+
+	@Test void testNonVerified()
+	{
+		final Schema schema = getSchema();
+		final Table table = schema.getTable(TABLE);
+		final PrimaryKeyConstraint pkc = (PrimaryKeyConstraint)table.getConstraint(PK_NAME);
+		final Column fk = table.getColumn(FK_COLUMN);
+		final ForeignKeyConstraint fkc = (ForeignKeyConstraint)table.getConstraint(FK_NAME);
+		final UniqueConstraint unc = (UniqueConstraint)table.getConstraint(UNQ_NAME);
+		final CheckConstraint ckc = (CheckConstraint)table.getConstraint(CHK_NAME);
 
 		if(supportsCheckConstraints)
 			ckc.drop();
@@ -123,5 +134,4 @@ public class QuoteTest extends SchemaReadyTest
 
 		schema.drop();
 	}
-
 }

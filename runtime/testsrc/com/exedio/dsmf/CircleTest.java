@@ -66,7 +66,7 @@ public class CircleTest extends SchemaReadyTest
 
 	@Test void testCircles()
 	{
-		final Schema schema = getVerifiedSchema();
+		final Schema schema = getSchema();
 
 		final Table table1 = schema.getTable(TABLE1);
 		final Table table2 = schema.getTable(TABLE2);
@@ -76,4 +76,8 @@ public class CircleTest extends SchemaReadyTest
 		schema.drop();
 	}
 
+	@Test void testVerify()
+	{
+		getSchema().verify();
+	}
 }
