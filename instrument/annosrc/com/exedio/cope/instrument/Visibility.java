@@ -36,8 +36,8 @@ public enum Visibility
 	 */
 	DEFAULT,
 	PRIVATE,
-	PROTECTED,
 	PACKAGE,
+	PROTECTED,
 	PUBLIC;
 
 

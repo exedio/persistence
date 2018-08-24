@@ -23,8 +23,8 @@ import java.lang.reflect.Modifier;
 enum InternalVisibility
 {
 	PUBLIC(Modifier.PUBLIC),
-	PACKAGE(0),
 	PROTECTED(Modifier.PROTECTED),
+	PACKAGE(0),
 	PRIVATE(Modifier.PRIVATE);
 
 	final int modifier;
