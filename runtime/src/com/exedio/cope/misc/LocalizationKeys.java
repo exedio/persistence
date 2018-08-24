@@ -37,7 +37,8 @@ public final class LocalizationKeys
 		final String withoutPackage = withoutPackage(clazz);
 		final Package pack = clazz.getPackage();
 
-		if(pack==null) // default package
+		if(pack==null || // default package until jdk1.8
+			pack.getName().isEmpty()) // default package since jdk9
 			return Collections.singletonList(withoutPackage);
 
 		return Collections.unmodifiableList(Arrays.asList(
