@@ -152,6 +152,11 @@ public final class AntTask extends Task
 		params.hidingWarningSuppressor = value;
 	}
 
+	public void setPublicConstructorInAbstractClass(final boolean value)
+	{
+		params.publicConstructorInAbstractClass = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;

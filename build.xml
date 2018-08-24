@@ -360,6 +360,7 @@
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
+				publicConstructorInAbstractClass="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				buildDirectory="build/instrument/runtime.test">
 			<resources refid="instrument.resources" />
@@ -755,6 +756,7 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
+				publicConstructorInAbstractClass="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
@@ -785,6 +787,7 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
+				publicConstructorInAbstractClass="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<classpath>

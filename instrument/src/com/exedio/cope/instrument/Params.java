@@ -57,6 +57,7 @@ final class Params
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
+	boolean publicConstructorInAbstractClass = false;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;

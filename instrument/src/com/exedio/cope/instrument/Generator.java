@@ -66,6 +66,7 @@ final class Generator
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
+	private final boolean publicConstructorInAbstractClass;
 	private int typeIndent = Integer.MIN_VALUE;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -80,6 +81,7 @@ final class Generator
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
+		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -196,7 +198,7 @@ final class Generator
 		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
-		writeModifier(type.getInitialConstructorModifier());
+		writeModifier(type.getInitialConstructorModifier(publicConstructorInAbstractClass));
 		write(type.getName());
 		write('(');
 

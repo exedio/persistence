@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor makes initial constructor protected if class is abstract.
+	Fixes idea inspection: 'public' constructor in 'abstract' class.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument publicConstructorInAbstractClass="true" ...
+	to enable previous behaviour.
 * require mysql connector 8.0.13
 
 	BEWARE: class com.mysql.jdbc.AbandonedConnectionCleanupThread has been moved
