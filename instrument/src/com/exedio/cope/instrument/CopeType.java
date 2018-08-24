@@ -144,9 +144,9 @@ abstract class CopeType<F extends CopeFeature>
 		InternalVisibility inheritedVisibility = getVisibility();
 		for(final CopeFeature initialFeature : getInitialFeatures())
 		{
-			final InternalVisibility intialFeatureVisibility = initialFeature.getVisibility();
-			if(inheritedVisibility.ordinal()<intialFeatureVisibility.ordinal())
-				inheritedVisibility = intialFeatureVisibility;
+			final InternalVisibility initialFeatureVisibility = initialFeature.getVisibility();
+			if(inheritedVisibility.ordinal()<initialFeatureVisibility.ordinal())
+				inheritedVisibility = initialFeatureVisibility;
 		}
 
 		return getOption().constructor().getModifier(inheritedVisibility.modifier);
