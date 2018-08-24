@@ -54,7 +54,6 @@ final class Params
 
 	boolean nullabilityAnnotations = false;
 	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
-	boolean serialVersionUIDEnabled = true;
 	/**
 	 * When an existing item type is made abstract, it will no longer be possible to de-serialize serialized instances.
 	 * Therefore, abstract item classes get a different serialVersionUID. <br>

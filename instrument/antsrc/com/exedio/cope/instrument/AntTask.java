@@ -137,11 +137,6 @@ public final class AntTask extends Task
 		params.suppressUnusedWarningOnPrivateActivationConstructor = value;
 	}
 
-	public void setSerialVersionUID(final boolean value)
-	{
-		params.serialVersionUIDEnabled = value;
-	}
-
 	/** @see Params#differentSerialVersionUIDForAbstract */
 	public void setDifferentSerialVersionUIDForAbstract(final boolean value)
 	{

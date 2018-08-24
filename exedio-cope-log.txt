@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor no longer supports
+	<instrument serialVersionUID="false" ... />
+	which is now always "true".
 * com.exedio.dsmf.Schema forbids calling a number of methods after becoming
 	verified via Schema#verify():
 		create()

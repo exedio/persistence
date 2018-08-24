@@ -63,7 +63,6 @@ final class Generator
 	private final String lineSeparator;
 	private final boolean nullabilityAnnotations;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
-	private final boolean serialVersionUIDEnabled;
 	/** @see Params#differentSerialVersionUIDForAbstract */
 	private final boolean differentSerialVersionUIDForAbstract;
 	private final String serialVersionUIDSuffix;
@@ -80,7 +79,6 @@ final class Generator
 		this.lineSeparator = System.lineSeparator();
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
-		this.serialVersionUIDEnabled = params.serialVersionUIDEnabled;
 		this.differentSerialVersionUIDForAbstract = params.differentSerialVersionUIDForAbstract;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
@@ -685,9 +683,6 @@ final class Generator
 
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{
-		if(!serialVersionUIDEnabled)
-			return;
-
 		final List<String> commentLines=new ArrayList<>();
 		finishComment(type.getOption().comments(), commentLines);
 		writeGeneratedAnnotation(type.getOption().comments(), null);
