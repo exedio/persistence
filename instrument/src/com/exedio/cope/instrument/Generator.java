@@ -569,12 +569,7 @@ final class Generator
 					if(wrapper.hasStaticClassToken())
 					{
 						comma.appendTo(output);
-						write(feature.parent.getName());
-						write(".class");
-						// Classes of non-toplevel types must override this constant
-						// for working around https://bugs.java.com/view_bug.do?bug_id=7101374
-						if(feature.parent.getTypeParameters()>0)
-							write("Wildcard.value");
+						writeClass(feature.parent);
 					}
 				}
 				else
@@ -756,10 +751,7 @@ final class Generator
 		write("> TYPE = ");
 		write(kind.factory);
 		write(".newType(");
-		write(type.getName());
-		write(".class");
-		if(type.getTypeParameters()>0)
-			write("Wildcard.value");
+		writeClass(type);
 		write(");");
 		write(lineSeparator);
 	}
@@ -774,6 +766,16 @@ final class Generator
 				write(",?");
 			write('>');
 		}
+	}
+
+	private void writeClass(final CopeType<?> type)
+	{
+		write(type.getName());
+		write(".class");
+		// Classes of non-toplevel types must override this constant
+		// for working around https://bugs.java.com/view_bug.do?bug_id=7101374
+		if(type.getTypeParameters()>0)
+			write("Wildcard.value");
 	}
 
 	void write(final Charset charset)
