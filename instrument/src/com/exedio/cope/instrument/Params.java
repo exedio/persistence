@@ -58,6 +58,7 @@ final class Params
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;
 	boolean publicConstructorInAbstractClass = false;
+	boolean privateMethodFinal = false;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;

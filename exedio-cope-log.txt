@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor makes private methods non-final.
+	Fixes idea inspection: 'private' method declared 'final'.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument privateMethodFinal="true" ...
+	to enable previous behaviour.
 * The instrumentor makes initial constructor protected if class is abstract.
 	Fixes idea inspection: 'public' constructor in 'abstract' class.
 	Affects instrumented code.

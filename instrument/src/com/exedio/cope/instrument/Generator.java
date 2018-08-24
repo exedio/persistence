@@ -67,6 +67,7 @@ final class Generator
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
 	private final boolean publicConstructorInAbstractClass;
+	private final boolean privateMethodFinal;
 	private int typeIndent = Integer.MIN_VALUE;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -82,6 +83,7 @@ final class Generator
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
 		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
+		this.privateMethodFinal = params.privateMethodFinal;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -448,14 +450,16 @@ final class Generator
 
 			writeIndent();
 
-			writeModifier(
+			final int visibilityModifier =
 					visibility.getModifier(
 							internal && visibility.isDefault()
 							? PRIVATE
 							: feature.getModifier()
-					) |
+					);
+			writeModifier(
+					visibilityModifier |
 					(isStatic ? STATIC : 0) |
-					(option.asFinal() ? FINAL : 0));
+					(option.asFinal()&&(visibilityModifier!=PRIVATE||privateMethodFinal) ? FINAL : 0));
 			write(ctx.write(methodReturnType, false));
 			if(useIs && option.booleanAsIs())
 			{

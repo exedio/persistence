@@ -157,6 +157,11 @@ public final class AntTask extends Task
 		params.publicConstructorInAbstractClass = value;
 	}
 
+	public void setPrivateMethodFinal(final boolean value)
+	{
+		params.privateMethodFinal = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;
