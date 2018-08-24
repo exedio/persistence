@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor no longer supports
+	<instrument differentSerialVersionUIDForAbstract="false" ... />
+	which is now always "true".
 * ColorField implements ColorFunction, amends: ColorField#bind added.
 * FactoryProperties added.
 * Dispatcher.Run#remaining and #limit added.

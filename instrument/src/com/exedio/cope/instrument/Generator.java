@@ -63,8 +63,6 @@ final class Generator
 	private final String lineSeparator;
 	private final boolean nullabilityAnnotations;
 	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
-	/** @see Params#differentSerialVersionUIDForAbstract */
-	private final boolean differentSerialVersionUIDForAbstract;
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
@@ -79,7 +77,6 @@ final class Generator
 		this.lineSeparator = System.lineSeparator();
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
-		this.differentSerialVersionUIDForAbstract = params.differentSerialVersionUIDForAbstract;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
@@ -690,7 +687,10 @@ final class Generator
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
 		write("long serialVersionUID = ");
-		if (differentSerialVersionUIDForAbstract && Modifier.isAbstract(type.getModifier()))
+		// When an existing item type is made abstract, it will no longer be possible
+		// to de-serialize serialized instances. Therefore, abstract item classes get
+		// a different serialVersionUID.
+		if(Modifier.isAbstract(type.getModifier()))
 		{
 			write('2');
 		}
