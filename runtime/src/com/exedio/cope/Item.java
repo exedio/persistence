@@ -39,6 +39,7 @@ import java.util.HashSet;
  * @author Ralf Wiebicke
  */
 @WrapType(
+		wildcardClassCaster=ItemWildcardCast.class,
 		type=@WrapType.Type(
 				doc="The persistent type information for {0}.",
 				field=Type.class, factory=TypesBound.class

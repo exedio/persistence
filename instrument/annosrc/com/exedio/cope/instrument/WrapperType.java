@@ -28,6 +28,17 @@ import java.lang.annotation.Target;
 public @interface WrapperType
 {
 	/**
+	 * Overrides the visibility of the generated inner class {@code classWildcard}.
+	 * This is needed to workaround
+	 * <a href="https://bugs.java.com/view_bug.do?bug_id=7101374">rawtypes warnings</a>
+	 * in the generated code, if the class has type parameters.
+	 * <p>
+	 * The visibility {@link Visibility#DEFAULT defaults} to
+	 * the visibility of the class.
+	 */
+	Visibility wildcardClass() default Visibility.DEFAULT;
+
+	/**
 	 * Overrides the visibility of the generated TYPE constant.
 	 * The visibility {@link Visibility#DEFAULT defaults} to
 	 * the visibility of the class.

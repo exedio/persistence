@@ -19,10 +19,12 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.instrument.WrapType;
 import java.io.Serializable;
 
 @WrapType(
+		wildcardClassCaster=ItemWildcardCast.class,
 		type=@WrapType.Type(
 				doc="The type information for {0}.",
 				field=BlockType.class, factory=BlockType.class

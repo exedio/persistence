@@ -54,7 +54,7 @@ class ClassVisitor extends GeneratedAwareScanner
 	}
 
 	@Override
-	public Void visitClass(final ClassTree ct, final Void ignore)
+	Void visitClassInternal(final ClassTree ct, final Void ignore)
 	{
 		if (getAnnotation(WrapperIgnore.class)!=null)
 		{
@@ -76,7 +76,7 @@ class ClassVisitor extends GeneratedAwareScanner
 				getWrapperType(),
 				findClassEndPosition(ct)
 			);
-			return super.visitClass(ct, ignore);
+			return super.visitClassInternal(ct, ignore);
 		}
 		else
 		{

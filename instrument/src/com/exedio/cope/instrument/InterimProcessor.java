@@ -406,6 +406,21 @@ final class InterimProcessor extends JavacProcessor
 					code.addLine("super(setValues);");
 					code = code.closeBlock();
 				}
+				final int typeParametersNumber = ct.getTypeParameters().size();
+				if (params.wildcardClass && typeParametersNumber>0 && wrapperType.wildcardClass()!=Visibility.NONE)
+				{
+					final StringBuilder typeParameters = new StringBuilder("?");
+					for(int i = 1; i<typeParametersNumber; i++)
+						typeParameters.append(",?");
+					code.addLine(
+						"public static final class classWildcard "+
+						"{ "+
+							"public static final java.lang.Class<"+ct.getSimpleName()+"<"+typeParameters+">> value = "+
+								"(java.lang.Class<"+ct.getSimpleName()+"<"+typeParameters+">>)(java.lang.Class<?>)"+ct.getSimpleName()+".class;"+
+							"private classWildcard(){}"+ // prevent instantiation
+						"}"
+					);
+				}
 				if (kind.type!=null && wrapperType.type()!=Visibility.NONE)
 					code.addLine(
 						"public static final "+kind.type.field+"<"+ct.getSimpleName()+"> TYPE = "+

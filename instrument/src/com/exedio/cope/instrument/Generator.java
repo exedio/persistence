@@ -47,6 +47,7 @@ import javax.annotation.Nullable;
 
 final class Generator
 {
+	private static final String CLASS     = Class   .class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
@@ -54,6 +55,7 @@ final class Generator
 	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE = hintCustomize(WrapperType.class, "constructor", "...") + " and @" + WrapperInitial.class.getSimpleName();
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given fields initially.";
 	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE = hintCustomize(WrapperType.class, "genericConstructor", "...");
+	private static final String WILDCARD_CUSTOMIZE = hintCustomize(WrapperType.class, "wildcardClass", "...");
 	private static final String TYPE_CUSTOMIZE = hintCustomize(WrapperType.class, "type", "...");
 
 	private static String hintCustomize(final Class<? extends Annotation> annotation, final String annotationMember, final String value)
@@ -72,6 +74,7 @@ final class Generator
 	private final boolean publicConstructorInAbstractClass;
 	private final boolean privateMethodFinal;
 	private final boolean finalMethodInFinalClass;
+	private final boolean wildcardClass;
 	private final boolean wildcardClassFullyQualified;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -89,6 +92,7 @@ final class Generator
 		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
 		this.privateMethodFinal = params.privateMethodFinal;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
+		this.wildcardClass = params.wildcardClass;
 		this.wildcardClassFullyQualified = params.wildcardClassFullyQualified;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
@@ -709,6 +713,40 @@ final class Generator
 		write(lineSeparator);
 	}
 
+	/**
+	 * Classes of non-toplevel types must override this constant
+	 * for working around https://bugs.java.com/view_bug.do?bug_id=7101374
+	 */
+	private void writeWildcardClass(final LocalCopeType type)
+	{
+		if(!wildcardClass || type.getTypeParameters()==0)
+			return;
+
+		final Visibility visibility = type.getOption().wildcardClass();
+		if(!visibility.exists())
+			return;
+
+		writeComment(singletonList(
+				format("Use {0}.classWildcard.value instead of {0}.class to avoid rawtypes warnings.", type.getName())
+		));
+		writeGeneratedAnnotation(WILDCARD_CUSTOMIZE);
+		writeIndent();
+		final int modifier = visibility.getModifier(type.getModifier());
+		writeModifier(modifier | (STATIC | FINAL));
+		write("class classWildcard { public static final " + CLASS + "<");
+		write(type.getName());
+		writeWildcard(type);
+		write("> value = ");
+		write(type.kind.wildcardClassCaster);
+		write(".cast(");
+		write(type.getName());
+		write(".class); ");
+		if(modifier!=PRIVATE) // otherwise the default constructor is private already
+			write("private classWildcard(){} ");
+		write('}');
+		write(lineSeparator);
+	}
+
 	private void writeType(final LocalCopeType type)
 	{
 		final Kind.Type kind = type.kind.type;
@@ -764,8 +802,6 @@ final class Generator
 			write('.');
 		}
 		write("class");
-		// Classes of non-toplevel types must override this constant
-		// for working around https://bugs.java.com/view_bug.do?bug_id=7101374
 		if(wildcard)
 			write("Wildcard.value");
 	}
@@ -816,6 +852,7 @@ final class Generator
 			writeFeature(feature);
 
 		writeSerialVersionUID(type);
+		writeWildcardClass(type);
 		writeType(type);
 		writeActivationConstructor(type);
 	}

@@ -7,6 +7,20 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor generates classWildcard inner classes.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument wildcardClass="false" ...
+	to enable previous behaviour.
+
+	The generated code may trigger findbugs warnings. Put the following snippet
+	into your excludeFilter to ignore them:
+		<Match>
+			<!-- The class name SomeItem$classWildcard doesn't start with an upper case letter -->
+			<Bug pattern="NM_CLASS_NAMING_CONVENTION" />
+			<Class name="~.*\$classWildcard$" />
+		</Match>
+
 * The instrumentor does not qualify wildcard class in type constant anymore.
 	Fixes idea inspection: Unnecessarily qualified inner class access.
 	Affects instrumented code.

@@ -167,6 +167,11 @@ public final class AntTask extends Task
 		params.finalMethodInFinalClass = value;
 	}
 
+	public void setWildcardClass(final boolean value)
+	{
+		params.wildcardClass = value;
+	}
+
 	public void setWildcardClassFullyQualified(final boolean value)
 	{
 		params.wildcardClassFullyQualified = value;

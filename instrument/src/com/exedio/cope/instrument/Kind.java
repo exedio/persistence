@@ -29,6 +29,7 @@ final class Kind
 {
 	final String top;
 	final String topSimple;
+	final String wildcardClassCaster;
 	final Type type;
 	final boolean hasGenericConstructor;
 	final String activationConstructor;
@@ -41,6 +42,7 @@ final class Kind
 
 	private Kind(final WrapType anno)
 	{
+		wildcardClassCaster = TypeMirrorHelper.get(anno::wildcardClassCaster, false).getName();
 		type = Type.valueOf(anno.type());
 		hasGenericConstructor = anno.hasGenericConstructor();
 		activationConstructor = name(anno::activationConstructor);

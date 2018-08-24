@@ -30,6 +30,11 @@ import java.lang.annotation.Target;
 @Inherited
 public @interface WrapType
 {
+	/**
+	 * @see WrapperType#wildcardClass()
+	 */
+	Class<?> wildcardClassCaster();
+
 	@interface Type
 	{
 		String doc();

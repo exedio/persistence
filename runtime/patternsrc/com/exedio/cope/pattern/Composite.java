@@ -28,6 +28,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemField.DeletePolicy;
+import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapType;
@@ -38,6 +39,7 @@ import java.util.Date;
 import java.util.TimeZone;
 
 @WrapType(
+		wildcardClassCaster=ItemWildcardCast.class,
 		revertFeatureBody=true,
 		top=Composite.class
 )

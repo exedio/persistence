@@ -25,6 +25,7 @@ final class AnnotationHelper
 	private static final WrapperType OPTION_DEFAULT = new WrapperType()
 	{
 		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
+		@Override public Visibility wildcardClass() { return Visibility.DEFAULT; }
 		@Override public Visibility type() { return Visibility.DEFAULT; }
 		@Override public Visibility constructor() { return Visibility.DEFAULT; }
 		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }

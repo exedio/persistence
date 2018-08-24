@@ -18,6 +18,7 @@
 
 package com.exedio.cope.instrument;
 
+import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePathScanner;
@@ -33,6 +34,25 @@ abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 	GeneratedAwareScanner(final TreeApiContext context)
 	{
 		this.context=context;
+	}
+
+	@Override
+	public final Void visitClass(final ClassTree ct, final Void ignore)
+	{
+		if ( hasGeneratedAnnotation() )
+		{
+			visitGeneratedPath();
+			return null;
+		}
+		else
+		{
+			return visitClassInternal(ct, ignore);
+		}
+	}
+
+	Void visitClassInternal(final ClassTree ct, final Void ignore)
+	{
+		return super.visitClass(ct, ignore);
 	}
 
 	@Override
