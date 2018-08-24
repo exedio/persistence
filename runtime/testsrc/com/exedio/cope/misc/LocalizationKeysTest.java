@@ -42,6 +42,12 @@ public class LocalizationKeysTest
 
 	private final String PACK = LocalizationKeysTest.class.getPackage().getName() + '.';
 
+	@Test void testDefaultPackageCharacterization() throws ClassNotFoundException
+	{
+		// on jdk9 getPackage() returns a package with an empty name
+		assertEquals(null, Class.forName("LocalizationKeysClassInDefaultPackage").getPackage());
+	}
+
 	@Test void testDefaultPackage() throws ClassNotFoundException
 	{
 		assertIt(Class.forName(
