@@ -41,8 +41,6 @@ import com.exedio.cope.instrument.testmodel.Input;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.Sub;
 import com.exedio.cope.instrument.testmodel.Super;
-import com.exedio.cope.instrument.testmodel.TypeNoneAnnotated;
-import com.exedio.cope.instrument.testmodel.TypePrivateAnnotated;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 import java.io.IOException;
 import java.io.InputStream;
@@ -74,8 +72,6 @@ public class GeneratorTest
 	static final Class<?> ACTIVATION = ActivationParameters.class;
 
 	static final Class<?> STANDARD = Standard.class;
-	static final Class<?> TYPE_NONE_ANNOTATED = TypeNoneAnnotated.class;
-	static final Class<?> TYPE_PRIVATE_ANNOTATED = TypePrivateAnnotated.class;
 	static final Class<?> DOUBLE_UNIQUE = DoubleUnique.class;
 	static final Class<?> SUB_TARGET = SubTarget.class;
 	static final Class<?> SUPER = Super.class;
@@ -232,22 +228,6 @@ public class GeneratorTest
 
 		assertField(STANDARD, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
-
-		assertConstructor(TYPE_NONE_ANNOTATED, new Class<?>[]{}, PRIVATE);
-		assertConstructor(TYPE_NONE_ANNOTATED, new Class<?>[]{SET_VALUE_ARRAY}, PUBLIC|VARARGS); // @cope.generic.constructor public
-		assertConstructor(TYPE_NONE_ANNOTATED, new Class<?>[]{ACTIVATION}, 0); // @cope.activation.constructor package
-		assertMethod(TYPE_NONE_ANNOTATED, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(TYPE_NONE_ANNOTATED, "setDefaultString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-		assertField(TYPE_NONE_ANNOTATED, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
-		assertNoField(TYPE_NONE_ANNOTATED, "TYPE");
-
-		assertConstructor(TYPE_PRIVATE_ANNOTATED, new Class<?>[]{}, PUBLIC);
-		assertConstructor(TYPE_PRIVATE_ANNOTATED, new Class<?>[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
-		assertConstructor(TYPE_PRIVATE_ANNOTATED, new Class<?>[]{ACTIVATION}, PRIVATE);
-		assertMethod(TYPE_PRIVATE_ANNOTATED, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(TYPE_PRIVATE_ANNOTATED, "setDefaultString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-		assertField(TYPE_PRIVATE_ANNOTATED, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
-		assertField(TYPE_PRIVATE_ANNOTATED, "TYPE", Type.class, PRIVATE|STATIC|FINAL);
 	}
 
 	@Test void testDoubleUnique()
