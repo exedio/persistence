@@ -141,15 +141,15 @@ abstract class CopeType<F extends CopeFeature>
 
 	final int getInitialConstructorModifier()
 	{
-		InternalVisibility inheritedVisibility = getVisibility();
+		InternalVisibility result = getVisibility();
 		for(final CopeFeature initialFeature : getInitialFeatures())
 		{
 			final InternalVisibility initialFeatureVisibility = initialFeature.getVisibility();
-			if(inheritedVisibility.ordinal()<initialFeatureVisibility.ordinal())
-				inheritedVisibility = initialFeatureVisibility;
+			if(result.ordinal()<initialFeatureVisibility.ordinal())
+				result = initialFeatureVisibility;
 		}
 
-		return getOption().constructor().getModifier(inheritedVisibility.modifier);
+		return getOption().constructor().getModifier(result.modifier);
 	}
 
 	private ArrayList<CopeFeature> initialFeatures = null;
