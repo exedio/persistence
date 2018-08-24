@@ -162,6 +162,11 @@ public final class AntTask extends Task
 		params.privateMethodFinal = value;
 	}
 
+	public void setWildcardTypeParameters(final boolean value)
+	{
+		params.wildcardTypeParameters = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;

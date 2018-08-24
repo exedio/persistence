@@ -68,6 +68,7 @@ final class Generator
 	private final String hidingWarningSuppressor;
 	private final boolean publicConstructorInAbstractClass;
 	private final boolean privateMethodFinal;
+	private final boolean wildcardTypeParameters;
 	private int typeIndent = Integer.MIN_VALUE;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -84,6 +85,7 @@ final class Generator
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
 		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
 		this.privateMethodFinal = params.privateMethodFinal;
+		this.wildcardTypeParameters = params.wildcardTypeParameters;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -764,11 +766,16 @@ final class Generator
 
 	private void writeClass(final CopeType<?> type)
 	{
-		write(type.getName());
-		write(".class");
+		final boolean wildcard = type.getTypeParameters()>0;
+		if(!wildcard || wildcardTypeParameters)
+		{
+			write(type.getName());
+			write('.');
+		}
+		write("class");
 		// Classes of non-toplevel types must override this constant
 		// for working around https://bugs.java.com/view_bug.do?bug_id=7101374
-		if(type.getTypeParameters()>0)
+		if(wildcard)
 			write("Wildcard.value");
 	}
 
