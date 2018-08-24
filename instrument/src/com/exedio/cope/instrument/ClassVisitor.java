@@ -152,6 +152,7 @@ class ClassVisitor extends GeneratedAwareScanner
 		final JavaField javaField = new JavaField(
 			javaClass,
 			TreeApiHelper.toModifiersInt(node.getModifiers()),
+			context.getElementForTree(node).getAnnotation(Deprecated.class)!=null,
 			fieldElement.asType(),
 			variableType,
 			node.getName().toString(),

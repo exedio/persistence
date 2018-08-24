@@ -423,7 +423,7 @@ final class Generator
 				);
 			}
 
-			if(wrapper.isMethodDeprecated())
+			if(wrapper.isMethodDeprecated() || feature.isDeprecated())
 			{
 				writeEmptyAnnotationOnSeparateLine(Deprecated.class);
 			}

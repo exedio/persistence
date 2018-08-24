@@ -46,6 +46,11 @@ final class LocalCopeFeature extends CopeFeature
 		return javaField.modifier;
 	}
 
+	boolean isDeprecated()
+	{
+		return javaField.deprecated;
+	}
+
 	@Override
 	Boolean getInitialByConfiguration()
 	{

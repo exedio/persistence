@@ -301,6 +301,7 @@ final class MediaServletItem extends Item
 	 * Returns a Locator the content of {@link #redirect} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@java.lang.Deprecated
 	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getRedirectLocator()
 	{
@@ -311,6 +312,7 @@ final class MediaServletItem extends Item
 	 * Returns the content type of the media {@link #redirect}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@java.lang.Deprecated
 	@javax.annotation.Nullable
 	final java.lang.String getRedirectContentType()
 	{
@@ -363,6 +365,7 @@ final class MediaServletItem extends Item
 	 * Returns a Locator the content of {@link #thumbnailRedirect} is available under.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@java.lang.Deprecated
 	@javax.annotation.Nullable
 	final com.exedio.cope.pattern.MediaPath.Locator getThumbnailRedirectLocator()
 	{

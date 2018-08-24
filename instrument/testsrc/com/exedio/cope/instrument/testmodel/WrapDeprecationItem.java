@@ -61,6 +61,7 @@ final class WrapDeprecationItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="bare")
+	@java.lang.Deprecated
 	final int bareBad()
 	{
 		return WrapDeprecationItem.bad.bare(this);

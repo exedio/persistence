@@ -47,6 +47,7 @@ final class JavaField
 {
 	private static final Class<?>[] PARAMETERS_DEFAULT=new Class<?>[]{WrapperParametersDefault.class};
 
+	final boolean deprecated;
 	private final TypeMirror typeMirror;
 
 	final String typeFullyQualified;
@@ -66,6 +67,7 @@ final class JavaField
 	JavaField(
 		final JavaClass parent,
 		final int modifiers,
+		final boolean deprecated,
 		final TypeMirror typeMirror,
 		final String typeFullyQualified,
 		final String name,
@@ -77,6 +79,7 @@ final class JavaField
 	{
 		// parent must not be null
 		super(parent.file, parent, modifiers, name, sourceLocation);
+		this.deprecated = deprecated;
 		this.typeMirror=typeMirror;
 		this.typeFullyQualified=typeFullyQualified;
 		checkWrapUnique(wrappers);
