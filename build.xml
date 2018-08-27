@@ -969,6 +969,7 @@
 		<findbugs
 					home="${basedir}/build/findbugs-home"
 					jvmargs="-Xmx250M"
+					failOnError="true"
 					output="${findbugs.output}"
 					outputFile="${basedir}/build/findbugs.${findbugs.output}"
 					excludeFilter="conf/findbugs-exclude.xml"
