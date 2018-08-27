@@ -15,7 +15,8 @@
 		</untar>
 		<taskdef
 				resource="edu/umd/cs/findbugs/anttask/tasks.properties"
-				classpath="build/findbugs-home/lib/findbugs-ant.jar" />
+				classpath="build/findbugs-home/lib/findbugs-ant.jar"
+				onerror="failall" />
 	</target>
 
 	<target name="fail">

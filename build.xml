@@ -16,11 +16,12 @@
 		</fileset>
 	</import>
 
-	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" />
+	<taskdef name="LoadFile" classname="org.apache.tools.ant.taskdefs.LoadFile" onerror="failall" />
 
 	<taskdef
 			resource="net/sf/antcontrib/antcontrib.properties"
-			classpath="lib/ant-contrib.jar" />
+			classpath="lib/ant-contrib.jar"
+			onerror="failall" />
 
 	<macrodef name="ljarn">
 		<attribute name="jarfile" />
