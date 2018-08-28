@@ -23,6 +23,8 @@ import static java.util.Arrays.asList;
 import com.sun.tools.javac.api.JavacTool;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
+import java.net.URLClassLoader;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -112,11 +114,31 @@ final class JavacRunner
 
 	private static String toClasspath(final ClassLoader cl)
 	{
-		// this works for Ant
-		final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)]");
-		final String classLoaderString=cl.toString();
-		final Matcher matcher = pattern.matcher(classLoaderString);
-		if ( !matcher.matches() ) throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: "+classLoaderString);
-		return matcher.group(1);
+		if(cl instanceof URLClassLoader)
+		{
+			// this works for Gradle
+			final URLClassLoader urlClassLoader = (URLClassLoader) cl;
+			final StringBuilder result = new StringBuilder();
+			for(int i = 0; i < urlClassLoader.getURLs().length; i++)
+			{
+				if(i != 0)
+				{
+					result.append(File.pathSeparatorChar);
+				}
+				final URL url = urlClassLoader.getURLs()[i];
+				result.append(url.toString());
+			}
+			return result.toString();
+		}
+		else
+		{
+			// this works for Ant
+			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)]");
+			final String classLoaderString = cl.toString();
+			final Matcher matcher = pattern.matcher(classLoaderString);
+			if(! matcher.matches())
+				throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: " + classLoaderString);
+			return matcher.group(1);
+		}
 	}
 }
