@@ -126,7 +126,7 @@ final class JavacRunner
 					result.append(File.pathSeparatorChar);
 				}
 				final URL url = urlClassLoader.getURLs()[i];
-				result.append(url.toString());
+				result.append(url);
 			}
 			return result.toString();
 		}
