@@ -27,6 +27,7 @@ import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
+import java.time.Duration;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -50,7 +51,7 @@ public final class SamplerProperties extends Properties
 
 	// sample
 
-	private final long transactionDuration = 1000l * value("transactionDurationSeconds", 10, 0); // 10 seconds
+	private final Duration transactionDuration = value("transactionDuration", Duration.ofSeconds(10), Duration.ZERO);
 
 	public void sample(final Sampler sampler)
 	{

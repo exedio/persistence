@@ -21,6 +21,7 @@ package com.exedio.cope.sampler;
 import com.exedio.cope.Model;
 import com.exedio.cope.Revisions;
 import com.exedio.cope.misc.DirectRevisionsFactory;
+import java.time.Duration;
 
 public final class Stuff
 {
@@ -46,7 +47,7 @@ public final class Stuff
 
 		SamplerModel sampleInternal()
 		{
-			return sampleInternal(0, "example buildTag");
+			return sampleInternal(Duration.ZERO, "example buildTag");
 		}
 	}
 

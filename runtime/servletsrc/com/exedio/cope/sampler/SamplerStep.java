@@ -32,6 +32,7 @@ import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -63,7 +64,7 @@ final class SamplerStep
 	SamplerStep(
 			final Model sampledModel,
 			final MediaPath[] medias,
-			final long transactionDuration)
+			final Duration transactionDuration)
 	{
 		// prepare
 		this.mediaInfos = new MediaInfo[medias.length];
@@ -96,7 +97,7 @@ final class SamplerStep
 		mediaSummary = new MediaSummary(mediaInfos);
 		transactions = new ArrayList<>(openTransactions.size());
 		{
-			final long threshold = date.getTime() - transactionDuration;
+			final long threshold = date.getTime() - transactionDuration.toMillis();
 			for(final Transaction transaction : openTransactions)
 			{
 				if(transaction.getStartDate().getTime()<=threshold)

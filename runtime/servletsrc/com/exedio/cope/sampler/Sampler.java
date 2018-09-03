@@ -41,6 +41,7 @@ import com.exedio.cope.util.Properties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -125,7 +126,7 @@ public class Sampler
 
 	private SamplerStep lastStep = null;
 
-	SamplerModel sampleInternal(final long transactionDuration, final String buildTag)
+	SamplerModel sampleInternal(final Duration transactionDuration, final String buildTag)
 	{
 		try(TransactionTry tx = samplerModel.startTransactionTry(this + " sample environment"))
 		{
@@ -313,7 +314,7 @@ public class Sampler
 	@Deprecated
 	public final void sample()
 	{
-		sampleInternal(getTransactionDuration(), null);
+		sampleInternal(Duration.ofMillis(getTransactionDuration()), null);
 	}
 
 	/**

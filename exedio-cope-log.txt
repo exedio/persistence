@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* SamplerProperties: key was renamed from transactionDurationSeconds to
+	transactionDuration and takes a Duration instead of seconds.
+	This breaks backwards API compatibility, check your deployed systems!
+	Probably this key is at its default, then you don't have to do anything.
 * MediaServlet#getMaximumAge added.
 	If you want to change ConnectProperties key media.offsetExpires without
 	reconnecting, override the new method with:
