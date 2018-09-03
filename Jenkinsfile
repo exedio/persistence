@@ -2,7 +2,7 @@
 timestamps
 {
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio')
+	node('GitCloneExedio && OpenJdk18Debian9')
 	{
 		try
 		{
@@ -15,7 +15,7 @@ timestamps
 				computeGitTree(scmResult)
 
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
-				env.JAVA_HOME = "${tool 'jdk 1.8.0_60'}"
+				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
 				def isRelease = env.BRANCH_NAME.toString().equals("master");
