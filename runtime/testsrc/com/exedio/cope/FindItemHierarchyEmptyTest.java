@@ -52,6 +52,7 @@ public class FindItemHierarchyEmptyTest extends TestWithEnvironment
 		assertIDFails("HierarchyEmptySuper-92386591832651832659213865193456293456",
 															 "wrong number format <92386591832651832659213865193456293456>", true);
 		assertIDFails("HierarchyEmptySuper--1", "type <HierarchyEmptySuper-> does not exist", true);
+		assertSame(superItem, model.getItem("HierarchyEmptySuper-+1"));
 		assertIDFails("HierarchyEmptySuper-50", "item <50> does not exist", false);
 		assertIDFails("HierarchyEmptySuper-" + Long.MIN_VALUE, "type <HierarchyEmptySuper-> does not exist", true);
 		assertIDFails("HierarchyEmptySuper-" + 2147483646l, "item <2147483646> does not exist", false); // 2^31 - 2
