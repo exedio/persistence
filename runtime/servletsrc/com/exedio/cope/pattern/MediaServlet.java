@@ -31,6 +31,7 @@ import com.exedio.cope.misc.ServletUtil;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.HashMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -232,6 +233,33 @@ public class MediaServlet extends HttpServlet
 
 	private static final String RESPONSE_LOCATION = "Location";
 
+
+	/**
+	 * Let this method return the maximum age, that will be put into header
+	 * {@code Cache-Control: max-age=<seconds>}
+	 * of the response.
+	 * If method returns null, no maximum age is sent.
+	 * Negative values are treated like zero.
+	 * Fractional seconds are ignored.
+	 * This method is not called for @{@link UrlFingerPrinting} pathes -
+	 * such pathes do send a maximum age of 363 days.
+	 * <p>
+	 * The default implementation returns
+	 * {@link com.exedio.cope.ConnectProperties#getMediaServletMaximumAge()}.
+	 * <p>
+	 * See
+	 * RFC 2616 Section 14.9.3 Modifications of the Basic Expiration Mechanism,
+	 * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist .
+	 *
+	 * @param path the media path of the current request
+	 * @param item the item of the current request
+	 */
+	protected Duration getMaximumAge(
+			final MediaPath path,
+			final Item item)
+	{
+		return path.getType().getModel().getConnectProperties().getMediaServletMaximumAge();
+	}
 
 	/**
 	 * Let this method return true, if you want to add a header

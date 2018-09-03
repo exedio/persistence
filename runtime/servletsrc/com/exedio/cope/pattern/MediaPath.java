@@ -40,6 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -734,7 +735,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(servlet, response, item, Integer.MIN_VALUE);
+			setCacheControl(servlet, response, item, null);
 			deliver(request, response, item);
 			return;
 		}
@@ -745,7 +746,7 @@ public abstract class MediaPath extends Pattern
 		final long lastModified = roundLastModified(lastModifiedRaw);
 		response.setDateHeader("Last-Modified", lastModified);
 
-		final int cacheControlMaxAge;
+		final Duration cacheControlMaxAge;
 		if(isUrlFingerPrinted())
 		{
 			// RFC 2616:
@@ -753,12 +754,11 @@ public abstract class MediaPath extends Pattern
 			// Expires date approximately one year from the time the response is
 			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
 			// year in the future.
-			cacheControlMaxAge = 60*60*24*363; // 363 days
+			cacheControlMaxAge = Duration.ofDays(363);
 		}
 		else
 		{
-			final int maxAge = connectProperties().getMediaMaxAge();
-			cacheControlMaxAge = (maxAge>0) ? maxAge : Integer.MIN_VALUE;
+			cacheControlMaxAge = servlet.getMaximumAge(this, item);
 		}
 
 		setCacheControl(servlet, response, item, cacheControlMaxAge);
@@ -803,7 +803,7 @@ public abstract class MediaPath extends Pattern
 			final MediaServlet servlet,
 			final HttpServletResponse response,
 			final Item item,
-			final int maxAge)
+			final Duration maxAge)
 	{
 		// RFC 2616
 		// 4.2 Message Headers
@@ -820,13 +820,13 @@ public abstract class MediaPath extends Pattern
 		if(servlet.isCacheControlPrivate(this, item))
 			bf.append("private");
 
-		if(maxAge>=0)
+		if(maxAge!=null)
 		{
 			if(bf.length()!=0)
 				bf.append(',');
 
 			bf.append("max-age=").
-				append(maxAge);
+				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
 		}
 
 		if(bf.length()!=0)

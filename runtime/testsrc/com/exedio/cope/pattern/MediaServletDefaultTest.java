@@ -19,16 +19,59 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
+import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.TestSources;
+import java.time.Duration;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
 public class MediaServletDefaultTest
 {
 	private final MediaServlet servlet =  new MediaServlet();
+
+
+	@Test void testMaximumAge()
+	{
+		assertFails(
+				() -> servlet.getMaximumAge(MaximumAgeItem.path, null),
+				Model.NotConnectedException.class,
+				"model not connected, use Model#connect for " + MaximumAgeItemModel);
+		MaximumAgeItemModel.connect(ConnectProperties.create(cascade(
+				TestSources.minimal(),
+				single("media.offsetExpires", "76543")
+		)));
+		assertEquals(Duration.ofSeconds(76), servlet.getMaximumAge(MaximumAgeItem.path, null));
+	}
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class MaximumAgeItem extends Item
+	{
+		@WrapperIgnore static final Media path = new Media();
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<MaximumAgeItem> TYPE = com.exedio.cope.TypesBound.newType(MaximumAgeItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private MaximumAgeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+	private static final Model MaximumAgeItemModel = new Model(MaximumAgeItem.TYPE);
+	@AfterEach void tearDownMaximumAge()
+	{
+		if(MaximumAgeItemModel.isConnected())
+			MaximumAgeItemModel.disconnect();
+	}
+
 
 	@Test void testCacheControlPrivateSimple()
 	{

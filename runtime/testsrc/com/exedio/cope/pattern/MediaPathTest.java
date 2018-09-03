@@ -35,6 +35,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.Date;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -950,6 +951,15 @@ public final class MediaPathTest extends TestWithEnvironment
 		MyMediaServlet()
 		{
 			// make package private
+		}
+
+		@Override
+		protected Duration getMaximumAge(
+				final MediaPath path,
+				final Item item)
+		{
+			assertConfigMethod(path, item);
+			return super.getMaximumAge(path, item); // TODO getCacheControlMaximumAge()
 		}
 
 		@Override

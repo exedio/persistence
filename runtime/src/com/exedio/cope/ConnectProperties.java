@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static java.lang.Math.toIntExact;
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofSeconds;
+
 import com.exedio.cope.misc.FactoryProperties;
 import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.PoolProperties;
@@ -27,6 +31,7 @@ import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
+import java.time.Duration;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Locale;
@@ -210,9 +215,23 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 
 	private final String mediaRootUrl    = value("media.rooturl", factory.mediaRootUrl);
-	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
+	private final Duration mediaOffsetExpires = valueIntMillis("media.offsetExpires", ofSeconds(5), Duration.ZERO);
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
 	private final String mediaUrlSecret = valueMediaUrlSecret("media.url.secret");
+
+	private Duration valueIntMillis(
+			final String key,
+			final Duration defaultValue,
+			final Duration minimum)
+	{
+		final Duration result = value(key, defaultValue, minimum);
+		final Duration maximum = ofMillis(Integer.MAX_VALUE);
+		if(result.compareTo(maximum)>0)
+			throw newException(key,
+					"must be a duration less or equal " + maximum + ", " +
+					"but was " + result);
+		return result;
+	}
 
 	private String valueMediaUrlSecret(final String key)
 	{
@@ -240,18 +259,26 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * This may reduce the load on the server.
 	 * If zero, no Expires header is sent.
 	 *
-	 * TODO: make this configurable per media as well.
 	 * @deprecated Use {@link #getMediaMaxAge()} instead
 	 */
 	@Deprecated
 	public int getMediaOffsetExpires()
 	{
-		return mediaOffsetExpires;
+		return toIntExact(mediaOffsetExpires.toMillis()); // toIntExact cannot fail because of valueIntMillis
 	}
 
-	private final int mediaMaxAge = mediaOffsetExpires/1000;
+	private final Duration mediaMaxAge = (mediaOffsetExpires.compareTo(ofSeconds(1))>=0) ? mediaOffsetExpires.withNanos(0) : null;
 
 	public int getMediaMaxAge()
+	{
+		return mediaMaxAge!=null ? toIntExact(mediaMaxAge.getSeconds()) : 0; // toIntExact cannot fail because of valueIntMillis;
+	}
+
+	/**
+	 * Returns a duration suitable for
+	 * {@link com.exedio.cope.pattern.MediaServlet#getMaximumAge(com.exedio.cope.pattern.MediaPath, Item)}.
+	 */
+	public Duration getMediaServletMaximumAge()
 	{
 		return mediaMaxAge;
 	}

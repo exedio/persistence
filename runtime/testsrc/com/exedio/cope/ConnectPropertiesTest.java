@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.erase;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -447,6 +448,7 @@ public class ConnectPropertiesTest
 
 		assertEquals(5*1000, getMediaOffsetExpires(p));
 		assertEquals(5, p.getMediaMaxAge());
+		assertEquals(ofSeconds(5), p.getMediaServletMaximumAge());
 	}
 
 	@Test void testMediaMaxAgeWholeSecond()
@@ -458,6 +460,19 @@ public class ConnectPropertiesTest
 				));
 		assertEquals(77000, getMediaOffsetExpires(p));
 		assertEquals(77, p.getMediaMaxAge());
+		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
+	}
+
+	@Test void testMediaMaxAgeWholeSecondDuration()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", "PT77.000S"),
+						TestSources.minimal()
+				));
+		assertEquals(77000, getMediaOffsetExpires(p));
+		assertEquals(77, p.getMediaMaxAge());
+		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
 	}
 
 	@Test void testMediaMaxAgeRound()
@@ -469,6 +484,19 @@ public class ConnectPropertiesTest
 				));
 		assertEquals(77999, getMediaOffsetExpires(p));
 		assertEquals(77, p.getMediaMaxAge());
+		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
+	}
+
+	@Test void testMediaMaxAgeRoundDuration()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", "PT77.999S"),
+						TestSources.minimal()
+				));
+		assertEquals(77999, getMediaOffsetExpires(p));
+		assertEquals(77, p.getMediaMaxAge());
+		assertEquals(ofSeconds(77), p.getMediaServletMaximumAge());
 	}
 
 	@Test void testMediaMaxAgeZero()
@@ -480,6 +508,7 @@ public class ConnectPropertiesTest
 				));
 		assertEquals(0, getMediaOffsetExpires(p));
 		assertEquals(0, p.getMediaMaxAge());
+		assertEquals(null, p.getMediaServletMaximumAge());
 	}
 
 	@Test void testMediaMaxAgeSecondAlmost()
@@ -491,6 +520,7 @@ public class ConnectPropertiesTest
 				));
 		assertEquals(999, getMediaOffsetExpires(p));
 		assertEquals(0, p.getMediaMaxAge());
+		assertEquals(null, p.getMediaServletMaximumAge());
 	}
 
 	@Test void testMediaMaxAgeSecond()
@@ -502,6 +532,7 @@ public class ConnectPropertiesTest
 				));
 		assertEquals(1000, getMediaOffsetExpires(p));
 		assertEquals(1, p.getMediaMaxAge());
+		assertEquals(ofSeconds(1), p.getMediaServletMaximumAge());
 	}
 
 	@Test void testMediaMaxAgeMaximum()
@@ -513,6 +544,7 @@ public class ConnectPropertiesTest
 				));
 		assertEquals(Integer.MAX_VALUE, getMediaOffsetExpires(p));
 		assertEquals(Integer.MAX_VALUE/1000, p.getMediaMaxAge());
+		assertEquals(ofSeconds(Integer.MAX_VALUE/1000), p.getMediaServletMaximumAge());
 	}
 
 	@Test void testMediaMaxAgeMaximumExceeded()
@@ -526,8 +558,8 @@ public class ConnectPropertiesTest
 				() -> ConnectProperties.create(s),
 				IllegalPropertiesException.class,
 				"property media.offsetExpires in DESC " +
-				"must be an integer greater or equal 0, " +
-				"but was '2147483648'");
+				"must be a duration less or equal PT596H31M23.647S, " +
+				"but was "+                      "PT596H31M23.648S");
 	}
 
 	@Test void testMediaMaxAgeNegative()
@@ -541,8 +573,8 @@ public class ConnectPropertiesTest
 				() -> ConnectProperties.create(s),
 				IllegalPropertiesException.class,
 				"property media.offsetExpires in DESC " +
-				"must be an integer greater or equal 0, " +
-				"but was -1");
+				"must be a duration greater or equal PT0S, " +
+				"but was PT-0.001S");
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
