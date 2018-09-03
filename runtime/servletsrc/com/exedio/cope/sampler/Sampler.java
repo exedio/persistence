@@ -38,12 +38,12 @@ import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.ProxyPropertiesSource;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -102,9 +102,9 @@ public class Sampler
 		return maskConnectSourceInternal(original);
 	}
 
-	static final Properties.Source maskConnectSourceInternal(final Properties.Source original)
+	static final ProxyPropertiesSource maskConnectSourceInternal(final Properties.Source original)
 	{
-		return new Properties.Source(){
+		return new ProxyPropertiesSource(original){
 
 			@Override
 			public String get(final String key)
@@ -121,15 +121,9 @@ public class Sampler
 			}
 
 			@Override
-			public String getDescription()
+			protected ProxyPropertiesSource reload(final Properties.Source reloadedTarget)
 			{
-				return original.getDescription();
-			}
-
-			@Override
-			public Collection<String> keySet()
-			{
-				return original.keySet();
+				return maskConnectSourceInternal(reloadedTarget);
 			}
 		};
 	}
