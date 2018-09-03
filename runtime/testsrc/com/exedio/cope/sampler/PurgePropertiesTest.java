@@ -20,6 +20,7 @@ package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
+import static java.time.Duration.ofDays;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -136,11 +137,11 @@ public class PurgePropertiesTest extends ConnectedTest
 
 		final SamplerProperties props = factory.create(newSource(
 				null, new EnumMap<>(PurgedType.class)));
-		assertEquals(57, props.purgeDays.model);
-		assertEquals(57, props.purgeDays.transaction);
-		assertEquals( 8, props.purgeDays.itemCache);
-		assertEquals(29, props.purgeDays.clusterNode);
-		assertEquals(29, props.purgeDays.media);
+		assertEquals(ofDays(57), props.purgeDays.model);
+		assertEquals(ofDays(57), props.purgeDays.transaction);
+		assertEquals(ofDays( 8), props.purgeDays.itemCache);
+		assertEquals(ofDays(29), props.purgeDays.clusterNode);
+		assertEquals(ofDays(29), props.purgeDays.media);
 	}
 
 	@Test void testTooSmallTransaction()
@@ -159,9 +160,9 @@ public class PurgePropertiesTest extends ConnectedTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property purgeDays.transaction in desc1 / desc2 " +
-					"must be less or equal purgeDays.model=500, " +
-					"but was 501",
+					"property purge.transaction in desc1 / desc2 " +
+					"must be less or equal purge.model=PT12000H, " +
+					"but was PT12024H",
 					e.getMessage());
 		}
 	}
@@ -182,9 +183,9 @@ public class PurgePropertiesTest extends ConnectedTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property purgeDays.itemCache in desc1 / desc2 " +
-					"must be less or equal purgeDays.model=500, " +
-					"but was 501",
+					"property purge.itemCache in desc1 / desc2 " +
+					"must be less or equal purge.model=PT12000H, " +
+					"but was PT12024H",
 					e.getMessage());
 		}
 	}
@@ -205,9 +206,9 @@ public class PurgePropertiesTest extends ConnectedTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property purgeDays.clusterNode in desc1 / desc2 " +
-					"must be less or equal purgeDays.model=500, " +
-					"but was 501",
+					"property purge.clusterNode in desc1 / desc2 " +
+					"must be less or equal purge.model=PT12000H, " +
+					"but was PT12024H",
 					e.getMessage());
 		}
 	}
@@ -228,9 +229,9 @@ public class PurgePropertiesTest extends ConnectedTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property purgeDays.media in desc1 / desc2 " +
-					"must be less or equal purgeDays.model=500, " +
-					"but was 501",
+					"property purge.media in desc1 / desc2 " +
+					"must be less or equal purge.model=PT12000H, " +
+					"but was PT12024H",
 					e.getMessage());
 		}
 	}
@@ -254,9 +255,9 @@ public class PurgePropertiesTest extends ConnectedTest
 
 		final java.util.Properties properties = new java.util.Properties();
 		if(enabled!=null)
-			properties.setProperty("purgeDays", String.valueOf(enabled));
+			properties.setProperty("purge", String.valueOf(enabled));
 		for(final Map.Entry<PurgedType, Integer> e : days.entrySet())
-			properties.setProperty("purgeDays." + e.getKey().name(), String.valueOf(e.getValue()));
+			properties.setProperty("purge." + e.getKey().name(), ofDays(e.getValue()).toString());
 
 		return
 				Sources.cascade(

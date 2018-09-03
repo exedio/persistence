@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* SamplerProperties: keys purgeDays.* renamed to purge.* and expect
+	Duration instead of integer.
+	This breaks backwards API compatibility, check your deployed systems!
+	If these keys are at their defaults you don't have to do anything.
 * DispatcherPurgeProperties: keys retainDays.[success|finalFailure] renamed to
 	retain.[success|finalFailure] and expect Duration instead of integer.
 	This breaks backwards API compatibility, check your deployed systems!

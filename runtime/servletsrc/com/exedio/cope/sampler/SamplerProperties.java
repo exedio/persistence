@@ -66,27 +66,27 @@ public final class SamplerProperties extends Properties
 
 	// purge
 
-	final PurgeDays purgeDays = value("purgeDays", true, PurgeDays::new);
+	final PurgeDays purgeDays = value("purge", true, PurgeDays::new);
 
 	static final class PurgeDays extends Properties
 	{
-		final int model       = value("model",       ampleWeeks(8), 1    );
-		final int transaction = subVl("transaction", ampleWeeks(8), model);
-		final int itemCache   = subVl("itemCache",   ampleWeeks(1), model);
-		final int clusterNode = subVl("clusterNode", ampleWeeks(4), model);
-		final int media       = subVl("media",       ampleWeeks(4), model);
+		final Duration model       = value("model",       ampleWeeks(8), Duration.ofDays(1));
+		final Duration transaction = subVl("transaction", ampleWeeks(8), model);
+		final Duration itemCache   = subVl("itemCache",   ampleWeeks(1), model);
+		final Duration clusterNode = subVl("clusterNode", ampleWeeks(4), model);
+		final Duration media       = subVl("media",       ampleWeeks(4), model);
 
-		private static int ampleWeeks(final int weeks)
+		private static Duration ampleWeeks(final long weeks)
 		{
-			return 7*weeks + 1;
+			return Duration.ofDays(7*weeks + 1);
 		}
 
-		private int subVl(final String key, final int defaultValue, final int maximum)
+		private Duration subVl(final String key, final Duration defaultValue, final Duration maximum)
 		{
-			final int result = value(key, defaultValue, 1);
-			if(result>maximum)
+			final Duration result = value(key, defaultValue, Duration.ofDays(1));
+			if(result.compareTo(maximum)>0)
 				throw newException(key,
-						"must be less or equal purgeDays.model=" + maximum + ", " +
+						"must be less or equal purge.model=" + maximum + ", " +
 						"but was " + result);
 			return result;
 		}

@@ -43,10 +43,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -248,15 +246,12 @@ public class Sampler
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
 
-		purge(daysBeforeNow(Clock.currentTimeMillis(), days), ctx);
+		purge(daysBeforeNow(Clock.currentTimeMillis(), Duration.ofDays(days)), ctx);
 	}
 
-	static Date daysBeforeNow(final long now, final int days)
+	static Date daysBeforeNow(final long now, final Duration days)
 	{
-		final GregorianCalendar cal = new GregorianCalendar();
-		cal.setTimeInMillis(now);
-		cal.add(Calendar.DATE, -days);
-		return cal.getTime();
+		return new Date(now - days.toMillis());
 	}
 
 	public final void purge(final Date limit, final JobContext ctx)
