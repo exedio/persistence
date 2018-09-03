@@ -22,11 +22,13 @@ import static com.exedio.cope.util.Sources.checkKey;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.util.ProxyPropertiesSource;
 import com.exedio.cope.util.Sources;
 import java.io.File;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import org.opentest4j.AssertionFailedError;
 
 // TODO move to com.exedio.cope.util.Sources
 public final class TestSources
@@ -125,17 +127,11 @@ public final class TestSources
 	{
 		requireNonNull(s);
 
-		return new Source(){
+		return new ProxyPropertiesSource(s){
 			@Override
-			public String get(final String key)
+			protected ProxyPropertiesSource reload(final Source reloadedTarget)
 			{
-				checkKey(key);
-				return s.get(key);
-			}
-			@Override
-			public Collection<String> keySet()
-			{
-				return s.keySet();
+				throw new AssertionFailedError();
 			}
 			@Override
 			public String getDescription()
