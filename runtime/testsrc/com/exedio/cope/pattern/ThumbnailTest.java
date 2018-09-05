@@ -73,7 +73,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		gif = new ThumbnailItem();
 		txt = new ThumbnailItem();
 		emp = new ThumbnailItem();
-		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test2.jpg"), JPEG);
+		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.jpg"), JPEG);
 		png.setFile(data, PNG);
 		gif.setFile(data, GIF);
 		txt.setFile(data, "text/plain");
