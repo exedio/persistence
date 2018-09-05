@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailItem.file;
 import static com.exedio.cope.pattern.ThumbnailItem.thumb;
+import static com.exedio.cope.pattern.ThumbnailItem.thumbLarge;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
@@ -69,7 +70,6 @@ public final class ThumbnailTest extends TestWithEnvironment
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
 	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
-
 	@BeforeEach void setUp() throws IOException
 	{
 		jpg = new ThumbnailItem();
@@ -94,6 +94,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 				file.getLastModified(),
 				file.getUnison(),
 				thumb,
+				thumbLarge,
 			}), TYPE.getFeatures());
 		assertEquals(TYPE, thumb.getType());
 		assertEquals("thumb", thumb.getName());
@@ -187,6 +188,23 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertAndWrite(gif.getThumb(), "thumbnail-test-gif.jpg");
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
+	}
+
+	// Ok, because Media#set(Item,InputStream,String) closes the stream.
+	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
+	@Test void testThumbsLarge() throws IOException
+	{
+		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-antialias.jpg"), JPEG);
+		assertAndWrite(jpg.getThumbLarge(), "thumbnail-antialias-jpg.jpg");
+
+		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-antialias.png"), PNG);
+		assertAndWrite(jpg.getThumbLarge(), "thumbnail-antialias-png.jpg");
+
+		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-gif.gif"), GIF);
+		assertAndWrite(jpg.getThumbLarge(), "thumbnail-gif.jpg");
+
+		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-transparency.png"), PNG);
+		assertAndWrite(jpg.getThumbLarge(), "thumbnail-transparency-png.jpg");
 	}
 
 	private static void assertBB(final int srcX, final int srcY, final int tgtX, final int tgtY)
