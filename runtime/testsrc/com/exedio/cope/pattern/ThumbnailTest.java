@@ -20,6 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static com.exedio.cope.pattern.MediaType.GIF;
+import static com.exedio.cope.pattern.MediaType.JPEG;
+import static com.exedio.cope.pattern.MediaType.PNG;
 import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailItem.file;
 import static com.exedio.cope.pattern.ThumbnailItem.thumb;
@@ -70,9 +73,9 @@ public final class ThumbnailTest extends TestWithEnvironment
 		gif = new ThumbnailItem();
 		txt = new ThumbnailItem();
 		emp = new ThumbnailItem();
-		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test2.jpg"), "image/jpeg");
-		png.setFile(data, "image/png");
-		gif.setFile(data, "image/gif");
+		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test2.jpg"), JPEG);
+		png.setFile(data, PNG);
+		gif.setFile(data, GIF);
 		txt.setFile(data, "text/plain");
 	}
 
@@ -94,10 +97,10 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals(20, thumb.getBoundX());
 		assertEquals(30, thumb.getBoundY());
 		final Set<String> sct = thumb.getSupportedSourceContentTypes();
-		assertTrue(sct.contains("image/jpeg"),  sct.toString());
+		assertTrue(sct.contains(JPEG), sct.toString());
 		assertTrue(sct.contains("image/pjpeg"), sct.toString());
-		assertTrue(sct.contains("image/png"),   sct.toString());
-		assertTrue(sct.contains("image/gif"),   sct.toString());
+		assertTrue(sct.contains(PNG),  sct.toString());
+		assertTrue(sct.contains(GIF),  sct.toString());
 		assertUnmodifiable(sct);
 
 		assertEquals(file.isNull(), thumb.isNull());
@@ -141,9 +144,9 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertBB(10, 10, 20, 20);
 
 		// test content type
-		assertEquals("image/jpeg", jpg.getThumbContentType());
-		assertEquals("image/jpeg", png.getThumbContentType());
-		assertEquals("image/jpeg", gif.getThumbContentType());
+		assertEquals(JPEG, jpg.getThumbContentType());
+		assertEquals(JPEG, png.getThumbContentType());
+		assertEquals(JPEG, gif.getThumbContentType());
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
 
