@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.DispatcherItem.historyAdd;
 import static com.exedio.cope.pattern.DispatcherItem.historyAssert;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -475,9 +476,10 @@ public class DispatcherTest extends TestWithEnvironment
 
 		void assertIt(final Run actual)
 		{
-			assertEquals(date, actual.getDate());
-			assertEquals(result, actual.getResult());
-			assertEquals(success, actual.isSuccess());
+			assertAll(
+					() -> assertEquals(date, actual.getDate(), "date"),
+					() -> assertEquals(result, actual.getResult(), "result"),
+					() -> assertEquals(success, actual.isSuccess(), "success"));
 		}
 	}
 
