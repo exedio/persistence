@@ -158,6 +158,7 @@ timestamps
 					testResults: 'build/testresults/**/*.xml',
 			)
 			archive(
+					'build/ThumbnailTest/*,' +
 					'build/testprotocol.*,' +
 					'build/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
 					'build/*.log,' +

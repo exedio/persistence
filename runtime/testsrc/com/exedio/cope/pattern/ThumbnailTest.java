@@ -41,6 +41,10 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
@@ -178,9 +182,9 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertContains(jpg, png, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 
 		// test get
-		assertNotNull(jpg.getThumb());
-		assertNotNull(png.getThumb());
-		assertNotNull(gif.getThumb());
+		assertAndWrite(jpg.getThumb(), "thumbnail-test-jpg.jpg");
+		assertAndWrite(png.getThumb(), "thumbnail-test-png.jpg");
+		assertAndWrite(gif.getThumb(), "thumbnail-test-gif.jpg");
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 	}
@@ -190,5 +194,25 @@ public final class ThumbnailTest extends TestWithEnvironment
 		final int[] bb = thumb.boundingBox(srcX, srcY);
 		assertEquals(tgtX, bb[0], "width");
 		assertEquals(tgtY, bb[1], "height");
+	}
+
+	private static void assertAndWrite(
+			final byte[] actualContent,
+			final String filename) throws IOException
+	{
+		assertNotNull(actualContent);
+		final Path buildDir = Paths.get("build");
+		if(!Files.isDirectory(buildDir))
+			Files.createDirectory(buildDir);
+		final Path dir = buildDir.resolve("ThumbnailTest");
+		if(!Files.isDirectory(dir))
+			Files.createDirectory(dir);
+		final Path path = dir.resolve(filename);
+		// writes files for human visual inspection
+		try(OutputStream out = Files.newOutputStream(path))
+		{
+			out.write(actualContent);
+		}
+		assertEquals(JPEG, Files.probeContentType(path));
 	}
 }
