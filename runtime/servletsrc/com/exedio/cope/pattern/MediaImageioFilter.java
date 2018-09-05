@@ -131,7 +131,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 		if(spi==null)
 			throw notFoundNotComputable();
 
-		final ByteArrayOutputStream body = execute(item, contentType, spi, true);
+		final ByteArrayOutputStream body = execute(item, spi, true);
 
 		MediaUtil.send(outputContentType, body, response);
 	}
@@ -147,12 +147,11 @@ public abstract class MediaImageioFilter extends MediaFilter
 		if(spi==null)
 			return null;
 
-		return execute(item, contentType, spi, false).toByteArray();
+		return execute(item, spi, false).toByteArray();
 	}
 
 	private ByteArrayOutputStream execute(
 			final Item item,
-			final String contentType,
 			final ImageReaderSpi spi,
 			final boolean commit)
 	throws IOException
@@ -164,15 +163,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 
 		final BufferedImage srcBuf;
 
-		// Special handling of jpeg
-		// avoids spurious black side bars at least for jpeg and
-		// avoids conversion to DirectColorModel in MediaThumbnail.
-		// Don't know why.
-		if("image/jpeg".equals(contentType) && JPEGCodecAccess.available())
-		{
-			srcBuf = JPEGCodecAccess.convert(srcBytes);
-		}
-		else
 		{
 			//noinspection ConstantConditions OK: is checked before (contentType==null)
 			try(MemoryCacheImageInputStream input = new MemoryCacheImageInputStream(new ByteArrayInputStream(srcBytes)))
