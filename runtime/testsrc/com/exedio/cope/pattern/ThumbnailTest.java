@@ -74,8 +74,8 @@ public final class ThumbnailTest extends TestWithEnvironment
 		txt = new ThumbnailItem();
 		emp = new ThumbnailItem();
 		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.jpg"), JPEG);
-		png.setFile(data, PNG);
-		gif.setFile(data, GIF);
+		png.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.png"), PNG);
+		gif.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.gif"), GIF);
 		txt.setFile(data, "text/plain");
 	}
 
@@ -179,6 +179,8 @@ public final class ThumbnailTest extends TestWithEnvironment
 
 		// test get
 		assertNotNull(jpg.getThumb());
+		assertNotNull(png.getThumb());
+		assertNotNull(gif.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 	}

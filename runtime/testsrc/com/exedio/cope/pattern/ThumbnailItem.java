@@ -26,7 +26,7 @@ import com.exedio.cope.instrument.Wrapper;
 public final class ThumbnailItem extends Item
 {
 	@Wrapper(wrap="getURL", visibility=NONE)
-	static final Media file = new Media().optional().lengthMax(2000);
+	static final Media file = new Media().optional().lengthMax(6000);
 
 	@Wrapper(wrap="getURL", visibility=NONE)
 	static final MediaThumbnail thumb = new MediaThumbnail(file, 20, 30);
