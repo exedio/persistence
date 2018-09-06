@@ -207,7 +207,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 
 
-	private final String mediaRooturl    = value("media.rooturl", factory.mediaRootUrl);
+	private final String mediaRootUrl    = value("media.rooturl", factory.mediaRootUrl);
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
 	private final String mediaUrlSecret = valueMediaUrlSecret("media.url.secret");
@@ -227,7 +227,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	public String getMediaRootUrl()
 	{
-		return mediaRooturl;
+		return mediaRootUrl;
 	}
 
 	/**

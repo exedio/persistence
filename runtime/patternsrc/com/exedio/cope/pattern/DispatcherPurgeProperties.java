@@ -25,8 +25,8 @@ import com.exedio.cope.util.Properties;
 
 public final class DispatcherPurgeProperties extends FactoryProperties<DispatcherPurgeProperties.Factory>
 {
-	final int retainDaysSuccess      = value("retainDays.success",      factory.retainDaysSuccessDefault,      0);
-	final int retainDaysFinalFailure = value("retainDays.finalFailure", factory.retainDaysFinalFailureDefault, 0);
+	final int retainDaysSuccess      = value("retainDays.success",      factory.retainDaysSuccess,      0);
+	final int retainDaysFinalFailure = value("retainDays.finalFailure", factory.retainDaysFinalFailure, 0);
 
 	public static Factory factory()
 	{
@@ -41,15 +41,15 @@ public final class DispatcherPurgeProperties extends FactoryProperties<Dispatche
 
 	public static final class Factory implements Properties.Factory<DispatcherPurgeProperties>
 	{
-		private final int retainDaysSuccessDefault;
-		private final int retainDaysFinalFailureDefault;
+		private final int retainDaysSuccess;
+		private final int retainDaysFinalFailure;
 
 		private Factory(
-				final int retainDaysSuccessDefault,
-				final int retainDaysFinalFailureDefault)
+				final int retainDaysSuccess,
+				final int retainDaysFinalFailure)
 		{
-			this.retainDaysSuccessDefault      = requireNonNegative(retainDaysSuccessDefault,      "retainDaysSuccess");
-			this.retainDaysFinalFailureDefault = requireNonNegative(retainDaysFinalFailureDefault, "retainDaysFinalFailure");
+			this.retainDaysSuccess      = requireNonNegative(retainDaysSuccess,      "retainDaysSuccess");
+			this.retainDaysFinalFailure = requireNonNegative(retainDaysFinalFailure, "retainDaysFinalFailure");
 		}
 
 		public Factory retainDaysDefault(final int value)
