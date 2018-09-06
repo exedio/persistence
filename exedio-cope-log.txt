@@ -10,7 +10,21 @@ The items are sorted inversely, i.e. latest items are on top
 * Dispatcher.Run#remaining and #limit added.
 	Affects database schema, adds columns to table of Dispatcher.Run type.
 	For previous behaviour use: new Dispatcher().withoutRemaining().
+
 	When fixing database schema be aware that values for #limit must be at least 1!
+	Fixing database schema for a dispatcher Mail.send could look like this on MySQL:
+
+	ALTER TABLE `Mail_send_Run`
+		ADD COLUMN `remaining` int not null DEFAULT 999 AFTER `elapsed`,
+		ADD COLUMN `limit`     int not null DEFAULT   5 AFTER `remaining`
+
+	ALTER TABLE `Mail_send_Run`
+		ALTER COLUMN `remaining` DROP DEFAULT,
+		ALTER COLUMN `limit`     DROP DEFAULT
+
+	Note that value '5' for limit comes from Dispatcher.Config#failureLimit,
+	you may have configured a different value.
+
 * The instrumentor no longer supports
 	<instrument serialVersionUID="false" ... />
 	which is now always "true".
