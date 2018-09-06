@@ -196,7 +196,7 @@
 		<servlet-class>com.exedio.cope.console.ConsoleServlet</servlet-class>
 		<init-param>
 			<param-name>model</param-name>
-			<param-value>com.exedio.cope.pattern.DispatcherTest#MODEL</param-value>
+			<param-value>com.exedio.cope.pattern.DispatcherModelTest#MODEL</param-value>
 		</init-param>
 	</servlet>
 	<servlet-mapping>
