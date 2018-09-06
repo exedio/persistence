@@ -20,12 +20,13 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.misc.Check.requireNonNegative;
 
+import com.exedio.cope.misc.FactoryProperties;
 import com.exedio.cope.util.Properties;
 
-public final class DispatcherPurgeProperties extends Properties
+public final class DispatcherPurgeProperties extends FactoryProperties<DispatcherPurgeProperties.Factory>
 {
-	final int retainDaysSuccess;
-	final int retainDaysFinalFailure;
+	final int retainDaysSuccess      = value("retainDays.success",      factory.retainDaysSuccessDefault,      0);
+	final int retainDaysFinalFailure = value("retainDays.finalFailure", factory.retainDaysFinalFailureDefault, 0);
 
 	public static Factory factory()
 	{
@@ -34,9 +35,7 @@ public final class DispatcherPurgeProperties extends Properties
 
 	private DispatcherPurgeProperties(final Source source, final Factory factory)
 	{
-		super(source);
-		retainDaysSuccess      = value("retainDays.success",      factory.retainDaysSuccessDefault,      0);
-		retainDaysFinalFailure = value("retainDays.finalFailure", factory.retainDaysFinalFailureDefault, 0);
+		super(source, factory);
 	}
 
 

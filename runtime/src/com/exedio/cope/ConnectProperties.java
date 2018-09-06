@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.misc.FactoryProperties;
 import com.exedio.cope.pattern.MediaFingerprintOffset;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Properties;
@@ -32,7 +33,7 @@ import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
-public final class ConnectProperties extends com.exedio.cope.util.Properties
+public final class ConnectProperties extends FactoryProperties<ConnectProperties.Factory>
 {
 	final ConnectionProperties connection = valnp("connection", ConnectionProperties::new);
 
@@ -41,7 +42,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
-	private final boolean disableNativeDate;
+	private final boolean disableNativeDate         = value("disableSupport.nativeDate", factory.disableNativeDate);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
 
@@ -91,7 +92,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	// schema
 
-	final PrimaryKeyGenerator primaryKeyGenerator;
+	final PrimaryKeyGenerator primaryKeyGenerator = value("schema.primaryKeyGenerator", factory.primaryKeyGenerator);
 	final boolean longSyntheticNames = value("schema.tableInNames", false);
 
 	/**
@@ -206,7 +207,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 
 
-	private final String mediaRooturl;
+	private final String mediaRooturl    = value("media.rooturl", factory.mediaRootUrl);
 	private final int mediaOffsetExpires = value("media.offsetExpires", 1000 * 5, 0);
 	private final int mediaFingerOffset  = value("media.fingerprintOffset", 0, 0);
 	private final String mediaUrlSecret = valueMediaUrlSecret("media.url.secret");
@@ -337,11 +338,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 
 	ConnectProperties(final Source source, final Factory factory)
 	{
-		super(source);
-
-		this.disableNativeDate = value("disableSupport.nativeDate", factory.disableNativeDate);
-		this.primaryKeyGenerator = value("schema.primaryKeyGenerator", factory.primaryKeyGenerator);
-		this.mediaRooturl = value("media.rooturl", factory.mediaRootUrl);
+		super(source, factory);
 
 		if(cluster!=null && !primaryKeyGenerator.persistent)
 			throw newException("cluster",

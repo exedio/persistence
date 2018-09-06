@@ -95,10 +95,12 @@ public class ConnectPropertiesTest
 				"dialect.approximate",
 				"disableSupport.emptyStrings",
 				"disableSupport.preparedStatements",
+				"disableSupport.nativeDate",
 				"disableSupport.uniqueViolation",
 				"disableSupport.semicolon",
 				"fulltextIndex",
 				"deleteSchemaForTest",
+				"schema.primaryKeyGenerator",
 				"schema.tableInNames",
 				"schema.revision.table",
 				"schema.revision.unique",
@@ -123,12 +125,10 @@ public class ConnectPropertiesTest
 				"changeListeners.threads.priority.set",
 				"changeListeners.threads.priority.value",
 				"cluster",
+				"media.rooturl",
 				"media.offsetExpires",
 				"media.fingerprintOffset",
-				"media.url.secret",
-				"disableSupport.nativeDate",
-				"schema.primaryKeyGenerator",
-				"media.rooturl"),
+				"media.url.secret"),
 				p.getFields().stream().map(Field::getKey).collect(Collectors.toList()));
 	}
 
