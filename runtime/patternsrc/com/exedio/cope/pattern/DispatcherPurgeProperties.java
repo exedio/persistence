@@ -27,7 +27,6 @@ public final class DispatcherPurgeProperties extends Properties
 	final int retainDaysSuccess;
 	final int retainDaysFinalFailure;
 
-	@SuppressWarnings("synthetic-access")
 	public static Factory factory()
 	{
 		return new Factory(0, 0);
@@ -71,7 +70,6 @@ public final class DispatcherPurgeProperties extends Properties
 		}
 
 		@Override
-		@SuppressWarnings("synthetic-access")
 		public DispatcherPurgeProperties create(final Source source)
 		{
 			return new DispatcherPurgeProperties(

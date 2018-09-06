@@ -254,7 +254,6 @@ public class CommitHookPostTest
 			this.identity = identity;
 		}
 		@Override
-		@SuppressWarnings("synthetic-access")
 		public void run()
 		{
 			assertNoTransaction();

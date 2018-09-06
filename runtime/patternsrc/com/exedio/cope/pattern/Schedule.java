@@ -454,7 +454,6 @@ public final class Schedule extends Pattern
 			features.put("run",   run);
 			features.put("progress", progress);
 			features.put("elapsed", elapsed);
-			@SuppressWarnings("synthetic-access")
 			final Type<Run> runType = pattern.newSourceType(Run.class, features, "Run");
 			this.mountIfMounted = new Mount(parent, runs, runType);
 		}

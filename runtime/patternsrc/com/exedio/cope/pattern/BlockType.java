@@ -212,7 +212,6 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 		 */
 		private Object readResolve() throws InvalidObjectException
 		{
-			@SuppressWarnings("synthetic-access")
 			final BlockType<?> result = types.get(javaClass);
 			if(result==null)
 				throw new InvalidObjectException("type does not exist: " + javaClass);

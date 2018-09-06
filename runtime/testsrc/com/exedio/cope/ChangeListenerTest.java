@@ -150,7 +150,6 @@ public class ChangeListenerTest extends TestWithEnvironment
 		}
 
 		@Override
-		@SuppressWarnings("synthetic-access")
 		public void onChange(final ChangeEvent event) throws IOException
 		{
 			final Collection<Item> items = event.getItems();

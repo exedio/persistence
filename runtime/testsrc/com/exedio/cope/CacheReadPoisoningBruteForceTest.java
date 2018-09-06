@@ -101,7 +101,6 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 	@Test void testIt() throws InterruptedException
 	{
-		final Model model = this.model; // avoid warning about synthetic-access
 		Arrays.setAll(threads, i -> new ThreadStoppable(i)
 		{
 			@Override

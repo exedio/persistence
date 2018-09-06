@@ -260,7 +260,6 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		 */
 		private Object readResolve() throws InvalidObjectException
 		{
-			@SuppressWarnings("synthetic-access")
 			final CompositeType<?> result = types.get(javaClass);
 			if(result==null)
 				throw new InvalidObjectException("type does not exist: " + javaClass);
