@@ -19,6 +19,10 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DispatcherPurgeProperties.factory;
+import static java.time.Duration.ZERO;
+import static java.time.Duration.ofDays;
+import static java.time.Duration.ofHours;
+import static java.time.Duration.ofNanos;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -32,29 +36,50 @@ public class DispatcherPurgePropertiesTest
 	@Test void testDefault()
 	{
 		final DispatcherPurgeProperties props = create(factory());
-		assertEquals(0, props.retainDaysSuccess);
-		assertEquals(0, props.retainDaysFinalFailure);
+		assertEquals(ZERO, props.retainDaysSuccess);
+		assertEquals(ZERO, props.retainDaysFinalFailure);
 	}
 
 	@Test void testCustom()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(4, 6));
-		assertEquals(4, props.retainDaysSuccess);
-		assertEquals(6, props.retainDaysFinalFailure);
+		assertEquals(ofDays(4), props.retainDaysSuccess);
+		assertEquals(ofDays(6), props.retainDaysFinalFailure);
+	}
+
+	@Test void testCustomDuration()
+	{
+		final DispatcherPurgeProperties props = create(factory().retainDefault(ofHours(4), ofHours(6)));
+		assertEquals(ofHours(4), props.retainDaysSuccess);
+		assertEquals(ofHours(6), props.retainDaysFinalFailure);
 	}
 
 	@Test void testMinimum()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(1));
-		assertEquals(1, props.retainDaysSuccess);
-		assertEquals(1, props.retainDaysFinalFailure);
+		assertEquals(ofDays(1), props.retainDaysSuccess);
+		assertEquals(ofDays(1), props.retainDaysFinalFailure);
+	}
+
+	@Test void testMinimumDuration()
+	{
+		final DispatcherPurgeProperties props = create(factory().retainDefault(ofNanos(1)));
+		assertEquals(ofNanos(1), props.retainDaysSuccess);
+		assertEquals(ofNanos(1), props.retainDaysFinalFailure);
 	}
 
 	@Test void testOmit()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(0));
-		assertEquals(0, props.retainDaysSuccess);
-		assertEquals(0, props.retainDaysFinalFailure);
+		assertEquals(ZERO, props.retainDaysSuccess);
+		assertEquals(ZERO, props.retainDaysFinalFailure);
+	}
+
+	@Test void testOmitDuration()
+	{
+		final DispatcherPurgeProperties props = create(factory().retainDefault(ZERO));
+		assertEquals(ZERO, props.retainDaysSuccess);
+		assertEquals(ZERO, props.retainDaysFinalFailure);
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -68,7 +93,22 @@ public class DispatcherPurgePropertiesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("retainDaysSuccess must not be negative, but was -1", e.getMessage());
+			assertEquals("retainDaysSuccess must not be negative, but was PT-24H", e.getMessage());
+		}
+	}
+
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	@Test void testNegativeSuccessDuration()
+	{
+		final Factory factory = factory();
+		try
+		{
+			factory.retainDefault(ofNanos(-1), ZERO);
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("retainDaysSuccess must not be negative, but was PT-0.000000001S", e.getMessage());
 		}
 	}
 
@@ -83,7 +123,22 @@ public class DispatcherPurgePropertiesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("retainDaysFinalFailure must not be negative, but was -1", e.getMessage());
+			assertEquals("retainDaysFinalFailure must not be negative, but was PT-24H", e.getMessage());
+		}
+	}
+
+	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
+	@Test void testNegativeFailureDuration()
+	{
+		final Factory factory = factory();
+		try
+		{
+			factory.retainDefault(ZERO, ofNanos(-1));
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("retainDaysFinalFailure must not be negative, but was PT-0.000000001S", e.getMessage());
 		}
 	}
 

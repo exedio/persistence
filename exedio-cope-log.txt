@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* DispatcherPurgeProperties: keys retainDays.[success|finalFailure] renamed to
+	retain.[success|finalFailure] and expect Duration instead of integer.
+	This breaks backwards API compatibility, check your deployed systems!
+	If these keys are at their defaults you don't have to do anything.
 * Instrumentor handles MultiItemField (item constructor; wrappers for #get and #set).
 	Affects instrumented code.
 * Media#contentType(..) with >1 parameter is deprecated. Use Media#contentTypes(..) instead.

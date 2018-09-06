@@ -56,19 +56,16 @@ import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.TimeZoneStrict;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
-import java.util.Locale;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
@@ -802,15 +799,15 @@ public final class Dispatcher extends Pattern
 			final DispatcherPurgeProperties properties,
 			final Condition restriction)
 	{
-		final int success = properties.retainDaysSuccess;
-		final int failure = properties.retainDaysFinalFailure;
-		if(success==0 && failure==0)
+		final Duration success = properties.retainDaysSuccess;
+		final Duration failure = properties.retainDaysFinalFailure;
+		if(success.isZero() && failure.isZero())
 			return null;
 
 		final long now = Clock.currentTimeMillis();
 		final Condition dateCondition;
 
-		if(success==failure)
+		if(success.equals(failure))
 		{
 			dateCondition = dateBefore(now, success);
 		}
@@ -830,17 +827,13 @@ public final class Dispatcher extends Pattern
 				dateCondition));
 	}
 
-	private Condition dateBefore(final long now, final int days)
+	private Condition dateBefore(final long now, final Duration duration)
 	{
-		if(days==0)
+		if(duration.isZero())
 			return Condition.FALSE;
 
-		final GregorianCalendar cal = new GregorianCalendar(
-				TimeZoneStrict.getTimeZone("UTC"), Locale.ENGLISH);
-		cal.setTimeInMillis(now);
-		cal.add(Calendar.DATE, -days);
 		//noinspection ConstantConditions OK: getUnpendDate cannot return null if supportsPurge return true
-		return getUnpendDate().less(cal.getTime());
+		return getUnpendDate().less(new Date(now - duration.toMillis()));
 	}
 
 	// ------------------- deprecated stuff -------------------

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static java.time.Duration.ofDays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Condition;
@@ -184,9 +185,9 @@ public class DispatcherPurgeQueryTest
 	{
 		final Properties props = new Properties();
 		if(success!=null)
-			props.setProperty("retainDays.success",      Integer.toString(success));
+			props.setProperty("retain.success",      ofDays(success).toString());
 		if(failure!=null)
-			props.setProperty("retainDays.finalFailure", Integer.toString(failure));
+			props.setProperty("retain.finalFailure", ofDays(failure).toString());
 
 		final Query<? extends Item> query = DispatcherItem.toTarget.purgeQuery(
 				DispatcherPurgeProperties.factory().retainDaysDefault(4*365, 6*365).create(Sources.view(props, "description")),

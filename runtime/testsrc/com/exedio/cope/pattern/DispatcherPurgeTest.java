@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static java.time.Duration.ofDays;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Condition;
@@ -223,9 +224,9 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 
 		final Properties props = new Properties();
 		if(success!=null)
-			props.setProperty("retainDays.success",      Integer.toString(success));
+			props.setProperty("retain.success",      ofDays(success).toString());
 		if(failure!=null)
-			props.setProperty("retainDays.finalFailure", Integer.toString(failure));
+			props.setProperty("retain.finalFailure", ofDays(failure).toString());
 
 		final DispatcherPurgeProperties purgeProps =
 				DispatcherPurgeProperties.factory().create(Sources.view(props, "description"));
