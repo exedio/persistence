@@ -32,14 +32,11 @@ public final class DispatcherPurgeProperties extends Properties
 		return new Factory(0, 0);
 	}
 
-	private DispatcherPurgeProperties(
-			final Source source,
-			final int retainDaysSuccessDefault,
-			final int retainDaysFinalFailureDefault)
+	private DispatcherPurgeProperties(final Source source, final Factory factory)
 	{
 		super(source);
-		retainDaysSuccess      = value("retainDays.success",      retainDaysSuccessDefault,      0);
-		retainDaysFinalFailure = value("retainDays.finalFailure", retainDaysFinalFailureDefault, 0);
+		retainDaysSuccess      = value("retainDays.success",      factory.retainDaysSuccessDefault,      0);
+		retainDaysFinalFailure = value("retainDays.finalFailure", factory.retainDaysFinalFailureDefault, 0);
 	}
 
 
@@ -72,10 +69,7 @@ public final class DispatcherPurgeProperties extends Properties
 		@Override
 		public DispatcherPurgeProperties create(final Source source)
 		{
-			return new DispatcherPurgeProperties(
-					source,
-					retainDaysSuccessDefault,
-					retainDaysFinalFailureDefault);
+			return new DispatcherPurgeProperties(source, this);
 		}
 
 		// ------------------- deprecated stuff -------------------
