@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.erase;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -43,6 +44,7 @@ import java.io.File;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.Callable;
+import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 public class ConnectPropertiesTest
@@ -78,6 +80,56 @@ public class ConnectPropertiesTest
 		}
 
 		p.ensureValidity();
+	}
+
+	@Test void testOrder()
+	{
+		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
+
+		assertEquals(asList(
+				"connection.url",
+				"connection.username",
+				"connection.password",
+				"connection.isValidOnGetTimeoutSeconds",
+				"dialect",
+				"dialect.approximate",
+				"disableSupport.emptyStrings",
+				"disableSupport.preparedStatements",
+				"disableSupport.uniqueViolation",
+				"disableSupport.semicolon",
+				"fulltextIndex",
+				"deleteSchemaForTest",
+				"schema.tableInNames",
+				"schema.revision.table",
+				"schema.revision.unique",
+				"schema.mysql.lower_case_table_names",
+				"revise.auto.enabled",
+				"revise.savepoint",
+				"connectionPool.idleInitial",
+				"connectionPool.idleLimit",
+				"query.searchSizeLimit",
+				"cache.item.limit",
+				"cache.item.globalLimit",
+				"cache.query.limit",
+				"cache.query.sizeLimit",
+				"cache.stamps",
+				"dataField.bufferSizeDefault",
+				"dataField.bufferSizeLimit",
+				"dataField.vault",
+				"comparableCheck",
+				"changeListeners.queueCapacity",
+				"changeListeners.threads.initial",
+				"changeListeners.threads.max",
+				"changeListeners.threads.priority.set",
+				"changeListeners.threads.priority.value",
+				"cluster",
+				"media.offsetExpires",
+				"media.fingerprintOffset",
+				"media.url.secret",
+				"disableSupport.nativeDate",
+				"schema.primaryKeyGenerator",
+				"media.rooturl"),
+				p.getFields().stream().map(Field::getKey).collect(Collectors.toList()));
 	}
 
 	@Test void testConnectionUrlMissingPrefix()
