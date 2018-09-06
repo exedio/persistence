@@ -77,7 +77,7 @@ timestamps
 						keepRecords: false,
 						group: 'Sizes',
 						title: '1: exedio-cope.jar',
-						numBuilds: '1000',
+						numBuilds: '130',
 						style: 'line',
 						useDescr: false,
 						propertiesSeries: [
@@ -91,7 +91,7 @@ timestamps
 						keepRecords: false,
 						group: 'Sizes',
 						title: '2: exedio-cope-dialect.jar',
-						numBuilds: '1000',
+						numBuilds: '130',
 						style: 'line',
 						useDescr: false,
 						propertiesSeries: [
@@ -107,7 +107,7 @@ timestamps
 						keepRecords: false,
 						group: 'Sizes',
 						title: '3: exedio-cope-instrument.jar',
-						numBuilds: '1000',
+						numBuilds: '130',
 						style: 'line',
 						useDescr: false,
 						propertiesSeries: [[
@@ -121,7 +121,7 @@ timestamps
 						keepRecords: false,
 						group: 'Sizes',
 						title: '4: exedio-cope-instrument-annotations.jar',
-						numBuilds: '1000',
+						numBuilds: '130',
 						style: 'line',
 						useDescr: false,
 						propertiesSeries: [[
@@ -135,7 +135,7 @@ timestamps
 						keepRecords: false,
 						group: 'Sizes',
 						title: '5: exedio-cope-instrument-completion.jar',
-						numBuilds: '1000',
+						numBuilds: '130',
 						style: 'line',
 						useDescr: false,
 						propertiesSeries: [[
