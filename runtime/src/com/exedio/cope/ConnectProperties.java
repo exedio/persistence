@@ -276,7 +276,7 @@ public final class ConnectProperties extends com.exedio.cope.util.Properties
 				"media/");
 	}
 
-	public static class Factory implements Properties.Factory<ConnectProperties>
+	public static final class Factory implements Properties.Factory<ConnectProperties>
 	{
 		private final boolean disableNativeDate;
 		private final PrimaryKeyGenerator primaryKeyGenerator;
