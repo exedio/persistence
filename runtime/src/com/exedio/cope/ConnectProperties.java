@@ -104,7 +104,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * since "while" is a reserved java keyword,
 	 * which cannot be used for java classes.
 	 */
-	final String revisionTableName = value("schema.revision.table", "while");
+	final String revisionTableName = value("schema.revision.table", factory.revisionTableName);
 
 	/**
 	 * The name of the primary key constraint
@@ -114,7 +114,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * since "protected" is a reserved java keyword,
 	 * which cannot be used for java classes.
 	 */
-	final String revisionPrimaryKeyName = value("schema.revision.unique", "protected"); // TODO rename key
+	final String revisionPrimaryKeyName = value("schema.revision.unique", factory.revisionPrimaryKeyName); // TODO rename key
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
 
@@ -276,6 +276,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return new Factory(
 				false, // disableNativeDate
 				PrimaryKeyGenerator.memory,
+				"while", "protected",
 				"media/");
 	}
 
@@ -283,31 +284,54 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		private final boolean disableNativeDate;
 		private final PrimaryKeyGenerator primaryKeyGenerator;
+		private final String revisionTableName;
+		private final String revisionPrimaryKeyName;
 		private final String mediaRootUrl;
 
 		Factory(
 				final boolean disableNativeDate,
 				final PrimaryKeyGenerator primaryKeyGenerator,
+				final String revisionTableName,
+				final String revisionPrimaryKeyName,
 				final String mediaRootUrl)
 		{
 			this.disableNativeDate = disableNativeDate;
 			this.primaryKeyGenerator = primaryKeyGenerator;
+			this.revisionTableName = revisionTableName;
+			this.revisionPrimaryKeyName = revisionPrimaryKeyName;
 			this.mediaRootUrl = mediaRootUrl;
 		}
 
 		public Factory disableNativeDate()
 		{
-			return new Factory(true, primaryKeyGenerator, mediaRootUrl);
+			return new Factory(
+					true, primaryKeyGenerator,
+					revisionTableName, revisionPrimaryKeyName,
+					mediaRootUrl);
 		}
 
 		public Factory primaryKeyGeneratorSequence()
 		{
-			return new Factory(disableNativeDate, PrimaryKeyGenerator.sequence, mediaRootUrl);
+			return new Factory(
+					disableNativeDate, PrimaryKeyGenerator.sequence,
+					revisionTableName, revisionPrimaryKeyName,
+					mediaRootUrl);
+		}
+
+		public Factory revisionTable(final String name, final String primaryKeyName)
+		{
+			return new Factory(
+					disableNativeDate, primaryKeyGenerator,
+					name, primaryKeyName,
+					mediaRootUrl);
 		}
 
 		public Factory mediaRootUrl(final String mediaRootUrl)
 		{
-			return new Factory(disableNativeDate, primaryKeyGenerator, mediaRootUrl);
+			return new Factory(
+					disableNativeDate, primaryKeyGenerator,
+					revisionTableName, revisionPrimaryKeyName,
+					mediaRootUrl);
 		}
 
 		@Override

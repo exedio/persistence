@@ -38,7 +38,6 @@ import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
-import com.exedio.cope.util.ProxyPropertiesSource;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -99,33 +98,7 @@ public class Sampler
 	@Deprecated
 	public static final Properties.Source maskConnectSource(final Properties.Source original)
 	{
-		return maskConnectSourceInternal(original);
-	}
-
-	static final ProxyPropertiesSource maskConnectSourceInternal(final Properties.Source original)
-	{
-		return new ProxyPropertiesSource(original){
-
-			@Override
-			public String get(final String key)
-			{
-				final String originalResult = original.get(key);
-				if(originalResult!=null)
-					return originalResult;
-
-				if("schema.revision.table".equals(key))
-					return "SamplerRevision";
-				if("schema.revision.unique".equals(key))
-					return "SamplerRevisionUnique";
-				return null;
-			}
-
-			@Override
-			protected ProxyPropertiesSource reload(final Properties.Source reloadedTarget)
-			{
-				return maskConnectSourceInternal(reloadedTarget);
-			}
-		};
+		return original;
 	}
 
 	public final ConnectToken connect(final String tokenName)

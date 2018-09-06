@@ -42,8 +42,8 @@ public abstract class ConnectedTest extends TestWithEnvironment
 	{
 		final ConnectProperties props = model.getConnectProperties();
 		c = props.getItemCacheLimit()>0;
-		samplerModel.connect(ConnectProperties.create(
-				Sampler.maskConnectSourceInternal(maskRevisionSchemaNames(props.getSourceObject()))));
+		samplerModel.connect(ConnectProperties.factory().
+				revisionTable("SamplerRevision", "SamplerRevisionUnique").create(maskRevisionSchemaNames(props.getSourceObject())));
 		sampler.reset();
 	}
 
