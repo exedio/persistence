@@ -43,7 +43,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class ColorField extends Pattern implements Settable<Color>, Copyable
+public final class ColorField extends Pattern implements Settable<Color>, Copyable, ColorFunction
 {
 	private static final long serialVersionUID = 1l;
 
@@ -276,16 +276,19 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 		return new ColorBindFunction(this, join);
 	}
 
+	@Override
 	public IsNullCondition<?> isNull()
 	{
 		return rgb.isNull();
 	}
 
+	@Override
 	public IsNullCondition<?> isNotNull()
 	{
 		return rgb.isNotNull();
 	}
 
+	@Override
 	public Condition equal(final Color value)
 	{
 		if (value == null)
@@ -300,6 +303,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	 *
 	 * Note: according to SQL, a NULL value is evaluated to unknown, so a NOT EQUAL using a non null RHS is false for null values
 	 */
+	@Override
 	public Condition notEqual(final Color value)
 	{
 		if (value == null)
