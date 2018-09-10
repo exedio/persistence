@@ -2,7 +2,7 @@
 timestamps
 {
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && Mysql55localhost')
+	node('GitCloneExedio && Mysql55')
 	{
 		try
 		{
@@ -159,7 +159,7 @@ def writeEnv(name, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:mysql://localhost/' + env.SCHEMA + '\n' +
+					'connection.url=jdbc:mysql://mysql55.ci.test/' + env.SCHEMA + '\n' +
 					'connection.username=' + env.SCHEMA + '\n' +
 					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
 					'x-build.schemasavepoint=' +
