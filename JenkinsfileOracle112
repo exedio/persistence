@@ -2,7 +2,7 @@
 timestamps
 {
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && OpenJdk18Debian9 && Oracle112database3')
+	node('GitCloneExedio && OpenJdk18Debian9 && Oracle112')
 	{
 		try
 		{
@@ -127,7 +127,7 @@ def writeEnv(name, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:oracle:thin:@database3.exedio.com:1521:DB3\n' +
+					'connection.url=jdbc:oracle:thin:@oracle112.ci.test:1521:DB3\n' +
 					'connection.username=' + env.SCHEMA + '\n' +
 					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
 					'x-build.dialect=oracle\n' +

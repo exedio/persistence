@@ -2,7 +2,7 @@
 timestamps
 {
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && Postgresql95database11')
+	node('GitCloneExedio && Postgresql95')
 	{
 		try
 		{
@@ -135,7 +135,7 @@ def writeEnv(name, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:postgresql://database11.exedio.com/' + env.SCHEMA + '\n' +
+					'connection.url=jdbc:postgresql://postgresql95.ci.test/' + env.SCHEMA + '\n' +
 					'connection.username=' + env.SCHEMA + '\n' +
 					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
 					'x-build.schema=' + env.SCHEMA + '\n' +
