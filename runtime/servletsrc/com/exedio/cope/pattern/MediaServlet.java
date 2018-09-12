@@ -277,7 +277,7 @@ public class MediaServlet extends HttpServlet
 	/**
 	 * Tomcat automatically adds {@code Content-Length: 0} to the response
 	 * if the response body is smaller than the buffer size.
-	 * Unfortunatly it does so for 304 responses as well.
+	 * Unfortunately it does so for 304 responses as well.
 	 * Apache 2.4 does not accept 304 responses with a {@code Content-Length}
 	 * unequal to the original 200 response.
 	 * The call to {@link HttpServletResponse#flushBuffer() flushBuffer} prevents Tomcat from adding
