@@ -61,6 +61,8 @@
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/ivy/artifacts" />
       <excludeFolder url="file://$MODULE_DIR$/nbproject" />
+      <excludeFolder url="file://$MODULE_DIR$/runtime/servlettestweb/WEB-INF/classes" />
+      <excludeFolder url="file://$MODULE_DIR$/runtime/servlettestweb/WEB-INF/lib" />
       <excludeFolder url="file://$MODULE_DIR$/tomcat" />
     </content>
     <orderEntry type="inheritedJdk" />
