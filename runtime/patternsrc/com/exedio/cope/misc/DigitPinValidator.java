@@ -79,4 +79,10 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 		}
 		return new String(result);
 	}
+
+	@Override
+	public String toString()
+	{
+		return "DigitPin(" + pinLen + ')';
+	}
 }

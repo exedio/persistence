@@ -139,6 +139,11 @@ public class DigitPinValidatorTest
 		assertEquals(expected, actual);
 	}
 
+	@Test void testToString()
+	{
+		assertEquals("DigitPin(4)", validator.toString());
+	}
+
 	@Test void testConstruction()
 	{
 		try
