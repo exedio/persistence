@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.tojunit.Assert.list;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
@@ -193,20 +194,14 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 	}
 
 
-	private long initHits, initMisses, initInvalidationsOrdered, initInvalidationsDone, initStampsHits, initStampsPurged;
+	private ItemCacheInfo last = null;
 
 	private void initCache()
 	{
 		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
-		final ItemCacheInfo ici = icis[0];
-		assertSame(TYPE, ici.getType());
-		initHits = ici.getHits();
-		initMisses = ici.getMisses();
-		initInvalidationsOrdered = ici.getInvalidationsOrdered();
-		initInvalidationsDone = ici.getInvalidationsDone();
-		initStampsHits   = ici.getStampsHits();
-		initStampsPurged = ici.getStampsPurged();
+		last = icis[0];
+		assertSame(TYPE, last.getType());
 	}
 
 	private void assertCache(
@@ -221,16 +216,18 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 	{
 		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
-		final ItemCacheInfo ici = icis[0];
-		assertSame(TYPE, ici.getType());
-		assertEquals(level,                ici.getLevel(), "level");
-		assertEquals(hits,                 ici.getHits()                 - initHits,                 "hits");
-		assertEquals(misses,               ici.getMisses()               - initMisses,               "misses");
-		assertEquals(invalidationsOrdered, ici.getInvalidationsOrdered() - initInvalidationsOrdered, "invalidationsOrdered");
-		assertEquals(invalidationsDone,    ici.getInvalidationsDone()    - initInvalidationsDone,    "invalidationsDone");
-		assertEquals(stampsSize,           ici.getStampsSize(), "stampsSize");
-		assertEquals(stampsHits,           ici.getStampsHits()           - initStampsHits,           "stampsHits");
-		assertEquals(stampsPurged,         ici.getStampsPurged()         - initStampsPurged,         "stampsPurged");
+		final ItemCacheInfo curr = icis[0];
+		assertAll(
+				() -> assertSame(TYPE, curr.getType()),
+				() -> assertEquals(level,                curr.getLevel(),                                                 "level(1)"),
+				() -> assertEquals(hits,                 curr.getHits()                 - last.getHits(),                 "hits(2)"),
+				() -> assertEquals(misses,               curr.getMisses()               - last.getMisses(),               "misses(3)"),
+				() -> assertEquals(invalidationsOrdered, curr.getInvalidationsOrdered() - last.getInvalidationsOrdered(), "invalidationsOrdered(4)"),
+				() -> assertEquals(invalidationsDone,    curr.getInvalidationsDone()    - last.getInvalidationsDone(),    "invalidationsDone(5)"),
+				() -> assertEquals(stampsSize,           curr.getStampsSize(),                                            "stampsSize(6)"),
+				() -> assertEquals(stampsHits,           curr.getStampsHits()           - last.getStampsHits(),           "stampsHits(7)"),
+				() -> assertEquals(stampsPurged,         curr.getStampsPurged()         - last.getStampsPurged(),         "stampsPurged(8)")
+		);
 	}
 
 	private void assumeCacheEnabled()

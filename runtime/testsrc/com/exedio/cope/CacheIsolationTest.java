@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -41,8 +42,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 	}
 
 	boolean unq;
-	long setupInvalidationsOrdered;
-	long setupInvalidationsDone;
+	ItemCacheInfo last;
 
 	@BeforeEach final void setUp()
 	{
@@ -54,8 +54,8 @@ public class CacheIsolationTest extends TestWithEnvironment
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			final ItemCacheInfo[] ci = model.getItemCacheStatistics().getDetails();
-			setupInvalidationsOrdered = ci[0].getInvalidationsOrdered();
-			setupInvalidationsDone    = ci[0].getInvalidationsDone();
+			last = ci[0];
+			assertSame(CacheIsolationItem.TYPE, last.getType());
 		}
 	}
 
@@ -176,9 +176,11 @@ public class CacheIsolationTest extends TestWithEnvironment
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			assertEquals(1, ci.length);
-			assertSame(CacheIsolationItem.TYPE, ci[0].getType());
-			assertEquals(ordered, ci[0].getInvalidationsOrdered() - setupInvalidationsOrdered, "ordered");
-			assertEquals(done,    ci[0].getInvalidationsDone()    - setupInvalidationsDone,    "done");
+			assertAll(
+					() -> assertSame(CacheIsolationItem.TYPE, ci[0].getType()),
+					() -> assertEquals(ordered, ci[0].getInvalidationsOrdered() - last.getInvalidationsOrdered(), "ordered(1)"),
+					() -> assertEquals(done,    ci[0].getInvalidationsDone()    - last.getInvalidationsDone(),    "done(2)")
+			);
 		}
 		else
 		{

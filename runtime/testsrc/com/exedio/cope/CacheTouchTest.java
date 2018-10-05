@@ -145,23 +145,14 @@ public class CacheTouchTest extends TestWithEnvironment
 	private static final int NONE = Integer.MIN_VALUE;
 
 
-	private long
-			initHits, initMisses,
-			initInvalidationsOrdered, initInvalidationsDone,
-			initStampsHits, initStampsPurged;
+	private ItemCacheInfo last = null;
 
 	private void initCache()
 	{
 		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
-		final ItemCacheInfo ici = icis[0];
-		assertSame(TYPE, ici.getType());
-		initHits = ici.getHits();
-		initMisses = ici.getMisses();
-		initInvalidationsOrdered = ici.getInvalidationsOrdered();
-		initInvalidationsDone = ici.getInvalidationsDone();
-		initStampsHits = ici.getStampsHits();
-		initStampsPurged = ici.getStampsPurged();
+		last = icis[0];
+		assertSame(TYPE, last.getType());
 	}
 
 	private void assertCache(
@@ -177,17 +168,17 @@ public class CacheTouchTest extends TestWithEnvironment
 		final boolean st = model.getConnectProperties().itemCacheStamps;
 		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
-		final ItemCacheInfo ici = icis[0];
+		final ItemCacheInfo curr = icis[0];
 		assertAll(
-				() -> assertSame(TYPE, ici.getType()),
-				() -> assertEquals(level,                ici.getLevel(), "level"),
-				() -> assertEquals(hits,                 ici.getHits()                 - initHits,                 "hits"),
-				() -> assertEquals(misses,               ici.getMisses()               - initMisses,               "misses"),
-				() -> assertEquals(invalidationsOrdered, ici.getInvalidationsOrdered() - initInvalidationsOrdered, "invalidationsOrdered"),
-				() -> assertEquals(invalidationsDone,    ici.getInvalidationsDone()    - initInvalidationsDone,    "invalidationsDone"),
-				() -> assertEquals(st?stampsSize  :0,    ici.getStampsSize(),                                      "stampsSize"),
-				() -> assertEquals(st?stampsHits  :0,    ici.getStampsHits()           - initStampsHits,           "stampsHits"),
-				() -> assertEquals(st?stampsPurged:0,    ici.getStampsPurged()         - initStampsPurged,         "stampsPurged")
+				() -> assertSame(TYPE, curr.getType()),
+				() -> assertEquals(level,                curr.getLevel(),                                                 "level(1)"),
+				() -> assertEquals(hits,                 curr.getHits()                 - last.getHits(),                 "hits(2)"),
+				() -> assertEquals(misses,               curr.getMisses()               - last.getMisses(),               "misses(3)"),
+				() -> assertEquals(invalidationsOrdered, curr.getInvalidationsOrdered() - last.getInvalidationsOrdered(), "invalidationsOrdered(4)"),
+				() -> assertEquals(invalidationsDone,    curr.getInvalidationsDone()    - last.getInvalidationsDone(),    "invalidationsDone(5)"),
+				() -> assertEquals(st?stampsSize  :0,    curr.getStampsSize(),                                            "stampsSize(6)"),
+				() -> assertEquals(st?stampsHits  :0,    curr.getStampsHits()           - last.getStampsHits(),           "stampsHits(7)"),
+				() -> assertEquals(st?stampsPurged:0,    curr.getStampsPurged()         - last.getStampsPurged(),         "stampsPurged(8)")
 		);
 	}
 }
