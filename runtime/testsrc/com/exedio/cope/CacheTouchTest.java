@@ -58,44 +58,44 @@ public class CacheTouchTest extends TestWithEnvironment
 		// touch row
 		final Transaction loader = model.startTransaction("CacheTouchTest loader");
 		assertUpdateCount(NONE, NONE);
-		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		assertEquals(item, TYPE.searchSingleton(name.equal("itemName")));
 		assertUpdateCount(NONE, NONE);
-		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		assertSame(loader, model.leaveTransaction());
 
 		// change row
 		model.startTransaction("CacheTouchTest changer");
 		assertUpdateCount(NONE, NONE);
-		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		item.setName("itemName2");
 		assertUpdateCount(1, 0);
-		assertCache(1, 0, 1, 1, 0, 0, 0, 1);
+		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		model.commit();
-		assertCache(0, 0, 1, 2, 1, 1, 0, 1);
+		assertCache(0, 0, 0, 1, 1, 1, 0, 0);
 
 		// load row
 		model.joinTransaction(loader);
 		assertUpdateCount(NONE, NONE);
-		assertCache(0, 0, 1, 2, 1, 1, 0, 1);
+		assertCache(0, 0, 0, 0, 0, 1, 0, 0);
 
 		final boolean st = model.getConnectProperties().itemCacheStamps;
 
 		assertEquals(oracle?"itemName2":"itemName", item.getName());
 		assertUpdateCount(o, st?NONE:o);
-		assertCache(st?0:1, 0, 2, 2, 1, 1, 1, 1);
+		assertCache(st?0:1, 0, 1, 0, 0, 1, 1, 0);
 
 		model.commit();
-		assertCache(st?0:1, 0, 2, 2, 1, 0, 1, 2);
+		assertCache(st?0:1, 0, 0, 0, 0, 0, 0, 1);
 
 		// failure
 		model.startTransaction("CacheTouchTest failer");
 		assertUpdateCount(NONE, st?NONE:o);
-		assertCache(st?0:1, 0, 2, 2, 1, 0, 1, 2);
+		assertCache(st?0:1, 0, 0, 0, 0, 0, 0, 0);
 
 		if(st||oracle)
 		{
@@ -103,11 +103,11 @@ public class CacheTouchTest extends TestWithEnvironment
 				o = 0;
 			assertEquals("itemName2", item.getName());
 			assertUpdateCount(1, 1);
-			assertCache(1, o, 3-o, 2, 1, 0, 1, 2);
+			assertCache(1, o, 1-o, 0, 0, 0, 0, 0);
 
 			item.setName("itemName3");
 			assertUpdateCount(2, 1);
-			assertCache(1, o, 3-o, 2, 1, 0, 1, 2);
+			assertCache(1, 0, 0, 0, 0, 0, 0, 0);
 
 			assertEquals("itemName3", item.getName());
 		}
@@ -115,7 +115,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		{
 			assertEquals("itemName", item.getName()); // this is wrong and fixed by itemCacheStamps
 			assertUpdateCount(0, 0);
-			assertCache(1, 1, 2, 2, 1, 0, 0, 0);
+			assertCache(1, 1, 0, 0, 0, 0, 0, 0);
 
 			try
 			{
@@ -127,7 +127,7 @@ public class CacheTouchTest extends TestWithEnvironment
 				assertTrue(e.getMessage().startsWith("expected one row, but got 0 on statement: UPDATE"), e.getMessage());
 			}
 			assertUpdateCount(NONE, NONE);
-			assertCache(0, 1, 2, 2, 1, 0, 0, 0);
+			assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 			assertEquals("itemName2", item.getName());
 		}
@@ -180,5 +180,6 @@ public class CacheTouchTest extends TestWithEnvironment
 				() -> assertEquals(st?stampsHits  :0,    curr.getStampsHits()           - last.getStampsHits(),           "stampsHits(7)"),
 				() -> assertEquals(st?stampsPurged:0,    curr.getStampsPurged()         - last.getStampsPurged(),         "stampsPurged(8)")
 		);
+		last = curr;
 	}
 }

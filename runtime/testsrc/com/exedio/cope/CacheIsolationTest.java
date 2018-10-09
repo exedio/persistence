@@ -95,13 +95,13 @@ public class CacheIsolationTest extends TestWithEnvironment
 		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
 		assertEquals( null, item.getUniqueString() );
-		assertInvalidations(2, 0);
+		assertInvalidations(0, 0);
 		model.commit();
-		assertInvalidations(unq?3:2, 0);
+		assertInvalidations(unq?1:0, 0);
 		model.joinTransaction( txChangeCollisionItem );
-		assertInvalidations(unq?3:2, 0);
+		assertInvalidations(0, 0);
 		model.commit();
-		assertInvalidations(unq?4:3, 1);
+		assertInvalidations(1, 1);
 		model.startTransaction("just for tearDown");
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
@@ -121,9 +121,9 @@ public class CacheIsolationTest extends TestWithEnvironment
 		listener.expectLoad( txLoadCache, item );
 		assertEquals( "blub", item.getName() );
 		listener.verifyExpectations();
-		assertInvalidations(2, 0);
+		assertInvalidations(0, 0);
 		model.commit();
-		assertInvalidations(2, 0);
+		assertInvalidations(0, 0);
 		model.joinTransaction( txRollback );
 		model.rollback();
 		final Transaction txCheck = model.startTransaction( "check" );
@@ -162,9 +162,9 @@ public class CacheIsolationTest extends TestWithEnvironment
 		listener.expectSearch( txSearch, CacheIsolationItem.TYPE );
 		assertContains( CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("notblub")) );
 		listener.verifyExpectations();
-		assertInvalidations(2, 0);
+		assertInvalidations(0, 0);
 		model.commit();
-		assertInvalidations(2, 0);
+		assertInvalidations(0, 0);
 		model.joinTransaction( txChange );
 		assertSame(listener, model.setTestDatabaseListener(null));
 	}
@@ -181,6 +181,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 					() -> assertEquals(ordered, ci[0].getInvalidationsOrdered() - last.getInvalidationsOrdered(), "ordered(1)"),
 					() -> assertEquals(done,    ci[0].getInvalidationsDone()    - last.getInvalidationsDone(),    "done(2)")
 			);
+			last = ci[0];
 		}
 		else
 		{

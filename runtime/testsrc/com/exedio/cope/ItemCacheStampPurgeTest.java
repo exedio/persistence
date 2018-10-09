@@ -75,20 +75,20 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
+		assertCache(2, 0, 1, 0, 0, 0, 0, 0);
 
 		model.commit();
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 2, 2, 0, 0, 2);
 
 		model.startTransaction("ItemCacheStampPurgeTest");
 		assertEquals(list(), TYPE.search(name.equal("testSequential"))); // make transaction acquire a connection
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		model.commit();
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		model.startTransaction("ItemCacheStampPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testOverlappingOnce()
@@ -101,7 +101,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
+		assertCache(2, 0, 1, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheStampPurgeTest overlap");
@@ -110,16 +110,16 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		model.joinTransaction(modifyTx);
 
 		model.commit(); // modifyTx
-		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 0, 2, 2, 2, 0, 0);
 
 		model.joinTransaction(overlapTx);
-		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 0, 0, 0, 2, 0, 0);
 
 		model.commit(); // overlapTx
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 2);
 
 		model.startTransaction("ItemCacheStampPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testOverlappingOnceWithoutConnection()
@@ -132,7 +132,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
+		assertCache(2, 0, 1, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheStampPurgeTest overlap");
@@ -140,16 +140,16 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		model.joinTransaction(modifyTx);
 
 		model.commit(); // modifyTx
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 2, 2, 0, 0, 2);
 
 		model.joinTransaction(overlapTx);
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		model.commit(); // overlapTx
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		model.startTransaction("ItemCacheStampPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testOverlappingTwice()
@@ -162,7 +162,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		assertCache(1, 0, 1, 0, 0, 0, 0, 0);
 
 		item2.setName("item2a");
-		assertCache(2, 0, 2, 0, 0, 0, 0, 0);
+		assertCache(2, 0, 1, 0, 0, 0, 0, 0);
 
 		final Transaction modifyTx = model.leaveTransaction();
 		model.startTransaction("ItemCacheStampPurgeTest overlap1");
@@ -171,26 +171,26 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		model.joinTransaction(modifyTx);
 
 		model.commit(); // modifyTx
-		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 0, 2, 2, 2, 0, 0);
 
 		model.startTransaction("ItemCacheStampPurgeTest overlap2");
 		assertEquals(list(), TYPE.search(name.equal("testOverlappingTwice2"))); // make transaction acquire a connection
 		final Transaction overlapTx2 = model.leaveTransaction();
 
 		model.joinTransaction(overlapTx1);
-		assertCache(0, 0, 2, 2, 2, 2, 0, 0);
+		assertCache(0, 0, 0, 0, 0, 2, 0, 0);
 
 		model.commit(); // overlapTx1
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 2);
 
 		model.joinTransaction(overlapTx2);
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		model.commit(); // overlapTx2
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
 		model.startTransaction("ItemCacheStampPurgeTest2");
-		assertCache(0, 0, 2, 2, 2, 0, 0, 2);
+		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 
@@ -228,6 +228,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 				() -> assertEquals(stampsHits,           curr.getStampsHits()           - last.getStampsHits(),           "stampsHits(7)"),
 				() -> assertEquals(stampsPurged,         curr.getStampsPurged()         - last.getStampsPurged(),         "stampsPurged(8)")
 		);
+		last = curr;
 	}
 
 	private void assumeCacheEnabled()
