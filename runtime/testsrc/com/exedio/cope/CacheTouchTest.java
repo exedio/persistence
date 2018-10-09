@@ -148,7 +148,7 @@ public class CacheTouchTest extends TestWithEnvironment
 	private long
 			initHits, initMisses,
 			initInvalidationsOrdered, initInvalidationsDone,
-			initStampsSize, initStampsHits, initStampsPurged;
+			initStampsHits, initStampsPurged;
 
 	private void initCache()
 	{
@@ -160,7 +160,6 @@ public class CacheTouchTest extends TestWithEnvironment
 		initMisses = ici.getMisses();
 		initInvalidationsOrdered = ici.getInvalidationsOrdered();
 		initInvalidationsDone = ici.getInvalidationsDone();
-		initStampsSize = ici.getStampsSize();
 		initStampsHits = ici.getStampsHits();
 		initStampsPurged = ici.getStampsPurged();
 	}
@@ -186,7 +185,7 @@ public class CacheTouchTest extends TestWithEnvironment
 				() -> assertEquals(misses,               ici.getMisses()               - initMisses,               "misses"),
 				() -> assertEquals(invalidationsOrdered, ici.getInvalidationsOrdered() - initInvalidationsOrdered, "invalidationsOrdered"),
 				() -> assertEquals(invalidationsDone,    ici.getInvalidationsDone()    - initInvalidationsDone,    "invalidationsDone"),
-				() -> assertEquals(st?stampsSize  :0,    ici.getStampsSize()           - initStampsSize,           "stampsSize"),
+				() -> assertEquals(st?stampsSize  :0,    ici.getStampsSize(),                                      "stampsSize"),
 				() -> assertEquals(st?stampsHits  :0,    ici.getStampsHits()           - initStampsHits,           "stampsHits"),
 				() -> assertEquals(st?stampsPurged:0,    ici.getStampsPurged()         - initStampsPurged,         "stampsPurged")
 		);
