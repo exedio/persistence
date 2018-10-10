@@ -40,10 +40,10 @@ enum InternalVisibility
 		{
 			case Modifier.PUBLIC:
 				return PUBLIC;
-			case 0:
-				return PACKAGE;
 			case Modifier.PROTECTED:
 				return PROTECTED;
+			case 0:
+				return PACKAGE;
 			case Modifier.PRIVATE:
 				return PRIVATE;
 			default:

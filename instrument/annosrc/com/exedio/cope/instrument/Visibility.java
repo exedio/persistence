@@ -58,8 +58,8 @@ public enum Visibility
 			case NONE:      throw new RuntimeException();
 			case DEFAULT:   return defaultModifier & (Modifier.PUBLIC | Modifier.PROTECTED | Modifier.PRIVATE);
 			case PRIVATE:   return Modifier.PRIVATE;
-			case PROTECTED: return Modifier.PROTECTED;
 			case PACKAGE:   return 0;
+			case PROTECTED: return Modifier.PROTECTED;
 			case PUBLIC:    return Modifier.PUBLIC;
 			default:
 				throw new RuntimeException("" + this);
