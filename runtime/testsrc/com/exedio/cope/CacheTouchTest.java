@@ -83,7 +83,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 0, 0, 1, 0, 0);
 
-		final boolean st = model.getConnectProperties().itemCacheStamps;
+		final boolean st = model.getConnectProperties().cacheStamps;
 
 		assertEquals(oracle?"itemName2":"itemName", item.getName());
 		assertUpdateCount(o, st?NONE:o);
@@ -165,7 +165,7 @@ public class CacheTouchTest extends TestWithEnvironment
 			final long stampsHits,
 			final long stampsPurged)
 	{
-		final boolean st = model.getConnectProperties().itemCacheStamps;
+		final boolean st = model.getConnectProperties().cacheStamps;
 		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo curr = icis[0];

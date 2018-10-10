@@ -765,7 +765,7 @@ public final class Model implements Serializable
 		tx.commitOrRollback(commit, this, transactionCounter);
 
 		final Connect connect = tx.connect;
-		if(connect.properties.itemCacheStamps)
+		if(connect.properties.cacheStamps)
 		{
 			final long oldestStamp = transactions.getOldestCacheStamp();
 

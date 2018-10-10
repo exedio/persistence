@@ -46,7 +46,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 		final ConnectProperties props = model.getConnectProperties();
 		ignore =
 			props.getItemCacheLimit()==0 ||
-			!props.itemCacheStamps;
+			!props.cacheStamps;
 		if(ignore)
 			return;
 

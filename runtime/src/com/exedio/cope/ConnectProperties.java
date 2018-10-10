@@ -149,7 +149,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	private final int itemCacheLimit      = value("cache.item.globalLimit", itemCacheLimitOLD, 0);
 	private final int queryCacheLimit     = value("cache.query.limit",     10000, 0);
 	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
-	        final boolean itemCacheStamps = value("cache.stamps", true);
+	        final boolean cacheStamps     = value("cache.stamps", true);
 
 	/**
 	 * @see Query#getSearchSizeLimit()

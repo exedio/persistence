@@ -68,7 +68,7 @@ final class ItemCache
 
 		map = new LRUMap<>(limit, eldest ->
 				typeStats[eldest.getKey().type.cacheIdTransiently].replacements++);
-		if (properties.itemCacheStamps)
+		if(properties.cacheStamps)
 		{
 			stampList=new LinkedHashMap<>();
 		}

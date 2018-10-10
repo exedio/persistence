@@ -52,7 +52,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 	@BeforeEach final void setUp()
 	{
-		stamps = model.getConnectProperties().itemCacheStamps;
+		stamps = model.getConnectProperties().cacheStamps;
 
 		System.out.println("CacheReadPoisoningBruteForceTest stamps " + stamps);
 
