@@ -22,20 +22,20 @@ import java.util.concurrent.atomic.AtomicLong;
 
 final class CacheStamp
 {
-	private static final AtomicLong value = new AtomicLong(0);
+	private final AtomicLong value;
 
-	static long next()
+	long next()
 	{
-		return value.getAndIncrement();
+		return value!=null ? value.getAndIncrement() : 0;
 	}
 
-	static long current()
+	long current()
 	{
-		return value.get();
+		return value!=null ? value.get() : 0;
 	}
 
-	private CacheStamp()
+	CacheStamp(final boolean enabled)
 	{
-		// prevent instantiation
+		value = enabled ? new AtomicLong(0) : null;
 	}
 }

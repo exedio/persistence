@@ -305,7 +305,7 @@ public final class Transaction
 			throw new RuntimeException();
 
 		connectionPool = connect.connectionPool;
-		this.cacheStamp = CacheStamp.next();
+		this.cacheStamp = connect.cacheStamp.next();
 		final Connection connection = connectionPool.get(false);
 		this.connection = connection;
 

@@ -96,10 +96,10 @@ final class Transactions
 		setThreadLocal(null);
 	}
 
-	long getOldestCacheStamp()
+	long getOldestCacheStamp(final CacheStamp cacheStamp)
 	{
 		// DO NOT USE Long.MAX_VALUE below, otherwise we might miss concurrent transactions
-		long oldestStamp = CacheStamp.current();
+		long oldestStamp = cacheStamp.current();
 
 		synchronized(open)
 		{

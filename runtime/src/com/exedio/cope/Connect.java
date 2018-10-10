@@ -58,6 +58,7 @@ final class Connect
 	final Executor executor;
 	final Database database;
 	final VaultService vault;
+	final CacheStamp cacheStamp;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
 	final Cluster cluster;
@@ -110,6 +111,7 @@ final class Connect
 			this.vault = props!=null ? props.newService() : null;
 		}
 
+		this.cacheStamp = new CacheStamp(properties.cacheStamps);
 		this.itemCache = new ItemCache(types.typeListSorted, properties);
 		this.queryCache = new QueryCache(properties.getQueryCacheLimit());
 
@@ -156,7 +158,8 @@ final class Connect
 			final boolean propagateToCluster,
 			final TransactionInfo transactionInfo)
 	{
-		itemCache.invalidate(invalidations);
+		final long cacheStamp = this.cacheStamp.next();
+		itemCache.invalidate(invalidations, cacheStamp);
 		queryCache.invalidate(invalidations);
 		if(propagateToCluster && cluster!=null)
 			cluster.sendInvalidate(invalidations);

@@ -767,7 +767,7 @@ public final class Model implements Serializable
 		final Connect connect = tx.connect;
 		if(connect.properties.cacheStamps)
 		{
-			final long oldestStamp = transactions.getOldestCacheStamp();
+			final long oldestStamp = transactions.getOldestCacheStamp(connect.cacheStamp);
 
 			@SuppressWarnings("deprecation") // needed for idea
 			final Runnable within = withinPurgeStamps;
