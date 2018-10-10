@@ -30,9 +30,9 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class CacheTouchTest extends TestWithEnvironment
+public class CacheTouchItemTest extends TestWithEnvironment
 {
-	public CacheTouchTest()
+	public CacheTouchItemTest()
 	{
 		super(CacheIsolationTest.MODEL);
 	}
@@ -56,7 +56,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertCache(0, 0, 0, 1, 0, 0, 0, 1);
 
 		// touch row
-		final Transaction loader = model.startTransaction("CacheTouchTest loader");
+		final Transaction loader = model.startTransaction("CacheTouchItemTest loader");
 		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -67,7 +67,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertSame(loader, model.leaveTransaction());
 
 		// change row
-		model.startTransaction("CacheTouchTest changer");
+		model.startTransaction("CacheTouchItemTest changer");
 		assertUpdateCount(NONE, NONE);
 		assertCache(0, 0, 0, 0, 0, 0, 0, 0);
 
@@ -93,7 +93,7 @@ public class CacheTouchTest extends TestWithEnvironment
 		assertCache(st?0:1, 0, 0, 0, 0, 0, 0, 1);
 
 		// failure
-		model.startTransaction("CacheTouchTest failer");
+		model.startTransaction("CacheTouchItemTest failer");
 		assertUpdateCount(NONE, st?NONE:o);
 		assertCache(st?0:1, 0, 0, 0, 0, 0, 0, 0);
 
