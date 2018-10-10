@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import java.util.concurrent.atomic.AtomicLong;
 
-final class ItemCacheStamp
+final class CacheStamp
 {
 	private static final AtomicLong value = new AtomicLong(0);
 
@@ -34,7 +34,7 @@ final class ItemCacheStamp
 		return value.get();
 	}
 
-	private ItemCacheStamp()
+	private CacheStamp()
 	{
 		// prevent instantiation
 	}

@@ -165,7 +165,7 @@ final class ItemCache
 	void invalidate(final TLongHashSet[] invalidations)
 	{
 		final boolean stampsEnabled = stampsEnabled();
-		final long stamp = stampsEnabled?ItemCacheStamp.next():0;
+		final long stamp = stampsEnabled?CacheStamp.next():0;
 		final Set<Item> invalidated=stampsEnabled?new HashSet<>():null;
 		synchronized (map)
 		{
