@@ -690,14 +690,7 @@ final class Generator
 		// When an existing item type is made abstract, it will no longer be possible
 		// to de-serialize serialized instances. Therefore, abstract item classes get
 		// a different serialVersionUID.
-		if(Modifier.isAbstract(type.getModifier()))
-		{
-			write('2');
-		}
-		else
-		{
-			write('1');
-		}
+		write( Modifier.isAbstract(type.getModifier()) ? '2' : '1' );
 		if(serialVersionUIDSuffix!=null)
 			write(serialVersionUIDSuffix);
 		write(';');
