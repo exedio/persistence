@@ -34,7 +34,6 @@ final class SamplerRevisions implements Revisions.Factory
 			return getOthers();
 	}
 
-	@SuppressWarnings("RedundantArrayCreation")
 	private static Revisions getMysql()
 	{
 		return new Revisions(
@@ -94,15 +93,15 @@ final class SamplerRevisions implements Revisions.Factory
 			new Revision(9, "Revision table gets primary key instead of unique constraint",
 				"ALTER TABLE `SamplerRevision` DROP INDEX `SamplerRevisionUnique`",
 				"ALTER TABLE `SamplerRevision` MODIFY `v` int PRIMARY KEY"),
-			new Revision(8, "add MediaInfo.getInvalidSpecial", new String[] {
+			new Revision(8, "add MediaInfo.getInvalidSpecial",
 				"alter table `DiffModel` add column `mediasInvalidSpecial` int not null",
-				"alter table `DiffMedia` add column `invalidSpecial` int not null",
-			}),
-			new Revision(7, "sample ChangeListenerInfo#getSize()", new String[] {
+				"alter table `DiffMedia` add column `invalidSpecial` int not null"
+			),
+			new Revision(7, "sample ChangeListenerInfo#getSize()",
 				"alter table `DiffModel` " +
-					"add column `changeListenerSize` int not null after `queryCacheInvalidations`",
-			}),
-			new Revision(6, "store differences instead of absolute values", new String[] {
+					"add column `changeListenerSize` int not null after `queryCacheInvalidations`"
+			),
+			new Revision(6, "store differences instead of absolute values",
 				"create table `SamplerMediaId`(" +
 					"`this` int," +
 					"`id` varchar(80) character set utf8 collate utf8_bin not null," +
@@ -252,8 +251,8 @@ final class SamplerRevisions implements Revisions.Factory
 					"constraint `DiffMedia_model_Fk` foreign key (`model`) references `DiffModel`(`this`)," +
 					"constraint `DiffMedia_media_Fk` foreign key (`media`) references `SamplerMediaId`(`this`)," +
 					"constraint `DiffMedia_dateAndMedi_Unq` unique(`date`,`media`)" +
-					") engine=innodb", // 3ms, 0 rows
-			}),
+					") engine=innodb" // 3ms, 0 rows
+			),
 			new Revision(5, "more length for SamplerTransaction#name",
 				"alter table `SamplerTransaction` modify `name` text character set utf8 collate utf8_bin"),
 			new Revision(4, "bugfix: SamplerTransaction#date must not be unique",
