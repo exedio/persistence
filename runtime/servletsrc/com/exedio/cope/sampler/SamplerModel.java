@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.sampler.Util.field;
 import static com.exedio.cope.sampler.Util.maD;
 
 import com.exedio.cope.ActivationParameters;
@@ -58,11 +59,11 @@ final class SamplerModel extends Item
 	@SuppressWarnings("unused")
 	private static final CheckConstraint fromBeforeDate = new CheckConstraint(from.less(date));
 
-	private static final IntegerField connectionPoolIdle         = new IntegerField().toFinal().min(0);
-	private static final IntegerField connectionPoolGet          = new IntegerField().toFinal().min(0);
-	private static final IntegerField connectionPoolPut          = new IntegerField().toFinal().min(0);
-	private static final IntegerField connectionPoolInvalidOnGet = new IntegerField().toFinal().min(0);
-	private static final IntegerField connectionPoolInvalidOnPut = new IntegerField().toFinal().min(0);
+	private static final IntegerField connectionPoolIdle         = field(0);
+	private static final IntegerField connectionPoolGet          = field(0);
+	private static final IntegerField connectionPoolPut          = field(0);
+	private static final IntegerField connectionPoolInvalidOnGet = field(0);
+	private static final IntegerField connectionPoolInvalidOnPut = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final Pool.Info from,
@@ -77,14 +78,14 @@ final class SamplerModel extends Item
 	}
 
 
-	static final IntegerField nextTransactionId = new IntegerField().toFinal().min(0);
+	static final IntegerField nextTransactionId = field(0);
 
 	@CopeSchemaName("commitOutConnection")
-	private static final IntegerField commitWithoutConnection   = new IntegerField().toFinal().min(0);
-	private static final IntegerField commitWithConnection      = new IntegerField().toFinal().min(0);
+	private static final IntegerField commitWithoutConnection   = field(0);
+	private static final IntegerField commitWithConnection      = field(0);
 	@CopeSchemaName("rollbackOutConnection")
-	private static final IntegerField rollbackWithoutConnection = new IntegerField().toFinal().min(0);
-	private static final IntegerField rollbackWithConnection    = new IntegerField().toFinal().min(0);
+	private static final IntegerField rollbackWithoutConnection = field(0);
+	private static final IntegerField rollbackWithConnection    = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final TransactionCounters from,
@@ -98,22 +99,22 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final IntegerField itemCacheLimit                = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheLevel                = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheHits                 = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheMisses               = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheConcurrentLoads      = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheReplacementRuns      = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheReplacements         = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheInvalidationsOrdered = new IntegerField().toFinal().min(0);
-	private static final IntegerField itemCacheInvalidationsDone    = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheLimit                = field(0);
+	private static final IntegerField itemCacheLevel                = field(0);
+	private static final IntegerField itemCacheHits                 = field(0);
+	private static final IntegerField itemCacheMisses               = field(0);
+	private static final IntegerField itemCacheConcurrentLoads      = field(0);
+	private static final IntegerField itemCacheReplacementRuns      = field(0);
+	private static final IntegerField itemCacheReplacements         = field(0);
+	private static final IntegerField itemCacheInvalidationsOrdered = field(0);
+	private static final IntegerField itemCacheInvalidationsDone    = field(0);
 
 	@CopeSchemaName("itemCacheInvalidateLastSize")
-	private static final IntegerField itemCacheStampsSize   = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheStampsSize   = field(0);
 	@CopeSchemaName("itemCacheInvalidateLastHits")
-	private static final IntegerField itemCacheStampsHits   = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheStampsHits   = field(0);
 	@CopeSchemaName("itemCacheInvalidateLastPurged")
-	private static final IntegerField itemCacheStampsPurged = new IntegerField().toFinal().min(0);
+	private static final IntegerField itemCacheStampsPurged = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ItemCacheStatistics from,
@@ -139,11 +140,11 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final IntegerField queryCacheHits            = new IntegerField().toFinal().min(0);
-	private static final IntegerField queryCacheMisses          = new IntegerField().toFinal().min(0);
-	private static final IntegerField queryCacheReplacements    = new IntegerField().toFinal().min(0);
-	private static final IntegerField queryCacheInvalidations   = new IntegerField().toFinal().min(0);
-	private static final IntegerField queryCacheConcurrentLoads = new IntegerField().toFinal().min(0);
+	private static final IntegerField queryCacheHits            = field(0);
+	private static final IntegerField queryCacheMisses          = field(0);
+	private static final IntegerField queryCacheReplacements    = field(0);
+	private static final IntegerField queryCacheInvalidations   = field(0);
+	private static final IntegerField queryCacheConcurrentLoads = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final QueryCacheInfo from,
@@ -158,10 +159,10 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final IntegerField changeListenerSize     = new IntegerField().toFinal().min(0);
-	private static final IntegerField changeListenerCleared  = new IntegerField().toFinal().min(0);
-	private static final IntegerField changeListenerRemoved  = new IntegerField().toFinal().min(0);
-	private static final IntegerField changeListenerFailed   = new IntegerField().toFinal().min(0);
+	private static final IntegerField changeListenerSize     = field(0);
+	private static final IntegerField changeListenerCleared  = field(0);
+	private static final IntegerField changeListenerRemoved  = field(0);
+	private static final IntegerField changeListenerFailed   = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ChangeListenerInfo from,
@@ -175,9 +176,9 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final IntegerField changeListenerOverflow  = new IntegerField().toFinal().min(0);
-	private static final IntegerField changeListenerException = new IntegerField().toFinal().min(0);
-	private static final IntegerField changeListenerPending   = new IntegerField().toFinal().min(0);
+	private static final IntegerField changeListenerOverflow  = field(0);
+	private static final IntegerField changeListenerException = field(0);
+	private static final IntegerField changeListenerPending   = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ChangeListenerDispatcherInfo from,
@@ -190,19 +191,19 @@ final class SamplerModel extends Item
 	}
 
 
-	static final IntegerField mediasNoSuchPath = new IntegerField().toFinal().min(0);
+	static final IntegerField mediasNoSuchPath = field(0);
 
-	private static final IntegerField mediasRedirectFrom   = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasException      = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasInvalidSpecial = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasGuessedUrl     = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasNotAnItem      = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasNoSuchItem     = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasMoved          = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasIsNull         = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasNotComputable  = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasNotModified    = new IntegerField().toFinal().min(0);
-	private static final IntegerField mediasDelivered      = new IntegerField().toFinal().min(0);
+	private static final IntegerField mediasRedirectFrom   = field(0);
+	private static final IntegerField mediasException      = field(0);
+	private static final IntegerField mediasInvalidSpecial = field(0);
+	private static final IntegerField mediasGuessedUrl     = field(0);
+	private static final IntegerField mediasNotAnItem      = field(0);
+	private static final IntegerField mediasNoSuchItem     = field(0);
+	private static final IntegerField mediasMoved          = field(0);
+	private static final IntegerField mediasIsNull         = field(0);
+	private static final IntegerField mediasNotComputable  = field(0);
+	private static final IntegerField mediasNotModified    = field(0);
+	private static final IntegerField mediasDelivered      = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final MediaSummary from,

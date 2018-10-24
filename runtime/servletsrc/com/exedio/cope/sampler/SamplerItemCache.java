@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.sampler.Util.field;
 import static com.exedio.cope.sampler.Util.maD;
 import static com.exedio.cope.sampler.Util.maS;
 
@@ -67,14 +68,14 @@ final class SamplerItemCache extends Item
 
 
 	/** this field is no longer used - will always contain 0 for new items */
-	private static final IntegerField limit                = new IntegerField().toFinal().min(0);
-	private static final IntegerField level                = new IntegerField().toFinal().min(0);
-	private static final IntegerField hits                 = new IntegerField().toFinal().min(0);
-	private static final IntegerField misses               = new IntegerField().toFinal().min(0);
-	private static final IntegerField concurrentLoads      = new IntegerField().toFinal().min(0);
+	private static final IntegerField limit                = field(0);
+	private static final IntegerField level                = field(0);
+	private static final IntegerField hits                 = field(0);
+	private static final IntegerField misses               = field(0);
+	private static final IntegerField concurrentLoads      = field(0);
 	/** this field is no longer used - will always contain 0 for new items */
-	private static final IntegerField replacementRuns      = new IntegerField().toFinal().min(0);
-	private static final IntegerField replacements         = new IntegerField().toFinal().min(0);
+	private static final IntegerField replacementRuns      = field(0);
+	private static final IntegerField replacements         = field(0);
 	/** this field is no longer used - will always contain null for new items */
 	private static final DateField lastReplacementRun      = new DateField().toFinal().optional();
 	/** this field is no longer used - will always contain 0 for new items */
@@ -83,14 +84,14 @@ final class SamplerItemCache extends Item
 	private static final LongField ageMinimumMillis        = new LongField().toFinal();
 	/** this field is no longer used - will always contain 0 for new items */
 	private static final LongField ageMaximumMillis        = new LongField().toFinal();
-	private static final IntegerField invalidationsOrdered = new IntegerField().toFinal().min(0);
-	private static final IntegerField invalidationsDone    = new IntegerField().toFinal().min(0);
+	private static final IntegerField invalidationsOrdered = field(0);
+	private static final IntegerField invalidationsDone    = field(0);
 	@CopeSchemaName("invalidateLastSize")
-	private static final IntegerField stampsSize           = new IntegerField().toFinal().min(0);
+	private static final IntegerField stampsSize           = field(0);
 	@CopeSchemaName("invalidateLastHits")
-	private static final IntegerField stampsHits           = new IntegerField().toFinal().min(0);
+	private static final IntegerField stampsHits           = field(0);
 	@CopeSchemaName("invalidateLastPurged")
-	private static final IntegerField stampsPurged         = new IntegerField().toFinal().min(0);
+	private static final IntegerField stampsPurged         = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
 			final ItemCacheInfo from,

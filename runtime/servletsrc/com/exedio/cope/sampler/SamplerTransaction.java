@@ -19,6 +19,7 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.SetValue.map;
+import static com.exedio.cope.sampler.Util.field;
 import static com.exedio.cope.sampler.Util.maC;
 
 import com.exedio.cope.ActivationParameters;
@@ -59,11 +60,11 @@ final class SamplerTransaction extends Item
 	private static final DateField startDate = new DateField().toFinal();
 	private static final CompositeField<SamplerThread> thread  = CompositeField.create(SamplerThread.class).toFinal().optional();
 
-	private static final IntegerField invalidationSize         = new IntegerField().toFinal().min(0);
-	private static final IntegerField preCommitHookCount       = new IntegerField().toFinal().min(0);
-	private static final IntegerField preCommitHookDuplicates  = new IntegerField().toFinal().min(0);
-	private static final IntegerField postCommitHookCount      = new IntegerField().toFinal().min(0);
-	private static final IntegerField postCommitHookDuplicates = new IntegerField().toFinal().min(0);
+	private static final IntegerField invalidationSize         = field(0);
+	private static final IntegerField preCommitHookCount       = field(0);
+	private static final IntegerField preCommitHookDuplicates  = field(0);
+	private static final IntegerField postCommitHookCount      = field(0);
+	private static final IntegerField postCommitHookDuplicates = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final Transaction transaction)
 	{
