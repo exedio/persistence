@@ -105,16 +105,14 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			}
 			else
 			{
+				try
 				{
-					try
-					{
-						rs.getLong(1);
-						fail();
-					}
-					catch(final SQLException ignored)
-					{
-						//System.out.println(e.getMessage());
-					}
+					rs.getLong(1);
+					fail();
+				}
+				catch(final SQLException ignored)
+				{
+					//System.out.println(e.getMessage());
 				}
 			}
 
