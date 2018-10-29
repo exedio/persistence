@@ -34,6 +34,7 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.ListField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.NotSerializableException;
@@ -41,6 +42,7 @@ import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 public class ModelSerializationTest
 {
 	private static final Model model = new Model(MyItem.TYPE);

@@ -21,8 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.CopyChoiceSimpleTest.Container;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 public class CopyChoiceFailureTest
 {
 	@Test void testBackPointerNameNull()

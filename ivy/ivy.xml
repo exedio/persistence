@@ -62,7 +62,12 @@
 		<dependency org="org.junit.jupiter"  name="junit-jupiter-engine"   rev="5.0.2" conf="build->default" />
 		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.0.2" conf="build->default" />
 		<dependency org="org.apiguardian"    name="apiguardian-api"        rev="1.0.0" conf="build->default" />
-		<dependency org="findbugs-x" name="findbugs" rev="3.0.1" conf="build->default" />
+		<dependency org="com.github.spotbugs" name="spotbugs" rev="3.1.8" conf="build->master">
+			<artifact name="spotbugs" type="tgz" />
+		</dependency>
+		<dependency org="findbugs-x" name="findbugs" rev="3.0.1" conf="build->default">
+			<artifact name="findbugs-annotations" type="jar" />
+		</dependency>
 		<dependency org="com.exedio" name="copeconsole" rev="7003" conf="build->runtime,changelog">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
 		</dependency>

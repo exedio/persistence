@@ -117,6 +117,13 @@
       <optional>true</optional>
     </dependency>
     <dependency>
+      <groupId>com.github.spotbugs</groupId>
+      <artifactId>spotbugs</artifactId>
+      <version>3.1.8</version>
+      <type>tgz</type>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
       <groupId>findbugs-x</groupId>
       <artifactId>findbugs</artifactId>
       <version>3.0.1</version>

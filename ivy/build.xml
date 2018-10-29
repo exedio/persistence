@@ -11,6 +11,7 @@
 				<globmapper from="*-jar.jar" to="*.jar" />
 				<globmapper from="*-dist.tar.gz" to="*.tar.gz" />
 				<globmapper from="*-tar.gz.tar.gz" to="*.tar.gz" />
+				<globmapper from="*-tgz.tgz" to="*.tgz" />
 				<globmapper from="*" to="*" />
 			</firstmatchmapper>
 			<fileset dir="artifacts/lib">
