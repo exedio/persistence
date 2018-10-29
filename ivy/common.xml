@@ -22,6 +22,10 @@
 		<ivy:retrieve file="ivy.xml" pattern="artifacts/lib/[artifact]-[type].[ext]" />
 		<fixcrlf srcDir="artifacts/lib" includes="**/*-log.txt,**/*-userlog.txt" fixlast="false" />
 		<ivy:report todir="artifacts" />
+		<ivy:makepom ivyfile="ivy.xml" pomfile="pom.xml">
+			<mapping conf="default" scope="compile" />
+			<mapping conf="runtime" scope="runtime" />
+		</ivy:makepom>
 	</target>
 
 	<target name="publishlocally" depends="prepare">
