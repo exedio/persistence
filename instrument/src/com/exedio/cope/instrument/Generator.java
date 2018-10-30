@@ -68,6 +68,7 @@ final class Generator
 	private final String hidingWarningSuppressor;
 	private final boolean publicConstructorInAbstractClass;
 	private final boolean privateMethodFinal;
+	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardTypeParameters;
 	private int typeIndent = Integer.MIN_VALUE;
 	private final Set<Method> generateDeprecateds;
@@ -85,6 +86,7 @@ final class Generator
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
 		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
 		this.privateMethodFinal = params.privateMethodFinal;
+		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.wildcardTypeParameters = params.wildcardTypeParameters;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
@@ -461,7 +463,9 @@ final class Generator
 			writeModifier(
 					visibilityModifier |
 					(isStatic ? STATIC : 0) |
-					(option.asFinal()&&(visibilityModifier!=PRIVATE||privateMethodFinal) ? FINAL : 0));
+					(option.asFinal()
+							&& (visibilityModifier!=PRIVATE||privateMethodFinal)
+							&& (!feature.parent.isFinal()||finalMethodInFinalClass) ? FINAL : 0));
 			write(ctx.write(methodReturnType, false));
 			if(useIs && option.booleanAsIs())
 			{

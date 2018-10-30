@@ -59,6 +59,7 @@ final class Params
 	String hidingWarningSuppressor = null;
 	boolean publicConstructorInAbstractClass = false;
 	boolean privateMethodFinal = false;
+	boolean finalMethodInFinalClass = true;
 	boolean wildcardTypeParameters = false;
 	boolean verbose = false;
 	File buildDirectory = null;
