@@ -72,13 +72,13 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static final GenericComplexMid<?> methodFromMid()
 	{
-		return GenericComplexMid.fromMid.method(GenericComplexMid.classWildcard.value);
+		return GenericComplexMid.fromMid.method(classWildcard.value);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
 	static final java.util.List<GenericComplexMid<?>> methodFromMidNested()
 	{
-		return GenericComplexMid.fromMid.methodNested(GenericComplexMid.classWildcard.value);
+		return GenericComplexMid.fromMid.methodNested(classWildcard.value);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -89,7 +89,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
 	@SuppressWarnings("hiding")
-	public static final com.exedio.cope.Type<GenericComplexMid<?>> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexMid.classWildcard.value);
+	public static final com.exedio.cope.Type<GenericComplexMid<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -109,13 +109,13 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static final GenericComplexSuper<?,?> methodFromSuper()
 	{
-		return GenericComplexSuper.fromSuper.method(GenericComplexSuper.classWildcard.value);
+		return GenericComplexSuper.fromSuper.method(classWildcard.value);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
 	static final java.util.List<GenericComplexSuper<?,?>> methodFromSuperNested()
 	{
-		return GenericComplexSuper.fromSuper.methodNested(GenericComplexSuper.classWildcard.value);
+		return GenericComplexSuper.fromSuper.methodNested(classWildcard.value);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -125,7 +125,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 * The persistent type information for genericComplexSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<GenericComplexSuper<?,?>> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexSuper.classWildcard.value);
+	public static final com.exedio.cope.Type<GenericComplexSuper<?,?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

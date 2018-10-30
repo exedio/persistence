@@ -360,7 +360,6 @@
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				wildcardTypeParameters="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				buildDirectory="build/instrument/runtime.test">
 			<resources refid="instrument.resources" />
@@ -551,7 +550,6 @@
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
-				wildcardTypeParameters="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
@@ -757,7 +755,6 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
-				wildcardTypeParameters="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
@@ -788,7 +785,6 @@
 				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
-				wildcardTypeParameters="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<classpath>

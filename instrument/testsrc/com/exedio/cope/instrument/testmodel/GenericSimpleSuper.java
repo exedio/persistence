@@ -97,13 +97,13 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static final GenericSimpleSuper<?> methodFromSuper()
 	{
-		return GenericSimpleSuper.fromSuper.method(GenericSimpleSuper.classWildcard.value);
+		return GenericSimpleSuper.fromSuper.method(classWildcard.value);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
 	static final java.util.List<GenericSimpleSuper<?>> methodFromSuperNested()
 	{
-		return GenericSimpleSuper.fromSuper.methodNested(GenericSimpleSuper.classWildcard.value);
+		return GenericSimpleSuper.fromSuper.methodNested(classWildcard.value);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -113,7 +113,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 * The persistent type information for genericSimpleSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	public static final com.exedio.cope.Type<GenericSimpleSuper<?>> TYPE = com.exedio.cope.TypesBound.newType(GenericSimpleSuper.classWildcard.value);
+	public static final com.exedio.cope.Type<GenericSimpleSuper<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
