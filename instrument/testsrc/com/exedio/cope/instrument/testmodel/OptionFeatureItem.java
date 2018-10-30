@@ -98,6 +98,9 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	@Wrapper(wrap="simple", asFinal=false)
 	static final OptionFeature nonFinal = new OptionFeature();
 
+	@Wrapper(wrap="simple", asFinal=false)
+	private static final OptionFeature nonFinalPrivate = new OptionFeature();
+
 	@Wrapper(wrap="simple", override=true)
 	static final OptionFeature override = new OptionFeature();
 
@@ -250,6 +253,12 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	void simpleNonFinal()
 	{
 		OptionFeatureItem.nonFinal.simple(this);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	private void simpleNonFinalPrivate()
+	{
+		OptionFeatureItem.nonFinalPrivate.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
