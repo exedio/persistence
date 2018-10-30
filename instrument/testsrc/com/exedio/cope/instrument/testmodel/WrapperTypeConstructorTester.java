@@ -29,7 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapperType;
 
-@SuppressWarnings("EmptyClass")
+@SuppressWarnings({"AbstractClassNeverImplemented","EmptyClass"})
 public final class WrapperTypeConstructorTester
 {
 	@WrapperType(constructor=DEFAULT,
@@ -54,6 +54,26 @@ public final class WrapperTypeConstructorTester
 
 	@WrapperType(constructor=DEFAULT,
 			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	public abstract static class DefaultPublicAbstract extends Item
+	{
+		private DefaultPublicAbstract(final SetValue<?>[] sv) { super(sv); }
+
+		/**
+		 * Creates a new DefaultPublicAbstract with all the fields initially needed.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		public DefaultPublicAbstract()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 2l;
+	}
+
+	@WrapperType(constructor=DEFAULT,
+			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	protected static final class DefaultProtected extends Item
 	{
 		private DefaultProtected(final SetValue<?>[] sv) { super(sv); }
@@ -70,6 +90,26 @@ public final class WrapperTypeConstructorTester
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
+	}
+
+	@WrapperType(constructor=DEFAULT,
+			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	protected abstract static class DefaultProtectedAbstract extends Item
+	{
+		private DefaultProtectedAbstract(final SetValue<?>[] sv) { super(sv); }
+
+		/**
+		 * Creates a new DefaultProtectedAbstract with all the fields initially needed.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		protected DefaultProtectedAbstract()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 2l;
 	}
 
 	@WrapperType(constructor=DEFAULT,
@@ -112,6 +152,27 @@ public final class WrapperTypeConstructorTester
 		private static final long serialVersionUID = 1l;
 	}
 
+	@WrapperType(constructor=DEFAULT,
+			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressWarnings("ClassWithOnlyPrivateConstructors")
+	private abstract static class DefaultPrivateAbstract extends Item
+	{
+		private DefaultPrivateAbstract(final SetValue<?>[] sv) { super(sv); }
+
+		/**
+		 * Creates a new DefaultPrivateAbstract with all the fields initially needed.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		private DefaultPrivateAbstract()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 2l;
+	}
+
 
 	@WrapperType(constructor=PUBLIC,
 			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
@@ -131,6 +192,26 @@ public final class WrapperTypeConstructorTester
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
+	}
+
+	@WrapperType(constructor=PUBLIC,
+			type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	abstract static class SetPublicAbstract extends Item
+	{
+		private SetPublicAbstract(final SetValue<?>[] sv) { super(sv); }
+
+		/**
+		 * Creates a new SetPublicAbstract with all the fields initially needed.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		public SetPublicAbstract()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 2l;
 	}
 
 	@WrapperType(constructor=PROTECTED,
