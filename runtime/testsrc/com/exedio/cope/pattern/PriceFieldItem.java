@@ -77,7 +77,7 @@ public final class PriceFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Price getFinalPrice()
+	com.exedio.cope.pattern.Price getFinalPrice()
 	{
 		return PriceFieldItem.finalPrice.get(this);
 	}
@@ -87,7 +87,7 @@ public final class PriceFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Price getOptionalPrice()
+	com.exedio.cope.pattern.Price getOptionalPrice()
 	{
 		return PriceFieldItem.optionalPrice.get(this);
 	}
@@ -96,7 +96,7 @@ public final class PriceFieldItem extends Item
 	 * Sets a new value for {@link #optionalPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOptionalPrice(@javax.annotation.Nullable final com.exedio.cope.pattern.Price optionalPrice)
+	void setOptionalPrice(@javax.annotation.Nullable final com.exedio.cope.pattern.Price optionalPrice)
 	{
 		PriceFieldItem.optionalPrice.set(this,optionalPrice);
 	}
@@ -106,7 +106,7 @@ public final class PriceFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Price getBigPrice()
+	com.exedio.cope.pattern.Price getBigPrice()
 	{
 		return PriceFieldItem.bigPrice.get(this);
 	}
@@ -115,7 +115,7 @@ public final class PriceFieldItem extends Item
 	 * Sets a new value for {@link #bigPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBigPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price bigPrice)
+	void setBigPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price bigPrice)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.LongRangeViolationException

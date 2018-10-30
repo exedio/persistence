@@ -126,7 +126,7 @@ public final class LimitedListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getNum1()
+	java.lang.Integer getNum1()
 	{
 		return LimitedListFieldItem.num1.get(this);
 	}
@@ -135,7 +135,7 @@ public final class LimitedListFieldItem extends Item
 	 * Sets a new value for {@link #num1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
+	void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
 	{
 		LimitedListFieldItem.num1.set(this,num1);
 	}
@@ -145,7 +145,7 @@ public final class LimitedListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getNum2()
+	java.lang.Integer getNum2()
 	{
 		return LimitedListFieldItem.num2.get(this);
 	}
@@ -154,7 +154,7 @@ public final class LimitedListFieldItem extends Item
 	 * Sets a new value for {@link #num2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
+	void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
 	{
 		LimitedListFieldItem.num2.set(this,num2);
 	}
@@ -164,7 +164,7 @@ public final class LimitedListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getNum3()
+	java.lang.Integer getNum3()
 	{
 		return LimitedListFieldItem.num3.get(this);
 	}
@@ -173,7 +173,7 @@ public final class LimitedListFieldItem extends Item
 	 * Sets a new value for {@link #num3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNum3(@javax.annotation.Nullable final java.lang.Integer num3)
+	void setNum3(@javax.annotation.Nullable final java.lang.Integer num3)
 	{
 		LimitedListFieldItem.num3.set(this,num3);
 	}
@@ -183,7 +183,7 @@ public final class LimitedListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<Integer> getNums()
+	java.util.List<Integer> getNums()
 	{
 		return LimitedListFieldItem.nums.get(this);
 	}
@@ -192,7 +192,7 @@ public final class LimitedListFieldItem extends Item
 	 * Sets a new value for {@link #nums}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNums(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> nums)
+	void setNums(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> nums)
 			throws
 				java.lang.ClassCastException,
 				com.exedio.cope.pattern.ListSizeViolationException
@@ -205,7 +205,7 @@ public final class LimitedListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<Date> getDates()
+	java.util.List<Date> getDates()
 	{
 		return LimitedListFieldItem.dates.get(this);
 	}
@@ -214,7 +214,7 @@ public final class LimitedListFieldItem extends Item
 	 * Sets a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
+	void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
 			throws
 				java.lang.ClassCastException,
 				com.exedio.cope.pattern.ListSizeViolationException
@@ -227,7 +227,7 @@ public final class LimitedListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<String> getStrings()
+	java.util.List<String> getStrings()
 	{
 		return LimitedListFieldItem.strings.get(this);
 	}
@@ -236,7 +236,7 @@ public final class LimitedListFieldItem extends Item
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
+	void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException,

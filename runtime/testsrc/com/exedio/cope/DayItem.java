@@ -54,7 +54,7 @@ final class DayItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.util.Day getDay()
+	com.exedio.cope.util.Day getDay()
 	{
 		return DayItem.day.get(this);
 	}
@@ -63,7 +63,7 @@ final class DayItem extends Item
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
+	void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -74,7 +74,7 @@ final class DayItem extends Item
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.day.touch(this,zone);
 	}
@@ -84,7 +84,7 @@ final class DayItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.util.Day getOptionalDay()
+	com.exedio.cope.util.Day getOptionalDay()
 	{
 		return DayItem.optionalDay.get(this);
 	}
@@ -93,7 +93,7 @@ final class DayItem extends Item
 	 * Sets a new value for {@link #optionalDay}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOptionalDay(@javax.annotation.Nullable final com.exedio.cope.util.Day optionalDay)
+	void setOptionalDay(@javax.annotation.Nullable final com.exedio.cope.util.Day optionalDay)
 	{
 		DayItem.optionalDay.set(this,optionalDay);
 	}
@@ -102,7 +102,7 @@ final class DayItem extends Item
 	 * Sets today for the date field {@link #optionalDay}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchOptionalDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchOptionalDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.optionalDay.touch(this,zone);
 	}

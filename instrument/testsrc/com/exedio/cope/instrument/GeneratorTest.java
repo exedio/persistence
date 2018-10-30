@@ -101,130 +101,130 @@ public class GeneratorTest
 		assertConstructor(STANDARD, new Class<?>[]{SET_VALUE_ARRAY}, PRIVATE|VARARGS);
 		assertConstructor(STANDARD, new Class<?>[]{ACTIVATION}, PRIVATE);
 
-		assertMethod(STANDARD, "getDefaultString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getNotNullString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNotNullString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getFinalString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultString", STRING, PUBLIC);
+		assertMethod(STANDARD, "setDefaultString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getNotNullString", STRING, PUBLIC);
+		assertMethod(STANDARD, "setNotNullString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getFinalString", STRING, PUBLIC);
 		assertNoMethod(STANDARD, "setFinalString", new Class<?>[]{STRING});
-		assertMethod(STANDARD, "getDefaultToString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultToString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setUniqueString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{UNIQUE_VIOLATION, LENGTH_VIOLATION});
-		assertMethod(STANDARD, "forUniqueString", new Class<?>[]{STRING}, STANDARD, PUBLIC|STATIC|FINAL);
-		assertMethod(STANDARD, "getInitialString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setInitialString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getDefaultToString", STRING, PUBLIC);
+		assertMethod(STANDARD, "setDefaultToString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getUniqueString", STRING, PUBLIC);
+		assertMethod(STANDARD, "setUniqueString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{UNIQUE_VIOLATION, LENGTH_VIOLATION});
+		assertMethod(STANDARD, "forUniqueString", new Class<?>[]{STRING}, STANDARD, PUBLIC|STATIC);
+		assertMethod(STANDARD, "getInitialString", STRING, PUBLIC);
+		assertMethod(STANDARD, "setInitialString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{LENGTH_VIOLATION});
 
-		assertMethod(STANDARD, "getDefaultInteger", Integer.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultInteger", new Class<?>[]{Integer.class}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getNativeInteger", int.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNativeInteger", new Class<?>[]{int.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultInteger", Integer.class, PUBLIC);
+		assertMethod(STANDARD, "setDefaultInteger", new Class<?>[]{Integer.class}, PUBLIC);
+		assertMethod(STANDARD, "getNativeInteger", int.class, PUBLIC);
+		assertMethod(STANDARD, "setNativeInteger", new Class<?>[]{int.class}, PUBLIC);
 
-		assertMethod(STANDARD, "getDefaultLong", Long.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultLong", new Class<?>[]{Long.class}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getNativeLong", long.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNativeLong", new Class<?>[]{long.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultLong", Long.class, PUBLIC);
+		assertMethod(STANDARD, "setDefaultLong", new Class<?>[]{Long.class}, PUBLIC);
+		assertMethod(STANDARD, "getNativeLong", long.class, PUBLIC);
+		assertMethod(STANDARD, "setNativeLong", new Class<?>[]{long.class}, PUBLIC);
 
-		assertMethod(STANDARD, "getDefaultDouble", Double.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultDouble", new Class<?>[]{Double.class}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getNativeDouble", double.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNativeDouble", new Class<?>[]{double.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultDouble", Double.class, PUBLIC);
+		assertMethod(STANDARD, "setDefaultDouble", new Class<?>[]{Double.class}, PUBLIC);
+		assertMethod(STANDARD, "getNativeDouble", double.class, PUBLIC);
+		assertMethod(STANDARD, "setNativeDouble", new Class<?>[]{double.class}, PUBLIC);
 
-		assertMethod(STANDARD, "getDefaultBoolean", Boolean.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDefaultBoolean", new Class<?>[]{Boolean.class}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getNativeBoolean", boolean.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNativeBoolean", new Class<?>[]{boolean.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getDefaultBoolean", Boolean.class, PUBLIC);
+		assertMethod(STANDARD, "setDefaultBoolean", new Class<?>[]{Boolean.class}, PUBLIC);
+		assertMethod(STANDARD, "getNativeBoolean", boolean.class, PUBLIC);
+		assertMethod(STANDARD, "setNativeBoolean", new Class<?>[]{boolean.class}, PUBLIC);
 
-		assertMethod(STANDARD, "getMandatoryDate", Date.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setMandatoryDate", new Class<?>[]{Date.class}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
-		assertMethod(STANDARD, "touchMandatoryDate", new Class<?>[]{}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getMandatoryDate", Date.class, PUBLIC);
+		assertMethod(STANDARD, "setMandatoryDate", new Class<?>[]{Date.class}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "touchMandatoryDate", new Class<?>[]{}, PUBLIC);
 
 		assertMethod(STANDARD, "getPrivateDate", Date.class, PRIVATE);
 		assertMethod(STANDARD, "setPrivateDate", new Class<?>[]{Date.class}, PRIVATE);
 		assertMethod(STANDARD, "touchPrivateDate", new Class<?>[]{}, PRIVATE);
 
-		assertMethod(STANDARD, "getNowDate", Date.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setNowDate", new Class<?>[]{Date.class}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
-		assertMethod(STANDARD, "touchNowDate", new Class<?>[]{}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNowDate", Date.class, PUBLIC);
+		assertMethod(STANDARD, "setNowDate", new Class<?>[]{Date.class}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "touchNowDate", new Class<?>[]{}, PUBLIC);
 
-		assertMethod(STANDARD, "getMandatoryEnum", Standard.Enum1.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setMandatoryEnum", new Class<?>[]{Standard.Enum1.class}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
-		assertMethod(STANDARD, "getProtectedEnum", Enum2.class, PROTECTED|FINAL);
-		assertMethod(STANDARD, "setProtectedEnum", new Class<?>[]{Enum2.class}, PROTECTED|FINAL);
+		assertMethod(STANDARD, "getMandatoryEnum", Standard.Enum1.class, PUBLIC);
+		assertMethod(STANDARD, "setMandatoryEnum", new Class<?>[]{Standard.Enum1.class}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "getProtectedEnum", Enum2.class, PROTECTED);
+		assertMethod(STANDARD, "setProtectedEnum", new Class<?>[]{Enum2.class}, PROTECTED);
 
-		assertMethod(STANDARD, "getInlineA", int.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setInlineA", new Class<?>[]{int.class}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getInlineB", int.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setInlineB", new Class<?>[]{int.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getInlineA", int.class, PUBLIC);
+		assertMethod(STANDARD, "setInlineA", new Class<?>[]{int.class}, PUBLIC);
+		assertMethod(STANDARD, "getInlineB", int.class, PUBLIC);
+		assertMethod(STANDARD, "setInlineB", new Class<?>[]{int.class}, PUBLIC);
 
 		assertMethod(STANDARD, "getPrivateString", STRING, PRIVATE);
 		assertMethod(STANDARD, "setPrivateString", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{LENGTH_VIOLATION});
 
 		assertNoMethod(STANDARD, "getNoneGetterString");
-		assertMethod(STANDARD, "setNoneGetterString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "setNoneGetterString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getPrivateGetterString", STRING, PRIVATE);
-		assertMethod(STANDARD, "setPrivateGetterString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "setPrivateGetterString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getInternalGetterStringInternal", STRING, PRIVATE);
-		assertMethod(STANDARD, "setInternalGetterString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "setInternalGetterString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{LENGTH_VIOLATION});
 		assertNoMethod(STANDARD, "getInternalGetterString");
 
-		assertMethod(STANDARD, "getNoneSetterString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getNoneSetterString", STRING, PUBLIC);
 		assertNoMethod(STANDARD, "setNoneSetterString", new Class<?>[]{STRING});
-		assertMethod(STANDARD, "getPrivateSetterString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPrivateSetterString", STRING, PUBLIC);
 		assertMethod(STANDARD, "setPrivateSetterString", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getInternalSetterString", STRING, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getInternalSetterString", STRING, PUBLIC);
 		assertMethod(STANDARD, "setInternalSetterStringInternal", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{LENGTH_VIOLATION});
 		assertNoMethod(STANDARD, "setInternalSetterString", new Class<?>[]{STRING});
 
 		assertMethod(STANDARD, "getNonfinalGetterString", STRING, PUBLIC);
-		assertMethod(STANDARD, "setNonfinalGetterString", new Class<?>[]{STRING}, PROTECTED|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getNonfinalSetterString", STRING, PROTECTED|FINAL);
+		assertMethod(STANDARD, "setNonfinalGetterString", new Class<?>[]{STRING}, PROTECTED, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getNonfinalSetterString", STRING, PROTECTED);
 		assertMethod(STANDARD, "setNonfinalSetterString", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{LENGTH_VIOLATION});
 
-		assertMethod(STANDARD, "isAsIsBoolean", Boolean.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "isAsIsBoolean", Boolean.class, PUBLIC);
 		assertNoMethod(STANDARD, "getAsIsBoolean");
-		assertMethod(STANDARD, "setAsIsBoolean", new Class<?>[]{Boolean.class}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "setAsIsBoolean", new Class<?>[]{Boolean.class}, PUBLIC);
 
-		assertMethod(STANDARD, "getDoubleUnique1", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDoubleUnique1", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{UNIQUE_VIOLATION, LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getDoubleUnique2", Integer.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setDoubleUnique2", new Class<?>[]{Integer.class}, PUBLIC|FINAL, new Class<?>[]{UNIQUE_VIOLATION});
-		assertMethod(STANDARD, "forDoubleUnique", new Class<?>[]{STRING, Integer.class}, STANDARD, PUBLIC|STATIC|FINAL);
+		assertMethod(STANDARD, "getDoubleUnique1", STRING, PUBLIC);
+		assertMethod(STANDARD, "setDoubleUnique1", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{UNIQUE_VIOLATION, LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getDoubleUnique2", Integer.class, PUBLIC);
+		assertMethod(STANDARD, "setDoubleUnique2", new Class<?>[]{Integer.class}, PUBLIC, new Class<?>[]{UNIQUE_VIOLATION});
+		assertMethod(STANDARD, "forDoubleUnique", new Class<?>[]{STRING, Integer.class}, STANDARD, PUBLIC|STATIC);
 
 		assertNoMethod(STANDARD, "getIgnoreString");
 		assertNoMethod(STANDARD, "setIgnoreString", new Class<?>[]{STRING});
 
-		assertMethod(STANDARD, "get", DOUBLE, FINAL);
-		assertMethod(STANDARD, "set", new Class<?>[]{DOUBLE}, FINAL, new Class<?>[]{UNIQUE_VIOLATION, DOUBLE_RANGE_VIOLATION});
-		assertMethod(STANDARD, "forDefaultFeature", new Class<?>[]{DOUBLE}, STANDARD, STATIC|FINAL);
+		assertMethod(STANDARD, "get", DOUBLE, 0);
+		assertMethod(STANDARD, "set", new Class<?>[]{DOUBLE}, 0, new Class<?>[]{UNIQUE_VIOLATION, DOUBLE_RANGE_VIOLATION});
+		assertMethod(STANDARD, "forDefaultFeature", new Class<?>[]{DOUBLE}, STANDARD, STATIC);
 
 		assertNoMethod(STANDARD, "getDefaultFeature");
 		assertNoMethod(STANDARD, "setDefaultFeature"   , new Class<?>[]{DOUBLE});
 		assertNoMethod(STANDARD, "findByDefaultFeature", new Class<?>[]{DOUBLE});
 
-		assertMethod(STANDARD, "checkPublicHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
+		assertMethod(STANDARD, "checkPublicHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC);
 		assertMethod(STANDARD, "checkPrivateHash", new Class<?>[]{STRING}, Boolean.TYPE, PRIVATE);
-		assertMethod(STANDARD, "checkMandatoryHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
-		assertMethod(STANDARD, "checkPrivateSetterHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPublicHash", new Class<?>[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "checkMandatoryHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC);
+		assertMethod(STANDARD, "checkPrivateSetterHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC);
+		assertMethod(STANDARD, "setPublicHash", new Class<?>[]{STRING}, PUBLIC);
 		assertMethod(STANDARD, "setPrivateHash", new Class<?>[]{STRING}, PRIVATE);
-		assertMethod(STANDARD, "setMandatoryHash", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setMandatoryHash", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "setPrivateSetterHash", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{MANDATORY_VIOLATION});
-		assertMethod(STANDARD, "getPublicHashSHA512s8i5", String.class, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getPublicHashSHA512s8i5", String.class, PUBLIC);
 		assertMethod(STANDARD, "getPrivateHashSHA512s8i5", String.class, PRIVATE);
-		assertMethod(STANDARD, "getMandatoryHashSHA512s8i5", String.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getPrivateSetterHashSHA512s8i5", String.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPublicHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC|FINAL);
+		assertMethod(STANDARD, "getMandatoryHashSHA512s8i5", String.class, PUBLIC);
+		assertMethod(STANDARD, "getPrivateSetterHashSHA512s8i5", String.class, PUBLIC);
+		assertMethod(STANDARD, "setPublicHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC);
 		assertMethod(STANDARD, "setPrivateHashSHA512s8i5", new Class<?>[]{STRING}, PRIVATE);
-		assertMethod(STANDARD, "setMandatoryHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
-		assertMethod(STANDARD, "setPrivateSetterHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setMandatoryHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setPrivateSetterHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION});
 		assertNoMethod(STANDARD, "getPublicHash");
 		assertNoMethod(STANDARD, "getPrivateHash");
 		assertNoMethod(STANDARD, "getMandatoryHash");
 		assertNoMethod(STANDARD, "getPrivateSetterHash");
 
-		assertMethod(STANDARD, "setXMLReader", new Class<?>[]{STRING}, FINAL, new Class<?>[]{LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getXMLReader", STRING, FINAL);
+		assertMethod(STANDARD, "setXMLReader", new Class<?>[]{STRING}, 0, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getXMLReader", STRING, 0);
 
 		assertField(STANDARD, "serialVersionUID", long.class, PRIVATE|STATIC|FINAL);
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
@@ -233,8 +233,8 @@ public class GeneratorTest
 	@Test void testDoubleUnique()
 	{
 		assertConstructor(DOUBLE_UNIQUE, new Class<?>[]{STRING, SUB_TARGET}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
-		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
-		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
+		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC);
+		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC);
 		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class<?>[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PRIVATE|STATIC);
 	}
 

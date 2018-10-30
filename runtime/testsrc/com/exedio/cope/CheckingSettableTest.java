@@ -321,13 +321,13 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getField2()
+		java.lang.String getField2()
 		{
 			return MyItem.field2.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setField2(@javax.annotation.Nullable final java.lang.String field2)
+		void setField2(@javax.annotation.Nullable final java.lang.String field2)
 				throws
 					com.exedio.cope.StringLengthViolationException
 		{
@@ -357,13 +357,13 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getField()
+		java.lang.String getField()
 		{
 			return OtherItem.field.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setField(@javax.annotation.Nonnull final java.lang.String field)
+		void setField(@javax.annotation.Nonnull final java.lang.String field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException

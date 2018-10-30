@@ -60,7 +60,7 @@ public final class HashItemHolder extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final HashItem getHashItem()
+	public HashItem getHashItem()
 	{
 		return HashItemHolder.hashItem.get(this);
 	}
@@ -69,7 +69,7 @@ public final class HashItemHolder extends Item
 	 * Sets a new value for {@link #hashItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setHashItem(@javax.annotation.Nonnull final HashItem hashItem)
+	public void setHashItem(@javax.annotation.Nonnull final HashItem hashItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

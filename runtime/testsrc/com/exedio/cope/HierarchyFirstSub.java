@@ -56,7 +56,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.String getFirstSubString()
+	public java.lang.String getFirstSubString()
 	{
 		return HierarchyFirstSub.firstSubString.get(this);
 	}
@@ -65,7 +65,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 * Sets a new value for {@link #firstSubString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setFirstSubString(@javax.annotation.Nullable final java.lang.String firstSubString)
+	public void setFirstSubString(@javax.annotation.Nullable final java.lang.String firstSubString)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -80,7 +80,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	public static final HierarchyFirstSub forFirstSubString(@javax.annotation.Nonnull final java.lang.String firstSubString)
+	public static HierarchyFirstSub forFirstSubString(@javax.annotation.Nonnull final java.lang.String firstSubString)
 	{
 		return HierarchyFirstSub.firstSubString.searchUnique(HierarchyFirstSub.class,firstSubString);
 	}
@@ -92,7 +92,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	public static final HierarchyFirstSub forFirstSubStringStrict(@javax.annotation.Nonnull final java.lang.String firstSubString)
+	public static HierarchyFirstSub forFirstSubStringStrict(@javax.annotation.Nonnull final java.lang.String firstSubString)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -103,7 +103,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 * Returns the value of {@link #firstSubStringUpper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final java.lang.String getFirstSubStringUpper()
+	public java.lang.String getFirstSubStringUpper()
 	{
 		return HierarchyFirstSub.firstSubStringUpper.get(this);
 	}

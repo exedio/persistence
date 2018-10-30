@@ -55,7 +55,7 @@ final class MatchItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getText()
+	java.lang.String getText()
 	{
 		return MatchItem.text.get(this);
 	}
@@ -64,7 +64,7 @@ final class MatchItem extends Item
 	 * Sets a new value for {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setText(@javax.annotation.Nullable final java.lang.String text)
+	void setText(@javax.annotation.Nullable final java.lang.String text)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

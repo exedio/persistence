@@ -55,7 +55,7 @@ final class JUnitTestItem extends Item
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getCode()
+	int getCode()
 	{
 		return JUnitTestItem.code.getMandatory(this);
 	}
@@ -64,7 +64,7 @@ final class JUnitTestItem extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCode(final int code)
+	void setCode(final int code)
 	{
 		JUnitTestItem.code.set(this,code);
 	}
@@ -73,7 +73,7 @@ final class JUnitTestItem extends Item
 	 * Returns the value of {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNext()
+	int getNext()
 	{
 		return JUnitTestItem.next.getMandatory(this);
 	}
@@ -82,7 +82,7 @@ final class JUnitTestItem extends Item
 	 * Sets a new value for {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNext(final int next)
+	void setNext(final int next)
 	{
 		JUnitTestItem.next.set(this,next);
 	}
@@ -92,7 +92,7 @@ final class JUnitTestItem extends Item
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextSequence()
+	static int nextSequence()
 	{
 		return JUnitTestItem.sequence.next();
 	}

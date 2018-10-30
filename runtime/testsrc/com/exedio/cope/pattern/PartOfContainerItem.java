@@ -90,7 +90,7 @@ public final class PartOfContainerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getContainerString()
+	java.lang.String getContainerString()
 	{
 		return PartOfContainerItem.containerString.get(this);
 	}
@@ -99,7 +99,7 @@ public final class PartOfContainerItem extends Item
 	 * Sets a new value for {@link #containerString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setContainerString(@javax.annotation.Nonnull final java.lang.String containerString)
+	void setContainerString(@javax.annotation.Nonnull final java.lang.String containerString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

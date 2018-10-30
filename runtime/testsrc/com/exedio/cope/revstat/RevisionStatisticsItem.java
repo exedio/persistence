@@ -67,7 +67,7 @@ final class RevisionStatisticsItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField()
+	java.lang.String getField()
 	{
 		return RevisionStatisticsItem.field.get(this);
 	}
@@ -76,7 +76,7 @@ final class RevisionStatisticsItem extends Item
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField(@javax.annotation.Nonnull final java.lang.String field)
+	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -88,7 +88,7 @@ final class RevisionStatisticsItem extends Item
 	 * Returns the value of {@link #num}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNum()
+	int getNum()
 	{
 		return RevisionStatisticsItem.num.getMandatory(this);
 	}
@@ -97,7 +97,7 @@ final class RevisionStatisticsItem extends Item
 	 * Sets a new value for {@link #num}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNum(final int num)
+	void setNum(final int num)
 	{
 		RevisionStatisticsItem.num.set(this,num);
 	}

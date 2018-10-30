@@ -122,7 +122,7 @@ public final class PasswordLimiterItem extends Item
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
-	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
+	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordLimiterItem.password.check(this,password);
 	}
@@ -132,7 +132,7 @@ public final class PasswordLimiterItem extends Item
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
-	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
+	static void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		PasswordLimiterItem.password.blind(password);
 	}
@@ -141,7 +141,7 @@ public final class PasswordLimiterItem extends Item
 	 * Sets a new value for {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
+	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -153,7 +153,7 @@ public final class PasswordLimiterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i8")
 	@javax.annotation.Nonnull
-	final java.lang.String getPasswordSHA512s8i8()
+	java.lang.String getPasswordSHA512s8i8()
 	{
 		return PasswordLimiterItem.password.getHash(this);
 	}
@@ -162,7 +162,7 @@ public final class PasswordLimiterItem extends Item
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i8")
-	final void setPasswordSHA512s8i8(@javax.annotation.Nonnull final java.lang.String password)
+	void setPasswordSHA512s8i8(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -184,7 +184,7 @@ public final class PasswordLimiterItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="reset")
-	final void resetPasswordLimited()
+	void resetPasswordLimited()
 	{
 		PasswordLimiterItem.passwordLimited.reset(this);
 	}
@@ -194,13 +194,13 @@ public final class PasswordLimiterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	@java.lang.Deprecated
-	static final int purgePasswordLimited(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
+	static int purgePasswordLimited(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return PasswordLimiterItem.passwordLimited.purge(interrupter);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-	static final void purgePasswordLimited(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void purgePasswordLimited(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		PasswordLimiterItem.passwordLimited.purge(ctx);
 	}

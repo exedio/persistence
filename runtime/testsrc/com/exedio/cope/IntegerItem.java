@@ -76,7 +76,7 @@ public final class IntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getAny()
+	public java.lang.Integer getAny()
 	{
 		return IntegerItem.any.get(this);
 	}
@@ -85,7 +85,7 @@ public final class IntegerItem extends Item
 	 * Sets a new value for {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setAny(@javax.annotation.Nullable final java.lang.Integer any)
+	public void setAny(@javax.annotation.Nullable final java.lang.Integer any)
 	{
 		IntegerItem.any.set(this,any);
 	}
@@ -94,7 +94,7 @@ public final class IntegerItem extends Item
 	 * Returns the value of {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final int getMandatory()
+	public int getMandatory()
 	{
 		return IntegerItem.mandatory.getMandatory(this);
 	}
@@ -103,7 +103,7 @@ public final class IntegerItem extends Item
 	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMandatory(final int mandatory)
+	public void setMandatory(final int mandatory)
 	{
 		IntegerItem.mandatory.set(this,mandatory);
 	}
@@ -113,7 +113,7 @@ public final class IntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getMin4()
+	public java.lang.Integer getMin4()
 	{
 		return IntegerItem.min4.get(this);
 	}
@@ -122,7 +122,7 @@ public final class IntegerItem extends Item
 	 * Sets a new value for {@link #min4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMin4(@javax.annotation.Nullable final java.lang.Integer min4)
+	public void setMin4(@javax.annotation.Nullable final java.lang.Integer min4)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -134,7 +134,7 @@ public final class IntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getMax4()
+	public java.lang.Integer getMax4()
 	{
 		return IntegerItem.max4.get(this);
 	}
@@ -143,7 +143,7 @@ public final class IntegerItem extends Item
 	 * Sets a new value for {@link #max4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMax4(@javax.annotation.Nullable final java.lang.Integer max4)
+	public void setMax4(@javax.annotation.Nullable final java.lang.Integer max4)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -155,7 +155,7 @@ public final class IntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getMin4Max8()
+	public java.lang.Integer getMin4Max8()
 	{
 		return IntegerItem.min4Max8.get(this);
 	}
@@ -164,7 +164,7 @@ public final class IntegerItem extends Item
 	 * Sets a new value for {@link #min4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMin4Max8(@javax.annotation.Nullable final java.lang.Integer min4Max8)
+	public void setMin4Max8(@javax.annotation.Nullable final java.lang.Integer min4Max8)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{

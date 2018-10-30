@@ -61,13 +61,13 @@ final class VarargsItem extends VarargsSuper
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	static final void simpleIntegerOnly(final java.lang.Integer integerValue)
+	static void simpleIntegerOnly(final java.lang.Integer integerValue)
 	{
 		VarargsItem.integerOnly.simple(integerValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
-	static final void moreIntegerOnlyParameters(final int integerOnly,final java.lang.Integer integerValue)
+	static void moreIntegerOnlyParameters(final int integerOnly,final java.lang.Integer integerValue)
 	{
 		VarargsItem.integerOnly.moreParameters(integerOnly,integerValue);
 	}
@@ -76,19 +76,19 @@ final class VarargsItem extends VarargsSuper
 	 * @param integerValue myDoc/{@link #integerValue}/integerValue/varargsItem/
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
-	static final VarargsItem staticIntegerOnlyToken(final java.lang.Integer integerValue)
+	static VarargsItem staticIntegerOnlyToken(final java.lang.Integer integerValue)
 	{
 		return VarargsItem.integerOnly.staticToken(VarargsItem.class,integerValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	static final void simpleIntegerAndDouble(final java.lang.Integer integerValue,final Double doubleValue)
+	static void simpleIntegerAndDouble(final java.lang.Integer integerValue,final Double doubleValue)
 	{
 		VarargsItem.integerAndDouble.simple(integerValue,doubleValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
-	static final void moreIntegerAndDoubleParameters(final int integerAndDouble,final java.lang.Integer integerValue,final Double doubleValue)
+	static void moreIntegerAndDoubleParameters(final int integerAndDouble,final java.lang.Integer integerValue,final Double doubleValue)
 	{
 		VarargsItem.integerAndDouble.moreParameters(integerAndDouble,integerValue,doubleValue);
 	}
@@ -98,19 +98,19 @@ final class VarargsItem extends VarargsSuper
 	 * @param doubleValue myDoc/{@link #doubleValue}/doubleValue/varargsItem/
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
-	static final VarargsItem staticIntegerAndDoubleToken(final java.lang.Integer integerValue,final Double doubleValue)
+	static VarargsItem staticIntegerAndDoubleToken(final java.lang.Integer integerValue,final Double doubleValue)
 	{
 		return VarargsItem.integerAndDouble.staticToken(VarargsItem.class,integerValue,doubleValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	static final void simpleIntegerMandatoryOnly(final int integerMandatoryValue)
+	static void simpleIntegerMandatoryOnly(final int integerMandatoryValue)
 	{
 		VarargsItem.integerMandatoryOnly.simple(integerMandatoryValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
-	static final void moreIntegerMandatoryOnlyParameters(final int integerMandatoryOnly,final int integerMandatoryValue)
+	static void moreIntegerMandatoryOnlyParameters(final int integerMandatoryOnly,final int integerMandatoryValue)
 	{
 		VarargsItem.integerMandatoryOnly.moreParameters(integerMandatoryOnly,integerMandatoryValue);
 	}
@@ -119,19 +119,19 @@ final class VarargsItem extends VarargsSuper
 	 * @param integerMandatoryValue myDoc/{@link #integerMandatoryValue}/integerMandatoryValue/varargsItem/
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
-	static final VarargsItem staticIntegerMandatoryOnlyToken(final int integerMandatoryValue)
+	static VarargsItem staticIntegerMandatoryOnlyToken(final int integerMandatoryValue)
 	{
 		return VarargsItem.integerMandatoryOnly.staticToken(VarargsItem.class,integerMandatoryValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	static final void simpleListOnly(final List<?> listValue)
+	static void simpleListOnly(final List<?> listValue)
 	{
 		VarargsItem.listOnly.simple(listValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
-	static final void moreListOnlyParameters(final int listOnly,final List<?> listValue)
+	static void moreListOnlyParameters(final int listOnly,final List<?> listValue)
 	{
 		VarargsItem.listOnly.moreParameters(listOnly,listValue);
 	}
@@ -140,19 +140,19 @@ final class VarargsItem extends VarargsSuper
 	 * @param listValue myDoc/{@link #listValue}/listValue/varargsItem/
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
-	static final VarargsItem staticListOnlyToken(final List<?> listValue)
+	static VarargsItem staticListOnlyToken(final List<?> listValue)
 	{
 		return VarargsItem.listOnly.staticToken(VarargsItem.class,listValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	static final void simpleOnlySuper(final java.lang.Integer superInteger)
+	static void simpleOnlySuper(final java.lang.Integer superInteger)
 	{
 		VarargsItem.onlySuper.simple(superInteger);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
-	static final void moreOnlySuperParameters(final int onlySuper,final java.lang.Integer superInteger)
+	static void moreOnlySuperParameters(final int onlySuper,final java.lang.Integer superInteger)
 	{
 		VarargsItem.onlySuper.moreParameters(onlySuper,superInteger);
 	}
@@ -161,19 +161,19 @@ final class VarargsItem extends VarargsSuper
 	 * @param superInteger myDoc/{@link #superInteger}/superInteger/varargsSuper/
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
-	static final VarargsItem staticOnlySuperToken(final java.lang.Integer superInteger)
+	static VarargsItem staticOnlySuperToken(final java.lang.Integer superInteger)
 	{
 		return VarargsItem.onlySuper.staticToken(VarargsItem.class,superInteger);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	static final void simpleSubAndSuper(final java.lang.Integer superInteger,final Double doubleValue)
+	static void simpleSubAndSuper(final java.lang.Integer superInteger,final Double doubleValue)
 	{
 		VarargsItem.subAndSuper.simple(superInteger,doubleValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
-	static final void moreSubAndSuperParameters(final int subAndSuper,final java.lang.Integer superInteger,final Double doubleValue)
+	static void moreSubAndSuperParameters(final int subAndSuper,final java.lang.Integer superInteger,final Double doubleValue)
 	{
 		VarargsItem.subAndSuper.moreParameters(subAndSuper,superInteger,doubleValue);
 	}
@@ -183,19 +183,19 @@ final class VarargsItem extends VarargsSuper
 	 * @param doubleValue myDoc/{@link #doubleValue}/doubleValue/varargsItem/
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
-	static final VarargsItem staticSubAndSuperToken(final java.lang.Integer superInteger,final Double doubleValue)
+	static VarargsItem staticSubAndSuperToken(final java.lang.Integer superInteger,final Double doubleValue)
 	{
 		return VarargsItem.subAndSuper.staticToken(VarargsItem.class,superInteger,doubleValue);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	static final void simpleOnlyLib(final java.lang.Integer libInteger)
+	static void simpleOnlyLib(final java.lang.Integer libInteger)
 	{
 		VarargsItem.onlyLib.simple(libInteger);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
-	static final void moreOnlyLibParameters(final int onlyLib,final java.lang.Integer libInteger)
+	static void moreOnlyLibParameters(final int onlyLib,final java.lang.Integer libInteger)
 	{
 		VarargsItem.onlyLib.moreParameters(onlyLib,libInteger);
 	}
@@ -204,7 +204,7 @@ final class VarargsItem extends VarargsSuper
 	 * @param libInteger myDoc/{@link #libInteger}/libInteger/varargsLib/
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
-	static final VarargsItem staticOnlyLibToken(final java.lang.Integer libInteger)
+	static VarargsItem staticOnlyLibToken(final java.lang.Integer libInteger)
 	{
 		return VarargsItem.onlyLib.staticToken(VarargsItem.class,libInteger);
 	}

@@ -87,7 +87,7 @@ public final class CompositeValue extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getAString()
+	java.lang.String getAString()
 	{
 		return get(CompositeValue.aString);
 	}
@@ -96,7 +96,7 @@ public final class CompositeValue extends Composite
 	 * Sets a new value for {@link #aString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAString(@javax.annotation.Nonnull final java.lang.String aString)
+	void setAString(@javax.annotation.Nonnull final java.lang.String aString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -108,7 +108,7 @@ public final class CompositeValue extends Composite
 	 * Returns the value of {@link #anInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getAnInt()
+	int getAnInt()
 	{
 		return getMandatory(CompositeValue.anInt);
 	}
@@ -117,7 +117,7 @@ public final class CompositeValue extends Composite
 	 * Sets a new value for {@link #anInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAnInt(final int anInt)
+	void setAnInt(final int anInt)
 	{
 		set(CompositeValue.anInt,anInt);
 	}
@@ -127,7 +127,7 @@ public final class CompositeValue extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final AnEnum getAnEnum()
+	AnEnum getAnEnum()
 	{
 		return get(CompositeValue.anEnum);
 	}
@@ -136,7 +136,7 @@ public final class CompositeValue extends Composite
 	 * Sets a new value for {@link #anEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
+	void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -148,7 +148,7 @@ public final class CompositeValue extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CompositeOptionalItem getAnItem()
+	CompositeOptionalItem getAnItem()
 	{
 		return get(CompositeValue.anItem);
 	}
@@ -157,7 +157,7 @@ public final class CompositeValue extends Composite
 	 * Sets a new value for {@link #anItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAnItem(@javax.annotation.Nonnull final CompositeOptionalItem anItem)
+	void setAnItem(@javax.annotation.Nonnull final CompositeOptionalItem anItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

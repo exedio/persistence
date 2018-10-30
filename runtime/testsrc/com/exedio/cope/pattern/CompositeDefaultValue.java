@@ -58,7 +58,7 @@ final class CompositeDefaultValue extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getNormal()
+	java.lang.String getNormal()
 	{
 		return get(CompositeDefaultValue.normal);
 	}
@@ -67,7 +67,7 @@ final class CompositeDefaultValue extends Composite
 	 * Sets a new value for {@link #normal}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNormal(@javax.annotation.Nonnull final java.lang.String normal)
+	void setNormal(@javax.annotation.Nonnull final java.lang.String normal)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -79,7 +79,7 @@ final class CompositeDefaultValue extends Composite
 	 * Returns the value of {@link #deflt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getDeflt()
+	int getDeflt()
 	{
 		return getMandatory(CompositeDefaultValue.deflt);
 	}
@@ -88,7 +88,7 @@ final class CompositeDefaultValue extends Composite
 	 * Sets a new value for {@link #deflt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDeflt(final int deflt)
+	void setDeflt(final int deflt)
 	{
 		set(CompositeDefaultValue.deflt,deflt);
 	}

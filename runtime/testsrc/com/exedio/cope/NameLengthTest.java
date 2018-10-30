@@ -205,7 +205,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final AnEnum getFieldLong()
+	AnEnum getFieldLong()
 	{
 		return AnItem.fieldLong.get(this);
 	}
@@ -217,7 +217,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
+	static AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
 	{
 		return AnItem.fieldLong.searchUnique(AnItem.class,fieldLong);
 	}
@@ -229,7 +229,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final AnItem forFieldLongStrict(@javax.annotation.Nonnull final AnEnum fieldLong)
+	static AnItem forFieldLongStrict(@javax.annotation.Nonnull final AnEnum fieldLong)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -241,7 +241,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final AnEnum getFieldShort()
+	AnEnum getFieldShort()
 	{
 		return AnItem.fieldShort.get(this);
 	}
@@ -253,7 +253,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
+	static AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
 	{
 		return AnItem.fieldShort.searchUnique(AnItem.class,fieldShort);
 	}
@@ -265,7 +265,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final AnItem forFieldShortStrict(@javax.annotation.Nonnull final AnEnum fieldShort)
+	static AnItem forFieldShortStrict(@javax.annotation.Nonnull final AnEnum fieldShort)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -277,7 +277,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final AnItem getForeignLong()
+	AnItem getForeignLong()
 	{
 		return AnItem.foreignLong.get(this);
 	}
@@ -287,7 +287,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final AnItem getForeignShort()
+	AnItem getForeignShort()
 	{
 		return AnItem.foreignShort.get(this);
 	}
@@ -297,7 +297,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextSequenceLong()
+	static int nextSequenceLong()
 	{
 		return AnItem.sequenceLong.next();
 	}
@@ -307,7 +307,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextSequenceShort()
+	static int nextSequenceShort()
 	{
 		return AnItem.sequenceShort.next();
 	}
@@ -316,7 +316,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 * Returns the value of {@link #nextLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNextLong()
+	int getNextLong()
 	{
 		return AnItem.nextLong.getMandatory(this);
 	}
@@ -325,7 +325,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 * Returns the value of {@link #nextShort}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNextShort()
+	int getNextShort()
 	{
 		return AnItem.nextShort.getMandatory(this);
 	}

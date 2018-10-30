@@ -65,7 +65,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getSubField()
+	java.lang.String getSubField()
 	{
 		return UniqueHierarchySubItem.subField.get(this);
 	}
@@ -74,7 +74,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 * Sets a new value for {@link #subField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSubField(@javax.annotation.Nonnull final java.lang.String subField)
+	void setSubField(@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -90,7 +90,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final UniqueHierarchySubItem forSubField(@javax.annotation.Nonnull final java.lang.String subField)
+	static UniqueHierarchySubItem forSubField(@javax.annotation.Nonnull final java.lang.String subField)
 	{
 		return UniqueHierarchySubItem.subField.searchUnique(UniqueHierarchySubItem.class,subField);
 	}
@@ -102,7 +102,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final UniqueHierarchySubItem forSubFieldStrict(@javax.annotation.Nonnull final java.lang.String subField)
+	static UniqueHierarchySubItem forSubFieldStrict(@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				java.lang.IllegalArgumentException
 	{

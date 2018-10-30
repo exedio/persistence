@@ -221,13 +221,13 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final Target getTargetA()
+		Target getTargetA()
 		{
 			return Source.targetA.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setTargetA(@javax.annotation.Nonnull final Target targetA)
+		void setTargetA(@javax.annotation.Nonnull final Target targetA)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
@@ -236,13 +236,13 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final Target getTargetB()
+		Target getTargetB()
 		{
 			return Source.targetB.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setTargetB(@javax.annotation.Nonnull final Target targetB)
+		void setTargetB(@javax.annotation.Nonnull final Target targetB)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
@@ -250,7 +250,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final int getCopy()
+		int getCopy()
 		{
 			return Source.copy.getMandatory(this);
 		}
@@ -286,7 +286,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final int getCopy()
+		int getCopy()
 		{
 			return Target.copy.getMandatory(this);
 		}

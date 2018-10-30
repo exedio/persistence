@@ -83,7 +83,7 @@ final class CheckConstraintConditionItem extends Item
 	 * Returns the value of {@link #integer1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getInteger1()
+	int getInteger1()
 	{
 		return CheckConstraintConditionItem.integer1.getMandatory(this);
 	}
@@ -92,7 +92,7 @@ final class CheckConstraintConditionItem extends Item
 	 * Sets a new value for {@link #integer1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger1(final int integer1)
+	void setInteger1(final int integer1)
 	{
 		CheckConstraintConditionItem.integer1.set(this,integer1);
 	}
@@ -101,7 +101,7 @@ final class CheckConstraintConditionItem extends Item
 	 * Returns the value of {@link #integer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getInteger2()
+	int getInteger2()
 	{
 		return CheckConstraintConditionItem.integer2.getMandatory(this);
 	}
@@ -110,7 +110,7 @@ final class CheckConstraintConditionItem extends Item
 	 * Sets a new value for {@link #integer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger2(final int integer2)
+	void setInteger2(final int integer2)
 	{
 		CheckConstraintConditionItem.integer2.set(this,integer2);
 	}
@@ -120,7 +120,7 @@ final class CheckConstraintConditionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CheckConstraintConditionItemTarget getItem()
+	CheckConstraintConditionItemTarget getItem()
 	{
 		return CheckConstraintConditionItem.item.get(this);
 	}
@@ -129,7 +129,7 @@ final class CheckConstraintConditionItem extends Item
 	 * Sets a new value for {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItem(@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
+	void setItem(@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

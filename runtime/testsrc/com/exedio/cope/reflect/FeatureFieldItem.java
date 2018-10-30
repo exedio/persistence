@@ -76,7 +76,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getInteger1()
+	java.lang.Integer getInteger1()
 	{
 		return FeatureFieldItem.integer1.get(this);
 	}
@@ -85,7 +85,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #integer1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger1(@javax.annotation.Nullable final java.lang.Integer integer1)
+	void setInteger1(@javax.annotation.Nullable final java.lang.Integer integer1)
 	{
 		FeatureFieldItem.integer1.set(this,integer1);
 	}
@@ -95,7 +95,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getInteger2()
+	java.lang.Integer getInteger2()
 	{
 		return FeatureFieldItem.integer2.get(this);
 	}
@@ -104,7 +104,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #integer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger2(@javax.annotation.Nullable final java.lang.Integer integer2)
+	void setInteger2(@javax.annotation.Nullable final java.lang.Integer integer2)
 	{
 		FeatureFieldItem.integer2.set(this,integer2);
 	}
@@ -114,7 +114,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getInteger3()
+	java.lang.Integer getInteger3()
 	{
 		return FeatureFieldItem.integer3.get(this);
 	}
@@ -123,7 +123,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #integer3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger3(@javax.annotation.Nullable final java.lang.Integer integer3)
+	void setInteger3(@javax.annotation.Nullable final java.lang.Integer integer3)
 	{
 		FeatureFieldItem.integer3.set(this,integer3);
 	}
@@ -133,7 +133,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getString1()
+	java.lang.String getString1()
 	{
 		return FeatureFieldItem.string1.get(this);
 	}
@@ -142,7 +142,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #string1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setString1(@javax.annotation.Nullable final java.lang.String string1)
+	void setString1(@javax.annotation.Nullable final java.lang.String string1)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -154,7 +154,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getString2()
+	java.lang.String getString2()
 	{
 		return FeatureFieldItem.string2.get(this);
 	}
@@ -163,7 +163,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #string2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setString2(@javax.annotation.Nullable final java.lang.String string2)
+	void setString2(@javax.annotation.Nullable final java.lang.String string2)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -175,7 +175,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getString3()
+	java.lang.String getString3()
 	{
 		return FeatureFieldItem.string3.get(this);
 	}
@@ -184,7 +184,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #string3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setString3(@javax.annotation.Nullable final java.lang.String string3)
+	void setString3(@javax.annotation.Nullable final java.lang.String string3)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -196,7 +196,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final Feature getStandard()
+	Feature getStandard()
 	{
 		return FeatureFieldItem.standard.get(this);
 	}
@@ -205,7 +205,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #standard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStandard(@javax.annotation.Nonnull final Feature standard)
+	void setStandard(@javax.annotation.Nonnull final Feature standard)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -218,7 +218,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final Feature getIsFinal()
+	Feature getIsFinal()
 	{
 		return FeatureFieldItem.isFinal.get(this);
 	}
@@ -228,7 +228,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Feature getOptional()
+	Feature getOptional()
 	{
 		return FeatureFieldItem.optional.get(this);
 	}
@@ -237,7 +237,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOptional(@javax.annotation.Nullable final Feature optional)
+	void setOptional(@javax.annotation.Nullable final Feature optional)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -249,7 +249,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Feature getUnique()
+	Feature getUnique()
 	{
 		return FeatureFieldItem.unique.get(this);
 	}
@@ -258,7 +258,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUnique(@javax.annotation.Nullable final Feature unique)
+	void setUnique(@javax.annotation.Nullable final Feature unique)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -273,7 +273,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final FeatureFieldItem forUnique(@javax.annotation.Nonnull final Feature unique)
+	static FeatureFieldItem forUnique(@javax.annotation.Nonnull final Feature unique)
 	{
 		return FeatureFieldItem.unique.searchUnique(FeatureFieldItem.class,unique);
 	}
@@ -283,7 +283,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Feature getRenamed()
+	Feature getRenamed()
 	{
 		return FeatureFieldItem.renamed.get(this);
 	}
@@ -292,7 +292,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #renamed}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRenamed(@javax.annotation.Nullable final Feature renamed)
+	void setRenamed(@javax.annotation.Nullable final Feature renamed)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -304,7 +304,7 @@ public final class FeatureFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final StringField getRestricted()
+	StringField getRestricted()
 	{
 		return FeatureFieldItem.restricted.get(this);
 	}
@@ -313,7 +313,7 @@ public final class FeatureFieldItem extends Item
 	 * Sets a new value for {@link #restricted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRestricted(@javax.annotation.Nullable final StringField restricted)
+	void setRestricted(@javax.annotation.Nullable final StringField restricted)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

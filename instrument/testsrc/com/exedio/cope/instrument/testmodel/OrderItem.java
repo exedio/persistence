@@ -45,37 +45,37 @@ public final class OrderItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="super10")
-	static final void super10Feature()
+	static void super10Feature()
 	{
 		OrderItem.feature.super10();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="super20")
-	static final void super20Feature()
+	static void super20Feature()
 	{
 		OrderItem.feature.super20();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="super30")
-	static final void super30Feature()
+	static void super30Feature()
 	{
 		OrderItem.feature.super30();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="sub10")
-	static final void sub10Feature()
+	static void sub10Feature()
 	{
 		OrderItem.feature.sub10();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="sub20")
-	static final void sub20Feature()
+	static void sub20Feature()
 	{
 		OrderItem.feature.sub20();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="sub30")
-	static final void sub30Feature()
+	static void sub30Feature()
 	{
 		OrderItem.feature.sub30();
 	}

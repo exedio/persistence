@@ -158,7 +158,7 @@ public class DateRangeTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		final java.util.Date getField()
+		java.util.Date getField()
 		{
 			return MyItem.field.get(this);
 		}
@@ -167,7 +167,7 @@ public class DateRangeTest extends TestWithEnvironment
 		 * Sets a new value for {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setField(@javax.annotation.Nullable final java.util.Date field)
+		void setField(@javax.annotation.Nullable final java.util.Date field)
 		{
 			MyItem.field.set(this,field);
 		}
@@ -176,7 +176,7 @@ public class DateRangeTest extends TestWithEnvironment
 		 * Sets the current date for the date field {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-		final void touchField()
+		void touchField()
 		{
 			MyItem.field.touch(this);
 		}

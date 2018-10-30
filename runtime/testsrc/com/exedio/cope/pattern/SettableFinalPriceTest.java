@@ -90,7 +90,7 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Price getIsfinal()
+	com.exedio.cope.pattern.Price getIsfinal()
 	{
 		return AnItem.isfinal.get(this);
 	}

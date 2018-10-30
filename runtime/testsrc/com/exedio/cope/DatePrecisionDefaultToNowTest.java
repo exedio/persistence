@@ -212,7 +212,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Date getPast()
+	java.util.Date getPast()
 	{
 		return AnItem.past.get(this);
 	}
@@ -221,7 +221,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #past}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setPast(@javax.annotation.Nonnull final java.util.Date past)
+	void setPast(@javax.annotation.Nonnull final java.util.Date past)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -233,7 +233,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #past}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setPastRounded(@javax.annotation.Nonnull final java.util.Date past)
+	void setPastRounded(@javax.annotation.Nonnull final java.util.Date past)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -244,7 +244,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #past}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setPastRounded(@javax.annotation.Nonnull final java.util.Date past,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
+	void setPastRounded(@javax.annotation.Nonnull final java.util.Date past,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -256,7 +256,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets the current date for the date field {@link #past}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchPast()
+	void touchPast()
 	{
 		AnItem.past.touch(this);
 	}
@@ -266,7 +266,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Date getFuture()
+	java.util.Date getFuture()
 	{
 		return AnItem.future.get(this);
 	}
@@ -275,7 +275,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #future}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFuture(@javax.annotation.Nonnull final java.util.Date future)
+	void setFuture(@javax.annotation.Nonnull final java.util.Date future)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -287,7 +287,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #future}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future)
+	void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -298,7 +298,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #future}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
+	void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.DatePrecisionViolationException
@@ -310,7 +310,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets the current date for the date field {@link #future}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchFuture()
+	void touchFuture()
 	{
 		AnItem.future.touch(this);
 	}
@@ -320,7 +320,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getNone()
+	java.util.Date getNone()
 	{
 		return AnItem.none.get(this);
 	}
@@ -329,7 +329,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNone(@javax.annotation.Nullable final java.util.Date none)
+	void setNone(@javax.annotation.Nullable final java.util.Date none)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{
@@ -340,7 +340,7 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	 * Sets a new value for {@link #none}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setNoneRounded(@javax.annotation.Nullable final java.util.Date none,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
+	void setNoneRounded(@javax.annotation.Nullable final java.util.Date none,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{

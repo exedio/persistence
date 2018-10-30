@@ -55,7 +55,7 @@ public final class SingletonItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getInteger()
+	java.lang.Integer getInteger()
 	{
 		return SingletonItem.integer.get(this);
 	}
@@ -64,7 +64,7 @@ public final class SingletonItem extends Item
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
+	void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		SingletonItem.integer.set(this,integer);
 	}
@@ -73,7 +73,7 @@ public final class SingletonItem extends Item
 	 * Returns the value of {@link #integer55}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getInteger55()
+	int getInteger55()
 	{
 		return SingletonItem.integer55.getMandatory(this);
 	}
@@ -82,7 +82,7 @@ public final class SingletonItem extends Item
 	 * Sets a new value for {@link #integer55}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger55(final int integer55)
+	void setInteger55(final int integer55)
 	{
 		SingletonItem.integer55.set(this,integer55);
 	}
@@ -91,7 +91,7 @@ public final class SingletonItem extends Item
 	 * Returns the value of {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getBooleanField()
+	boolean getBooleanField()
 	{
 		return SingletonItem.booleanField.getMandatory(this);
 	}
@@ -100,7 +100,7 @@ public final class SingletonItem extends Item
 	 * Sets a new value for {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBooleanField(final boolean booleanField)
+	void setBooleanField(final boolean booleanField)
 	{
 		SingletonItem.booleanField.set(this,booleanField);
 	}
@@ -112,7 +112,7 @@ public final class SingletonItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="instance")
 	@javax.annotation.Nonnull
-	static final SingletonItem instance()
+	static SingletonItem instance()
 	{
 		return SingletonItem.einzigartig.instance(SingletonItem.class);
 	}

@@ -60,7 +60,7 @@ public final class LimitedListFieldItemFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final LimitedListFieldItem getLimitedListFieldItem()
+	LimitedListFieldItem getLimitedListFieldItem()
 	{
 		return LimitedListFieldItemFieldItem.limitedListFieldItem.get(this);
 	}
@@ -69,7 +69,7 @@ public final class LimitedListFieldItemFieldItem extends Item
 	 * Sets a new value for {@link #limitedListFieldItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setLimitedListFieldItem(@javax.annotation.Nonnull final LimitedListFieldItem limitedListFieldItem)
+	void setLimitedListFieldItem(@javax.annotation.Nonnull final LimitedListFieldItem limitedListFieldItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

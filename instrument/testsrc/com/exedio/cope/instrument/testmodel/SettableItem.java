@@ -120,25 +120,25 @@ final class SettableItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final AtomicInteger methodOpen(final AtomicInteger open)
+	static AtomicInteger methodOpen(final AtomicInteger open)
 	{
 		return SettableItem.open.method(open);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final AtomicReference<AtomicLong> methodOpenParam(final AtomicReference<AtomicLong> openParam)
+	static AtomicReference<AtomicLong> methodOpenParam(final AtomicReference<AtomicLong> openParam)
 	{
 		return SettableItem.openParam.method(openParam);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final AtomicReference<?> methodOpenParamWildcard(final AtomicReference<?> openParamWildcard)
+	static AtomicReference<?> methodOpenParamWildcard(final AtomicReference<?> openParamWildcard)
 	{
 		return SettableItem.openParamWildcard.method(openParamWildcard);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final AtomicReference<? extends AtomicLong> methodOpenParamBound(final AtomicReference<? extends AtomicLong> openParamBound)
+	static AtomicReference<? extends AtomicLong> methodOpenParamBound(final AtomicReference<? extends AtomicLong> openParamBound)
 	{
 		return SettableItem.openParamBound.method(openParamBound);
 	}

@@ -56,7 +56,7 @@ final class CompositeDefaultItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CompositeDefaultValue getField()
+	CompositeDefaultValue getField()
 	{
 		return CompositeDefaultItem.field.get(this);
 	}
@@ -65,7 +65,7 @@ final class CompositeDefaultItem extends Item
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField(@javax.annotation.Nullable final CompositeDefaultValue field)
+	void setField(@javax.annotation.Nullable final CompositeDefaultValue field)
 	{
 		CompositeDefaultItem.field.set(this,field);
 	}

@@ -77,7 +77,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final PartOfContainerItem getContainer()
+	PartOfContainerItem getContainer()
 	{
 		return PartOfItem.container.get(this);
 	}
@@ -86,7 +86,7 @@ public final class PartOfItem extends Item
 	 * Returns the value of {@link #order}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getOrder()
+	int getOrder()
 	{
 		return PartOfItem.order.getMandatory(this);
 	}
@@ -95,7 +95,7 @@ public final class PartOfItem extends Item
 	 * Sets a new value for {@link #order}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOrder(final int order)
+	void setOrder(final int order)
 	{
 		PartOfItem.order.set(this,order);
 	}
@@ -105,7 +105,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
 	@javax.annotation.Nonnull
-	final PartOfContainerItem getUnorderedContainer()
+	PartOfContainerItem getUnorderedContainer()
 	{
 		return PartOfItem.unordered.getContainer(this);
 	}
@@ -115,7 +115,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
 	@javax.annotation.Nonnull
-	static final java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
+	static java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
 		return PartOfItem.unordered.getParts(PartOfItem.class,container);
 	}
@@ -125,7 +125,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
 	@javax.annotation.Nonnull
-	static final java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
+	static java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfItem.unordered.getParts(PartOfItem.class,container,condition);
 	}
@@ -135,7 +135,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
 	@javax.annotation.Nonnull
-	final PartOfContainerItem getOrderedContainer()
+	PartOfContainerItem getOrderedContainer()
 	{
 		return PartOfItem.ordered.getContainer(this);
 	}
@@ -145,7 +145,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
 	@javax.annotation.Nonnull
-	static final java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
+	static java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
 		return PartOfItem.ordered.getParts(PartOfItem.class,container);
 	}
@@ -155,7 +155,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
 	@javax.annotation.Nonnull
-	static final java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
+	static java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfItem.ordered.getParts(PartOfItem.class,container,condition);
 	}
@@ -165,7 +165,7 @@ public final class PartOfItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getPartString()
+	java.lang.String getPartString()
 	{
 		return PartOfItem.partString.get(this);
 	}
@@ -174,7 +174,7 @@ public final class PartOfItem extends Item
 	 * Sets a new value for {@link #partString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setPartString(@javax.annotation.Nonnull final java.lang.String partString)
+	void setPartString(@javax.annotation.Nonnull final java.lang.String partString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -186,7 +186,7 @@ public final class PartOfItem extends Item
 	 * Returns the value of {@link #partInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getPartInteger()
+	int getPartInteger()
 	{
 		return PartOfItem.partInteger.getMandatory(this);
 	}
@@ -195,7 +195,7 @@ public final class PartOfItem extends Item
 	 * Sets a new value for {@link #partInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setPartInteger(final int partInteger)
+	void setPartInteger(final int partInteger)
 	{
 		PartOfItem.partInteger.set(this,partInteger);
 	}

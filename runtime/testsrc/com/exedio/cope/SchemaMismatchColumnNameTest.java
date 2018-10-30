@@ -143,7 +143,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	 * Returns the value of {@link #fieldA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getFieldA()
+	boolean getFieldA()
 	{
 		return ItemA.fieldA.getMandatory(this);
 	}
@@ -196,7 +196,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 	 * Returns the value of {@link #fieldB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getFieldB()
+	boolean getFieldB()
 	{
 		return ItemB.fieldB.getMandatory(this);
 	}

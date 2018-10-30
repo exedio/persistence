@@ -110,14 +110,14 @@ public class EnumSetFieldFinalTest
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="contains")
-	final boolean containsField(@javax.annotation.Nonnull final AnEnum element)
+	boolean containsField(@javax.annotation.Nonnull final AnEnum element)
 	{
 		return AnItem.field.contains(this,element);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.EnumSet<AnEnum> getField()
+	java.util.EnumSet<AnEnum> getField()
 	{
 		return AnItem.field.get(this);
 	}

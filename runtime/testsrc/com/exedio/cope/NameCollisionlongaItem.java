@@ -78,7 +78,7 @@ final class NameCollisionlongaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return NameCollisionlongaItem.code.get(this);
 	}
@@ -87,7 +87,7 @@ final class NameCollisionlongaItem extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCode(@javax.annotation.Nonnull final java.lang.String code)
+	void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -103,7 +103,7 @@ final class NameCollisionlongaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final NameCollisionlongaItem forCode(@javax.annotation.Nonnull final java.lang.String code)
+	static NameCollisionlongaItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return NameCollisionlongaItem.code.searchUnique(NameCollisionlongaItem.class,code);
 	}
@@ -115,7 +115,7 @@ final class NameCollisionlongaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final NameCollisionlongaItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+	static NameCollisionlongaItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -127,7 +127,7 @@ final class NameCollisionlongaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber()
+	java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber()
 	{
 		return NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.get(this);
 	}
@@ -136,7 +136,7 @@ final class NameCollisionlongaItem extends Item
 	 * Sets a new value for {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber)
+	void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber)
 	{
 		NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber);
 	}
@@ -146,7 +146,7 @@ final class NameCollisionlongaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber()
+	java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber()
 	{
 		return NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.get(this);
 	}
@@ -155,7 +155,7 @@ final class NameCollisionlongaItem extends Item
 	 * Sets a new value for {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber)
+	void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber)
 	{
 		NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber);
 	}

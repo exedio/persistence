@@ -175,7 +175,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Returns the value of {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getIntField()
+	int getIntField()
 	{
 		return Type01C.intField.getMandatory(this);
 	}
@@ -184,7 +184,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Sets a new value for {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntField(final int intField)
+	void setIntField(final int intField)
 	{
 		Type01C.intField.set(this,intField);
 	}
@@ -277,7 +277,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Returns the value of {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getIntField()
+	int getIntField()
 	{
 		return Type021C.intField.getMandatory(this);
 	}
@@ -286,7 +286,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Sets a new value for {@link #intField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntField(final int intField)
+	void setIntField(final int intField)
 	{
 		Type021C.intField.set(this,intField);
 	}
@@ -346,7 +346,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final Type0A getRef0A()
+	Type0A getRef0A()
 	{
 		return TypeRef.ref0A.get(this);
 	}
@@ -355,7 +355,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Sets a new value for {@link #ref0A}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRef0A(@javax.annotation.Nonnull final Type0A ref0A)
+	void setRef0A(@javax.annotation.Nonnull final Type0A ref0A)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -367,7 +367,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Type01C getRef01C()
+	Type01C getRef01C()
 	{
 		return TypeRef.ref01C.get(this);
 	}
@@ -376,7 +376,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Sets a new value for {@link #ref01C}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRef01C(@javax.annotation.Nullable final Type01C ref01C)
+	void setRef01C(@javax.annotation.Nullable final Type01C ref01C)
 	{
 		TypeRef.ref01C.set(this,ref01C);
 	}
@@ -386,7 +386,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Type02A getRef02A()
+	Type02A getRef02A()
 	{
 		return TypeRef.ref02A.get(this);
 	}
@@ -395,7 +395,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Sets a new value for {@link #ref02A}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRef02A(@javax.annotation.Nullable final Type02A ref02A)
+	void setRef02A(@javax.annotation.Nullable final Type02A ref02A)
 	{
 		TypeRef.ref02A.set(this,ref02A);
 	}
@@ -405,7 +405,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Type021C getRef021C()
+	Type021C getRef021C()
 	{
 		return TypeRef.ref021C.get(this);
 	}
@@ -414,7 +414,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Sets a new value for {@link #ref021C}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRef021C(@javax.annotation.Nullable final Type021C ref021C)
+	void setRef021C(@javax.annotation.Nullable final Type021C ref021C)
 	{
 		TypeRef.ref021C.set(this,ref021C);
 	}

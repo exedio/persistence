@@ -50,7 +50,7 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getMillis()
+	java.util.Date getMillis()
 	{
 		return DatePrecisionItem.millis.get(this);
 	}
@@ -59,7 +59,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets a new value for {@link #millis}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMillis(@javax.annotation.Nullable final java.util.Date millis)
+	void setMillis(@javax.annotation.Nullable final java.util.Date millis)
 	{
 		DatePrecisionItem.millis.set(this,millis);
 	}
@@ -68,7 +68,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets the current date for the date field {@link #millis}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchMillis()
+	void touchMillis()
 	{
 		DatePrecisionItem.millis.touch(this);
 	}
@@ -78,7 +78,7 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getSeconds()
+	java.util.Date getSeconds()
 	{
 		return DatePrecisionItem.seconds.get(this);
 	}
@@ -87,7 +87,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets a new value for {@link #seconds}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSeconds(@javax.annotation.Nullable final java.util.Date seconds)
+	void setSeconds(@javax.annotation.Nullable final java.util.Date seconds)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{
@@ -98,7 +98,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets a new value for {@link #seconds}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setSecondsRounded(@javax.annotation.Nullable final java.util.Date seconds,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
+	void setSecondsRounded(@javax.annotation.Nullable final java.util.Date seconds,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{
@@ -110,7 +110,7 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getMinutes()
+	java.util.Date getMinutes()
 	{
 		return DatePrecisionItem.minutes.get(this);
 	}
@@ -119,7 +119,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets a new value for {@link #minutes}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMinutes(@javax.annotation.Nullable final java.util.Date minutes)
+	void setMinutes(@javax.annotation.Nullable final java.util.Date minutes)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{
@@ -130,7 +130,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets a new value for {@link #minutes}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setMinutesRounded(@javax.annotation.Nullable final java.util.Date minutes,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
+	void setMinutesRounded(@javax.annotation.Nullable final java.util.Date minutes,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{
@@ -142,7 +142,7 @@ public final class DatePrecisionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getHours()
+	java.util.Date getHours()
 	{
 		return DatePrecisionItem.hours.get(this);
 	}
@@ -151,7 +151,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets a new value for {@link #hours}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setHours(@javax.annotation.Nullable final java.util.Date hours)
+	void setHours(@javax.annotation.Nullable final java.util.Date hours)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{
@@ -162,7 +162,7 @@ public final class DatePrecisionItem extends Item
 	 * Sets a new value for {@link #hours}, but rounds it before according to the precision of the field.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
-	final void setHoursRounded(@javax.annotation.Nullable final java.util.Date hours,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
+	void setHoursRounded(@javax.annotation.Nullable final java.util.Date hours,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
 	{

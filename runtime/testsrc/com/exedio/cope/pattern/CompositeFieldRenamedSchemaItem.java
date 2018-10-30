@@ -61,7 +61,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CompositeFieldRenamedSchemaComposite getVirgnComp()
+	CompositeFieldRenamedSchemaComposite getVirgnComp()
 	{
 		return CompositeFieldRenamedSchemaItem.virgnComp.get(this);
 	}
@@ -70,7 +70,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 * Sets a new value for {@link #virgnComp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setVirgnComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite virgnComp)
+	void setVirgnComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite virgnComp)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -82,7 +82,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CompositeFieldRenamedSchemaComposite getWrongComp()
+	CompositeFieldRenamedSchemaComposite getWrongComp()
 	{
 		return CompositeFieldRenamedSchemaItem.wrongComp.get(this);
 	}
@@ -91,7 +91,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 * Sets a new value for {@link #wrongComp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setWrongComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite wrongComp)
+	void setWrongComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite wrongComp)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

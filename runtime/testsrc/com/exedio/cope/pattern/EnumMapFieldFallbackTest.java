@@ -177,7 +177,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getText(@javax.annotation.Nonnull final AnEnum k)
+	String getText(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.text.get(this,k);
 	}
@@ -187,7 +187,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
 	@javax.annotation.Nullable
-	final String getTextWithFallback(@javax.annotation.Nonnull final AnEnum k)
+	String getTextWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.text.getWithFallback(this,k);
 	}
@@ -196,27 +196,27 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	 * Associates <tt>k</tt> to a new value in the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setText(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String text)
+	void setText(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String text)
 	{
 		AnItem.text.set(this,k,text);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getTextMap()
+	java.util.Map<AnEnum,String> getTextMap()
 	{
 		return AnItem.text.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getTextMapWithFallback()
+	java.util.Map<AnEnum,String> getTextMapWithFallback()
 	{
 		return AnItem.text.getMapWithFallback(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> text)
+	void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> text)
 	{
 		AnItem.text.setMap(this,text);
 	}

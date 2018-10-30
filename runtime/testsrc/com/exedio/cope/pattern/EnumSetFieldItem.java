@@ -70,32 +70,32 @@ public final class EnumSetFieldItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="contains")
-	final boolean containsActiveLanguage(@javax.annotation.Nonnull final Language element)
+	boolean containsActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		return EnumSetFieldItem.activeLanguage.contains(this,element);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="add")
-	final void addActiveLanguage(@javax.annotation.Nonnull final Language element)
+	void addActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.add(this,element);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="remove")
-	final void removeActiveLanguage(@javax.annotation.Nonnull final Language element)
+	void removeActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.remove(this,element);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.EnumSet<Language> getActiveLanguage()
+	java.util.EnumSet<Language> getActiveLanguage()
 	{
 		return EnumSetFieldItem.activeLanguage.get(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setActiveLanguage(@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
+	void setActiveLanguage(@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
 	{
 		EnumSetFieldItem.activeLanguage.set(this,activeLanguage);
 	}

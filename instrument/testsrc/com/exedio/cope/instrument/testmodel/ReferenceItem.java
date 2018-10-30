@@ -46,19 +46,19 @@ final class ReferenceItem extends ReferenceSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final void methodSubTarget(final int subTarget)
+	static void methodSubTarget(final int subTarget)
 	{
 		ReferenceItem.subTarget.method(subTarget);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final void methodSubSource(final int subSource)
+	static void methodSubSource(final int subSource)
 	{
 		ReferenceItem.subSource.method(subSource);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final void methodCrossSource(final int crossSource)
+	static void methodCrossSource(final int crossSource)
 	{
 		ReferenceItem.crossSource.method(crossSource);
 	}

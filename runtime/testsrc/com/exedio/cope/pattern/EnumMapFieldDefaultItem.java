@@ -55,7 +55,7 @@ public final class EnumMapFieldDefaultItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
+	String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
 	{
 		return EnumMapFieldDefaultItem.text.get(this,k);
 	}
@@ -64,20 +64,20 @@ public final class EnumMapFieldDefaultItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k,@javax.annotation.Nonnull final String text)
+	void setText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k,@javax.annotation.Nonnull final String text)
 	{
 		EnumMapFieldDefaultItem.text.set(this,k,text);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
+	java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
 	{
 		return EnumMapFieldDefaultItem.text.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
+	void setTextMap(@javax.annotation.Nonnull final java.util.Map<? extends EnumMapFieldItem.Language,? extends String> text)
 	{
 		EnumMapFieldDefaultItem.text.setMap(this,text);
 	}

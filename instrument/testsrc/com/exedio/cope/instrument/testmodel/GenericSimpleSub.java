@@ -50,13 +50,13 @@ public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final GenericSimpleSub methodFromSub()
+	static GenericSimpleSub methodFromSub()
 	{
 		return GenericSimpleSub.fromSub.method(GenericSimpleSub.class);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
-	static final java.util.List<GenericSimpleSub> methodFromSubNested()
+	static java.util.List<GenericSimpleSub> methodFromSubNested()
 	{
 		return GenericSimpleSub.fromSub.methodNested(GenericSimpleSub.class);
 	}

@@ -80,7 +80,7 @@ public final class MediaMandatoryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getName()
+	java.lang.String getName()
 	{
 		return MediaMandatoryItem.name.get(this);
 	}
@@ -89,7 +89,7 @@ public final class MediaMandatoryItem extends Item
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setName(@javax.annotation.Nullable final java.lang.String name)
+	void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -101,7 +101,7 @@ public final class MediaMandatoryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaMandatoryItem.file.getLocator(this);
 	}
@@ -111,7 +111,7 @@ public final class MediaMandatoryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nonnull
-	final java.lang.String getFileContentType()
+	java.lang.String getFileContentType()
 	{
 		return MediaMandatoryItem.file.getContentType(this);
 	}
@@ -121,7 +121,7 @@ public final class MediaMandatoryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
 	@javax.annotation.Nonnull
-	final java.util.Date getFileLastModified()
+	java.util.Date getFileLastModified()
 	{
 		return MediaMandatoryItem.file.getLastModified(this);
 	}
@@ -130,7 +130,7 @@ public final class MediaMandatoryItem extends Item
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	final long getFileLength()
+	long getFileLength()
 	{
 		return MediaMandatoryItem.file.getLength(this);
 	}
@@ -140,7 +140,7 @@ public final class MediaMandatoryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	@javax.annotation.Nonnull
-	final byte[] getFileBody()
+	byte[] getFileBody()
 	{
 		return MediaMandatoryItem.file.getBody(this);
 	}
@@ -151,7 +151,7 @@ public final class MediaMandatoryItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+	void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -164,7 +164,7 @@ public final class MediaMandatoryItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getFileBody(@javax.annotation.Nonnull final java.io.File body)
+	void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -176,7 +176,7 @@ public final class MediaMandatoryItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFile(@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value file)
+	void setFile(@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value file)
 			throws
 				java.io.IOException
 	{
@@ -187,7 +187,7 @@ public final class MediaMandatoryItem extends Item
 	 * Sets the content of media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFile(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
+	void setFile(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		MediaMandatoryItem.file.set(this,body,contentType);
 	}
@@ -197,7 +197,7 @@ public final class MediaMandatoryItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFile(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
+	void setFile(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -209,7 +209,7 @@ public final class MediaMandatoryItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFile(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
+	void setFile(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -221,7 +221,7 @@ public final class MediaMandatoryItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFile(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
+	void setFile(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

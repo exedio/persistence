@@ -83,7 +83,7 @@ public final class Sub extends Super
 	 * Returns the value of {@link #subMandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final boolean getSubMandatory()
+	public boolean getSubMandatory()
 	{
 		return Sub.subMandatory.getMandatory(this);
 	}
@@ -92,7 +92,7 @@ public final class Sub extends Super
 	 * Sets a new value for {@link #subMandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSubMandatory(final boolean subMandatory)
+	public void setSubMandatory(final boolean subMandatory)
 	{
 		Sub.subMandatory.set(this,subMandatory);
 	}
@@ -102,7 +102,7 @@ public final class Sub extends Super
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getSubInitial()
+	public java.lang.Long getSubInitial()
 	{
 		return Sub.subInitial.get(this);
 	}
@@ -111,7 +111,7 @@ public final class Sub extends Super
 	 * Sets a new value for {@link #subInitial}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSubInitial(@javax.annotation.Nullable final java.lang.Long subInitial)
+	public void setSubInitial(@javax.annotation.Nullable final java.lang.Long subInitial)
 	{
 		Sub.subInitial.set(this,subInitial);
 	}
@@ -121,7 +121,7 @@ public final class Sub extends Super
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getSubInitialAnnotated()
+	public java.lang.Double getSubInitialAnnotated()
 	{
 		return Sub.subInitialAnnotated.get(this);
 	}
@@ -130,7 +130,7 @@ public final class Sub extends Super
 	 * Sets a new value for {@link #subInitialAnnotated}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSubInitialAnnotated(@javax.annotation.Nullable final java.lang.Double subInitialAnnotated)
+	public void setSubInitialAnnotated(@javax.annotation.Nullable final java.lang.Double subInitialAnnotated)
 	{
 		Sub.subInitialAnnotated.set(this,subInitialAnnotated);
 	}
@@ -140,7 +140,7 @@ public final class Sub extends Super
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.util.Date getSubNonInitial()
+	public java.util.Date getSubNonInitial()
 	{
 		return Sub.subNonInitial.get(this);
 	}
@@ -149,7 +149,7 @@ public final class Sub extends Super
 	 * Sets a new value for {@link #subNonInitial}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSubNonInitial(@javax.annotation.Nullable final java.util.Date subNonInitial)
+	public void setSubNonInitial(@javax.annotation.Nullable final java.util.Date subNonInitial)
 	{
 		Sub.subNonInitial.set(this,subNonInitial);
 	}
@@ -158,7 +158,7 @@ public final class Sub extends Super
 	 * Sets the current date for the date field {@link #subNonInitial}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	public final void touchSubNonInitial()
+	public void touchSubNonInitial()
 	{
 		Sub.subNonInitial.touch(this);
 	}
@@ -169,7 +169,7 @@ public final class Sub extends Super
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
 	@java.lang.Override
-	final java.lang.Long getOverride()
+	java.lang.Long getOverride()
 	{
 		return Sub.override.get(this);
 	}
@@ -178,7 +178,7 @@ public final class Sub extends Super
 	 * Sets a new value for {@link #override}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOverride(@javax.annotation.Nullable final java.lang.Long override)
+	void setOverride(@javax.annotation.Nullable final java.lang.Long override)
 	{
 		Sub.override.set(this,override);
 	}

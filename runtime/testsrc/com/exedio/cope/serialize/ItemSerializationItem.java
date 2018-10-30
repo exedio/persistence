@@ -61,7 +61,7 @@ final class ItemSerializationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getName()
+	java.lang.String getName()
 	{
 		return ItemSerializationItem.name.get(this);
 	}
@@ -70,7 +70,7 @@ final class ItemSerializationItem extends Item
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setName(@javax.annotation.Nullable final java.lang.String name)
+	void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -82,7 +82,7 @@ final class ItemSerializationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getName2()
+	java.lang.String getName2()
 	{
 		return ItemSerializationItem.name2.get(this);
 	}
@@ -91,7 +91,7 @@ final class ItemSerializationItem extends Item
 	 * Sets a new value for {@link #name2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setName2(@javax.annotation.Nullable final java.lang.String name2)
+	void setName2(@javax.annotation.Nullable final java.lang.String name2)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -103,7 +103,7 @@ final class ItemSerializationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<String> getList()
+	java.util.List<String> getList()
 	{
 		return ItemSerializationItem.list.get(this);
 	}
@@ -113,7 +113,7 @@ final class ItemSerializationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<String> getListQuery()
+	com.exedio.cope.Query<String> getListQuery()
 	{
 		return ItemSerializationItem.list.getQuery(this);
 	}
@@ -123,7 +123,7 @@ final class ItemSerializationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<ItemSerializationItem> getDistinctParentsOfList(final String element)
+	static java.util.List<ItemSerializationItem> getDistinctParentsOfList(final String element)
 	{
 		return ItemSerializationItem.list.getDistinctParents(ItemSerializationItem.class,element);
 	}
@@ -132,7 +132,7 @@ final class ItemSerializationItem extends Item
 	 * Adds a new value for {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final void addToList(@javax.annotation.Nonnull final String list)
+	void addToList(@javax.annotation.Nonnull final String list)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -146,7 +146,7 @@ final class ItemSerializationItem extends Item
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	final boolean removeAllFromList(@javax.annotation.Nonnull final String list)
+	boolean removeAllFromList(@javax.annotation.Nonnull final String list)
 	{
 		return ItemSerializationItem.list.removeAll(this,list);
 	}
@@ -155,7 +155,7 @@ final class ItemSerializationItem extends Item
 	 * Sets a new value for {@link #list}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setList(@javax.annotation.Nonnull final java.util.Collection<? extends String> list)
+	void setList(@javax.annotation.Nonnull final java.util.Collection<? extends String> list)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -169,7 +169,7 @@ final class ItemSerializationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<ItemSerializationItem> listParent()
+	static com.exedio.cope.ItemField<ItemSerializationItem> listParent()
 	{
 		return ItemSerializationItem.list.getParent(ItemSerializationItem.class);
 	}

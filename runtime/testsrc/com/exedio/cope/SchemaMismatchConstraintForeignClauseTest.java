@@ -96,7 +96,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final TargetA getField()
+	TargetA getField()
 	{
 		return ItemA.field.get(this);
 	}
@@ -153,7 +153,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final TargetB getField()
+	TargetB getField()
 	{
 		return ItemB.field.get(this);
 	}

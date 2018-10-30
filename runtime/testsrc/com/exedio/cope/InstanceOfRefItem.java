@@ -77,7 +77,7 @@ final class InstanceOfRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final InstanceOfAItem getRef()
+	InstanceOfAItem getRef()
 	{
 		return InstanceOfRefItem.ref.get(this);
 	}
@@ -87,7 +87,7 @@ final class InstanceOfRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return InstanceOfRefItem.code.get(this);
 	}
@@ -99,7 +99,7 @@ final class InstanceOfRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final InstanceOfRefItem forCode(@javax.annotation.Nonnull final java.lang.String code)
+	static InstanceOfRefItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return InstanceOfRefItem.code.searchUnique(InstanceOfRefItem.class,code);
 	}
@@ -111,7 +111,7 @@ final class InstanceOfRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final InstanceOfRefItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+	static InstanceOfRefItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -123,7 +123,7 @@ final class InstanceOfRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final InstanceOfB2Item getRefb2()
+	InstanceOfB2Item getRefb2()
 	{
 		return InstanceOfRefItem.refb2.get(this);
 	}
@@ -132,7 +132,7 @@ final class InstanceOfRefItem extends Item
 	 * Sets a new value for {@link #refb2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRefb2(@javax.annotation.Nullable final InstanceOfB2Item refb2)
+	void setRefb2(@javax.annotation.Nullable final InstanceOfB2Item refb2)
 	{
 		InstanceOfRefItem.refb2.set(this,refb2);
 	}

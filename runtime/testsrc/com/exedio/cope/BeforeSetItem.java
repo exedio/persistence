@@ -163,7 +163,7 @@ final class BeforeSetItem extends Item
 	 * Returns the value of {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField1()
+	int getField1()
 	{
 		return BeforeSetItem.field1.getMandatory(this);
 	}
@@ -172,7 +172,7 @@ final class BeforeSetItem extends Item
 	 * Sets a new value for {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField1(final int field1)
+	void setField1(final int field1)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -183,7 +183,7 @@ final class BeforeSetItem extends Item
 	 * Returns the value of {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField2()
+	int getField2()
 	{
 		return BeforeSetItem.field2.getMandatory(this);
 	}
@@ -192,7 +192,7 @@ final class BeforeSetItem extends Item
 	 * Sets a new value for {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField2(final int field2)
+	void setField2(final int field2)
 	{
 		BeforeSetItem.field2.set(this,field2);
 	}
@@ -202,7 +202,7 @@ final class BeforeSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Action getAction()
+	Action getAction()
 	{
 		return BeforeSetItem.action.get(this);
 	}
@@ -211,7 +211,7 @@ final class BeforeSetItem extends Item
 	 * Sets a new value for {@link #action}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAction(@javax.annotation.Nullable final Action action)
+	void setAction(@javax.annotation.Nullable final Action action)
 	{
 		BeforeSetItem.action.set(this,action);
 	}
@@ -221,7 +221,7 @@ final class BeforeSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<String> getCalls()
+	java.util.List<String> getCalls()
 	{
 		return BeforeSetItem.calls.get(this);
 	}
@@ -231,7 +231,7 @@ final class BeforeSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<String> getCallsQuery()
+	com.exedio.cope.Query<String> getCallsQuery()
 	{
 		return BeforeSetItem.calls.getQuery(this);
 	}
@@ -241,7 +241,7 @@ final class BeforeSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<BeforeSetItem> getDistinctParentsOfCalls(final String element)
+	static java.util.List<BeforeSetItem> getDistinctParentsOfCalls(final String element)
 	{
 		return BeforeSetItem.calls.getDistinctParents(BeforeSetItem.class,element);
 	}
@@ -250,7 +250,7 @@ final class BeforeSetItem extends Item
 	 * Adds a new value for {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final void addToCalls(@javax.annotation.Nonnull final String calls)
+	void addToCalls(@javax.annotation.Nonnull final String calls)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -264,7 +264,7 @@ final class BeforeSetItem extends Item
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	final boolean removeAllFromCalls(@javax.annotation.Nonnull final String calls)
+	boolean removeAllFromCalls(@javax.annotation.Nonnull final String calls)
 	{
 		return BeforeSetItem.calls.removeAll(this,calls);
 	}
@@ -273,7 +273,7 @@ final class BeforeSetItem extends Item
 	 * Sets a new value for {@link #calls}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCalls(@javax.annotation.Nonnull final java.util.Collection<? extends String> calls)
+	void setCalls(@javax.annotation.Nonnull final java.util.Collection<? extends String> calls)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -287,7 +287,7 @@ final class BeforeSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<BeforeSetItem> callsParent()
+	static com.exedio.cope.ItemField<BeforeSetItem> callsParent()
 	{
 		return BeforeSetItem.calls.getParent(BeforeSetItem.class);
 	}

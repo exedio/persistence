@@ -197,7 +197,7 @@ public class SequenceCheckPrimaryKeyTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getField()
+	java.lang.String getField()
 	{
 		return AnItem.field.get(this);
 	}

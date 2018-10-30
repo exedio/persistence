@@ -55,7 +55,7 @@ final class CopyMultiTargetB extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getCopy()
+	java.lang.String getCopy()
 	{
 		return CopyMultiTargetB.copy.get(this);
 	}

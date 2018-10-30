@@ -469,7 +469,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	 * Returns the value of {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNext()
+	int getNext()
 	{
 		return AnItem.next.getMandatory(this);
 	}
@@ -478,7 +478,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	 * Sets a new value for {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNext(final int next)
+	void setNext(final int next)
 	{
 		AnItem.next.set(this,next);
 	}
@@ -488,7 +488,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextSequence()
+	static int nextSequence()
 	{
 		return AnItem.sequence.next();
 	}

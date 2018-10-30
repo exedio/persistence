@@ -114,13 +114,13 @@ public class DeleteChangeHookNullifyCascadeTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final Part getDefaultPart()
+		Part getDefaultPart()
 		{
 			return Container.defaultPart.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDefaultPart(@javax.annotation.Nullable final Part defaultPart)
+		void setDefaultPart(@javax.annotation.Nullable final Part defaultPart)
 		{
 			Container.defaultPart.set(this,defaultPart);
 		}
@@ -159,13 +159,13 @@ public class DeleteChangeHookNullifyCascadeTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final Container getParent()
+		Container getParent()
 		{
 			return Part.parent.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setParent(@javax.annotation.Nonnull final Container parent)
+		void setParent(@javax.annotation.Nonnull final Container parent)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{

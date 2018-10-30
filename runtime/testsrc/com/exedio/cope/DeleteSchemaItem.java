@@ -81,7 +81,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField()
+	java.lang.String getField()
 	{
 		return DeleteSchemaItem.field.get(this);
 	}
@@ -90,7 +90,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField(@javax.annotation.Nonnull final java.lang.String field)
+	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -102,7 +102,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 * Returns the value of {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNext()
+	int getNext()
 	{
 		return DeleteSchemaItem.next.getMandatory(this);
 	}
@@ -111,7 +111,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 * Sets a new value for {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNext(final int next)
+	void setNext(final int next)
 	{
 		DeleteSchemaItem.next.set(this,next);
 	}
@@ -121,7 +121,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextSequence()
+	static int nextSequence()
 	{
 		return DeleteSchemaItem.sequence.next();
 	}
@@ -130,7 +130,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 * Returns the value of {@link #nextUnused}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNextUnused()
+	int getNextUnused()
 	{
 		return DeleteSchemaItem.nextUnused.getMandatory(this);
 	}

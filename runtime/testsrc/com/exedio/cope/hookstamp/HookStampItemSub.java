@@ -75,7 +75,7 @@ final class HookStampItemSub extends HookStampItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getSubField()
+	java.lang.String getSubField()
 	{
 		return HookStampItemSub.subField.get(this);
 	}
@@ -84,7 +84,7 @@ final class HookStampItemSub extends HookStampItem
 	 * Sets a new value for {@link #subField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSubField(@javax.annotation.Nullable final java.lang.String subField)
+	void setSubField(@javax.annotation.Nullable final java.lang.String subField)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -96,7 +96,7 @@ final class HookStampItemSub extends HookStampItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getHistorySub()
+	java.lang.String getHistorySub()
 	{
 		return HookStampItemSub.historySub.get(this);
 	}

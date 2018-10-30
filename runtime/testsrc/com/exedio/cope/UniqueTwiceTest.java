@@ -68,13 +68,13 @@ public class UniqueTwiceTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getOne()
+		java.lang.String getOne()
 		{
 			return MyItem.one.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setOne(@javax.annotation.Nonnull final java.lang.String one)
+		void setOne(@javax.annotation.Nonnull final java.lang.String one)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.UniqueViolationException,
@@ -85,14 +85,14 @@ public class UniqueTwiceTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		static final MyItem forOne(@javax.annotation.Nonnull final java.lang.String one)
+		static MyItem forOne(@javax.annotation.Nonnull final java.lang.String one)
 		{
 			return MyItem.one.searchUnique(MyItem.class,one);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		static final MyItem forOneStrict(@javax.annotation.Nonnull final java.lang.String one)
+		static MyItem forOneStrict(@javax.annotation.Nonnull final java.lang.String one)
 				throws
 					java.lang.IllegalArgumentException
 		{
@@ -101,13 +101,13 @@ public class UniqueTwiceTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getOneDup()
+		java.lang.String getOneDup()
 		{
 			return MyItem.oneDup.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setOneDup(@javax.annotation.Nonnull final java.lang.String oneDup)
+		void setOneDup(@javax.annotation.Nonnull final java.lang.String oneDup)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.UniqueViolationException,
@@ -118,14 +118,14 @@ public class UniqueTwiceTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		static final MyItem forOneDup(@javax.annotation.Nonnull final java.lang.String oneDup)
+		static MyItem forOneDup(@javax.annotation.Nonnull final java.lang.String oneDup)
 		{
 			return MyItem.oneDup.searchUnique(MyItem.class,oneDup);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		static final MyItem forOneDupStrict(@javax.annotation.Nonnull final java.lang.String oneDup)
+		static MyItem forOneDupStrict(@javax.annotation.Nonnull final java.lang.String oneDup)
 				throws
 					java.lang.IllegalArgumentException
 		{

@@ -67,7 +67,7 @@ public final class CompositeFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getCode()
+	public java.lang.String getCode()
 	{
 		return CompositeFinalItem.code.get(this);
 	}
@@ -77,7 +77,7 @@ public final class CompositeFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final CompositeValue getFirst()
+	public CompositeValue getFirst()
 	{
 		return CompositeFinalItem.first.get(this);
 	}
@@ -87,7 +87,7 @@ public final class CompositeFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final CompositeValue getSecond()
+	public CompositeValue getSecond()
 	{
 		return CompositeFinalItem.second.get(this);
 	}

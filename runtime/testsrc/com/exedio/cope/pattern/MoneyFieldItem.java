@@ -187,7 +187,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<CurrFix> getFixeOpt()
+	com.exedio.cope.pattern.Money<CurrFix> getFixeOpt()
 	{
 		return MoneyFieldItem.fixeOpt.get(this);
 	}
@@ -196,7 +196,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #fixeOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFixeOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrFix> fixeOpt)
+	void setFixeOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrFix> fixeOpt)
 	{
 		MoneyFieldItem.fixeOpt.set(this,fixeOpt);
 	}
@@ -206,7 +206,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<Currency> getFixeEnu()
+	com.exedio.cope.pattern.Money<Currency> getFixeEnu()
 	{
 		return MoneyFieldItem.fixeEnu.get(this);
 	}
@@ -215,7 +215,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #fixeEnu}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFixeEnu(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> fixeEnu)
+	void setFixeEnu(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> fixeEnu)
 	{
 		MoneyFieldItem.fixeEnu.set(this,fixeEnu);
 	}
@@ -225,7 +225,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final Currency getCurrency()
+	Currency getCurrency()
 	{
 		return MoneyFieldItem.currency.get(this);
 	}
@@ -234,7 +234,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #currency}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCurrency(@javax.annotation.Nonnull final Currency currency)
+	void setCurrency(@javax.annotation.Nonnull final Currency currency)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -246,7 +246,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<Currency> getSharOpt()
+	com.exedio.cope.pattern.Money<Currency> getSharOpt()
 	{
 		return MoneyFieldItem.sharOpt.get(this);
 	}
@@ -255,7 +255,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #sharOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSharOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> sharOpt)
+	void setSharOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> sharOpt)
 	{
 		MoneyFieldItem.sharOpt.set(this,sharOpt);
 	}
@@ -265,7 +265,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Money<Currency> getSharMan()
+	com.exedio.cope.pattern.Money<Currency> getSharMan()
 	{
 		return MoneyFieldItem.sharMan.get(this);
 	}
@@ -274,7 +274,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #sharMan}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSharMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan)
+	void setSharMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -286,7 +286,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<Currency> getExclOpt()
+	com.exedio.cope.pattern.Money<Currency> getExclOpt()
 	{
 		return MoneyFieldItem.exclOpt.get(this);
 	}
@@ -295,7 +295,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #exclOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setExclOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> exclOpt)
+	void setExclOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> exclOpt)
 	{
 		MoneyFieldItem.exclOpt.set(this,exclOpt);
 	}
@@ -305,7 +305,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Money<Currency> getExclMan()
+	com.exedio.cope.pattern.Money<Currency> getExclMan()
 	{
 		return MoneyFieldItem.exclMan.get(this);
 	}
@@ -314,7 +314,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #exclMan}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setExclMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> exclMan)
+	void setExclMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> exclMan)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -326,7 +326,7 @@ public final class MoneyFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.Money<CurrencyItem> getByItem()
+	com.exedio.cope.pattern.Money<CurrencyItem> getByItem()
 	{
 		return MoneyFieldItem.byItem.get(this);
 	}
@@ -335,7 +335,7 @@ public final class MoneyFieldItem extends Item
 	 * Sets a new value for {@link #byItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setByItem(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrencyItem> byItem)
+	void setByItem(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrencyItem> byItem)
 	{
 		MoneyFieldItem.byItem.set(this,byItem);
 	}

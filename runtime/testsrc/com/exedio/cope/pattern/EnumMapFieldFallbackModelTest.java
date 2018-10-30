@@ -167,7 +167,7 @@ public class EnumMapFieldFallbackModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final String getNoneMand(@javax.annotation.Nonnull final AnEnum k)
+	String getNoneMand(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.noneMand.get(this,k);
 	}
@@ -176,20 +176,20 @@ public class EnumMapFieldFallbackModelTest
 	 * Associates <tt>k</tt> to a new value in the field map {@link #noneMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNoneMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nonnull final String noneMand)
+	void setNoneMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nonnull final String noneMand)
 	{
 		AnItem.noneMand.set(this,k,noneMand);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getNoneMandMap()
+	java.util.Map<AnEnum,String> getNoneMandMap()
 	{
 		return AnItem.noneMand.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setNoneMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneMand)
+	void setNoneMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneMand)
 	{
 		AnItem.noneMand.setMap(this,noneMand);
 	}
@@ -199,7 +199,7 @@ public class EnumMapFieldFallbackModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getNoneOpt(@javax.annotation.Nonnull final AnEnum k)
+	String getNoneOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.noneOpt.get(this,k);
 	}
@@ -208,20 +208,20 @@ public class EnumMapFieldFallbackModelTest
 	 * Associates <tt>k</tt> to a new value in the field map {@link #noneOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNoneOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String noneOpt)
+	void setNoneOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String noneOpt)
 	{
 		AnItem.noneOpt.set(this,k,noneOpt);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getNoneOptMap()
+	java.util.Map<AnEnum,String> getNoneOptMap()
 	{
 		return AnItem.noneOpt.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setNoneOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneOpt)
+	void setNoneOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneOpt)
 	{
 		AnItem.noneOpt.setMap(this,noneOpt);
 	}
@@ -231,7 +231,7 @@ public class EnumMapFieldFallbackModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getFallMand(@javax.annotation.Nonnull final AnEnum k)
+	String getFallMand(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallMand.get(this,k);
 	}
@@ -241,7 +241,7 @@ public class EnumMapFieldFallbackModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
 	@javax.annotation.Nonnull
-	final String getFallMandWithFallback(@javax.annotation.Nonnull final AnEnum k)
+	String getFallMandWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallMand.getWithFallback(this,k);
 	}
@@ -250,27 +250,27 @@ public class EnumMapFieldFallbackModelTest
 	 * Associates <tt>k</tt> to a new value in the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFallMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallMand)
+	void setFallMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallMand)
 	{
 		AnItem.fallMand.set(this,k,fallMand);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getFallMandMap()
+	java.util.Map<AnEnum,String> getFallMandMap()
 	{
 		return AnItem.fallMand.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getFallMandMapWithFallback()
+	java.util.Map<AnEnum,String> getFallMandMapWithFallback()
 	{
 		return AnItem.fallMand.getMapWithFallback(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setFallMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallMand)
+	void setFallMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallMand)
 	{
 		AnItem.fallMand.setMap(this,fallMand);
 	}
@@ -280,7 +280,7 @@ public class EnumMapFieldFallbackModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getFallOpt(@javax.annotation.Nonnull final AnEnum k)
+	String getFallOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallOpt.get(this,k);
 	}
@@ -290,7 +290,7 @@ public class EnumMapFieldFallbackModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
 	@javax.annotation.Nullable
-	final String getFallOptWithFallback(@javax.annotation.Nonnull final AnEnum k)
+	String getFallOptWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
 		return AnItem.fallOpt.getWithFallback(this,k);
 	}
@@ -299,27 +299,27 @@ public class EnumMapFieldFallbackModelTest
 	 * Associates <tt>k</tt> to a new value in the field map {@link #fallOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFallOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallOpt)
+	void setFallOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallOpt)
 	{
 		AnItem.fallOpt.set(this,k,fallOpt);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getFallOptMap()
+	java.util.Map<AnEnum,String> getFallOptMap()
 	{
 		return AnItem.fallOpt.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
 	@javax.annotation.Nonnull
-	final java.util.Map<AnEnum,String> getFallOptMapWithFallback()
+	java.util.Map<AnEnum,String> getFallOptMapWithFallback()
 	{
 		return AnItem.fallOpt.getMapWithFallback(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setFallOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallOpt)
+	void setFallOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallOpt)
 	{
 		AnItem.fallOpt.setMap(this,fallOpt);
 	}

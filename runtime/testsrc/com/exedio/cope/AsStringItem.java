@@ -60,7 +60,7 @@ final class AsStringItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getIntx()
+	java.lang.Integer getIntx()
 	{
 		return AsStringItem.intx.get(this);
 	}
@@ -69,7 +69,7 @@ final class AsStringItem extends Item
 	 * Sets a new value for {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntx(@javax.annotation.Nullable final java.lang.Integer intx)
+	void setIntx(@javax.annotation.Nullable final java.lang.Integer intx)
 	{
 		AsStringItem.intx.set(this,intx);
 	}
@@ -79,7 +79,7 @@ final class AsStringItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Long getLongx()
+	java.lang.Long getLongx()
 	{
 		return AsStringItem.longx.get(this);
 	}
@@ -88,7 +88,7 @@ final class AsStringItem extends Item
 	 * Sets a new value for {@link #longx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setLongx(@javax.annotation.Nullable final java.lang.Long longx)
+	void setLongx(@javax.annotation.Nullable final java.lang.Long longx)
 	{
 		AsStringItem.longx.set(this,longx);
 	}
@@ -98,7 +98,7 @@ final class AsStringItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Double getDoublex()
+	java.lang.Double getDoublex()
 	{
 		return AsStringItem.doublex.get(this);
 	}
@@ -107,7 +107,7 @@ final class AsStringItem extends Item
 	 * Sets a new value for {@link #doublex}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDoublex(@javax.annotation.Nullable final java.lang.Double doublex)
+	void setDoublex(@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		AsStringItem.doublex.set(this,doublex);
 	}

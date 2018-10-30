@@ -66,7 +66,7 @@ public final class FinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getFinalString()
+	public java.lang.String getFinalString()
 	{
 		return FinalItem.finalString.get(this);
 	}
@@ -75,7 +75,7 @@ public final class FinalItem extends Item
 	 * Returns the value of {@link #nonFinalInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final int getNonFinalInteger()
+	public int getNonFinalInteger()
 	{
 		return FinalItem.nonFinalInteger.getMandatory(this);
 	}
@@ -84,7 +84,7 @@ public final class FinalItem extends Item
 	 * Sets a new value for {@link #nonFinalInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNonFinalInteger(final int nonFinalInteger)
+	public void setNonFinalInteger(final int nonFinalInteger)
 	{
 		FinalItem.nonFinalInteger.set(this,nonFinalInteger);
 	}

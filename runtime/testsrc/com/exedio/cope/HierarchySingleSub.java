@@ -57,7 +57,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.String getSubString()
+	public java.lang.String getSubString()
 	{
 		return HierarchySingleSub.subString.get(this);
 	}
@@ -66,7 +66,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 * Sets a new value for {@link #subString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSubString(@javax.annotation.Nullable final java.lang.String subString)
+	public void setSubString(@javax.annotation.Nullable final java.lang.String subString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -78,7 +78,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final HierarchySuper getHierarchySuper()
+	public HierarchySuper getHierarchySuper()
 	{
 		return HierarchySingleSub.hierarchySuper.get(this);
 	}
@@ -87,7 +87,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 * Sets a new value for {@link #hierarchySuper}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setHierarchySuper(@javax.annotation.Nullable final HierarchySuper hierarchySuper)
+	public void setHierarchySuper(@javax.annotation.Nullable final HierarchySuper hierarchySuper)
 	{
 		HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
 	}

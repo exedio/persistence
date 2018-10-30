@@ -146,13 +146,13 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.util.List<String> getText()
+		java.util.List<String> getText()
 		{
 			return AnItem.text.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setText(@javax.annotation.Nonnull final java.util.Collection<? extends String> text)
+		void setText(@javax.annotation.Nonnull final java.util.Collection<? extends String> text)
 				throws
 					com.exedio.cope.FinalViolationException,
 					com.exedio.cope.StringLengthViolationException,

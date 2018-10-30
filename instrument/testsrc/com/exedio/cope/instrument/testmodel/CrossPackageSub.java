@@ -74,7 +74,7 @@ final class CrossPackageSub extends CrossPackageSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getSubField()
+	java.lang.String getSubField()
 	{
 		return CrossPackageSub.subField.get(this);
 	}

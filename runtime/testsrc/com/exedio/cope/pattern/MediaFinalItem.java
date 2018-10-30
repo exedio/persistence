@@ -70,7 +70,7 @@ public final class MediaFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getName()
+	java.lang.String getName()
 	{
 		return MediaFinalItem.name.get(this);
 	}
@@ -79,7 +79,7 @@ public final class MediaFinalItem extends Item
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setName(@javax.annotation.Nullable final java.lang.String name)
+	void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -91,7 +91,7 @@ public final class MediaFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
 		return MediaFinalItem.file.getLocator(this);
 	}
@@ -101,7 +101,7 @@ public final class MediaFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getFileContentType()
+	java.lang.String getFileContentType()
 	{
 		return MediaFinalItem.file.getContentType(this);
 	}
@@ -110,7 +110,7 @@ public final class MediaFinalItem extends Item
 	 * Returns whether media {@link #file} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	final boolean isFileNull()
+	boolean isFileNull()
 	{
 		return MediaFinalItem.file.isNull(this);
 	}
@@ -120,7 +120,7 @@ public final class MediaFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
 	@javax.annotation.Nullable
-	final java.util.Date getFileLastModified()
+	java.util.Date getFileLastModified()
 	{
 		return MediaFinalItem.file.getLastModified(this);
 	}
@@ -129,7 +129,7 @@ public final class MediaFinalItem extends Item
 	 * Returns the body length of the media {@link #file}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	final long getFileLength()
+	long getFileLength()
 	{
 		return MediaFinalItem.file.getLength(this);
 	}
@@ -139,7 +139,7 @@ public final class MediaFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	@javax.annotation.Nullable
-	final byte[] getFileBody()
+	byte[] getFileBody()
 	{
 		return MediaFinalItem.file.getBody(this);
 	}
@@ -150,7 +150,7 @@ public final class MediaFinalItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+	void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -163,7 +163,7 @@ public final class MediaFinalItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getFileBody(@javax.annotation.Nonnull final java.io.File body)
+	void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{

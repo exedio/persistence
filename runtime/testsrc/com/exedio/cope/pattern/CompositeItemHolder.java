@@ -60,7 +60,7 @@ public final class CompositeItemHolder extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final CompositeOptionalItem getAnItem()
+	public CompositeOptionalItem getAnItem()
 	{
 		return CompositeItemHolder.anItem.get(this);
 	}
@@ -69,7 +69,7 @@ public final class CompositeItemHolder extends Item
 	 * Sets a new value for {@link #anItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setAnItem(@javax.annotation.Nonnull final CompositeOptionalItem anItem)
+	public void setAnItem(@javax.annotation.Nonnull final CompositeOptionalItem anItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

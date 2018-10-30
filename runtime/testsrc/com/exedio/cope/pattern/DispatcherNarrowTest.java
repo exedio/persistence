@@ -152,26 +152,26 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDropByNarrowCondition(final boolean dropByNarrowCondition)
+		void setDropByNarrowCondition(final boolean dropByNarrowCondition)
 		{
 			MyItem.dropByNarrowCondition.set(this,dropByNarrowCondition);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+		static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 		{
 			MyItem.toTarget.dispatch(MyItem.class,config,ctx);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final boolean isToTargetPending()
+		boolean isToTargetPending()
 		{
 			return MyItem.toTarget.isPending(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.util.Date getToTargetLastSuccessDate()
+		java.util.Date getToTargetLastSuccessDate()
 		{
 			return MyItem.toTarget.getLastSuccessDate(this);
 		}

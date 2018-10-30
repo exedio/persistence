@@ -91,7 +91,7 @@ public final class TypeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Type<? extends Item> getStandard()
+	com.exedio.cope.Type<? extends Item> getStandard()
 	{
 		return TypeFieldItem.standard.get(this);
 	}
@@ -100,7 +100,7 @@ public final class TypeFieldItem extends Item
 	 * Sets a new value for {@link #standard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStandard(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> standard)
+	void setStandard(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> standard)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -113,7 +113,7 @@ public final class TypeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Type<? extends Item> getIsFinal()
+	com.exedio.cope.Type<? extends Item> getIsFinal()
 	{
 		return TypeFieldItem.isFinal.get(this);
 	}
@@ -123,7 +123,7 @@ public final class TypeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.Type<? extends Item> getOptional()
+	com.exedio.cope.Type<? extends Item> getOptional()
 	{
 		return TypeFieldItem.optional.get(this);
 	}
@@ -132,7 +132,7 @@ public final class TypeFieldItem extends Item
 	 * Sets a new value for {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOptional(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> optional)
+	void setOptional(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> optional)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -144,7 +144,7 @@ public final class TypeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.Type<? extends Item> getUnique()
+	com.exedio.cope.Type<? extends Item> getUnique()
 	{
 		return TypeFieldItem.unique.get(this);
 	}
@@ -153,7 +153,7 @@ public final class TypeFieldItem extends Item
 	 * Sets a new value for {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUnique(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> unique)
+	void setUnique(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> unique)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -168,7 +168,7 @@ public final class TypeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final TypeFieldItem forUnique(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> unique)
+	static TypeFieldItem forUnique(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> unique)
 	{
 		return TypeFieldItem.unique.searchUnique(TypeFieldItem.class,unique);
 	}
@@ -178,7 +178,7 @@ public final class TypeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.Type<? extends Item> getRenamed()
+	com.exedio.cope.Type<? extends Item> getRenamed()
 	{
 		return TypeFieldItem.renamed.get(this);
 	}
@@ -187,7 +187,7 @@ public final class TypeFieldItem extends Item
 	 * Sets a new value for {@link #renamed}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRenamed(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> renamed)
+	void setRenamed(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> renamed)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -199,7 +199,7 @@ public final class TypeFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.Type<? extends TypeFieldSubItem> getRestricted()
+	com.exedio.cope.Type<? extends TypeFieldSubItem> getRestricted()
 	{
 		return TypeFieldItem.restricted.get(this);
 	}
@@ -208,7 +208,7 @@ public final class TypeFieldItem extends Item
 	 * Sets a new value for {@link #restricted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRestricted(@javax.annotation.Nullable final com.exedio.cope.Type<? extends TypeFieldSubItem> restricted)
+	void setRestricted(@javax.annotation.Nullable final com.exedio.cope.Type<? extends TypeFieldSubItem> restricted)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

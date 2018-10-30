@@ -47,7 +47,7 @@ final class DeleteSchemaItemUnused extends Item
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getCode()
+	int getCode()
 	{
 		return DeleteSchemaItemUnused.code.getMandatory(this);
 	}
@@ -56,7 +56,7 @@ final class DeleteSchemaItemUnused extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCode(final int code)
+	void setCode(final int code)
 	{
 		DeleteSchemaItemUnused.code.set(this,code);
 	}
@@ -66,7 +66,7 @@ final class DeleteSchemaItemUnused extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteSchemaItem getUnusedPointer()
+	DeleteSchemaItem getUnusedPointer()
 	{
 		return DeleteSchemaItemUnused.unusedPointer.get(this);
 	}
@@ -75,7 +75,7 @@ final class DeleteSchemaItemUnused extends Item
 	 * Sets a new value for {@link #unusedPointer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUnusedPointer(@javax.annotation.Nullable final DeleteSchemaItem unusedPointer)
+	void setUnusedPointer(@javax.annotation.Nullable final DeleteSchemaItem unusedPointer)
 	{
 		DeleteSchemaItemUnused.unusedPointer.set(this,unusedPointer);
 	}

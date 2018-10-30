@@ -67,7 +67,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getValue()
+	java.lang.String getValue()
 	{
 		return ListFieldItem.value.get(this);
 	}
@@ -77,7 +77,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<String> getStrings()
+	java.util.List<String> getStrings()
 	{
 		return ListFieldItem.strings.get(this);
 	}
@@ -87,7 +87,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<String> getStringsQuery()
+	com.exedio.cope.Query<String> getStringsQuery()
 	{
 		return ListFieldItem.strings.getQuery(this);
 	}
@@ -97,7 +97,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<ListFieldItem> getDistinctParentsOfStrings(final String element)
+	static java.util.List<ListFieldItem> getDistinctParentsOfStrings(final String element)
 	{
 		return ListFieldItem.strings.getDistinctParents(ListFieldItem.class,element);
 	}
@@ -106,7 +106,7 @@ public final class ListFieldItem extends Item
 	 * Adds a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final void addToStrings(@javax.annotation.Nullable final String strings)
+	void addToStrings(@javax.annotation.Nullable final String strings)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
@@ -119,7 +119,7 @@ public final class ListFieldItem extends Item
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	final boolean removeAllFromStrings(@javax.annotation.Nullable final String strings)
+	boolean removeAllFromStrings(@javax.annotation.Nullable final String strings)
 	{
 		return ListFieldItem.strings.removeAll(this,strings);
 	}
@@ -128,7 +128,7 @@ public final class ListFieldItem extends Item
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
+	void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				java.lang.ClassCastException
@@ -141,7 +141,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<ListFieldItem> stringsParent()
+	static com.exedio.cope.ItemField<ListFieldItem> stringsParent()
 	{
 		return ListFieldItem.strings.getParent(ListFieldItem.class);
 	}
@@ -151,7 +151,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<Date> getDates()
+	java.util.List<Date> getDates()
 	{
 		return ListFieldItem.dates.get(this);
 	}
@@ -161,7 +161,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<Date> getDatesQuery()
+	com.exedio.cope.Query<Date> getDatesQuery()
 	{
 		return ListFieldItem.dates.getQuery(this);
 	}
@@ -171,7 +171,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<ListFieldItem> getDistinctParentsOfDates(final Date element)
+	static java.util.List<ListFieldItem> getDistinctParentsOfDates(final Date element)
 	{
 		return ListFieldItem.dates.getDistinctParents(ListFieldItem.class,element);
 	}
@@ -180,7 +180,7 @@ public final class ListFieldItem extends Item
 	 * Adds a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final void addToDates(@javax.annotation.Nonnull final Date dates)
+	void addToDates(@javax.annotation.Nonnull final Date dates)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -193,7 +193,7 @@ public final class ListFieldItem extends Item
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	final boolean removeAllFromDates(@javax.annotation.Nonnull final Date dates)
+	boolean removeAllFromDates(@javax.annotation.Nonnull final Date dates)
 	{
 		return ListFieldItem.dates.removeAll(this,dates);
 	}
@@ -202,7 +202,7 @@ public final class ListFieldItem extends Item
 	 * Sets a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
+	void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -215,7 +215,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<ListFieldItem> datesParent()
+	static com.exedio.cope.ItemField<ListFieldItem> datesParent()
 	{
 		return ListFieldItem.dates.getParent(ListFieldItem.class);
 	}
@@ -225,7 +225,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<ListFieldItem> getItems()
+	java.util.List<ListFieldItem> getItems()
 	{
 		return ListFieldItem.items.get(this);
 	}
@@ -235,7 +235,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<ListFieldItem> getItemsQuery()
+	com.exedio.cope.Query<ListFieldItem> getItemsQuery()
 	{
 		return ListFieldItem.items.getQuery(this);
 	}
@@ -245,7 +245,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<ListFieldItem> getDistinctParentsOfItems(final ListFieldItem element)
+	static java.util.List<ListFieldItem> getDistinctParentsOfItems(final ListFieldItem element)
 	{
 		return ListFieldItem.items.getDistinctParents(ListFieldItem.class,element);
 	}
@@ -254,7 +254,7 @@ public final class ListFieldItem extends Item
 	 * Adds a new value for {@link #items}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final void addToItems(@javax.annotation.Nonnull final ListFieldItem items)
+	void addToItems(@javax.annotation.Nonnull final ListFieldItem items)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -267,7 +267,7 @@ public final class ListFieldItem extends Item
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	final boolean removeAllFromItems(@javax.annotation.Nonnull final ListFieldItem items)
+	boolean removeAllFromItems(@javax.annotation.Nonnull final ListFieldItem items)
 	{
 		return ListFieldItem.items.removeAll(this,items);
 	}
@@ -276,7 +276,7 @@ public final class ListFieldItem extends Item
 	 * Sets a new value for {@link #items}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItems(@javax.annotation.Nonnull final java.util.Collection<? extends ListFieldItem> items)
+	void setItems(@javax.annotation.Nonnull final java.util.Collection<? extends ListFieldItem> items)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -289,7 +289,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<ListFieldItem> itemsParent()
+	static com.exedio.cope.ItemField<ListFieldItem> itemsParent()
 	{
 		return ListFieldItem.items.getParent(ListFieldItem.class);
 	}
@@ -299,7 +299,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<ListFieldItem> getItemsSameValue()
+	java.util.List<ListFieldItem> getItemsSameValue()
 	{
 		return ListFieldItem.itemsSameValue.get(this);
 	}
@@ -309,7 +309,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<ListFieldItem> getItemsSameValueQuery()
+	com.exedio.cope.Query<ListFieldItem> getItemsSameValueQuery()
 	{
 		return ListFieldItem.itemsSameValue.getQuery(this);
 	}
@@ -319,7 +319,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<ListFieldItem> getDistinctParentsOfItemsSameValue(final ListFieldItem element)
+	static java.util.List<ListFieldItem> getDistinctParentsOfItemsSameValue(final ListFieldItem element)
 	{
 		return ListFieldItem.itemsSameValue.getDistinctParents(ListFieldItem.class,element);
 	}
@@ -328,7 +328,7 @@ public final class ListFieldItem extends Item
 	 * Adds a new value for {@link #itemsSameValue}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final void addToItemsSameValue(@javax.annotation.Nullable final ListFieldItem itemsSameValue)
+	void addToItemsSameValue(@javax.annotation.Nullable final ListFieldItem itemsSameValue)
 			throws
 				java.lang.ClassCastException
 	{
@@ -340,7 +340,7 @@ public final class ListFieldItem extends Item
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	final boolean removeAllFromItemsSameValue(@javax.annotation.Nullable final ListFieldItem itemsSameValue)
+	boolean removeAllFromItemsSameValue(@javax.annotation.Nullable final ListFieldItem itemsSameValue)
 	{
 		return ListFieldItem.itemsSameValue.removeAll(this,itemsSameValue);
 	}
@@ -349,7 +349,7 @@ public final class ListFieldItem extends Item
 	 * Sets a new value for {@link #itemsSameValue}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItemsSameValue(@javax.annotation.Nonnull final java.util.Collection<? extends ListFieldItem> itemsSameValue)
+	void setItemsSameValue(@javax.annotation.Nonnull final java.util.Collection<? extends ListFieldItem> itemsSameValue)
 			throws
 				java.lang.ClassCastException
 	{
@@ -361,7 +361,7 @@ public final class ListFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<ListFieldItem> itemsSameValueParent()
+	static com.exedio.cope.ItemField<ListFieldItem> itemsSameValueParent()
 	{
 		return ListFieldItem.itemsSameValue.getParent(ListFieldItem.class);
 	}

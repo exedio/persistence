@@ -137,7 +137,7 @@ public class DayRangeTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		final com.exedio.cope.util.Day getField()
+		com.exedio.cope.util.Day getField()
 		{
 			return MyItem.field.get(this);
 		}
@@ -146,7 +146,7 @@ public class DayRangeTest extends TestWithEnvironment
 		 * Sets a new value for {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setField(@javax.annotation.Nullable final com.exedio.cope.util.Day field)
+		void setField(@javax.annotation.Nullable final com.exedio.cope.util.Day field)
 		{
 			MyItem.field.set(this,field);
 		}
@@ -155,7 +155,7 @@ public class DayRangeTest extends TestWithEnvironment
 		 * Sets today for the date field {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-		final void touchField(@javax.annotation.Nonnull final java.util.TimeZone zone)
+		void touchField(@javax.annotation.Nonnull final java.util.TimeZone zone)
 		{
 			MyItem.field.touch(this,zone);
 		}

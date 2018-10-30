@@ -63,7 +63,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getUniqueNotNullString()
+	public java.lang.String getUniqueNotNullString()
 	{
 		return UniqueSingleNotNullItem.uniqueNotNullString.get(this);
 	}
@@ -72,7 +72,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 * Sets a new value for {@link #uniqueNotNullString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
+	public void setUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -88,7 +88,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	public static final UniqueSingleNotNullItem forUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
+	public static UniqueSingleNotNullItem forUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 	{
 		return UniqueSingleNotNullItem.uniqueNotNullString.searchUnique(UniqueSingleNotNullItem.class,uniqueNotNullString);
 	}
@@ -100,7 +100,7 @@ public final class UniqueSingleNotNullItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	public static final UniqueSingleNotNullItem forUniqueNotNullStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
+	public static UniqueSingleNotNullItem forUniqueNotNullStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 			throws
 				java.lang.IllegalArgumentException
 	{

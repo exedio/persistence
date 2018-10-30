@@ -70,37 +70,37 @@ final class InitialFeaturesItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-	final java.lang.String oneNotInitial()
+	java.lang.String oneNotInitial()
 	{
 		return InitialFeaturesItem.notInitial.one(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-	final java.lang.String oneInitialByDefault()
+	java.lang.String oneInitialByDefault()
 	{
 		return InitialFeaturesItem.initialByDefault.one(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-	final java.lang.String oneCustomInitial()
+	java.lang.String oneCustomInitial()
 	{
 		return InitialFeaturesItem.customInitial.one(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-	final java.lang.String oneCustomNonInitial()
+	java.lang.String oneCustomNonInitial()
 	{
 		return InitialFeaturesItem.customNonInitial.one(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-	final java.lang.String oneRedundantInitial()
+	java.lang.String oneRedundantInitial()
 	{
 		return InitialFeaturesItem.redundantInitial.one(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-	final java.lang.String oneRedundantNonInitial()
+	java.lang.String oneRedundantNonInitial()
 	{
 		return InitialFeaturesItem.redundantNonInitial.one(this);
 	}

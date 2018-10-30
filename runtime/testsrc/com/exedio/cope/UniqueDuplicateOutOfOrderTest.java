@@ -61,13 +61,13 @@ public class UniqueDuplicateOutOfOrderTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getOne()
+		java.lang.String getOne()
 		{
 			return MyItem.one.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setOne(@javax.annotation.Nonnull final java.lang.String one)
+		void setOne(@javax.annotation.Nonnull final java.lang.String one)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.UniqueViolationException,
@@ -78,13 +78,13 @@ public class UniqueDuplicateOutOfOrderTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getTwo()
+		java.lang.String getTwo()
 		{
 			return MyItem.two.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setTwo(@javax.annotation.Nonnull final java.lang.String two)
+		void setTwo(@javax.annotation.Nonnull final java.lang.String two)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.UniqueViolationException,
@@ -95,14 +95,14 @@ public class UniqueDuplicateOutOfOrderTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		static final MyItem forConstraintA(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
+		static MyItem forConstraintA(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 		{
 			return MyItem.constraintA.search(MyItem.class,one,two);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		static final MyItem forConstraintAStrict(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
+		static MyItem forConstraintAStrict(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 				throws
 					java.lang.IllegalArgumentException
 		{
@@ -111,14 +111,14 @@ public class UniqueDuplicateOutOfOrderTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		static final MyItem forConstraintB(@javax.annotation.Nonnull final java.lang.String two,@javax.annotation.Nonnull final java.lang.String one)
+		static MyItem forConstraintB(@javax.annotation.Nonnull final java.lang.String two,@javax.annotation.Nonnull final java.lang.String one)
 		{
 			return MyItem.constraintB.search(MyItem.class,two,one);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		static final MyItem forConstraintBStrict(@javax.annotation.Nonnull final java.lang.String two,@javax.annotation.Nonnull final java.lang.String one)
+		static MyItem forConstraintBStrict(@javax.annotation.Nonnull final java.lang.String two,@javax.annotation.Nonnull final java.lang.String one)
 				throws
 					java.lang.IllegalArgumentException
 		{

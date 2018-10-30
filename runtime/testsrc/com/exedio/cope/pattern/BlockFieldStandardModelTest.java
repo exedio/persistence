@@ -162,7 +162,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getAString()
+	java.lang.String getAString()
 	{
 		return field().of(ABlock.aString).get(item());
 	}
@@ -171,7 +171,7 @@ public class BlockFieldStandardModelTest
 	 * Sets a new value for {@link #aString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAString(@javax.annotation.Nonnull final java.lang.String aString)
+	void setAString(@javax.annotation.Nonnull final java.lang.String aString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -183,7 +183,7 @@ public class BlockFieldStandardModelTest
 	 * Returns the value of {@link #anInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getAnInt()
+	int getAnInt()
 	{
 		return field().of(ABlock.anInt).getMandatory(item());
 	}
@@ -192,7 +192,7 @@ public class BlockFieldStandardModelTest
 	 * Sets a new value for {@link #anInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAnInt(final int anInt)
+	void setAnInt(final int anInt)
 	{
 		field().of(ABlock.anInt).set(item(),anInt);
 	}
@@ -202,7 +202,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final AnEnum getAnEnum()
+	AnEnum getAnEnum()
 	{
 		return field().of(ABlock.anEnum).get(item());
 	}
@@ -211,7 +211,7 @@ public class BlockFieldStandardModelTest
 	 * Sets a new value for {@link #anEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
+	void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -223,7 +223,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final AnItem getAnItem()
+	AnItem getAnItem()
 	{
 		return field().of(ABlock.anItem).get(item());
 	}
@@ -232,7 +232,7 @@ public class BlockFieldStandardModelTest
 	 * Sets a new value for {@link #anItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAnItem(@javax.annotation.Nullable final AnItem anItem)
+	void setAnItem(@javax.annotation.Nullable final AnItem anItem)
 	{
 		field().of(ABlock.anItem).set(item(),anItem);
 	}
@@ -242,7 +242,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.awt.Color getAColor()
+	java.awt.Color getAColor()
 	{
 		return field().of(ABlock.aColor).get(item());
 	}
@@ -251,7 +251,7 @@ public class BlockFieldStandardModelTest
 	 * Sets a new value for {@link #aColor}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAColor(@javax.annotation.Nonnull final java.awt.Color aColor)
+	void setAColor(@javax.annotation.Nonnull final java.awt.Color aColor)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.pattern.ColorAlphaViolationException
@@ -264,7 +264,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
 	{
 		return field().of(ABlock.aMedia).getLocator(item());
 	}
@@ -274,7 +274,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getAMediaContentType()
+	java.lang.String getAMediaContentType()
 	{
 		return field().of(ABlock.aMedia).getContentType(item());
 	}
@@ -283,7 +283,7 @@ public class BlockFieldStandardModelTest
 	 * Returns whether media {@link #aMedia} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	final boolean isAMediaNull()
+	boolean isAMediaNull()
 	{
 		return field().of(ABlock.aMedia).isNull(item());
 	}
@@ -293,7 +293,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
 	@javax.annotation.Nullable
-	final java.util.Date getAMediaLastModified()
+	java.util.Date getAMediaLastModified()
 	{
 		return field().of(ABlock.aMedia).getLastModified(item());
 	}
@@ -302,7 +302,7 @@ public class BlockFieldStandardModelTest
 	 * Returns the body length of the media {@link #aMedia}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	final long getAMediaLength()
+	long getAMediaLength()
 	{
 		return field().of(ABlock.aMedia).getLength(item());
 	}
@@ -312,7 +312,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	@javax.annotation.Nullable
-	final byte[] getAMediaBody()
+	byte[] getAMediaBody()
 	{
 		return field().of(ABlock.aMedia).getBody(item());
 	}
@@ -323,7 +323,7 @@ public class BlockFieldStandardModelTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getAMediaBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+	void getAMediaBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -336,7 +336,7 @@ public class BlockFieldStandardModelTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
+	void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -348,7 +348,7 @@ public class BlockFieldStandardModelTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAMedia(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value aMedia)
+	void setAMedia(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value aMedia)
 			throws
 				java.io.IOException
 	{
@@ -359,7 +359,7 @@ public class BlockFieldStandardModelTest
 	 * Sets the content of media {@link #aMedia}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAMedia(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setAMedia(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		field().of(ABlock.aMedia).set(item(),body,contentType);
 	}
@@ -369,7 +369,7 @@ public class BlockFieldStandardModelTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAMedia(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setAMedia(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -381,7 +381,7 @@ public class BlockFieldStandardModelTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAMedia(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setAMedia(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -393,7 +393,7 @@ public class BlockFieldStandardModelTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAMedia(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setAMedia(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -405,7 +405,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.List<String> getAList()
+	java.util.List<String> getAList()
 	{
 		return field().of(ABlock.aList).get(item());
 	}
@@ -415,7 +415,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<String> getAListQuery()
+	com.exedio.cope.Query<String> getAListQuery()
 	{
 		return field().of(ABlock.aList).getQuery(item());
 	}
@@ -424,7 +424,7 @@ public class BlockFieldStandardModelTest
 	 * Adds a new value for {@link #aList}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final void addToAList(@javax.annotation.Nonnull final String aList)
+	void addToAList(@javax.annotation.Nonnull final String aList)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -438,7 +438,7 @@ public class BlockFieldStandardModelTest
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	final boolean removeAllFromAList(@javax.annotation.Nonnull final String aList)
+	boolean removeAllFromAList(@javax.annotation.Nonnull final String aList)
 	{
 		return field().of(ABlock.aList).removeAll(item(),aList);
 	}
@@ -447,7 +447,7 @@ public class BlockFieldStandardModelTest
 	 * Sets a new value for {@link #aList}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAList(@javax.annotation.Nonnull final java.util.Collection<? extends String> aList)
+	void setAList(@javax.annotation.Nonnull final java.util.Collection<? extends String> aList)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -461,7 +461,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Set<Integer> getASet()
+	java.util.Set<Integer> getASet()
 	{
 		return field().of(ABlock.aSet).get(item());
 	}
@@ -471,7 +471,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<Integer> getASetQuery()
+	com.exedio.cope.Query<Integer> getASetQuery()
 	{
 		return field().of(ABlock.aSet).getQuery(item());
 	}
@@ -480,7 +480,7 @@ public class BlockFieldStandardModelTest
 	 * Sets a new value for {@link #aSet}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setASet(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> aSet)
+	void setASet(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> aSet)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -493,7 +493,7 @@ public class BlockFieldStandardModelTest
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final boolean addToASet(@javax.annotation.Nonnull final Integer element)
+	boolean addToASet(@javax.annotation.Nonnull final Integer element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -506,7 +506,7 @@ public class BlockFieldStandardModelTest
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
-	final boolean removeFromASet(@javax.annotation.Nonnull final Integer element)
+	boolean removeFromASet(@javax.annotation.Nonnull final Integer element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -585,7 +585,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return AnItem.code.get(this);
 	}
@@ -595,7 +595,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock eins()
+	ABlock eins()
 	{
 		return AnItem.eins.get(this);
 	}
@@ -605,7 +605,7 @@ public class BlockFieldStandardModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock zwei()
+	ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
 	}

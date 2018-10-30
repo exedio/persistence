@@ -54,13 +54,13 @@ public final class GenericComplexSub extends GenericComplexMid<List<String>>
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final GenericComplexSub methodFromSub()
+	static GenericComplexSub methodFromSub()
 	{
 		return GenericComplexSub.fromSub.method(GenericComplexSub.class);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
-	static final java.util.List<GenericComplexSub> methodFromSubNested()
+	static java.util.List<GenericComplexSub> methodFromSubNested()
 	{
 		return GenericComplexSub.fromSub.methodNested(GenericComplexSub.class);
 	}

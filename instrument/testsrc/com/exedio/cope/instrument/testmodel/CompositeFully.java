@@ -56,7 +56,7 @@ public final class CompositeFully extends com.exedio.cope.pattern.Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField()
+	java.lang.String getField()
 	{
 		return get(CompositeFully.field);
 	}
@@ -65,7 +65,7 @@ public final class CompositeFully extends com.exedio.cope.pattern.Composite
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField(@javax.annotation.Nonnull final java.lang.String field)
+	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

@@ -88,7 +88,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Boolean getBooleanTrue()
+	java.lang.Boolean getBooleanTrue()
 	{
 		return DefaultToItem.booleanTrue.get(this);
 	}
@@ -97,7 +97,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #booleanTrue}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBooleanTrue(@javax.annotation.Nullable final java.lang.Boolean booleanTrue)
+	void setBooleanTrue(@javax.annotation.Nullable final java.lang.Boolean booleanTrue)
 	{
 		DefaultToItem.booleanTrue.set(this,booleanTrue);
 	}
@@ -106,7 +106,7 @@ final class DefaultToItem extends Item
 	 * Returns the value of {@link #booleanNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getBooleanNone()
+	boolean getBooleanNone()
 	{
 		return DefaultToItem.booleanNone.getMandatory(this);
 	}
@@ -115,7 +115,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #booleanNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBooleanNone(final boolean booleanNone)
+	void setBooleanNone(final boolean booleanNone)
 	{
 		DefaultToItem.booleanNone.set(this,booleanNone);
 	}
@@ -124,7 +124,7 @@ final class DefaultToItem extends Item
 	 * Returns the value of {@link #integerFive}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getIntegerFive()
+	int getIntegerFive()
 	{
 		return DefaultToItem.integerFive.getMandatory(this);
 	}
@@ -133,7 +133,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #integerFive}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntegerFive(final int integerFive)
+	void setIntegerFive(final int integerFive)
 	{
 		DefaultToItem.integerFive.set(this,integerFive);
 	}
@@ -143,7 +143,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getIntegerFifty()
+	java.lang.Integer getIntegerFifty()
 	{
 		return DefaultToItem.integerFifty.get(this);
 	}
@@ -152,7 +152,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #integerFifty}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntegerFifty(@javax.annotation.Nullable final java.lang.Integer integerFifty)
+	void setIntegerFifty(@javax.annotation.Nullable final java.lang.Integer integerFifty)
 	{
 		DefaultToItem.integerFifty.set(this,integerFifty);
 	}
@@ -162,7 +162,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getIntegerNext()
+	java.lang.Integer getIntegerNext()
 	{
 		return DefaultToItem.integerNext.get(this);
 	}
@@ -171,7 +171,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #integerNext}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntegerNext(@javax.annotation.Nullable final java.lang.Integer integerNext)
+	void setIntegerNext(@javax.annotation.Nullable final java.lang.Integer integerNext)
 	{
 		DefaultToItem.integerNext.set(this,integerNext);
 	}
@@ -181,7 +181,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getIntegerNone()
+	java.lang.Integer getIntegerNone()
 	{
 		return DefaultToItem.integerNone.get(this);
 	}
@@ -190,7 +190,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #integerNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntegerNone(@javax.annotation.Nullable final java.lang.Integer integerNone)
+	void setIntegerNone(@javax.annotation.Nullable final java.lang.Integer integerNone)
 	{
 		DefaultToItem.integerNone.set(this,integerNone);
 	}
@@ -200,7 +200,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Date getDateEight()
+	java.util.Date getDateEight()
 	{
 		return DefaultToItem.dateEight.get(this);
 	}
@@ -209,7 +209,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dateEight}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDateEight(@javax.annotation.Nonnull final java.util.Date dateEight)
+	void setDateEight(@javax.annotation.Nonnull final java.util.Date dateEight)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -220,7 +220,7 @@ final class DefaultToItem extends Item
 	 * Sets the current date for the date field {@link #dateEight}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDateEight()
+	void touchDateEight()
 	{
 		DefaultToItem.dateEight.touch(this);
 	}
@@ -230,7 +230,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getDateEighty()
+	java.util.Date getDateEighty()
 	{
 		return DefaultToItem.dateEighty.get(this);
 	}
@@ -239,7 +239,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dateEighty}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDateEighty(@javax.annotation.Nullable final java.util.Date dateEighty)
+	void setDateEighty(@javax.annotation.Nullable final java.util.Date dateEighty)
 	{
 		DefaultToItem.dateEighty.set(this,dateEighty);
 	}
@@ -248,7 +248,7 @@ final class DefaultToItem extends Item
 	 * Sets the current date for the date field {@link #dateEighty}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDateEighty()
+	void touchDateEighty()
 	{
 		DefaultToItem.dateEighty.touch(this);
 	}
@@ -258,7 +258,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Date getDateNow()
+	java.util.Date getDateNow()
 	{
 		return DefaultToItem.dateNow.get(this);
 	}
@@ -267,7 +267,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dateNow}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDateNow(@javax.annotation.Nonnull final java.util.Date dateNow)
+	void setDateNow(@javax.annotation.Nonnull final java.util.Date dateNow)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -278,7 +278,7 @@ final class DefaultToItem extends Item
 	 * Sets the current date for the date field {@link #dateNow}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDateNow()
+	void touchDateNow()
 	{
 		DefaultToItem.dateNow.touch(this);
 	}
@@ -288,7 +288,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getDateNowOpt()
+	java.util.Date getDateNowOpt()
 	{
 		return DefaultToItem.dateNowOpt.get(this);
 	}
@@ -297,7 +297,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dateNowOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDateNowOpt(@javax.annotation.Nullable final java.util.Date dateNowOpt)
+	void setDateNowOpt(@javax.annotation.Nullable final java.util.Date dateNowOpt)
 	{
 		DefaultToItem.dateNowOpt.set(this,dateNowOpt);
 	}
@@ -306,7 +306,7 @@ final class DefaultToItem extends Item
 	 * Sets the current date for the date field {@link #dateNowOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDateNowOpt()
+	void touchDateNowOpt()
 	{
 		DefaultToItem.dateNowOpt.touch(this);
 	}
@@ -316,7 +316,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.util.Date getDateNone()
+	java.util.Date getDateNone()
 	{
 		return DefaultToItem.dateNone.get(this);
 	}
@@ -325,7 +325,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dateNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDateNone(@javax.annotation.Nullable final java.util.Date dateNone)
+	void setDateNone(@javax.annotation.Nullable final java.util.Date dateNone)
 	{
 		DefaultToItem.dateNone.set(this,dateNone);
 	}
@@ -334,7 +334,7 @@ final class DefaultToItem extends Item
 	 * Sets the current date for the date field {@link #dateNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDateNone()
+	void touchDateNone()
 	{
 		DefaultToItem.dateNone.touch(this);
 	}
@@ -344,7 +344,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.util.Day getDayEight()
+	com.exedio.cope.util.Day getDayEight()
 	{
 		return DefaultToItem.dayEight.get(this);
 	}
@@ -353,7 +353,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dayEight}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDayEight(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayEight)
+	void setDayEight(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayEight)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -364,7 +364,7 @@ final class DefaultToItem extends Item
 	 * Sets today for the date field {@link #dayEight}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDayEight(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchDayEight(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayEight.touch(this,zone);
 	}
@@ -374,7 +374,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.util.Day getDayNow()
+	com.exedio.cope.util.Day getDayNow()
 	{
 		return DefaultToItem.dayNow.get(this);
 	}
@@ -383,7 +383,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dayNow}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDayNow(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayNow)
+	void setDayNow(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayNow)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -394,7 +394,7 @@ final class DefaultToItem extends Item
 	 * Sets today for the date field {@link #dayNow}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDayNow(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchDayNow(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayNow.touch(this,zone);
 	}
@@ -404,7 +404,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.util.Day getDayNowOpt()
+	com.exedio.cope.util.Day getDayNowOpt()
 	{
 		return DefaultToItem.dayNowOpt.get(this);
 	}
@@ -413,7 +413,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dayNowOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDayNowOpt(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNowOpt)
+	void setDayNowOpt(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNowOpt)
 	{
 		DefaultToItem.dayNowOpt.set(this,dayNowOpt);
 	}
@@ -422,7 +422,7 @@ final class DefaultToItem extends Item
 	 * Sets today for the date field {@link #dayNowOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDayNowOpt(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchDayNowOpt(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayNowOpt.touch(this,zone);
 	}
@@ -432,7 +432,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final com.exedio.cope.util.Day getDayNone()
+	com.exedio.cope.util.Day getDayNone()
 	{
 		return DefaultToItem.dayNone.get(this);
 	}
@@ -441,7 +441,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #dayNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDayNone(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNone)
+	void setDayNone(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNone)
 	{
 		DefaultToItem.dayNone.set(this,dayNone);
 	}
@@ -450,7 +450,7 @@ final class DefaultToItem extends Item
 	 * Sets today for the date field {@link #dayNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDayNone(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchDayNone(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayNone.touch(this,zone);
 	}
@@ -460,7 +460,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Long getLongRandom()
+	java.lang.Long getLongRandom()
 	{
 		return DefaultToItem.longRandom.get(this);
 	}
@@ -469,7 +469,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #longRandom}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setLongRandom(@javax.annotation.Nullable final java.lang.Long longRandom)
+	void setLongRandom(@javax.annotation.Nullable final java.lang.Long longRandom)
 			throws
 				com.exedio.cope.LongRangeViolationException
 	{
@@ -481,7 +481,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final DefaultToEnum getEnumOne()
+	DefaultToEnum getEnumOne()
 	{
 		return DefaultToItem.enumOne.get(this);
 	}
@@ -490,7 +490,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #enumOne}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setEnumOne(@javax.annotation.Nonnull final DefaultToEnum enumOne)
+	void setEnumOne(@javax.annotation.Nonnull final DefaultToEnum enumOne)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -502,7 +502,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DefaultToEnum getEnumTwo()
+	DefaultToEnum getEnumTwo()
 	{
 		return DefaultToItem.enumTwo.get(this);
 	}
@@ -511,7 +511,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #enumTwo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setEnumTwo(@javax.annotation.Nullable final DefaultToEnum enumTwo)
+	void setEnumTwo(@javax.annotation.Nullable final DefaultToEnum enumTwo)
 	{
 		DefaultToItem.enumTwo.set(this,enumTwo);
 	}
@@ -521,7 +521,7 @@ final class DefaultToItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DefaultToEnum getEnumNone()
+	DefaultToEnum getEnumNone()
 	{
 		return DefaultToItem.enumNone.get(this);
 	}
@@ -530,7 +530,7 @@ final class DefaultToItem extends Item
 	 * Sets a new value for {@link #enumNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setEnumNone(@javax.annotation.Nullable final DefaultToEnum enumNone)
+	void setEnumNone(@javax.annotation.Nullable final DefaultToEnum enumNone)
 	{
 		DefaultToItem.enumNone.set(this,enumNone);
 	}

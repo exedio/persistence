@@ -201,14 +201,14 @@ public class HavingAggregateTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getGroup()
+		java.lang.String getGroup()
 		{
 			return MyItem.group.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.Integer getAggregated()
+		java.lang.Integer getAggregated()
 		{
 			return MyItem.aggregated.get(this);
 		}

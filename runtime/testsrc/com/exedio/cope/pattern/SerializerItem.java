@@ -67,7 +67,7 @@ public final class SerializerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Integer getInteger()
+	Integer getInteger()
 	{
 		return SerializerItem.integer.get(this);
 	}
@@ -76,7 +76,7 @@ public final class SerializerItem extends Item
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(@javax.annotation.Nullable final Integer integer)
+	void setInteger(@javax.annotation.Nullable final Integer integer)
 	{
 		SerializerItem.integer.set(this,integer);
 	}
@@ -86,7 +86,7 @@ public final class SerializerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Map getMap()
+	Map getMap()
 	{
 		return SerializerItem.map.get(this);
 	}
@@ -95,7 +95,7 @@ public final class SerializerItem extends Item
 	 * Sets a new value for {@link #map}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMap(@javax.annotation.Nullable final Map map)
+	void setMap(@javax.annotation.Nullable final Map map)
 	{
 		SerializerItem.map.set(this,map);
 	}
@@ -105,7 +105,7 @@ public final class SerializerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Map<?,?> getMapWildcard()
+	Map<?,?> getMapWildcard()
 	{
 		return SerializerItem.mapWildcard.get(this);
 	}
@@ -114,7 +114,7 @@ public final class SerializerItem extends Item
 	 * Sets a new value for {@link #mapWildcard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMapWildcard(@javax.annotation.Nullable final Map<?,?> mapWildcard)
+	void setMapWildcard(@javax.annotation.Nullable final Map<?,?> mapWildcard)
 	{
 		SerializerItem.mapWildcard.set(this,mapWildcard);
 	}
@@ -124,7 +124,7 @@ public final class SerializerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final String getMandatoryString()
+	String getMandatoryString()
 	{
 		return SerializerItem.mandatoryString.get(this);
 	}
@@ -133,7 +133,7 @@ public final class SerializerItem extends Item
 	 * Sets a new value for {@link #mandatoryString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMandatoryString(@javax.annotation.Nonnull final String mandatoryString)
+	void setMandatoryString(@javax.annotation.Nonnull final String mandatoryString)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

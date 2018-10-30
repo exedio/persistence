@@ -95,7 +95,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	 * Returns the value of {@link #fieldA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getFieldA()
+	int getFieldA()
 	{
 		return ItemA.fieldA.getMandatory(this);
 	}
@@ -107,7 +107,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final ItemA forFieldA(final int fieldA)
+	static ItemA forFieldA(final int fieldA)
 	{
 		return ItemA.fieldA.searchUnique(ItemA.class,fieldA);
 	}
@@ -163,7 +163,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	 * Returns the value of {@link #fieldB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getFieldB()
+	int getFieldB()
 	{
 		return ItemB.fieldB.getMandatory(this);
 	}
@@ -175,7 +175,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final ItemB forFieldB(final int fieldB)
+	static ItemB forFieldB(final int fieldB)
 	{
 		return ItemB.fieldB.searchUnique(ItemB.class,fieldB);
 	}

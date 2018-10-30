@@ -82,7 +82,7 @@ final class CopySelfSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CopySelfSource getSelfTarget()
+	CopySelfSource getSelfTarget()
 	{
 		return CopySelfSource.selfTarget.get(this);
 	}
@@ -91,7 +91,7 @@ final class CopySelfSource extends Item
 	 * Sets a new value for {@link #selfTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSelfTarget(@javax.annotation.Nullable final CopySelfSource selfTarget)
+	void setSelfTarget(@javax.annotation.Nullable final CopySelfSource selfTarget)
 	{
 		CopySelfSource.selfTarget.set(this,selfTarget);
 	}
@@ -101,7 +101,7 @@ final class CopySelfSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CopyValue getSelfTemplate()
+	CopyValue getSelfTemplate()
 	{
 		return CopySelfSource.selfTemplate.get(this);
 	}

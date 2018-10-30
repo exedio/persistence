@@ -68,7 +68,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return ImporterItem.code.get(this);
 	}
@@ -80,7 +80,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final ImporterItem forCode(@javax.annotation.Nonnull final java.lang.String code)
+	static ImporterItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return ImporterItem.code.searchUnique(ImporterItem.class,code);
 	}
@@ -92,7 +92,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final ImporterItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+	static ImporterItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -105,7 +105,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="import")
 	@javax.annotation.Nonnull
-	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final com.exedio.cope.SetValue<?>... setValues)
+	static ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final com.exedio.cope.SetValue<?>... setValues)
 	{
 		return ImporterItem.byCode.doImport(ImporterItem.class,keyValue,setValues);
 	}
@@ -116,7 +116,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="import")
 	@javax.annotation.Nonnull
-	static final ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final java.util.List<com.exedio.cope.SetValue<?>> setValues)
+	static ImporterItem importByCode(@javax.annotation.Nonnull final String keyValue,@javax.annotation.Nonnull final java.util.List<com.exedio.cope.SetValue<?>> setValues)
 	{
 		return ImporterItem.byCode.doImport(ImporterItem.class,keyValue,setValues);
 	}
@@ -126,7 +126,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getDescription()
+	java.lang.String getDescription()
 	{
 		return ImporterItem.description.get(this);
 	}
@@ -135,7 +135,7 @@ final class ImporterItem extends Item
 	 * Sets a new value for {@link #description}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDescription(@javax.annotation.Nonnull final java.lang.String description)
+	void setDescription(@javax.annotation.Nonnull final java.lang.String description)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -148,7 +148,7 @@ final class ImporterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getDescription2()
+	java.lang.String getDescription2()
 	{
 		return ImporterItem.description2.get(this);
 	}
@@ -157,7 +157,7 @@ final class ImporterItem extends Item
 	 * Sets a new value for {@link #description2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDescription2(@javax.annotation.Nonnull final java.lang.String description2)
+	void setDescription2(@javax.annotation.Nonnull final java.lang.String description2)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

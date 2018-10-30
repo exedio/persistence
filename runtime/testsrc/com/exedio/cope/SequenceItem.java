@@ -48,7 +48,7 @@ final class SequenceItem extends Item
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextFull()
+	static int nextFull()
 	{
 		return SequenceItem.full.next();
 	}
@@ -58,7 +58,7 @@ final class SequenceItem extends Item
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextLimited()
+	static int nextLimited()
 	{
 		return SequenceItem.limited.next();
 	}

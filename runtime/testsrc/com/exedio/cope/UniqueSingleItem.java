@@ -63,7 +63,7 @@ public final class UniqueSingleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.String getUniqueString()
+	public java.lang.String getUniqueString()
 	{
 		return UniqueSingleItem.uniqueString.get(this);
 	}
@@ -72,7 +72,7 @@ public final class UniqueSingleItem extends Item
 	 * Sets a new value for {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
+	public void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -87,7 +87,7 @@ public final class UniqueSingleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	public static final UniqueSingleItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
+	public static UniqueSingleItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return UniqueSingleItem.uniqueString.searchUnique(UniqueSingleItem.class,uniqueString);
 	}
@@ -99,7 +99,7 @@ public final class UniqueSingleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	public static final UniqueSingleItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
+	public static UniqueSingleItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -111,7 +111,7 @@ public final class UniqueSingleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.String getOtherString()
+	public java.lang.String getOtherString()
 	{
 		return UniqueSingleItem.otherString.get(this);
 	}
@@ -120,7 +120,7 @@ public final class UniqueSingleItem extends Item
 	 * Sets a new value for {@link #otherString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setOtherString(@javax.annotation.Nullable final java.lang.String otherString)
+	public void setOtherString(@javax.annotation.Nullable final java.lang.String otherString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

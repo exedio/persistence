@@ -127,7 +127,7 @@ public class BlockFieldCheckModelTest
 	 * Returns the value of {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getAlpha()
+	int getAlpha()
 	{
 		return field().of(ABlock.alpha).getMandatory(item());
 	}
@@ -136,7 +136,7 @@ public class BlockFieldCheckModelTest
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAlpha(final int alpha)
+	void setAlpha(final int alpha)
 	{
 		field().of(ABlock.alpha).set(item(),alpha);
 	}
@@ -145,7 +145,7 @@ public class BlockFieldCheckModelTest
 	 * Returns the value of {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getBeta()
+	int getBeta()
 	{
 		return field().of(ABlock.beta).getMandatory(item());
 	}
@@ -154,7 +154,7 @@ public class BlockFieldCheckModelTest
 	 * Sets a new value for {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBeta(final int beta)
+	void setBeta(final int beta)
 	{
 		field().of(ABlock.beta).set(item(),beta);
 	}
@@ -229,7 +229,7 @@ public class BlockFieldCheckModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return AnItem.code.get(this);
 	}
@@ -239,7 +239,7 @@ public class BlockFieldCheckModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock eins()
+	ABlock eins()
 	{
 		return AnItem.eins.get(this);
 	}
@@ -249,7 +249,7 @@ public class BlockFieldCheckModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock zwei()
+	ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
 	}

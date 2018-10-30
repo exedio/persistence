@@ -113,19 +113,19 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final int getOne()
+		int getOne()
 		{
 			return AnItem.one.getMandatory(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final int getTwo()
+		int getTwo()
 		{
 			return AnItem.two.getMandatory(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final int getSum()
+		int getSum()
 		{
 			return AnItem.sum.getMandatory(this);
 		}

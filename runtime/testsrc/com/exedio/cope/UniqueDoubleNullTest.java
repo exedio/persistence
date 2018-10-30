@@ -118,13 +118,13 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getString()
+		java.lang.String getString()
 		{
 			return MyItem.string.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setString(@javax.annotation.Nullable final java.lang.String string)
+		void setString(@javax.annotation.Nullable final java.lang.String string)
 				throws
 					com.exedio.cope.UniqueViolationException,
 					com.exedio.cope.StringLengthViolationException
@@ -134,13 +134,13 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.Integer getInteger()
+		java.lang.Integer getInteger()
 		{
 			return MyItem.integer.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
+		void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 				throws
 					com.exedio.cope.UniqueViolationException
 		{
@@ -149,14 +149,14 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		static final MyItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final java.lang.Integer integer)
+		static MyItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final java.lang.Integer integer)
 		{
 			return MyItem.constraint.search(MyItem.class,string,integer);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		static final MyItem forConstraintStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final java.lang.Integer integer)
+		static MyItem forConstraintStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final java.lang.Integer integer)
 				throws
 					java.lang.IllegalArgumentException
 		{

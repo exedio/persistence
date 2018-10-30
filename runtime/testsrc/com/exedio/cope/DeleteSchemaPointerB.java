@@ -51,7 +51,7 @@ final class DeleteSchemaPointerB extends Item
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getCode()
+	int getCode()
 	{
 		return DeleteSchemaPointerB.code.getMandatory(this);
 	}
@@ -60,7 +60,7 @@ final class DeleteSchemaPointerB extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCode(final int code)
+	void setCode(final int code)
 	{
 		DeleteSchemaPointerB.code.set(this,code);
 	}
@@ -70,7 +70,7 @@ final class DeleteSchemaPointerB extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteSchemaPointerA getOther()
+	DeleteSchemaPointerA getOther()
 	{
 		return DeleteSchemaPointerB.other.get(this);
 	}
@@ -79,7 +79,7 @@ final class DeleteSchemaPointerB extends Item
 	 * Sets a new value for {@link #other}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOther(@javax.annotation.Nullable final DeleteSchemaPointerA other)
+	void setOther(@javax.annotation.Nullable final DeleteSchemaPointerA other)
 	{
 		DeleteSchemaPointerB.other.set(this,other);
 	}

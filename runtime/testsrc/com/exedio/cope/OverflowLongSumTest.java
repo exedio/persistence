@@ -203,7 +203,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final long getField()
+	long getField()
 	{
 		return AnItem.field.getMandatory(this);
 	}

@@ -95,14 +95,14 @@ public final class EnumMapFieldFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
+	String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
 	{
 		return EnumMapFieldFinalItem.text.get(this,k);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
+	java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
 	{
 		return EnumMapFieldFinalItem.text.getMap(this);
 	}

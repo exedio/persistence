@@ -66,7 +66,7 @@ public final class MinusLongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getNumA()
+	public java.lang.Long getNumA()
 	{
 		return MinusLongItem.numA.get(this);
 	}
@@ -75,7 +75,7 @@ public final class MinusLongItem extends Item
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumA(@javax.annotation.Nullable final java.lang.Long numA)
+	public void setNumA(@javax.annotation.Nullable final java.lang.Long numA)
 	{
 		MinusLongItem.numA.set(this,numA);
 	}
@@ -85,7 +85,7 @@ public final class MinusLongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getNumB()
+	public java.lang.Long getNumB()
 	{
 		return MinusLongItem.numB.get(this);
 	}
@@ -94,7 +94,7 @@ public final class MinusLongItem extends Item
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumB(@javax.annotation.Nullable final java.lang.Long numB)
+	public void setNumB(@javax.annotation.Nullable final java.lang.Long numB)
 	{
 		MinusLongItem.numB.set(this,numB);
 	}
@@ -104,7 +104,7 @@ public final class MinusLongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getNumC()
+	public java.lang.Long getNumC()
 	{
 		return MinusLongItem.numC.get(this);
 	}
@@ -113,7 +113,7 @@ public final class MinusLongItem extends Item
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumC(@javax.annotation.Nullable final java.lang.Long numC)
+	public void setNumC(@javax.annotation.Nullable final java.lang.Long numC)
 	{
 		MinusLongItem.numC.set(this,numC);
 	}
@@ -122,7 +122,7 @@ public final class MinusLongItem extends Item
 	 * Returns the value of {@link #viewAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getViewAB()
+	public Long getViewAB()
 	{
 		return MinusLongItem.viewAB.get(this);
 	}
@@ -131,7 +131,7 @@ public final class MinusLongItem extends Item
 	 * Returns the value of {@link #viewAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getViewAC()
+	public Long getViewAC()
 	{
 		return MinusLongItem.viewAC.get(this);
 	}
@@ -140,7 +140,7 @@ public final class MinusLongItem extends Item
 	 * Returns the value of {@link #viewBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getViewBC()
+	public Long getViewBC()
 	{
 		return MinusLongItem.viewBC.get(this);
 	}

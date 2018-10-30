@@ -67,7 +67,7 @@ public final class CompositeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return CompositeItem.code.get(this);
 	}
@@ -77,7 +77,7 @@ public final class CompositeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CompositeValue getEins()
+	CompositeValue getEins()
 	{
 		return CompositeItem.eins.get(this);
 	}
@@ -86,7 +86,7 @@ public final class CompositeItem extends Item
 	 * Sets a new value for {@link #eins}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setEins(@javax.annotation.Nonnull final CompositeValue eins)
+	void setEins(@javax.annotation.Nonnull final CompositeValue eins)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -98,7 +98,7 @@ public final class CompositeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CompositeValue getZwei()
+	CompositeValue getZwei()
 	{
 		return CompositeItem.zwei.get(this);
 	}
@@ -107,7 +107,7 @@ public final class CompositeItem extends Item
 	 * Sets a new value for {@link #zwei}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setZwei(@javax.annotation.Nonnull final CompositeValue zwei)
+	void setZwei(@javax.annotation.Nonnull final CompositeValue zwei)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

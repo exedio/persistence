@@ -52,7 +52,7 @@ public final class DeleteHierarchySource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final DeleteHierarchyTargetSuper getTarget()
+	DeleteHierarchyTargetSuper getTarget()
 	{
 		return DeleteHierarchySource.target.get(this);
 	}
@@ -61,7 +61,7 @@ public final class DeleteHierarchySource extends Item
 	 * Sets a new value for {@link #target}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTarget(@javax.annotation.Nonnull final DeleteHierarchyTargetSuper target)
+	void setTarget(@javax.annotation.Nonnull final DeleteHierarchyTargetSuper target)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

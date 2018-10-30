@@ -70,7 +70,7 @@ public final class PointerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getCode()
+	public java.lang.String getCode()
 	{
 		return PointerItem.code.get(this);
 	}
@@ -79,7 +79,7 @@ public final class PointerItem extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setCode(@javax.annotation.Nonnull final java.lang.String code)
+	public void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -92,7 +92,7 @@ public final class PointerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final PointerTargetItem getPointer()
+	public PointerTargetItem getPointer()
 	{
 		return PointerItem.pointer.get(this);
 	}
@@ -101,7 +101,7 @@ public final class PointerItem extends Item
 	 * Sets a new value for {@link #pointer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setPointer(@javax.annotation.Nonnull final PointerTargetItem pointer)
+	public void setPointer(@javax.annotation.Nonnull final PointerTargetItem pointer)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -113,7 +113,7 @@ public final class PointerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final PointerTargetItem getPointer2()
+	public PointerTargetItem getPointer2()
 	{
 		return PointerItem.pointer2.get(this);
 	}
@@ -122,7 +122,7 @@ public final class PointerItem extends Item
 	 * Sets a new value for {@link #pointer2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setPointer2(@javax.annotation.Nullable final PointerTargetItem pointer2)
+	public void setPointer2(@javax.annotation.Nullable final PointerTargetItem pointer2)
 	{
 		PointerItem.pointer2.set(this,pointer2);
 	}
@@ -132,7 +132,7 @@ public final class PointerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final PointerItem getSelf()
+	public PointerItem getSelf()
 	{
 		return PointerItem.self.get(this);
 	}
@@ -141,7 +141,7 @@ public final class PointerItem extends Item
 	 * Sets a new value for {@link #self}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSelf(@javax.annotation.Nullable final PointerItem self)
+	public void setSelf(@javax.annotation.Nullable final PointerItem self)
 	{
 		PointerItem.self.set(this,self);
 	}
@@ -151,7 +151,7 @@ public final class PointerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final EmptyItem2 getEmpty2()
+	public EmptyItem2 getEmpty2()
 	{
 		return PointerItem.empty2.get(this);
 	}
@@ -160,7 +160,7 @@ public final class PointerItem extends Item
 	 * Sets a new value for {@link #empty2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setEmpty2(@javax.annotation.Nullable final EmptyItem2 empty2)
+	public void setEmpty2(@javax.annotation.Nullable final EmptyItem2 empty2)
 	{
 		PointerItem.empty2.set(this,empty2);
 	}

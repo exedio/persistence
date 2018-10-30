@@ -51,7 +51,7 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	 * Returns the value of {@link #subIntNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final int getSubIntNone()
+	public int getSubIntNone()
 	{
 		return FinalSubNoneItem.subIntNone.getMandatory(this);
 	}
@@ -60,7 +60,7 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	 * Sets a new value for {@link #subIntNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSubIntNone(final int subIntNone)
+	public void setSubIntNone(final int subIntNone)
 	{
 		FinalSubNoneItem.subIntNone.set(this,subIntNone);
 	}

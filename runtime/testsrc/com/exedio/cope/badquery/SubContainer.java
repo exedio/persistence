@@ -67,7 +67,7 @@ final class SubContainer extends SuperContainer
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final SuperContainer getSuperContainer()
+	public SuperContainer getSuperContainer()
 	{
 		return SubContainer.superContainer.get(this);
 	}
@@ -77,7 +77,7 @@ final class SubContainer extends SuperContainer
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Boolean getSubflag()
+	public java.lang.Boolean getSubflag()
 	{
 		return SubContainer.subflag.get(this);
 	}
@@ -86,7 +86,7 @@ final class SubContainer extends SuperContainer
 	 * Sets a new value for {@link #subflag}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSubflag(@javax.annotation.Nullable final java.lang.Boolean subflag)
+	public void setSubflag(@javax.annotation.Nullable final java.lang.Boolean subflag)
 	{
 		SubContainer.subflag.set(this,subflag);
 	}

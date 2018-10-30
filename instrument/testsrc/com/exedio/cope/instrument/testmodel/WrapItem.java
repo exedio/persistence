@@ -52,31 +52,31 @@ final class WrapItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	final int simpleFeature()
+	int simpleFeature()
 	{
 		return WrapItem.feature.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simpleVoid")
-	final void simpleFeatureVoid()
+	void simpleFeatureVoid()
 	{
 		WrapItem.feature.simpleVoid(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simpleStatic")
-	static final int simpleFeatureStatic()
+	static int simpleFeatureStatic()
 	{
 		return WrapItem.feature.simpleStatic();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simpleStaticVoid")
-	static final void simpleFeatureStaticVoid()
+	static void simpleFeatureStaticVoid()
 	{
 		WrapItem.feature.simpleStaticVoid();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="myOptionTagname")
-	static final int optionFeatureTagname()
+	static int optionFeatureTagname()
 	{
 		return WrapItem.feature.optionTagname();
 	}
@@ -88,7 +88,7 @@ final class WrapItem extends Item
 	 * @throws java.lang.RuntimeException throws documentation
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="documented")
-	static final int documentedFeature(final int feature)
+	static int documentedFeature(final int feature)
 			throws
 				java.lang.RuntimeException
 	{
@@ -115,7 +115,7 @@ final class WrapItem extends Item
 	 *         throws documentation IllegalArgumentException line 3 {@link #feature} feature wrapItem Feature {4}
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="documentedMulti")
-	static final int documentedFeatureMulti(final int paramNameXfeatureXwrapItemXFeature)
+	static int documentedFeatureMulti(final int paramNameXfeatureXwrapItemXFeature)
 			throws
 				java.lang.RuntimeException,
 				java.lang.IllegalArgumentException
@@ -134,7 +134,7 @@ final class WrapItem extends Item
 	 *         throws documentation IllegalArgumentException line 2 {@link #feature} feature wrapItem Feature {4}
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="documentedFirstLineEmpty")
-	static final int documentedFeatureFirstLineEmpty(final int feature)
+	static int documentedFeatureFirstLineEmpty(final int feature)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -142,55 +142,55 @@ final class WrapItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="notHidden")
-	static final int notFeatureHidden()
+	static int notFeatureHidden()
 	{
 		return WrapItem.feature.notHidden();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="varargsMethod")
-	final byte[] varargsFeatureMethod(final java.lang.String array,final java.lang.Integer... varargs)
+	byte[] varargsFeatureMethod(final java.lang.String array,final java.lang.Integer... varargs)
 	{
 		return WrapItem.feature.varargsMethod(this,array,varargs);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="arrayMethod")
-	final byte[] arrayFeatureMethod(final java.lang.Integer[] array)
+	byte[] arrayFeatureMethod(final java.lang.Integer[] array)
 	{
 		return WrapItem.feature.arrayMethod(this,array);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="arrayAndVarargsMethod")
-	final byte[] arrayFeatureAndVarargsMethod(final java.lang.Integer[] array,final java.lang.Integer... varargs)
+	byte[] arrayFeatureAndVarargsMethod(final java.lang.Integer[] array,final java.lang.Integer... varargs)
 	{
 		return WrapItem.feature.arrayAndVarargsMethod(this,array,varargs);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final void methodGeneric(final InputStream a,final OutputStream b,final ZipEntry z,final java.lang.Double f,final java.io.Reader x)
+	static void methodGeneric(final InputStream a,final OutputStream b,final ZipEntry z,final java.lang.Double f,final java.io.Reader x)
 	{
 		WrapItem.generic.method(a,b,z,f,x);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final void methodGeneric(final InputStream m,final OutputStream n,final ZipEntry z,final java.io.Writer x)
+	static void methodGeneric(final InputStream m,final OutputStream n,final ZipEntry z,final java.io.Writer x)
 	{
 		WrapItem.generic.method(m,n,z,x);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="varargsMethod")
-	static final java.util.function.Supplier<?>[] varargsGenericMethod(final java.util.Collection<?>... varargs)
+	static java.util.function.Supplier<?>[] varargsGenericMethod(final java.util.Collection<?>... varargs)
 	{
 		return WrapItem.generic.varargsMethod(varargs);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="arrayMethod")
-	static final void arrayGenericMethod(final java.util.Collection<?>[] varargs)
+	static void arrayGenericMethod(final java.util.Collection<?>[] varargs)
 	{
 		WrapItem.generic.arrayMethod(varargs);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="arrayAndVarargsMethod")
-	static final void arrayGenericAndVarargsMethod(final java.util.Collection<?>[] array,final java.util.Collection<?>... varargs)
+	static void arrayGenericAndVarargsMethod(final java.util.Collection<?>[] array,final java.util.Collection<?>... varargs)
 	{
 		WrapItem.generic.arrayAndVarargsMethod(array,varargs);
 	}

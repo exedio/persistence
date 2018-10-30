@@ -89,7 +89,7 @@ public final class JavaViewItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getNumberString()
+	java.lang.String getNumberString()
 	{
 		return JavaViewItem.numberString.get(this);
 	}
@@ -98,7 +98,7 @@ public final class JavaViewItem extends Item
 	 * Sets a new value for {@link #numberString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNumberString(@javax.annotation.Nullable final java.lang.String numberString)
+	void setNumberString(@javax.annotation.Nullable final java.lang.String numberString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

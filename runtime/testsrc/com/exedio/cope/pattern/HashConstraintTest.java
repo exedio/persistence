@@ -189,7 +189,7 @@ public class HashConstraintTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getHash()
+		java.lang.String getHash()
 		{
 			return AnItem.hash.get(this);
 		}
@@ -198,7 +198,7 @@ public class HashConstraintTest
 		 * Sets a new value for {@link #hash}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setHash(@javax.annotation.Nonnull final java.lang.String hash)
+		void setHash(@javax.annotation.Nonnull final java.lang.String hash)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException
@@ -210,7 +210,7 @@ public class HashConstraintTest
 		 * Returns, whether there is no data for field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-		final boolean isDataNull()
+		boolean isDataNull()
 		{
 			return AnItem.data.isNull(this);
 		}
@@ -219,7 +219,7 @@ public class HashConstraintTest
 		 * Returns the length of the data of the data field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-		final long getDataLength()
+		long getDataLength()
 		{
 			return AnItem.data.getLength(this);
 		}
@@ -229,7 +229,7 @@ public class HashConstraintTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
 		@javax.annotation.Nullable
-		final byte[] getDataArray()
+		byte[] getDataArray()
 		{
 			return AnItem.data.getArray(this);
 		}
@@ -238,7 +238,7 @@ public class HashConstraintTest
 		 * Writes the data of this persistent data field into the given stream.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-		final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
+		void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 				throws
 					java.io.IOException
 		{
@@ -249,7 +249,7 @@ public class HashConstraintTest
 		 * Writes the data of this persistent data field into the given file.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-		final void getData(@javax.annotation.Nonnull final java.io.File data)
+		void getData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					java.io.IOException
 		{
@@ -260,7 +260,7 @@ public class HashConstraintTest
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setData(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
+		void setData(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
@@ -271,7 +271,7 @@ public class HashConstraintTest
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setData(@javax.annotation.Nonnull final byte[] data)
+		void setData(@javax.annotation.Nonnull final byte[] data)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
@@ -282,7 +282,7 @@ public class HashConstraintTest
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setData(@javax.annotation.Nonnull final java.io.InputStream data)
+		void setData(@javax.annotation.Nonnull final java.io.InputStream data)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.io.IOException
@@ -294,7 +294,7 @@ public class HashConstraintTest
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setData(@javax.annotation.Nonnull final java.nio.file.Path data)
+		void setData(@javax.annotation.Nonnull final java.nio.file.Path data)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.io.IOException
@@ -306,7 +306,7 @@ public class HashConstraintTest
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setData(@javax.annotation.Nonnull final java.io.File data)
+		void setData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.io.IOException

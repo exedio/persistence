@@ -62,7 +62,7 @@ final class JoinFunctionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getString()
+	java.lang.String getString()
 	{
 		return JoinFunctionItem.string.get(this);
 	}
@@ -71,7 +71,7 @@ final class JoinFunctionItem extends Item
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setString(@javax.annotation.Nullable final java.lang.String string)
+	void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -83,7 +83,7 @@ final class JoinFunctionItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getInteger()
+	java.lang.Integer getInteger()
 	{
 		return JoinFunctionItem.integer.get(this);
 	}
@@ -92,7 +92,7 @@ final class JoinFunctionItem extends Item
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
+	void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		JoinFunctionItem.integer.set(this,integer);
 	}

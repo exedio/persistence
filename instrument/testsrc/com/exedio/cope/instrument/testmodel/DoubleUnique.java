@@ -79,7 +79,7 @@ public final class DoubleUnique extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getString()
+	public java.lang.String getString()
 	{
 		return DoubleUnique.string.get(this);
 	}
@@ -89,7 +89,7 @@ public final class DoubleUnique extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final SubTarget getItem()
+	public SubTarget getItem()
 	{
 		return DoubleUnique.item.get(this);
 	}
@@ -115,7 +115,7 @@ public final class DoubleUnique extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	public static final DoubleUnique forUniqueStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SubTarget item)
+	public static DoubleUnique forUniqueStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SubTarget item)
 			throws
 				java.lang.IllegalArgumentException
 	{

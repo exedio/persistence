@@ -144,7 +144,7 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getAlpha()
+	java.lang.Integer getAlpha()
 	{
 		return AnItem.alpha.get(this);
 	}
@@ -154,7 +154,7 @@ public class CheckConstraintViolatedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getBeta()
+	java.lang.Integer getBeta()
 	{
 		return AnItem.beta.get(this);
 	}

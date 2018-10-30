@@ -190,7 +190,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
 		@java.lang.Deprecated
-		static final int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
+		static int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 		{
 			return AnItem.toTarget.dispatch(AnItem.class,config,interrupter);
 		}
@@ -199,7 +199,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Dispatch by {@link #toTarget}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
-		static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+		static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 		{
 			AnItem.toTarget.dispatch(AnItem.class,config,ctx);
 		}
@@ -208,7 +208,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Dispatch by {@link #toTarget}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
-		static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+		static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 		{
 			AnItem.toTarget.dispatch(AnItem.class,config,probe,ctx);
 		}
@@ -217,7 +217,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Returns, whether this item is yet to be dispatched by {@link #toTarget}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
-		final boolean isToTargetPending()
+		boolean isToTargetPending()
 		{
 			return AnItem.toTarget.isPending(this);
 		}
@@ -226,7 +226,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Sets whether this item is yet to be dispatched by {@link #toTarget}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
-		final void setToTargetPending(final boolean pending)
+		void setToTargetPending(final boolean pending)
 		{
 			AnItem.toTarget.setPending(this,pending);
 		}
@@ -235,7 +235,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Returns, whether this item is allowed to be purged by {@link #toTarget}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNoPurge")
-		final boolean isToTargetNoPurge()
+		boolean isToTargetNoPurge()
 		{
 			return AnItem.toTarget.isNoPurge(this);
 		}
@@ -244,7 +244,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Sets whether this item is allowed to be purged by {@link #toTarget}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setNoPurge")
-		final void setToTargetNoPurge(final boolean noPurge)
+		void setToTargetNoPurge(final boolean noPurge)
 		{
 			AnItem.toTarget.setNoPurge(this,noPurge);
 		}
@@ -254,7 +254,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
 		@javax.annotation.Nullable
-		final java.util.Date getToTargetLastSuccessDate()
+		java.util.Date getToTargetLastSuccessDate()
 		{
 			return AnItem.toTarget.getLastSuccessDate(this);
 		}
@@ -264,7 +264,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
 		@javax.annotation.Nullable
-		final java.lang.Long getToTargetLastSuccessElapsed()
+		java.lang.Long getToTargetLastSuccessElapsed()
 		{
 			return AnItem.toTarget.getLastSuccessElapsed(this);
 		}
@@ -274,7 +274,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
 		@javax.annotation.Nonnull
-		final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
+		java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 		{
 			return AnItem.toTarget.getRuns(this);
 		}
@@ -284,19 +284,19 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
 		@javax.annotation.Nonnull
-		final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
+		java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 		{
 			return AnItem.toTarget.getFailures(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-		static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+		static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 		{
 			AnItem.toTarget.purge(properties,ctx);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-		static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+		static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 		{
 			AnItem.toTarget.purge(properties,restriction,ctx);
 		}
@@ -306,7 +306,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
 		@javax.annotation.Nonnull
-		static final com.exedio.cope.ItemField<AnItem> toTargetRunParent()
+		static com.exedio.cope.ItemField<AnItem> toTargetRunParent()
 		{
 			return AnItem.toTarget.getRunParent(AnItem.class);
 		}
@@ -315,7 +315,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Returns the value of {@link #dispatchFails}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-		final boolean getDispatchFails()
+		boolean getDispatchFails()
 		{
 			return AnItem.dispatchFails.getMandatory(this);
 		}
@@ -324,7 +324,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Sets a new value for {@link #dispatchFails}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setDispatchFails(final boolean dispatchFails)
+		void setDispatchFails(final boolean dispatchFails)
 		{
 			AnItem.dispatchFails.set(this,dispatchFails);
 		}
@@ -333,7 +333,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Returns the value of {@link #dispatchCount}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-		final int getDispatchCount()
+		int getDispatchCount()
 		{
 			return AnItem.dispatchCount.getMandatory(this);
 		}
@@ -342,7 +342,7 @@ public class DispatchableRependTest extends TestWithEnvironment
 		 * Sets a new value for {@link #dispatchCount}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setDispatchCount(final int dispatchCount)
+		void setDispatchCount(final int dispatchCount)
 		{
 			AnItem.dispatchCount.set(this,dispatchCount);
 		}

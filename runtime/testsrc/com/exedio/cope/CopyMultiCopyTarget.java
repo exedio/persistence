@@ -61,7 +61,7 @@ final class CopyMultiCopyTarget extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getCopyA()
+	java.lang.String getCopyA()
 	{
 		return CopyMultiCopyTarget.copyA.get(this);
 	}
@@ -71,7 +71,7 @@ final class CopyMultiCopyTarget extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getCopyB()
+	java.lang.String getCopyB()
 	{
 		return CopyMultiCopyTarget.copyB.get(this);
 	}

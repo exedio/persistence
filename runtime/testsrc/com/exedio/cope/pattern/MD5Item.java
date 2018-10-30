@@ -54,7 +54,7 @@ public final class MD5Item extends Item
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
-	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
+	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return MD5Item.password.check(this,password);
 	}
@@ -64,7 +64,7 @@ public final class MD5Item extends Item
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
-	static final void blindPassword(@javax.annotation.Nullable final java.lang.String password)
+	static void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		MD5Item.password.blind(password);
 	}
@@ -73,7 +73,7 @@ public final class MD5Item extends Item
 	 * Sets a new value for {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
+	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -85,7 +85,7 @@ public final class MD5Item extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMD5")
 	@javax.annotation.Nonnull
-	final java.lang.String getPasswordMD5()
+	java.lang.String getPasswordMD5()
 	{
 		return MD5Item.password.getHash(this);
 	}
@@ -94,7 +94,7 @@ public final class MD5Item extends Item
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMD5")
-	final void setPasswordMD5(@javax.annotation.Nonnull final java.lang.String password)
+	void setPasswordMD5(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

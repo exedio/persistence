@@ -96,7 +96,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getAlpha()
+	public java.lang.Integer getAlpha()
 	{
 		return CheckConstraintItem.alpha.get(this);
 	}
@@ -105,7 +105,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
+	public void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
 	{
 		CheckConstraintItem.alpha.set(this,alpha);
 	}
@@ -115,7 +115,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getBeta()
+	public java.lang.Integer getBeta()
 	{
 		return CheckConstraintItem.beta.get(this);
 	}
@@ -124,7 +124,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 * Sets a new value for {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
+	public void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		CheckConstraintItem.beta.set(this,beta);
 	}
@@ -134,7 +134,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getGamma()
+	public java.lang.Integer getGamma()
 	{
 		return CheckConstraintItem.gamma.get(this);
 	}
@@ -143,7 +143,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 * Sets a new value for {@link #gamma}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setGamma(@javax.annotation.Nullable final java.lang.Integer gamma)
+	public void setGamma(@javax.annotation.Nullable final java.lang.Integer gamma)
 	{
 		CheckConstraintItem.gamma.set(this,gamma);
 	}
@@ -153,7 +153,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getDelta()
+	public java.lang.Integer getDelta()
 	{
 		return CheckConstraintItem.delta.get(this);
 	}
@@ -162,7 +162,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 * Sets a new value for {@link #delta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setDelta(@javax.annotation.Nullable final java.lang.Integer delta)
+	public void setDelta(@javax.annotation.Nullable final java.lang.Integer delta)
 	{
 		CheckConstraintItem.delta.set(this,delta);
 	}

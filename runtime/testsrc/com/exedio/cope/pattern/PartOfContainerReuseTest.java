@@ -149,7 +149,7 @@ public class PartOfContainerReuseTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final AContainer getContainer()
+	AContainer getContainer()
 	{
 		return APart.container.get(this);
 	}
@@ -158,7 +158,7 @@ public class PartOfContainerReuseTest
 	 * Returns the value of {@link #order1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getOrder1()
+	int getOrder1()
 	{
 		return APart.order1.getMandatory(this);
 	}
@@ -167,7 +167,7 @@ public class PartOfContainerReuseTest
 	 * Sets a new value for {@link #order1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOrder1(final int order1)
+	void setOrder1(final int order1)
 	{
 		APart.order1.set(this,order1);
 	}
@@ -176,7 +176,7 @@ public class PartOfContainerReuseTest
 	 * Returns the value of {@link #order2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getOrder2()
+	int getOrder2()
 	{
 		return APart.order2.getMandatory(this);
 	}
@@ -185,7 +185,7 @@ public class PartOfContainerReuseTest
 	 * Sets a new value for {@link #order2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOrder2(final int order2)
+	void setOrder2(final int order2)
 	{
 		APart.order2.set(this,order2);
 	}
@@ -195,7 +195,7 @@ public class PartOfContainerReuseTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
 	@javax.annotation.Nonnull
-	final AContainer getParts1Container()
+	AContainer getParts1Container()
 	{
 		return APart.parts1.getContainer(this);
 	}
@@ -205,7 +205,7 @@ public class PartOfContainerReuseTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
 	@javax.annotation.Nonnull
-	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container)
+	static java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container)
 	{
 		return APart.parts1.getParts(APart.class,container);
 	}
@@ -215,7 +215,7 @@ public class PartOfContainerReuseTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
 	@javax.annotation.Nonnull
-	static final java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
+	static java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return APart.parts1.getParts(APart.class,container,condition);
 	}

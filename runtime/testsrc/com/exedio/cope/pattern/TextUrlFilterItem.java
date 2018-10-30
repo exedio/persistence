@@ -83,7 +83,7 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getName()
+	java.lang.String getName()
 	{
 		return TextUrlFilterItem.name.get(this);
 	}
@@ -92,7 +92,7 @@ public final class TextUrlFilterItem extends Item
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setName(@javax.annotation.Nullable final java.lang.String name)
+	void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -104,7 +104,7 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getRohLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getRohLocator()
 	{
 		return TextUrlFilterItem.roh.getLocator(this);
 	}
@@ -114,7 +114,7 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getRohContentType()
+	java.lang.String getRohContentType()
 	{
 		return TextUrlFilterItem.roh.getContentType(this);
 	}
@@ -123,7 +123,7 @@ public final class TextUrlFilterItem extends Item
 	 * Returns whether media {@link #roh} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	final boolean isRohNull()
+	boolean isRohNull()
 	{
 		return TextUrlFilterItem.roh.isNull(this);
 	}
@@ -133,7 +133,7 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
 	@javax.annotation.Nullable
-	final java.util.Date getRohLastModified()
+	java.util.Date getRohLastModified()
 	{
 		return TextUrlFilterItem.roh.getLastModified(this);
 	}
@@ -142,7 +142,7 @@ public final class TextUrlFilterItem extends Item
 	 * Returns the body length of the media {@link #roh}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	final long getRohLength()
+	long getRohLength()
 	{
 		return TextUrlFilterItem.roh.getLength(this);
 	}
@@ -152,7 +152,7 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	@javax.annotation.Nullable
-	final byte[] getRohBody()
+	byte[] getRohBody()
 	{
 		return TextUrlFilterItem.roh.getBody(this);
 	}
@@ -163,7 +163,7 @@ public final class TextUrlFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getRohBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+	void getRohBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -176,7 +176,7 @@ public final class TextUrlFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getRohBody(@javax.annotation.Nonnull final java.io.File body)
+	void getRohBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -188,7 +188,7 @@ public final class TextUrlFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRoh(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value roh)
+	void setRoh(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value roh)
 			throws
 				java.io.IOException
 	{
@@ -199,7 +199,7 @@ public final class TextUrlFilterItem extends Item
 	 * Sets the content of media {@link #roh}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRoh(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setRoh(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		TextUrlFilterItem.roh.set(this,body,contentType);
 	}
@@ -209,7 +209,7 @@ public final class TextUrlFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRoh(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setRoh(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -221,7 +221,7 @@ public final class TextUrlFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRoh(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setRoh(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -233,7 +233,7 @@ public final class TextUrlFilterItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRoh(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setRoh(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -245,7 +245,7 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getFertigLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getFertigLocator()
 	{
 		return TextUrlFilterItem.fertig.getLocator(this);
 	}
@@ -255,7 +255,7 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
 	@javax.annotation.Nullable
-	final java.lang.String getFertigURLWithFallbackToSource()
+	java.lang.String getFertigURLWithFallbackToSource()
 	{
 		return TextUrlFilterItem.fertig.getURLWithFallbackToSource(this);
 	}
@@ -265,13 +265,13 @@ public final class TextUrlFilterItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getFertigLocatorWithFallbackToSource()
+	com.exedio.cope.pattern.MediaPath.Locator getFertigLocatorWithFallbackToSource()
 	{
 		return TextUrlFilterItem.fertig.getLocatorWithFallbackToSource(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRaw")
-	final void setFertigRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
+	void setFertigRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
 			throws
 				java.io.IOException
 	{
@@ -280,13 +280,13 @@ public final class TextUrlFilterItem extends Item
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addPaste")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.TextUrlFilter.Paste addFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
+	com.exedio.cope.pattern.TextUrlFilter.Paste addFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 	{
 		return TextUrlFilterItem.fertig.addPaste(this,key,value);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="modifyPaste")
-	final void modifyFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
+	void modifyFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
 				java.io.IOException
 	{
@@ -295,7 +295,7 @@ public final class TextUrlFilterItem extends Item
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPaste")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.TextUrlFilter.Paste putFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
+	com.exedio.cope.pattern.TextUrlFilter.Paste putFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
 				java.io.IOException
 	{
@@ -304,7 +304,7 @@ public final class TextUrlFilterItem extends Item
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContent")
 	@javax.annotation.Nonnull
-	final java.lang.String getFertigContent(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
+	java.lang.String getFertigContent(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
@@ -313,7 +313,7 @@ public final class TextUrlFilterItem extends Item
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
 	@javax.annotation.Nonnull
-	final java.util.Set<java.lang.String> checkFertig()
+	java.util.Set<java.lang.String> checkFertig()
 			throws
 				com.exedio.cope.pattern.MediaPath.NotFound
 	{
@@ -321,7 +321,7 @@ public final class TextUrlFilterItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPastesFromZip")
-	final void putFertigPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
+	void putFertigPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
 			throws
 				java.io.IOException
 	{

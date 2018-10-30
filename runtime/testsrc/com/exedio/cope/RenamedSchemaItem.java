@@ -77,7 +77,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final RenamedSchemaTargetItem getItem()
+	RenamedSchemaTargetItem getItem()
 	{
 		return RenamedSchemaItem.item.get(this);
 	}
@@ -86,7 +86,7 @@ package com.exedio.cope;
 	 * Sets a new value for {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItem(@javax.annotation.Nullable final RenamedSchemaTargetItem item)
+	void setItem(@javax.annotation.Nullable final RenamedSchemaTargetItem item)
 	{
 		RenamedSchemaItem.item.set(this,item);
 	}
@@ -96,7 +96,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getUniqueSingle()
+	java.lang.String getUniqueSingle()
 	{
 		return RenamedSchemaItem.uniqueSingle.get(this);
 	}
@@ -105,7 +105,7 @@ package com.exedio.cope;
 	 * Sets a new value for {@link #uniqueSingle}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUniqueSingle(@javax.annotation.Nullable final java.lang.String uniqueSingle)
+	void setUniqueSingle(@javax.annotation.Nullable final java.lang.String uniqueSingle)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -120,7 +120,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final RenamedSchemaItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
+	static RenamedSchemaItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
 	{
 		return RenamedSchemaItem.uniqueSingle.searchUnique(RenamedSchemaItem.class,uniqueSingle);
 	}
@@ -132,7 +132,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final RenamedSchemaItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
+	static RenamedSchemaItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -144,7 +144,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getUniqueDouble1()
+	java.lang.String getUniqueDouble1()
 	{
 		return RenamedSchemaItem.uniqueDouble1.get(this);
 	}
@@ -153,7 +153,7 @@ package com.exedio.cope;
 	 * Sets a new value for {@link #uniqueDouble1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUniqueDouble1(@javax.annotation.Nonnull final java.lang.String uniqueDouble1)
+	void setUniqueDouble1(@javax.annotation.Nonnull final java.lang.String uniqueDouble1)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -166,7 +166,7 @@ package com.exedio.cope;
 	 * Returns the value of {@link #uniqueDouble2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getUniqueDouble2()
+	int getUniqueDouble2()
 	{
 		return RenamedSchemaItem.uniqueDouble2.getMandatory(this);
 	}
@@ -175,7 +175,7 @@ package com.exedio.cope;
 	 * Sets a new value for {@link #uniqueDouble2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUniqueDouble2(final int uniqueDouble2)
+	void setUniqueDouble2(final int uniqueDouble2)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -190,7 +190,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
+	static RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
 	{
 		return RenamedSchemaItem.uniqueDouble.search(RenamedSchemaItem.class,uniqueDouble1,uniqueDouble2);
 	}
@@ -203,7 +203,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final RenamedSchemaItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
+	static RenamedSchemaItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -215,7 +215,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getString()
+	java.lang.String getString()
 	{
 		return RenamedSchemaItem.string.get(this);
 	}
@@ -224,7 +224,7 @@ package com.exedio.cope;
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setString(@javax.annotation.Nullable final java.lang.String string)
+	void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -236,7 +236,7 @@ package com.exedio.cope;
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getInteger()
+	java.lang.Integer getInteger()
 	{
 		return RenamedSchemaItem.integer.get(this);
 	}
@@ -245,7 +245,7 @@ package com.exedio.cope;
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
+	void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		RenamedSchemaItem.integer.set(this,integer);
 	}
@@ -255,7 +255,7 @@ package com.exedio.cope;
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
-	static final int nextSequence()
+	static int nextSequence()
 	{
 		return RenamedSchemaItem.sequence.next();
 	}

@@ -92,39 +92,39 @@ public final class ScheduleItem extends Item implements Scheduleable
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isEnabled")
-	final boolean isReportEnabled()
+	boolean isReportEnabled()
 	{
 		return ScheduleItem.report.isEnabled(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setEnabled")
-	final void setReportEnabled(final boolean enabled)
+	void setReportEnabled(final boolean enabled)
 	{
 		ScheduleItem.report.setEnabled(this,enabled);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getInterval")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Schedule.Interval getReportInterval()
+	com.exedio.cope.pattern.Schedule.Interval getReportInterval()
 	{
 		return ScheduleItem.report.getInterval(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setInterval")
-	final void setReportInterval(@javax.annotation.Nonnull final com.exedio.cope.pattern.Schedule.Interval interval)
+	void setReportInterval(@javax.annotation.Nonnull final com.exedio.cope.pattern.Schedule.Interval interval)
 	{
 		ScheduleItem.report.setInterval(this,interval);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
 	@java.lang.Deprecated
-	static final int runReport(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
+	static int runReport(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return ScheduleItem.report.run(ScheduleItem.class,interrupter);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
-	static final void runReport(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void runReport(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		ScheduleItem.report.run(ScheduleItem.class,ctx);
 	}
@@ -134,7 +134,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<ScheduleItem> reportRunParent()
+	static com.exedio.cope.ItemField<ScheduleItem> reportRunParent()
 	{
 		return ScheduleItem.report.getRunParent(ScheduleItem.class);
 	}
@@ -143,7 +143,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 * Returns the value of {@link #fail}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getFail()
+	boolean getFail()
 	{
 		return ScheduleItem.fail.getMandatory(this);
 	}
@@ -152,7 +152,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 * Sets a new value for {@link #fail}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFail(final boolean fail)
+	void setFail(final boolean fail)
 	{
 		ScheduleItem.fail.set(this,fail);
 	}
@@ -162,7 +162,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getProgress()
+	java.lang.Integer getProgress()
 	{
 		return ScheduleItem.progress.get(this);
 	}
@@ -171,7 +171,7 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 * Sets a new value for {@link #progress}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setProgress(@javax.annotation.Nullable final java.lang.Integer progress)
+	void setProgress(@javax.annotation.Nullable final java.lang.Integer progress)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{

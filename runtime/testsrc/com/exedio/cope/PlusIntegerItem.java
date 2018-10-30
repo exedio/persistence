@@ -85,7 +85,7 @@ public final class PlusIntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNumA()
+	public java.lang.Integer getNumA()
 	{
 		return PlusIntegerItem.numA.get(this);
 	}
@@ -94,7 +94,7 @@ public final class PlusIntegerItem extends Item
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumA(@javax.annotation.Nullable final java.lang.Integer numA)
+	public void setNumA(@javax.annotation.Nullable final java.lang.Integer numA)
 	{
 		PlusIntegerItem.numA.set(this,numA);
 	}
@@ -104,7 +104,7 @@ public final class PlusIntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNumB()
+	public java.lang.Integer getNumB()
 	{
 		return PlusIntegerItem.numB.get(this);
 	}
@@ -113,7 +113,7 @@ public final class PlusIntegerItem extends Item
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumB(@javax.annotation.Nullable final java.lang.Integer numB)
+	public void setNumB(@javax.annotation.Nullable final java.lang.Integer numB)
 	{
 		PlusIntegerItem.numB.set(this,numB);
 	}
@@ -123,7 +123,7 @@ public final class PlusIntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNumC()
+	public java.lang.Integer getNumC()
 	{
 		return PlusIntegerItem.numC.get(this);
 	}
@@ -132,7 +132,7 @@ public final class PlusIntegerItem extends Item
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumC(@javax.annotation.Nullable final java.lang.Integer numC)
+	public void setNumC(@javax.annotation.Nullable final java.lang.Integer numC)
 	{
 		PlusIntegerItem.numC.set(this,numC);
 	}
@@ -141,7 +141,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #plusA9}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getPlusA9()
+	public Integer getPlusA9()
 	{
 		return PlusIntegerItem.plusA9.get(this);
 	}
@@ -150,7 +150,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #plusAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getPlusAB()
+	public Integer getPlusAB()
 	{
 		return PlusIntegerItem.plusAB.get(this);
 	}
@@ -159,7 +159,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #plusAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getPlusAC()
+	public Integer getPlusAC()
 	{
 		return PlusIntegerItem.plusAC.get(this);
 	}
@@ -168,7 +168,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #plusBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getPlusBC()
+	public Integer getPlusBC()
 	{
 		return PlusIntegerItem.plusBC.get(this);
 	}
@@ -177,7 +177,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #plusABC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getPlusABC()
+	public Integer getPlusABC()
 	{
 		return PlusIntegerItem.plusABC.get(this);
 	}
@@ -186,7 +186,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #plusABaC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getPlusABaC()
+	public Integer getPlusABaC()
 	{
 		return PlusIntegerItem.plusABaC.get(this);
 	}
@@ -195,7 +195,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #multiplyB9}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getMultiplyB9()
+	public Integer getMultiplyB9()
 	{
 		return PlusIntegerItem.multiplyB9.get(this);
 	}
@@ -204,7 +204,7 @@ public final class PlusIntegerItem extends Item
 	 * Returns the value of {@link #multiplyBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getMultiplyBC()
+	public Integer getMultiplyBC()
 	{
 		return PlusIntegerItem.multiplyBC.get(this);
 	}

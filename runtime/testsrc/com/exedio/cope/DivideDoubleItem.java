@@ -66,7 +66,7 @@ public final class DivideDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getNumA()
+	public java.lang.Double getNumA()
 	{
 		return DivideDoubleItem.numA.get(this);
 	}
@@ -75,7 +75,7 @@ public final class DivideDoubleItem extends Item
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumA(@javax.annotation.Nullable final java.lang.Double numA)
+	public void setNumA(@javax.annotation.Nullable final java.lang.Double numA)
 	{
 		DivideDoubleItem.numA.set(this,numA);
 	}
@@ -85,7 +85,7 @@ public final class DivideDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getNumB()
+	public java.lang.Double getNumB()
 	{
 		return DivideDoubleItem.numB.get(this);
 	}
@@ -94,7 +94,7 @@ public final class DivideDoubleItem extends Item
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumB(@javax.annotation.Nullable final java.lang.Double numB)
+	public void setNumB(@javax.annotation.Nullable final java.lang.Double numB)
 	{
 		DivideDoubleItem.numB.set(this,numB);
 	}
@@ -104,7 +104,7 @@ public final class DivideDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getNumC()
+	public java.lang.Double getNumC()
 	{
 		return DivideDoubleItem.numC.get(this);
 	}
@@ -113,7 +113,7 @@ public final class DivideDoubleItem extends Item
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumC(@javax.annotation.Nullable final java.lang.Double numC)
+	public void setNumC(@javax.annotation.Nullable final java.lang.Double numC)
 	{
 		DivideDoubleItem.numC.set(this,numC);
 	}
@@ -122,7 +122,7 @@ public final class DivideDoubleItem extends Item
 	 * Returns the value of {@link #divideAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Double getDivideAB()
+	public Double getDivideAB()
 	{
 		return DivideDoubleItem.divideAB.get(this);
 	}
@@ -131,7 +131,7 @@ public final class DivideDoubleItem extends Item
 	 * Returns the value of {@link #divideAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Double getDivideAC()
+	public Double getDivideAC()
 	{
 		return DivideDoubleItem.divideAC.get(this);
 	}
@@ -140,7 +140,7 @@ public final class DivideDoubleItem extends Item
 	 * Returns the value of {@link #divideBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Double getDivideBC()
+	public Double getDivideBC()
 	{
 		return DivideDoubleItem.divideBC.get(this);
 	}

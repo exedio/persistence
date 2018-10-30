@@ -135,7 +135,7 @@ final class CopyMultiTargetSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CopyMultiTargetA getTargetA()
+	CopyMultiTargetA getTargetA()
 	{
 		return CopyMultiTargetSource.targetA.get(this);
 	}
@@ -144,7 +144,7 @@ final class CopyMultiTargetSource extends Item
 	 * Sets a new value for {@link #targetA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTargetA(@javax.annotation.Nullable final CopyMultiTargetA targetA)
+	void setTargetA(@javax.annotation.Nullable final CopyMultiTargetA targetA)
 	{
 		CopyMultiTargetSource.targetA.set(this,targetA);
 	}
@@ -154,7 +154,7 @@ final class CopyMultiTargetSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CopyMultiTargetB getTargetB()
+	CopyMultiTargetB getTargetB()
 	{
 		return CopyMultiTargetSource.targetB.get(this);
 	}
@@ -163,7 +163,7 @@ final class CopyMultiTargetSource extends Item
 	 * Sets a new value for {@link #targetB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTargetB(@javax.annotation.Nullable final CopyMultiTargetB targetB)
+	void setTargetB(@javax.annotation.Nullable final CopyMultiTargetB targetB)
 	{
 		CopyMultiTargetSource.targetB.set(this,targetB);
 	}
@@ -173,7 +173,7 @@ final class CopyMultiTargetSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getCopy()
+	java.lang.String getCopy()
 	{
 		return CopyMultiTargetSource.copy.get(this);
 	}
@@ -182,7 +182,7 @@ final class CopyMultiTargetSource extends Item
 	 * Sets a new value for {@link #copy}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCopy(@javax.annotation.Nullable final java.lang.String copy)
+	void setCopy(@javax.annotation.Nullable final java.lang.String copy)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

@@ -74,7 +74,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Set<String> getStrings()
+	java.util.Set<String> getStrings()
 	{
 		return SetFieldItem.strings.get(this);
 	}
@@ -84,7 +84,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<String> getStringsQuery()
+	com.exedio.cope.Query<String> getStringsQuery()
 	{
 		return SetFieldItem.strings.getQuery(this);
 	}
@@ -94,7 +94,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<SetFieldItem> getParentsOfStrings(@javax.annotation.Nonnull final String element)
+	static java.util.List<SetFieldItem> getParentsOfStrings(@javax.annotation.Nonnull final String element)
 	{
 		return SetFieldItem.strings.getParents(SetFieldItem.class,element);
 	}
@@ -103,7 +103,7 @@ public final class SetFieldItem extends Item
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
+	void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -117,7 +117,7 @@ public final class SetFieldItem extends Item
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final boolean addToStrings(@javax.annotation.Nonnull final String element)
+	boolean addToStrings(@javax.annotation.Nonnull final String element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -131,7 +131,7 @@ public final class SetFieldItem extends Item
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
-	final boolean removeFromStrings(@javax.annotation.Nonnull final String element)
+	boolean removeFromStrings(@javax.annotation.Nonnull final String element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -145,7 +145,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<SetFieldItem> stringsParent()
+	static com.exedio.cope.ItemField<SetFieldItem> stringsParent()
 	{
 		return SetFieldItem.strings.getParent(SetFieldItem.class);
 	}
@@ -155,7 +155,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Set<Date> getDates()
+	java.util.Set<Date> getDates()
 	{
 		return SetFieldItem.dates.get(this);
 	}
@@ -165,7 +165,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<Date> getDatesQuery()
+	com.exedio.cope.Query<Date> getDatesQuery()
 	{
 		return SetFieldItem.dates.getQuery(this);
 	}
@@ -175,7 +175,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<SetFieldItem> getParentsOfDates(@javax.annotation.Nonnull final Date element)
+	static java.util.List<SetFieldItem> getParentsOfDates(@javax.annotation.Nonnull final Date element)
 	{
 		return SetFieldItem.dates.getParents(SetFieldItem.class,element);
 	}
@@ -184,7 +184,7 @@ public final class SetFieldItem extends Item
 	 * Sets a new value for {@link #dates}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
+	void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -197,7 +197,7 @@ public final class SetFieldItem extends Item
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final boolean addToDates(@javax.annotation.Nonnull final Date element)
+	boolean addToDates(@javax.annotation.Nonnull final Date element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -210,7 +210,7 @@ public final class SetFieldItem extends Item
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
-	final boolean removeFromDates(@javax.annotation.Nonnull final Date element)
+	boolean removeFromDates(@javax.annotation.Nonnull final Date element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.lang.ClassCastException
@@ -223,7 +223,7 @@ public final class SetFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<SetFieldItem> datesParent()
+	static com.exedio.cope.ItemField<SetFieldItem> datesParent()
 	{
 		return SetFieldItem.dates.getParent(SetFieldItem.class);
 	}

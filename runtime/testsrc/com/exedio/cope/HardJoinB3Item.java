@@ -69,7 +69,7 @@ final class HardJoinB3Item extends HardJoinB2Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getB3()
+	java.lang.Integer getB3()
 	{
 		return HardJoinB3Item.b3.get(this);
 	}
@@ -78,7 +78,7 @@ final class HardJoinB3Item extends HardJoinB2Item
 	 * Sets a new value for {@link #b3}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setB3(@javax.annotation.Nullable final java.lang.Integer b3)
+	void setB3(@javax.annotation.Nullable final java.lang.Integer b3)
 	{
 		HardJoinB3Item.b3.set(this,b3);
 	}

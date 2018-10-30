@@ -234,7 +234,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		final Target getTarget()
+		Target getTarget()
 		{
 			return Source.target.get(this);
 		}
@@ -243,7 +243,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * Sets a new value for {@link #target}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setTarget(@javax.annotation.Nullable final Target target)
+		void setTarget(@javax.annotation.Nullable final Target target)
 		{
 			Source.target.set(this,target);
 		}
@@ -253,7 +253,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		final java.lang.String getField()
+		java.lang.String getField()
 		{
 			return Source.field.get(this);
 		}
@@ -262,7 +262,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * Sets a new value for {@link #field}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setField(@javax.annotation.Nullable final java.lang.String field)
+		void setField(@javax.annotation.Nullable final java.lang.String field)
 				throws
 					com.exedio.cope.StringLengthViolationException
 		{
@@ -321,7 +321,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		final java.lang.String getField()
+		java.lang.String getField()
 		{
 			return Target.field.get(this);
 		}

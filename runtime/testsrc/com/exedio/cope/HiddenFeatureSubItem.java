@@ -58,7 +58,7 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getNonHiddenSub()
+	java.lang.String getNonHiddenSub()
 	{
 		return HiddenFeatureSubItem.nonHiddenSub.get(this);
 	}
@@ -67,7 +67,7 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	 * Sets a new value for {@link #nonHiddenSub}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNonHiddenSub(@javax.annotation.Nullable final java.lang.String nonHiddenSub)
+	void setNonHiddenSub(@javax.annotation.Nullable final java.lang.String nonHiddenSub)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

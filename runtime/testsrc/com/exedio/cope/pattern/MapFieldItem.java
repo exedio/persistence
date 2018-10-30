@@ -63,7 +63,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getName(@javax.annotation.Nonnull final Language k)
+	String getName(@javax.annotation.Nonnull final Language k)
 	{
 		return MapFieldItem.name.get(this,k);
 	}
@@ -72,20 +72,20 @@ public final class MapFieldItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
+	void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
 	{
 		MapFieldItem.name.set(this,k,name);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<Language,String> getNameMap()
+	java.util.Map<Language,String> getNameMap()
 	{
 		return MapFieldItem.name.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
+	void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
 		MapFieldItem.name.setMap(this,name);
 	}
@@ -95,7 +95,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<MapFieldItem> nameParent()
+	static com.exedio.cope.ItemField<MapFieldItem> nameParent()
 	{
 		return MapFieldItem.name.getParent(MapFieldItem.class);
 	}
@@ -105,7 +105,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Integer getNameLength(@javax.annotation.Nonnull final Language k)
+	Integer getNameLength(@javax.annotation.Nonnull final Language k)
 	{
 		return MapFieldItem.nameLength.get(this,k);
 	}
@@ -114,20 +114,20 @@ public final class MapFieldItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #nameLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
+	void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
 	{
 		MapFieldItem.nameLength.set(this,k,nameLength);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<Language,Integer> getNameLengthMap()
+	java.util.Map<Language,Integer> getNameLengthMap()
 	{
 		return MapFieldItem.nameLength.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
+	void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
 		MapFieldItem.nameLength.setMap(this,nameLength);
 	}
@@ -137,7 +137,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<MapFieldItem> nameLengthParent()
+	static com.exedio.cope.ItemField<MapFieldItem> nameLengthParent()
 	{
 		return MapFieldItem.nameLength.getParent(MapFieldItem.class);
 	}
@@ -147,7 +147,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getString(@javax.annotation.Nonnull final String k)
+	String getString(@javax.annotation.Nonnull final String k)
 	{
 		return MapFieldItem.string.get(this,k);
 	}
@@ -156,20 +156,20 @@ public final class MapFieldItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setString(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final String string)
+	void setString(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final String string)
 	{
 		MapFieldItem.string.set(this,k,string);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<String,String> getStringMap()
+	java.util.Map<String,String> getStringMap()
 	{
 		return MapFieldItem.string.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setStringMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends String> string)
+	void setStringMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends String> string)
 	{
 		MapFieldItem.string.setMap(this,string);
 	}
@@ -179,7 +179,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<MapFieldItem> stringParent()
+	static com.exedio.cope.ItemField<MapFieldItem> stringParent()
 	{
 		return MapFieldItem.string.getParent(MapFieldItem.class);
 	}
@@ -189,7 +189,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Integer getInteger(@javax.annotation.Nonnull final String k)
+	Integer getInteger(@javax.annotation.Nonnull final String k)
 	{
 		return MapFieldItem.integer.get(this,k);
 	}
@@ -198,20 +198,20 @@ public final class MapFieldItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final Integer integer)
+	void setInteger(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final Integer integer)
 	{
 		MapFieldItem.integer.set(this,k,integer);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<String,Integer> getIntegerMap()
+	java.util.Map<String,Integer> getIntegerMap()
 	{
 		return MapFieldItem.integer.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setIntegerMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends Integer> integer)
+	void setIntegerMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends Integer> integer)
 	{
 		MapFieldItem.integer.setMap(this,integer);
 	}
@@ -221,7 +221,7 @@ public final class MapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<MapFieldItem> integerParent()
+	static com.exedio.cope.ItemField<MapFieldItem> integerParent()
 	{
 		return MapFieldItem.integer.getParent(MapFieldItem.class);
 	}

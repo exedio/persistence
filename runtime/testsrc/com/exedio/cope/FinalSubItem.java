@@ -51,7 +51,7 @@ public final class FinalSubItem extends FinalSuperItem
 	 * Returns the value of {@link #subInt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final int getSubInt()
+	public int getSubInt()
 	{
 		return FinalSubItem.subInt.getMandatory(this);
 	}

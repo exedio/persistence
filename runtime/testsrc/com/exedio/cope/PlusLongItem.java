@@ -76,7 +76,7 @@ public final class PlusLongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getNumA()
+	public java.lang.Long getNumA()
 	{
 		return PlusLongItem.numA.get(this);
 	}
@@ -85,7 +85,7 @@ public final class PlusLongItem extends Item
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumA(@javax.annotation.Nullable final java.lang.Long numA)
+	public void setNumA(@javax.annotation.Nullable final java.lang.Long numA)
 	{
 		PlusLongItem.numA.set(this,numA);
 	}
@@ -95,7 +95,7 @@ public final class PlusLongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getNumB()
+	public java.lang.Long getNumB()
 	{
 		return PlusLongItem.numB.get(this);
 	}
@@ -104,7 +104,7 @@ public final class PlusLongItem extends Item
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumB(@javax.annotation.Nullable final java.lang.Long numB)
+	public void setNumB(@javax.annotation.Nullable final java.lang.Long numB)
 	{
 		PlusLongItem.numB.set(this,numB);
 	}
@@ -114,7 +114,7 @@ public final class PlusLongItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getNumC()
+	public java.lang.Long getNumC()
 	{
 		return PlusLongItem.numC.get(this);
 	}
@@ -123,7 +123,7 @@ public final class PlusLongItem extends Item
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumC(@javax.annotation.Nullable final java.lang.Long numC)
+	public void setNumC(@javax.annotation.Nullable final java.lang.Long numC)
 	{
 		PlusLongItem.numC.set(this,numC);
 	}
@@ -132,7 +132,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #plusA9}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getPlusA9()
+	public Long getPlusA9()
 	{
 		return PlusLongItem.plusA9.get(this);
 	}
@@ -141,7 +141,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #plusAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getPlusAB()
+	public Long getPlusAB()
 	{
 		return PlusLongItem.plusAB.get(this);
 	}
@@ -150,7 +150,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #plusAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getPlusAC()
+	public Long getPlusAC()
 	{
 		return PlusLongItem.plusAC.get(this);
 	}
@@ -159,7 +159,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #plusBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getPlusBC()
+	public Long getPlusBC()
 	{
 		return PlusLongItem.plusBC.get(this);
 	}
@@ -168,7 +168,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #plusABC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getPlusABC()
+	public Long getPlusABC()
 	{
 		return PlusLongItem.plusABC.get(this);
 	}
@@ -177,7 +177,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #plusABaC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getPlusABaC()
+	public Long getPlusABaC()
 	{
 		return PlusLongItem.plusABaC.get(this);
 	}
@@ -186,7 +186,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #multiplyB9}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getMultiplyB9()
+	public Long getMultiplyB9()
 	{
 		return PlusLongItem.multiplyB9.get(this);
 	}
@@ -195,7 +195,7 @@ public final class PlusLongItem extends Item
 	 * Returns the value of {@link #multiplyBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Long getMultiplyBC()
+	public Long getMultiplyBC()
 	{
 		return PlusLongItem.multiplyBC.get(this);
 	}

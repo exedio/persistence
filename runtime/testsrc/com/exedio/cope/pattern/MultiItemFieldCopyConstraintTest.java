@@ -225,7 +225,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getValue()
+		java.lang.String getValue()
 		{
 			return DoubleCopyConstraintItem.value.get(this);
 		}
@@ -235,7 +235,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getTemplate()
+		java.lang.String getTemplate()
 		{
 			return DoubleCopyConstraintItem.template.get(this);
 		}
@@ -306,7 +306,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getValue()
+		java.lang.String getValue()
 		{
 			return AllCopyConstraintItem.value.get(this);
 		}
@@ -377,7 +377,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getValue()
+		java.lang.String getValue()
 		{
 			return PartialCopyConstraintItem.value.get(this);
 		}
@@ -440,7 +440,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
 		@java.lang.Override
-		public final java.lang.String getValue()
+		public java.lang.String getValue()
 		{
 			return A.value.get(this);
 		}
@@ -503,7 +503,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
 		@java.lang.Override
-		public final java.lang.String getValue()
+		public java.lang.String getValue()
 		{
 			return B.value.get(this);
 		}
@@ -570,7 +570,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
 		@java.lang.Override
-		public final java.lang.String getValue()
+		public java.lang.String getValue()
 		{
 			return C.value.get(this);
 		}
@@ -580,7 +580,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		public final java.lang.String getTemplate()
+		public java.lang.String getTemplate()
 		{
 			return C.template.get(this);
 		}

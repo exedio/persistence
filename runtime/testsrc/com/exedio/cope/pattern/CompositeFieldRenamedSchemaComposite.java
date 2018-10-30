@@ -62,7 +62,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getVirgnTemp()
+	java.lang.String getVirgnTemp()
 	{
 		return get(CompositeFieldRenamedSchemaComposite.virgnTemp);
 	}
@@ -71,7 +71,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 * Sets a new value for {@link #virgnTemp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setVirgnTemp(@javax.annotation.Nonnull final java.lang.String virgnTemp)
+	void setVirgnTemp(@javax.annotation.Nonnull final java.lang.String virgnTemp)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -84,7 +84,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getWrongTemp()
+	java.lang.String getWrongTemp()
 	{
 		return get(CompositeFieldRenamedSchemaComposite.wrongTemp);
 	}
@@ -93,7 +93,7 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 * Sets a new value for {@link #wrongTemp}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setWrongTemp(@javax.annotation.Nonnull final java.lang.String wrongTemp)
+	void setWrongTemp(@javax.annotation.Nonnull final java.lang.String wrongTemp)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

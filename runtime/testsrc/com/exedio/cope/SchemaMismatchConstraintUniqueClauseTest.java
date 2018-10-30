@@ -102,7 +102,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 * Returns the value of {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField1()
+	int getField1()
 	{
 		return ItemA.field1.getMandatory(this);
 	}
@@ -111,7 +111,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 * Returns the value of {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField2()
+	int getField2()
 	{
 		return ItemA.field2.getMandatory(this);
 	}
@@ -124,7 +124,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final ItemA forUnique(final int field1,final int field2)
+	static ItemA forUnique(final int field1,final int field2)
 	{
 		return ItemA.unique.search(ItemA.class,field1,field2);
 	}
@@ -137,7 +137,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final ItemA forUniqueStrict(final int field1,final int field2)
+	static ItemA forUniqueStrict(final int field1,final int field2)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -201,7 +201,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 * Returns the value of {@link #field1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField1()
+	int getField1()
 	{
 		return ItemB.field1.getMandatory(this);
 	}
@@ -210,7 +210,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 * Returns the value of {@link #field2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField2()
+	int getField2()
 	{
 		return ItemB.field2.getMandatory(this);
 	}
@@ -223,7 +223,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final ItemB forUnique(final int field2,final int field1)
+	static ItemB forUnique(final int field2,final int field1)
 	{
 		return ItemB.unique.search(ItemB.class,field2,field1);
 	}
@@ -236,7 +236,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final ItemB forUniqueStrict(final int field2,final int field1)
+	static ItemB forUniqueStrict(final int field2,final int field1)
 			throws
 				java.lang.IllegalArgumentException
 	{

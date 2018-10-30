@@ -55,7 +55,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	 * Returns the value of {@link #bottom1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getBottom1()
+	int getBottom1()
 	{
 		return CheckConstraintHierarchyItemBottom.bottom1.getMandatory(this);
 	}
@@ -64,7 +64,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	 * Sets a new value for {@link #bottom1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBottom1(final int bottom1)
+	void setBottom1(final int bottom1)
 	{
 		CheckConstraintHierarchyItemBottom.bottom1.set(this,bottom1);
 	}
@@ -73,7 +73,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	 * Returns the value of {@link #bottom2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getBottom2()
+	int getBottom2()
 	{
 		return CheckConstraintHierarchyItemBottom.bottom2.getMandatory(this);
 	}
@@ -82,7 +82,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	 * Sets a new value for {@link #bottom2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBottom2(final int bottom2)
+	void setBottom2(final int bottom2)
 	{
 		CheckConstraintHierarchyItemBottom.bottom2.set(this,bottom2);
 	}
@@ -91,7 +91,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	 * Returns the value of {@link #cross2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getCross2()
+	int getCross2()
 	{
 		return CheckConstraintHierarchyItemBottom.cross2.getMandatory(this);
 	}
@@ -100,7 +100,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	 * Sets a new value for {@link #cross2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCross2(final int cross2)
+	void setCross2(final int cross2)
 	{
 		CheckConstraintHierarchyItemBottom.cross2.set(this,cross2);
 	}

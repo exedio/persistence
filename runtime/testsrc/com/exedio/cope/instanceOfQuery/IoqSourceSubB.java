@@ -62,7 +62,7 @@ final class IoqSourceSubB extends IoqSourceSuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final IoqSourceSubA getBrother()
+	IoqSourceSubA getBrother()
 	{
 		return IoqSourceSubB.brother.get(this);
 	}
@@ -71,7 +71,7 @@ final class IoqSourceSubB extends IoqSourceSuper
 	 * Sets a new value for {@link #brother}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBrother(@javax.annotation.Nonnull final IoqSourceSubA brother)
+	void setBrother(@javax.annotation.Nonnull final IoqSourceSubA brother)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

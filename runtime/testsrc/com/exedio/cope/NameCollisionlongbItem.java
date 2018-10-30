@@ -59,7 +59,7 @@ final class NameCollisionlongbItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return NameCollisionlongbItem.code.get(this);
 	}
@@ -68,7 +68,7 @@ final class NameCollisionlongbItem extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCode(@javax.annotation.Nonnull final java.lang.String code)
+	void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -84,7 +84,7 @@ final class NameCollisionlongbItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final NameCollisionlongbItem forCode(@javax.annotation.Nonnull final java.lang.String code)
+	static NameCollisionlongbItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return NameCollisionlongbItem.code.searchUnique(NameCollisionlongbItem.class,code);
 	}
@@ -96,7 +96,7 @@ final class NameCollisionlongbItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final NameCollisionlongbItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+	static NameCollisionlongbItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				java.lang.IllegalArgumentException
 	{

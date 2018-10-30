@@ -57,7 +57,7 @@ final class GroupItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.util.Day getDay()
+	com.exedio.cope.util.Day getDay()
 	{
 		return GroupItem.day.get(this);
 	}
@@ -66,7 +66,7 @@ final class GroupItem extends Item
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
+	void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -77,7 +77,7 @@ final class GroupItem extends Item
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		GroupItem.day.touch(this,zone);
 	}
@@ -86,7 +86,7 @@ final class GroupItem extends Item
 	 * Returns the value of {@link #number}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNumber()
+	int getNumber()
 	{
 		return GroupItem.number.getMandatory(this);
 	}
@@ -95,7 +95,7 @@ final class GroupItem extends Item
 	 * Sets a new value for {@link #number}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNumber(final int number)
+	void setNumber(final int number)
 	{
 		GroupItem.number.set(this,number);
 	}
@@ -105,7 +105,7 @@ final class GroupItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Double getOptionalDouble()
+	java.lang.Double getOptionalDouble()
 	{
 		return GroupItem.optionalDouble.get(this);
 	}
@@ -114,7 +114,7 @@ final class GroupItem extends Item
 	 * Sets a new value for {@link #optionalDouble}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOptionalDouble(@javax.annotation.Nullable final java.lang.Double optionalDouble)
+	void setOptionalDouble(@javax.annotation.Nullable final java.lang.Double optionalDouble)
 	{
 		GroupItem.optionalDouble.set(this,optionalDouble);
 	}

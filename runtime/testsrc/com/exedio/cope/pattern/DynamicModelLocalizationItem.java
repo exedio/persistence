@@ -57,7 +57,7 @@ public final class DynamicModelLocalizationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getIsoCode()
+	java.lang.String getIsoCode()
 	{
 		return DynamicModelLocalizationItem.isoCode.get(this);
 	}

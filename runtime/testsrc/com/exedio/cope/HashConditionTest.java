@@ -258,26 +258,26 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final boolean isDataNull()
+		boolean isDataNull()
 		{
 			return MyItem.data.isNull(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final long getDataLength()
+		long getDataLength()
 		{
 			return MyItem.data.getLength(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final byte[] getDataArray()
+		byte[] getDataArray()
 		{
 			return MyItem.data.getArray(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
+		void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 				throws
 					java.io.IOException
 		{
@@ -285,7 +285,7 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void getData(@javax.annotation.Nonnull final java.io.File data)
+		void getData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					java.io.IOException
 		{
@@ -293,19 +293,19 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDataInternal(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
+		void setDataInternal(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 		{
 			MyItem.data.set(this,data);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDataInternal(@javax.annotation.Nullable final byte[] data)
+		void setDataInternal(@javax.annotation.Nullable final byte[] data)
 		{
 			MyItem.data.set(this,data);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDataInternal(@javax.annotation.Nullable final java.io.InputStream data)
+		void setDataInternal(@javax.annotation.Nullable final java.io.InputStream data)
 				throws
 					java.io.IOException
 		{
@@ -313,7 +313,7 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDataInternal(@javax.annotation.Nullable final java.nio.file.Path data)
+		void setDataInternal(@javax.annotation.Nullable final java.nio.file.Path data)
 				throws
 					java.io.IOException
 		{
@@ -321,7 +321,7 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDataInternal(@javax.annotation.Nullable final java.io.File data)
+		void setDataInternal(@javax.annotation.Nullable final java.io.File data)
 				throws
 					java.io.IOException
 		{
@@ -330,13 +330,13 @@ public class HashConditionTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getHash()
+		java.lang.String getHash()
 		{
 			return MyItem.hash.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setHash(@javax.annotation.Nullable final java.lang.String hash)
+		void setHash(@javax.annotation.Nullable final java.lang.String hash)
 				throws
 					com.exedio.cope.StringLengthViolationException
 		{

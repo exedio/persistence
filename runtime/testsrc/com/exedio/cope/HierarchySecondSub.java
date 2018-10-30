@@ -53,7 +53,7 @@ public final class HierarchySecondSub extends HierarchySuper
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.String getFirstSubString()
+	public java.lang.String getFirstSubString()
 	{
 		return HierarchySecondSub.firstSubString.get(this);
 	}
@@ -62,7 +62,7 @@ public final class HierarchySecondSub extends HierarchySuper
 	 * Sets a new value for {@link #firstSubString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setFirstSubString(@javax.annotation.Nullable final java.lang.String firstSubString)
+	public void setFirstSubString(@javax.annotation.Nullable final java.lang.String firstSubString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

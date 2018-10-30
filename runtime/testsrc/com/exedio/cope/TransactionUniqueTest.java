@@ -257,13 +257,13 @@ public class TransactionUniqueTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getField()
+		java.lang.String getField()
 		{
 			return MyItem.field.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setField(@javax.annotation.Nonnull final java.lang.String field)
+		void setField(@javax.annotation.Nonnull final java.lang.String field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.UniqueViolationException,
@@ -274,14 +274,14 @@ public class TransactionUniqueTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		static final MyItem forField(@javax.annotation.Nonnull final java.lang.String field)
+		static MyItem forField(@javax.annotation.Nonnull final java.lang.String field)
 		{
 			return MyItem.field.searchUnique(MyItem.class,field);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		static final MyItem forFieldStrict(@javax.annotation.Nonnull final java.lang.String field)
+		static MyItem forFieldStrict(@javax.annotation.Nonnull final java.lang.String field)
 				throws
 					java.lang.IllegalArgumentException
 		{

@@ -146,7 +146,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField()
+	int getField()
 	{
 		return ItemA.field.getMandatory(this);
 	}
@@ -198,7 +198,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField()
+	int getField()
 	{
 		return ItemB.field.getMandatory(this);
 	}

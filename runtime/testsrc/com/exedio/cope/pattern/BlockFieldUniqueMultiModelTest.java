@@ -122,7 +122,7 @@ public class BlockFieldUniqueMultiModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getAlpha()
+	java.lang.String getAlpha()
 	{
 		return field().of(ABlock.alpha).get(item());
 	}
@@ -131,7 +131,7 @@ public class BlockFieldUniqueMultiModelTest
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAlpha(@javax.annotation.Nonnull final java.lang.String alpha)
+	void setAlpha(@javax.annotation.Nonnull final java.lang.String alpha)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -144,7 +144,7 @@ public class BlockFieldUniqueMultiModelTest
 	 * Returns the value of {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getBeta()
+	int getBeta()
 	{
 		return field().of(ABlock.beta).getMandatory(item());
 	}
@@ -153,7 +153,7 @@ public class BlockFieldUniqueMultiModelTest
 	 * Sets a new value for {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBeta(final int beta)
+	void setBeta(final int beta)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -165,7 +165,7 @@ public class BlockFieldUniqueMultiModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Price getAlphaPrice()
+	com.exedio.cope.pattern.Price getAlphaPrice()
 	{
 		return field().of(ABlock.alphaPrice).get(item());
 	}
@@ -174,7 +174,7 @@ public class BlockFieldUniqueMultiModelTest
 	 * Sets a new value for {@link #alphaPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAlphaPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price alphaPrice)
+	void setAlphaPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price alphaPrice)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -187,7 +187,7 @@ public class BlockFieldUniqueMultiModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Price getBetaPrice()
+	com.exedio.cope.pattern.Price getBetaPrice()
 	{
 		return field().of(ABlock.betaPrice).get(item());
 	}
@@ -196,7 +196,7 @@ public class BlockFieldUniqueMultiModelTest
 	 * Sets a new value for {@link #betaPrice}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBetaPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price betaPrice)
+	void setBetaPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price betaPrice)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -275,7 +275,7 @@ public class BlockFieldUniqueMultiModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return AnItem.code.get(this);
 	}
@@ -285,7 +285,7 @@ public class BlockFieldUniqueMultiModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock eins()
+	ABlock eins()
 	{
 		return AnItem.eins.get(this);
 	}
@@ -295,7 +295,7 @@ public class BlockFieldUniqueMultiModelTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock zwei()
+	ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
 	}

@@ -114,7 +114,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getSourceLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getSourceLocator()
 	{
 		return field().of(ABlock.source).getLocator(item());
 	}
@@ -124,7 +124,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getSourceContentType()
+	java.lang.String getSourceContentType()
 	{
 		return field().of(ABlock.source).getContentType(item());
 	}
@@ -133,7 +133,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * Returns whether media {@link #source} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	final boolean isSourceNull()
+	boolean isSourceNull()
 	{
 		return field().of(ABlock.source).isNull(item());
 	}
@@ -143,7 +143,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
 	@javax.annotation.Nullable
-	final java.util.Date getSourceLastModified()
+	java.util.Date getSourceLastModified()
 	{
 		return field().of(ABlock.source).getLastModified(item());
 	}
@@ -152,7 +152,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * Returns the body length of the media {@link #source}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	final long getSourceLength()
+	long getSourceLength()
 	{
 		return field().of(ABlock.source).getLength(item());
 	}
@@ -162,7 +162,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	@javax.annotation.Nullable
-	final byte[] getSourceBody()
+	byte[] getSourceBody()
 	{
 		return field().of(ABlock.source).getBody(item());
 	}
@@ -173,7 +173,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getSourceBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+	void getSourceBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -186,7 +186,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	final void getSourceBody(@javax.annotation.Nonnull final java.io.File body)
+	void getSourceBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -198,7 +198,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSource(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value source)
+	void setSource(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value source)
 			throws
 				java.io.IOException
 	{
@@ -209,7 +209,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * Sets the content of media {@link #source}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSource(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setSource(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		field().of(ABlock.source).set(item(),body,contentType);
 	}
@@ -219,7 +219,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSource(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setSource(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -231,7 +231,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSource(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setSource(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -243,7 +243,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSource(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+	void setSource(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -255,7 +255,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getFilterLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getFilterLocator()
 	{
 		return field().of(ABlock.filter).getLocator(item());
 	}
@@ -265,7 +265,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final byte[] getFilter()
+	byte[] getFilter()
 			throws
 				java.io.IOException
 	{
@@ -319,7 +319,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock eins()
+	ABlock eins()
 	{
 		return AnItem.eins.get(this);
 	}
@@ -329,7 +329,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final ABlock zwei()
+	ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
 	}

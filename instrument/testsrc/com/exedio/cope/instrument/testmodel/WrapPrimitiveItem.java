@@ -81,7 +81,7 @@ final class WrapPrimitiveItem extends Item
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getInteger()
+	int getInteger()
 	{
 		return WrapPrimitiveItem.integer.getMandatory(this);
 	}
@@ -90,7 +90,7 @@ final class WrapPrimitiveItem extends Item
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(final int integer)
+	void setInteger(final int integer)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -102,7 +102,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Date getDate()
+	java.util.Date getDate()
 	{
 		return WrapPrimitiveItem.date.get(this);
 	}
@@ -111,7 +111,7 @@ final class WrapPrimitiveItem extends Item
 	 * Sets a new value for {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDate(@javax.annotation.Nonnull final java.util.Date date)
+	void setDate(@javax.annotation.Nonnull final java.util.Date date)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -123,7 +123,7 @@ final class WrapPrimitiveItem extends Item
 	 * Sets the current date for the date field {@link #date}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	final void touchDate()
+	void touchDate()
 	{
 		WrapPrimitiveItem.date.touch(this);
 	}
@@ -133,7 +133,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getIntegerOptional()
+	java.lang.Integer getIntegerOptional()
 	{
 		return WrapPrimitiveItem.integerOptional.get(this);
 	}
@@ -142,7 +142,7 @@ final class WrapPrimitiveItem extends Item
 	 * Sets a new value for {@link #integerOptional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntegerOptional(@javax.annotation.Nullable final java.lang.Integer integerOptional)
+	void setIntegerOptional(@javax.annotation.Nullable final java.lang.Integer integerOptional)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -158,7 +158,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final WrapPrimitiveItem forMixed(final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
+	static WrapPrimitiveItem forMixed(final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
 	{
 		return WrapPrimitiveItem.mixed.search(WrapPrimitiveItem.class,integer,date,integerOptional);
 	}
@@ -172,7 +172,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final WrapPrimitiveItem forMixedStrict(final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
+	static WrapPrimitiveItem forMixedStrict(final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -183,7 +183,7 @@ final class WrapPrimitiveItem extends Item
 	 * Returns the value of {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getBooleanField()
+	boolean getBooleanField()
 	{
 		return WrapPrimitiveItem.booleanField.getMandatory(this);
 	}
@@ -192,7 +192,7 @@ final class WrapPrimitiveItem extends Item
 	 * Sets a new value for {@link #booleanField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBooleanField(final boolean booleanField)
+	void setBooleanField(final boolean booleanField)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -203,7 +203,7 @@ final class WrapPrimitiveItem extends Item
 	 * Returns the value of {@link #longField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final long getLongField()
+	long getLongField()
 	{
 		return WrapPrimitiveItem.longField.getMandatory(this);
 	}
@@ -212,7 +212,7 @@ final class WrapPrimitiveItem extends Item
 	 * Sets a new value for {@link #longField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setLongField(final long longField)
+	void setLongField(final long longField)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -223,7 +223,7 @@ final class WrapPrimitiveItem extends Item
 	 * Returns the value of {@link #doubleField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final double getDoubleField()
+	double getDoubleField()
 	{
 		return WrapPrimitiveItem.doubleField.getMandatory(this);
 	}
@@ -232,7 +232,7 @@ final class WrapPrimitiveItem extends Item
 	 * Sets a new value for {@link #doubleField}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDoubleField(final double doubleField)
+	void setDoubleField(final double doubleField)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -249,7 +249,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final WrapPrimitiveItem forPrimitive(final boolean booleanField,final int integer,final long longField,final double doubleField)
+	static WrapPrimitiveItem forPrimitive(final boolean booleanField,final int integer,final long longField,final double doubleField)
 	{
 		return WrapPrimitiveItem.primitive.search(WrapPrimitiveItem.class,booleanField,integer,longField,doubleField);
 	}
@@ -264,7 +264,7 @@ final class WrapPrimitiveItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final WrapPrimitiveItem forPrimitiveStrict(final boolean booleanField,final int integer,final long longField,final double doubleField)
+	static WrapPrimitiveItem forPrimitiveStrict(final boolean booleanField,final int integer,final long longField,final double doubleField)
 			throws
 				java.lang.IllegalArgumentException
 	{

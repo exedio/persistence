@@ -152,53 +152,53 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getUnoURL()
+		java.lang.String getUnoURL()
 		{
 			return field().of(ABlock.uno).getURL(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final com.exedio.cope.pattern.MediaPath.Locator getUnoLocator()
+		com.exedio.cope.pattern.MediaPath.Locator getUnoLocator()
 		{
 			return field().of(ABlock.uno).getLocator(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getUnoContentType()
+		java.lang.String getUnoContentType()
 		{
 			return field().of(ABlock.uno).getContentType(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final boolean isUnoNull()
+		boolean isUnoNull()
 		{
 			return field().of(ABlock.uno).isNull(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.util.Date getUnoLastModified()
+		java.util.Date getUnoLastModified()
 		{
 			return field().of(ABlock.uno).getLastModified(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final long getUnoLength()
+		long getUnoLength()
 		{
 			return field().of(ABlock.uno).getLength(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final byte[] getUnoBody()
+		byte[] getUnoBody()
 		{
 			return field().of(ABlock.uno).getBody(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void getUnoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+		void getUnoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 				throws
 					java.io.IOException
 		{
@@ -206,7 +206,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void getUnoBody(@javax.annotation.Nonnull final java.io.File body)
+		void getUnoBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
 		{
@@ -214,7 +214,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setUno(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value uno)
+		void setUno(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value uno)
 				throws
 					java.io.IOException
 		{
@@ -222,13 +222,13 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setUno(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setUno(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 		{
 			field().of(ABlock.uno).set(item(),body,contentType);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setUno(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setUno(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{
@@ -236,7 +236,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setUno(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setUno(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{
@@ -244,7 +244,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setUno(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setUno(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{
@@ -253,53 +253,53 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getDuoURL()
+		java.lang.String getDuoURL()
 		{
 			return field().of(ABlock.duo).getURL(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final com.exedio.cope.pattern.MediaPath.Locator getDuoLocator()
+		com.exedio.cope.pattern.MediaPath.Locator getDuoLocator()
 		{
 			return field().of(ABlock.duo).getLocator(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getDuoContentType()
+		java.lang.String getDuoContentType()
 		{
 			return field().of(ABlock.duo).getContentType(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final boolean isDuoNull()
+		boolean isDuoNull()
 		{
 			return field().of(ABlock.duo).isNull(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.util.Date getDuoLastModified()
+		java.util.Date getDuoLastModified()
 		{
 			return field().of(ABlock.duo).getLastModified(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final long getDuoLength()
+		long getDuoLength()
 		{
 			return field().of(ABlock.duo).getLength(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final byte[] getDuoBody()
+		byte[] getDuoBody()
 		{
 			return field().of(ABlock.duo).getBody(item());
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void getDuoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+		void getDuoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 				throws
 					java.io.IOException
 		{
@@ -307,7 +307,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void getDuoBody(@javax.annotation.Nonnull final java.io.File body)
+		void getDuoBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
 		{
@@ -315,7 +315,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDuo(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value duo)
+		void setDuo(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value duo)
 				throws
 					java.io.IOException
 		{
@@ -323,13 +323,13 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDuo(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setDuo(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 		{
 			field().of(ABlock.duo).set(item(),body,contentType);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDuo(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setDuo(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{
@@ -337,7 +337,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDuo(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setDuo(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{
@@ -345,7 +345,7 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setDuo(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+		void setDuo(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
 		{
@@ -384,14 +384,14 @@ public class BlockFieldMediaSameContentTypeTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final ABlock eins()
+		ABlock eins()
 		{
 			return AnItem.eins.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final ABlock zwei()
+		ABlock zwei()
 		{
 			return AnItem.zwei.get(this);
 		}

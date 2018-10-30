@@ -29,7 +29,7 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField()
+	java.lang.String getField()
 	{
 		return field().of(BlockFully.field).get(item());
 	}
@@ -38,7 +38,7 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 	 * Sets a new value for {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField(@javax.annotation.Nonnull final java.lang.String field)
+	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

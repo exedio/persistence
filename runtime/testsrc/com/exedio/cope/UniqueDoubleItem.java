@@ -67,7 +67,7 @@ final class UniqueDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getString()
+	java.lang.String getString()
 	{
 		return UniqueDoubleItem.string.get(this);
 	}
@@ -76,7 +76,7 @@ final class UniqueDoubleItem extends Item
 	 * Sets a new value for {@link #string}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setString(@javax.annotation.Nonnull final java.lang.String string)
+	void setString(@javax.annotation.Nonnull final java.lang.String string)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -89,7 +89,7 @@ final class UniqueDoubleItem extends Item
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getInteger()
+	int getInteger()
 	{
 		return UniqueDoubleItem.integer.getMandatory(this);
 	}
@@ -98,7 +98,7 @@ final class UniqueDoubleItem extends Item
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(final int integer)
+	void setInteger(final int integer)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -113,7 +113,7 @@ final class UniqueDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final UniqueDoubleItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,final int integer)
+	static UniqueDoubleItem forConstraint(@javax.annotation.Nonnull final java.lang.String string,final int integer)
 	{
 		return UniqueDoubleItem.constraint.search(UniqueDoubleItem.class,string,integer);
 	}
@@ -126,7 +126,7 @@ final class UniqueDoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final UniqueDoubleItem forConstraintStrict(@javax.annotation.Nonnull final java.lang.String string,final int integer)
+	static UniqueDoubleItem forConstraintStrict(@javax.annotation.Nonnull final java.lang.String string,final int integer)
 			throws
 				java.lang.IllegalArgumentException
 	{

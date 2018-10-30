@@ -91,7 +91,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getCode()
+	java.lang.String getCode()
 	{
 		return StringCharSetItem.code.get(this);
 	}
@@ -100,7 +100,7 @@ final class StringCharSetItem extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCode(@javax.annotation.Nonnull final java.lang.String code)
+	void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException,
@@ -116,7 +116,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final StringCharSetItem forCode(@javax.annotation.Nonnull final java.lang.String code)
+	static StringCharSetItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
 		return StringCharSetItem.code.searchUnique(StringCharSetItem.class,code);
 	}
@@ -128,7 +128,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final StringCharSetItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
+	static StringCharSetItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -140,7 +140,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getAny()
+	java.lang.String getAny()
 	{
 		return StringCharSetItem.any.get(this);
 	}
@@ -149,7 +149,7 @@ final class StringCharSetItem extends Item
 	 * Sets a new value for {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAny(@javax.annotation.Nullable final java.lang.String any)
+	void setAny(@javax.annotation.Nullable final java.lang.String any)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -161,7 +161,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getAlpha()
+	java.lang.String getAlpha()
 	{
 		return StringCharSetItem.alpha.get(this);
 	}
@@ -170,7 +170,7 @@ final class StringCharSetItem extends Item
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAlpha(@javax.annotation.Nullable final java.lang.String alpha)
+	void setAlpha(@javax.annotation.Nullable final java.lang.String alpha)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException
@@ -183,7 +183,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getPrintable()
+	java.lang.String getPrintable()
 	{
 		return StringCharSetItem.printable.get(this);
 	}
@@ -192,7 +192,7 @@ final class StringCharSetItem extends Item
 	 * Sets a new value for {@link #printable}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setPrintable(@javax.annotation.Nullable final java.lang.String printable)
+	void setPrintable(@javax.annotation.Nullable final java.lang.String printable)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException
@@ -205,7 +205,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getApos()
+	java.lang.String getApos()
 	{
 		return StringCharSetItem.apos.get(this);
 	}
@@ -214,7 +214,7 @@ final class StringCharSetItem extends Item
 	 * Sets a new value for {@link #apos}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setApos(@javax.annotation.Nullable final java.lang.String apos)
+	void setApos(@javax.annotation.Nullable final java.lang.String apos)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException
@@ -227,7 +227,7 @@ final class StringCharSetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getEmail()
+	java.lang.String getEmail()
 	{
 		return StringCharSetItem.email.get(this);
 	}
@@ -236,7 +236,7 @@ final class StringCharSetItem extends Item
 	 * Sets a new value for {@link #email}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setEmail(@javax.annotation.Nullable final java.lang.String email)
+	void setEmail(@javax.annotation.Nullable final java.lang.String email)
 			throws
 				com.exedio.cope.StringLengthViolationException,
 				com.exedio.cope.StringCharSetViolationException

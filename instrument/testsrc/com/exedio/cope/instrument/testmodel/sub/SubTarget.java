@@ -59,7 +59,7 @@ public final class SubTarget extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getString()
+	public java.lang.String getString()
 	{
 		return SubTarget.string.get(this);
 	}

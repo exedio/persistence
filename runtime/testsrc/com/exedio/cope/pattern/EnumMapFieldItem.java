@@ -73,7 +73,7 @@ public final class EnumMapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getName(@javax.annotation.Nonnull final Language k)
+	String getName(@javax.annotation.Nonnull final Language k)
 	{
 		return EnumMapFieldItem.name.get(this,k);
 	}
@@ -82,20 +82,20 @@ public final class EnumMapFieldItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
+	void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
 	{
 		EnumMapFieldItem.name.set(this,k,name);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<Language,String> getNameMap()
+	java.util.Map<Language,String> getNameMap()
 	{
 		return EnumMapFieldItem.name.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
+	void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
 		EnumMapFieldItem.name.setMap(this,name);
 	}
@@ -105,7 +105,7 @@ public final class EnumMapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Integer getNameLength(@javax.annotation.Nonnull final Language k)
+	Integer getNameLength(@javax.annotation.Nonnull final Language k)
 	{
 		return EnumMapFieldItem.nameLength.get(this,k);
 	}
@@ -114,20 +114,20 @@ public final class EnumMapFieldItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #nameLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
+	void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
 	{
 		EnumMapFieldItem.nameLength.set(this,k,nameLength);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<Language,Integer> getNameLengthMap()
+	java.util.Map<Language,Integer> getNameLengthMap()
 	{
 		return EnumMapFieldItem.nameLength.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
+	void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
 		EnumMapFieldItem.nameLength.setMap(this,nameLength);
 	}
@@ -137,7 +137,7 @@ public final class EnumMapFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final String getDefaults(@javax.annotation.Nonnull final Language k)
+	String getDefaults(@javax.annotation.Nonnull final Language k)
 	{
 		return EnumMapFieldItem.defaults.get(this,k);
 	}
@@ -146,20 +146,20 @@ public final class EnumMapFieldItem extends Item
 	 * Associates <tt>k</tt> to a new value in the field map {@link #defaults}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDefaults(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String defaults)
+	void setDefaults(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String defaults)
 	{
 		EnumMapFieldItem.defaults.set(this,k,defaults);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
 	@javax.annotation.Nonnull
-	final java.util.Map<Language,String> getDefaultsMap()
+	java.util.Map<Language,String> getDefaultsMap()
 	{
 		return EnumMapFieldItem.defaults.getMap(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
-	final void setDefaultsMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> defaults)
+	void setDefaultsMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> defaults)
 	{
 		EnumMapFieldItem.defaults.setMap(this,defaults);
 	}

@@ -59,7 +59,7 @@ public final class EnumItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final Status getStatus()
+	public Status getStatus()
 	{
 		return EnumItem2.status.get(this);
 	}
@@ -68,7 +68,7 @@ public final class EnumItem2 extends Item
 	 * Sets a new value for {@link #status}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setStatus(@javax.annotation.Nonnull final Status status)
+	public void setStatus(@javax.annotation.Nonnull final Status status)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

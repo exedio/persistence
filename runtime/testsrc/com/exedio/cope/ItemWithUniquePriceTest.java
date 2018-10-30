@@ -107,7 +107,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		public final com.exedio.cope.pattern.Price getPrice()
+		public com.exedio.cope.pattern.Price getPrice()
 		{
 			return ItemWithUniquePrice.price.get(this);
 		}
@@ -116,7 +116,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 * Sets a new value for {@link #price}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		public final void setPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price price)
+		public void setPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price price)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.UniqueViolationException
@@ -129,7 +129,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		public final java.lang.String getOther()
+		public java.lang.String getOther()
 		{
 			return ItemWithUniquePrice.other.get(this);
 		}
@@ -138,7 +138,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 * Sets a new value for {@link #other}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		public final void setOther(@javax.annotation.Nonnull final java.lang.String other)
+		public void setOther(@javax.annotation.Nonnull final java.lang.String other)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.UniqueViolationException,
@@ -155,7 +155,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 		@javax.annotation.Nullable
-		public static final ItemWithUniquePrice forPriceAndOther(final long price_int,@javax.annotation.Nonnull final java.lang.String other)
+		public static ItemWithUniquePrice forPriceAndOther(final long price_int,@javax.annotation.Nonnull final java.lang.String other)
 		{
 			return ItemWithUniquePrice.priceAndOther.search(ItemWithUniquePrice.class,price_int,other);
 		}
@@ -168,7 +168,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 		@javax.annotation.Nonnull
-		public static final ItemWithUniquePrice forPriceAndOtherStrict(final long price_int,@javax.annotation.Nonnull final java.lang.String other)
+		public static ItemWithUniquePrice forPriceAndOtherStrict(final long price_int,@javax.annotation.Nonnull final java.lang.String other)
 				throws
 					java.lang.IllegalArgumentException
 		{

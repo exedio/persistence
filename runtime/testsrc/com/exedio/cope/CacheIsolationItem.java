@@ -56,7 +56,7 @@ public final class CacheIsolationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getUniqueString()
+	java.lang.String getUniqueString()
 	{
 		return CacheIsolationItem.uniqueString.get(this);
 	}
@@ -65,7 +65,7 @@ public final class CacheIsolationItem extends Item
 	 * Sets a new value for {@link #uniqueString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
+	void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -80,7 +80,7 @@ public final class CacheIsolationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final CacheIsolationItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
+	static CacheIsolationItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
 		return CacheIsolationItem.uniqueString.searchUnique(CacheIsolationItem.class,uniqueString);
 	}
@@ -92,7 +92,7 @@ public final class CacheIsolationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	static final CacheIsolationItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
+	static CacheIsolationItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -104,7 +104,7 @@ public final class CacheIsolationItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getName()
+	public java.lang.String getName()
 	{
 		return CacheIsolationItem.name.get(this);
 	}
@@ -113,7 +113,7 @@ public final class CacheIsolationItem extends Item
 	 * Sets a new value for {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setName(@javax.annotation.Nonnull final java.lang.String name)
+	public void setName(@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

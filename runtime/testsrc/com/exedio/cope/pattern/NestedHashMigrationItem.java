@@ -68,7 +68,7 @@ final class NestedHashMigrationItem extends Item
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
-	final boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
+	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return NestedHashMigrationItem.password.check(this,password);
 	}
@@ -78,7 +78,7 @@ final class NestedHashMigrationItem extends Item
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
-	static final void blindPassword(@javax.annotation.Nonnull final java.lang.String password)
+	static void blindPassword(@javax.annotation.Nonnull final java.lang.String password)
 	{
 		NestedHashMigrationItem.password.blind(password);
 	}
@@ -87,7 +87,7 @@ final class NestedHashMigrationItem extends Item
 	 * Sets a new value for {@link #password}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setPassword(@javax.annotation.Nonnull final java.lang.String password)
+	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -98,7 +98,7 @@ final class NestedHashMigrationItem extends Item
 	 * Re-hashes all legacy passwords to target ones.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="migrate")
-	static final void migratePassword(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void migratePassword(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		NestedHashMigrationItem.password.migrate(ctx);
 	}

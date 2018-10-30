@@ -47,78 +47,78 @@ public final class NullabilityItem extends Item
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCanReturnNull")
 	@javax.annotation.Nullable
-	static final java.lang.Object allOptionalCanReturnNull()
+	static java.lang.Object allOptionalCanReturnNull()
 	{
 		return NullabilityItem.optional.allCanReturnNull();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCannotReturnNull")
 	@javax.annotation.Nonnull
-	static final java.lang.Object allOptionalCannotReturnNull()
+	static java.lang.Object allOptionalCannotReturnNull()
 	{
 		return NullabilityItem.optional.allCannotReturnNull();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="onlyOptionalsCanReturnNull")
 	@javax.annotation.Nullable
-	static final java.lang.Object onlyOptionalOptionalsCanReturnNull()
+	static java.lang.Object onlyOptionalOptionalsCanReturnNull()
 	{
 		return NullabilityItem.optional.onlyOptionalsCanReturnNull();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCanTakeNull")
-	static final void allOptionalCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
+	static void allOptionalCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
 	{
 		NullabilityItem.optional.allCanTakeNull(optional);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCannotTakeNull")
-	static final void allOptionalCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object optional)
+	static void allOptionalCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object optional)
 	{
 		NullabilityItem.optional.allCannotTakeNull(optional);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="onlyOptionalsCanTakeNull")
-	final void onlyOptionalOptionalsCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
+	void onlyOptionalOptionalsCanTakeNull(@javax.annotation.Nullable final java.lang.Object optional)
 	{
 		NullabilityItem.optional.onlyOptionalsCanTakeNull(this,optional);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCanReturnNull")
 	@javax.annotation.Nullable
-	static final java.lang.Object allMandatoryCanReturnNull()
+	static java.lang.Object allMandatoryCanReturnNull()
 	{
 		return NullabilityItem.mandatory.allCanReturnNull();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCannotReturnNull")
 	@javax.annotation.Nonnull
-	static final java.lang.Object allMandatoryCannotReturnNull()
+	static java.lang.Object allMandatoryCannotReturnNull()
 	{
 		return NullabilityItem.mandatory.allCannotReturnNull();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="onlyOptionalsCanReturnNull")
 	@javax.annotation.Nonnull
-	static final java.lang.Object onlyMandatoryOptionalsCanReturnNull()
+	static java.lang.Object onlyMandatoryOptionalsCanReturnNull()
 	{
 		return NullabilityItem.mandatory.onlyOptionalsCanReturnNull();
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCanTakeNull")
-	static final void allMandatoryCanTakeNull(@javax.annotation.Nullable final java.lang.Object mandatory)
+	static void allMandatoryCanTakeNull(@javax.annotation.Nullable final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.allCanTakeNull(mandatory);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCannotTakeNull")
-	static final void allMandatoryCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
+	static void allMandatoryCannotTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.allCannotTakeNull(mandatory);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="onlyOptionalsCanTakeNull")
-	final void onlyMandatoryOptionalsCanTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
+	void onlyMandatoryOptionalsCanTakeNull(@javax.annotation.Nonnull final java.lang.Object mandatory)
 	{
 		NullabilityItem.mandatory.onlyOptionalsCanTakeNull(this,mandatory);
 	}

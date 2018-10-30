@@ -61,7 +61,7 @@ public final class CompositeOptionalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getCode()
+	public java.lang.String getCode()
 	{
 		return CompositeOptionalItem.code.get(this);
 	}
@@ -71,7 +71,7 @@ public final class CompositeOptionalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final CompositeValue getUno()
+	public CompositeValue getUno()
 	{
 		return CompositeOptionalItem.uno.get(this);
 	}
@@ -80,7 +80,7 @@ public final class CompositeOptionalItem extends Item
 	 * Sets a new value for {@link #uno}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setUno(@javax.annotation.Nullable final CompositeValue uno)
+	public void setUno(@javax.annotation.Nullable final CompositeValue uno)
 	{
 		CompositeOptionalItem.uno.set(this,uno);
 	}
@@ -90,7 +90,7 @@ public final class CompositeOptionalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final CompositeValue getDuo()
+	public CompositeValue getDuo()
 	{
 		return CompositeOptionalItem.duo.get(this);
 	}
@@ -99,7 +99,7 @@ public final class CompositeOptionalItem extends Item
 	 * Sets a new value for {@link #duo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setDuo(@javax.annotation.Nullable final CompositeValue duo)
+	public void setDuo(@javax.annotation.Nullable final CompositeValue duo)
 	{
 		CompositeOptionalItem.duo.set(this,duo);
 	}

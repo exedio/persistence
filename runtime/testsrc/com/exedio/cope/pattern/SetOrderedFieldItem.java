@@ -62,7 +62,7 @@ public final class SetOrderedFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Set<String> getStrings()
+	java.util.Set<String> getStrings()
 	{
 		return SetOrderedFieldItem.strings.get(this);
 	}
@@ -72,7 +72,7 @@ public final class SetOrderedFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.Query<String> getStringsQuery()
+	com.exedio.cope.Query<String> getStringsQuery()
 	{
 		return SetOrderedFieldItem.strings.getQuery(this);
 	}
@@ -82,7 +82,7 @@ public final class SetOrderedFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParentsOf")
 	@javax.annotation.Nonnull
-	static final java.util.List<SetOrderedFieldItem> getParentsOfStrings(@javax.annotation.Nonnull final String element)
+	static java.util.List<SetOrderedFieldItem> getParentsOfStrings(@javax.annotation.Nonnull final String element)
 	{
 		return SetOrderedFieldItem.strings.getParents(SetOrderedFieldItem.class,element);
 	}
@@ -91,7 +91,7 @@ public final class SetOrderedFieldItem extends Item
 	 * Sets a new value for {@link #strings}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
+	void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -105,7 +105,7 @@ public final class SetOrderedFieldItem extends Item
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	final boolean addToStrings(@javax.annotation.Nonnull final String element)
+	boolean addToStrings(@javax.annotation.Nonnull final String element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -119,7 +119,7 @@ public final class SetOrderedFieldItem extends Item
 	 * @return <tt>true</tt> if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
-	final boolean removeFromStrings(@javax.annotation.Nonnull final String element)
+	boolean removeFromStrings(@javax.annotation.Nonnull final String element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException,
@@ -133,7 +133,7 @@ public final class SetOrderedFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<SetOrderedFieldItem> stringsParent()
+	static com.exedio.cope.ItemField<SetOrderedFieldItem> stringsParent()
 	{
 		return SetOrderedFieldItem.strings.getParent(SetOrderedFieldItem.class);
 	}

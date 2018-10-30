@@ -167,7 +167,7 @@ final class VaultItem extends Item
 	 * Returns, whether there is no data for field {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	final boolean isFieldNull()
+	boolean isFieldNull()
 	{
 		return VaultItem.field.isNull(this);
 	}

@@ -177,13 +177,13 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final Part getChoice()
+		Part getChoice()
 		{
 			return Container.choice.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setChoice(@javax.annotation.Nullable final Part choice)
+		void setChoice(@javax.annotation.Nullable final Part choice)
 		{
 			Container.choice.set(this,choice);
 		}
@@ -220,7 +220,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final Container getParent()
+		Container getParent()
 		{
 			return Part.parent.get(this);
 		}

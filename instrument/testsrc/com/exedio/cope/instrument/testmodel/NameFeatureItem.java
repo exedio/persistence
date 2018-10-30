@@ -60,73 +60,73 @@ public final class NameFeatureItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	final void withinFeatureMethod()
+	void withinFeatureMethod()
 	{
 		NameFeatureItem.feature.within0(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	final void withinfeatureMethod()
+	void withinfeatureMethod()
 	{
 		NameFeatureItem.feature.within1(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	final void Feature()
+	void Feature()
 	{
 		NameFeatureItem.feature.only0(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	final void feature()
+	void feature()
 	{
 		NameFeatureItem.feature.only1(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	public final void withinAlphaMethod()
+	public void withinAlphaMethod()
 	{
 		NameFeatureItem.alpha.within0(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	public final void withinalphaMethod()
+	public void withinalphaMethod()
 	{
 		NameFeatureItem.alpha.within1(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	final void Alpha()
+	void Alpha()
 	{
 		NameFeatureItem.alpha.only0(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	final void alpha()
+	void alpha()
 	{
 		NameFeatureItem.alpha.only1(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	final void withinBetaMethod()
+	void withinBetaMethod()
 	{
 		NameFeatureItem.beta.within0(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
-	final void withinbetaMethod()
+	void withinbetaMethod()
 	{
 		NameFeatureItem.beta.within1(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	protected final void Beta()
+	protected void Beta()
 	{
 		NameFeatureItem.beta.only0(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	protected final void beta()
+	protected void beta()
 	{
 		NameFeatureItem.beta.only1(this);
 	}

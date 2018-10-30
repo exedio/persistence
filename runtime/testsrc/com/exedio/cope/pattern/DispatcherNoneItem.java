@@ -61,7 +61,7 @@ public final class DispatcherNoneItem extends Item
 	 * Returns, whether this item is yet to be dispatched by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
-	final boolean isWrongPending()
+	boolean isWrongPending()
 	{
 		return DispatcherNoneItem.wrong.isPending(this);
 	}
@@ -70,7 +70,7 @@ public final class DispatcherNoneItem extends Item
 	 * Sets whether this item is yet to be dispatched by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
-	final void setWrongPending(final boolean pending)
+	void setWrongPending(final boolean pending)
 	{
 		DispatcherNoneItem.wrong.setPending(this,pending);
 	}
@@ -79,7 +79,7 @@ public final class DispatcherNoneItem extends Item
 	 * Returns, whether this item is allowed to be purged by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNoPurge")
-	final boolean isWrongNoPurge()
+	boolean isWrongNoPurge()
 	{
 		return DispatcherNoneItem.wrong.isNoPurge(this);
 	}
@@ -88,7 +88,7 @@ public final class DispatcherNoneItem extends Item
 	 * Sets whether this item is allowed to be purged by {@link #wrong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setNoPurge")
-	final void setWrongNoPurge(final boolean noPurge)
+	void setWrongNoPurge(final boolean noPurge)
 	{
 		DispatcherNoneItem.wrong.setNoPurge(this,noPurge);
 	}
@@ -98,7 +98,7 @@ public final class DispatcherNoneItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
 	@javax.annotation.Nullable
-	final java.util.Date getWrongLastSuccessDate()
+	java.util.Date getWrongLastSuccessDate()
 	{
 		return DispatcherNoneItem.wrong.getLastSuccessDate(this);
 	}
@@ -108,7 +108,7 @@ public final class DispatcherNoneItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
 	@javax.annotation.Nullable
-	final java.lang.Long getWrongLastSuccessElapsed()
+	java.lang.Long getWrongLastSuccessElapsed()
 	{
 		return DispatcherNoneItem.wrong.getLastSuccessElapsed(this);
 	}
@@ -118,7 +118,7 @@ public final class DispatcherNoneItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
 	@javax.annotation.Nonnull
-	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongRuns()
+	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongRuns()
 	{
 		return DispatcherNoneItem.wrong.getRuns(this);
 	}
@@ -128,19 +128,19 @@ public final class DispatcherNoneItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
 	@javax.annotation.Nonnull
-	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongFailures()
+	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getWrongFailures()
 	{
 		return DispatcherNoneItem.wrong.getFailures(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-	static final void purgeWrong(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void purgeWrong(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherNoneItem.wrong.purge(properties,ctx);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-	static final void purgeWrong(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void purgeWrong(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherNoneItem.wrong.purge(properties,restriction,ctx);
 	}
@@ -150,7 +150,7 @@ public final class DispatcherNoneItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<DispatcherNoneItem> wrongRunParent()
+	static com.exedio.cope.ItemField<DispatcherNoneItem> wrongRunParent()
 	{
 		return DispatcherNoneItem.wrong.getRunParent(DispatcherNoneItem.class);
 	}

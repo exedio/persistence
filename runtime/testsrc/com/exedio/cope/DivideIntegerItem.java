@@ -66,7 +66,7 @@ public final class DivideIntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNumA()
+	public java.lang.Integer getNumA()
 	{
 		return DivideIntegerItem.numA.get(this);
 	}
@@ -75,7 +75,7 @@ public final class DivideIntegerItem extends Item
 	 * Sets a new value for {@link #numA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumA(@javax.annotation.Nullable final java.lang.Integer numA)
+	public void setNumA(@javax.annotation.Nullable final java.lang.Integer numA)
 	{
 		DivideIntegerItem.numA.set(this,numA);
 	}
@@ -85,7 +85,7 @@ public final class DivideIntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNumB()
+	public java.lang.Integer getNumB()
 	{
 		return DivideIntegerItem.numB.get(this);
 	}
@@ -94,7 +94,7 @@ public final class DivideIntegerItem extends Item
 	 * Sets a new value for {@link #numB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumB(@javax.annotation.Nullable final java.lang.Integer numB)
+	public void setNumB(@javax.annotation.Nullable final java.lang.Integer numB)
 	{
 		DivideIntegerItem.numB.set(this,numB);
 	}
@@ -104,7 +104,7 @@ public final class DivideIntegerItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNumC()
+	public java.lang.Integer getNumC()
 	{
 		return DivideIntegerItem.numC.get(this);
 	}
@@ -113,7 +113,7 @@ public final class DivideIntegerItem extends Item
 	 * Sets a new value for {@link #numC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNumC(@javax.annotation.Nullable final java.lang.Integer numC)
+	public void setNumC(@javax.annotation.Nullable final java.lang.Integer numC)
 	{
 		DivideIntegerItem.numC.set(this,numC);
 	}
@@ -122,7 +122,7 @@ public final class DivideIntegerItem extends Item
 	 * Returns the value of {@link #divideAB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getDivideAB()
+	public Integer getDivideAB()
 	{
 		return DivideIntegerItem.divideAB.get(this);
 	}
@@ -131,7 +131,7 @@ public final class DivideIntegerItem extends Item
 	 * Returns the value of {@link #divideAC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getDivideAC()
+	public Integer getDivideAC()
 	{
 		return DivideIntegerItem.divideAC.get(this);
 	}
@@ -140,7 +140,7 @@ public final class DivideIntegerItem extends Item
 	 * Returns the value of {@link #divideBC}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final Integer getDivideBC()
+	public Integer getDivideBC()
 	{
 		return DivideIntegerItem.divideBC.get(this);
 	}

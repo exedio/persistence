@@ -89,7 +89,7 @@ final class ColorFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.awt.Color getMandatory()
+	java.awt.Color getMandatory()
 	{
 		return ColorFieldItem.mandatory.get(this);
 	}
@@ -98,7 +98,7 @@ final class ColorFieldItem extends Item
 	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMandatory(@javax.annotation.Nonnull final java.awt.Color mandatory)
+	void setMandatory(@javax.annotation.Nonnull final java.awt.Color mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.pattern.ColorAlphaViolationException
@@ -111,7 +111,7 @@ final class ColorFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.awt.Color getOptional()
+	java.awt.Color getOptional()
 	{
 		return ColorFieldItem.optional.get(this);
 	}
@@ -120,7 +120,7 @@ final class ColorFieldItem extends Item
 	 * Sets a new value for {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOptional(@javax.annotation.Nullable final java.awt.Color optional)
+	void setOptional(@javax.annotation.Nullable final java.awt.Color optional)
 			throws
 				com.exedio.cope.pattern.ColorAlphaViolationException
 	{
@@ -132,7 +132,7 @@ final class ColorFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.awt.Color getDefaultTo()
+	java.awt.Color getDefaultTo()
 	{
 		return ColorFieldItem.defaultTo.get(this);
 	}
@@ -141,7 +141,7 @@ final class ColorFieldItem extends Item
 	 * Sets a new value for {@link #defaultTo}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDefaultTo(@javax.annotation.Nonnull final java.awt.Color defaultTo)
+	void setDefaultTo(@javax.annotation.Nonnull final java.awt.Color defaultTo)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.pattern.ColorAlphaViolationException
@@ -154,7 +154,7 @@ final class ColorFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.awt.Color getAlpha()
+	java.awt.Color getAlpha()
 	{
 		return ColorFieldItem.alpha.get(this);
 	}
@@ -163,7 +163,7 @@ final class ColorFieldItem extends Item
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAlpha(@javax.annotation.Nullable final java.awt.Color alpha)
+	void setAlpha(@javax.annotation.Nullable final java.awt.Color alpha)
 	{
 		ColorFieldItem.alpha.set(this,alpha);
 	}
@@ -173,7 +173,7 @@ final class ColorFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.awt.Color getMandatoryAlpha()
+	java.awt.Color getMandatoryAlpha()
 	{
 		return ColorFieldItem.mandatoryAlpha.get(this);
 	}
@@ -182,7 +182,7 @@ final class ColorFieldItem extends Item
 	 * Sets a new value for {@link #mandatoryAlpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMandatoryAlpha(@javax.annotation.Nonnull final java.awt.Color mandatoryAlpha)
+	void setMandatoryAlpha(@javax.annotation.Nonnull final java.awt.Color mandatoryAlpha)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -194,7 +194,7 @@ final class ColorFieldItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.awt.Color getFinalColor()
+	java.awt.Color getFinalColor()
 	{
 		return ColorFieldItem.finalColor.get(this);
 	}

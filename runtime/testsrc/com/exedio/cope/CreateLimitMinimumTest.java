@@ -91,7 +91,7 @@ public class CreateLimitMinimumTest extends TestWithEnvironment
 	 * Returns the value of {@link #number}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getNumber()
+	int getNumber()
 	{
 		return AnItem.number.getMandatory(this);
 	}
@@ -100,7 +100,7 @@ public class CreateLimitMinimumTest extends TestWithEnvironment
 	 * Sets a new value for {@link #number}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setNumber(final int number)
+	void setNumber(final int number)
 	{
 		AnItem.number.set(this,number);
 	}

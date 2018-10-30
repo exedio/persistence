@@ -62,7 +62,7 @@ public final class DynamicModelItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getName()
+	java.lang.String getName()
 	{
 		return DynamicModelItem.name.get(this);
 	}
@@ -72,7 +72,7 @@ public final class DynamicModelItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> getFeaturesType()
+	com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> getFeaturesType()
 	{
 		return DynamicModelItem.features.getType(this);
 	}
@@ -81,7 +81,7 @@ public final class DynamicModelItem extends Item
 	 * Sets the dynamic type of this item in the model {@link #features}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
-	final void setFeaturesType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> type)
+	void setFeaturesType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> type)
 	{
 		DynamicModelItem.features.setType(this,type);
 	}
@@ -91,7 +91,7 @@ public final class DynamicModelItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Object getFeatures(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field)
+	java.lang.Object getFeatures(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field)
 	{
 		return DynamicModelItem.features.get(this,field);
 	}
@@ -100,7 +100,7 @@ public final class DynamicModelItem extends Item
 	 * Sets the value of <tt>field</tt> for this item in the model {@link #features}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFeatures(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)
+	void setFeatures(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		DynamicModelItem.features.set(this,field,value);
 	}
@@ -110,7 +110,7 @@ public final class DynamicModelItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> getSmallType()
+	com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> getSmallType()
 	{
 		return DynamicModelItem.small.getType(this);
 	}
@@ -119,7 +119,7 @@ public final class DynamicModelItem extends Item
 	 * Sets the dynamic type of this item in the model {@link #small}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
-	final void setSmallType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> type)
+	void setSmallType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> type)
 	{
 		DynamicModelItem.small.setType(this,type);
 	}
@@ -129,7 +129,7 @@ public final class DynamicModelItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Object getSmall(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field)
+	java.lang.Object getSmall(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field)
 	{
 		return DynamicModelItem.small.get(this,field);
 	}
@@ -138,7 +138,7 @@ public final class DynamicModelItem extends Item
 	 * Sets the value of <tt>field</tt> for this item in the model {@link #small}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSmall(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)
+	void setSmall(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		DynamicModelItem.small.set(this,field,value);
 	}

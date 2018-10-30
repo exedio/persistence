@@ -105,7 +105,7 @@ public class SettableMandatoryPriceTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.pattern.Price getMandatory()
+	com.exedio.cope.pattern.Price getMandatory()
 	{
 		return AnItem.mandatory.get(this);
 	}
@@ -114,7 +114,7 @@ public class SettableMandatoryPriceTest extends TestWithEnvironment
 	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setMandatory(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price mandatory)
+	void setMandatory(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

@@ -64,7 +64,7 @@ final class Indent extends Item
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 			@javax.annotation.Nullable
-			final java.lang.String getOne()
+			java.lang.String getOne()
 			{
 				return Indent.one.get(this);
 			}
@@ -73,7 +73,7 @@ final class Indent extends Item
 			 * Sets a new value for {@link #one}.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-			final void setOne(@javax.annotation.Nullable final java.lang.String one)
+			void setOne(@javax.annotation.Nullable final java.lang.String one)
 					throws
 						com.exedio.cope.UniqueViolationException,
 						com.exedio.cope.StringLengthViolationException
@@ -86,7 +86,7 @@ final class Indent extends Item
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 			@javax.annotation.Nonnull
-			final java.lang.String getTwo()
+			java.lang.String getTwo()
 			{
 				return Indent.two.get(this);
 			}
@@ -95,7 +95,7 @@ final class Indent extends Item
 			 * Sets a new value for {@link #two}.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-			final void setTwo(@javax.annotation.Nonnull final java.lang.String two)
+			void setTwo(@javax.annotation.Nonnull final java.lang.String two)
 					throws
 						com.exedio.cope.MandatoryViolationException,
 						com.exedio.cope.UniqueViolationException,
@@ -112,7 +112,7 @@ final class Indent extends Item
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 			@javax.annotation.Nullable
-			static final Indent forUnq(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
+			static Indent forUnq(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 			{
 				return Indent.unq.search(Indent.class,one,two);
 			}
@@ -125,7 +125,7 @@ final class Indent extends Item
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 			@javax.annotation.Nonnull
-			static final Indent forUnqStrict(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
+			static Indent forUnqStrict(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 					throws
 						java.lang.IllegalArgumentException
 			{

@@ -154,7 +154,7 @@ final class CopyMultiCopySource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getCopyA()
+	java.lang.String getCopyA()
 	{
 		return CopyMultiCopySource.copyA.get(this);
 	}
@@ -163,7 +163,7 @@ final class CopyMultiCopySource extends Item
 	 * Sets a new value for {@link #copyA}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCopyA(@javax.annotation.Nullable final java.lang.String copyA)
+	void setCopyA(@javax.annotation.Nullable final java.lang.String copyA)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -175,7 +175,7 @@ final class CopyMultiCopySource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getCopyB()
+	java.lang.String getCopyB()
 	{
 		return CopyMultiCopySource.copyB.get(this);
 	}
@@ -184,7 +184,7 @@ final class CopyMultiCopySource extends Item
 	 * Sets a new value for {@link #copyB}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCopyB(@javax.annotation.Nullable final java.lang.String copyB)
+	void setCopyB(@javax.annotation.Nullable final java.lang.String copyB)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -196,7 +196,7 @@ final class CopyMultiCopySource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CopyMultiCopyTarget getTarget()
+	CopyMultiCopyTarget getTarget()
 	{
 		return CopyMultiCopySource.target.get(this);
 	}
@@ -205,7 +205,7 @@ final class CopyMultiCopySource extends Item
 	 * Sets a new value for {@link #target}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTarget(@javax.annotation.Nullable final CopyMultiCopyTarget target)
+	void setTarget(@javax.annotation.Nullable final CopyMultiCopyTarget target)
 	{
 		CopyMultiCopySource.target.set(this,target);
 	}

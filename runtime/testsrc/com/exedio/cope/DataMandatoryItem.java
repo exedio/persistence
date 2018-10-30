@@ -57,7 +57,7 @@ final class DataMandatoryItem extends Item
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	final boolean isDataNull()
+	boolean isDataNull()
 	{
 		return DataMandatoryItem.data.isNull(this);
 	}
@@ -66,7 +66,7 @@ final class DataMandatoryItem extends Item
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	final long getDataLength()
+	long getDataLength()
 	{
 		return DataMandatoryItem.data.getLength(this);
 	}
@@ -76,7 +76,7 @@ final class DataMandatoryItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
 	@javax.annotation.Nullable
-	final byte[] getDataArray()
+	byte[] getDataArray()
 	{
 		return DataMandatoryItem.data.getArray(this);
 	}
@@ -85,7 +85,7 @@ final class DataMandatoryItem extends Item
 	 * Writes the data of this persistent data field into the given stream.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
+	void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
 	{
@@ -96,7 +96,7 @@ final class DataMandatoryItem extends Item
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final void getData(@javax.annotation.Nonnull final java.io.File data)
+	void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
 	{
@@ -107,7 +107,7 @@ final class DataMandatoryItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
+	void setData(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -118,7 +118,7 @@ final class DataMandatoryItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nonnull final byte[] data)
+	void setData(@javax.annotation.Nonnull final byte[] data)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -129,7 +129,7 @@ final class DataMandatoryItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nonnull final java.io.InputStream data)
+	void setData(@javax.annotation.Nonnull final java.io.InputStream data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException
@@ -141,7 +141,7 @@ final class DataMandatoryItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nonnull final java.nio.file.Path data)
+	void setData(@javax.annotation.Nonnull final java.nio.file.Path data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException
@@ -153,7 +153,7 @@ final class DataMandatoryItem extends Item
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setData(@javax.annotation.Nonnull final java.io.File data)
+	void setData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException

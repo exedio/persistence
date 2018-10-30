@@ -135,13 +135,13 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final java.lang.String getField2()
+		java.lang.String getField2()
 		{
 			return MyItem.field2.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setField2(@javax.annotation.Nullable final java.lang.String field2)
+		void setField2(@javax.annotation.Nullable final java.lang.String field2)
 				throws
 					com.exedio.cope.StringLengthViolationException
 		{

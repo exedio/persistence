@@ -48,28 +48,28 @@ final class WrapDeprecationItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="bare")
-	final int bareGood()
+	int bareGood()
 	{
 		return WrapDeprecationItem.good.bare(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="goneAlmost")
 	@java.lang.Deprecated
-	final int goneGoodAlmost()
+	int goneGoodAlmost()
 	{
 		return WrapDeprecationItem.good.goneAlmost(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="bare")
 	@java.lang.Deprecated
-	final int bareBad()
+	int bareBad()
 	{
 		return WrapDeprecationItem.bad.bare(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="goneAlmost")
 	@java.lang.Deprecated
-	final int goneBadAlmost()
+	int goneBadAlmost()
 	{
 		return WrapDeprecationItem.bad.goneAlmost(this);
 	}

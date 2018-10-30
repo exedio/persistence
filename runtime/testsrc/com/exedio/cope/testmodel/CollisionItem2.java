@@ -58,7 +58,7 @@ public final class CollisionItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final EmptyItem getCollisionAttribute()
+	public EmptyItem getCollisionAttribute()
 	{
 		return CollisionItem2.collisionAttribute.get(this);
 	}
@@ -70,7 +70,7 @@ public final class CollisionItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	public static final CollisionItem2 forCollisionAttribute(@javax.annotation.Nonnull final EmptyItem collisionAttribute)
+	public static CollisionItem2 forCollisionAttribute(@javax.annotation.Nonnull final EmptyItem collisionAttribute)
 	{
 		return CollisionItem2.collisionAttribute.searchUnique(CollisionItem2.class,collisionAttribute);
 	}
@@ -82,7 +82,7 @@ public final class CollisionItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	public static final CollisionItem2 forCollisionAttributeStrict(@javax.annotation.Nonnull final EmptyItem collisionAttribute)
+	public static CollisionItem2 forCollisionAttributeStrict(@javax.annotation.Nonnull final EmptyItem collisionAttribute)
 			throws
 				java.lang.IllegalArgumentException
 	{

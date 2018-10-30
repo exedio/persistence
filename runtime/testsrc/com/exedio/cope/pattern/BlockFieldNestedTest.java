@@ -142,7 +142,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getAlpha()
+	java.lang.Integer getAlpha()
 	{
 		return field().of(Inner.alpha).get(item());
 	}
@@ -151,7 +151,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 * Sets a new value for {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
+	void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
 	{
 		field().of(Inner.alpha).set(item(),alpha);
 	}
@@ -161,7 +161,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.Integer getBeta()
+	java.lang.Integer getBeta()
 	{
 		return field().of(Inner.beta).get(item());
 	}
@@ -170,7 +170,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 * Sets a new value for {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
+	void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		field().of(Inner.beta).set(item(),beta);
 	}
@@ -203,7 +203,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final Inner eins()
+	Inner eins()
 	{
 		return field().of(Outer.eins).get(item());
 	}
@@ -213,7 +213,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final Inner zwei()
+	Inner zwei()
 	{
 		return field().of(Outer.zwei).get(item());
 	}
@@ -265,7 +265,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final Outer uno()
+	Outer uno()
 	{
 		return AnItem.uno.get(this);
 	}
@@ -275,7 +275,7 @@ public class BlockFieldNestedTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
 	@javax.annotation.Nonnull
-	final Outer duo()
+	Outer duo()
 	{
 		return AnItem.duo.get(this);
 	}

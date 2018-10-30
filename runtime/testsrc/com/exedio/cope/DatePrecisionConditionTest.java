@@ -180,7 +180,7 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Date getExact()
+	java.util.Date getExact()
 	{
 		return AnItem.exact.get(this);
 	}
@@ -190,7 +190,7 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.util.Date getRounded()
+	java.util.Date getRounded()
 	{
 		return AnItem.rounded.get(this);
 	}

@@ -196,7 +196,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 	 * Returns the value of {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getField()
+	int getField()
 	{
 		return AnItem.field.getMandatory(this);
 	}

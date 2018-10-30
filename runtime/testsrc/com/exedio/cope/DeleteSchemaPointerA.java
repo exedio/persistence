@@ -52,7 +52,7 @@ final class DeleteSchemaPointerA extends Item
 	 * Returns the value of {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getCode()
+	int getCode()
 	{
 		return DeleteSchemaPointerA.code.getMandatory(this);
 	}
@@ -61,7 +61,7 @@ final class DeleteSchemaPointerA extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCode(final int code)
+	void setCode(final int code)
 	{
 		DeleteSchemaPointerA.code.set(this,code);
 	}
@@ -71,7 +71,7 @@ final class DeleteSchemaPointerA extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteSchemaPointerA getSelf()
+	DeleteSchemaPointerA getSelf()
 	{
 		return DeleteSchemaPointerA.self.get(this);
 	}
@@ -80,7 +80,7 @@ final class DeleteSchemaPointerA extends Item
 	 * Sets a new value for {@link #self}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSelf(@javax.annotation.Nullable final DeleteSchemaPointerA self)
+	void setSelf(@javax.annotation.Nullable final DeleteSchemaPointerA self)
 	{
 		DeleteSchemaPointerA.self.set(this,self);
 	}
@@ -90,7 +90,7 @@ final class DeleteSchemaPointerA extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteSchemaPointerB getOther()
+	DeleteSchemaPointerB getOther()
 	{
 		return DeleteSchemaPointerA.other.get(this);
 	}
@@ -99,7 +99,7 @@ final class DeleteSchemaPointerA extends Item
 	 * Sets a new value for {@link #other}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOther(@javax.annotation.Nullable final DeleteSchemaPointerB other)
+	void setOther(@javax.annotation.Nullable final DeleteSchemaPointerB other)
 	{
 		DeleteSchemaPointerA.other.set(this,other);
 	}

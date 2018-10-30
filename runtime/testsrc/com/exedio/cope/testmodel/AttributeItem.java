@@ -199,7 +199,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.String getSomeString()
+	public java.lang.String getSomeString()
 	{
 		return AttributeItem.someString.get(this);
 	}
@@ -208,7 +208,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeString(@javax.annotation.Nullable final java.lang.String someString)
+	public void setSomeString(@javax.annotation.Nullable final java.lang.String someString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -219,7 +219,7 @@ public final class AttributeItem extends Item
 	 * Returns the value of {@link #someStringUpperCase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final java.lang.String getSomeStringUpperCase()
+	public java.lang.String getSomeStringUpperCase()
 	{
 		return AttributeItem.someStringUpperCase.get(this);
 	}
@@ -228,7 +228,7 @@ public final class AttributeItem extends Item
 	 * Returns the value of {@link #someStringLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final java.lang.Integer getSomeStringLength()
+	public java.lang.Integer getSomeStringLength()
 	{
 		return AttributeItem.someStringLength.get(this);
 	}
@@ -238,7 +238,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getSomeNotNullString()
+	public java.lang.String getSomeNotNullString()
 	{
 		return AttributeItem.someNotNullString.get(this);
 	}
@@ -247,7 +247,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someNotNullString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeNotNullString(@javax.annotation.Nonnull final java.lang.String someNotNullString)
+	public void setSomeNotNullString(@javax.annotation.Nonnull final java.lang.String someNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -260,7 +260,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getSomeInteger()
+	public java.lang.Integer getSomeInteger()
 	{
 		return AttributeItem.someInteger.get(this);
 	}
@@ -269,7 +269,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeInteger(@javax.annotation.Nullable final java.lang.Integer someInteger)
+	public void setSomeInteger(@javax.annotation.Nullable final java.lang.Integer someInteger)
 	{
 		AttributeItem.someInteger.set(this,someInteger);
 	}
@@ -278,7 +278,7 @@ public final class AttributeItem extends Item
 	 * Returns the value of {@link #someNotNullInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final int getSomeNotNullInteger()
+	public int getSomeNotNullInteger()
 	{
 		return AttributeItem.someNotNullInteger.getMandatory(this);
 	}
@@ -287,7 +287,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someNotNullInteger}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeNotNullInteger(final int someNotNullInteger)
+	public void setSomeNotNullInteger(final int someNotNullInteger)
 	{
 		AttributeItem.someNotNullInteger.set(this,someNotNullInteger);
 	}
@@ -297,7 +297,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Long getSomeLong()
+	public java.lang.Long getSomeLong()
 	{
 		return AttributeItem.someLong.get(this);
 	}
@@ -306,7 +306,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeLong(@javax.annotation.Nullable final java.lang.Long someLong)
+	public void setSomeLong(@javax.annotation.Nullable final java.lang.Long someLong)
 	{
 		AttributeItem.someLong.set(this,someLong);
 	}
@@ -315,7 +315,7 @@ public final class AttributeItem extends Item
 	 * Returns the value of {@link #someNotNullLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final long getSomeNotNullLong()
+	public long getSomeNotNullLong()
 	{
 		return AttributeItem.someNotNullLong.getMandatory(this);
 	}
@@ -324,7 +324,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someNotNullLong}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeNotNullLong(final long someNotNullLong)
+	public void setSomeNotNullLong(final long someNotNullLong)
 	{
 		AttributeItem.someNotNullLong.set(this,someNotNullLong);
 	}
@@ -334,7 +334,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getSomeDouble()
+	public java.lang.Double getSomeDouble()
 	{
 		return AttributeItem.someDouble.get(this);
 	}
@@ -343,7 +343,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someDouble}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeDouble(@javax.annotation.Nullable final java.lang.Double someDouble)
+	public void setSomeDouble(@javax.annotation.Nullable final java.lang.Double someDouble)
 	{
 		AttributeItem.someDouble.set(this,someDouble);
 	}
@@ -352,7 +352,7 @@ public final class AttributeItem extends Item
 	 * Returns the value of {@link #someNotNullDouble}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final double getSomeNotNullDouble()
+	public double getSomeNotNullDouble()
 	{
 		return AttributeItem.someNotNullDouble.getMandatory(this);
 	}
@@ -361,7 +361,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someNotNullDouble}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeNotNullDouble(final double someNotNullDouble)
+	public void setSomeNotNullDouble(final double someNotNullDouble)
 	{
 		AttributeItem.someNotNullDouble.set(this,someNotNullDouble);
 	}
@@ -371,7 +371,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.util.Date getSomeDate()
+	public java.util.Date getSomeDate()
 	{
 		return AttributeItem.someDate.get(this);
 	}
@@ -380,7 +380,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someDate}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeDate(@javax.annotation.Nullable final java.util.Date someDate)
+	public void setSomeDate(@javax.annotation.Nullable final java.util.Date someDate)
 	{
 		AttributeItem.someDate.set(this,someDate);
 	}
@@ -389,7 +389,7 @@ public final class AttributeItem extends Item
 	 * Sets the current date for the date field {@link #someDate}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	public final void touchSomeDate()
+	public void touchSomeDate()
 	{
 		AttributeItem.someDate.touch(this);
 	}
@@ -399,7 +399,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final com.exedio.cope.util.Day getDay()
+	public com.exedio.cope.util.Day getDay()
 	{
 		return AttributeItem.day.get(this);
 	}
@@ -408,7 +408,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
+	public void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		AttributeItem.day.set(this,day);
 	}
@@ -417,7 +417,7 @@ public final class AttributeItem extends Item
 	 * Sets today for the date field {@link #day}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	public final void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	public void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		AttributeItem.day.touch(this,zone);
 	}
@@ -427,7 +427,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Boolean getSomeBoolean()
+	public java.lang.Boolean getSomeBoolean()
 	{
 		return AttributeItem.someBoolean.get(this);
 	}
@@ -436,7 +436,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someBoolean}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeBoolean(@javax.annotation.Nullable final java.lang.Boolean someBoolean)
+	public void setSomeBoolean(@javax.annotation.Nullable final java.lang.Boolean someBoolean)
 	{
 		AttributeItem.someBoolean.set(this,someBoolean);
 	}
@@ -445,7 +445,7 @@ public final class AttributeItem extends Item
 	 * Returns the value of {@link #someNotNullBoolean}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final boolean getSomeNotNullBoolean()
+	public boolean getSomeNotNullBoolean()
 	{
 		return AttributeItem.someNotNullBoolean.getMandatory(this);
 	}
@@ -454,7 +454,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someNotNullBoolean}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeNotNullBoolean(final boolean someNotNullBoolean)
+	public void setSomeNotNullBoolean(final boolean someNotNullBoolean)
 	{
 		AttributeItem.someNotNullBoolean.set(this,someNotNullBoolean);
 	}
@@ -464,7 +464,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final EmptyItem getSomeItem()
+	public EmptyItem getSomeItem()
 	{
 		return AttributeItem.someItem.get(this);
 	}
@@ -473,7 +473,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeItem(@javax.annotation.Nullable final EmptyItem someItem)
+	public void setSomeItem(@javax.annotation.Nullable final EmptyItem someItem)
 	{
 		AttributeItem.someItem.set(this,someItem);
 	}
@@ -483,7 +483,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final EmptyItem getSomeNotNullItem()
+	public EmptyItem getSomeNotNullItem()
 	{
 		return AttributeItem.someNotNullItem.get(this);
 	}
@@ -492,7 +492,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someNotNullItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeNotNullItem(@javax.annotation.Nonnull final EmptyItem someNotNullItem)
+	public void setSomeNotNullItem(@javax.annotation.Nonnull final EmptyItem someNotNullItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -504,7 +504,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final SomeEnum getSomeEnum()
+	public SomeEnum getSomeEnum()
 	{
 		return AttributeItem.someEnum.get(this);
 	}
@@ -513,7 +513,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeEnum(@javax.annotation.Nullable final SomeEnum someEnum)
+	public void setSomeEnum(@javax.annotation.Nullable final SomeEnum someEnum)
 	{
 		AttributeItem.someEnum.set(this,someEnum);
 	}
@@ -523,7 +523,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final SomeEnum getSomeNotNullEnum()
+	public SomeEnum getSomeNotNullEnum()
 	{
 		return AttributeItem.someNotNullEnum.get(this);
 	}
@@ -532,7 +532,7 @@ public final class AttributeItem extends Item
 	 * Sets a new value for {@link #someNotNullEnum}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeNotNullEnum(@javax.annotation.Nonnull final SomeEnum someNotNullEnum)
+	public void setSomeNotNullEnum(@javax.annotation.Nonnull final SomeEnum someNotNullEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -544,7 +544,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	public final com.exedio.cope.pattern.MediaPath.Locator getSomeDataLocator()
+	public com.exedio.cope.pattern.MediaPath.Locator getSomeDataLocator()
 	{
 		return AttributeItem.someData.getLocator(this);
 	}
@@ -554,7 +554,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	public final java.lang.String getSomeDataContentType()
+	public java.lang.String getSomeDataContentType()
 	{
 		return AttributeItem.someData.getContentType(this);
 	}
@@ -563,7 +563,7 @@ public final class AttributeItem extends Item
 	 * Returns whether media {@link #someData} is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	public final boolean isSomeDataNull()
+	public boolean isSomeDataNull()
 	{
 		return AttributeItem.someData.isNull(this);
 	}
@@ -573,7 +573,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
 	@javax.annotation.Nullable
-	public final java.util.Date getSomeDataLastModified()
+	public java.util.Date getSomeDataLastModified()
 	{
 		return AttributeItem.someData.getLastModified(this);
 	}
@@ -582,7 +582,7 @@ public final class AttributeItem extends Item
 	 * Returns the body length of the media {@link #someData}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	public final long getSomeDataLength()
+	public long getSomeDataLength()
 	{
 		return AttributeItem.someData.getLength(this);
 	}
@@ -592,7 +592,7 @@ public final class AttributeItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	@javax.annotation.Nullable
-	public final byte[] getSomeDataBody()
+	public byte[] getSomeDataBody()
 	{
 		return AttributeItem.someData.getBody(this);
 	}
@@ -603,7 +603,7 @@ public final class AttributeItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	public final void getSomeDataBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+	public void getSomeDataBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
 	{
@@ -616,7 +616,7 @@ public final class AttributeItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	public final void getSomeDataBody(@javax.annotation.Nonnull final java.io.File body)
+	public void getSomeDataBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
 	{
@@ -628,7 +628,7 @@ public final class AttributeItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeData(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value someData)
+	public void setSomeData(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value someData)
 			throws
 				java.io.IOException
 	{
@@ -639,7 +639,7 @@ public final class AttributeItem extends Item
 	 * Sets the content of media {@link #someData}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeData(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	public void setSomeData(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		AttributeItem.someData.set(this,body,contentType);
 	}
@@ -649,7 +649,7 @@ public final class AttributeItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeData(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+	public void setSomeData(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -661,7 +661,7 @@ public final class AttributeItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeData(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+	public void setSomeData(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -673,7 +673,7 @@ public final class AttributeItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setSomeData(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+	public void setSomeData(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

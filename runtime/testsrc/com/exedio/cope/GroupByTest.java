@@ -284,7 +284,7 @@ public class GroupByTest extends TestWithEnvironment
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getString()
+	java.lang.String getString()
 	{
 		return AnItem.string.get(this);
 	}
@@ -293,7 +293,7 @@ public class GroupByTest extends TestWithEnvironment
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getInteger()
+	int getInteger()
 	{
 		return AnItem.integer.getMandatory(this);
 	}

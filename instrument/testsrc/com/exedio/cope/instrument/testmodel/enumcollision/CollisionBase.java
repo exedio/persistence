@@ -65,7 +65,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final ACollide1 getInnerA1()
+	ACollide1 getInnerA1()
 	{
 		return CollisionBase.innerA1.get(this);
 	}
@@ -74,7 +74,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #innerA1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInnerA1(@javax.annotation.Nonnull final ACollide1 innerA1)
+	void setInnerA1(@javax.annotation.Nonnull final ACollide1 innerA1)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -86,7 +86,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final XCollide1 getInnerX1()
+	XCollide1 getInnerX1()
 	{
 		return CollisionBase.innerX1.get(this);
 	}
@@ -95,7 +95,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #innerX1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInnerX1(@javax.annotation.Nonnull final XCollide1 innerX1)
+	void setInnerX1(@javax.annotation.Nonnull final XCollide1 innerX1)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -107,7 +107,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final XCollide2 getInnerX2()
+	XCollide2 getInnerX2()
 	{
 		return CollisionBase.innerX2.get(this);
 	}
@@ -116,7 +116,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #innerX2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInnerX2(@javax.annotation.Nonnull final XCollide2 innerX2)
+	void setInnerX2(@javax.annotation.Nonnull final XCollide2 innerX2)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -128,7 +128,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CollisionBase.ACollide1 getTopA1()
+	CollisionBase.ACollide1 getTopA1()
 	{
 		return CollisionBase.topA1.get(this);
 	}
@@ -137,7 +137,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #topA1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTopA1(@javax.annotation.Nonnull final CollisionBase.ACollide1 topA1)
+	void setTopA1(@javax.annotation.Nonnull final CollisionBase.ACollide1 topA1)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -149,7 +149,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CollisionBase.XCollide1 getTopX1()
+	CollisionBase.XCollide1 getTopX1()
 	{
 		return CollisionBase.topX1.get(this);
 	}
@@ -158,7 +158,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #topX1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTopX1(@javax.annotation.Nonnull final CollisionBase.XCollide1 topX1)
+	void setTopX1(@javax.annotation.Nonnull final CollisionBase.XCollide1 topX1)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -170,7 +170,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final CollisionBase.XCollide2 getTopX2()
+	CollisionBase.XCollide2 getTopX2()
 	{
 		return CollisionBase.topX2.get(this);
 	}
@@ -179,7 +179,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #topX2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTopX2(@javax.annotation.Nonnull final CollisionBase.XCollide2 topX2)
+	void setTopX2(@javax.annotation.Nonnull final CollisionBase.XCollide2 topX2)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -191,7 +191,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.ACollide1 getFullA1()
+	com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.ACollide1 getFullA1()
 	{
 		return CollisionBase.fullA1.get(this);
 	}
@@ -200,7 +200,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #fullA1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFullA1(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.ACollide1 fullA1)
+	void setFullA1(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.ACollide1 fullA1)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -212,7 +212,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide1 getFullX1()
+	com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide1 getFullX1()
 	{
 		return CollisionBase.fullX1.get(this);
 	}
@@ -221,7 +221,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #fullX1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFullX1(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide1 fullX1)
+	void setFullX1(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide1 fullX1)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -233,7 +233,7 @@ final class CollisionBase extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide2 getFullX2()
+	com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide2 getFullX2()
 	{
 		return CollisionBase.fullX2.get(this);
 	}
@@ -242,7 +242,7 @@ final class CollisionBase extends Item
 	 * Sets a new value for {@link #fullX2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setFullX2(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide2 fullX2)
+	void setFullX2(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide2 fullX2)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

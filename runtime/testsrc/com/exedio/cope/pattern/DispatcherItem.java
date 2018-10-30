@@ -164,7 +164,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getBody()
+	java.lang.String getBody()
 	{
 		return DispatcherItem.body.get(this);
 	}
@@ -173,7 +173,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Sets a new value for {@link #body}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBody(@javax.annotation.Nonnull final java.lang.String body)
+	void setBody(@javax.annotation.Nonnull final java.lang.String body)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -185,7 +185,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Returns the value of {@link #dispatchCountCommitted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getDispatchCountCommitted()
+	int getDispatchCountCommitted()
 	{
 		return DispatcherItem.dispatchCountCommitted.getMandatory(this);
 	}
@@ -194,7 +194,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Sets a new value for {@link #dispatchCountCommitted}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setDispatchCountCommitted(final int dispatchCountCommitted)
+	void setDispatchCountCommitted(final int dispatchCountCommitted)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
 	{
@@ -207,7 +207,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
 	@java.lang.Deprecated
-	static final int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
+	static int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
 	{
 		return DispatcherItem.toTarget.dispatch(DispatcherItem.class,config,interrupter);
 	}
@@ -216,7 +216,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Dispatch by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
-	static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherItem.toTarget.dispatch(DispatcherItem.class,config,ctx);
 	}
@@ -225,7 +225,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Dispatch by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
-	static final void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherItem.toTarget.dispatch(DispatcherItem.class,config,probe,ctx);
 	}
@@ -234,7 +234,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Returns, whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
-	final boolean isToTargetPending()
+	boolean isToTargetPending()
 	{
 		return DispatcherItem.toTarget.isPending(this);
 	}
@@ -243,7 +243,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Sets whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
-	final void setToTargetPending(final boolean pending)
+	void setToTargetPending(final boolean pending)
 	{
 		DispatcherItem.toTarget.setPending(this,pending);
 	}
@@ -252,7 +252,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Returns, whether this item is allowed to be purged by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNoPurge")
-	final boolean isToTargetNoPurge()
+	boolean isToTargetNoPurge()
 	{
 		return DispatcherItem.toTarget.isNoPurge(this);
 	}
@@ -261,7 +261,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 * Sets whether this item is allowed to be purged by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setNoPurge")
-	final void setToTargetNoPurge(final boolean noPurge)
+	void setToTargetNoPurge(final boolean noPurge)
 	{
 		DispatcherItem.toTarget.setNoPurge(this,noPurge);
 	}
@@ -271,7 +271,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
 	@javax.annotation.Nullable
-	final java.util.Date getToTargetLastSuccessDate()
+	java.util.Date getToTargetLastSuccessDate()
 	{
 		return DispatcherItem.toTarget.getLastSuccessDate(this);
 	}
@@ -281,7 +281,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
 	@javax.annotation.Nullable
-	final java.lang.Long getToTargetLastSuccessElapsed()
+	java.lang.Long getToTargetLastSuccessElapsed()
 	{
 		return DispatcherItem.toTarget.getLastSuccessElapsed(this);
 	}
@@ -291,7 +291,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
 	@javax.annotation.Nonnull
-	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
+	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 	{
 		return DispatcherItem.toTarget.getRuns(this);
 	}
@@ -301,19 +301,19 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
 	@javax.annotation.Nonnull
-	final java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
+	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 	{
 		return DispatcherItem.toTarget.getFailures(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-	static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherItem.toTarget.purge(properties,ctx);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-	static final void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
+	static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherItem.toTarget.purge(properties,restriction,ctx);
 	}
@@ -323,7 +323,7 @@ public final class DispatcherItem extends Item implements Dispatchable
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
 	@javax.annotation.Nonnull
-	static final com.exedio.cope.ItemField<DispatcherItem> toTargetRunParent()
+	static com.exedio.cope.ItemField<DispatcherItem> toTargetRunParent()
 	{
 		return DispatcherItem.toTarget.getRunParent(DispatcherItem.class);
 	}

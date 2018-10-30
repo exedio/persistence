@@ -76,7 +76,7 @@ public final class DoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getAny()
+	public java.lang.Double getAny()
 	{
 		return DoubleItem.any.get(this);
 	}
@@ -85,7 +85,7 @@ public final class DoubleItem extends Item
 	 * Sets a new value for {@link #any}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setAny(@javax.annotation.Nullable final java.lang.Double any)
+	public void setAny(@javax.annotation.Nullable final java.lang.Double any)
 	{
 		DoubleItem.any.set(this,any);
 	}
@@ -94,7 +94,7 @@ public final class DoubleItem extends Item
 	 * Returns the value of {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	public final double getMandatory()
+	public double getMandatory()
 	{
 		return DoubleItem.mandatory.getMandatory(this);
 	}
@@ -103,7 +103,7 @@ public final class DoubleItem extends Item
 	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMandatory(final double mandatory)
+	public void setMandatory(final double mandatory)
 	{
 		DoubleItem.mandatory.set(this,mandatory);
 	}
@@ -113,7 +113,7 @@ public final class DoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getMin4()
+	public java.lang.Double getMin4()
 	{
 		return DoubleItem.min4.get(this);
 	}
@@ -122,7 +122,7 @@ public final class DoubleItem extends Item
 	 * Sets a new value for {@link #min4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMin4(@javax.annotation.Nullable final java.lang.Double min4)
+	public void setMin4(@javax.annotation.Nullable final java.lang.Double min4)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
 	{
@@ -134,7 +134,7 @@ public final class DoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getMax4()
+	public java.lang.Double getMax4()
 	{
 		return DoubleItem.max4.get(this);
 	}
@@ -143,7 +143,7 @@ public final class DoubleItem extends Item
 	 * Sets a new value for {@link #max4}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMax4(@javax.annotation.Nullable final java.lang.Double max4)
+	public void setMax4(@javax.annotation.Nullable final java.lang.Double max4)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
 	{
@@ -155,7 +155,7 @@ public final class DoubleItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Double getMin4Max8()
+	public java.lang.Double getMin4Max8()
 	{
 		return DoubleItem.min4Max8.get(this);
 	}
@@ -164,7 +164,7 @@ public final class DoubleItem extends Item
 	 * Sets a new value for {@link #min4Max8}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMin4Max8(@javax.annotation.Nullable final java.lang.Double min4Max8)
+	public void setMin4Max8(@javax.annotation.Nullable final java.lang.Double min4Max8)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
 	{

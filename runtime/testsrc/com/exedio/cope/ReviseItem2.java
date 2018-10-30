@@ -67,7 +67,7 @@ final class ReviseItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField5()
+	java.lang.String getField5()
 	{
 		return ReviseItem2.field5.get(this);
 	}
@@ -76,7 +76,7 @@ final class ReviseItem2 extends Item
 	 * Sets a new value for {@link #field5}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField5(@javax.annotation.Nonnull final java.lang.String field5)
+	void setField5(@javax.annotation.Nonnull final java.lang.String field5)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -89,7 +89,7 @@ final class ReviseItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField6()
+	java.lang.String getField6()
 	{
 		return ReviseItem2.field6.get(this);
 	}
@@ -98,7 +98,7 @@ final class ReviseItem2 extends Item
 	 * Sets a new value for {@link #field6}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField6(@javax.annotation.Nonnull final java.lang.String field6)
+	void setField6(@javax.annotation.Nonnull final java.lang.String field6)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -111,7 +111,7 @@ final class ReviseItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField6b()
+	java.lang.String getField6b()
 	{
 		return ReviseItem2.field6b.get(this);
 	}
@@ -120,7 +120,7 @@ final class ReviseItem2 extends Item
 	 * Sets a new value for {@link #field6b}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField6b(@javax.annotation.Nonnull final java.lang.String field6b)
+	void setField6b(@javax.annotation.Nonnull final java.lang.String field6b)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -133,7 +133,7 @@ final class ReviseItem2 extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getField7()
+	java.lang.String getField7()
 	{
 		return ReviseItem2.field7.get(this);
 	}
@@ -142,7 +142,7 @@ final class ReviseItem2 extends Item
 	 * Sets a new value for {@link #field7}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setField7(@javax.annotation.Nonnull final java.lang.String field7)
+	void setField7(@javax.annotation.Nonnull final java.lang.String field7)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

@@ -148,19 +148,19 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	final void simpleBarePackage()
+	void simpleBarePackage()
 	{
 		OptionFeatureItem.barePackage.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	protected final void simpleBareProtected()
+	protected void simpleBareProtected()
 	{
 		OptionFeatureItem.bareProtected.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	public final void simpleBarePublic()
+	public void simpleBarePublic()
 	{
 		OptionFeatureItem.barePublic.simple(this);
 	}
@@ -178,19 +178,19 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	final void simpleOverridePackage()
+	void simpleOverridePackage()
 	{
 		OptionFeatureItem.overridePackage.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	protected final void simpleOverrideProtected()
+	protected void simpleOverrideProtected()
 	{
 		OptionFeatureItem.overrideProtected.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	public final void simpleOverridePublic()
+	public void simpleOverridePublic()
 	{
 		OptionFeatureItem.overridePublic.simple(this);
 	}
@@ -202,19 +202,19 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	final void simpleInternalPackageInternal()
+	void simpleInternalPackageInternal()
 	{
 		OptionFeatureItem.internalPackage.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	protected final void simpleInternalProtectedInternal()
+	protected void simpleInternalProtectedInternal()
 	{
 		OptionFeatureItem.internalProtected.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	public final void simpleInternalPublicInternal()
+	public void simpleInternalPublicInternal()
 	{
 		OptionFeatureItem.internalPublic.simple(this);
 	}
@@ -223,7 +223,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 * Returns the value of {@link #booleanAs}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean isBooleanAs()
+	boolean isBooleanAs()
 	{
 		return OptionFeatureItem.booleanAs.getMandatory(this);
 	}
@@ -232,19 +232,19 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 * Sets a new value for {@link #booleanAs}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setBooleanAs(final boolean booleanAs)
+	void setBooleanAs(final boolean booleanAs)
 	{
 		OptionFeatureItem.booleanAs.set(this,booleanAs);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final void getBooleanAsIsNoField()
+	void getBooleanAsIsNoField()
 	{
 		OptionFeatureItem.booleanAsIsNoField.get(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	final void simpleBooleanAsIsNotAplicable()
+	void simpleBooleanAsIsNotAplicable()
 	{
 		OptionFeatureItem.booleanAsIsNotAplicable.simple(this);
 	}
@@ -263,13 +263,13 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
 	@java.lang.Override
-	final void simpleOverride()
+	void simpleOverride()
 	{
 		OptionFeatureItem.override.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	final void simpleWrapTheIgnored()
+	void simpleWrapTheIgnored()
 	{
 		OptionFeatureItem.wrapTheIgnored.simple(this);
 	}

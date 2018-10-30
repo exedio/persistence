@@ -83,19 +83,19 @@ final class WrapEnumItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final Normal methodNormal(final Normal normal)
+	static Normal methodNormal(final Normal normal)
 	{
 		return WrapEnumItem.normal.method(normal);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final WithImplements methodWithImplements(final WithImplements withImplements)
+	static WithImplements methodWithImplements(final WithImplements withImplements)
 	{
 		return WrapEnumItem.withImplements.method(withImplements);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
-	static final FeatureEnum methodFromFeature(final FeatureEnum fromFeature)
+	static FeatureEnum methodFromFeature(final FeatureEnum fromFeature)
 	{
 		return WrapEnumItem.fromFeature.method(fromFeature);
 	}

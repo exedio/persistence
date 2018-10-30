@@ -100,7 +100,7 @@ public class CopyRedundantTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final AnItem getTargetMan()
+		AnItem getTargetMan()
 		{
 			return AnItem.targetMan.get(this);
 		}
@@ -109,7 +109,7 @@ public class CopyRedundantTest
 		 * Sets a new value for {@link #targetMan}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setTargetMan(@javax.annotation.Nonnull final AnItem targetMan)
+		void setTargetMan(@javax.annotation.Nonnull final AnItem targetMan)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
@@ -121,7 +121,7 @@ public class CopyRedundantTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		final AnItem getTargetOpt()
+		AnItem getTargetOpt()
 		{
 			return AnItem.targetOpt.get(this);
 		}
@@ -130,7 +130,7 @@ public class CopyRedundantTest
 		 * Sets a new value for {@link #targetOpt}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setTargetOpt(@javax.annotation.Nullable final AnItem targetOpt)
+		void setTargetOpt(@javax.annotation.Nullable final AnItem targetOpt)
 		{
 			AnItem.targetOpt.set(this,targetOpt);
 		}
@@ -140,7 +140,7 @@ public class CopyRedundantTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getCopyNone()
+		java.lang.String getCopyNone()
 		{
 			return AnItem.copyNone.get(this);
 		}
@@ -149,7 +149,7 @@ public class CopyRedundantTest
 		 * Sets a new value for {@link #copyNone}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setCopyNone(@javax.annotation.Nonnull final java.lang.String copyNone)
+		void setCopyNone(@javax.annotation.Nonnull final java.lang.String copyNone)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException
@@ -162,7 +162,7 @@ public class CopyRedundantTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getCopyMan()
+		java.lang.String getCopyMan()
 		{
 			return AnItem.copyMan.get(this);
 		}
@@ -172,7 +172,7 @@ public class CopyRedundantTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getCopyOpt()
+		java.lang.String getCopyOpt()
 		{
 			return AnItem.copyOpt.get(this);
 		}
@@ -181,7 +181,7 @@ public class CopyRedundantTest
 		 * Sets a new value for {@link #copyOpt}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setCopyOpt(@javax.annotation.Nonnull final java.lang.String copyOpt)
+		void setCopyOpt(@javax.annotation.Nonnull final java.lang.String copyOpt)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException
@@ -194,7 +194,7 @@ public class CopyRedundantTest
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final java.lang.String getCopyBoth()
+		java.lang.String getCopyBoth()
 		{
 			return AnItem.copyBoth.get(this);
 		}

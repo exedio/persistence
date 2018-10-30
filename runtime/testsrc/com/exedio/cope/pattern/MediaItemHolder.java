@@ -60,7 +60,7 @@ public final class MediaItemHolder extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final MediaItem getMediaItem()
+	public MediaItem getMediaItem()
 	{
 		return MediaItemHolder.mediaItem.get(this);
 	}
@@ -69,7 +69,7 @@ public final class MediaItemHolder extends Item
 	 * Sets a new value for {@link #mediaItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setMediaItem(@javax.annotation.Nonnull final MediaItem mediaItem)
+	public void setMediaItem(@javax.annotation.Nonnull final MediaItem mediaItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

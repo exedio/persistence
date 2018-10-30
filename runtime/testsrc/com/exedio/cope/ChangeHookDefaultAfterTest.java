@@ -105,13 +105,13 @@ public class ChangeHookDefaultAfterTest extends ChangeHookAbstractTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		final java.lang.String getField()
+		java.lang.String getField()
 		{
 			return MyItem.field.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setField(@javax.annotation.Nonnull final java.lang.String field)
+		void setField(@javax.annotation.Nonnull final java.lang.String field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					com.exedio.cope.StringLengthViolationException

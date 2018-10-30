@@ -65,7 +65,7 @@ public final class DumperSubItem extends DumperItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getSubString()
+	java.lang.String getSubString()
 	{
 		return DumperSubItem.subString.get(this);
 	}
@@ -74,7 +74,7 @@ public final class DumperSubItem extends DumperItem
 	 * Sets a new value for {@link #subString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSubString(@javax.annotation.Nonnull final java.lang.String subString)
+	void setSubString(@javax.annotation.Nonnull final java.lang.String subString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException

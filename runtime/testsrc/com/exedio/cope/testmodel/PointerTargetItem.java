@@ -61,7 +61,7 @@ public final class PointerTargetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	public final java.lang.String getCode()
+	public java.lang.String getCode()
 	{
 		return PointerTargetItem.code.get(this);
 	}
@@ -70,7 +70,7 @@ public final class PointerTargetItem extends Item
 	 * Sets a new value for {@link #code}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setCode(@javax.annotation.Nonnull final java.lang.String code)
+	public void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -83,7 +83,7 @@ public final class PointerTargetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNum1()
+	public java.lang.Integer getNum1()
 	{
 		return PointerTargetItem.num1.get(this);
 	}
@@ -92,7 +92,7 @@ public final class PointerTargetItem extends Item
 	 * Sets a new value for {@link #num1}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
+	public void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
 	{
 		PointerTargetItem.num1.set(this,num1);
 	}
@@ -102,7 +102,7 @@ public final class PointerTargetItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.Integer getNum2()
+	public java.lang.Integer getNum2()
 	{
 		return PointerTargetItem.num2.get(this);
 	}
@@ -111,7 +111,7 @@ public final class PointerTargetItem extends Item
 	 * Sets a new value for {@link #num2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
+	public void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
 	{
 		PointerTargetItem.num2.set(this,num2);
 	}

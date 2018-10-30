@@ -62,7 +62,7 @@ final class ConnectItem2 extends ConnectItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final ConnectItem getItemField2()
+	ConnectItem getItemField2()
 	{
 		return ConnectItem2.itemField2.get(this);
 	}
@@ -71,7 +71,7 @@ final class ConnectItem2 extends ConnectItem
 	 * Sets a new value for {@link #itemField2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItemField2(@javax.annotation.Nullable final ConnectItem itemField2)
+	void setItemField2(@javax.annotation.Nullable final ConnectItem itemField2)
 	{
 		ConnectItem2.itemField2.set(this,itemField2);
 	}
@@ -81,7 +81,7 @@ final class ConnectItem2 extends ConnectItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final ConnectItem2 getItemFieldSelf2()
+	ConnectItem2 getItemFieldSelf2()
 	{
 		return ConnectItem2.itemFieldSelf2.get(this);
 	}
@@ -90,7 +90,7 @@ final class ConnectItem2 extends ConnectItem
 	 * Sets a new value for {@link #itemFieldSelf2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItemFieldSelf2(@javax.annotation.Nullable final ConnectItem2 itemFieldSelf2)
+	void setItemFieldSelf2(@javax.annotation.Nullable final ConnectItem2 itemFieldSelf2)
 	{
 		ConnectItem2.itemFieldSelf2.set(this,itemFieldSelf2);
 	}
@@ -100,7 +100,7 @@ final class ConnectItem2 extends ConnectItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getStringField2()
+	java.lang.String getStringField2()
 	{
 		return ConnectItem2.stringField2.get(this);
 	}
@@ -109,7 +109,7 @@ final class ConnectItem2 extends ConnectItem
 	 * Sets a new value for {@link #stringField2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStringField2(@javax.annotation.Nullable final java.lang.String stringField2)
+	void setStringField2(@javax.annotation.Nullable final java.lang.String stringField2)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

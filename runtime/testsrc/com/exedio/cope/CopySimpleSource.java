@@ -190,7 +190,7 @@ final class CopySimpleSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CopySimpleTarget getTargetItem()
+	CopySimpleTarget getTargetItem()
 	{
 		return CopySimpleSource.targetItem.get(this);
 	}
@@ -199,7 +199,7 @@ final class CopySimpleSource extends Item
 	 * Sets a new value for {@link #targetItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTargetItem(@javax.annotation.Nullable final CopySimpleTarget targetItem)
+	void setTargetItem(@javax.annotation.Nullable final CopySimpleTarget targetItem)
 	{
 		CopySimpleSource.targetItem.set(this,targetItem);
 	}
@@ -209,7 +209,7 @@ final class CopySimpleSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getTemplateString()
+	java.lang.String getTemplateString()
 	{
 		return CopySimpleSource.templateString.get(this);
 	}
@@ -218,7 +218,7 @@ final class CopySimpleSource extends Item
 	 * Sets a new value for {@link #templateString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTemplateString(@javax.annotation.Nullable final java.lang.String templateString)
+	void setTemplateString(@javax.annotation.Nullable final java.lang.String templateString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -230,7 +230,7 @@ final class CopySimpleSource extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final CopyValue getTemplateItem()
+	CopyValue getTemplateItem()
 	{
 		return CopySimpleSource.templateItem.get(this);
 	}
@@ -239,7 +239,7 @@ final class CopySimpleSource extends Item
 	 * Sets a new value for {@link #templateItem}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTemplateItem(@javax.annotation.Nullable final CopyValue templateItem)
+	void setTemplateItem(@javax.annotation.Nullable final CopyValue templateItem)
 	{
 		CopySimpleSource.templateItem.set(this,templateItem);
 	}

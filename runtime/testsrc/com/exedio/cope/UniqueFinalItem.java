@@ -61,7 +61,7 @@ public final class UniqueFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	public final java.lang.String getUniqueFinalString()
+	public java.lang.String getUniqueFinalString()
 	{
 		return UniqueFinalItem.uniqueFinalString.get(this);
 	}
@@ -73,7 +73,7 @@ public final class UniqueFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	public static final UniqueFinalItem forUniqueFinalString(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
+	public static UniqueFinalItem forUniqueFinalString(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
 	{
 		return UniqueFinalItem.uniqueFinalString.searchUnique(UniqueFinalItem.class,uniqueFinalString);
 	}
@@ -85,7 +85,7 @@ public final class UniqueFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 	@javax.annotation.Nonnull
-	public static final UniqueFinalItem forUniqueFinalStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
+	public static UniqueFinalItem forUniqueFinalStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
 			throws
 				java.lang.IllegalArgumentException
 	{

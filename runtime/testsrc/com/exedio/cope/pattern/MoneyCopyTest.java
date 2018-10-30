@@ -271,7 +271,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		final Target getTarget()
+		Target getTarget()
 		{
 			return Source.target.get(this);
 		}
@@ -280,7 +280,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Sets a new value for {@link #target}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setTarget(@javax.annotation.Nullable final Target target)
+		void setTarget(@javax.annotation.Nullable final Target target)
 		{
 			Source.target.set(this,target);
 		}
@@ -290,7 +290,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final Currency getCurrency()
+		Currency getCurrency()
 		{
 			return Source.currency.get(this);
 		}
@@ -299,7 +299,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Sets a new value for {@link #currency}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setCurrency(@javax.annotation.Nonnull final Currency currency)
+		void setCurrency(@javax.annotation.Nonnull final Currency currency)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
@@ -311,7 +311,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final com.exedio.cope.pattern.Money<Currency> getFixed()
+		com.exedio.cope.pattern.Money<Currency> getFixed()
 		{
 			return Source.fixed.get(this);
 		}
@@ -320,7 +320,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Sets a new value for {@link #fixed}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setFixed(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> fixed)
+		void setFixed(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> fixed)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{
@@ -332,7 +332,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		final com.exedio.cope.pattern.Money<Currency> getShared()
+		com.exedio.cope.pattern.Money<Currency> getShared()
 		{
 			return Source.shared.get(this);
 		}
@@ -341,7 +341,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Sets a new value for {@link #shared}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		final void setShared(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> shared)
+		void setShared(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> shared)
 				throws
 					com.exedio.cope.MandatoryViolationException
 		{

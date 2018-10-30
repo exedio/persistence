@@ -50,7 +50,7 @@ final class DataFinalItem extends Item
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	final boolean isDataNull()
+	boolean isDataNull()
 	{
 		return DataFinalItem.data.isNull(this);
 	}
@@ -59,7 +59,7 @@ final class DataFinalItem extends Item
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	final long getDataLength()
+	long getDataLength()
 	{
 		return DataFinalItem.data.getLength(this);
 	}
@@ -69,7 +69,7 @@ final class DataFinalItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
 	@javax.annotation.Nullable
-	final byte[] getDataArray()
+	byte[] getDataArray()
 	{
 		return DataFinalItem.data.getArray(this);
 	}
@@ -78,7 +78,7 @@ final class DataFinalItem extends Item
 	 * Writes the data of this persistent data field into the given stream.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
+	void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
 	{
@@ -89,7 +89,7 @@ final class DataFinalItem extends Item
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final void getData(@javax.annotation.Nonnull final java.io.File data)
+	void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
 	{

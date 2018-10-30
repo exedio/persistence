@@ -51,7 +51,7 @@ final class QueryAggregatorItem extends Item
 	 * Returns the value of {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getIntx()
+	int getIntx()
 	{
 		return QueryAggregatorItem.intx.getMandatory(this);
 	}
@@ -60,7 +60,7 @@ final class QueryAggregatorItem extends Item
 	 * Sets a new value for {@link #intx}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntx(final int intx)
+	void setIntx(final int intx)
 	{
 		QueryAggregatorItem.intx.set(this,intx);
 	}

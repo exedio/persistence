@@ -58,7 +58,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getTextb2()
+	java.lang.String getTextb2()
 	{
 		return InstanceOfB2Item.textb2.get(this);
 	}
@@ -67,7 +67,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 	 * Sets a new value for {@link #textb2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setTextb2(@javax.annotation.Nullable final java.lang.String textb2)
+	void setTextb2(@javax.annotation.Nullable final java.lang.String textb2)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{

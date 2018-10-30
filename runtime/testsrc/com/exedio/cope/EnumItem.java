@@ -66,7 +66,7 @@ final class EnumItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final Status getStatus()
+	Status getStatus()
 	{
 		return EnumItem.status.get(this);
 	}
@@ -75,7 +75,7 @@ final class EnumItem extends Item
 	 * Sets a new value for {@link #status}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setStatus(@javax.annotation.Nonnull final Status status)
+	void setStatus(@javax.annotation.Nonnull final Status status)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -87,7 +87,7 @@ final class EnumItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final Single getSingle()
+	Single getSingle()
 	{
 		return EnumItem.single.get(this);
 	}
@@ -96,7 +96,7 @@ final class EnumItem extends Item
 	 * Sets a new value for {@link #single}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSingle(@javax.annotation.Nullable final Single single)
+	void setSingle(@javax.annotation.Nullable final Single single)
 	{
 		EnumItem.single.set(this,single);
 	}

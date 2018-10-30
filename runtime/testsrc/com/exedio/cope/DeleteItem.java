@@ -86,7 +86,7 @@ final class DeleteItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteItem getSelfForbid()
+	DeleteItem getSelfForbid()
 	{
 		return DeleteItem.selfForbid.get(this);
 	}
@@ -95,7 +95,7 @@ final class DeleteItem extends Item
 	 * Sets a new value for {@link #selfForbid}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSelfForbid(@javax.annotation.Nullable final DeleteItem selfForbid)
+	void setSelfForbid(@javax.annotation.Nullable final DeleteItem selfForbid)
 	{
 		DeleteItem.selfForbid.set(this,selfForbid);
 	}
@@ -105,7 +105,7 @@ final class DeleteItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteItem getSelfNullify()
+	DeleteItem getSelfNullify()
 	{
 		return DeleteItem.selfNullify.get(this);
 	}
@@ -114,7 +114,7 @@ final class DeleteItem extends Item
 	 * Sets a new value for {@link #selfNullify}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSelfNullify(@javax.annotation.Nullable final DeleteItem selfNullify)
+	void setSelfNullify(@javax.annotation.Nullable final DeleteItem selfNullify)
 	{
 		DeleteItem.selfNullify.set(this,selfNullify);
 	}
@@ -124,7 +124,7 @@ final class DeleteItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteItem getSelfCascade()
+	DeleteItem getSelfCascade()
 	{
 		return DeleteItem.selfCascade.get(this);
 	}
@@ -133,7 +133,7 @@ final class DeleteItem extends Item
 	 * Sets a new value for {@link #selfCascade}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSelfCascade(@javax.annotation.Nullable final DeleteItem selfCascade)
+	void setSelfCascade(@javax.annotation.Nullable final DeleteItem selfCascade)
 	{
 		DeleteItem.selfCascade.set(this,selfCascade);
 	}
@@ -143,7 +143,7 @@ final class DeleteItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteItem getSelfCascade2()
+	DeleteItem getSelfCascade2()
 	{
 		return DeleteItem.selfCascade2.get(this);
 	}
@@ -152,7 +152,7 @@ final class DeleteItem extends Item
 	 * Sets a new value for {@link #selfCascade2}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setSelfCascade2(@javax.annotation.Nullable final DeleteItem selfCascade2)
+	void setSelfCascade2(@javax.annotation.Nullable final DeleteItem selfCascade2)
 	{
 		DeleteItem.selfCascade2.set(this,selfCascade2);
 	}
@@ -162,7 +162,7 @@ final class DeleteItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteOtherItem getOtherForbid()
+	DeleteOtherItem getOtherForbid()
 	{
 		return DeleteItem.otherForbid.get(this);
 	}
@@ -171,7 +171,7 @@ final class DeleteItem extends Item
 	 * Sets a new value for {@link #otherForbid}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOtherForbid(@javax.annotation.Nullable final DeleteOtherItem otherForbid)
+	void setOtherForbid(@javax.annotation.Nullable final DeleteOtherItem otherForbid)
 	{
 		DeleteItem.otherForbid.set(this,otherForbid);
 	}
@@ -181,7 +181,7 @@ final class DeleteItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteOtherItem getOtherNullify()
+	DeleteOtherItem getOtherNullify()
 	{
 		return DeleteItem.otherNullify.get(this);
 	}
@@ -190,7 +190,7 @@ final class DeleteItem extends Item
 	 * Sets a new value for {@link #otherNullify}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOtherNullify(@javax.annotation.Nullable final DeleteOtherItem otherNullify)
+	void setOtherNullify(@javax.annotation.Nullable final DeleteOtherItem otherNullify)
 	{
 		DeleteItem.otherNullify.set(this,otherNullify);
 	}
@@ -200,7 +200,7 @@ final class DeleteItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final DeleteOtherItem getOtherCascade()
+	DeleteOtherItem getOtherCascade()
 	{
 		return DeleteItem.otherCascade.get(this);
 	}
@@ -209,7 +209,7 @@ final class DeleteItem extends Item
 	 * Sets a new value for {@link #otherCascade}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setOtherCascade(@javax.annotation.Nullable final DeleteOtherItem otherCascade)
+	void setOtherCascade(@javax.annotation.Nullable final DeleteOtherItem otherCascade)
 	{
 		DeleteItem.otherCascade.set(this,otherCascade);
 	}

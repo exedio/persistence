@@ -315,26 +315,26 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final PartA getChoiceA()
+		PartA getChoiceA()
 		{
 			return Container.choiceA.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setChoiceA(@javax.annotation.Nullable final PartA choiceA)
+		void setChoiceA(@javax.annotation.Nullable final PartA choiceA)
 		{
 			Container.choiceA.set(this,choiceA);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final PartB getChoiceB()
+		PartB getChoiceB()
 		{
 			return Container.choiceB.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		final void setChoiceB(@javax.annotation.Nullable final PartB choiceB)
+		void setChoiceB(@javax.annotation.Nullable final PartB choiceB)
 		{
 			Container.choiceB.set(this,choiceB);
 		}
@@ -371,7 +371,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final Container getParent()
+		Container getParent()
 		{
 			return PartA.parent.get(this);
 		}
@@ -408,7 +408,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		final Container getParent()
+		Container getParent()
 		{
 			return PartB.parent.get(this);
 		}

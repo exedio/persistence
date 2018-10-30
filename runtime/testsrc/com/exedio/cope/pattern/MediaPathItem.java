@@ -90,7 +90,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	final java.lang.String getCatchphrase()
+	java.lang.String getCatchphrase()
 	{
 		return MediaPathItem.catchphrase.get(this);
 	}
@@ -99,7 +99,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 * Sets a new value for {@link #catchphrase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCatchphrase(@javax.annotation.Nullable final java.lang.String catchphrase)
+	void setCatchphrase(@javax.annotation.Nullable final java.lang.String catchphrase)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -110,7 +110,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 * Returns the value of {@link #cacheControlPrivate}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getCacheControlPrivate()
+	boolean getCacheControlPrivate()
 	{
 		return MediaPathItem.cacheControlPrivate.getMandatory(this);
 	}
@@ -119,7 +119,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 * Sets a new value for {@link #cacheControlPrivate}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setCacheControlPrivate(final boolean cacheControlPrivate)
+	void setCacheControlPrivate(final boolean cacheControlPrivate)
 	{
 		MediaPathItem.cacheControlPrivate.set(this,cacheControlPrivate);
 	}
@@ -128,7 +128,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 * Returns the value of {@link #accessControlAllowOriginWildcard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final boolean getAccessControlAllowOriginWildcard()
+	boolean getAccessControlAllowOriginWildcard()
 	{
 		return MediaPathItem.accessControlAllowOriginWildcard.getMandatory(this);
 	}
@@ -137,7 +137,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 * Sets a new value for {@link #accessControlAllowOriginWildcard}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setAccessControlAllowOriginWildcard(final boolean accessControlAllowOriginWildcard)
+	void setAccessControlAllowOriginWildcard(final boolean accessControlAllowOriginWildcard)
 	{
 		MediaPathItem.accessControlAllowOriginWildcard.set(this,accessControlAllowOriginWildcard);
 	}
@@ -147,7 +147,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getNormalLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getNormalLocator()
 	{
 		return MediaPathItem.normal.getLocator(this);
 	}
@@ -157,25 +157,25 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getNormalContentType()
+	java.lang.String getNormalContentType()
 	{
 		return MediaPathItem.normal.getContentType(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
-	final void setNormalContentType(final java.lang.String normal)
+	void setNormalContentType(final java.lang.String normal)
 	{
 		MediaPathItem.normal.setContentType(this,normal);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
-	final void setNormalLastModified(final java.util.Date normal)
+	void setNormalLastModified(final java.util.Date normal)
 	{
 		MediaPathItem.normal.setLastModified(this,normal);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
-	final void setNormalResult(final com.exedio.cope.pattern.MediaPathFeature.Result normal)
+	void setNormalResult(final com.exedio.cope.pattern.MediaPathFeature.Result normal)
 	{
 		MediaPathItem.normal.setResult(this,normal);
 	}
@@ -185,7 +185,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getFingerLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getFingerLocator()
 	{
 		return MediaPathItem.finger.getLocator(this);
 	}
@@ -195,25 +195,25 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getFingerContentType()
+	java.lang.String getFingerContentType()
 	{
 		return MediaPathItem.finger.getContentType(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
-	final void setFingerContentType(final java.lang.String finger)
+	void setFingerContentType(final java.lang.String finger)
 	{
 		MediaPathItem.finger.setContentType(this,finger);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
-	final void setFingerLastModified(final java.util.Date finger)
+	void setFingerLastModified(final java.util.Date finger)
 	{
 		MediaPathItem.finger.setLastModified(this,finger);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
-	final void setFingerResult(final com.exedio.cope.pattern.MediaPathFeature.Result finger)
+	void setFingerResult(final com.exedio.cope.pattern.MediaPathFeature.Result finger)
 	{
 		MediaPathItem.finger.setResult(this,finger);
 	}
@@ -223,7 +223,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getGuessLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getGuessLocator()
 	{
 		return MediaPathItem.guess.getLocator(this);
 	}
@@ -233,25 +233,25 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getGuessContentType()
+	java.lang.String getGuessContentType()
 	{
 		return MediaPathItem.guess.getContentType(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
-	final void setGuessContentType(final java.lang.String guess)
+	void setGuessContentType(final java.lang.String guess)
 	{
 		MediaPathItem.guess.setContentType(this,guess);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
-	final void setGuessLastModified(final java.util.Date guess)
+	void setGuessLastModified(final java.util.Date guess)
 	{
 		MediaPathItem.guess.setLastModified(this,guess);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
-	final void setGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result guess)
+	void setGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result guess)
 	{
 		MediaPathItem.guess.setResult(this,guess);
 	}
@@ -261,7 +261,7 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
 	@javax.annotation.Nullable
-	final com.exedio.cope.pattern.MediaPath.Locator getFingerGuessLocator()
+	com.exedio.cope.pattern.MediaPath.Locator getFingerGuessLocator()
 	{
 		return MediaPathItem.fingerGuess.getLocator(this);
 	}
@@ -271,25 +271,25 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
 	@javax.annotation.Nullable
-	final java.lang.String getFingerGuessContentType()
+	java.lang.String getFingerGuessContentType()
 	{
 		return MediaPathItem.fingerGuess.getContentType(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
-	final void setFingerGuessContentType(final java.lang.String fingerGuess)
+	void setFingerGuessContentType(final java.lang.String fingerGuess)
 	{
 		MediaPathItem.fingerGuess.setContentType(this,fingerGuess);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
-	final void setFingerGuessLastModified(final java.util.Date fingerGuess)
+	void setFingerGuessLastModified(final java.util.Date fingerGuess)
 	{
 		MediaPathItem.fingerGuess.setLastModified(this,fingerGuess);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
-	final void setFingerGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result fingerGuess)
+	void setFingerGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result fingerGuess)
 	{
 		MediaPathItem.fingerGuess.setResult(this,fingerGuess);
 	}

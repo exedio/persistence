@@ -86,7 +86,7 @@ public final class NameSubItem extends NameLongItem
 	 * Returns the value of {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getUnique()
+	int getUnique()
 	{
 		return NameSubItem.unique.getMandatory(this);
 	}
@@ -95,7 +95,7 @@ public final class NameSubItem extends NameLongItem
 	 * Sets a new value for {@link #unique}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUnique(final int unique)
+	void setUnique(final int unique)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -109,7 +109,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final NameSubItem forUnique(final int unique)
+	static NameSubItem forUnique(final int unique)
 	{
 		return NameSubItem.unique.searchUnique(NameSubItem.class,unique);
 	}
@@ -118,7 +118,7 @@ public final class NameSubItem extends NameLongItem
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getInteger()
+	int getInteger()
 	{
 		return NameSubItem.integer.getMandatory(this);
 	}
@@ -127,7 +127,7 @@ public final class NameSubItem extends NameLongItem
 	 * Sets a new value for {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setInteger(final int integer)
+	void setInteger(final int integer)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -139,7 +139,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final NameSubItem getItem()
+	NameSubItem getItem()
 	{
 		return NameSubItem.item.get(this);
 	}
@@ -148,7 +148,7 @@ public final class NameSubItem extends NameLongItem
 	 * Sets a new value for {@link #item}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItem(@javax.annotation.Nonnull final NameSubItem item)
+	void setItem(@javax.annotation.Nonnull final NameSubItem item)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -164,7 +164,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final NameSubItem forIntegers(final int integer,@javax.annotation.Nonnull final NameSubItem item)
+	static NameSubItem forIntegers(final int integer,@javax.annotation.Nonnull final NameSubItem item)
 	{
 		return NameSubItem.integers.search(NameSubItem.class,integer,item);
 	}
@@ -177,7 +177,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final NameSubItem forIntegersStrict(final int integer,@javax.annotation.Nonnull final NameSubItem item)
+	static NameSubItem forIntegersStrict(final int integer,@javax.annotation.Nonnull final NameSubItem item)
 			throws
 				java.lang.IllegalArgumentException
 	{
@@ -188,7 +188,7 @@ public final class NameSubItem extends NameLongItem
 	 * Returns the value of {@link #uniqueX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getUniqueX()
+	int getUniqueX()
 	{
 		return NameSubItem.uniqueX.getMandatory(this);
 	}
@@ -197,7 +197,7 @@ public final class NameSubItem extends NameLongItem
 	 * Sets a new value for {@link #uniqueX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setUniqueX(final int uniqueX)
+	void setUniqueX(final int uniqueX)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -211,7 +211,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 	@javax.annotation.Nullable
-	static final NameSubItem forUniqueX(final int uniqueX)
+	static NameSubItem forUniqueX(final int uniqueX)
 	{
 		return NameSubItem.uniqueX.searchUnique(NameSubItem.class,uniqueX);
 	}
@@ -220,7 +220,7 @@ public final class NameSubItem extends NameLongItem
 	 * Returns the value of {@link #integerX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	final int getIntegerX()
+	int getIntegerX()
 	{
 		return NameSubItem.integerX.getMandatory(this);
 	}
@@ -229,7 +229,7 @@ public final class NameSubItem extends NameLongItem
 	 * Sets a new value for {@link #integerX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setIntegerX(final int integerX)
+	void setIntegerX(final int integerX)
 			throws
 				com.exedio.cope.UniqueViolationException
 	{
@@ -241,7 +241,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final NameSubItem getItemX()
+	NameSubItem getItemX()
 	{
 		return NameSubItem.itemX.get(this);
 	}
@@ -250,7 +250,7 @@ public final class NameSubItem extends NameLongItem
 	 * Sets a new value for {@link #itemX}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setItemX(@javax.annotation.Nonnull final NameSubItem itemX)
+	void setItemX(@javax.annotation.Nonnull final NameSubItem itemX)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.UniqueViolationException
@@ -266,7 +266,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	static final NameSubItem forIntegersX(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
+	static NameSubItem forIntegersX(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 	{
 		return NameSubItem.integersX.search(NameSubItem.class,integerX,itemX);
 	}
@@ -279,7 +279,7 @@ public final class NameSubItem extends NameLongItem
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
 	@javax.annotation.Nonnull
-	static final NameSubItem forIntegersXStrict(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
+	static NameSubItem forIntegersXStrict(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 			throws
 				java.lang.IllegalArgumentException
 	{

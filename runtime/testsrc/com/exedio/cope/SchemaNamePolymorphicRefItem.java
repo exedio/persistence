@@ -54,7 +54,7 @@ final class SchemaNamePolymorphicRefItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final SchemaNamePolymorphicSuperItem getRef()
+	SchemaNamePolymorphicSuperItem getRef()
 	{
 		return SchemaNamePolymorphicRefItem.ref.get(this);
 	}
@@ -63,7 +63,7 @@ final class SchemaNamePolymorphicRefItem extends Item
 	 * Sets a new value for {@link #ref}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	final void setRef(@javax.annotation.Nonnull final SchemaNamePolymorphicSuperItem ref)
+	void setRef(@javax.annotation.Nonnull final SchemaNamePolymorphicSuperItem ref)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
