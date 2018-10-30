@@ -166,22 +166,6 @@ public class WrapFeature
 
 	// various
 
-	@Wrap(order=300)
-	@Deprecated
-	public int deprecation(
-			@SuppressWarnings("unused") final Item item)
-	{
-		throw new RuntimeException();
-	}
-
-	@Wrap(order=310)
-	@Deprecated
-	public int deprecationNotGenerated(
-			@SuppressWarnings("unused") final Item item)
-	{
-		throw new RuntimeException();
-	}
-
 	@Wrap(order=320)
 	public byte[] varargsMethod(
 			@SuppressWarnings("unused") final Item item,

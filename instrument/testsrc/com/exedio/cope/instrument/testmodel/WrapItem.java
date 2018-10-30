@@ -147,13 +147,6 @@ final class WrapItem extends Item
 		return WrapItem.feature.notHidden();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="deprecation")
-	@java.lang.Deprecated
-	final int deprecationFeature()
-	{
-		return WrapItem.feature.deprecation(this);
-	}
-
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="varargsMethod")
 	final byte[] varargsFeatureMethod(final java.lang.String array,final java.lang.Integer... varargs)
 	{

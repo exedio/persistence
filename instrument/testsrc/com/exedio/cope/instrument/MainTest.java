@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.testfeature.WrapDeprecationFeature;
 import com.exedio.cope.instrument.testfeature.WrapFeature;
 import java.lang.reflect.Method;
 import org.junit.jupiter.api.Test;
@@ -37,7 +38,7 @@ public class MainTest
 		assertExceptionMessage("java.lang.String#zz(X)", "can't resolve parameter type 'X' for <testtag>: java.lang.String#zz(X)");
 		assertExceptionMessage("java.lang.String#hashCode()", "method listed in <testtag> is not annotated as @Deprecated: java.lang.String#hashCode()");
 		assertExceptionMessage("java.lang.Thread#stop()", "method listed in <testtag> is not annotated as @Wrap: java.lang.Thread#stop()");
-		assertFindMethods(WrapFeature.class.getName()+"#deprecation("+Item.class.getName()+")", WrapFeature.class.getMethod("deprecation", Item.class));
+		assertFindMethods(WrapDeprecationFeature.class.getName()+"#goneAlmost("+Item.class.getName()+")", WrapDeprecationFeature.class.getMethod("goneAlmost", Item.class));
 		assertFindMethods(
 			WrapFeature.class.getName()+"#varargsMethod("+Item.class.getName()+",java.lang.String,[Ljava.lang.Integer;)",
 			WrapFeature.class.getMethod("varargsMethod", Item.class, String.class, Integer[].class)

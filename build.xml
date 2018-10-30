@@ -771,7 +771,7 @@
 			<ignore>
 				<fileset file="instrument/testsrc/com/exedio/cope/instrument/testmodel/DontInstrument.java" />
 			</ignore>
-			<generateDeprecated>com.exedio.cope.instrument.testfeature.WrapFeature#deprecation(com.exedio.cope.Item)</generateDeprecated>
+			<generateDeprecated>com.exedio.cope.instrument.testfeature.WrapDeprecationFeature#goneAlmost(com.exedio.cope.Item)</generateDeprecated>
 			<disableWrap>com.exedio.cope.instrument.testfeature.WrapFeature#disabledInBuildXml([[I)</disableWrap>
 		</instrument>
 	</target>
