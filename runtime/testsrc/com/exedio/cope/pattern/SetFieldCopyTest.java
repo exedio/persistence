@@ -291,13 +291,13 @@ public class SetFieldCopyTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		private final java.util.Set<ElementInCatalog> getElementsSameCatalog()
+		private java.util.Set<ElementInCatalog> getElementsSameCatalog()
 		{
 			return ParentInCatalog.elementsSameCatalog.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private final void setElementsSameCatalog(@javax.annotation.Nonnull final java.util.Collection<? extends ElementInCatalog> elementsSameCatalog)
+		private void setElementsSameCatalog(@javax.annotation.Nonnull final java.util.Collection<? extends ElementInCatalog> elementsSameCatalog)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.lang.ClassCastException
@@ -306,7 +306,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private final boolean addToElementsSameCatalog(@javax.annotation.Nonnull final ElementInCatalog element)
+		private boolean addToElementsSameCatalog(@javax.annotation.Nonnull final ElementInCatalog element)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.lang.ClassCastException
@@ -419,13 +419,13 @@ public class SetFieldCopyTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		private final java.util.Set<ElementWithNumber> getElements()
+		private java.util.Set<ElementWithNumber> getElements()
 		{
 			return ParentWithNumber.elements.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private final void setElements(@javax.annotation.Nonnull final java.util.Collection<? extends ElementWithNumber> elements)
+		private void setElements(@javax.annotation.Nonnull final java.util.Collection<? extends ElementWithNumber> elements)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.lang.ClassCastException
@@ -434,7 +434,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private final boolean addToElements(@javax.annotation.Nonnull final ElementWithNumber element)
+		private boolean addToElements(@javax.annotation.Nonnull final ElementWithNumber element)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.lang.ClassCastException

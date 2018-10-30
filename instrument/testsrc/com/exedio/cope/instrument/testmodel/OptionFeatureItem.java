@@ -142,7 +142,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	private final void simpleBarePrivate()
+	private void simpleBarePrivate()
 	{
 		OptionFeatureItem.barePrivate.simple(this);
 	}
@@ -166,13 +166,13 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	private final void simpleOverrideInternalInternal()
+	private void simpleOverrideInternalInternal()
 	{
 		OptionFeatureItem.overrideInternal.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	private final void simpleOverridePrivate()
+	private void simpleOverridePrivate()
 	{
 		OptionFeatureItem.overridePrivate.simple(this);
 	}
@@ -196,7 +196,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	private final void simpleInternalPrivateInternal()
+	private void simpleInternalPrivateInternal()
 	{
 		OptionFeatureItem.internalPrivate.simple(this);
 	}

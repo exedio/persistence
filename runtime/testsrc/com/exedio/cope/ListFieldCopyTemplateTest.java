@@ -113,7 +113,7 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private final void addToList(@javax.annotation.Nonnull final ItemWithComplexTemplate list)
+		private void addToList(@javax.annotation.Nonnull final ItemWithComplexTemplate list)
 				throws
 					com.exedio.cope.MandatoryViolationException,
 					java.lang.ClassCastException

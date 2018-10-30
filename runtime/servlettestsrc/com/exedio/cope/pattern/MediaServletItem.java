@@ -268,7 +268,7 @@ final class MediaServletItem extends Item
 	 * Sets the content of media {@link #content}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setContentInternal(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	private void setContentInternal(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		MediaServletItem.content.set(this,body,contentType);
 	}
@@ -278,7 +278,7 @@ final class MediaServletItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setContentInternal(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+	private void setContentInternal(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{
@@ -290,7 +290,7 @@ final class MediaServletItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setContentInternal(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+	private void setContentInternal(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
 	{

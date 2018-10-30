@@ -102,13 +102,13 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
-		private final EnumMapFieldCopyValue getMap(@javax.annotation.Nonnull final Color k)
+		private EnumMapFieldCopyValue getMap(@javax.annotation.Nonnull final Color k)
 		{
 			return EnumMapFieldCopyItem.map.get(this,k);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private final void setMap(@javax.annotation.Nonnull final Color k,@javax.annotation.Nullable final EnumMapFieldCopyValue map)
+		private void setMap(@javax.annotation.Nonnull final Color k,@javax.annotation.Nullable final EnumMapFieldCopyValue map)
 		{
 			EnumMapFieldCopyItem.map.set(this,k,map);
 		}

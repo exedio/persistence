@@ -170,13 +170,13 @@ public final class PasswordLimiterItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
-	private final boolean checkPasswordLimited(@javax.annotation.Nullable final java.lang.String password)
+	private boolean checkPasswordLimited(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordLimiterItem.passwordLimited.check(this,password);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="checkVerbosely")
-	private final boolean checkPasswordLimitedVerbosely(@javax.annotation.Nullable final java.lang.String password)
+	private boolean checkPasswordLimitedVerbosely(@javax.annotation.Nullable final java.lang.String password)
 			throws
 				com.exedio.cope.pattern.PasswordLimiter.ExceededException
 	{

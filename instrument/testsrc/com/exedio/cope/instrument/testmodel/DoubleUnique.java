@@ -102,7 +102,7 @@ public final class DoubleUnique extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
 	@javax.annotation.Nullable
-	private static final DoubleUnique forUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SubTarget item)
+	private static DoubleUnique forUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SubTarget item)
 	{
 		return DoubleUnique.unique.search(DoubleUnique.class,string,item);
 	}

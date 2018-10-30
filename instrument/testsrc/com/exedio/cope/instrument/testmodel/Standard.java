@@ -330,7 +330,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	private final java.lang.String getDefaultToLessThanSignString()
+	private java.lang.String getDefaultToLessThanSignString()
 	{
 		return Standard.defaultToLessThanSignString.get(this);
 	}
@@ -339,7 +339,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #defaultToLessThanSignString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setDefaultToLessThanSignString(@javax.annotation.Nonnull final java.lang.String defaultToLessThanSignString)
+	private void setDefaultToLessThanSignString(@javax.annotation.Nonnull final java.lang.String defaultToLessThanSignString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -352,7 +352,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	private final java.lang.String getDefaultToEscapedLessThanSignString()
+	private java.lang.String getDefaultToEscapedLessThanSignString()
 	{
 		return Standard.defaultToEscapedLessThanSignString.get(this);
 	}
@@ -361,7 +361,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #defaultToEscapedLessThanSignString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setDefaultToEscapedLessThanSignString(@javax.annotation.Nonnull final java.lang.String defaultToEscapedLessThanSignString)
+	private void setDefaultToEscapedLessThanSignString(@javax.annotation.Nonnull final java.lang.String defaultToEscapedLessThanSignString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -374,7 +374,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	private final java.lang.String getLessThanSignInCommentString()
+	private java.lang.String getLessThanSignInCommentString()
 	{
 		return Standard.lessThanSignInCommentString.get(this);
 	}
@@ -383,7 +383,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #lessThanSignInCommentString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setLessThanSignInCommentString(@javax.annotation.Nullable final java.lang.String lessThanSignInCommentString)
+	private void setLessThanSignInCommentString(@javax.annotation.Nullable final java.lang.String lessThanSignInCommentString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -642,7 +642,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	private final java.util.Date getPrivateDate()
+	private java.util.Date getPrivateDate()
 	{
 		return Standard.privateDate.get(this);
 	}
@@ -651,7 +651,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #privateDate}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setPrivateDate(@javax.annotation.Nullable final java.util.Date privateDate)
+	private void setPrivateDate(@javax.annotation.Nullable final java.util.Date privateDate)
 	{
 		Standard.privateDate.set(this,privateDate);
 	}
@@ -660,7 +660,7 @@ public final class Standard extends Item
 	 * Sets the current date for the date field {@link #privateDate}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	private final void touchPrivateDate()
+	private void touchPrivateDate()
 	{
 		Standard.privateDate.touch(this);
 	}
@@ -814,7 +814,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	private final java.lang.String getPrivateString()
+	private java.lang.String getPrivateString()
 	{
 		return Standard.privateString.get(this);
 	}
@@ -823,7 +823,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #privateString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setPrivateString(@javax.annotation.Nullable final java.lang.String privateString)
+	private void setPrivateString(@javax.annotation.Nullable final java.lang.String privateString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -846,7 +846,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	private final java.lang.String getPrivateGetterString()
+	private java.lang.String getPrivateGetterString()
 	{
 		return Standard.privateGetterString.get(this);
 	}
@@ -867,7 +867,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	private final java.lang.String getInternalGetterStringInternal()
+	private java.lang.String getInternalGetterStringInternal()
 	{
 		return Standard.internalGetterString.get(this);
 	}
@@ -888,7 +888,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	private final java.lang.String getInternalGetterStringAnnotatedInternal()
+	private java.lang.String getInternalGetterStringAnnotatedInternal()
 	{
 		return Standard.internalGetterStringAnnotated.get(this);
 	}
@@ -949,7 +949,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #privateSetterString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setPrivateSetterString(@javax.annotation.Nullable final java.lang.String privateSetterString)
+	private void setPrivateSetterString(@javax.annotation.Nullable final java.lang.String privateSetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -970,7 +970,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #internalSetterString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setInternalSetterStringInternal(@javax.annotation.Nullable final java.lang.String internalSetterString)
+	private void setInternalSetterStringInternal(@javax.annotation.Nullable final java.lang.String internalSetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
@@ -1208,7 +1208,7 @@ public final class Standard extends Item
 	 * Returns whether the given value corresponds to the hash in {@link #privateHash}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
-	private final boolean checkPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
+	private boolean checkPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		return Standard.privateHash.check(this,privateHash);
 	}
@@ -1218,7 +1218,7 @@ public final class Standard extends Item
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
-	private static final void blindPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
+	private static void blindPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		Standard.privateHash.blind(privateHash);
 	}
@@ -1227,7 +1227,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #privateHash}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
+	private void setPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		Standard.privateHash.set(this,privateHash);
 	}
@@ -1237,7 +1237,7 @@ public final class Standard extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
 	@javax.annotation.Nullable
-	private final java.lang.String getPrivateHashSHA512s8i5()
+	private java.lang.String getPrivateHashSHA512s8i5()
 	{
 		return Standard.privateHash.getHash(this);
 	}
@@ -1246,7 +1246,7 @@ public final class Standard extends Item
 	 * Sets the encoded hash value for hash {@link #privateHash}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
-	private final void setPrivateHashSHA512s8i5(@javax.annotation.Nullable final java.lang.String privateHash)
+	private void setPrivateHashSHA512s8i5(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		Standard.privateHash.setHash(this,privateHash);
 	}
@@ -1325,7 +1325,7 @@ public final class Standard extends Item
 	 * Sets a new value for {@link #privateSetterHash}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setPrivateSetterHash(@javax.annotation.Nonnull final java.lang.String privateSetterHash)
+	private void setPrivateSetterHash(@javax.annotation.Nonnull final java.lang.String privateSetterHash)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{

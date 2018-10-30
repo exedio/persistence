@@ -134,7 +134,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-		private final java.lang.String onePrivateFeature()
+		private java.lang.String onePrivateFeature()
 		{
 			return AnnotatedItem.privateFeature.one(this);
 		}
@@ -146,7 +146,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
-		private final java.lang.String oneInternalFeatureInternal()
+		private java.lang.String oneInternalFeatureInternal()
 		{
 			return AnnotatedItem.internalFeature.one(this);
 		}
@@ -156,7 +156,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
-		private final java.lang.Boolean isBooleanAsIsFeature()
+		private java.lang.Boolean isBooleanAsIsFeature()
 		{
 			return AnnotatedItem.booleanAsIsFeature.get(this);
 		}
@@ -165,7 +165,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		 * Sets a new value for {@link #booleanAsIsFeature}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		private final void setBooleanAsIsFeature(@javax.annotation.Nullable final java.lang.Boolean booleanAsIsFeature)
+		private void setBooleanAsIsFeature(@javax.annotation.Nullable final java.lang.Boolean booleanAsIsFeature)
 		{
 			AnnotatedItem.booleanAsIsFeature.set(this,booleanAsIsFeature);
 		}
@@ -184,7 +184,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		 * Sets a new value for {@link #booleanAsIsPublicFeature}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-		private final void setBooleanAsIsPublicFeature(@javax.annotation.Nullable final java.lang.Boolean booleanAsIsPublicFeature)
+		private void setBooleanAsIsPublicFeature(@javax.annotation.Nullable final java.lang.Boolean booleanAsIsPublicFeature)
 		{
 			AnnotatedItem.booleanAsIsPublicFeature.set(this,booleanAsIsPublicFeature);
 		}

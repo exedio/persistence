@@ -139,9 +139,9 @@ public class GeneratorTest
 		assertMethod(STANDARD, "setMandatoryDate", new Class<?>[]{Date.class}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "touchMandatoryDate", new Class<?>[]{}, PUBLIC|FINAL);
 
-		assertMethod(STANDARD, "getPrivateDate", Date.class, PRIVATE|FINAL);
-		assertMethod(STANDARD, "setPrivateDate", new Class<?>[]{Date.class}, PRIVATE|FINAL);
-		assertMethod(STANDARD, "touchPrivateDate", new Class<?>[]{}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getPrivateDate", Date.class, PRIVATE);
+		assertMethod(STANDARD, "setPrivateDate", new Class<?>[]{Date.class}, PRIVATE);
+		assertMethod(STANDARD, "touchPrivateDate", new Class<?>[]{}, PRIVATE);
 
 		assertMethod(STANDARD, "getNowDate", Date.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setNowDate", new Class<?>[]{Date.class}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
@@ -157,23 +157,23 @@ public class GeneratorTest
 		assertMethod(STANDARD, "getInlineB", int.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setInlineB", new Class<?>[]{int.class}, PUBLIC|FINAL);
 
-		assertMethod(STANDARD, "getPrivateString", STRING, PRIVATE|FINAL);
-		assertMethod(STANDARD, "setPrivateString", new Class<?>[]{STRING}, PRIVATE|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "getPrivateString", STRING, PRIVATE);
+		assertMethod(STANDARD, "setPrivateString", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{LENGTH_VIOLATION});
 
 		assertNoMethod(STANDARD, "getNoneGetterString");
 		assertMethod(STANDARD, "setNoneGetterString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getPrivateGetterString", STRING, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getPrivateGetterString", STRING, PRIVATE);
 		assertMethod(STANDARD, "setPrivateGetterString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
-		assertMethod(STANDARD, "getInternalGetterStringInternal", STRING, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getInternalGetterStringInternal", STRING, PRIVATE);
 		assertMethod(STANDARD, "setInternalGetterString", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{LENGTH_VIOLATION});
 		assertNoMethod(STANDARD, "getInternalGetterString");
 
 		assertMethod(STANDARD, "getNoneSetterString", STRING, PUBLIC|FINAL);
 		assertNoMethod(STANDARD, "setNoneSetterString", new Class<?>[]{STRING});
 		assertMethod(STANDARD, "getPrivateSetterString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPrivateSetterString", new Class<?>[]{STRING}, PRIVATE|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "setPrivateSetterString", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{LENGTH_VIOLATION});
 		assertMethod(STANDARD, "getInternalSetterString", STRING, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setInternalSetterStringInternal", new Class<?>[]{STRING}, PRIVATE|FINAL, new Class<?>[]{LENGTH_VIOLATION});
+		assertMethod(STANDARD, "setInternalSetterStringInternal", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{LENGTH_VIOLATION});
 		assertNoMethod(STANDARD, "setInternalSetterString", new Class<?>[]{STRING});
 
 		assertMethod(STANDARD, "getNonfinalGetterString", STRING, PUBLIC);
@@ -203,19 +203,19 @@ public class GeneratorTest
 		assertNoMethod(STANDARD, "findByDefaultFeature", new Class<?>[]{DOUBLE});
 
 		assertMethod(STANDARD, "checkPublicHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
-		assertMethod(STANDARD, "checkPrivateHash", new Class<?>[]{STRING}, Boolean.TYPE, PRIVATE|FINAL);
+		assertMethod(STANDARD, "checkPrivateHash", new Class<?>[]{STRING}, Boolean.TYPE, PRIVATE);
 		assertMethod(STANDARD, "checkMandatoryHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(STANDARD, "checkPrivateSetterHash", new Class<?>[]{STRING}, Boolean.TYPE, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setPublicHash", new Class<?>[]{STRING}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPrivateHash", new Class<?>[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPrivateHash", new Class<?>[]{STRING}, PRIVATE);
 		assertMethod(STANDARD, "setMandatoryHash", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
-		assertMethod(STANDARD, "setPrivateSetterHash", new Class<?>[]{STRING}, PRIVATE|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
+		assertMethod(STANDARD, "setPrivateSetterHash", new Class<?>[]{STRING}, PRIVATE, new Class<?>[]{MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "getPublicHashSHA512s8i5", String.class, PUBLIC|FINAL);
-		assertMethod(STANDARD, "getPrivateHashSHA512s8i5", String.class, PRIVATE|FINAL);
+		assertMethod(STANDARD, "getPrivateHashSHA512s8i5", String.class, PRIVATE);
 		assertMethod(STANDARD, "getMandatoryHashSHA512s8i5", String.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "getPrivateSetterHashSHA512s8i5", String.class, PUBLIC|FINAL);
 		assertMethod(STANDARD, "setPublicHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC|FINAL);
-		assertMethod(STANDARD, "setPrivateHashSHA512s8i5", new Class<?>[]{STRING}, PRIVATE|FINAL);
+		assertMethod(STANDARD, "setPrivateHashSHA512s8i5", new Class<?>[]{STRING}, PRIVATE);
 		assertMethod(STANDARD, "setMandatoryHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
 		assertMethod(STANDARD, "setPrivateSetterHashSHA512s8i5", new Class<?>[]{STRING}, PUBLIC|FINAL, new Class<?>[]{MANDATORY_VIOLATION});
 		assertNoMethod(STANDARD, "getPublicHash");
@@ -235,7 +235,7 @@ public class GeneratorTest
 		assertConstructor(DOUBLE_UNIQUE, new Class<?>[]{STRING, SUB_TARGET}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
 		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC|FINAL);
 		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC|FINAL);
-		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class<?>[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PRIVATE|STATIC|FINAL);
+		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class<?>[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PRIVATE|STATIC);
 	}
 
 	@Test void testHierarchy()

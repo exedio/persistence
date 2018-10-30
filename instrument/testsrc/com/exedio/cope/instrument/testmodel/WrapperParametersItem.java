@@ -58,7 +58,7 @@ class WrapperParametersItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
-	private final void paramFeatureInternal()
+	private void paramFeatureInternal()
 	{
 		WrapperParametersItem.feature.param(this);
 	}
@@ -82,7 +82,7 @@ class WrapperParametersItem extends Item
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
-	private final void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature.SomeEnum feature)
+	private void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature.SomeEnum feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}

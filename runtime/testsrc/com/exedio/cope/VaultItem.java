@@ -176,7 +176,7 @@ final class VaultItem extends Item
 	 * Returns the length of the data of the data field {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	private final long getFieldLengthInternal()
+	private long getFieldLengthInternal()
 	{
 		return VaultItem.field.getLength(this);
 	}
@@ -186,7 +186,7 @@ final class VaultItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
 	@javax.annotation.Nullable
-	private final byte[] getFieldArray()
+	private byte[] getFieldArray()
 	{
 		return VaultItem.field.getArray(this);
 	}
@@ -195,7 +195,7 @@ final class VaultItem extends Item
 	 * Writes the data of this persistent data field into the given stream.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	private final void getField(@javax.annotation.Nonnull final java.io.OutputStream field)
+	private void getField(@javax.annotation.Nonnull final java.io.OutputStream field)
 			throws
 				java.io.IOException
 	{
@@ -206,7 +206,7 @@ final class VaultItem extends Item
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setField(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
+	private void setField(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -217,7 +217,7 @@ final class VaultItem extends Item
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setField(@javax.annotation.Nonnull final byte[] field)
+	private void setField(@javax.annotation.Nonnull final byte[] field)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
@@ -228,7 +228,7 @@ final class VaultItem extends Item
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setField(@javax.annotation.Nonnull final java.io.InputStream field)
+	private void setField(@javax.annotation.Nonnull final java.io.InputStream field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException
@@ -240,7 +240,7 @@ final class VaultItem extends Item
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setField(@javax.annotation.Nonnull final java.nio.file.Path field)
+	private void setField(@javax.annotation.Nonnull final java.nio.file.Path field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException
@@ -252,7 +252,7 @@ final class VaultItem extends Item
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	private final void setField(@javax.annotation.Nonnull final java.io.File field)
+	private void setField(@javax.annotation.Nonnull final java.io.File field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				java.io.IOException

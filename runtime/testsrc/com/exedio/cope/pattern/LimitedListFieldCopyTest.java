@@ -109,13 +109,13 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
-		private final java.util.List<LimitedListCopyItem> getList()
+		private java.util.List<LimitedListCopyItem> getList()
 		{
 			return LimitedListCopyItem.list.get(this);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private final void setList(@javax.annotation.Nonnull final java.util.Collection<? extends LimitedListCopyItem> list)
+		private void setList(@javax.annotation.Nonnull final java.util.Collection<? extends LimitedListCopyItem> list)
 				throws
 					java.lang.ClassCastException,
 					com.exedio.cope.pattern.ListSizeViolationException
