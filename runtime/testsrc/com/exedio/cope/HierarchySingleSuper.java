@@ -26,7 +26,7 @@ public abstract class HierarchySingleSuper extends Item
 	 * Creates a new HierarchySingleSuper with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	public HierarchySingleSuper()
+	protected HierarchySingleSuper()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});

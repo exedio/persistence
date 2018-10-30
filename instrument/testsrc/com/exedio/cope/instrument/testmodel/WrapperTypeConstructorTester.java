@@ -62,7 +62,7 @@ public final class WrapperTypeConstructorTester
 		 * Creates a new DefaultPublicAbstract with all the fields initially needed.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-		public DefaultPublicAbstract()
+		protected DefaultPublicAbstract()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});

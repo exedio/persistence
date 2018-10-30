@@ -31,7 +31,7 @@ public abstract class ExternalParentWithAbstractMethod extends Item
 	 * Creates a new ExternalParentWithAbstractMethod with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	public ExternalParentWithAbstractMethod()
+	protected ExternalParentWithAbstractMethod()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});

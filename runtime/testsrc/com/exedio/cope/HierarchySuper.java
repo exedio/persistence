@@ -32,7 +32,7 @@ public abstract class HierarchySuper extends Item
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	public HierarchySuper(
+	protected HierarchySuper(
 				final int superInt)
 			throws
 				com.exedio.cope.UniqueViolationException

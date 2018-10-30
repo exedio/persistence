@@ -243,7 +243,7 @@ public class GeneratorTest
 		assertConstructor(SUPER, new Class<?>[]{
 				STRING, // superMandatory
 				Integer.class, // superInitial
-			}, PUBLIC,
+			}, PROTECTED,
 			new Class<?>[]{
 				MANDATORY_VIOLATION,
 				LENGTH_VIOLATION,

@@ -30,7 +30,7 @@ public abstract class OptionFeatureSuperItem extends Item
 	 * Creates a new OptionFeatureSuperItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	public OptionFeatureSuperItem()
+	protected OptionFeatureSuperItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});

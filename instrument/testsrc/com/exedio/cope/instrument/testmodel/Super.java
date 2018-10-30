@@ -45,7 +45,7 @@ public abstract class Super extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if superMandatory violates its length constraint.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	public Super(
+	protected Super(
 				@javax.annotation.Nonnull final java.lang.String superMandatory,
 				@javax.annotation.Nullable final java.lang.Integer superInitial)
 			throws

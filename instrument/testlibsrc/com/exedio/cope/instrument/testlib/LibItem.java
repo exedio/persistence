@@ -73,7 +73,7 @@ public abstract class LibItem<T> extends LibSuperItem
 	 * @param nestedGenerics the initial value for field {@link #nestedGenerics}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	public LibItem(
+	protected LibItem(
 				@javax.annotation.Nullable final java.lang.String inSuper,
 				@javax.annotation.Nullable final java.lang.String a,
 				@javax.annotation.Nonnull final LibItem.Inner inner,
