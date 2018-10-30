@@ -24,8 +24,6 @@ public abstract class OptionFeatureSuperItem extends Item
 {
 	abstract void simpleOverride();
 
-	abstract void simpleOverrideAnnotated();
-
 	/**
 	 * Creates a new OptionFeatureSuperItem with all the fields initially needed.
 	 */

@@ -98,20 +98,11 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	@Wrapper(wrap="simple", asFinal=false)
 	static final OptionFeature nonFinal = new OptionFeature();
 
-	@Wrapper(wrap="simple", asFinal=false)
-	static final OptionFeature nonFinalAnnotated = new OptionFeature();
-
 	@Wrapper(wrap="simple", override=true)
 	static final OptionFeature override = new OptionFeature();
 
-	@Wrapper(wrap="simple", override=true)
-	static final OptionFeature overrideAnnotated = new OptionFeature();
-
 	@WrapperIgnore
 	static final OptionFeature ignore = new OptionFeature().fail();
-
-	@WrapperIgnore
-	static final OptionFeature ignoreAnnotated = new OptionFeature().fail();
 
 	@Wrapper(wrap="*", visibility=NONE)
 	static final OptionFeature ignoreDontFail = new OptionFeature();
@@ -262,23 +253,10 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	void simpleNonFinalAnnotated()
-	{
-		OptionFeatureItem.nonFinalAnnotated.simple(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
 	@java.lang.Override
 	final void simpleOverride()
 	{
 		OptionFeatureItem.override.simple(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
-	@java.lang.Override
-	final void simpleOverrideAnnotated()
-	{
-		OptionFeatureItem.overrideAnnotated.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
