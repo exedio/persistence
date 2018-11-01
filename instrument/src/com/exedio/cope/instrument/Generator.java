@@ -22,6 +22,8 @@ import static java.lang.reflect.Modifier.FINAL;
 import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
+import static java.util.Arrays.asList;
+import static java.util.Collections.singletonList;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.SetValue;
@@ -282,9 +284,10 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(" * "+format(CONSTRUCTOR_GENERIC, type.getName()));
-		finishComment(type.getOption().comments(), commentLines);
+		finishComment(
+				type.getOption().comments(),
+				singletonList(" * " + format(CONSTRUCTOR_GENERIC, type.getName()))
+		);
 		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
@@ -313,10 +316,12 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(" * "+"Activation constructor. Used for internal purposes only.");
-		commentLines.add(" * @see "+type.kind.top+'#'+type.kind.topSimple+'('+activation+')');
-		finishComment(type.getOption().comments(), commentLines);
+		finishComment(
+				type.getOption().comments(),
+				asList(
+					" * Activation constructor. Used for internal purposes only.",
+					" * @see " + type.kind.top + '#' + type.kind.topSimple + '(' + activation + ')')
+		);
 		writeGeneratedAnnotation(type.getOption().comments(), null);
 
 		writeIndent();
@@ -692,8 +697,7 @@ final class Generator
 
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{
-		final List<String> commentLines=new ArrayList<>();
-		finishComment(type.getOption().comments(), commentLines);
+		write(lineSeparator);
 		writeGeneratedAnnotation(type.getOption().comments(), null);
 
 		writeIndent();
@@ -719,16 +723,9 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(
-			" * "+
-			format(
-				kind.doc,
-				lowerCamelCase(type.getName()))
-		);
 		finishComment(
 				type.getOption().comments(),
-				commentLines
+				singletonList(" * " + format(kind.doc, lowerCamelCase(type.getName())))
 		);
 		writeGeneratedAnnotation(
 			type.getOption().comments(),
