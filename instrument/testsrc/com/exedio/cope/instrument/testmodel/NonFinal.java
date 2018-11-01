@@ -19,15 +19,26 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.testfeature.OptionFeature;
 
 /**
  * This class must get a protected
  * {@link NonFinal#NonFinal(com.exedio.cope.SetValue[]) generic constructor} and
  * {@link NonFinal#NonFinal(com.exedio.cope.ActivationParameters) activation constructor},
- * since it it not final.
+ * and final methods (except when set to {@link Wrapper#asFinal() Wrapper.asFinal}=false,
+ * since it is not final.
  */
 public class NonFinal extends Item
 {
+	private   static final OptionFeature barePrivate   = new OptionFeature();
+	          static final OptionFeature barePackage   = new OptionFeature();
+	protected static final OptionFeature bareProtected = new OptionFeature();
+	public    static final OptionFeature barePublic    = new OptionFeature();
+
+	@Wrapper(wrap="*", asFinal=false)         static final OptionFeature nonFinal        = new OptionFeature();
+	@Wrapper(wrap="*", asFinal=false) private static final OptionFeature nonFinalPrivate = new OptionFeature();
+
 	/**
 	 * Creates a new NonFinal with all the fields initially needed.
 	 */
@@ -45,6 +56,42 @@ public class NonFinal extends Item
 	protected NonFinal(final com.exedio.cope.SetValue<?>... setValues)
 	{
 		super(setValues);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	private void simpleBarePrivate()
+	{
+		NonFinal.barePrivate.simple(this);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	final void simpleBarePackage()
+	{
+		NonFinal.barePackage.simple(this);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	protected final void simpleBareProtected()
+	{
+		NonFinal.bareProtected.simple(this);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	public final void simpleBarePublic()
+	{
+		NonFinal.barePublic.simple(this);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	void simpleNonFinal()
+	{
+		NonFinal.nonFinal.simple(this);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	private void simpleNonFinalPrivate()
+	{
+		NonFinal.nonFinalPrivate.simple(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
