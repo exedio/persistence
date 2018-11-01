@@ -72,7 +72,7 @@ final class Generator
 	private final boolean privateMethodFinal;
 	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardTypeParameters;
-	private int typeIndent = Integer.MIN_VALUE;
+	private TypeContext typeContext = null;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 
@@ -796,9 +796,11 @@ final class Generator
 
 				try
 				{
-					typeIndent = type.getOption().indent();
+					if(typeContext!=null)
+						throw new RuntimeException(type.getName());
+					typeContext = new TypeContext(type.getOption());
 					writeClassFeatures(type);
-					typeIndent = Integer.MIN_VALUE;
+					typeContext = null;
 				}
 				catch (final RuntimeException e)
 				{
@@ -843,20 +845,12 @@ final class Generator
 
 	private void writeIndent()
 	{
-		assert typeIndent>=0 : typeIndent;
-		writeIndentInternal(typeIndent);
+		writeIndent(0);
 	}
 
 	private void writeIndent(final int additionalLevel)
 	{
-		assert typeIndent>=0 : typeIndent;
-		writeIndentInternal(typeIndent + additionalLevel);
-	}
-
-	private void writeIndentInternal(final int level)
-	{
-		for(int i = 0; i<level; i++)
-			output.append('\t');
+		write(typeContext.indent[additionalLevel]);
 	}
 
 	private void write(final String s)
@@ -874,5 +868,23 @@ final class Generator
 		final Type[] result = new Type[parameters.size()];
 		Arrays.setAll(result, i -> parameters.get(i).getType());
 		return result;
+	}
+
+	private static final class TypeContext
+	{
+		final String[] indent = new String[4];
+
+		TypeContext(final WrapperType option)
+		{
+			final int level = option.indent();
+			final StringBuilder bf = new StringBuilder();
+			for(int i = 0; i<level; i++)
+				bf.append('\t');
+			for(int i = 0; i<indent.length; i++)
+			{
+				indent[i] = bf.toString();
+				bf.append('\t');
+			}
+		}
 	}
 }
