@@ -132,7 +132,7 @@ final class Generator
 		}
 	}
 
-	private void finishComment(final boolean addComments, final List<String> commentLines)
+	private void writeComment(final boolean addComments, final List<String> commentLines)
 	{
 		write(lineSeparator);
 		if (addComments && !commentLines.isEmpty())
@@ -202,7 +202,7 @@ final class Generator
 			final String pattern = a.value();
 			commentLines.add(" * @throws "+constructorException.getCanonicalName()+' '+format(pattern, fields.toString()));
 		}
-		finishComment(type.getOption().comments(), commentLines);
+		writeComment(type.getOption().comments(), commentLines);
 		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
@@ -284,7 +284,7 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		finishComment(
+		writeComment(
 				type.getOption().comments(),
 				singletonList(" * " + format(CONSTRUCTOR_GENERIC, type.getName()))
 		);
@@ -316,7 +316,7 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		finishComment(
+		writeComment(
 				type.getOption().comments(),
 				asList(
 					" * Activation constructor. Used for internal purposes only.",
@@ -420,7 +420,7 @@ final class Generator
 							"         ",
 							e.getValue(), arguments);
 				}
-				finishComment(
+				writeComment(
 					feature.parent.getOption().comments(),
 					commentLines
 				);
@@ -723,7 +723,7 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		finishComment(
+		writeComment(
 				type.getOption().comments(),
 				singletonList(" * " + format(kind.doc, lowerCamelCase(type.getName())))
 		);
