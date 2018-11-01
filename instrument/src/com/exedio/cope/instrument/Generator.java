@@ -142,8 +142,11 @@ final class Generator
 
 			for (final String commentLine: commentLines)
 			{
+				writeIndent();
+				write(" *");
 				if (!commentLine.isEmpty())
-					writeIndent();
+					write(' ');
+
 				write(commentLine);
 				write(lineSeparator);
 			}
@@ -177,10 +180,10 @@ final class Generator
 		final SortedSet<Class<? extends Throwable>> constructorExceptions = type.getConstructorExceptions();
 
 		final List<String> commentLines=new ArrayList<>();
-		commentLines.add(" * "+format(CONSTRUCTOR_INITIAL, type.getName()));
+		commentLines.add(format(CONSTRUCTOR_INITIAL, type.getName()));
 		for(final CopeFeature feature : initialFeatures)
 		{
-			commentLines.add(" * @param "+feature.getName()+' '+format(CONSTRUCTOR_INITIAL_PARAMETER, feature.getJavadocReference()));
+			commentLines.add("@param " + feature.getName() + ' ' + format(CONSTRUCTOR_INITIAL_PARAMETER, feature.getJavadocReference()));
 		}
 		for(final Class<? extends Throwable> constructorException : constructorExceptions)
 		{
@@ -200,7 +203,7 @@ final class Generator
 			}
 
 			final String pattern = a.value();
-			commentLines.add(" * @throws "+constructorException.getCanonicalName()+' '+format(pattern, fields.toString()));
+			commentLines.add("@throws " + constructorException.getCanonicalName() + ' ' + format(pattern, fields.toString()));
 		}
 		writeComment(commentLines);
 		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
@@ -284,7 +287,7 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		writeComment(singletonList(" * " + format(CONSTRUCTOR_GENERIC, type.getName())));
+		writeComment(singletonList(format(CONSTRUCTOR_GENERIC, type.getName())));
 		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
@@ -315,8 +318,8 @@ final class Generator
 
 		writeComment(
 				asList(
-					" * Activation constructor. Used for internal purposes only.",
-					" * @see " + type.kind.top + '#' + type.kind.topSimple + '(' + activation + ')')
+					"Activation constructor. Used for internal purposes only.",
+					"@see " + type.kind.top + '#' + type.kind.topSimple + '(' + activation + ')')
 		);
 		writeGeneratedAnnotation(null);
 
@@ -371,7 +374,7 @@ final class Generator
 					featureNameCamelCase};
 			{
 				final List<String> commentLines=new ArrayList<>();
-				collectCommentParagraph(commentLines, "", " ", wrapper.getCommentArray(), arguments);
+				collectCommentParagraph(commentLines, "", "", wrapper.getCommentArray(), arguments);
 
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -380,7 +383,7 @@ final class Generator
 						collectCommentParagraph(
 								commentLines,
 								"@param " + format(parameter.getName(), arguments),
-								"        ",
+								"       ",
 								parameter.getComment(), arguments);
 					}
 					else
@@ -397,7 +400,7 @@ final class Generator
 							collectCommentParagraph(
 									commentLines,
 									"@param " + format(parameterName, parameterArguments),
-									"        ",
+									"       ",
 									parameter.getComment(), parameterArguments);
 						}
 					}
@@ -405,7 +408,7 @@ final class Generator
 				collectCommentParagraph(
 						commentLines,
 						"@return",
-						"         ",
+						"        ",
 						wrapper.getReturnComment(), arguments);
 
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
@@ -413,7 +416,7 @@ final class Generator
 					collectCommentParagraph(
 							commentLines,
 							"@throws " + e.getKey().getCanonicalName(),
-							"         ",
+							"        ",
 							e.getValue(), arguments);
 				}
 				writeComment(commentLines);
@@ -678,12 +681,12 @@ final class Generator
 		if(lines.length>0)
 		{
 			final String line = lines[0];
-			commentLines.add(" *"+(prefix1.isEmpty()?"":(" "+prefix1))+(line.isEmpty()?"":(" "+format(line, arguments))));
+			commentLines.add(prefix1 + (line.isEmpty()?"":((prefix1.isEmpty()?"":" ")+format(line, arguments))));
 		}
 		for(int i = 1; i<lines.length; i++)
 		{
 			final String line = lines[i];
-			commentLines.add(" *"+(line.isEmpty()?"":(prefixN+format(line, arguments))));
+			commentLines.add(line.isEmpty()?"":(prefixN+format(line, arguments)));
 		}
 	}
 
@@ -715,7 +718,7 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		writeComment(singletonList(" * " + format(kind.doc, lowerCamelCase(type.getName()))));
+		writeComment(singletonList(format(kind.doc, lowerCamelCase(type.getName()))));
 		writeGeneratedAnnotation(
 			"customize with @"+WrapperType.class.getSimpleName()+"(type=...)"
 		);
