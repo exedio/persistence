@@ -118,32 +118,6 @@ final class JavaClass extends JavaFeature
 		return buf.toString();
 	}
 
-	public String getCanonicalNameWildcard()
-	{
-		final StringBuilder buf=new StringBuilder();
-		final String packagename = file.getPackageName();
-		if(packagename!=null)
-		{
-			buf.append(packagename);
-			buf.append('.');
-		}
-		final int pos=buf.length();
-		for(JavaClass i=this; i!=null; i=i.parent)
-		{
-			if(i!=this)
-				buf.insert(pos, '.');
-			buf.insert(pos, i.name);
-		}
-		if(typeParameters>0)
-		{
-			buf.append("<?");
-			for(int i = 1; i<typeParameters; i++)
-				buf.append(",?");
-			buf.append('>');
-		}
-		return buf.toString();
-	}
-
 	public boolean isInterface()
 	{
 		return Modifier.isInterface(modifier);
