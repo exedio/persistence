@@ -131,10 +131,10 @@ final class Generator
 		}
 	}
 
-	private void writeComment(final boolean addComments, final List<String> commentLines)
+	private void writeComment(final List<String> commentLines)
 	{
 		write(lineSeparator);
-		if (addComments && !commentLines.isEmpty())
+		if(typeContext.comments && !commentLines.isEmpty())
 		{
 			writeIndent();
 			write("/**");
@@ -153,12 +153,12 @@ final class Generator
 		}
 	}
 
-	private void writeGeneratedAnnotation(final boolean addComments, final String extraCommentForAnnotations)
+	private void writeGeneratedAnnotation(final String extraCommentForAnnotations)
 	{
 		writeIndent();
 		writeAnnotation(Generated.class);
 		write("(\"" + Main.GENERATED_VALUE + "\")");
-		if (addComments && extraCommentForAnnotations!=null)
+		if(typeContext.comments && extraCommentForAnnotations!=null)
 		{
 			write(" // "+extraCommentForAnnotations);
 		}
@@ -201,8 +201,8 @@ final class Generator
 			final String pattern = a.value();
 			commentLines.add(" * @throws "+constructorException.getCanonicalName()+' '+format(pattern, fields.toString()));
 		}
-		writeComment(type.getOption().comments(), commentLines);
-		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
+		writeComment(commentLines);
+		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier(publicConstructorInAbstractClass));
@@ -283,11 +283,8 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		writeComment(
-				type.getOption().comments(),
-				singletonList(" * " + format(CONSTRUCTOR_GENERIC, type.getName()))
-		);
-		writeGeneratedAnnotation(type.getOption().comments(), CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
+		writeComment(singletonList(" * " + format(CONSTRUCTOR_GENERIC, type.getName())));
+		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
 		writeModifier(option.getModifier(type.getSubtypeModifier()));
@@ -316,12 +313,11 @@ final class Generator
 			return;
 
 		writeComment(
-				type.getOption().comments(),
 				asList(
 					" * Activation constructor. Used for internal purposes only.",
 					" * @see " + type.kind.top + '#' + type.kind.topSimple + '(' + activation + ')')
 		);
-		writeGeneratedAnnotation(type.getOption().comments(), null);
+		writeGeneratedAnnotation(null);
 
 		writeIndent();
 		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
@@ -419,12 +415,8 @@ final class Generator
 							"         ",
 							e.getValue(), arguments);
 				}
-				writeComment(
-					feature.parent.getOption().comments(),
-					commentLines
-				);
+				writeComment(commentLines);
 				writeGeneratedAnnotation(
-					feature.parent.getOption().comments(),
 					modifierTag!=null
 					?  getAnnotationsHint(Wrapper.class, "wrap", "\""+modifierTag+"\"")
 					: null
@@ -697,7 +689,7 @@ final class Generator
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{
 		write(lineSeparator);
-		writeGeneratedAnnotation(type.getOption().comments(), null);
+		writeGeneratedAnnotation(null);
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
@@ -722,12 +714,8 @@ final class Generator
 		if(!option.exists())
 			return;
 
-		writeComment(
-				type.getOption().comments(),
-				singletonList(" * " + format(kind.doc, lowerCamelCase(type.getName())))
-		);
+		writeComment(singletonList(" * " + format(kind.doc, lowerCamelCase(type.getName()))));
 		writeGeneratedAnnotation(
-			type.getOption().comments(),
 			"customize with @"+WrapperType.class.getSimpleName()+"(type=...)"
 		);
 
@@ -874,6 +862,7 @@ final class Generator
 	private static final class TypeContext
 	{
 		final String[] indent = new String[4];
+		final boolean comments;
 
 		TypeContext(final WrapperType option)
 		{
@@ -886,6 +875,8 @@ final class Generator
 				indent[i] = bf.toString();
 				bf.append('\t');
 			}
+
+			this.comments = option.comments();
 		}
 	}
 }
