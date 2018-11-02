@@ -160,7 +160,8 @@ final class Generator
 		write("(\"" + Main.GENERATED_VALUE + "\")");
 		if(typeContext.comments && extraCommentForAnnotations!=null)
 		{
-			write(" // "+extraCommentForAnnotations);
+			write(" // ");
+			write(extraCommentForAnnotations);
 		}
 		write(lineSeparator);
 	}
