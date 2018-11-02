@@ -23,6 +23,7 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import com.exedio.cope.Model;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.misc.ConnectToken;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.text.ParseException;
 import javax.servlet.ServletException;
@@ -30,12 +31,14 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION") // OK: closed in destroy
 public class InitServlet extends HttpServlet
 {
 	private static final long serialVersionUID = 1l;
 
 	public static final Model model = new Model(MediaServletItem.TYPE, MediaPatternItem.TYPE);
 
+	@SuppressFBWarnings({"SE_BAD_FIELD", "MSF_MUTABLE_SERVLET_FIELD", "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"})
 	private ConnectToken connectToken = null;
 
 	@Override

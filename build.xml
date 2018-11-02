@@ -609,6 +609,7 @@
 				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
+				<pathelement location="lib/findbugs-annotations.jar"/>
 			</classpath>
 		</compile>
 	</target>
@@ -879,7 +880,12 @@
 			  runtime.compile,
 			  runtime.servlet.test.web,
 			  runtime.test.compile,
-			  instrument.compile" />
+			  runtime.servlet.test.web,
+			  runtime.servlet.webtest.compile,
+			  instrument.compile,
+			  instrument.test.libcompile,
+			  instrument.testfeature.compile,
+			  instrument.test.compile" />
 
 	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar, instrument.completion.jar" />
 
@@ -988,8 +994,14 @@
 			<class location="${basedir}/build/classes/instrument/annosrc" />
 			<class location="${basedir}/build/classes/instrument/src" />
 			<class location="${basedir}/build/classes/instrument/antsrc" />
+			<class location="${basedir}/build/classes/instrument/completionsrc" />
 			<class location="${basedir}/build/classes/runtime/testsrc" />
 			<class location="${basedir}/build/classes/runtime/testfeaturesrc" />
+			<class location="${basedir}/build/classes/runtime/servlettestsrc" />
+			<class location="${basedir}/build/classes/runtime/servlettestwebsrc" />
+			<class location="${basedir}/build/classes/instrument/testfeaturesrc" />
+			<class location="${basedir}/build/classes/instrument/testlibsrc" />
+			<class location="${basedir}/build/classes/instrument/testsrc" />
 			<auxclasspath>
 				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
 				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />

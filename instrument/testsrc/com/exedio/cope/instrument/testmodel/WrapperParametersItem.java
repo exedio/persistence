@@ -26,7 +26,9 @@ import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testfeature.WrapperParametersFeature;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 class WrapperParametersItem extends Item
 {
 	@Wrapper(wrap="param", parameters={}, internal=true)

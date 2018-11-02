@@ -4,4 +4,9 @@
 		<Bug pattern="SIC_INNER_SHOULD_BE_STATIC_ANON" />
 		<!-- Used often for ResultSethandler -->
 	</Match>
+	<Match>
+		<!-- The class name SomeItem$classWildcard doesn't start with an upper case letter -->
+		<Bug pattern="NM_CLASS_NAMING_CONVENTION" />
+		<Class name="~.*\$classWildcard$" />
+	</Match>
 </FindBugsFilter>

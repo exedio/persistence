@@ -25,7 +25,9 @@ import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testfeature.NameFeature;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
+@SuppressFBWarnings("NM_METHOD_NAMING_CONVENTION")
 public final class NameFeatureItem extends Item
 {
 	static final NameFeature feature = new NameFeature();

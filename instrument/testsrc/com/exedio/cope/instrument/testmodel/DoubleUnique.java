@@ -26,6 +26,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @SuppressWarnings("UnusedReturnValue")
 public final class DoubleUnique extends Item
@@ -36,6 +37,7 @@ public final class DoubleUnique extends Item
 	@Wrapper(wrap="finder", visibility=PRIVATE)
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
 
+	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	static void useFeaturesToAvoidWarning()
 	{
 		forUnique(null, null);

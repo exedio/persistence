@@ -27,6 +27,7 @@ import static com.exedio.cope.instrument.Visibility.PUBLIC;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @SuppressWarnings("EmptyClass")
 public final class WrapperTypeTypeTester
@@ -47,6 +48,7 @@ public final class WrapperTypeTypeTester
 
 	@WrapperType(type=DEFAULT,
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 	protected static final class DefaultProtected extends Item
 	{
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -104,6 +106,7 @@ public final class WrapperTypeTypeTester
 
 	@WrapperType(type=PROTECTED,
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 	static final class SetProtected extends Item
 	{
 		@javax.annotation.Generated("com.exedio.cope.instrument")

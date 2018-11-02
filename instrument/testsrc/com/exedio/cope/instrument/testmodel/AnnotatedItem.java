@@ -31,6 +31,7 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @WrapperType(
 	type=PRIVATE,
@@ -40,6 +41,7 @@ import com.exedio.cope.instrument.testfeature.SimpleSettable;
 	indent=2
 )
 @AnnotationNotInInterim
+@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 public class AnnotatedItem extends Item implements OneOverrideFeatureable
 {
 	@WrapperInitial

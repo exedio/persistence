@@ -30,8 +30,10 @@ import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.testfeature.FilterFeature;
 import com.exedio.cope.instrument.testfeature.OptionFeature;
 import com.exedio.cope.instrument.testfeature.OptionFeatureGet;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @SuppressWarnings("ProtectedMemberInFinalClass")
+@SuppressFBWarnings({"CI_CONFUSED_INHERITANCE","UPM_UNCALLED_PRIVATE_METHOD"})
 public final class OptionFeatureItem extends OptionFeatureSuperItem
 {
 	// default visibility
