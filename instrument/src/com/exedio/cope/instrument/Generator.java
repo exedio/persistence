@@ -284,15 +284,15 @@ final class Generator
 		if(!type.kind.hasGenericConstructor)
 			return;
 
-		final Visibility option = type.getOption().genericConstructor();
-		if(!option.exists())
+		final Visibility visibility = type.getOption().genericConstructor();
+		if(!visibility.exists())
 			return;
 
 		writeComment(singletonList(format(CONSTRUCTOR_GENERIC, type.getName())));
 		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
 
 		writeIndent();
-		writeModifier(option.getModifier(type.getSubtypeModifier()));
+		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
 		write(type.getName());
 		write("(final " + SET_VALUE + "<?>... setValues)");
 		write(lineSeparator);
@@ -313,8 +313,8 @@ final class Generator
 		if(activation==null)
 			return;
 
-		final Visibility option = type.getOption().activationConstructor();
-		if(!option.exists())
+		final Visibility visibility = type.getOption().activationConstructor();
+		if(!visibility.exists())
 			return;
 
 		writeComment(
@@ -327,7 +327,7 @@ final class Generator
 		writeIndent();
 		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
 			write("@SuppressWarnings(\"unused\") ");
-		writeModifier(option.getModifier(type.getSubtypeModifier()));
+		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
 		write(type.getName());
 		write("(final ");
 		write(activation);
@@ -715,8 +715,8 @@ final class Generator
 		if(kind==null)
 			return;
 
-		final Visibility option = type.getOption().type();
-		if(!option.exists())
+		final Visibility visibility = type.getOption().type();
+		if(!visibility.exists())
 			return;
 
 		writeComment(singletonList(format(kind.doc, lowerCamelCase(type.getName()))));
@@ -730,7 +730,7 @@ final class Generator
 		}
 
 		writeIndent();
-		writeModifier(option.getModifier(type.getModifier()) | (STATIC|FINAL));
+		writeModifier(visibility.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write(kind.field);
 		write('<');
 		write(type.getName());
