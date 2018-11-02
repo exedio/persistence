@@ -72,7 +72,6 @@ final class Generator
 	private final boolean privateMethodFinal;
 	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardTypeParameters;
-	private TypeContext typeContext = null;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 
@@ -779,6 +778,8 @@ final class Generator
 		if(wildcard)
 			write("Wildcard.value");
 	}
+
+	private TypeContext typeContext = null;
 
 	void write(final Charset charset)
 	{
