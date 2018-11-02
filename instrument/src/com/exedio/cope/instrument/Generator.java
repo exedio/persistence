@@ -72,7 +72,7 @@ final class Generator
 	private final boolean publicConstructorInAbstractClass;
 	private final boolean privateMethodFinal;
 	private final boolean finalMethodInFinalClass;
-	private final boolean wildcardTypeParameters;
+	private final boolean wildcardClassFullyQualified;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 
@@ -89,7 +89,7 @@ final class Generator
 		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
 		this.privateMethodFinal = params.privateMethodFinal;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
-		this.wildcardTypeParameters = params.wildcardTypeParameters;
+		this.wildcardClassFullyQualified = params.wildcardClassFullyQualified;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -758,7 +758,7 @@ final class Generator
 	private void writeClass(final CopeType<?> type)
 	{
 		final boolean wildcard = type.getTypeParameters()>0;
-		if(!wildcard || wildcardTypeParameters)
+		if(!wildcard || wildcardClassFullyQualified)
 		{
 			write(type.getName());
 			write('.');

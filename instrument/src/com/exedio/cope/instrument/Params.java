@@ -60,7 +60,7 @@ final class Params
 	boolean publicConstructorInAbstractClass = false;
 	boolean privateMethodFinal = false;
 	boolean finalMethodInFinalClass = true;
-	boolean wildcardTypeParameters = false;
+	boolean wildcardClassFullyQualified = false;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;

@@ -7,11 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* The instrumentor drops type parameters for wildcard constants.
+* The instrumentor does not qualify wildcard class in type constant anymore.
 	Fixes idea inspection: Unnecessarily qualified inner class access.
 	Affects instrumented code.
 	Use this parameter:
-		<instrument wildcardTypeParameters="true" ...
+		<instrument wildcardClassFullyQualified="true" ...
 	to enable previous behaviour.
 * The instrumentor makes private methods non-final.
 	Fixes idea inspection: 'private' method declared 'final'.
