@@ -54,6 +54,7 @@ final class Generator
 	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS = getAnnotationsHint(WrapperType.class, "constructor", "...")+" and @"+WrapperInitial.class.getSimpleName();
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given fields initially.";
 	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS = getAnnotationsHint(WrapperType.class, "genericConstructor", "...");
+	private static final String CONSTRUCTOR_TYPE_CUSTOMIZE_ANNOTATIONS = getAnnotationsHint(WrapperType.class, "type", "...");
 
 	private static String getAnnotationsHint(final Class<? extends Annotation> annotation, final String annotationMember, final String value)
 	{
@@ -719,9 +720,7 @@ final class Generator
 			return;
 
 		writeComment(singletonList(format(kind.doc, lowerCamelCase(type.getName()))));
-		writeGeneratedAnnotation(
-			"customize with @"+WrapperType.class.getSimpleName()+"(type=...)"
-		);
+		writeGeneratedAnnotation(CONSTRUCTOR_TYPE_CUSTOMIZE_ANNOTATIONS);
 
 		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
 		{
