@@ -51,12 +51,12 @@ final class Generator
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
-	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS = getAnnotationsHint(WrapperType.class, "constructor", "...")+" and @"+WrapperInitial.class.getSimpleName();
+	private static final String CONSTRUCTOR_INITIAL_CUSTOMIZE = hintCustomize(WrapperType.class, "constructor", "...") + " and @" + WrapperInitial.class.getSimpleName();
 	private static final String CONSTRUCTOR_GENERIC = "Creates a new {0} and sets the given fields initially.";
-	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS = getAnnotationsHint(WrapperType.class, "genericConstructor", "...");
-	private static final String CONSTRUCTOR_TYPE_CUSTOMIZE_ANNOTATIONS = getAnnotationsHint(WrapperType.class, "type", "...");
+	private static final String CONSTRUCTOR_GENERIC_CUSTOMIZE = hintCustomize(WrapperType.class, "genericConstructor", "...");
+	private static final String TYPE_CUSTOMIZE = hintCustomize(WrapperType.class, "type", "...");
 
-	private static String getAnnotationsHint(final Class<? extends Annotation> annotation, final String annotationMember, final String value)
+	private static String hintCustomize(final Class<? extends Annotation> annotation, final String annotationMember, final String value)
 	{
 		return "customize with @"+annotation.getSimpleName()+"("+annotationMember+"="+value+")";
 	}
@@ -207,7 +207,7 @@ final class Generator
 			commentLines.add("@throws " + constructorException.getCanonicalName() + ' ' + format(pattern, fields.toString()));
 		}
 		writeComment(commentLines);
-		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE_ANNOTATIONS);
+		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE);
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier(publicConstructorInAbstractClass));
@@ -289,7 +289,7 @@ final class Generator
 			return;
 
 		writeComment(singletonList(format(CONSTRUCTOR_GENERIC, type.getName())));
-		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE_ANNOTATIONS);
+		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
@@ -423,7 +423,7 @@ final class Generator
 				writeComment(commentLines);
 				writeGeneratedAnnotation(
 					modifierTag!=null
-					?  getAnnotationsHint(Wrapper.class, "wrap", "\""+modifierTag+"\"")
+					?  hintCustomize(Wrapper.class, "wrap", "\"" + modifierTag + "\"")
 					: null
 				);
 			}
@@ -720,7 +720,7 @@ final class Generator
 			return;
 
 		writeComment(singletonList(format(kind.doc, lowerCamelCase(type.getName()))));
-		writeGeneratedAnnotation(CONSTRUCTOR_TYPE_CUSTOMIZE_ANNOTATIONS);
+		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
 
 		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
 		{
