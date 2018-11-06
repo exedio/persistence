@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static java.util.Objects.requireNonNull;
 
+import java.io.Serializable;
 import java.util.Objects;
 
 /**
@@ -28,7 +29,7 @@ import java.util.Objects;
  * If both the value for {@link #getFrom() from} and {@link #getTo() to} is null this means,
  * that the range contains all values.
  */
-public final class Range<E extends Comparable<E>>
+public final class Range<E extends Comparable<E>> implements Serializable
 {
 	public static <E extends Comparable<E>> Range<E> valueOf(final E from, final E to)
 	{
@@ -47,6 +48,8 @@ public final class Range<E extends Comparable<E>>
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	private static final Range all = new Range(null, null, true);
 
+
+	private static final long serialVersionUID = 1l;
 
 	private final E from;
 	private final E to;

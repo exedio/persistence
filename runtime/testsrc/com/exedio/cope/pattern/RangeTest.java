@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Range.valueOf;
 import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
 import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -143,5 +144,18 @@ public class RangeTest
 		assertNotSame(valueOf(null, 3), valueOf(null, 3));
 		assertNotSame(valueOf(1, null), valueOf(1, null));
 		assertSame(valueOf((Integer)null, null), valueOf((Integer)null, null));
+	}
+
+	@Test void testSerializable()
+	{
+		final Range<Integer> value = valueOf(44, 55);
+		assertEquals(Integer.valueOf(44), value.getFrom());
+		assertEquals(Integer.valueOf(55), value.getTo());
+
+		final Range<Integer> serializedValue = reserialize(value, 179);
+		assertEquals(value, serializedValue);
+		assertNotSame(value, serializedValue);
+		assertEquals(Integer.valueOf(44), serializedValue.getFrom());
+		assertEquals(Integer.valueOf(55), serializedValue.getTo());
 	}
 }
