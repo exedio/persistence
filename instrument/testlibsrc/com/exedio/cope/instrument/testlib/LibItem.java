@@ -53,17 +53,6 @@ public abstract class LibItem<T> extends LibSuperItem
 
 	public abstract T makeTee();
 
-	public static final class classWildcard
-	{
-		@SuppressWarnings("unchecked")
-		public static final Class<LibItem<?>> value = (Class<LibItem<?>>)(Class<?>)LibItem.class;
-
-		private classWildcard()
-		{
-			// prevent instantiation
-		}
-	}
-
 	/**
 	 * Creates a new LibItem with all the fields initially needed.
 	 * @param inSuper the initial value for field {@link #inSuper}.
@@ -130,6 +119,12 @@ public abstract class LibItem<T> extends LibSuperItem
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 2l;
+
+	/**
+	 * Use LibItem.classWildcard.value instead of LibItem.class to avoid rawtypes warnings.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(wildcardClass=...)
+	public static final class classWildcard { public static final java.lang.Class<LibItem<?>> value = com.exedio.cope.ItemWildcardCast.cast(LibItem.class); private classWildcard(){} }
 
 	/**
 	 * The persistent type information for libItem.

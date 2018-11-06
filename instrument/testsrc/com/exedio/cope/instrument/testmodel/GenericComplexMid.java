@@ -18,27 +18,12 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import java.util.Collection;
 
 public class GenericComplexMid<L extends Collection<String>> extends GenericComplexSuper<Long, L>
 {
 	static final GenericFeatureClass fromMid = new GenericFeatureClass();
-
-
-	@WrapInterim
-	public static final class classWildcard
-	{
-		@SuppressWarnings("unchecked")
-		@WrapInterim
-		public static final Class<GenericComplexMid<?>> value = (Class<GenericComplexMid<?>>)(Class<?>)GenericComplexMid.class;
-
-		private classWildcard()
-		{
-			// prevent instantiation
-		}
-	}
 
 
 	/**
@@ -83,6 +68,12 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
+
+	/**
+	 * Use GenericComplexMid.classWildcard.value instead of GenericComplexMid.class to avoid rawtypes warnings.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(wildcardClass=...)
+	public static final class classWildcard { public static final java.lang.Class<GenericComplexMid<?>> value = com.exedio.cope.ItemWildcardCast.cast(GenericComplexMid.class); private classWildcard(){} }
 
 	/**
 	 * The persistent type information for genericComplexMid.

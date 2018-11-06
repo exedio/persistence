@@ -19,7 +19,6 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericFeatureClass;
 import com.exedio.cope.instrument.testfeature.GenericFeatureReference;
 import com.exedio.cope.misc.ReflectionTypes;
@@ -34,27 +33,6 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	static final GenericFeatureReference<GenericSimpleSuper<?>> toSuper = GenericFeatureReference.create(GenericSimpleSuper.classWildcard.value, ReflectionTypes.parameterized(GenericSimpleSuper.class, ReflectionTypes.sub(Object.class)));
 
 	static final GenericFeatureClass fromSuper = new GenericFeatureClass();
-
-
-	@WrapInterim
-	public static final class classWildcard
-	{
-		@WrapInterim
-		public static final Class<GenericSimpleSuper<?>> value = make();
-
-		// method needed because there is probably a bug in javac, not needed in eclipse
-		@SuppressWarnings("unchecked")
-		@WrapInterim
-		private static Class<GenericSimpleSuper<?>> make()
-		{
-			return (Class<GenericSimpleSuper<?>>)(Class<?>)GenericSimpleSuper.class;
-		}
-
-		private classWildcard()
-		{
-			// prevent instantiation
-		}
-	}
 
 
 	/**
@@ -108,6 +86,12 @@ public class GenericSimpleSuper<N extends Number> extends Item
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
+
+	/**
+	 * Use GenericSimpleSuper.classWildcard.value instead of GenericSimpleSuper.class to avoid rawtypes warnings.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(wildcardClass=...)
+	public static final class classWildcard { public static final java.lang.Class<GenericSimpleSuper<?>> value = com.exedio.cope.ItemWildcardCast.cast(GenericSimpleSuper.class); private classWildcard(){} }
 
 	/**
 	 * The persistent type information for genericSimpleSuper.
