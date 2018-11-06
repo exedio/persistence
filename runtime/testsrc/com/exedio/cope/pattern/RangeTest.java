@@ -36,6 +36,7 @@ public class RangeTest
 		final Range<Integer> r = valueOf(1, 3);
 		assertEquals(1, r.getFrom().intValue());
 		assertEquals(3, r.getTo().intValue());
+		assertEquals("[1-3]", r.toString());
 
 		assertEquals(false, r.contains(0));
 		assertEquals(true,  r.contains(1));
@@ -58,6 +59,7 @@ public class RangeTest
 		final Range<Integer> r = valueOf(null, 3);
 		assertEquals(null, r.getFrom());
 		assertEquals(3, r.getTo().intValue());
+		assertEquals("[-3]", r.toString());
 
 		assertEquals(true,  r.contains(0));
 		assertEquals(true,  r.contains(1));
@@ -80,6 +82,7 @@ public class RangeTest
 		final Range<Integer> r = valueOf(1, null);
 		assertEquals(1, r.getFrom().intValue());
 		assertEquals(null, r.getTo());
+		assertEquals("[1-]", r.toString());
 
 		assertEquals(false, r.contains(0));
 		assertEquals(true,  r.contains(1));
@@ -102,6 +105,7 @@ public class RangeTest
 		final Range<Integer> r = valueOf((Integer)null, null);
 		assertEquals(null, r.getFrom());
 		assertEquals(null, r.getTo());
+		assertEquals("[-]", r.toString());
 
 		assertEquals(true, r.contains(0));
 		assertEquals(true, r.contains(1));

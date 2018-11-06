@@ -107,6 +107,14 @@ public final class Range<E extends Comparable<E>> implements Serializable
 		return Objects.hashCode(from) ^ (Objects.hashCode(to) << 2);
 	}
 
+	@Override
+	public String toString()
+	{
+		return
+				"[" + Objects.toString(from, "") +
+				'-' + Objects.toString(to,   "") + ']';
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**
