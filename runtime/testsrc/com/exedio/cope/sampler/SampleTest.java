@@ -34,6 +34,9 @@ import com.exedio.cope.RevisionInfo;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.Type;
 import com.exedio.cope.pattern.Media;
+import com.exedio.dsmf.Constraint;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -44,6 +47,13 @@ public class SampleTest extends ConnectedTest
 {
 	@Test void testIt() throws InterruptedException
 	{
+		final Schema schema = samplerModel.getSchema();
+		final Table revisionTable = schema.getTable("SamplerRevision");
+		assertNotNull(revisionTable);
+		final Constraint revisionPrimaryKey = revisionTable.getConstraint("SamplerRevisionUnique");
+		assertNotNull(revisionPrimaryKey);
+		assertEquals(Constraint.Type.PrimaryKey, revisionPrimaryKey.getType());
+
 		samplerModel.createSchema();
 		sampler.checkInternal();
 		samplerModel.startTransaction("HistoryTest");

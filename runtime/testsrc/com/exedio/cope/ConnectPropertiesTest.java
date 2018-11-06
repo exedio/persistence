@@ -292,6 +292,15 @@ public class ConnectPropertiesTest
 		assertEquals(PrimaryKeyGenerator.sequence, p.primaryKeyGenerator);
 	}
 
+	@Test void testRevisionDefaultStandard()
+	{
+		final ConnectProperties p = factory().
+				create(TestSources.minimal());
+
+		assertEquals("while",     p.revisionTableName);
+		assertEquals("protected", p.revisionPrimaryKeyName);
+	}
+
 	@Test void testConnectionPoolIdleInitial()
 	{
 		final String propKey = "connectionPool.idleInitial";
