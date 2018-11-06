@@ -115,7 +115,7 @@ public class InitServlet extends HttpServlet
 
 				final MediaServletItem catchPhrase = new MediaServletItem();
 				assertID("MediaServletItem-14", catchPhrase);
-				catchPhrase.setCatchPhrase("zick");
+				catchPhrase.setCatchphrase("zick");
 				catchPhrase.setContent(textValue, "text/plain", 14);
 
 				final MediaServletItem nameErrorLastModified = new MediaServletItem("media item 4 error");

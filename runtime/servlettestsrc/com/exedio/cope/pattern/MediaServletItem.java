@@ -120,12 +120,12 @@ final class MediaServletItem extends Item
 	static final MediaNameServer nameServer = new MediaNameServer(name, nameServerLastModified);
 
 
-	static final StringField catchPhrase = new StringField().optional();
+	static final StringField catchphrase = new StringField().optional();
 
 	@Override
 	public String getMediaUrlCatchphrase(final MediaPath path)
 	{
-		return getCatchPhrase();
+		return getCatchphrase();
 	}
 
 
@@ -615,24 +615,24 @@ final class MediaServletItem extends Item
 	}
 
 	/**
-	 * Returns the value of {@link #catchPhrase}.
+	 * Returns the value of {@link #catchphrase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	java.lang.String getCatchPhrase()
+	java.lang.String getCatchphrase()
 	{
-		return MediaServletItem.catchPhrase.get(this);
+		return MediaServletItem.catchphrase.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #catchPhrase}.
+	 * Sets a new value for {@link #catchphrase}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setCatchPhrase(@javax.annotation.Nullable final java.lang.String catchPhrase)
+	void setCatchphrase(@javax.annotation.Nullable final java.lang.String catchphrase)
 			throws
 				com.exedio.cope.StringLengthViolationException
 	{
-		MediaServletItem.catchPhrase.set(this,catchPhrase);
+		MediaServletItem.catchphrase.set(this,catchphrase);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
