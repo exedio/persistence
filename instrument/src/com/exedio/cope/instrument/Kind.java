@@ -18,10 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import static java.util.Objects.requireNonNull;
-
 import com.exedio.cope.Item;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
@@ -30,7 +27,11 @@ final class Kind
 	final String top;
 	final String topSimple;
 	final String wildcardClassCaster;
-	final Type type;
+
+	final String typeField;
+	final String typeFactory;
+	final String typeDoc;
+
 	final boolean hasGenericConstructor;
 	final String activationConstructor;
 	final boolean allowStaticClassToken;
@@ -43,7 +44,32 @@ final class Kind
 	private Kind(final WrapType anno)
 	{
 		wildcardClassCaster = TypeMirrorHelper.get(anno::wildcardClassCaster, false).getName();
-		type = Type.valueOf(anno);
+
+		final Class<?> typeFactoryClass = TypeMirrorHelper.get(anno::type, false);
+		if(typeFactoryClass==StringGetterDefault.class)
+		{
+			typeField = null;
+			typeFactory = null;
+			typeDoc = null;
+		}
+		else
+		{
+			final java.lang.reflect.Method method;
+			try
+			{
+				method = typeFactoryClass.getMethod(TYPE_FACTORY_METHOD, Class.class);
+			}
+			catch(final NoSuchMethodException e)
+			{
+				throw new RuntimeException(e);
+			}
+			typeField = method.getReturnType().getName();
+			typeFactory = typeFactoryClass.getName();
+			typeDoc = anno.typeDoc();
+			if(typeDoc.isEmpty())
+				throw new IllegalArgumentException("@WrapType#typeDoc must not be empty");
+		}
+
 		hasGenericConstructor = anno.hasGenericConstructor();
 		activationConstructor = name(anno::activationConstructor);
 		allowStaticClassToken = anno.allowStaticClassToken();
@@ -57,48 +83,6 @@ final class Kind
 		topSimple = topClass.getSimpleName();
 
 		isItem = topClass==Item.class;
-	}
-
-
-	static final class Type
-	{
-		final String doc;
-		final String field;
-		final String factory;
-
-		private Type(
-				final String doc,
-				final String field,
-				final String factory)
-		{
-			this.doc = requireNonNull(doc);
-			this.field = requireNonNull(field);
-			this.factory = requireNonNull(factory);
-			if(doc.isEmpty())
-				throw new IllegalArgumentException("@WrapType#doc must not be empty");
-		}
-
-		@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
-		@SuppressFBWarnings("NP_NULL_PARAM_DEREF")
-		static Type valueOf(final WrapType anno)
-		{
-			final String doc = anno.typeDoc();
-			final Class<?> factoryClass = TypeMirrorHelper.get(anno::type, false);
-			if(factoryClass==StringGetterDefault.class)
-				return null;
-			final Class<?> field;
-			try
-			{
-				field = factoryClass.getMethod(TYPE_FACTORY_METHOD, Class.class).getReturnType();
-			}
-			catch(final NoSuchMethodException e)
-			{
-				throw new RuntimeException(e);
-			}
-			final String factory = factoryClass.getName();
-
-			return new Type(doc, field.getName(), factory);
-		}
 	}
 
 	static final String TYPE_FACTORY_METHOD = "newType";

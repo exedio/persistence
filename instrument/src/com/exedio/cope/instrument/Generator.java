@@ -749,15 +749,15 @@ final class Generator
 
 	private void writeType(final LocalCopeType type)
 	{
-		final Kind.Type kind = type.kind.type;
-		if(kind==null)
+		final Kind kind = type.kind;
+		if(kind.typeField==null)
 			return;
 
 		final Visibility visibility = type.getOption().type();
 		if(!visibility.exists())
 			return;
 
-		writeComment(singletonList(format(kind.doc, lowerCamelCase(type.getName()))));
+		writeComment(singletonList(format(kind.typeDoc, lowerCamelCase(type.getName()))));
 		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
 
 		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
@@ -769,12 +769,12 @@ final class Generator
 
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getModifier()) | (STATIC|FINAL));
-		write(kind.field);
+		write(kind.typeField);
 		write('<');
 		write(type.getName());
 		writeWildcard(type);
 		write("> TYPE = ");
-		write(kind.factory);
+		write(kind.typeFactory);
 		write("." + Kind.TYPE_FACTORY_METHOD + "(");
 		writeClass(type);
 		write(");");
