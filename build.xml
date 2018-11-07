@@ -740,7 +740,7 @@
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" if:true="${instrument.nullabilityAnnotations}"/>
+				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 			</classpath>
 		</taskdef>
