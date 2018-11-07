@@ -775,7 +775,7 @@ final class Generator
 		writeWildcard(type);
 		write("> TYPE = ");
 		write(kind.factory);
-		write(".newType(");
+		write("." + Kind.TYPE_FACTORY_METHOD + "(");
 		writeClass(type);
 		write(");");
 		write(lineSeparator);

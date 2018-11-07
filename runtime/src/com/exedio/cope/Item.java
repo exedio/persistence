@@ -42,7 +42,7 @@ import java.util.HashSet;
 		wildcardClassCaster=ItemWildcardCast.class,
 		type=@WrapType.Type(
 				doc="The persistent type information for {0}.",
-				field=Type.class, factory=TypesBound.class
+				factory=TypesBound.class
 		),
 		activationConstructor=ActivationParameters.class,
 		top=Item.class

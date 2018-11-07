@@ -83,14 +83,25 @@ final class Kind
 		static Type valueOf(final WrapType.Type anno)
 		{
 			final String doc = anno.doc();
-			final String field = name(anno::field);
-			final String factory = name(anno::factory);
-			if(doc.isEmpty() && field==null && factory==null)
+			final Class<?> factoryClass = TypeMirrorHelper.get(anno::factory, false);
+			if(doc.isEmpty() && factoryClass==StringGetterDefault.class)
 				return null;
+			final Class<?> field;
+			try
+			{
+				field = factoryClass.getMethod(TYPE_FACTORY_METHOD, Class.class).getReturnType();
+			}
+			catch(final NoSuchMethodException e)
+			{
+				throw new RuntimeException(e);
+			}
+			final String factory = factoryClass.getName();
 
-			return new Type(doc, field, factory);
+			return new Type(doc, field.getName(), factory);
 		}
 	}
+
+	static final String TYPE_FACTORY_METHOD = "newType";
 
 
 	private static final HashMap<WrapType, Kind> kinds = new HashMap<>();

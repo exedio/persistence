@@ -38,10 +38,9 @@ public @interface WrapType
 	@interface Type
 	{
 		String doc();
-		Class<?> field();
 		Class<?> factory();
 	}
-	Type type() default @Type(doc="", field=StringGetterDefault.class, factory=StringGetterDefault.class); // default means no type
+	Type type() default @Type(doc="", factory=StringGetterDefault.class); // default means no type
 
 	boolean hasGenericConstructor() default true;
 	Class<?> activationConstructor() default StringGetterDefault.class;  // default means no activation constructor

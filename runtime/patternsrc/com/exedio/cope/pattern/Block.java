@@ -27,7 +27,7 @@ import java.io.Serializable;
 		wildcardClassCaster=ItemWildcardCast.class,
 		type=@WrapType.Type(
 				doc="The type information for {0}.",
-				field=BlockType.class, factory=BlockType.class
+				factory=BlockType.class
 		),
 		hasGenericConstructor=false,
 		activationConstructor=BlockActivationParameters.class,

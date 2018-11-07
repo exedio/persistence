@@ -424,7 +424,7 @@ final class InterimProcessor extends JavacProcessor
 				if (kind.type!=null && wrapperType.type()!=Visibility.NONE)
 					code.addLine(
 						"public static final "+kind.type.field+"<"+ct.getSimpleName()+"> TYPE = "+
-							kind.type.factory+".newType("+ct.getSimpleName()+".class);"
+							kind.type.factory+"."+Kind.TYPE_FACTORY_METHOD+"("+ct.getSimpleName()+".class);"
 					);
 			}
 			code = code.closeBlock();
