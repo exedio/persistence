@@ -43,7 +43,7 @@ final class Kind
 	private Kind(final WrapType anno)
 	{
 		wildcardClassCaster = TypeMirrorHelper.get(anno::wildcardClassCaster, false).getName();
-		type = Type.valueOf(anno.type());
+		type = Type.valueOf(anno);
 		hasGenericConstructor = anno.hasGenericConstructor();
 		activationConstructor = name(anno::activationConstructor);
 		allowStaticClassToken = anno.allowStaticClassToken();
@@ -80,11 +80,11 @@ final class Kind
 
 		@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 		@SuppressFBWarnings("NP_NULL_PARAM_DEREF")
-		static Type valueOf(final WrapType.Type anno)
+		static Type valueOf(final WrapType anno)
 		{
-			final String doc = anno.doc();
-			final Class<?> factoryClass = TypeMirrorHelper.get(anno::factory, false);
-			if(doc.isEmpty() && factoryClass==StringGetterDefault.class)
+			final String doc = anno.typeDoc();
+			final Class<?> factoryClass = TypeMirrorHelper.get(anno::type, false);
+			if(factoryClass==StringGetterDefault.class)
 				return null;
 			final Class<?> field;
 			try

@@ -40,10 +40,8 @@ import java.util.HashSet;
  */
 @WrapType(
 		wildcardClassCaster=ItemWildcardCast.class,
-		type=@WrapType.Type(
-				doc="The persistent type information for {0}.",
-				factory=TypesBound.class
-		),
+		type=TypesBound.class,
+		typeDoc="The persistent type information for {0}.",
 		activationConstructor=ActivationParameters.class,
 		top=Item.class
 )

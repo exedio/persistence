@@ -35,12 +35,11 @@ public @interface WrapType
 	 */
 	Class<?> wildcardClassCaster();
 
-	@interface Type
-	{
-		String doc();
-		Class<?> factory();
-	}
-	Type type() default @Type(doc="", factory=StringGetterDefault.class); // default means no type
+	/**
+	 * @see WrapperType#type()
+	 */
+	Class<?> type() default StringGetterDefault.class; // default means no type
+	String typeDoc() default "The type information for {0}.";
 
 	boolean hasGenericConstructor() default true;
 	Class<?> activationConstructor() default StringGetterDefault.class;  // default means no activation constructor
