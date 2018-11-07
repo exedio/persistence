@@ -173,32 +173,4 @@ final class BlobColumn extends Column
 			return resultSet.getBoolean(1);
 		});
 	}
-
-	void store(
-			final Transaction tx, final Item item,
-			final DataField.Value data, final DataField field)
-	{
-		final Table table = this.table;
-		final Executor executor = tx.connect.executor;
-		final Statement bf = executor.newStatement();
-		bf.append("UPDATE ").
-			append(table.quotedID).
-			append(" SET ").
-			append(quotedID).
-			append('=');
-
-		if(data!=null)
-			bf.appendParameterBlob(data.asArray(field, item));
-		else
-			bf.append("NULL");
-
-		bf.append(" WHERE ").
-			append(table.primaryKey.quotedID).
-			append('=').
-			appendParameter(item.pk).
-			appendTypeCheck(table, item.type);
-
-		//System.out.println("storing "+bf.toString());
-		executor.updateStrict(tx.getConnection(), null, bf);
-	}
 }

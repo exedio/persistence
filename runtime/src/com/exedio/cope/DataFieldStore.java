@@ -36,7 +36,6 @@ abstract class DataFieldStore
 	abstract long loadLength(Transaction tx, Item item);
 	abstract byte[] load(Transaction tx, Item item);
 	abstract void load(Transaction tx, Item item, OutputStream sink);
-	abstract void store(Transaction tx, Item item, Value data);
 	abstract void put(Entity entity, Value value, Item exceptionItem);
 
 	DataFieldVaultInfo getVaultInfo()

@@ -289,23 +289,6 @@ public final class DataField extends Field<DataField.Value>
 		item.set(map(data));
 	}
 
-	void setOnly(@Nonnull final Item item, final Value data)
-	{
-		FinalViolationException.check(this, item);
-
-		if(data==null)
-		{
-			if(!optional)
-				throw MandatoryViolationException.create(this, item);
-		}
-		else
-		{
-			checkNotNull(data, item);
-		}
-
-		store.store(model.currentTransaction(), item, data);
-	}
-
 	/**
 	 * Provides data for this persistent data field.
 	 * @param data give null to remove data.

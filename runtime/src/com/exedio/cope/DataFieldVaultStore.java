@@ -171,18 +171,6 @@ final class DataFieldVaultStore extends DataFieldStore
 
 
 	@Override
-	void store(final Transaction tx, final Item item, final Value data)
-	{
-		put(hash ->
-		{
-			final Entity entity = tx.getEntity(item, true);
-			entity.put(column, hash);
-			entity.write(null);
-		},
-		data, item, item);
-	}
-
-	@Override
 	void put(final Entity entity, final Value data, final Item exceptionItem)
 	{
 		put(hash -> entity.put(column, hash), data, exceptionItem, entity.getItem());

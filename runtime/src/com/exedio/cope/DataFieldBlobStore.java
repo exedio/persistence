@@ -73,12 +73,6 @@ final class DataFieldBlobStore extends DataFieldStore
 	}
 
 	@Override
-	void store(final Transaction tx, final Item item, final Value data)
-	{
-		column.store(tx, item, data, field);
-	}
-
-	@Override
 	void put(final Entity entity, final Value value, final Item exceptionItem)
 	{
 		// deliberately empty

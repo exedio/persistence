@@ -163,23 +163,6 @@ public final class FieldValues
 		return backingItem;
 	}
 
-	boolean setOnlyDataField()
-	{
-		if(backingItem==null)
-			throw new RuntimeException();
-
-		if(dirt.size()!=1)
-			return false;
-
-		final Field<?> f = dirt.keySet().iterator().next();
-		if(!(f instanceof DataField))
-			return false;
-
-		final DataField df = (DataField)f;
-		df.setOnly(backingItem, (DataField.Value)dirt.get(df));
-		return true;
-	}
-
 	@Override
 	public String toString()
 	{
