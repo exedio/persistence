@@ -41,10 +41,22 @@ timestamps
 
 				writeEnv(
 						'my57-stampsA',
+						'mysql-connector-java',
 						'cache.stamps=true'
 				)
 				writeEnv(
 						'my57-stampsB',
+						'mysql-connector-java',
+						'cache.stamps=false'
+				)
+				writeEnv(
+						'my57m-stampsA',
+						'mariadb-java-client',
+						'cache.stamps=true'
+				)
+				writeEnv(
+						'my57m-stampsB',
+						'mariadb-java-client',
 						'cache.stamps=false'
 				)
 
@@ -119,7 +131,7 @@ def computeGitTree(scmResult)
 	scmResult.GIT_TREE = readFile('.git/jenkins-head-tree').trim()
 }
 
-def writeEnv(name, text)
+def writeEnv(name, driver, text)
 {
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
@@ -128,7 +140,7 @@ def writeEnv(name, text)
 					'connection.username=' + env.SCHEMA + '\n' +
 					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
 					'x-build.dialect=mysql\n' +
-					'x-build.driver=mysql-connector-java.jar\n' +
+					'x-build.driver=' + driver + '.jar\n' +
 					text
 	)
 }
