@@ -41,7 +41,6 @@ import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLSyntaxErrorException;
 import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
 
@@ -80,16 +79,16 @@ public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 		}
 
 		final SQLException actual = assertThrows(
-				SQLSyntaxErrorException.class,
+				SQLException.class,
 				() -> connection.executeUpdate(
 						"LOAD DATA LOCAL INFILE '" + file.toAbsolutePath() + "' " +
 						"INTO TABLE " + SI.tab(TYPE))
 		);
 		assertEquals(
-				MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)
+				mariaDriver
+				? "Local infile is disabled by connector. Enable `allowLocalInfile` to allow local infile commands"
+				: MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)
 				? "Loading local data is disabled; this must be enabled on both the client and server sides"
-				: mariaDriver
-				? "Usage of LOCAL INFILE is disabled. To use it enable it via the connection property allowLocalInfile=true"
 				: "The used command is not allowed with this MySQL version",
 				dropMariaConnectionId(actual.getMessage()));
 	}
