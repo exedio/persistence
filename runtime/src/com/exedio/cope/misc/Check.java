@@ -52,8 +52,8 @@ public final class Check
 
 	public static String requireNonEmpty(final String value, final String name)
 	{
-      if(value==null)
-         throw new NullPointerException(name);
+		if(value==null)
+			throw new NullPointerException(name);
 		if(value.isEmpty())
 			throw new IllegalArgumentException(name + " must not be empty");
 		return value;
