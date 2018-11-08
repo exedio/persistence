@@ -247,8 +247,8 @@ public abstract class Pattern extends Feature
 			final Features features,
 			final String postfix)
 	{
-		if(postfix!=null && postfix.isEmpty())
-			throw new IllegalArgumentException("postfix must not be empty");
+		if(postfix!=null)
+			requireNonEmpty(postfix, "postfix");
 		if(sourceTypesWhileGather==null)
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;

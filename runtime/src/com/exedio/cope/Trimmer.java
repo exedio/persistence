@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonEmpty;
+
 import java.util.ArrayList;
 
 /**
@@ -30,15 +33,12 @@ final class Trimmer
 
 	Trimmer(final int maxLength)
 	{
-		if(maxLength<=0)
-			throw new IllegalArgumentException("maxLength must be greater zero");
-		this.maxLength = maxLength;
+		this.maxLength = requireGreaterZero(maxLength, "maxLength");
 	}
 
 	String trimString(final String longString)
 	{
-		if(longString.isEmpty())
-			throw new IllegalArgumentException("longString must not be empty");
+		requireNonEmpty(longString, "longString");
 
 		if(longString.length()<=maxLength)
 			return (longString.indexOf('-')<=0) ? longString : longString.replace('-', '_');

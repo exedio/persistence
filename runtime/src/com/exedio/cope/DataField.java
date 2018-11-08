@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
@@ -159,10 +160,8 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public static int min(final int i, final long l)
 	{
-		if(i<0)
-			throw new IllegalArgumentException("i must not be negative, but was " + i);
-		if(l<0)
-			throw new IllegalArgumentException("l must not be negative, but was " + l);
+		requireNonNegative(i, "i");
+		requireNonNegative(l, "l");
 
 		return i<=l ? i : (int)l;
 	}

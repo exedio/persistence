@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import com.exedio.cope.misc.Check;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
@@ -506,8 +507,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static void checkRatePercent(final int rate)
 	{
-		if(rate<0)
-			throw new IllegalArgumentException("rate must not be negative, but was " + rate);
+		Check.requireNonNegative(rate, "rate");
 	}
 
 	private static void checkRatePercent(final double rate)

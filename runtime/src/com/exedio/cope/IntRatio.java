@@ -18,16 +18,16 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.misc.Check.requireNonNegative;
+
 final class IntRatio
 {
 	static int ratio(final int number, final int dividend, final int divisor)
 	{
-		if(number<0)
-			throw new IllegalArgumentException("number must not be negative, but was " + number);
-		if(dividend<0)
-			throw new IllegalArgumentException("dividend must not be negative, but was " + dividend);
-		if(divisor<=0)
-			throw new IllegalArgumentException("divisor must be greater zero, but was " + divisor);
+		requireNonNegative(number, "number");
+		requireNonNegative(dividend, "dividend");
+		requireGreaterZero(divisor, "divisor");
 
 		final long result = ((long)number) * ((long)dividend) / divisor;
 		if(result>Integer.MAX_VALUE)

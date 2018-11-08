@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
@@ -477,11 +478,7 @@ public final class Query<R> implements Serializable
 	 */
 	public void setSearchSizeLimit(final int searchSizeLimit)
 	{
-		if(searchSizeLimit<1)
-			throw new IllegalArgumentException(
-					"searchSizeLimit must be greater zero, but was " + searchSizeLimit);
-
-		this.searchSizeLimit = searchSizeLimit;
+		this.searchSizeLimit = requireGreaterZero(searchSizeLimit, "searchSizeLimit");
 	}
 
 
@@ -516,11 +513,7 @@ public final class Query<R> implements Serializable
 	 */
 	public void setSearchSizeCacheLimit(final int searchSizeCacheLimit)
 	{
-		if(searchSizeCacheLimit<1)
-			throw new IllegalArgumentException(
-					"searchSizeCacheLimit must be greater zero, but was " + searchSizeCacheLimit);
-
-		this.searchSizeCacheLimit = searchSizeCacheLimit;
+		this.searchSizeCacheLimit = requireGreaterZero(searchSizeCacheLimit, "searchSizeCacheLimit");
 	}
 
 

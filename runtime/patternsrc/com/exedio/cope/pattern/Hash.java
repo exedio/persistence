@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
@@ -111,11 +112,10 @@ public class Hash extends Pattern implements HashInterface
 		requireNonNull(validator, "validator");
 
 		this.algorithm = algorithm;
-		final String algorithmID = algorithm.getID();
-		if(algorithmID.isEmpty())
-			throw new IllegalArgumentException("algorithmID must not be empty");
-
-		this.storage = addSourceFeature(storage, algorithmID, ComputedElement.get());
+		this.storage = addSourceFeature(
+				storage,
+				requireNonEmpty(algorithm.getID(), "algorithmID"),
+				ComputedElement.get());
 		this.isfinal = storage.isFinal();
 		this.plainTextLimit = plainTextLimit;
 

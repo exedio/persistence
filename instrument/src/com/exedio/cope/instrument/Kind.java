@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument;
 
+import static com.exedio.cope.misc.Check.requireNonEmpty;
+
 import com.exedio.cope.Item;
 import java.util.HashMap;
 import java.util.function.Supplier;
@@ -65,9 +67,7 @@ final class Kind
 			}
 			typeField = method.getReturnType().getName();
 			typeFactory = typeFactoryClass.getName();
-			typeDoc = anno.typeDoc();
-			if(typeDoc.isEmpty())
-				throw new IllegalArgumentException("@WrapType#typeDoc must not be empty");
+			typeDoc = requireNonEmpty(anno.typeDoc(), "@WrapType#typeDoc");
 		}
 
 		hasGenericConstructor = anno.hasGenericConstructor();

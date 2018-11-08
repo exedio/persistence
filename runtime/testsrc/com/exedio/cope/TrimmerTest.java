@@ -82,7 +82,7 @@ public class TrimmerTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("maxLength must be greater zero", e.getMessage());
+			assertEquals("maxLength must be greater zero, but was 0", e.getMessage());
 		}
 		final Trimmer nt = new Trimmer(20);
 		try
@@ -92,7 +92,7 @@ public class TrimmerTest
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("longString", e.getMessage());
 		}
 		try
 		{
