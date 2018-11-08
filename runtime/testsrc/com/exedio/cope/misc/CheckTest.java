@@ -22,7 +22,7 @@ import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.misc.Check.requireNonNegative;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -31,6 +31,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class CheckTest
 {
 	@Test void testRequireGreaterZeroInt()
@@ -39,27 +40,17 @@ public class CheckTest
 	}
 	@Test void testRequireGreaterZeroIntZero()
 	{
-		try
-		{
-			requireGreaterZero(0, "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(() ->
+			requireGreaterZero(0, "name"),
+			IllegalArgumentException.class,
+			"name must be greater zero, but was 0");
 	}
 	@Test void testRequireGreaterZeroIntNegative()
 	{
-		try
-		{
-			requireGreaterZero(-1, "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must be greater zero, but was -1", e.getMessage());
-		}
+		assertFails(() ->
+			requireGreaterZero(-1, "name"),
+			IllegalArgumentException.class,
+			"name must be greater zero, but was -1");
 	}
 
 	@Test void testRequireGreaterZeroLong()
@@ -68,27 +59,17 @@ public class CheckTest
 	}
 	@Test void testRequireGreaterZeroLongZero()
 	{
-		try
-		{
-			requireGreaterZero(0l, "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(() ->
+			requireGreaterZero(0l, "name"),
+			IllegalArgumentException.class,
+			"name must be greater zero, but was 0");
 	}
 	@Test void testRequireGreaterZeroLongNegative()
 	{
-		try
-		{
-			requireGreaterZero(-1l, "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must be greater zero, but was -1", e.getMessage());
-		}
+		assertFails(() ->
+			requireGreaterZero(-1l, "name"),
+			IllegalArgumentException.class,
+			"name must be greater zero, but was -1");
 	}
 
 	@Test void testRequireNonNegativeInt()
@@ -101,15 +82,10 @@ public class CheckTest
 	}
 	@Test void testRequireNonNegativeIntNegative()
 	{
-		try
-		{
-			requireNonNegative(-1, "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must not be negative, but was -1", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonNegative(-1, "name"),
+			IllegalArgumentException.class,
+			"name must not be negative, but was -1");
 	}
 
 	@Test void testRequireNonNegativeLong()
@@ -122,15 +98,10 @@ public class CheckTest
 	}
 	@Test void testRequireNonNegativeLongNegative()
 	{
-		try
-		{
-			requireNonNegative(-1l, "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must not be negative, but was -1", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonNegative(-1l, "name"),
+			IllegalArgumentException.class,
+			"name must not be negative, but was -1");
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
@@ -140,27 +111,17 @@ public class CheckTest
 	}
 	@Test void testRequireNonEmptyStringNull()
 	{
-		try
-		{
-			requireNonEmpty(null, "name");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmpty(null, "name"),
+			NullPointerException.class,
+			"name");
 	}
 	@Test void testRequireNonEmptyStringEmpty()
 	{
-		try
-		{
-			requireNonEmpty("", "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmpty("", "name"),
+			IllegalArgumentException.class,
+			"name must not be empty");
 	}
 
 	@Test void testRequireNonEmptyAndCopyObjectsCopy()
@@ -172,39 +133,24 @@ public class CheckTest
 	}
 	@Test void testRequireNonEmptyAndCopyObjectsNull()
 	{
-		try
-		{
-			requireNonEmptyAndCopy((Object[])null, "name");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmptyAndCopy((Object[])null, "name"),
+			NullPointerException.class,
+			"name");
 	}
 	@Test void testRequireNonEmptyAndCopyObjectsEmpty()
 	{
-		try
-		{
-			requireNonEmptyAndCopy(new Object[0], "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmptyAndCopy(new Object[0], "name"),
+			IllegalArgumentException.class,
+			"name must not be empty");
 	}
 	@Test void testRequireNonEmptyAndCopyObjectsElementNull()
 	{
-		try
-		{
-			requireNonEmptyAndCopy(new Object[]{"hallo", null}, "name");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name[1]", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmptyAndCopy(new Object[]{"hallo", null}, "name"),
+			NullPointerException.class,
+			"name[1]");
 	}
 
 	@Test void testRequireNonEmptyAndCopyStringsCopy()
@@ -216,50 +162,30 @@ public class CheckTest
 	}
 	@Test void testRequireNonEmptyAndCopyStringsNull()
 	{
-		try
-		{
-			requireNonEmptyAndCopy((String[])null, "name");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmptyAndCopy((String[])null, "name"),
+			NullPointerException.class,
+			"name");
 	}
 	@Test void testRequireNonEmptyAndCopyStringsEmpty()
 	{
-		try
-		{
-			requireNonEmptyAndCopy(new String[0], "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmptyAndCopy(new String[0], "name"),
+			IllegalArgumentException.class,
+			"name must not be empty");
 	}
 	@Test void testRequireNonEmptyAndCopyStringsElementNull()
 	{
-		try
-		{
-			requireNonEmptyAndCopy(new String[]{"hallo", null}, "name");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name[1]", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmptyAndCopy(new String[]{"hallo", null}, "name"),
+			NullPointerException.class,
+			"name[1]");
 	}
 	@Test void testRequireNonEmptyAndCopyStringsElementEmpty()
 	{
-		try
-		{
-			requireNonEmptyAndCopy(new String[]{"hallo", ""}, "name");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("name[1] must not be empty", e.getMessage());
-		}
+		assertFails(() ->
+			requireNonEmptyAndCopy(new String[]{"hallo", ""}, "name"),
+			IllegalArgumentException.class,
+			"name[1] must not be empty");
 	}
 }
