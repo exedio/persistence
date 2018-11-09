@@ -246,26 +246,6 @@ public final class DayField extends FunctionField<Day>
 		set(item, new Day(zone)); // TODO: make a more efficient implementation
 	}
 
-	static Day unmarshal(final java.sql.Date cell)
-	{
-		// OK: need information about the day without taking time into account
-		@SuppressWarnings("deprecation") final int year = cell.getYear();
-		@SuppressWarnings("deprecation") final int month = cell.getMonth();
-		@SuppressWarnings("deprecation") final int date = cell.getDate();
-		return new Day(year+1900, month+1, date);
-	}
-
-	static java.sql.Date marshal(final Day cell)
-	{
-		final int year = cell.getYear()-1900;
-		final int month = cell.getMonthValue()-1;
-		final int day = cell.getDayOfMonth();
-		// OK: need information about the day without taking time into account
-		@SuppressWarnings("deprecation")
-		final java.sql.Date result = new java.sql.Date(year, month, day);
-		return result;
-	}
-
 	public DayPartView year()
 	{
 		return new DayPartView(this, Part.YEAR);

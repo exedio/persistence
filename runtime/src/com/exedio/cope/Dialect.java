@@ -34,6 +34,7 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
@@ -301,6 +302,27 @@ abstract class Dialect
 	}
 
 	abstract String getDayType();
+
+	Object marshalDay(final Day cell)
+	{
+		return cell.toLocalDate().toString();
+	}
+
+	static final java.sql.Date marshalDayDeprecated(final Day cell)
+	{
+		final int year = cell.getYear()-1900;
+		final int month = cell.getMonthValue()-1;
+		final int day = cell.getDayOfMonth();
+		// OK: need information about the day without taking time into account
+		@SuppressWarnings("deprecation")
+		final java.sql.Date result = new java.sql.Date(year, month, day);
+		return result;
+	}
+
+	Day unmarshalDay(final String cell)
+	{
+		return Day.from(LocalDate.parse(cell));
+	}
 
 	/**
 	 * Returns a column type suitable for storing timestamps

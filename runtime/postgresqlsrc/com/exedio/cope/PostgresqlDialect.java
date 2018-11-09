@@ -128,6 +128,12 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
+	java.sql.Date marshalDay(final Day cell)
+	{
+		return marshalDayDeprecated(cell);
+	}
+
+	@Override
 	String getDateTimestampType()
 	{
 		return "timestamp (3) without time zone"; // "3" are fractional digits retained in the seconds field;

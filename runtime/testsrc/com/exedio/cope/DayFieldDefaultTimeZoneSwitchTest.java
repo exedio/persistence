@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TimeZoneDefaultRule;
 import com.exedio.cope.util.Day;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 
@@ -38,15 +37,6 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 	public DayFieldDefaultTimeZoneSwitchTest()
 	{
 		super(MODEL);
-	}
-
-	private boolean prep;
-	private boolean mysqlx;
-
-	@BeforeEach void setUp()
-	{
-		prep = !model.getConnectProperties().isSupportDisabledForPreparedStatements();
-		mysqlx = mysql && !model.getEnvironmentInfo().getDriverName().startsWith("MariaDB");
 	}
 
 
@@ -68,67 +58,48 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 	@Test void testGMTCanada(final TimeZoneDefaultRule tzd)
 	{
 		test(tzd,
-				0,
-				(mysqlx||hsqldb||postgresql) ? -1 : 0, // TODO is a bug
-				(mysqlx) ? -1 : 0, // TODO is a bug
 				"GMT", "Canada/Mountain");
 	}
 
 	@Test void testBerlinGMT(final TimeZoneDefaultRule tzd)
 	{
 		test(tzd,
-				(mysqlx&&prep) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep||hsqldb||postgresql) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep) ? -1 : 0, // TODO is a bug
 				"Europe/Berlin", "GMT");
 	}
 
 	@Test void testKiritimatiGMT(final TimeZoneDefaultRule tzd)
 	{
 		test(tzd,
-				(mysqlx&&prep) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep||hsqldb||postgresql) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep) ? -1 : 0, // TODO is a bug
 				"Pacific/Kiritimati", "GMT");
 	}
 
 	@Test void testCanadaGMT(final TimeZoneDefaultRule tzd)
 	{
 		test(tzd,
-				mysqlx ? -1 : 0, // TODO is a bug
-				0,  0,
 				"Canada/Mountain", "GMT");
 	}
 
 	@Test void testKiritimatiCanada(final TimeZoneDefaultRule tzd)
 	{
 		test(tzd,
-				(mysqlx&&prep) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep) ? -2 : (mysqlx||hsqldb||postgresql) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep) ? -2 : (mysqlx) ? -1 : 0, // TODO is a bug
 				"Pacific/Kiritimati", "Canada/Mountain");
 	}
 
 	@Test void testCanadaKiritimati(final TimeZoneDefaultRule tzd)
 	{
 		test(tzd,
-				(mysqlx) ? -1 : 0, // TODO is a bug
-				0,  0,
 				"Canada/Mountain", "Pacific/Kiritimati");
 	}
 
 	@Test void testBerlinLondon(final TimeZoneDefaultRule tzd)
 	{
 		test(tzd,
-				(mysqlx&&prep) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep||hsqldb||postgresql) ? -1 : 0, // TODO is a bug
-				(mysqlx&&prep) ? -1 : 0, // TODO is a bug
 				"Europe/Berlin", "Europe/London");
 	}
 
 	@Test void testLondonBerlin(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd, "Europe/London", "Europe/Berlin"); // TODO see exception in method test
+		test(tzd, "Europe/London", "Europe/Berlin");
 	}
 
 
@@ -142,9 +113,9 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 
 	private void test(
 			final TimeZoneDefaultRule tzd,
-			int offsetWrong,
-			int offsetWrongClear,
-			int offsetWrongFlush,
+			final int offsetWrong,
+			final int offsetWrongClear,
+			final int offsetWrongFlush,
 			final String from,
 			final String to)
 	{
@@ -152,12 +123,6 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 		final Day summer = new Day(2005,  8, 10);
 		for(final Day value : new Day[]{winter, summer})
 		{
-			// TODO is a bug
-			if(mysqlx && prep &&
-				"Europe/London".equals(from) &&
-				summer.equals(value))
-				offsetWrong = offsetWrongClear = offsetWrongFlush = -1;
-
 			tzd.set(getTimeZone(from));
 			clearAndFlush();
 			final DayItem item = new DayItem(value);

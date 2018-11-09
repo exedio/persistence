@@ -27,6 +27,7 @@ import static com.exedio.cope.OracleSchemaDialect.VARCHAR2;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DayPartView.Part;
+import com.exedio.cope.util.Day;
 import com.exedio.cope.util.Hex;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
@@ -148,6 +149,21 @@ final class OracleDialect extends Dialect
 	String getDayType()
 	{
 		return DATE;
+	}
+
+	@Override
+	java.sql.Date marshalDay(final Day cell)
+	{
+		return marshalDayDeprecated(cell);
+	}
+
+	@Override
+	Day unmarshalDay(final String cell)
+	{
+		final String postfix = " 00:00:00.0";
+		if(!cell.endsWith(postfix))
+			throw new RuntimeException(cell);
+		return super.unmarshalDay(cell.substring(0, cell.length()-postfix.length()));
 	}
 
 	@Override

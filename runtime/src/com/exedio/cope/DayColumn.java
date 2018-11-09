@@ -70,9 +70,9 @@ final class DayColumn extends Column
 	void load(final ResultSet resultSet, final int columnIndex, final Row row)
 			throws SQLException
 	{
-		final java.sql.Date loadedDate = resultSet.getDate(columnIndex);
+		final String loadedDate = resultSet.getString(columnIndex);
 		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
-		row.put(this, (loadedDate!=null) ? getTransientNumber(DayField.unmarshal(loadedDate)) : null);
+		row.put(this, (loadedDate!=null) ? getTransientNumber(table.database.dialect.unmarshalDay(loadedDate)) : null);
 	}
 
 	@Override
@@ -92,6 +92,6 @@ final class DayColumn extends Column
 	@Override
 	Object cacheToDatabasePrepared(final Object cache)
 	{
-		return (cache==null) ? null : DayField.marshal(getDay((Integer)cache));
+		return (cache==null) ? null : table.database.dialect.marshalDay(getDay((Integer)cache));
 	}
 }

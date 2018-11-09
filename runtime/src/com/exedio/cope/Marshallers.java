@@ -190,8 +190,8 @@ final class Marshallers
 			@Override
 			Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
-				final java.sql.Date cell = row.getDate(columnIndex);
-				return (cell!=null) ? DayField.unmarshal(cell) : null;
+				final String cell = row.getString(columnIndex);
+				return (cell!=null) ? dialect.unmarshalDay(cell) : null;
 			}
 			@Override
 			String marshalLiteral(final Day value)
@@ -205,7 +205,7 @@ final class Marshallers
 			@Override
 			Object marshalPrepared(final Day value)
 			{
-				return DayField.marshal(value);
+				return dialect.marshalDay(value);
 			}
 		});
 	}
