@@ -212,17 +212,5 @@ def port(int offset)
 
 def multicastAddress()
 {
-	String byHost
-	if('hudson'.equals(env.HOSTNAME))
-		byHost = '230.0.0.'
-	else if('hudson1'.equals(env.HOSTNAME))
-		byHost = '230.0.1.'
-	else if('jenkins2'.equals(env.HOSTNAME))
-		byHost = '230.0.2.'
-	else if('jenkins3'.equals(env.HOSTNAME))
-		byHost = '230.0.3.'
-	else
-		byHost = 'UndefinedMulticastAddressFromJenkinsfile'
-
-	return byHost + (1 + env.EXECUTOR_NUMBER.toInteger())
+	return env.MULTICAST_ADDRESS_PREFIX + (1 + env.EXECUTOR_NUMBER.toInteger())
 }
