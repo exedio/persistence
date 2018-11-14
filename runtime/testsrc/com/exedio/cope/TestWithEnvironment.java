@@ -123,8 +123,14 @@ public abstract class TestWithEnvironment
 	// copied from CopeTest
 	protected final void restartTransaction()
 	{
+		restartTransaction(() -> {});
+	}
+
+	protected final void restartTransaction(final Runnable between)
+	{
 		final String oldName = model.currentTransaction().getName();
 		model.commit();
+		between.run();
 		model.startTransaction( oldName+"-restart" );
 	}
 

@@ -129,23 +129,16 @@ public class DateFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 
 	private void clear()
 	{
-		final String oldName = model.currentTransaction().getName();
-		model.commit();
-
-		model.clearCache();
-
-		model.startTransaction(oldName+"-restart");
+		restartTransaction(model::clearCache);
 	}
 
 	private void clearAndFlush()
 	{
-		final String oldName = model.currentTransaction().getName();
-		model.commit();
-
-		model.clearCache();
-		model.flushConnectionPool();
-
-		model.startTransaction(oldName+"-restart");
+		restartTransaction(() ->
+		{
+			model.clearCache();
+			model.flushConnectionPool();
+		});
 	}
 
 	private static void assertIt(final String heading, final Date value, final DateItem item)
