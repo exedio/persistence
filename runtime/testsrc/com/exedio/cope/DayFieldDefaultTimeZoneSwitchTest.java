@@ -108,17 +108,6 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 			final String from,
 			final String to)
 	{
-		test(tzd, 0, 0, 0, from, to);
-	}
-
-	private void test(
-			final TimeZoneDefaultRule tzd,
-			final int offsetWrong,
-			final int offsetWrongClear,
-			final int offsetWrongFlush,
-			final String from,
-			final String to)
-	{
 		final Day winter = new Day(2005, 12, 20);
 		final Day summer = new Day(2005,  8, 10);
 		for(final Day value : new Day[]{winter, summer})
@@ -128,23 +117,14 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 			final DayItem item = new DayItem(value);
 
 			clear();
-			assertIt(from, value.plusDays(offsetWrong), item);
+			assertIt(from, value, item);
 
 			tzd.set(getTimeZone(to));
 			clear();
-			assertIt(
-					from + "->" + to,
-					value.plusDays(
-							model.getConnectProperties().getConnectionPoolIdleLimit() > 0
-									? offsetWrongClear
-									: offsetWrongFlush),
-					item);
+			assertIt(from + "->" + to, value, item);
 
 			clearAndFlush();
-			assertIt(
-					from + "->" + to + " flushed",
-					value.plusDays(offsetWrongFlush),
-					item);
+			assertIt(from + "->" + to + " flushed", value, item);
 
 			item.deleteCopeItem();
 		}
