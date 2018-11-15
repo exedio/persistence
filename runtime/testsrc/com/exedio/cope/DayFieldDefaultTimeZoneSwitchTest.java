@@ -57,44 +57,37 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 
 	@Test void testGMTCanada(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd,
-				"GMT", "Canada/Mountain");
+		test(tzd, "GMT", "Canada/Mountain");
 	}
 
 	@Test void testBerlinGMT(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd,
-				"Europe/Berlin", "GMT");
+		test(tzd, "Europe/Berlin", "GMT");
 	}
 
 	@Test void testKiritimatiGMT(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd,
-				"Pacific/Kiritimati", "GMT");
+		test(tzd, "Pacific/Kiritimati", "GMT");
 	}
 
 	@Test void testCanadaGMT(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd,
-				"Canada/Mountain", "GMT");
+		test(tzd, "Canada/Mountain", "GMT");
 	}
 
 	@Test void testKiritimatiCanada(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd,
-				"Pacific/Kiritimati", "Canada/Mountain");
+		test(tzd, "Pacific/Kiritimati", "Canada/Mountain");
 	}
 
 	@Test void testCanadaKiritimati(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd,
-				"Canada/Mountain", "Pacific/Kiritimati");
+		test(tzd, "Canada/Mountain", "Pacific/Kiritimati");
 	}
 
 	@Test void testBerlinLondon(final TimeZoneDefaultRule tzd)
 	{
-		test(tzd,
-				"Europe/Berlin", "Europe/London");
+		test(tzd, "Europe/Berlin", "Europe/London");
 	}
 
 	@Test void testLondonBerlin(final TimeZoneDefaultRule tzd)
