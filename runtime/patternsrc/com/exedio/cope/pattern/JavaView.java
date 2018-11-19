@@ -33,6 +33,7 @@ public final class JavaView extends Pattern
 
 	private static final class Mount
 	{
+		// TODO support lambda instead of reflection call
 		final Method getter;
 		final Class<?> valueType;
 		final java.lang.reflect.Type valueGenericType;

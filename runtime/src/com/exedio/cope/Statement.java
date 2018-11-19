@@ -498,6 +498,7 @@ final class Statement
 				}
 			}
 		}
+		// TODO join tables of subtypes as well if needed
 
 		if(superTables!=null && hasJoins)
 			append('(');

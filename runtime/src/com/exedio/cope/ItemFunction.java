@@ -57,6 +57,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 		return equal(getValueType().castTypeExtends(targetJoin.getType()).thisFunction.bind(targetJoin));
 	}
 
+	// TODO allow Class<? extends Item> as well to be safely used in CheckConstraints
 	default InstanceOfCondition<E> instanceOf(final Type<? extends E> type1)
 	{
 		return new InstanceOfCondition<>(this, false, type1);

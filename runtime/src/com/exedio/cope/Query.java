@@ -283,6 +283,7 @@ public final class Query<R> implements Serializable
 			: Collections.unmodifiableList(Arrays.asList(groupBy));
 	}
 
+	// TODO deal with empty array
 	public void setGroupBy(final Selectable<?>... groupBy)
 	{
 		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
@@ -348,6 +349,7 @@ public final class Query<R> implements Serializable
 	/**
 	 * @throws IllegalArgumentException if <tt>orderBy.length!=ascending.length</tt>
 	 */
+	// TODO deal with empty arrays
 	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
 	{
 		if(orderBy.length!=ascending.length)
