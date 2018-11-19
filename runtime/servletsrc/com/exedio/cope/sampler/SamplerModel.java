@@ -134,7 +134,7 @@ final class SamplerModel extends Item
 			maD(itemCacheInvalidationsOrdered, from.getSummarizedInvalidationsOrdered(), to.getSummarizedInvalidationsOrdered()),
 			maD(itemCacheInvalidationsDone,    from.getSummarizedInvalidationsDone   (), to.getSummarizedInvalidationsDone   ()),
 
-			map(itemCacheStampsSize,   to.getSummarizedStampsSize()),
+			map(itemCacheStampsSize,                                     to.getSummarizedStampsSize  ()),
 			maD(itemCacheStampsHits,   from.getSummarizedStampsHits  (), to.getSummarizedStampsHits  ()),
 			maD(itemCacheStampsPurged, from.getSummarizedStampsPurged(), to.getSummarizedStampsPurged()));
 	}
@@ -175,7 +175,7 @@ final class SamplerModel extends Item
 			final ChangeListenerInfo to)
 	{
 		return Arrays.asList(
-			map(changeListenerSize,    to.getSize()),
+			map(changeListenerSize,                       to.getSize   ()),
 			maD(changeListenerCleared, from.getCleared(), to.getCleared()),
 			maD(changeListenerRemoved, from.getRemoved(), to.getRemoved()),
 			maD(changeListenerFailed,  from.getFailed (), to.getFailed ()));
@@ -193,7 +193,7 @@ final class SamplerModel extends Item
 		return Arrays.asList(
 			maD(changeListenerOverflow,  from.getOverflow (), to.getOverflow ()),
 			maD(changeListenerException, from.getException(), to.getException()),
-			map(changeListenerPending,   to.getPending()));
+			map(changeListenerPending,                        to.getPending  ()));
 	}
 
 

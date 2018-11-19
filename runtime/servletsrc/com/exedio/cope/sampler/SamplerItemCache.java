@@ -98,9 +98,9 @@ final class SamplerItemCache extends Item
 			final ItemCacheInfo to)
 	{
 		final List<SetValue<?>> result = Arrays.asList(
-			maS(type ,  from.getType(), to.getType()),
+			maS(type ,  from.getType  (), to.getType  ()),
 			map(limit,  0),
-			map(level,  to.getLevel()),
+			map(level,                    to.getLevel ()),
 			maD(hits,   from.getHits  (), to.getHits  ()),
 			maD(misses, from.getMisses(), to.getMisses()),
 
@@ -116,7 +116,7 @@ final class SamplerItemCache extends Item
 			maD(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
 			maD(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
 
-			map(stampsSize,   to.getStampsSize()),
+			map(stampsSize,                           to.getStampsSize  ()),
 			maD(stampsHits,   from.getStampsHits  (), to.getStampsHits  ()),
 			maD(stampsPurged, from.getStampsPurged(), to.getStampsPurged()));
 
