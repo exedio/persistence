@@ -104,16 +104,11 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheHits                 = field(0);
 	private static final IntegerField itemCacheMisses               = field(0);
 	private static final IntegerField itemCacheConcurrentLoads      = field(0);
-	private static final IntegerField itemCacheReplacementRuns      = field(0);
 	private static final IntegerField itemCacheReplacements         = field(0);
 	private static final IntegerField itemCacheInvalidationsOrdered = field(0);
 	private static final IntegerField itemCacheInvalidationsDone    = field(0);
-
-	@CopeSchemaName("itemCacheInvalidateLastSize")
 	private static final IntegerField itemCacheStampsSize   = field(0);
-	@CopeSchemaName("itemCacheInvalidateLastHits")
 	private static final IntegerField itemCacheStampsHits   = field(0);
-	@CopeSchemaName("itemCacheInvalidateLastPurged")
 	private static final IntegerField itemCacheStampsPurged = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
@@ -128,7 +123,6 @@ final class SamplerModel extends Item
 			maD(itemCacheMisses, from.getSummarizedMisses(), to.getSummarizedMisses()),
 
 			maD(itemCacheConcurrentLoads, from.getSummarizedConcurrentLoads(), to.getSummarizedConcurrentLoads()),
-			map(itemCacheReplacementRuns, 0),
 			maD(itemCacheReplacements,    from.getSummarizedReplacements   (), to.getSummarizedReplacements   ()),
 
 			maD(itemCacheInvalidationsOrdered, from.getSummarizedInvalidationsOrdered(), to.getSummarizedInvalidationsOrdered()),

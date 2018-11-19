@@ -32,7 +32,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemCacheInfo;
 import com.exedio.cope.ItemField;
-import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.Type;
@@ -67,30 +66,15 @@ final class SamplerItemCache extends Item
 	}
 
 
-	/** this field is no longer used - will always contain 0 for new items */
-	private static final IntegerField limit                = field(0);
 	private static final IntegerField level                = field(0);
 	private static final IntegerField hits                 = field(0);
 	private static final IntegerField misses               = field(0);
 	private static final IntegerField concurrentLoads      = field(0);
-	/** this field is no longer used - will always contain 0 for new items */
-	private static final IntegerField replacementRuns      = field(0);
 	private static final IntegerField replacements         = field(0);
-	/** this field is no longer used - will always contain null for new items */
-	private static final DateField lastReplacementRun      = new DateField().toFinal().optional();
-	/** this field is no longer used - will always contain 0 for new items */
-	private static final LongField ageAverageMillis        = new LongField().toFinal();
-	/** this field is no longer used - will always contain 0 for new items */
-	private static final LongField ageMinimumMillis        = new LongField().toFinal();
-	/** this field is no longer used - will always contain 0 for new items */
-	private static final LongField ageMaximumMillis        = new LongField().toFinal();
 	private static final IntegerField invalidationsOrdered = field(0);
 	private static final IntegerField invalidationsDone    = field(0);
-	@CopeSchemaName("invalidateLastSize")
 	private static final IntegerField stampsSize           = field(0);
-	@CopeSchemaName("invalidateLastHits")
 	private static final IntegerField stampsHits           = field(0);
-	@CopeSchemaName("invalidateLastPurged")
 	private static final IntegerField stampsPurged         = field(0);
 
 	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
@@ -99,19 +83,12 @@ final class SamplerItemCache extends Item
 	{
 		final List<SetValue<?>> result = Arrays.asList(
 			maS(type ,  from.getType  (), to.getType  ()),
-			map(limit,  0),
 			map(level,                    to.getLevel ()),
 			maD(hits,   from.getHits  (), to.getHits  ()),
 			maD(misses, from.getMisses(), to.getMisses()),
 
 			maD(concurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			map(replacementRuns, 0),
 			maD(replacements,    from.getReplacementsL  (), to.getReplacementsL  ()),
-			map(lastReplacementRun, null),
-
-			map(ageAverageMillis, 0L),
-			map(ageMinimumMillis, 0L),
-			map(ageMaximumMillis, 0L),
 
 			maD(invalidationsOrdered, from.getInvalidationsOrdered(), to.getInvalidationsOrdered()),
 			maD(invalidationsDone,    from.getInvalidationsDone   (), to.getInvalidationsDone   ()),
@@ -132,8 +109,7 @@ final class SamplerItemCache extends Item
 		for(final SetValue<?> sv : result)
 		{
 			final Settable<?> s = sv.settable;
-			if(s==type || s==limit || s==level || s==lastReplacementRun ||
-				s==ageAverageMillis || s==ageMinimumMillis || s==ageMaximumMillis)
+			if(s==type || s==level)
 				continue;
 
 			if(s instanceof IntegerField)

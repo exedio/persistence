@@ -37,6 +37,23 @@ final class SamplerRevisions implements Revisions.Factory
 	private static Revisions getMysql()
 	{
 		return new Revisions(
+			new Revision(18, "drop columns for non-LRU ItemCache, rename invalidateLast to stamps",
+				"ALTER TABLE `DiffModel` " +
+					"DROP COLUMN `itemCacheReplacementRuns`," +
+					"CHANGE `itemCacheInvalidaLastSize` `itemCacheStampsSize` "  +"int not null," +
+					"CHANGE `itemCacheInvalidaLastHits` `itemCacheStampsHits` "  +"int not null," +
+					"CHANGE `itemCacheInvaliLastPurged` `itemCacheStampsPurged` "+"int not null",
+				"ALTER TABLE `DiffItemCache` " +
+					"DROP COLUMN `limit`, " +
+					"DROP COLUMN `replacementRuns`, " +
+					"DROP COLUMN `lastReplacementRun`, " +
+					"DROP COLUMN `ageAverageMillis`, " +
+					"DROP COLUMN `ageMinimumMillis`, " +
+					"DROP COLUMN `ageMaximumMillis`," +
+					"CHANGE `invalidateLastSize` "  +"`stampsSize` "  +"int not null," +
+					"CHANGE `invalidateLastHits` "  +"`stampsHits` "  +"int not null," +
+					"CHANGE `invalidateLastPurged` "+"`stampsPurged` "+"int not null"
+			),
 			new Revision(17, "add QueryCacheStamps",
 				"ALTER TABLE `DiffModel` " +
 					"ADD COLUMN `queryCacheStampsSize` "  +"int not null AFTER `queryCacheConcurrentLoads`, " +
