@@ -159,7 +159,7 @@ final class SamplerModel extends Item
 			maD(queryCacheReplacements,    from.getReplacements   (), to.getReplacements   ()),
 			maD(queryCacheInvalidations,   from.getInvalidations  (), to.getInvalidations  ()),
 			maD(queryCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			maD(queryCacheStampsSize,      from.getStampsSize     (), to.getStampsSize     ()),
+			map(queryCacheStampsSize,                                 to.getStampsSize     ()),
 			maD(queryCacheStampsHits,      from.getStampsHits     (), to.getStampsHits     ()),
 			maD(queryCacheStampsPurged,    from.getStampsPurged   (), to.getStampsPurged   ()));
 	}
