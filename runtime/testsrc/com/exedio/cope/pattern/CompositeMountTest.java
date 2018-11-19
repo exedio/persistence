@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.reserialize;
@@ -32,9 +33,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.LongField;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -284,7 +284,7 @@ public class CompositeMountTest
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyComposite extends Composite
 	{
 		@Anno("stringAnno")
@@ -292,11 +292,43 @@ public class CompositeMountTest
 		@Anno("intAnno")
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
-		MyComposite(final SetValue<?>[] setValues)
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private MyComposite(final com.exedio.cope.SetValue<?>... setValues)
 		{
 			super(setValues);
 		}
 
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.lang.String getString4()
+		{
+			return get(MyComposite.string4);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setString4(@javax.annotation.Nonnull final java.lang.String string4)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			set(MyComposite.string4,string4);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		int getIntMax4()
+		{
+			return getMandatory(MyComposite.intMax4);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setIntMax4(final int intMax4)
+				throws
+					com.exedio.cope.IntegerRangeViolationException
+		{
+			set(MyComposite.intMax4,intMax4);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 	}
 
