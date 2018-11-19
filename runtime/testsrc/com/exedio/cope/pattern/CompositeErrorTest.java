@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.CompositeField.create;
+import static com.exedio.cope.pattern.CompositeType.get;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -42,11 +43,27 @@ public class CompositeErrorTest
 			"javaClass");
 	}
 
+	@Test void testNullGet()
+	{
+		assertFails(() ->
+			get(null),
+			NullPointerException.class,
+			"javaClass");
+	}
+
 
 	@Test void testNonFinal()
 	{
 		assertFails(() ->
 			create(NonFinal.class),
+			IllegalArgumentException.class,
+			"CompositeField requires a final class: " + NonFinal.class.getName());
+	}
+
+	@Test void testNonFinalGet()
+	{
+		assertFails(() ->
+			get(NonFinal.class),
 			IllegalArgumentException.class,
 			"CompositeField requires a final class: " + NonFinal.class.getName());
 	}
@@ -68,6 +85,16 @@ public class CompositeErrorTest
 		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 	}
 
+	@Test void testNoConstructorGet()
+	{
+		final Throwable e = assertFails(() ->
+			get(NoConstructor.class),
+			IllegalArgumentException.class,
+			NoConstructor.class.getName() + " does not have a constructor NoConstructor(" +
+			SetValue.class.getName() + "[])");
+		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+	}
+
 	@WrapperIgnore
 	static final class NoConstructor extends Composite
 	{
@@ -79,6 +106,14 @@ public class CompositeErrorTest
 	{
 		assertFails(() ->
 			create(NoFields.class),
+			IllegalArgumentException.class,
+			"composite has no templates: " + NoFields.class.getName());
+	}
+
+	@Test void testNoFieldsGet()
+	{
+		assertFails(() ->
+			get(NoFields.class),
 			IllegalArgumentException.class,
 			"composite has no templates: " + NoFields.class.getName());
 	}
@@ -99,6 +134,14 @@ public class CompositeErrorTest
 			NullField.class.getName() + "#nullField");
 	}
 
+	@Test void testNullFieldGet()
+	{
+		assertFails(() ->
+			get(NullField.class),
+			NullPointerException.class,
+			NullField.class.getName() + "#nullField");
+	}
+
 	@WrapperIgnore
 	static final class NullField extends Composite
 	{
@@ -112,6 +155,15 @@ public class CompositeErrorTest
 	{
 		assertFails(() ->
 			create(NotFunctionField.class),
+			IllegalArgumentException.class,
+			NotFunctionField.class.getName() + "#notFunctionField must be an instance of " +
+			FunctionField.class);
+	}
+
+	@Test void testNotFunctionFieldGet()
+	{
+		assertFails(() ->
+			get(NotFunctionField.class),
 			IllegalArgumentException.class,
 			NotFunctionField.class.getName() + "#notFunctionField must be an instance of " +
 			FunctionField.class);
@@ -135,11 +187,28 @@ public class CompositeErrorTest
 			" but not Composite itself");
 	}
 
+	@Test void testCompositeItselfGet()
+	{
+		assertFails(() ->
+			get(Composite.class),
+			IllegalArgumentException.class,
+			"CompositeField requires a subclass of " + Composite.class.getName() +
+			" but not Composite itself");
+	}
+
 
 	@Test void testFinalField()
 	{
 		assertFails(() ->
 			create(FinalField.class),
+			IllegalArgumentException.class,
+			"final fields not supported: " + FinalField.class.getName() + "#finalField");
+	}
+
+	@Test void testFinalFieldGet()
+	{
+		assertFails(() ->
+			get(FinalField.class),
 			IllegalArgumentException.class,
 			"final fields not supported: " + FinalField.class.getName() + "#finalField");
 	}
@@ -162,6 +231,15 @@ public class CompositeErrorTest
 			NonConstantDefaultField.class.getName() + "#defaultNowField");
 	}
 
+	@Test void testNonConstantDefaultFieldGet()
+	{
+		assertFails(() ->
+			get(NonConstantDefaultField.class),
+			IllegalArgumentException.class,
+			"fields with non-constant defaults are not supported: " +
+			NonConstantDefaultField.class.getName() + "#defaultNowField");
+	}
+
 	@WrapperIgnore
 	static final class NonConstantDefaultField extends Composite
 	{
@@ -176,6 +254,16 @@ public class CompositeErrorTest
 	{
 		assertFails(() ->
 			create((Class)CompositeErrorTest.class),
+			IllegalArgumentException.class,
+			"CompositeField requires a subclass of " + Composite.class.getName() + ": " +
+			CompositeErrorTest.class.getName());
+	}
+
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@Test void testNoCompositeGet()
+	{
+		assertFails(() ->
+			get((Class)CompositeErrorTest.class),
 			IllegalArgumentException.class,
 			"CompositeField requires a subclass of " + Composite.class.getName() + ": " +
 			CompositeErrorTest.class.getName());

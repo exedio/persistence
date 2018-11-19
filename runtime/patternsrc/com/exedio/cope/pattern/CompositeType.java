@@ -184,7 +184,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		return result;
 	}
 
-	T newValue(final SetValue<?>... setValues)
+	public T newValue(final SetValue<?>... setValues)
 	{
 		try
 		{
@@ -271,7 +271,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 
 	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<>();
 
-	static <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
+	public static <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
 	{
 		assertFinalSubClass(CompositeField.class, Composite.class, javaClass);
 

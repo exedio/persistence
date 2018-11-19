@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static java.lang.annotation.ElementType.FIELD;
 import static java.util.Arrays.asList;
@@ -33,7 +34,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.LongField;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.io.ByteArrayOutputStream;
@@ -50,8 +53,8 @@ public class CompositeMountTest
 {
 	@Test void testAbstractType()
 	{
-		assertSame(field.getValueType(), MyComposite.string4.getAbstractType());
-		assertSame(field.getValueType(), MyComposite.intMax4.getAbstractType());
+		assertSame(type, MyComposite.string4.getAbstractType());
+		assertSame(type, MyComposite.intMax4.getAbstractType());
 
 		final LongField negative = new LongField();
 		try
@@ -269,7 +272,6 @@ public class CompositeMountTest
 
 	@Test void testCompositeType()
 	{
-		final CompositeType<MyComposite> type = field.getValueType();
 		assertEquals(MyComposite.class, type.getJavaClass());
 		assertEquals(null, type.getSupertype());
 		assertEqualsUnmodifiable(asList(), type.getSubtypes());
@@ -281,6 +283,36 @@ public class CompositeMountTest
 		assertSame(null, type.getFeature(""));
 		assertSame(null, type.getDeclaredFeature(null));
 		assertSame(null, type.getFeature(null));
+	}
+
+	@Test void testNewValue()
+	{
+		final MyComposite value = type.newValue(
+				MyComposite.string4.map("1234"),
+				MyComposite.intMax4.map(4));
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+	}
+
+	@Test void testNewValueConstraintViolation()
+	{
+		assertFails(
+				() -> type.newValue(
+						MyComposite.string4.map("12345"),
+						MyComposite.intMax4.map(4)),
+				StringLengthViolationException.class,
+				"length violation, '12345' is too long for " + MyComposite.string4 + ", must be at most 4 characters, but was 5.");
+	}
+
+	@Test void testNewValueNull()
+	{
+		final RuntimeException re = assertFails(
+				() -> type.newValue((SetValue[])null),
+				RuntimeException.class,
+				"java.lang.reflect.InvocationTargetException");
+		final Throwable npe = re.getCause().getCause();
+		assertEquals(NullPointerException.class, npe.getClass());
+		assertEquals(null, npe.getMessage());
 	}
 
 
@@ -337,5 +369,5 @@ public class CompositeMountTest
 	/**
 	 * Needed to instantiate {@link CompositeType}.
 	 */
-	static final CompositeField<MyComposite> field = CompositeField.create(MyComposite.class);
+	static final CompositeType<MyComposite> type = CompositeType.get(MyComposite.class);
 }
