@@ -113,20 +113,23 @@ final class QueryCache
 	{
 		if(stampList!=null)
 		{
-			for(final Map.Entry<Long, TIntArrayList> entry: stampList.entrySet())
+			synchronized(map)
 			{
-				if(entry.getKey()<connectionStamp)
-					continue;
+				for(final Map.Entry<Long, TIntArrayList> entry: stampList.entrySet())
+				{
+					if(entry.getKey()<connectionStamp)
+						continue;
 
-				final TIntArrayList value = entry.getValue();
+					final TIntArrayList value = entry.getValue();
 
-				if(contains(value, query.type))
-					return true;
+					if(contains(value, query.type))
+						return true;
 
-				if(query.joins!=null)
-					for(final Join join : query.joins)
-						if(contains(value, join.type))
-							return true;
+					if(query.joins!=null)
+						for(final Join join : query.joins)
+							if(contains(value, join.type))
+								return true;
+				}
 			}
 		}
 		return false;
