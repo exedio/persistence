@@ -18,16 +18,20 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.Check.requireAtLeast;
 import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.Check.requireNonEmpty;
 import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.time.Duration.ofNanos;
+import static java.time.Duration.ofSeconds;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.Duration;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
@@ -102,6 +106,33 @@ public class CheckTest
 			requireNonNegative(-1l, "name"),
 			IllegalArgumentException.class,
 			"name must not be negative, but was -1");
+	}
+
+	@Test void testRequireAtLeast()
+	{
+		final Duration value = ofSeconds(55);
+		assertSame(value, requireAtLeast(value, "name", ofSeconds(55)));
+	}
+	@Test void testRequireAtLeastFails()
+	{
+		assertFails(() ->
+			requireAtLeast(ofSeconds(55).minus(ofNanos(1)), "name", ofSeconds(55)),
+			IllegalArgumentException.class,
+			"name must be at least PT55S, but was PT54.999999999S");
+	}
+	@Test void testRequireAtLeastNull()
+	{
+		assertFails(() ->
+			requireAtLeast(null, "name", null),
+			NullPointerException.class,
+			"name");
+	}
+	@Test void testRequireAtLeastMinimumNull()
+	{
+		assertFails(() ->
+			requireAtLeast(ofSeconds(55), "name", null),
+			NullPointerException.class,
+			"minimum");
 	}
 
 	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")

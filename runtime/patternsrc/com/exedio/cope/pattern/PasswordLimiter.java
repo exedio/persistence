@@ -19,7 +19,9 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.misc.Check.requireAtLeast;
 import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static java.time.Duration.ofMillis;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
@@ -39,6 +41,7 @@ import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.Duration;
 import java.util.Date;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -56,7 +59,11 @@ public final class PasswordLimiter extends Pattern
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
+	/**
+	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
+	 */
 	// for binary backwards compatibility
+	@Deprecated
 	public PasswordLimiter(
 			final Hash password,
 			final long period,
@@ -65,13 +72,25 @@ public final class PasswordLimiter extends Pattern
 		this((HashInterface)password, period, limit);
 	}
 
+	/**
+	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
+	 */
+	@Deprecated
 	public PasswordLimiter(
 			final HashInterface password,
 			final long period,
 			final int limit)
 	{
+		this(password, ofMillis(period), limit);
+	}
+
+	public PasswordLimiter(
+			final HashInterface password,
+			final Duration period,
+			final int limit)
+	{
 		this.password = requireNonNull(password, "password");
-		this.period = requireGreaterZero(period, "period");
+		this.period = requireAtLeast(period, "period", ofMillis(1)).toMillis();
 		this.limit = requireGreaterZero(limit, "limit");
 	}
 
@@ -83,6 +102,11 @@ public final class PasswordLimiter extends Pattern
 	public long getPeriod()
 	{
 		return period;
+	}
+
+	public Duration getPeriodDuration()
+	{
+		return ofMillis(period);
 	}
 
 	public int getLimit()

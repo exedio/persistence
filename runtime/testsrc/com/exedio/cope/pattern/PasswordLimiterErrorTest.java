@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.PasswordLimiterItem.password;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofNanos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -29,6 +31,7 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PasswordLimiterErrorTest
 {
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testPasswordNull()
 	{
 		assertFails(
@@ -36,15 +39,38 @@ public class PasswordLimiterErrorTest
 				NullPointerException.class,
 				"password");
 	}
+	@Test void testPasswordNullDuration()
+	{
+		assertFails(
+				() -> new PasswordLimiter(null, Duration.ZERO, 0),
+				NullPointerException.class,
+				"password");
+	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testPeriodZero()
 	{
 		assertFails(
 				() -> new PasswordLimiter(password, 0, 0),
 				IllegalArgumentException.class,
-				"period must be greater zero, but was 0");
+				"period must be at least PT0.001S, but was PT0S");
+	}
+	@Test void testPeriodZeroDuration()
+	{
+		assertFails(
+				() -> new PasswordLimiter(password, ofMillis(1).minus(ofNanos(1)), 0),
+				IllegalArgumentException.class,
+				"period must be at least PT0.001S, but was PT0.000999999S");
+	}
+	@Test void testPeriodNull()
+	{
+		assertFails(
+				() -> new PasswordLimiter(password, (Duration)null, 0),
+				NullPointerException.class,
+				"period");
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testLimitZero()
 	{
 		assertFails(
@@ -52,19 +78,38 @@ public class PasswordLimiterErrorTest
 				IllegalArgumentException.class,
 				"limit must be greater zero, but was 0");
 	}
+	@Test void testLimitZeroDuration()
+	{
+		assertFails(
+				() -> new PasswordLimiter(password, ofMillis(1), 0),
+				IllegalArgumentException.class,
+				"limit must be greater zero, but was 0");
+	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testMinimum()
 	{
 		final PasswordLimiter l = new PasswordLimiter(password, 1, 1);
 		assertEquals(password, l.getPassword());
 		assertEquals(1, l.getPeriod());
+		assertEquals(ofMillis(1), l.getPeriodDuration());
 		assertEquals(1, l.getLimit());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testMinimumInterface()
 	{
 		final PasswordLimiter l = new PasswordLimiter((HashInterface)password, 1, 1);
 		assertEquals(password, l.getPassword());
 		assertEquals(1, l.getPeriod());
+		assertEquals(ofMillis(1), l.getPeriodDuration());
+		assertEquals(1, l.getLimit());
+	}
+	@Test void testMinimumDuration()
+	{
+		final PasswordLimiter l = new PasswordLimiter(password, ofMillis(1), 1);
+		assertEquals(password, l.getPassword());
+		assertEquals(1, l.getPeriod());
+		assertEquals(ofMillis(1), l.getPeriodDuration());
 		assertEquals(1, l.getLimit());
 	}
 }

@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.PasswordLimiterItem.TYPE;
 import static com.exedio.cope.pattern.PasswordLimiterItem.password;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.time.Duration.ofMinutes;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -73,6 +74,7 @@ public class PasswordLimiterModelTest
 
 		assertSame(password, passwordLimited.getPassword());
 		assertEquals(60*1000, passwordLimited.getPeriod());
+		assertEquals(ofMinutes(1), passwordLimited.getPeriodDuration());
 		assertEquals(2, passwordLimited.getLimit());
 
 		assertFalse(password                        .isAnnotationPresent(Computed.class));
