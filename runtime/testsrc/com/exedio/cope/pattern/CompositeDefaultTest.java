@@ -47,8 +47,12 @@ public class CompositeDefaultTest extends TestWithEnvironment
 		final CompositeDefaultItem isNull = new CompositeDefaultItem(null);
 		assertNull(isNull.getField());
 
+		final CompositeDefaultValue value = new CompositeDefaultValue("normalValue");
+		assertEquals("normalValue", value.getNormal());
+		assertEquals(5, value.getDeflt());
+
 		final CompositeDefaultItem isNotNull =
-			new CompositeDefaultItem(new CompositeDefaultValue("normalValue"));
+			new CompositeDefaultItem(value);
 		assertEquals("normalValue", isNotNull.getField().getNormal());
 		assertEquals(5, isNotNull.getField().getDeflt());
 	}
