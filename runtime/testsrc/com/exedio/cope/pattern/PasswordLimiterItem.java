@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.PRIVATE;
+import static java.time.Duration.ofMinutes;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -34,7 +35,7 @@ public final class PasswordLimiterItem extends Item
 
 	@Wrapper(wrap="check", visibility=PRIVATE)
 	@Wrapper(wrap="checkVerbosely", visibility=PRIVATE)
-	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, 60*1000, 2);
+	static final PasswordLimiter passwordLimited = new PasswordLimiter(password, ofMinutes(1), 2);
 
 	boolean checkPasswordLimited(
 			final String password,
