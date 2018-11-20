@@ -23,7 +23,6 @@ import static com.exedio.cope.pattern.PasswordLimiterItem.TYPE;
 import static com.exedio.cope.pattern.PasswordLimiterItem.password;
 import static com.exedio.cope.pattern.PasswordLimiterItem.passwordLimited;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -81,34 +80,5 @@ public class PasswordLimiterModelTest
 		assertTrue (passwordLimited.getRefusalType().isAnnotationPresent(Computed.class));
 
 		assertSerializedSame(passwordLimited, 408);
-
-		try
-		{
-			new PasswordLimiter(null, 0, 0);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("password", e.getMessage());
-		}
-		try
-		{
-			new PasswordLimiter(password, 0, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("period must be greater zero, but was 0", e.getMessage());
-		}
-		try
-		{
-			new PasswordLimiter(password, 1, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("limit must be greater zero, but was 0", e.getMessage());
-		}
-		new PasswordLimiter(password, 1, 1);
 	}
 }
