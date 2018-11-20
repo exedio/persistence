@@ -46,7 +46,6 @@ final class BlockCompositeHelper
 	static <E> Constructor<E> getConstructor(final Class<E> valueClass, final Class<?> parameter)
 	{
 		final Constructor<E> constructor;
-		final String classID = valueClass.getName();
 		try
 		{
 			constructor = valueClass.getDeclaredConstructor(parameter);
@@ -54,7 +53,7 @@ final class BlockCompositeHelper
 		catch(final NoSuchMethodException e)
 		{
 			throw new IllegalArgumentException(
-					classID + " does not have a constructor " +
+					valueClass.getName() + " does not have a constructor " +
 					valueClass.getSimpleName() + '(' + getName(parameter) + ')', e);
 		}
 		constructor.setAccessible(true);
