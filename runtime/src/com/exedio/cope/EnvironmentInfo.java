@@ -41,11 +41,13 @@ public final class EnvironmentInfo
 		this.sqlDriver = sqlDriver;
 		this.catalog = catalog;
 		database = new Product(
+				"database",
 				dmd.getDatabaseProductName(),
 				dmd.getDatabaseProductVersion(),
 				dmd.getDatabaseMajorVersion(),
 				dmd.getDatabaseMinorVersion());
 		driver = new Product(
+				"driver",
 				dmd.getDriverName(),
 				driverVersionPattern.matcher(dmd.getDriverVersion()).replaceAll("$1"),
 				dmd.getDriverMajorVersion(),
@@ -157,15 +159,15 @@ public final class EnvironmentInfo
 	public Properties asProperties()
 	{
 		final Properties result = new Properties();
-		database.asProperties("database.", result);
-		driver.asProperties("driver.", result);
+		database.asProperties(result);
+		driver  .asProperties(result);
 		return result;
 	}
 
 	void putRevisionEnvironment(final HashMap<String, String> e)
 	{
-		database.putRevisionEnvironment("database.", e);
-		driver.putRevisionEnvironment("driver.", e);
+		database.putRevisionEnvironment(e);
+		driver  .putRevisionEnvironment(e);
 	}
 
 	public boolean isDatabaseVersionAtLeast(final int major, final int minor)
@@ -180,22 +182,25 @@ public final class EnvironmentInfo
 
 	void requireDatabaseVersionAtLeast(final int major, final int minor)
 	{
-		database.requireVersionAtLeast("database", major, minor);
+		database.requireVersionAtLeast(major, minor);
 	}
 
 	private static final class Product
 	{
+		final String product;
 		final String name;
 		final String version;
 		final int majorVersion;
 		final int minorVersion;
 
 		Product(
+				final String product,
 				final String name,
 				final String version,
 				final int majorVersion,
 				final int minorVersion)
 		{
+			this.product = product;
 			this.name = name;
 			this.version = version;
 			this.majorVersion = majorVersion;
@@ -211,18 +216,18 @@ public final class EnvironmentInfo
 			return version + ' ' + '(' + majorVersion + '.' + minorVersion + ')';
 		}
 
-		void asProperties(final String prefix, final Properties result)
+		void asProperties(final Properties result)
 		{
-			result.setProperty(prefix + "name", name);
-			result.setProperty(prefix + "version", getVersionDescription());
+			result.setProperty(product + ".name", name);
+			result.setProperty(product + ".version", getVersionDescription());
 		}
 
-		void putRevisionEnvironment(final String prefix, final HashMap<String, String> e)
+		void putRevisionEnvironment(final HashMap<String, String> e)
 		{
-			e.put(prefix + "name", name);
-			e.put(prefix + "version", version);
-			e.put(prefix + "version.major", String.valueOf(majorVersion));
-			e.put(prefix + "version.minor", String.valueOf(minorVersion));
+			e.put(product + ".name", name);
+			e.put(product + ".version", version);
+			e.put(product + ".version.major", String.valueOf(majorVersion));
+			e.put(product + ".version.minor", String.valueOf(minorVersion));
 		}
 
 		boolean isVersionAtLeast(final int major, final int minor)
@@ -235,7 +240,7 @@ public final class EnvironmentInfo
 				return minor<=minorVersion;
 		}
 
-		void requireVersionAtLeast(final String product, final int major, final int minor)
+		void requireVersionAtLeast(final int major, final int minor)
 		{
 			if(!isVersionAtLeast(major, minor))
 				throw new IllegalArgumentException(
