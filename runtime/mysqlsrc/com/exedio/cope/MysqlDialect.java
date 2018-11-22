@@ -84,7 +84,7 @@ final class MysqlDialect extends Dialect
 						sequenceColumnName(properties),
 						properties.rowFormat.sql()));
 
-		requireDatabaseVersionAtLeast(5, 5, probe);
+		probe.environmentInfo.requireDatabaseVersionAtLeast(5, 5);
 
 		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;

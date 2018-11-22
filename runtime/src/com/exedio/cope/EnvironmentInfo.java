@@ -178,6 +178,11 @@ public final class EnvironmentInfo
 		return driver.isVersionAtLeast(major, minor);
 	}
 
+	void requireDatabaseVersionAtLeast(final int major, final int minor)
+	{
+		database.requireVersionAtLeast("database", major, minor);
+	}
+
 	private static final class Product
 	{
 		final String name;
@@ -228,6 +233,14 @@ public final class EnvironmentInfo
 				return false;
 			else
 				return minor<=minorVersion;
+		}
+
+		void requireVersionAtLeast(final String product, final int major, final int minor)
+		{
+			if(!isVersionAtLeast(major, minor))
+				throw new IllegalArgumentException(
+						"requires " + product + " version " + major + '.' + minor + " or later, " +
+						"but was " + name + ' ' + getVersionDescription());
 		}
 
 		@Override

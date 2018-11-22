@@ -58,17 +58,6 @@ abstract class Dialect
 		this.dsmfDialect = dsmfDialect;
 	}
 
-	protected static final void requireDatabaseVersionAtLeast(
-			final int major, final int minor,
-			final CopeProbe probe)
-	{
-		final EnvironmentInfo env = probe.environmentInfo;
-		if(!env.isDatabaseVersionAtLeast(major, minor))
-			throw new IllegalArgumentException(
-					"requires database version " + major + '.' + minor + " or later, " +
-					"but was " + env.getDatabaseProductName() + ' ' + env.getDatabaseVersionDescription());
-	}
-
 	/**
 	 * @param info used in subclasses
 	 */

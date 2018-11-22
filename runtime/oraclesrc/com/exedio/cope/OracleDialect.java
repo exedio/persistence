@@ -61,7 +61,7 @@ final class OracleDialect extends Dialect
 				new OracleSchemaDialect(
 						probe.properties.getConnectionUsername().toUpperCase(Locale.ENGLISH)));
 
-		requireDatabaseVersionAtLeast(11, 2, probe);
+		probe.environmentInfo.requireDatabaseVersionAtLeast(11, 2);
 	}
 
 	@Override

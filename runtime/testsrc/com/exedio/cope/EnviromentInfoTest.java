@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.sql.SQLException;
@@ -90,6 +91,18 @@ public class EnviromentInfoTest
 		assertEquals(false, i.isDriverVersionAtLeast(15, 17));
 		assertEquals(false, i.isDriverVersionAtLeast(15, 18));
 		assertEquals(false, i.isDriverVersionAtLeast(15, 19));
+
+		i.requireDatabaseVersionAtLeast(5, 3);
+		assertFails(
+				() -> i.requireDatabaseVersionAtLeast(5, 4),
+				IllegalArgumentException.class,
+				"requires database version 5.4 or later, " +
+				"but was getDatabaseProductName getDatabaseProductVersion (5.3)");
+		assertFails(
+				() -> i.requireDatabaseVersionAtLeast(66, 77),
+				IllegalArgumentException.class,
+				"requires database version 66.77 or later, " +
+				"but was getDatabaseProductName getDatabaseProductVersion (5.3)");
 	}
 
 	@Test void testShortDescription() throws SQLException
