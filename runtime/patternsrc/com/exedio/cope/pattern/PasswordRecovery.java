@@ -19,8 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
-import static com.exedio.cope.misc.Check.requireGreaterZero;
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.misc.Check.requireAtLeast;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
@@ -41,6 +40,7 @@ import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import java.security.SecureRandom;
+import java.time.Duration;
 import java.util.Date;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -142,8 +142,8 @@ public final class PasswordRecovery extends Pattern
 			@Nonnull final Item item,
 			@Nonnull @Parameter("config") final Config config)
 	{
-		final int expiry = config.getExpiryMillis();
-		final int reuse = config.getReuseMillis();
+		final long expiry = config.getExpiry().toMillis();
+		final long reuse = config.getReuse().toMillis();
 		final long now = Clock.currentTimeMillis();
 
 		if(reuse>0)
@@ -220,41 +220,65 @@ public final class PasswordRecovery extends Pattern
 
 	public static final class Config
 	{
-		private final int expiryMillis;
-		private final int reuseMillis;
+		private final Duration expiry;
+		private final Duration reuse;
 
 		/**
+		 * @deprecated Use {@link #Config(Duration, Duration)} instead.
 		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
 		 */
+		@Deprecated
 		public Config(final int expiryMillis)
 		{
 			this(expiryMillis, Math.min(10*1000, expiryMillis));
 		}
 
 		/**
+		 * @deprecated Use {@link #Config(Duration, Duration)} instead.
 		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
 		 * @param reuseMillis limits the number of tokens created within that time span.
 		 *        This is against Denial-Of-service attacks filling up the database.
 		 */
+		@Deprecated
 		public Config(final int expiryMillis, final int reuseMillis)
 		{
-			requireGreaterZero(expiryMillis, "expiryMillis");
-			requireNonNegative(reuseMillis, "reuseMillis");
-			if(reuseMillis>expiryMillis)
-				throw new IllegalArgumentException("reuseMillis must not be be greater expiryMillis, but was " + reuseMillis + " and " + expiryMillis);
+			this(Duration.ofMillis(expiryMillis), Duration.ofMillis(reuseMillis));
+		}
 
-			this.expiryMillis = expiryMillis;
-			this.reuseMillis = reuseMillis;
+		/**
+		 * @param expiry the time span, after which this token will not be valid anymore, in milliseconds
+		 * @param reuse limits the number of tokens created within that time span.
+		 *        This is against Denial-Of-service attacks filling up the database.
+		 */
+		public Config(final Duration expiry, final Duration reuse)
+		{
+			requireAtLeast(expiry, "expiry", Duration.ofMillis(1));
+			requireAtLeast(reuse, "reuse", Duration.ZERO);
+			if(reuse.compareTo(expiry)>0)
+				throw new IllegalArgumentException("reuse must not be be greater expiry, but was " + reuse + " and " + expiry);
+
+			this.expiry = expiry;
+			this.reuse = reuse;
 		}
 
 		public int getExpiryMillis()
 		{
-			return expiryMillis;
+			return Math.toIntExact(expiry.toMillis());
+		}
+
+		public Duration getExpiry()
+		{
+			return expiry;
 		}
 
 		public int getReuseMillis()
 		{
-			return reuseMillis;
+			return Math.toIntExact(reuse.toMillis());
+		}
+
+		public Duration getReuse()
+		{
+			return reuse;
 		}
 	}
 

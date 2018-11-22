@@ -24,6 +24,9 @@ import static com.exedio.cope.pattern.PasswordRecoveryItem.purgePasswordRecovery
 import static com.exedio.cope.pattern.PasswordRecoveryModelTest.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.time.Duration.ofMillis;
+import static java.time.Duration.ofMinutes;
+import static java.time.Duration.ofSeconds;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -38,6 +41,7 @@ import com.exedio.cope.pattern.PasswordRecovery.Config;
 import com.exedio.cope.pattern.PasswordRecovery.Token;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
+import java.time.Duration;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,7 +72,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testGetValidTokenAndRedeemWithNewPassword()
 	{
-		final Config config = new Config(60*1000);
+		final Config config = new Config(ofMinutes(1), ofSeconds(10));
 		assertEquals(60*1000, config.getExpiryMillis());
 		assertEquals(10*1000, config.getReuseMillis());
 
@@ -120,7 +124,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testGetValidTokenAndRedeem()
 	{
-		final Config config = new Config(60*1000);
+		final Config config = new Config(ofMinutes(1), ofSeconds(10));
 		assertEquals(60*1000, config.getExpiryMillis());
 		assertEquals(10*1000, config.getReuseMillis());
 
@@ -162,7 +166,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testRedeem()
 	{
-		final Config config = new Config(60*1000);
+		final Config config = new Config(ofMinutes(1), ofSeconds(10));
 		assertEquals(60*1000, config.getExpiryMillis());
 		assertEquals(10*1000, config.getReuseMillis());
 
@@ -212,7 +216,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testGetExpiredToken()
 	{
-		final Config config = new Config(20);
+		final Config config = new Config(ofMillis(20), ofMillis(20));
 		assertEquals(20, config.getExpiryMillis());
 		assertEquals(20, config.getReuseMillis());
 
@@ -243,7 +247,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testExpiredRedeem()
 	{
-		final Config config = new Config(20);
+		final Config config = new Config(ofMillis(20), ofMillis(20));
 		assertEquals(20, config.getExpiryMillis());
 		assertEquals(20, config.getReuseMillis());
 
@@ -274,7 +278,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testPostponedRedemption()
 	{
-		final Config config = new Config(60*1000);
+		final Config config = new Config(ofMinutes(1), ofSeconds(10));
 		assertEquals(60*1000, config.getExpiryMillis());
 		assertEquals(10*1000, config.getReuseMillis());
 
@@ -358,7 +362,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testReuse()
 	{
-		final Config config = new Config(15*60*1000, 10*1000);
+		final Config config = new Config(ofMinutes(15), ofSeconds(10));
 		assertEquals(15*60*1000, config.getExpiryMillis());
 		assertEquals(10*1000, config.getReuseMillis());
 
@@ -389,7 +393,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 
 	@Test void testNoReuse()
 	{
-		final Config config = new Config(15*60*1000, 0);
+		final Config config = new Config(ofMinutes(15), Duration.ZERO);
 		assertEquals(15*60*1000, config.getExpiryMillis());
 		assertEquals(0, config.getReuseMillis());
 
@@ -417,7 +421,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
+			assertEquals("expiry must be at least PT0.001S, but was PT0S", e.getMessage());
 		}
 	}
 
