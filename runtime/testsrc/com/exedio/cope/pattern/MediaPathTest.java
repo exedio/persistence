@@ -59,6 +59,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	private int maxAge;
 	private MediaPathItem item;
 	private String id;
 	private MyMediaServlet servlet;
@@ -67,6 +68,8 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	@BeforeEach void setUp()
 	{
+		maxAge = MODEL.getConnectProperties().getMediaMaxAge();
+		assertTrue(maxAge>=0, "" + maxAge);
 		item = new MediaPathItem();
 		id = item.getCopeID();
 		servlet = new MyMediaServlet();
@@ -368,10 +371,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		item.setGuessLastModified(new Date(333338888));
 		final String ok = "/MediaPathItem/guess/.tMediaPathItem.guess-" + id + "/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getGuessLocator().getPath());
-		service(new Request(ok)).assertOkAndCacheControl(
-				MODEL.getConnectProperties().getMediaOffsetExpires()>0
-				? "max-age=" + MODEL.getConnectProperties().getMediaOffsetExpires()/1000
-				: null);
+		service(new Request(ok)).assertOkAndCacheControl(maxAge>0 ? "max-age=" + maxAge : null);
 	}
 
 	@Test void testFingerGuess() throws ServletException, IOException
@@ -423,16 +423,14 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	@Test void testCacheControlPrivate() throws ServletException, IOException
 	{
-		final int offset = MODEL.getConnectProperties().getMediaOffsetExpires();
-		assertTrue(offset>=0, "" + offset);
 		item.setNormalContentType("image/jpeg");
 		item.setNormalLastModified(new Date(333338888));
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
-		service(new Request(ok)).assertOkAndCacheControl(offset>0 ? "max-age=" + offset/1000 : null);
+		service(new Request(ok)).assertOkAndCacheControl(maxAge>0 ? "max-age=" + maxAge : null);
 
 		item.setCacheControlPrivate(true);
-		service(new Request(ok)).assertOkAndCacheControl("private" + (offset>0 ? ",max-age=" + offset/1000 : ""));
+		service(new Request(ok)).assertOkAndCacheControl("private" + (maxAge>0 ? ",max-age=" + maxAge : ""));
 	}
 
 	@Test void testAccessControlAllowOriginWildcard() throws ServletException, IOException
@@ -678,7 +676,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			// make package private
 		}
 
-		private final int mediaOffsetExpires = MODEL.getConnectProperties().getMediaOffsetExpires();
+		private final int mediaMaxAge = MODEL.getConnectProperties().getMediaMaxAge();
 		private String location;
 		private String cacheControl;
 		private String accessControlAllowOrigin;
@@ -839,10 +837,7 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		private String maxAge()
 		{
-			return
-				mediaOffsetExpires>0
-				? "max-age="+(mediaOffsetExpires/1000l)
-				: null;
+			return mediaMaxAge>0 ? "max-age=" + mediaMaxAge : null;
 		}
 
 
