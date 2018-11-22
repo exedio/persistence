@@ -18,64 +18,46 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.PasswordRecovery.Config;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PasswordRecoveryConfigTest
 {
 	@Test void testConfigExpiryZero()
 	{
-		try
-		{
-			new Config(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(0),
+			IllegalArgumentException.class,
+			"expiryMillis must be greater zero, but was 0");
 	}
 
 	@Test void testConfigExpiryZeroWithReuse()
 	{
-		try
-		{
-			new Config(0, -1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expiryMillis must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(0, -1),
+			IllegalArgumentException.class,
+			"expiryMillis must be greater zero, but was 0");
 	}
 
 	@Test void testConfigReuseNegative()
 	{
-		try
-		{
-			new Config(1, -1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("reuseMillis must not be negative, but was -1", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(1, -1),
+			IllegalArgumentException.class,
+			"reuseMillis must not be negative, but was -1");
 	}
 
 	@Test void testConfigReuseGreaterExpiry()
 	{
-		try
-		{
-			new Config(1, 2);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("reuseMillis must not be be greater expiryMillis, but was 2 and 1", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(1, 2),
+			IllegalArgumentException.class,
+			"reuseMillis must not be be greater expiryMillis, but was 2 and 1");
 	}
 
 	@Test void testConfigDefaultReuse()
@@ -108,41 +90,26 @@ public class PasswordRecoveryConfigTest
 
 	@Test void testPasswordRecoveryHashNull()
 	{
-		try
-		{
-			new PasswordRecovery(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("password", e.getMessage());
-		}
+		assertFails(() ->
+			new PasswordRecovery(null),
+			NullPointerException.class,
+			"password");
 	}
 
 	@Test void testPasswordRecoveryHashNullWithRandom()
 	{
-		try
-		{
-			new PasswordRecovery(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("password", e.getMessage());
-		}
+		assertFails(() ->
+			new PasswordRecovery(null, null),
+			NullPointerException.class,
+			"password");
 	}
 
 	@Test void testPasswordRecoveryRandomNull()
 	{
 		final Hash hash = new Hash(MessageDigestHash.algorithm(20));
-		try
-		{
-			new PasswordRecovery(hash, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("random", e.getMessage());
-		}
+		assertFails(() ->
+			new PasswordRecovery(hash, null),
+			NullPointerException.class,
+			"random");
 	}
 }
