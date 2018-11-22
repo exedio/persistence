@@ -261,6 +261,11 @@ public final class PasswordRecovery extends Pattern
 			this.reuse = reuse;
 		}
 
+		/**
+		 * @deprecated Use {@link #getExpiry()} instead.
+		 *             BEWARE: May fail for large values!
+		 */
+		@Deprecated
 		public int getExpiryMillis()
 		{
 			return Math.toIntExact(expiry.toMillis());
@@ -271,6 +276,11 @@ public final class PasswordRecovery extends Pattern
 			return expiry;
 		}
 
+		/**
+		 * @deprecated Use {@link #getReuse()} instead.
+		 *             BEWARE: May fail for large values!
+		 */
+		@Deprecated
 		public int getReuseMillis()
 		{
 			return Math.toIntExact(reuse.toMillis());
