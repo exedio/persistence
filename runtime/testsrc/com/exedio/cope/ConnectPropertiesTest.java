@@ -440,6 +440,43 @@ public class ConnectPropertiesTest
 		}
 	}
 
+	@Test void testMediaMaxAgeStandard()
+	{
+		final ConnectProperties p = factory().
+				create(TestSources.minimal());
+
+		assertEquals(5*1000, getMediaOffsetExpires(p));
+		assertEquals(5, p.getMediaMaxAge());
+	}
+
+	@Test void testMediaMaxAgeWholeSecond()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", 77000),
+						TestSources.minimal()
+				));
+		assertEquals(77000, getMediaOffsetExpires(p));
+		assertEquals(77, p.getMediaMaxAge());
+	}
+
+	@Test void testMediaMaxAgeRound()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", 77999),
+						TestSources.minimal()
+				));
+		assertEquals(77999, getMediaOffsetExpires(p));
+		assertEquals(77, p.getMediaMaxAge());
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	private static int getMediaOffsetExpires(final ConnectProperties p)
+	{
+		return p.getMediaOffsetExpires();
+	}
+
 
 	private static Source loadProperties()
 	{
