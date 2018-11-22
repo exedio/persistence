@@ -75,7 +75,7 @@ final class HsqldbDialect extends Dialect
 		boolean supportsSchemaSavepoint() { return false; }
 	}
 
-	private final Props props;
+	private final Approximate approximate;
 
 	/**
 	 * @param probe must be there to be called by reflection
@@ -87,7 +87,7 @@ final class HsqldbDialect extends Dialect
 
 		requireDatabaseVersionAtLeast(2, 4, probe);
 
-		this.props = props;
+		this.approximate = props.approximate;
 	}
 
 	@Override
@@ -102,7 +102,7 @@ final class HsqldbDialect extends Dialect
 	{
 		super.setNameTrimmers(trimmers);
 
-		if(props.approximate==oracle) // TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
+		if(approximate==oracle) // TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
 		{
 			// copied code from OracleDialect
 			final Trimmer dataTrimmer = trimmers.get(TrimClass.Data);
@@ -149,7 +149,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	boolean supportsEmptyStrings()
 	{
-		if(props.approximate==oracle)
+		if(approximate==oracle)
 			return false; // copied code from OracleDialect
 
 		return super.supportsEmptyStrings();
@@ -170,7 +170,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getDateTimestampType()
 	{
-		if(!props.approximate.supportsNativeDate())
+		if(!approximate.supportsNativeDate())
 			return null;
 
 		return TIMESTAMP_3;
@@ -417,7 +417,7 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SQLException
 	{
-		if(!props.approximate.supportsSchemaSavepoint())
+		if(!approximate.supportsSchemaSavepoint())
 			return super.getSchemaSavepoint(connectionPool);
 
 		final Connection connection = connectionPool.get(true);
@@ -435,7 +435,7 @@ final class HsqldbDialect extends Dialect
 			if(rs.next())
 				throw new SQLException("multiple lines");
 
-			return "hsqldb approximate schemaSavepoint " + props.approximate + ' ' + now;
+			return "hsqldb approximate schemaSavepoint " + approximate + ' ' + now;
 		}
 		finally
 		{
