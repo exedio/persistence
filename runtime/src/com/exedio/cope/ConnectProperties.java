@@ -241,8 +241,9 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * If zero, no Expires header is sent.
 	 *
 	 * TODO: make this configurable per media as well.
-	 * @see #getMediaMaxAge()
+	 * @deprecated Use {@link #getMediaMaxAge()} instead
 	 */
+	@Deprecated
 	public int getMediaOffsetExpires()
 	{
 		return mediaOffsetExpires;
@@ -250,9 +251,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	private final int mediaMaxAge = mediaOffsetExpires/1000;
 
-	/**
-	 * @see #getMediaOffsetExpires()
-	 */
 	public int getMediaMaxAge()
 	{
 		return mediaMaxAge;
