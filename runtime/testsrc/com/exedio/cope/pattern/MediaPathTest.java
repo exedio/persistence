@@ -370,7 +370,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertEquals(ok, "/" + item.getGuessLocator().getPath());
 		service(new Request(ok)).assertOkAndCacheControl(
 				MODEL.getConnectProperties().getMediaOffsetExpires()>0
-				? "max-age=5"
+				? "max-age=" + MODEL.getConnectProperties().getMediaOffsetExpires()/1000
 				: null);
 	}
 
@@ -429,10 +429,10 @@ public final class MediaPathTest extends TestWithEnvironment
 		item.setNormalLastModified(new Date(333338888));
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
-		service(new Request(ok)).assertOkAndCacheControl(offset>0 ? "max-age=5" : null);
+		service(new Request(ok)).assertOkAndCacheControl(offset>0 ? "max-age=" + offset/1000 : null);
 
 		item.setCacheControlPrivate(true);
-		service(new Request(ok)).assertOkAndCacheControl("private" + (offset>0 ? ",max-age=5" : ""));
+		service(new Request(ok)).assertOkAndCacheControl("private" + (offset>0 ? ",max-age=" + offset/1000 : ""));
 	}
 
 	@Test void testAccessControlAllowOriginWildcard() throws ServletException, IOException
