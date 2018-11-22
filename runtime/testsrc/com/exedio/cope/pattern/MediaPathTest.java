@@ -969,11 +969,9 @@ public final class MediaPathTest extends TestWithEnvironment
 				final MediaPath path,
 				final Item item)
 		{
-			assertTrue(MODEL.hasCurrentTransaction());
-			assertEquals(MediaPathItem.TYPE, path.getType());
-			assertNotNull(item);
-			assertEquals("MediaPathItem-0", item.getCopeID());
-			return ((MediaPathItem)item).getCacheControlPrivate();
+			return
+					assertConfigMethod(path, item).
+							getCacheControlPrivate();
 		}
 
 		@Override
@@ -981,11 +979,9 @@ public final class MediaPathTest extends TestWithEnvironment
 				final MediaPath path,
 				final Item item)
 		{
-			assertTrue(MODEL.hasCurrentTransaction());
-			assertEquals(MediaPathItem.TYPE, path.getType());
-			assertNotNull(item);
-			assertEquals("MediaPathItem-0", item.getCopeID());
-			return ((MediaPathItem)item).getAccessControlAllowOriginWildcard();
+			return
+					assertConfigMethod(path, item).
+							getAccessControlAllowOriginWildcard();
 		}
 
 		@Override
@@ -993,11 +989,19 @@ public final class MediaPathTest extends TestWithEnvironment
 				final MediaPath path,
 				final Item item)
 		{
+			assertConfigMethod(path, item);
+			return super.doFlushBufferOnNotModified(path, item);
+		}
+
+		private static MediaPathItem assertConfigMethod(
+				final MediaPath path,
+				final Item item)
+		{
 			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(MediaPathItem.TYPE, path.getType());
 			assertNotNull(item);
 			assertEquals("MediaPathItem-0", item.getCopeID());
-			return super.doFlushBufferOnNotModified(path, item);
+			return (MediaPathItem)item;
 		}
 
 		@Override
