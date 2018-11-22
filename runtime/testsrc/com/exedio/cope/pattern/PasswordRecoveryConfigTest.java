@@ -88,6 +88,13 @@ public class PasswordRecoveryConfigTest
 		assertEquals(0, c.getReuseMillis());
 	}
 
+	@Test void testConfigSameReuse()
+	{
+		final Config c = new Config(20, 20);
+		assertEquals(20, c.getExpiryMillis());
+		assertEquals(20, c.getReuseMillis());
+	}
+
 	@Test void testPasswordRecoveryHashNull()
 	{
 		assertFails(() ->

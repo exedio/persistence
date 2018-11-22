@@ -69,6 +69,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testGetValidTokenAndRedeemWithNewPassword()
 	{
 		final Config config = new Config(60*1000);
+		assertEquals(60*1000, config.getExpiryMillis());
+		assertEquals(10*1000, config.getReuseMillis());
 
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(list(), passwordRecovery.getTokenType().search());
@@ -119,6 +121,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testGetValidTokenAndRedeem()
 	{
 		final Config config = new Config(60*1000);
+		assertEquals(60*1000, config.getExpiryMillis());
+		assertEquals(10*1000, config.getReuseMillis());
 
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(list(), passwordRecovery.getTokenType().search());
@@ -159,6 +163,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testRedeem()
 	{
 		final Config config = new Config(60*1000);
+		assertEquals(60*1000, config.getExpiryMillis());
+		assertEquals(10*1000, config.getReuseMillis());
 
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(list(), passwordRecovery.getTokenType().search());
@@ -207,6 +213,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testGetExpiredToken()
 	{
 		final Config config = new Config(20);
+		assertEquals(20, config.getExpiryMillis());
+		assertEquals(20, config.getReuseMillis());
 
 		clock.add("2005-05-12 13:11:22.333");
 		final Token token = i.issuePasswordRecovery(config);
@@ -236,6 +244,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testExpiredRedeem()
 	{
 		final Config config = new Config(20);
+		assertEquals(20, config.getExpiryMillis());
+		assertEquals(20, config.getReuseMillis());
 
 		clock.add("2005-05-12 13:11:22.333");
 		final Token token = i.issuePasswordRecovery(config);
@@ -265,6 +275,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testPostponedRedemption()
 	{
 		final Config config = new Config(60*1000);
+		assertEquals(60*1000, config.getExpiryMillis());
+		assertEquals(10*1000, config.getReuseMillis());
 
 		assertTrue(i.checkPassword("oldpass"));
 		assertEquals(list(), passwordRecovery.getTokenType().search());
@@ -347,6 +359,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testReuse()
 	{
 		final Config config = new Config(15*60*1000, 10*1000);
+		assertEquals(15*60*1000, config.getExpiryMillis());
+		assertEquals(10*1000, config.getReuseMillis());
 
 		clock.add("2005-05-12 13:11:22.333");
 		final Token token1 = i.issuePasswordRecovery(config);
@@ -376,6 +390,8 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 	@Test void testNoReuse()
 	{
 		final Config config = new Config(15*60*1000, 0);
+		assertEquals(15*60*1000, config.getExpiryMillis());
+		assertEquals(0, config.getReuseMillis());
 
 		clock.add("2005-05-12 13:11:22.333");
 		final Token token1 = i.issuePasswordRecovery(config);
