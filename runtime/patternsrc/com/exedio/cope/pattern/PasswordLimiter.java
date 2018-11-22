@@ -59,31 +59,6 @@ public final class PasswordLimiter extends Pattern
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
-	/**
-	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
-	 */
-	// for binary backwards compatibility
-	@Deprecated
-	public PasswordLimiter(
-			final Hash password,
-			final long period,
-			final int limit)
-	{
-		this((HashInterface)password, period, limit);
-	}
-
-	/**
-	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
-	 */
-	@Deprecated
-	public PasswordLimiter(
-			final HashInterface password,
-			final long period,
-			final int limit)
-	{
-		this(password, ofMillis(period), limit);
-	}
-
 	public PasswordLimiter(
 			final HashInterface password,
 			final Duration period,
@@ -335,6 +310,31 @@ public final class PasswordLimiter extends Pattern
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
+	 */
+	// for binary backwards compatibility
+	@Deprecated
+	public PasswordLimiter(
+			final Hash password,
+			final long period,
+			final int limit)
+	{
+		this((HashInterface)password, period, limit);
+	}
+
+	/**
+	 * @deprecated Use {@link PasswordLimiter#PasswordLimiter(HashInterface, Duration, int)} instead.
+	 */
+	@Deprecated
+	public PasswordLimiter(
+			final HashInterface password,
+			final long period,
+			final int limit)
+	{
+		this(password, ofMillis(period), limit);
+	}
 
 	/**
 	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
