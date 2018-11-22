@@ -31,6 +31,7 @@ import java.util.Date;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.opentest4j.AssertionFailedError;
 
 public final class MediaPathFeature extends MediaPath
 {
@@ -39,13 +40,6 @@ public final class MediaPathFeature extends MediaPath
 	enum Result
 	{
 		notFoundIsNull, notFoundNotComputable, IOException, RuntimeException
-	}
-
-	private boolean isFinal = false;
-
-	void reset()
-	{
-		isFinal = false;
 	}
 
 	private final StringField contentType = new StringField().optional();
@@ -57,11 +51,6 @@ public final class MediaPathFeature extends MediaPath
 		addSourceFeature(result, "result");
 		addSourceFeature(contentType, "contentType");
 		addSourceFeature(lastModified, "lastModified");
-	}
-
-	public void setFinal(final boolean isFinal)
-	{
-		this.isFinal = isFinal;
 	}
 
 	@Wrap(order=10)
@@ -86,7 +75,7 @@ public final class MediaPathFeature extends MediaPath
 	@Override
 	public boolean isFinal()
 	{
-		return isFinal;
+		throw new AssertionFailedError();
 	}
 
 	@Override

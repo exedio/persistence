@@ -27,11 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
@@ -82,10 +80,6 @@ public final class MediaPathTest extends TestWithEnvironment
 	@AfterEach void tearDown()
 	{
 		servlet.destroy();
-		for(final Type<?> type : MODEL.getTypes())
-			for(final Feature feature : type.getDeclaredFeatures())
-				if(feature instanceof MediaPathFeature)
-					((MediaPathFeature)feature).reset();
 	}
 
 	@Test void testNotFound() throws ServletException, IOException
@@ -331,7 +325,6 @@ public final class MediaPathTest extends TestWithEnvironment
 	 */
 	@Test void testExpiresFinal() throws ServletException, IOException
 	{
-		MediaPathItem.normal.setFinal(true);
 		item.setNormalContentType("image/jpeg");
 		item.setNormalLastModified(new Date(333338888));
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
