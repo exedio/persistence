@@ -48,6 +48,11 @@ public final class TestSources
 		return single(key, String.valueOf(value));
 	}
 
+	public static Source single(final String key, final long value)
+	{
+		return single(key, String.valueOf(value));
+	}
+
 	public static Source single(final String key, final Enum<?> value)
 	{
 		return single(key, value.name());

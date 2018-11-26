@@ -471,6 +471,80 @@ public class ConnectPropertiesTest
 		assertEquals(77, p.getMediaMaxAge());
 	}
 
+	@Test void testMediaMaxAgeZero()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", 0),
+						TestSources.minimal()
+				));
+		assertEquals(0, getMediaOffsetExpires(p));
+		assertEquals(0, p.getMediaMaxAge());
+	}
+
+	@Test void testMediaMaxAgeSecondAlmost()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", 999),
+						TestSources.minimal()
+				));
+		assertEquals(999, getMediaOffsetExpires(p));
+		assertEquals(0, p.getMediaMaxAge());
+	}
+
+	@Test void testMediaMaxAgeSecond()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", 1000),
+						TestSources.minimal()
+				));
+		assertEquals(1000, getMediaOffsetExpires(p));
+		assertEquals(1, p.getMediaMaxAge());
+	}
+
+	@Test void testMediaMaxAgeMaximum()
+	{
+		final ConnectProperties p = ConnectProperties.create(
+				cascade(
+						single("media.offsetExpires", Integer.MAX_VALUE),
+						TestSources.minimal()
+				));
+		assertEquals(Integer.MAX_VALUE, getMediaOffsetExpires(p));
+		assertEquals(Integer.MAX_VALUE/1000, p.getMediaMaxAge());
+	}
+
+	@Test void testMediaMaxAgeMaximumExceeded()
+	{
+		final Source s =
+				describe("DESC", cascade(
+						single("media.offsetExpires", 1l + Integer.MAX_VALUE),
+						TestSources.minimal()
+				));
+		assertFails(
+				() -> ConnectProperties.create(s),
+				IllegalPropertiesException.class,
+				"property media.offsetExpires in DESC " +
+				"must be an integer greater or equal 0, " +
+				"but was '2147483648'");
+	}
+
+	@Test void testMediaMaxAgeNegative()
+	{
+		final Source s =
+				describe("DESC", cascade(
+						single("media.offsetExpires", -1),
+						TestSources.minimal()
+				));
+		assertFails(
+				() -> ConnectProperties.create(s),
+				IllegalPropertiesException.class,
+				"property media.offsetExpires in DESC " +
+				"must be an integer greater or equal 0, " +
+				"but was -1");
+	}
+
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	private static int getMediaOffsetExpires(final ConnectProperties p)
 	{
