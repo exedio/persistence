@@ -58,7 +58,6 @@ public final class MediaPathTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	private int maxAge;
 	private MediaPathItem item;
 	private String id;
 	private MyMediaServlet servlet;
@@ -67,8 +66,6 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	@BeforeEach void setUp()
 	{
-		maxAge = MODEL.getConnectProperties().getMediaMaxAge();
-		assertTrue(maxAge>=0, "" + maxAge);
 		item = new MediaPathItem();
 		id = item.getCopeID();
 		servlet = new MyMediaServlet();
@@ -282,6 +279,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
+		item.setCacheControlMaximumAge("PT456S");
 		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
 		assertOk(ok);
@@ -311,6 +309,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setCatchphrase("phrase");
+		item.setCacheControlMaximumAge("PT456S");
 		final String ok = "/MediaPathItem/normal/" + id + "/phrase.jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
 		service(new Request(ok)).assertOk();
@@ -328,6 +327,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setNormalLastModified(new Date(333338888));
+		item.setCacheControlMaximumAge("PT456S");
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
 		final Response response = service(new Request(ok));
@@ -363,9 +363,10 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		item.setGuessContentType("image/jpeg");
 		item.setGuessLastModified(new Date(333338888));
+		item.setCacheControlMaximumAge("PT8765432S");
 		final String ok = "/MediaPathItem/guess/.tMediaPathItem.guess-" + id + "/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getGuessLocator().getPath());
-		service(new Request(ok)).assertOkAndCacheControl(maxAge>0 ? "max-age=" + maxAge : null);
+		service(new Request(ok)).assertOkAndCacheControl("max-age=8765432");
 	}
 
 	@Test void testFingerGuess() throws ServletException, IOException
@@ -415,16 +416,37 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound("/MediaPathItem/fingerGuess/.fx/" + id + "/otherPhrase.jpg", "guessed url");
 	}
 
-	@Test void testCacheControlPrivate() throws ServletException, IOException
+	@Test void testCacheControl() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		item.setNormalLastModified(new Date(333338888));
+		item.setCacheControlMaximumAge("PT7654321.888888888S");
 		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
 		assertEquals(ok, "/" + item.getNormalLocator().getPath());
-		service(new Request(ok)).assertOkAndCacheControl(maxAge>0 ? "max-age=" + maxAge : null);
+		service(new Request(ok)).assertOkAndCacheControl("max-age=7654321");
 
 		item.setCacheControlPrivate(true);
-		service(new Request(ok)).assertOkAndCacheControl("private" + (maxAge>0 ? ",max-age=" + maxAge : ""));
+		service(new Request(ok)).assertOkAndCacheControl("private,max-age=7654321");
+
+		item.setCacheControlMaximumAge("PT0S");
+		item.setCacheControlPrivate(false);
+		service(new Request(ok)).assertOkAndCacheControl("max-age=0");
+
+		item.setCacheControlPrivate(true);
+		service(new Request(ok)).assertOkAndCacheControl("private,max-age=0");
+
+		item.setCacheControlMaximumAge("PT-1S"); // negative values are treated like zero
+		service(new Request(ok)).assertOkAndCacheControl("private,max-age=0");
+
+		item.setCacheControlMaximumAge("PT"+Integer.MIN_VALUE+"S"); // negative values are treated like zero
+		service(new Request(ok)).assertOkAndCacheControl("private,max-age=0");
+
+		item.setCacheControlMaximumAge(null);
+		item.setCacheControlPrivate(false);
+		service(new Request(ok)).assertOkAndCacheControl(null);
+
+		item.setCacheControlPrivate(true);
+		service(new Request(ok)).assertOkAndCacheControl("private");
 	}
 
 	@Test void testAccessControlAllowOriginWildcard() throws ServletException, IOException
@@ -670,7 +692,6 @@ public final class MediaPathTest extends TestWithEnvironment
 			// make package private
 		}
 
-		private final int mediaMaxAge = MODEL.getConnectProperties().getMediaMaxAge();
 		private String location;
 		private String cacheControl;
 		private String accessControlAllowOrigin;
@@ -829,12 +850,6 @@ public final class MediaPathTest extends TestWithEnvironment
 		}
 
 
-		private String maxAge()
-		{
-			return mediaMaxAge>0 ? "max-age=" + mediaMaxAge : null;
-		}
-
-
 		void assertOk()
 		{
 			assertEquals(null,              this.location,                 "location");
@@ -858,7 +873,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			assertEquals(null,              this.contentType,              "contentType");
 			assertEquals("responseBody",    this.outString(),              "content");
 			assertEquals(10011,             this.contentLength,            "contentLength");
-			assertEquals(maxAge(),          this.cacheControl,             "cacheControl");
+			assertEquals("max-age=456",     this.cacheControl,             "cacheControl");
 			assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin");
 			assertEquals(0,                 this.flushBufferCount,         "flushBuffer");
 		}
@@ -872,7 +887,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			assertEquals(null,              this.contentType,              "contentType");
 			assertEquals(null,              this.outString(),              "content");
 			assertEquals(Integer.MIN_VALUE, this.contentLength,            "contentLength");
-			assertEquals(maxAge(),          this.cacheControl,             "cacheControl");
+			assertEquals("max-age=456",     this.cacheControl,             "cacheControl");
 			assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin");
 			assertEquals(1,                 this.flushBufferCount,         "flushBuffer");
 		}
@@ -958,8 +973,9 @@ public final class MediaPathTest extends TestWithEnvironment
 				final MediaPath path,
 				final Item item)
 		{
-			assertConfigMethod(path, item);
-			return super.getMaximumAge(path, item); // TODO getCacheControlMaximumAge()
+			return
+					assertConfigMethod(path, item).
+							getCacheControlMaximumAge();
 		}
 
 		@Override

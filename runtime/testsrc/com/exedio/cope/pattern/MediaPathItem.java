@@ -20,17 +20,32 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
+import java.time.Duration;
 
 public final class MediaPathItem extends Item implements MediaUrlCatchphraseProvider
 {
 	@CopeSchemaName("phrase")
 	static final StringField catchphrase = new StringField().optional();
+
+	@Wrapper(wrap="get", internal=true)
+	static final StringField cacheControlMaximumAge = new StringField().optional().defaultTo("FAILS");
+
+	Duration getCacheControlMaximumAge()
+	{
+		final String result = getCacheControlMaximumAgeInternal();
+		if(cacheControlMaximumAge.getDefaultConstant().equals(result))
+			fail(result+cacheControlMaximumAge.getID());
+		if(result==null)
+			return null;
+		return Duration.parse(result);
+	}
 
 	static final BooleanField cacheControlPrivate = new BooleanField().defaultTo(false);
 
@@ -104,6 +119,27 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 				com.exedio.cope.StringLengthViolationException
 	{
 		MediaPathItem.catchphrase.set(this,catchphrase);
+	}
+
+	/**
+	 * Returns the value of {@link #cacheControlMaximumAge}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@javax.annotation.Nullable
+	private java.lang.String getCacheControlMaximumAgeInternal()
+	{
+		return MediaPathItem.cacheControlMaximumAge.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #cacheControlMaximumAge}.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	void setCacheControlMaximumAge(@javax.annotation.Nullable final java.lang.String cacheControlMaximumAge)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		MediaPathItem.cacheControlMaximumAge.set(this,cacheControlMaximumAge);
 	}
 
 	/**
