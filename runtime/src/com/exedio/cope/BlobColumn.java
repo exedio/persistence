@@ -75,9 +75,10 @@ final class BlobColumn extends Column
 	}
 
 
-	byte[] load(final Transaction tx, final Item item)
+	private <R> R select(
+			final Transaction tx, final Item item,
+			final Executor.ResultSetHandler<R> resultSetHandler)
 	{
-		// TODO reuse code in load blob methods
 		final Table table = this.table;
 		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
@@ -91,37 +92,29 @@ final class BlobColumn extends Column
 			appendParameter(item.pk).
 			appendTypeCheck(table, item.type);
 
-		return executor.query(tx.getConnection(), bf, null, false, resultSet ->
+		return executor.query(tx.getConnection(), bf, null, false, resultSetHandler);
+	}
+
+	byte[] load(final Transaction tx, final Item item)
+	{
+		return select(tx, item, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
-				return executor.dialect.getBytes(resultSet, 1);
+				return tx.connect.executor.dialect.getBytes(resultSet, 1);
 			}
 		);
 	}
 
 	void load(final Transaction tx, final Item item, final OutputStream data, final DataField field)
 	{
-		final Table table = this.table;
-		final Executor executor = tx.connect.executor;
-		final Statement bf = executor.newStatement();
-		bf.append("SELECT ").
-			append(quotedID).
-			append(" FROM ").
-			append(table.quotedID).
-			append(" WHERE ").
-			append(table.primaryKey.quotedID).
-			append('=').
-			appendParameter(item.pk).
-			appendTypeCheck(table, item.type);
-
-		executor.query(tx.getConnection(), bf, null, false, resultSet ->
+		select(tx, item, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
-				executor.dialect.fetchBlob(resultSet, 1, item, data, field);
+				tx.connect.executor.dialect.fetchBlob(resultSet, 1, item, data, field);
 
 				return null;
 			}
