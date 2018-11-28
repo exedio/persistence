@@ -190,7 +190,7 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns null, if there is no data for this field.
 	 */
 	@Override
-	public ArrayValue get(final Item item)
+	public Value get(final Item item) // return type must not be ArrayValue, as it is not public
 	{
 		final byte[] array = getArray(item);
 		return array!=null ? new ArrayValue(array) : null;
