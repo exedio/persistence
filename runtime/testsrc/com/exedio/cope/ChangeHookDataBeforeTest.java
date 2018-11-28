@@ -120,10 +120,9 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 	{
 		final MyItem i = newMyItem();
 		i.setField(encode("fieldVal"));
-		//noinspection Convert2MethodRef
 		assertAll(
-				() -> assertEvents(), // TODO is a bug
-				() -> assertEquals("fieldVal", i.getField()),
+				() -> assertEvents("Hook#set("+i+",field=fieldVal)"),
+				() -> assertEquals("fieldVal / Hook#set", i.getField()),
 				() -> assertEquals(null, i.getOther()));
 	}
 
@@ -131,10 +130,9 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 	{
 		final MyItem i = newMyItem();
 		i.setField(encode("fieldVal(DROP)"));
-		//noinspection Convert2MethodRef
 		assertAll(
-				() -> assertEvents(), // TODO is a bug
-				() -> assertEquals("fieldVal(DROP)", i.getField()),
+				() -> assertEvents("Hook#set("+i+",field=fieldVal(DROP))"),
+				() -> assertEquals(null, i.getField()),
 				() -> assertEquals(null, i.getOther()));
 	}
 
@@ -142,22 +140,20 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 	{
 		final MyItem i = newMyItem();
 		i.setField(encode("fieldVal(OTHER)"));
-		//noinspection Convert2MethodRef
 		assertAll(
-				() -> assertEvents(), // TODO is a bug
-				() -> assertEquals("fieldVal(OTHER)", i.getField()),
-				() -> assertEquals(null, i.getOther()));
+				() -> assertEvents("Hook#set("+i+",field=fieldVal(OTHER))"),
+				() -> assertEquals("fieldVal(OTHER) / Hook#set", i.getField()),
+				() -> assertEquals("(OTHERset)", i.getOther()));
 	}
 
 	@Test void testDataOnlySetOtherDrop()
 	{
 		final MyItem i = newMyItem();
 		i.setField(encode("fieldVal(OTHER)(DROP)"));
-		//noinspection Convert2MethodRef
 		assertAll(
-				() -> assertEvents(), // TODO is a bug
-				() -> assertEquals("fieldVal(OTHER)(DROP)", i.getField()),
-				() -> assertEquals(null, i.getOther()));
+				() -> assertEvents("Hook#set("+i+",field=fieldVal(OTHER)(DROP))"),
+				() -> assertEquals(null, i.getField()),
+				() -> assertEquals("(OTHERset)", i.getOther()));
 	}
 
 	@Test void testOtherOnlyCreate()

@@ -267,6 +267,11 @@ public final class DataField extends Field<DataField.Value>
 	@Override
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Value data)
 	{
+		item.set(map(data));
+	}
+
+	void setOnly(@Nonnull final Item item, final Value data)
+	{
 		FinalViolationException.check(this, item);
 
 		if(data==null)

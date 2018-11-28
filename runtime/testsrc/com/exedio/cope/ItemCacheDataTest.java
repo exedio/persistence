@@ -129,7 +129,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(2, 1);
 	}
 
-	@Test void testCommitMultiData()
+	@Test void testCommitMultiData() // same as testCommitSingleData
 	{
 		assertUpdateCount(0, NONE);
 
@@ -137,11 +137,11 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(NONE, NONE);
 
 		item.setDataMulti("aabbccdd");
-		assertUpdateCount(v?1:0, 0);
+		assertUpdateCount(v ? 1 : NONE, v ? 0 : NONE);
 
 		model.commit();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(NONE, v ? NONE : 0);
+		assertUpdateCount(NONE, NONE);
 
 		item.setString("zack");
 		assertUpdateCount(v?2:1, v?1:0);
@@ -237,7 +237,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(1, 0);
 	}
 
-	@Test void testRollbackMultiData()
+	@Test void testRollbackMultiData() // same as testRollbackSingleData
 	{
 		assertUpdateCount(0, NONE);
 
@@ -245,11 +245,11 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		assertUpdateCount(NONE, NONE);
 
 		item.setDataMulti("aabbccdd");
-		assertUpdateCount(v?1:0, 0);
+		assertUpdateCount(v ? 1 : NONE, v ? 0 : NONE);
 
 		model.rollback();
 		model.startTransaction("ItemCacheDataTest");
-		assertUpdateCount(NONE, 0);
+		assertUpdateCount(NONE, v ? 0 : NONE);
 
 		item.setString("zack");
 		assertUpdateCount(1, 0);
