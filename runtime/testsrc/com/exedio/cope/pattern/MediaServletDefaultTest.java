@@ -47,7 +47,7 @@ public class MediaServletDefaultTest
 				"model not connected, use Model#connect for " + MaximumAgeItemModel);
 		MaximumAgeItemModel.connect(ConnectProperties.create(cascade(
 				TestSources.minimal(),
-				single("media.offsetExpires", "76543")
+				single("media.offsetExpires", "PT76.543S")
 		)));
 		assertEquals(Duration.ofSeconds(76), servlet.getMaximumAge(MaximumAgeItem.path, null));
 	}
