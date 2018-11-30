@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
+import static com.exedio.cope.DayItem.TYPE;
+import static com.exedio.cope.DayItem.mandatory;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -49,36 +51,36 @@ public class QueryTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		final Query<?> q = DayItem.TYPE.newQuery(null);
-		assertEquals(DayItem.TYPE.getThis(), q.getSelectSingle());
-		assertEquals(DayItem.TYPE, q.getType());
+		final Query<?> q = TYPE.newQuery(null);
+		assertEquals(TYPE.getThis(), q.getSelectSingle());
+		assertEquals(TYPE, q.getType());
 		assertEquals(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
-		q.narrow(DayItem.mandatory.less(d1));
-		assertEquals(DayItem.TYPE, q.getType());
-		assertEqualsAndHash(DayItem.mandatory.less(d1), q.getCondition());
+		q.narrow(mandatory.less(d1));
+		assertEquals(TYPE, q.getType());
+		assertEqualsAndHash(mandatory.less(d1), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
-		q.narrow(DayItem.mandatory.greater(d1));
-		assertEquals(DayItem.TYPE, q.getType());
-		assertEqualsAndHash(DayItem.mandatory.less(d1).and(DayItem.mandatory.greater(d1)), q.getCondition());
+		q.narrow(mandatory.greater(d1));
+		assertEquals(TYPE, q.getType());
+		assertEqualsAndHash(mandatory.less(d1).and(mandatory.greater(d1)), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
-		final Condition c1 = DayItem.mandatory.equal(d1);
-		final Condition c2 = DayItem.mandatory.equal(d2);
+		final Condition c1 = mandatory.equal(d1);
+		final Condition c2 = mandatory.equal(d2);
 
-		assertEqualsAndHash(c1, DayItem.mandatory.equal(d1));
-		assertEqualsAndHash(c1.and(c2), DayItem.mandatory.equal(d1).and(DayItem.mandatory.equal(d2)));
+		assertEqualsAndHash(c1, mandatory.equal(d1));
+		assertEqualsAndHash(c1.and(c2), mandatory.equal(d1).and(mandatory.equal(d2)));
 		assertNotEqualsAndHash(c1, c2, c1.and(c2), c2.and(c1));
 	}
 
 	@Test void testLiterals()
 	{
-		final Condition c1 = DayItem.mandatory.equal(d1);
-		final Condition c2 = DayItem.mandatory.equal(d2);
+		final Condition c1 = mandatory.equal(d1);
+		final Condition c2 = mandatory.equal(d2);
 		{
-			final Query<?> q = DayItem.TYPE.newQuery(TRUE);
+			final Query<?> q = TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
 
 			model.currentTransaction().setQueryInfoEnabled(true);
@@ -98,7 +100,7 @@ public class QueryTest extends TestWithEnvironment
 			assertSame(FALSE, q.getCondition());
 		}
 		{
-			final Query<?> q = DayItem.TYPE.newQuery(FALSE);
+			final Query<?> q = TYPE.newQuery(FALSE);
 			assertSame(FALSE, q.getCondition());
 
 			model.currentTransaction().setQueryInfoEnabled(true);
@@ -132,8 +134,8 @@ public class QueryTest extends TestWithEnvironment
 
 	@Test void testResult()
 	{
-		assertEquals("select this from DayItem where FALSE", DayItem.TYPE.emptyQuery().toString());
-		assertEquals(list(), DayItem.TYPE.emptyQuery().search());
+		assertEquals("select this from DayItem where FALSE", TYPE.emptyQuery().toString());
+		assertEquals(list(), TYPE.emptyQuery().search());
 
 		assertEquals(list(), Query.Result.empty().getData());
 		assertEquals(0, Query.Result.empty().getTotal());
@@ -255,8 +257,8 @@ public class QueryTest extends TestWithEnvironment
 
 	private static Query.Result<Day> r(final int offset, final int limit)
 	{
-		final Query<Day> q = new Query<>(DayItem.mandatory);
-		q.setOrderBy(DayItem.TYPE.getThis(), true);
+		final Query<Day> q = new Query<>(mandatory);
+		q.setOrderBy(TYPE.getThis(), true);
 		q.setPage(offset, limit);
 		return q.searchAndTotal();
 	}
@@ -284,12 +286,12 @@ public class QueryTest extends TestWithEnvironment
 
 		assertContains(
 			item1, item2a, item2b, item3,
-			DayItem.TYPE.search()
+			TYPE.search()
 		);
-		final Query<?> query = Query.newQuery( new Selectable<?>[]{DayItem.mandatory, DayItem.mandatory}, DayItem.TYPE, TRUE );
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{mandatory, mandatory}, TYPE, TRUE );
 		assertEquals("select mandatory,mandatory from DayItem", query.toString());
 
-		query.setGroupBy( DayItem.mandatory );
+		query.setGroupBy( mandatory );
 		assertEquals("select mandatory,mandatory from DayItem group by mandatory", query.toString());
 		assertContains(
 			list(d1, d1), list(d2, d2), list(d3, d3),
