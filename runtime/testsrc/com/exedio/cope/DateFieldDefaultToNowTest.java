@@ -49,56 +49,55 @@ public class DateFieldDefaultToNowTest extends TestWithEnvironment
 
 	@Test void testNow()
 	{
-		final Date now = clock.add(1111);
+		clock.add(value1);
 		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
 		);
 		clock.assertEmpty();
 
-		assertEquals(now, item.getMandatory());
-		assertEquals(now, item.getOptional());
+		assertEquals(value1, item.getMandatory());
+		assertEquals(value1, item.getOptional());
 		assertEquals(null, item.getNone());
 	}
 	@Test void testNowOther()
 	{
-		final Date now = clock.add(2222);
+		clock.add(value2);
 		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
 		);
 		clock.assertEmpty();
 
-		assertEquals(now, item.getMandatory());
-		assertEquals(now, item.getOptional());
+		assertEquals(value2, item.getMandatory());
+		assertEquals(value2, item.getOptional());
 		assertEquals(null, item.getNone());
 	}
 	@Test void testSet()
 	{
 		clock.assertEmpty();
 		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-				mandatory.map(date(501)),
-				optional.map(date(502)),
-				none.map(date(503))
+				mandatory.map(value1),
+				optional.map(value2),
+				none.map(value3)
 		);
 		clock.assertEmpty();
 
-		assertEquals(date(501), item.getMandatory());
-		assertEquals(date(502), item.getOptional());
-		assertEquals(date(503), item.getNone());
+		assertEquals(value1, item.getMandatory());
+		assertEquals(value2, item.getOptional());
+		assertEquals(value3, item.getNone());
 	}
 	@Test void testSetNull()
 	{
-		final Date now = clock.add(4444);
+		clock.add(value3);
 		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
 				optional.map(null),
 				none.map(null)
 		);
 		clock.assertEmpty();
 
-		assertEquals(now, item.getMandatory());
+		assertEquals(value3, item.getMandatory());
 		assertEquals(null, item.getOptional());
 		assertEquals(null, item.getNone());
 	}
 
-	private static Date date(final long l)
-	{
-		return new Date(l);
-	}
+	private static final Date value1 = new Date(1111);
+	private static final Date value2 = new Date(2222);
+	private static final Date value3 = new Date(3333);
 }
