@@ -47,53 +47,54 @@ public class DateFieldDefaultToNowTest extends TestWithEnvironment
 		clockRule.override(clock);
 	}
 
-	@Test void testIt()
+	@Test void testNow()
 	{
-		{
-			final Date now = clock.add(1111);
-			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-			);
-			clock.assertEmpty();
+		final Date now = clock.add(1111);
+		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
+		);
+		clock.assertEmpty();
 
-			assertEquals(now, item.getMandatory());
-			assertEquals(now, item.getOptional());
-			assertEquals(null, item.getNone());
-		}
-		{
-			final Date now = clock.add(2222);
-			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-			);
-			clock.assertEmpty();
+		assertEquals(now, item.getMandatory());
+		assertEquals(now, item.getOptional());
+		assertEquals(null, item.getNone());
+	}
+	@Test void testNowOther()
+	{
+		final Date now = clock.add(2222);
+		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
+		);
+		clock.assertEmpty();
 
-			assertEquals(now, item.getMandatory());
-			assertEquals(now, item.getOptional());
-			assertEquals(null, item.getNone());
-		}
-		{
-			clock.assertEmpty();
-			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					mandatory.map(date(501)),
-					optional.map(date(502)),
-					none.map(date(503))
-			);
-			clock.assertEmpty();
+		assertEquals(now, item.getMandatory());
+		assertEquals(now, item.getOptional());
+		assertEquals(null, item.getNone());
+	}
+	@Test void testSet()
+	{
+		clock.assertEmpty();
+		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
+				mandatory.map(date(501)),
+				optional.map(date(502)),
+				none.map(date(503))
+		);
+		clock.assertEmpty();
 
-			assertEquals(date(501), item.getMandatory());
-			assertEquals(date(502), item.getOptional());
-			assertEquals(date(503), item.getNone());
-		}
-		{
-			final Date now = clock.add(4444);
-			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					optional.map(null),
-					none.map(null)
-			);
-			clock.assertEmpty();
+		assertEquals(date(501), item.getMandatory());
+		assertEquals(date(502), item.getOptional());
+		assertEquals(date(503), item.getNone());
+	}
+	@Test void testSetNull()
+	{
+		final Date now = clock.add(4444);
+		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
+				optional.map(null),
+				none.map(null)
+		);
+		clock.assertEmpty();
 
-			assertEquals(now, item.getMandatory());
-			assertEquals(null, item.getOptional());
-			assertEquals(null, item.getNone());
-		}
+		assertEquals(now, item.getMandatory());
+		assertEquals(null, item.getOptional());
+		assertEquals(null, item.getNone());
 	}
 
 	private static Date date(final long l)

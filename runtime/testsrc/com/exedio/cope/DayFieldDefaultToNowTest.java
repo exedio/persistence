@@ -49,53 +49,54 @@ public class DayFieldDefaultToNowTest extends TestWithEnvironment
 		clockRule.override(clock);
 	}
 
-	@Test void testIt()
+	@Test void testNow()
 	{
-		{
-			final Date now = clock.add(1111);
-			final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-			);
-			clock.assertEmpty();
+		final Date now = clock.add(1111);
+		final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
+		);
+		clock.assertEmpty();
 
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getOptional());
-			assertEquals(null, item.getNone());
-		}
-		{
-			final Date now = clock.add(2222);
-			final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-			);
-			clock.assertEmpty();
+		assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
+		assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getOptional());
+		assertEquals(null, item.getNone());
+	}
+	@Test void testNowOther()
+	{
+		final Date now = clock.add(2222);
+		final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
+		);
+		clock.assertEmpty();
 
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getOptional());
-			assertEquals(null, item.getNone());
-		}
-		{
-			clock.assertEmpty();
-			final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-					mandatory.map(day(2010, 1, 13)),
-					optional.map(day(2010, 1, 14)),
-					none.map(day(2010, 1, 15))
-			);
-			clock.assertEmpty();
+		assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
+		assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getOptional());
+		assertEquals(null, item.getNone());
+	}
+	@Test void testSet()
+	{
+		clock.assertEmpty();
+		final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
+				mandatory.map(day(2010, 1, 13)),
+				optional.map(day(2010, 1, 14)),
+				none.map(day(2010, 1, 15))
+		);
+		clock.assertEmpty();
 
-			assertEquals(day(2010, 1, 13), item.getMandatory());
-			assertEquals(day(2010, 1, 14), item.getOptional());
-			assertEquals(day(2010, 1, 15), item.getNone());
-		}
-		{
-			final Date now = clock.add(4444);
-			final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-					optional.map(null),
-					none.map(null)
-			);
-			clock.assertEmpty();
+		assertEquals(day(2010, 1, 13), item.getMandatory());
+		assertEquals(day(2010, 1, 14), item.getOptional());
+		assertEquals(day(2010, 1, 15), item.getNone());
+	}
+	@Test void testSetNull()
+	{
+		final Date now = clock.add(4444);
+		final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
+				optional.map(null),
+				none.map(null)
+		);
+		clock.assertEmpty();
 
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
-			assertEquals(null, item.getOptional());
-			assertEquals(null, item.getNone());
-		}
+		assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
+		assertEquals(null, item.getOptional());
+		assertEquals(null, item.getNone());
 	}
 
 	private static Day day(final int year, final int month, final int day)
