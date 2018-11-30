@@ -27,12 +27,8 @@ import static com.exedio.cope.DefaultToItem.booleanTrue;
 import static com.exedio.cope.DefaultToItem.dateEight;
 import static com.exedio.cope.DefaultToItem.dateEighty;
 import static com.exedio.cope.DefaultToItem.dateNone;
-import static com.exedio.cope.DefaultToItem.dateNow;
-import static com.exedio.cope.DefaultToItem.dateNowOpt;
 import static com.exedio.cope.DefaultToItem.dayEight;
 import static com.exedio.cope.DefaultToItem.dayNone;
-import static com.exedio.cope.DefaultToItem.dayNow;
-import static com.exedio.cope.DefaultToItem.dayNowOpt;
 import static com.exedio.cope.DefaultToItem.enumNone;
 import static com.exedio.cope.DefaultToItem.enumOne;
 import static com.exedio.cope.DefaultToItem.enumTwo;
@@ -42,7 +38,6 @@ import static com.exedio.cope.DefaultToItem.integerNext;
 import static com.exedio.cope.DefaultToItem.integerNone;
 import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
-import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.FALSE;
 import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -85,7 +80,7 @@ public class DefaultToTest extends TestWithEnvironment
 		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date now = clock.add(1111);
+			clock.add(999999999); // TODO assertEmpty
 			final DefaultToItem item = new DefaultToItem(
 					booleanNone.map(false)
 			);
@@ -99,12 +94,8 @@ public class DefaultToTest extends TestWithEnvironment
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(date(80), item.getDateEighty());
-			assertEquals(now, item.getDateNow());
-			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 			assertEquals(day(1608, 8, 8), item.getDayEight());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
@@ -116,7 +107,7 @@ public class DefaultToTest extends TestWithEnvironment
 		assertInfo(integerNext, 1, 10001, 10001, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date now = clock.add(2222);
+			clock.add(999999999); // TODO assertEmpty
 			final DefaultToItem item = new DefaultToItem(
 					booleanNone.map(false)
 			);
@@ -130,11 +121,7 @@ public class DefaultToTest extends TestWithEnvironment
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(date(80), item.getDateEighty());
-			assertEquals(now, item.getDateNow());
-			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertNotNull(item.getLongRandom());
 			assertEquals(ONE, item.getEnumOne());
@@ -155,12 +142,8 @@ public class DefaultToTest extends TestWithEnvironment
 					integerNext.map(7001),
 					dateEight.map(date(9)),
 					dateEighty.map(date(81)),
-					dateNow.map(date(501)),
-					dateNowOpt.map(date(502)),
 					dateNone.map(date(503)),
 					dayEight.map(day(1609, 9, 9)),
-					dayNow.map(day(2010, 1, 13)),
-					dayNowOpt.map(day(2010, 1, 14)),
 					dayNone.map(day(2010, 1, 15)),
 					longRandom.map(Long.valueOf(37)),
 					enumOne.map(THREE),
@@ -177,12 +160,8 @@ public class DefaultToTest extends TestWithEnvironment
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(9), item.getDateEight());
 			assertEquals(date(81), item.getDateEighty());
-			assertEquals(date(501), item.getDateNow());
-			assertEquals(date(502), item.getDateNowOpt());
 			assertEquals(date(503), item.getDateNone());
 			assertEquals(day(1609, 9, 9), item.getDayEight());
-			assertEquals(day(2010, 1, 13), item.getDayNow());
-			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
 			assertEquals(day(2010, 1, 15), item.getDayNone());
 			assertEquals(Long.valueOf(37), item.getLongRandom());
 			assertEquals(THREE, item.getEnumOne());
@@ -194,16 +173,14 @@ public class DefaultToTest extends TestWithEnvironment
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			final Date now = clock.add(4444);
+			clock.add(999999999); // TODO assertEmpty
 			final DefaultToItem item = new DefaultToItem(
 					booleanTrue.map(null),
 					booleanNone.map(true),
 					integerFifty.map(null),
 					integerNext.map(null),
 					dateEighty.map(null),
-					dateNowOpt.map(null),
 					dateNone.map(null),
-					dayNowOpt.map(null),
 					dayNone.map(null),
 					longRandom.map(null),
 					enumOne.map(TWO),
@@ -220,12 +197,8 @@ public class DefaultToTest extends TestWithEnvironment
 			assertEquals(null, item.getIntegerNone());
 			assertEquals(date(8), item.getDateEight());
 			assertEquals(null, item.getDateEighty());
-			assertEquals(now, item.getDateNow());
-			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
 			assertEquals(day(1608, 8, 8), item.getDayEight());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(null, item.getDayNowOpt());
 			assertEquals(null, item.getDayNone());
 			assertEquals(null, item.getLongRandom());
 			assertEquals(TWO, item.getEnumOne());

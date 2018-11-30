@@ -18,42 +18,14 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DateFieldDefaultToNowItem.DefaultToEnum.ONE;
-import static com.exedio.cope.DateFieldDefaultToNowItem.DefaultToEnum.THREE;
-import static com.exedio.cope.DateFieldDefaultToNowItem.DefaultToEnum.TWO;
-import static com.exedio.cope.DateFieldDefaultToNowItem.TYPE;
-import static com.exedio.cope.DateFieldDefaultToNowItem.booleanNone;
-import static com.exedio.cope.DateFieldDefaultToNowItem.booleanTrue;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateEight;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateEighty;
 import static com.exedio.cope.DateFieldDefaultToNowItem.dateNone;
 import static com.exedio.cope.DateFieldDefaultToNowItem.dateNow;
 import static com.exedio.cope.DateFieldDefaultToNowItem.dateNowOpt;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dayEight;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dayNone;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dayNow;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dayNowOpt;
-import static com.exedio.cope.DateFieldDefaultToNowItem.enumNone;
-import static com.exedio.cope.DateFieldDefaultToNowItem.enumOne;
-import static com.exedio.cope.DateFieldDefaultToNowItem.enumTwo;
-import static com.exedio.cope.DateFieldDefaultToNowItem.integerFifty;
-import static com.exedio.cope.DateFieldDefaultToNowItem.integerFive;
-import static com.exedio.cope.DateFieldDefaultToNowItem.integerNext;
-import static com.exedio.cope.DateFieldDefaultToNowItem.integerNone;
-import static com.exedio.cope.DateFieldDefaultToNowItem.longRandom;
-import static com.exedio.cope.SequenceInfoAssert.assertInfo;
-import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
-import static java.lang.Boolean.FALSE;
-import static java.lang.Boolean.TRUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
-import com.exedio.cope.util.Day;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -75,181 +47,57 @@ public class DateFieldDefaultToNowTest extends TestWithEnvironment
 		clockRule.override(clock);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testIt()
 	{
-		assertDefaultToNextSequenceName("DefaulToItem_inteNext_Seq", integerNext);
-
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
-		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date now = clock.add(1111);
 			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					booleanNone.map(false)
 			);
 			clock.assertEmpty();
 
-			assertEquals(TRUE, item.getBooleanTrue());
-			assertEquals(false, item.getBooleanNone());
-			assertEquals(5, item.getIntegerFive());
-			assertEquals(integer(50), item.getIntegerFifty());
-			assertEquals(integer(10001), item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
-			assertEquals(date(8), item.getDateEight());
-			assertEquals(date(80), item.getDateEighty());
 			assertEquals(now, item.getDateNow());
 			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(day(1608, 8, 8), item.getDayEight());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNowOpt());
-			assertEquals(null, item.getDayNone());
-			assertNotNull(item.getLongRandom());
-			assertEquals(ONE, item.getEnumOne());
-			assertEquals(TWO, item.getEnumTwo());
-			assertEquals(null, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
-		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 1, 10001, 10001, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date now = clock.add(2222);
 			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					booleanNone.map(false)
 			);
 			clock.assertEmpty();
 
-			assertEquals(TRUE, item.getBooleanTrue());
-			assertEquals(false, item.getBooleanNone());
-			assertEquals(5, item.getIntegerFive());
-			assertEquals(integer(50), item.getIntegerFifty());
-			assertEquals(integer(10002), item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
-			assertEquals(date(8), item.getDateEight());
-			assertEquals(date(80), item.getDateEighty());
 			assertEquals(now, item.getDateNow());
 			assertEquals(now, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNowOpt());
-			assertEquals(null, item.getDayNone());
-			assertNotNull(item.getLongRandom());
-			assertEquals(ONE, item.getEnumOne());
-			assertEquals(TWO, item.getEnumTwo());
-			assertEquals(null, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
-		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			clock.assertEmpty();
 			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					booleanTrue.map(false),
-					booleanNone.map(true),
-					integerFive.map(6),
-					integerFifty.map(51),
-					integerNext.map(7001),
-					dateEight.map(date(9)),
-					dateEighty.map(date(81)),
 					dateNow.map(date(501)),
 					dateNowOpt.map(date(502)),
-					dateNone.map(date(503)),
-					dayEight.map(day(1609, 9, 9)),
-					dayNow.map(day(2010, 1, 13)),
-					dayNowOpt.map(day(2010, 1, 14)),
-					dayNone.map(day(2010, 1, 15)),
-					longRandom.map(Long.valueOf(37)),
-					enumOne.map(THREE),
-					enumTwo.map(ONE),
-					enumNone.map(TWO)
+					dateNone.map(date(503))
 			);
 			clock.assertEmpty();
 
-			assertEquals(FALSE, item.getBooleanTrue());
-			assertEquals(true, item.getBooleanNone());
-			assertEquals(6, item.getIntegerFive());
-			assertEquals(integer(51), item.getIntegerFifty());
-			assertEquals(integer(7001), item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
-			assertEquals(date(9), item.getDateEight());
-			assertEquals(date(81), item.getDateEighty());
 			assertEquals(date(501), item.getDateNow());
 			assertEquals(date(502), item.getDateNowOpt());
 			assertEquals(date(503), item.getDateNone());
-			assertEquals(day(1609, 9, 9), item.getDayEight());
-			assertEquals(day(2010, 1, 13), item.getDayNow());
-			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
-			assertEquals(day(2010, 1, 15), item.getDayNone());
-			assertEquals(Long.valueOf(37), item.getLongRandom());
-			assertEquals(THREE, item.getEnumOne());
-			assertEquals(ONE, item.getEnumTwo());
-			assertEquals(TWO, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
-		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
 		{
 			final Date now = clock.add(4444);
 			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					booleanTrue.map(null),
-					booleanNone.map(true),
-					integerFifty.map(null),
-					integerNext.map(null),
-					dateEighty.map(null),
 					dateNowOpt.map(null),
-					dateNone.map(null),
-					dayNowOpt.map(null),
-					dayNone.map(null),
-					longRandom.map(null),
-					enumOne.map(TWO),
-					enumTwo.map(null),
-					enumNone.map(null)
+					dateNone.map(null)
 			);
 			clock.assertEmpty();
 
-			assertEquals(null, item.getBooleanTrue());
-			assertEquals(true, item.getBooleanNone());
-			assertEquals(5, item.getIntegerFive());
-			assertEquals(null, item.getIntegerFifty());
-			assertEquals(null, item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
-			assertEquals(date(8), item.getDateEight());
-			assertEquals(null, item.getDateEighty());
 			assertEquals(now, item.getDateNow());
 			assertEquals(null, item.getDateNowOpt());
 			assertEquals(null, item.getDateNone());
-			assertEquals(day(1608, 8, 8), item.getDayEight());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(null, item.getDayNowOpt());
-			assertEquals(null, item.getDayNone());
-			assertEquals(null, item.getLongRandom());
-			assertEquals(TWO, item.getEnumOne());
-			assertEquals(null, item.getEnumTwo());
-			assertEquals(null, item.getEnumNone());
 		}
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
-		assertInfo(TYPE, 4, 0, 3, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
-	}
-
-	private static Integer integer(final int i)
-	{
-		return Integer.valueOf(i);
 	}
 
 	private static Date date(final long l)
 	{
 		return new Date(l);
-	}
-
-	private static Day day(final int year, final int month, final int day)
-	{
-		return new Day(year, month, day);
 	}
 }

@@ -26,12 +26,8 @@ import static com.exedio.cope.DefaultToItem.booleanTrue;
 import static com.exedio.cope.DefaultToItem.dateEight;
 import static com.exedio.cope.DefaultToItem.dateEighty;
 import static com.exedio.cope.DefaultToItem.dateNone;
-import static com.exedio.cope.DefaultToItem.dateNow;
-import static com.exedio.cope.DefaultToItem.dateNowOpt;
 import static com.exedio.cope.DefaultToItem.dayEight;
 import static com.exedio.cope.DefaultToItem.dayNone;
-import static com.exedio.cope.DefaultToItem.dayNow;
-import static com.exedio.cope.DefaultToItem.dayNowOpt;
 import static com.exedio.cope.DefaultToItem.enumNone;
 import static com.exedio.cope.DefaultToItem.enumOne;
 import static com.exedio.cope.DefaultToItem.enumTwo;
@@ -64,8 +60,8 @@ public class DefaultToModelTest
 				TYPE.getThis(),
 				booleanTrue, booleanNone,
 				integerFive, integerFifty, integerNext, integerNext.getDefaultNext(), integerNone,
-				dateEight, dateEighty, dateNow, dateNowOpt, dateNone,
-				dayEight, dayNow, dayNowOpt, dayNone,
+				dateEight, dateEighty, dateNone,
+				dayEight, dayNone,
 				longRandom,
 				enumOne, enumTwo, enumNone
 				), TYPE.getDeclaredFeatures());
@@ -78,12 +74,8 @@ public class DefaultToModelTest
 		assertEquals(false, integerNone.hasDefault());
 		assertEquals(true,  dateEight.hasDefault());
 		assertEquals(true,  dateEighty.hasDefault());
-		assertEquals(true,  dateNow.hasDefault());
-		assertEquals(true,  dateNowOpt.hasDefault());
 		assertEquals(false, dateNone.hasDefault());
 		assertEquals(true,  dayEight.hasDefault());
-		assertEquals(true,  dayNow.hasDefault());
-		assertEquals(true,  dayNowOpt.hasDefault());
 		assertEquals(false, dayNone.hasDefault());
 		assertEquals(true,  longRandom.hasDefault());
 
@@ -120,29 +112,19 @@ public class DefaultToModelTest
 
 		assertEquals(date(8), dateEight.getDefaultConstant());
 		assertEquals(date(80), dateEighty.getDefaultConstant());
-		assertEquals(null, dateNow.getDefaultConstant());
-		assertEquals(null, dateNowOpt.getDefaultConstant());
 		assertEquals(null, dateNone.getDefaultConstant());
 
 		assertEquals(false, dateEight.isDefaultNow());
 		assertEquals(false, dateEighty.isDefaultNow());
-		assertEquals(true,  dateNow.isDefaultNow());
-		assertEquals(true,  dateNowOpt.isDefaultNow());
 		assertEquals(false, dateNone.isDefaultNow());
 
 		assertEquals(day(1608, 8, 8), dayEight.getDefaultConstant());
-		assertEquals(null, dayNow.getDefaultConstant());
-		assertEquals(null, dayNowOpt.getDefaultConstant());
 		assertEquals(null, dayNone.getDefaultConstant());
 
 		assertEquals(false, dayEight.isDefaultNow());
-		assertEquals(true,  dayNow.isDefaultNow());
-		assertEquals(true,  dayNowOpt.isDefaultNow());
 		assertEquals(false, dayNone.isDefaultNow());
 
 		assertEquals(null, dayEight.getDefaultNowZimeZone());
-		assertEquals(getTimeZone("Europe/Berlin"),  dayNow.getDefaultNowZimeZone());
-		assertEquals(getTimeZone("Europe/Berlin"),  dayNowOpt.getDefaultNowZimeZone());
 		assertEquals(null, dayNone.getDefaultNowZimeZone());
 
 		assertEquals(null, longRandom.getDefaultConstant());
@@ -195,23 +177,11 @@ public class DefaultToModelTest
 			assertEquals(true, feature.isDefaultNow());
 		}
 		{
-			final DateField feature = dateNow.defaultTo(new Date(444));
-			assertEquals(true, feature.hasDefault());
-			assertEquals(new Date(444), feature.getDefaultConstant());
-			assertEquals(false, feature.isDefaultNow());
-		}
-		{
 			final DayField feature = dayEight.defaultToNow(getTimeZone("Canada/Eastern"));
 			assertEquals(true, feature.hasDefault());
 			assertEquals(null, feature.getDefaultConstant());
 			assertEquals(true, feature.isDefaultNow());
 			assertEquals(getTimeZone("Canada/Eastern"), feature.getDefaultNowZimeZone());
-		}
-		{
-			final DayField feature = dayNow.defaultTo(new Day(2010, 1, 13));
-			assertEquals(true, feature.hasDefault());
-			assertEquals(new Day(2010, 1, 13), feature.getDefaultConstant());
-			assertEquals(false, feature.isDefaultNow());
 		}
 		try
 		{

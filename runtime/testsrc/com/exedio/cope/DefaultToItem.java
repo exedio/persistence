@@ -22,7 +22,6 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Day;
-import com.exedio.cope.util.TimeZoneStrict;
 import java.util.Date;
 import java.util.Random;
 
@@ -41,13 +40,9 @@ final class DefaultToItem extends Item
 	static final DateField dateEight = new DateField().defaultTo(new Date(8));
 	@CopeSchemaName("dateEty")
 	static final DateField dateEighty = new DateField().optional().defaultTo(new Date(80));
-	static final DateField dateNow = new DateField().defaultToNow();
-	static final DateField dateNowOpt = new DateField().optional().defaultToNow();
 	static final DateField dateNone = new DateField().optional();
 
 	static final DayField dayEight = new DayField().defaultTo(new Day(1608, 8, 8));
-	static final DayField dayNow = new DayField().defaultToNow(TimeZoneStrict.getTimeZone("Europe/Berlin"));
-	static final DayField dayNowOpt = new DayField().optional().defaultToNow(TimeZoneStrict.getTimeZone("Europe/Berlin"));
 	static final DayField dayNone = new DayField().optional();
 
 	static final LongField longRandom = new LongField().optional().min(0l).defaultToRandom(new Random());
@@ -254,64 +249,6 @@ final class DefaultToItem extends Item
 	}
 
 	/**
-	 * Returns the value of {@link #dateNow}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Date getDateNow()
-	{
-		return DefaultToItem.dateNow.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #dateNow}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDateNow(@javax.annotation.Nonnull final java.util.Date dateNow)
-			throws
-				com.exedio.cope.MandatoryViolationException
-	{
-		DefaultToItem.dateNow.set(this,dateNow);
-	}
-
-	/**
-	 * Sets the current date for the date field {@link #dateNow}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDateNow()
-	{
-		DefaultToItem.dateNow.touch(this);
-	}
-
-	/**
-	 * Returns the value of {@link #dateNowOpt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nullable
-	java.util.Date getDateNowOpt()
-	{
-		return DefaultToItem.dateNowOpt.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #dateNowOpt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDateNowOpt(@javax.annotation.Nullable final java.util.Date dateNowOpt)
-	{
-		DefaultToItem.dateNowOpt.set(this,dateNowOpt);
-	}
-
-	/**
-	 * Sets the current date for the date field {@link #dateNowOpt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDateNowOpt()
-	{
-		DefaultToItem.dateNowOpt.touch(this);
-	}
-
-	/**
 	 * Returns the value of {@link #dateNone}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -367,64 +304,6 @@ final class DefaultToItem extends Item
 	void touchDayEight(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayEight.touch(this,zone);
-	}
-
-	/**
-	 * Returns the value of {@link #dayNow}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	com.exedio.cope.util.Day getDayNow()
-	{
-		return DefaultToItem.dayNow.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #dayNow}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDayNow(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayNow)
-			throws
-				com.exedio.cope.MandatoryViolationException
-	{
-		DefaultToItem.dayNow.set(this,dayNow);
-	}
-
-	/**
-	 * Sets today for the date field {@link #dayNow}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDayNow(@javax.annotation.Nonnull final java.util.TimeZone zone)
-	{
-		DefaultToItem.dayNow.touch(this,zone);
-	}
-
-	/**
-	 * Returns the value of {@link #dayNowOpt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nullable
-	com.exedio.cope.util.Day getDayNowOpt()
-	{
-		return DefaultToItem.dayNowOpt.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #dayNowOpt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDayNowOpt(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNowOpt)
-	{
-		DefaultToItem.dayNowOpt.set(this,dayNowOpt);
-	}
-
-	/**
-	 * Sets today for the date field {@link #dayNowOpt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDayNowOpt(@javax.annotation.Nonnull final java.util.TimeZone zone)
-	{
-		DefaultToItem.dayNowOpt.touch(this,zone);
 	}
 
 	/**
