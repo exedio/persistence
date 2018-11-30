@@ -23,9 +23,9 @@ import static com.exedio.cope.DayItem.mandatory;
 import static com.exedio.cope.DayItem.optional;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
@@ -302,15 +302,12 @@ public class DayFieldTest extends TestWithEnvironment
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	@Test void testUnchecked()
 	{
-		try
-		{
-			item.set((FunctionField)mandatory, Integer.valueOf(10));
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + mandatory + '.', e.getMessage());
-		}
+		assertFails(
+				() -> item.set((FunctionField)mandatory, Integer.valueOf(10)),
+				ClassCastException.class,
+				"expected a " + Day.class.getName() + ", " +
+				"but was a " + Integer.class.getName() + " " +
+				"for " + mandatory + ".");
 	}
 
 	protected static List<Day> search(final DayField selectField)
