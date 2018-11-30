@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DayFieldDefaultToNowItem.TYPE;
-import static com.exedio.cope.DayFieldDefaultToNowItem.dayNone;
-import static com.exedio.cope.DayFieldDefaultToNowItem.dayNow;
-import static com.exedio.cope.DayFieldDefaultToNowItem.dayNowOpt;
+import static com.exedio.cope.DayFieldDefaultToNowItem.mandatory;
+import static com.exedio.cope.DayFieldDefaultToNowItem.none;
+import static com.exedio.cope.DayFieldDefaultToNowItem.optional;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,26 +37,26 @@ public class DayFieldDefaultToNowModelTest
 	{
 		assertEquals(list(
 				TYPE.getThis(),
-				dayNow, dayNowOpt, dayNone
+				mandatory, optional, none
 				), TYPE.getDeclaredFeatures());
 
-		assertEquals(true,  dayNow.hasDefault());
-		assertEquals(true,  dayNowOpt.hasDefault());
-		assertEquals(false, dayNone.hasDefault());
+		assertEquals(true,  mandatory.hasDefault());
+		assertEquals(true,  optional.hasDefault());
+		assertEquals(false, none.hasDefault());
 
-		assertEquals(null, dayNow.getDefaultConstant());
-		assertEquals(null, dayNowOpt.getDefaultConstant());
-		assertEquals(null, dayNone.getDefaultConstant());
+		assertEquals(null, mandatory.getDefaultConstant());
+		assertEquals(null, optional.getDefaultConstant());
+		assertEquals(null, none.getDefaultConstant());
 
-		assertEquals(true,  dayNow.isDefaultNow());
-		assertEquals(true,  dayNowOpt.isDefaultNow());
-		assertEquals(false, dayNone.isDefaultNow());
+		assertEquals(true,  mandatory.isDefaultNow());
+		assertEquals(true,  optional.isDefaultNow());
+		assertEquals(false, none.isDefaultNow());
 
-		assertEquals(getTimeZone("Europe/Berlin"),  dayNow.getDefaultNowZimeZone());
-		assertEquals(getTimeZone("Europe/Berlin"),  dayNowOpt.getDefaultNowZimeZone());
-		assertEquals(null, dayNone.getDefaultNowZimeZone());
+		assertEquals(getTimeZone("Europe/Berlin"), mandatory.getDefaultNowZimeZone());
+		assertEquals(getTimeZone("Europe/Berlin"), optional.getDefaultNowZimeZone());
+		assertEquals(null, none.getDefaultNowZimeZone());
 		{
-			final DayField feature = dayNow.defaultTo(new Day(2010, 1, 13));
+			final DayField feature = mandatory.defaultTo(new Day(2010, 1, 13));
 			assertEquals(true, feature.hasDefault());
 			assertEquals(new Day(2010, 1, 13), feature.getDefaultConstant());
 			assertEquals(false, feature.isDefaultNow());

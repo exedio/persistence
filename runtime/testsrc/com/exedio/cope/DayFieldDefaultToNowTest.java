@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DayFieldDefaultToNowItem.dayNone;
-import static com.exedio.cope.DayFieldDefaultToNowItem.dayNow;
-import static com.exedio.cope.DayFieldDefaultToNowItem.dayNowOpt;
+import static com.exedio.cope.DayFieldDefaultToNowItem.mandatory;
+import static com.exedio.cope.DayFieldDefaultToNowItem.none;
+import static com.exedio.cope.DayFieldDefaultToNowItem.optional;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -57,9 +57,9 @@ public class DayFieldDefaultToNowTest extends TestWithEnvironment
 			);
 			clock.assertEmpty();
 
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNowOpt());
-			assertEquals(null, item.getDayNone());
+			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
+			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getOptional());
+			assertEquals(null, item.getNone());
 		}
 		{
 			final Date now = clock.add(2222);
@@ -67,34 +67,34 @@ public class DayFieldDefaultToNowTest extends TestWithEnvironment
 			);
 			clock.assertEmpty();
 
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNowOpt());
-			assertEquals(null, item.getDayNone());
+			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
+			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getOptional());
+			assertEquals(null, item.getNone());
 		}
 		{
 			clock.assertEmpty();
 			final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-					dayNow.map(day(2010, 1, 13)),
-					dayNowOpt.map(day(2010, 1, 14)),
-					dayNone.map(day(2010, 1, 15))
+					mandatory.map(day(2010, 1, 13)),
+					optional.map(day(2010, 1, 14)),
+					none.map(day(2010, 1, 15))
 			);
 			clock.assertEmpty();
 
-			assertEquals(day(2010, 1, 13), item.getDayNow());
-			assertEquals(day(2010, 1, 14), item.getDayNowOpt());
-			assertEquals(day(2010, 1, 15), item.getDayNone());
+			assertEquals(day(2010, 1, 13), item.getMandatory());
+			assertEquals(day(2010, 1, 14), item.getOptional());
+			assertEquals(day(2010, 1, 15), item.getNone());
 		}
 		{
 			final Date now = clock.add(4444);
 			final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-					dayNowOpt.map(null),
-					dayNone.map(null)
+					optional.map(null),
+					none.map(null)
 			);
 			clock.assertEmpty();
 
-			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getDayNow());
-			assertEquals(null, item.getDayNowOpt());
-			assertEquals(null, item.getDayNone());
+			assertEquals(new Day(now, getTimeZone("Europe/Berlin")), item.getMandatory());
+			assertEquals(null, item.getOptional());
+			assertEquals(null, item.getNone());
 		}
 	}
 

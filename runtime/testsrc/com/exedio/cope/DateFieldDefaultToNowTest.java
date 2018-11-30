@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateNone;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateNow;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateNowOpt;
+import static com.exedio.cope.DateFieldDefaultToNowItem.mandatory;
+import static com.exedio.cope.DateFieldDefaultToNowItem.none;
+import static com.exedio.cope.DateFieldDefaultToNowItem.optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
@@ -55,9 +55,9 @@ public class DateFieldDefaultToNowTest extends TestWithEnvironment
 			);
 			clock.assertEmpty();
 
-			assertEquals(now, item.getDateNow());
-			assertEquals(now, item.getDateNowOpt());
-			assertEquals(null, item.getDateNone());
+			assertEquals(now, item.getMandatory());
+			assertEquals(now, item.getOptional());
+			assertEquals(null, item.getNone());
 		}
 		{
 			final Date now = clock.add(2222);
@@ -65,34 +65,34 @@ public class DateFieldDefaultToNowTest extends TestWithEnvironment
 			);
 			clock.assertEmpty();
 
-			assertEquals(now, item.getDateNow());
-			assertEquals(now, item.getDateNowOpt());
-			assertEquals(null, item.getDateNone());
+			assertEquals(now, item.getMandatory());
+			assertEquals(now, item.getOptional());
+			assertEquals(null, item.getNone());
 		}
 		{
 			clock.assertEmpty();
 			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					dateNow.map(date(501)),
-					dateNowOpt.map(date(502)),
-					dateNone.map(date(503))
+					mandatory.map(date(501)),
+					optional.map(date(502)),
+					none.map(date(503))
 			);
 			clock.assertEmpty();
 
-			assertEquals(date(501), item.getDateNow());
-			assertEquals(date(502), item.getDateNowOpt());
-			assertEquals(date(503), item.getDateNone());
+			assertEquals(date(501), item.getMandatory());
+			assertEquals(date(502), item.getOptional());
+			assertEquals(date(503), item.getNone());
 		}
 		{
 			final Date now = clock.add(4444);
 			final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-					dateNowOpt.map(null),
-					dateNone.map(null)
+					optional.map(null),
+					none.map(null)
 			);
 			clock.assertEmpty();
 
-			assertEquals(now, item.getDateNow());
-			assertEquals(null, item.getDateNowOpt());
-			assertEquals(null, item.getDateNone());
+			assertEquals(now, item.getMandatory());
+			assertEquals(null, item.getOptional());
+			assertEquals(null, item.getNone());
 		}
 	}
 

@@ -26,9 +26,9 @@ import com.exedio.cope.instrument.WrapperType;
 @CopeSchemaName("DefaultToItem")
 final class DateFieldDefaultToNowItem extends Item
 {
-	static final DateField dateNow = new DateField().defaultToNow();
-	static final DateField dateNowOpt = new DateField().optional().defaultToNow();
-	static final DateField dateNone = new DateField().optional();
+	static final DateField mandatory = new DateField().defaultToNow();
+	static final DateField optional  = new DateField().optional().defaultToNow();
+	static final DateField none      = new DateField().optional();
 
 	/**
 	 * Creates a new DateFieldDefaultToNowItem with all the fields initially needed.
@@ -50,89 +50,89 @@ final class DateFieldDefaultToNowItem extends Item
 	}
 
 	/**
-	 * Returns the value of {@link #dateNow}.
+	 * Returns the value of {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	java.util.Date getDateNow()
+	java.util.Date getMandatory()
 	{
-		return DateFieldDefaultToNowItem.dateNow.get(this);
+		return DateFieldDefaultToNowItem.mandatory.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #dateNow}.
+	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDateNow(@javax.annotation.Nonnull final java.util.Date dateNow)
+	void setMandatory(@javax.annotation.Nonnull final java.util.Date mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		DateFieldDefaultToNowItem.dateNow.set(this,dateNow);
+		DateFieldDefaultToNowItem.mandatory.set(this,mandatory);
 	}
 
 	/**
-	 * Sets the current date for the date field {@link #dateNow}.
+	 * Sets the current date for the date field {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDateNow()
+	void touchMandatory()
 	{
-		DateFieldDefaultToNowItem.dateNow.touch(this);
+		DateFieldDefaultToNowItem.mandatory.touch(this);
 	}
 
 	/**
-	 * Returns the value of {@link #dateNowOpt}.
+	 * Returns the value of {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	java.util.Date getDateNowOpt()
+	java.util.Date getOptional()
 	{
-		return DateFieldDefaultToNowItem.dateNowOpt.get(this);
+		return DateFieldDefaultToNowItem.optional.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #dateNowOpt}.
+	 * Sets a new value for {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDateNowOpt(@javax.annotation.Nullable final java.util.Date dateNowOpt)
+	void setOptional(@javax.annotation.Nullable final java.util.Date optional)
 	{
-		DateFieldDefaultToNowItem.dateNowOpt.set(this,dateNowOpt);
+		DateFieldDefaultToNowItem.optional.set(this,optional);
 	}
 
 	/**
-	 * Sets the current date for the date field {@link #dateNowOpt}.
+	 * Sets the current date for the date field {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDateNowOpt()
+	void touchOptional()
 	{
-		DateFieldDefaultToNowItem.dateNowOpt.touch(this);
+		DateFieldDefaultToNowItem.optional.touch(this);
 	}
 
 	/**
-	 * Returns the value of {@link #dateNone}.
+	 * Returns the value of {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	java.util.Date getDateNone()
+	java.util.Date getNone()
 	{
-		return DateFieldDefaultToNowItem.dateNone.get(this);
+		return DateFieldDefaultToNowItem.none.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #dateNone}.
+	 * Sets a new value for {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDateNone(@javax.annotation.Nullable final java.util.Date dateNone)
+	void setNone(@javax.annotation.Nullable final java.util.Date none)
 	{
-		DateFieldDefaultToNowItem.dateNone.set(this,dateNone);
+		DateFieldDefaultToNowItem.none.set(this,none);
 	}
 
 	/**
-	 * Sets the current date for the date field {@link #dateNone}.
+	 * Sets the current date for the date field {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDateNone()
+	void touchNone()
 	{
-		DateFieldDefaultToNowItem.dateNone.touch(this);
+		DateFieldDefaultToNowItem.none.touch(this);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

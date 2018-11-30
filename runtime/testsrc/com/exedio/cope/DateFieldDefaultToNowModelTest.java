@@ -19,9 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DateFieldDefaultToNowItem.TYPE;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateNone;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateNow;
-import static com.exedio.cope.DateFieldDefaultToNowItem.dateNowOpt;
+import static com.exedio.cope.DateFieldDefaultToNowItem.mandatory;
+import static com.exedio.cope.DateFieldDefaultToNowItem.none;
+import static com.exedio.cope.DateFieldDefaultToNowItem.optional;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -36,23 +36,23 @@ public class DateFieldDefaultToNowModelTest
 	{
 		assertEquals(list(
 				TYPE.getThis(),
-				dateNow, dateNowOpt, dateNone
+				mandatory, optional, none
 				), TYPE.getDeclaredFeatures());
 
-		assertEquals(true,  dateNow.hasDefault());
-		assertEquals(true,  dateNowOpt.hasDefault());
-		assertEquals(false, dateNone.hasDefault());
+		assertEquals(true,  mandatory.hasDefault());
+		assertEquals(true,  optional.hasDefault());
+		assertEquals(false, none.hasDefault());
 
-		assertEquals(null, dateNow.getDefaultConstant());
-		assertEquals(null, dateNowOpt.getDefaultConstant());
-		assertEquals(null, dateNone.getDefaultConstant());
+		assertEquals(null, mandatory.getDefaultConstant());
+		assertEquals(null, optional.getDefaultConstant());
+		assertEquals(null, none.getDefaultConstant());
 
-		assertEquals(true,  dateNow.isDefaultNow());
-		assertEquals(true,  dateNowOpt.isDefaultNow());
-		assertEquals(false, dateNone.isDefaultNow());
+		assertEquals(true,  mandatory.isDefaultNow());
+		assertEquals(true,  optional.isDefaultNow());
+		assertEquals(false, none.isDefaultNow());
 
 		{
-			final DateField feature = dateNow.defaultTo(new Date(444));
+			final DateField feature = mandatory.defaultTo(new Date(444));
 			assertEquals(true, feature.hasDefault());
 			assertEquals(new Date(444), feature.getDefaultConstant());
 			assertEquals(false, feature.isDefaultNow());
