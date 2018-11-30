@@ -20,23 +20,23 @@ package com.exedio.cope;
 
 final class DayItem extends Item
 {
-	static final DayField day = new DayField();
-	static final DayField optionalDay = new DayField().optional();
+	static final DayField mandatory = new DayField();
+	static final DayField optional = new DayField().optional();
 
 
 	/**
 	 * Creates a new DayItem with all the fields initially needed.
-	 * @param day the initial value for field {@link #day}.
-	 * @throws com.exedio.cope.MandatoryViolationException if day is null.
+	 * @param mandatory the initial value for field {@link #mandatory}.
+	 * @throws com.exedio.cope.MandatoryViolationException if mandatory is null.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 	DayItem(
-				@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
+				@javax.annotation.Nonnull final com.exedio.cope.util.Day mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			DayItem.day.map(day),
+			DayItem.mandatory.map(mandatory),
 		});
 	}
 
@@ -50,61 +50,61 @@ final class DayItem extends Item
 	}
 
 	/**
-	 * Returns the value of {@link #day}.
+	 * Returns the value of {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	com.exedio.cope.util.Day getDay()
+	com.exedio.cope.util.Day getMandatory()
 	{
-		return DayItem.day.get(this);
+		return DayItem.mandatory.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #day}.
+	 * Sets a new value for {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
+	void setMandatory(@javax.annotation.Nonnull final com.exedio.cope.util.Day mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException
 	{
-		DayItem.day.set(this,day);
+		DayItem.mandatory.set(this,mandatory);
 	}
 
 	/**
-	 * Sets today for the date field {@link #day}.
+	 * Sets today for the date field {@link #mandatory}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchMandatory(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
-		DayItem.day.touch(this,zone);
+		DayItem.mandatory.touch(this,zone);
 	}
 
 	/**
-	 * Returns the value of {@link #optionalDay}.
+	 * Returns the value of {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	com.exedio.cope.util.Day getOptionalDay()
+	com.exedio.cope.util.Day getOptional()
 	{
-		return DayItem.optionalDay.get(this);
+		return DayItem.optional.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #optionalDay}.
+	 * Sets a new value for {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setOptionalDay(@javax.annotation.Nullable final com.exedio.cope.util.Day optionalDay)
+	void setOptional(@javax.annotation.Nullable final com.exedio.cope.util.Day optional)
 	{
-		DayItem.optionalDay.set(this,optionalDay);
+		DayItem.optional.set(this,optional);
 	}
 
 	/**
-	 * Sets today for the date field {@link #optionalDay}.
+	 * Sets today for the date field {@link #optional}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
-	void touchOptionalDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
+	void touchOptional(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
-		DayItem.optionalDay.touch(this,zone);
+		DayItem.optional.touch(this,zone);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

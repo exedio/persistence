@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DayFieldTest.MODEL;
-import static com.exedio.cope.DayItem.day;
+import static com.exedio.cope.DayItem.mandatory;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -141,7 +141,7 @@ public class DayFieldDefaultTimeZoneSwitchTest extends TestWithEnvironment
 	{
 		assertAll(
 				heading,
-				() -> assertEquals(value, item.getDay(), "item"),
-				() -> assertEquals(value, new Query<>(day, (Condition)null).searchSingleton(), "query"));
+				() -> assertEquals(value, item.getMandatory(), "item"),
+				() -> assertEquals(value, new Query<>(mandatory, (Condition)null).searchSingleton(), "query"));
 	}
 }

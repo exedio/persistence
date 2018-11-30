@@ -55,28 +55,28 @@ public class QueryTest extends TestWithEnvironment
 		assertEquals(null, q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
-		q.narrow(DayItem.day.less(d1));
+		q.narrow(DayItem.mandatory.less(d1));
 		assertEquals(DayItem.TYPE, q.getType());
-		assertEqualsAndHash(DayItem.day.less(d1), q.getCondition());
+		assertEqualsAndHash(DayItem.mandatory.less(d1), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
-		q.narrow(DayItem.day.greater(d1));
+		q.narrow(DayItem.mandatory.greater(d1));
 		assertEquals(DayItem.TYPE, q.getType());
-		assertEqualsAndHash(DayItem.day.less(d1).and(DayItem.day.greater(d1)), q.getCondition());
+		assertEqualsAndHash(DayItem.mandatory.less(d1).and(DayItem.mandatory.greater(d1)), q.getCondition());
 		assertEqualsUnmodifiable(list(), q.getJoins());
 
-		final Condition c1 = DayItem.day.equal(d1);
-		final Condition c2 = DayItem.day.equal(d2);
+		final Condition c1 = DayItem.mandatory.equal(d1);
+		final Condition c2 = DayItem.mandatory.equal(d2);
 
-		assertEqualsAndHash(c1, DayItem.day.equal(d1));
-		assertEqualsAndHash(c1.and(c2), DayItem.day.equal(d1).and(DayItem.day.equal(d2)));
+		assertEqualsAndHash(c1, DayItem.mandatory.equal(d1));
+		assertEqualsAndHash(c1.and(c2), DayItem.mandatory.equal(d1).and(DayItem.mandatory.equal(d2)));
 		assertNotEqualsAndHash(c1, c2, c1.and(c2), c2.and(c1));
 	}
 
 	@Test void testLiterals()
 	{
-		final Condition c1 = DayItem.day.equal(d1);
-		final Condition c2 = DayItem.day.equal(d2);
+		final Condition c1 = DayItem.mandatory.equal(d1);
+		final Condition c2 = DayItem.mandatory.equal(d2);
 		{
 			final Query<?> q = DayItem.TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
@@ -255,7 +255,7 @@ public class QueryTest extends TestWithEnvironment
 
 	private static Query.Result<Day> r(final int offset, final int limit)
 	{
-		final Query<Day> q = new Query<>(DayItem.day);
+		final Query<Day> q = new Query<>(DayItem.mandatory);
 		q.setOrderBy(DayItem.TYPE.getThis(), true);
 		q.setPage(offset, limit);
 		return q.searchAndTotal();
@@ -286,11 +286,11 @@ public class QueryTest extends TestWithEnvironment
 			item1, item2a, item2b, item3,
 			DayItem.TYPE.search()
 		);
-		final Query<?> query = Query.newQuery( new Selectable<?>[]{DayItem.day, DayItem.day}, DayItem.TYPE, TRUE );
-		assertEquals("select day,day from DayItem", query.toString());
+		final Query<?> query = Query.newQuery( new Selectable<?>[]{DayItem.mandatory, DayItem.mandatory}, DayItem.TYPE, TRUE );
+		assertEquals("select mandatory,mandatory from DayItem", query.toString());
 
-		query.setGroupBy( DayItem.day );
-		assertEquals("select day,day from DayItem group by day", query.toString());
+		query.setGroupBy( DayItem.mandatory );
+		assertEquals("select mandatory,mandatory from DayItem group by mandatory", query.toString());
 		assertContains(
 			list(d1, d1), list(d2, d2), list(d3, d3),
 			query.search()

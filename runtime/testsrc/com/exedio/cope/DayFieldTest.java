@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DayItem.TYPE;
-import static com.exedio.cope.DayItem.day;
-import static com.exedio.cope.DayItem.optionalDay;
+import static com.exedio.cope.DayItem.mandatory;
+import static com.exedio.cope.DayItem.optional;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -71,98 +71,98 @@ public class DayFieldTest extends TestWithEnvironment
 		final Day beforeDay = new Day(2005, 9, 22);
 		final Day nextDay = new Day(2005, 9, 24);
 
-		assertEquals(TYPE, day.getType());
-		assertEquals(Day.class, day.getValueClass());
-		assertSerializedSame(day, 364);
+		assertEquals(TYPE, mandatory.getType());
+		assertEquals(Day.class, mandatory.getValueClass());
+		assertSerializedSame(mandatory, 370);
 
 		// test persistence
-		assertEquals(DEFAULT, item.getDay());
-		assertContains(TYPE.search(day.equal((Day)null)));
-		assertContains(TYPE.search(day.isNull()));
-		assertContains(item, item2, TYPE.search(day.notEqual((Day)null)));
-		assertContains(item, item2, TYPE.search(day.isNotNull()));
-		assertEquals(null, item.getOptionalDay());
-		assertContains(item, item2, TYPE.search(optionalDay.equal((Day)null)));
-		assertContains(item, item2, TYPE.search(optionalDay.isNull()));
-		assertContains(TYPE.search(optionalDay.notEqual((Day)null)));
-		assertContains(TYPE.search(optionalDay.isNotNull()));
+		assertEquals(DEFAULT, item.getMandatory());
+		assertContains(TYPE.search(mandatory.equal((Day)null)));
+		assertContains(TYPE.search(mandatory.isNull()));
+		assertContains(item, item2, TYPE.search(mandatory.notEqual((Day)null)));
+		assertContains(item, item2, TYPE.search(mandatory.isNotNull()));
+		assertEquals(null, item.getOptional());
+		assertContains(item, item2, TYPE.search(optional.equal((Day)null)));
+		assertContains(item, item2, TYPE.search(optional.isNull()));
+		assertContains(TYPE.search(optional.notEqual((Day)null)));
+		assertContains(TYPE.search(optional.isNotNull()));
 
-		item.setDay(thisDay);
-		assertEquals(thisDay, item.getDay());
+		item.setMandatory(thisDay);
+		assertEquals(thisDay, item.getMandatory());
 
-		assertContains(thisDay, DEFAULT2, search(day));
-		assertContains(thisDay, search(day, day.equal(thisDay)));
-		assertContains(null, null, search(optionalDay));
+		assertContains(thisDay, DEFAULT2, search(mandatory));
+		assertContains(thisDay, search(mandatory, mandatory.equal(thisDay)));
+		assertContains(null, null, search(optional));
 
 		restartTransaction();
-		assertEquals(thisDay, item.getDay());
-		assertEquals(list(item), TYPE.search(day.equal(thisDay)));
-		assertEquals(list(item), TYPE.search(day.greaterOrEqual(thisDay).and(day.lessOrEqual(thisDay))));
-		assertEquals(list(item2), TYPE.search(day.notEqual(thisDay)));
-		assertEquals(list(), TYPE.search(day.equal((Day)null)));
-		assertEquals(list(), TYPE.search(day.isNull()));
-		assertContains(item, item2, TYPE.search(day.notEqual((Day)null)));
-		assertContains(item, item2, TYPE.search(day.isNotNull()));
-		assertEquals(list(), TYPE.search(day.equal(beforeDay)));
-		assertEquals(list(), TYPE.search(day.equal(nextDay)));
-		assertEquals(list(), TYPE.search(day.greaterOrEqual(beforeDay).and(day.lessOrEqual(beforeDay))));
-		assertEquals(list(), TYPE.search(day.greaterOrEqual(nextDay).and(day.lessOrEqual(nextDay))));
-		assertEquals(list(item), TYPE.search(day.greaterOrEqual(thisDay).and(day.lessOrEqual(nextDay))));
-		assertEquals(list(item), TYPE.search(day.greaterOrEqual(beforeDay).and(day.lessOrEqual(thisDay))));
-		assertEquals(null, item.getOptionalDay());
-		assertContains(item, item2, TYPE.search(optionalDay.equal((Day)null)));
-		assertContains(item, item2, TYPE.search(optionalDay.isNull()));
-		assertEquals(list(), TYPE.search(optionalDay.notEqual((Day)null)));
-		assertEquals(list(), TYPE.search(optionalDay.isNotNull()));
+		assertEquals(thisDay, item.getMandatory());
+		assertEquals(list(item), TYPE.search(mandatory.equal(thisDay)));
+		assertEquals(list(item), TYPE.search(mandatory.greaterOrEqual(thisDay).and(mandatory.lessOrEqual(thisDay))));
+		assertEquals(list(item2), TYPE.search(mandatory.notEqual(thisDay)));
+		assertEquals(list(), TYPE.search(mandatory.equal((Day)null)));
+		assertEquals(list(), TYPE.search(mandatory.isNull()));
+		assertContains(item, item2, TYPE.search(mandatory.notEqual((Day)null)));
+		assertContains(item, item2, TYPE.search(mandatory.isNotNull()));
+		assertEquals(list(), TYPE.search(mandatory.equal(beforeDay)));
+		assertEquals(list(), TYPE.search(mandatory.equal(nextDay)));
+		assertEquals(list(), TYPE.search(mandatory.greaterOrEqual(beforeDay).and(mandatory.lessOrEqual(beforeDay))));
+		assertEquals(list(), TYPE.search(mandatory.greaterOrEqual(nextDay).and(mandatory.lessOrEqual(nextDay))));
+		assertEquals(list(item), TYPE.search(mandatory.greaterOrEqual(thisDay).and(mandatory.lessOrEqual(nextDay))));
+		assertEquals(list(item), TYPE.search(mandatory.greaterOrEqual(beforeDay).and(mandatory.lessOrEqual(thisDay))));
+		assertEquals(null, item.getOptional());
+		assertContains(item, item2, TYPE.search(optional.equal((Day)null)));
+		assertContains(item, item2, TYPE.search(optional.isNull()));
+		assertEquals(list(), TYPE.search(optional.notEqual((Day)null)));
+		assertEquals(list(), TYPE.search(optional.isNotNull()));
 
-		item.setDay(nextDay);
+		item.setMandatory(nextDay);
 		restartTransaction();
-		assertEquals(nextDay, item.getDay());
+		assertEquals(nextDay, item.getMandatory());
 
 		final Day firstDay = new Day(1600, 1, 1);
-		item.setDay(firstDay);
+		item.setMandatory(firstDay);
 		restartTransaction();
-		assertEquals(firstDay, item.getDay());
+		assertEquals(firstDay, item.getMandatory());
 
 		final Day lastDay = new Day(9999, 12, 31);
-		item.setDay(lastDay);
+		item.setMandatory(lastDay);
 		restartTransaction();
-		assertEquals(lastDay, item.getDay());
+		assertEquals(lastDay, item.getMandatory());
 
 		final Day optionalDay = new Day(5555, 12, 31);
-		item.setOptionalDay(optionalDay);
-		assertEquals(optionalDay, item.getOptionalDay());
+		item.setOptional(optionalDay);
+		assertEquals(optionalDay, item.getOptional());
 		restartTransaction();
-		assertEquals(optionalDay, item.getOptionalDay());
+		assertEquals(optionalDay, item.getOptional());
 
 		clock.add(988888888888l);
-		item.touchOptionalDay(getTimeZone("Europe/Berlin"));
+		item.touchOptional(getTimeZone("Europe/Berlin"));
 		clock.assertEmpty();
-		assertEquals(new Day(988888888888l, getTimeZone("Europe/Berlin")), item.getOptionalDay());
+		assertEquals(new Day(988888888888l, getTimeZone("Europe/Berlin")), item.getOptional());
 
-		item.setOptionalDay(null);
-		assertEquals(null, item.getOptionalDay());
+		item.setOptional(null);
+		assertEquals(null, item.getOptional());
 		restartTransaction();
-		assertEquals(null, item.getOptionalDay());
+		assertEquals(null, item.getOptional());
 	}
 
 	@Test void testDayPartViews()
 	{
-		final DayPartView dayDpv = day.dayOfMonth();
-		final DayPartView monthDpv = day.month();
-		final DayPartView yearDpv = day.year();
-		final DayPartView weekDpv = day.weekOfYear();
+		final DayPartView dayDpv = mandatory.dayOfMonth();
+		final DayPartView monthDpv = mandatory.month();
+		final DayPartView yearDpv = mandatory.year();
+		final DayPartView weekDpv = mandatory.weekOfYear();
 
-		assertEquals("dayOfMonth(DayItem.day)", dayDpv.toString());
-		assertEquals("month(DayItem.day)", monthDpv.toString());
-		assertEquals("year(DayItem.day)", yearDpv.toString());
-		assertEquals("weekOfYear(DayItem.day)", weekDpv.toString());
+		assertEquals("dayOfMonth(DayItem.mandatory)", dayDpv.toString());
+		assertEquals("month(DayItem.mandatory)", monthDpv.toString());
+		assertEquals("year(DayItem.mandatory)", yearDpv.toString());
+		assertEquals("weekOfYear(DayItem.mandatory)", weekDpv.toString());
 
 		final Day day1 = new Day(2006, 9, 23);
 		final Day day2 = new Day(2006, 9, 22);
 		final Day day3 = new Day(2006, 10, 23);
 
-		item.setDay(day1);
+		item.setMandatory(day1);
 		restartTransaction();
 		assertEquals(23, dayDpv.get(item).intValue());
 		assertEquals(9, monthDpv.get(item).intValue());
@@ -177,7 +177,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertContains(TYPE.search(weekDpv.equal(1)));
 		assertContains(item, TYPE.search(weekDpv.equal(38)));
 
-		item.setDay(day2);
+		item.setMandatory(day2);
 		restartTransaction();
 		assertEquals(22, dayDpv.get(item).intValue());
 		assertEquals(9, monthDpv.get(item).intValue());
@@ -192,7 +192,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertContains(TYPE.search(weekDpv.equal(1)));
 		assertContains(item, TYPE.search(weekDpv.equal(38)));
 
-		item.setDay(day3);
+		item.setMandatory(day3);
 		restartTransaction();
 		assertEquals(23, dayDpv.get(item).intValue());
 		assertEquals(10, monthDpv.get(item).intValue());
@@ -212,10 +212,10 @@ public class DayFieldTest extends TestWithEnvironment
 		assertContains(2006, new Query<>(yearDpv, TYPE, TYPE.thisFunction.equal(item)).search());
 		assertContains(43, new Query<>(weekDpv, TYPE, TYPE.thisFunction.equal(item)).search());
 
-		final DayPartView optionalDayDpv = optionalDay.dayOfMonth();
-		final DayPartView optionalMonthDpv = optionalDay.month();
-		final DayPartView optionalYearDpv = optionalDay.year();
-		final DayPartView optionalWeekDpv = optionalDay.weekOfYear();
+		final DayPartView optionalDayDpv = optional.dayOfMonth();
+		final DayPartView optionalMonthDpv = optional.month();
+		final DayPartView optionalYearDpv = optional.year();
+		final DayPartView optionalWeekDpv = optional.weekOfYear();
 
 		assertContains(item, item2, TYPE.search(optionalDayDpv.isNull()));
 		assertContains(TYPE.search(optionalDayDpv.isNotNull()));
@@ -227,7 +227,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertContains(TYPE.search(optionalWeekDpv.isNotNull()));
 
 		final Day optionalDay = new Day(5555, 12, 31);
-		item.setOptionalDay(optionalDay);
+		item.setOptional(optionalDay);
 		restartTransaction();
 		assertContains(item2, TYPE.search(optionalDayDpv.isNull()));
 		assertContains(item, TYPE.search(optionalDayDpv.isNotNull()));
@@ -293,8 +293,8 @@ public class DayFieldTest extends TestWithEnvironment
 
 	private void assertWeek(final Day value, final int week)
 	{
-		final DayPartView view = day.weekOfYear();
-		item.setDay(value);
+		final DayPartView view = mandatory.weekOfYear();
+		item.setMandatory(value);
 		assertEquals(week, view.get(item).intValue());
 		assertContains(week, new Query<>(view, TYPE, TYPE.thisFunction.equal(item)).search());
 	}
@@ -304,12 +304,12 @@ public class DayFieldTest extends TestWithEnvironment
 	{
 		try
 		{
-			item.set((FunctionField)day, Integer.valueOf(10));
+			item.set((FunctionField)mandatory, Integer.valueOf(10));
 			fail();
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + day + '.', e.getMessage());
+			assertEquals("expected a " + Day.class.getName() + ", but was a " + Integer.class.getName() + " for " + mandatory + '.', e.getMessage());
 		}
 	}
 
