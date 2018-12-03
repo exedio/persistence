@@ -22,13 +22,16 @@ import static com.exedio.cope.DayFieldDefaultToNowItem.TYPE;
 import static com.exedio.cope.DayFieldDefaultToNowItem.mandatory;
 import static com.exedio.cope.DayFieldDefaultToNowItem.none;
 import static com.exedio.cope.DayFieldDefaultToNowItem.optional;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Day;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class DayFieldDefaultToNowModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
@@ -71,5 +74,11 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(null, feature.getDefaultConstant());
 		assertEquals(true, feature.isDefaultNow());
 		assertEquals(getTimeZone("Canada/Eastern"), feature.getDefaultNowZimeZone());
+	}
+	@Test void testZoneNull()
+	{
+		assertFails(
+				() -> none.defaultToNow(null),
+				NullPointerException.class, "zone");
 	}
 }

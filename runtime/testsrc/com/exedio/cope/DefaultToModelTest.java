@@ -187,15 +187,6 @@ public class DefaultToModelTest
 		}
 		try
 		{
-			dayEight.defaultToNow(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("zone", e.getMessage());
-		}
-		try
-		{
 			longRandom.defaultToRandom(null);
 			fail();
 		}
