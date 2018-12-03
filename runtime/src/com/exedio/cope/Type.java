@@ -1018,13 +1018,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			if(field instanceof FunctionField<?> && !fieldValues.isDirty(field))
 			{
 				final FunctionField<?> ff = (FunctionField<?>)field;
-				final DefaultSource<?> defaultSource = ff.defaultSource;
-				if(defaultSource!=null)
+				final DefaultSource<?> defaultS = ff.defaultS;
+				if(defaultS!=null)
 				{
 					if(ctx==null)
 						ctx = new DefaultSource.Context();
 
-					final Object defaultValue = defaultSource.generate(ctx);
+					final Object defaultValue = defaultS.generate(ctx);
 					if(defaultValue==null)
 						throw new RuntimeException(ff.getID());
 					fieldValues.setDirty(field, defaultValue);

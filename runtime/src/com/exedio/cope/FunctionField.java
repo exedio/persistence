@@ -45,7 +45,7 @@ public abstract class FunctionField<E> extends Field<E>
 	private final UniqueConstraint implicitUniqueConstraint;
 	final ItemField<?>[] copyFrom;
 	private final CopyConstraint[] implicitCopyConstraintsFrom;
-	final DefaultSource<E> defaultSource;
+	final DefaultSource<E> defaultS;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	private boolean isRedundantByCopyConstraint;
 
@@ -56,7 +56,7 @@ public abstract class FunctionField<E> extends Field<E>
 			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<E> defaultSource)
+			final DefaultSource<E> defaultS)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
@@ -65,7 +65,7 @@ public abstract class FunctionField<E> extends Field<E>
 		this.implicitUniqueConstraint = unique ? new UniqueConstraint(this) : null;
 		this.implicitCopyConstraintsFrom = (copyFrom!=null) ? newCopyConstraintsFrom(copyFrom) : null;
 
-		this.defaultSource = defaultSource!=null ? defaultSource.forNewField() : null;
+		this.defaultS = defaultS!=null ? defaultS.forNewField() : null;
 	}
 
 	private CopyConstraint[] newCopyConstraintsFrom(final ItemField<?>[] copyFrom)
@@ -79,18 +79,18 @@ public abstract class FunctionField<E> extends Field<E>
 
 	final void mountDefaultSource()
 	{
-		if(defaultSource!=null)
-			defaultSource.mount(this);
+		if(defaultS!=null)
+			defaultS.mount(this);
 	}
 
 	public final boolean hasDefault()
 	{
-		return defaultSource!=null;
+		return defaultS!=null;
 	}
 
 	public final E getDefaultConstant()
 	{
-		return (defaultSource instanceof DefaultConstant) ? ((DefaultConstant<E>)defaultSource).value : null;
+		return (defaultS instanceof DefaultConstant) ? ((DefaultConstant<E>)defaultS).value : null;
 	}
 
 	final DefaultConstant<E> defaultConstant(final E value)
@@ -161,7 +161,7 @@ public abstract class FunctionField<E> extends Field<E>
 
 	final long getDefaultConstantCreatedTimeMillis()
 	{
-		return ((DefaultConstant<E>)defaultSource).createdTimeMillis();
+		return ((DefaultConstant<E>)defaultS).createdTimeMillis();
 	}
 
 	/**
@@ -199,8 +199,8 @@ public abstract class FunctionField<E> extends Field<E>
 		if(implicitCopyConstraintsFrom!=null)
 			for(final CopyConstraint constraint : implicitCopyConstraintsFrom)
 				constraint.mount(type, name + "CopyFrom" + constraint.getTarget().getName(), null);
-		if(defaultSource!=null)
-			defaultSource.mount(type, name, annotationSource);
+		if(defaultS!=null)
+			defaultS.mount(type, name, annotationSource);
 	}
 
 	final void checkValueClass(final Class<?> superClass)

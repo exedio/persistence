@@ -48,11 +48,11 @@ public final class IntegerField extends NumberField<Integer>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Integer> defaultSource,
+			final DefaultSource<Integer> defaultS,
 			final int minimum,
 			final int maximum)
 	{
-		super(isfinal, optional, Integer.class, unique, copyFrom, defaultSource);
+		super(isfinal, optional, Integer.class, unique, copyFrom, defaultS);
 		this.minimum = minimum;
 		this.maximum = maximum;
 
@@ -61,8 +61,8 @@ public final class IntegerField extends NumberField<Integer>
 
 		mountDefaultSource();
 		this.defaultToNextSequence =
-				(this.defaultSource instanceof DefaultNext)
-				? ((DefaultNext)this.defaultSource).getSequence()
+				(this.defaultS instanceof DefaultNext)
+				? ((DefaultNext)this.defaultS).getSequence()
 				: null;
 	}
 
@@ -196,43 +196,43 @@ public final class IntegerField extends NumberField<Integer>
 	@Override
 	public IntegerField copy()
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField toFinal()
 	{
-		return new IntegerField(true, optional, unique, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(true, optional, unique, copyFrom, defaultS, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField optional()
 	{
-		return new IntegerField(isfinal, true, unique, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, true, unique, copyFrom, defaultS, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField unique()
 	{
-		return new IntegerField(isfinal, optional, true, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, true, copyFrom, defaultS, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField nonUnique()
 	{
-		return new IntegerField(isfinal, optional, false, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, false, copyFrom, defaultS, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, minimum, maximum);
 	}
 
 	@Override
 	public IntegerField noCopyFrom()
 	{
-		return new IntegerField(isfinal, optional, unique, null, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, null, defaultS, minimum, maximum);
 	}
 
 	@Override
@@ -254,32 +254,32 @@ public final class IntegerField extends NumberField<Integer>
 
 	public IntegerField range(final int minimum, final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
 	}
 
 	public IntegerField min(final int minimum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
 	}
 
 	public IntegerField max(final int maximum)
 	{
-		return new IntegerField(isfinal, optional, unique, copyFrom, defaultSource, minimum, maximum);
+		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
 	}
 
 	public boolean isDefaultNext()
 	{
-		return defaultSource instanceof DefaultNext;
+		return defaultS instanceof DefaultNext;
 	}
 
 	public Integer getDefaultNextStart()
 	{
-		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).start : null;
+		return (defaultS instanceof DefaultNext) ? ((DefaultNext)defaultS).start : null;
 	}
 
 	public Sequence getDefaultNext()
 	{
-		return (defaultSource instanceof DefaultNext) ? ((DefaultNext)defaultSource).getSequence() : null;
+		return (defaultS instanceof DefaultNext) ? ((DefaultNext)defaultS).getSequence() : null;
 	}
 
 	public int getMinimum()

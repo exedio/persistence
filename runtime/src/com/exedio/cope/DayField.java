@@ -58,9 +58,9 @@ public final class DayField extends FunctionField<Day>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Day> defaultSource)
+			final DefaultSource<Day> defaultS)
 	{
-		super(isfinal, optional, Day.class, unique, copyFrom, defaultSource);
+		super(isfinal, optional, Day.class, unique, copyFrom, defaultS);
 		mountDefaultSource();
 	}
 
@@ -72,43 +72,43 @@ public final class DayField extends FunctionField<Day>
 	@Override
 	public DayField copy()
 	{
-		return new DayField(isfinal, optional, unique, copyFrom, defaultSource);
+		return new DayField(isfinal, optional, unique, copyFrom, defaultS);
 	}
 
 	@Override
 	public DayField toFinal()
 	{
-		return new DayField(true, optional, unique, copyFrom, defaultSource);
+		return new DayField(true, optional, unique, copyFrom, defaultS);
 	}
 
 	@Override
 	public DayField optional()
 	{
-		return new DayField(isfinal, true, unique, copyFrom, defaultSource);
+		return new DayField(isfinal, true, unique, copyFrom, defaultS);
 	}
 
 	@Override
 	public DayField unique()
 	{
-		return new DayField(isfinal, optional, true, copyFrom, defaultSource);
+		return new DayField(isfinal, optional, true, copyFrom, defaultS);
 	}
 
 	@Override
 	public DayField nonUnique()
 	{
-		return new DayField(isfinal, optional, false, copyFrom, defaultSource);
+		return new DayField(isfinal, optional, false, copyFrom, defaultS);
 	}
 
 	@Override
 	public DayField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource);
+		return new DayField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS);
 	}
 
 	@Override
 	public DayField noCopyFrom()
 	{
-		return new DayField(isfinal, optional, unique, null, defaultSource);
+		return new DayField(isfinal, optional, unique, null, defaultS);
 	}
 
 	@Override
@@ -158,14 +158,14 @@ public final class DayField extends FunctionField<Day>
 
 	public boolean isDefaultNow()
 	{
-		return defaultSource instanceof DefaultNow;
+		return defaultS instanceof DefaultNow;
 	}
 
 	public TimeZone getDefaultNowZimeZone()
 	{
 		return
-			defaultSource instanceof DefaultNow
-			? ((DefaultNow)defaultSource).zone
+			defaultS instanceof DefaultNow
+			? ((DefaultNow)defaultS).zone
 			: null;
 	}
 

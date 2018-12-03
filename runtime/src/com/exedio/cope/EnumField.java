@@ -35,9 +35,9 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<E> defaultSource)
+			final DefaultSource<E> defaultS)
 	{
-		super(isfinal, optional, valueClass, unique, copyFrom, defaultSource);
+		super(isfinal, optional, valueClass, unique, copyFrom, defaultS);
 
 		this.valueType = EnumFieldType.get(valueClass);
 
@@ -53,43 +53,43 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	@Override
 	public EnumField<E> copy()
 	{
-		return new EnumField<>(isfinal, optional, valueClass, unique, copyFrom, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, unique, copyFrom, defaultS);
 	}
 
 	@Override
 	public EnumField<E> toFinal()
 	{
-		return new EnumField<>(true, optional, valueClass, unique, copyFrom, defaultSource);
+		return new EnumField<>(true, optional, valueClass, unique, copyFrom, defaultS);
 	}
 
 	@Override
 	public EnumField<E> optional()
 	{
-		return new EnumField<>(isfinal, true, valueClass, unique, copyFrom, defaultSource);
+		return new EnumField<>(isfinal, true, valueClass, unique, copyFrom, defaultS);
 	}
 
 	@Override
 	public EnumField<E> unique()
 	{
-		return new EnumField<>(isfinal, optional, valueClass, true, copyFrom, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, true, copyFrom, defaultS);
 	}
 
 	@Override
 	public EnumField<E> nonUnique()
 	{
-		return new EnumField<>(isfinal, optional, valueClass, false, copyFrom, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, false, copyFrom, defaultS);
 	}
 
 	@Override
 	public EnumField<E> copyFrom(final ItemField<?> copyFrom)
 	{
-		return new EnumField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, unique, addCopyFrom(copyFrom), defaultS);
 	}
 
 	@Override
 	public EnumField<E> noCopyFrom()
 	{
-		return new EnumField<>(isfinal, optional, valueClass, unique, null, defaultSource);
+		return new EnumField<>(isfinal, optional, valueClass, unique, null, defaultS);
 	}
 
 	@Override

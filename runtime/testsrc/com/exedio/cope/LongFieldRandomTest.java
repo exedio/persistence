@@ -170,7 +170,7 @@ public class LongFieldRandomTest
 
 	private void assertIt(final LongField l, final long expected, final long actual)
 	{
-		final DefaultSource<Long> s = l.defaultSource;
+		final DefaultSource<Long> s = l.defaultS;
 		r.setNextLong(actual);
 		final Long actualGenerated = s.generate(null);
 		assertEquals(Long.valueOf(expected), actualGenerated);

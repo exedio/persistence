@@ -69,11 +69,11 @@ public final class DateField extends FunctionField<Date>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Date> defaultSource,
+			final DefaultSource<Date> defaultS,
 			final Precision precision,
 			final RoundingMode roundingMode)
 	{
-		super(isfinal, optional, Date.class, unique, copyFrom, defaultSource);
+		super(isfinal, optional, Date.class, unique, copyFrom, defaultS);
 		this.precision = requireNonNull(precision, "precision");
 		this.roundingMode = requireNonNull(roundingMode, "roundingMode");
 
@@ -88,43 +88,43 @@ public final class DateField extends FunctionField<Date>
 	@Override
 	public DateField copy()
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision, roundingMode);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultS, precision, roundingMode);
 	}
 
 	@Override
 	public DateField toFinal()
 	{
-		return new DateField(true, optional, unique, copyFrom, defaultSource, precision, roundingMode);
+		return new DateField(true, optional, unique, copyFrom, defaultS, precision, roundingMode);
 	}
 
 	@Override
 	public DateField optional()
 	{
-		return new DateField(isfinal, true, unique, copyFrom, defaultSource, precision, roundingMode);
+		return new DateField(isfinal, true, unique, copyFrom, defaultS, precision, roundingMode);
 	}
 
 	@Override
 	public DateField unique()
 	{
-		return new DateField(isfinal, optional, true, copyFrom, defaultSource, precision, roundingMode);
+		return new DateField(isfinal, optional, true, copyFrom, defaultS, precision, roundingMode);
 	}
 
 	@Override
 	public DateField nonUnique()
 	{
-		return new DateField(isfinal, optional, false, copyFrom, defaultSource, precision, roundingMode);
+		return new DateField(isfinal, optional, false, copyFrom, defaultS, precision, roundingMode);
 	}
 
 	@Override
 	public DateField copyFrom(final ItemField<?> copyFrom)
 	{
-		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultSource, precision, roundingMode);
+		return new DateField(isfinal, optional, unique, addCopyFrom(copyFrom), defaultS, precision, roundingMode);
 	}
 
 	@Override
 	public DateField noCopyFrom()
 	{
-		return new DateField(isfinal, optional, unique, null, defaultSource, precision, roundingMode);
+		return new DateField(isfinal, optional, unique, null, defaultS, precision, roundingMode);
 	}
 
 	@Override
@@ -189,7 +189,7 @@ public final class DateField extends FunctionField<Date>
 
 	public boolean isDefaultNow()
 	{
-		return defaultSource instanceof DefaultNow;
+		return defaultS instanceof DefaultNow;
 	}
 
 	public Date getMinimum()
@@ -251,7 +251,7 @@ public final class DateField extends FunctionField<Date>
 
 	private DateField precision(final Precision precision)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision, roundingMode);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultS, precision, roundingMode);
 	}
 
 	public Precision getPrecision()
@@ -364,7 +364,7 @@ public final class DateField extends FunctionField<Date>
 	 */
 	public DateField roundingMode(final RoundingMode roundingMode)
 	{
-		return new DateField(isfinal, optional, unique, copyFrom, defaultSource, precision, roundingMode);
+		return new DateField(isfinal, optional, unique, copyFrom, defaultS, precision, roundingMode);
 	}
 
 	public RoundingMode getRoundingMode()

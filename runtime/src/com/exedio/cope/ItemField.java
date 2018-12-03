@@ -55,7 +55,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
-		super(isfinal, optional, valueClass, unique, copyFrom, null/* defaultSource makes no sense for ItemField */);
+		super(isfinal, optional, valueClass, unique, copyFrom, null/* defaultS makes no sense for ItemField */);
 		checkValueClass(Item.class);
 		if(Item.class.equals(valueClass))
 			throw new IllegalArgumentException("is not a subclass of " + Item.class.getName() + " but Item itself");
