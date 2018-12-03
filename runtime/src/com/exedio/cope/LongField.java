@@ -53,7 +53,7 @@ public final class LongField extends NumberField<Long>
 		if(minimum>=maximum)
 			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
 
-		mountDefaultSource();
+		mountDefault();
 	}
 
 	private static final class DefaultRandom extends DefaultSource<Long>

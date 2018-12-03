@@ -42,7 +42,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		this.valueType = EnumFieldType.get(valueClass);
 
 		checkValueClass(Enum.class);
-		mountDefaultSource();
+		mountDefault();
 	}
 
 	public static <E extends Enum<E>> EnumField<E> create(final Class<E> valueClass)

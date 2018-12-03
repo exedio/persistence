@@ -61,7 +61,7 @@ public final class DayField extends FunctionField<Day>
 			final DefaultSource<Day> defaultS)
 	{
 		super(isfinal, optional, Day.class, unique, copyFrom, defaultS);
-		mountDefaultSource();
+		mountDefault();
 	}
 
 	public DayField()

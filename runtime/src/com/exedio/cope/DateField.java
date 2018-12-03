@@ -77,7 +77,7 @@ public final class DateField extends FunctionField<Date>
 		this.precision = requireNonNull(precision, "precision");
 		this.roundingMode = requireNonNull(roundingMode, "roundingMode");
 
-		mountDefaultSource();
+		mountDefault();
 	}
 
 	public DateField()

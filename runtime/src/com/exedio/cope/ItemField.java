@@ -80,7 +80,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			if(!optional)
 				throw new IllegalArgumentException("mandatory item field cannot have choice constraint");
 		}
-		mountDefaultSource();
+		mountDefault();
 	}
 
 	private CopyConstraint[] newCopyConstraintsTo(final FunctionField<?>[] copyFrom)

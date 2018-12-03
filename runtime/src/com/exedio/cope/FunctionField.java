@@ -77,7 +77,7 @@ public abstract class FunctionField<E> extends Field<E>
 		return result;
 	}
 
-	final void mountDefaultSource()
+	final void mountDefault()
 	{
 		if(defaultS!=null)
 			defaultS.mount(this);
