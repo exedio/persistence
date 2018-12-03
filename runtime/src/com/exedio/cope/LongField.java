@@ -42,7 +42,7 @@ public final class LongField extends NumberField<Long>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Long> defaultS,
+			final DefaultSupplier<Long> defaultS,
 			final long minimum,
 			final long maximum)
 	{
@@ -56,7 +56,7 @@ public final class LongField extends NumberField<Long>
 		mountDefault();
 	}
 
-	private static final class DefaultRandom extends DefaultSource<Long>
+	private static final class DefaultRandom extends DefaultSupplier<Long>
 	{
 		private final Random source;
 		private Boolean absolute = null;
@@ -77,7 +77,7 @@ public final class LongField extends NumberField<Long>
 		}
 
 		@Override
-		DefaultSource<Long> forNewField()
+		DefaultSupplier<Long> forNewField()
 		{
 			return new DefaultRandom(source);
 		}

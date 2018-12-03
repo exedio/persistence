@@ -45,7 +45,7 @@ public abstract class FunctionField<E> extends Field<E>
 	private final UniqueConstraint implicitUniqueConstraint;
 	final ItemField<?>[] copyFrom;
 	private final CopyConstraint[] implicitCopyConstraintsFrom;
-	final DefaultSource<E> defaultS;
+	final DefaultSupplier<E> defaultS;
 	private ArrayList<UniqueConstraint> uniqueConstraints;
 	private boolean isRedundantByCopyConstraint;
 
@@ -56,7 +56,7 @@ public abstract class FunctionField<E> extends Field<E>
 			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<E> defaultS)
+			final DefaultSupplier<E> defaultS)
 	{
 		super(isfinal, optional, valueClass);
 		this.unique = unique;
@@ -103,7 +103,7 @@ public abstract class FunctionField<E> extends Field<E>
 		return value!=null ? new DefaultConstant<>(value, System.currentTimeMillis()) : null;
 	}
 
-	private static final class DefaultConstant<E> extends DefaultSource<E>
+	private static final class DefaultConstant<E> extends DefaultSupplier<E>
 	{
 		private static final long NO_CREATED_TIME_MILLIS = Long.MIN_VALUE;
 
@@ -131,7 +131,7 @@ public abstract class FunctionField<E> extends Field<E>
 		}
 
 		@Override
-		DefaultSource<E> forNewField()
+		DefaultSupplier<E> forNewField()
 		{
 			return this;
 		}

@@ -40,7 +40,7 @@ public final class DoubleField extends NumberField<Double>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Double> defaultS,
+			final DefaultSupplier<Double> defaultS,
 			final double minimum,
 			final double maximum)
 	{

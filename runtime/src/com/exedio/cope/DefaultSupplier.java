@@ -21,7 +21,7 @@ package com.exedio.cope;
 import com.exedio.cope.util.Clock;
 import java.lang.reflect.AnnotatedElement;
 
-abstract class DefaultSource<E>
+abstract class DefaultSupplier<E>
 {
 	/**
 	 * Generates a default value.
@@ -39,7 +39,7 @@ abstract class DefaultSource<E>
 	 * @param ctx
 	 * The caller must provide a {@link Context} here.
 	 * However the caller may reuse the {@link Context} for multiple calls,
-	 * even for different {@code DefaultSource}s.
+	 * even for different {@code DefaultSupplier}s.
 	 */
 	abstract E generate(Context ctx);
 
@@ -59,7 +59,7 @@ abstract class DefaultSource<E>
 		}
 	}
 
-	abstract DefaultSource<E> forNewField();
+	abstract DefaultSupplier<E> forNewField();
 
 	abstract void mount(FunctionField<E> field);
 

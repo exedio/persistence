@@ -51,7 +51,7 @@ public final class StringField extends FunctionField<String>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<String> defaultS,
+			final DefaultSupplier<String> defaultS,
 			final int minimumLength,
 			final int maximumLength,
 			final CharSet charSet)

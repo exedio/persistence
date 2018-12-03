@@ -35,7 +35,7 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 			final Class<E> valueClass,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<E> defaultS)
+			final DefaultSupplier<E> defaultS)
 	{
 		super(isfinal, optional, valueClass, unique, copyFrom, defaultS);
 

@@ -1012,17 +1012,17 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final FieldValues fieldValues = new FieldValues(this, setValues);
 		executeCopyConstraints(fieldValues);
 
-		DefaultSource.Context ctx = null;
+		DefaultSupplier.Context ctx = null;
 		for(final Field<?> field : fields.all)
 		{
 			if(field instanceof FunctionField<?> && !fieldValues.isDirty(field))
 			{
 				final FunctionField<?> ff = (FunctionField<?>)field;
-				final DefaultSource<?> defaultS = ff.defaultS;
+				final DefaultSupplier<?> defaultS = ff.defaultS;
 				if(defaultS!=null)
 				{
 					if(ctx==null)
-						ctx = new DefaultSource.Context();
+						ctx = new DefaultSupplier.Context();
 
 					final Object defaultValue = defaultS.generate(ctx);
 					if(defaultValue==null)

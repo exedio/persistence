@@ -58,7 +58,7 @@ public final class DayField extends FunctionField<Day>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Day> defaultS)
+			final DefaultSupplier<Day> defaultS)
 	{
 		super(isfinal, optional, Day.class, unique, copyFrom, defaultS);
 		mountDefault();
@@ -123,7 +123,7 @@ public final class DayField extends FunctionField<Day>
 		return new DayField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant));
 	}
 
-	private static final class DefaultNow extends DefaultSource<Day>
+	private static final class DefaultNow extends DefaultSupplier<Day>
 	{
 		final TimeZone zone;
 
@@ -139,7 +139,7 @@ public final class DayField extends FunctionField<Day>
 		}
 
 		@Override
-		DefaultSource<Day> forNewField()
+		DefaultSupplier<Day> forNewField()
 		{
 			return this;
 		}

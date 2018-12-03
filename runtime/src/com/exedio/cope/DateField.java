@@ -69,7 +69,7 @@ public final class DateField extends FunctionField<Date>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Date> defaultS,
+			final DefaultSupplier<Date> defaultS,
 			final Precision precision,
 			final RoundingMode roundingMode)
 	{
@@ -139,7 +139,7 @@ public final class DateField extends FunctionField<Date>
 		return new DateField(isfinal, optional, unique, copyFrom, defaultConstantWithCreatedTime(defaultConstant), precision, roundingMode);
 	}
 
-	private static final class DefaultNow extends DefaultSource<Date>
+	private static final class DefaultNow extends DefaultSupplier<Date>
 	{
 		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 		private Precision precision;
@@ -158,7 +158,7 @@ public final class DateField extends FunctionField<Date>
 		}
 
 		@Override
-		DefaultSource<Date> forNewField()
+		DefaultSupplier<Date> forNewField()
 		{
 			return new DefaultNow();
 		}

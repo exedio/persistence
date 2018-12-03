@@ -48,7 +48,7 @@ public final class IntegerField extends NumberField<Integer>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Integer> defaultS,
+			final DefaultSupplier<Integer> defaultS,
 			final int minimum,
 			final int maximum)
 	{
@@ -66,7 +66,7 @@ public final class IntegerField extends NumberField<Integer>
 				: null;
 	}
 
-	private static final class DefaultNext extends DefaultSource<Integer>
+	private static final class DefaultNext extends DefaultSupplier<Integer>
 	{
 		final int start;
 		private Sequence sequence;
@@ -90,7 +90,7 @@ public final class IntegerField extends NumberField<Integer>
 		}
 
 		@Override
-		DefaultSource<Integer> forNewField()
+		DefaultSupplier<Integer> forNewField()
 		{
 			return new DefaultNext(start);
 		}

@@ -36,7 +36,7 @@ public final class BooleanField extends FunctionField<Boolean>
 			final boolean optional,
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
-			final DefaultSource<Boolean> defaultS)
+			final DefaultSupplier<Boolean> defaultS)
 	{
 		super(isfinal, optional, Boolean.class, unique, copyFrom, defaultS);
 		mountDefault();
