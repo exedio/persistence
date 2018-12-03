@@ -38,7 +38,6 @@ import static com.exedio.cope.DefaultToItem.integerNone;
 import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.tojunit.Assert.list;
-import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static java.lang.Boolean.TRUE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -169,19 +168,6 @@ public class DefaultToModelTest
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("is not defaultToNext: " + integerFive, e.getMessage());
-		}
-		{
-			final DateField feature = dateEight.defaultToNow();
-			assertEquals(true, feature.hasDefault());
-			assertEquals(null, feature.getDefaultConstant());
-			assertEquals(true, feature.isDefaultNow());
-		}
-		{
-			final DayField feature = dayEight.defaultToNow(getTimeZone("Canada/Eastern"));
-			assertEquals(true, feature.hasDefault());
-			assertEquals(null, feature.getDefaultConstant());
-			assertEquals(true, feature.isDefaultNow());
-			assertEquals(getTimeZone("Canada/Eastern"), feature.getDefaultNowZimeZone());
 		}
 		try
 		{

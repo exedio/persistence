@@ -63,4 +63,13 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(new Day(2010, 1, 13), feature.getDefaultConstant());
 		assertEquals(false, feature.isDefaultNow());
 	}
+	@Test void testConstantToNow()
+	{
+		final DayField origin = new DayField().defaultTo(new Day(2011, 1, 13));
+		final DayField feature = origin.defaultToNow(getTimeZone("Canada/Eastern"));
+		assertEquals(true, feature.hasDefault());
+		assertEquals(null, feature.getDefaultConstant());
+		assertEquals(true, feature.isDefaultNow());
+		assertEquals(getTimeZone("Canada/Eastern"), feature.getDefaultNowZimeZone());
+	}
 }
