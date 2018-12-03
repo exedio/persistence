@@ -60,6 +60,23 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 		assertEquals(dayNow, item.getDay1());
 		assertEquals(dayNow, item.getDay2());
 	}
+	@Test void testNotNow()
+	{
+		clock.add(millisNow);
+		final MyItem item = new MyItem(
+				MyItem.date1.map(new Date(millisA)),
+				MyItem.date2.map(new Date(millisB)),
+				MyItem.day1.map(dayA),
+				MyItem.day2.map(dayB)
+		);
+		clock.assertEmpty();
+
+		assertEquals("notNow", item.getNotNow());
+		assertEquals(new Date(millisA), item.getDate1());
+		assertEquals(new Date(millisB), item.getDate2());
+		assertEquals(dayA, item.getDay1());
+		assertEquals(dayB, item.getDay2());
+	}
 	@Test void testFirst()
 	{
 		clock.add(millisNow);
@@ -113,6 +130,7 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
+		static final StringField notNow = new StringField().defaultTo("notNow");
 		static final DateField date1 = new DateField().defaultToNow();
 		static final DateField date2 = new DateField().defaultToNow();
 		static final DayField day1 = new DayField().defaultToNow(getTimeZone("Europe/Berlin"));
@@ -123,6 +141,22 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues)
 		{
 			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.lang.String getNotNow()
+		{
+			return MyItem.notNow.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setNotNow(@javax.annotation.Nonnull final java.lang.String notNow)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.notNow.set(this,notNow);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
