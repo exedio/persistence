@@ -50,12 +50,12 @@ public class DateFieldDefaultToNowModelTest
 		assertEquals(true,  mandatory.isDefaultNow());
 		assertEquals(true,  optional.isDefaultNow());
 		assertEquals(false, none.isDefaultNow());
-
-		{
-			final DateField feature = mandatory.defaultTo(new Date(444));
-			assertEquals(true, feature.hasDefault());
-			assertEquals(new Date(444), feature.getDefaultConstant());
-			assertEquals(false, feature.isDefaultNow());
-		}
+	}
+	@Test void testNowToConstant()
+	{
+		final DateField feature = mandatory.defaultTo(new Date(444));
+		assertEquals(true, feature.hasDefault());
+		assertEquals(new Date(444), feature.getDefaultConstant());
+		assertEquals(false, feature.isDefaultNow());
 	}
 }

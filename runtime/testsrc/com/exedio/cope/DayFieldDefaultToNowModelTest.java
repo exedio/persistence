@@ -33,7 +33,7 @@ public class DayFieldDefaultToNowModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
 
-	@Test void testIt()
+	@Test void testModel()
 	{
 		assertEquals(list(
 				TYPE.getThis(),
@@ -55,11 +55,12 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(getTimeZone("Europe/Berlin"), mandatory.getDefaultNowZimeZone());
 		assertEquals(getTimeZone("Europe/Berlin"), optional.getDefaultNowZimeZone());
 		assertEquals(null, none.getDefaultNowZimeZone());
-		{
-			final DayField feature = mandatory.defaultTo(new Day(2010, 1, 13));
-			assertEquals(true, feature.hasDefault());
-			assertEquals(new Day(2010, 1, 13), feature.getDefaultConstant());
-			assertEquals(false, feature.isDefaultNow());
-		}
+	}
+	@Test void testNowToConstant()
+	{
+		final DayField feature = mandatory.defaultTo(new Day(2010, 1, 13));
+		assertEquals(true, feature.hasDefault());
+		assertEquals(new Day(2010, 1, 13), feature.getDefaultConstant());
+		assertEquals(false, feature.isDefaultNow());
 	}
 }
