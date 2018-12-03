@@ -22,7 +22,6 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import com.exedio.cope.instrument.WrapperType;
-import com.exedio.cope.util.TimeZoneStrict;
 
 @WrapperType(genericConstructor=PACKAGE)
 @CopeSchemaName("DefaultToItem")
