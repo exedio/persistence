@@ -67,7 +67,7 @@ public final class LongField extends NumberField<Long>
 		}
 
 		@Override
-		Long generate(final long now)
+		Long generate(final Context ctx)
 		{
 			final long raw = source.nextLong();
 			if(absolute && (raw<0))

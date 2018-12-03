@@ -172,7 +172,7 @@ public class LongFieldRandomTest
 	{
 		final DefaultSource<Long> s = l.defaultSource;
 		r.setNextLong(actual);
-		final Long actualGenerated = s.generate(MIN_VALUE);
+		final Long actualGenerated = s.generate(null);
 		assertEquals(Long.valueOf(expected), actualGenerated);
 		l.check(actualGenerated);
 	}

@@ -62,7 +62,7 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 	}
 	@Test void testNotNow()
 	{
-		clock.add(millisNow);
+		clock.assertEmpty();
 		final MyItem item = new MyItem(
 				MyItem.date1.map(new Date(millisA)),
 				MyItem.date2.map(new Date(millisB)),

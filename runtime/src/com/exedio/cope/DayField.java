@@ -133,9 +133,9 @@ public final class DayField extends FunctionField<Day>
 		}
 
 		@Override
-		Day generate(final long now)
+		Day generate(final Context ctx)
 		{
-			return new Day(new Date(now), zone);
+			return new Day(new Date(ctx.currentTimeMillis()), zone);
 		}
 
 		@Override

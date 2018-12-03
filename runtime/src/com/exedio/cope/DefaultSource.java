@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.util.Clock;
 import java.lang.reflect.AnnotatedElement;
 
 abstract class DefaultSource<E>
@@ -26,21 +27,37 @@ abstract class DefaultSource<E>
 	 * Generates a default value.
 	 * <ul>
 	 * <li>The result may or may not be stable, i.e.
-	 * multiple calls even with the same value for <tt>now</tt>
+	 * multiple calls even with the same <tt>ctx</tt>
 	 * may return different results.</li>
-	 * <li>The result may or may not depend on parameter <tt>now</tt>.
+	 * <li>The result may or may not depend on parameter <tt>ctx</tt>.
 	 * However the result must not depend on {@link System#currentTimeMillis()},
-	 * but use <tt>now</tt> instead.
+	 * but use {@link Context#currentTimeMillis() ctx.currentTimeMillis()} instead.
 	 * </li>
 	 * <li>Calling this method may or may not cause side effects,
 	 * such as incrementing a sequence or exhausting random entropy.</li>
 	 * </ul>
-	 * @param now
-	 * The caller must provide the results of {@link System#currentTimeMillis()} here.
-	 * However the caller may reuse the results of {@link System#currentTimeMillis()} for multiple calls,
+	 * @param ctx
+	 * The caller must provide a {@link Context} here.
+	 * However the caller may reuse the {@link Context} for multiple calls,
 	 * even for different {@code DefaultSource}s.
 	 */
-	abstract E generate(long now);
+	abstract E generate(Context ctx);
+
+	static final class Context
+	{
+		private long now = Long.MIN_VALUE;
+		private boolean needsNow = true;
+
+		long currentTimeMillis()
+		{
+			if(needsNow)
+			{
+				now = Clock.currentTimeMillis();
+				needsNow = false;
+			}
+			return now;
+		}
+	}
 
 	abstract DefaultSource<E> forNewField();
 

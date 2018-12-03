@@ -84,7 +84,7 @@ public final class IntegerField extends NumberField<Integer>
 
 		@Override
 		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR") // TODO think of a better design
-		Integer generate(final long now)
+		Integer generate(final Context ctx)
 		{
 			return sequence.next();
 		}

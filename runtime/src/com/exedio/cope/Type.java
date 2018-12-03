@@ -34,7 +34,6 @@ import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
-import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
@@ -1013,8 +1012,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final FieldValues fieldValues = new FieldValues(this, setValues);
 		executeCopyConstraints(fieldValues);
 
-		long now = Long.MIN_VALUE;
-		boolean needsNow = true;
+		DefaultSource.Context ctx = null;
 		for(final Field<?> field : fields.all)
 		{
 			if(field instanceof FunctionField<?> && !fieldValues.isDirty(field))
@@ -1023,13 +1021,10 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 				final DefaultSource<?> defaultSource = ff.defaultSource;
 				if(defaultSource!=null)
 				{
-					if(needsNow)
-					{
-						now = Clock.currentTimeMillis();
-						needsNow = false;
-					}
+					if(ctx==null)
+						ctx = new DefaultSource.Context();
 
-					final Object defaultValue = defaultSource.generate(now);
+					final Object defaultValue = defaultSource.generate(ctx);
 					if(defaultValue==null)
 						throw new RuntimeException(ff.getID());
 					fieldValues.setDirty(field, defaultValue);

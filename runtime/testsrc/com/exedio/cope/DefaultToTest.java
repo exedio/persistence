@@ -80,7 +80,7 @@ public class DefaultToTest extends TestWithEnvironment
 		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			clock.add(999999999); // TODO assertEmpty
+			clock.assertEmpty();
 			final DefaultToItem item = new DefaultToItem(
 					booleanNone.map(false)
 			);
@@ -107,7 +107,7 @@ public class DefaultToTest extends TestWithEnvironment
 		assertInfo(integerNext, 1, 10001, 10001, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			clock.add(999999999); // TODO assertEmpty
+			clock.assertEmpty();
 			final DefaultToItem item = new DefaultToItem(
 					booleanNone.map(false)
 			);
@@ -173,7 +173,7 @@ public class DefaultToTest extends TestWithEnvironment
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 		{
-			clock.add(999999999); // TODO assertEmpty
+			clock.assertEmpty();
 			final DefaultToItem item = new DefaultToItem(
 					booleanTrue.map(null),
 					booleanNone.map(true),

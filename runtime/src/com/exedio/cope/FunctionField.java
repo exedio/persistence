@@ -119,7 +119,7 @@ public abstract class FunctionField<E> extends Field<E>
 		}
 
 		@Override
-		E generate(final long now)
+		E generate(final Context ctx)
 		{
 			return value;
 		}

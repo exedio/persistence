@@ -152,9 +152,9 @@ public final class DateField extends FunctionField<Date>
 		}
 
 		@Override
-		Date generate(final long now)
+		Date generate(final Context ctx)
 		{
-			return precision.round(new Date(now), roundingMode, null, null);
+			return precision.round(new Date(ctx.currentTimeMillis()), roundingMode, null, null);
 		}
 
 		@Override
