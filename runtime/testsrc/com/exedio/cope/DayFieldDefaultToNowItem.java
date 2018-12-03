@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.TimeZoneStrict;
@@ -27,8 +28,8 @@ import com.exedio.cope.util.TimeZoneStrict;
 @CopeSchemaName("DefaultToItem")
 final class DayFieldDefaultToNowItem extends Item
 {
-	static final DayField mandatory = new DayField().defaultToNow(TimeZoneStrict.getTimeZone("Europe/Berlin"));
-	static final DayField optional  = new DayField().optional().defaultToNow(TimeZoneStrict.getTimeZone("Europe/Berlin"));
+	static final DayField mandatory = new DayField().defaultToNow(getTimeZone("Europe/Berlin"));
+	static final DayField optional  = new DayField().optional().defaultToNow(getTimeZone("Europe/Berlin"));
 	static final DayField none      = new DayField().optional();
 
 	/**
