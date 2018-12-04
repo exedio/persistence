@@ -87,16 +87,14 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 	}
 	@Test void testSet()
 	{
-		{
-			clock.assertEmpty();
-			final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
-					integerNext.map(7001)
-			);
-			clock.assertEmpty();
+		clock.assertEmpty();
+		final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
+				integerNext.map(7001)
+		);
+		clock.assertEmpty();
 
-			assertEquals(integer(7001), item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
-		}
+		assertEquals(integer(7001), item.getIntegerNext());
+		assertEquals(null, item.getIntegerNone());
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
 		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
@@ -104,16 +102,14 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 	}
 	@Test void testSetNull()
 	{
-		{
-			clock.assertEmpty();
-			final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
-					integerNext.map(null)
-			);
-			clock.assertEmpty();
+		clock.assertEmpty();
+		final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
+				integerNext.map(null)
+		);
+		clock.assertEmpty();
 
-			assertEquals(null, item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
-		}
+		assertEquals(null, item.getIntegerNext());
+		assertEquals(null, item.getIntegerNone());
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
 		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
