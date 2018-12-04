@@ -34,7 +34,7 @@ public class IntegerFieldDefaultToNextModelTest
 	public static final Model MODEL = new Model(TYPE);
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test void testIt()
+	@Test void testModel()
 	{
 		assertEquals(list(
 				TYPE.getThis(),
@@ -64,14 +64,17 @@ public class IntegerFieldDefaultToNextModelTest
 			assertEquals(Integer.MAX_VALUE, s.getEnd());
 		}
 		assertEquals(null, integerNone.getDefaultNext());
-
-		{
-			final IntegerField feature = integerNext.defaultTo(99);
-			assertEquals(true, feature.hasDefault());
-			assertEquals(integer(99), feature.getDefaultConstant());
-			assertEquals(false, feature.isDefaultNext());
-			assertEquals(null, feature.getDefaultNextStart());
-		}
+	}
+	@Test void testNextToConstant()
+	{
+		final IntegerField feature = integerNext.defaultTo(99);
+		assertEquals(true, feature.hasDefault());
+		assertEquals(integer(99), feature.getDefaultConstant());
+		assertEquals(false, feature.isDefaultNext());
+		assertEquals(null, feature.getDefaultNextStart());
+	}
+	@Test void testStartOutOfRange()
+	{
 		try
 		{
 			integerNext.min(10002);
