@@ -268,7 +268,7 @@ public class ModelTest extends TestWithEnvironment
 
 		try
 		{
-			ModelTestItem.next.checkSequenceBehindDefaultToNext();
+			ModelTestItem.next.checkSequenceBehindDefaultToNextX();
 			fail();
 		}
 		catch (final IllegalStateException e)

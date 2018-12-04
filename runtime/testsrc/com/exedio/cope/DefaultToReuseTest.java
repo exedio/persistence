@@ -52,7 +52,7 @@ public class DefaultToReuseTest
 		assertEquals(true, f.isMandatory());
 		assertEquals(true, f.hasDefault());
 		assertEquals(true, f.isDefaultNext());
-		assertEquals(Integer.valueOf(55), f.getDefaultNextStart());
+		assertEquals(55, f.getDefaultNextStartX());
 		assertEquals(Integer.MIN_VALUE, f.getMinimum());
 
 		{
@@ -60,7 +60,7 @@ public class DefaultToReuseTest
 			assertEquals(false, f2.isMandatory());
 			assertEquals(true,  f2.hasDefault());
 			assertEquals(true,  f2.isDefaultNext());
-			assertEquals(Integer.valueOf(55), f2.getDefaultNextStart());
+			assertEquals(55, f2.getDefaultNextStartX());
 			assertEquals(Integer.MIN_VALUE, f2.getMinimum());
 		}
 		{
@@ -68,7 +68,7 @@ public class DefaultToReuseTest
 			assertEquals(true, f2.isMandatory());
 			assertEquals(true, f2.hasDefault());
 			assertEquals(true, f2.isDefaultNext());
-			assertEquals(Integer.valueOf(55), f2.getDefaultNextStart());
+			assertEquals(55, f2.getDefaultNextStartX());
 			assertEquals(0, f2.getMinimum());
 		}
 	}

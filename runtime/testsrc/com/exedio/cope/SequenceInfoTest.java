@@ -45,19 +45,19 @@ public class SequenceInfoTest extends TestWithEnvironment
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, next.getDefaultToNextInfo());
+		assertInfo(next, next.getDefaultToNextInfoX());
 
 		newItem("first", 5);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, next.getDefaultToNextInfo());
+		assertInfo(next, next.getDefaultToNextInfoX());
 
 		newItem("second");
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfo());
+		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfoX());
 
 		newItem("third");
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfo());
+		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfoX());
 	}
 
 	private static void newItem(

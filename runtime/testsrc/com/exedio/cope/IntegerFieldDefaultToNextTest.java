@@ -57,9 +57,9 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, next.getDefaultToNextInfo());
+		assertInfo(next, getDefaultToNextInfo(next));
 		assertInfo(next, next.getDefaultToNextInfoX());
-		assertNull(none.getDefaultToNextInfo());
+		assertNull(getDefaultToNextInfo(none));
 		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 		{
 			clock.assertEmpty();
@@ -72,9 +72,9 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 1, 10001, 10001, next.getDefaultToNextInfo());
+		assertInfo(next, 1, 10001, 10001, getDefaultToNextInfo(next));
 		assertInfo(next, 1, 10001, 10001, next.getDefaultToNextInfoX());
-		assertNull(none.getDefaultToNextInfo());
+		assertNull(getDefaultToNextInfo(none));
 		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 		{
 			clock.assertEmpty();
@@ -87,9 +87,9 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, 2, 10001, 10002, next.getDefaultToNextInfo());
+		assertInfo(next, 2, 10001, 10002, getDefaultToNextInfo(next));
 		assertInfo(next, 2, 10001, 10002, next.getDefaultToNextInfoX());
-		assertNull(none.getDefaultToNextInfo());
+		assertNull(getDefaultToNextInfo(none));
 		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 	}
 	@Test void testSet()
@@ -104,8 +104,8 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		assertEquals(null, item.getNone());
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, next.getDefaultToNextInfo());
-		assertNull(none.getDefaultToNextInfo());
+		assertInfo(next, next.getDefaultToNextInfoX());
+		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 	}
 	@Test void testSetNull()
 	{
@@ -119,12 +119,18 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		assertEquals(null, item.getNone());
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(next, next.getDefaultToNextInfo());
-		assertNull(none.getDefaultToNextInfo());
+		assertInfo(next, next.getDefaultToNextInfoX());
+		assertFails(none::getDefaultToNextInfoX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 	}
 
 	private static Integer integer(final int i)
 	{
 		return Integer.valueOf(i);
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static SequenceInfo getDefaultToNextInfo(final IntegerField f)
+	{
+		return f.getDefaultToNextInfo();
 	}
 }

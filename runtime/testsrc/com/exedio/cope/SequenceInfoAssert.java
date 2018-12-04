@@ -38,7 +38,7 @@ public final class SequenceInfoAssert
 
 	public static void assertInfo(final IntegerField feature, final int count, final int first, final int last, final SequenceInfo info)
 	{
-		assertInfoAny(feature, feature.getDefaultNextStart(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
+		assertInfoAny(feature, feature.getDefaultNextStartX(), feature.getMinimum(), feature.getMaximum(), count, first, last, info);
 	}
 
 	public static void assertInfo(final Sequence feature, final int count, final int first, final int last, final SequenceInfo info)
@@ -65,7 +65,7 @@ public final class SequenceInfoAssert
 
 	public static void assertInfo(final IntegerField feature, final SequenceInfo info)
 	{
-		assertInfoAny(feature, feature.getDefaultNextStart(), feature.getMinimum(), feature.getMaximum(), info);
+		assertInfoAny(feature, feature.getDefaultNextStartX(), feature.getMinimum(), feature.getMaximum(), info);
 	}
 
 	public static void assertInfo(final Sequence feature, final SequenceInfo info)

@@ -84,14 +84,6 @@ public class DefaultToModelTest
 		assertEquals(false, integerFifty.isDefaultNext());
 		assertEquals(false, integerNone.isDefaultNext());
 
-		assertEquals(null, integerFive.getDefaultNextStart());
-		assertEquals(null, integerFifty.getDefaultNextStart());
-		assertEquals(null, integerNone.getDefaultNextStart());
-
-		assertEquals(null, integerFive.getDefaultNext());
-		assertEquals(null, integerFifty.getDefaultNext());
-		assertEquals(null, integerNone.getDefaultNext());
-
 		assertEquals(date(8), dateEight.getDefaultConstant());
 		assertEquals(date(80), dateEighty.getDefaultConstant());
 		assertEquals(null, dateNone.getDefaultConstant());

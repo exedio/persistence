@@ -41,7 +41,7 @@ public class IntegerFieldDefaultToNextModelTest
 	{
 		assertEquals(list(
 				TYPE.getThis(),
-				next, next.getDefaultNext(), none
+				next, next.getDefaultNextSequence(), none
 				), TYPE.getDeclaredFeatures());
 
 		assertEquals(true,  next.hasDefault());
@@ -53,14 +53,14 @@ public class IntegerFieldDefaultToNextModelTest
 		assertEquals(true,  next.isDefaultNext());
 		assertEquals(false, none.isDefaultNext());
 
-		assertEquals(integer(10001), next.getDefaultNextStart());
-		assertEquals(null, none.getDefaultNextStart());
+		assertEquals(integer(10001), getDefaultNextStart(next));
+		assertEquals(null, getDefaultNextStart(none));
 
 		assertEquals(10001, next.getDefaultNextStartX());
 		assertFails(none::getDefaultNextStartX, IllegalArgumentException.class, "is not defaultToNext: " + none);
 
 		{
-			final Sequence s = next.getDefaultNext();
+			final Sequence s = next.getDefaultNextSequence();
 			assertNotNull(s);
 			assertEquals("next-Seq",s.getName());
 			assertEquals("IntegerFieldDefaultToNextItem.next-Seq", s.getID());
@@ -69,9 +69,9 @@ public class IntegerFieldDefaultToNextModelTest
 			assertEquals(10001, s.getStart());
 			assertEquals(Integer.MAX_VALUE, s.getEnd());
 
-			assertSame(s, next.getDefaultNextSequence());
+			assertSame(s, getDefaultNext(next));
 		}
-		assertEquals(null, none.getDefaultNext());
+		assertEquals(null, getDefaultNext(none));
 		assertFails(none::getDefaultNextSequence, IllegalArgumentException.class, "is not defaultToNext: " + none);
 	}
 	@Test void testNextToConstant()
@@ -80,7 +80,7 @@ public class IntegerFieldDefaultToNextModelTest
 		assertEquals(true, feature.hasDefault());
 		assertEquals(integer(99), feature.getDefaultConstant());
 		assertEquals(false, feature.isDefaultNext());
-		assertEquals(null, feature.getDefaultNextStart());
+		assertFails(feature::getDefaultNextStartX, IllegalArgumentException.class, "is not defaultToNext: " + feature);
 	}
 	@Test void testConstantToNext()
 	{
@@ -89,7 +89,7 @@ public class IntegerFieldDefaultToNextModelTest
 		assertEquals(true, feature.hasDefault());
 		assertEquals(null, feature.getDefaultConstant());
 		assertEquals(true, feature.isDefaultNext());
-		assertEquals(integer(88), feature.getDefaultNextStart());
+		assertEquals(88, feature.getDefaultNextStartX());
 	}
 	@Test void testStartOutOfRange()
 	{
@@ -102,6 +102,7 @@ public class IntegerFieldDefaultToNextModelTest
 				"10001 is too small, " +
 				"must be at least 10002. Start value was '10001'.");
 	}
+	@SuppressWarnings("deprecation") // OK, testing deprecated API
 	@Test void testSequenceBehindNone()
 	{
 		assertEquals(null, none.checkSequenceBehindDefaultToNext());
@@ -124,5 +125,17 @@ public class IntegerFieldDefaultToNextModelTest
 	private static Integer integer(final int i)
 	{
 		return Integer.valueOf(i);
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static Integer getDefaultNextStart(final IntegerField f)
+	{
+		return f.getDefaultNextStart();
+	}
+
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
+	private static Sequence getDefaultNext(final IntegerField f)
+	{
+		return f.getDefaultNext();
 	}
 }

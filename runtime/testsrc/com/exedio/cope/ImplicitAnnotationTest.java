@@ -43,11 +43,11 @@ public class ImplicitAnnotationTest extends TestWithEnvironment
 	@Test void testIt()
 	{
 		final UniqueConstraint uniqCon = uniqFeature.getImplicitUniqueConstraint();
-		final Sequence nextSeq = nextFeature.getDefaultNext();
+		final Sequence nextSeq = nextFeature.getDefaultNextSequence();
 		final CopyConstraint copyFrom = TYPE.getCopyConstraints().get(0);
 		final CopyConstraint copyTo = TYPE.getCopyConstraints().get(1);
 		final UniqueConstraint uniqComputedCon = uniqComputed.getImplicitUniqueConstraint();
-		final Sequence nextComputedSeq = nextComputed.getDefaultNext();
+		final Sequence nextComputedSeq = nextComputed.getDefaultNextSequence();
 		final CopyConstraint copyComputedFrom = TYPE.getCopyConstraints().get(2);
 		final CopyConstraint copyComputedTo = TYPE.getCopyConstraints().get(3);
 		assertEquals(asList(copyFrom, copyTo, copyComputedFrom, copyComputedTo), TYPE.getCopyConstraints());
