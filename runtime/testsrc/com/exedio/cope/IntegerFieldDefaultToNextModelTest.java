@@ -24,7 +24,6 @@ import static com.exedio.cope.IntegerFieldDefaultToNextItem.integerNone;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -86,20 +85,14 @@ public class IntegerFieldDefaultToNextModelTest
 	}
 	@Test void testStartOutOfRange()
 	{
-		try
-		{
-			integerNext.min(10002);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
-					"caused a IntegerRangeViolationException: " +
-					"range violation, " +
-					"10001 is too small, " +
-					"must be at least 10002. Start value was '10001'.", e.getMessage());
-		}
+		assertFails(
+				() -> integerNext.min(10002),
+				IllegalArgumentException.class,
+				"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
+				"caused a IntegerRangeViolationException: " +
+				"range violation, " +
+				"10001 is too small, " +
+				"must be at least 10002. Start value was '10001'.");
 	}
 	@Test void testSequenceNameNone()
 	{
