@@ -34,7 +34,6 @@ final class DefaultToItem extends Item
 
 	static final IntegerField integerFive = new IntegerField().defaultTo(5);
 	static final IntegerField integerFifty = new IntegerField().optional().defaultTo(50);
-	static final IntegerField integerNext = new IntegerField().optional().defaultToNext(10001);
 	static final IntegerField integerNone = new IntegerField().optional();
 
 	static final DateField dateEight = new DateField().defaultTo(new Date(8));
@@ -150,25 +149,6 @@ final class DefaultToItem extends Item
 	void setIntegerFifty(@javax.annotation.Nullable final java.lang.Integer integerFifty)
 	{
 		DefaultToItem.integerFifty.set(this,integerFifty);
-	}
-
-	/**
-	 * Returns the value of {@link #integerNext}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nullable
-	java.lang.Integer getIntegerNext()
-	{
-		return DefaultToItem.integerNext.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #integerNext}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setIntegerNext(@javax.annotation.Nullable final java.lang.Integer integerNext)
-	{
-		DefaultToItem.integerNext.set(this,integerNext);
 	}
 
 	/**

@@ -33,7 +33,6 @@ import static com.exedio.cope.DefaultToItem.enumOne;
 import static com.exedio.cope.DefaultToItem.enumTwo;
 import static com.exedio.cope.DefaultToItem.integerFifty;
 import static com.exedio.cope.DefaultToItem.integerFive;
-import static com.exedio.cope.DefaultToItem.integerNext;
 import static com.exedio.cope.DefaultToItem.integerNone;
 import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
@@ -41,7 +40,6 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Boolean.TRUE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -58,7 +56,7 @@ public class DefaultToModelTest
 		assertEquals(list(
 				TYPE.getThis(),
 				booleanTrue, booleanNone,
-				integerFive, integerFifty, integerNext, integerNext.getDefaultNext(), integerNone,
+				integerFive, integerFifty, integerNone,
 				dateEight, dateEighty, dateNone,
 				dayEight, dayNone,
 				longRandom,
@@ -69,7 +67,6 @@ public class DefaultToModelTest
 		assertEquals(false, booleanNone.hasDefault());
 		assertEquals(true,  integerFive.hasDefault());
 		assertEquals(true,  integerFifty.hasDefault());
-		assertEquals(true,  integerNext.hasDefault());
 		assertEquals(false, integerNone.hasDefault());
 		assertEquals(true,  dateEight.hasDefault());
 		assertEquals(true,  dateEighty.hasDefault());
@@ -82,31 +79,18 @@ public class DefaultToModelTest
 		assertEquals(null, booleanNone.getDefaultConstant());
 		assertEquals(integer(5), integerFive.getDefaultConstant());
 		assertEquals(integer(50), integerFifty.getDefaultConstant());
-		assertEquals(null, integerNext.getDefaultConstant());
 		assertEquals(null, integerNone.getDefaultConstant());
 
 		assertEquals(false, integerFive.isDefaultNext());
 		assertEquals(false, integerFifty.isDefaultNext());
-		assertEquals(true,  integerNext.isDefaultNext());
 		assertEquals(false, integerNone.isDefaultNext());
 
 		assertEquals(null, integerFive.getDefaultNextStart());
 		assertEquals(null, integerFifty.getDefaultNextStart());
-		assertEquals(integer(10001), integerNext.getDefaultNextStart());
 		assertEquals(null, integerNone.getDefaultNextStart());
 
 		assertEquals(null, integerFive.getDefaultNext());
 		assertEquals(null, integerFifty.getDefaultNext());
-		{
-			final Sequence s = integerNext.getDefaultNext();
-			assertNotNull(s);
-			assertEquals("integerNext-Seq",s.getName());
-			assertEquals("DefaultToItem.integerNext-Seq", s.getID());
-			assertEquals(TYPE, s.getType());
-			assertEquals(null, s.getPattern());
-			assertEquals(10001, s.getStart());
-			assertEquals(Integer.MAX_VALUE, s.getEnd());
-		}
 		assertEquals(null, integerNone.getDefaultNext());
 
 		assertEquals(date(8), dateEight.getDefaultConstant());
@@ -138,27 +122,6 @@ public class DefaultToModelTest
 			assertEquals(null, feature.getDefaultConstant());
 			assertEquals(true, feature.isDefaultNext());
 			assertEquals(integer(88), feature.getDefaultNextStart());
-		}
-		{
-			final IntegerField feature = integerNext.defaultTo(99);
-			assertEquals(true, feature.hasDefault());
-			assertEquals(integer(99), feature.getDefaultConstant());
-			assertEquals(false, feature.isDefaultNext());
-			assertEquals(null, feature.getDefaultNextStart());
-		}
-		try
-		{
-			integerNext.min(10002);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
-					"caused a IntegerRangeViolationException: " +
-					"range violation, " +
-					"10001 is too small, " +
-					"must be at least 10002. Start value was '10001'.", e.getMessage());
 		}
 		try
 		{
