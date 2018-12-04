@@ -271,31 +271,11 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	/**
-	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
-	 * @deprecated Use {@link #getDefaultNextStartX()} instead, but regard the exception
-	 */
-	@Deprecated
-	public Integer getDefaultNextStart()
-	{
-		return isDefaultNext() ? getDefaultNextStartX() : null;
-	}
-
-	/**
 	 * @throws IllegalArgumentException if this field does not {@link #isDefaultNext() default to next value of a sequence}.
 	 */
 	public int getDefaultNextStartX()
 	{
 		return defaultNext().start;
-	}
-
-	/**
-	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
-	 * @deprecated Use {@link #getDefaultNextSequence()} instead, but regard the exception
-	 */
-	@Deprecated
-	public Sequence getDefaultNext()
-	{
-		return isDefaultNext() ? getDefaultNextSequence() : null;
 	}
 
 	/**
@@ -403,42 +383,11 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	/**
-	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
-	 * @deprecated Use {@link #getDefaultToNextInfoX()} instead, but regard the exception
-	 */
-	@Deprecated
-	public SequenceInfo getDefaultToNextInfo()
-	{
-		return isDefaultNext() ? getDefaultToNextInfoX() : null;
-	}
-
-	/**
 	 * @throws IllegalArgumentException if this field does not {@link #isDefaultNext() default to next value of a sequence}.
 	 */
 	public SequenceInfo getDefaultToNextInfoX()
 	{
 		return getDefaultNextSequence().getInfo();
-	}
-
-	/**
-	 * @throws IllegalStateException is a transaction is bound to the current thread
-	 * @deprecated Use {@link #checkSequenceBehindDefaultToNext()}.{@link SequenceBehindInfo#isBehindBy() isBehindBy}() instead
-	 */
-	@Deprecated
-	public int checkDefaultToNext()
-	{
-		return SequenceBehindInfo.isBehindBy(checkSequenceBehindDefaultToNext());
-	}
-
-	/**
-	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
-	 * @deprecated Use {@link #checkSequenceBehindDefaultToNextX()} instead, but regard the exception
-	 * @throws IllegalStateException is a transaction is bound to the current thread
-	 */
-	@Deprecated
-	public SequenceBehindInfo checkSequenceBehindDefaultToNext()
-	{
-		return isDefaultNext() ? checkSequenceBehindDefaultToNextX() : null;
 	}
 
 	/**
@@ -496,4 +445,58 @@ public final class IntegerField extends NumberField<Integer>
 			return isNotNull();
 	}
 	// TODO the same for less, lessEqual, greater, greaterEqual
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #getDefaultNextStartX()} instead, but regard the exception
+	 */
+	@Deprecated
+	public Integer getDefaultNextStart()
+	{
+		return isDefaultNext() ? getDefaultNextStartX() : null;
+	}
+
+	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #getDefaultNextSequence()} instead, but regard the exception
+	 */
+	@Deprecated
+	public Sequence getDefaultNext()
+	{
+		return isDefaultNext() ? getDefaultNextSequence() : null;
+	}
+
+	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #getDefaultToNextInfoX()} instead, but regard the exception
+	 */
+	@Deprecated
+	public SequenceInfo getDefaultToNextInfo()
+	{
+		return isDefaultNext() ? getDefaultToNextInfoX() : null;
+	}
+
+	/**
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 * @deprecated Use {@link #checkSequenceBehindDefaultToNext()}.{@link SequenceBehindInfo#isBehindBy() isBehindBy}() instead
+	 */
+	@Deprecated
+	public int checkDefaultToNext()
+	{
+		return SequenceBehindInfo.isBehindBy(checkSequenceBehindDefaultToNext());
+	}
+
+	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #checkSequenceBehindDefaultToNextX()} instead, but regard the exception
+	 * @throws IllegalStateException is a transaction is bound to the current thread
+	 */
+	@Deprecated
+	public SequenceBehindInfo checkSequenceBehindDefaultToNext()
+	{
+		return isDefaultNext() ? checkSequenceBehindDefaultToNextX() : null;
+	}
+
 }
