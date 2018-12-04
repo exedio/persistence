@@ -26,6 +26,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
@@ -55,6 +56,9 @@ public class IntegerFieldDefaultToNextModelTest
 		assertEquals(integer(10001), next.getDefaultNextStart());
 		assertEquals(null, none.getDefaultNextStart());
 
+		assertEquals(10001, next.getDefaultNextStartX());
+		assertFails(none::getDefaultNextStartX, IllegalArgumentException.class, "is not defaultToNext: " + none);
+
 		{
 			final Sequence s = next.getDefaultNext();
 			assertNotNull(s);
@@ -64,8 +68,11 @@ public class IntegerFieldDefaultToNextModelTest
 			assertEquals(null, s.getPattern());
 			assertEquals(10001, s.getStart());
 			assertEquals(Integer.MAX_VALUE, s.getEnd());
+
+			assertSame(s, next.getDefaultNextSequence());
 		}
 		assertEquals(null, none.getDefaultNext());
+		assertFails(none::getDefaultNextSequence, IllegalArgumentException.class, "is not defaultToNext: " + none);
 	}
 	@Test void testNextToConstant()
 	{
@@ -98,6 +105,13 @@ public class IntegerFieldDefaultToNextModelTest
 	@Test void testSequenceBehindNone()
 	{
 		assertEquals(null, none.checkSequenceBehindDefaultToNext());
+	}
+	@Test void testSequenceBehindNoneX()
+	{
+		assertFails(
+				none::checkSequenceBehindDefaultToNextX,
+				IllegalArgumentException.class,
+				"is not defaultToNext: " + none);
 	}
 	@Test void testSequenceNameNone()
 	{

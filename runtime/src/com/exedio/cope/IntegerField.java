@@ -39,6 +39,7 @@ public final class IntegerField extends NumberField<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
+	@Deprecated
 	private final Sequence defaultToNextSequenceIfPresent;
 	private final int minimum;
 	private final int maximum;
@@ -60,6 +61,7 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
 
 		mountDefault();
+		//noinspection deprecation
 		this.defaultToNextSequenceIfPresent =
 				(this.defaultS instanceof DefaultNext)
 				? ((DefaultNext)this.defaultS).getSequence()
@@ -267,19 +269,56 @@ public final class IntegerField extends NumberField<Integer>
 		return new IntegerField(isfinal, optional, unique, copyFrom, defaultS, minimum, maximum);
 	}
 
+	/**
+	 * Returns whether this field defaults to next value of a sequence.
+	 */
 	public boolean isDefaultNext()
 	{
 		return defaultS instanceof DefaultNext;
 	}
 
+	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #getDefaultNextStartX()} instead, but regard the exception
+	 */
+	@Deprecated
 	public Integer getDefaultNextStart()
 	{
 		return (defaultS instanceof DefaultNext) ? ((DefaultNext)defaultS).start : null;
 	}
 
+	/**
+	 * @throws IllegalArgumentException if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 */
+	public int getDefaultNextStartX()
+	{
+		return defaultNext().start;
+	}
+
+	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #getDefaultNextSequence()} instead, but regard the exception
+	 */
+	@Deprecated
 	public Sequence getDefaultNext()
 	{
 		return (defaultS instanceof DefaultNext) ? ((DefaultNext)defaultS).getSequence() : null;
+	}
+
+	/**
+	 * @throws IllegalArgumentException if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 */
+	public Sequence getDefaultNextSequence()
+	{
+		return defaultNext().getSequence();
+	}
+
+	private DefaultNext defaultNext()
+	{
+		if(!(defaultS instanceof DefaultNext))
+			throw new IllegalArgumentException("is not defaultToNext: " + this);
+
+		return (DefaultNext)defaultS;
 	}
 
 	public int getMinimum()
@@ -370,9 +409,22 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IntegerRangeViolationException(this, exceptionItem, value, false, maximum);
 	}
 
+	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #getDefaultToNextInfoX()} instead, but regard the exception
+	 */
+	@Deprecated
 	public SequenceInfo getDefaultToNextInfo()
 	{
 		return defaultToNextSequenceIfPresent!=null ? defaultToNextSequenceIfPresent.getInfo() : null;
+	}
+
+	/**
+	 * @throws IllegalArgumentException if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 */
+	public SequenceInfo getDefaultToNextInfoX()
+	{
+		return getDefaultNextSequence().getInfo();
 	}
 
 	/**
@@ -386,23 +438,31 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	/**
+	 * Returns null, if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 * @deprecated Use {@link #checkSequenceBehindDefaultToNextX()} instead, but regard the exception
 	 * @throws IllegalStateException is a transaction is bound to the current thread
 	 */
+	@Deprecated
 	public SequenceBehindInfo checkSequenceBehindDefaultToNext()
 	{
 		if(defaultToNextSequenceIfPresent==null)
 			return null;
 
-		return defaultToNextSequenceIfPresent.sequenceX.check(
+		return checkSequenceBehindDefaultToNextX();
+	}
+
+	/**
+	 * @throws IllegalArgumentException if this field does not {@link #isDefaultNext() default to next value of a sequence}.
+	 */
+	public SequenceBehindInfo checkSequenceBehindDefaultToNextX()
+	{
+		return getDefaultNextSequence().sequenceX.check(
 				getType().getModel(), (IntegerColumn)getColumn());
 	}
 
 	String getDefaultToNextSequenceName()
 	{
-		if(defaultToNextSequenceIfPresent==null)
-			throw new IllegalArgumentException("is not defaultToNext: " + this);
-
-		return defaultToNextSequenceIfPresent.sequenceX.getSchemaName();
+		return getDefaultNextSequence().sequenceX.getSchemaName();
 	}
 
 	public IntegerField rangeDigits(final int digits)
