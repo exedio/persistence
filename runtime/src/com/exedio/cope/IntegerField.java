@@ -39,7 +39,7 @@ public final class IntegerField extends NumberField<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	private final Sequence defaultToNextSequence;
+	private final Sequence defaultToNextSequenceIfPresent;
 	private final int minimum;
 	private final int maximum;
 
@@ -60,7 +60,7 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
 
 		mountDefault();
-		this.defaultToNextSequence =
+		this.defaultToNextSequenceIfPresent =
 				(this.defaultS instanceof DefaultNext)
 				? ((DefaultNext)this.defaultS).getSequence()
 				: null;
@@ -372,7 +372,7 @@ public final class IntegerField extends NumberField<Integer>
 
 	public SequenceInfo getDefaultToNextInfo()
 	{
-		return defaultToNextSequence!=null ? defaultToNextSequence.getInfo() : null;
+		return defaultToNextSequenceIfPresent!=null ? defaultToNextSequenceIfPresent.getInfo() : null;
 	}
 
 	/**
@@ -390,19 +390,19 @@ public final class IntegerField extends NumberField<Integer>
 	 */
 	public SequenceBehindInfo checkSequenceBehindDefaultToNext()
 	{
-		if(defaultToNextSequence==null)
+		if(defaultToNextSequenceIfPresent==null)
 			return null;
 
-		return defaultToNextSequence.sequenceX.check(
+		return defaultToNextSequenceIfPresent.sequenceX.check(
 				getType().getModel(), (IntegerColumn)getColumn());
 	}
 
 	String getDefaultToNextSequenceName()
 	{
-		if(defaultToNextSequence==null)
+		if(defaultToNextSequenceIfPresent==null)
 			throw new IllegalArgumentException("is not defaultToNext: " + this);
 
-		return defaultToNextSequence.sequenceX.getSchemaName();
+		return defaultToNextSequenceIfPresent.sequenceX.getSchemaName();
 	}
 
 	public IntegerField rangeDigits(final int digits)
