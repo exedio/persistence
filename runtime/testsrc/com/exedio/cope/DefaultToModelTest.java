@@ -35,7 +35,6 @@ import static com.exedio.cope.DefaultToItem.integerFifty;
 import static com.exedio.cope.DefaultToItem.integerFive;
 import static com.exedio.cope.DefaultToItem.integerNone;
 import static com.exedio.cope.DefaultToItem.longRandom;
-import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Boolean.TRUE;
 import static org.junit.Assert.fail;
@@ -116,22 +115,6 @@ public class DefaultToModelTest
 		assertEquals(TWO, enumTwo.getDefaultConstant());
 		assertEquals(null, enumNone.getDefaultConstant());
 
-		{
-			final IntegerField feature = integerFifty.defaultToNext(88);
-			assertEquals(true, feature.hasDefault());
-			assertEquals(null, feature.getDefaultConstant());
-			assertEquals(true, feature.isDefaultNext());
-			assertEquals(integer(88), feature.getDefaultNextStart());
-		}
-		try
-		{
-			getDefaultToNextSequenceName(integerFive);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("is not defaultToNext: " + integerFive, e.getMessage());
-		}
 		try
 		{
 			new StringField().lengthMax(3).defaultTo("1234");

@@ -21,6 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.TYPE;
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.integerNext;
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.integerNone;
+import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,6 +75,15 @@ public class IntegerFieldDefaultToNextModelTest
 		assertEquals(false, feature.isDefaultNext());
 		assertEquals(null, feature.getDefaultNextStart());
 	}
+	@Test void testConstantToNext()
+	{
+		final IntegerField origin = new IntegerField().defaultTo(55);
+		final IntegerField feature = origin.defaultToNext(88);
+		assertEquals(true, feature.hasDefault());
+		assertEquals(null, feature.getDefaultConstant());
+		assertEquals(true, feature.isDefaultNext());
+		assertEquals(integer(88), feature.getDefaultNextStart());
+	}
 	@Test void testStartOutOfRange()
 	{
 		try
@@ -89,6 +100,13 @@ public class IntegerFieldDefaultToNextModelTest
 					"10001 is too small, " +
 					"must be at least 10002. Start value was '10001'.", e.getMessage());
 		}
+	}
+	@Test void testSequenceNameNone()
+	{
+		assertFails(
+				() -> getDefaultToNextSequenceName(integerNone),
+				IllegalArgumentException.class,
+				"is not defaultToNext: " + integerNone);
 	}
 
 	private static Integer integer(final int i)
