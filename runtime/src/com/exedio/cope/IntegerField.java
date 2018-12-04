@@ -39,8 +39,6 @@ public final class IntegerField extends NumberField<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	@Deprecated
-	private final Sequence defaultToNextSequenceIfPresent;
 	private final int minimum;
 	private final int maximum;
 
@@ -61,11 +59,6 @@ public final class IntegerField extends NumberField<Integer>
 			throw new IllegalArgumentException("maximum must be greater than minimum, but was " + maximum + " and " + minimum);
 
 		mountDefault();
-		//noinspection deprecation
-		this.defaultToNextSequenceIfPresent =
-				(this.defaultS instanceof DefaultNext)
-				? ((DefaultNext)this.defaultS).getSequence()
-				: null;
 	}
 
 	private static final class DefaultNext extends DefaultSupplier<Integer>
@@ -284,7 +277,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Deprecated
 	public Integer getDefaultNextStart()
 	{
-		return (defaultS instanceof DefaultNext) ? ((DefaultNext)defaultS).start : null;
+		return isDefaultNext() ? getDefaultNextStartX() : null;
 	}
 
 	/**
@@ -302,7 +295,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Deprecated
 	public Sequence getDefaultNext()
 	{
-		return (defaultS instanceof DefaultNext) ? ((DefaultNext)defaultS).getSequence() : null;
+		return isDefaultNext() ? getDefaultNextSequence() : null;
 	}
 
 	/**
@@ -416,7 +409,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Deprecated
 	public SequenceInfo getDefaultToNextInfo()
 	{
-		return defaultToNextSequenceIfPresent!=null ? defaultToNextSequenceIfPresent.getInfo() : null;
+		return isDefaultNext() ? getDefaultToNextInfoX() : null;
 	}
 
 	/**
@@ -445,10 +438,7 @@ public final class IntegerField extends NumberField<Integer>
 	@Deprecated
 	public SequenceBehindInfo checkSequenceBehindDefaultToNext()
 	{
-		if(defaultToNextSequenceIfPresent==null)
-			return null;
-
-		return checkSequenceBehindDefaultToNextX();
+		return isDefaultNext() ? checkSequenceBehindDefaultToNextX() : null;
 	}
 
 	/**
