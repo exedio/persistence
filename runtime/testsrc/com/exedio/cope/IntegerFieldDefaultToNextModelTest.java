@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.TYPE;
-import static com.exedio.cope.IntegerFieldDefaultToNextItem.integerNext;
-import static com.exedio.cope.IntegerFieldDefaultToNextItem.integerNone;
+import static com.exedio.cope.IntegerFieldDefaultToNextItem.next;
+import static com.exedio.cope.IntegerFieldDefaultToNextItem.none;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -39,36 +39,36 @@ public class IntegerFieldDefaultToNextModelTest
 	{
 		assertEquals(list(
 				TYPE.getThis(),
-				integerNext, integerNext.getDefaultNext(), integerNone
+				next, next.getDefaultNext(), none
 				), TYPE.getDeclaredFeatures());
 
-		assertEquals(true,  integerNext.hasDefault());
-		assertEquals(false, integerNone.hasDefault());
+		assertEquals(true,  next.hasDefault());
+		assertEquals(false, none.hasDefault());
 
-		assertEquals(null, integerNext.getDefaultConstant());
-		assertEquals(null, integerNone.getDefaultConstant());
+		assertEquals(null, next.getDefaultConstant());
+		assertEquals(null, none.getDefaultConstant());
 
-		assertEquals(true,  integerNext.isDefaultNext());
-		assertEquals(false, integerNone.isDefaultNext());
+		assertEquals(true,  next.isDefaultNext());
+		assertEquals(false, none.isDefaultNext());
 
-		assertEquals(integer(10001), integerNext.getDefaultNextStart());
-		assertEquals(null, integerNone.getDefaultNextStart());
+		assertEquals(integer(10001), next.getDefaultNextStart());
+		assertEquals(null, none.getDefaultNextStart());
 
 		{
-			final Sequence s = integerNext.getDefaultNext();
+			final Sequence s = next.getDefaultNext();
 			assertNotNull(s);
-			assertEquals("integerNext-Seq",s.getName());
-			assertEquals("IntegerFieldDefaultToNextItem.integerNext-Seq", s.getID());
+			assertEquals("next-Seq",s.getName());
+			assertEquals("IntegerFieldDefaultToNextItem.next-Seq", s.getID());
 			assertEquals(TYPE, s.getType());
 			assertEquals(null, s.getPattern());
 			assertEquals(10001, s.getStart());
 			assertEquals(Integer.MAX_VALUE, s.getEnd());
 		}
-		assertEquals(null, integerNone.getDefaultNext());
+		assertEquals(null, none.getDefaultNext());
 	}
 	@Test void testNextToConstant()
 	{
-		final IntegerField feature = integerNext.defaultTo(99);
+		final IntegerField feature = next.defaultTo(99);
 		assertEquals(true, feature.hasDefault());
 		assertEquals(integer(99), feature.getDefaultConstant());
 		assertEquals(false, feature.isDefaultNext());
@@ -86,7 +86,7 @@ public class IntegerFieldDefaultToNextModelTest
 	@Test void testStartOutOfRange()
 	{
 		assertFails(
-				() -> integerNext.min(10002),
+				() -> next.min(10002),
 				IllegalArgumentException.class,
 				"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
 				"caused a IntegerRangeViolationException: " +
@@ -97,9 +97,9 @@ public class IntegerFieldDefaultToNextModelTest
 	@Test void testSequenceNameNone()
 	{
 		assertFails(
-				() -> getDefaultToNextSequenceName(integerNone),
+				() -> getDefaultToNextSequenceName(none),
 				IllegalArgumentException.class,
-				"is not defaultToNext: " + integerNone);
+				"is not defaultToNext: " + none);
 	}
 
 	private static Integer integer(final int i)

@@ -26,8 +26,8 @@ import com.exedio.cope.instrument.WrapperType;
 @CopeSchemaName("DefaultToItem")
 final class IntegerFieldDefaultToNextItem extends Item
 {
-	static final IntegerField integerNext = new IntegerField().optional().defaultToNext(10001);
-	static final IntegerField integerNone = new IntegerField().optional();
+	static final IntegerField next = new IntegerField().optional().defaultToNext(10001);
+	static final IntegerField none = new IntegerField().optional();
 
 	/**
 	 * Creates a new IntegerFieldDefaultToNextItem with all the fields initially needed.
@@ -49,41 +49,41 @@ final class IntegerFieldDefaultToNextItem extends Item
 	}
 
 	/**
-	 * Returns the value of {@link #integerNext}.
+	 * Returns the value of {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	java.lang.Integer getIntegerNext()
+	java.lang.Integer getNext()
 	{
-		return IntegerFieldDefaultToNextItem.integerNext.get(this);
+		return IntegerFieldDefaultToNextItem.next.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #integerNext}.
+	 * Sets a new value for {@link #next}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setIntegerNext(@javax.annotation.Nullable final java.lang.Integer integerNext)
+	void setNext(@javax.annotation.Nullable final java.lang.Integer next)
 	{
-		IntegerFieldDefaultToNextItem.integerNext.set(this,integerNext);
+		IntegerFieldDefaultToNextItem.next.set(this,next);
 	}
 
 	/**
-	 * Returns the value of {@link #integerNone}.
+	 * Returns the value of {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
-	java.lang.Integer getIntegerNone()
+	java.lang.Integer getNone()
 	{
-		return IntegerFieldDefaultToNextItem.integerNone.get(this);
+		return IntegerFieldDefaultToNextItem.none.get(this);
 	}
 
 	/**
-	 * Sets a new value for {@link #integerNone}.
+	 * Sets a new value for {@link #none}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setIntegerNone(@javax.annotation.Nullable final java.lang.Integer integerNone)
+	void setNone(@javax.annotation.Nullable final java.lang.Integer none)
 	{
-		IntegerFieldDefaultToNextItem.integerNone.set(this,integerNone);
+		IntegerFieldDefaultToNextItem.none.set(this,none);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

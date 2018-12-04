@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.IntegerFieldDefaultToNextItem.TYPE;
-import static com.exedio.cope.IntegerFieldDefaultToNextItem.integerNext;
-import static com.exedio.cope.IntegerFieldDefaultToNextItem.integerNone;
+import static com.exedio.cope.IntegerFieldDefaultToNextItem.next;
+import static com.exedio.cope.IntegerFieldDefaultToNextItem.none;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -52,68 +52,68 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testNext()
 	{
-		assertDefaultToNextSequenceName("DefaulToItem_inteNext_Seq", integerNext);
+		assertDefaultToNextSequenceName("DefaultToItem_next_Seq", next);
 
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
+		assertInfo(next, next.getDefaultToNextInfo());
+		assertNull(none.getDefaultToNextInfo());
 		{
 			clock.assertEmpty();
 			final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
 			);
 			clock.assertEmpty();
 
-			assertEquals(integer(10001), item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
+			assertEquals(integer(10001), item.getNext());
+			assertEquals(null, item.getNone());
 		}
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 1, 10001, 10001, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
+		assertInfo(next, 1, 10001, 10001, next.getDefaultToNextInfo());
+		assertNull(none.getDefaultToNextInfo());
 		{
 			clock.assertEmpty();
 			final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
 			);
 			clock.assertEmpty();
 
-			assertEquals(integer(10002), item.getIntegerNext());
-			assertEquals(null, item.getIntegerNone());
+			assertEquals(integer(10002), item.getNext());
+			assertEquals(null, item.getNone());
 		}
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
+		assertInfo(next, 2, 10001, 10002, next.getDefaultToNextInfo());
+		assertNull(none.getDefaultToNextInfo());
 	}
 	@Test void testSet()
 	{
 		clock.assertEmpty();
 		final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
-				integerNext.map(7001)
+				next.map(7001)
 		);
 		clock.assertEmpty();
 
-		assertEquals(integer(7001), item.getIntegerNext());
-		assertEquals(null, item.getIntegerNone());
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertEquals(integer(7001), item.getNext());
+		assertEquals(null, item.getNone());
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
+		assertInfo(next, next.getDefaultToNextInfo());
+		assertNull(none.getDefaultToNextInfo());
 	}
 	@Test void testSetNull()
 	{
 		clock.assertEmpty();
 		final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
-				integerNext.map(null)
+				next.map(null)
 		);
 		clock.assertEmpty();
 
-		assertEquals(null, item.getIntegerNext());
-		assertEquals(null, item.getIntegerNone());
-		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
+		assertEquals(null, item.getNext());
+		assertEquals(null, item.getNone());
+		assertInfo(model.getSequenceInfo(), TYPE.getThis(), next);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
-		assertNull(integerNone.getDefaultToNextInfo());
+		assertInfo(next, next.getDefaultToNextInfo());
+		assertNull(none.getDefaultToNextInfo());
 	}
 
 	private static Integer integer(final int i)
