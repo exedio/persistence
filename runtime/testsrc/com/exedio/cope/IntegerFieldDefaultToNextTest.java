@@ -50,7 +50,7 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
-	@Test void testIt()
+	@Test void testNext()
 	{
 		assertDefaultToNextSequenceName("DefaulToItem_inteNext_Seq", integerNext);
 
@@ -84,6 +84,9 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
 		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
+	}
+	@Test void testSet()
+	{
 		{
 			clock.assertEmpty();
 			final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
@@ -95,9 +98,12 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 			assertEquals(null, item.getIntegerNone());
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
-		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
+		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
+		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
+	}
+	@Test void testSetNull()
+	{
 		{
 			clock.assertEmpty();
 			final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
@@ -109,8 +115,8 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 			assertEquals(null, item.getIntegerNone());
 		}
 		assertInfo(model.getSequenceInfo(), TYPE.getThis(), integerNext);
-		assertInfo(TYPE, 4, 0, 3, TYPE.getPrimaryKeyInfo());
-		assertInfo(integerNext, 2, 10001, 10002, integerNext.getDefaultToNextInfo());
+		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
+		assertInfo(integerNext, integerNext.getDefaultToNextInfo());
 		assertNull(integerNone.getDefaultToNextInfo());
 	}
 
