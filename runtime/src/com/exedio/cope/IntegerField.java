@@ -39,7 +39,7 @@ public final class IntegerField extends NumberField<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
-	final Sequence defaultToNextSequence;
+	private final Sequence defaultToNextSequence;
 	private final int minimum;
 	private final int maximum;
 
