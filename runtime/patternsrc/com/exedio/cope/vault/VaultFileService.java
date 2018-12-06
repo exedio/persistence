@@ -227,7 +227,7 @@ public final class VaultFileService implements VaultService
 
 	static final class Props extends Properties
 	{
-		final Path root = valueFile("root").toPath();
+		final Path root = valuePath("root");
 		final DirectoryProps directory = value("directory", true, DirectoryProps::new);
 		private final String temp = value("temp", ".tempVaultFileService");
 

@@ -41,8 +41,8 @@ import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultFileService;
 import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
-import java.io.File;
 import java.lang.reflect.InvocationTargetException;
+import java.nio.file.Paths;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.Callable;
@@ -66,7 +66,7 @@ public class ConnectPropertiesTest
 		notOnDefault.put("dataField.vault", true);
 		notOnDefault.put("dataField.vault.service", VaultReferenceService.class);
 		notOnDefault.put("dataField.vault.service.main", VaultFileService.class);
-		notOnDefault.put("dataField.vault.service.main.root", new File("vaultFileRoot"));
+		notOnDefault.put("dataField.vault.service.main.root", Paths.get("vaultFileRoot"));
 		notOnDefault.put("dataField.vault.service.reference", VaultMockService.class);
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
