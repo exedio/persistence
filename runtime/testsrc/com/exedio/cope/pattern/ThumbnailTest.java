@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
+import static com.exedio.cope.pattern.MediaType.WEBP;
 import static com.exedio.cope.pattern.ThumbnailItem.TYPE;
 import static com.exedio.cope.pattern.ThumbnailItem.file;
 import static com.exedio.cope.pattern.ThumbnailItem.thumb;
@@ -65,7 +66,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	private ThumbnailItem jpg, png, gif, txt, emp;
+	private ThumbnailItem jpg, png, gif, wep, txt, emp;
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
@@ -75,11 +76,13 @@ public final class ThumbnailTest extends TestWithEnvironment
 		jpg = new ThumbnailItem();
 		png = new ThumbnailItem();
 		gif = new ThumbnailItem();
+		wep = new ThumbnailItem();
 		txt = new ThumbnailItem();
 		emp = new ThumbnailItem();
 		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.jpg"), JPEG);
 		png.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.png"), PNG);
 		gif.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.gif"), GIF);
+		wep.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.webp"), WEBP);
 		txt.setFile(data, "text/plain");
 	}
 
@@ -152,6 +155,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals(JPEG, jpg.getThumbContentType());
 		assertEquals(JPEG, png.getThumbContentType());
 		assertEquals(JPEG, gif.getThumbContentType());
+		assertEquals(null, wep.getThumbContentType());
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
 
@@ -159,6 +163,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertLocator("ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocator());
 		assertLocator("ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbLocator());
 		assertLocator("ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbLocator());
+		assertLocator(null, wep.getThumbLocator());
 		assertLocator(null, txt.getThumbLocator());
 		assertLocator(null, emp.getThumbLocator());
 
@@ -166,6 +171,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals(jpg.getThumbLocator().getURLByConnect(), jpg.getThumbURLWithFallbackToSource());
 		assertEquals(png.getThumbLocator().getURLByConnect(), png.getThumbURLWithFallbackToSource());
 		assertEquals(gif.getThumbLocator().getURLByConnect(), gif.getThumbURLWithFallbackToSource());
+		assertEquals(wep.getFileLocator ().getURLByConnect(), wep.getThumbURLWithFallbackToSource());
 		assertEquals(txt.getFileLocator ().getURLByConnect(), txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURLWithFallbackToSource());
 
@@ -173,19 +179,21 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals("ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals("ThumbnailItem/thumb/" + png.getCopeID() + ".jpg", png.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals("ThumbnailItem/thumb/" + gif.getCopeID() + ".jpg", gif.getThumbLocatorWithFallbackToSource().getPath());
+		assertEquals("ThumbnailItem/file/"  + wep.getCopeID() + ".webp",wep.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals("ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals(null, emp.getThumbLocatorWithFallbackToSource());
 
 		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
-		assertContains(jpg, png, gif, txt, TYPE.search(file.isNotNull()));
+		assertContains(jpg, png, gif, wep, txt, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
-		assertContains(jpg, png, gif, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(jpg, png, gif, wep, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 
 		// test get
 		assertAndWrite(jpg.getThumb(), "thumbnail-test-jpg.jpg");
 		assertAndWrite(png.getThumb(), "thumbnail-test-png.jpg");
 		assertAndWrite(gif.getThumb(), "thumbnail-test-gif.jpg");
+		assertNull(wep.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
 	}

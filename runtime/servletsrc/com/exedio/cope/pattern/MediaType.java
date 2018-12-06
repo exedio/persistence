@@ -149,6 +149,7 @@ public final class MediaType
 	public static final String JPEG = "image/jpeg";
 	public static final String PNG  = "image/png";
 	public static final String GIF  = "image/gif";
+	public static final String WEBP = "image/webp";
 	public static final String TIFF = "image/tiff";
 	public static final String ICON = "image/vnd.microsoft.icon";
 	public static final String SVG  = "image/svg+xml";
@@ -199,6 +200,11 @@ public final class MediaType
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
 					new byte[]{(byte)'G', (byte)'I', (byte)'F', (byte)'8'}, // TODO test for "GIF89a" or "GIF87a"
 					GIF),
+			new MediaType(
+					".webp",
+					// https://en.wikipedia.org/wiki/WebP
+					new byte[]{(byte)'R', (byte)'I', (byte)'F', (byte)'F'},
+					WEBP),
 			new MediaType(
 					new String[]{".tif",".tiff"},
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files
