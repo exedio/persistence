@@ -226,7 +226,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	@Test void testConditionApos()
 	{
 		final CharSet cs = StringCharSetItem.apos.getCharSet();
-		assertEquals("^[',A-Z]*$", cs.getRegularExpression());
+		assertEquals("^['A-Z]*$", cs.getRegularExpression());
 
 		final StringCharSetItem yes   = any("yes", "AB'CD");
 		final StringCharSetItem no    = any("no" , "aB'CD");

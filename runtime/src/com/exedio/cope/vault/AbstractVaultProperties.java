@@ -21,7 +21,6 @@ package com.exedio.cope.vault;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceFactory;
 
-@SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: can be dropped once Properties becomes abstract
 abstract class AbstractVaultProperties extends Properties
 {
 	final Service valueService(final String key, final boolean writable)

@@ -173,7 +173,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertFails(
 				() -> strings.setAndCast(item, integers),
 				ClassCastException.class,
-				"expected a java.lang.String, but was a java.lang.Integer");
+				"Cannot cast java.lang.Integer to java.lang.String");
 		item.assertStrings("1hallo", "2bello");
 	}
 

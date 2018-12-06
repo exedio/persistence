@@ -47,7 +47,7 @@
 			<exclude org="org.hdrhistogram" module="HdrHistogram" />
 		</dependency>
 		<dependency org="io.micrometer" name="micrometer-registry-prometheus" rev="1.3.0" conf="build->default" />
-		<dependency org="com.exedio" name="copeutil" rev="857" conf="runtime->runtime; build->runtime,sources,changelog" />
+		<dependency org="com.exedio" name="copeutil" rev="914" conf="runtime->runtime; build->runtime,sources,changelog" />
 		<dependency org="com.exedio" name="copeservletutil" rev="71" conf="runtime->runtime; build->runtime,sources,changelog" />
 
 		<!-- dialects -->
