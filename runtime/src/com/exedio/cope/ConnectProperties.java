@@ -105,7 +105,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	final ServiceFactory<Dialect,CopeProbe> dialect = valueService("dialect", fromUrl(connection.url),
 			Dialect.class, CopeProbe.class);
 
-	private static String fromUrl(final String url)
+	private static Class<? extends Dialect> fromUrl(final String url)
 	{
 		final HashSet<Class<? extends Dialect>> result = new HashSet<>();
 		for(final DialectUrlMapper mapper : ServiceLoader.load(DialectUrlMapper.class))
@@ -117,7 +117,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 		return
 				(result.size()==1)
-				? result.iterator().next().getName()
+				? result.iterator().next()
 				: null;
 	}
 
