@@ -7,6 +7,25 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Properties#newProbeAbortedException added.
+	It's recommended to update cops (if present in your project) to rev>=524.
+* Properties#valueService with Class defaultValue added.
+* PropertiesInstance added.
+* class Check added.
+* Properties.Field#getString etc. added.
+	Check, whether results of methods of Properties.Field mentioned below
+	are applied to Object#toString() and replace as shown:
+
+		field.getMinimum().toString()      -> field.getMinimumString()
+		field.getDefaultValue().toString() -> field.getDefaultValueString()
+		field.getValue().toString()        -> field.getValueString()
+		field.get().toString()             -> field.getValueString()
+
+	If such a replacement is not possible, try Field#getString(Object) instead.
+
+* Properties#valuePath added.
+	Promotes migration of client code away from java.io.File.
+	Check usages of Properties#valueFile.
 * Properties.Field becomes final, its subclasses are dropped.
 	This breaks backwards API compatibility.
 	Update copeconsole to build 7003 at least, otherwise tabs Connect / Connect Tokens will be broken.
