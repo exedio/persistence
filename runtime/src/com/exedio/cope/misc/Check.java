@@ -18,56 +18,36 @@
 
 package com.exedio.cope.misc;
 
-import static java.util.Objects.requireNonNull;
-
-import java.lang.reflect.Array;
-
 public final class Check
 {
 	public static int requireGreaterZero(final int value, final String name)
 	{
-		if(value<=0)
-			throw new IllegalArgumentException(name + " must be greater zero, but was " + value);
-		return value;
+		return com.exedio.cope.util.Check.requireGreaterZero(value, name);
 	}
 
 	public static long requireGreaterZero(final long value, final String name)
 	{
-		if(value<=0)
-			throw new IllegalArgumentException(name + " must be greater zero, but was " + value);
-		return value;
+		return com.exedio.cope.util.Check.requireGreaterZero(value, name);
 	}
 
 	public static int requireNonNegative(final int value, final String name)
 	{
-		if(value<0)
-			throw new IllegalArgumentException(name + " must not be negative, but was " + value);
-		return value;
+		return com.exedio.cope.util.Check.requireNonNegative(value, name);
 	}
 
 	public static long requireNonNegative(final long value, final String name)
 	{
-		if(value<0)
-			throw new IllegalArgumentException(name + " must not be negative, but was " + value);
-		return value;
+		return com.exedio.cope.util.Check.requireNonNegative(value, name);
 	}
 
 	public static <E extends Comparable<E>> E requireAtLeast(final E value, final String name, final E minimum)
 	{
-		requireNonNull(value, name);
-		requireNonNull(minimum, "minimum");
-		if(value.compareTo(minimum)<0)
-			throw new IllegalArgumentException(name + " must be at least " + minimum + ", but was " + value);
-		return value;
+		return com.exedio.cope.util.Check.requireAtLeast(value, name, minimum);
 	}
 
 	public static String requireNonEmpty(final String value, final String name)
 	{
-		if(value==null)
-			throw new NullPointerException(name);
-		if(value.isEmpty())
-			throw new IllegalArgumentException(name + " must not be empty");
-		return value;
+		return com.exedio.cope.util.Check.requireNonEmpty(value, name);
 	}
 
 	/**
@@ -76,22 +56,7 @@ public final class Check
 	 */
 	public static <T> T[] requireNonEmptyAndCopy(final T[] value, final String name)
 	{
-		if(value==null)
-			throw new NullPointerException(name);
-		if(value.length==0)
-			throw new IllegalArgumentException(name + " must not be empty");
-
-		@SuppressWarnings("unchecked")
-		final T[] result = (T[])Array.newInstance(value.getClass().getComponentType(), value.length);
-		for(int i = 0; i<value.length; i++)
-		{
-			final T s = value[i];
-			if(s==null)
-				throw new NullPointerException(name + '[' + i + ']');
-			result[i] = s;
-		}
-
-		return result;
+		return com.exedio.cope.util.Check.requireNonEmptyAndCopy(value, name);
 	}
 
 	/**
@@ -100,23 +65,7 @@ public final class Check
 	 */
 	public static String[] requireNonEmptyAndCopy(final String[] value, final String name)
 	{
-		if(value==null)
-			throw new NullPointerException(name);
-		if(value.length==0)
-			throw new IllegalArgumentException(name + " must not be empty");
-
-		final String[] result = new String[value.length];
-		for(int i = 0; i<value.length; i++)
-		{
-			final String s = value[i];
-			if(s==null)
-				throw new NullPointerException(name + '[' + i + ']');
-			if(s.isEmpty())
-				throw new IllegalArgumentException(name + '[' + i + "] must not be empty");
-			result[i] = s;
-		}
-
-		return result;
+		return com.exedio.cope.util.Check.requireNonEmptyAndCopy(value, name);
 	}
 
 	private Check()
