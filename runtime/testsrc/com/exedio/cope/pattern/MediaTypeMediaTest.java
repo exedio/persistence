@@ -32,8 +32,8 @@ import org.junit.jupiter.api.Test;
 public class MediaTypeMediaTest
 {
 	private static final String JPEG = "ffd8ff";
-	private static final String GIF = "47494638";
 	private static final String PNG = "89504e470d0a1a0a";
+	private static final String GIF = "47494638";
 	private static final String WEBP = "52494646";
 	private static final String TIFF = "49492a00";
 	private static final String ICO = "00000100";
