@@ -222,7 +222,7 @@ public final class DataField extends Field<DataField.Value>
 	public void get(@Nonnull final Item item, @Nonnull final OutputStream sink) throws IOException
 	{
 		//noinspection resource OK: fails only if null
-		requireNonNull(sink);
+		requireNonNull(sink, "sink");
 
 		store.load(model.currentTransaction(), item, sink);
 	}
@@ -240,7 +240,7 @@ public final class DataField extends Field<DataField.Value>
 			thrown=@Wrap.Thrown(IOException.class))
 	public void get(@Nonnull final Item item, @Nonnull final File sink) throws IOException
 	{
-		requireNonNull(sink);
+		requireNonNull(sink, "sink");
 
 		if(!isNull(item))
 		{

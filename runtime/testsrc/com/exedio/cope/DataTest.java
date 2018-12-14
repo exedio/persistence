@@ -199,7 +199,7 @@ public class DataTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("sink", e.getMessage());
 		}
 		try
 		{
@@ -208,7 +208,7 @@ public class DataTest extends TestWithEnvironment
 		}
 		catch(final NullPointerException e)
 		{
-			assertEquals(null, e.getMessage());
+			assertEquals("sink", e.getMessage());
 		}
 
 		final DataSubItem subItem = new DataSubItem();
