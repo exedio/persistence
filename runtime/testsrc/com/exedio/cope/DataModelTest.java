@@ -24,14 +24,15 @@ import static com.exedio.cope.DataItem.TYPE;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
 public class DataModelTest
 {
 	public static final Model MODEL = new Model(TYPE, DataSubItem.TYPE);
@@ -54,35 +55,22 @@ public class DataModelTest
 		assertEquals(Integer.MAX_VALUE, min(Integer.MAX_VALUE, Long.MAX_VALUE));
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testMinLeftNegative() throws MandatoryViolationException
 	{
-		try
-		{
-			min(-1, -1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("i must not be negative, but was -1", e.getMessage());
-		}
+		assertFails(
+				() -> min(-1, -1),
+				IllegalArgumentException.class,
+				"i must not be negative, but was -1");
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testMinRightNegative() throws MandatoryViolationException
 	{
-		try
-		{
-			min(0, -1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("l must not be negative, but was -1", e.getMessage());
-		}
+		assertFails(
+				() -> min(0, -1),
+				IllegalArgumentException.class,
+				"l must not be negative, but was -1");
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testData() throws MandatoryViolationException
 	{
 		assertEquals(TYPE, data.getType());
@@ -102,24 +90,14 @@ public class DataModelTest
 		assertSerializedSame(data  , 367);
 		assertSerializedSame(data10, 369);
 
-		try
-		{
-			new DataField().lengthMax(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("maximumLength must be greater zero, but was 0", e.getMessage());
-		}
-		try
-		{
-			new DataField().lengthMax(-10);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("maximumLength must be greater zero, but was -10", e.getMessage());
-		}
+		assertFails(
+				() -> new DataField().lengthMax(0),
+				IllegalArgumentException.class,
+				"maximumLength must be greater zero, but was 0");
+		assertFails(
+				() -> new DataField().lengthMax(-10),
+				IllegalArgumentException.class,
+				"maximumLength must be greater zero, but was -10");
 
 		// condition startsWith
 		assertEqualsAndHash(data.startsWithIfSupported(bytes4), data.startsWithIfSupported(bytes4));
@@ -134,56 +112,36 @@ public class DataModelTest
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testStartsWithFieldNullConstructor()
 	{
-		try
-		{
-			new StartsWithCondition(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("field", e.getMessage());
-		}
+		assertFails(
+				() -> new StartsWithCondition(null, null),
+				NullPointerException.class,
+				"field");
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testStartsWithValueNullConstructor()
 	{
-		try
-		{
-			new StartsWithCondition(data, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("value", e.getMessage());
-		}
+		assertFails(
+				() -> new StartsWithCondition(data, null),
+				NullPointerException.class,
+				"value");
 	}
 
 	@Test void testStartsWithValueNull()
 	{
-		try
-		{
-			data.startsWithIfSupported(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("value", e.getMessage());
-		}
+		assertFails(
+				() -> data.startsWithIfSupported(null),
+				NullPointerException.class,
+				"value");
 	}
 
 	@Test void testStartsWithValueEmpty()
 	{
 		// TODO treat as to isNotNull
-		try
-		{
-			data.startsWithIfSupported(bytes0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("value must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> data.startsWithIfSupported(bytes0),
+				IllegalArgumentException.class,
+				"value must not be empty");
 	}
 
 	private static final byte[] bytes0  = {};
@@ -196,41 +154,17 @@ public class DataModelTest
 			final Query<?> query,
 			final String message)
 	{
-		try
-		{
-			query.search();
-			fail();
-		}
-		catch(final UnsupportedQueryException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
-		try
-		{
-			query.total();
-			fail();
-		}
-		catch(final UnsupportedQueryException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
-		try
-		{
-			SchemaInfo.search(query);
-			fail();
-		}
-		catch(final UnsupportedQueryException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
-		try
-		{
-			SchemaInfo.total(query);
-			fail();
-		}
-		catch(final UnsupportedQueryException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
+		assertFails(
+				query::search,
+				UnsupportedQueryException.class, message);
+		assertFails(
+				query::total,
+				UnsupportedQueryException.class, message);
+		assertFails(
+				() -> SchemaInfo.search(query),
+				UnsupportedQueryException.class, message);
+		assertFails(
+				() -> SchemaInfo.total(query),
+				UnsupportedQueryException.class, message);
 	}
 }
