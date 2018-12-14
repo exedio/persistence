@@ -30,8 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
+import com.exedio.cope.vaulttest.VaultServiceTest.AssertionErrorOutputStream;
+import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -96,7 +97,7 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(expectedData.length, item.getDataLength());
 			assertData(expectedData, item.getDataArray());
 
-			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
+			final NonCloseableOrFlushableOutputStream tempStream = new NonCloseableOrFlushableOutputStream();
 			item.getData(tempStream);
 			assertData(expectedData, tempStream.toByteArray());
 
@@ -111,7 +112,7 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(-1, item.getDataLength());
 			assertEquals(null, item.getDataArray());
 
-			final ByteArrayOutputStream tempStream = new ByteArrayOutputStream();
+			final AssertionErrorOutputStream tempStream = new AssertionErrorOutputStream();
 			item.getData(tempStream);
 			assertEquals(0, tempStream.toByteArray().length);
 

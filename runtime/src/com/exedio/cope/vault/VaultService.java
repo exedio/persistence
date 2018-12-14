@@ -58,6 +58,10 @@ public interface VaultService extends AutoCloseable
 	byte[] get(@Nonnull String hash) throws VaultNotFoundException;
 
 	/**
+	 * Must not
+	 * {@link OutputStream#close() close} or
+	 * {@link OutputStream#flush() flush} {@code sink}.
+	 * <p>
 	 * If this method throws a {@link VaultNotFoundException},
 	 * it MUST not have modified {@code sink} in any way.
 	 * In particular it must not have written any byte to {@code sink}.

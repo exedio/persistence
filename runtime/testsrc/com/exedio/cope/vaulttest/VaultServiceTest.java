@@ -136,7 +136,7 @@ public abstract class VaultServiceTest
 	@Test final void notFoundGetStream()
 	{
 		final String hash = hash("ab");
-		final ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		final AssertionErrorOutputStream sink = new AssertionErrorOutputStream();
 		assertNotFound(() -> service.get(hash, sink), hash);
 	}
 
@@ -155,7 +155,7 @@ public abstract class VaultServiceTest
 	@Test final void foundGetStream() throws VaultNotFoundException, IOException
 	{
 		final String hash = putHash("abcdef01234567");
-		final ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		final NonCloseableOrFlushableOutputStream sink = new NonCloseableOrFlushableOutputStream();
 		service.get(hash, sink);
 		assertEquals("abcdef01234567", hex(sink.toByteArray()));
 	}
@@ -330,6 +330,42 @@ public abstract class VaultServiceTest
 		static final Type<InfoItem> TYPE = TypesBound.newType(InfoItem.class);
 		private InfoItem(final ActivationParameters ap){ super(ap); }
 		private static final long serialVersionUID = 1l;
+	}
+
+	public static final class AssertionErrorOutputStream extends ByteArrayOutputStream
+	{
+		@Override public synchronized void write(final int b)
+		{
+			throw new AssertionError();
+		}
+		@Override public void write(final byte b[])
+		{
+			throw new AssertionError();
+		}
+		@Override public synchronized void write(final byte b[], final int off, final int len)
+		{
+			throw new AssertionError();
+		}
+		@Override public void flush()
+		{
+			throw new AssertionError();
+		}
+		@Override public void close()
+		{
+			throw new AssertionError();
+		}
+	}
+
+	public static final class NonCloseableOrFlushableOutputStream extends ByteArrayOutputStream
+	{
+		@Override public void flush()
+		{
+			throw new AssertionError();
+		}
+		@Override public void close()
+		{
+			throw new AssertionError();
+		}
 	}
 
 	private static String hex(final byte[] bytes)

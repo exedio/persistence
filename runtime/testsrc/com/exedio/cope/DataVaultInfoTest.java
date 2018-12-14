@@ -28,7 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
-import java.io.ByteArrayOutputStream;
+import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
 import java.io.IOException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -69,7 +69,7 @@ public class DataVaultInfoTest
 		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
 		assertIt(0, 0, 0, 1, 0);
 
-		final ByteArrayOutputStream s = new ByteArrayOutputStream();
+		final NonCloseableOrFlushableOutputStream s = new NonCloseableOrFlushableOutputStream();
 		item.getField(s);
 		assertIt(0, 0, 1, 1, 0);
 		assertEquals("abcdef", Hex.encodeLower(s.toByteArray()));

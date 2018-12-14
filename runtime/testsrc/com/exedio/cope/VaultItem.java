@@ -24,8 +24,8 @@ import static com.exedio.cope.instrument.Visibility.PRIVATE;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -86,7 +86,7 @@ final class VaultItem extends Item
 
 	String getFieldStream() throws IOException
 	{
-		final ByteArrayOutputStream s = new ByteArrayOutputStream();
+		final NonCloseableOrFlushableOutputStream s = new NonCloseableOrFlushableOutputStream();
 		getField(s);
 		return Hex.encodeLower(s.toByteArray());
 	}
