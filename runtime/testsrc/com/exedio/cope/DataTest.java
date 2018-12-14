@@ -90,6 +90,8 @@ public class DataTest extends TestWithEnvironment
 	private void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle)
 		throws MandatoryViolationException, IOException
 	{
+		final byte[] alreadyExists = {1,2,3,4,5,6,7,8,9,10};
+
 		if(expectedData!=null && !(oracle && expectedData.length==0))
 		{
 			assertTrue(!item.isDataNull());
@@ -103,6 +105,12 @@ public class DataTest extends TestWithEnvironment
 			}
 			{
 				final File temp = files.newFileNotExists();
+				item.getData(temp);
+				assertTrue(temp.exists());
+				assertEqualContent(expectedData, temp);
+			}
+			{
+				final File temp = files.newFile(alreadyExists);
 				item.getData(temp);
 				assertTrue(temp.exists());
 				assertEqualContent(expectedData, temp);
@@ -123,6 +131,12 @@ public class DataTest extends TestWithEnvironment
 				final File temp = files.newFileNotExists();
 				item.getData(temp);
 				assertFalse(temp.exists());
+			}
+			{
+				final File temp = files.newFile(alreadyExists);
+				item.getData(temp);
+				assertTrue(temp.exists()); // TODO maybe file should be deleted when field is null?
+				assertEqualContent(alreadyExists, temp);
 			}
 		}
 	}
