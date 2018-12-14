@@ -7,6 +7,17 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* DataField supports java.nio.file.Path getter.
+
+	Promotes migration of client code away from java.io.File.
+
+	Affects instrumented code.
+	To disable the new setter, adapt your <instrument> call:
+	<instrument ...>
+		<disableWrap>com.exedio.cope.DataField#get(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
+		<disableWrap>com.exedio.cope.pattern.Media#getBody(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
+	</instrument>
+
 * VaultService#get(String,OutputStream) requires sink not to be closed or flushed.
 	Specifies VaultService interface more precisely.
 * MediaType.WEBP added.

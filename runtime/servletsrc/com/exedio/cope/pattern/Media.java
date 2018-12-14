@@ -527,6 +527,18 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		}
 	}
 
+	@Wrap(order=58,
+			doc={"Writes the body of media {0} into the given file.",
+					"Does nothing, if the media is null."},
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+	public void getBody(
+			@Nonnull final Item item,
+			@Nonnull @Parameter("body") final Path body)
+			throws IOException
+	{
+		this.body.get(item, body);
+	}
+
 	/**
 	 * Writes the body of this media into the given file.
 	 * Does nothing, if this media is null.

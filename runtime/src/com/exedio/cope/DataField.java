@@ -41,6 +41,7 @@ import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -225,6 +226,25 @@ public final class DataField extends Field<DataField.Value>
 		requireNonNull(sink, "sink");
 
 		store.load(model.currentTransaction(), item, sink);
+	}
+
+	@Wrap(order=48,
+			doc="Writes the data of this persistent data field into the given file.",
+			thrown=@Wrap.Thrown(IOException.class))
+	public void get(@Nonnull final Item item, @Nonnull final Path sink) throws IOException
+	{
+		requireNonNull(sink, "sink");
+
+		if(!isNull(item))
+		{
+			try(OutputStream target = Files.newOutputStream(sink,
+					StandardOpenOption.CREATE,
+					StandardOpenOption.TRUNCATE_EXISTING))
+			{
+				get(item, target);
+			}
+		}
+		// TODO maybe file should be deleted when field is null?
 	}
 
 	/**
