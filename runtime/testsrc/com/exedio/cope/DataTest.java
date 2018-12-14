@@ -97,15 +97,15 @@ public class DataTest extends TestWithEnvironment
 			assertData(expectedData, item.getDataArray());
 
 			{
-				final NonCloseableOrFlushableOutputStream tempStream = new NonCloseableOrFlushableOutputStream();
-				item.getData(tempStream);
-				assertData(expectedData, tempStream.toByteArray());
+				final NonCloseableOrFlushableOutputStream temp = new NonCloseableOrFlushableOutputStream();
+				item.getData(temp);
+				assertData(expectedData, temp.toByteArray());
 			}
 			{
-				final File tempFile = files.newFileNotExists();
-				item.getData(tempFile);
-				assertTrue(tempFile.exists());
-				assertEqualContent(expectedData, tempFile);
+				final File temp = files.newFileNotExists();
+				item.getData(temp);
+				assertTrue(temp.exists());
+				assertEqualContent(expectedData, temp);
 			}
 		}
 		else
@@ -115,14 +115,14 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(null, item.getDataArray());
 
 			{
-				final AssertionErrorOutputStream tempStream = new AssertionErrorOutputStream();
-				item.getData(tempStream);
-				assertEquals(0, tempStream.toByteArray().length);
+				final AssertionErrorOutputStream temp = new AssertionErrorOutputStream();
+				item.getData(temp);
+				assertEquals(0, temp.toByteArray().length);
 			}
 			{
-				final File tempFile = files.newFileNotExists();
-				item.getData(tempFile);
-				assertFalse(tempFile.exists());
+				final File temp = files.newFileNotExists();
+				item.getData(temp);
+				assertFalse(temp.exists());
 			}
 		}
 	}
