@@ -36,7 +36,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Path;
 import java.util.zip.ZipEntry;
@@ -192,25 +191,6 @@ public class DataTest extends TestWithEnvironment
 		item.setData((File)null);
 		assertIt(null);
 
-
-		try
-		{
-			item.getData((OutputStream)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("sink", e.getMessage());
-		}
-		try
-		{
-			item.getData((File)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("sink", e.getMessage());
-		}
 
 		final DataSubItem subItem = new DataSubItem();
 

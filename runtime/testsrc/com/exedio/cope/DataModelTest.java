@@ -30,9 +30,11 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.File;
+import java.io.OutputStream;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
+@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
 public class DataModelTest
 {
 	public static final Model MODEL = new Model(TYPE, DataSubItem.TYPE);
@@ -107,6 +109,24 @@ public class DataModelTest
 				data.startsWithIfSupported(bytes6x4),
 				data10.startsWithIfSupported(bytes4));
 		assertEquals("DataItem.data startsWith 'aa7af817'", data.startsWithIfSupported(bytes4).toString());
+	}
+
+	@Test void testSinkNullStream()
+	{
+		final DataItem item = TYPE.activate(567);
+		assertFails(
+				() -> item.getData((OutputStream)null),
+				NullPointerException.class,
+				"sink");
+	}
+
+	@Test void testSinkNullFile()
+	{
+		final DataItem item = TYPE.activate(567);
+		assertFails(
+				() -> item.getData((File)null),
+				NullPointerException.class,
+				"sink");
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
