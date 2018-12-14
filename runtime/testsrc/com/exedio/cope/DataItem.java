@@ -104,6 +104,17 @@ class DataItem extends Item
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	final void getData(@javax.annotation.Nonnull final java.nio.file.Path data)
+			throws
+				java.io.IOException
+	{
+		DataItem.data.get(this,data);
+	}
+
+	/**
+	 * Writes the data of this persistent data field into the given file.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
@@ -195,6 +206,17 @@ class DataItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final void getData10(@javax.annotation.Nonnull final java.io.OutputStream data10)
+			throws
+				java.io.IOException
+	{
+		DataItem.data10.get(this,data10);
+	}
+
+	/**
+	 * Writes the data of this persistent data field into the given file.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	final void getData10(@javax.annotation.Nonnull final java.nio.file.Path data10)
 			throws
 				java.io.IOException
 	{
@@ -306,6 +328,17 @@ class DataItem extends Item
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	final void getData10k(@javax.annotation.Nonnull final java.nio.file.Path data10k)
+			throws
+				java.io.IOException
+	{
+		DataItem.data10k.get(this,data10k);
+	}
+
+	/**
+	 * Writes the data of this persistent data field into the given file.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final void getData10k(@javax.annotation.Nonnull final java.io.File data10k)
 			throws
 				java.io.IOException
@@ -397,6 +430,17 @@ class DataItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	final void getData100M(@javax.annotation.Nonnull final java.io.OutputStream data100M)
+			throws
+				java.io.IOException
+	{
+		DataItem.data100M.get(this,data100M);
+	}
+
+	/**
+	 * Writes the data of this persistent data field into the given file.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	final void getData100M(@javax.annotation.Nonnull final java.nio.file.Path data100M)
 			throws
 				java.io.IOException
 	{

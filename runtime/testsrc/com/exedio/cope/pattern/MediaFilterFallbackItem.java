@@ -146,6 +146,19 @@ final class MediaFilterFallbackItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getAnyBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.any.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #any} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getAnyBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -316,6 +329,19 @@ final class MediaFilterFallbackItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getNonSupportedBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.nonSupported.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #nonSupported} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getNonSupportedBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
 	{
@@ -500,6 +526,19 @@ final class MediaFilterFallbackItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getSupportedBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.supported.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #supported} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getSupportedBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -650,6 +689,19 @@ final class MediaFilterFallbackItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getSupportedTwoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		MediaFilterFallbackItem.supportedTwo.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #supportedTwo} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getSupportedTwoBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
 	{

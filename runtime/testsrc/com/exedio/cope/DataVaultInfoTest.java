@@ -191,6 +191,14 @@ public class DataVaultInfoTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		final void getField(@javax.annotation.Nonnull final java.nio.file.Path field)
+				throws
+					java.io.IOException
+		{
+			MyItem.field.get(this,field);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		final void getField(@javax.annotation.Nonnull final java.io.File field)
 				throws
 					java.io.IOException

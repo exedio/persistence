@@ -285,6 +285,14 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void getData(@javax.annotation.Nonnull final java.nio.file.Path data)
+				throws
+					java.io.IOException
+		{
+			MyItem.data.get(this,data);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		void getData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					java.io.IOException

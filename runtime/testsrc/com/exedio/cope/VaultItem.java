@@ -40,6 +40,7 @@ final class VaultItem extends Item
 {
 	@Wrapper(wrap="getLength", internal=true)
 	@Wrapper(wrap="get", visibility=PRIVATE)
+	@Wrapper(wrap="get", parameters=Path.class, visibility=NONE)
 	@Wrapper(wrap="get", parameters=File.class, visibility=NONE)
 	@Wrapper(wrap="getArray", visibility=PRIVATE)
 	@Wrapper(wrap="set", visibility=PRIVATE)

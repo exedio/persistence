@@ -336,6 +336,19 @@ public class BlockFieldStandardModelTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getAMediaBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		field().of(ABlock.aMedia).getBody(item(),body);
+	}
+
+	/**
+	 * Writes the body of media {@link #aMedia} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException

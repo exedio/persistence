@@ -259,6 +259,19 @@ final class MediaServletItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getContentBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		MediaServletItem.content.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #content} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getContentBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException

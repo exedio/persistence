@@ -365,8 +365,6 @@
 				buildDirectory="build/instrument/runtime.test">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
-			<disableWrap>com.exedio.cope.DataField#get(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
-			<disableWrap>com.exedio.cope.pattern.Media#getBody(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
 			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#issue(com.exedio.cope.Item,int)</generateDeprecated>
 			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#purge(com.exedio.cope.util.Interrupter)</generateDeprecated>
 			<generateDeprecated>com.exedio.cope.pattern.PasswordLimiter#purge(com.exedio.cope.util.Interrupter)</generateDeprecated>
@@ -560,7 +558,6 @@
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 			</classpath>
 			<resources refid="instrument.resources" />
-			<disableWrap>com.exedio.cope.pattern.Media#getBody(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
 		</instrument>
 	</target>
 
@@ -778,7 +775,6 @@
 			<ignore>
 				<fileset file="instrument/testsrc/com/exedio/cope/instrument/testmodel/DontInstrument.java" />
 			</ignore>
-			<disableWrap>com.exedio.cope.pattern.Media#getBody(com.exedio.cope.Item,java.nio.file.Path)</disableWrap>
 			<generateDeprecated>com.exedio.cope.instrument.testfeature.WrapDeprecationFeature#goneAlmost(com.exedio.cope.Item)</generateDeprecated>
 			<disableWrap>com.exedio.cope.instrument.testfeature.WrapFeature#disabledInBuildXml([[I)</disableWrap>
 		</instrument>

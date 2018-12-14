@@ -89,6 +89,17 @@ final class DataFinalItem extends Item
 	 * Writes the data of this persistent data field into the given file.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	void getData(@javax.annotation.Nonnull final java.nio.file.Path data)
+			throws
+				java.io.IOException
+	{
+		DataFinalItem.data.get(this,data);
+	}
+
+	/**
+	 * Writes the data of this persistent data field into the given file.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException

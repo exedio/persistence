@@ -165,6 +165,19 @@ public class MediaFinalUrlFingerPrintingTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getNonFinalBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		AnItem.nonFinal.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #nonFinal} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getNonFinalBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -307,6 +320,19 @@ public class MediaFinalUrlFingerPrintingTest
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getIsFinalBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		AnItem.isFinal.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #isFinal} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getIsFinalBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -380,6 +406,19 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getNonFinalFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		AnItem.nonFinalFinger.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #nonFinalFinger} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getNonFinalFingerBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
 	{
@@ -522,6 +561,19 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getIsFinalFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		AnItem.isFinalFinger.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #isFinalFinger} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	final void getIsFinalFingerBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
 	{

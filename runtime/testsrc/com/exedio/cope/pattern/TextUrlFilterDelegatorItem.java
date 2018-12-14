@@ -183,6 +183,19 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getRohBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+			throws
+				java.io.IOException
+	{
+		TextUrlFilterDelegatorItem.roh.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #roh} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getRohBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -400,6 +413,19 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getRoh2Body(@javax.annotation.Nonnull final java.io.OutputStream body)
+			throws
+				java.io.IOException
+	{
+		TextUrlFilterDelegatorItem.roh2.getBody(this,body);
+	}
+
+	/**
+	 * Writes the body of media {@link #roh2} into the given file.
+	 * Does nothing, if the media is null.
+	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	void getRoh2Body(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
 	{

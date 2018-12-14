@@ -214,6 +214,14 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void getUnoBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.uno).getBody(item(),body);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		void getUnoBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
@@ -308,6 +316,14 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		void getDuoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.duo).getBody(item(),body);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void getDuoBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 				throws
 					java.io.IOException
 		{
