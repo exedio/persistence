@@ -205,13 +205,13 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	void fetchBlob(
 			final ResultSet resultSet, final int columnIndex,
-			final Item item, final OutputStream data, final DataField field)
+			final Item item, final OutputStream sink, final DataField field)
 	throws SQLException
 	{
 		try(InputStream source = resultSet.getBinaryStream(columnIndex))
 		{
 			if(source!=null)
-				field.copy(source, data, item);
+				field.copy(source, sink, item);
 		}
 		catch(final IOException e)
 		{

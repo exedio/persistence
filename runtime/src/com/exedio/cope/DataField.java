@@ -212,19 +212,19 @@ public final class DataField extends Field<DataField.Value>
 	 * and writes it into the given stream.
 	 * Does nothing, if there is no data for this field.
 	 * @throws NullPointerException
-	 *         if data is null.
-	 * @throws IOException if writing data throws an IOException.
+	 *         if {@code sink} is null.
+	 * @throws IOException if writing {@code sink} throws an IOException.
 	 */
 	@Wrap(order=40,
 			doc="Writes the data of this persistent data field into the given stream.",
 			thrown=@Wrap.Thrown(IOException.class))
 	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
-	public void get(@Nonnull final Item item, @Nonnull final OutputStream data) throws IOException
+	public void get(@Nonnull final Item item, @Nonnull final OutputStream sink) throws IOException
 	{
 		//noinspection resource OK: fails only if null
-		requireNonNull(data);
+		requireNonNull(sink);
 
-		store.load(model.currentTransaction(), item, data);
+		store.load(model.currentTransaction(), item, sink);
 	}
 
 	/**
@@ -232,21 +232,21 @@ public final class DataField extends Field<DataField.Value>
 	 * and writes it into the given file.
 	 * Does nothing, if there is no data for this field.
 	 * @throws NullPointerException
-	 *         if data is null.
-	 * @throws IOException if writing data throws an IOException.
+	 *         if {@code sink} is null.
+	 * @throws IOException if writing {@code sink} throws an IOException.
 	 */
 	@Wrap(order=50,
 			doc="Writes the data of this persistent data field into the given file.",
 			thrown=@Wrap.Thrown(IOException.class))
-	public void get(@Nonnull final Item item, @Nonnull final File data) throws IOException
+	public void get(@Nonnull final Item item, @Nonnull final File sink) throws IOException
 	{
-		requireNonNull(data);
+		requireNonNull(sink);
 
 		if(!isNull(item))
 		{
-			try(FileOutputStream target = new FileOutputStream(data))
+			try(FileOutputStream sinkStream = new FileOutputStream(sink))
 			{
-				get(item, target);
+				get(item, sinkStream);
 			}
 		}
 		// TODO maybe file should be deleted when field is null?

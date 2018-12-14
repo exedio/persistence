@@ -104,13 +104,13 @@ public final class VaultFileService implements VaultService
 	}
 
 	@Override
-	public void get(final String hash, final OutputStream value) throws VaultNotFoundException, IOException
+	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
 		final Path file = file(hash);
 
 		try
 		{
-			Files.copy(file, value);
+			Files.copy(file, sink);
 		}
 		catch(final NoSuchFileException e)
 		{

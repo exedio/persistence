@@ -59,10 +59,10 @@ public interface VaultService extends AutoCloseable
 
 	/**
 	 * If this method throws a {@link VaultNotFoundException},
-	 * it MUST not have modified {@code value} in any way.
-	 * In particular it must not have written any byte to {@code value}.
+	 * it MUST not have modified {@code sink} in any way.
+	 * In particular it must not have written any byte to {@code sink}.
 	 */
-	void get(@Nonnull String hash, @Nonnull OutputStream value) throws VaultNotFoundException, IOException;
+	void get(@Nonnull String hash, @Nonnull OutputStream sink) throws VaultNotFoundException, IOException;
 
 	/**
 	 * Is not called, if service instance was created with

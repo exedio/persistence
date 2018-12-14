@@ -107,11 +107,11 @@ public final class VaultReferenceService implements VaultService
 	}
 
 	@Override
-	public void get(final String hash, final OutputStream value) throws VaultNotFoundException, IOException
+	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
 		try
 		{
-			main.get(hash, value);
+			main.get(hash, sink);
 		}
 		catch(final VaultNotFoundException ignored)
 		{
@@ -122,7 +122,7 @@ public final class VaultReferenceService implements VaultService
 				final byte[] b = new byte[50*1024];
 				for(int len = in.read(b); len>=0; len = in.read(b))
 				{
-					value.write(b, 0, len);
+					sink.write(b, 0, len);
 				}
 			}
 			delete(temp);

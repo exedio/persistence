@@ -107,14 +107,14 @@ final class BlobColumn extends Column
 		);
 	}
 
-	void load(final Transaction tx, final Item item, final OutputStream data, final DataField field)
+	void load(final Transaction tx, final Item item, final OutputStream sink, final DataField field)
 	{
 		select(tx, item, resultSet ->
 			{
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
-				tx.connect.executor.dialect.fetchBlob(resultSet, 1, item, data, field);
+				tx.connect.executor.dialect.fetchBlob(resultSet, 1, item, sink, field);
 
 				return null;
 			}

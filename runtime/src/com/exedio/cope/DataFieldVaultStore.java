@@ -129,7 +129,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private static final byte[] EMPTY_BYTES = {};
 
 	@Override
-	void load(final Transaction tx, final Item item, final OutputStream data)
+	void load(final Transaction tx, final Item item, final OutputStream sink)
 	{
 		final String hash = getHash(tx, item);
 		if(hash==null)
@@ -141,7 +141,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		getStream.incrementAndGet();
 		try
 		{
-			service.get(hash, data);
+			service.get(hash, sink);
 		}
 		catch(final IOException e)
 		{

@@ -67,9 +67,9 @@ final class DataFieldBlobStore extends DataFieldStore
 	}
 
 	@Override
-	void load(final Transaction tx, final Item item, final OutputStream data)
+	void load(final Transaction tx, final Item item, final OutputStream sink)
 	{
-		column.load(tx, item, data, field);
+		column.load(tx, item, sink, field);
 	}
 
 	@Override

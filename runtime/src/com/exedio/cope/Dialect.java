@@ -151,7 +151,7 @@ abstract class Dialect
 
 	void fetchBlob(
 			final ResultSet resultSet, final int columnIndex,
-			final Item item, final OutputStream data, final DataField field)
+			final Item item, final OutputStream sink, final DataField field)
 	throws SQLException
 	{
 		final Blob blob = resultSet.getBlob(columnIndex);
@@ -159,7 +159,7 @@ abstract class Dialect
 		{
 			try(InputStream source = blob.getBinaryStream())
 			{
-				field.copy(source, data, blob.length(), item);
+				field.copy(source, sink, blob.length(), item);
 			}
 			catch(final IOException e)
 			{
