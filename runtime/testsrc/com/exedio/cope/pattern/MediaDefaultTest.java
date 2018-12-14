@@ -388,6 +388,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 	{
 		assertTrue(item.isFileNull());
 		assertEquals(null, item.getFileBody());
+		assertDataPath(null);
 		assertDataFile(null);
 		assertEquals(-1, item.getFileLength());
 		assertEquals(null, item.getFileLastModified());
@@ -404,11 +405,19 @@ public class MediaDefaultTest extends TestWithEnvironment
 		final String path = "MediaItem/file/" + item.getCopeID() + expectedExtension;
 		assertTrue(!item.isFileNull());
 		assertData(expectedData, item.getFileBody());
+		assertDataPath(expectedData);
 		assertDataFile(expectedData);
 		assertEquals(expectedData.length, item.getFileLength());
 		assertEquals(lastModified, item.getFileLastModified());
 		assertEquals(expectedContentType, item.getFileContentType());
 		assertLocator(file, path, item.getFileLocator());
+	}
+
+	private void assertDataPath(final byte[] expectedData) throws IOException
+	{
+		final Path tempPath = files.newPathNotExists();
+		item.getFileBody(tempPath);
+		assertEqualContent(expectedData, tempPath.toFile());
 	}
 
 	private void assertDataFile(final byte[] expectedData) throws IOException

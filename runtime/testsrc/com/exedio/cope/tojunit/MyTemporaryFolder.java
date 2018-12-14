@@ -44,6 +44,11 @@ public final class MyTemporaryFolder extends TemporaryFolder
 		return result;
 	}
 
+	public Path newPathNotExists() throws IOException
+	{
+		return newFileNotExists().toPath();
+	}
+
 	public File newFileNotExists() throws IOException
 	{
 		final File result = newFile();

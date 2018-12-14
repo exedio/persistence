@@ -37,6 +37,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -104,10 +105,22 @@ public class DataTest extends TestWithEnvironment
 				assertData(expectedData, temp.toByteArray());
 			}
 			{
+				final Path temp = files.newPathNotExists();
+				item.getData(temp);
+				assertTrue(Files.exists(temp));
+				assertEqualContent(expectedData, temp.toFile());
+			}
+			{
 				final File temp = files.newFileNotExists();
 				item.getData(temp);
 				assertTrue(temp.exists());
 				assertEqualContent(expectedData, temp);
+			}
+			{
+				final Path temp = files.newPath(alreadyExists);
+				item.getData(temp);
+				assertTrue(Files.exists(temp));
+				assertEqualContent(expectedData, temp.toFile());
 			}
 			{
 				final File temp = files.newFile(alreadyExists);
@@ -128,9 +141,20 @@ public class DataTest extends TestWithEnvironment
 				assertEquals(0, temp.toByteArray().length);
 			}
 			{
+				final Path temp = files.newPathNotExists();
+				item.getData(temp);
+				assertFalse(Files.exists(temp));
+			}
+			{
 				final File temp = files.newFileNotExists();
 				item.getData(temp);
 				assertFalse(temp.exists());
+			}
+			{
+				final Path temp = files.newPath(alreadyExists);
+				item.getData(temp);
+				assertTrue(Files.exists(temp)); // TODO maybe file should be deleted when field is null?
+				assertEqualContent(alreadyExists, temp.toFile());
 			}
 			{
 				final File temp = files.newFile(alreadyExists);

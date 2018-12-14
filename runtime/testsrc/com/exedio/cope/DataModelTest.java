@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.OutputStream;
+import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
@@ -116,6 +117,15 @@ public class DataModelTest
 		final DataItem item = TYPE.activate(567);
 		assertFails(
 				() -> item.getData((OutputStream)null),
+				NullPointerException.class,
+				"sink");
+	}
+
+	@Test void testSinkNullPath()
+	{
+		final DataItem item = TYPE.activate(567);
+		assertFails(
+				() -> item.getData((Path)null),
 				NullPointerException.class,
 				"sink");
 	}
