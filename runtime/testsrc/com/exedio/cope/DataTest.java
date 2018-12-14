@@ -96,14 +96,17 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(expectedData.length, item.getDataLength());
 			assertData(expectedData, item.getDataArray());
 
-			final NonCloseableOrFlushableOutputStream tempStream = new NonCloseableOrFlushableOutputStream();
-			item.getData(tempStream);
-			assertData(expectedData, tempStream.toByteArray());
-
-			final File tempFile = files.newFileNotExists();
-			item.getData(tempFile);
-			assertTrue(tempFile.exists());
-			assertEqualContent(expectedData, tempFile);
+			{
+				final NonCloseableOrFlushableOutputStream tempStream = new NonCloseableOrFlushableOutputStream();
+				item.getData(tempStream);
+				assertData(expectedData, tempStream.toByteArray());
+			}
+			{
+				final File tempFile = files.newFileNotExists();
+				item.getData(tempFile);
+				assertTrue(tempFile.exists());
+				assertEqualContent(expectedData, tempFile);
+			}
 		}
 		else
 		{
@@ -111,13 +114,16 @@ public class DataTest extends TestWithEnvironment
 			assertEquals(-1, item.getDataLength());
 			assertEquals(null, item.getDataArray());
 
-			final AssertionErrorOutputStream tempStream = new AssertionErrorOutputStream();
-			item.getData(tempStream);
-			assertEquals(0, tempStream.toByteArray().length);
-
-			final File tempFile = files.newFileNotExists();
-			item.getData(tempFile);
-			assertFalse(tempFile.exists());
+			{
+				final AssertionErrorOutputStream tempStream = new AssertionErrorOutputStream();
+				item.getData(tempStream);
+				assertEquals(0, tempStream.toByteArray().length);
+			}
+			{
+				final File tempFile = files.newFileNotExists();
+				item.getData(tempFile);
+				assertFalse(tempFile.exists());
+			}
 		}
 	}
 
