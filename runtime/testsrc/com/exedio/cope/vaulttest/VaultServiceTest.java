@@ -18,10 +18,10 @@
 
 package com.exedio.cope.vaulttest;
 
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.ActivationParameters;
@@ -50,6 +50,7 @@ import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 /**
  * This test is to be applied to all implementations of {@link VaultService}
@@ -123,44 +124,20 @@ public abstract class VaultServiceTest
 	@Test final void notFoundGetLength()
 	{
 		final String hash = hash("ab");
-		try
-		{
-			service.getLength(hash);
-			fail();
-		}
-		catch(final VaultNotFoundException e)
-		{
-			assertEquals(hash, e.getHashComplete());
-		}
+		assertNotFound(() -> service.getLength(hash), hash);
 	}
 
 	@Test final void notFoundGetBytes()
 	{
 		final String hash = hash("ab");
-		try
-		{
-			service.get(hash);
-			fail();
-		}
-		catch(final VaultNotFoundException e)
-		{
-			assertEquals(hash, e.getHashComplete());
-		}
+		assertNotFound(() -> service.get(hash), hash);
 	}
 
-	@Test final void notFoundGetStream() throws IOException
+	@Test final void notFoundGetStream()
 	{
 		final String hash = hash("ab");
 		final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		try
-		{
-			service.get(hash, stream);
-			fail();
-		}
-		catch(final VaultNotFoundException e)
-		{
-			assertEquals(hash, e.getHashComplete());
-		}
+		assertNotFound(() -> service.get(hash, stream), hash);
 	}
 
 	@Test final void foundGetLength() throws VaultNotFoundException
@@ -258,28 +235,12 @@ public abstract class VaultServiceTest
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
-		try
-		{
-			service.get(hash2);
-			fail();
-		}
-		catch(final VaultNotFoundException e)
-		{
-			assertEquals(hash2, e.getHashComplete());
-		}
+		assertNotFound(() -> service.get(hash2), hash2);
 
 		assertFalse(service.put(hash, unhex("abcdef01234567"), PUT_INFO));
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
-		try
-		{
-			service.get(hash2);
-			fail();
-		}
-		catch(final VaultNotFoundException e)
-		{
-			assertEquals(hash2, e.getHashComplete());
-		}
+		assertNotFound(() -> service.get(hash2), hash2);
 
 		assertTrue(service.put(hash2, unhex("0102abcdef01234567"), PUT_INFO));
 		assertEquals("abcdef01234567", hex(service.get(hash)));
@@ -305,6 +266,13 @@ public abstract class VaultServiceTest
 		final String hash = hash(value);
 		assertTrue(service.put(hash, unhex(value), PUT_INFO));
 		return hash;
+	}
+
+	private static void assertNotFound(final Executable executable, final String hash)
+	{
+		final VaultNotFoundException e =
+				assertThrows(VaultNotFoundException.class, executable);
+		assertEquals(hash, e.getHashComplete());
 	}
 
 	protected static final VaultPutInfo PUT_INFO = new VaultPutInfo()
