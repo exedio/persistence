@@ -77,7 +77,7 @@ public class AssertionErrorVaultService implements VaultService
 	}
 
 	@Override
-	public void get(final String hash, final OutputStream value) throws VaultNotFoundException, IOException
+	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
 		throw new AssertionError(anonymiseHash(hash));
 	}

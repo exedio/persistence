@@ -105,13 +105,13 @@ public final class VaultMockService implements VaultService
 	}
 
 	@Override
-	public void get(final String hash, final OutputStream value) throws VaultNotFoundException, IOException
+	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
 		history.append("getStream\n");
 
-		assertNotNull(value);
+		assertNotNull(sink);
 
-		value.write(store(hash));
+		sink.write(store(hash));
 	}
 
 	private byte[] store(final String hash) throws VaultNotFoundException

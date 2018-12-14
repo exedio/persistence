@@ -136,8 +136,8 @@ public abstract class VaultServiceTest
 	@Test final void notFoundGetStream()
 	{
 		final String hash = hash("ab");
-		final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		assertNotFound(() -> service.get(hash, stream), hash);
+		final ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		assertNotFound(() -> service.get(hash, sink), hash);
 	}
 
 	@Test final void foundGetLength() throws VaultNotFoundException
@@ -155,9 +155,9 @@ public abstract class VaultServiceTest
 	@Test final void foundGetStream() throws VaultNotFoundException, IOException
 	{
 		final String hash = putHash("abcdef01234567");
-		final ByteArrayOutputStream stream = new ByteArrayOutputStream();
-		service.get(hash, stream);
-		assertEquals("abcdef01234567", hex(stream.toByteArray()));
+		final ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		service.get(hash, sink);
+		assertEquals("abcdef01234567", hex(sink.toByteArray()));
 	}
 
 	@Test final void putBytes() throws VaultNotFoundException

@@ -76,11 +76,11 @@ public final class VaultTestService implements VaultService
 	}
 
 	@Override
-	public void get(final String hash, final OutputStream value) throws VaultNotFoundException, IOException
+	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
 	{
-		assertNotNull(value);
+		assertNotNull(sink);
 
-		value.write(store(hash));
+		sink.write(store(hash));
 	}
 
 	private byte[] store(final String hash) throws VaultNotFoundException
