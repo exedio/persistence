@@ -34,7 +34,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
-import com.exedio.cope.util.StrictFile;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -208,17 +207,6 @@ public class MediaTypeTest
 		}
 
 		final File file = files.newFileNotExists();
-		try
-		{
-			forMagics(file);
-			fail();
-		}
-		catch(final FileNotFoundException e)
-		{
-			assertTrue(e.getMessage().startsWith(file.getAbsolutePath()), e.getMessage());
-		}
-
-		StrictFile.mkdir(file);
 		try
 		{
 			forMagics(file);
