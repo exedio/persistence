@@ -302,12 +302,12 @@ public final class VaultFileService implements VaultService
 
 		@Probe(name="directory.Exists")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // OK: @Probe
-		private String probeDirectoryExists()
+		private String probeDirectoryExists() throws ProbeAbortedException
 		{
 			if(directory==null)
-				return "directories disabled";
+				throw newProbeAbortedException("directories disabled");
 			if(directory.createAsNeeded)
-				return "directories created as needed";
+				throw newProbeAbortedException("directories created as needed");
 
 			final char[] c = new char[directory.length];
 			Arrays.fill(c, '0');

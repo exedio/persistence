@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.util.Properties.ProbeAbortedException;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultFileService.Props;
 import java.io.File;
@@ -251,7 +252,7 @@ public class VaultFileServicePropertiesProbeTest
 				"does not support read only directories");
 	}
 
-	@Test void probeDirectoryExistsDisabled() throws Exception
+	@Test void probeDirectoryExistsDisabled()
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
@@ -267,10 +268,13 @@ public class VaultFileServicePropertiesProbeTest
 				findFirst().
 				get();
 
-		assertEquals("directories disabled", dirs.call());
+		assertFails(
+				dirs::call,
+				ProbeAbortedException.class,
+				"directories disabled");
 	}
 
-	@Test void probeDirectoryExistsCreateAsNeeded() throws Exception
+	@Test void probeDirectoryExistsCreateAsNeeded()
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
@@ -285,7 +289,10 @@ public class VaultFileServicePropertiesProbeTest
 				findFirst().
 				get();
 
-		assertEquals("directories created as needed", dirs.call());
+		assertFails(
+				dirs::call,
+				ProbeAbortedException.class,
+				"directories created as needed");
 	}
 
 	@Test void probeDirectoryExistsOne() throws Exception
