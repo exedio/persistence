@@ -35,7 +35,11 @@ import java.io.OutputStream;
 import java.nio.file.Path;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
+@SuppressFBWarnings({
+		"RV_RETURN_VALUE_IGNORED_INFERRED",
+		"NP_NONNULL_PARAM_VIOLATION",
+		"NP_NULL_PARAM_DEREF_NONVIRTUAL",
+		"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class DataModelTest
 {
 	public static final Model MODEL = new Model(TYPE, DataSubItem.TYPE);
