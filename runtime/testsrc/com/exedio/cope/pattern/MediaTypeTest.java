@@ -23,17 +23,19 @@ import static com.exedio.cope.pattern.MediaType.forMagics;
 import static com.exedio.cope.pattern.MediaType.forName;
 import static com.exedio.cope.pattern.MediaType.forNameAndAliases;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.util.Hex.decodeLower;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -43,6 +45,7 @@ import java.util.Set;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class MediaTypeTest
 {
 	private static final String JPEG = "ffd8ff";
@@ -95,15 +98,9 @@ public class MediaTypeTest
 		assertSame(null, forName("text/javascript"));
 		assertSame(null, forName("zack"));
 
-		try
-		{
-			forName(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name", e.getMessage());
-		}
+		assertFails(
+				() -> forName(null),
+				NullPointerException.class, "name");
 
 		assertTrue(jpg.hasMagic());
 		assertFalse(js.hasMagic());
@@ -132,15 +129,9 @@ public class MediaTypeTest
 		assertSame(js,  forNameAndAliases("text/javascript"));
 		assertSame(null, forNameAndAliases("zack"));
 
-		try
-		{
-			forNameAndAliases(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("name", e.getMessage());
-		}
+		assertFails(
+				() -> forNameAndAliases(null),
+				NullPointerException.class, "name");
 	}
 
 	@Test void testForMagic() throws IOException
@@ -168,54 +159,24 @@ public class MediaTypeTest
 	@Test void testForMagicFails() throws IOException
 	{
 		// byte
-		try
-		{
-			forMagics((byte[])null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("magic", e.getMessage());
-		}
-		try
-		{
-			forMagics(new byte[0]);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("empty", e.getMessage());
-		}
+		assertFails(
+				() -> forMagics((byte[])null),
+				NullPointerException.class, "magic");
+		assertFails(
+				() -> forMagics(new byte[0]),
+				IllegalArgumentException.class, "empty");
 		// file
-		try
-		{
-			forMagics((File)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("file", e.getMessage());
-		}
-		try
-		{
-			forMagics(files.newFile(new byte[]{}));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("empty", e.getMessage());
-		}
+		assertFails(
+				() -> forMagics((File)null),
+				NullPointerException.class, "file");
+		assertFails(
+				() -> forMagics(files.newFile(new byte[]{})),
+				IllegalArgumentException.class, "empty");
 
 		final File file = files.newFileNotExists();
-		try
-		{
-			forMagics(file);
-			fail();
-		}
-		catch(final FileNotFoundException e)
-		{
-			assertTrue(e.getMessage().startsWith(file.getAbsolutePath()), e.getMessage());
-		}
+		assertThrows(
+				FileNotFoundException.class,
+				() -> forMagics(file));
 	}
 
 	private static String stealTail(final String s)
