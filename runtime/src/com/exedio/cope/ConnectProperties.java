@@ -412,6 +412,11 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				: null;
 	}
 
+	public static Iterable<?> getDialectUrlMappers()
+	{
+		return ServiceLoader.load(DialectUrlMapper.class);
+	}
+
 	public String getDialect()
 	{
 		return dialect.getServiceClass().getName();

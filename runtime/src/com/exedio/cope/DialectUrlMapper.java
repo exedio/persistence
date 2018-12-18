@@ -29,6 +29,8 @@ package com.exedio.cope;
  * <li>must be non-abstract, and
  * <li>must have a public default constructor.
  * </ul>
+ * It is highly recommended to override {@link Object#toString() toString} with an
+ * informative message.
  */
 abstract class DialectUrlMapper // is not an interface, because methods are better not public
 {

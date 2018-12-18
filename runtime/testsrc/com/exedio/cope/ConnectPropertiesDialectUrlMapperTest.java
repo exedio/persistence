@@ -23,10 +23,12 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Source;
+import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 
 public class ConnectPropertiesDialectUrlMapperTest
@@ -96,6 +98,32 @@ public class ConnectPropertiesDialectUrlMapperTest
 				TestSources.minimal()));
 	}
 
+
+	@Test void testGetDialectUrlMappers()
+	{
+		final Iterator<?> i = ConnectProperties.getDialectUrlMappers().iterator();
+		assertFails(
+				i::remove,
+				UnsupportedOperationException.class, null);
+		{
+			final Object dum = i.next();
+			assertEquals(HsqldbDialectUrlMapper.class, dum.getClass());
+			assertEquals("jdbc:hsqldb:* -> com.exedio.cope.HsqldbDialect", dum.toString());
+		}
+		{
+			final Object dum = i.next();
+			assertEquals(Mapper1.class, dum.getClass());
+			assertEquals("Mapper1#toString()", dum.toString());
+		}
+		{
+			final Object dum = i.next();
+			assertEquals(Mapper2.class, dum.getClass());
+			assertEquals("Mapper2#toString()", dum.toString());
+		}
+		assertFalse(i.hasNext());
+	}
+
+
 	static class DialectA extends AssertionFailedDialect
 	{
 		DialectA(@SuppressWarnings("unused") final CopeProbe probe){ super(null); }
@@ -124,6 +152,12 @@ public class ConnectPropertiesDialectUrlMapperTest
 				return DialectB.class;
 
 			return null;
+		}
+
+		@Override
+		public final String toString()
+		{
+			return getClass().getSimpleName() + "#toString()";
 		}
 	}
 

@@ -39,4 +39,10 @@ abstract class SimpleDialectUrlMapper extends DialectUrlMapper
 	{
 		return url.startsWith(urlPrefix) ? dialectClass : null;
 	}
+
+	@Override
+	public final String toString()
+	{
+		return urlPrefix + "* -> " + dialectClass.getName();
+	}
 }

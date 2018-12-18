@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -40,6 +41,7 @@ public class SimpleDialectUrlMapperTest
 		assertFails(
 				() -> m.map(null),
 				NullPointerException.class, null);
+		assertEquals("prefix* -> " + dialectClass.getName(), m.toString());
 	}
 
 	@Test void testPrefixNull()
