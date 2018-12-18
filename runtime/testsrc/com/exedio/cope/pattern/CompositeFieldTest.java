@@ -30,6 +30,7 @@ import static com.exedio.cope.pattern.CompositeValue.anEnum;
 import static com.exedio.cope.pattern.CompositeValue.anInt;
 import static com.exedio.cope.pattern.CompositeValue.anItem;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.Assert.fail;
@@ -234,6 +235,11 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertSame(eins.getTemplate(eins.of(aString)), eins.getTemplate((Feature)eins.of(aString)));
 		assertSame(eins.getTemplate(eins.of(anInt  )), eins.getTemplate((Feature)eins.of(anInt)));
 		assertSame(uno .getTemplate(uno .of(anInt  )), uno .getTemplate((Feature)uno .of(anInt)));
+
+		assertFails(
+				anItem::getValueType,
+				IllegalStateException.class, // TODO should return CompositeOptionalItem.TYPE
+				"item field " + anItem + " (" + CompositeOptionalItem.class.getName() + ") does not belong to any model");
 
 		assertSerializedSame(eins, 385);
 		assertSerializedSame(zwei, 385);
