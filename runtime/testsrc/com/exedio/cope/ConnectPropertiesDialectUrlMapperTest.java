@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
@@ -102,9 +103,9 @@ public class ConnectPropertiesDialectUrlMapperTest
 	@Test void testGetDialectUrlMappers()
 	{
 		final Iterator<?> i = ConnectProperties.getDialectUrlMappers().iterator();
-		assertFails(
-				i::remove,
-				UnsupportedOperationException.class, null);
+		assertThrows(
+				UnsupportedOperationException.class,
+				i::remove);
 		{
 			final Object dum = i.next();
 			assertEquals(HsqldbDialectUrlMapper.class, dum.getClass());
