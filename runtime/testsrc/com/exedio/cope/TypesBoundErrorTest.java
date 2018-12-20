@@ -184,11 +184,9 @@ public class TypesBoundErrorTest
 			NonResolvingItemField.itemField.getValueType();
 			fail();
 		}
-		catch(final IllegalStateException e)
+		catch(final IllegalArgumentException e)
 		{
-			assertEquals(
-					"item field " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model",
-					e.getMessage());
+			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
 		}
 		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class);
 		try

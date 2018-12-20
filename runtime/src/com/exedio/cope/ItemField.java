@@ -360,8 +360,13 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public Type<E> getValueType()
 	{
 		if(valueType==null)
+		{
+			if(!isMountedToType())
+				return resolveValueTypeFuture();
+
 			throw new IllegalStateException(
 					"item field " + this + " (" + valueTypeFuture + ") does not belong to any model");
+		}
 
 		return valueType;
 	}

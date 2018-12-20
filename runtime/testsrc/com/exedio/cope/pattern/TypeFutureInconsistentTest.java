@@ -63,36 +63,48 @@ public class TypeFutureInconsistentTest
 	{
 		assertFails(
 				() -> FeatureComposite.field.getValueType(),
-				IllegalStateException.class,
-				"item field " + FeatureComposite.field + " (TypeFuture(FeatureComposite.field)) " +
-				"does not belong to any model");
+				IllegalArgumentException.class,
+				"ItemField " + FeatureComposite.field + ": " +
+				"resolving TypeFuture TypeFuture(FeatureComposite.field) " +
+				"expected " + ValueClassItem.class.getName() + ", " +
+				"but was " + TypeItem.class.getName() + " " +
+				"from TypeItem.");
 
 		CompositeField.create(FeatureComposite.class);
 
 		// make sure there is still not value type set
 		assertFails(
 				() -> FeatureComposite.field.getValueType(),
-				IllegalStateException.class,
-				"item field " + FeatureComposite.field + " (TypeFuture(FeatureComposite.field)) " +
-				"does not belong to any model");
+				IllegalArgumentException.class,
+				"ItemField " + FeatureComposite.field + ": " +
+				"resolving TypeFuture TypeFuture(FeatureComposite.field) " +
+				"expected " + ValueClassItem.class.getName() + ", " +
+				"but was " + TypeItem.class.getName() + " " +
+				"from TypeItem.");
 	}
 
 	@Test void testBlock()
 	{
 		assertFails(
 				() -> FeatureBlock.field.getValueType(),
-				IllegalStateException.class,
-				"item field " + FeatureBlock.field + " (TypeFuture(FeatureBlock.field)) " +
-				"does not belong to any model");
+				IllegalArgumentException.class,
+				"ItemField " + FeatureBlock.field + ": " +
+				"resolving TypeFuture TypeFuture(FeatureBlock.field) " +
+				"expected " + ValueClassItem.class.getName() + ", " +
+				"but was " + TypeItem.class.getName() + " " +
+				"from TypeItem.");
 
 		BlockField.create(FeatureBlock.TYPE);
 
 		// make sure there is still not value type set
 		assertFails(
 				() -> FeatureBlock.field.getValueType(),
-				IllegalStateException.class,
-				"item field " + FeatureBlock.field + " (TypeFuture(FeatureBlock.field)) " +
-				"does not belong to any model");
+				IllegalArgumentException.class,
+				"ItemField " + FeatureBlock.field + ": " +
+				"resolving TypeFuture TypeFuture(FeatureBlock.field) " +
+				"expected " + ValueClassItem.class.getName() + ", " +
+				"but was " + TypeItem.class.getName() + " " +
+				"from TypeItem.");
 	}
 
 	@Test void testUnmounted()
@@ -100,9 +112,12 @@ public class TypeFutureInconsistentTest
 		final ItemField<ValueClassItem> field = inconsistentField("Unmounted");
 		assertFails(
 				() -> field.getValueType(),
-				IllegalStateException.class,
-				"item field " + field + " (TypeFuture(Unmounted.field)) " +
-				"does not belong to any model");
+				IllegalArgumentException.class,
+				"ItemField " + field + ": " +
+				"resolving TypeFuture TypeFuture(Unmounted.field) " +
+				"expected " + ValueClassItem.class.getName() + ", " +
+				"but was " + TypeItem.class.getName() + " " +
+				"from TypeItem.");
 	}
 
 

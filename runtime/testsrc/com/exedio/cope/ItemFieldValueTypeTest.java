@@ -71,9 +71,9 @@ public class ItemFieldValueTypeTest
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.field).getValueType());
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.set).getParent().getValueType());
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.set).getElement().getValueType());
-		assertFails(() ->       MyComp.field.getValueType(),            IllegalStateException.class, "item field " + MyComp.field            + " (" + MyItem.class.getName() + ") does not belong to any model");
-		assertFails(() ->       MyBlok.field.getValueType(),            IllegalStateException.class, "item field " + MyBlok.field            + " (" + MyItem.class.getName() + ") does not belong to any model");
-		assertFails(() ->       MyBlok.set.getElement().getValueType(), IllegalStateException.class, "item field " + MyBlok.set.getElement() + " (" + MyItem.class.getName() + ") does not belong to any model");
+		assertSame(MyItem.TYPE, MyComp.field.getValueType());
+		assertSame(MyItem.TYPE, MyBlok.field.getValueType());
+		assertSame(MyItem.TYPE, MyBlok.set.getElement().getValueType());
 	}
 
 	@Test void testValueTypeModel()
