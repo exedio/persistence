@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -101,11 +100,6 @@ public class BlockFieldStandardModelTest
 
 		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet), eins.getTemplates());
 		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet)), eins.getComponents());
-
-		assertFails(
-				anItem::getValueType,
-				IllegalStateException.class, // TODO should return AnItem.TYPE
-				"item field " + anItem + " (" + AnItem.class.getName() + ") does not belong to any model");
 
 		assertSerializedSame(aString, 339);
 		assertSerializedSame(aColor , 338);
