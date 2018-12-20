@@ -41,7 +41,6 @@ timestamps
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dinstrument.verify=true' +
-						' -Dtest-details=none' +
 						' -Ddisable-ansi-colors=true' +
 						' -Dtomcat.port.shutdown=' + port(0) +
 						' -Dtomcat.port.http=' + port(1) +

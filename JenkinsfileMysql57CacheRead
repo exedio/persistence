@@ -69,7 +69,6 @@ timestamps
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dinstrument.verify=true' +
 						' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +
-						' -Dtest-details=none' +
 						' -Ddisable-ansi-colors=true'
 			}
 		}
