@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -31,8 +31,11 @@ import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.pattern.SetField;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("Convert2MethodRef")
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 public class ItemFieldValueTypeTest
 {
 	@Test void testModelTypes()
@@ -55,15 +58,7 @@ public class ItemFieldValueTypeTest
 		assertSame(MyItem.class, MyItem.blok.of(MyBlok.set).getElement().getValueClass());
 		assertSame(MyItem.class, MyComp.field.getValueClass());
 		assertSame(MyItem.class, MyBlok.field.getValueClass());
-		try
-		{
-			MyBlok.set.getParent();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("feature not mounted", e.getMessage());
-		}
+		assertFails(() ->        MyBlok.set.getParent(), IllegalStateException.class, "feature not mounted");
 		assertSame(MyItem.class, MyBlok.set.getElement().getValueClass());
 	}
 
@@ -76,39 +71,9 @@ public class ItemFieldValueTypeTest
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.field).getValueType());
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.set).getParent().getValueType());
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.set).getElement().getValueType());
-		try
-		{
-			MyComp.field.getValueType();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"item field " + MyComp.field + " (" + MyItem.class.getName() + ") does not belong to any model",
-					e.getMessage());
-		}
-		try
-		{
-			MyBlok.field.getValueType();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"item field " + MyBlok.field + " (" + MyItem.class.getName() + ") does not belong to any model",
-					e.getMessage());
-		}
-		try
-		{
-			MyBlok.set.getElement().getValueType();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"item field " + MyBlok.set.getElement() + " (" + MyItem.class.getName() + ") does not belong to any model",
-					e.getMessage());
-		}
+		assertFails(() ->       MyComp.field.getValueType(),            IllegalStateException.class, "item field " + MyComp.field            + " (" + MyItem.class.getName() + ") does not belong to any model");
+		assertFails(() ->       MyBlok.field.getValueType(),            IllegalStateException.class, "item field " + MyBlok.field            + " (" + MyItem.class.getName() + ") does not belong to any model");
+		assertFails(() ->       MyBlok.set.getElement().getValueType(), IllegalStateException.class, "item field " + MyBlok.set.getElement() + " (" + MyItem.class.getName() + ") does not belong to any model");
 	}
 
 	@Test void testValueTypeModel()
@@ -127,15 +92,10 @@ public class ItemFieldValueTypeTest
 
 	@Test void testValueTypeModelNull()
 	{
-		try
-		{
-			MyItem.field.getValueType(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("model", e.getMessage());
-		}
+		assertFails(
+				() -> MyItem.field.getValueType(null),
+				NullPointerException.class,
+				"model");
 	}
 
 	@Test void testReferences()
