@@ -18,17 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("Convert2MethodRef")
@@ -59,25 +59,36 @@ public class TypeFutureInconsistentTest
 				"does not belong to any model");
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ValueClassItem extends Item
 	{
-		static final Type<ValueClassItem> TYPE = TypesBound.newType(ValueClassItem.class);
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		private ValueClassItem(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<ValueClassItem> TYPE = com.exedio.cope.TypesBound.newType(ValueClassItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private ValueClassItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class TypeItem extends Item
 	{
-		static final Type<TypeItem> TYPE = TypesBound.newType(TypeItem.class);
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		private TypeItem(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<TypeItem> TYPE = com.exedio.cope.TypesBound.newType(TypeItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private TypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class FeatureItem extends Item
 	{
+		@WrapperIgnore
 		static final ItemField<ValueClassItem> itemField = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
 
 			@Override
@@ -93,8 +104,14 @@ public class TypeFutureInconsistentTest
 			}
 
 		}, DeletePolicy.FORBID);
-		static final Type<FeatureItem> TYPE = TypesBound.newType(FeatureItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		private FeatureItem(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<FeatureItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private FeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
