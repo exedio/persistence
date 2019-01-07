@@ -327,6 +327,19 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private Type<E> valueType = null;
 
+	private Type<E> resolveValueTypeFuture()
+	{
+		final Type<E> result = valueTypeFuture.get();
+		if(!valueClass.equals(result.getJavaClass()))
+			throw new IllegalArgumentException(
+					"ItemField " + this + ": " +
+					"valueClass " + valueClass.getName() + " " +
+					"must be equal to " +
+					"javaClass " + result.getJavaClass().getName() +
+					" of valueType " + result + " provided by TypeFuture " + valueTypeFuture + '.');
+		return result;
+	}
+
 	void resolveValueType(final Set<Type<?>> typesAllowed)
 	{
 		if(!isMountedToType())
@@ -334,16 +347,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(valueType!=null)
 			throw new RuntimeException(getID());
 
-		final Type<E> valueType = valueTypeFuture.get();
+		final Type<E> valueType = resolveValueTypeFuture();
 		if(!typesAllowed.contains(valueType))
 			throw new IllegalArgumentException("value type of " + this + " (" + valueTypeFuture + ") does not belong to the same model");
-		if(!valueClass.equals(valueType.getJavaClass()))
-			throw new IllegalArgumentException(
-					"ItemField " + this + ": " +
-					"valueClass " + valueClass.getName() + " " +
-					"must be equal to " +
-					"javaClass " + valueType.getJavaClass().getName() +
-					" of valueType " + valueType + " provided by TypeFuture " + valueTypeFuture + ".");
 		this.valueType = valueType;
 	}
 
@@ -369,11 +375,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public Type<E> getValueType(final Model model)
 	{
 		requireNonNull(model, "model"); // probably will be needed for TypeFuture sometimes
-		final Type<E> result = valueTypeFuture.get();
-		if(result==null)
-			throw new NullPointerException(
-					"value type of " + this + " (" + valueTypeFuture + ") returned null");
-		return result;
+		return resolveValueTypeFuture();
 	}
 
 
