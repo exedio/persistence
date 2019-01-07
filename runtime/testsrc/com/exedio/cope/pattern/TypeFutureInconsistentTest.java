@@ -34,7 +34,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings("Convert2MethodRef")
 public class TypeFutureInconsistentTest
 {
-	@Test void testTypeFutureInconsistent()
+	@Test void testItem()
 	{
 		assertFails(
 				() -> FeatureItem.field.getValueType(),
@@ -58,6 +58,43 @@ public class TypeFutureInconsistentTest
 				"item field FeatureItem.field (TypeFuture(FeatureItem.field)) " +
 				"does not belong to any model");
 	}
+
+	@Test void testComposite()
+	{
+		assertFails(
+				() -> FeatureComposite.field.getValueType(),
+				IllegalStateException.class,
+				"item field " + FeatureComposite.field + " (TypeFuture(FeatureComposite.field)) " +
+				"does not belong to any model");
+
+		CompositeField.create(FeatureComposite.class);
+
+		// make sure there is still not value type set
+		assertFails(
+				() -> FeatureComposite.field.getValueType(),
+				IllegalStateException.class,
+				"item field " + FeatureComposite.field + " (TypeFuture(FeatureComposite.field)) " +
+				"does not belong to any model");
+	}
+
+	@Test void testBlock()
+	{
+		assertFails(
+				() -> FeatureBlock.field.getValueType(),
+				IllegalStateException.class,
+				"item field " + FeatureBlock.field + " (TypeFuture(FeatureBlock.field)) " +
+				"does not belong to any model");
+
+		BlockField.create(FeatureBlock.TYPE);
+
+		// make sure there is still not value type set
+		assertFails(
+				() -> FeatureBlock.field.getValueType(),
+				IllegalStateException.class,
+				"item field " + FeatureBlock.field + " (TypeFuture(FeatureBlock.field)) " +
+				"does not belong to any model");
+	}
+
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ValueClassItem extends Item
@@ -113,5 +150,65 @@ public class TypeFutureInconsistentTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@SuppressWarnings("unused") private FeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, indent=2, comments=false)
+	private static final class FeatureComposite extends Composite
+	{
+		@WrapperIgnore
+		static final ItemField<ValueClassItem> field = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
+
+			@Override
+			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+			public Type<ValueClassItem> get()
+			{
+				return (Type)TypeItem.TYPE;
+			}
+			@Override
+			public String toString()
+			{
+				return "TypeFuture(FeatureComposite.field)";
+			}
+
+		}, DeletePolicy.FORBID);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private FeatureComposite(final com.exedio.cope.SetValue<?>... setValues)
+		{
+			super(setValues);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+	}
+
+	@WrapperType(indent=2, comments=false)
+	private static final class FeatureBlock extends Block
+	{
+		@WrapperIgnore
+		static final ItemField<ValueClassItem> field = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
+
+			@Override
+			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+			public Type<ValueClassItem> get()
+			{
+				return (Type)TypeItem.TYPE;
+			}
+			@Override
+			public String toString()
+			{
+				return "TypeFuture(FeatureBlock.field)";
+			}
+
+		}, DeletePolicy.FORBID);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.pattern.BlockType<FeatureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(FeatureBlock.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@SuppressWarnings("unused") private FeatureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 }
