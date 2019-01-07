@@ -95,6 +95,16 @@ public class TypeFutureInconsistentTest
 				"does not belong to any model");
 	}
 
+	@Test void testUnmounted()
+	{
+		final ItemField<ValueClassItem> field = inconsistentField("Unmounted");
+		assertFails(
+				() -> field.getValueType(),
+				IllegalStateException.class,
+				"item field " + field + " (TypeFuture(Unmounted.field)) " +
+				"does not belong to any model");
+	}
+
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ValueClassItem extends Item
