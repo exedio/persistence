@@ -126,21 +126,7 @@ public class TypeFutureInconsistentTest
 	private static final class FeatureItem extends Item
 	{
 		@WrapperIgnore
-		static final ItemField<ValueClassItem> field = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
-
-			@Override
-			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-			public Type<ValueClassItem> get()
-			{
-				return (Type)TypeItem.TYPE;
-			}
-			@Override
-			public String toString()
-			{
-				return "TypeFuture(FeatureItem.field)";
-			}
-
-		}, DeletePolicy.FORBID);
+		static final ItemField<ValueClassItem> field = inconsistentField("FeatureItem");
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -156,21 +142,7 @@ public class TypeFutureInconsistentTest
 	private static final class FeatureComposite extends Composite
 	{
 		@WrapperIgnore
-		static final ItemField<ValueClassItem> field = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
-
-			@Override
-			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-			public Type<ValueClassItem> get()
-			{
-				return (Type)TypeItem.TYPE;
-			}
-			@Override
-			public String toString()
-			{
-				return "TypeFuture(FeatureComposite.field)";
-			}
-
-		}, DeletePolicy.FORBID);
+		static final ItemField<ValueClassItem> field = inconsistentField("FeatureComposite");
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private FeatureComposite(final com.exedio.cope.SetValue<?>... setValues)
@@ -186,21 +158,7 @@ public class TypeFutureInconsistentTest
 	private static final class FeatureBlock extends Block
 	{
 		@WrapperIgnore
-		static final ItemField<ValueClassItem> field = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
-
-			@Override
-			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
-			public Type<ValueClassItem> get()
-			{
-				return (Type)TypeItem.TYPE;
-			}
-			@Override
-			public String toString()
-			{
-				return "TypeFuture(FeatureBlock.field)";
-			}
-
-		}, DeletePolicy.FORBID);
+		static final ItemField<ValueClassItem> field = inconsistentField("FeatureBlock");
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -210,5 +168,25 @@ public class TypeFutureInconsistentTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@SuppressWarnings("unused") private FeatureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+	}
+
+	private static ItemField<ValueClassItem> inconsistentField(final String clazz)
+	{
+		return ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>()
+		{
+			@Override
+			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+			public Type<ValueClassItem> get()
+			{
+				return (Type)TypeItem.TYPE;
+			}
+
+			@Override
+			public String toString()
+			{
+				return "TypeFuture(" + clazz + ".field)";
+			}
+
+		}, DeletePolicy.FORBID);
 	}
 }
