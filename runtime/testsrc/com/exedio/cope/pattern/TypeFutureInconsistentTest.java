@@ -37,6 +37,12 @@ public class TypeFutureInconsistentTest
 	@Test void testTypeFutureInconsistent()
 	{
 		assertFails(
+				() -> FeatureItem.itemField.getValueType(),
+				IllegalStateException.class,
+				"item field FeatureItem.itemField (TypeFuture(FeatureItem.itemField)) " +
+				"does not belong to any model");
+
+		assertFails(
 				() -> new Model(TypeItem.TYPE, ValueClassItem.TYPE, FeatureItem.TYPE),
 				IllegalArgumentException.class,
 				"ItemField FeatureItem.itemField: " +
