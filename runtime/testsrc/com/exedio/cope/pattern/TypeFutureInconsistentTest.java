@@ -37,25 +37,25 @@ public class TypeFutureInconsistentTest
 	@Test void testTypeFutureInconsistent()
 	{
 		assertFails(
-				() -> FeatureItem.itemField.getValueType(),
+				() -> FeatureItem.field.getValueType(),
 				IllegalStateException.class,
-				"item field FeatureItem.itemField (TypeFuture(FeatureItem.itemField)) " +
+				"item field FeatureItem.field (TypeFuture(FeatureItem.field)) " +
 				"does not belong to any model");
 
 		assertFails(
 				() -> new Model(TypeItem.TYPE, ValueClassItem.TYPE, FeatureItem.TYPE),
 				IllegalArgumentException.class,
-				"ItemField FeatureItem.itemField: " +
+				"ItemField FeatureItem.field: " +
 				"valueClass com.exedio.cope.pattern.TypeFutureInconsistentTest$ValueClassItem " +
 				"must be equal to " +
 				"javaClass com.exedio.cope.pattern.TypeFutureInconsistentTest$TypeItem " +
-				"of valueType TypeItem provided by TypeFuture TypeFuture(FeatureItem.itemField).");
+				"of valueType TypeItem provided by TypeFuture TypeFuture(FeatureItem.field).");
 
 		// make sure there is still not value type set
 		assertFails(
-				() -> FeatureItem.itemField.getValueType(),
+				() -> FeatureItem.field.getValueType(),
 				IllegalStateException.class,
-				"item field FeatureItem.itemField (TypeFuture(FeatureItem.itemField)) " +
+				"item field FeatureItem.field (TypeFuture(FeatureItem.field)) " +
 				"does not belong to any model");
 	}
 
@@ -89,7 +89,7 @@ public class TypeFutureInconsistentTest
 	private static final class FeatureItem extends Item
 	{
 		@WrapperIgnore
-		static final ItemField<ValueClassItem> itemField = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
+		static final ItemField<ValueClassItem> field = ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>(){
 
 			@Override
 			@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
@@ -100,7 +100,7 @@ public class TypeFutureInconsistentTest
 			@Override
 			public String toString()
 			{
-				return "TypeFuture(FeatureItem.itemField)";
+				return "TypeFuture(FeatureItem.field)";
 			}
 
 		}, DeletePolicy.FORBID);
