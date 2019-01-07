@@ -333,10 +333,10 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		if(!valueClass.equals(result.getJavaClass()))
 			throw new IllegalArgumentException(
 					"ItemField " + this + ": " +
-					"valueClass " + valueClass.getName() + " " +
-					"must be equal to " +
-					"javaClass " + result.getJavaClass().getName() +
-					" of valueType " + result + " provided by TypeFuture " + valueTypeFuture + '.');
+					"resolving TypeFuture " + valueTypeFuture + " " +
+					"expected " + valueClass.getName() + ", " +
+					"but was " + result.getJavaClass().getName() + " " +
+					"from " + result + '.');
 		return result;
 	}
 

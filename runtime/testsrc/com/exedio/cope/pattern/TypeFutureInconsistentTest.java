@@ -46,10 +46,10 @@ public class TypeFutureInconsistentTest
 				() -> new Model(TypeItem.TYPE, ValueClassItem.TYPE, FeatureItem.TYPE),
 				IllegalArgumentException.class,
 				"ItemField FeatureItem.field: " +
-				"valueClass " + ValueClassItem.class.getName() + " " +
-				"must be equal to " +
-				"javaClass " + TypeItem.class.getName() + " " +
-				"of valueType TypeItem provided by TypeFuture TypeFuture(FeatureItem.field).");
+				"resolving TypeFuture TypeFuture(FeatureItem.field) " +
+				"expected " + ValueClassItem.class.getName() + ", " +
+				"but was " + TypeItem.class.getName() + " " +
+				"from TypeItem.");
 
 		// make sure there is still not value type set
 		assertFails(
