@@ -18,8 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
@@ -32,38 +31,26 @@ import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("Convert2MethodRef")
 public class TypeFutureInconsistentTest
 {
 	@Test void testTypeFutureInconsistent()
 	{
-		try
-		{
-			new Model(TypeItem.TYPE, ValueClassItem.TYPE, FeatureItem.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"ItemField FeatureItem.itemField: " +
-					"valueClass com.exedio.cope.pattern.TypeFutureInconsistentTest$ValueClassItem " +
-					"must be equal to " +
-					"javaClass com.exedio.cope.pattern.TypeFutureInconsistentTest$TypeItem " +
-					"of valueType TypeItem provided by TypeFuture TypeFuture(FeatureItem.itemField).",
-					e.getMessage());
-		}
+		assertFails(
+				() -> new Model(TypeItem.TYPE, ValueClassItem.TYPE, FeatureItem.TYPE),
+				IllegalArgumentException.class,
+				"ItemField FeatureItem.itemField: " +
+				"valueClass com.exedio.cope.pattern.TypeFutureInconsistentTest$ValueClassItem " +
+				"must be equal to " +
+				"javaClass com.exedio.cope.pattern.TypeFutureInconsistentTest$TypeItem " +
+				"of valueType TypeItem provided by TypeFuture TypeFuture(FeatureItem.itemField).");
 
 		// make sure there is still not value type set
-		try
-		{
-			FeatureItem.itemField.getValueType();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"item field FeatureItem.itemField (TypeFuture(FeatureItem.itemField)) does not belong to any model",
-					e.getMessage());
-		}
+		assertFails(
+				() -> FeatureItem.itemField.getValueType(),
+				IllegalStateException.class,
+				"item field FeatureItem.itemField (TypeFuture(FeatureItem.itemField)) " +
+				"does not belong to any model");
 	}
 
 	@WrapperIgnore
