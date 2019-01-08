@@ -126,7 +126,10 @@ public class TypeFutureInconsistentTest
 		assertFails(
 				() -> field.getValueType(),
 				NullPointerException.class,
-				null);
+				"ItemField " + field + ": " +
+				"resolving TypeFuture NullTypeFuture " +
+				"expected " + ValueClassItem.class.getName() + ", " +
+				"but was null.");
 	}
 
 

@@ -330,6 +330,12 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	private Type<E> resolveValueTypeFuture()
 	{
 		final Type<E> result = valueTypeFuture.get();
+		if(result==null)
+			throw new NullPointerException(
+					"ItemField " + this + ": " +
+					"resolving TypeFuture " + valueTypeFuture + " " +
+					"expected " + valueClass.getName() + ", " +
+					"but was null.");
 		if(!valueClass.equals(result.getJavaClass()))
 			throw new IllegalArgumentException(
 					"ItemField " + this + ": " +
