@@ -120,6 +120,15 @@ public class TypeFutureInconsistentTest
 				"from TypeItem.");
 	}
 
+	@Test void testUnmountedNull()
+	{
+		final ItemField<ValueClassItem> field = nullField();
+		assertFails(
+				() -> field.getValueType(),
+				NullPointerException.class,
+				null);
+	}
+
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ValueClassItem extends Item
@@ -210,6 +219,25 @@ public class TypeFutureInconsistentTest
 			public String toString()
 			{
 				return "TypeFuture(" + clazz + ".field)";
+			}
+
+		}, DeletePolicy.FORBID);
+	}
+
+	private static ItemField<ValueClassItem> nullField()
+	{
+		return ItemField.create(ValueClassItem.class, new TypeFuture<ValueClassItem>()
+		{
+			@Override
+			public Type<ValueClassItem> get()
+			{
+				return null;
+			}
+
+			@Override
+			public String toString()
+			{
+				return "NullTypeFuture";
 			}
 
 		}, DeletePolicy.FORBID);
