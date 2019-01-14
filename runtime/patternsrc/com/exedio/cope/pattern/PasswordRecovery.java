@@ -224,6 +224,34 @@ public final class PasswordRecovery extends Pattern
 		private final Duration reuse;
 
 		/**
+		 * @param expiry the time span, after which this token will not be valid anymore, in milliseconds
+		 * @param reuse limits the number of tokens created within that time span.
+		 *        This is against Denial-Of-service attacks filling up the database.
+		 */
+		public Config(final Duration expiry, final Duration reuse)
+		{
+			requireAtLeast(expiry, "expiry", Duration.ofMillis(1));
+			requireAtLeast(reuse, "reuse", Duration.ZERO);
+			if(reuse.compareTo(expiry)>0)
+				throw new IllegalArgumentException("reuse must not be be greater expiry, but was " + reuse + " and " + expiry);
+
+			this.expiry = expiry;
+			this.reuse = reuse;
+		}
+
+		public Duration getExpiry()
+		{
+			return expiry;
+		}
+
+		public Duration getReuse()
+		{
+			return reuse;
+		}
+
+		// ------------------- deprecated stuff -------------------
+
+		/**
 		 * @deprecated Use {@link #Config(Duration, Duration)} instead.
 		 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
 		 */
@@ -246,22 +274,6 @@ public final class PasswordRecovery extends Pattern
 		}
 
 		/**
-		 * @param expiry the time span, after which this token will not be valid anymore, in milliseconds
-		 * @param reuse limits the number of tokens created within that time span.
-		 *        This is against Denial-Of-service attacks filling up the database.
-		 */
-		public Config(final Duration expiry, final Duration reuse)
-		{
-			requireAtLeast(expiry, "expiry", Duration.ofMillis(1));
-			requireAtLeast(reuse, "reuse", Duration.ZERO);
-			if(reuse.compareTo(expiry)>0)
-				throw new IllegalArgumentException("reuse must not be be greater expiry, but was " + reuse + " and " + expiry);
-
-			this.expiry = expiry;
-			this.reuse = reuse;
-		}
-
-		/**
 		 * @deprecated Use {@link #getExpiry()} instead.
 		 *             BEWARE: May fail for large values!
 		 */
@@ -269,11 +281,6 @@ public final class PasswordRecovery extends Pattern
 		public int getExpiryMillis()
 		{
 			return Math.toIntExact(expiry.toMillis());
-		}
-
-		public Duration getExpiry()
-		{
-			return expiry;
 		}
 
 		/**
@@ -284,11 +291,6 @@ public final class PasswordRecovery extends Pattern
 		public int getReuseMillis()
 		{
 			return Math.toIntExact(reuse.toMillis());
-		}
-
-		public Duration getReuse()
-		{
-			return reuse;
 		}
 	}
 
