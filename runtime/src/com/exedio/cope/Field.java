@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Set;
 
 /**
- * An <tt>field</tt> represents a persistently
+ * An {@code field} represents a persistently
  * stored field of a {@link Type}.
  * Subclasses specify the type of information to be stored
  * in the field.
@@ -97,7 +97,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This default implementation returns
-	 * <tt>{@link #isFinal()} || {@link #isMandatory()}</tt>.
+	 * {@code {@link #isFinal()} || {@link #isMandatory()}}.
 	 */
 	@Override
 	public boolean isInitial()
@@ -142,7 +142,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	}
 
 	/**
-	 * @throws ConstraintViolationException if <tt>value</tt> does not satisfy constraints.
+	 * @throws ConstraintViolationException if {@code value} does not satisfy constraints.
 	 */
 	public final void check(final E value)
 	{
@@ -154,7 +154,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	 * {@link Item#set(FunctionField,Object)}
 	 * and {@link Item#Item(SetValue[])}
 	 * and throws the exception specified there.
-	 * @throws ConstraintViolationException if <tt>value</tt> does not satisfy constraints.
+	 * @throws ConstraintViolationException if {@code value} does not satisfy constraints.
 	 */
 	final void check(final Object value, final Item exceptionItem)
 	{

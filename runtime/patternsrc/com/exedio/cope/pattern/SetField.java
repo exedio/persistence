@@ -275,7 +275,7 @@ public final class SetField<E> extends Pattern implements Copyable
 	}
 
 	/**
-	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
+	 * @return {@code true} if the result of {@link #get(Item)} changed as a result of the call.
 	 */
 	@Wrap(order=50, name="addTo{0}", doc="Adds a new element to {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=SetThrown.class)
 	public boolean add(
@@ -323,7 +323,7 @@ public final class SetField<E> extends Pattern implements Copyable
 	}
 
 	/**
-	 * @return <tt>true</tt> if the result of {@link #get(Item)} changed as a result of the call.
+	 * @return {@code true} if the result of {@link #get(Item)} changed as a result of the call.
 	 */
 	@Wrap(order=60, name="removeFrom{0}", doc="Removes an element from {0}.", docReturn=MODIFICATION_RETURN, thrownGetter=SetThrown.class)
 	public boolean remove(

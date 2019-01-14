@@ -24,7 +24,7 @@ public interface Settable<E>
 {
 	/**
 	  * All implementations of this method should return
-	  * <tt>{@link SetValue#map(Feature, Object) SetValue.map(this,value)}</tt>.
+	  * {@code {@link SetValue#map(Feature, Object) SetValue.map(this,value)}}.
 	  */
 	@SuppressWarnings("deprecation") // OK
 	default SetValue<E> map(final E value)

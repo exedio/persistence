@@ -83,7 +83,7 @@ public final class StringField extends FunctionField<String>
 	public static final StringFieldMinimumLength EMPTY = new StringFieldMinimumLength(0);
 
 	/**
-	 * Creates a new mandatory <tt>StringField</tt>.
+	 * Creates a new mandatory {@code StringField}.
 	 */
 	public StringField()
 	{

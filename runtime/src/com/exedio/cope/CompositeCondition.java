@@ -34,8 +34,8 @@ public final class CompositeCondition extends Condition
 
 	/**
 	 * @deprecated Use {@link Cope#and(List)} or {@link Cope#or(List)} instead
-	 * @throws NullPointerException if <tt>conditions==null</tt>
-	 * @throws IllegalArgumentException if <tt>conditions.size()==0</tt>
+	 * @throws NullPointerException if {@code conditions==null}
+	 * @throws IllegalArgumentException if {@code conditions.size()==0}
 	 */
 	@Deprecated
 	public CompositeCondition(
@@ -47,8 +47,8 @@ public final class CompositeCondition extends Condition
 
 	/**
 	 * @deprecated Use {@link Cope#and(Condition[])} or {@link Cope#or(Condition[])} instead
-	 * @throws NullPointerException if <tt>conditions==null</tt>
-	 * @throws IllegalArgumentException if <tt>conditions.length==0</tt>
+	 * @throws NullPointerException if {@code conditions==null}
+	 * @throws IllegalArgumentException if {@code conditions.length==0}
 	 */
 	@Deprecated
 	public CompositeCondition(

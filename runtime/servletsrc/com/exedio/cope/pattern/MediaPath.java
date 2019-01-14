@@ -243,7 +243,7 @@ public abstract class MediaPath extends Pattern
 		}
 
 		/**
-		 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getPath()});</tt>
+		 * Is equivalent to {@code bf.{@link StringBuilder#append(String) append}({@link #getPath()});}
 		 */
 		public void appendPath(final StringBuilder bf)
 		{
@@ -292,7 +292,7 @@ public abstract class MediaPath extends Pattern
 		}
 
 		/**
-		 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getURLByConnect()});</tt>
+		 * Is equivalent to {@code bf.{@link StringBuilder#append(String) append}({@link #getURLByConnect()});}
 		 */
 		public void appendURLByConnect(final StringBuilder bf)
 		{

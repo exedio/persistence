@@ -477,8 +477,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * Writes the body of this media into the given steam.
 	 * Does nothing, if this media is null.
 	 * @throws NullPointerException
-	 *         if <tt>body</tt> is null.
-	 * @throws IOException if writing <tt>body</tt> throws an IOException.
+	 *         if {@code body} is null.
+	 * @throws IOException if writing {@code body} throws an IOException.
 	 */
 	@Wrap(order=50,
 			doc={"Writes the body of media {0} into the given stream.",
@@ -494,13 +494,13 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 
 	/**
 	 * Sets the contents of this media.
-	 * Closes <tt>body</tt> after reading the contents of the stream.
+	 * Closes {@code body} after reading the contents of the stream.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if <tt>body</tt> is null and field is {@link Field#isMandatory() mandatory}.
+	 *         if {@code body} is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
-	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
-	 * @throws IOException if reading <tt>body</tt> throws an IOException.
+	 *         if {@code body} is longer than {@link #getMaximumLength()}
+	 * @throws IOException if reading {@code body} throws an IOException.
 	 */
 	@Wrap(order=130,
 			doc="Sets the content of media {0}.",
@@ -543,8 +543,8 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * Writes the body of this media into the given file.
 	 * Does nothing, if this media is null.
 	 * @throws NullPointerException
-	 *         if <tt>body</tt> is null.
-	 * @throws IOException if writing <tt>body</tt> throws an IOException.
+	 *         if {@code body} is null.
+	 * @throws IOException if writing {@code body} throws an IOException.
 	 */
 	@Wrap(order=60,
 			doc={"Writes the body of media {0} into the given file.",
@@ -579,10 +579,10 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * Sets the contents of this media.
 	 * @param body give null to make this media null.
 	 * @throws MandatoryViolationException
-	 *         if <tt>body</tt> is null and field is {@link Field#isMandatory() mandatory}.
+	 *         if {@code body} is null and field is {@link Field#isMandatory() mandatory}.
 	 * @throws DataLengthViolationException
-	 *         if <tt>body</tt> is longer than {@link #getMaximumLength()}
-	 * @throws IOException if reading <tt>body</tt> throws an IOException.
+	 *         if {@code body} is longer than {@link #getMaximumLength()}
+	 * @throws IOException if reading {@code body} throws an IOException.
 	 */
 	@Wrap(order=140,
 			doc="Sets the content of media {0}.",

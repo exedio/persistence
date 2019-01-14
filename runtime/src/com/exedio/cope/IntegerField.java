@@ -181,7 +181,7 @@ public final class IntegerField extends NumberField<Integer>
 	}
 
 	/**
-	 * Creates a new mandatory <tt>IntegerField</tt>.
+	 * Creates a new mandatory {@code IntegerField}.
 	 */
 	public IntegerField()
 	{

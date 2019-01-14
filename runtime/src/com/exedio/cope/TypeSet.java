@@ -66,7 +66,7 @@ public final class TypeSet
 	}
 
 	/**
-	 * Returns the explicit types of this <tt>TypeSet</tt>.
+	 * Returns the explicit types of this {@code TypeSet}.
 	 * This is the list of types fed into {@link TypeSet#TypeSet(Type[]) the constructor}.
 	 * It does not include types created by patterns of explicit types.
 	 */

@@ -29,13 +29,13 @@ import java.lang.annotation.Target;
  * a {@link MediaPath}.
  * <p>
  * Common usage is to maintain old urls after renaming a {@link MediaPath}.
- * For instance, if there is a media <tt>picture</tt>:
+ * For instance, if there is a media {@code picture}:
  *
  * <pre>
  * static final Media picture = new Media();
  * </pre>
- * and this media is renamed to <tt>image</tt>,
- * then old urls created by <tt>picture</tt>
+ * and this media is renamed to {@code image},
+ * then old urls created by {@code picture}
  * can be supported like this:
  *
  * <pre>

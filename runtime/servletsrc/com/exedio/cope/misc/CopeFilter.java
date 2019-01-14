@@ -31,9 +31,9 @@ import javax.servlet.ServletResponse;
 /**
  * A filter for starting/closing cope transactions.
  *
- * In order to use it, you have to deploy the filter in your <tt>web.xml</tt>,
+ * In order to use it, you have to deploy the filter in your {@code web.xml},
  * providing the name of the cope model via an init-parameter.
- * Typically, your <tt>web.xml</tt> would contain a snippet like this:
+ * Typically, your {@code web.xml} would contain a snippet like this:
  * <pre>
  * &lt;filter&gt;
  *    &lt;filter-name&gt;CopeFilter&lt;/filter-name&gt;

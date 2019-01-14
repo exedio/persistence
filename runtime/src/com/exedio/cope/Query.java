@@ -221,7 +221,7 @@ public final class Query<R> implements Serializable
 	/**
 	 * If there is already a condition set for this query,
 	 * this is equivalent to
-	 * <tt>{@link #setCondition(Condition) setCondition}({@link #getCondition()}.{@link Condition#and(Condition) and}(narrowingCondition))</tt>.
+	 * {@code {@link #setCondition(Condition) setCondition}({@link #getCondition()}.{@link Condition#and(Condition) and}(narrowingCondition))}.
 	 */
 	public void narrow(final Condition narrowingCondition)
 	{
@@ -347,7 +347,7 @@ public final class Query<R> implements Serializable
 	}
 
 	/**
-	 * @throws IllegalArgumentException if <tt>orderBy.length!=ascending.length</tt>
+	 * @throws IllegalArgumentException if {@code orderBy.length!=ascending.length}
 	 */
 	// TODO deal with empty arrays
 	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
@@ -524,7 +524,7 @@ public final class Query<R> implements Serializable
 	 * <p>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
-	 * result in an <tt>UnsupportedOperationException</tt>.
+	 * result in an {@code UnsupportedOperationException}.
 	 */
 	public List<R> search()
 	{
@@ -553,7 +553,7 @@ public final class Query<R> implements Serializable
 	 * Returns the
 	 * {@link Collection#size() size} of what
 	 * {@link #search()} would have returned for this query with
-	 * {@link #setPageUnlimited(int)} reset set to <tt>(0)</tt>.
+	 * {@link #setPageUnlimited(int)} reset set to {@code (0)}.
 	 */
 	public int total()
 	{

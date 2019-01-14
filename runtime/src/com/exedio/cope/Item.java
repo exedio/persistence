@@ -31,7 +31,7 @@ import java.util.HashSet;
  * This is the super class for all classes,
  * that want to store their data persistently with COPE.
  * <p>
- * Serialization of instances of <tt>Item</tt>
+ * Serialization of instances of {@code Item}
  * is guaranteed to be light-weight -
  * there are no non-static, non-transient object reference
  * fields in this class or its superclasses.
@@ -59,9 +59,9 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Returns a string unique for this item in all other items of the model.
-	 * For any item <tt>a</tt> in its model <tt>m</tt>
+	 * For any item {@code a</tt> in its model <tt>m}
 	 * the following holds true:
-	 * <tt>a.equals(m.getItem(a.getCopeID()).</tt>
+	 * {@code a.equals(m.getItem(a.getCopeID()).}
 	 * Does not activate this item, if it's not already active.
 	 * Never returns null.
 	 * @see Model#getItem(String)
@@ -72,7 +72,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	}
 
 	/**
-	 * Is equivalent to <tt>bf.{@link StringBuilder#append(String) append}({@link #getCopeID()});</tt>
+	 * Is equivalent to {@code bf.{@link StringBuilder#append(String) append}({@link #getCopeID()});}
 	 */
 	public final void appendCopeID(final StringBuilder bf)
 	{
@@ -92,7 +92,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	}
 
 	/**
-	 * Returns true, if <tt>o</tt> represents the same item as this item.
+	 * Returns true, if {@code o} represents the same item as this item.
 	 * Is equivalent to
 	 * <pre>(o != null) &amp;&amp; (o instanceof Item) &amp;&amp; getCopeID().equals(((Item)o).getCopeID())</pre>
 	 * Does not activate this item, if it's not already active.
@@ -112,7 +112,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Returns a hash code, that is consistent with {@link #equals(Object)}.
-	 * Note, that this is not necessarily equivalent to <tt>getCopeID().hashCode()</tt>.
+	 * Note, that this is not necessarily equivalent to {@code getCopeID().hashCode()}.
 	 * Does not activate this item, if it's not already active.
 	 */
 	@Override
@@ -162,14 +162,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Returns the active item object representing the same item as this item object.
-	 * For any two item objects <tt>a</tt>, <tt>b</tt> the following holds true:
+	 * For any two item objects {@code a</tt>, <tt>b} the following holds true:
 	 * <p>
-	 * If and only if <tt>a.equals(b)</tt> then <tt>a.activeCopeItem() == b.activeCopeItem()</tt>.
+	 * If and only if {@code a.equals(b)</tt> then <tt>a.activeCopeItem() == b.activeCopeItem()}.
 	 * <p>
 	 * So it does for items, what {@link String#intern} does for strings.
 	 * Does activate this item, if it's not already active.
 	 * Is guaranteed to be very cheap, if this item object is already active, which means
-	 * this method returns <tt>this</tt>.
+	 * this method returns {@code this}.
 	 * Never returns null.
 	 */
 	public final Item activeCopeItem()
@@ -277,12 +277,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if <tt>value</tt> is null and <tt>field</tt>
+	 *         if {@code value</tt> is null and <tt>field}
 	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws FinalViolationException
-	 *         if <tt>field</tt> is {@link Field#isFinal() final}.
+	 *         if {@code field} is {@link Field#isFinal() final}.
 	 * @throws ClassCastException
-	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
+	 *         if {@code value</tt> is not compatible to <tt>field}.
 	 */
 	public final <E> void set(final FunctionField<E> field, final E value)
 	{
@@ -291,12 +291,12 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * @throws MandatoryViolationException
-	 *         if <tt>value</tt> is null and <tt>field</tt>
+	 *         if {@code value</tt> is null and <tt>field}
 	 *         is {@link Field#isMandatory() mandatory}.
 	 * @throws FinalViolationException
-	 *         if <tt>field</tt> is {@link Field#isFinal() final}.
+	 *         if {@code field} is {@link Field#isFinal() final}.
 	 * @throws ClassCastException
-	 *         if <tt>value</tt> is not compatible to <tt>field</tt>.
+	 *         if {@code value</tt> is not compatible to <tt>field}.
 	 */
 	public final void set(SetValue<?>... setValues)
 	{

@@ -44,7 +44,7 @@ public final class UniqueViolationException extends ConstraintViolationException
 	 * Creates a new UniqueViolationException with the necessary information about the violation.
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
-	 * @throws NullPointerException if <tt>constraint</tt> is null.
+	 * @throws NullPointerException if {@code constraint} is null.
 	 */
 	UniqueViolationException(
 			final UniqueConstraint feature,

@@ -455,7 +455,7 @@ public final class ConnectToken implements AutoCloseable
 
 	/**
 	 * @param properties is ignored
-	 * @deprecated Use {@link #issue(Model, String)} instead. Parameter <tt>properties</tt> is ignored.
+	 * @deprecated Use {@link #issue(Model, String)} instead. Parameter {@code properties} is ignored.
 	 */
 	@Deprecated
 	public static ConnectToken issue(

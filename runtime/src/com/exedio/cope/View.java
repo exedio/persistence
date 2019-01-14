@@ -29,7 +29,7 @@ import java.util.List;
 import javax.annotation.Nonnull;
 
 /**
- * A <tt>view</tt> represents a value computed from the
+ * A {@code view} represents a value computed from the
  * fields of a {@link Type}.
  * The computation is available both in Java and SQL,
  * so you can use views in search conditions.

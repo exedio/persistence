@@ -34,8 +34,8 @@ public final class CopyConstraint extends Feature
 
 	/**
 	 * @deprecated
-	 * Use <tt>copy.{@link FunctionField#copyFrom(ItemField) copyFrom}(target)</tt>
-	 * or <tt>target.{@link ItemField#copyTo(FunctionField) copyTo}(copy)</tt>
+	 * Use {@code copy.{@link FunctionField#copyFrom(ItemField) copyFrom}(target)}
+	 * or {@code target.{@link ItemField#copyTo(FunctionField) copyTo}(copy)}
 	 * instead.
 	 */
 	@Deprecated

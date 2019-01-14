@@ -137,7 +137,7 @@ public interface Function<E> extends Selectable<E>
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
-	 * is equal to the value of the <tt>right</tt> function.
+	 * is equal to the value of the {@code right} function.
 	 */
 	default CompareFunctionCondition<E> equal(final Function<? extends E> right)
 	{
@@ -147,7 +147,7 @@ public interface Function<E> extends Selectable<E>
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
-	 * is not equal to the value of the <tt>right</tt> function.
+	 * is not equal to the value of the {@code right} function.
 	 */
 	default CompareFunctionCondition<E> notEqual(final Function<? extends E> right)
 	{
@@ -157,7 +157,7 @@ public interface Function<E> extends Selectable<E>
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
-	 * is less than the value of the <tt>right</tt> function.
+	 * is less than the value of the {@code right} function.
 	 */
 	default CompareFunctionCondition<E> less(final Function<? extends E> right)
 	{
@@ -167,7 +167,7 @@ public interface Function<E> extends Selectable<E>
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
-	 * is not greater than the value of the <tt>right</tt> function.
+	 * is not greater than the value of the {@code right} function.
 	 */
 	default CompareFunctionCondition<E> lessOrEqual(final Function<? extends E> right)
 	{
@@ -177,7 +177,7 @@ public interface Function<E> extends Selectable<E>
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
-	 * is greater than the value of the <tt>right</tt> function.
+	 * is greater than the value of the {@code right} function.
 	 */
 	default CompareFunctionCondition<E> greater(final Function<? extends E> right)
 	{
@@ -187,7 +187,7 @@ public interface Function<E> extends Selectable<E>
 	/**
 	 * Returns a condition, that is true for all items,
 	 * if and only if the value of this function for that item
-	 * is not less than the value of the <tt>right</tt> function.
+	 * is not less than the value of the {@code right} function.
 	 */
 	default CompareFunctionCondition<E> greaterOrEqual(final Function<? extends E> right)
 	{

@@ -32,17 +32,17 @@ import javax.servlet.http.HttpServletResponse;
  * a {@link Media}.
  * <p>
  * Common usage is to maintain old urls after renaming a {@link Media}.
- * For instance, if there is a media <tt>picture</tt>:
+ * For instance, if there is a media {@code picture}:
  *
  * <pre>
  * static final Media picture = new Media(OPTIONAL);
  * </pre>
- * and this media is renamed to <tt>image</tt>:
+ * and this media is renamed to {@code image}:
  *
  * <pre>
  * static final Media image = new Media(OPTIONAL);
  * </pre>
- * then old urls created by <tt>picture</tt>
+ * then old urls created by {@code picture}
  * can be supported with an additional:
  *
  * <pre>

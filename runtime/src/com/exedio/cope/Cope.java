@@ -100,9 +100,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>X</tt> before calling
+	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Field#set(Item, Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	public static <X> void setAndCast(final Field<X> field, final Item item, final Object value)
@@ -112,9 +112,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>X</tt> before calling
+	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#equal(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
@@ -123,9 +123,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>X</tt> before calling
+	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#notEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
@@ -134,9 +134,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>X</tt> before calling
+	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#less(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
 	{
@@ -145,9 +145,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>X</tt> before calling
+	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#lessOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
 	{
@@ -156,9 +156,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>X</tt> before calling
+	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#greater(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
 	{
@@ -167,9 +167,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>value</tt> to <tt>X</tt> before calling
+	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#greaterOrEqual(Object)}
-	 * @throws ClassCastException if <tt>value</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
 	{
@@ -178,9 +178,9 @@ public final class Cope
 
 	/**
 	 * {@link Cast#verboseCast(Class, Object) Casts}
-	 * <tt>values</tt> to <tt>X</tt> before calling
+	 * {@code values</tt> to <tt>X} before calling
 	 * {@link Function#between(Object, Object)}
-	 * @throws ClassCastException if one of the <tt>values</tt> is not assignable to <tt>X</tt>
+	 * @throws ClassCastException if one of the {@code values</tt> is not assignable to <tt>X}
 	 */
 	public static <X> Condition betweenAndCast(final Function<X> function, final Object lowerBound, final Object upperBound)
 	{

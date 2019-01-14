@@ -27,9 +27,9 @@ abstract class DefaultSupplier<E>
 	 * Generates a default value.
 	 * <ul>
 	 * <li>The result may or may not be stable, i.e.
-	 * multiple calls even with the same <tt>ctx</tt>
+	 * multiple calls even with the same {@code ctx}
 	 * may return different results.</li>
-	 * <li>The result may or may not depend on parameter <tt>ctx</tt>.
+	 * <li>The result may or may not depend on parameter {@code ctx}.
 	 * However the result must not depend on {@link System#currentTimeMillis()},
 	 * but use {@link Context#currentTimeMillis() ctx.currentTimeMillis()} instead.
 	 * </li>

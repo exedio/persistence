@@ -155,8 +155,8 @@ public final class ServletUtil
 
 	/**
 	 * Returns connect properties from
-	 * the file <tt>cope.properties</tt>
-	 * in the directory <tt>WEB-INF</tt>
+	 * the file {@code cope.properties}
+	 * in the directory {@code WEB-INF}
 	 * of the web application.
 	 */
 	public static ConnectProperties getConnectProperties(final ServletContext context)

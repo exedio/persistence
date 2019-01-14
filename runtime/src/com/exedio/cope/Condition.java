@@ -145,7 +145,7 @@ public abstract class Condition implements Serializable
 	}
 
 	/**
-	 * Returns {@link #TRUE} if <tt>value</tt> is true,
+	 * Returns {@link #TRUE} if {@code value} is true,
 	 * otherwise {@link #FALSE}.
 	 */
 	public static final Condition valueOf(final boolean value)

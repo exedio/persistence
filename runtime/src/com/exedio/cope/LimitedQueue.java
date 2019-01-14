@@ -36,8 +36,8 @@ final class LimitedQueue<E>
 	 * Inserts the specified element into this queue if it is possible to do so
 	 * immediately without exceeding capacity.
 	 *
-	 * @return <tt>true</tt> if the element was added to this queue, else
-	 *         <tt>false</tt>
+	 * @return {@code true} if the element was added to this queue, else
+	 *         {@code false}
 	 */
 	boolean offer(final E e)
 	{

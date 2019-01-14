@@ -168,7 +168,7 @@ public abstract class FunctionField<E> extends Field<E>
 	 * Returns true, if a value for the field should be specified
 	 * on the creation of an item.
 	 * This implementation returns
-	 * <tt>({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) &amp;&amp; !{@link #hasDefault()}</tt>.
+	 * {@code ({@link #isFinal() isFinal()} || {@link #isMandatory() isMandatory()}) &amp;&amp; !{@link #hasDefault()}}.
 	 */
 	@Override
 	public final boolean isInitial()

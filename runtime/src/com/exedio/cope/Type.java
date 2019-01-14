@@ -1133,7 +1133,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * <p>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
-	 * result in an <tt>UnsupportedOperationException</tt>.
+	 * result in an {@code UnsupportedOperationException}.
 	 */
 	public List<T> search()
 	{
@@ -1145,7 +1145,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * <p>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
-	 * result in an <tt>UnsupportedOperationException</tt>.
+	 * result in an {@code UnsupportedOperationException}.
 	 *
 	 * @param condition the condition the searched items must match.
 	 */
@@ -1156,14 +1156,14 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	/**
 	 * Searches for items of this type, that match the given condition.
-	 * The result is sorted by the given function <tt>orderBy</tt>.
+	 * The result is sorted by the given function {@code orderBy}.
 	 * <p>
 	 * Returns an unmodifiable collection.
 	 * Any attempts to modify the returned collection, whether direct or via its iterator,
-	 * result in an <tt>UnsupportedOperationException</tt>.
+	 * result in an {@code UnsupportedOperationException}.
 	 *
 	 * @param condition the condition the searched items must match.
-	 * @param ascending whether the result is sorted ascendingly (<tt>true</tt>) or descendingly (<tt>false</tt>).
+	 * @param ascending whether the result is sorted ascendingly ({@code true</tt>) or descendingly (<tt>false}).
 	 */
 	public List<T> search(final Condition condition, final Function<?> orderBy, final boolean ascending)
 	{

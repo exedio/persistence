@@ -120,7 +120,7 @@ public final class PartOf<C extends Item> extends Pattern
 	// static convenience methods ---------------------------------
 
 	/**
-	 * Returns all part-of declarations where <tt>type</tt> or any of it's super types is
+	 * Returns all part-of declarations where {@code type} or any of it's super types is
 	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
 	 */
 	public static List<PartOf<?>> getPartOfs(final Type<?> type)
@@ -129,7 +129,7 @@ public final class PartOf<C extends Item> extends Pattern
 	}
 
 	/**
-	 * Returns all part-of declarations where <tt>type</tt> is
+	 * Returns all part-of declarations where {@code type} is
 	 * the container type {@link #getContainer()}.{@link ItemField#getValueType() getValueType()}.
 	 */
 	public static List<PartOf<?>> getDeclaredPartOfs(final Type<?> type)
@@ -138,7 +138,7 @@ public final class PartOf<C extends Item> extends Pattern
 	}
 
 	/**
-	 * Returns all partofs of the <tt>pattern</tt>. Considers a one step recursion
+	 * Returns all partofs of the {@code pattern}. Considers a one step recursion
 	 * for {@link History}.
 	 */
 	public static List<PartOf<?>> getPartOfs(final Pattern pattern)

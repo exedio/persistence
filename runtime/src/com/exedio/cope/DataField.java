@@ -569,7 +569,7 @@ public final class DataField extends Field<DataField.Value>
 		}
 
 		/**
-		 * Puts the contents of this value into <tt>digest</tt> via
+		 * Puts the contents of this value into {@code digest} via
 		 * {@link MessageDigest#update(byte[])}.
 		 * After the invocation of this method, this value is exhausted.
 		 * Therefore this method returns a new value equivalent to this value,
@@ -578,7 +578,7 @@ public final class DataField extends Field<DataField.Value>
 		public abstract Value update(MessageDigest digest) throws IOException;
 
 		/**
-		 * Puts the contents of this value into <tt>digest</tt> via
+		 * Puts the contents of this value into {@code digest} via
 		 * {@link MessageDigest#update(byte[])}.
 		 * After the invocation of this method, this value is exhausted.
 		 * Therefore this method returns a new value equivalent to this value,
