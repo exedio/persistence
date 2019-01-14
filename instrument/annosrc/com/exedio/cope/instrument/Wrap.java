@@ -61,8 +61,8 @@ public @interface Wrap
 	String GET_DOC = "Returns the value of {0}.";
 	String SET_DOC = "Sets a new value for {0}.";
 	String MAP_KEY = "k";
-	String MAP_GET_DOC = "Returns the value mapped to <tt>" + MAP_KEY + "</tt> by the field map {0}.";
-	String MAP_SET_DOC = "Associates <tt>" + MAP_KEY + "</tt> to a new value in the field map {0}.";
+	String MAP_GET_DOC = "Returns the value mapped to '{@code' " + MAP_KEY + "'}' by the field map {0}.";
+	String MAP_SET_DOC = "Associates '{@code' " + MAP_KEY + "'}' to a new value in the field map {0}.";
 
 	String FOR_NAME = "for{0}";
 	String FOR_STRICT_NAME = "for{0}Strict";
@@ -73,7 +73,7 @@ public @interface Wrap
 	String FOR_STRICT_THROWN = "if there is no matching item.";
 
 	String HASH_CHECK_DOC = "Returns whether the given value corresponds to the hash in {0}.";
-	String HASH_BLIND_DOC_1 = "Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.";
+	String HASH_BLIND_DOC_1 = "Wastes (almost) as much cpu cycles, as a call to '{@code' check{3}'}' would have needed.";
 	String HASH_BLIND_DOC_2 = "Needed to prevent Timing Attacks.";
 
 	String MEDIA_LOCATOR = "Returns a Locator the content of {0} is available under.";

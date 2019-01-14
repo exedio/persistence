@@ -239,7 +239,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		return copyWith.getCopyField(template);
 	}
 
-	private static final String MODIFICATION_RETURN = "<tt>true</tt> if the field set changed as a result of the call.";
+	private static final String MODIFICATION_RETURN = "'{@code true}' if the field set changed as a result of the call.";
 
 	@Wrap(order=10, doc=Wrap.GET_DOC)
 	@Nonnull

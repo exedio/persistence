@@ -271,7 +271,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			order = 200,
 			name = "getOrCreate",
 			doc = "Returns a {2} containing given media value or creates a new one.",
-			thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading <tt>value</tt> throws an IOException."))
+			thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading '{@code value}' throws an IOException."))
 	@Nullable
 	public <P extends Item> P getOrCreate(
 			@Nonnull final Class<P> typeClass,

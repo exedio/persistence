@@ -459,7 +459,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=110,
 			doc = "Sets the content of media {0}.",
 			hide=FinalSettableGetter.class,
-			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
 	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	public void set(
 			@Nonnull final Item item,
@@ -521,7 +521,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=50,
 			doc={"Writes the body of media {0} into the given stream.",
 					"Does nothing, if the media is null."},
-			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
 	public void getBody(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("body") final OutputStream body)
@@ -543,7 +543,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=130,
 			doc="Sets the content of media {0}.",
 			hide=FinalSettableGetter.class,
-			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
 	public void set(
 			@Nonnull final Item item,
 			@Parameter(value="body", nullability=NullableIfOptional.class) final InputStream body,
@@ -568,7 +568,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=58,
 			doc={"Writes the body of media {0} into the given file.",
 					"Does nothing, if the media is null."},
-			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
 	public void getBody(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("body") final Path body)
@@ -587,7 +587,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=60,
 			doc={"Writes the body of media {0} into the given file.",
 					"Does nothing, if the media is null."},
-			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
 	public void getBody(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("body") final File body)
@@ -599,7 +599,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=138,
 			doc="Sets the content of media {0}.",
 			hide=FinalSettableGetter.class,
-			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
 	public void set(
 			@Nonnull final Item item,
 			@Parameter(value="body", nullability=NullableIfOptional.class) final Path body,
@@ -625,7 +625,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	@Wrap(order=140,
 			doc="Sets the content of media {0}.",
 			hide=FinalSettableGetter.class,
-			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing <tt>body</tt> throws an IOException."))
+			thrown=@Wrap.Thrown(value=IOException.class, doc="if accessing '{@code body}' throws an IOException."))
 	public void set(
 			@Nonnull final Item item,
 			@Parameter(value="body", nullability=NullableIfOptional.class) final File body,

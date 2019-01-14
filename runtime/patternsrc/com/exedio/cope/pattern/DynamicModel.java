@@ -394,7 +394,7 @@ public final class DynamicModel<L> extends Pattern
 		return enums[pos];
 	}
 
-	@Wrap(order=30, doc="Returns the value of <tt>field</tt> for this item in the model {0}.")
+	@Wrap(order=30, doc="Returns the value of '{@code field}' for this item in the model {0}.")
 	@Nullable
 	public Object get(
 			@Nonnull final Item item,
@@ -404,7 +404,7 @@ public final class DynamicModel<L> extends Pattern
 		return getField(field).get(item);
 	}
 
-	@Wrap(order=40, doc="Sets the value of <tt>field</tt> for this item in the model {0}.")
+	@Wrap(order=40, doc="Sets the value of '{@code field}' for this item in the model {0}.")
 	public void set(
 			@Nonnull final Item item,
 			@Nonnull @Parameter("field") final Field<L> field,
