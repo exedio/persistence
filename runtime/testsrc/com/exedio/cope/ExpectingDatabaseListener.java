@@ -24,7 +24,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- *	An implementation of <tt>DatabaseListener</tt> that can be used to expect load and search calls
+ *	An implementation of {@code DatabaseListener} that can be used to expect load and search calls
  * in unit tests, and to verify that all these and no other calls have been made
  * to the wrapped database.
  */

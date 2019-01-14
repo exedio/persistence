@@ -26,8 +26,8 @@ import java.io.InputStream;
 
 /**
  * An input stream suitable for testing stream related code.
- * Makes the <tt>ByteArrayInputStream</tt> close-sensitive,
- * i.e. all methods except <tt>close</tt> throw an <tt>IOException</tt>,
+ * Makes the {@code ByteArrayInputStream} close-sensitive,
+ * i.e. all methods except {@code close} throw an {@code IOException},
  * if the stream has already been closed.
  *
  * @author Ralf Wiebicke
