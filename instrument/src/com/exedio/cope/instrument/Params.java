@@ -64,7 +64,6 @@ final class Params
 	boolean finalMethodInFinalClass = true;
 	boolean wildcardClass = true;
 	boolean wildcardClassFullyQualified = false;
-	boolean convertTT2Code = true;
 	boolean genericConstructorOneline = true;
 	boolean verbose = false;
 	File buildDirectory = null;

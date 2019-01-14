@@ -170,7 +170,7 @@ public final class AntTask extends Task
 
 	public void setConvertTT2Code(final boolean value)
 	{
-		params.convertTT2Code = value;
+		throwNoLongerSupported("convertTT2Code", true);
 	}
 
 	public void setGenericConstructorOneline(final boolean value)
@@ -181,6 +181,13 @@ public final class AntTask extends Task
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;
+	}
+
+	private static void throwNoLongerSupported(final String attribute, final boolean defaultValue)
+	{
+		throw new BuildException(
+				"Attribute " + attribute + " is no longer supported. " +
+				"The instrumentor now behaves as specified by the default (" + defaultValue + ") of the attribute.");
 	}
 
 	@Override

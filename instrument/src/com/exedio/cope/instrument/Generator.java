@@ -41,7 +41,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
-import java.util.regex.Pattern;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -75,7 +74,6 @@ final class Generator
 	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardClass;
 	private final boolean wildcardClassFullyQualified;
-	private final boolean convertTT2Code;
 	private final boolean genericConstructorMultiline;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -96,7 +94,6 @@ final class Generator
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.wildcardClass = params.wildcardClass;
 		this.wildcardClassFullyQualified = params.wildcardClassFullyQualified;
-		this.convertTT2Code = params.convertTT2Code;
 		this.genericConstructorMultiline = !params.genericConstructorOneline;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
@@ -745,18 +742,11 @@ final class Generator
 		}
 	}
 
-	private String[] convertComment(final String[] comment)
+	private static String[] convertComment(final String[] comment)
 	{
-		if(!convertTT2Code)
-			return comment;
-
-		final String[] result = new String[comment.length];
-		for(int i = 0; i<comment.length; i++)
-			result[i] = convertCommentPattern.matcher(comment[i]).replaceAll("'{@code' $1'}'");
-		return result;
+		// TODO remove method
+		return comment;
 	}
-
-	private static final Pattern convertCommentPattern = Pattern.compile("<tt>(.*)</tt>");
 
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{
