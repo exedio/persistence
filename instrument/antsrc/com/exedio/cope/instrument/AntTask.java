@@ -177,6 +177,11 @@ public final class AntTask extends Task
 		params.wildcardClassFullyQualified = value;
 	}
 
+	public void setConvertTT2Code(final boolean value)
+	{
+		params.convertTT2Code = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;

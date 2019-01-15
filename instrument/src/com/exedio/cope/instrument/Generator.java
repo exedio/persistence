@@ -41,6 +41,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.regex.Pattern;
 import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -76,6 +77,7 @@ final class Generator
 	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardClass;
 	private final boolean wildcardClassFullyQualified;
+	private final boolean convertTT2Code;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 
@@ -94,6 +96,7 @@ final class Generator
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.wildcardClass = params.wildcardClass;
 		this.wildcardClassFullyQualified = params.wildcardClassFullyQualified;
+		this.convertTT2Code = params.convertTT2Code;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -379,7 +382,7 @@ final class Generator
 					featureNameCamelCase};
 			{
 				final List<String> commentLines=new ArrayList<>();
-				collectCommentParagraph(commentLines, "", "", wrapper.getCommentArray(), arguments);
+				collectCommentParagraph(commentLines, "", "", convertComment(wrapper.getCommentArray()), arguments);
 
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -389,7 +392,7 @@ final class Generator
 								commentLines,
 								"@param " + format(parameter.getName(), arguments),
 								"       ",
-								parameter.getComment(), arguments);
+								convertComment(parameter.getComment()), arguments);
 					}
 					else
 					{
@@ -406,7 +409,7 @@ final class Generator
 									commentLines,
 									"@param " + format(parameterName, parameterArguments),
 									"       ",
-									parameter.getComment(), parameterArguments);
+									convertComment(parameter.getComment()), parameterArguments);
 						}
 					}
 				}
@@ -414,7 +417,7 @@ final class Generator
 						commentLines,
 						"@return",
 						"        ",
-						wrapper.getReturnComment(), arguments);
+						convertComment(wrapper.getReturnComment()), arguments);
 
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
@@ -422,7 +425,7 @@ final class Generator
 							commentLines,
 							"@throws " + e.getKey().getCanonicalName(),
 							"        ",
-							e.getValue(), arguments);
+							convertComment(e.getValue()), arguments);
 				}
 				writeComment(commentLines);
 				writeGeneratedAnnotation(
@@ -694,6 +697,19 @@ final class Generator
 			commentLines.add(line.isEmpty()?"":(prefixN+format(line, arguments)));
 		}
 	}
+
+	private String[] convertComment(final String[] comment)
+	{
+		if(!convertTT2Code)
+			return comment;
+
+		final String[] result = new String[comment.length];
+		for(int i = 0; i<comment.length; i++)
+			result[i] = convertCommentPattern.matcher(comment[i]).replaceAll("'{@code' $1'}'");
+		return result;
+	}
+
+	private static final Pattern convertCommentPattern = Pattern.compile("<tt>(.*)</tt>");
 
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{

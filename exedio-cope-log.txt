@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor converts <tt>...</tt> to {@code ...}.
+	Fixes javadoc failure on jdk 11.0.1: tag not supported in the generated HTML version: tt.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument convertTT2Code="false" ...
+	to enable previous behaviour.
 * ConnectProperties#getDialectUrlMappers added.
 * DataField supports java.nio.file.Path getter.
 

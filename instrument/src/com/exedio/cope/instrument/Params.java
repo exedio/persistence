@@ -62,6 +62,7 @@ final class Params
 	boolean finalMethodInFinalClass = true;
 	boolean wildcardClass = true;
 	boolean wildcardClassFullyQualified = false;
+	boolean convertTT2Code = true;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;
