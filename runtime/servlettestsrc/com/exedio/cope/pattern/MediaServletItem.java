@@ -243,7 +243,7 @@ final class MediaServletItem extends Item
 	/**
 	 * Writes the body of media {@link #content} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getContentBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -256,7 +256,7 @@ final class MediaServletItem extends Item
 	/**
 	 * Writes the body of media {@link #content} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getContentBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -269,7 +269,7 @@ final class MediaServletItem extends Item
 	/**
 	 * Writes the body of media {@link #content} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getContentBody(@javax.annotation.Nonnull final java.io.File body)
@@ -290,7 +290,7 @@ final class MediaServletItem extends Item
 
 	/**
 	 * Sets the content of media {@link #content}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	private void setContentInternal(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -302,7 +302,7 @@ final class MediaServletItem extends Item
 
 	/**
 	 * Sets the content of media {@link #content}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	private void setContentInternal(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)

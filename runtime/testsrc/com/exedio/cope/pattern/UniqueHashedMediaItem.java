@@ -139,7 +139,7 @@ public final class UniqueHashedMediaItem extends Item
 	/**
 	 * Returns a uniqueHashedMediaItem containing given media value or creates a new one.
 	 * @param value shall be equal to field {@link #value}.
-	 * @throws java.io.IOException if reading <tt>value</tt> throws an IOException.
+	 * @throws java.io.IOException if reading {@code value} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getOrCreate")
 	@javax.annotation.Nullable

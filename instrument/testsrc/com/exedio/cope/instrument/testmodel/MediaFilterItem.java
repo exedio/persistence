@@ -113,7 +113,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #text} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getTextBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -126,7 +126,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #text} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getTextBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -139,7 +139,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #text} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getTextBody(@javax.annotation.Nonnull final java.io.File body)
@@ -151,7 +151,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #text}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setText(@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value text)
@@ -172,7 +172,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #text}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setText(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
@@ -184,7 +184,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #text}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setText(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
@@ -196,7 +196,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #text}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setText(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
@@ -297,7 +297,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #optionalText} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getOptionalTextBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -310,7 +310,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #optionalText} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getOptionalTextBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -323,7 +323,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #optionalText} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getOptionalTextBody(@javax.annotation.Nonnull final java.io.File body)
@@ -335,7 +335,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #optionalText}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalText(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value optionalText)
@@ -356,7 +356,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #optionalText}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalText(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -368,7 +368,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #optionalText}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalText(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -380,7 +380,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #optionalText}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setOptionalText(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -482,7 +482,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #textOrImage} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getTextOrImageBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -495,7 +495,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #textOrImage} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getTextOrImageBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -508,7 +508,7 @@ public class MediaFilterItem extends Item
 	/**
 	 * Writes the body of media {@link #textOrImage} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	final void getTextOrImageBody(@javax.annotation.Nonnull final java.io.File body)
@@ -520,7 +520,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #textOrImage}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setTextOrImage(@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value textOrImage)
@@ -541,7 +541,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #textOrImage}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setTextOrImage(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
@@ -553,7 +553,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #textOrImage}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setTextOrImage(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
@@ -565,7 +565,7 @@ public class MediaFilterItem extends Item
 
 	/**
 	 * Sets the content of media {@link #textOrImage}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	final void setTextOrImage(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)

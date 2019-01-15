@@ -98,7 +98,7 @@ public final class MessageDigestHashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPassword</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPassword} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -136,7 +136,7 @@ public final class MessageDigestHashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPasswordLatin</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPasswordLatin} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -174,7 +174,7 @@ public final class MessageDigestHashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPasswordFinal</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPasswordFinal} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -203,7 +203,7 @@ public final class MessageDigestHashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPasswordMandatory</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPasswordMandatory} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")

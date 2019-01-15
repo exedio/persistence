@@ -173,7 +173,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #text}.
+	 * Returns the value mapped to {@code k} by the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -183,7 +183,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #text}.
+	 * Returns the value mapped to {@code k} by the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
 	@javax.annotation.Nullable
@@ -193,7 +193,7 @@ public class EnumMapFieldFallbackTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #text}.
+	 * Associates {@code k} to a new value in the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setText(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String text)

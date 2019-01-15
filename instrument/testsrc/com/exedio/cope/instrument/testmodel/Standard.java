@@ -1169,7 +1169,7 @@ public final class Standard extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPublicHash</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPublicHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -1216,7 +1216,7 @@ public final class Standard extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPrivateHash</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPrivateHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -1263,7 +1263,7 @@ public final class Standard extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkMandatoryHash</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkMandatoryHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -1314,7 +1314,7 @@ public final class Standard extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPrivateSetterHash</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPrivateSetterHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")

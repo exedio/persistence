@@ -168,7 +168,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #foto} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -181,7 +181,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #foto} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -194,7 +194,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #foto} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoBody(@javax.annotation.Nonnull final java.io.File body)
@@ -206,7 +206,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #foto}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFoto(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value foto)
@@ -227,7 +227,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #foto}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFoto(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -239,7 +239,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #foto}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFoto(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -251,7 +251,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #foto}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFoto(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -312,7 +312,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoSecure} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoSecureBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -325,7 +325,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoSecure} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoSecureBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -338,7 +338,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoSecure} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoSecureBody(@javax.annotation.Nonnull final java.io.File body)
@@ -350,7 +350,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecure(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fotoSecure)
@@ -371,7 +371,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecure(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -383,7 +383,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecure(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -395,7 +395,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecure(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -456,7 +456,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoFinger} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -469,7 +469,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoFinger} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoFingerBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -482,7 +482,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoFinger} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoFingerBody(@javax.annotation.Nonnull final java.io.File body)
@@ -494,7 +494,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoFinger(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fotoFinger)
@@ -515,7 +515,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoFinger(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -527,7 +527,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoFinger(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -539,7 +539,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoFinger(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -600,7 +600,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoSecFin} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoSecFinBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -613,7 +613,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoSecFin} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoSecFinBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -626,7 +626,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fotoSecFin} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFotoSecFinBody(@javax.annotation.Nonnull final java.io.File body)
@@ -638,7 +638,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecFin(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fotoSecFin)
@@ -659,7 +659,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecFin(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -671,7 +671,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecFin(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -683,7 +683,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fotoSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFotoSecFin(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -744,7 +744,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #file} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -757,7 +757,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -770,7 +770,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #file} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileBody(@javax.annotation.Nonnull final java.io.File body)
@@ -782,7 +782,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFile(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
@@ -803,7 +803,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFile(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -815,7 +815,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFile(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -827,7 +827,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #file}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFile(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -888,7 +888,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileSecure} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileSecureBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -901,7 +901,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileSecure} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileSecureBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -914,7 +914,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileSecure} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileSecureBody(@javax.annotation.Nonnull final java.io.File body)
@@ -926,7 +926,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecure(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fileSecure)
@@ -947,7 +947,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecure(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -959,7 +959,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecure(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -971,7 +971,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecure}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecure(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -1032,7 +1032,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileFinger} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -1045,7 +1045,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileFinger} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileFingerBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -1058,7 +1058,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileFinger} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileFingerBody(@javax.annotation.Nonnull final java.io.File body)
@@ -1070,7 +1070,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileFinger(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fileFinger)
@@ -1091,7 +1091,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileFinger(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -1103,7 +1103,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileFinger(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -1115,7 +1115,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileFinger}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileFinger(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -1176,7 +1176,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileSecFin} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileSecFinBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -1189,7 +1189,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileSecFin} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileSecFinBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -1202,7 +1202,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	/**
 	 * Writes the body of media {@link #fileSecFin} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getFileSecFinBody(@javax.annotation.Nonnull final java.io.File body)
@@ -1214,7 +1214,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecFin(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value fileSecFin)
@@ -1235,7 +1235,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecFin(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -1247,7 +1247,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecFin(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -1259,7 +1259,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 
 	/**
 	 * Sets the content of media {@link #fileSecFin}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFileSecFin(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)

@@ -320,7 +320,7 @@ public class BlockFieldStandardModelTest
 	/**
 	 * Writes the body of media {@link #aMedia} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getAMediaBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -333,7 +333,7 @@ public class BlockFieldStandardModelTest
 	/**
 	 * Writes the body of media {@link #aMedia} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getAMediaBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -346,7 +346,7 @@ public class BlockFieldStandardModelTest
 	/**
 	 * Writes the body of media {@link #aMedia} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
@@ -358,7 +358,7 @@ public class BlockFieldStandardModelTest
 
 	/**
 	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setAMedia(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value aMedia)
@@ -379,7 +379,7 @@ public class BlockFieldStandardModelTest
 
 	/**
 	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setAMedia(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -391,7 +391,7 @@ public class BlockFieldStandardModelTest
 
 	/**
 	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setAMedia(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -403,7 +403,7 @@ public class BlockFieldStandardModelTest
 
 	/**
 	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setAMedia(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -503,7 +503,7 @@ public class BlockFieldStandardModelTest
 
 	/**
 	 * Adds a new element to {@link #aSet}.
-	 * @return <tt>true</tt> if the field set changed as a result of the call.
+	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
 	boolean addToASet(@javax.annotation.Nonnull final Integer element)
@@ -516,7 +516,7 @@ public class BlockFieldStandardModelTest
 
 	/**
 	 * Removes an element from {@link #aSet}.
-	 * @return <tt>true</tt> if the field set changed as a result of the call.
+	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
 	boolean removeFromASet(@javax.annotation.Nonnull final Integer element)

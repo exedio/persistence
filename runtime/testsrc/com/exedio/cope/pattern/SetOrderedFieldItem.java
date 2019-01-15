@@ -102,7 +102,7 @@ public final class SetOrderedFieldItem extends Item
 
 	/**
 	 * Adds a new element to {@link #strings}.
-	 * @return <tt>true</tt> if the field set changed as a result of the call.
+	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
 	boolean addToStrings(@javax.annotation.Nonnull final String element)
@@ -116,7 +116,7 @@ public final class SetOrderedFieldItem extends Item
 
 	/**
 	 * Removes an element from {@link #strings}.
-	 * @return <tt>true</tt> if the field set changed as a result of the call.
+	 * @return {@code true} if the field set changed as a result of the call.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
 	boolean removeFromStrings(@javax.annotation.Nonnull final String element)

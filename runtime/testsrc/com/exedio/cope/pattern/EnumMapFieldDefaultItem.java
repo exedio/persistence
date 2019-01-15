@@ -51,7 +51,7 @@ public final class EnumMapFieldDefaultItem extends Item
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #text}.
+	 * Returns the value mapped to {@code k} by the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
@@ -61,7 +61,7 @@ public final class EnumMapFieldDefaultItem extends Item
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #text}.
+	 * Associates {@code k} to a new value in the field map {@link #text}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k,@javax.annotation.Nonnull final String text)

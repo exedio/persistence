@@ -129,7 +129,7 @@ public final class PasswordLimiterItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkPassword</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPassword} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")

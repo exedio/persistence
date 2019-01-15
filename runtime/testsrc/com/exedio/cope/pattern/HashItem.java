@@ -100,7 +100,7 @@ public final class HashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkExplicitExternal</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkExplicitExternal} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -147,7 +147,7 @@ public final class HashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkImplicitExternal</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkImplicitExternal} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -194,7 +194,7 @@ public final class HashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkInternal</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkInternal} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -241,7 +241,7 @@ public final class HashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkLimited15</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkLimited15} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -288,7 +288,7 @@ public final class HashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkWithCorruptValidator</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkWithCorruptValidator} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
@@ -335,7 +335,7 @@ public final class HashItem extends Item
 	}
 
 	/**
-	 * Wastes (almost) as much cpu cycles, as a call to <tt>checkWith3PinValidator</tt> would have needed.
+	 * Wastes (almost) as much cpu cycles, as a call to {@code checkWith3PinValidator} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")

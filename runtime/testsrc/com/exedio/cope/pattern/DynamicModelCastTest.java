@@ -167,7 +167,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Returns the value of <tt>field</tt> for this item in the model {@link #alpha}.
+	 * Returns the value of {@code field} for this item in the model {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -177,7 +177,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Sets the value of <tt>field</tt> for this item in the model {@link #alpha}.
+	 * Sets the value of {@code field} for this item in the model {@link #alpha}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setAlpha(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field,@javax.annotation.Nullable final java.lang.Object value)
@@ -205,7 +205,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Returns the value of <tt>field</tt> for this item in the model {@link #alfa}.
+	 * Returns the value of {@code field} for this item in the model {@link #alfa}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -215,7 +215,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Sets the value of <tt>field</tt> for this item in the model {@link #alfa}.
+	 * Sets the value of {@code field} for this item in the model {@link #alfa}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setAlfa(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field,@javax.annotation.Nullable final java.lang.Object value)
@@ -243,7 +243,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Returns the value of <tt>field</tt> for this item in the model {@link #beta}.
+	 * Returns the value of {@code field} for this item in the model {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -253,7 +253,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Sets the value of <tt>field</tt> for this item in the model {@link #beta}.
+	 * Sets the value of {@code field} for this item in the model {@link #beta}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setBeta(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<String> field,@javax.annotation.Nullable final java.lang.Object value)

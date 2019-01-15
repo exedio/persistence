@@ -69,7 +69,7 @@ public final class EnumMapFieldItem extends Item
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #name}.
+	 * Returns the value mapped to {@code k} by the field map {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -79,7 +79,7 @@ public final class EnumMapFieldItem extends Item
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #name}.
+	 * Associates {@code k} to a new value in the field map {@link #name}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
@@ -101,7 +101,7 @@ public final class EnumMapFieldItem extends Item
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #nameLength}.
+	 * Returns the value mapped to {@code k} by the field map {@link #nameLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -111,7 +111,7 @@ public final class EnumMapFieldItem extends Item
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #nameLength}.
+	 * Associates {@code k} to a new value in the field map {@link #nameLength}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
@@ -133,7 +133,7 @@ public final class EnumMapFieldItem extends Item
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #defaults}.
+	 * Returns the value mapped to {@code k} by the field map {@link #defaults}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -143,7 +143,7 @@ public final class EnumMapFieldItem extends Item
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #defaults}.
+	 * Associates {@code k} to a new value in the field map {@link #defaults}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setDefaults(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String defaults)

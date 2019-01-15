@@ -163,7 +163,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #noneMand}.
+	 * Returns the value mapped to {@code k} by the field map {@link #noneMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
@@ -173,7 +173,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #noneMand}.
+	 * Associates {@code k} to a new value in the field map {@link #noneMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setNoneMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nonnull final String noneMand)
@@ -195,7 +195,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #noneOpt}.
+	 * Returns the value mapped to {@code k} by the field map {@link #noneOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -205,7 +205,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #noneOpt}.
+	 * Associates {@code k} to a new value in the field map {@link #noneOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setNoneOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String noneOpt)
@@ -227,7 +227,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallMand}.
+	 * Returns the value mapped to {@code k} by the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -237,7 +237,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallMand}.
+	 * Returns the value mapped to {@code k} by the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
 	@javax.annotation.Nonnull
@@ -247,7 +247,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #fallMand}.
+	 * Associates {@code k} to a new value in the field map {@link #fallMand}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFallMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallMand)
@@ -276,7 +276,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallOpt}.
+	 * Returns the value mapped to {@code k} by the field map {@link #fallOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -286,7 +286,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Returns the value mapped to <tt>k</tt> by the field map {@link #fallOpt}.
+	 * Returns the value mapped to {@code k} by the field map {@link #fallOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
 	@javax.annotation.Nullable
@@ -296,7 +296,7 @@ public class EnumMapFieldFallbackModelTest
 	}
 
 	/**
-	 * Associates <tt>k</tt> to a new value in the field map {@link #fallOpt}.
+	 * Associates {@code k} to a new value in the field map {@link #fallOpt}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFallOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallOpt)

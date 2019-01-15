@@ -87,7 +87,7 @@ public final class DynamicModelItem extends Item
 	}
 
 	/**
-	 * Returns the value of <tt>field</tt> for this item in the model {@link #features}.
+	 * Returns the value of {@code field} for this item in the model {@link #features}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -97,7 +97,7 @@ public final class DynamicModelItem extends Item
 	}
 
 	/**
-	 * Sets the value of <tt>field</tt> for this item in the model {@link #features}.
+	 * Sets the value of {@code field} for this item in the model {@link #features}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setFeatures(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)
@@ -125,7 +125,7 @@ public final class DynamicModelItem extends Item
 	}
 
 	/**
-	 * Returns the value of <tt>field</tt> for this item in the model {@link #small}.
+	 * Returns the value of {@code field} for this item in the model {@link #small}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nullable
@@ -135,7 +135,7 @@ public final class DynamicModelItem extends Item
 	}
 
 	/**
-	 * Sets the value of <tt>field</tt> for this item in the model {@link #small}.
+	 * Sets the value of {@code field} for this item in the model {@link #small}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setSmall(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)

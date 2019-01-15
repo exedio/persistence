@@ -170,7 +170,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	/**
 	 * Writes the body of media {@link #source} into the given stream.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getSourceBody(@javax.annotation.Nonnull final java.io.OutputStream body)
@@ -183,7 +183,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	/**
 	 * Writes the body of media {@link #source} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getSourceBody(@javax.annotation.Nonnull final java.nio.file.Path body)
@@ -196,7 +196,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	/**
 	 * Writes the body of media {@link #source} into the given file.
 	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
 	void getSourceBody(@javax.annotation.Nonnull final java.io.File body)
@@ -208,7 +208,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 
 	/**
 	 * Sets the content of media {@link #source}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setSource(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value source)
@@ -229,7 +229,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 
 	/**
 	 * Sets the content of media {@link #source}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setSource(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -241,7 +241,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 
 	/**
 	 * Sets the content of media {@link #source}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setSource(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
@@ -253,7 +253,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 
 	/**
 	 * Sets the content of media {@link #source}.
-	 * @throws java.io.IOException if accessing <tt>body</tt> throws an IOException.
+	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 	void setSource(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
