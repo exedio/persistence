@@ -369,13 +369,13 @@ public final class Dispatcher extends Pattern
 					item.dispatch(this);
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
-					unpend(item, true, new Date(start));
 					runType.newItem(
 							parentClass, item, new Date(start), elapsed,
 							0, limit,
 							Result.success, null);
-
 					tx.commit();
+
+					unpend(item, true, new Date(start));
 					logger.info("success for {}, took {}ms", itemID, elapsed);
 				}
 				catch(final Exception failureCause)
@@ -416,11 +416,10 @@ public final class Dispatcher extends Pattern
 							parentClass, item, new Date(start), elapsed,
 							remaining, limit,
 							Result.failure(isFinal), failureCauseStackTrace.toByteArray());
+					tx.commit();
 
 					if(isFinal)
 						unpend(item, false, new Date(start));
-
-					tx.commit();
 
 					if(isFinal)
 					{
@@ -455,7 +454,15 @@ public final class Dispatcher extends Pattern
 		sv.add(pending.map(false));
 		if(supportsPurge())
 			sv.add(unpend.map(new Unpend(success, date)));
-		item.set(sv.toArray(EMPTY_SET_VALUE_ARRAY));
+
+		// A separate transaction for unpend helps to avoid TemporaryTransactionException
+		// if there are two Dispatchers on the same type dispatching the same item at
+		// the same time.
+		try(TransactionTry tx = getType().getModel().startTransactionTry(getID() + " unpend " + item.getCopeID()))
+		{
+			item.set(sv.toArray(EMPTY_SET_VALUE_ARRAY));
+			tx.commit();
+		}
 	}
 
 	/**
