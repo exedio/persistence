@@ -39,6 +39,11 @@ public final class SI
 		return quoteName(type.getModel(), getTableName(type));
 	}
 
+	public static String view(final Type<?> type)
+	{
+		return quoteName(type.getModel(), getTableName(type) + "V");
+	}
+
 	public static String pk(final Type<?> type)
 	{
 		return quoteName(type.getModel(), getPrimaryKeyColumnName(type));

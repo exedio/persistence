@@ -21,6 +21,7 @@ package com.exedio.cope.tojunit;
 import static java.util.Objects.requireNonNull;
 
 import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 
 /**
@@ -35,6 +36,11 @@ public class ProxyResultSet extends AssertionErrorResultSet
 		this.origin = requireNonNull(origin, "origin");
 	}
 
+	@Override
+	public ResultSetMetaData getMetaData() throws SQLException
+	{
+		return origin.getMetaData();
+	}
 	@Override
 	public boolean next() throws SQLException
 	{

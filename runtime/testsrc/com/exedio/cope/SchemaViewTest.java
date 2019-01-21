@@ -35,7 +35,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests schema verification with views present in schema.
- * Needed for "nice views" currently implemented in copeconsole.
+ * Needed for {@link com.exedio.cope.misc.SchemaView}.
  */
 @MainRule.Tag
 public class SchemaViewTest extends TestWithEnvironment
