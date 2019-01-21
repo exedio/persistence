@@ -1,11 +1,10 @@
-dist: trusty
+dist: xenial
 sudo: required
 language: java
 jdk:
   - openjdk8
 
 before_install:
-  - sudo mysql_upgrade
   - >
     echo -e -n
     "[server]\n
@@ -13,15 +12,9 @@ before_install:
     log_bin=/var/log/mysql/mysql-bin.log\n
     binlog_do_db=binlogtest\n"
     | sudo tee /etc/mysql/conf.d/cope.cnf
-  - sudo service mysql restart
+  - sudo service mysql start
 
 addons:
-  apt:
-    sources:
-      - mysql-5.7-trusty
-    packages:
-      - mysql-server
-      - mysql-client
   postgresql: "9.5"
 
 before_script:
