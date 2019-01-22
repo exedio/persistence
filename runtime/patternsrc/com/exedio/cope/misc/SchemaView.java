@@ -32,6 +32,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.LinkedList;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -59,7 +60,11 @@ public final class SchemaView
 					append(" AS (SELECT ").
 					append(table(type)).append('.').append(column(type));
 
+				final LinkedList<Type<?>> superTypes = new LinkedList<>();
 				for(Type<?> superType = type; superType!=null; superType = superType.getSupertype())
+					superTypes.add(0, superType);
+
+				for(final Type<?> superType : superTypes)
 				{
 					for(final Field<?> field : superType.getDeclaredFields())
 					{

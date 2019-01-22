@@ -97,11 +97,11 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 				final ResultSetMetaData md = rs.getMetaData();
 				assertAll(
 						() -> assertEquals("this",     md.getColumnName(1)),
-						() -> assertEquals("supPlain", md.getColumnName(5)), // TODO should be 2
-						() -> assertEquals("supEnum",  md.getColumnName(6)), // TODO should be 3
-						() -> assertEquals("plain",    md.getColumnName(2)),
-						() -> assertEquals("enum",     md.getColumnName(3)),
-						() -> assertEquals("date",     md.getColumnName(4)),
+						() -> assertEquals("supPlain", md.getColumnName(2)),
+						() -> assertEquals("supEnum",  md.getColumnName(3)),
+						() -> assertEquals("plain",    md.getColumnName(4)),
+						() -> assertEquals("enum",     md.getColumnName(5)),
+						() -> assertEquals("date",     md.getColumnName(6)),
 						() -> assertEquals(6,          md.getColumnCount()));
 			}
 
@@ -148,11 +148,11 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		assertTrue(rs.next());
 		assertAll(
 				() -> assertEquals(thisS,    rs.getString(1), "this"),
-				() -> assertEquals(supPlain, rs.getString(5), "supPlain"), // TODO should be 2
-				() -> assertEquals(supEnum,  rs.getString(6), "supEnum"),  // TODO should be 3
-				() -> assertEquals(plain,    rs.getString(2), "plain"),
-				() -> assertEquals(enumS,    rs.getString(3), "enum"),
-				() -> assertEquals(date,     rs.getString(4), "date"));
+				() -> assertEquals(supPlain, rs.getString(2), "supPlain"),
+				() -> assertEquals(supEnum,  rs.getString(3), "supEnum"),
+				() -> assertEquals(plain,    rs.getString(4), "plain"),
+				() -> assertEquals(enumS,    rs.getString(5), "enum"),
+				() -> assertEquals(date,     rs.getString(6), "date"));
 	}
 
 
