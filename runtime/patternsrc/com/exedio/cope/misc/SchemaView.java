@@ -88,9 +88,11 @@ public final class SchemaView
 						}
 						else if(field instanceof DateField && !SchemaInfo.supportsNativeDate(model))
 						{
-							bf.append("FROM_UNIXTIME(").
+							bf.append("IF("). // needed to deal with null
 								append(table(superType)).append('.').append(column(field)).
-								append("/1000) AS ").append(column(field));
+								append(" IS NULL,NULL,DATE_ADD(FROM_UNIXTIME(0),INTERVAL "). // needed to deal with negative values
+								append(table(superType)).append('.').append(column(field)).
+								append("/1000 SECOND)) AS ").append(column(field));
 						}
 						else
 						{

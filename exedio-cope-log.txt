@@ -208,7 +208,7 @@ The items are sorted inversely, i.e. latest items are on top
 		SET time_zone = '+00:00'; -- UTC needed for from_unixtime
 		ALTER TABLE `SomeTable` CHANGE `someDate` `someDateOld` bigint;
 		ALTER TABLE `SomeTable` ADD COLUMN `someDate` datetime(3) AFTER `someDateOld`; -- use "datetime(3) not null" if field is mandatory, but with DEFAULT clause, otherwise it fails with "Data truncation: Incorrect datetime value: '0000-00-00 00:00:00' for column 'someDate'"
-		UPDATE      `SomeTable` SET `someDate`=from_unixtime(`someDateOld`/1000);
+		UPDATE      `SomeTable` SET `someDate`=IF(`someDateOld` IS NULL,NULL,DATE_ADD(from_unixtime(0),INTERVAL `someDateOld`/1000 SECOND));
 		ALTER TABLE `SomeTable` DROP COLUMN `someDateOld`; -- you may want to omit this to keep the old data for some time
 
 * require mysql connector 5.1.45

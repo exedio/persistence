@@ -18,7 +18,6 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.time.LocalDateTime.of;
 import static java.time.Month.DECEMBER;
@@ -106,10 +105,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 			assertResult(
 					"0", "511", "beta", "711", "alpha",
-					supportsNativeDate(model)
-					? ("1959-10-04 00:43:39" + (fracSec?(".123"+(mariaDriver?"":"000000")):""))
-					: null, // TODO does not work because the date is before 1970
-					rs);
+					"1959-10-04 00:43:39" + (fracSec?(".123"+(mariaDriver?"":"000000")):""), rs);
 
 			assertResult(
 					"1", "522", "delta", "722", "delta",
