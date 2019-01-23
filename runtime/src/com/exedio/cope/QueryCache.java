@@ -113,6 +113,7 @@ final class QueryCache
 	{
 		if(stampList!=null)
 		{
+			final int[] queryTypes = query.getTypeCacheIds();
 			synchronized(map)
 			{
 				for(final Map.Entry<Long, TIntArrayList> entry: stampList.entrySet())
@@ -121,26 +122,12 @@ final class QueryCache
 						continue;
 
 					final TIntArrayList value = entry.getValue();
-
-					if(contains(value, query.type))
-						return true;
-
-					if(query.joins!=null)
-						for(final Join join : query.joins)
-							if(contains(value, join.type))
-								return true;
+					for(final int queryType : queryTypes)
+						if(value.contains(queryType))
+							return true;
 				}
 			}
 		}
-		return false;
-	}
-
-	private static boolean contains(final TIntArrayList value, final Type<?> type)
-	{
-		for(Type<?> t = type; t!=null; t = t.supertype)
-			if(value.contains(t.cacheIdTransiently))
-				return true;
-
 		return false;
 	}
 

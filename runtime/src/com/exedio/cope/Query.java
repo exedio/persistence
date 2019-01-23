@@ -22,6 +22,7 @@ import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
+import gnu.trove.TIntHashSet;
 import java.io.Serializable;
 import java.sql.Connection;
 import java.util.ArrayList;
@@ -1159,6 +1160,24 @@ public final class Query<R> implements Serializable
 
 		return result;
 	}
+
+
+	int[] getTypeCacheIds()
+	{
+		final TIntHashSet queryTypeSet = new TIntHashSet();
+		putType(queryTypeSet, type);
+		if(joins!=null)
+			for(final Join join : joins)
+				putType(queryTypeSet, join.type);
+		return queryTypeSet.toArray();
+	}
+
+	private static void putType(final TIntHashSet types, final Type<?> type)
+	{
+		for(Type<?> t = type; t!=null; t = t.supertype)
+			types.add(t.cacheIdTransiently);
+	}
+
 
 	// ------------------- binary compatibility -------------------
 
