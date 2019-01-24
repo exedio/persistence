@@ -40,11 +40,11 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final int isValidOnGetTimeout;
 
 	ConnectionFactory(
-			final ConnectionProperties properties,
+			final ConnectProperties properties,
 			final Driver driver,
 			final Dialect dialect)
 	{
-		this.url = properties.url;
+		this.url = properties.connection.url;
 		this.driver = driver;
 		this.dialect = dialect;
 
@@ -52,7 +52,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		dialect.completeConnectionInfo(info);
 
 		this.transactionIsolation = dialect.getTransationIsolation();
-		this.isValidOnGetTimeout = properties.isValidOnGetTimeout;
+		this.isValidOnGetTimeout = properties.connection.isValidOnGetTimeout;
 	}
 
 	@Override

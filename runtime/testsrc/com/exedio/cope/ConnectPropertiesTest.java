@@ -594,7 +594,7 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertIt("connection.probe", CONNECTION, EnvironmentInfo.class, probes.next());
+		assertIt("Connect", CONNECTION, EnvironmentInfo.class, probes.next());
 		assertFalse(probes.hasNext());
 
 		assertEquals(CONNECTION, probe(p));
@@ -612,7 +612,7 @@ public class ConnectPropertiesTest
 		final String VAULT = "VaultMockService:probeExampleValue";
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertIt("connection.probe", CONNECTION, EnvironmentInfo.class, probes.next());
+		assertIt("Connect", CONNECTION, EnvironmentInfo.class, probes.next());
 		assertIt("dataField.vault.probe", VAULT, String.class, probes.next());
 		assertIt("dataField.vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
 		assertFalse(probes.hasNext());

@@ -34,8 +34,7 @@ final class ConnectionProperties extends Properties
 	final int isValidOnGetTimeout = value("isValidOnGetTimeoutSeconds", 5, 1);
 
 
-	@Probe
-	EnvironmentInfo probe()
+	EnvironmentInfo probe(final java.util.Properties info)
 	{
 		final Driver driver;
 		try
@@ -49,7 +48,7 @@ final class ConnectionProperties extends Properties
 		if(driver==null)
 			throw new RuntimeException(url);
 
-		try(Connection connection = driver.connect(url, newInfo()))
+		try(Connection connection = driver.connect(url, info))
 		{
 			return new EnvironmentInfo(driver, connection.getCatalog(), connection.getMetaData());
 		}
@@ -59,29 +58,10 @@ final class ConnectionProperties extends Properties
 		}
 	}
 
-	java.util.Properties newInfo()
+	void setInfo(final java.util.Properties result)
 	{
-		final java.util.Properties result = new java.util.Properties();
 		result.setProperty("user", username);
 		result.setProperty("password", password);
-
-		// properties that must be set for probe connection as well
-		// TODO dialect specific code should be in runtime/<dialect>src
-		if(url.startsWith("jdbc:hsqldb:"))
-		{
-			// see HsqldbDialect#completeConnectionInfo
-			result.setProperty("hsqldb.tx", "mvcc");
-		}
-		else if(url.startsWith("jdbc:mysql:"))
-		{
-			// see MysqlDialect#completeConnectionInfo
-			result.setProperty("useSSL", "false");
-			result.setProperty("serverTimezone", "UTC");
-			result.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
-			result.setProperty("allowLocalInfile", "false"); // MariaDB driver
-		}
-
-		return result;
 	}
 
 	void putRevisionEnvironment(final String prefix, final HashMap<String, String> e)

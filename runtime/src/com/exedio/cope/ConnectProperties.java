@@ -66,6 +66,37 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		connection.putRevisionEnvironment("connection", e);
 	}
 
+	java.util.Properties newInfo()
+	{
+		final java.util.Properties result = new java.util.Properties();
+		connection.setInfo(result);
+
+		// properties that must be set for probe connection as well
+		// TODO dialect specific code should be in runtime/<dialect>src
+		final String url = connection.url;
+		if(url.startsWith("jdbc:hsqldb:"))
+		{
+			// see HsqldbDialect#completeConnectionInfo
+			result.setProperty("hsqldb.tx", "mvcc");
+		}
+		else if(url.startsWith("jdbc:mysql:"))
+		{
+			// see MysqlDialect#completeConnectionInfo
+			result.setProperty("useSSL", "false");
+			result.setProperty("serverTimezone", "UTC");
+			result.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
+			result.setProperty("allowLocalInfile", "false"); // MariaDB driver
+		}
+
+		return result;
+	}
+
+	@Probe
+	EnvironmentInfo probeConnect()
+	{
+		return connection.probe(newInfo());
+	}
+
 
 	// dialect
 
@@ -518,7 +549,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	public String probe()
 	{
 		return
-				connection.probe() +
+				probeConnect() +
 				(dataFieldVault!=null ? ' ' + dataFieldVault.probe() : "");
 	}
 
