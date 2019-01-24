@@ -44,6 +44,9 @@ import java.util.EnumMap;
 import java.util.List;
 
 @ServiceProperties(HsqldbDialect.Props.class)
+@DialectProbeInfo({
+		// see completeConnectionInfo
+		"hsqldb.tx", "mvcc"})
 final class HsqldbDialect extends Dialect
 {
 	static final class Props extends Properties

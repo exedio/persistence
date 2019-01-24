@@ -259,6 +259,117 @@ public class ConnectPropertiesTest
 		}
 	}
 
+
+	@Test void testDialectProbeInfoEmpty()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("dialect", DialectProbeInfoEmpty.class),
+						loadProperties()
+				));
+		assertFails(
+				() -> ConnectProperties.create(source),
+				IllegalPropertiesException.class,
+				"property dialect in DESC specifies " + DialectProbeInfoEmpty.class.getName() + " " +
+				"with @DialectProbeInfo being empty");
+	}
+	@DialectProbeInfo({})
+	static class DialectProbeInfoEmpty extends AssertionFailedDialect
+	{
+		DialectProbeInfoEmpty(@SuppressWarnings("unused") final CopeProbe probe)
+		{
+			super(null);
+		}
+	}
+
+	@Test void testDialectProbeInfoOdd()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("dialect", DialectProbeInfoOdd.class),
+						loadProperties()
+				));
+		assertFails(
+				() -> ConnectProperties.create(source),
+				IllegalPropertiesException.class,
+				"property dialect in DESC specifies " + DialectProbeInfoOdd.class.getName() + " " +
+				"with @DialectProbeInfo containing an odd (1) number of elements");
+	}
+	@DialectProbeInfo("elem1")
+	static class DialectProbeInfoOdd extends AssertionFailedDialect
+	{
+		DialectProbeInfoOdd(@SuppressWarnings("unused") final CopeProbe probe)
+		{
+			super(null);
+		}
+	}
+
+	@Test void testDialectProbeInfoEmptyElement()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("dialect", DialectProbeInfoEmptyElement.class),
+						loadProperties()
+				));
+		assertFails(
+				() -> ConnectProperties.create(source),
+				IllegalPropertiesException.class,
+				"property dialect in DESC specifies " + DialectProbeInfoEmptyElement.class.getName() + " " +
+				"with @DialectProbeInfo containing an empty element at position 1");
+	}
+	@DialectProbeInfo({"elem1", ""})
+	static class DialectProbeInfoEmptyElement extends AssertionFailedDialect
+	{
+		DialectProbeInfoEmptyElement(@SuppressWarnings("unused") final CopeProbe probe)
+		{
+			super(null);
+		}
+	}
+
+	@Test void testDialectProbeInfoOk()
+	{
+		final java.util.Properties expected = new java.util.Properties();
+		expected.setProperty("user",     "xxxusername");
+		expected.setProperty("password", "xxxpassword");
+		expected.setProperty("key1", "val1");
+		expected.setProperty("key2", "val2");
+		final java.util.Properties actual = ConnectProperties.create(cascade(
+				single("dialect", DialectProbeInfoOk.class),
+				loadProperties()
+		)).newInfo();
+		assertEquals(expected, actual);
+	}
+	@DialectProbeInfo({
+			"key1", "val1",
+			"key2", "val2"})
+	static class DialectProbeInfoOk extends AssertionFailedDialect
+	{
+		DialectProbeInfoOk(@SuppressWarnings("unused") final CopeProbe probe)
+		{
+			super(null);
+		}
+	}
+
+	@Test void testDialectProbeInfoNone()
+	{
+		final java.util.Properties expected = new java.util.Properties();
+		expected.setProperty("user",     "xxxusername");
+		expected.setProperty("password", "xxxpassword");
+		final java.util.Properties actual = ConnectProperties.create(cascade(
+				single("dialect", DialectProbeInfoNone.class),
+				loadProperties()
+		)).newInfo();
+		assertEquals(expected, actual);
+	}
+	static class DialectProbeInfoNone extends AssertionFailedDialect
+	{
+		DialectProbeInfoNone(@SuppressWarnings("unused") final CopeProbe probe)
+		{
+			super(null);
+		}
+	}
+
+
 	@Test void testSupportDisabledForNativeDateStandard()
 	{
 		final ConnectProperties p = factory().

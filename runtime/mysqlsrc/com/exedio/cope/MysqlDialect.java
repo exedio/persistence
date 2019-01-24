@@ -52,6 +52,12 @@ import org.slf4j.LoggerFactory;
  * @author Ralf Wiebicke
  */
 @ServiceProperties(MysqlProperties.class)
+@DialectProbeInfo({
+		// see completeConnectionInfo
+		"useSSL", "false",
+		"serverTimezone", "UTC",
+		"allowLoadLocalInfile", "false", // MySQL driver
+		"allowLocalInfile", "false"}) // MariaDB driver
 final class MysqlDialect extends Dialect
 {
 	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);

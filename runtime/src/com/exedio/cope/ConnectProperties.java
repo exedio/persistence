@@ -24,6 +24,7 @@ import static java.time.Duration.ofSeconds;
 
 import com.exedio.cope.misc.FactoryProperties;
 import com.exedio.cope.pattern.MediaFingerprintOffset;
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.PoolProperties;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceFactory;
@@ -71,21 +72,14 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		final java.util.Properties result = new java.util.Properties();
 		connection.setInfo(result);
 
-		// properties that must be set for probe connection as well
-		// TODO dialect specific code should be in runtime/<dialect>src
-		final String url = connection.url;
-		if(url.startsWith("jdbc:hsqldb:"))
+		final DialectProbeInfo dialectProbeInfo =
+				dialect.getServiceClass().getAnnotation(DialectProbeInfo.class);
+		if(dialectProbeInfo!=null)
 		{
-			// see HsqldbDialect#completeConnectionInfo
-			result.setProperty("hsqldb.tx", "mvcc");
-		}
-		else if(url.startsWith("jdbc:mysql:"))
-		{
-			// see MysqlDialect#completeConnectionInfo
-			result.setProperty("useSSL", "false");
-			result.setProperty("serverTimezone", "UTC");
-			result.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
-			result.setProperty("allowLocalInfile", "false"); // MariaDB driver
+			final String[] value = dialectProbeInfo.value();
+			for(int i = 0; i<value.length; )
+				//noinspection AssignmentToForLoopParameter
+				result.setProperty(value[i++], value[i++]);
 		}
 
 		return result;
@@ -117,6 +111,29 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				(result.size()==1)
 				? result.iterator().next().getName()
 				: null;
+	}
+
+	{
+		final DialectProbeInfo probeInfo =
+				dialect.getServiceClass().getAnnotation(DialectProbeInfo.class);
+		if(probeInfo!=null)
+		{
+			final String[] value = probeInfo.value();
+			if(value.length==0)
+				throw newExceptionDialectProbeInfo("being empty");
+			if(value.length%2!=0)
+				throw newExceptionDialectProbeInfo("containing an odd (" + value.length + ") number of elements");
+			for(int i = 0; i<value.length; i++)
+				if(value[i].isEmpty())
+					throw newExceptionDialectProbeInfo("containing an empty element at position " + i);
+		}
+	}
+
+	private IllegalPropertiesException newExceptionDialectProbeInfo(final String detail)
+	{
+		return newException("dialect",
+				"specifies " + dialect.getServiceClass().getName() + " with @DialectProbeInfo " +
+				detail);
 	}
 
 	public static Iterable<?> getDialectUrlMappers()
