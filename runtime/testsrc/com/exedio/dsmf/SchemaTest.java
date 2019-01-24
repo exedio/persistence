@@ -99,6 +99,8 @@ public abstract class SchemaTest
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
 			info.setProperty("useSSL", "false");
 			info.setProperty("serverTimezone", "UTC");
+			info.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
+			info.setProperty("allowLocalInfile", "false"); // MariaDB driver
 			dialect = newD("Mysql",
 					false, // TODO test true as well
 					"CopeSequenceAutoIncrementColumnForTest",

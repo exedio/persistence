@@ -21,6 +21,8 @@
 			<!-- see MysqlDialect#completeConnectionInfo -->
 			<connectionProperty name="useSSL" value="false" />
 			<connectionProperty name="serverTimezone" value="UTC" />
+			<connectionProperty name="allowLoadLocalInfile" value="false" /><!-- MySQL driver -->
+			<connectionProperty name="allowLocalInfile" value="false" /><!-- MariaDB driver -->
 			SET @myschema = CONCAT("`", DATABASE(), "`");
 			<!--
 				* IF EXISTS not needed for DROP SCHEMA, because connection
