@@ -154,6 +154,12 @@ final class MysqlDialect extends Dialect
 		// to use a more specifc time zone value if you want to utilize time zone support.
 		requireConnectionInfo(info, "serverTimezone", "UTC");
 
+		// Do not allow LOAD DATA LOCAL as it has security issues.
+		// https://dev.mysql.com/doc/refman/5.7/en/load-data-local.html
+		// https://mariadb.com/kb/en/library/about-mariadb-connector-j/#load-data-infile
+		requireConnectionInfo(info, "allowLoadLocalInfile", "false"); // MySQL driver
+		requireConnectionInfo(info, "allowLocalInfile", "false"); // MariaDB driver
+
 		//info.setProperty("profileSQL", TRUE);
 	}
 

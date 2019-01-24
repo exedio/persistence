@@ -77,6 +77,8 @@ final class ConnectionProperties extends Properties
 			// see MysqlDialect#completeConnectionInfo
 			result.setProperty("useSSL", "false");
 			result.setProperty("serverTimezone", "UTC");
+			result.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
+			result.setProperty("allowLocalInfile", "false"); // MariaDB driver
 		}
 
 		return result;
