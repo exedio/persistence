@@ -137,7 +137,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 						expectedArithmeticException = "incompatible data type in conversion: from SQL type BIGINT to java.lang.Integer, value: " + expected;
 						break;
 					case mysql:
-						if(model.getEnvironmentInfo().getDriverName().startsWith("MariaDB"))
+						if(mariaDriver)
 							expectedArithmeticException = "Out of range value for column 'SUM(`field`)' : value " + expected + " is not in class java.lang.Integer range";
 						else
 							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Integer";

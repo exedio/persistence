@@ -144,7 +144,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 						expectedArithmeticException = "incompatible data type in conversion: from SQL type DECIMAL to java.lang.Long, value: " + expected;
 						break;
 					case mysql:
-						if(model.getEnvironmentInfo().getDriverName().startsWith("MariaDB"))
+						if(mariaDriver)
 							expectedArithmeticException = "Out of range value for column 'SUM(`field`)' : value " + expected;
 						else
 							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Long";

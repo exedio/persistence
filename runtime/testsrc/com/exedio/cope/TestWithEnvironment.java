@@ -75,7 +75,7 @@ public abstract class TestWithEnvironment
 	protected boolean oracle;
 	protected boolean postgresql;
 	protected boolean cache;
-	private boolean mariaDriver;
+	protected boolean mariaDriver;
 
 	@BeforeEach final void setUpAbstractRuntimeModelTest()
 	{

@@ -90,7 +90,6 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
 		final EnvironmentInfo env = model.getEnvironmentInfo();
 		final boolean fracSec = env.isDatabaseVersionAtLeast(5, 6);
-		final boolean maria = env.getDriverName().startsWith("MariaDB");
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
 			{
@@ -108,13 +107,13 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 			assertResult(
 					"0", "511", "beta", "711", "alpha",
 					supportsNativeDate(model)
-					? ("1959-10-04 00:43:39" + (fracSec?(".123"+(maria?"":"000000")):""))
+					? ("1959-10-04 00:43:39" + (fracSec?(".123"+(mariaDriver?"":"000000")):""))
 					: null, // TODO does not work because the date is before 1970
 					rs);
 
 			assertResult(
 					"1", "522", "delta", "722", "delta",
-					"2018-12-07 18:23:11" + (fracSec?(".123"+(maria?"":"000000")):""), rs);
+					"2018-12-07 18:23:11" + (fracSec?(".123"+(mariaDriver?"":"000000")):""), rs);
 
 			assertResult("2", null, null, null, null, null, rs);
 
