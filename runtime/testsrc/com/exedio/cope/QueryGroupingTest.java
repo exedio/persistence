@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.DistinctOrderByTest.notAllowed;
-import static com.exedio.cope.DistinctOrderByTest.notAllowedTotal;
 import static com.exedio.cope.GroupItem.TYPE;
 import static com.exedio.cope.GroupItem.day;
 import static com.exedio.cope.GroupItem.number;

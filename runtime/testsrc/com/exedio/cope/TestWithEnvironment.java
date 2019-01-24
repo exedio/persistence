@@ -18,7 +18,10 @@
 
 package com.exedio.cope;
 
+import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.tojunit.CopeRule;
@@ -28,11 +31,14 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.dsmf.CheckConstraint;
+import com.exedio.dsmf.SQLRuntimeException;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
+import java.util.List;
+import java.util.function.Predicate;
 import java.util.regex.Matcher;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -69,6 +75,7 @@ public abstract class TestWithEnvironment
 	protected boolean oracle;
 	protected boolean postgresql;
 	protected boolean cache;
+	private boolean mariaDriver;
 
 	@BeforeEach final void setUpAbstractRuntimeModelTest()
 	{
@@ -80,6 +87,7 @@ public abstract class TestWithEnvironment
 		oracle  = tester.oracle;
 		postgresql = tester.postgresql;
 		cache = tester.cache;
+		mariaDriver = model.getEnvironmentInfo().getDriverName().startsWith("MariaDB");
 		final VaultService vault = model.connect().vault;
 		if(vault!=null)
 			((VaultMockService)vault).clear();
@@ -137,6 +145,46 @@ public abstract class TestWithEnvironment
 	protected final String synthetic(final String name, final String global)
 	{
 		return tester.synthetic(name, global);
+	}
+
+	protected final void notAllowed(final Query<?> query, final String message)
+	{
+		try
+		{
+			final List<?> result = query.search();
+			fail("search is expected to fail, but returned " + result);
+		}
+		catch(final SQLRuntimeException e)
+		{
+			assertEquals(message, dropMariaConnectionId(e.getCause().getMessage()));
+		}
+	}
+
+	protected final void notAllowed(final Query<?> query, final Predicate<String> message)
+	{
+		try
+		{
+			final List<?> result = query.search();
+			fail("search is expected to fail, but returned " + result);
+		}
+		catch(final SQLRuntimeException e)
+		{
+			final String actual = dropMariaConnectionId(e.getCause().getMessage());
+			assertTrue(message.test(actual), actual);
+		}
+	}
+
+	protected final void notAllowedTotal(final Query<?> query, final String message)
+	{
+		try
+		{
+			final int result = query.total();
+			fail("total is expected to fail, but returned " + result);
+		}
+		catch(final SQLRuntimeException e)
+		{
+			assertEquals(message, dropMariaConnectionId(e.getCause().getMessage()));
+		}
 	}
 
 	final String primaryKeySequenceName(final String nameBase)
@@ -283,9 +331,10 @@ public abstract class TestWithEnvironment
 				? "" : s;
 	}
 
-	protected static final String dropMariaConnectionId(final String message)
+	protected final String dropMariaConnectionId(final String message)
 	{
-		// TODO do this for MariaDB connector only
+		if(!mariaDriver)
+			return message;
 
 		final java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$");
 		final Matcher matcher = pattern.matcher(message);

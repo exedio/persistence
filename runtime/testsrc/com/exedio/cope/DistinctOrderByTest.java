@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
 import java.util.List;
-import java.util.function.Predicate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -344,19 +343,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				: s;
 	}
 
-	static void notAllowed(final Query<?> query, final String message)
-	{
-		try
-		{
-			final List<?> result = query.search();
-			fail("search is expected to fail, but returned " + result);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			assertEquals(message, dropMariaConnectionId(e.getCause().getMessage()));
-		}
-	}
-
 	static void notAllowedStartsWith(final Query<?> query, final String message)
 	{
 		try
@@ -367,33 +353,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		catch(final SQLRuntimeException e)
 		{
 			assertTrue(e.getCause().getMessage().startsWith(message), e.getCause().getMessage());
-		}
-	}
-
-	static void notAllowed(final Query<?> query, final Predicate<String> message)
-	{
-		try
-		{
-			final List<?> result = query.search();
-			fail("search is expected to fail, but returned " + result);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			final String actual = dropMariaConnectionId(e.getCause().getMessage());
-			assertTrue(message.test(actual), actual);
-		}
-	}
-
-	static void notAllowedTotal(final Query<?> query, final String message)
-	{
-		try
-		{
-			final int result = query.total();
-			fail("total is expected to fail, but returned " + result);
-		}
-		catch(final SQLRuntimeException e)
-		{
-			assertEquals(message, dropMariaConnectionId(e.getCause().getMessage()));
 		}
 	}
 }
