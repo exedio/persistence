@@ -42,10 +42,64 @@ import javax.annotation.Nonnull;
 @SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends FactoryProperties<ConnectProperties.Factory>
 {
+	// connection
+
 	final ConnectionProperties connection = valnp("connection", ConnectionProperties::new);
+
+	public String getConnectionUrl()
+	{
+		return connection.url;
+	}
+
+	public String getConnectionUsername()
+	{
+		return connection.username;
+	}
+
+	public String getConnectionPassword()
+	{
+		return connection.password;
+	}
+
+	void putRevisionEnvironment(final HashMap<String, String> e)
+	{
+		connection.putRevisionEnvironment("connection", e);
+	}
+
+
+	// dialect
 
 	final ServiceFactory<Dialect,CopeProbe> dialect = valueService("dialect", fromUrl(connection.url),
 			Dialect.class, CopeProbe.class);
+
+	private static String fromUrl(final String url)
+	{
+		final HashSet<Class<? extends Dialect>> result = new HashSet<>();
+		for(final DialectUrlMapper mapper : ServiceLoader.load(DialectUrlMapper.class))
+		{
+			final Class<? extends Dialect> clazz = mapper.map(url);
+			if(clazz!=null)
+				result.add(clazz);
+		}
+
+		return
+				(result.size()==1)
+				? result.iterator().next().getName()
+				: null;
+	}
+
+	public static Iterable<?> getDialectUrlMappers()
+	{
+		return ServiceLoader.load(DialectUrlMapper.class);
+	}
+
+	public String getDialect()
+	{
+		return dialect.getServiceClass().getName();
+	}
+
+
+	// disableSupport
 
 	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
@@ -79,6 +133,8 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	}
 
 
+	// fulltextIndex
+
 	private final boolean fulltextIndex = value("fulltextIndex", false);
 
 	public boolean getFulltextIndex()
@@ -96,6 +152,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * behaves exactly as {@link Model#deleteSchema() deleteSchema}.
 	 */
 	final boolean deleteSchemaForTest = value("deleteSchemaForTest", true);
+
 
 	// schema
 
@@ -123,6 +180,17 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	private final boolean mysqlLowerCaseTableNames = value("schema.mysql.lower_case_table_names", false);
 
+	String filterTableName(final String tableName)
+	{
+		return
+			mysqlLowerCaseTableNames
+			? tableName.toLowerCase(Locale.ENGLISH)
+			: tableName;
+	}
+
+
+	// revise
+
 	/**
 	 * If true, {@link Model#reviseIfSupportedAndAutoEnabled} will trigger execution
 	 * of revisions if necessary;
@@ -133,6 +201,8 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	static final String reviseSavepointKey = "revise.savepoint";
 	final boolean reviseSavepoint = value(reviseSavepointKey, false);
 
+
+	// connectionPool
 
 	final PoolProperties connectionPool = value("connectionPool", PoolProperties.factory(50));
 
@@ -147,16 +217,9 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	}
 
 
-	private final int querySearchSizeLimit = value("query.searchSizeLimit", 100000, 1);
+	// querySearchSizeLimit
 
-	/**
-	 * DO NOT USE the value of itemCacheLimitOLD, just for default of itemCacheLimit.
-	 */
-	private final int itemCacheLimitOLD   = value("cache.item.limit",     100000, 0);
-	private final int itemCacheLimit      = value("cache.item.globalLimit", itemCacheLimitOLD, 0);
-	private final int queryCacheLimit     = value("cache.query.limit",     10000, 0);
-	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
-	        final boolean cacheStamps     = value("cache.stamps", true);
+	private final int querySearchSizeLimit = value("query.searchSizeLimit", 100000, 1);
 
 	/**
 	 * @see Query#getSearchSizeLimit()
@@ -166,6 +229,18 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		return querySearchSizeLimit;
 	}
+
+
+	// cache
+
+	/**
+	 * DO NOT USE the value of itemCacheLimitOLD, just for default of itemCacheLimit.
+	 */
+	private final int itemCacheLimitOLD   = value("cache.item.limit",     100000, 0);
+	private final int itemCacheLimit      = value("cache.item.globalLimit", itemCacheLimitOLD, 0);
+	private final int queryCacheLimit     = value("cache.query.limit",     10000, 0);
+	private final int queryCacheSizeLimit = value("cache.query.sizeLimit", 10000, 0);
+	        final boolean cacheStamps     = value("cache.stamps", true);
 
 	public int getItemCacheLimit()
 	{
@@ -182,6 +257,8 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return queryCacheSizeLimit;
 	}
 
+
+	// dataField
 
 	final int dataFieldBufferSizeDefault = value("dataField.bufferSizeDefault", 20*1024, 1);
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
@@ -206,13 +283,20 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return dataFieldVault!=null ? dataFieldVault.getAlgorithm() : null;
 	}
 
+
 	final boolean comparableCheck = value("comparableCheck", true); // TODO remove, is just a panic button
+
+
+	// changeListeners
 
 	final     int changeListenersQueueCapacity = value("changeListeners.queueCapacity", 1000, 1);
 	final ThreadSwarmProperties chaListThreads = valnp("changeListeners.threads", ThreadSwarmProperties::new);
 
+
 	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 
+
+	// media
 
 	private final String mediaRootUrl    = value("media.rooturl", factory.mediaRootUrl);
 	private final Duration mediaOffsetExpires = valueIntMillis("media.offsetExpires", ofSeconds(5), Duration.ZERO);
@@ -295,6 +379,8 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return mediaUrlSecret;
 	}
 
+
+	// construction
 
 	public static Factory factory()
 	{
@@ -394,60 +480,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		if(cluster!=null && !primaryKeyGenerator.persistent)
 			throw newException("cluster",
 					"not supported together with schema.primaryKeyGenerator=" + primaryKeyGenerator);
-	}
-
-	private static String fromUrl(final String url)
-	{
-		final HashSet<Class<? extends Dialect>> result = new HashSet<>();
-		for(final DialectUrlMapper mapper : ServiceLoader.load(DialectUrlMapper.class))
-		{
-			final Class<? extends Dialect> clazz = mapper.map(url);
-			if(clazz!=null)
-				result.add(clazz);
-		}
-
-		return
-				(result.size()==1)
-				? result.iterator().next().getName()
-				: null;
-	}
-
-	public static Iterable<?> getDialectUrlMappers()
-	{
-		return ServiceLoader.load(DialectUrlMapper.class);
-	}
-
-	public String getDialect()
-	{
-		return dialect.getServiceClass().getName();
-	}
-
-	public String getConnectionUrl()
-	{
-		return connection.url;
-	}
-
-	public String getConnectionUsername()
-	{
-		return connection.username;
-	}
-
-	public String getConnectionPassword()
-	{
-		return connection.password;
-	}
-
-	void putRevisionEnvironment(final HashMap<String, String> e)
-	{
-		connection.putRevisionEnvironment("connection", e);
-	}
-
-	String filterTableName(final String tableName)
-	{
-		return
-			mysqlLowerCaseTableNames
-			? tableName.toLowerCase(Locale.ENGLISH)
-			: tableName;
 	}
 
 	// ------------------- deprecated stuff -------------------
