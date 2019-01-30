@@ -343,7 +343,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -377,7 +377,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<PartA> TYPE = com.exedio.cope.TypesBound.newType(PartA.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private PartA(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private PartA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -411,7 +411,7 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<PartB> TYPE = com.exedio.cope.TypesBound.newType(PartB.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private PartB(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private PartB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final Model MODEL = new Model(Container.TYPE, PartA.TYPE, PartB.TYPE);

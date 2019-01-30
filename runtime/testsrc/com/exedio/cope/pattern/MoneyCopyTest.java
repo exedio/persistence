@@ -359,7 +359,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2)
@@ -404,7 +404,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	enum Currency implements com.exedio.cope.pattern.Money.Currency

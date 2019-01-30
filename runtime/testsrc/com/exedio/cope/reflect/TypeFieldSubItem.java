@@ -54,5 +54,5 @@ public final class TypeFieldSubItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private TypeFieldSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private TypeFieldSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

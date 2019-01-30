@@ -123,7 +123,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
 	@CopeName("ItemAB")
@@ -188,7 +188,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
 	static final Model modelA = new Model(ItemA.TYPE);

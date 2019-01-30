@@ -383,7 +383,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+		private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -424,7 +424,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 

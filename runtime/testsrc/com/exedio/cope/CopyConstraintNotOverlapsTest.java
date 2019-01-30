@@ -52,7 +52,7 @@ public class CopyConstraintNotOverlapsTest
 		static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -68,6 +68,6 @@ public class CopyConstraintNotOverlapsTest
 		static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

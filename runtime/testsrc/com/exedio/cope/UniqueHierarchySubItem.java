@@ -120,5 +120,5 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private UniqueHierarchySubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private UniqueHierarchySubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

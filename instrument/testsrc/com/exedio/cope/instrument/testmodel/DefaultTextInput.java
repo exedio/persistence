@@ -66,5 +66,5 @@ public final class DefaultTextInput extends Input
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DefaultTextInput(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private DefaultTextInput(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

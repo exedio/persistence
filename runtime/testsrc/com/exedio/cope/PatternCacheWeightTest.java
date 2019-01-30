@@ -106,7 +106,7 @@ public class PatternCacheWeightTest
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final class MyPattern extends Pattern
@@ -132,7 +132,7 @@ public class PatternCacheWeightTest
 			private static final long serialVersionUID = 1l;
 
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@SuppressWarnings("unused") private AbsentType(final com.exedio.cope.ActivationParameters ap){super(ap);}
+			private AbsentType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 
 		@SuppressWarnings("deprecation")
@@ -144,7 +144,7 @@ public class PatternCacheWeightTest
 			private static final long serialVersionUID = 1l;
 
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@SuppressWarnings("unused") private Set333Type(final com.exedio.cope.ActivationParameters ap){super(ap);}
+			private Set333Type(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 	}
 }

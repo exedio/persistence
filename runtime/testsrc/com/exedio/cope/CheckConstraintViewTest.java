@@ -134,7 +134,7 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final Model MODEL = new Model(TYPE);

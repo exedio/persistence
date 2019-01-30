@@ -56,5 +56,5 @@ public final class PatternTestItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private PatternTestItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private PatternTestItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -256,5 +256,5 @@ public final class LimitedListFieldItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private LimitedListFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private LimitedListFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

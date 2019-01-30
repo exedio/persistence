@@ -97,5 +97,5 @@ final class IntegerFieldDefaultToNextItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private IntegerFieldDefaultToNextItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private IntegerFieldDefaultToNextItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -75,5 +75,5 @@ final class ReferenceItem extends ReferenceSuperItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private ReferenceItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private ReferenceItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

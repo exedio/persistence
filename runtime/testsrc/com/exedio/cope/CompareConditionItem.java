@@ -285,5 +285,5 @@ final class CompareConditionItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private CompareConditionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private CompareConditionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

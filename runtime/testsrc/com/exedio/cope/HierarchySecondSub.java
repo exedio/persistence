@@ -80,5 +80,5 @@ public final class HierarchySecondSub extends HierarchySuper
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private HierarchySecondSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private HierarchySecondSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

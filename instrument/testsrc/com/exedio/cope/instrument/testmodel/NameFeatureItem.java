@@ -144,5 +144,5 @@ public final class NameFeatureItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private NameFeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private NameFeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -75,5 +75,5 @@ public final class SubTarget extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private SubTarget(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private SubTarget(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -61,5 +61,5 @@ public final class BlockImported extends Block
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private BlockImported(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+	private BlockImported(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }

@@ -282,5 +282,5 @@ final class WrapPrimitiveItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private WrapPrimitiveItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private WrapPrimitiveItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

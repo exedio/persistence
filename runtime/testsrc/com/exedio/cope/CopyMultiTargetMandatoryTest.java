@@ -259,7 +259,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(comments=false, indent=2)
@@ -292,7 +292,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 }

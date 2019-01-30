@@ -160,5 +160,5 @@ public final class DispatcherNoneItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DispatcherNoneItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private DispatcherNoneItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

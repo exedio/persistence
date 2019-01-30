@@ -182,5 +182,5 @@ public final class IntegerItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private IntegerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private IntegerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

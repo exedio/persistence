@@ -359,7 +359,6 @@
 		<instrument
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
-				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				buildDirectory="build/instrument/runtime.test">
@@ -550,7 +549,6 @@
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
-				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
@@ -755,7 +753,6 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
-				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				finalMethodInFinalClass="false"
@@ -786,7 +783,6 @@
 				verify="${instrument.verify}"
 				encoding="ascii"
 				maxwarns="20000"
-				suppressUnusedWarningOnPrivateActivationConstructor="true"
 				serialVersionUIDSuffix="small"
 				hidingWarningSuppressor="hiding"
 				finalMethodInFinalClass="false"

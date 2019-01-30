@@ -55,5 +55,5 @@ final class XCollide2 extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private XCollide2(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private XCollide2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

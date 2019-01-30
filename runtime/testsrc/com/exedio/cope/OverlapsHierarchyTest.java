@@ -117,7 +117,7 @@ public class OverlapsHierarchyTest
 		static final com.exedio.cope.Type<RefItem> TYPE = com.exedio.cope.TypesBound.newType(RefItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private RefItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private RefItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final Model MODEL = new Model(AnItemA.TYPE, AnItemB1.TYPE, AnItemB2.TYPE, AnItemC.TYPE, RefItem.TYPE);

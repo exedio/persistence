@@ -61,7 +61,7 @@ public class MultiItemFieldStandardTest
 		static final com.exedio.cope.Type<AnMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(AnMandatoryItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnMandatoryItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnMandatoryItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -89,7 +89,7 @@ public class MultiItemFieldStandardTest
 		static final com.exedio.cope.Type<AnOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(AnOptionalItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnOptionalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnOptionalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -117,7 +117,7 @@ public class MultiItemFieldStandardTest
 		static final com.exedio.cope.Type<AnFinalItem> TYPE = com.exedio.cope.TypesBound.newType(AnFinalItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -153,7 +153,7 @@ public class MultiItemFieldStandardTest
 		static final com.exedio.cope.Type<ThreeItem> TYPE = com.exedio.cope.TypesBound.newType(ThreeItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private ThreeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private ThreeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -181,7 +181,7 @@ public class MultiItemFieldStandardTest
 		static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Test void testGetComponentClasses()

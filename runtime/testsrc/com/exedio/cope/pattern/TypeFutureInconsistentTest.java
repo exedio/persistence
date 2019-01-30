@@ -143,7 +143,7 @@ public class TypeFutureInconsistentTest
 		private static final com.exedio.cope.Type<ValueClassItem> TYPE = com.exedio.cope.TypesBound.newType(ValueClassItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private ValueClassItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private ValueClassItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -156,7 +156,7 @@ public class TypeFutureInconsistentTest
 		private static final com.exedio.cope.Type<TypeItem> TYPE = com.exedio.cope.TypesBound.newType(TypeItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private TypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private TypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -172,7 +172,7 @@ public class TypeFutureInconsistentTest
 		private static final com.exedio.cope.Type<FeatureItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private FeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private FeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
@@ -201,7 +201,7 @@ public class TypeFutureInconsistentTest
 		private static final com.exedio.cope.pattern.BlockType<FeatureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(FeatureBlock.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private FeatureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+		private FeatureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	private static ItemField<ValueClassItem> inconsistentField(final String clazz)

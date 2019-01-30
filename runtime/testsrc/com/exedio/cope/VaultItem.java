@@ -272,5 +272,5 @@ final class VaultItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private VaultItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private VaultItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

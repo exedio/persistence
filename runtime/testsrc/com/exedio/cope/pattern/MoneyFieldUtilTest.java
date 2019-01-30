@@ -103,7 +103,7 @@ public class MoneyFieldUtilTest
 		static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private CurrencyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private CurrencyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -116,7 +116,7 @@ public class MoneyFieldUtilTest
 		private static final long serialVersionUID = 1l;
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private FieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private FieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Test void testExclusiveCurrencyNull()

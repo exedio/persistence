@@ -52,5 +52,5 @@ final class CheckConstraintConditionItemBottom extends CheckConstraintConditionI
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private CheckConstraintConditionItemBottom(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private CheckConstraintConditionItemBottom(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

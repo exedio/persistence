@@ -197,7 +197,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private Type01C(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private Type01C(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
 
@@ -293,7 +293,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private Type021C(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private Type021C(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
 
@@ -418,7 +418,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private TypeRef(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private TypeRef(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
 }

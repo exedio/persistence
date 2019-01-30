@@ -95,7 +95,7 @@ public class IsComparablePropertyTest
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final Model MODEL = new Model(MyItem.TYPE);

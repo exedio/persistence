@@ -251,7 +251,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private DoubleCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private DoubleCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2)
@@ -319,7 +319,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AllCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AllCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2)
@@ -387,7 +387,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private PartialCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private PartialCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2)
@@ -447,7 +447,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private A(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private A(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2)
@@ -507,7 +507,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private B(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private B(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2)
@@ -581,6 +581,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private C(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private C(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

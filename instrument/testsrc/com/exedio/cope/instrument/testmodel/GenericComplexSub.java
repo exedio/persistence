@@ -77,5 +77,5 @@ public final class GenericComplexSub extends GenericComplexMid<List<String>>
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private GenericComplexSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private GenericComplexSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

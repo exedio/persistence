@@ -67,7 +67,7 @@ public class ItemFieldDefaultTest
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@SuppressWarnings("deprecation") // OK: testing deprecated API

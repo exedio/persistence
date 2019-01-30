@@ -63,5 +63,5 @@ final class IoqSourceSubA extends IoqSourceSuper
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private IoqSourceSubA(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private IoqSourceSubA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

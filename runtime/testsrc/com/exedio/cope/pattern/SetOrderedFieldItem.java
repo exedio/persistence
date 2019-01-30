@@ -149,5 +149,5 @@ public final class SetOrderedFieldItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private SetOrderedFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private SetOrderedFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -86,5 +86,5 @@ public final class JoinFunctionItemSingle extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private JoinFunctionItemSingle(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private JoinFunctionItemSingle(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

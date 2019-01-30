@@ -180,5 +180,5 @@ public final class DatePrecisionItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DatePrecisionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private DatePrecisionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

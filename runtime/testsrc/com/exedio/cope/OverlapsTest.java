@@ -84,7 +84,7 @@ public class OverlapsTest
 		static final com.exedio.cope.Type<AnItem1> TYPE = com.exedio.cope.TypesBound.newType(AnItem1.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -108,7 +108,7 @@ public class OverlapsTest
 		static final com.exedio.cope.Type<AnItem2> TYPE = com.exedio.cope.TypesBound.newType(AnItem2.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	enum AnEnum1 {one,two}

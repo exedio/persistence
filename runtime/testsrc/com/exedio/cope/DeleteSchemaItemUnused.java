@@ -91,5 +91,5 @@ final class DeleteSchemaItemUnused extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DeleteSchemaItemUnused(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private DeleteSchemaItemUnused(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

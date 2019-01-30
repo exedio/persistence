@@ -83,5 +83,5 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private InstanceOfC1Item(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private InstanceOfC1Item(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -226,5 +226,5 @@ public final class TypeFieldItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private TypeFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private TypeFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

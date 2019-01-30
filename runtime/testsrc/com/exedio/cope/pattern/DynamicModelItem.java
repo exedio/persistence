@@ -154,5 +154,5 @@ public final class DynamicModelItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DynamicModelItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private DynamicModelItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -338,7 +338,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
@@ -372,6 +372,6 @@ public class CheckingSettableTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

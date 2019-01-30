@@ -350,7 +350,7 @@ public class MountTest
 		static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+		private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
@@ -371,7 +371,7 @@ public class MountTest
 		static final com.exedio.cope.pattern.BlockType<PureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(PureBlock.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private PureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+		private PureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 

@@ -59,5 +59,5 @@ public final class AllPublic extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private AllPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private AllPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

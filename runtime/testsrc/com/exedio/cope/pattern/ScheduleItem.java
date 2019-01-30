@@ -189,5 +189,5 @@ public final class ScheduleItem extends Item implements Scheduleable
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private ScheduleItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private ScheduleItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

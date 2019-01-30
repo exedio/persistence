@@ -142,7 +142,7 @@ public class ItemFieldValueTypeTest
 		static final com.exedio.cope.pattern.BlockType<MyBlok> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlok.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyBlok(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+		private MyBlok(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=Visibility.NONE, genericConstructor=Visibility.NONE, indent=2, comments=false)
@@ -167,7 +167,7 @@ public class ItemFieldValueTypeTest
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final Model MODEL = new Model(MyItem.TYPE);

@@ -59,5 +59,5 @@ public final class FieldPackage extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private FieldPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private FieldPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

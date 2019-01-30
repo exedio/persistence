@@ -221,5 +221,5 @@ final class CopyMultiCopySource extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private CopyMultiCopySource(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private CopyMultiCopySource(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

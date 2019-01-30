@@ -156,5 +156,5 @@ public final class MinusDoubleItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private MinusDoubleItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private MinusDoubleItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -63,7 +63,7 @@ public class MediaServletDefaultTest
 		static final com.exedio.cope.Type<MaximumAgeItem> TYPE = com.exedio.cope.TypesBound.newType(MaximumAgeItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MaximumAgeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MaximumAgeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	private static final Model MaximumAgeItemModel = new Model(MaximumAgeItem.TYPE);
 	@AfterEach void tearDownMaximumAge()
@@ -107,7 +107,7 @@ public class MediaServletDefaultTest
 		static final com.exedio.cope.Type<CacheControlPrivateItem> TYPE = com.exedio.cope.TypesBound.newType(CacheControlPrivateItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private CacheControlPrivateItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private CacheControlPrivateItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 

@@ -192,7 +192,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -226,7 +226,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Part(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Part(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final Model MODEL = new Model(Container.TYPE, Part.TYPE);

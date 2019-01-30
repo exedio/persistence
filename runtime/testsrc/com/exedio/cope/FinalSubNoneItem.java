@@ -76,5 +76,5 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private FinalSubNoneItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private FinalSubNoneItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

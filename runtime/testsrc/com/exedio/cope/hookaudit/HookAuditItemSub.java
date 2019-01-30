@@ -83,5 +83,5 @@ final class HookAuditItemSub extends HookAuditItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private HookAuditItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private HookAuditItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

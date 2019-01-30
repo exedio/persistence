@@ -73,5 +73,5 @@ public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private GenericSimpleSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private GenericSimpleSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

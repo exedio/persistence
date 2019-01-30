@@ -83,5 +83,5 @@ final class ReviseItem1 extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private ReviseItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private ReviseItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

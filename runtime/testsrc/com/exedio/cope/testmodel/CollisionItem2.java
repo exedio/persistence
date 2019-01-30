@@ -100,5 +100,5 @@ public final class CollisionItem2 extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private CollisionItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private CollisionItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

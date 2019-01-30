@@ -103,5 +103,5 @@ public final class CompositeFinalItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private CompositeFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private CompositeFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

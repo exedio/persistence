@@ -70,5 +70,5 @@ public final class EmptyItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private EmptyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private EmptyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

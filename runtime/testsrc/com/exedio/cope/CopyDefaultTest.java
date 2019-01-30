@@ -280,7 +280,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2)
@@ -334,7 +334,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final CopyConstraint constraint = (CopyConstraint)Source.TYPE.getFeature("fieldCopyFromtarget");

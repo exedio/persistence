@@ -339,5 +339,5 @@ public final class DispatcherWithoutRemainingItem extends Item implements Dispat
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private DispatcherWithoutRemainingItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private DispatcherWithoutRemainingItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

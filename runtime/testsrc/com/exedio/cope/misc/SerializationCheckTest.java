@@ -116,7 +116,7 @@ public class SerializationCheckTest
 		private static final long serialVersionUID = 1l;
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private PatternItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private PatternItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static class PatternFeature extends Pattern
@@ -170,7 +170,7 @@ public class SerializationCheckTest
 		static final com.exedio.cope.pattern.BlockType<BlockWrong> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWrong.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private BlockWrong(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+		private BlockWrong(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

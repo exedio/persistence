@@ -62,5 +62,5 @@ public final class HierarchyEmptySub extends HierarchyEmptySuper
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private HierarchyEmptySub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private HierarchyEmptySub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

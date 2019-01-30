@@ -58,7 +58,7 @@ public final class WrapperTypeActivationConstructorTester
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private DefaultFinal(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private DefaultFinal(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -74,7 +74,7 @@ public final class WrapperTypeActivationConstructorTester
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") public SetPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		public SetPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(activationConstructor=PROTECTED,
@@ -89,7 +89,7 @@ public final class WrapperTypeActivationConstructorTester
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") protected SetProtected(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		protected SetProtected(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(activationConstructor=PACKAGE,
@@ -104,7 +104,7 @@ public final class WrapperTypeActivationConstructorTester
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") SetPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		SetPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(activationConstructor=PRIVATE,
@@ -119,6 +119,6 @@ public final class WrapperTypeActivationConstructorTester
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private SetPrivate(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private SetPrivate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

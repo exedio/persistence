@@ -297,5 +297,5 @@ public final class NameSubItem extends NameLongItem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private NameSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private NameSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -136,7 +136,7 @@ public class QueryCacheTypeCacheIdTest
 		private static final com.exedio.cope.Type<MySubItem> TYPE = com.exedio.cope.TypesBound.newType(MySubItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MySubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MySubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
@@ -152,7 +152,7 @@ public class QueryCacheTypeCacheIdTest
 		private static final com.exedio.cope.Type<MyOtherItem> TYPE = com.exedio.cope.TypesBound.newType(MyOtherItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyOtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyOtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@SuppressWarnings("unused")

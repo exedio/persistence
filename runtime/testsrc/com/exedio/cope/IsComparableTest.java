@@ -420,7 +420,7 @@ public class IsComparableTest
 		static final com.exedio.cope.Type<AnItemSub> TYPE = com.exedio.cope.TypesBound.newType(AnItemSub.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItemOther extends Item
@@ -432,7 +432,7 @@ public class IsComparableTest
 		static final com.exedio.cope.Type<AnItemOther> TYPE = com.exedio.cope.TypesBound.newType(AnItemOther.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private AnItemOther(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private AnItemOther(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -476,7 +476,7 @@ public class IsComparableTest
 		private static final long serialVersionUID = 1l;
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@SuppressWarnings("unchecked")

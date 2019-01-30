@@ -105,5 +105,5 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private MediaCatchPhraseItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private MediaCatchPhraseItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

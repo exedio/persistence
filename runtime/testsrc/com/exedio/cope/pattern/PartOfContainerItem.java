@@ -118,5 +118,5 @@ public final class PartOfContainerItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private PartOfContainerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private PartOfContainerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

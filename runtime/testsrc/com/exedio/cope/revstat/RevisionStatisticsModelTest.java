@@ -84,7 +84,7 @@ public class RevisionStatisticsModelTest
 		static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final Model OTHER_MODEL = new Model(OtherItem.TYPE);

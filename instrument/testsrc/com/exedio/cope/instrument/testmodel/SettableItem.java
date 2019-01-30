@@ -154,5 +154,5 @@ final class SettableItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private SettableItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private SettableItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

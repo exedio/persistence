@@ -93,7 +93,7 @@ public class PatternComputedTest
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		@SuppressWarnings("unused") private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final class MyPattern extends Pattern
@@ -138,7 +138,7 @@ public class PatternComputedTest
 			private static final long serialVersionUID = 1l;
 
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@SuppressWarnings("unused") private VirgnType(final com.exedio.cope.ActivationParameters ap){super(ap);}
+			private VirgnType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 
 		@Computed
@@ -149,7 +149,7 @@ public class PatternComputedTest
 			private static final long serialVersionUID = 1l;
 
 			@javax.annotation.Generated("com.exedio.cope.instrument")
-			@SuppressWarnings("unused") private CompuType(final com.exedio.cope.ActivationParameters ap){super(ap);}
+			private CompuType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 	}
 }
