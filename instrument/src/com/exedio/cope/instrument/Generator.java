@@ -68,7 +68,6 @@ final class Generator
 	private final StringBuilder output;
 	private final String lineSeparator;
 	private final boolean nullabilityAnnotations;
-	private final boolean suppressUnusedWarningOnPrivateActivationConstructor;
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
 	private final String hidingWarningSuppressor;
@@ -88,7 +87,6 @@ final class Generator
 		this.output = output;
 		this.lineSeparator = System.lineSeparator();
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
-		this.suppressUnusedWarningOnPrivateActivationConstructor = params.suppressUnusedWarningOnPrivateActivationConstructor;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
 		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
@@ -343,8 +341,6 @@ final class Generator
 		writeGeneratedAnnotation(null);
 
 		writeIndent();
-		if(suppressUnusedWarningOnPrivateActivationConstructor && !type.allowSubtypes())
-			write("@SuppressWarnings(\"unused\") ");
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
 		write(type.getName());
 		write("(final ");

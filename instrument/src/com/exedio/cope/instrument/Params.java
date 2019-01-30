@@ -53,7 +53,6 @@ final class Params
 	}
 
 	boolean nullabilityAnnotations = false;
-	boolean suppressUnusedWarningOnPrivateActivationConstructor = false;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean directSetValueMap = false;
 	String hidingWarningSuppressor = null;

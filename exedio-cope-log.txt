@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* The instrumentor no longer supports
+	<instrument suppressUnusedWarningOnPrivateActivationConstructor="true" ... />
+	which is now always "false".
 * The instrumentor generates body of generic constructor on a single line.
 	Affects instrumented code.
 	Use this parameter:

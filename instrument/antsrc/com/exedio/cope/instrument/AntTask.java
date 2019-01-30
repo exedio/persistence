@@ -132,11 +132,6 @@ public final class AntTask extends Task
 		params.nullabilityAnnotations = value;
 	}
 
-	public void setSuppressUnusedWarningOnPrivateActivationConstructor(final boolean value)
-	{
-		params.suppressUnusedWarningOnPrivateActivationConstructor = value;
-	}
-
 	public void setSerialVersionUIDSuffix(final IntegerTypeSuffix value)
 	{
 		params.serialVersionUIDSuffix = value;
