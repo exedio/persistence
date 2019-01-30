@@ -144,10 +144,7 @@ public class SerializationCheckTest
 
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private CompositeWrong(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private CompositeWrong(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

@@ -128,10 +128,7 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 	 * Creates a new DispatcherWithoutPurgeItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private DispatcherWithoutPurgeItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private DispatcherWithoutPurgeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #body}.

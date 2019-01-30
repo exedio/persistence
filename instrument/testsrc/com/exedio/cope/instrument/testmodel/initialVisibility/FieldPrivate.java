@@ -43,10 +43,7 @@ public final class FieldPrivate extends Item
 	 * Creates a new FieldPrivate and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private FieldPrivate(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private FieldPrivate(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

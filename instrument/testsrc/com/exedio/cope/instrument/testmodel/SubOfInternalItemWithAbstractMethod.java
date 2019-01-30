@@ -41,10 +41,7 @@ public class SubOfInternalItemWithAbstractMethod extends InternalItemWithAbstrac
 	 * Creates a new SubOfInternalItemWithAbstractMethod and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected SubOfInternalItemWithAbstractMethod(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected SubOfInternalItemWithAbstractMethod(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

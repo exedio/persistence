@@ -77,10 +77,7 @@ final class WrapEnumItem extends Item
 	 * Creates a new WrapEnumItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private WrapEnumItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private WrapEnumItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static Normal methodNormal(final Normal normal)

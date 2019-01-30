@@ -158,10 +158,7 @@ public class DataVaultInfoTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		final boolean isFieldNull()

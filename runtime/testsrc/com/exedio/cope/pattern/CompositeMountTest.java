@@ -325,10 +325,7 @@ public class CompositeMountTest
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyComposite(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull

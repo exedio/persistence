@@ -67,10 +67,7 @@ final class InstanceOfRefItem extends Item
 	 * Creates a new InstanceOfRefItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private InstanceOfRefItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private InstanceOfRefItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #ref}.

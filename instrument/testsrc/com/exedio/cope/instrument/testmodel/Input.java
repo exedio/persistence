@@ -58,10 +58,7 @@ public class Input extends Item
 	 * Creates a new Input and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected Input(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected Input(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #string}.

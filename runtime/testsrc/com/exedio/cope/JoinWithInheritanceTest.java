@@ -139,10 +139,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * Creates a new Container and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected Container(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected Container(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #articles}.
@@ -327,10 +324,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * Creates a new Article and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected Article(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected Article(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 2l;
@@ -367,10 +361,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * Creates a new SpecificArticle and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected SpecificArticle(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected SpecificArticle(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
@@ -407,10 +398,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * Creates a new ReallySpecificArticle and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected ReallySpecificArticle(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected ReallySpecificArticle(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

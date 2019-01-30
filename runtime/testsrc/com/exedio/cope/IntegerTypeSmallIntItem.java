@@ -42,10 +42,7 @@ public class IntegerTypeSmallIntItem extends Item
 	 * Creates a new IntegerTypeSmallIntItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected IntegerTypeSmallIntItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected IntegerTypeSmallIntItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #itemReference}.

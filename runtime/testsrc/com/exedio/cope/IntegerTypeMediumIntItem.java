@@ -42,10 +42,7 @@ public class IntegerTypeMediumIntItem extends Item
 	 * Creates a new IntegerTypeMediumIntItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected IntegerTypeMediumIntItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected IntegerTypeMediumIntItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #itemReference}.

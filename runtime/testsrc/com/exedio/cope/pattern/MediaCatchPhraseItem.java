@@ -68,10 +68,7 @@ public final class MediaCatchPhraseItem extends MediaCatchPhraseSuperItem implem
 	 * Creates a new MediaCatchPhraseItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private MediaCatchPhraseItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private MediaCatchPhraseItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #catchphrase}.

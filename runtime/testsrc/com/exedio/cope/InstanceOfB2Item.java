@@ -48,10 +48,7 @@ final class InstanceOfB2Item extends InstanceOfAItem
 	 * Creates a new InstanceOfB2Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private InstanceOfB2Item(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private InstanceOfB2Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #textb2}.

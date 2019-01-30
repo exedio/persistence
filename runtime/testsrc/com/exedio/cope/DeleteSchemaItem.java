@@ -71,10 +71,7 @@ final class DeleteSchemaItem extends DeleteSchemaItemSuper
 	 * Creates a new DeleteSchemaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private DeleteSchemaItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private DeleteSchemaItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.

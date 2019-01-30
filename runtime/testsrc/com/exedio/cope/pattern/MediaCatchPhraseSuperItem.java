@@ -54,10 +54,7 @@ public class MediaCatchPhraseSuperItem extends Item
 	 * Creates a new MediaCatchPhraseSuperItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected MediaCatchPhraseSuperItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected MediaCatchPhraseSuperItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns a Locator the content of {@link #feature} is available under.

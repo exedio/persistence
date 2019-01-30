@@ -63,10 +63,7 @@ public final class EnumMapFieldMandatoryItem extends Item
 	 * Creates a new EnumMapFieldMandatoryItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private EnumMapFieldMandatoryItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private EnumMapFieldMandatoryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #text}.

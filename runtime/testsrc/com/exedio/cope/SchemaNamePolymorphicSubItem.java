@@ -38,10 +38,7 @@ final class SchemaNamePolymorphicSubItem extends SchemaNamePolymorphicSuperItem
 	 * Creates a new SchemaNamePolymorphicSubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private SchemaNamePolymorphicSubItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private SchemaNamePolymorphicSubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

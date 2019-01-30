@@ -40,10 +40,7 @@ public final class NullabilityItem extends Item
 	 * Creates a new NullabilityItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private NullabilityItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private NullabilityItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="allCanReturnNull")
 	@javax.annotation.Nullable

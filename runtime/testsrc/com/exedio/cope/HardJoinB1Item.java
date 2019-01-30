@@ -55,10 +55,7 @@ class HardJoinB1Item extends Item
 	 * Creates a new HardJoinB1Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected HardJoinB1Item(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected HardJoinB1Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.

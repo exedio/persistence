@@ -41,10 +41,7 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	 * Creates a new IntegerTypeSubItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected IntegerTypeSubItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected IntegerTypeSubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #itemReference2}.

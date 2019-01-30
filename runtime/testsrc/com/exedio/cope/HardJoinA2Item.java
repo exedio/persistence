@@ -56,10 +56,7 @@ class HardJoinA2Item extends HardJoinA1Item
 	 * Creates a new HardJoinA2Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected HardJoinA2Item(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected HardJoinA2Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #a2}.

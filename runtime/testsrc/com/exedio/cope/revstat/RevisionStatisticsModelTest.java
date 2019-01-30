@@ -75,10 +75,7 @@ public class RevisionStatisticsModelTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private OtherItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private OtherItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

@@ -62,10 +62,7 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 * Creates a new GenericComplexSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected GenericComplexSuper(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected GenericComplexSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	final GenericComplexSub methodToSub(final GenericComplexSub toSub)

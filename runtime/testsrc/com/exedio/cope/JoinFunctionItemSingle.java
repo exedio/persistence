@@ -48,10 +48,7 @@ public final class JoinFunctionItemSingle extends Item
 	 * Creates a new JoinFunctionItemSingle and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private JoinFunctionItemSingle(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private JoinFunctionItemSingle(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #name}.

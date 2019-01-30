@@ -86,10 +86,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 * Creates a new ItemA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemA(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private ItemA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #fieldA}.
@@ -143,10 +140,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 * Creates a new ItemB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemB(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private ItemB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #fieldB}.
@@ -193,10 +187,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 * Creates a new TargetA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private TargetA(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private TargetA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
@@ -233,10 +224,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 	 * Creates a new TargetB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private TargetB(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private TargetB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

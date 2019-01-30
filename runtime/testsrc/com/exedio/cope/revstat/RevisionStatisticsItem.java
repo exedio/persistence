@@ -57,10 +57,7 @@ final class RevisionStatisticsItem extends Item
 	 * Creates a new RevisionStatisticsItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private RevisionStatisticsItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private RevisionStatisticsItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.

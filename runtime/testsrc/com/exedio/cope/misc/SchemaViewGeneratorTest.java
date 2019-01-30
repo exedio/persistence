@@ -187,10 +187,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected MySuperItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected MySuperItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -234,10 +231,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

@@ -594,10 +594,7 @@ public class CompositeTest
 	 * Creates a new Value and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private Value(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private Value(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #string4}.
@@ -917,10 +914,7 @@ public class CompositeTest
 	 * Creates a new ValueX and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ValueX(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private ValueX(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #stringField}.

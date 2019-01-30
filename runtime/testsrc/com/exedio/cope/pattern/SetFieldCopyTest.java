@@ -243,10 +243,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected Catalog(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected Catalog(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -284,10 +281,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected ParentInCatalog(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected ParentInCatalog(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
@@ -344,10 +338,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected ElementInCatalog(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected ElementInCatalog(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -375,10 +366,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected ElementWithNumber(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected ElementWithNumber(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -412,10 +400,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected ParentWithNumber(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected ParentWithNumber(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull

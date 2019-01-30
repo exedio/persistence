@@ -52,10 +52,7 @@ public final class DispatcherNoneItem extends Item
 	 * Creates a new DispatcherNoneItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private DispatcherNoneItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private DispatcherNoneItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns, whether this item is yet to be dispatched by {@link #wrong}.

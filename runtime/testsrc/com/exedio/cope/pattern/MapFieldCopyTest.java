@@ -271,10 +271,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected MapFieldCopyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected MapFieldCopyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull

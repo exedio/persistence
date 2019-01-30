@@ -93,10 +93,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 * Creates a new ItemA and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemA(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private ItemA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field1}.
@@ -192,10 +189,7 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 	 * Creates a new ItemB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemB(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private ItemB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field1}.

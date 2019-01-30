@@ -52,10 +52,7 @@ public final class SetOrderedFieldItem extends Item
 	 * Creates a new SetOrderedFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private SetOrderedFieldItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private SetOrderedFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #strings}.

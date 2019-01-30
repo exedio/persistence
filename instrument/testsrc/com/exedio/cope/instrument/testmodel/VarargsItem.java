@@ -55,10 +55,7 @@ final class VarargsItem extends VarargsSuper
 	 * Creates a new VarargsItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private VarargsItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private VarargsItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
 	static void simpleIntegerOnly(final java.lang.Integer integerValue)

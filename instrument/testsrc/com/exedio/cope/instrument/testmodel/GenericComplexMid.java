@@ -49,10 +49,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 * Creates a new GenericComplexMid and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected GenericComplexMid(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected GenericComplexMid(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static final GenericComplexMid<?> methodFromMid()

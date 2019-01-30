@@ -38,10 +38,7 @@ public final class JavaViewItem2 extends Item
 	 * Creates a new JavaViewItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private JavaViewItem2(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private JavaViewItem2(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

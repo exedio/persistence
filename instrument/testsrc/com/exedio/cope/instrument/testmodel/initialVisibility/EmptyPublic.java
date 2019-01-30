@@ -36,10 +36,7 @@ public final class EmptyPublic extends Item
 	 * Creates a new EmptyPublic and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private EmptyPublic(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private EmptyPublic(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

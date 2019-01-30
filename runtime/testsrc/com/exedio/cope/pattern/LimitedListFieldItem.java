@@ -116,10 +116,7 @@ public final class LimitedListFieldItem extends Item
 	 * Creates a new LimitedListFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	LimitedListFieldItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	LimitedListFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #num1}.

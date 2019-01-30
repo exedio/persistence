@@ -48,10 +48,7 @@ final class CompositeDefaultValue extends Composite
 	 * Creates a new CompositeDefaultValue and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private CompositeDefaultValue(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private CompositeDefaultValue(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #normal}.

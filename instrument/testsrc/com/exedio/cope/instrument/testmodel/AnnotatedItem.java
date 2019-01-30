@@ -106,10 +106,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		 * Creates a new AnnotatedItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		public AnnotatedItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		public AnnotatedItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
 		final java.lang.String oneInitialFeature()

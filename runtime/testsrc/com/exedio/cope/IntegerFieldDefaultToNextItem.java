@@ -43,10 +43,7 @@ final class IntegerFieldDefaultToNextItem extends Item
 	 * Creates a new IntegerFieldDefaultToNextItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	IntegerFieldDefaultToNextItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	IntegerFieldDefaultToNextItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #next}.

@@ -45,10 +45,7 @@ class HookStampItemSuper extends Item
 	 * Creates a new HookStampItemSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected HookStampItemSuper(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected HookStampItemSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #superField}.

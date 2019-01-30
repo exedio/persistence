@@ -68,10 +68,7 @@ final class NameCollisionlongaItem extends Item
 	 * Creates a new NameCollisionlongaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private NameCollisionlongaItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private NameCollisionlongaItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.

@@ -79,10 +79,7 @@ public class PartOfContainerReuseTest
 	 * Creates a new AContainer and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private AContainer(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private AContainer(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
@@ -139,10 +136,7 @@ public class PartOfContainerReuseTest
 	 * Creates a new APart and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private APart(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private APart(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #container}.

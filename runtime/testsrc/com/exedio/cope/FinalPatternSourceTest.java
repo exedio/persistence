@@ -128,10 +128,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 		static final StringField field2 = new StringField().optional();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable

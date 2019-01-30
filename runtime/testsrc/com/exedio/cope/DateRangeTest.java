@@ -148,10 +148,7 @@ public class DateRangeTest extends TestWithEnvironment
 		 * Creates a new MyItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #field}.

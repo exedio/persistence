@@ -42,10 +42,7 @@ public final class EmptyItem2 extends Item
 	 * Creates a new EmptyItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private EmptyItem2(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private EmptyItem2(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

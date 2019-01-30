@@ -49,10 +49,7 @@ public final class SubTarget extends Item
 	 * Creates a new SubTarget and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private SubTarget(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private SubTarget(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #string}.

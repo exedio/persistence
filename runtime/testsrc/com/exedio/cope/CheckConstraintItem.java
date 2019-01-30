@@ -86,10 +86,7 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 * Creates a new CheckConstraintItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private CheckConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private CheckConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #alpha}.

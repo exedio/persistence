@@ -52,10 +52,7 @@ final class IoqSourceSubB extends IoqSourceSuper
 	 * Creates a new IoqSourceSubB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private IoqSourceSubB(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private IoqSourceSubB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #brother}.

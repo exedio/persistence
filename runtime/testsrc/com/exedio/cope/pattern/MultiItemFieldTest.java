@@ -379,10 +379,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		 * Creates a new AnCascadeItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

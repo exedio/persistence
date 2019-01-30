@@ -46,10 +46,7 @@ public final class CompositeFully extends com.exedio.cope.pattern.Composite
 	 * Creates a new CompositeFully and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private CompositeFully(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private CompositeFully(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.

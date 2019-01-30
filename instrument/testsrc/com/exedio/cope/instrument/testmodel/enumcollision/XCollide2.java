@@ -39,10 +39,7 @@ final class XCollide2 extends Item
 	 * Creates a new XCollide2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private XCollide2(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private XCollide2(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

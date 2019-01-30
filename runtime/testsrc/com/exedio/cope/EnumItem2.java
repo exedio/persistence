@@ -49,10 +49,7 @@ public final class EnumItem2 extends Item
 	 * Creates a new EnumItem2 and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private EnumItem2(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private EnumItem2(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #status}.

@@ -122,10 +122,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Creates a new Type0A and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected Type0A(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected Type0A(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 2l;
@@ -166,10 +163,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Creates a new Type01C and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private Type01C(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private Type01C(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #intField}.
@@ -224,10 +218,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Creates a new Type02A and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected Type02A(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected Type02A(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 2l;
@@ -268,10 +259,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Creates a new Type021C and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private Type021C(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private Type021C(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #intField}.
@@ -336,10 +324,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * Creates a new TypeRef and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private TypeRef(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private TypeRef(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #ref0A}.

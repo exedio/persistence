@@ -170,10 +170,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private Container(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private Container(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
@@ -213,10 +210,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private Part(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private Part(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable

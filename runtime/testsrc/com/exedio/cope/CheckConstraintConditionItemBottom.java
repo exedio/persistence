@@ -36,10 +36,7 @@ final class CheckConstraintConditionItemBottom extends CheckConstraintConditionI
 	 * Creates a new CheckConstraintConditionItemBottom and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private CheckConstraintConditionItemBottom(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private CheckConstraintConditionItemBottom(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

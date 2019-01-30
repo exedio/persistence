@@ -51,10 +51,7 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 * Creates a new CompositeFieldRenamedSchemaItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private CompositeFieldRenamedSchemaItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private CompositeFieldRenamedSchemaItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #virgnComp}.

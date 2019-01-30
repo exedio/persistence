@@ -314,10 +314,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		static final StringField field2 = new StringField().optional();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nullable
@@ -350,10 +347,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		static final StringField field = new StringField();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private OtherItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private OtherItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull

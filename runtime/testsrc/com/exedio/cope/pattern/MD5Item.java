@@ -45,10 +45,7 @@ public final class MD5Item extends Item
 	 * Creates a new MD5Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private MD5Item(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private MD5Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.

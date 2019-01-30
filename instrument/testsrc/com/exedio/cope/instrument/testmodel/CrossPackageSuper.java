@@ -78,10 +78,7 @@ class CrossPackageSuper extends Item
 	 * Creates a new CrossPackageSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected CrossPackageSuper(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected CrossPackageSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #superField}.

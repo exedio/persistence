@@ -261,10 +261,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Creates a new Source and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private Source(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private Source(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #target}.
@@ -391,10 +388,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * Creates a new Target and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private Target(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private Target(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

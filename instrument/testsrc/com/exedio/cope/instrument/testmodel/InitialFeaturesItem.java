@@ -64,10 +64,7 @@ final class InitialFeaturesItem extends Item
 	 * Creates a new InitialFeaturesItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private InitialFeaturesItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private InitialFeaturesItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
 	java.lang.String oneNotInitial()

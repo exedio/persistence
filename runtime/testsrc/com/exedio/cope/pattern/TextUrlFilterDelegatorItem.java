@@ -80,10 +80,7 @@ public final class TextUrlFilterDelegatorItem extends Item
 	 * Creates a new TextUrlFilterDelegatorItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private TextUrlFilterDelegatorItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private TextUrlFilterDelegatorItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #name}.

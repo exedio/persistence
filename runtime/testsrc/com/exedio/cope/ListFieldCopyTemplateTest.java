@@ -107,10 +107,7 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected ItemWithComplexTemplate(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected ItemWithComplexTemplate(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private void addToList(@javax.annotation.Nonnull final ItemWithComplexTemplate list)

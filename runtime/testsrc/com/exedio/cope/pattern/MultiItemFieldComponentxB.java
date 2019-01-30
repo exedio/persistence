@@ -42,10 +42,7 @@ public class MultiItemFieldComponentxB extends Item implements MultiItemFieldVal
 	 * Creates a new MultiItemFieldComponentxB and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected MultiItemFieldComponentxB(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected MultiItemFieldComponentxB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #value}.

@@ -95,10 +95,7 @@ public abstract class ClusterNetworkTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected TypeA(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected TypeA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

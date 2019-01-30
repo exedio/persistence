@@ -46,10 +46,7 @@ final class InstanceOfC1Item extends InstanceOfB1Item
 	 * Creates a new InstanceOfC1Item and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private InstanceOfC1Item(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private InstanceOfC1Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #textc1}.

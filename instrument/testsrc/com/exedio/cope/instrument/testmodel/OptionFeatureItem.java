@@ -138,10 +138,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 * Creates a new OptionFeatureItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private OptionFeatureItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private OptionFeatureItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
 	private void simpleBarePrivate()

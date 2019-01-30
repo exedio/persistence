@@ -48,10 +48,7 @@ final class DataMandatoryItem extends Item
 	 * Creates a new DataMandatoryItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	DataMandatoryItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	DataMandatoryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns, whether there is no data for field {@link #data}.

@@ -43,10 +43,7 @@ abstract class DeleteSchemaItemSuper extends Item
 	 * Creates a new DeleteSchemaItemSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected DeleteSchemaItemSuper(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected DeleteSchemaItemSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 2l;

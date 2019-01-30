@@ -72,10 +72,7 @@ final class WrapPrimitiveItem extends Item
 	 * Creates a new WrapPrimitiveItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private WrapPrimitiveItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private WrapPrimitiveItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #integer}.

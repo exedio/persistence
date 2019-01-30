@@ -55,10 +55,7 @@ public final class ThumbnailItem extends Item
 	 * Creates a new ThumbnailItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ThumbnailItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private ThumbnailItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns a Locator the content of {@link #file} is available under.

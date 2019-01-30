@@ -47,10 +47,7 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	 * Creates a new HierarchySingleSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private HierarchySingleSub(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private HierarchySingleSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subString}.

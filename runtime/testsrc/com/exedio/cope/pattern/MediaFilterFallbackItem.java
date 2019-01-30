@@ -63,10 +63,7 @@ final class MediaFilterFallbackItem extends Item
 	 * Creates a new MediaFilterFallbackItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private MediaFilterFallbackItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private MediaFilterFallbackItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns a URL the content of {@link #any} is available under.

@@ -64,10 +64,7 @@ public final class EnumSetFieldItem extends Item
 	 * Creates a new EnumSetFieldItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private EnumSetFieldItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private EnumSetFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="contains")
 	boolean containsActiveLanguage(@javax.annotation.Nonnull final Language element)

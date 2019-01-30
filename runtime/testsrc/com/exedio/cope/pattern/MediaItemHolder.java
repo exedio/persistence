@@ -50,10 +50,7 @@ public final class MediaItemHolder extends Item
 	 * Creates a new MediaItemHolder and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	MediaItemHolder(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	MediaItemHolder(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #mediaItem}.

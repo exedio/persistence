@@ -192,10 +192,7 @@ public class LocalizationKeysPatternTest
 		static final IntegerField compFieldPure = new IntegerField();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyComp(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyComp(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

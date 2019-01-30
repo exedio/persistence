@@ -59,10 +59,7 @@ class IoqSourceSuper extends Item
 	 * Creates a new IoqSourceSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected IoqSourceSuper(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected IoqSourceSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #ref}.

@@ -46,10 +46,7 @@ class PartOfWithOptionalContainerItem extends Item
 	 * Creates a new PartOfWithOptionalContainerItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected PartOfWithOptionalContainerItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected PartOfWithOptionalContainerItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #container}.

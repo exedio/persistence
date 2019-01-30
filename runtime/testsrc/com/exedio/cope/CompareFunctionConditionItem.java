@@ -132,10 +132,7 @@ final class CompareFunctionConditionItem extends Item
 	 * Creates a new CompareFunctionConditionItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private CompareFunctionConditionItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private CompareFunctionConditionItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #stringA}.

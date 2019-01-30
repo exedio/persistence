@@ -42,10 +42,7 @@ public class FeatureComponentInVarargs extends Item
 	 * Creates a new FeatureComponentInVarargs and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected FeatureComponentInVarargs(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected FeatureComponentInVarargs(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
 	static final void simpleFeatureUsingComponents(final java.lang.String withComponent_first,final int withComponent_second)

@@ -45,10 +45,7 @@ final class DayFieldDefaultToNowItem extends Item
 	 * Creates a new DayFieldDefaultToNowItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	DayFieldDefaultToNowItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	DayFieldDefaultToNowItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #mandatory}.

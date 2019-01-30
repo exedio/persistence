@@ -45,10 +45,7 @@ class SameInnerTypeCollision extends Item
 	 * Creates a new SameInnerTypeCollision and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected SameInnerTypeCollision(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected SameInnerTypeCollision(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #innerX1}.

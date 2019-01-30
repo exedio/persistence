@@ -154,10 +154,7 @@ public final class DispatcherWithoutRemainingItem extends Item implements Dispat
 	 * Creates a new DispatcherWithoutRemainingItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private DispatcherWithoutRemainingItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private DispatcherWithoutRemainingItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #body}.

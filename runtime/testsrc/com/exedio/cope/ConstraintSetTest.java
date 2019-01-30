@@ -163,10 +163,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * Creates a new AnItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		protected AnItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #field}.
@@ -349,10 +346,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * Creates a new ASubItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private ASubItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private ASubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

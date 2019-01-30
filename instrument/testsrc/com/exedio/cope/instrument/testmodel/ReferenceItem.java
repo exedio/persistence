@@ -40,10 +40,7 @@ final class ReferenceItem extends ReferenceSuperItem
 	 * Creates a new ReferenceItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ReferenceItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private ReferenceItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static void methodSubTarget(final int subTarget)

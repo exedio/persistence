@@ -83,10 +83,7 @@ public final class MessageDigestHashItem extends Item
 	 * Creates a new MessageDigestHashItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private MessageDigestHashItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private MessageDigestHashItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.

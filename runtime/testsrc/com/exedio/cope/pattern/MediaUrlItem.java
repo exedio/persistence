@@ -91,10 +91,7 @@ public final class MediaUrlItem extends Item implements MediaUrlCatchphraseProvi
 	 * Creates a new MediaUrlItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private MediaUrlItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private MediaUrlItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #catchphrase}.

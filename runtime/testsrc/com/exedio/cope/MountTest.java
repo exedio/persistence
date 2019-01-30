@@ -249,10 +249,7 @@ public class MountTest
 		static final IntegerField pure = new IntegerField();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -276,10 +273,7 @@ public class MountTest
 		static final IntegerField pure = new IntegerField();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		protected PureItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		protected PureItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -312,10 +306,7 @@ public class MountTest
 		static final CompositeType<MyComposite> TYPE = CompositeField.create(MyComposite.class).getValueType();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyComposite(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -335,10 +326,7 @@ public class MountTest
 		static final CompositeType<PureComposite> TYPE = CompositeField.create(PureComposite.class).getValueType();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private PureComposite(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private PureComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

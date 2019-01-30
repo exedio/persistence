@@ -46,10 +46,7 @@ final class HookAuditItemSub extends HookAuditItem
 	 * Creates a new HookAuditItemSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private HookAuditItemSub(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private HookAuditItemSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subField}.

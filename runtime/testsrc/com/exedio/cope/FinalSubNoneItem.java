@@ -42,10 +42,7 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	 * Creates a new FinalSubNoneItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private FinalSubNoneItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private FinalSubNoneItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subIntNone}.

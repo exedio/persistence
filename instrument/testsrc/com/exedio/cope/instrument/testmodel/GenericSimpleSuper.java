@@ -55,10 +55,7 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 * Creates a new GenericSimpleSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected GenericSimpleSuper(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected GenericSimpleSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	final GenericSimpleSub methodToSub(final GenericSimpleSub toSub)

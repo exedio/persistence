@@ -48,10 +48,7 @@ public final class PasswordRecoveryItem extends Item
 	 * Creates a new PasswordRecoveryItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private PasswordRecoveryItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private PasswordRecoveryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.

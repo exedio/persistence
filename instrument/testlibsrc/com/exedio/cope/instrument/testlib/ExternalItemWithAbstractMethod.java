@@ -46,10 +46,7 @@ public abstract class ExternalItemWithAbstractMethod extends ExternalParentWithA
 	 * Creates a new ExternalItemWithAbstractMethod and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected ExternalItemWithAbstractMethod(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected ExternalItemWithAbstractMethod(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 2l;

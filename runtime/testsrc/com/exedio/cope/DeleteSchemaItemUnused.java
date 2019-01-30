@@ -38,10 +38,7 @@ final class DeleteSchemaItemUnused extends Item
 	 * Creates a new DeleteSchemaItemUnused and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private DeleteSchemaItemUnused(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private DeleteSchemaItemUnused(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.

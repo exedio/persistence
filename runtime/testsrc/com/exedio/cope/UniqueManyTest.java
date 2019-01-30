@@ -107,10 +107,7 @@ public class UniqueManyTest extends TestWithEnvironment
 
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull

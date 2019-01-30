@@ -214,10 +214,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private Source(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private Source(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull
@@ -280,10 +277,7 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private Target(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private Target(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		int getCopy()

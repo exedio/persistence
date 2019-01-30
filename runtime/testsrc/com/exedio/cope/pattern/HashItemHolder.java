@@ -50,10 +50,7 @@ public final class HashItemHolder extends Item
 	 * Creates a new HashItemHolder and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	HashItemHolder(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	HashItemHolder(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #hashItem}.

@@ -215,10 +215,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * Creates a new DoubleCopyConstraintItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private DoubleCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private DoubleCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
@@ -296,10 +293,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * Creates a new AllCopyConstraintItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private AllCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private AllCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
@@ -367,10 +361,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * Creates a new PartialCopyConstraintItem and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private PartialCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private PartialCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
@@ -429,10 +420,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * Creates a new A and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private A(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private A(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
@@ -492,10 +480,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * Creates a new B and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private B(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private B(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
@@ -559,10 +544,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * Creates a new C and sets the given fields initially.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-		private C(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private C(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.

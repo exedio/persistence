@@ -61,10 +61,7 @@ public class UniqueTwiceTest
 		static final StringField oneDup = new StringField().unique().unique();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		@javax.annotation.Nonnull

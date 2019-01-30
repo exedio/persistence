@@ -85,10 +85,7 @@ public final class EnumMapFieldFinalItem extends Item
 	 * Creates a new EnumMapFieldFinalItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private EnumMapFieldFinalItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private EnumMapFieldFinalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #text}.

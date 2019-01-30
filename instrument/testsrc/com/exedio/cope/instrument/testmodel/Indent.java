@@ -54,10 +54,7 @@ final class Indent extends Item
 			 * Creates a new Indent and sets the given fields initially.
 			 */
 			@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-			private Indent(final com.exedio.cope.SetValue<?>... setValues)
-			{
-				super(setValues);
-			}
+			private Indent(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 			/**
 			 * Returns the value of {@link #one}.

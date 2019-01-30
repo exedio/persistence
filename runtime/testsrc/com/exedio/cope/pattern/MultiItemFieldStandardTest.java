@@ -52,10 +52,7 @@ public class MultiItemFieldStandardTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private AnMandatoryItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private AnMandatoryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -83,10 +80,7 @@ public class MultiItemFieldStandardTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private AnOptionalItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private AnOptionalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -114,10 +108,7 @@ public class MultiItemFieldStandardTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private AnFinalItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private AnFinalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -153,10 +144,7 @@ public class MultiItemFieldStandardTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private ThreeItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private ThreeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -184,10 +172,7 @@ public class MultiItemFieldStandardTest
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

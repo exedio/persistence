@@ -56,10 +56,7 @@ public class MediaFilterItem extends Item
 	 * Creates a new MediaFilterItem and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected MediaFilterItem(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected MediaFilterItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns a URL the content of {@link #text} is available under.

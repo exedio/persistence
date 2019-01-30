@@ -44,10 +44,7 @@ public class DeleteHierarchyTargetSuper extends Item
 	 * Creates a new DeleteHierarchyTargetSuper and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	protected DeleteHierarchyTargetSuper(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	protected DeleteHierarchyTargetSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.

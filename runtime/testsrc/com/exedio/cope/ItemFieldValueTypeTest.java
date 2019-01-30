@@ -120,10 +120,7 @@ public class ItemFieldValueTypeTest
 		static final ItemField<MyItem> field = ItemField.create(MyItem.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MyComp(final com.exedio.cope.SetValue<?>... setValues)
-		{
-			super(setValues);
-		}
+		private MyComp(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;

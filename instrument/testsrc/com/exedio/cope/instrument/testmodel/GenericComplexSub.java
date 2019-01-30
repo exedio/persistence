@@ -48,10 +48,7 @@ public final class GenericComplexSub extends GenericComplexMid<List<String>>
 	 * Creates a new GenericComplexSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private GenericComplexSub(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private GenericComplexSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static GenericComplexSub methodFromSub()

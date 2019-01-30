@@ -43,10 +43,7 @@ public final class HierarchySecondSub extends HierarchySuper
 	 * Creates a new HierarchySecondSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private HierarchySecondSub(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private HierarchySecondSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #firstSubString}.

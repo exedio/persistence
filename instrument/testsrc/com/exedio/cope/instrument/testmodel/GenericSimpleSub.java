@@ -44,10 +44,7 @@ public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 	 * Creates a new GenericSimpleSub and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private GenericSimpleSub(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private GenericSimpleSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
 	static GenericSimpleSub methodFromSub()
