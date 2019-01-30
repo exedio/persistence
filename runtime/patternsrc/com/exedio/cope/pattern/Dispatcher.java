@@ -378,7 +378,7 @@ public final class Dispatcher extends Pattern
 					tx.commit();
 					logger.info("success for {}, took {}ms", itemID, elapsed);
 				}
-				catch(final Exception cause)
+				catch(final Exception failureCause)
 				{
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					probeRequired = true;
@@ -387,7 +387,7 @@ public final class Dispatcher extends Pattern
 					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
 					try(PrintStream out = new PrintStream(baos, false, ENCODING.name()))
 					{
-						cause.printStackTrace(out);
+						failureCause.printStackTrace(out);
 					}
 					catch(final UnsupportedEncodingException e)
 					{
@@ -430,8 +430,8 @@ public final class Dispatcher extends Pattern
 									"final failure for " + itemID + ", " +
 									"took " + elapsed + "ms, " +
 									limit + " runs exhausted",
-									cause);
-						item.notifyFinalFailure(this, cause);
+									failureCause);
+						item.notifyFinalFailure(this, failureCause);
 					}
 					else
 					{
@@ -441,7 +441,7 @@ public final class Dispatcher extends Pattern
 									"transient failure for " + itemID + ", " +
 									"took " + elapsed + "ms, " +
 									remaining + " of " + limit + " runs remaining",
-									cause);
+									failureCause);
 					}
 				}
 			}
