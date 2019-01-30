@@ -78,6 +78,7 @@ final class Generator
 	private final boolean wildcardClass;
 	private final boolean wildcardClassFullyQualified;
 	private final boolean convertTT2Code;
+	private final boolean genericConstructorMultiline;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 
@@ -97,6 +98,7 @@ final class Generator
 		this.wildcardClass = params.wildcardClass;
 		this.wildcardClassFullyQualified = params.wildcardClassFullyQualified;
 		this.convertTT2Code = params.convertTT2Code;
+		this.genericConstructorMultiline = !params.genericConstructorOneline;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -302,14 +304,23 @@ final class Generator
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
 		write(type.getName());
 		write("(final " + SET_VALUE + "<?>... setValues)");
-		write(lineSeparator);
-		writeIndent();
+		if(genericConstructorMultiline)
+		{
+			write(lineSeparator);
+			writeIndent();
+		}
 		write('{');
-		write(lineSeparator);
-		writeIndent(1);
+		if(genericConstructorMultiline)
+		{
+			write(lineSeparator);
+			writeIndent(1);
+		}
 		write("super(setValues);");
-		write(lineSeparator);
-		writeIndent();
+		if(genericConstructorMultiline)
+		{
+			write(lineSeparator);
+			writeIndent();
+		}
 		write('}');
 		write(lineSeparator);
 	}

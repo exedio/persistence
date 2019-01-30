@@ -63,6 +63,7 @@ final class Params
 	boolean wildcardClass = true;
 	boolean wildcardClassFullyQualified = false;
 	boolean convertTT2Code = true;
+	boolean genericConstructorOneline = true;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;

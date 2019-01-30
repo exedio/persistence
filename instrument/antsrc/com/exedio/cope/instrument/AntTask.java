@@ -182,6 +182,11 @@ public final class AntTask extends Task
 		params.convertTT2Code = value;
 	}
 
+	public void setGenericConstructorOneline(final boolean value)
+	{
+		params.genericConstructorOneline = value;
+	}
+
 	public void setVerbose(final boolean value)
 	{
 		params.verbose = value;
