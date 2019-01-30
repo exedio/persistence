@@ -384,8 +384,8 @@ public final class Dispatcher extends Pattern
 					probeRequired = true;
 					tx.rollbackIfNotCommitted();
 
-					final ByteArrayOutputStream baos = new ByteArrayOutputStream();
-					try(PrintStream out = new PrintStream(baos, false, ENCODING.name()))
+					final ByteArrayOutputStream failureCauseStackTrace = new ByteArrayOutputStream();
+					try(PrintStream out = new PrintStream(failureCauseStackTrace, false, ENCODING.name()))
 					{
 						failureCause.printStackTrace(out);
 					}
@@ -415,7 +415,7 @@ public final class Dispatcher extends Pattern
 					runType.newItem(
 							parentClass, item, new Date(start), elapsed,
 							remaining, limit,
-							Result.failure(isFinal), baos.toByteArray());
+							Result.failure(isFinal), failureCauseStackTrace.toByteArray());
 
 					if(isFinal)
 						unpend(item, false, new Date(start));
