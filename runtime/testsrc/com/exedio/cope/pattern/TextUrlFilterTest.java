@@ -259,7 +259,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		assertTrue(model.hasCurrentTransaction());
 	}
 
-	static class Request extends HttpServletRequestDummy
+	static class Request extends AssertionFailedHttpServletRequest
 	{
 		@Override
 		public String getContextPath()
@@ -274,7 +274,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 	}
 
-	static class Response extends HttpServletResponseDummy
+	static class Response extends AssertionFailedHttpServletResponse
 	{
 		final String body;
 		int contentLength = -1;

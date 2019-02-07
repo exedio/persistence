@@ -604,7 +604,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		return response;
 	}
 
-	private static final class Request extends HttpServletRequestDummy
+	private static final class Request extends AssertionFailedHttpServletRequest
 	{
 		private final String pathInfo;
 		private long ifModifiedSince = -1;
@@ -685,7 +685,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		}
 	}
 
-	private static final class Response extends HttpServletResponseDummy
+	private static final class Response extends AssertionFailedHttpServletResponse
 	{
 		Response()
 		{

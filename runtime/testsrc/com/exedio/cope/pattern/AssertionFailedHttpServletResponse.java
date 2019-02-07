@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressFBWarnings("NM_CONFUSING")
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
-class HttpServletResponseDummy implements HttpServletResponse
+class AssertionFailedHttpServletResponse implements HttpServletResponse
 {
 
 	@Override
