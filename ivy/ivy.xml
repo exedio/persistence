@@ -5,7 +5,8 @@
 	<info
 			organisation="com.exedio"
 			module="cope"
-			revision="@BUILD_REVISION@">
+			revision="@BUILD_REVISION@"
+			status="@BUILD_STATUS@">
 		<license
 				name="GNU Lesser General Public License, Version 2.1"
 				url="https://opensource.org/licenses/lgpl-license.html" />
