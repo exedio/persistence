@@ -251,6 +251,7 @@ final class MysqlSchemaDialect extends Dialect
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
+		// TODO use RENAME COLUMN in MySQL 8.0
 		return
 				"ALTER TABLE " + tableName +
 				" CHANGE " + oldColumnName + ' ' + newColumnName + ' ' + columnType;
