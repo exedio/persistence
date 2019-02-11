@@ -108,7 +108,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 
 		commit();
 		Thread.sleep(100);
-		assertEquals(Thread.State.TERMINATED, thread.getState());
+		assertEquals(Thread.State.TERMINATED, thread.getState(), NON_DETERMINISTIC_MESSAGE);
 		final Exception failure = runner.assertIt(true, true);
 		assertNotNull(failure);
 		switch(dialect)
@@ -204,6 +204,8 @@ public class TransactionUniqueTest extends TestWithEnvironment
 						methodName.equals(t.getMethodName())), 
 				asList(trace).toString());
 	}
+
+	private static final String NON_DETERMINISTIC_MESSAGE = "may fail rarely due to race conditions";
 
 	@AfterEach void after()
 	{
