@@ -247,9 +247,9 @@ public class EnviromentInfoTest
 				new VersionDatabaseMetaData("XX", 77, 777,
 						"revision: 9131eefa398531c7dc98776e8a3fe839e544c5b2 or so", 5, 1));
 
-		assertEquals("revision: 9131eef or so",
+		assertEquals("revision: 9131eefa or so",
 				i.getDriverVersion());
-		assertEquals("revision: 9131eef or so (5.1)",
+		assertEquals("revision: 9131eefa or so (5.1)",
 				i.getDriverVersionDescription());
 	}
 

@@ -55,7 +55,7 @@ public final class EnvironmentInfo
 	}
 
 	private static final Pattern driverVersionPattern =
-			Pattern.compile("\\b([0-9,a-f]{7})[0-9,a-f]{33}\\b");
+			Pattern.compile("\\b([0-9,a-f]{8})[0-9,a-f]{32}\\b");
 
 	/**
 	 * Provides {@link java.sql.Connection#getCatalog()}.
