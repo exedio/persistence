@@ -83,16 +83,13 @@ timestamps
 					allowEmptyResults: false,
 					testResults: 'build/testresults/**/*.xml',
 			)
-			archive(
+			archiveArtifacts(
 					'build/testprotocol.*,' +
 					'build/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
 					'build/*.log,' +
 					'build/testtmpdir'
 			)
-			def to = emailextrecipients([
-					[$class: 'CulpritsRecipientProvider'],
-					[$class: 'RequesterRecipientProvider']
-			])
+			def to = emailextrecipients([culprits(), requestor()])
 			//TODO details
 			step([$class: 'Mailer',
 					recipients: to,

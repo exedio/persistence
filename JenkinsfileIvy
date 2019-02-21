@@ -25,13 +25,13 @@ timestamps
 				])
 
 				sh "ant/bin/ant -buildfile ivy"
-				archive 'ivy/artifacts/*.html,ivy/artifacts/*.css'
+				archiveArtifacts 'ivy/artifacts/*.html,ivy/artifacts/*.css'
 
 				sh "git status --porcelain --untracked-files=normal > git-status.txt"
 				def gitStatus = readFile('git-status.txt')
 				if(gitStatus!='?? git-status.txt\n')
 				{
-					archive 'git-status.txt'
+					archiveArtifacts 'git-status.txt'
 					currentBuild.result = 'FAILURE'
 				}
 			}
@@ -43,10 +43,7 @@ timestamps
 		}
 		finally
 		{
-			def to = emailextrecipients([
-					[$class: 'CulpritsRecipientProvider'],
-					[$class: 'RequesterRecipientProvider']
-			])
+			def to = emailextrecipients([culprits(), requestor()])
 			//TODO details
 			step([$class: 'Mailer',
 					recipients: to,

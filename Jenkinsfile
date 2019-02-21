@@ -70,8 +70,8 @@ timestamps
 						usePreviousBuildAsReference: false,
 						useStableBuildAsReference: false,
 				)
-				archive 'build/success/*'
-				step([$class: 'PlotBuilder',
+				archiveArtifacts 'build/success/*'
+				plot(
 						csvFileName: 'plots.csv',
 						exclZero: false,
 						keepRecords: false,
@@ -84,8 +84,8 @@ timestamps
 							[ file: 'build/exedio-cope.jar-plot.properties',     label: 'exedio-cope.jar' ],
 							[ file: 'build/exedio-cope-src.zip-plot.properties', label: 'exedio-cope-src.zip' ],
 						],
-				])
-				step([$class: 'PlotBuilder',
+				)
+				plot(
 						csvFileName: 'plots-dialect.csv',
 						exclZero: false,
 						keepRecords: false,
@@ -100,8 +100,8 @@ timestamps
 							[ file: 'build/exedio-cope-oracle.jar-plot.properties',     label: 'exedio-cope-oracle.jar' ],
 							[ file: 'build/exedio-cope-postgresql.jar-plot.properties', label: 'exedio-cope-postgresql.jar' ],
 						],
-				])
-				step([$class: 'PlotBuilder',
+				)
+				plot(
 						csvFileName: 'plots-instrument.csv',
 						exclZero: false,
 						keepRecords: false,
@@ -114,8 +114,8 @@ timestamps
 							file: 'build/exedio-cope-instrument.jar-plot.properties',
 							label:      'exedio-cope-instrument.jar',
 						]],
-				])
-				step([$class: 'PlotBuilder',
+				)
+				plot(
 						csvFileName: 'plots-instrument-annotations.csv',
 						exclZero: false,
 						keepRecords: false,
@@ -128,8 +128,8 @@ timestamps
 							file: 'build/exedio-cope-instrument-annotations.jar-plot.properties',
 							label:      'exedio-cope-instrument-annotations.jar',
 						]],
-				])
-				step([$class: 'PlotBuilder',
+				)
+				plot(
 						csvFileName: 'plots-instrument-completion.csv',
 						exclZero: false,
 						keepRecords: false,
@@ -142,7 +142,7 @@ timestamps
 							file: 'build/exedio-cope-instrument-completion.jar-plot.properties',
 							label:      'exedio-cope-instrument-completion.jar',
 						]],
-				])
+				)
 			}
 		}
 		catch(Exception e)
@@ -157,7 +157,7 @@ timestamps
 					allowEmptyResults: false,
 					testResults: 'build/testresults/**/*.xml',
 			)
-			archive(
+			archiveArtifacts(
 					'build/ThumbnailTest/*,' +
 					'build/testprotocol.*,' +
 					'build/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
@@ -165,10 +165,7 @@ timestamps
 					'tomcat/logs/*,' +
 					'build/testtmpdir'
 			)
-			def to = emailextrecipients([
-					[$class: 'CulpritsRecipientProvider'],
-					[$class: 'RequesterRecipientProvider']
-			])
+			def to = emailextrecipients([culprits(), requestor()])
 			//TODO details
 			step([$class: 'Mailer',
 					recipients: to,
