@@ -14,11 +14,11 @@ timestamps
 				def scmResult = checkout scm
 				computeGitTree(scmResult)
 
-				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss");
+				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss")
 				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
-				def isRelease = env.BRANCH_NAME.toString().equals("master");
+				def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 				properties([
 						buildDiscarder(logRotator(
@@ -148,7 +148,7 @@ timestamps
 		catch(Exception e)
 		{
 			//todo handle script returned exit code 143
-			throw e;
+			throw e
 		}
 		finally
 		{
@@ -189,13 +189,13 @@ def abortable(Closure body)
 {
 	try
 	{
-		body.call();
+		body.call()
 	}
 	catch(hudson.AbortException e)
 	{
 		if(e.getMessage().contains("exit code 143"))
 			return
-		throw e;
+		throw e
 	}
 }
 
