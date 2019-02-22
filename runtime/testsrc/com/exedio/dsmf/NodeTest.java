@@ -32,7 +32,7 @@ public class NodeTest
 {
 	@Test void testColumnOk() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -66,7 +66,7 @@ public class NodeTest
 
 	@Test void testColumnWrongName() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -127,7 +127,7 @@ public class NodeTest
 
 	@Test void testColumnWrongType() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 		final Column c = table.newColumn("colName", "requiredType");
 
@@ -160,7 +160,7 @@ public class NodeTest
 
 	@Test void testColumnNonRequires() throws ReflectiveOperationException
 	{
-		final Schema schema = new Schema(newHsqldbDialect(true), connectionProvider);
+		final Schema schema = new Schema(newHsqldbDialect(), connectionProvider);
 		final Table table = schema.newTable("tabName");
 
 		final Column c = notifyExistentColumn(table, "colName", "existingType");

@@ -35,7 +35,7 @@ public class GraphTest
 
 	@BeforeEach final void setUp() throws ReflectiveOperationException
 	{
-		schema = new Schema(newHsqldbDialect(true), new ConnectionProvider(){
+		schema = new Schema(newHsqldbDialect(), new ConnectionProvider(){
 			@Override
 			public Connection getConnection() { throw new RuntimeException(); }
 			@Override
@@ -45,7 +45,7 @@ public class GraphTest
 		});
 	}
 
-	static Dialect newHsqldbDialect(final boolean supportsCheckConstraints) throws ReflectiveOperationException
+	static Dialect newHsqldbDialect() throws ReflectiveOperationException
 	{
 		// Use reflection because otherwise class fails to load when running
 		// ant target runtime.test.withEnv causing
@@ -56,7 +56,7 @@ public class GraphTest
 						asSubclass(Dialect.class).
 						getDeclaredConstructor(boolean.class);
 		c.setAccessible(true);
-		return c.newInstance(supportsCheckConstraints);
+		return c.newInstance(true);
 	}
 
 	@Test void testOk()
