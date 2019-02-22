@@ -1,8 +1,10 @@
 
 timestamps
 {
+	env.DATABASE_HOST = 'mysql56.ci.test'
+
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && OpenJdk18Debian9 && Mysql56')
+	node('GitCloneExedio && OpenJdk18Debian9 && ' + env.DATABASE_HOST)
 	{
 		try
 		{
@@ -156,7 +158,7 @@ def writeEnv(name, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:mysql://mysql56.ci.test/' + env.SCHEMA + '\n' +
+					'connection.url=jdbc:mysql://' + env.DATABASE_HOST + '/' + env.SCHEMA + '\n' +
 					'connection.username=' + env.SCHEMA + '\n' +
 					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
 					'x-build.schemasavepoint=' +
