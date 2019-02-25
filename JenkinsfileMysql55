@@ -154,16 +154,19 @@ def computeGitTree(scmResult)
 
 def writeEnv(name, text)
 {
-	writeFile(
+	withCredentials([string(credentialsId: env.DATABASE_HOST, variable: 'PASSWORD')])
+	{
+		writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
 					'connection.url=jdbc:mysql://' + env.DATABASE_HOST + '/' + env.SCHEMA + '\n' +
 					'connection.username=' + env.SCHEMA + '\n' +
-					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
+					'connection.password=' + PASSWORD + '\n' +
 					'x-build.schemasavepoint=' +
 							/FAILS: SHOW MASTER STATUS returns empty result\\p{Punct} probably because binlog is disabled/ + '\n' +
 					'x-build.dialect=mysql\n' +
 					'x-build.driver=mysql-connector-java.jar\n' +
 					text
-	)
+		)
+	}
 }

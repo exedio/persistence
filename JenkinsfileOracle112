@@ -122,14 +122,17 @@ def computeGitTree(scmResult)
 
 def writeEnv(name, text)
 {
-	writeFile(
+	withCredentials([string(credentialsId: env.DATABASE_HOST, variable: 'PASSWORD')])
+	{
+		writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
 					'connection.url=jdbc:oracle:thin:@' + env.DATABASE_HOST + ':1521:DB3\n' +
 					'connection.username=' + env.SCHEMA + '\n' +
-					'connection.password=' + env.DATABASE_PASSWORD + '\n' +
+					'connection.password=' + PASSWORD + '\n' +
 					'x-build.dialect=oracle\n' +
 					'x-build.driver=ojdbc.jar\n' +
 					text
-	)
+		)
+	}
 }
