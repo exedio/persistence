@@ -279,19 +279,14 @@ public abstract class Dialect
 			{
 				this.table = table;
 				this.name = name;
-				this.columns.add(column);
 			}
-			else if(this.table==table && this.name.equals(name))
-			{
-				this.columns.add(column);
-			}
-			else
+			else if(this.table!=table || !this.name.equals(name))
 			{
 				flush();
 				this.table = table;
 				this.name = name;
-				this.columns.add(column);
 			}
+			this.columns.add(column);
 		}
 
 		public void finish()
