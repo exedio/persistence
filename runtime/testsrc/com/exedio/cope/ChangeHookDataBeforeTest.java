@@ -383,6 +383,7 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 		events.clear();
 	}
 
+	@SuppressWarnings("MethodOnlyUsedFromInnerClass")
 	private static void addEvent(final String event)
 	{
 		assertNotNull(event);
@@ -399,6 +400,7 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	@SuppressWarnings("MethodOnlyUsedFromInnerClass")
 	private static String decode(final Object v)
 	{
 		return new String(((ArrayValue)v).array, US_ASCII);

@@ -59,6 +59,7 @@ public abstract class CopeRule extends MainRule
 		model.deleteSchemaForTest(); // typically faster than checkEmptySchema
 
 		if(doesManageTransactions)
+			//noinspection OptionalGetWithoutIsPresent
 			model.startTransaction("tx:" + context.getTestClass().get().getName());
 	}
 

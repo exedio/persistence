@@ -80,7 +80,7 @@ public class SchemaTest extends TestWithEnvironment
 		final String dateMaximum;
 		final String dayMinimum;
 		final String dayMaximum;
-		//noinspection EnumSwitchStatementWhichMissesCases
+		//noinspection EnumSwitchStatementWhichMissesCases,SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(dialect)
 		{
 			case postgresql:

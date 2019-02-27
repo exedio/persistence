@@ -82,6 +82,7 @@ public final class DefaultChangeHook implements ChangeHook
 			}
 			if(beforeNewItemMethods.putIfAbsent(type, result)!=null)
 				throw new RuntimeException(type.id);
+			//noinspection AssertWithSideEffects OK: done is maintained just for assertions
 			assert done.add(type);
 		}
 		this.beforeNewItemMethods = beforeNewItemMethods;

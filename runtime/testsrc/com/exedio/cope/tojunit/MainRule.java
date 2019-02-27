@@ -79,6 +79,7 @@ public abstract class MainRule
 			assertNull(rules);
 			this.rules = new ArrayList<>();
 
+			@SuppressWarnings("OptionalGetWithoutIsPresent")
 			final Class<?> testClass = context.getTestClass().get();
 			final LinkedList<Class<?>> classesFromTop = new LinkedList<>();
 			for(Class<?> clazz = testClass; clazz!=null; clazz = clazz.getSuperclass())
@@ -89,6 +90,7 @@ public abstract class MainRule
 					{
 						assertTrue (Modifier.isFinal (field.getModifiers()));
 						assertFalse(Modifier.isStatic(field.getModifiers()));
+						@SuppressWarnings("OptionalGetWithoutIsPresent")
 						final Object instance = context.getTestInstance().get();
 						field.setAccessible(true);
 						final MainRule rule = (MainRule)field.get(instance);

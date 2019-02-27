@@ -1,0 +1,5 @@
+<application>
+  <component name="PathMacrosImpl">
+    <macro name="TOOLS_JAR" value="@JAVA_HOME_1.8@/lib/tools.jar" />
+  </component>
+</application>

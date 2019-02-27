@@ -234,6 +234,7 @@ final class PostgresqlDialect extends Dialect
 			final Statement bf, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
+		//noinspection SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(algorithm)
 		{
 			case "MD5": bf.append("MD5(").append(column, join).append(')'); break;
