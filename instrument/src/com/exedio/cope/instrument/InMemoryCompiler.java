@@ -119,26 +119,6 @@ final class InMemoryCompiler
 		}
 	}
 
-	private static URI toURI(final Path path)
-	{
-		try
-		{
-			return new URI("memory:/"+path.toString().replace(File.separatorChar, '/'));
-		}
-		catch (final URISyntaxException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
-	private static void checkPath(final Path path)
-	{
-		if (path.isAbsolute())
-			throw new IllegalArgumentException("path must be relative");
-		if (path.normalize()!=path)
-			throw new IllegalArgumentException("path contains redundant elements");
-	}
-
 	private static class JavaFile extends SimpleJavaFileObject
 	{
 		private final Path path;
@@ -167,6 +147,26 @@ final class InMemoryCompiler
 			{
 				w.write(content);
 			}
+		}
+
+		private static URI toURI(final Path path)
+		{
+			try
+			{
+				return new URI("memory:/"+path.toString().replace(File.separatorChar, '/'));
+			}
+			catch (final URISyntaxException e)
+			{
+				throw new RuntimeException(e);
+			}
+		}
+
+		private static void checkPath(final Path path)
+		{
+			if (path.isAbsolute())
+				throw new IllegalArgumentException("path must be relative");
+			if (path.normalize()!=path)
+				throw new IllegalArgumentException("path contains redundant elements");
 		}
 	}
 }
