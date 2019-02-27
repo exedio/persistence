@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterItem.fertig;
+import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -35,7 +36,6 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.UnsupportedEncodingException;
 import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -170,13 +170,6 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 
 	private static String string(final byte[] bytes)
 	{
-		try
-		{
-			return new String(bytes, "us-ascii");
-		}
-		catch(final UnsupportedEncodingException e)
-		{
-			throw new RuntimeException(e);
-		}
+		return new String(bytes, US_ASCII);
 	}
 }
