@@ -70,7 +70,6 @@ public final class TypeSet
 	 * This is the list of types fed into {@link TypeSet#TypeSet(Type[]) the constructor}.
 	 * It does not include types created by patterns of explicit types.
 	 */
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // explicitTypesList is unmodifiable
 	public List<Type<?>> getExplicitTypes()
 	{
 		return explicitTypesList;

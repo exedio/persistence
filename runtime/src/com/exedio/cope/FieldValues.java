@@ -89,7 +89,6 @@ public final class FieldValues
 		return dirt.containsKey(field);
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // dirtEntrySet is unmodifiable
 	Set<Map.Entry<Field<?>, Object>> dirtySet()
 	{
 		return dirtEntrySet;

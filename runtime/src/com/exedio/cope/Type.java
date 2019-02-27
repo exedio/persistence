@@ -858,7 +858,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return fields.all;
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // featuresDeclared is unmodifiable
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{

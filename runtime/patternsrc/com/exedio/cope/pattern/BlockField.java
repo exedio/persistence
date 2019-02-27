@@ -114,7 +114,6 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		return valueType.getFeatures();
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // componentList is unmodifiable
 	@Override
 	public List<? extends Feature> getComponents()
 	{

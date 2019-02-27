@@ -611,7 +611,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		final byte[] array;
 
-		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
 		ArrayValue(final byte[] array)
 		{
 			this.array = array;
