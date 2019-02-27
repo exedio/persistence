@@ -67,7 +67,6 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		Files.createDirectory(((VaultFileService)getService()).tempDir);
 	}
 
-	@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class") // bug in inspection
 	@Test final void testToString()
 	{
 		assertEquals("VaultFileService:" + root.getAbsolutePath(), getService().toString());

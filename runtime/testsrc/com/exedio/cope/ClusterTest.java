@@ -37,7 +37,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("JUnit3StyleTestMethodInJUnit4Class") // don't know why this is needed
 public abstract class ClusterTest
 {
 	private ClusterProperties csp;
