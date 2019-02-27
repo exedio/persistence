@@ -47,7 +47,7 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 
 	boolean stamps;
 	CacheIsolationItem item;
-	final ThreadStoppable threads[] = new ThreadStoppable[10];
+	final ThreadStoppable[] threads = new ThreadStoppable[10];
 	final StringBuilder failures = new StringBuilder();
 
 	@BeforeEach final void setUp()

@@ -313,7 +313,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 			return new ServletOutputStream()
 			{
 				@Override
-			   public void write(final byte b[], final int off, final int len)
+			   public void write(final byte[] b, final int off, final int len)
 			   {
 			   	assertEquals(body, new String(b, off, len, UTF_8));
 			   	assertEquals(contentLength, len);

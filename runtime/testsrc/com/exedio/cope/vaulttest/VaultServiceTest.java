@@ -338,11 +338,11 @@ public abstract class VaultServiceTest
 		{
 			throw new AssertionError();
 		}
-		@Override public void write(final byte b[])
+		@Override public void write(final byte[] b)
 		{
 			throw new AssertionError();
 		}
-		@Override public synchronized void write(final byte b[], final int off, final int len)
+		@Override public synchronized void write(final byte[] b, final int off, final int len)
 		{
 			throw new AssertionError();
 		}
