@@ -138,31 +138,6 @@ public class CompletionProcessor extends AbstractProcessor
 		return toCompletions(completionData);
 	}
 
-	private static boolean hasDefaultNameGetter(final Wrap wrap)
-	{
-		final String stringGetterDefaultClassName="com.exedio.cope.instrument.StringGetterDefault";
-		try
-		{
-			return wrap.nameGetter().getName().equals(stringGetterDefaultClassName);
-		}
-		catch (final MirroredTypeException e)
-		{
-			return e.getTypeMirror().toString().equals(stringGetterDefaultClassName);
-		}
-	}
-
-	private static boolean hasAnyHides(final Wrap wrap)
-	{
-		try
-		{
-			return wrap.hide().length>0;
-		}
-		catch (final MirroredTypesException e)
-		{
-			return !e.getTypeMirrors().isEmpty();
-		}
-	}
-
 	private static final class CompletionCollector implements TypeVisitor<Void, Void>
 	{
 		private final Map<String, List<String>> completionData;
@@ -260,6 +235,31 @@ public class CompletionProcessor extends AbstractProcessor
 			}
 			typeElement.getSuperclass().accept(new CompletionCollector(completionData), null);
 			return null;
+		}
+
+		private static boolean hasDefaultNameGetter(final Wrap wrap)
+		{
+			final String stringGetterDefaultClassName="com.exedio.cope.instrument.StringGetterDefault";
+			try
+			{
+				return wrap.nameGetter().getName().equals(stringGetterDefaultClassName);
+			}
+			catch (final MirroredTypeException e)
+			{
+				return e.getTypeMirror().toString().equals(stringGetterDefaultClassName);
+			}
+		}
+
+		private static boolean hasAnyHides(final Wrap wrap)
+		{
+			try
+			{
+				return wrap.hide().length>0;
+			}
+			catch (final MirroredTypesException e)
+			{
+				return !e.getTypeMirrors().isEmpty();
+			}
 		}
 
 		@Override
