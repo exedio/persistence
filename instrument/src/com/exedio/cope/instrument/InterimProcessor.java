@@ -100,21 +100,6 @@ final class InterimProcessor extends JavacProcessor
 		return interimClassLoader;
 	}
 
-	private Path getSourcePath(final JavaFileObject originalFileObject)
-	{
-		final Path originalFile = Paths.get(originalFileObject.toUri());
-		final Path originalPath = originalFile.toAbsolutePath();
-		for (final File sourceDirectory : params.getSourceDirectories())
-		{
-			final Path sourcePath = sourceDirectory.toPath().toAbsolutePath();
-			if (originalPath.startsWith(sourcePath))
-			{
-				return sourcePath.relativize(originalPath);
-			}
-		}
-		throw new RuntimeException();
-	}
-
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
@@ -776,6 +761,21 @@ final class InterimProcessor extends JavacProcessor
 				}
 				compiler.addJavaFile(getSourcePath(sourceFile), sourceChars);
 			}
+		}
+
+		private Path getSourcePath(final JavaFileObject originalFileObject)
+		{
+			final Path originalFile = Paths.get(originalFileObject.toUri());
+			final Path originalPath = originalFile.toAbsolutePath();
+			for (final File sourceDirectory : params.getSourceDirectories())
+			{
+				final Path sourcePath = sourceDirectory.toPath().toAbsolutePath();
+				if (originalPath.startsWith(sourcePath))
+				{
+					return sourcePath.relativize(originalPath);
+				}
+			}
+			throw new RuntimeException();
 		}
 
 		private List<AnnotationTree> getInterimAnnotations(final List<? extends AnnotationTree> annotations)
