@@ -90,7 +90,7 @@ public class FieldBooleanTest extends FieldTest
 		assertContains(TYPE.search(someBoolean.isNotNull()));
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test void testUnchecked()
 	{
 		try

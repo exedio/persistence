@@ -159,7 +159,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 
 	@Test void testSetClassCast()
 	{
-		@SuppressWarnings({"cast", "unchecked", "rawtypes"}) // OK: test bad API usage
+		@SuppressWarnings({"cast", "unchecked"}) // OK: test bad API usage
 		final MultiItemField<String> field = (MultiItemField<String>)(MultiItemField)MultiItemFieldItem.field;
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();
 		final MultiItemFieldItem item = new MultiItemFieldItem(expected);

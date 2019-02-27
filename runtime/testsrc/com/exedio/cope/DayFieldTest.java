@@ -299,7 +299,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertContains(week, new Query<>(view, TYPE, TYPE.thisFunction.equal(item)).search());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test void testUnchecked()
 	{
 		assertFails(

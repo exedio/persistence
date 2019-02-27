@@ -77,7 +77,7 @@ public class EnumSchemaTest
 	}
 
 
-	@SuppressWarnings({"unchecked","cast", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings({"unchecked","cast"}) // OK: test bad api usage
 	@Deprecated // OK: test deprecated api
 	@Test void testUnchecked()
 	{

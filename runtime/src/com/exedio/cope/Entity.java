@@ -52,7 +52,7 @@ final class Entity
 		state = state.put(transaction, column, value);
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // TODO dont know how
+	@SuppressWarnings("unchecked") // TODO dont know how
 	void put(final FieldValues fieldValues)
 	{
 		for(final Map.Entry<Field<?>, Object> e : fieldValues.dirtySet())

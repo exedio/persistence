@@ -509,7 +509,7 @@ public class CompositeTest
 		assertEquals(new Day(getTimeZone("Europe/Berlin")), value.getDay());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: testing bad api usage
+	@SuppressWarnings("unchecked") // OK: testing bad api usage
 	@Test void testIt()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);

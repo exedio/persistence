@@ -208,7 +208,7 @@ public class InstanceOfTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "cast", "rawtypes"})
+	@SuppressWarnings({"unchecked", "cast"})
 	@Test void testPolymorphicJoinConditionUnchecked()
 	{
 		{

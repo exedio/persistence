@@ -112,7 +112,7 @@ public class EnumMapFieldModelTest
 		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.Integer>", nameLength.getInitialType().toString());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"}) // OK: test bad API usage
 	@Test void testUnchecked()
 	{

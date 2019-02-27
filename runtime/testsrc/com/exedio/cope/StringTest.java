@@ -498,7 +498,7 @@ public class StringTest extends TestWithEnvironment
 		startTransaction();
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test void testUnchecked()
 	{
 		try
