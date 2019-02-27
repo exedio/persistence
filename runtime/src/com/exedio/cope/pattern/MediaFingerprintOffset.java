@@ -100,7 +100,7 @@ public final class MediaFingerprintOffset
 		State setRamp(final double ramp)
 		{
 			if(! (0.0<=ramp && ramp<=1.0) )
-				throw new IllegalArgumentException("ramp must be between 0.0 and 1.0, but was " + String.valueOf(ramp));
+				throw new IllegalArgumentException("ramp must be between 0.0 and 1.0, but was " + ramp);
 
 			int rampInt = (int)Math.round( ramp*RAMP_MODULUS );
 			if(rampInt>=RAMP_MODULUS)

@@ -302,7 +302,7 @@ final class Statement
 	Statement appendParameter(final int value)
 	{
 		if(parameters==null)
-			this.text.append(Integer.toString(value));
+			this.text.append(value);
 		else
 		{
 			this.text.append(QUESTION_MARK);

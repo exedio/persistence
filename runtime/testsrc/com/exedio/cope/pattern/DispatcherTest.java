@@ -429,7 +429,7 @@ public class DispatcherTest extends TestWithEnvironment
 			assertSame(toTarget, actual.getPattern());
 			assertEquals(item, actual.getParent());
 			expected.assertIt(actual);
-			assertTrue(actual.getElapsed()>=runElapsed.intValue(), String.valueOf(actual.getElapsed()) + ">=" + runElapsed);
+			assertTrue(actual.getElapsed()>=runElapsed.intValue(), actual.getElapsed() + ">=" + runElapsed);
 			if(expected.success)
 			{
 				assertEquals(null, actual.getFailure());

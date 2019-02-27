@@ -15,13 +15,13 @@ final class LiteralHelper
 		if (constantValue instanceof String)
 			return "\""+escapeJavaStyleString((String)constantValue)+"\"";
 		else if (constantValue instanceof Long)
-			return String.valueOf(constantValue)+"L";
+			return constantValue+"L";
 		else if (constantValue instanceof Integer)
 			return String.valueOf(constantValue);
 		else if (constantValue instanceof Short)
-			return "(short)"+String.valueOf(constantValue);
+			return "(short)"+constantValue;
 		else if (constantValue instanceof Byte)
-			return "(byte)"+String.valueOf(constantValue);
+			return "(byte)"+constantValue;
 		else if (constantValue instanceof Double)
 			return getDoubleLiteralFor((double)constantValue);
 		else if (constantValue instanceof Float)
@@ -29,7 +29,7 @@ final class LiteralHelper
 		else if (constantValue instanceof Boolean)
 			return String.valueOf(constantValue);
 		else if (constantValue instanceof Character)
-			return "'"+String.valueOf(constantValue)+"'";
+			return "'"+constantValue+"'";
 		else
 			throw new RuntimeException(constantValue.getClass().getName());
 	}

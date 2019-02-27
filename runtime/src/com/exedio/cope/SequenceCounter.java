@@ -33,7 +33,7 @@ final class SequenceCounter
 	SequenceCounter(final Feature feature, final long start, final long minimum, final long maximum)
 	{
 		if(start<minimum || start>maximum)
-			throw new IllegalArgumentException(String.valueOf(start) + '/' + String.valueOf(minimum) + '/' + String.valueOf(maximum));
+			throw new IllegalArgumentException(String.valueOf(start) + '/' + minimum + '/' + maximum);
 
 		this.feature = requireNonNull(feature);
 		this.start = start;
