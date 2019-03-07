@@ -51,7 +51,6 @@ final class MediaPathFeatureAnnotationProxy implements AnnotatedElement
 	}
 
 	@Override
-	@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		if(computed && Computed.class==annotationClass)

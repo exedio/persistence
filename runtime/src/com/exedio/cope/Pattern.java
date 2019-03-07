@@ -141,7 +141,6 @@ public abstract class Pattern extends Feature
 		}
 
 		@Override
-		@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			if(CopeSchemaName.class==annotationClass)
@@ -286,7 +285,6 @@ public abstract class Pattern extends Feature
 		}
 
 		@Override
-		@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 		public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 		{
 			@SuppressWarnings("deprecation")

@@ -49,7 +49,6 @@ final class MediaVaultAnnotationProxy implements AnnotatedElement
 	}
 
 	@Override
-	@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 	public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
 	{
 		if(Computed.class==annotationClass)
