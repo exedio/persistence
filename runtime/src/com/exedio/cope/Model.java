@@ -1482,7 +1482,6 @@ public final class Model implements Serializable
 	}
 
 	@Deprecated
-	@SuppressWarnings("deprecation") // needed just for eclipse
 	private static Revisions.Factory wrap(final RevisionsFuture revisions)
 	{
 		if(revisions==null)
