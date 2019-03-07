@@ -333,7 +333,6 @@ final class QueryCache
 		final int[] invalidationTypesTransiently;
 		final AtomicLong hits = new AtomicLong();
 
-		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Value(final Query<?> query, final ArrayList<Object> list)
 		{
 			final ArrayList<Join> joins = query.joins;

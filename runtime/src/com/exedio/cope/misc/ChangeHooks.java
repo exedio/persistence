@@ -77,7 +77,6 @@ public final class ChangeHooks
 
 		CascadeFactory(final Factory[] hooks)
 		{
-			//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 			this.hooks = hooks;
 		}
 
