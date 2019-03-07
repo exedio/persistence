@@ -73,7 +73,7 @@ public class DefaultChangeHookTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class BeforeNewNotStatic extends Item
 	{
-		@SuppressWarnings({"unused", "static-method", "MethodMayBeStatic"})
+		@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
@@ -114,7 +114,6 @@ public class DefaultChangeHookTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class BeforeNewWrongReturn extends Item
 	{
-		@SuppressWarnings("unused")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{

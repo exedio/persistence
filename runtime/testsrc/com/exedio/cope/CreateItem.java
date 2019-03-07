@@ -29,7 +29,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 final class CreateItem extends CreateSuperItem
 {
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
-	@SuppressWarnings({"unused", "MethodOverridesInaccessibleMethodOfSuper"})
+	@SuppressWarnings("MethodOverridesInaccessibleMethodOfSuper")
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		assertEquals(1, setValues.length);

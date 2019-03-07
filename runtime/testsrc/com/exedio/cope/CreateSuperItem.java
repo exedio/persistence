@@ -31,7 +31,6 @@ class CreateSuperItem extends Item
 	static final StringField text = new StringField();
 
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
-	@SuppressWarnings("unused")
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		assertEquals(1, setValues.length);

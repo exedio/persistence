@@ -40,7 +40,6 @@ final class CopySimpleSource extends Item
 
 
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
-	@SuppressWarnings("unused")
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		beforeCopeItemLog.add(new BeforeLog(null, setValues));

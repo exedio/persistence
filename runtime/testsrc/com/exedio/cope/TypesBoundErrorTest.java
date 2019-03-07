@@ -243,7 +243,7 @@ public class TypesBoundErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		@SuppressWarnings({"unused", "static-method", "MethodMayBeStatic"})
+		@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
@@ -279,7 +279,6 @@ public class TypesBoundErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		@SuppressWarnings("unused")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{

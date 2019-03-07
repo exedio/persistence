@@ -9,6 +9,7 @@
     <pattern value="com.exedio.cope.PostgresqlDialect" method="PostgresqlDialect" />
     <pattern value="com.exedio.cope.OracleDialect" method="OracleDialect" />
     <pattern value="com.exedio.cope.HsqldbDialect" method="HsqldbDialect" />
+    <pattern value="*" method="beforeNewCopeItem" />
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="javax.annotation.Nullable" />
