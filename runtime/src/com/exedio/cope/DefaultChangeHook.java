@@ -94,7 +94,7 @@ public final class DefaultChangeHook implements ChangeHook
 		final Method result;
 		try
 		{
-			result = javaClass.getDeclaredMethod("beforeNewCopeItem", SetValue[].class);
+			result = javaClass.getDeclaredMethod(BEFORE_NAME, SetValue[].class);
 		}
 		catch(final NoSuchMethodException ignored)
 		{
@@ -103,15 +103,17 @@ public final class DefaultChangeHook implements ChangeHook
 
 		if(!Modifier.isStatic(result.getModifiers()))
 			throw new IllegalArgumentException(
-					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must be static");
+					"method " + BEFORE_NAME + "(SetValue[]) in class " + javaClass.getName() + " must be static");
 		if(!SetValue[].class.equals(result.getReturnType()))
 			throw new IllegalArgumentException(
-					"method beforeNewCopeItem(SetValue[]) in class " + javaClass.getName() + " must return SetValue[], " +
+					"method " + BEFORE_NAME + "(SetValue[]) in class " + javaClass.getName() + " must return SetValue[], " +
 					"but returns " + result.getReturnType().getName());
 
 		result.setAccessible(true);
 		return result;
 	}
+
+	private static final String BEFORE_NAME = "beforeNewCopeItem";
 
 	@Override
 	public SetValue<?>[] beforeNew(final Type<?> type, SetValue<?>[] setValues)
