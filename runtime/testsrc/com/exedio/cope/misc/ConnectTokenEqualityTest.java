@@ -41,7 +41,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("resource")
 public class ConnectTokenEqualityTest
 {
 	private ConnectProperties properties1;

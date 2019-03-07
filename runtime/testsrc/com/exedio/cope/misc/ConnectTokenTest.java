@@ -47,7 +47,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-@SuppressWarnings("resource")
 public class ConnectTokenTest
 {
 	private static final Model model = new Model(ConnectTokenItem.TYPE);
@@ -370,7 +369,6 @@ public class ConnectTokenTest
 		}
 	}
 
-	@SuppressWarnings("resource")
 	@Test void testAutoCloseable()
 	{
 		assertNotConnected();
@@ -386,7 +384,6 @@ public class ConnectTokenTest
 		assertTrue(tokenSave.isReturned());
 	}
 
-	@SuppressWarnings("resource")
 	@Test void testAutoCloseableAlreadyReturned()
 	{
 		assertNotConnected();

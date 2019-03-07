@@ -116,7 +116,6 @@ public class ConnectTokenSetTest
 		assertNotSet();
 	}
 
-	@SuppressWarnings("resource")
 	@Test void testSupplierReturnsNull()
 	{
 		assertFalse(model.isConnected());
@@ -179,7 +178,6 @@ public class ConnectTokenSetTest
 		assertEquals(2, supplied.get());
 	}
 
-	@SuppressWarnings("resource")
 	@Test void testSupplierFails()
 	{
 		assertFalse(model.isConnected());

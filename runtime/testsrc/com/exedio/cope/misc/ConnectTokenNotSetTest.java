@@ -48,7 +48,6 @@ public class ConnectTokenNotSetTest
 		model.enableSerialization(ConnectTokenNotSetTest.class, "model");
 	}
 
-	@SuppressWarnings("resource")
 	@Test void testIt()
 	{
 		assertFalse(model.isConnected());

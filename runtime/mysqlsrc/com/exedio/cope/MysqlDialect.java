@@ -641,7 +641,6 @@ final class MysqlDialect extends Dialect
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final ConnectionPool connectionPool, final String sql)
 	{
-		@SuppressWarnings("resource") // OK: must not put into connection pool on failure
 		Connection connection = null;
 		try
 		{
