@@ -61,7 +61,7 @@ final class TimestampColumn extends Column
 	}
 
 	@Override
-	@SuppressWarnings("fallthrough")
+	@SuppressWarnings({"fallthrough", "RedundantSuppression"}) // RedundantSuppression needed because fallthrough is also obeyed by javac
 	@SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{

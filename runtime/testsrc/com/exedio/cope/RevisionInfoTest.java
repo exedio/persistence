@@ -351,7 +351,6 @@ public class RevisionInfoTest
 
 	@Test void testParse() throws UnsupportedEncodingException
 	{
-		//noinspection AssertEqualsBetweenInconvertibleTypes
 		assertEquals(map("key1", "value1", "key2", "value2"), RevisionInfo.parse(("#migrationlogv01" + lineSeparator() + "key1=value1" + lineSeparator() + "key2=value2").getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("migrationlogv01".getBytes("latin1")));
 		assertEquals(null, RevisionInfo.parse("#migrationlogv0".getBytes("latin1")));

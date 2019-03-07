@@ -94,7 +94,6 @@ public final class DefaultChangeHook implements ChangeHook
 		final Method result;
 		try
 		{
-			//noinspection JavaReflectionMemberAccess
 			result = javaClass.getDeclaredMethod("beforeNewCopeItem", SetValue[].class);
 		}
 		catch(final NoSuchMethodException ignored)

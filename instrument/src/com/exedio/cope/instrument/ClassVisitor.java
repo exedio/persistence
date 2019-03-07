@@ -146,7 +146,6 @@ class ClassVisitor extends GeneratedAwareScanner
 			printWarning(CopeWarnings.FEATURE_NOT_STATIC_FINAL, "non-static/final feature");
 			return null;
 		}
-		//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
 		final String variableType = getFullyQualifiedName(node.getType());
 		final VariableElement fieldElement = (VariableElement)context.getElementForTree(node);
 		final JavaField javaField = new JavaField(
