@@ -48,7 +48,6 @@ public final class QueryAggregator<R>
 		this(new ArrayList<>(queries), 0.0);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <R> QueryAggregator<R> get(
 			final Query<? extends R> query1,
 			final Query<? extends R> query2)
@@ -56,7 +55,6 @@ public final class QueryAggregator<R>
 		return new QueryAggregator<>(java.util.Arrays.asList(query1, query2), 0.0);
 	}
 
-	@SuppressWarnings("unchecked")
 	public static <R> QueryAggregator<R> get(
 			final Query<? extends R> query1,
 			final Query<? extends R> query2,

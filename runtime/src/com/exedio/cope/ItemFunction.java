@@ -78,7 +78,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 		return new InstanceOfCondition<>(this, false, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings("rawtypes")
 	default InstanceOfCondition<E> instanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<>(this, false, types);
@@ -104,7 +104,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 		return new InstanceOfCondition<>(this, true, type1, type2, type3, type4);
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings("rawtypes")
 	default InstanceOfCondition<E> notInstanceOf(final Type[] types)
 	{
 		return new InstanceOfCondition<>(this, true, types);
@@ -160,7 +160,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @deprecated Has been renamed to {@link #instanceOf(Type[])}.
 	 */
 	@Deprecated
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings("rawtypes")
 	default InstanceOfCondition<E> typeIn(final Type[] types)
 	{
 		return instanceOf(types);
@@ -206,7 +206,7 @@ public interface ItemFunction<E extends Item> extends Function<E>
 	 * @deprecated Has been renamed to {@link #notInstanceOf(Type[])}.
 	 */
 	@Deprecated
-	@SuppressWarnings({"unchecked", "rawtypes"})
+	@SuppressWarnings("rawtypes")
 	default InstanceOfCondition<E> typeNotIn(final Type[] types)
 	{
 		return notInstanceOf(types);

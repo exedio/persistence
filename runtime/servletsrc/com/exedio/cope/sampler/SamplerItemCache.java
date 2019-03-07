@@ -77,7 +77,7 @@ final class SamplerItemCache extends Item
 	private static final IntegerField stampsHits           = field(0);
 	private static final IntegerField stampsPurged         = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final ItemCacheInfo from,
 			final ItemCacheInfo to)
 	{

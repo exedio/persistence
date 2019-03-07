@@ -66,7 +66,7 @@ final class SamplerTransaction extends Item
 	private static final IntegerField postCommitHookCount      = field(0);
 	private static final IntegerField postCommitHookDuplicates = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(final Transaction transaction)
+	static List<SetValue<?>> mapIt(final Transaction transaction)
 	{
 		return Arrays.asList(
 			map(id,        transaction.getID()),

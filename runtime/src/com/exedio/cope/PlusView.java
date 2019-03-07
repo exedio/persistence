@@ -70,7 +70,6 @@ public final class PlusView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public SelectType<E> getValueType()
 	{
 		return selectType(addends);

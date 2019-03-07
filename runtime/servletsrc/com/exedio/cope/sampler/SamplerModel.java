@@ -65,7 +65,7 @@ final class SamplerModel extends Item
 	private static final IntegerField connectionPoolInvalidOnGet = field(0);
 	private static final IntegerField connectionPoolInvalidOnPut = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final Pool.Info from,
 			final Pool.Info to)
 	{
@@ -87,7 +87,7 @@ final class SamplerModel extends Item
 	private static final IntegerField rollbackWithoutConnection = field(0);
 	private static final IntegerField rollbackWithConnection    = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final TransactionCounters from,
 			final TransactionCounters to)
 	{
@@ -111,7 +111,7 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheStampsHits   = field(0);
 	private static final IntegerField itemCacheStampsPurged = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final ItemCacheStatistics from,
 			final ItemCacheStatistics to)
 	{
@@ -143,7 +143,7 @@ final class SamplerModel extends Item
 	private static final IntegerField queryCacheStampsHits      = field(0);
 	private static final IntegerField queryCacheStampsPurged    = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final QueryCacheInfo from,
 			final QueryCacheInfo to)
 	{
@@ -164,7 +164,7 @@ final class SamplerModel extends Item
 	private static final IntegerField changeListenerRemoved  = field(0);
 	private static final IntegerField changeListenerFailed   = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final ChangeListenerInfo from,
 			final ChangeListenerInfo to)
 	{
@@ -180,7 +180,7 @@ final class SamplerModel extends Item
 	private static final IntegerField changeListenerException = field(0);
 	private static final IntegerField changeListenerPending   = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final ChangeListenerDispatcherInfo from,
 			final ChangeListenerDispatcherInfo to)
 	{
@@ -205,7 +205,7 @@ final class SamplerModel extends Item
 	private static final IntegerField mediasNotModified    = field(0);
 	private static final IntegerField mediasDelivered      = field(0);
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final MediaSummary from,
 			final MediaSummary to)
 	{
