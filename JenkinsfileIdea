@@ -19,9 +19,12 @@ timestamps
 				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
+				def isRelease = env.BRANCH_NAME.toString().equals("master")
+
 				properties([
 						buildDiscarder(logRotator(
-								numToKeepStr : '50'
+								numToKeepStr         : isRelease ? '1000' : '30',
+								artifactNumToKeepStr : isRelease ? '1000' :  '2'
 						))
 				])
 
