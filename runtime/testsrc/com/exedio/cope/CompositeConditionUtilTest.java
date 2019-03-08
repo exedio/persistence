@@ -35,7 +35,6 @@ import org.junit.jupiter.api.Test;
 
 public class CompositeConditionUtilTest
 {
-	@SuppressWarnings("OverlyStrongTypeCast") // bug in idea inspection
 	@Test void testIt()
 	{
 		final DoubleField field = new DoubleField().optional();

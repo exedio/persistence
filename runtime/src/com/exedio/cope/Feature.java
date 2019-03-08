@@ -140,7 +140,6 @@ public abstract class Feature implements Serializable
 		}
 
 		@Override
-		@SuppressWarnings("ConstantValueVariableUse") // OK: annotation generics
 		<A extends Annotation> A getAnnotation(final Class<A> annotationClass)
 		{
 			if(Computed.class==annotationClass)

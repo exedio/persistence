@@ -151,7 +151,6 @@ final class ClusterProperties extends Properties
 	{
 		try
 		{
-			@SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed", "SocketOpenedButNotSafelyClosed"}) // OK: is closed outside this factory method
 			final DatagramSocket result =
 				sendSourcePortAuto
 				? new DatagramSocket()

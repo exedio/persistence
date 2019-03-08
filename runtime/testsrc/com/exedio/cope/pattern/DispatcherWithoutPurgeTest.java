@@ -153,7 +153,7 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		log.assertEmpty();
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testUnchecked()
 	{
 		try

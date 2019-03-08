@@ -32,7 +32,7 @@ import java.util.Collection;
 public class GenericComplexSuper<N extends Number, L extends Collection<String>> extends Item
 {
 	static final GenericFeatureReference<GenericComplexSub> toSub = GenericFeatureReference.create(GenericComplexSub.class, GenericComplexSub.class);
-	@SuppressWarnings({"unchecked", "StaticInitializerReferencesSubClass"}) // "unchecked" is probably a bug in javac, not needed in eclipse
+	@SuppressWarnings("StaticInitializerReferencesSubClass")
 	static final GenericFeatureReference<GenericComplexMid<?>> toMid  = GenericFeatureReference.create(GenericComplexMid.classWildcard.value, ReflectionTypes.parameterized(GenericComplexMid.class, ReflectionTypes.sub(Object.class)));
 	static final GenericFeatureReference<GenericComplexSuper<?,?>> toSuper = GenericFeatureReference.create(GenericComplexSuper.classWildcard.value, ReflectionTypes.parameterized(GenericComplexSuper.class, ReflectionTypes.sub(Object.class), ReflectionTypes.sub(Object.class)));
 

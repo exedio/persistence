@@ -131,20 +131,17 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	}
 
 	@Override
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends CompositeType<? extends T>> getSubtypes()
 	{
 		return Collections.emptyList();
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
 		return templateList;
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getFeatures()
 	{
@@ -277,7 +274,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 
 		synchronized(types)
 		{
-			@SuppressWarnings({"unchecked", "rawtypes"})
+			@SuppressWarnings("unchecked")
 			CompositeType<T> result = (CompositeType)types.get(javaClass);
 			if(result==null)
 			{

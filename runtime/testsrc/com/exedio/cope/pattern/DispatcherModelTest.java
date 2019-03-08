@@ -158,7 +158,7 @@ public class DispatcherModelTest
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testDispatchUnchecked()
 	{
 		try
@@ -172,7 +172,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testDispatchConfigNull()
 	{
 		try
@@ -186,7 +186,7 @@ public class DispatcherModelTest
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testDispatchContextNull()
 	{
 		try

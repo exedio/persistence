@@ -91,20 +91,17 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	}
 
 	@Override
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends BlockType<? extends T>> getSubtypes()
 	{
 		return Collections.emptyList();
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
 		return templateList;
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // templateList is unmodifiable
 	@Override
 	public List<? extends Feature> getFeatures()
 	{

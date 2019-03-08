@@ -75,7 +75,7 @@ public class EnumClassTest
 	}
 
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testUnchecked()
 	{
 		try
@@ -104,7 +104,7 @@ public class EnumClassTest
 		assertEquals(list(Subclass.Eins, Subclass.Zwei), f.getValues());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad api usage
+	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testSubclassWrong()
 	{
 		try

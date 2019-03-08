@@ -222,7 +222,6 @@ public final class DataField extends Field<DataField.Value>
 	@SuppressWarnings({"RedundantThrows", "RedundantThrowsDeclaration"}) // TODO should not wrap IOException into RuntimeException
 	public void get(@Nonnull final Item item, @Nonnull final OutputStream sink) throws IOException
 	{
-		//noinspection resource OK: fails only if null
 		requireNonNull(sink, "sink");
 
 		store.load(model.currentTransaction(), item, sink);
@@ -612,7 +611,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		final byte[] array;
 
-		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
+		@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
 		ArrayValue(final byte[] array)
 		{
 			this.array = array;

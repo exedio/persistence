@@ -44,7 +44,6 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
 	public SelectType<E> getValueType()
 	{
 		return PlusView.selectType(multipliers);

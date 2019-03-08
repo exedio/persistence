@@ -27,7 +27,6 @@ public class SampleTest
 	@Deprecated
 	@Test void testIt()
 	{
-		@SuppressWarnings("deprecation")
 		final MxSampler sampler = new MxSampler();
 
 		sampler.sample();

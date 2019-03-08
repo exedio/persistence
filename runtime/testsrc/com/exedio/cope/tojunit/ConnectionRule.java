@@ -73,7 +73,6 @@ public final class ConnectionRule extends MainRule
 
 	public Statement createStatement() throws SQLException
 	{
-		//noinspection resource OK: is closed outside this factory method
 		return get().createStatement();
 	}
 
@@ -99,7 +98,6 @@ public final class ConnectionRule extends MainRule
 	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public ResultSet executeQuery(final String sql) throws SQLException
 	{
-		@SuppressWarnings("resource") // OK: is closed outside this factory method
 		final Statement statement = createStatement();
 
 		boolean mustReturn = true;

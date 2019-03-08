@@ -90,7 +90,6 @@ public class ConnectTokenNullModelTest
 		}
 	}
 
-	@SuppressWarnings("resource")
 	@Test void testIt2()
 	{
 		try

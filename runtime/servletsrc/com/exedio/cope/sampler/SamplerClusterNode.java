@@ -63,7 +63,7 @@ final class SamplerClusterNode extends Item
 	private static final CompositeField<SequenceInfo> ping       = CompositeField.create(SequenceInfo.class).toFinal();
 	private static final CompositeField<SequenceInfo> pong       = CompositeField.create(SequenceInfo.class).toFinal();
 
-	@SuppressWarnings("unchecked") static List<SetValue<?>> mapIt(
+	static List<SetValue<?>> mapIt(
 			final ClusterListenerInfo.Node from,
 			final ClusterListenerInfo.Node to)
 	{

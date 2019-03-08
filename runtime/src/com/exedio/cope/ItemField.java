@@ -318,7 +318,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 		if(implicitCopyConstraintsTo!=null)
 			for(final CopyConstraint constraint : implicitCopyConstraintsTo)
-				//noinspection ConstantConditions OK: implicitCopyConstraintsTo have always a field
 				constraint.mount(type, constraint.getCopyField().getName() + "CopyFrom" + name, null);
 
 		if(choice!=null)

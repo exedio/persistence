@@ -486,7 +486,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			}
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		@SuppressWarnings({"unchecked", "static-method"})
 		private List<Type<? extends C>> castTypeInstanceList(final List<Type<?>> l)
 		{
 			return (List)l;
@@ -498,13 +498,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return m;
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		@SuppressWarnings({"unchecked", "static-method"})
 		private List<ItemField<C>> castDeclaredReferences(final List<ItemField<?>> l)
 		{
 			return (List)l;
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes", "static-method", "MethodMayBeStatic"})
+		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
 		private List<ItemField<? super C>> castReferences(final List l)
 		{
 			return l;
@@ -729,7 +729,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @see #getSubtypesTransitively()
 	 */
 	@Override
-	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
 	public List<? extends Type<? extends T>> getSubtypes()
 	{
 		return mount().subtypes;
@@ -742,7 +742,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * own zeroth-order subtype.
 	 * @see #getSubtypes()
 	 */
-	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
 	public List<? extends Type<? extends T>> getSubtypesTransitively()
 	{
 		return mount().subtypesTransitively;
@@ -777,7 +777,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(!isAssignableFrom(subtype))
 			throw new ClassCastException("expected a " + this + ", but was a " + subtype);
 
-		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: checked at runtime
+		@SuppressWarnings("unchecked") // OK: checked at runtime
 		final Type<T> result = (Type)subtype;
 		return result;
 	}
@@ -858,7 +858,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		return fields.all;
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // featuresDeclared is unmodifiable
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
@@ -1588,7 +1587,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubTypes()
 	{
 		return getSubtypes();
@@ -1599,7 +1597,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubTypesTransitively()
 	{
 		return getSubtypesTransitively();

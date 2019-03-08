@@ -49,7 +49,6 @@ final class CustomAnnotatedElement
 		private final Annotation[] annotations;
 		private final HashMap<Class<?>, Annotation> annotationMap;
 
-		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		AnnotationSource(final Annotation[] annotations, final HashMap<Class<?>, Annotation> annotationMap)
 		{
 			this.annotations = annotations;

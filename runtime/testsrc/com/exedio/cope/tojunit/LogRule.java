@@ -154,7 +154,6 @@ public class LogRule extends MainRule
 	{
 		final List<LoggingEvent> events;
 
-		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Appender(final List<LoggingEvent> events)
 		{
 			this.events = events;

@@ -249,7 +249,7 @@ public class CompositeErrorTest
 	}
 
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test void testNoComposite()
 	{
 		assertFails(() ->
@@ -259,7 +259,7 @@ public class CompositeErrorTest
 			CompositeErrorTest.class.getName());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test void testNoCompositeGet()
 	{
 		assertFails(() ->

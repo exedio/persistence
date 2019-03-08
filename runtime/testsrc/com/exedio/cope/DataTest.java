@@ -421,7 +421,7 @@ public class DataTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
+	@SuppressWarnings("unchecked") // OK: test bad API usage
 	@Test void testUnchecked()
 	{
 		data.set(item, bytes8);

@@ -113,7 +113,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 				valueType==((EnumField<?>)other).valueType;
 	}
 
-	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // values is unmodifiable
 	public List<E> getValues()
 	{
 		return valueType.values;

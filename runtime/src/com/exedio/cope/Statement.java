@@ -249,7 +249,7 @@ final class Statement
 
 	<E> Statement appendParameterAny(final E value)
 	{
-		@SuppressWarnings({"unchecked", "rawtypes"})
+		@SuppressWarnings("unchecked")
 		final Marshaller<E> marshaller = (Marshaller)marshallers.getByValue(value);
 
 		if(parameters==null)

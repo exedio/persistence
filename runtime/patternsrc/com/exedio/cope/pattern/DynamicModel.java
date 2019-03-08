@@ -656,7 +656,7 @@ public final class DynamicModel<L> extends Pattern
 			super(ap);
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes"})
+		@SuppressWarnings("unchecked")
 		public DynamicModel<L> getPattern()
 		{
 			return (DynamicModel)getCopeType().getPattern();
@@ -782,7 +782,7 @@ public final class DynamicModel<L> extends Pattern
 			super(ap);
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes"})
+		@SuppressWarnings("unchecked")
 		public DynamicModel<L> getPattern()
 		{
 			return (DynamicModel)getCopeType().getPattern();
