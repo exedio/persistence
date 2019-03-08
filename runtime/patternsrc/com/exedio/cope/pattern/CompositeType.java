@@ -131,7 +131,6 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	}
 
 	@Override
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends CompositeType<? extends T>> getSubtypes()
 	{
 		return Collections.emptyList();

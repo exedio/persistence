@@ -91,7 +91,6 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	}
 
 	@Override
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends BlockType<? extends T>> getSubtypes()
 	{
 		return Collections.emptyList();

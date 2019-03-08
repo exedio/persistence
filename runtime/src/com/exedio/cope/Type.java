@@ -729,7 +729,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @see #getSubtypesTransitively()
 	 */
 	@Override
-	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
 	public List<? extends Type<? extends T>> getSubtypes()
 	{
 		return mount().subtypes;
@@ -742,7 +742,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * own zeroth-order subtype.
 	 * @see #getSubtypes()
 	 */
-	@SuppressWarnings({"TypeParameterExtendsFinalClass", "AssignmentOrReturnOfFieldWithMutableType"}) // OK: effectively makes collection somewhat compiler-unmodifiable
+	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType")
 	public List<? extends Type<? extends T>> getSubtypesTransitively()
 	{
 		return mount().subtypesTransitively;
@@ -1588,7 +1588,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubTypes()
 	{
 		return getSubtypes();
@@ -1599,7 +1598,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	@Deprecated
-	@SuppressWarnings("TypeParameterExtendsFinalClass") // OK: effectively makes collection somewhat compiler-unmodifiable
 	public List<? extends Type<? extends T>> getSubTypesTransitively()
 	{
 		return getSubtypesTransitively();
