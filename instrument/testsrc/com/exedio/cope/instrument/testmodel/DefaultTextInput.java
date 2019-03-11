@@ -58,7 +58,6 @@ public final class DefaultTextInput extends Input
 	 * The persistent type information for defaultTextInput.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<DefaultTextInput> TYPE = com.exedio.cope.TypesBound.newType(DefaultTextInput.class);
 
 	/**

@@ -283,7 +283,6 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	 * The persistent type information for optionFeatureItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<OptionFeatureItem> TYPE = com.exedio.cope.TypesBound.newType(OptionFeatureItem.class);
 
 	/**

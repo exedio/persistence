@@ -69,7 +69,6 @@ public final class GenericComplexSub extends GenericComplexMid<List<String>>
 	 * The persistent type information for genericComplexSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<GenericComplexSub> TYPE = com.exedio.cope.TypesBound.newType(GenericComplexSub.class);
 
 	/**

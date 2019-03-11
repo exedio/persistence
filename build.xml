@@ -755,7 +755,6 @@
 				encoding="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"
-				hidingWarningSuppressor="hiding"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
@@ -785,7 +784,6 @@
 				encoding="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"
-				hidingWarningSuppressor="hiding"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />

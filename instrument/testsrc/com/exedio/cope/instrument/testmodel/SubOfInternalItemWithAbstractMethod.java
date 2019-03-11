@@ -50,7 +50,6 @@ public class SubOfInternalItemWithAbstractMethod extends InternalItemWithAbstrac
 	 * The persistent type information for subOfInternalItemWithAbstractMethod.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<SubOfInternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newType(SubOfInternalItemWithAbstractMethod.class);
 
 	/**

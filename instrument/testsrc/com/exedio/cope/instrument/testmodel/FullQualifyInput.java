@@ -58,7 +58,6 @@ public final class FullQualifyInput extends com.exedio.cope.instrument.testmodel
 	 * The persistent type information for fullQualifyInput.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<FullQualifyInput> TYPE = com.exedio.cope.TypesBound.newType(FullQualifyInput.class);
 
 	/**

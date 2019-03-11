@@ -49,7 +49,6 @@ public class VarargsSuper extends VarargsLib
 	 * The persistent type information for varargsSuper.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<VarargsSuper> TYPE = com.exedio.cope.TypesBound.newType(VarargsSuper.class);
 
 	/**

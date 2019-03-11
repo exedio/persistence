@@ -65,7 +65,6 @@ public final class GenericSimpleSub extends GenericSimpleSuper<Long>
 	 * The persistent type information for genericSimpleSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<GenericSimpleSub> TYPE = com.exedio.cope.TypesBound.newType(GenericSimpleSub.class);
 
 	/**

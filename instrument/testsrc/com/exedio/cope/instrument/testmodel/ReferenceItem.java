@@ -67,7 +67,6 @@ final class ReferenceItem extends ReferenceSuperItem
 	 * The persistent type information for referenceItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	static final com.exedio.cope.Type<ReferenceItem> TYPE = com.exedio.cope.TypesBound.newType(ReferenceItem.class);
 
 	/**

@@ -133,7 +133,6 @@ class LibUser extends LibItem<String>
 	 * The persistent type information for libUser.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	static final com.exedio.cope.Type<LibUser> TYPE = com.exedio.cope.TypesBound.newType(LibUser.class);
 
 	/**

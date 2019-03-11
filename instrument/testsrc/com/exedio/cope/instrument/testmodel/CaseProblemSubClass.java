@@ -45,7 +45,6 @@ class CaseProblemSubClass extends CaseProblem
 	 * The persistent type information for caseProblemSubClass.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	static final com.exedio.cope.Type<CaseProblemSubClass> TYPE = com.exedio.cope.TypesBound.newType(CaseProblemSubClass.class);
 
 	/**

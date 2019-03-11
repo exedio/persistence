@@ -69,7 +69,6 @@ class SubOfInnerSub extends InnerContainer.Sub
 	 * The persistent type information for subOfInnerSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	static final com.exedio.cope.Type<SubOfInnerSub> TYPE = com.exedio.cope.TypesBound.newType(SubOfInnerSub.class);
 
 	/**

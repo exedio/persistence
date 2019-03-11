@@ -83,7 +83,6 @@ final class CrossPackageSub extends CrossPackageSuper
 	 * The persistent type information for crossPackageSub.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	static final com.exedio.cope.Type<CrossPackageSub> TYPE = com.exedio.cope.TypesBound.newType(CrossPackageSub.class);
 
 	/**

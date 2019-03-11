@@ -60,7 +60,6 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 	 * The persistent type information for subOfExternalItemWithAbstractMethod.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	static final com.exedio.cope.Type<SubOfExternalItemWithAbstractMethod> TYPE = com.exedio.cope.TypesBound.newType(SubOfExternalItemWithAbstractMethod.class);
 
 	/**

@@ -130,7 +130,6 @@ public abstract class LibItem<T> extends LibSuperItem
 	 * The persistent type information for libItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<LibItem<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**

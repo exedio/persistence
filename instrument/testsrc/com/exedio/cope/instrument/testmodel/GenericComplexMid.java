@@ -76,7 +76,6 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 * The persistent type information for genericComplexMid.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	public static final com.exedio.cope.Type<GenericComplexMid<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**

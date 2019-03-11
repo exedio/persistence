@@ -213,7 +213,6 @@ final class VarargsItem extends VarargsSuper
 	 * The persistent type information for varargsItem.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	@SuppressWarnings("hiding")
 	static final com.exedio.cope.Type<VarargsItem> TYPE = com.exedio.cope.TypesBound.newType(VarargsItem.class);
 
 	/**
