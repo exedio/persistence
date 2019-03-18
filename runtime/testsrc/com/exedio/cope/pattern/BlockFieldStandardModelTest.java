@@ -33,6 +33,7 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 import java.awt.Color;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -139,6 +140,7 @@ public class BlockFieldStandardModelTest
 		}
 	}
 
+	@WrapperType(indent=2)
 	static final class ABlock extends Block
 	{
 		enum AnEnum
@@ -157,393 +159,394 @@ public class BlockFieldStandardModelTest
 		static final SetField<Integer> aSet = SetField.create(new IntegerField());
 
 
-	/**
-	 * Returns the value of {@link #aString}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.lang.String getAString()
-	{
-		return field().of(ABlock.aString).get(item());
+		/**
+		 * Returns the value of {@link #aString}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		java.lang.String getAString()
+		{
+			return field().of(ABlock.aString).get(item());
+		}
+
+		/**
+		 * Sets a new value for {@link #aString}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAString(@javax.annotation.Nonnull final java.lang.String aString)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			field().of(ABlock.aString).set(item(),aString);
+		}
+
+		/**
+		 * Returns the value of {@link #anInt}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		int getAnInt()
+		{
+			return field().of(ABlock.anInt).getMandatory(item());
+		}
+
+		/**
+		 * Sets a new value for {@link #anInt}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAnInt(final int anInt)
+		{
+			field().of(ABlock.anInt).set(item(),anInt);
+		}
+
+		/**
+		 * Returns the value of {@link #anEnum}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		AnEnum getAnEnum()
+		{
+			return field().of(ABlock.anEnum).get(item());
+		}
+
+		/**
+		 * Sets a new value for {@link #anEnum}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			field().of(ABlock.anEnum).set(item(),anEnum);
+		}
+
+		/**
+		 * Returns the value of {@link #anItem}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nullable
+		AnItem getAnItem()
+		{
+			return field().of(ABlock.anItem).get(item());
+		}
+
+		/**
+		 * Sets a new value for {@link #anItem}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAnItem(@javax.annotation.Nullable final AnItem anItem)
+		{
+			field().of(ABlock.anItem).set(item(),anItem);
+		}
+
+		/**
+		 * Returns the value of {@link #aColor}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		java.awt.Color getAColor()
+		{
+			return field().of(ABlock.aColor).get(item());
+		}
+
+		/**
+		 * Sets a new value for {@link #aColor}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAColor(@javax.annotation.Nonnull final java.awt.Color aColor)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.pattern.ColorAlphaViolationException
+		{
+			field().of(ABlock.aColor).set(item(),aColor);
+		}
+
+		/**
+		 * Returns a Locator the content of {@link #aMedia} is available under.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+		@javax.annotation.Nullable
+		com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
+		{
+			return field().of(ABlock.aMedia).getLocator(item());
+		}
+
+		/**
+		 * Returns the content type of the media {@link #aMedia}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+		@javax.annotation.Nullable
+		java.lang.String getAMediaContentType()
+		{
+			return field().of(ABlock.aMedia).getContentType(item());
+		}
+
+		/**
+		 * Returns whether media {@link #aMedia} is null.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+		boolean isAMediaNull()
+		{
+			return field().of(ABlock.aMedia).isNull(item());
+		}
+
+		/**
+		 * Returns the last modification date of media {@link #aMedia}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+		@javax.annotation.Nullable
+		java.util.Date getAMediaLastModified()
+		{
+			return field().of(ABlock.aMedia).getLastModified(item());
+		}
+
+		/**
+		 * Returns the body length of the media {@link #aMedia}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+		long getAMediaLength()
+		{
+			return field().of(ABlock.aMedia).getLength(item());
+		}
+
+		/**
+		 * Returns the body of the media {@link #aMedia}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		@javax.annotation.Nullable
+		byte[] getAMediaBody()
+		{
+			return field().of(ABlock.aMedia).getBody(item());
+		}
+
+		/**
+		 * Writes the body of media {@link #aMedia} into the given stream.
+		 * Does nothing, if the media is null.
+		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		void getAMediaBody(@javax.annotation.Nonnull final java.io.OutputStream body)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.aMedia).getBody(item(),body);
+		}
+
+		/**
+		 * Writes the body of media {@link #aMedia} into the given file.
+		 * Does nothing, if the media is null.
+		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		void getAMediaBody(@javax.annotation.Nonnull final java.nio.file.Path body)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.aMedia).getBody(item(),body);
+		}
+
+		/**
+		 * Writes the body of media {@link #aMedia} into the given file.
+		 * Does nothing, if the media is null.
+		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.aMedia).getBody(item(),body);
+		}
+
+		/**
+		 * Sets the content of media {@link #aMedia}.
+		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAMedia(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value aMedia)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.aMedia).set(item(),aMedia);
+		}
+
+		/**
+		 * Sets the content of media {@link #aMedia}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAMedia(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+		{
+			field().of(ABlock.aMedia).set(item(),body,contentType);
+		}
+
+		/**
+		 * Sets the content of media {@link #aMedia}.
+		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAMedia(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.aMedia).set(item(),body,contentType);
+		}
+
+		/**
+		 * Sets the content of media {@link #aMedia}.
+		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAMedia(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.aMedia).set(item(),body,contentType);
+		}
+
+		/**
+		 * Sets the content of media {@link #aMedia}.
+		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAMedia(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
+				throws
+					java.io.IOException
+		{
+			field().of(ABlock.aMedia).set(item(),body,contentType);
+		}
+
+		/**
+		 * Returns the value of {@link #aList}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		java.util.List<String> getAList()
+		{
+			return field().of(ABlock.aList).get(item());
+		}
+
+		/**
+		 * Returns a query for the value of {@link #aList}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+		@javax.annotation.Nonnull
+		com.exedio.cope.Query<String> getAListQuery()
+		{
+			return field().of(ABlock.aList).getQuery(item());
+		}
+
+		/**
+		 * Adds a new value for {@link #aList}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+		void addToAList(@javax.annotation.Nonnull final String aList)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException,
+					java.lang.ClassCastException
+		{
+			field().of(ABlock.aList).add(item(),aList);
+		}
+
+		/**
+		 * Removes all occurrences of {@code element} from {@link #aList}.
+		 * @return {@code true} if the field set changed as a result of the call.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+		boolean removeAllFromAList(@javax.annotation.Nonnull final String aList)
+		{
+			return field().of(ABlock.aList).removeAll(item(),aList);
+		}
+
+		/**
+		 * Sets a new value for {@link #aList}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAList(@javax.annotation.Nonnull final java.util.Collection<? extends String> aList)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException,
+					java.lang.ClassCastException
+		{
+			field().of(ABlock.aList).set(item(),aList);
+		}
+
+		/**
+		 * Returns the value of {@link #aSet}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		java.util.Set<Integer> getASet()
+		{
+			return field().of(ABlock.aSet).get(item());
+		}
+
+		/**
+		 * Returns a query for the value of {@link #aSet}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+		@javax.annotation.Nonnull
+		com.exedio.cope.Query<Integer> getASetQuery()
+		{
+			return field().of(ABlock.aSet).getQuery(item());
+		}
+
+		/**
+		 * Sets a new value for {@link #aSet}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setASet(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> aSet)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					java.lang.ClassCastException
+		{
+			field().of(ABlock.aSet).set(item(),aSet);
+		}
+
+		/**
+		 * Adds a new element to {@link #aSet}.
+		 * @return {@code true} if the field set changed as a result of the call.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+		boolean addToASet(@javax.annotation.Nonnull final Integer element)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					java.lang.ClassCastException
+		{
+			return field().of(ABlock.aSet).add(item(),element);
+		}
+
+		/**
+		 * Removes an element from {@link #aSet}.
+		 * @return {@code true} if the field set changed as a result of the call.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
+		boolean removeFromASet(@javax.annotation.Nonnull final Integer element)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					java.lang.ClassCastException
+		{
+			return field().of(ABlock.aSet).remove(item(),element);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		/**
+		 * The type information for aBlock.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
-	/**
-	 * Sets a new value for {@link #aString}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAString(@javax.annotation.Nonnull final java.lang.String aString)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		field().of(ABlock.aString).set(item(),aString);
-	}
-
-	/**
-	 * Returns the value of {@link #anInt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	int getAnInt()
-	{
-		return field().of(ABlock.anInt).getMandatory(item());
-	}
-
-	/**
-	 * Sets a new value for {@link #anInt}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAnInt(final int anInt)
-	{
-		field().of(ABlock.anInt).set(item(),anInt);
-	}
-
-	/**
-	 * Returns the value of {@link #anEnum}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	AnEnum getAnEnum()
-	{
-		return field().of(ABlock.anEnum).get(item());
-	}
-
-	/**
-	 * Sets a new value for {@link #anEnum}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
-			throws
-				com.exedio.cope.MandatoryViolationException
-	{
-		field().of(ABlock.anEnum).set(item(),anEnum);
-	}
-
-	/**
-	 * Returns the value of {@link #anItem}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nullable
-	AnItem getAnItem()
-	{
-		return field().of(ABlock.anItem).get(item());
-	}
-
-	/**
-	 * Sets a new value for {@link #anItem}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAnItem(@javax.annotation.Nullable final AnItem anItem)
-	{
-		field().of(ABlock.anItem).set(item(),anItem);
-	}
-
-	/**
-	 * Returns the value of {@link #aColor}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.awt.Color getAColor()
-	{
-		return field().of(ABlock.aColor).get(item());
-	}
-
-	/**
-	 * Sets a new value for {@link #aColor}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAColor(@javax.annotation.Nonnull final java.awt.Color aColor)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.pattern.ColorAlphaViolationException
-	{
-		field().of(ABlock.aColor).set(item(),aColor);
-	}
-
-	/**
-	 * Returns a Locator the content of {@link #aMedia} is available under.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
-	@javax.annotation.Nullable
-	com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
-	{
-		return field().of(ABlock.aMedia).getLocator(item());
-	}
-
-	/**
-	 * Returns the content type of the media {@link #aMedia}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
-	@javax.annotation.Nullable
-	java.lang.String getAMediaContentType()
-	{
-		return field().of(ABlock.aMedia).getContentType(item());
-	}
-
-	/**
-	 * Returns whether media {@link #aMedia} is null.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
-	boolean isAMediaNull()
-	{
-		return field().of(ABlock.aMedia).isNull(item());
-	}
-
-	/**
-	 * Returns the last modification date of media {@link #aMedia}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
-	@javax.annotation.Nullable
-	java.util.Date getAMediaLastModified()
-	{
-		return field().of(ABlock.aMedia).getLastModified(item());
-	}
-
-	/**
-	 * Returns the body length of the media {@link #aMedia}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
-	long getAMediaLength()
-	{
-		return field().of(ABlock.aMedia).getLength(item());
-	}
-
-	/**
-	 * Returns the body of the media {@link #aMedia}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	@javax.annotation.Nullable
-	byte[] getAMediaBody()
-	{
-		return field().of(ABlock.aMedia).getBody(item());
-	}
-
-	/**
-	 * Writes the body of media {@link #aMedia} into the given stream.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	void getAMediaBody(@javax.annotation.Nonnull final java.io.OutputStream body)
-			throws
-				java.io.IOException
-	{
-		field().of(ABlock.aMedia).getBody(item(),body);
-	}
-
-	/**
-	 * Writes the body of media {@link #aMedia} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	void getAMediaBody(@javax.annotation.Nonnull final java.nio.file.Path body)
-			throws
-				java.io.IOException
-	{
-		field().of(ABlock.aMedia).getBody(item(),body);
-	}
-
-	/**
-	 * Writes the body of media {@link #aMedia} into the given file.
-	 * Does nothing, if the media is null.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
-	void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
-			throws
-				java.io.IOException
-	{
-		field().of(ABlock.aMedia).getBody(item(),body);
-	}
-
-	/**
-	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAMedia(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value aMedia)
-			throws
-				java.io.IOException
-	{
-		field().of(ABlock.aMedia).set(item(),aMedia);
-	}
-
-	/**
-	 * Sets the content of media {@link #aMedia}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAMedia(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
-	{
-		field().of(ABlock.aMedia).set(item(),body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAMedia(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		field().of(ABlock.aMedia).set(item(),body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAMedia(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		field().of(ABlock.aMedia).set(item(),body,contentType);
-	}
-
-	/**
-	 * Sets the content of media {@link #aMedia}.
-	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAMedia(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
-			throws
-				java.io.IOException
-	{
-		field().of(ABlock.aMedia).set(item(),body,contentType);
-	}
-
-	/**
-	 * Returns the value of {@link #aList}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.List<String> getAList()
-	{
-		return field().of(ABlock.aList).get(item());
-	}
-
-	/**
-	 * Returns a query for the value of {@link #aList}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
-	@javax.annotation.Nonnull
-	com.exedio.cope.Query<String> getAListQuery()
-	{
-		return field().of(ABlock.aList).getQuery(item());
-	}
-
-	/**
-	 * Adds a new value for {@link #aList}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	void addToAList(@javax.annotation.Nonnull final String aList)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				java.lang.ClassCastException
-	{
-		field().of(ABlock.aList).add(item(),aList);
-	}
-
-	/**
-	 * Removes all occurrences of {@code element} from {@link #aList}.
-	 * @return {@code true} if the field set changed as a result of the call.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
-	boolean removeAllFromAList(@javax.annotation.Nonnull final String aList)
-	{
-		return field().of(ABlock.aList).removeAll(item(),aList);
-	}
-
-	/**
-	 * Sets a new value for {@link #aList}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setAList(@javax.annotation.Nonnull final java.util.Collection<? extends String> aList)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException,
-				java.lang.ClassCastException
-	{
-		field().of(ABlock.aList).set(item(),aList);
-	}
-
-	/**
-	 * Returns the value of {@link #aSet}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Set<Integer> getASet()
-	{
-		return field().of(ABlock.aSet).get(item());
-	}
-
-	/**
-	 * Returns a query for the value of {@link #aSet}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
-	@javax.annotation.Nonnull
-	com.exedio.cope.Query<Integer> getASetQuery()
-	{
-		return field().of(ABlock.aSet).getQuery(item());
-	}
-
-	/**
-	 * Sets a new value for {@link #aSet}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	void setASet(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> aSet)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				java.lang.ClassCastException
-	{
-		field().of(ABlock.aSet).set(item(),aSet);
-	}
-
-	/**
-	 * Adds a new element to {@link #aSet}.
-	 * @return {@code true} if the field set changed as a result of the call.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
-	boolean addToASet(@javax.annotation.Nonnull final Integer element)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				java.lang.ClassCastException
-	{
-		return field().of(ABlock.aSet).add(item(),element);
-	}
-
-	/**
-	 * Removes an element from {@link #aSet}.
-	 * @return {@code true} if the field set changed as a result of the call.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
-	boolean removeFromASet(@javax.annotation.Nonnull final Integer element)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				java.lang.ClassCastException
-	{
-		return field().of(ABlock.aSet).remove(item(),element);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The type information for aBlock.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
-}
-
+	@WrapperType(indent=2)
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final StringField code = new StringField().toFinal();
@@ -566,76 +569,76 @@ public class BlockFieldStandardModelTest
 		}
 
 
-	/**
-	 * Creates a new AnItem with all the fields initially needed.
-	 * @param code the initial value for field {@link #code}.
-	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
-	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	AnItem(
-				@javax.annotation.Nonnull final java.lang.String code)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.code.map(code),
-		});
+		/**
+		 * Creates a new AnItem with all the fields initially needed.
+		 * @param code the initial value for field {@link #code}.
+		 * @throws com.exedio.cope.MandatoryViolationException if code is null.
+		 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		AnItem(
+					@javax.annotation.Nonnull final java.lang.String code)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+				AnItem.code.map(code),
+			});
+		}
+
+		/**
+		 * Creates a new AnItem and sets the given fields initially.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		/**
+		 * Returns the value of {@link #code}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nonnull
+		java.lang.String getCode()
+		{
+			return AnItem.code.get(this);
+		}
+
+		/**
+		 * Returns the value of {@link #eins}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+		@javax.annotation.Nonnull
+		ABlock eins()
+		{
+			return AnItem.eins.get(this);
+		}
+
+		/**
+		 * Returns the value of {@link #zwei}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+		@javax.annotation.Nonnull
+		ABlock zwei()
+		{
+			return AnItem.zwei.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		/**
+		 * The persistent type information for anItem.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new AnItem and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #code}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.lang.String getCode()
-	{
-		return AnItem.code.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #eins}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	@javax.annotation.Nonnull
-	ABlock eins()
-	{
-		return AnItem.eins.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #zwei}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
-	@javax.annotation.Nonnull
-	ABlock zwei()
-	{
-		return AnItem.zwei.get(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for anItem.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 
 
 	// workaround eclipse warnings about unused imports when using static imports instead
