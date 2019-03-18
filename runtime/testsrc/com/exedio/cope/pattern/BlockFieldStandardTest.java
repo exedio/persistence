@@ -23,8 +23,10 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
+import static java.util.Collections.emptyMap;
 import static java.util.Collections.emptySet;
 import static java.util.Collections.singleton;
+import static java.util.Collections.singletonMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -85,6 +87,10 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals(emptySet(), b1b.getASet());
 		assertEquals(emptySet(), b2a.getASet());
 		assertEquals(emptySet(), b2b.getASet());
+		assertEquals(emptyMap(), b1a.getAnEnumMapMap());
+		assertEquals(emptyMap(), b1b.getAnEnumMapMap());
+		assertEquals(emptyMap(), b2a.getAnEnumMapMap());
+		assertEquals(emptyMap(), b2b.getAnEnumMapMap());
 		final ABlock b1A = i1.eins();
 		assertEquals(null, b1A.getAnItem());
 
@@ -112,6 +118,12 @@ public class BlockFieldStandardTest extends TestWithEnvironment
 		assertEquals(emptySet(), b1b.getASet());
 		assertEquals(emptySet(), b2a.getASet());
 		assertEquals(emptySet(), b2b.getASet());
+
+		b1a.setAnEnumMap(AnEnum.facet2, 42);
+		assertEquals(singletonMap(AnEnum.facet2, 42), b1a.getAnEnumMapMap());
+		assertEquals(emptyMap(), b1b.getAnEnumMapMap());
+		assertEquals(emptyMap(), b2a.getAnEnumMapMap());
+		assertEquals(emptyMap(), b2b.getAnEnumMapMap());
 
 		assertEqualsAndHash(b1a, b1A);
 		assertNotEqualsAndHash(b1a, b1b, b2a);

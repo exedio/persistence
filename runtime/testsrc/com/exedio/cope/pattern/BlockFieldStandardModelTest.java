@@ -58,12 +58,18 @@ public class BlockFieldStandardModelTest
 				eins.of(aMedia), eins.of(aMedia).getBody(), eins.of(aMedia).getContentType(), eins.of(aMedia).getLastModified(), eins.of(aMedia).getUnison(),
 				eins.of(aList),
 				eins.of(aSet),
+				eins.of(anEnumMap),
+				eins.of(anEnumMap).getField(ABlock.AnEnum.facet1),
+				eins.of(anEnumMap).getField(ABlock.AnEnum.facet2),
 				zwei,
 				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
 				zwei.of(aColor), zwei.of(aColor).getRGB(),
 				zwei.of(aMedia), zwei.of(aMedia).getBody(), zwei.of(aMedia).getContentType(), zwei.of(aMedia).getLastModified(), zwei.of(aMedia).getUnison(),
 				zwei.of(aList),
 				zwei.of(aSet),
+				zwei.of(anEnumMap),
+				zwei.of(anEnumMap).getField(ABlock.AnEnum.facet1),
+				zwei.of(anEnumMap).getField(ABlock.AnEnum.facet2),
 			}), AnItem.TYPE.getDeclaredFeatures());
 
 
@@ -75,7 +81,7 @@ public class BlockFieldStandardModelTest
 		assertEquals("AnItem.eins-aString", eins.of(aString).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(aString).getPattern());
-		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet)), eins.getSourceFeatures());
+		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet), eins.of(anEnumMap)), eins.getSourceFeatures());
 
 		assertEquals(true,  eins.of(aString).isInitial());
 		assertEquals(false, eins.of(aString).isFinal());
@@ -84,8 +90,8 @@ public class BlockFieldStandardModelTest
 		assertEquals(ABlock.class, ABlock.TYPE.getJavaClass());
 		assertEquals(null, ABlock.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(), ABlock.TYPE.getSubtypes());
-		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet), ABlock.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet), ABlock.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet, anEnumMap), ABlock.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet, anEnumMap), ABlock.TYPE.getFeatures());
 		assertSame(anInt, ABlock.TYPE.getDeclaredFeature("anInt"));
 		assertSame(anInt, ABlock.TYPE.getFeature("anInt"));
 		assertSame(null, ABlock.TYPE.getDeclaredFeature(""));
@@ -99,8 +105,8 @@ public class BlockFieldStandardModelTest
 		assertSame(aString, eins.getTemplate(eins.of(aString)));
 		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
 
-		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet), eins.getTemplates());
-		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet)), eins.getComponents());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet, anEnumMap), eins.getTemplates());
+		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet), eins.of(anEnumMap)), eins.getComponents());
 
 		assertSerializedSame(aString, 339);
 		assertSerializedSame(aColor , 338);
@@ -157,6 +163,7 @@ public class BlockFieldStandardModelTest
 		static final Media aMedia = new Media().optional().contentType("text/plain", "text/html");
 		static final ListField<String> aList = ListField.create(new StringField());
 		static final SetField<Integer> aSet = SetField.create(new IntegerField());
+		static final EnumMapField<AnEnum,Integer> anEnumMap = EnumMapField.create(AnEnum.class, new IntegerField().optional());
 
 
 		/**
@@ -529,6 +536,38 @@ public class BlockFieldStandardModelTest
 			return field().of(ABlock.aSet).remove(item(),element);
 		}
 
+		/**
+		 * Returns the value mapped to {@code k} by the field map {@link #anEnumMap}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@javax.annotation.Nullable
+		Integer getAnEnumMap(@javax.annotation.Nonnull final AnEnum k)
+		{
+			return field().of(ABlock.anEnumMap).get(item(),k);
+		}
+
+		/**
+		 * Associates {@code k} to a new value in the field map {@link #anEnumMap}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		void setAnEnumMap(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final Integer anEnumMap)
+		{
+			field().of(ABlock.anEnumMap).set(item(),k,anEnumMap);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+		@javax.annotation.Nonnull
+		java.util.Map<AnEnum,Integer> getAnEnumMapMap()
+		{
+			return field().of(ABlock.anEnumMap).getMap(item());
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+		void setAnEnumMapMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends Integer> anEnumMap)
+		{
+			field().of(ABlock.anEnumMap).setMap(item(),anEnumMap);
+		}
+
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
@@ -650,6 +689,7 @@ public class BlockFieldStandardModelTest
 	private static final Media aMedia = ABlock.aMedia;
 	private static final ListField<String> aList = ABlock.aList;
 	private static final SetField<Integer> aSet = ABlock.aSet;
+	private static final EnumMapField<ABlock.AnEnum,Integer> anEnumMap = ABlock.anEnumMap;
 	private static final BlockField<ABlock> eins = AnItem.eins;
 	private static final BlockField<ABlock> zwei = AnItem.zwei;
 }

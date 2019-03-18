@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.CoalesceView.coalesce;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Function;
 import com.exedio.cope.FunctionField;
@@ -44,7 +46,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>, MapFieldInterface<K,V>
+public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements Settable<EnumMap<K,V>>, MapFieldInterface<K,V>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -83,6 +85,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 			final FunctionField<V> value)
 	{
 		return new EnumMapField<>(keyClass, null, value, new EnumMap<>(keyClass));
+	}
+
+	@Override
+	public EnumMapField<K,V> copy(final CopyMapper mapper)
+	{
+		return new EnumMapField<>(keyClass, fallback, mapper.copy(valueTemplate), defaultConstant);
 	}
 
 	public EnumMapField<K,V> fallbackTo(final K key)
