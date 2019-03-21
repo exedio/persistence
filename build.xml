@@ -1034,7 +1034,7 @@
 				</copy>
 			</body>
 		</foreachDialect>
-		<copy file="ivy/ivy.xml" tofile="build/success/ivy.xml" overwrite="true">
+		<copy file="ivy/ivy.xml" todir="build/success" overwrite="true">
 			<filterset>
 				<filter token="BUILD_REVISION" value="${build.revision}" />
 				<filter token="BUILD_STATUS"   value="${build.status}" />
