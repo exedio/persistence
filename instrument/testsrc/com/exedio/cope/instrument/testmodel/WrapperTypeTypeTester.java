@@ -29,7 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-@SuppressWarnings("EmptyClass")
+@SuppressWarnings({"EmptyClass", "unused"}) // OK: just for testing instrumentor
 public final class WrapperTypeTypeTester
 {
 	@WrapperType(type=DEFAULT,

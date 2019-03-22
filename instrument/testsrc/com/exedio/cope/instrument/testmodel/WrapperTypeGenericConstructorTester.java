@@ -28,7 +28,7 @@ import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperType;
 
-@SuppressWarnings("EmptyClass")
+@SuppressWarnings({"EmptyClass", "unused"}) // OK: just for testing instrumentor
 public final class WrapperTypeGenericConstructorTester
 {
 	@WrapperType(genericConstructor=DEFAULT,

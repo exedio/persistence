@@ -29,7 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapperType;
 
-@SuppressWarnings({"AbstractClassNeverImplemented","EmptyClass"})
+@SuppressWarnings({"AbstractClassNeverImplemented", "EmptyClass", "unused"}) // OK: just for testing instrumentor
 public final class WrapperTypeConstructorTester
 {
 	@WrapperType(constructor=DEFAULT,
