@@ -23,6 +23,7 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
 
 @WrapperIgnore
+@SuppressWarnings("unused") // OK: just for testing instrumentor
 final class IgnoredType extends Item
 {
 	static final StringField string = new StringField();

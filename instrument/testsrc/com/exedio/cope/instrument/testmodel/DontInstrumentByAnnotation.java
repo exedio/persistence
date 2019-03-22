@@ -28,6 +28,7 @@ import javax.annotation.Generated;
  * This class tests that the {@link WrapperIgnore} annotation works.
  */
 @WrapperIgnore
+@SuppressWarnings("unused") // OK: just for testing instrumentor
 class DontInstrumentByAnnotation extends Item
 {
 	private static final long serialVersionUID=1L;

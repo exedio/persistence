@@ -21,6 +21,7 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.instrument.WrapInterim;
 
 @WrapInterim
+@SuppressWarnings("unused") // OK: just for testing instrumentor
 enum EnumWithAddMethods implements InterfaceWithAddMethods
 {
 	a, b, c;
