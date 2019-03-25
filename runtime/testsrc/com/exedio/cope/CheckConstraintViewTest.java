@@ -78,6 +78,7 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 		@Wrapper(wrap="set", visibility=NONE)
 		static final IntegerField sum = new IntegerField();
 
+		@SuppressWarnings("unused") // OK: CheckConstraint
 		static final CheckConstraint check = new CheckConstraint(one.plus(two).equal(sum));
 
 

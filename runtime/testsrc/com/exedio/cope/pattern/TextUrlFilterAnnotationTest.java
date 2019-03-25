@@ -166,6 +166,7 @@ public class TextUrlFilterAnnotationTest
 		static final TextUrlFilter secfin = new ATextUrlFilter(new Media(), new Media());
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private AnItem(final ActivationParameters ap) { super(ap); }
 	}
@@ -179,6 +180,7 @@ public class TextUrlFilterAnnotationTest
 		static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<SecretItem> TYPE = TypesBound.newType(SecretItem.class);
 		private SecretItem(final ActivationParameters ap) { super(ap); }
 	}
@@ -192,6 +194,7 @@ public class TextUrlFilterAnnotationTest
 		static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<FingerItem> TYPE = TypesBound.newType(FingerItem.class);
 		private FingerItem(final ActivationParameters ap) { super(ap); }
 	}

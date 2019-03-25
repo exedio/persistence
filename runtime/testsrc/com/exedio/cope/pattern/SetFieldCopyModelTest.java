@@ -40,6 +40,7 @@ import org.junit.jupiter.api.Test;
 
 public class SetFieldCopyModelTest
 {
+	@SuppressWarnings("unused") // OK: Model that is never connected
 	static final Model MODEL = new Model(SetFieldItemWithCopyConstraints.TYPE);
 
 	@Test void testCopyOnlyForItemFields()

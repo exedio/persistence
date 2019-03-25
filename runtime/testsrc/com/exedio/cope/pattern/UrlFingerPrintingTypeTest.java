@@ -63,6 +63,7 @@ public class UrlFingerPrintingTypeTest
 		static final Media present = new Media();
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<AbsentItem> TYPE = TypesBound.newType(AbsentItem.class);
 		private AbsentItem(final ActivationParameters ap) { super(ap); }
 	}
@@ -76,6 +77,7 @@ public class UrlFingerPrintingTypeTest
 		static final Media present = new Media();
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<PresentItem> TYPE = TypesBound.newType(PresentItem.class);
 		private PresentItem(final ActivationParameters ap) { super(ap); }
 	}

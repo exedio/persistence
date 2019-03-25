@@ -20,7 +20,6 @@ package com.exedio.cope.typecollision;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -28,7 +27,6 @@ import com.exedio.cope.instrument.WrapperIgnore;
 @WrapperIgnore
 public final class TypeCollisionItem extends Item
 {
-	static final StringField code = new StringField().toFinal().unique();
 	private static final long serialVersionUID = 1l;
 	public static final Type<TypeCollisionItem> TYPE = TypesBound.newType(TypeCollisionItem.class);
 	private TypeCollisionItem(final ActivationParameters ap) { super(ap); }

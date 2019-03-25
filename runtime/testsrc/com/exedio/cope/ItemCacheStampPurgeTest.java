@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -38,8 +37,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 	}
 
 	boolean ignore;
-	@SuppressFBWarnings("URF_UNREAD_FIELD")
-	CacheIsolationItem item1, item2, itemX;
+	CacheIsolationItem item1, item2;
 
 	@BeforeEach final void setUp()
 	{
@@ -52,7 +50,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 		item1 = new CacheIsolationItem("item1");
 		item2 = new CacheIsolationItem("item2");
-		itemX = new CacheIsolationItem("itemX");
+		        new CacheIsolationItem("itemX");
 		model.commit();
 		clearStamps(model.connect().itemCache);
 		model.startTransaction("ItemCacheStampPurgeTest");

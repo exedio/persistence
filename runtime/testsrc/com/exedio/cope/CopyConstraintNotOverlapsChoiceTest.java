@@ -41,6 +41,7 @@ public class CopyConstraintNotOverlapsChoiceTest
 	static final class Source extends Item
 	{
 		@WrapperIgnore
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice("field");
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

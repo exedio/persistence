@@ -42,9 +42,6 @@ import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.Sub;
 import com.exedio.cope.instrument.testmodel.Super;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -59,10 +56,6 @@ public class GeneratorTest
 
 	static final Class<?> STRING = String.class;
 	static final Class<?> DOUBLE = Double.class;
-	static final Class<?> BYTE_ARRAY = byte[].class;
-	static final Class<?> INPUT_STREAM = InputStream.class;
-	static final Class<?> OUTPUT_STREAM = OutputStream.class;
-	static final Class<?> IO_EXCEPTION = IOException.class;
 
 	static final Class<?> SET_VALUE_ARRAY = SetValue[].class;
 	static final Class<?> MANDATORY_VIOLATION = MandatoryViolationException.class;

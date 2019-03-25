@@ -23,7 +23,6 @@ import static com.exedio.cope.CompareConditionItem.intx;
 import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -34,8 +33,7 @@ public class CompositeConditionTest extends TestWithEnvironment
 		super(CompareConditionTest.MODEL);
 	}
 
-	@SuppressFBWarnings("URF_UNREAD_FIELD")
-	CompareConditionItem item, itemA, itemB, itemAB, itemAX, itemXB, itemXX;
+	CompareConditionItem item, itemA, itemB, itemAB, itemAX, itemXB;
 
 	@BeforeEach final void setUp()
 	{
@@ -45,7 +43,7 @@ public class CompositeConditionTest extends TestWithEnvironment
 		itemAB = new CompareConditionItem(null,    2,   2l, null, null, null, null);
 		itemAX = new CompareConditionItem(null,    3, null, null, null, null, null);
 		itemXB = new CompareConditionItem(null, null,   3l, null, null, null, null);
-		itemXX = new CompareConditionItem(null, null, null, null, null, null, null);
+		         new CompareConditionItem(null, null, null, null, null, null, null);
 	}
 
 	@Test void testNot()

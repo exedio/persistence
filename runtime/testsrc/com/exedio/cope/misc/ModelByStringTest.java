@@ -116,6 +116,7 @@ public class ModelByStringTest
 	static final class ModelOk2 extends Item
 	{
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<ModelOk2> TYPE = TypesBound.newType(ModelOk2.class);
 		private ModelOk2(final ActivationParameters ap) { super(ap); }
 	}
@@ -124,6 +125,7 @@ public class ModelByStringTest
 	static final class ModelContext extends Item
 	{
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<ModelContext> TYPE = TypesBound.newType(ModelContext.class);
 		private ModelContext(final ActivationParameters ap) { super(ap); }
 	}

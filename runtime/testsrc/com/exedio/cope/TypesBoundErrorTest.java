@@ -152,6 +152,7 @@ public class TypesBoundErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature nullFeature = null;
 	}
 
@@ -173,6 +174,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		static final Feature origin = new IntegerField();
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature duplicate = origin;
 	}
 

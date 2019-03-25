@@ -50,7 +50,9 @@ public class DateFieldWrongDefaultNowTest
 			super(ap);
 		}
 
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DateField wrong = new DateField().defaultTo(new Date());
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DateField ok = new DateField().defaultTo(new Date(28276523786l));
 	}
 }

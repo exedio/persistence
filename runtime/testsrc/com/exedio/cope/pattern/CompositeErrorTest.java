@@ -147,6 +147,7 @@ public class CompositeErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 		private NullField(final SetValue<?>[] setValues) { super(setValues); }
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Field<?> nullField = null;
 	}
 
@@ -174,6 +175,7 @@ public class CompositeErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 		private NotFunctionField(final SetValue<?>[] setValues) { super(setValues); }
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature notFunctionField = MapField.create(new StringField(), new StringField());
 	}
 
@@ -218,6 +220,7 @@ public class CompositeErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 		private FinalField(final SetValue<?>[] setValues) { super(setValues); }
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final BooleanField finalField = new BooleanField().toFinal();
 	}
 
@@ -245,6 +248,7 @@ public class CompositeErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 		private NonConstantDefaultField(final SetValue<?>[] setValues) { super(setValues); }
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DateField defaultNowField = new DateField().defaultToNow();
 	}
 

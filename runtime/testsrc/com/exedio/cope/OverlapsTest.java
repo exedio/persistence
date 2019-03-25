@@ -111,8 +111,11 @@ public class OverlapsTest
 		private AnItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	enum AnEnum1 {one,two}
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	enum AnEnum2 {one,two}
 
+	@SuppressWarnings("unused") // OK: Model that is never connected
 	static final Model MODEL = new Model(AnItem1.TYPE, AnItem2.TYPE);
 }

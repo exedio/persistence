@@ -50,6 +50,7 @@ public class CopyConstraintNotFinalTest
 		@WrapperIgnore
 		static final ItemField<Target> target = ItemField.create(Target.class).toFinal();
 		@WrapperIgnore
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final StringField field = new StringField().toFinal().copyFrom(target);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -66,6 +67,7 @@ public class CopyConstraintNotFinalTest
 	static class Target extends Item
 	{
 		@WrapperIgnore
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final StringField field = new StringField();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

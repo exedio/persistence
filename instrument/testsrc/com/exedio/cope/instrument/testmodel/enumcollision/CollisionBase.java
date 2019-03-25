@@ -21,7 +21,7 @@ package com.exedio.cope.instrument.testmodel.enumcollision;
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 
-@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
+@SuppressWarnings({"UnnecessarilyQualifiedInnerClassAccess", "unused"}) // OK: test bad API usage
 final class CollisionBase extends Item
 {
 	enum ACollide1 { one, two } // collides with item, but is early in alphabet

@@ -291,7 +291,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 
 	enum X
 	{
-		A, B, C,
+		A,
 		SUBCLASS
 		{
 			@SuppressWarnings("unused")

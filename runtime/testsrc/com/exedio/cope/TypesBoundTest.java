@@ -215,10 +215,11 @@ public class TypesBoundTest
 		static final BooleanField boolField = new BooleanField();
 
 		// test, that these fields do not become features of the type
-		@SuppressWarnings(CopeWarnings.FEATURE_NOT_STATIC_FINAL)
+		@SuppressWarnings({CopeWarnings.FEATURE_NOT_STATIC_FINAL, "unused"}) // OK: test bad API usage
 		final BooleanField notStatic = new BooleanField();
-		@SuppressWarnings(CopeWarnings.FEATURE_NOT_STATIC_FINAL)
+		@SuppressWarnings({CopeWarnings.FEATURE_NOT_STATIC_FINAL, "unused"}) // OK: test bad API usage
 		static BooleanField notFinal = new BooleanField();
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Object noFeature = new BooleanField();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

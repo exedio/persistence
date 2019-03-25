@@ -34,6 +34,7 @@ final class InnerContainer
 		static final EnumField<EnumContainer.Enum3> externalEnum = EnumField.create(EnumContainer.Enum3.class).toFinal();
 		static final EnumField<Enum4> shortExternalEnum = EnumField.create(Enum4.class).toFinal();
 
+		@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 		enum InnerSuperEnum
 		{
 			A, B

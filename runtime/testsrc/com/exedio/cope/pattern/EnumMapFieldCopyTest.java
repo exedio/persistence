@@ -69,6 +69,7 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 		assertEquals(valueX, item.getMap(Color.red));
 	}
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	enum Color { red, green, blue }
 
 	@WrapperType(comments=false, indent=2)

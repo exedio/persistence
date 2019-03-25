@@ -80,6 +80,7 @@ public class SerializationCheckTest
 
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("unused") // OK: found by reflection
 	static class ItemOk extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -104,6 +105,7 @@ public class SerializationCheckTest
 
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("unused") // OK: found by reflection
 	static final class PatternItem extends Item
 	{
 		static int staticField1;
@@ -131,6 +133,7 @@ public class SerializationCheckTest
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("unused") // OK: found by reflection
 	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	static final class CompositeWrong extends Composite
 	{
@@ -151,6 +154,7 @@ public class SerializationCheckTest
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("unused") // OK: found by reflection
 	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	static final class BlockWrong extends Block
 	{
@@ -174,6 +178,7 @@ public class SerializationCheckTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("unused") // OK: found by reflection
 	static class Item1 extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -208,6 +213,7 @@ public class SerializationCheckTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("unused") // OK: found by reflection
 	static class Item2 extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)

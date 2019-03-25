@@ -137,6 +137,7 @@ public class NameLengthTest extends TestWithEnvironment
 	}
 
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	enum AnEnum
 	{
 		eins, zwei
@@ -153,7 +154,9 @@ public class NameLengthTest extends TestWithEnvironment
 		static final ItemField<AnItem> foreignShort = ItemField.create(AnItem.class).toFinal();
 
 		@CopeName("checkLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
+		@SuppressWarnings("unused") // OK: CheckConstraint
 		static final CheckConstraint checkLong  = new CheckConstraint(fieldShort.isNotNull());
+		@SuppressWarnings("unused") // OK: CheckConstraint
 		static final CheckConstraint checkShort = new CheckConstraint(fieldShort.isNotNull());
 
 		@CopeName("sequenceLooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")

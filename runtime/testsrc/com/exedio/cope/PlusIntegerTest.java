@@ -54,13 +54,11 @@ public class PlusIntegerTest extends TestWithEnvironment
 	}
 
 	PlusIntegerItem item;
-	@SuppressFBWarnings("URF_UNREAD_FIELD")
-	PlusIntegerItem item2;
 
 	@BeforeEach final void setUp()
 	{
 		item  = new PlusIntegerItem(1, 2, 3);
-		item2 = new PlusIntegerItem(3, 4, 5);
+		        new PlusIntegerItem(3, 4, 5);
 	}
 
 	@Test void testSum()

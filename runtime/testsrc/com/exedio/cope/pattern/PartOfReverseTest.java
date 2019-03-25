@@ -107,6 +107,7 @@ public class PartOfReverseTest
 		Part(final ActivationParameters ap) { super(ap); }
 	}
 
+	@SuppressWarnings("unused") // OK: Model that is never connected
 	static final Model MODEL = new Model(
 			SuperContainer.TYPE, Container.TYPE, SubContainer.TYPE,
 			Order.TYPE, Part.TYPE);

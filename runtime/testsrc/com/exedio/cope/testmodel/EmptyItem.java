@@ -27,20 +27,6 @@ import com.exedio.cope.Item;
 public final class EmptyItem extends Item
 {
 	/**
-	 * This dummy attribute has the same name
-	 * as an attribute in super class {@link Item}.
-	 * This tests, that there are no name collisions.
-	 */
-	boolean type;
-
-	/**
-	 * This dummy attribute has the same name
-	 * as an attribute in super class {@link Item}.
-	 * This tests, that there are no name collisions.
-	 */
-	boolean pk;
-
-	/**
 	 * Creates a new EmptyItem with all the fields initially needed.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial

@@ -20,7 +20,6 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -28,8 +27,6 @@ import com.exedio.cope.instrument.WrapperIgnore;
 @WrapperIgnore
 final class ConnectTokenItem extends Item
 {
-	static final StringField name = new StringField();
-
 	private static final long serialVersionUID = 1l;
 	static final Type<ConnectTokenItem> TYPE = TypesBound.newType(ConnectTokenItem.class);
 	private ConnectTokenItem(final ActivationParameters ap) { super(ap); }

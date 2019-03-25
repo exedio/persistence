@@ -36,6 +36,7 @@ import org.junit.jupiter.api.Test;
 
 public class BeforeSetTest extends TestWithEnvironment
 {
+	@SuppressWarnings("unused") // OK: Model that is never connected
 	private static final Model MODEL = new Model(BeforeSetItem.TYPE);
 
 	public BeforeSetTest()

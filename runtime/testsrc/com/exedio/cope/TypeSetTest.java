@@ -95,8 +95,6 @@ public class TypeSetTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		static final StringField f = new StringField();
-
 		Item1(final ActivationParameters ap)
 		{
 			super(ap);
@@ -109,8 +107,6 @@ public class TypeSetTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		static final StringField f = new StringField();
-
 		Item2(final ActivationParameters ap)
 		{
 			super(ap);
@@ -122,8 +118,6 @@ public class TypeSetTest
 	static class ItemX extends Item
 	{
 		private static final long serialVersionUID = 1l;
-
-		static final StringField f = new StringField();
 
 		ItemX(final ActivationParameters ap)
 		{

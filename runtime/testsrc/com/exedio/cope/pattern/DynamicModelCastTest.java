@@ -31,7 +31,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.DynamicModel.Enum;
 import com.exedio.cope.pattern.DynamicModel.Field;
 import com.exedio.cope.pattern.DynamicModel.Type;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class DynamicModelCastTest extends TestWithEnvironment
@@ -46,13 +45,6 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	public DynamicModelCastTest()
 	{
 		super(MODEL);
-	}
-
-	ModelItem item;
-
-	@BeforeEach final void setUp()
-	{
-		item = new ModelItem("item");
 	}
 
 	@Test void testIt()
@@ -95,6 +87,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	enum Locale
 	{
 		ONE, TWO

@@ -26,25 +26,37 @@ final class CheckConstraintConditionItem extends Item
 	static final ItemField<CheckConstraintConditionItemTarget> item = ItemField.create(CheckConstraintConditionItemTarget.class);
 	//static final StringField string = new StringField();
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint isNull     = new CheckConstraint(integer1.isNull());
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint isNotNull  = new CheckConstraint(integer1.isNotNull());
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compare         = new CheckConstraint(integer1.less(0));
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compareFunction = new CheckConstraint(integer1.less(integer2));
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint not = new CheckConstraint(integer1.less(integer2).not());
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compositeAnd = new CheckConstraint(integer1.isNull().and(integer2.isNull()));
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint compositeOr  = new CheckConstraint(integer1.isNull().or (integer2.isNull()));
 
 	//static final CheckConstraint charSet = new CheckConstraint(new CharSetCondition(string, CharSet.ALPHA_LOWER)); TODO
 	//static final CheckConstraint like = new CheckConstraint(string.like("like it")); TODO
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint       instanceOf    = new CheckConstraint(item.   instanceOf(CheckConstraintConditionItemSub   .TYPE));
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint       instanceOfNot = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemSub   .TYPE));
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint singleInstanceOf    = new CheckConstraint(item.   instanceOf(CheckConstraintConditionItemBottom.TYPE));
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint singleInstanceOfNot = new CheckConstraint(item.notInstanceOf(CheckConstraintConditionItemBottom.TYPE));
 
+	@SuppressWarnings("unused") // OK: CheckConstraint
 	static final CheckConstraint startsWith = new CheckConstraint(integer1.isNotNull());
 
 

@@ -62,12 +62,11 @@ public class PlusDoubleTest extends TestWithEnvironment
 	}
 
 	PlusDoubleItem item;
-	PlusDoubleItem item2;
 
 	@BeforeEach final void setUp()
 	{
 		item = new PlusDoubleItem(1.1, 2.2, 3.3);
-		item2 = new PlusDoubleItem(3.3, 4.4, 5.5);
+		       new PlusDoubleItem(3.3, 4.4, 5.5);
 	}
 
 	private static final double EPS = 0.000000000000005d;

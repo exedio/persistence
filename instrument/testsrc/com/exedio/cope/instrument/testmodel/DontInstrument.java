@@ -27,6 +27,7 @@ import javax.annotation.Generated;
 /**
  * This class tests that the 'ignore' element at the 'instrument' ant task works.
  */
+@SuppressWarnings("unused") // OK: test bad API usage
 class DontInstrument extends Item
 {
 	private static final long serialVersionUID=1L;

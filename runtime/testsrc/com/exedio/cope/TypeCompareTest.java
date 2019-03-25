@@ -125,8 +125,6 @@ public class TypeCompareTest
 		{
 			super(ap);
 		}
-
-		static final IntegerField intField = new IntegerField();
 	}
 
 	@WrapperIgnore
@@ -138,8 +136,6 @@ public class TypeCompareTest
 		{
 			super(ap);
 		}
-
-		static final IntegerField intField = new IntegerField();
 	}
 
 	@WrapperIgnore
@@ -151,7 +147,5 @@ public class TypeCompareTest
 		{
 			super(ap);
 		}
-
-		static final IntegerField intField = new IntegerField();
 	}
 }

@@ -47,6 +47,7 @@ import org.junit.jupiter.api.Test;
 public class SelectTest extends TestmodelTest
 {
 	EmptyItem someItem, someItem2;
+	@SuppressWarnings("unused") // OK: items must exist in database
 	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	AttributeItem item1, item2, item3, item4, item5, item;
 

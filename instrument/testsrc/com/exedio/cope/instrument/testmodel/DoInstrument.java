@@ -28,6 +28,7 @@ import com.exedio.cope.instrument.WrapInterim;
  * This class has a static import for {@link DontInstrument}.
  */
 @WrapInterim
+@SuppressWarnings("unused") // OK: test bad API usage
 class DoInstrument implements InterfaceThatUsesDontInstrument
 {
 	static final long useStaticImport = wouldNotCompileInInterimCode;

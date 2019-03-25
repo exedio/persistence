@@ -120,7 +120,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	@SuppressWarnings({"ClassWithOnlyPrivateConstructors", "AbstractClassNeverImplemented"}) // OK: test broken input
+	@SuppressWarnings({"ClassWithOnlyPrivateConstructors", "AbstractClassNeverImplemented", "unused"}) // OK: test bad API usage
 	@WrapperIgnore abstract static class AbstractItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
@@ -145,6 +145,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
+	@SuppressWarnings("unused") // OK: test bad API usage
 	@WrapperIgnore static final class NonCreateableFunctionFieldItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
@@ -172,6 +173,7 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
+	@SuppressWarnings("unused") // OK: test bad API usage
 	@WrapperIgnore static final class NonCreateableDataFieldItem extends Item
 	{
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
@@ -191,9 +193,13 @@ public class UniqueHashedMediaErrorTest
 	}
 	@WrapperIgnore static final class CreateableItem extends Item
 	{
+		@SuppressWarnings("unused")
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
+		@SuppressWarnings("unused")
 		static final IntegerField optionalField = new IntegerField().optional();
+		@SuppressWarnings("unused")
 		static final IntegerField defaultField = new IntegerField().defaultTo(77);
+		@SuppressWarnings("unused")
 		static final DataField dataField = new DataField().optional();
 		static final Type<CreateableItem> TYPE = TypesBound.newType(CreateableItem.class);
 

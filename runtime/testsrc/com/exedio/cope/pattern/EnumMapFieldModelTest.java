@@ -156,7 +156,7 @@ public class EnumMapFieldModelTest
 
 	enum X
 	{
-		A, B, C,
+		A,
 		SUBCLASS
 		{
 			@SuppressWarnings("unused")

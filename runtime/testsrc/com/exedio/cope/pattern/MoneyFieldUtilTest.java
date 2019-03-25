@@ -57,6 +57,7 @@ public class MoneyFieldUtilTest
 		}
 	}
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	enum CurrencyEnum implements Money.Currency
 	{
 		A, B
@@ -110,6 +111,7 @@ public class MoneyFieldUtilTest
 	static final class FieldItem extends Item
 	{
 		@WrapperIgnore
+		@SuppressWarnings("unused")
 		static final MoneyField<CurrencyEnum> field = MoneyField.shared(CurrencyItem.currency);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

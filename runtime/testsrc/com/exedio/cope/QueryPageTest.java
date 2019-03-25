@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 
 public class QueryPageTest
 {
+	@SuppressWarnings("unused") // OK: Model that is never connected
 	static final Model MODEL = new Model(TYPE);
 
 	@Test void testLimitSimple()

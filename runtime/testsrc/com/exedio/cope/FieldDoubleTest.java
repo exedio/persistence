@@ -32,8 +32,6 @@ import org.junit.jupiter.api.Test;
 
 public class FieldDoubleTest extends FieldTest
 {
-	static final Double CONST = 1.1;
-
 	@Test void testSomeDouble()
 	{
 		assertEquals(TYPE, someDouble.getType());

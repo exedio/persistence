@@ -182,6 +182,7 @@ public class UniqueHashedMediaAnnotationTest
 		@PreventUrlGuessing @UrlFingerPrinting
 		static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
 
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private static final long serialVersionUID = 1l;
 		private AnItem(final ActivationParameters ap) { super(ap); }
@@ -196,6 +197,7 @@ public class UniqueHashedMediaAnnotationTest
 		static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<SecretItem> TYPE = TypesBound.newType(SecretItem.class);
 		private SecretItem(final ActivationParameters ap) { super(ap); }
 	}
@@ -209,6 +211,7 @@ public class UniqueHashedMediaAnnotationTest
 		static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<FingerItem> TYPE = TypesBound.newType(FingerItem.class);
 		private FingerItem(final ActivationParameters ap) { super(ap); }
 	}
@@ -222,6 +225,7 @@ public class UniqueHashedMediaAnnotationTest
 		static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<SecFinItem> TYPE = TypesBound.newType(SecFinItem.class);
 		private SecFinItem(final ActivationParameters ap) { super(ap); }
 	}

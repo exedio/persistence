@@ -24,9 +24,9 @@ import com.exedio.cope.instrument.testfeature.WrapEnumFeature;
 
 final class WrapEnumItem extends Item
 {
+	@SuppressWarnings({"EmptyClass", "RedundantSuppression"}) // OK: just for testing instrumentor
 	enum Normal
 	{
-		one, two
 	}
 
 	static final WrapEnumFeature<Normal> normal = WrapEnumFeature.create(Normal.class);
@@ -34,7 +34,8 @@ final class WrapEnumItem extends Item
 
 	enum WithImplements implements CharSequence
 	{
-		one, two;
+		@SuppressWarnings("unused") // OK: just for testing instrumentor
+		one;
 
 		@Override
 		public int length()

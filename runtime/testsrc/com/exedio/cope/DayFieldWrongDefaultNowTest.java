@@ -51,7 +51,9 @@ public class DayFieldWrongDefaultNowTest
 			super(ap);
 		}
 
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DayField wrong = new DayField().defaultTo(new Day(TimeZone.getDefault()));
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DayField ok = new DayField().defaultTo(new Day(2005, 10, 10));
 	}
 }

@@ -31,8 +31,6 @@ import org.junit.jupiter.api.Test;
 
 public class FieldIntegerTest extends FieldTest
 {
-	static final Integer CONST = 1;
-
 	@Test void testSomeInteger()
 	{
 		assertEquals(TYPE, someInteger.getType());

@@ -134,6 +134,7 @@ public class TextUrlFilterDelegatorAnnotationTest
 		static final TextUrlFilterDelegator secfin = new ATextUrlFilterDelegator(new Media(), delegate);
 
 		private static final long serialVersionUID = 1l;
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private AnItem(final ActivationParameters ap) { super(ap); }
 	}

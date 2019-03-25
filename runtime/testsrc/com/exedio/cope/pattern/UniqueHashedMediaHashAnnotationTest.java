@@ -81,6 +81,7 @@ public class UniqueHashedMediaHashAnnotationTest
 		static final UniqueHashedMedia shorter = new UniqueHashedMedia(new Media(), "MD5");
 		static final UniqueHashedMedia longer  = new UniqueHashedMedia(new Media(), "SHA");
 
+		@SuppressWarnings("unused") // OK: TYPE without Model
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 		private static final long serialVersionUID = 1l;
 		private AnItem(final ActivationParameters ap) { super(ap); }

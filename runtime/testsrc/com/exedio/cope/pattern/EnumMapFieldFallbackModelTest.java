@@ -35,6 +35,7 @@ import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldFallbackModelTest
 {
+	@SuppressWarnings("unused") // OK: Model that is never connected
 	static final Model MODEL = new Model(AnItem.TYPE);
 
 	@Test void testIsMandatory()

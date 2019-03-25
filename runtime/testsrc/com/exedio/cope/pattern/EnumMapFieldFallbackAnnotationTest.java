@@ -33,6 +33,7 @@ public class EnumMapFieldFallbackAnnotationTest
 		assertEquals(Ok.fall, create(Ok.class, VALUE).fallback().getFallback());
 	}
 
+	@SuppressWarnings("unused")
 	enum Ok
 	{
 		one, @CopeEnumFallback fall, two
@@ -56,6 +57,7 @@ public class EnumMapFieldFallbackAnnotationTest
 		}
 	}
 
+	@SuppressWarnings("unused")
 	enum Missing
 	{
 		one, two
@@ -80,6 +82,7 @@ public class EnumMapFieldFallbackAnnotationTest
 		}
 	}
 
+	@SuppressWarnings("unused")
 	enum Duplicate
 	{
 		@CopeEnumFallback one,

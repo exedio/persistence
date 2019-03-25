@@ -31,8 +31,6 @@ import org.junit.jupiter.api.Test;
 
 public class FieldLongTest extends FieldTest
 {
-	static final Long CONST = 1l;
-
 	@Test void testSomeLong()
 	{
 		assertEquals(TYPE, someLong.getType());

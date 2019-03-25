@@ -49,6 +49,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 	static final SimpleSettable initialFeature = new SimpleSettable();
 
 	@WrapperIgnore
+	@SuppressWarnings("unused") // OK: test @WrapperIgnore
 	static final SimpleSettable ignoredFeature = new SimpleSettable(true);
 
 	@Wrapper(wrap="one", visibility=PUBLIC)

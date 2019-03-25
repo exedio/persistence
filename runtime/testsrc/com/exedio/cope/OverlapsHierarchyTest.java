@@ -120,5 +120,6 @@ public class OverlapsHierarchyTest
 		private RefItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
+	@SuppressWarnings("unused") // OK: Model that is never connected
 	static final Model MODEL = new Model(AnItemA.TYPE, AnItemB1.TYPE, AnItemB2.TYPE, AnItemC.TYPE, RefItem.TYPE);
 }

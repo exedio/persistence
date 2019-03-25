@@ -135,6 +135,7 @@ public class BlockErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 		private NullField(final BlockActivationParameters ap) { super(ap); }
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Field<?> nullField = null;
 	}
 
@@ -161,6 +162,7 @@ public class BlockErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 		private NotCopyableField(final BlockActivationParameters ap) { super(ap); }
+		@SuppressWarnings("unused") // OK: test bad API usage
 		static final NotCopyable notCopyableField = new NotCopyable();
 	}
 
@@ -225,6 +227,7 @@ public class BlockErrorTest
 	{
 		private static final long serialVersionUID = 1l;
 		private AlreadyBound(final BlockActivationParameters ap) { super(ap); }
+		@SuppressWarnings("unused") // OK: Block must not be empty
 		static final BooleanField field = new BooleanField();
 		static final BlockType<AlreadyBound> TYPE = newType(AlreadyBound.class);
 	}

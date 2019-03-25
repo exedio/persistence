@@ -23,7 +23,6 @@ import com.exedio.cope.instrument.WrapperIgnore;
 @WrapperIgnore
 final class TypeCollisionItem extends Item
 {
-	static final StringField code = new StringField().toFinal().unique();
 	private static final long serialVersionUID = 1l;
 	static final Type<TypeCollisionItem> TYPE = TypesBound.newType(TypeCollisionItem.class);
 	private TypeCollisionItem(final ActivationParameters ap) { super(ap); }

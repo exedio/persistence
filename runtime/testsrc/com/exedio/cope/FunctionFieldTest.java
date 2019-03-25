@@ -96,5 +96,6 @@ public class FunctionFieldTest
 		private static final long serialVersionUID = 1L;
 	}
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	enum SomeEnum { a, b }
 }

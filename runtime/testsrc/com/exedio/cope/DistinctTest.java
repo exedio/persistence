@@ -39,16 +39,15 @@ public class DistinctTest extends TestWithEnvironment
 		super(PlusIntegerTest.MODEL);
 	}
 
-	@SuppressFBWarnings("URF_UNREAD_FIELD")
-	PlusIntegerItem item1, item2, item3, item4;
+	PlusIntegerItem item1, item5;
 
 	@BeforeEach final void setUp()
 	{
 		item1 = new PlusIntegerItem(1, 2, 0);
-		item2 = new PlusIntegerItem(1, 3, 0);
-		item3 = new PlusIntegerItem(1, 4, 0);
-		item4 = new PlusIntegerItem(1, 4, 0);
-		item4 = new PlusIntegerItem(2, 4, 0);
+		        new PlusIntegerItem(1, 3, 0);
+		        new PlusIntegerItem(1, 4, 0);
+		        new PlusIntegerItem(1, 4, 0);
+		item5 = new PlusIntegerItem(2, 4, 0);
 	}
 
 	@Test void testDistinctSingle()
@@ -70,7 +69,7 @@ public class DistinctTest extends TestWithEnvironment
 		assertContains(null, 3, 4, q.search());
 		assertEquals(3, q.total());
 
-		item4.setNumB(null);
+		item5.setNumB(null);
 		q.setDistinct(false);
 		assertContains(null, 3, 4, 4, null, q.search());
 		assertEquals(5, q.total());
@@ -121,7 +120,7 @@ public class DistinctTest extends TestWithEnvironment
 			q.search());
 		assertEquals(4, q.total());
 
-		item4.setNumA(null);
+		item5.setNumA(null);
 		q.setDistinct(false);
 		assertContains(
 				list(null, 2),
@@ -161,7 +160,7 @@ public class DistinctTest extends TestWithEnvironment
 			q.search());
 		assertEquals(4, q.total());
 
-		item4.setNumB(null);
+		item5.setNumB(null);
 		q.setDistinct(false);
 		assertContains(
 				list(null, null),

@@ -47,6 +47,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	// override visibility
 
 	@Wrapper(wrap="simple", visibility=NONE)
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	static final OptionFeature none = new OptionFeature();
 
 	@Wrapper(wrap="simple", internal=true)
@@ -68,6 +69,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 	// override visibility and internal
 
 	@Wrapper(wrap="simple", internal=true, visibility=NONE)
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	static final OptionFeature internalNone = new OptionFeature();
 
 	@Wrapper(wrap="simple", internal=true, visibility=PRIVATE)

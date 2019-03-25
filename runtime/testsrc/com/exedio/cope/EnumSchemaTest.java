@@ -51,6 +51,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(Normal.class, 10, 20, 30);
 	}
+	@SuppressWarnings("unused")
 	enum Normal
 	{
 		Eins, Zwei, Drei
@@ -71,6 +72,7 @@ public class EnumSchemaTest
 			assertEquals(null, e.getMessage());
 		}
 	}
+	@SuppressWarnings("unused")
 	enum Normal2
 	{
 		Eins, Zwei
@@ -98,6 +100,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(AnnotatedBefore.class, 10, 11, 20);
 	}
+	@SuppressWarnings("unused")
 	enum AnnotatedBefore
 	{
 		Eins,
@@ -110,6 +113,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(AnnotatedAfter.class, 10, 19, 20);
 	}
+	@SuppressWarnings("unused")
 	enum AnnotatedAfter
 	{
 		Eins,
@@ -122,6 +126,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(AnnotatedStart.class, 9, 10, 20);
 	}
+	@SuppressWarnings("unused")
 	enum AnnotatedStart
 	{
 		@CopeSchemaValue(9) Eins,
@@ -134,6 +139,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(AnnotatedEnd.class, 10, 20, 21);
 	}
+	@SuppressWarnings("unused")
 	enum AnnotatedEnd
 	{
 		Eins,
@@ -148,6 +154,7 @@ public class EnumSchemaTest
 				CollisionBefore.class,
 				"@CopeSchemaValue for Zwei must be greater than 10, but was 10.");
 	}
+	@SuppressWarnings("unused")
 	enum CollisionBefore
 	{
 		Eins,
@@ -160,6 +167,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(CollisionAfter.class, 10, 20, 30);
 	}
+	@SuppressWarnings("unused")
 	enum CollisionAfter
 	{
 		Eins,
@@ -172,6 +180,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(CollisionStart.class, 10, 20, 30);
 	}
+	@SuppressWarnings("unused")
 	enum CollisionStart
 	{
 		@CopeSchemaValue(10) Eins,
@@ -186,6 +195,7 @@ public class EnumSchemaTest
 				CollisionEnd.class,
 				"@CopeSchemaValue for Drei must be greater than 20, but was 20.");
 	}
+	@SuppressWarnings("unused")
 	enum CollisionEnd
 	{
 		Eins,
@@ -200,6 +210,7 @@ public class EnumSchemaTest
 				OrderBefore.class,
 				"@CopeSchemaValue for Zwei must be greater than 10, but was 9.");
 	}
+	@SuppressWarnings("unused")
 	enum OrderBefore
 	{
 		Eins,
@@ -212,6 +223,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(OrderAfter.class, 10, 21, 30);
 	}
+	@SuppressWarnings("unused")
 	enum OrderAfter
 	{
 		Eins,
@@ -224,6 +236,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(OrderStart.class, 11, 20, 30);
 	}
+	@SuppressWarnings("unused")
 	enum OrderStart
 	{
 		@CopeSchemaValue(11) Eins,
@@ -238,6 +251,7 @@ public class EnumSchemaTest
 				OrderEnd.class,
 				"@CopeSchemaValue for Drei must be greater than 20, but was 19.");
 	}
+	@SuppressWarnings("unused")
 	enum OrderEnd
 	{
 		Eins,
@@ -250,12 +264,13 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(Subclass.class, 1, 2);
 	}
+	@SuppressWarnings("unused")
 	enum Subclass
 	{
 		@CopeSchemaValue(1) Eins {@Override int zack(){ return 1; } },
 		@CopeSchemaValue(2) Zwei {@Override int zack(){ return 2; } };
 
-		@SuppressWarnings("unused") abstract int zack();
+		abstract int zack();
 	}
 
 
@@ -263,6 +278,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(Zero.class, 0, 1, 2);
 	}
+	@SuppressWarnings("unused")
 	enum Zero
 	{
 		@CopeSchemaValue(0) Zero,
@@ -275,6 +291,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(NegativeFull.class, -40, -35, -5, 0, 10);
 	}
+	@SuppressWarnings("unused")
 	enum NegativeFull
 	{
 		@CopeSchemaValue(-40) Minus40,
@@ -289,6 +306,7 @@ public class EnumSchemaTest
 	{
 		assertColumnValues(NegativeFirst.class, -15, -10, 0, 10);
 	}
+	@SuppressWarnings("unused")
 	enum NegativeFirst
 	{
 		@CopeSchemaValue(-15) Minus15,
