@@ -244,7 +244,6 @@ public class CompositeMountTest
 	@Retention(RetentionPolicy.RUNTIME)
 	@interface Anno2
 	{
-		String value();
 	}
 
 	@Test void testSerialization() throws IOException

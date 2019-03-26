@@ -59,7 +59,7 @@ public final class JavaViewItem extends Item
 		return "Privat" + getNumberString();
 	}
 
-	@SuppressWarnings("static-method")
+	@SuppressWarnings({"static-method", "unused"}) // Used by JavaView
 	HashMap<Integer, Double> getMap()
 	{
 		return null;

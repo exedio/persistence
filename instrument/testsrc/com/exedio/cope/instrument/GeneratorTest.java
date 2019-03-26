@@ -34,14 +34,12 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.Type;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.testmodel.DefaultTextInput;
-import com.exedio.cope.instrument.testmodel.DoubleUnique;
 import com.exedio.cope.instrument.testmodel.Enum2;
 import com.exedio.cope.instrument.testmodel.FullQualifyInput;
 import com.exedio.cope.instrument.testmodel.Input;
 import com.exedio.cope.instrument.testmodel.Standard;
 import com.exedio.cope.instrument.testmodel.Sub;
 import com.exedio.cope.instrument.testmodel.Super;
-import com.exedio.cope.instrument.testmodel.sub.SubTarget;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -65,8 +63,6 @@ public class GeneratorTest
 	static final Class<?> ACTIVATION = ActivationParameters.class;
 
 	static final Class<?> STANDARD = Standard.class;
-	static final Class<?> DOUBLE_UNIQUE = DoubleUnique.class;
-	static final Class<?> SUB_TARGET = SubTarget.class;
 	static final Class<?> SUPER = Super.class;
 	static final Class<?> SUB = Sub.class;
 	static final Class<?> INPUT = Input.class;
@@ -223,14 +219,6 @@ public class GeneratorTest
 		assertField(STANDARD, "TYPE", Type.class, PUBLIC|STATIC|FINAL);
 	}
 
-	@Test void testDoubleUnique()
-	{
-		assertConstructor(DOUBLE_UNIQUE, new Class<?>[]{STRING, SUB_TARGET}, PUBLIC, new Class<?>[]{MANDATORY_VIOLATION, LENGTH_VIOLATION, UNIQUE_VIOLATION});
-		assertMethod(DOUBLE_UNIQUE, "getString", STRING, PUBLIC);
-		assertMethod(DOUBLE_UNIQUE, "getItem", SUB_TARGET, PUBLIC);
-		assertMethod(DOUBLE_UNIQUE, "forUnique", new Class<?>[]{STRING, SUB_TARGET}, DOUBLE_UNIQUE, PRIVATE|STATIC);
-	}
-
 	@Test void testHierarchy()
 	{
 		assertConstructor(SUPER, new Class<?>[]{
@@ -285,19 +273,6 @@ public class GeneratorTest
 		}
 		assertEquals(returnType, field.getType());
 		assertEquals(modifiers, field.getModifiers());
-	}
-
-	void assertNoField(final Class<?> javaClass, final String name)
-	{
-		try
-		{
-			javaClass.getDeclaredField(name);
-			fail("field " + name + " exists.");
-		}
-		catch(final NoSuchFieldException ignored)
-		{
-			// success
-		}
 	}
 
 	void assertMethod(final Class<?> javaClass, final String name, final Class<?> returnType, final int modifiers)

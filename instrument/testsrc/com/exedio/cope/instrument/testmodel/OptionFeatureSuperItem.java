@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 
 public abstract class OptionFeatureSuperItem extends Item
 {
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	abstract void simpleOverride();
 
 	/**

@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.tojunit.TestSources;
-import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
@@ -219,15 +218,5 @@ public class VaultTest
 			MODEL.rollback();
 			MODEL.disconnect();
 		}
-	}
-
-	static String hex(final byte[] bytes)
-	{
-		return Hex.encodeLower(bytes);
-	}
-
-	static byte[] unhex(final String hex)
-	{
-		return Hex.decodeLower(hex);
 	}
 }

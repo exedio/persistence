@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument.testmodel;
 
-import static com.exedio.cope.instrument.Visibility.PRIVATE;
+import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
@@ -26,22 +26,14 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testmodel.sub.SubTarget;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
-@SuppressWarnings("UnusedReturnValue")
 public final class DoubleUnique extends Item
 {
 	public static final StringField string = new StringField().toFinal();
 	public static final ItemField<SubTarget> item = ItemField.create(SubTarget.class).cascade().toFinal();
 
-	@Wrapper(wrap="finder", visibility=PRIVATE)
+	@Wrapper(wrap="finder", visibility=NONE)
 	public static final UniqueConstraint unique = new UniqueConstraint(string, item);
-
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
-	static void useFeaturesToAvoidWarning()
-	{
-		forUnique(null, null);
-	}
 
 
 	/**
@@ -91,19 +83,6 @@ public final class DoubleUnique extends Item
 	public SubTarget getItem()
 	{
 		return DoubleUnique.item.get(this);
-	}
-
-	/**
-	 * Finds a doubleUnique by it's unique fields.
-	 * @param string shall be equal to field {@link #string}.
-	 * @param item shall be equal to field {@link #item}.
-	 * @return null if there is no matching item.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
-	@javax.annotation.Nullable
-	private static DoubleUnique forUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SubTarget item)
-	{
-		return DoubleUnique.unique.search(DoubleUnique.class,string,item);
 	}
 
 	/**

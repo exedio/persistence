@@ -24,6 +24,6 @@ import com.exedio.cope.instrument.WrapImplementsInterim;
 @WrapImplementsInterim(addMethods=true)
 interface InterfaceWithAddMethods
 {
-	@SuppressWarnings("EmptyMethod")
+	@SuppressWarnings({"EmptyMethod", "unused"}) // OK: just for testing instrumentor
 	void addMe();
 }

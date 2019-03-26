@@ -84,6 +84,7 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 	private static final SimpleSettable overrideFeature = new SimpleSettable();
 
 	@AnnotationNotInInterim
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	static final void annotatedMethod()
 	{
 		// empty

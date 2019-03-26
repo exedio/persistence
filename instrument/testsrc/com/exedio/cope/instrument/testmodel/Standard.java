@@ -174,6 +174,7 @@ public final class Standard extends Item
 	 */
 	private static final String SUPER = "duper";
 
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	void useFeaturesToAvoidWarning()
 	{
 		System.out.println(SUPER);

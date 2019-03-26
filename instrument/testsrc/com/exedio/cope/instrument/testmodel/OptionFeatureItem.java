@@ -116,6 +116,7 @@ public final class OptionFeatureItem extends OptionFeatureSuperItem
 
 	static final FilterFeature wrapTheIgnored = new FilterFeature(ignoreDontFail).sourceNotNull();
 
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	void suppressUnusedWarnings()
 	{
 		simpleBarePrivate();

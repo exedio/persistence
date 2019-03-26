@@ -35,6 +35,7 @@ public abstract class Super extends Item
 
 	public static final DayField superNonInitial = new DayField().optional();
 
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	abstract java.lang.Long getOverride();
 
 	/**

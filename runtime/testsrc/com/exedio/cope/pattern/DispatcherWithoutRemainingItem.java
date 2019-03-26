@@ -31,7 +31,6 @@ import com.exedio.cope.StringField;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -55,22 +54,6 @@ public final class DispatcherWithoutRemainingItem extends Item implements Dispat
 	}
 
 	static final Dispatcher toTarget = new Dispatcher().withoutRemaining();
-
-	Boolean getToTargetUnpendSuccess()
-	{
-		return toTarget.getUnpendSuccess().get(this);
-	}
-
-	Date getToTargetUnpendDate()
-	{
-		return toTarget.getUnpendDate().get(this);
-	}
-
-	Integer getToTargetUnpendDateMillis()
-	{
-		final Date date = getToTargetUnpendDate();
-		return date!=null ? Integer.valueOf((int)date.getTime()) : null;
-	}
 
 	@Override
 	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException

@@ -21,5 +21,6 @@ package com.exedio.cope.instrument.testmodel;
 @SuppressWarnings("InterfaceMayBeAnnotatedFunctional")
 interface OneOverrideFeatureable
 {
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	String oneOverrideFeature();
 }

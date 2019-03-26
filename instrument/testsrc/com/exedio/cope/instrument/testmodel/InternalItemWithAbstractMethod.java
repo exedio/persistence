@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 
 abstract class InternalItemWithAbstractMethod extends Item
 {
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	protected abstract void abstractMethod();
 
 	/**
