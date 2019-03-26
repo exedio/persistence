@@ -20,6 +20,7 @@ package com.exedio.cope.instrument.testlib;
 
 public abstract class ExternalItemWithAbstractMethod extends ExternalParentWithAbstractMethod
 {
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	protected abstract void abstractMethod();
 
 	// test that an abstract method present in two parents doesn't get added twice in interim code:
