@@ -57,27 +57,11 @@ public class TemporaryFolder extends MainRule
 		assertTrue(root.mkdir());
 	}
 
-	public final File getRoot()
-	{
-		assertBeforeCalled();
-
-		return root;
-	}
-
 	public final File newFile() throws IOException
 	{
 		assertBeforeCalled();
 
 		return File.createTempFile("TemporaryFolder", ".file", root);
-	}
-
-	public final File newFile(final String name) throws IOException
-	{
-		assertBeforeCalled();
-
-		final File result = new File(root, name);
-		assertTrue(result.createNewFile());
-		return result;
 	}
 
 	public final File newFolder() throws IOException

@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
-import static com.exedio.cope.junit.CopeAssert.assertUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;

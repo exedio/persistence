@@ -29,7 +29,6 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.Iterator;
 import org.junit.jupiter.api.Test;
@@ -393,7 +392,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	@WrapperType(indent=2)
 	static final class A extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
-		@Wrapper(wrap="get", override=true)
 		public static final StringField value = new StringField().toFinal();
 
 
@@ -427,7 +425,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		@java.lang.Override
 		public java.lang.String getValue()
 		{
 			return A.value.get(this);
@@ -453,7 +450,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	@WrapperType(indent=2)
 	static final class B extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
-		@Wrapper(wrap="get", override=true)
 		public static final StringField value = new StringField().toFinal();
 
 
@@ -487,7 +483,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		@java.lang.Override
 		public java.lang.String getValue()
 		{
 			return B.value.get(this);
@@ -513,7 +508,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	@WrapperType(indent=2)
 	static final class C extends com.exedio.cope.Item implements MultiItemFieldValuex
 	{
-		@Wrapper(wrap="get", override=true)
 		public static final StringField value = new StringField().toFinal();
 		public static final StringField template = new StringField().toFinal();
 
@@ -551,7 +545,6 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nonnull
-		@java.lang.Override
 		public java.lang.String getValue()
 		{
 			return C.value.get(this);

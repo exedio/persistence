@@ -19,15 +19,9 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.StringField;
-import com.exedio.cope.instrument.Wrapper;
 
 public class MultiItemFieldComponentxB extends Item implements MultiItemFieldValuex
 {
-	@Wrapper(wrap="get", override=true)
-	public static final StringField value = new StringField().defaultTo("B");
-
-
 	/**
 	 * Creates a new MultiItemFieldComponentxB with all the fields initially needed.
 	 */
@@ -43,29 +37,6 @@ public class MultiItemFieldComponentxB extends Item implements MultiItemFieldVal
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 	protected MultiItemFieldComponentxB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #value}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	@java.lang.Override
-	public final java.lang.String getValue()
-	{
-		return MultiItemFieldComponentxB.value.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #value}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
-	public final void setValue(@javax.annotation.Nonnull final java.lang.String value)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		MultiItemFieldComponentxB.value.set(this,value);
-	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;

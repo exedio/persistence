@@ -22,9 +22,10 @@ import com.exedio.cope.Item;
 
 public abstract class ExternalParentWithAbstractMethod extends Item
 {
-	@SuppressWarnings("EmptyMethod")
+	@SuppressWarnings({"EmptyMethod", "unused"}) // OK: just for testing instrumentor
 	public abstract void overwrittenExternally();
 
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public abstract void doubleAbstract();
 
 	/**

@@ -20,8 +20,7 @@ package com.exedio.cope.pattern;
 
 import java.io.Serializable;
 
-@SuppressWarnings("InterfaceMayBeAnnotatedFunctional")
+@SuppressWarnings("MarkerInterface") // OK: empty interface is enough for test
 public interface MultiItemFieldValue extends Serializable
 {
-	String getValue();
 }

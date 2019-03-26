@@ -91,16 +91,6 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 		return expectedCalls.remove(0);
 	}
 
-	/**
-	 *	return true if the database was in expectation checking mode
-	 */
-	public boolean clearExpectedCalls()
-	{
-		final boolean result = expectedCalls!=null;
-		expectedCalls = null;
-		return result;
-	}
-
 	abstract static class Call
 	{
 		final Transaction tx;

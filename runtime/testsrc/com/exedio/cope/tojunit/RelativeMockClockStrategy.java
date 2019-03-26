@@ -37,11 +37,6 @@ public final class RelativeMockClockStrategy implements Strategy
 		return events.removeFirst();
 	}
 
-	public long addNow()
-	{
-		return addOffset(0);
-	}
-
 	public long addOffset(final long date)
 	{
 		this.date += date;

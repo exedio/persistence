@@ -103,6 +103,7 @@ public class InMemoryCompilerTest
 	}
 
 	/** called from InMemory class in test {@link #callParent()} */
+	@SuppressWarnings("unused") // OK: called by in-memory-compiled code
 	public static final String calledFromInMemory()
 	{
 		return "from parent";

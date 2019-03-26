@@ -130,7 +130,7 @@ public class MultiItemFieldErrorTest
 				MultiItemFieldComponentB.class);
 		try
 		{
-			field.copyTo(null, MultiItemFieldComponentC.value);
+			field.copyTo(null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -148,7 +148,7 @@ public class MultiItemFieldErrorTest
 				MultiItemFieldComponentB.class);
 		try
 		{
-			field.copyTo(MultiItemFieldComponentC.class, MultiItemFieldComponentC.value);
+			field.copyTo(MultiItemFieldComponentC.class, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

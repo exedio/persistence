@@ -53,6 +53,7 @@ public abstract class LibItem<T> extends LibSuperItem
 	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public static final SimpleSettable ignored=new SimpleSettable(true);
 
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public abstract T makeTee();
 
 	/**

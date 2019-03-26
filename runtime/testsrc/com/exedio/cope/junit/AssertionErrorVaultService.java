@@ -24,7 +24,6 @@ import com.exedio.cope.util.JobContext;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
-import com.exedio.cope.vault.VaultServiceParameters;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -43,15 +42,6 @@ import java.nio.file.Path;
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 public class AssertionErrorVaultService implements VaultService
 {
-	public AssertionErrorVaultService()
-	{
-		// empty constructor allows default constructor in subclasses
-	}
-
-	public AssertionErrorVaultService(@SuppressWarnings("unused") final VaultServiceParameters parameters)
-	{
-	}
-
 	@Override
 	public void purgeSchema(final JobContext ctx)
 	{

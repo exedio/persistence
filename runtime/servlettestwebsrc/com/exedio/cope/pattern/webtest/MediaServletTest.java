@@ -650,7 +650,7 @@ public class MediaServletTest
 		return date.getTime() + millis;
 	}
 
-	// ----------------------------------- adapted from CopeAssert
+	// ----------------------------------- adapted from Assert
 
 	private static final String DATE_FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.SSS";
 

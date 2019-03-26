@@ -24,5 +24,6 @@ import com.exedio.cope.instrument.WrapImplementsInterim;
 @WrapImplementsInterim(addMethods=true)
 public interface GenericInterface<N extends Number>
 {
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	N getNumber();
 }

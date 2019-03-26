@@ -128,6 +128,7 @@ public class WrapFeature
 	// suppressor
 
 	@Wrap(order=200, hide=TrueGetter.class)
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public int hidden()
 	{
 		throw new RuntimeException();
@@ -159,6 +160,7 @@ public class WrapFeature
 	}
 
 	@Wrap(order=220, hide={FalseGetter.class, TrueGetter.class})
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public int hiddenPartially()
 	{
 		throw new RuntimeException();
