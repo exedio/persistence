@@ -49,6 +49,7 @@ public final class AttributeItem extends Item
 	/**
 	 * Test non-persistent static final attributes.
 	 */
+	@SuppressWarnings("unused")
 	public static final String someTransientString = "transientString";
 
 	/**

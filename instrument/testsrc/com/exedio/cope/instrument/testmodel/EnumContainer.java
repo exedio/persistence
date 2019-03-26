@@ -22,11 +22,13 @@ import com.exedio.cope.Item;
 
 public final class EnumContainer extends Item
 {
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	public enum Enum3
 	{
 		ENUM3A, ENUM3B
 	}
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	public enum Enum4
 	{
 		ENUM4A, ENUM4B

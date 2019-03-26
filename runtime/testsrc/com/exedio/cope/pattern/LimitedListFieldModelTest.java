@@ -62,7 +62,6 @@ public class LimitedListFieldModelTest
 		MODEL.enableSerialization(LimitedListFieldModelTest.class, "MODEL");
 	}
 
-	protected static final Integer i0 = 0;
 	protected static final Integer i1 = 1;
 	protected static final Integer i2 = 2;
 	protected static final Integer i3 = 3;

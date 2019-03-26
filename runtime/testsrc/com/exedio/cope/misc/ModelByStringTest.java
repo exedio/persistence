@@ -36,7 +36,9 @@ public class ModelByStringTest
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	@SuppressWarnings("unused") // OK: read by reflection
 	private static final Model modelPrivate = modelOk;
+	@SuppressWarnings("unused") // OK: read by reflection
 	public static final Model modelNull = null;
+	@SuppressWarnings("unused") // OK: read by reflection
 	public static final String modelNoModel = "hallo";
 
 	@Test void testIt()

@@ -79,6 +79,7 @@ public class WrapperParametersFeature
 		throw new RuntimeException();
 	}
 
-	public enum SomeEnum { a, b }
+	@SuppressWarnings({"EmptyClass", "RedundantSuppression"}) // OK: just for testing instrumentor
+	public enum SomeEnum { }
 
 }

@@ -51,6 +51,7 @@ public class ServletUtilTest
 	public static final Model modelOk = new Model(ModelOk.TYPE);
 	public static final Model modelOk2 = new Model(ModelOk2.TYPE);
 	public static final Model modelContext = new Model(ModelContext.TYPE);
+	@SuppressWarnings("unused") // OK: read by reflection
 	public static final Model modelNull = null;
 
 	private final ConnectTokenRule ctrOk = new ConnectTokenRule(modelOk);

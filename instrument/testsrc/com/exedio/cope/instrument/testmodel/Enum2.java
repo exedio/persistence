@@ -20,5 +20,5 @@ package com.exedio.cope.instrument.testmodel;
 
 public enum Enum2
 {
-	ENUM2A, ENUM2B, ENUM2C
+	ENUM2A
 }

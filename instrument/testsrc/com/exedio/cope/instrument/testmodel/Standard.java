@@ -88,6 +88,7 @@ public final class Standard extends Item
 		inlineA = new IntegerField().defaultTo(0),
 		inlineB = new IntegerField().defaultTo(1);
 
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	public enum Enum1
 	{
 		ENUM1A, ENUM1B
@@ -138,6 +139,7 @@ public final class Standard extends Item
 	public static final UniqueConstraint doubleUnique = new UniqueConstraint(doubleUnique1, doubleUnique2);
 
 	@WrapperIgnore
+	@SuppressWarnings("unused") // OK: test bad API usage
 	public static final StringField ignoreString = new StringField().optional();
 
 	private static String brokenFunction()
@@ -146,6 +148,7 @@ public final class Standard extends Item
 	}
 
 	@WrapperIgnore
+	@SuppressWarnings("unused") // OK: test bad API usage
 	public static final StringField brokenString = new StringField().defaultTo(brokenFunction());
 
 	static final DoubleField defaultFeature = new DoubleField().optional().unique().range(1.0, 2.0);

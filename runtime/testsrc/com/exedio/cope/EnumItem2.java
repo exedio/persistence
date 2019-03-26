@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 public final class EnumItem2 extends Item
 {
+	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
 	public enum Status
 	{
 		state1,

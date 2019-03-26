@@ -37,7 +37,6 @@ public class FieldEnumTest extends FieldTest
 {
 	public enum SomeEnum2
 	{
-		enumValue1,
 		enumValue2
 	}
 

@@ -893,7 +893,7 @@
       </option>
     </inspection_tool>
     <inspection_tool class="unused" enabled="true" level="WARNING" enabled_by_default="true">
-      <scope name="Tests" level="WARNING" enabled="true" field="packageLocal" method="private">
+      <scope name="Tests" level="WARNING" enabled="true" method="private">
         <option name="LOCAL_VARIABLE" value="true" />
         <option name="FIELD" value="true" />
         <option name="METHOD" value="true" />

@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument.testfeature;
 
+@SuppressWarnings({"EmptyClass", "RedundantSuppression"}) // OK: just for testing instrumentor
 public enum FeatureEnum
 {
-	uno, duo
 }

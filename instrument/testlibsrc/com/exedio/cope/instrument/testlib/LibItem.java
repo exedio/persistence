@@ -33,7 +33,8 @@ public abstract class LibItem<T> extends LibSuperItem
 	/** check that we can access a field in the initialization of feature LibUser#simple2: */
 	public static final boolean CONSTANT_FOR_FALSE_IN_LIBITEM = false;
 
-	public enum	Inner { a, b, c }
+	@SuppressWarnings({"EmptyClass", "RedundantSuppression"}) // OK: just for testing instrumentor
+	public enum Inner { }
 
 	@WrapperInitial
 	public static final SimpleSettable a=new SimpleSettable();
@@ -49,6 +50,7 @@ public abstract class LibItem<T> extends LibSuperItem
 	);
 
 	@WrapperIgnore
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public static final SimpleSettable ignored=new SimpleSettable(true);
 
 	public abstract T makeTee();
