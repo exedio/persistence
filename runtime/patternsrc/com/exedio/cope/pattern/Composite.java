@@ -47,6 +47,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
 	private final Object[] values;
 
 	protected Composite(final SetValue<?>... setValues)

@@ -31,6 +31,7 @@ final class LRUMap<K, V> extends LinkedHashMap<K, V>
 
 	final int maxSize;
 
+	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: will never be serialized
 	@SuppressFBWarnings("SE_BAD_FIELD")
 	private final Consumer<Map.Entry<K, V>> onReplace;
 

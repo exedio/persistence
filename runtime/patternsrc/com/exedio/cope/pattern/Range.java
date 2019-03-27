@@ -51,7 +51,9 @@ public final class Range<E extends Comparable<E>> implements Serializable
 
 	private static final long serialVersionUID = 1l;
 
+	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
 	private final E from;
+	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
 	private final E to;
 
 	/**
