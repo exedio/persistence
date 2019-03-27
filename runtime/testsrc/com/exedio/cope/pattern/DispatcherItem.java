@@ -66,10 +66,10 @@ public final class DispatcherItem extends Item implements Dispatchable
 		return toTarget.getUnpendDate().get(this);
 	}
 
-	Integer getToTargetUnpendDateMillis()
+	Long getToTargetUnpendDateMillis()
 	{
 		final Date date = getToTargetUnpendDate();
-		return date!=null ? Integer.valueOf((int)date.getTime()) : null;
+		return date!=null ? Long.valueOf(date.getTime()) : null;
 	}
 
 	@Override

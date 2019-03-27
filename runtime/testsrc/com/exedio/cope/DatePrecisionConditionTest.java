@@ -25,7 +25,6 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -113,9 +112,8 @@ public class DatePrecisionConditionTest extends TestWithEnvironment
 		return asList(elements);
 	}
 
-	@SuppressFBWarnings("ICAST_INT_2_LONG_AS_INSTANT")
 	static Date date(
-			final int days,
+			final long days,
 			final int hours,
 			final int minutes,
 			final int seconds,

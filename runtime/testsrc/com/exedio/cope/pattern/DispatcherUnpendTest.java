@@ -66,11 +66,11 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		historyAssert(
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "dispatch " + item, "ctx progress");
-		assertIt(false, true, 10000);
+		assertIt(false, true, 10000l);
 
 		dispatch();
 		historyAssert();
-		assertIt(false, true, 10000);
+		assertIt(false, true, 10000l);
 	}
 
 	@Test void testFail()
@@ -94,11 +94,11 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		historyAssert(
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "dispatch " + item, "notifyFinalFailure " + item, "ctx progress");
-		assertIt(false, false, 60000);
+		assertIt(false, false, 60000l);
 
 		dispatch();
 		historyAssert();
-		assertIt(false, false, 60000);
+		assertIt(false, false, 60000l);
 	}
 
 
@@ -150,7 +150,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	private void assertIt(
 			final boolean pending,
 			final Boolean success,
-			final Integer date)
+			final Long date)
 	{
 		assertEquals(pending, item.isToTargetPending(),           "pending");
 		assertEquals(success, item.getToTargetUnpendSuccess(),    "success");

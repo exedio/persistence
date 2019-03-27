@@ -183,7 +183,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 	private static void assertIt(
 			final boolean pending,
 			final Boolean success,
-			final Integer date,
+			final Long date,
 			final DispatcherItem item)
 	{
 		assertEquals(pending, item.isToTargetPending(),           "pending");
@@ -191,7 +191,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(date,    item.getToTargetUnpendDateMillis(), "date");
 	}
 
-	private static final int day = 1000 * 60 * 60 * 24;
+	private static final long day = 1000 * 60 * 60 * 24;
 
 	private void dispatch(final int success, final int failure)
 	{
@@ -209,14 +209,14 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertIt(false, false, 555+day*failure, itemFailureAfter );
 	}
 
-	private String purge(final Integer now, final Integer success, final Integer failure)
+	private String purge(final Long now, final Integer success, final Integer failure)
 	{
 		return purge(now, success, failure, null);
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private String purge(
-			final Integer now, final Integer success, final Integer failure,
+			final Long now, final Integer success, final Integer failure,
 			final Condition restriction)
 	{
 		model.commit();
