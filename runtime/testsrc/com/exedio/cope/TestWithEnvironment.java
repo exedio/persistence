@@ -58,6 +58,7 @@ public abstract class TestWithEnvironment
 	/**
 	 * Copy of {@link com.exedio.cope.tojunit.CopeRule#model}
 	 */
+	@SuppressWarnings("JavadocReference") // OK: don't care in tests
 	protected final Model model;
 
 	private final RuntimeTester tester;

@@ -559,9 +559,6 @@
     <inspection_tool class="Java8ArraySetAll" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JavaLangImport" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="JavadocHtmlLint" enabled="true" level="WARNING" enabled_by_default="true" />
-    <inspection_tool class="JavadocReference" enabled="true" level="ERROR" enabled_by_default="true">
-      <option name="REPORT_INACCESSIBLE" value="false" />
-    </inspection_tool>
     <inspection_tool class="ListIndexOfReplaceableByContains" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="LiteralAsArgToStringEquals" enabled="true" level="WARNING" enabled_by_default="true" />
     <inspection_tool class="LocalCanBeFinal" enabled="true" level="WARNING" enabled_by_default="true">

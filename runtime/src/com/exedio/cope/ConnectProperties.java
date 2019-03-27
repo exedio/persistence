@@ -410,6 +410,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	 * Returns a duration suitable for
 	 * {@link com.exedio.cope.pattern.MediaServlet#getMaximumAge(com.exedio.cope.pattern.MediaPath, Item)}.
 	 */
+	@SuppressWarnings("JavadocReference") // OK: protected member of public class is part of public API
 	public Duration getMediaServletMaximumAge()
 	{
 		return mediaMaxAge;

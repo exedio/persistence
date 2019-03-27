@@ -33,6 +33,7 @@ import com.exedio.cope.Item;
  *
  * This test case asserts that we don't run into that problem.
  */
+@SuppressWarnings("JavadocReference") // OK: don't care in tests
 public class CaseProblem extends Item
 {
 
