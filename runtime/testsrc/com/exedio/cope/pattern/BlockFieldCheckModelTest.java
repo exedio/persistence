@@ -188,6 +188,7 @@ public class BlockFieldCheckModelTest
 				final int einsAlpha, final int einsBeta,
 				final int zweiAlpha, final int zweiBeta)
 		{
+			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(
 				AnItem.code.map(code),
 				AnItem.eins.of(alpha).map(einsAlpha),

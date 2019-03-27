@@ -43,6 +43,7 @@ public final class DoubleItem extends Item
 
 	DoubleItem(final Double max4, @SuppressWarnings("unused") final Date dummy) throws StringLengthViolationException, MandatoryViolationException
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(new com.exedio.cope.SetValue<?>[]{
 			DoubleItem.mandatory.map(7777777.77),
 			DoubleItem.max4.map(max4),

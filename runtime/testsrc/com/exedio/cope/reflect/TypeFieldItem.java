@@ -39,6 +39,7 @@ public final class TypeFieldItem extends Item
 	@SuppressWarnings({"unchecked", "UnusedReturnValue"}) // OK: test bad API usage
 	static TypeFieldItem createRestrictedRaw(final Type<?> restricted)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new TypeFieldItem(new SetValue<?>[]{
 			TypeFieldItem.standard.map(TYPE),
 			TypeFieldItem.isFinal.map(TYPE),

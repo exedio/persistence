@@ -43,12 +43,12 @@ public final class MessageDigestHashItem extends Item
 
 	void setPasswordLatin(final String password)
 	{
-		set(MessageDigestHashItem.passwordLatin, password);
+		set(passwordLatin, password);
 	}
 
 	void setPasswordMandatory(final String password)
 	{
-		set(MessageDigestHashItem.passwordMandatory, password);
+		set(passwordMandatory, password);
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")

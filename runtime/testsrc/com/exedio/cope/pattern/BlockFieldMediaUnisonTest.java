@@ -148,8 +148,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 				final byte[] duoBody, final String duoContentType)
 		{
 			item().set(
-					field().of(ABlock.uno).map(Media.toValue(unoBody, unoContentType)),
-					field().of(ABlock.duo).map(Media.toValue(duoBody, duoContentType)));
+					field().of(uno).map(Media.toValue(unoBody, unoContentType)),
+					field().of(duo).map(Media.toValue(duoBody, duoContentType)));
 		}
 
 		static final CheckConstraint chk = new CheckConstraint(Cope.or(

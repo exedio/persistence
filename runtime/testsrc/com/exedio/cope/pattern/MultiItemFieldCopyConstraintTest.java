@@ -333,7 +333,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 
 		PartialCopyConstraintItem(final String template, final MultiItemFieldValuex field)
 		{
-			this(PartialCopyConstraintItem.value.map(template), PartialCopyConstraintItem.field.map(field));
+			this(value.map(template), PartialCopyConstraintItem.field.map(field));
 		}
 
 

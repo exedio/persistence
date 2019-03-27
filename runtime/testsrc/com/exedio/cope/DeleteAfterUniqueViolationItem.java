@@ -28,6 +28,7 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	@SuppressWarnings("unused")
 	DeleteAfterUniqueViolationItem(final String name, final double dummy)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(new com.exedio.cope.SetValue<?>[]{
 				DeleteAfterUniqueViolationItem.uniqueString.map(name),
 				DeleteAfterUniqueViolationItem.name.map(name),

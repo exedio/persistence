@@ -595,6 +595,7 @@ public class BlockFieldStandardModelTest
 
 		AnItem(final String code, final int n)
 		{
+			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(
 				AnItem.code.map(code),
 				AnItem.eins.of(aString).map(code + '-' + n + 'A'),

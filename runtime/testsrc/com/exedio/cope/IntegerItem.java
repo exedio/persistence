@@ -43,6 +43,7 @@ public final class IntegerItem extends Item
 
 	IntegerItem(final Integer max4, @SuppressWarnings("unused") final Date dummy) throws StringLengthViolationException, MandatoryViolationException
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(new com.exedio.cope.SetValue<?>[]{
 			IntegerItem.mandatory.map(7777777),
 			IntegerItem.max4.map(max4),

@@ -63,6 +63,7 @@ public final class StringItem extends Item
 
 	public StringItem(final String any, @SuppressWarnings("unused") final boolean dummy)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(
 				StringItem.mandatory.map("defaultByAny"),
 				StringItem.any.map(any)
@@ -78,6 +79,7 @@ public final class StringItem extends Item
 
 	public StringItem(final String exact6, @SuppressWarnings("unused") final int dummy) throws StringLengthViolationException
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(
 				StringItem.mandatory.map("defaultByExact6"),
 				StringItem.exact6.map(exact6)
@@ -86,6 +88,7 @@ public final class StringItem extends Item
 
 	public StringItem(final String max4, @SuppressWarnings("unused") final Date dummy) throws StringLengthViolationException
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(
 				StringItem.mandatory.map("defaultByMax4"),
 				StringItem.max4.map(max4)

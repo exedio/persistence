@@ -230,6 +230,7 @@ public class BlockFieldUniqueMultiModelTest
 
 		AnItem(final String code, final int n)
 		{
+			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(
 				AnItem.code.map(code),
 				AnItem.eins.of(alpha).map(code + '-' + n + 'A'),

@@ -34,6 +34,7 @@ public final class PriceFieldItem extends Item
 
 	static PriceFieldItem n(final Price optionalPrice, final Price finalPrice)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new PriceFieldItem(new com.exedio.cope.SetValue<?>[]{
 				PriceFieldItem.finalPrice.map(finalPrice),
 				PriceFieldItem.optionalPrice.map(optionalPrice),

@@ -548,6 +548,7 @@ public class CompositeTest
 
 		Value(final String stringDefault, final boolean optional)
 		{
+			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(new com.exedio.cope.SetValue<?>[]{
 					Value.string4.map("1234"),
 					(optional ? Value.stringDefaultOptional : Value.stringDefault).map(stringDefault),

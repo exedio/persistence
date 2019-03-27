@@ -78,6 +78,7 @@ public final class MoneyFieldItem extends Item
 			final Currency currency,
 			final Money<Currency> sharMan)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(currency),
 			MoneyFieldItem.sharOpt.map(eurX),
@@ -104,6 +105,7 @@ public final class MoneyFieldItem extends Item
 
 	static MoneyFieldItem exclOpt(final Money<Currency> exclOpt)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(eur),
 			MoneyFieldItem.sharMan.map(eurX),
@@ -122,6 +124,7 @@ public final class MoneyFieldItem extends Item
 
 	static MoneyFieldItem exclMan(final Money<Currency> exclMan)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(eur),
 			MoneyFieldItem.sharMan.map(eurX),
@@ -140,6 +143,7 @@ public final class MoneyFieldItem extends Item
 
 	static MoneyFieldItem byItem(final Money<CurrencyItem> byItem)
 	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new MoneyFieldItem(
 			MoneyFieldItem.currency.map(eur),
 			MoneyFieldItem.sharMan.map(eurX),
