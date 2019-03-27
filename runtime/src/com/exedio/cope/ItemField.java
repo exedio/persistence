@@ -186,7 +186,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 * and {@link Type#getThis()} of the type of this ItemField becomes the {@link CopyConstraint#getCopyFunction() copy}.
 	 *
 	 * @param backPointerName the name of the field pointing back; at {@code E}, this has to be the name of an
-	 *        {@link ItemField} where the {@link #getValueType() value type} overlaps with this
+	 *        {@code ItemField} where the {@link #getValueType() value type} overlaps with this
 	 *        item field's {@link #getType()}
 	 */
 	public ItemField<E> choice(final String backPointerName)

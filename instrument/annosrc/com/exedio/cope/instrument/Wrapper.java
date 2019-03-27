@@ -40,7 +40,7 @@ public @interface Wrapper
 
 	/**
 	 * If several wrapper methods with the same {@link #wrap()} get generated, but your
-	 * {@link Wrapper} annotation should only affect one of them, it can be restricted by setting
+	 * {@code Wrapper} annotation should only affect one of them, it can be restricted by setting
 	 * this field to the parameter list of the method.
 	 */
 	@SuppressWarnings("UnusedReturnValue")
