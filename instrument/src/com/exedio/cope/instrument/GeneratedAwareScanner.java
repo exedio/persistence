@@ -27,6 +27,7 @@ import javax.annotation.Generated;
 import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 
+@SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: abstract TreePathScanner subclasses have no choice
 abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 {
 	final TreeApiContext context;

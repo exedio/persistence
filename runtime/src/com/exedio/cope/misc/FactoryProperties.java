@@ -26,6 +26,7 @@ import com.exedio.cope.util.Properties;
  * This class makes the {@link Properties.Factory factory} available in
  * field initializers of its subclasses.
  */
+@SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: can be dropped once Properties becomes abstract
 public abstract class FactoryProperties<F extends Properties.Factory<?>> extends Properties
 {
 	protected final F factory;

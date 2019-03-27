@@ -23,6 +23,7 @@ package com.exedio.cope;
  *
  * @author Ralf Wiebicke
  */
+@SuppressWarnings("AbstractClassExtendsConcreteClass") // OK: abstract exception classes have no choice
 public abstract class ConstraintViolationException extends RuntimeException
 {
 	private static final long serialVersionUID = 1l;

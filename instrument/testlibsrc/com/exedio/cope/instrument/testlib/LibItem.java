@@ -27,7 +27,7 @@ import com.exedio.cope.misc.ReflectionTypes;
 import java.util.List;
 import java.util.Set;
 
-@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess")
+@SuppressWarnings({"UnnecessarilyQualifiedInnerClassAccess", "AbstractClassExtendsConcreteClass"})
 public abstract class LibItem<T> extends LibSuperItem
 {
 	/** check that we can access a field in the initialization of feature LibUser#simple2: */
