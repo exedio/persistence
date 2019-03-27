@@ -482,7 +482,7 @@ final class MysqlDialect extends Dialect
 			{
 				return
 						column + " NOT REGEXP " +
-						StringColumn.cacheToDatabaseStatic(set.getRegularExpressionForInvalid7BitChars());
+						StringColumn.cacheToDatabaseStatic(re);
 			}
 		}
 	}
