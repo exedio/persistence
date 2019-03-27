@@ -23,6 +23,8 @@ import static com.exedio.cope.CompositeCondition.Operator.OR;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Cope.and;
+import static com.exedio.cope.Cope.equal;
+import static com.exedio.cope.Cope.notEqual;
 import static com.exedio.cope.Cope.or;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -176,5 +178,17 @@ public class CompositeConditionCopeTest
 			final Condition... conditions)
 	{
 		return new CompositeCondition(operator, conditions);
+	}
+
+
+	@Test void testEqual()
+	{
+		final StringField f = new StringField();
+		assertEquals(f +  "='a'",    equal(f, "a").toString());
+		assertEquals(f + "<>'a'", notEqual(f, "a").toString());
+		assertEquals(f +  "=''",    equal(f, "").toString());
+		assertEquals(f + "<>''", notEqual(f, "").toString());
+		assertEquals(f + " is " +"null",    equal(f, null).toString());
+		assertEquals(f + " is not null", notEqual(f, null).toString());
 	}
 }

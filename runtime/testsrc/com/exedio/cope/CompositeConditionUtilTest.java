@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompositeCondition.Operator.AND;
 import static com.exedio.cope.CompositeCondition.Operator.OR;
+import static com.exedio.cope.CompositeCondition.in;
 import static com.exedio.cope.Condition.FALSE;
 import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -255,12 +256,20 @@ public class CompositeConditionUtilTest
 		// Function.in
 		assertEquals(newCompositeCondition(OR, c1, c2), field.in(1.0, 2.0));
 		assertEquals(newCompositeCondition(OR, c1, c2), field.in(asList(1.0, 2.0)));
+		assertEquals(newCompositeCondition(OR, c1, c2), in(field, 1.0, 2.0));
+		assertEquals(newCompositeCondition(OR, c1, c2), in(field, asList(1.0, 2.0)));
 		assertEquals(c1, field.in(1.0));
 		assertEquals(c1, field.in(asList(1.0)));
+		assertEquals(c1, in(field, 1.0));
+		assertEquals(c1, in(field, asList(1.0)));
 		assertEquals(c2, field.in(2.0));
 		assertEquals(c2, field.in(asList(2.0)));
+		assertEquals(c2, in(field, 2.0));
+		assertEquals(c2, in(field, asList(2.0)));
 		assertSame(FALSE, field.in());
 		assertSame(FALSE, field.in(asList()));
+		assertSame(FALSE, in(field));
+		assertSame(FALSE, in(field, asList()));
 
 		// Condition.valueOf
 		assertSame(TRUE,  Condition.valueOf(true));
