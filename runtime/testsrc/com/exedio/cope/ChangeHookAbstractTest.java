@@ -56,10 +56,9 @@ public abstract class ChangeHookAbstractTest extends TestWithEnvironment
 		@Override public SetValue<?>[] beforeNew(final Type<?> type, final SetValue<?>[] sv)
 		{
 			assertSame(this.type, type);
-			assertEquals(1, sv.length);
-			assertSame(field, sv[0].settable);
-			addEvent("Hook#beforeNew(" + sv[0].value + ")");
-			sv[0] = field.map(((String)sv[0].value) + " / Hook#beforeNew");
+			final String value = value(sv);
+			addEvent("Hook#beforeNew(" + value + ")");
+			sv[0] = field.map(value + " / Hook#beforeNew");
 			return sv;
 		}
 
@@ -70,11 +69,17 @@ public abstract class ChangeHookAbstractTest extends TestWithEnvironment
 
 		@Override public SetValue<?>[] beforeSet(final Item item, final SetValue<?>[] sv)
 		{
+			final String value = value(sv);
+			addEvent("Hook#beforeSet(" + item + "," + value + ")");
+			sv[0] = field.map(value + " / Hook#beforeSet");
+			return sv;
+		}
+
+		private String value(final SetValue<?>[] sv)
+		{
 			assertEquals(1, sv.length);
 			assertSame(field, sv[0].settable);
-			addEvent("Hook#beforeSet(" + item + "," + sv[0].value + ")");
-			sv[0] = field.map(((String)sv[0].value) + " / Hook#beforeSet");
-			return sv;
+			return (String)sv[0].value;
 		}
 
 		@Override public void beforeDelete(final Item item)
@@ -87,6 +92,13 @@ public abstract class ChangeHookAbstractTest extends TestWithEnvironment
 		{
 			return "MyHook(" + model + ")";
 		}
+	}
+
+	protected static final String value(final StringField field, final SetValue<?>[] sv)
+	{
+		assertEquals(1, sv.length);
+		assertSame(field, sv[0].settable);
+		return (String)sv[0].value;
 	}
 
 	private static final ArrayList<String> events = new ArrayList<>();

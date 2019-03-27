@@ -33,12 +33,17 @@ class CreateSuperItem extends Item
 	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
+		setValues[0] = text.map(value(setValues) + ".preCreateSuper");
+		return setValues;
+	}
+
+	protected static final String value(final SetValue<?>[] setValues)
+	{
 		assertEquals(1, setValues.length);
 		assertSame(text, setValues[0].settable);
 		if("fail".equals(setValues[0].value))
 			throw MandatoryViolationException.create(text, null);
-		setValues[0] = text.map(((String)setValues[0].value) + ".preCreateSuper");
-		return setValues;
+		return (String)setValues[0].value;
 	}
 
 	@Override

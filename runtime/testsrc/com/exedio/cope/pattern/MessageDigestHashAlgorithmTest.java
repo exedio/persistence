@@ -39,7 +39,7 @@ public class MessageDigestHashAlgorithmTest
 	{
 		try
 		{
-			create(UTF_8, "NIXUS", -1, (SecureRandom)null, 0);
+			create(UTF_8, "NIXUS", -1, null, 0);
 			fail();
 		}
 		catch(final IllegalAlgorithmException e)
@@ -48,7 +48,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		try
 		{
-			create(UTF_8, "SHA-512", -1, (SecureRandom)null, 1);
+			create(UTF_8, "SHA-512", -1, null, 1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -75,7 +75,7 @@ public class MessageDigestHashAlgorithmTest
 		}
 		try
 		{
-			create(UTF_8, "SHA-512", -1, (SecureRandom)null, 0);
+			create(UTF_8, "SHA-512", -1, null, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -129,7 +129,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testUnsalted()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "SHA-512", 0, (SecureRandom)null, 5);
+			create(UTF_8, "SHA-512", 0, null, 5);
 		assertEqualsN("SHA512i5", a);
 		assertEqualsL(64, a);
 
@@ -171,7 +171,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testUnsaltedNoniterated()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "SHA-512", 0, (SecureRandom)null, 1);
+			create(UTF_8, "SHA-512", 0, null, 1);
 		assertEqualsN("SHA512", a);
 		assertEqualsL(64, a);
 
@@ -200,7 +200,7 @@ public class MessageDigestHashAlgorithmTest
 	@Test void testUnsaltedNoniteratedMD5()
 	{
 		final HashAlgorithm a =
-			create(UTF_8, "MD5", 0, (SecureRandom)null, 1);
+			create(UTF_8, "MD5", 0, null, 1);
 		assertEqualsN("MD5", a);
 		assertEqualsL(16, a);
 

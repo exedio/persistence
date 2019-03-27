@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
-import com.exedio.cope.Join;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -52,7 +51,7 @@ public class MediaPathConditionUnsupportedTest
 	{
 		try
 		{
-			AnItem.path.isNull((Join)null);
+			AnItem.path.isNull(null);
 			fail();
 		}
 		catch(final UnsupportedOperationException e)
@@ -82,7 +81,7 @@ public class MediaPathConditionUnsupportedTest
 	{
 		try
 		{
-			AnItem.path.isNotNull((Join)null);
+			AnItem.path.isNotNull(null);
 			fail();
 		}
 		catch(final UnsupportedOperationException e)

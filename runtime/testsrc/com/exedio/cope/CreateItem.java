@@ -19,8 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -32,11 +30,7 @@ final class CreateItem extends CreateSuperItem
 	@SuppressWarnings("MethodOverridesInaccessibleMethodOfSuper")
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
-		assertEquals(1, setValues.length);
-		assertSame(text, setValues[0].settable);
-		if("fail".equals(setValues[0].value))
-			throw MandatoryViolationException.create(text, null);
-		setValues[0] = text.map(((String)setValues[0].value) + ".preCreate");
+		setValues[0] = text.map(value(setValues) + ".preCreate");
 		return setValues;
 	}
 

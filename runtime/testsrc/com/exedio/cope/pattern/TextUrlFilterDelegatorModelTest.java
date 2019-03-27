@@ -24,7 +24,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.nio.charset.Charset;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
@@ -34,7 +33,7 @@ public class TextUrlFilterDelegatorModelTest
 	{
 		try
 		{
-			new TextUrlFilterDelegator(null, null, null, (Charset)null, null, null);
+			new TextUrlFilterDelegator(null, null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -48,7 +47,7 @@ public class TextUrlFilterDelegatorModelTest
 		final Media roh2 = new Media();
 		try
 		{
-			new TextUrlFilterDelegator(roh2, null, null, (Charset)null, null, null);
+			new TextUrlFilterDelegator(roh2, null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -63,7 +62,7 @@ public class TextUrlFilterDelegatorModelTest
 		final Media roh2 = new Media();
 		try
 		{
-			new TextUrlFilterDelegator(roh2, fertig, null, (Charset)null, null, null);
+			new TextUrlFilterDelegator(roh2, fertig, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -77,7 +76,7 @@ public class TextUrlFilterDelegatorModelTest
 		final Media roh2 = new Media();
 		try
 		{
-			new TextUrlFilterDelegator(roh2, fertig, "", (Charset)null, null, null);
+			new TextUrlFilterDelegator(roh2, fertig, "", null, null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -91,7 +90,7 @@ public class TextUrlFilterDelegatorModelTest
 		final Media roh2 = new Media();
 		try
 		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", (Charset)null, null, null);
+			new TextUrlFilterDelegator(roh2, fertig, "text/plain", null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)

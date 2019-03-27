@@ -41,7 +41,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.testmodel.StringItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
-import java.util.Date;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -280,7 +279,7 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new StringItem("12345", (Date)null);
+			new StringItem("12345", null);
 			fail();
 		}
 		catch(final StringLengthViolationException e)

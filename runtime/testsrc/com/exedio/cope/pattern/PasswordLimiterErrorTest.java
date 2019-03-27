@@ -65,7 +65,7 @@ public class PasswordLimiterErrorTest
 	@Test void testPeriodNull()
 	{
 		assertFails(
-				() -> new PasswordLimiter(password, (Duration)null, 0),
+				() -> new PasswordLimiter(password, null, 0),
 				NullPointerException.class,
 				"period");
 	}

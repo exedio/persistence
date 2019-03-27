@@ -194,7 +194,7 @@ public class CheckTest
 	@Test void testRequireNonEmptyAndCopyStringsNull()
 	{
 		assertFails(() ->
-			requireNonEmptyAndCopy((String[])null, "name"),
+			requireNonEmptyAndCopy(null, "name"),
 			NullPointerException.class,
 			"name");
 	}

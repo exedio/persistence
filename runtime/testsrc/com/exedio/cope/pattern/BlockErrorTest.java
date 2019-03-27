@@ -92,7 +92,7 @@ public class BlockErrorTest
 	static final class NoConstructor extends Block
 	{
 		private static final long serialVersionUID = 1l;
-		private NoConstructor() { super((BlockActivationParameters)null); }
+		private NoConstructor() { super(null); }
 	}
 
 

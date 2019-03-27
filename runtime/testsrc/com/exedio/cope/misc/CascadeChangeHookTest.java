@@ -117,10 +117,9 @@ public class CascadeChangeHookTest
 		@Override public SetValue<?>[] beforeNew(final Type<?> type, final SetValue<?>[] sv)
 		{
 			assertSame(MyItem.TYPE, type);
-			assertEquals(1, sv.length);
-			assertSame(MyItem.field, sv[0].settable);
-			addEvent("beforeNew" + id + "(" + sv[0].value + ")");
-			sv[0] = MyItem.field.map(((String)sv[0].value) + " / beforeNew" + id);
+			final String value = value(sv);
+			addEvent("beforeNew" + id + "(" + value + ")");
+			sv[0] = MyItem.field.map(value + " / beforeNew" + id);
 			return sv;
 		}
 
@@ -131,11 +130,17 @@ public class CascadeChangeHookTest
 
 		@Override public SetValue<?>[] beforeSet(final Item item, final SetValue<?>[] sv)
 		{
+			final String value = value(sv);
+			addEvent("beforeSet" + id + "(" + item + "," + value + ")");
+			sv[0] = MyItem.field.map(value + " / beforeSet" + id);
+			return sv;
+		}
+
+		private static String value(final SetValue<?>[] sv)
+		{
 			assertEquals(1, sv.length);
 			assertSame(MyItem.field, sv[0].settable);
-			addEvent("beforeSet" + id + "(" + item + "," + sv[0].value + ")");
-			sv[0] = MyItem.field.map(((String)sv[0].value) + " / beforeSet" + id);
-			return sv;
+			return (String)sv[0].value;
 		}
 
 		@Override public void beforeDelete(final Item item)

@@ -29,7 +29,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -162,7 +161,7 @@ public class LongTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new LongItem(5l, (Date)null);
+			new LongItem(5l, null);
 			fail();
 		}
 		catch(final LongRangeViolationException e)

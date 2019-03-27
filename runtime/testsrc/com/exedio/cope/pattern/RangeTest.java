@@ -102,7 +102,7 @@ public class RangeTest
 
 	@Test void testNN()
 	{
-		final Range<Integer> r = valueOf((Integer)null, null);
+		final Range<Integer> r = valueOf(null, null);
 		assertEquals(null, r.getFrom());
 		assertEquals(null, r.getTo());
 		assertEquals("[-]", r.toString());

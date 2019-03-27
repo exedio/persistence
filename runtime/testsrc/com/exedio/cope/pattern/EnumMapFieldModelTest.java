@@ -118,7 +118,7 @@ public class EnumMapFieldModelTest
 	{
 		try
 		{
-			((EnumMapField)name).get((EnumMapFieldItem)null, X.A);
+			((EnumMapField)name).get(null, X.A);
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -130,7 +130,7 @@ public class EnumMapFieldModelTest
 		}
 		try
 		{
-			((EnumMapField)name).set((EnumMapFieldItem)null, X.A, "hallo");
+			((EnumMapField)name).set(null, X.A, "hallo");
 			fail();
 		}
 		catch(final ClassCastException e)
@@ -142,7 +142,7 @@ public class EnumMapFieldModelTest
 		}
 		try
 		{
-			((EnumMapField)name).get((EnumMapFieldItem)null, X.SUBCLASS);
+			((EnumMapField)name).get(null, X.SUBCLASS);
 			fail();
 		}
 		catch(final ClassCastException e)

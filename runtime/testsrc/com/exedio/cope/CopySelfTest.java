@@ -153,7 +153,7 @@ public class CopySelfTest extends TestWithEnvironment
 	@Test void testOkOmittedCopy()
 	{
 		final CopyValue value = new CopyValue();
-		final CopySelfSource target = new CopySelfSource((CopySelfSource)null, value);
+		final CopySelfSource target = new CopySelfSource(null, value);
 
 		final CopySelfSource source = CopySelfSource.omitCopy(target);
 		assertEquals(target, source.getSelfTarget());
@@ -163,7 +163,7 @@ public class CopySelfTest extends TestWithEnvironment
 		check();
 
 		final CopyValue valueSet = new CopyValue();
-		final CopySelfSource targetSet = new CopySelfSource((CopySelfSource)null, valueSet);
+		final CopySelfSource targetSet = new CopySelfSource(null, valueSet);
 		try
 		{
 			source.setSelfTarget(targetSet);

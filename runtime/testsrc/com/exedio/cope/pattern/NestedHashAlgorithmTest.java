@@ -29,7 +29,7 @@ public class NestedHashAlgorithmTest
 	@Test void testNormal()
 	{
 		final HashAlgorithm a = NestedHashAlgorithm.create(
-				MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, (SecureRandom)null, 100),
+				MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, null,               100),
 				MessageDigestHashAlgorithm.create(UTF_8, "SHA-512", 8, new SecureRandom(), 200));
 
 		assertEquals("MD5i100-SHA512s8i200", a.getID());
@@ -42,7 +42,7 @@ public class NestedHashAlgorithmTest
 
 	@Test void testMigration()
 	{
-		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, (SecureRandom)null, 100);
+		final HashAlgorithm legacy = MessageDigestHashAlgorithm.create(UTF_8, "MD5", 0, null, 100);
 
 		final String legacyHash = legacy.hash("1234");
 		assertEquals(true,  legacy.check("1234", legacyHash));
@@ -61,7 +61,7 @@ public class NestedHashAlgorithmTest
 		{
 			NestedHashAlgorithm.create(
 					MessageDigestHashAlgorithm.create(UTF_8, "SHA-512", 8, new SecureRandom(), 200),
-					MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, (SecureRandom)null, 100));
+					MessageDigestHashAlgorithm.create(UTF_8, "MD5",     0, null,               100));
 		}
 		catch(final IllegalArgumentException e)
 		{

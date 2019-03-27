@@ -482,6 +482,6 @@ public class IsComparableTest
 	@SuppressWarnings("unchecked")
 	static <E> Function<E> cast(final Function<?> x)
 	{
-		return (Function<E>)(Function)x;
+		return (Function<E>)x;
 	}
 }

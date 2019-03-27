@@ -377,7 +377,7 @@ public class PriceTest
 		assertValueOfIllegal(bd(MIN_STORE, 2).subtract(bd(1, 2)), "too small: -92233720368547758.08");
 		try
 		{
-			valueOf((BigDecimal)null);
+			valueOf(null);
 			fail();
 		}
 		catch(final NullPointerException e)

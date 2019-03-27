@@ -29,7 +29,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -162,7 +161,7 @@ public class IntegerTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new IntegerItem(5, (Date)null);
+			new IntegerItem(5, null);
 			fail();
 		}
 		catch(final IntegerRangeViolationException e)

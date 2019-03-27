@@ -225,7 +225,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 			clock.assertEmpty();
 			assertContent(bytes8, new Date(123456005), "empty-major/empty-minor", "");
 		}
-		item.setFile((Media.Value)null);
+		item.setFile(null);
 		assertContentNull();
 		{
 			// test length violation

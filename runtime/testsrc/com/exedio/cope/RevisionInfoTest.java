@@ -123,7 +123,7 @@ public class RevisionInfoTest
 
 		try
 		{
-			new RevisionInfoRevise(1, (String)null, null, null, null, (Body[])null);
+			new RevisionInfoRevise(1, null, null, null, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -132,7 +132,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoRevise(1, (String)null, DATE, null, null, (Body[])null);
+			new RevisionInfoRevise(1, null, DATE, null, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -141,7 +141,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoRevise(0, (String)null, DATE, env, null, (Body[])null);
+			new RevisionInfoRevise(0, null, DATE, env, null, (Body[])null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -150,7 +150,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoRevise(1, (String)null, DATE, env, null, (Body[])null);
+			new RevisionInfoRevise(1, null, DATE, env, null, (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -159,7 +159,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoRevise(1, (String)null, DATE, env, "comment", (Body[])null);
+			new RevisionInfoRevise(1, null, DATE, env, "comment", (Body[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -168,7 +168,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoRevise(1, (String)null, DATE, env, "comment");
+			new RevisionInfoRevise(1, null, DATE, env, "comment");
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -177,14 +177,14 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body[]{null});
+			new RevisionInfoRevise(1, null, DATE, env, "comment", new Body[]{null});
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("body[0]", e.getMessage());
 		}
-		new RevisionInfoRevise(1, (String)null, DATE, env, "comment", new Body("sql", 5, 5));
+		new RevisionInfoRevise(1, null, DATE, env, "comment", new Body("sql", 5, 5));
 
 		try
 		{
@@ -312,7 +312,7 @@ public class RevisionInfoTest
 
 		try
 		{
-			new RevisionInfoMutex((String)null, null, null, -1, -1);
+			new RevisionInfoMutex(null, null, null, -1, -1);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -321,7 +321,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoMutex((String)null, DATE, null, -1, -1);
+			new RevisionInfoMutex(null, DATE, null, -1, -1);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -330,7 +330,7 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoMutex((String)null, DATE, env, -1, -1);
+			new RevisionInfoMutex(null, DATE, env, -1, -1);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -339,14 +339,14 @@ public class RevisionInfoTest
 		}
 		try
 		{
-			new RevisionInfoMutex((String)null, DATE, env, 0, 0);
+			new RevisionInfoMutex(null, DATE, env, 0, 0);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals("expectedNumber must be greater than 0, but was 0", e.getMessage());
 		}
-		new RevisionInfoMutex((String)null, DATE, env, 1, 0);
+		new RevisionInfoMutex(null, DATE, env, 1, 0);
 	}
 
 	@Test void testParse() throws UnsupportedEncodingException

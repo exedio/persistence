@@ -40,7 +40,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -473,7 +472,7 @@ public class DoubleTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new DoubleItem(4.1, (Date)null);
+			new DoubleItem(4.1, null);
 			fail();
 		}
 		catch(final DoubleRangeViolationException e)

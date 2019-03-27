@@ -58,7 +58,7 @@ public abstract class SchemaTest
 	{
 		final String connectionUrl      = value      ("connection.url",      (String)null);
 		final String connectionUsername = value      ("connection.username", (String)null);
-		final String connectionPassword = valueHidden("connection.password", (String)null);
+		final String connectionPassword = valueHidden("connection.password", null);
 		final String mysqlRowFormat     = value      ("dialect.rowFormat", "NONE");
 		final String connectionPostgresqlSearchPath = value("dialect.search_path", connectionUsername);
 

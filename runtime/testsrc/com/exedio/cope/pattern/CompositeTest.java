@@ -320,7 +320,7 @@ public class CompositeTest
 	{
 		try
 		{
-			new Value((String)null, false);
+			new Value(null, false);
 			fail();
 		}
 		catch(final MandatoryViolationException e)
@@ -333,7 +333,7 @@ public class CompositeTest
 
 	@Test void testOverrideDefaultNullOptional()
 	{
-		final Value value = new Value((String)null, true);
+		final Value value = new Value(null, true);
 
 		assertEquals("1234", value.getString4());
 		assertEquals("defString", value.getStringDefault());

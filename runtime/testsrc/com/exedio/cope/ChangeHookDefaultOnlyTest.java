@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,10 +53,9 @@ public class ChangeHookDefaultOnlyTest extends ChangeHookAbstractTest
 
 		static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] sv)
 		{
-			assertEquals(1, sv.length);
-			assertSame(field, sv[0].settable);
-			addEvent("Item#beforeNew(" + sv[0].value + ")");
-			sv[0] = field.map(((String)sv[0].value) + " / Item#beforeNew");
+			final String value = value(field, sv);
+			addEvent("Item#beforeNew(" + value + ")");
+			sv[0] = field.map(value + " / Item#beforeNew");
 			return sv;
 		}
 
@@ -68,10 +66,9 @@ public class ChangeHookDefaultOnlyTest extends ChangeHookAbstractTest
 
 		@Override protected SetValue<?>[] beforeSetCopeItem(final SetValue<?>[] sv)
 		{
-			assertEquals(1, sv.length);
-			assertSame(field, sv[0].settable);
-			addEvent("Item#beforeSet(" + this + "," + sv[0].value + ")");
-			sv[0] = field.map(((String)sv[0].value) + " / Item#beforeSet");
+			final String value = value(field, sv);
+			addEvent("Item#beforeSet(" + this + "," + value + ")");
+			sv[0] = field.map(value + " / Item#beforeSet");
 			return sv;
 		}
 
