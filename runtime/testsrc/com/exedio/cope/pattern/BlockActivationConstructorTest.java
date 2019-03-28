@@ -23,15 +23,17 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class BlockActivationConstructorTest
 {
 	@Test void testParameterNull()
 	{
 		assertFails(
 				() -> new MyBlock(null),
-				RuntimeException.class,
+				NullPointerException.class,
 				"activation constructor is for internal purposes only, " +
 				"don't use it in your application!");
 	}

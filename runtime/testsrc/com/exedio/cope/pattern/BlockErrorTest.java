@@ -27,6 +27,7 @@ import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.WrapperIgnore;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class BlockErrorTest
@@ -92,6 +93,7 @@ public class BlockErrorTest
 	static final class NoConstructor extends Block
 	{
 		private static final long serialVersionUID = 1l;
+		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 		private NoConstructor() { super(null); }
 	}
 

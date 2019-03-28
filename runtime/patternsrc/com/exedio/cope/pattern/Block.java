@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.instrument.WrapType;
@@ -45,11 +47,9 @@ public abstract class Block implements Serializable, TemplatedValue
 	 */
 	protected Block(final BlockActivationParameters ap)
 	{
-		if(ap==null)
-			throw new RuntimeException(
-					"activation constructor is for internal purposes only, " +
-					"don't use it in your application!");
-
+		requireNonNull(ap,
+				"activation constructor is for internal purposes only, " +
+				"don't use it in your application!");
 		this.field = ap.field;
 		this.item  = ap.item ;
 	}
