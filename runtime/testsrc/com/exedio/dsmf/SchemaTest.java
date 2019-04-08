@@ -18,10 +18,11 @@
 
 package com.exedio.dsmf;
 
+import static com.exedio.cope.ConnectProperties.getDefaultPropertyFile;
+
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.io.File;
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -44,15 +45,6 @@ public abstract class SchemaTest
 	private boolean postgresql = false;
 	private SimpleConnectionProvider provider;
 	private final ArrayList<Connection> connections = new ArrayList<>();
-
-	static final File getDefaultPropertyFile()
-	{
-		String result = System.getProperty("com.exedio.cope.properties");
-		if(result==null)
-			result = "cope.properties";
-
-		return new File(result);
-	}
 
 	private static final class Properties extends com.exedio.cope.util.Properties
 	{
