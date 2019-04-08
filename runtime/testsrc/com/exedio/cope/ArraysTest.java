@@ -18,14 +18,67 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.misc.Arrays.copyOf;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.misc.Arrays;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL","RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class ArraysTest
 {
+	@Test void testCopyOf()
+	{
+		assertArrayEquals(
+				new boolean[]{true,false,true}, copyOf(
+				new boolean[]{true,false,true}));
+		assertArrayEquals(
+				new boolean[]{true}, copyOf(
+				new boolean[]{true}));
+		assertArrayEquals(
+				new boolean[]{}, copyOf(
+				new boolean[]{}));
+		assertArrayEquals(
+				new byte[]{1,2,3}, copyOf(
+				new byte[]{1,2,3}));
+		assertArrayEquals(
+				new byte[]{1}, copyOf(
+				new byte[]{1}));
+		assertArrayEquals(
+				new byte[]{}, copyOf(
+				new byte[]{}));
+		assertArrayEquals(
+				new int[]{1,2,3}, copyOf(
+				new int[]{1,2,3}));
+		assertArrayEquals(
+				new int[]{1}, copyOf(
+				new int[]{1}));
+		assertArrayEquals(
+				new int[]{}, copyOf(
+				new int[]{}));
+		assertArrayEquals(
+				new String[]{"1","2","3"}, copyOf(
+				new String[]{"1","2","3"}));
+		assertArrayEquals(
+				new String[]{"1"}, copyOf(
+				new String[]{"1"}));
+		assertArrayEquals(
+				new String[]{}, copyOf(
+				new String[]{}));
+	}
+
+	@Test void testCopyOfNull()
+	{
+		assertFails(() -> copyOf((boolean[])null), NullPointerException.class, null);
+		assertFails(() -> copyOf((byte   [])null), NullPointerException.class, null);
+		assertFails(() -> copyOf((int    [])null), NullPointerException.class, null);
+		assertFails(() -> copyOf((String [])null), NullPointerException.class, null);
+	}
+
 	@Test void testIt()
 	{
 		try
