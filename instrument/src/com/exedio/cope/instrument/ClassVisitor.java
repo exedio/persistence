@@ -69,7 +69,8 @@ class ClassVisitor extends GeneratedAwareScanner
 				context.javaFile,
 				outerClass,
 				TreeApiHelper.toModifiersInt(ct.getModifiers()),
-				getSimpleName(ct),
+				ct.getSimpleName().toString(),
+				ct.getTypeParameters().size(),
 				context.getSourcePosition(ct),
 				Kind.valueOf(getAnnotation(WrapType.class)),
 				classExtends,
@@ -281,16 +282,6 @@ class ClassVisitor extends GeneratedAwareScanner
 	{
 		final Element element=context.getElement(getCurrentPath());
 		return element.getAnnotationsByType(annotationType);
-	}
-
-	private static String getSimpleName(final ClassTree ct)
-	{
-		String simpleName=ct.getSimpleName().toString();
-		if ( !ct.getTypeParameters().isEmpty() )
-		{
-			simpleName += "<"+ct.getTypeParameters()+">";
-		}
-		return simpleName;
 	}
 
 	private static boolean allWhitespace(final String s)

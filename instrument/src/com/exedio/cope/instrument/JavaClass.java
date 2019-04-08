@@ -48,14 +48,15 @@ final class JavaClass extends JavaFeature
 	JavaClass(
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String simpleName,
+			final int typeParameters,
 			final String sourceLocation,
 			final Kind kind,
 			final String fullyQualifiedSuperclass,
 			final WrapperType typeOption,
 			final int classEndPosition)
 	{
-		super(file, parent, modifiers, Generics.strip(simpleName), sourceLocation);
-		this.typeParameters = Generics.get(simpleName).size();
+		super(file, parent, modifiers, simpleName, sourceLocation);
+		this.typeParameters = typeParameters;
 		this.kind = kind;
 		this.fullyQualifiedSuperclass = Generics.strip(fullyQualifiedSuperclass);
 		this.typeOption=typeOption;
