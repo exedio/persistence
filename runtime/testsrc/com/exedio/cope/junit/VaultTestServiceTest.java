@@ -16,12 +16,12 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.vaulttest;
+package com.exedio.cope.junit;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.junit.VaultTestService;
 import com.exedio.cope.vault.VaultService;
+import com.exedio.cope.vaulttest.VaultServiceTest;
 import org.junit.jupiter.api.Test;
 
 public class VaultTestServiceTest extends VaultServiceTest
