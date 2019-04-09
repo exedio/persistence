@@ -35,7 +35,6 @@ final class JavaClass extends JavaFeature
 {
 	private final HashMap<String, JavaField> fields = new HashMap<>();
 	private final ArrayList<JavaField> fieldList = new ArrayList<>();
-	final HashMap<String,JavaClass> innerClasses = new HashMap<>();
 	final int typeParameters;
 	final Kind kind;
 	final String fullyQualifiedSuperclass;
@@ -63,11 +62,6 @@ final class JavaClass extends JavaFeature
 		this.classEndPosition = classEndPosition;
 		//noinspection ThisEscapedInObjectConstruction
 		file.add(this);
-		if (parent!=null)
-		{
-			//noinspection ThisEscapedInObjectConstruction
-			parent.addInnerClass(this);
-		}
 	}
 
 	void add(final JavaField javaField)
@@ -133,11 +127,6 @@ final class JavaClass extends JavaFeature
 	int getClassEndPositionInSourceWithoutGeneratedFragments()
 	{
 		return file.translateToPositionInSourceWithoutGeneratedFragments(classEndPosition);
-	}
-
-	void addInnerClass(final JavaClass c)
-	{
-		innerClasses.put(c.name, c);
 	}
 
 	final HashMap<Object, JavaField> javaFieldsByInstance = new HashMap<>();
