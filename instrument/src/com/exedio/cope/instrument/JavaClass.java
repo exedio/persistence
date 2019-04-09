@@ -58,7 +58,7 @@ final class JavaClass extends JavaFeature
 		super(file, parent, modifiers, simpleName, sourceLocation);
 		this.typeParameters = typeParameters;
 		this.kind = kind;
-		this.fullyQualifiedSuperclass = Generics.strip(fullyQualifiedSuperclass);
+		this.fullyQualifiedSuperclass = fullyQualifiedSuperclass;
 		this.typeOption=typeOption;
 		this.classEndPosition = classEndPosition;
 		//noinspection ThisEscapedInObjectConstruction

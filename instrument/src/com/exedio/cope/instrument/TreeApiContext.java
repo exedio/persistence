@@ -32,6 +32,7 @@ import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import javax.lang.model.type.DeclaredType;
 
 final class TreeApiContext
 {
@@ -199,6 +200,8 @@ final class TreeApiContext
 	String getFullyQualifiedSuperclass(final TreePath typePath)
 	{
 		final Element element=getElement(typePath);
-		return ((TypeElement)element).getSuperclass().toString();
+		if(!element.getKind().isClass())
+			return null;
+		return ((DeclaredType)((TypeElement)element).getSuperclass()).asElement().toString();
 	}
 }
