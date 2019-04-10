@@ -50,7 +50,7 @@
 
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.4.0" />
-		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="8.0.13">
+		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="8.0.21">
 			<exclude org="com.google.protobuf" module="protobuf-java" />
 		</dependency>
 		<dependency conf="mariadb->default" org="org.mariadb.jdbc" name="mariadb-java-client" rev="2.2.1" />
