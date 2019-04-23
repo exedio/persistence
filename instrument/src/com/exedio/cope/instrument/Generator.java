@@ -70,7 +70,6 @@ final class Generator
 	private final boolean nullabilityAnnotations;
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
-	private final String hidingWarningSuppressor;
 	private final boolean publicConstructorInAbstractClass;
 	private final boolean privateMethodFinal;
 	private final boolean finalMethodInFinalClass;
@@ -89,7 +88,6 @@ final class Generator
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
-		this.hidingWarningSuppressor = params.hidingWarningSuppressor;
 		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
 		this.privateMethodFinal = params.privateMethodFinal;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
@@ -781,14 +779,6 @@ final class Generator
 
 		writeComment(singletonList(format(kind.typeDoc, lowerCamelCase(type.getName()))));
 		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
-
-		if(hidingWarningSuppressor!=null && type.getSuperclass()!=null)
-		{
-			writeIndent();
-			write("@SuppressWarnings(\"hiding\")");
-			write(lineSeparator);
-		}
-
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write(kind.typeField);

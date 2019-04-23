@@ -142,11 +142,6 @@ public final class AntTask extends Task
 		params.directSetValueMap = value;
 	}
 
-	public void setHidingWarningSuppressor(final String value)
-	{
-		params.hidingWarningSuppressor = value;
-	}
-
 	public void setPublicConstructorInAbstractClass(final boolean value)
 	{
 		params.publicConstructorInAbstractClass = value;
