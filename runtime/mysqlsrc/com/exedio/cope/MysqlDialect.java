@@ -90,7 +90,8 @@ final class MysqlDialect extends Dialect
 						sequenceColumnName(properties),
 						properties.rowFormat.sql()));
 
-		probe.environmentInfo.requireDatabaseVersionAtLeast(5, 5);
+		final EnvironmentInfo env = probe.environmentInfo;
+		env.requireDatabaseVersionAtLeast(5, 5);
 
 		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
@@ -101,7 +102,6 @@ final class MysqlDialect extends Dialect
 		this.shortConstraintNames = !properties.longConstraintNames;
 		this.sequenceColumnName = sequenceColumnName(properties);
 
-		final EnvironmentInfo env = probe.environmentInfo;
 		if((!utf8mb4 || !smallIntegerTypes || shortConstraintNames) &&
 			env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
