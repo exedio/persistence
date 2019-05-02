@@ -310,10 +310,10 @@ public class IntegerTypeTest extends TestWithEnvironment
 					expectedDataType = expectedHsqldbDataType;
 				break;
 				case mysql:
-					if(!propertiesSmallIntegerTypes())
-						expectedDataType = expectedMysqlDataTypeWithoutSmallIntegerTypes;
-					else
+					if(propertiesSmallIntegerTypes())
 						expectedDataType = expectedMysqlDataType;
+					else
+						expectedDataType = expectedMysqlDataTypeWithoutSmallIntegerTypes;
 				break;
 				case oracle:
 					expectedDataType = expectedOracleDataType;
