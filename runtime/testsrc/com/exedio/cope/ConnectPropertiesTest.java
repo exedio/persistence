@@ -424,6 +424,16 @@ public class ConnectPropertiesTest
 		assertEquals("revPk",  p.revisionPrimaryKeyName);
 	}
 
+	@Test void testConnectionPool()
+	{
+		final ConnectProperties p = ConnectProperties.create(cascade(
+				single("connectionPool.idleInitial", 55),
+				single("connectionPool.idleLimit", 66),
+				loadProperties()));
+		assertEquals(55, p.getConnectionPoolIdleInitial());
+		assertEquals(66, p.getConnectionPoolIdleLimit());
+	}
+
 	@Test void testConnectionPoolIdleInitial()
 	{
 		final String propKey = "connectionPool.idleInitial";
