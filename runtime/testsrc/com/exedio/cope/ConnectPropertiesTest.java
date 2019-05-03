@@ -761,4 +761,21 @@ public class ConnectPropertiesTest
 	{
 		return p.getProbeTest();
 	}
+
+
+	@Test void testProbeDialectConstructorFails()
+	{
+		final ConnectProperties p = ConnectProperties.create(cascade(
+				single("dialect", DialectConstructorFails.class),
+				TestSources.minimal()));
+		assertEquals(CONNECTION, p.probeConnect().toString());
+	}
+	static class DialectConstructorFails extends AssertionFailedDialect
+	{
+		DialectConstructorFails(@SuppressWarnings("unused") final CopeProbe probe)
+		{
+			super(null);
+			throw new IllegalArgumentException("DialectConstructorFails constructor");
+		}
+	}
 }
