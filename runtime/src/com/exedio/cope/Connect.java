@@ -76,7 +76,7 @@ final class Connect
 	{
 		this.properties = properties;
 
-		final CopeProbe probe = new CopeProbe(properties, properties.probeConnect());
+		final CopeProbe probe = new CopeProbe(properties, properties.probeEnvironmentInfo());
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
 		this.dialect = properties.dialect.newInstance(probe);

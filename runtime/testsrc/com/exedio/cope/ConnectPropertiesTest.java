@@ -42,6 +42,7 @@ import com.exedio.cope.vault.VaultFileService;
 import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.concurrent.Callable;
@@ -768,7 +769,16 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = ConnectProperties.create(cascade(
 				single("dialect", DialectConstructorFails.class),
 				TestSources.minimal()));
-		assertEquals(CONNECTION, p.probeConnect().toString());
+		final RuntimeException re = assertFails(
+				p::probeConnect,
+				RuntimeException.class,
+				DialectConstructorFails.class.getName() + "(com.exedio.cope.CopeProbe)");
+		final Throwable ite = re.getCause();
+		assertEquals(InvocationTargetException.class, ite.getClass());
+		assertEquals(null, ite.getMessage());
+		final Throwable iae = ite.getCause();
+		assertEquals(IllegalArgumentException.class, iae.getClass());
+		assertEquals("DialectConstructorFails constructor", iae.getMessage());
 	}
 	static class DialectConstructorFails extends AssertionFailedDialect
 	{

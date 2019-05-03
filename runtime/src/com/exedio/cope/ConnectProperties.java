@@ -88,6 +88,14 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	@Probe
 	EnvironmentInfo probeConnect()
 	{
+		final EnvironmentInfo result = probeEnvironmentInfo();
+		final CopeProbe probe = new CopeProbe(this, result);
+		dialect.newInstance(probe);
+		return result;
+	}
+
+	EnvironmentInfo probeEnvironmentInfo()
+	{
 		return connection.probe(newInfo());
 	}
 
