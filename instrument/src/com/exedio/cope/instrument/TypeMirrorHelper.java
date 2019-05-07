@@ -61,14 +61,11 @@ final class TypeMirrorHelper
 	}
 
 	@SuppressWarnings("unchecked")
-	static <T> Class<T> get(final Supplier<Class<T>> classSupplier, final boolean enforceMirroredTypeException)
+	static <T> Class<T> get(final Supplier<Class<T>> classSupplier)
 	{
 		try
 		{
-			final Class<T> clazz = classSupplier.get();
-			if (enforceMirroredTypeException)
-				throw new RuntimeException("expected MirroredTypeException, got "+clazz);
-			return clazz;
+			return classSupplier.get();
 		}
 		catch (final MirroredTypeException e)
 		{

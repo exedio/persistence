@@ -45,9 +45,9 @@ final class Kind
 
 	private Kind(final WrapType anno)
 	{
-		wildcardClassCaster = TypeMirrorHelper.get(anno::wildcardClassCaster, false).getName();
+		wildcardClassCaster = TypeMirrorHelper.get(anno::wildcardClassCaster).getName();
 
-		final Class<?> typeFactoryClass = TypeMirrorHelper.get(anno::type, false);
+		final Class<?> typeFactoryClass = TypeMirrorHelper.get(anno::type);
 		if(typeFactoryClass==StringGetterDefault.class)
 		{
 			typeField = null;
@@ -78,7 +78,7 @@ final class Kind
 		featurePostfix = anno.featurePostfix();
 		featureThis = anno.featureThis();
 
-		final Class<?> topClass = TypeMirrorHelper.get(anno::top, false);
+		final Class<?> topClass = TypeMirrorHelper.get(anno::top);
 		top = topClass.getName();
 		topSimple = topClass.getSimpleName();
 
@@ -101,7 +101,7 @@ final class Kind
 
 	static <T> String name(final Supplier<Class<T>> clazz)
 	{
-		final String result = TypeMirrorHelper.get(clazz, false).getName();
+		final String result = TypeMirrorHelper.get(clazz).getName();
 
 		if(result.equals(DEFAULT_NAME))
 			return null;
