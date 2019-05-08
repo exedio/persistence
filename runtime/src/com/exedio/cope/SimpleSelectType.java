@@ -19,9 +19,12 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
+import java.io.Serializable;
 import java.util.Date;
 
-final class SimpleSelectType<E> implements SelectType<E>
+final class SimpleSelectType<E> implements SelectType<E>, Serializable
 {
 	final Class<E> javaClass;
 
@@ -51,4 +54,62 @@ final class SimpleSelectType<E> implements SelectType<E>
 	static final SimpleSelectType<Double > DOUBLE  = new SimpleSelectType<>(Double .class);
 	static final SimpleSelectType<Date   > DATE    = new SimpleSelectType<>(Date   .class);
 	static final SimpleSelectType<Day    > DAY     = new SimpleSelectType<>(Day    .class);
+
+	private static final SimpleSelectType<?>[] instances = {STRING, BOOLEAN, INTEGER, LONG, DOUBLE, DATE, DAY};
+
+
+	// serialization -------------
+
+	private static final long serialVersionUID = 1l;
+
+	/**
+	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+	 */
+	private Object writeReplace()
+	{
+		return new Serialized(javaClass);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+		private final Class<?> javaClass;
+
+		private Serialized(final Class<?> javaClass)
+		{
+			this.javaClass = javaClass;
+		}
+
+		/**
+		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve() throws InvalidObjectException
+		{
+			for(final SimpleSelectType<?> candidate : instances)
+				if(javaClass.equals(candidate.javaClass))
+					return candidate;
+
+			throw new InvalidObjectException("no SimpleSelectType for " + javaClass);
+		}
+	}
 }

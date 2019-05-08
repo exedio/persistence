@@ -19,8 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.tojunit.Assert.assertFails;
-import static com.exedio.cope.tojunit.Assert.serialize;
+import static com.exedio.cope.tojunit.Assert.reserialize;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,10 +49,14 @@ class AggregateTest
 				MyItem.field.any(),
 				new IntegerField().min());
 
-		assertFails( // TODO
-				() -> serialize(a),
-				RuntimeException.class,
-				"java.io.NotSerializableException: com.exedio.cope.SimpleSelectType");
+		final ExtremumAggregate<Integer> as = reserialize(a, 740);
+		assertSame(MyItem.field, as.getSource());
+		assertEquals("min", as.getName());
+		assertSame(Integer.class, as.getValueClass());
+		assertSame(SimpleSelectType.INTEGER, as.getValueType());
+		assertSame(MyItem.TYPE, as.getType());
+		assertEquals("min(MyItem.field)", as.toString());
+		assertEqualsAndHash(a, as);
 	}
 
 	@Test void testMax()
@@ -67,10 +70,14 @@ class AggregateTest
 		assertEquals("max(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.max());
 
-		assertFails( // TODO
-				() -> serialize(a),
-				RuntimeException.class,
-				"java.io.NotSerializableException: com.exedio.cope.SimpleSelectType");
+		final ExtremumAggregate<Integer> as = reserialize(a, 740);
+		assertSame(MyItem.field, as.getSource());
+		assertEquals("max", as.getName());
+		assertSame(Integer.class, as.getValueClass());
+		assertSame(SimpleSelectType.INTEGER, as.getValueType());
+		assertSame(MyItem.TYPE, as.getType());
+		assertEquals("max(MyItem.field)", as.toString());
+		assertEqualsAndHash(a, as);
 	}
 
 	@Test void testSum()
@@ -84,10 +91,14 @@ class AggregateTest
 		assertEquals("sum(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.sum());
 
-		assertFails( // TODO
-				() -> serialize(a),
-				RuntimeException.class,
-				"java.io.NotSerializableException: com.exedio.cope.SimpleSelectType");
+		final SumAggregate<Integer> as = reserialize(a, 724);
+		assertSame(MyItem.field, as.getSource());
+		assertEquals("sum", as.getName());
+		assertSame(Integer.class, as.getValueClass());
+		assertSame(SimpleSelectType.INTEGER, as.getValueType());
+		assertSame(MyItem.TYPE, as.getType());
+		assertEquals("sum(MyItem.field)", as.toString());
+		assertEqualsAndHash(a, as);
 	}
 
 	@Test void testAverage()
@@ -101,10 +112,14 @@ class AggregateTest
 		assertEquals("avg(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.average());
 
-		assertFails( // TODO
-				() -> serialize(a),
-				RuntimeException.class,
-				"java.io.NotSerializableException: com.exedio.cope.SimpleSelectType");
+		final AverageAggregate as = reserialize(a, 727);
+		assertSame(MyItem.field, as.getSource());
+		assertEquals("avg", as.getName());
+		assertSame(Double.class, as.getValueClass());
+		assertSame(SimpleSelectType.DOUBLE, as.getValueType());
+		assertSame(MyItem.TYPE, as.getType());
+		assertEquals("avg(MyItem.field)", as.toString());
+		assertEqualsAndHash(a, as);
 	}
 
 	@Test void testAny()
@@ -118,10 +133,14 @@ class AggregateTest
 		assertEquals("any(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.any());
 
-		assertFails( // TODO
-				() -> serialize(a),
-				RuntimeException.class,
-				"java.io.NotSerializableException: com.exedio.cope.SimpleSelectType");
+		final Aggregate<Integer> as = reserialize(a, 730);
+		assertSame(MyItem.field, as.getSource());
+		assertEquals("any", as.getName());
+		assertSame(Integer.class, as.getValueClass());
+		assertSame(SimpleSelectType.INTEGER, as.getValueType());
+		assertSame(MyItem.TYPE, as.getType());
+		assertEquals("any(MyItem.field)", as.toString());
+		assertEqualsAndHash(a, as);
 	}
 
 

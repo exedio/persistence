@@ -62,17 +62,10 @@ public class QuerySerializeTest
 		assertSerializedEquals(qMulti, size - 660);
 	}
 
-	@Test void aggregateOfStringQuery() throws IOException
+	@Test void aggregateOfStringQuery()
 	{
 		final Query<String> q = new Query<>(field.min());
-		try (final ObjectOutputStream oos = new ObjectOutputStream(new ByteArrayOutputStream()))
-		{
-			assertFails(
-					()->oos.writeObject(q),
-					NotSerializableException.class,
-					"com.exedio.cope.SimpleSelectType"
-			);
-		}
+		assertSerializedEquals(q, 1128);
 	}
 
 	@Test void aggregateOfEnumQuery() throws IOException
