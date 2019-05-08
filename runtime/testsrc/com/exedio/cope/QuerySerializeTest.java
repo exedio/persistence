@@ -19,10 +19,16 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.QuerySerializeTest.AnItem.TYPE;
+import static com.exedio.cope.QuerySerializeTest.AnItem.enumField;
 import static com.exedio.cope.QuerySerializeTest.AnItem.field;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.NotSerializableException;
+import java.io.ObjectOutputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -56,15 +62,55 @@ public class QuerySerializeTest
 		assertSerializedEquals(qMulti, size - 660);
 	}
 
+	@Test void aggregateOfStringQuery() throws IOException
+	{
+		final Query<String> q = new Query<>(field.min());
+		try (final ObjectOutputStream oos = new ObjectOutputStream(new ByteArrayOutputStream()))
+		{
+			assertFails(
+					()->oos.writeObject(q),
+					NotSerializableException.class,
+					"com.exedio.cope.SimpleSelectType"
+			);
+		}
+	}
+
+	@Test void aggregateOfEnumQuery() throws IOException
+	{
+		final Query<AnEnum> q = new Query<>(enumField.min());
+		try (final ObjectOutputStream oos = new ObjectOutputStream(new ByteArrayOutputStream()))
+		{
+			assertFails(
+					()->oos.writeObject(q),
+					NotSerializableException.class,
+					"com.exedio.cope.EnumFieldType"
+			);
+		}
+	}
+
+	@Test void countQuery()
+	{
+		final Query<Integer> q = new Query<>(new Count(), TYPE, null);
+		assertSerializedEquals(q, 744);
+	}
+
+
 	private static void assertSerializedEquals(final Query<?> value, final int expectedSize)
 	{
 		assertEquals(value.toString(), reserialize(value, expectedSize).toString());
+	}
+
+	@SuppressWarnings("unused")
+	enum AnEnum
+	{
+		one, two
 	}
 
 	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
 		static final StringField field = new StringField();
+		static final EnumField<AnEnum> enumField = EnumField.create(AnEnum.class);
 		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
 
 		private AnItem(final ActivationParameters ap) { super(ap); }
