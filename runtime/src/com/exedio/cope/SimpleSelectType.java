@@ -24,7 +24,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Date;
 
-final class SimpleSelectType<E> implements SelectType<E>, Serializable
+final class SimpleSelectType<E> implements SelectType<E>
 {
 	final Class<E> javaClass;
 

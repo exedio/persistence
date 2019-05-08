@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+import java.io.Serializable;
+
 @FunctionalInterface
-interface SelectType<E>
+interface SelectType<E> extends Serializable
 {
 	Class<E> getJavaClass();
 }
