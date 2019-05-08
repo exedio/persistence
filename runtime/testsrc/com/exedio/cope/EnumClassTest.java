@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -138,5 +139,11 @@ public class EnumClassTest
 		{
 			assertEquals("not an enum: " + Enum.class, e.getMessage());
 		}
+	}
+
+	@Test void testTypeSerialize()
+	{
+		assertSerializedSame(EnumField.create(Normal  .class).valueType, 176);
+		assertSerializedSame(EnumField.create(Subclass.class).valueType, 178);
 	}
 }

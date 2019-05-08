@@ -19,20 +19,25 @@
 package com.exedio.cope;
 
 import com.exedio.cope.misc.EnumAnnotatedElement;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
 import java.sql.ResultSet;
+import java.io.Serializable;
 import java.sql.SQLException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 
-final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
+final class EnumFieldType<E extends Enum<E>> implements SelectType<E>, Serializable
 {
 	private final Class<E> valueClass;
 	final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;
 	private final int[] ordinalsToNumbers;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Marshaller<E> marshaller;
 
 	private EnumFieldType(final Class<E> valueClass, final E[] enumConstants)
@@ -177,6 +182,57 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 				types.put(valueClass, result);
 			}
 			return result;
+		}
+	}
+
+	// serialization -------------
+
+	private static final long serialVersionUID = 1l;
+
+	/**
+	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+	 */
+	private Object writeReplace()
+	{
+		return new Serialized<>(valueClass);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	@SuppressWarnings("static-method")
+	private Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	private static final class Serialized<E extends Enum<E>> implements Serializable
+	{
+		private static final long serialVersionUID = 1l;
+		private final Class<E> valueClass;
+
+		private Serialized(final Class<E> valueClass)
+		{
+			this.valueClass = valueClass;
+		}
+
+		/**
+		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve()
+		{
+			return get(valueClass);
 		}
 	}
 }

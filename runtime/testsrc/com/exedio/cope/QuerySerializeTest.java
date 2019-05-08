@@ -21,14 +21,9 @@ package com.exedio.cope;
 import static com.exedio.cope.QuerySerializeTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySerializeTest.AnItem.enumField;
 import static com.exedio.cope.QuerySerializeTest.AnItem.field;
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.NotSerializableException;
-import java.io.ObjectOutputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -68,17 +63,10 @@ public class QuerySerializeTest
 		assertSerializedEquals(q, 1128);
 	}
 
-	@Test void aggregateOfEnumQuery() throws IOException
+	@Test void aggregateOfEnumQuery()
 	{
 		final Query<AnEnum> q = new Query<>(enumField.min());
-		try (final ObjectOutputStream oos = new ObjectOutputStream(new ByteArrayOutputStream()))
-		{
-			assertFails(
-					()->oos.writeObject(q),
-					NotSerializableException.class,
-					"com.exedio.cope.EnumFieldType"
-			);
-		}
+		assertSerializedEquals(q, 1184);
 	}
 
 	@Test void countQuery()
