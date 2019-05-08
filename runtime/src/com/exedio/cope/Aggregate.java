@@ -168,7 +168,7 @@ public abstract class Aggregate<E> implements Selectable<E>
 		return new CompareCondition<>(Operator.GreaterEqual, this, value);
 	}
 
-	public Condition between(final E lowerBound, final E upperBound)
+	public final Condition between(final E lowerBound, final E upperBound)
 	{
 		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
