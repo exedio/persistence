@@ -52,11 +52,24 @@ public final class DispatcherPurgeProperties extends FactoryProperties<Dispatche
 			this.retainDaysFinalFailure = requireNonNegative(retainDaysFinalFailure, "retainDaysFinalFailure");
 		}
 
+		/**
+		 * @param value
+		 *        How many days unpended items are retained.
+		 *        Zero retains forever.
+		 */
 		public Factory retainDaysDefault(final int value)
 		{
 			return retainDaysDefault(value, value);
 		}
 
+		/**
+		 * @param success
+		 *        How many days {@link Dispatcher.Result#success successfully} dispatched items are retained.
+		 *        Zero retains forever.
+		 * @param finalFailure
+		 *        How many days {@link Dispatcher.Result#finalFailure finally failed} items are retained.
+		 *        Zero retains forever.
+		 */
 		@SuppressWarnings("static-method") // OK: will have to be non-static when there are more fields
 		public Factory retainDaysDefault(
 				final int success,
