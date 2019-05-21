@@ -310,4 +310,30 @@ public class LimitedListFieldTest extends TestWithEnvironment
 				"OR ("+f+"0='b' OR "+f+"1='b' OR "+f+"2='b' OR "+f+"3='b'))",
 			strings.containsAny(join, asList("a","b")).toString());
 	}
+
+	@Test void testEqualInJoin()
+	{
+		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
+		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
+
+		final String f = "l1.LimitedListFieldItem.strings-";
+		assertEquals("("+f+"0='a' AND "+f+"1='b' AND "+f+"2 is null AND "+f+"3 is null)",
+				strings.equal(j, asList("a", "b")).toString());
+
+		assertEquals("("+f+"0 is null AND "+f+"1 is null AND "+f+"2 is null AND "+f+"3 is null)",
+				strings.equal(j, Collections.emptyList()).toString());
+	}
+
+	@Test void testNotEqualInJoin()
+	{
+		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
+		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
+
+		final String f = "l1.LimitedListFieldItem.strings-";
+		assertEquals("(("+f+"0<>'a' OR "+f+"0 is null) OR ("+f+"1<>'b' OR "+f+"1 is null) OR "+f+"2 is not null OR "+f+"3 is not null)",
+				strings.notEqual(j, asList("a", "b")).toString());
+
+		assertEquals("("+f+"0 is not null OR "+f+"1 is not null OR "+f+"2 is not null OR "+f+"3 is not null)",
+				strings.notEqual(j, Collections.emptyList()).toString());
+	}
 }

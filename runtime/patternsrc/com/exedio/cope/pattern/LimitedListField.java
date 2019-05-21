@@ -276,32 +276,42 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	public Condition equal(final Collection<E> value)
 	{
+		return equal(null, value);
+	}
+
+	public Condition equal(final Join join, final Collection<E> value)
+	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 
 		//noinspection ForLoopThatDoesntUseLoopVariable
 		for(final Iterator<E> it = value.iterator(); it.hasNext(); i++)
-			conditions[i] = sources[i].equal(it.next());
+			conditions[i] = bind(sources[i], join).equal(it.next());
 
 		for(; i<sources.length; i++)
-			conditions[i] = sources[i].equal((E)null);
+			conditions[i] = bind(sources[i], join).equal((E)null);
 
 		return Cope.and(conditions);
 	}
 
 	public Condition notEqual(final Collection<E> value)
 	{
+		return notEqual(null, value);
+	}
+
+	public Condition notEqual(final Join join, final Collection<E> value)
+	{
 		int i = 0;
 		final Condition[] conditions = new Condition[sources.length];
 
 		for(final E v : value)
 		{
-			conditions[i] = sources[i].notEqual(v).or(sources[i].isNull());
+			conditions[i] = bind(sources[i], join).notEqual(v).or(bind(sources[i], join).isNull());
 			i++;
 		}
 
 		for(; i<sources.length; i++)
-			conditions[i] = sources[i].isNotNull();
+			conditions[i] = bind(sources[i], join).isNotNull();
 
 		return Cope.or(conditions);
 	}
