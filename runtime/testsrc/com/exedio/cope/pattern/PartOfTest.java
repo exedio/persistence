@@ -60,6 +60,24 @@ public class PartOfTest extends TestWithEnvironment
 		// parts condition
 		assertEquals(list(part1, part2), container.getUnordered(null));
 		assertEquals(list(part1       ), container.getUnordered(part1Condition));
+
+		// query
+		{
+			final String expected =
+					"select this from PartOfItem " +
+					"where container='" + container + "' " +
+					"order by this";
+			assertEquals(expected, PartOfItem.unordered.getPartsQuery(PartOfItem.class, container, null).toString());
+			assertEquals(expected, PartOfItem.unordered.getPartsQuery(                  container, null).toString());
+		}
+		{
+			final String expected =
+					"select this from PartOfItem " +
+					"where (container='" + container + "' AND partString='part1') " +
+					"order by this";
+			assertEquals(expected, PartOfItem.unordered.getPartsQuery(PartOfItem.class, container, part1Condition).toString());
+			assertEquals(expected, PartOfItem.unordered.getPartsQuery(                  container, part1Condition).toString());
+		}
 	}
 
 	@Test void testOrdered()
@@ -87,6 +105,24 @@ public class PartOfTest extends TestWithEnvironment
 		// parts condition
 		assertEquals(list(part2, part1, part3), container.getOrdered(null));
 		assertEquals(list(part1              ), container.getOrdered(part1Condition));
+
+		// query
+		{
+			final String expected =
+					"select this from PartOfItem " +
+					"where container='" + container + "' " +
+					"order by order, this";
+			assertEquals(expected, PartOfItem.ordered.getPartsQuery(PartOfItem.class, container, null).toString());
+			assertEquals(expected, PartOfItem.ordered.getPartsQuery(                  container, null).toString());
+		}
+		{
+			final String expected =
+					"select this from PartOfItem " +
+					"where (container='" + container + "' AND partString='part1') " +
+					"order by order, this";
+			assertEquals(expected, PartOfItem.ordered.getPartsQuery(PartOfItem.class, container, part1Condition).toString());
+			assertEquals(expected, PartOfItem.ordered.getPartsQuery(                  container, part1Condition).toString());
+		}
 	}
 
 	private static final Condition part1Condition = PartOfItem.partString.equal("part1");

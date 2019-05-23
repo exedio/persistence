@@ -99,6 +99,15 @@ public final class PartOf<C extends Item> extends Pattern
 			@Parameter(value="container", nullability=NullableIfContainerOptional.class) final C container,
 			@Nullable @Parameter("condition") final Condition condition)
 	{
+		return getPartsQuery(partClass, container, condition).search();
+	}
+
+	@Nonnull
+	public <P extends Item> Query<P> getPartsQuery(
+			@Nonnull final Class<P> partClass,
+			final C container,
+			@Nullable final Condition condition)
+	{
 		final Type<P> type = getType().as(partClass);
 		final Condition parentCondition = this.container.equal(container);
 		final Query<P> q = type.newQuery(condition!=null ? Cope.and(parentCondition, condition) : parentCondition);
@@ -109,12 +118,17 @@ public final class PartOf<C extends Item> extends Pattern
 		else
 			q.setOrderBy(typeThis, true);
 
-		return q.search();
+		return q;
 	}
 
 	public List<? extends Item> getParts(final Item container)
 	{
 		return getParts(getType().getJavaClass(), Cast.verboseCast(this.container.getValueClass(), container));
+	}
+
+	public Query<? extends Item> getPartsQuery(final Item container, @Nullable final Condition condition)
+	{
+		return getPartsQuery(getType().getJavaClass(), Cast.verboseCast(this.container.getValueClass(), container), condition);
 	}
 
 	// static convenience methods ---------------------------------
