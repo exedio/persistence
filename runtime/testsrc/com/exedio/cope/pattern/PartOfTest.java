@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
@@ -58,7 +59,7 @@ public class PartOfTest extends TestWithEnvironment
 
 		// parts condition
 		assertEquals(list(part1, part2), container.getUnordered(null));
-		assertEquals(list(part1       ), container.getUnordered(PartOfItem.partString.equal("part1")));
+		assertEquals(list(part1       ), container.getUnordered(part1Condition));
 	}
 
 	@Test void testOrdered()
@@ -85,6 +86,8 @@ public class PartOfTest extends TestWithEnvironment
 
 		// parts condition
 		assertEquals(list(part2, part1, part3), container.getOrdered(null));
-		assertEquals(list(part1              ), container.getOrdered(PartOfItem.partString.equal("part1")));
+		assertEquals(list(part1              ), container.getOrdered(part1Condition));
 	}
+
+	private static final Condition part1Condition = PartOfItem.partString.equal("part1");
 }
