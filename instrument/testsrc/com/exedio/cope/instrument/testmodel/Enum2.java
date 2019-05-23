@@ -18,7 +18,17 @@
 
 package com.exedio.cope.instrument.testmodel;
 
+import com.exedio.cope.instrument.WrapInterim;
+
 public enum Enum2
 {
-	ENUM2A
+	ENUM2A;
+
+	@SuppressWarnings("unused")
+	@WrapInterim
+	static final String notAnEnumValue = "InterimProcessor must not generate enum constant";
+
+	@SuppressWarnings("unused")
+	@WrapInterim
+	static final Enum2 notAnEnumValueDeclaration = ENUM2A;
 }

@@ -342,7 +342,7 @@ final class InterimProcessor extends JavacProcessor
 			if (ct.getKind()==Tree.Kind.ENUM)
 			{
 				final LineCodePart line = code.startLine("");
-				final CollectEnumValuesVisitor enumCollector = new CollectEnumValuesVisitor();
+				final CollectEnumValuesVisitor enumCollector = new CollectEnumValuesVisitor(getElement(ct));
 				enumCollector.visitClass(ct, null);
 				final StringSeparator comma = new StringSeparator(", ");
 				for (final VariableTree enumValue : enumCollector.enumValues)
@@ -805,6 +805,37 @@ final class InterimProcessor extends JavacProcessor
 			}
 			return result;
 		}
+
+		private class CollectEnumValuesVisitor extends TreeScanner<Void, Void>
+		{
+			private final Element enumTypeElement;
+			final List<VariableTree> enumValues = new ArrayList<>();
+
+			CollectEnumValuesVisitor(final Element enumTypeElement)
+			{
+				this.enumTypeElement = enumTypeElement;
+			}
+
+			@Override
+			public Void visitMethod(final MethodTree mt, final Void p)
+			{
+				return null;
+			}
+
+			@Override
+			public Void visitVariable(final VariableTree vt, final Void p)
+			{
+				final Set<Modifier> flags = vt.getModifiers().getFlags();
+				if (flags.contains(Modifier.STATIC) &&
+					 flags.contains(Modifier.FINAL) &&
+					 getElement(vt.getType()).equals(enumTypeElement) &&
+					 vt.getInitializer().getKind()==Tree.Kind.NEW_CLASS)
+				{
+					enumValues.add(vt);
+				}
+				return null;
+			}
+		}
 	}
 
 	private static class Code
@@ -951,28 +982,6 @@ final class InterimProcessor extends JavacProcessor
 		void write(final Writer w, final int indent) throws IOException
 		{
 			code.write(w, indent+1);
-		}
-	}
-
-	private static class CollectEnumValuesVisitor extends TreeScanner<Void, Void>
-	{
-		final List<VariableTree> enumValues = new ArrayList<>();
-
-		@Override
-		public Void visitMethod(final MethodTree mt, final Void p)
-		{
-			return null;
-		}
-
-		@Override
-		public Void visitVariable(final VariableTree vt, final Void p)
-		{
-			final Set<Modifier> flags = vt.getModifiers().getFlags();
-			if (flags.contains(Modifier.STATIC) && flags.contains(Modifier.FINAL))
-			{
-				enumValues.add(vt);
-			}
-			return null;
 		}
 	}
 }
