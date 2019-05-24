@@ -31,4 +31,8 @@ public enum Enum2
 	@SuppressWarnings("unused")
 	@WrapInterim
 	static final Enum2 notAnEnumValueDeclaration = ENUM2A;
+
+	@SuppressWarnings("unused")
+	@WrapInterim
+	static final char primitive = 'x';
 }

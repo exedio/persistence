@@ -828,7 +828,7 @@ final class InterimProcessor extends JavacProcessor
 				final Set<Modifier> flags = vt.getModifiers().getFlags();
 				if (flags.contains(Modifier.STATIC) &&
 					 flags.contains(Modifier.FINAL) &&
-					 getElement(vt.getType()).equals(enumTypeElement) &&
+					 enumTypeElement.equals(getElement(vt.getType())) &&
 					 vt.getInitializer().getKind()==Tree.Kind.NEW_CLASS)
 				{
 					enumValues.add(vt);
