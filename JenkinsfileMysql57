@@ -1,6 +1,14 @@
 
 timestamps
 {
+	def isRelease = env.BRANCH_NAME.toString().equals("master")
+
+	properties([
+			buildDiscarder(logRotator(
+					numToKeepStr : isRelease ? '1000' : '30'
+			))
+	])
+
 	env.DATABASE_HOST = 'mysql57.ci.test'
 
 	//noinspection GroovyAssignabilityCheck
@@ -20,14 +28,6 @@ timestamps
 				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 				env.SCHEMA = "ci_${HOSTNAME}_${EXECUTOR_NUMBER}"
-
-				def isRelease = env.BRANCH_NAME.toString().equals("master")
-
-				properties([
-						buildDiscarder(logRotator(
-								numToKeepStr : isRelease ? '1000' : '30'
-						))
-				])
 
 				sh 'echo' +
 						' HOSTNAME -${HOSTNAME}-' +

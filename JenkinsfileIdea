@@ -1,6 +1,15 @@
 
 timestamps
 {
+	def isRelease = env.BRANCH_NAME.toString().equals("master")
+
+	properties([
+			buildDiscarder(logRotator(
+					numToKeepStr         : isRelease ? '1000' : '30',
+					artifactNumToKeepStr : isRelease ? '1000' :  '2'
+			))
+	])
+
 	def idea = 'idea-2018.3.5'
 	def confighome = '.IdeaIC2018.3'
 
@@ -18,15 +27,6 @@ timestamps
 
 				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-
-				def isRelease = env.BRANCH_NAME.toString().equals("master")
-
-				properties([
-						buildDiscarder(logRotator(
-								numToKeepStr         : isRelease ? '1000' : '30',
-								artifactNumToKeepStr : isRelease ? '1000' :  '2'
-						))
-				])
 
 				sh "ant/bin/ant -f conf/idea" +
 						' -Dconfig.home=' + env.HOME + '/' + confighome +
