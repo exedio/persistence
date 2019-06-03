@@ -104,22 +104,9 @@ public final class CheckConstraint extends Constraint
 	}
 
 	@Override
-	void createInTable(final StringBuilder bf)
+	void appendCreateClause(final StringBuilder bf)
 	{
-		assert isSupported() : getRequiredCondition();
-		bf.append(",CONSTRAINT ").
-			append(quoteName(name)).
-			append(" CHECK(").
-			append(requiredCondition).
-			append(')');
-	}
-
-	@Override
-	void create(final StringBuilder bf)
-	{
-		bf.append("ALTER TABLE ").
-			append(quoteName(table.name)).
-			append(" ADD CONSTRAINT ").
+		bf.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" CHECK(").
 			append(requiredCondition).

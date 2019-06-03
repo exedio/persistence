@@ -55,21 +55,9 @@ public final class PrimaryKeyConstraint extends Constraint
 	}
 
 	@Override
-	void createInTable(final StringBuilder bf)
+	void appendCreateClause(final StringBuilder bf)
 	{
-		bf.append(",CONSTRAINT ").
-			append(quoteName(name)).
-			append(" PRIMARY KEY(").
-			append(quoteName(primaryKeyColumn)).
-			append(')');
-	}
-
-	@Override
-	void create(final StringBuilder bf)
-	{
-		bf.append("ALTER TABLE ").
-			append(quoteName(table.name)).
-			append(" ADD CONSTRAINT ").
+		bf.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" PRIMARY KEY(").
 			append(quoteName(primaryKeyColumn)).

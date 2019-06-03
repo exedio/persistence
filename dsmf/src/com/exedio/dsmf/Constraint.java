@@ -204,7 +204,7 @@ public abstract class Constraint extends Node
 
 	public final void create()
 	{
-		create((StatementListener)null);
+		create(null);
 	}
 
 	public final void drop()
@@ -215,7 +215,10 @@ public abstract class Constraint extends Node
 	public final void create(final StatementListener listener)
 	{
 		final StringBuilder bf = new StringBuilder();
-		create(bf);
+		bf.append("ALTER TABLE ").
+			append(quoteName(table.name)).
+			append(" ADD ");
+		appendCreateClause(bf);
 		executeSQL(bf.toString(), listener);
 	}
 
@@ -226,7 +229,6 @@ public abstract class Constraint extends Node
 		executeSQL(bf.toString(), listener);
 	}
 
-	abstract void createInTable(StringBuilder bf);
-	abstract void create(StringBuilder bf);
+	abstract void appendCreateClause(StringBuilder bf);
 	abstract void drop(StringBuilder bf);
 }

@@ -208,7 +208,10 @@ public final class Table extends Node
 		{
 			//noinspection SuspiciousMethodCalls
 			if(c.isSupported() && (constraintsBroken!=null ? !constraintsBroken.contains(c) : !c.type.secondPhase))
-				c.createInTable(bf);
+			{
+				bf.append(',');
+				c.appendCreateClause(bf);
+			}
 		}
 
 		bf.append(')');

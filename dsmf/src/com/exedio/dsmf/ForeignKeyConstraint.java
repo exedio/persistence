@@ -88,11 +88,9 @@ public final class ForeignKeyConstraint extends Constraint
 	}
 
 	@Override
-	void create(final StringBuilder bf)
+	void appendCreateClause(final StringBuilder bf)
 	{
-		bf.append("ALTER TABLE ").
-			append(quoteName(table.name)).
-			append(" ADD CONSTRAINT ").
+		bf.append("CONSTRAINT ").
 			append(quoteName(name)).
 			append(" FOREIGN KEY (").
 			append(quoteName(foreignKeyColumn)).
@@ -113,25 +111,5 @@ public final class ForeignKeyConstraint extends Constraint
 	void drop(final StringBuilder bf)
 	{
 		dialect.dropForeignKeyConstraint(bf, quoteName(table.name), quoteName(name));
-	}
-
-	@Override
-	void createInTable(final StringBuilder bf)
-	{
-		bf.append(",CONSTRAINT ").
-			append(quoteName(name)).
-			append(" FOREIGN KEY (").
-			append(quoteName(foreignKeyColumn)).
-			append(") REFERENCES ").
-			append(quoteName(targetTable));
-
-		if(dialect.needsTargetColumnName())
-		{
-			bf.append('(').
-				append(quoteName(targetColumn)).
-				append(')');
-		}
-
-		dialect.appendForeignKeyCreateStatement(bf);
 	}
 }
