@@ -18,7 +18,7 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Collections.unmodifiableList;
 
 import com.exedio.cope.Query;

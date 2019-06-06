@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireNonNegative;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;

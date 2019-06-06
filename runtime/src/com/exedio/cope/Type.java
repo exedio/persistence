@@ -23,7 +23,7 @@ import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.FeatureSubSet.features;
 import static com.exedio.cope.Intern.intern;
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Collections.emptyMap;
 import static java.util.Collections.unmodifiableMap;
 import static java.util.Collections.unmodifiableSortedSet;

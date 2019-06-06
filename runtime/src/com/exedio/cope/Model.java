@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.ChangeHooks;

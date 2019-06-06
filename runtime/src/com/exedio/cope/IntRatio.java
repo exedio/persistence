@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireGreaterZero;
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireNonNegative;
 
 final class IntRatio
 {

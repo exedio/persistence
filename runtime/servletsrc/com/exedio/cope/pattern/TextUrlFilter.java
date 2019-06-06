@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
-import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;

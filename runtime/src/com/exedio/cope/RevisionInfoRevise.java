@@ -18,10 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireGreaterZero;
-import static com.exedio.cope.misc.Check.requireNonEmpty;
-import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;

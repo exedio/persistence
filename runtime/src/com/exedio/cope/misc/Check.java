@@ -20,31 +20,55 @@ package com.exedio.cope.misc;
 
 public final class Check
 {
+	/**
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
+	 */
+	@Deprecated
 	public static int requireGreaterZero(final int value, final String name)
 	{
 		return com.exedio.cope.util.Check.requireGreaterZero(value, name);
 	}
 
+	/**
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
+	 */
+	@Deprecated
 	public static long requireGreaterZero(final long value, final String name)
 	{
 		return com.exedio.cope.util.Check.requireGreaterZero(value, name);
 	}
 
+	/**
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
+	 */
+	@Deprecated
 	public static int requireNonNegative(final int value, final String name)
 	{
 		return com.exedio.cope.util.Check.requireNonNegative(value, name);
 	}
 
+	/**
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
+	 */
+	@Deprecated
 	public static long requireNonNegative(final long value, final String name)
 	{
 		return com.exedio.cope.util.Check.requireNonNegative(value, name);
 	}
 
+	/**
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
+	 */
+	@Deprecated
 	public static <E extends Comparable<E>> E requireAtLeast(final E value, final String name, final E minimum)
 	{
 		return com.exedio.cope.util.Check.requireAtLeast(value, name, minimum);
 	}
 
+	/**
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
+	 */
+	@Deprecated
 	public static String requireNonEmpty(final String value, final String name)
 	{
 		return com.exedio.cope.util.Check.requireNonEmpty(value, name);
@@ -53,7 +77,9 @@ public final class Check
 	/**
 	 * Besides checking the value, this method returns a copy of the given value
 	 * to avoid later modifications of the value by the caller.
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
 	 */
+	@Deprecated
 	public static <T> T[] requireNonEmptyAndCopy(final T[] value, final String name)
 	{
 		return com.exedio.cope.util.Check.requireNonEmptyAndCopy(value, name);
@@ -62,7 +88,9 @@ public final class Check
 	/**
 	 * Besides checking the value, this method returns a copy of the given value
 	 * to avoid later modifications of the value by the caller.
+	 * @deprecated Use {@link com.exedio.cope.util.Check} instead
 	 */
+	@Deprecated
 	public static String[] requireNonEmptyAndCopy(final String[] value, final String name)
 	{
 		return com.exedio.cope.util.Check.requireNonEmptyAndCopy(value, name);

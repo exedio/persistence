@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireGreaterZero;
-import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 
 import java.util.ArrayList;
 

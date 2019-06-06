@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.lang.Math.toIntExact;
 import static java.util.Objects.requireNonNull;
 

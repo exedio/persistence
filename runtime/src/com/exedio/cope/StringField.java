@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireGreaterZero;
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

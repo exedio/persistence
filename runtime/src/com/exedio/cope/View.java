@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;

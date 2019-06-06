@@ -30,6 +30,7 @@ import java.time.Duration;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("deprecation") // OK: testing deprecated API
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class CheckTest
 {

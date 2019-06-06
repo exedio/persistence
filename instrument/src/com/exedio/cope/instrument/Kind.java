@@ -18,7 +18,7 @@
 
 package com.exedio.cope.instrument;
 
-import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 
 import com.exedio.cope.Item;
 import java.util.HashMap;

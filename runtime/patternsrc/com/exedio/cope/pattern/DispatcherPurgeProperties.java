@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.misc.FactoryProperties;
 import com.exedio.cope.util.Properties;

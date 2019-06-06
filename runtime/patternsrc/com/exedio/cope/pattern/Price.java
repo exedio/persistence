@@ -18,7 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.misc.Check;
+import com.exedio.cope.util.Check;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.math.RoundingMode;

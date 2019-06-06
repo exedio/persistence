@@ -19,9 +19,9 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
-import static com.exedio.cope.misc.Check.requireGreaterZero;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.lang.System.nanoTime;
 import static java.util.Objects.requireNonNull;

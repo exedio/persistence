@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.Executor.integerResultSetHandler;
-import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
-import static com.exedio.cope.misc.Check.requireNonNegative;
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
+import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;

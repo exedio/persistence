@@ -22,7 +22,7 @@ import static com.exedio.cope.CastUtils.toIntCapped;
 import static com.exedio.cope.CopyConstraint.newCopyConstraint;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.TypesBound.future;
-import static com.exedio.cope.misc.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;

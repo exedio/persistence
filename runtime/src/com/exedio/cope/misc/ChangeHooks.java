@@ -18,7 +18,7 @@
 
 package com.exedio.cope.misc;
 
-import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ChangeHook;
@@ -64,6 +64,7 @@ public final class ChangeHooks
 		if(hooks!=null && hooks.length==0)
 			return EMPTY;
 
+		//noinspection ConstantConditions OK: should fail if null
 		hooks = requireNonEmptyAndCopy(hooks, "hooks");
 		if(hooks.length==1)
 			return hooks[0];

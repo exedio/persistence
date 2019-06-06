@@ -18,8 +18,8 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.misc.Check.requireNonEmpty;
-import static com.exedio.cope.misc.Check.requireNonEmptyAndCopy;
+import static com.exedio.cope.util.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.ChangeHooks;

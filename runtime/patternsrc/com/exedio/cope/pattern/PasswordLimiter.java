@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
-import static com.exedio.cope.misc.Check.requireAtLeast;
-import static com.exedio.cope.misc.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireAtLeast;
+import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.time.Duration.ofMillis;
 import static java.util.Objects.requireNonNull;
 
