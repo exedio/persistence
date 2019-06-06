@@ -559,7 +559,7 @@ final class OracleDialect extends Dialect
 		{
 			if(!tables.isEmpty())
 			{
-				Executor.update(connection, "set constraints all deferred");
+				Executor.update(connection, "SET CONSTRAINTS ALL DEFERRED");
 
 				final StringBuilder bf = new StringBuilder("BEGIN ");
 				for(final Table table : tables)
