@@ -66,7 +66,7 @@ public final class SamplerProperties extends Properties
 
 	// purge
 
-	final PurgeDays purgeDays = value("purge", true, PurgeDays::new);
+	final PurgeDays purge = value("purge", true, PurgeDays::new);
 
 	static final class PurgeDays extends Properties
 	{
@@ -111,8 +111,8 @@ public final class SamplerProperties extends Properties
 
 	public void purge(final Sampler sampler, final JobContext ctx)
 	{
-		if(purgeDays!=null)
-			purgeDays.purge(sampler, ctx);
+		if(purge!=null)
+			purge.purge(sampler, ctx);
 	}
 
 

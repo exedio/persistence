@@ -121,7 +121,7 @@ public class PurgePropertiesTest extends ConnectedTest
 		samplerModel.createSchema();
 
 		final SamplerProperties props = factory.create(newSource(false, new EnumMap<>(PurgedType.class)));
-		assertEquals(null, props.purgeDays);
+		assertEquals(null, props.purge);
 
 		final MC mc = new MC();
 		clockRule.override(clock);
@@ -137,11 +137,11 @@ public class PurgePropertiesTest extends ConnectedTest
 
 		final SamplerProperties props = factory.create(newSource(
 				null, new EnumMap<>(PurgedType.class)));
-		assertEquals(ofDays(57), props.purgeDays.model);
-		assertEquals(ofDays(57), props.purgeDays.transaction);
-		assertEquals(ofDays( 8), props.purgeDays.itemCache);
-		assertEquals(ofDays(29), props.purgeDays.clusterNode);
-		assertEquals(ofDays(29), props.purgeDays.media);
+		assertEquals(ofDays(57), props.purge.model);
+		assertEquals(ofDays(57), props.purge.transaction);
+		assertEquals(ofDays( 8), props.purge.itemCache);
+		assertEquals(ofDays(29), props.purge.clusterNode);
+		assertEquals(ofDays(29), props.purge.media);
 	}
 
 	@Test void testTooSmallTransaction()
