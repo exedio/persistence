@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MysqlDialect.sequenceColumnName;
+
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Dialect;
 import com.exedio.dsmf.PrimaryKeyConstraint;
@@ -32,13 +34,11 @@ final class MysqlSchemaDialect extends Dialect
 	private final boolean renameColumn;
 	private final String infoSchemaJoin;
 	private final String foreignKeyRule;
-	final String sequenceColumnName;
 	private final String rowFormat;
 
 	MysqlSchemaDialect(
 			final boolean datetime,
 			final boolean mysql80,
-			final String sequenceColumnName,
 			final String rowFormat)
 	{
 		super(null);
@@ -48,7 +48,6 @@ final class MysqlSchemaDialect extends Dialect
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		this.foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
-		this.sequenceColumnName = sequenceColumnName;
 		this.rowFormat = rowFormat;
 	}
 

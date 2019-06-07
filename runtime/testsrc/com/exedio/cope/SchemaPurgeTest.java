@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MysqlDialect.sequenceColumnName;
 import static com.exedio.cope.SchemaInfo.getDefaultToNextSequenceName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
@@ -233,7 +234,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		try(ResultSet rs = connection.
 					executeQuery(
 							"select max(" +
-							sequenceColumnName() +
+							sequenceColumnName +
 							"),count(*) from " +
 							quoteName(model, name)))
 		{
@@ -241,12 +242,6 @@ public class SchemaPurgeTest extends TestWithEnvironment
 			assertEquals(max,   rs.getInt(1), "max");
 			assertEquals(count, rs.getInt(2), "count");
 		}
-	}
-
-	// duplicate from MysqlDialect
-	private String sequenceColumnName()
-	{
-		return MysqlDialect.sequenceColumnName(propertiesFullSequenceColumnName());
 	}
 
 	@Test void testPurgeLimit()

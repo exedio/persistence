@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: key dialect.fullSequenceColumnName no longer supported.
+	This breaks backwards API compatibility on MySQL, check your deployed systems!
+	Probably this key is at its default, then you don't have to do anything.
 * MultiItemField#nullify() added.
 * VaultFileService properties: key directory.createAsNeeded changed to
 	directory.premised and *inverted its meaning*.

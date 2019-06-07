@@ -100,7 +100,6 @@ final class MysqlDialect extends Dialect
 	private final String deleteTable;
 	private final boolean smallIntegerTypes;
 	private final boolean shortConstraintNames;
-	final String sequenceColumnName;
 	private final boolean supportsAnyValue;
 	private final boolean supportsNativeDate;
 	private final boolean supportsFulltextIndex;
@@ -117,7 +116,6 @@ final class MysqlDialect extends Dialect
 				new MysqlSchemaDialect(
 						probe.environmentInfo.isDatabaseVersionAtLeast(5, 6), // supportsNativeDate
 						probe.environmentInfo.isDatabaseVersionAtLeast(8, 0), // foreignKeyRule
-						sequenceColumnName(properties),
 						properties.rowFormat.sql()));
 
 		final EnvironmentInfo env = probe.environmentInfo;
@@ -135,7 +133,6 @@ final class MysqlDialect extends Dialect
 		this.deleteTable = properties.avoidTruncate ? "DELETE FROM " : "TRUNCATE ";
 		this.smallIntegerTypes = properties.smallIntegerTypes;
 		this.shortConstraintNames = !properties.longConstraintNames;
-		this.sequenceColumnName = sequenceColumnName(properties);
 
 		if(connectionCompress && !env.isDatabaseVersionAtLeast(5, 7))
 			throw new IllegalArgumentException(
@@ -162,18 +159,7 @@ final class MysqlDialect extends Dialect
 		extractUniqueViolationMessagePattern = EXTRACT_UNIQUE_VIOLATION_MESSAGE_PATTERN(mysql8);
 	}
 
-	private static String sequenceColumnName(final MysqlProperties properties)
-	{
-		return sequenceColumnName(properties.fullSequenceColumnName);
-	}
-
-	static String sequenceColumnName(final boolean full)
-	{
-		return
-				full
-				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
-				: "x";
-	}
+	static final String sequenceColumnName = "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN";
 
 	@Override
 	void completeConnectionInfo(final Properties info)

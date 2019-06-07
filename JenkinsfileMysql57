@@ -58,7 +58,6 @@ timestamps
 						'my57-nstmp-sq',
 						'mysql-connector-java',
 						'cache.stamps=false\n' +
-						'dialect.fullSequenceColumnName=false\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(
@@ -107,7 +106,6 @@ timestamps
 						'my57m-nstmp-sq',
 						'mariadb-java-client',
 						'cache.stamps=false\n' +
-						'dialect.fullSequenceColumnName=false\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(
