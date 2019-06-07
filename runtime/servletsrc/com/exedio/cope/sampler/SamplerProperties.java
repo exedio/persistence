@@ -18,7 +18,7 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Sampler.daysBeforeNow;
+import static com.exedio.cope.sampler.Sampler.beforeNow;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
@@ -95,11 +95,11 @@ public final class SamplerProperties extends Properties
 		{
 			final long now = Clock.currentTimeMillis();
 			final HashMap<Type<?>,Date> limits = new HashMap<>();
-			limits.put(SamplerModel      .TYPE, daysBeforeNow(now, model));
-			limits.put(SamplerTransaction.TYPE, daysBeforeNow(now, transaction));
-			limits.put(SamplerItemCache  .TYPE, daysBeforeNow(now, itemCache));
-			limits.put(SamplerClusterNode.TYPE, daysBeforeNow(now, clusterNode));
-			limits.put(SamplerMedia      .TYPE, daysBeforeNow(now, media));
+			limits.put(SamplerModel      .TYPE, beforeNow(now, model));
+			limits.put(SamplerTransaction.TYPE, beforeNow(now, transaction));
+			limits.put(SamplerItemCache  .TYPE, beforeNow(now, itemCache));
+			limits.put(SamplerClusterNode.TYPE, beforeNow(now, clusterNode));
+			limits.put(SamplerMedia      .TYPE, beforeNow(now, media));
 			sampler.purge(limits, ctx);
 		}
 

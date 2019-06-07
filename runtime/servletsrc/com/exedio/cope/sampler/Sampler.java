@@ -246,12 +246,12 @@ public class Sampler
 		if(days<=0)
 			throw new IllegalArgumentException(String.valueOf(days));
 
-		purge(daysBeforeNow(Clock.currentTimeMillis(), Duration.ofDays(days)), ctx);
+		purge(beforeNow(Clock.currentTimeMillis(), Duration.ofDays(days)), ctx);
 	}
 
-	static Date daysBeforeNow(final long now, final Duration days)
+	static Date beforeNow(final long now, final Duration duration)
 	{
-		return new Date(now - days.toMillis());
+		return new Date(now - duration.toMillis());
 	}
 
 	public final void purge(final Date limit, final JobContext ctx)
