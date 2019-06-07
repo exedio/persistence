@@ -36,50 +36,50 @@ public class DispatcherPurgePropertiesTest
 	@Test void testDefault()
 	{
 		final DispatcherPurgeProperties props = create(factory());
-		assertEquals(ZERO, props.retainDaysSuccess);
-		assertEquals(ZERO, props.retainDaysFinalFailure);
+		assertEquals(ZERO, props.retainSuccess);
+		assertEquals(ZERO, props.retainFinalFailure);
 	}
 
 	@Test void testCustom()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(4, 6));
-		assertEquals(ofDays(4), props.retainDaysSuccess);
-		assertEquals(ofDays(6), props.retainDaysFinalFailure);
+		assertEquals(ofDays(4), props.retainSuccess);
+		assertEquals(ofDays(6), props.retainFinalFailure);
 	}
 
 	@Test void testCustomDuration()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDefault(ofHours(4), ofHours(6)));
-		assertEquals(ofHours(4), props.retainDaysSuccess);
-		assertEquals(ofHours(6), props.retainDaysFinalFailure);
+		assertEquals(ofHours(4), props.retainSuccess);
+		assertEquals(ofHours(6), props.retainFinalFailure);
 	}
 
 	@Test void testMinimum()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(1));
-		assertEquals(ofDays(1), props.retainDaysSuccess);
-		assertEquals(ofDays(1), props.retainDaysFinalFailure);
+		assertEquals(ofDays(1), props.retainSuccess);
+		assertEquals(ofDays(1), props.retainFinalFailure);
 	}
 
 	@Test void testMinimumDuration()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDefault(ofNanos(1)));
-		assertEquals(ofNanos(1), props.retainDaysSuccess);
-		assertEquals(ofNanos(1), props.retainDaysFinalFailure);
+		assertEquals(ofNanos(1), props.retainSuccess);
+		assertEquals(ofNanos(1), props.retainFinalFailure);
 	}
 
 	@Test void testOmit()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDaysDefault(0));
-		assertEquals(ZERO, props.retainDaysSuccess);
-		assertEquals(ZERO, props.retainDaysFinalFailure);
+		assertEquals(ZERO, props.retainSuccess);
+		assertEquals(ZERO, props.retainFinalFailure);
 	}
 
 	@Test void testOmitDuration()
 	{
 		final DispatcherPurgeProperties props = create(factory().retainDefault(ZERO));
-		assertEquals(ZERO, props.retainDaysSuccess);
-		assertEquals(ZERO, props.retainDaysFinalFailure);
+		assertEquals(ZERO, props.retainSuccess);
+		assertEquals(ZERO, props.retainFinalFailure);
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
@@ -93,7 +93,7 @@ public class DispatcherPurgePropertiesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("retainDaysSuccess must not be negative, but was PT-24H", e.getMessage());
+			assertEquals("retainSuccess must not be negative, but was PT-24H", e.getMessage());
 		}
 	}
 
@@ -108,7 +108,7 @@ public class DispatcherPurgePropertiesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("retainDaysSuccess must not be negative, but was PT-0.000000001S", e.getMessage());
+			assertEquals("retainSuccess must not be negative, but was PT-0.000000001S", e.getMessage());
 		}
 	}
 
@@ -123,7 +123,7 @@ public class DispatcherPurgePropertiesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("retainDaysFinalFailure must not be negative, but was PT-24H", e.getMessage());
+			assertEquals("retainFinalFailure must not be negative, but was PT-24H", e.getMessage());
 		}
 	}
 
@@ -138,7 +138,7 @@ public class DispatcherPurgePropertiesTest
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("retainDaysFinalFailure must not be negative, but was PT-0.000000001S", e.getMessage());
+			assertEquals("retainFinalFailure must not be negative, but was PT-0.000000001S", e.getMessage());
 		}
 	}
 

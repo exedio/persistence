@@ -799,8 +799,8 @@ public final class Dispatcher extends Pattern
 			final DispatcherPurgeProperties properties,
 			final Condition restriction)
 	{
-		final Duration success = properties.retainDaysSuccess;
-		final Duration failure = properties.retainDaysFinalFailure;
+		final Duration success = properties.retainSuccess;
+		final Duration failure = properties.retainFinalFailure;
 		if(success.isZero() && failure.isZero())
 			return null;
 

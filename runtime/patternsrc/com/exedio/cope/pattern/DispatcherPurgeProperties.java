@@ -28,8 +28,8 @@ import java.time.Duration;
 
 public final class DispatcherPurgeProperties extends FactoryProperties<DispatcherPurgeProperties.Factory>
 {
-	final Duration retainDaysSuccess      = value("retain.success",      factory.retainDaysSuccess,      ZERO);
-	final Duration retainDaysFinalFailure = value("retain.finalFailure", factory.retainDaysFinalFailure, ZERO);
+	final Duration retainSuccess      = value("retain.success",      factory.retainSuccess,      ZERO);
+	final Duration retainFinalFailure = value("retain.finalFailure", factory.retainFinalFailure, ZERO);
 
 	public static Factory factory()
 	{
@@ -44,15 +44,15 @@ public final class DispatcherPurgeProperties extends FactoryProperties<Dispatche
 
 	public static final class Factory implements Properties.Factory<DispatcherPurgeProperties>
 	{
-		private final Duration retainDaysSuccess;
-		private final Duration retainDaysFinalFailure;
+		private final Duration retainSuccess;
+		private final Duration retainFinalFailure;
 
 		private Factory(
-				final Duration retainDaysSuccess,
-				final Duration retainDaysFinalFailure)
+				final Duration retainSuccess,
+				final Duration retainFinalFailure)
 		{
-			this.retainDaysSuccess      = requireNonNegative(retainDaysSuccess,      "retainDaysSuccess");
-			this.retainDaysFinalFailure = requireNonNegative(retainDaysFinalFailure, "retainDaysFinalFailure");
+			this.retainSuccess      = requireNonNegative(retainSuccess,      "retainSuccess");
+			this.retainFinalFailure = requireNonNegative(retainFinalFailure, "retainFinalFailure");
 		}
 
 		// TODO remove when available in new version of copeutil
