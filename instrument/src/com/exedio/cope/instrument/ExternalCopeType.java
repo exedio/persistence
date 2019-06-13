@@ -63,10 +63,11 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	@Override
 	ExternalCopeType getSuperclass()
 	{
-		if (itemClass.getSuperclass()==Item.class)
+		final Class<?> superclass = itemClass.getSuperclass();
+		if(superclass==Item.class)
 			return null;
 		else
-			return new ExternalCopeType(itemClass.getSuperclass());
+			return new ExternalCopeType(superclass);
 	}
 
 	@Override
