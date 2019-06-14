@@ -44,6 +44,8 @@ public class TypeColumnTypeTest
 		assertIt("VARCHAR(13)", Ref.standard);
 		assertIt("VARCHAR(20)", MinLengthSuper.TYPE);
 		assertIt("VARCHAR(20)", Ref.minLength);
+		assertIt("VARCHAR(15)", MinLengthSub.TYPE);
+		assertIt("VARCHAR(15)", Ref.minLengthSub);
 		assertIt("VARCHAR(25)", MinLengthIneffectiveSuper.TYPE);
 		assertIt("VARCHAR(25)", Ref.minLengthIneffective);
 	}
@@ -110,7 +112,7 @@ public class TypeColumnTypeTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	private static final class MinLengthSub extends MinLengthSuper
+	private static class MinLengthSub extends MinLengthSuper
 	{
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
@@ -119,7 +121,20 @@ public class TypeColumnTypeTest
 		private static final com.exedio.cope.Type<MinLengthSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSub.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
-		private MinLengthSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		protected MinLengthSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class MinLengthSubber extends MinLengthSub
+	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<MinLengthSubber> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSubber.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private MinLengthSubber(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@CopeTypeColumnMinLength(20)
@@ -154,6 +169,7 @@ public class TypeColumnTypeTest
 	{
 		@WrapperIgnore static final ItemField<StandardSuper> standard = ItemField.create(StandardSuper.class);
 		@WrapperIgnore static final ItemField<MinLengthSuper> minLength = ItemField.create(MinLengthSuper.class);
+		@WrapperIgnore static final ItemField<MinLengthSub> minLengthSub = ItemField.create(MinLengthSub.class);
 		@WrapperIgnore static final ItemField<MinLengthIneffectiveSuper> minLengthIneffective = ItemField.create(MinLengthIneffectiveSuper.class);
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -168,7 +184,7 @@ public class TypeColumnTypeTest
 
 	private static final Model model = new Model(
 			StandardSuper.TYPE, StandardSub.TYPE,
-			MinLengthSuper.TYPE, MinLengthSub.TYPE,
+			MinLengthSuper.TYPE, MinLengthSub.TYPE, MinLengthSubber.TYPE,
 			MinLengthIneffectiveSuper.TYPE, MinLengthIneffectiveSub.TYPE,
 			Ref.TYPE);
 
