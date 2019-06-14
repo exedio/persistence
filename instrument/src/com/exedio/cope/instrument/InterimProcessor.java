@@ -321,17 +321,7 @@ final class InterimProcessor extends JavacProcessor
 			currentClassStack.addFirst(element);
 			final StringBuilder declaration = new StringBuilder();
 			declaration.append(toStringWithoutMostAnnotations(ct.getModifiers())).append(getTypeToken(ct)).append(" ").append(ct.getSimpleName());
-			if (!ct.getTypeParameters().isEmpty())
-			{
-				declaration.append("<");
-				final StringSeparator comma = new StringSeparator(", ");
-				for (final TypeParameterTree typeParameter : ct.getTypeParameters())
-				{
-					comma.appendTo(declaration);
-					declaration.append(typeParameter);
-				}
-				declaration.append(">");
-			}
+			declaration.append(getTypeParameterString(ct.getTypeParameters()));
 			if (ct.getExtendsClause()!=null)
 			{
 				declaration.append(" extends ").append(ct.getExtendsClause());
@@ -415,6 +405,23 @@ final class InterimProcessor extends JavacProcessor
 			code = code.closeBlock();
 			currentClassStack.removeFirst();
 			return result;
+		}
+
+		private CharSequence getTypeParameterString(final List<? extends TypeParameterTree> tp)
+		{
+			final StringBuilder typeParameterString = new StringBuilder();
+			if (!tp.isEmpty())
+			{
+				typeParameterString.append(" <");
+				final StringSeparator comma = new StringSeparator(", ");
+				for (final TypeParameterTree typeParameter : tp)
+				{
+					comma.appendTo(typeParameterString);
+					typeParameterString.append(typeParameter);
+				}
+				typeParameterString.append(">");
+			}
+			return typeParameterString;
 		}
 
 		private List<TypeElement> getInterfacesThatAddMethods(final TypeElement typeElement)
@@ -583,6 +590,9 @@ final class InterimProcessor extends JavacProcessor
 				}
 				else
 				{
+					if (mt.getName().contentEquals("genericStatic"))
+						System.out.println("mt "+mt.getName()+" "+mt.getTypeParameters());
+					part.continueLine(getTypeParameterString(mt.getTypeParameters()));
 					part.continueLine(" ");
 					part.continueLine(mt.getReturnType().toString());
 					part.continueLine(" ");
@@ -941,7 +951,7 @@ final class InterimProcessor extends JavacProcessor
 			this.indented = indented;
 		}
 
-		void continueLine(final String line)
+		void continueLine(final CharSequence line)
 		{
 			append(line);
 		}
