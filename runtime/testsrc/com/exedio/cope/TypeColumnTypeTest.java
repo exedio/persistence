@@ -17,13 +17,16 @@
  */
 
 package com.exedio.cope;
+
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -66,65 +69,101 @@ public class TypeColumnTypeTest
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class StandardSuper extends Item
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<StandardSuper> TYPE = TypesBound.newType(StandardSuper.class);
-		StandardSuper(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<StandardSuper> TYPE = com.exedio.cope.TypesBound.newType(StandardSuper.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected StandardSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class StandardSub extends StandardSuper
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<StandardSub> TYPE = TypesBound.newType(StandardSub.class);
-		private StandardSub(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<StandardSub> TYPE = com.exedio.cope.TypesBound.newType(StandardSub.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private StandardSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@CopeTypeColumnMinLength(20)
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MinLengthSuper extends Item
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<MinLengthSuper> TYPE = TypesBound.newType(MinLengthSuper.class);
-		MinLengthSuper(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<MinLengthSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSuper.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected MinLengthSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MinLengthSub extends MinLengthSuper
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<MinLengthSub> TYPE = TypesBound.newType(MinLengthSub.class);
-		private MinLengthSub(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<MinLengthSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSub.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private MinLengthSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@CopeTypeColumnMinLength(20)
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MinLengthIneffectiveSuper extends Item
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<MinLengthIneffectiveSuper> TYPE = TypesBound.newType(MinLengthIneffectiveSuper.class);
-		MinLengthIneffectiveSuper(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<MinLengthIneffectiveSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSuper.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		protected MinLengthIneffectiveSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MinLengthIneffectiveSub extends MinLengthIneffectiveSuper
 	{
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<MinLengthIneffectiveSub> TYPE = TypesBound.newType(MinLengthIneffectiveSub.class);
-		private MinLengthIneffectiveSub(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<MinLengthIneffectiveSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSub.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private MinLengthIneffectiveSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class Ref extends Item
 	{
-		static final ItemField<StandardSuper> standard = ItemField.create(StandardSuper.class);
-		static final ItemField<MinLengthSuper> minLength = ItemField.create(MinLengthSuper.class);
-		static final ItemField<MinLengthIneffectiveSuper> minLengthIneffective = ItemField.create(MinLengthIneffectiveSuper.class);
+		@WrapperIgnore static final ItemField<StandardSuper> standard = ItemField.create(StandardSuper.class);
+		@WrapperIgnore static final ItemField<MinLengthSuper> minLength = ItemField.create(MinLengthSuper.class);
+		@WrapperIgnore static final ItemField<MinLengthIneffectiveSuper> minLengthIneffective = ItemField.create(MinLengthIneffectiveSuper.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
-		static final Type<Ref> TYPE = TypesBound.newType(Ref.class);
-		private Ref(final ActivationParameters ap) { super(ap); }
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final com.exedio.cope.Type<Ref> TYPE = com.exedio.cope.TypesBound.newType(Ref.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private Ref(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final Model model = new Model(
