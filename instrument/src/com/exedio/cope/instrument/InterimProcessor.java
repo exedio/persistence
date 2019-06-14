@@ -590,8 +590,6 @@ final class InterimProcessor extends JavacProcessor
 				}
 				else
 				{
-					if (mt.getName().contentEquals("genericStatic"))
-						System.out.println("mt "+mt.getName()+" "+mt.getTypeParameters());
 					part.continueLine(getTypeParameterString(mt.getTypeParameters()));
 					part.continueLine(" ");
 					part.continueLine(mt.getReturnType().toString());
