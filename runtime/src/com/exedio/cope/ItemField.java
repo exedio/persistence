@@ -572,8 +572,20 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	public enum DeletePolicy
 	{
+		/**
+		 * Corresponds to SQL referential action
+		 * <a href="https://en.wikipedia.org/wiki/Foreign_key#RESTRICT">RESTRICT</a>.
+		 */
 		FORBID,
+		/**
+		 * Corresponds to SQL referential action
+		 * <a href="https://en.wikipedia.org/wiki/Foreign_key#SET_DEFAULT_,_SET_NULL">SET NULL</a>.
+		 */
 		NULLIFY,
+		/**
+		 * Corresponds to SQL referential action
+		 * <a href="https://en.wikipedia.org/wiki/Foreign_key#CASCADE">CASCADE</a>.
+		 */
 		CASCADE
 	}
 
