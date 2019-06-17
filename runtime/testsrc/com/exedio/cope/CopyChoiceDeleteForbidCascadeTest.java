@@ -62,6 +62,7 @@ public class CopyChoiceDeleteForbidCascadeTest extends TestWithEnvironment
 
 		assertEquals(asList( asList(c, p1) ), Container.search());
 		assertEquals(asList( asList(p1, c), asList(p2, c) ), Part.search());
+		changeHooks.assertDeleted();
 	}
 
 	@Test void testDeletePartChosen()
@@ -74,11 +75,13 @@ public class CopyChoiceDeleteForbidCascadeTest extends TestWithEnvironment
 
 		assertEquals(asList( asList(c, p1) ), Container.search());
 		assertEquals(asList( asList(p1, c), asList(p2, c) ), Part.search());
+		changeHooks.assertDeleted();
 	}
 
 	@Test void testDeletePartChosenOnly()
 	{
 		p2.deleteCopeItem();
+		changeHooks.assertDeleted(p2);
 		assertFails(
 				p1::deleteCopeItem,
 				IntegrityViolationException.class,
@@ -87,6 +90,7 @@ public class CopyChoiceDeleteForbidCascadeTest extends TestWithEnvironment
 
 		assertEquals(asList( asList(c, p1) ), Container.search());
 		assertEquals(asList( asList(p1, c) ), Part.search());
+		changeHooks.assertDeleted();
 	}
 
 	@Test void testDeletePartOther()
@@ -95,6 +99,7 @@ public class CopyChoiceDeleteForbidCascadeTest extends TestWithEnvironment
 
 		assertEquals(asList( asList(c, p1) ), Container.search());
 		assertEquals(asList( asList(p1, c) ), Part.search());
+		changeHooks.assertDeleted(p2);
 	}
 
 
@@ -170,5 +175,10 @@ public class CopyChoiceDeleteForbidCascadeTest extends TestWithEnvironment
 		private Part(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final Model MODEL = new Model(Container.TYPE, Part.TYPE);
+	private final CopyChoiceDeleteRule changeHooks = new CopyChoiceDeleteRule(MODEL);
+
+	static final Model MODEL = new ModelBuilder().
+			add(Container.TYPE, Part.TYPE).
+			changeHooks(CopyChoiceDeleteChangeHook::new).
+			build();
 }

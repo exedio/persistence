@@ -56,6 +56,7 @@ public class CopyChoiceDeleteNullifyCascadeTest extends TestWithEnvironment
 
 		assertEquals(asList( ), Container.search());
 		assertEquals(asList( ), Part.search());
+		changeHooks.assertDeleted(c, p1, p2);
 	}
 
 	@Test void testDeletePartChosen()
@@ -64,15 +65,18 @@ public class CopyChoiceDeleteNullifyCascadeTest extends TestWithEnvironment
 
 		assertEquals(asList( asList(c, null) ), Container.search());
 		assertEquals(asList( asList(p2, c) ), Part.search());
+		changeHooks.assertDeleted(p1);
 	}
 
 	@Test void testDeletePartChosenOnly()
 	{
 		p2.deleteCopeItem();
+		changeHooks.assertDeleted(p2);
 		p1.deleteCopeItem();
 
 		assertEquals(asList( asList(c, null) ), Container.search());
 		assertEquals(asList( ), Part.search());
+		changeHooks.assertDeleted(p1);
 	}
 
 	@Test void testDeletePartOther()
@@ -81,6 +85,7 @@ public class CopyChoiceDeleteNullifyCascadeTest extends TestWithEnvironment
 
 		assertEquals(asList( asList(c, p1) ), Container.search());
 		assertEquals(asList( asList(p1, c) ), Part.search());
+		changeHooks.assertDeleted(p2);
 	}
 
 
@@ -156,5 +161,10 @@ public class CopyChoiceDeleteNullifyCascadeTest extends TestWithEnvironment
 		private Part(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final Model MODEL = new Model(Container.TYPE, Part.TYPE);
+	private final CopyChoiceDeleteRule changeHooks = new CopyChoiceDeleteRule(MODEL);
+
+	static final Model MODEL = new ModelBuilder().
+			add(Container.TYPE, Part.TYPE).
+			changeHooks(CopyChoiceDeleteChangeHook::new).
+			build();
 }
