@@ -330,7 +330,7 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "f");
 
 		createDirectory(root.toPath().resolve("f"));
-		assertEquals("directories 16", dirs.call());
+		assertEquals(16, dirs.call());
 	}
 
 	@Test void probeDirectoryExistsTwo() throws Exception
@@ -377,7 +377,7 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "ff");
 
 		createDirectory(root.toPath().resolve("ff"));
-		assertEquals("directories 256", dirs.call());
+		assertEquals(256, dirs.call());
 	}
 
 	@Test void probeDirectoryExistsThree() throws Exception
@@ -405,6 +405,6 @@ public class VaultFileServicePropertiesProbeTest
 			for(final String s2 : hexDigits)
 				for(final String s3 : hexDigits)
 					createDirectory(root.toPath().resolve(s1+s2+s3));
-		assertEquals("directories 4096", dirs.call());
+		assertEquals(4096, dirs.call());
 	}
 }
