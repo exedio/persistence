@@ -51,8 +51,9 @@ public final class VaultFileService implements VaultService
 			final Props properties)
 	{
 		this.rootDir = properties.root;
-		this.directoryLength = properties.directory!=null ? properties.directory.length : 0;
-		this.directoryCreate = properties.directory!=null && properties.directory.createAsNeeded;
+		final DirectoryProps directory = properties.directory;
+		this.directoryLength = directory!=null ? directory.length : 0;
+		this.directoryCreate = directory!=null && directory.createAsNeeded;
 		this.tempDir = properties.tempDir();
 
 		{
