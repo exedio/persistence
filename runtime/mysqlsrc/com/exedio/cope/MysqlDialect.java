@@ -114,7 +114,7 @@ final class MysqlDialect extends Dialect
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
 		supportsNativeDate = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
 		final boolean mariaDriver = env.getDriverName().startsWith("MariaDB");
-		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$") : null;
+		extractUniqueViolationMessagePattern = mariaDriver ? Pattern.compile(MARIA_DRIVER_CONN_PATTERN) : null;
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 	}
 
@@ -130,6 +130,8 @@ final class MysqlDialect extends Dialect
 				? "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN"
 				: "x";
 	}
+
+	static final String MARIA_DRIVER_CONN_PATTERN = "^\\(conn=\\p{Digit}+\\) (.*)$";
 
 	@Override
 	void completeConnectionInfo(final Properties info)
