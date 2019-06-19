@@ -31,6 +31,7 @@ import java.io.File;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.Duration;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -92,6 +93,11 @@ public final class TestSources
 	public static Source single(final String key, final File value)
 	{
 		return single(key, value.getPath());
+	}
+
+	public static Source single(final String key, final Duration value)
+	{
+		return single(key, value.toString());
 	}
 
 	public static Source single(final String key, final String value)

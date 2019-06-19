@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.erase;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.time.Duration.ofNanos;
 import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
@@ -92,7 +93,7 @@ public class ConnectPropertiesTest
 				"connection.url",
 				"connection.username",
 				"connection.password",
-				"connection.isValidOnGetTimeoutSeconds",
+				"connection.isValidOnGetTimeout",
 				"dialect",
 				"dialect.approximate",
 				"disableSupport.emptyStrings",
@@ -172,6 +173,48 @@ public class ConnectPropertiesTest
 				"jdbc:abc:",
 				"property dialect in DESC must be specified as there is no default",
 				null);
+	}
+
+	@Test void testIsValidOnGetTimeoutMinimumExceeded()
+	{
+		final Source source = describe("DESC", cascade(
+				single("connection.isValidOnGetTimeout", ofSeconds(1).minus(ofNanos(1))),
+				loadProperties()
+		));
+		assertFails(
+				() -> ConnectProperties.create(source),
+				IllegalPropertiesException.class,
+				"property connection.isValidOnGetTimeout in DESC " +
+				"must be a duration between PT1S and P24855DT3H14M7S, " +
+				"but was PT0.999999999S");
+	}
+
+	@Test void testIsValidOnGetTimeoutMaximumExceeded()
+	{
+		final Source source = describe("DESC", cascade(
+				single("connection.isValidOnGetTimeout", ofSeconds(Integer.MAX_VALUE).plus(ofNanos(1))),
+				loadProperties()
+		));
+		assertFails(
+				() -> ConnectProperties.create(source),
+				IllegalPropertiesException.class,
+				"property connection.isValidOnGetTimeout in DESC " +
+				"must be a duration between PT1S and P24855DT3H14M7S, " +
+				"but was P24855DT3H14M7.000000001S");
+	}
+
+	@Test void testIsValidOnGetTimeoutNano()
+	{
+		final Source source = describe("DESC", cascade(
+				single("connection.isValidOnGetTimeout", ofSeconds(1).plus(ofNanos(1))),
+				loadProperties()
+		));
+		assertFails(
+				() -> ConnectProperties.create(source),
+				IllegalPropertiesException.class,
+				"property connection.isValidOnGetTimeout in DESC " +
+				"must be a duration of whole seconds, " +
+				"but was PT1.000000001S");
 	}
 
 	@Test void testDialectClassNotFound()

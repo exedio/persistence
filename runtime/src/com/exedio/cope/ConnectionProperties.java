@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.time.Duration.ofSeconds;
+
 import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.SQLRuntimeException;
 import io.micrometer.core.instrument.Tags;
@@ -25,6 +27,7 @@ import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.time.Duration;
 import java.util.HashMap;
 
 final class ConnectionProperties extends Properties
@@ -32,7 +35,18 @@ final class ConnectionProperties extends Properties
 	final String url = value("url", (String)null);
 	final String username = value("username", (String)null);
 	final String password = valueHidden("password", null);
-	final int isValidOnGetTimeout = value("isValidOnGetTimeoutSeconds", 5, 1);
+	final int isValidOnGetTimeout = valueSeconds("isValidOnGetTimeout", 5, 1);
+
+	int valueSeconds(
+			final String key,
+			final int defaultValue,
+			final int minimum)
+	{
+		final Duration d = value(key, ofSeconds(defaultValue), ofSeconds(minimum), ofSeconds(Integer.MAX_VALUE));
+		if(d.getNano()!=0)
+			throw newException(key, "must be a duration of whole seconds, but was " + d);
+		return Math.toIntExact(d.getSeconds());
+	}
 
 
 	EnvironmentInfo probe(final java.util.Properties info)
