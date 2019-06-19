@@ -64,11 +64,11 @@ public class MysqlDialectMariaDriverExceptionPatternTest
 	}
 	@Test void testMatchLongIdColon()
 	{
-		assertMismatch("(conn:1234567890) remainder");
+		assertMatch("(conn:1234567890) remainder");
 	}
 	@Test void testMatchShortIdColon()
 	{
-		assertMismatch("(conn:4) remainder");
+		assertMatch("(conn:4) remainder");
 	}
 
 

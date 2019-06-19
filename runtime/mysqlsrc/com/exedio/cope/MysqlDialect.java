@@ -131,7 +131,7 @@ final class MysqlDialect extends Dialect
 				: "x";
 	}
 
-	static final String MARIA_DRIVER_CONN_PATTERN = "^\\(conn=\\p{Digit}+\\) (.*)$";
+	static final String MARIA_DRIVER_CONN_PATTERN = "^\\(conn[=:]\\p{Digit}+\\) (.*)$";
 
 	@Override
 	void completeConnectionInfo(final Properties info)
