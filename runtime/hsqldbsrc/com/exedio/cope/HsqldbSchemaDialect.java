@@ -173,14 +173,6 @@ final class HsqldbSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String createColumn(final String tableName, final String columnName, final String columnType)
-	{
-		return
-				"ALTER TABLE " + tableName +
-				" ADD COLUMN " + columnName + ' ' + columnType;
-	}
-
-	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{
 		return
