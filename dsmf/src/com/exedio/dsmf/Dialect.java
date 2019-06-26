@@ -550,7 +550,12 @@ public abstract class Dialect
 				" RENAME TO " + newTableName;
 	}
 
-	public abstract String renameColumn(String tableName, String oldColumnName, String newColumnName, String columnType);
+	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
+	{
+		return
+				"ALTER TABLE " + tableName +
+				" RENAME COLUMN " + oldColumnName + " TO " + newColumnName;
+	}
 
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{

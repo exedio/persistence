@@ -207,15 +207,6 @@ final class PostgresqlSchemaDialect extends Dialect
 		bf.append(" WITH (OIDS=FALSE)");
 	}
 
-	// same as oracle
-	@Override
-	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
-	{
-		return
-				"ALTER TABLE " + tableName +
-				" RENAME COLUMN " + oldColumnName + " TO " + newColumnName;
-	}
-
 	@Override
 	public String modifyColumn(final String tableName, final String columnName, final String newColumnType)
 	{

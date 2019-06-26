@@ -175,14 +175,6 @@ final class OracleSchemaDialect extends Dialect
 	}
 
 	@Override
-	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
-	{
-		return
-				"ALTER TABLE " + tableName +
-				" RENAME COLUMN " + oldColumnName + " TO " + newColumnName;
-	}
-
-	@Override
 	public String createColumn(final String tableName, final String columnName, final String columnType)
 	{
 		return
