@@ -104,5 +104,4 @@ public class SchemaMismatchSequenceStartTest extends SchemaMismatchTest
 
 	static final Model modelA = new Model(ItemA.TYPE);
 	static final Model modelB = new Model(ItemB.TYPE);
-
 }

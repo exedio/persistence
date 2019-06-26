@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.dsmf.Constraint.Type.Unique;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
@@ -25,6 +26,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
@@ -61,6 +63,7 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 	}
 
 	@CopeName("ItemAB")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ItemA extends Item
 	{
 		static final IntegerField field1 = new IntegerField().toFinal(); // avoid update counter
@@ -68,95 +71,46 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 
 		static final UniqueConstraint uniqueA = UniqueConstraint.create(field1, field2);
 
-	/**
-	 * Creates a new ItemA with all the fields initially needed.
-	 * @param field1 the initial value for field {@link #field1}.
-	 * @param field2 the initial value for field {@link #field2}.
-	 * @throws com.exedio.cope.UniqueViolationException if field1, field2 is not unique.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	ItemA(
-				final int field1,
-				final int field2)
-			throws
-				com.exedio.cope.UniqueViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			ItemA.field1.map(field1),
-			ItemA.field2.map(field2),
-		});
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		int getField1()
+		{
+			return ItemA.field1.getMandatory(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		int getField2()
+		{
+			return ItemA.field2.getMandatory(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static ItemA forUniqueA(final int field1,final int field2)
+		{
+			return ItemA.uniqueA.search(ItemA.class,field1,field2);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static ItemA forUniqueAStrict(final int field1,final int field2)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return ItemA.uniqueA.searchStrict(ItemA.class,field1,field2);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new ItemA and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #field1}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	int getField1()
-	{
-		return ItemA.field1.getMandatory(this);
-	}
-
-	/**
-	 * Returns the value of {@link #field2}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	int getField2()
-	{
-		return ItemA.field2.getMandatory(this);
-	}
-
-	/**
-	 * Finds a itemA by it's unique fields.
-	 * @param field1 shall be equal to field {@link #field1}.
-	 * @param field2 shall be equal to field {@link #field2}.
-	 * @return null if there is no matching item.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
-	@javax.annotation.Nullable
-	static ItemA forUniqueA(final int field1,final int field2)
-	{
-		return ItemA.uniqueA.search(ItemA.class,field1,field2);
-	}
-
-	/**
-	 * Finds a itemA by its unique fields.
-	 * @param field1 shall be equal to field {@link #field1}.
-	 * @param field2 shall be equal to field {@link #field2}.
-	 * @throws java.lang.IllegalArgumentException if there is no matching item.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
-	@javax.annotation.Nonnull
-	static ItemA forUniqueAStrict(final int field1,final int field2)
-			throws
-				java.lang.IllegalArgumentException
-	{
-		return ItemA.uniqueA.searchStrict(ItemA.class,field1,field2);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for itemA.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 
 	@CopeName("ItemAB")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ItemB extends Item
 	{
 		static final IntegerField field1 = new IntegerField().toFinal(); // avoid update counter
@@ -164,95 +118,44 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 
 		static final UniqueConstraint uniqueB = UniqueConstraint.create(field1, field2);
 
-	/**
-	 * Creates a new ItemB with all the fields initially needed.
-	 * @param field1 the initial value for field {@link #field1}.
-	 * @param field2 the initial value for field {@link #field2}.
-	 * @throws com.exedio.cope.UniqueViolationException if field1, field2 is not unique.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	ItemB(
-				final int field1,
-				final int field2)
-			throws
-				com.exedio.cope.UniqueViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			ItemB.field1.map(field1),
-			ItemB.field2.map(field2),
-		});
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		int getField1()
+		{
+			return ItemB.field1.getMandatory(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		int getField2()
+		{
+			return ItemB.field2.getMandatory(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		static ItemB forUniqueB(final int field1,final int field2)
+		{
+			return ItemB.uniqueB.search(ItemB.class,field1,field2);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static ItemB forUniqueBStrict(final int field1,final int field2)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return ItemB.uniqueB.searchStrict(ItemB.class,field1,field2);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new ItemB and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #field1}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	int getField1()
-	{
-		return ItemB.field1.getMandatory(this);
-	}
-
-	/**
-	 * Returns the value of {@link #field2}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	int getField2()
-	{
-		return ItemB.field2.getMandatory(this);
-	}
-
-	/**
-	 * Finds a itemB by it's unique fields.
-	 * @param field1 shall be equal to field {@link #field1}.
-	 * @param field2 shall be equal to field {@link #field2}.
-	 * @return null if there is no matching item.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
-	@javax.annotation.Nullable
-	static ItemB forUniqueB(final int field1,final int field2)
-	{
-		return ItemB.uniqueB.search(ItemB.class,field1,field2);
-	}
-
-	/**
-	 * Finds a itemB by its unique fields.
-	 * @param field1 shall be equal to field {@link #field1}.
-	 * @param field2 shall be equal to field {@link #field2}.
-	 * @throws java.lang.IllegalArgumentException if there is no matching item.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
-	@javax.annotation.Nonnull
-	static ItemB forUniqueBStrict(final int field1,final int field2)
-			throws
-				java.lang.IllegalArgumentException
-	{
-		return ItemB.uniqueB.searchStrict(ItemB.class,field1,field2);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for itemB.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 
 	static final Model modelA = new Model(ItemA.TYPE);
 	static final Model modelB = new Model(ItemB.TYPE);
-
 }

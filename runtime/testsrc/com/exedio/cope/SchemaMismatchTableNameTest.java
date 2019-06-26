@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.dsmf.Constraint.Type.PrimaryKey;
 import static com.exedio.dsmf.Node.Color.ERROR;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -116,105 +118,48 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 		}
 	}
 
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ItemA extends Item
 	{
 		static final IntegerField field = new IntegerField().toFinal(); // avoid update counter
 
-	/**
-	 * Creates a new ItemA with all the fields initially needed.
-	 * @param field the initial value for field {@link #field}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	ItemA(
-				final int field)
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			ItemA.field.map(field),
-		});
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		int getField()
+		{
+			return ItemA.field.getMandatory(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	/**
-	 * Creates a new ItemA and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #field}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	int getField()
-	{
-		return ItemA.field.getMandatory(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for itemA.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
-
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ItemB extends Item
 	{
 		static final IntegerField field = new IntegerField().toFinal(); // avoid update counter
 
-	/**
-	 * Creates a new ItemB with all the fields initially needed.
-	 * @param field the initial value for field {@link #field}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	ItemB(
-				final int field)
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			ItemB.field.map(field),
-		});
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		int getField()
+		{
+			return ItemB.field.getMandatory(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new ItemB and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #field}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	int getField()
-	{
-		return ItemB.field.getMandatory(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for itemB.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 
 	static final Model modelA = new Model(ItemA.TYPE);
 	static final Model modelB = new Model(ItemB.TYPE);
-
 }

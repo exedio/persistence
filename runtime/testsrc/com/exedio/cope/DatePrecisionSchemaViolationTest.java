@@ -22,12 +22,14 @@ import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Table;
@@ -181,6 +183,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 	}
 
 	@CopeName("ItemAB")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ItemA extends Item
 	{
 		// toFinal to avoid update counter
@@ -188,84 +191,39 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		static final DateField minutes = new DateField().toFinal().precisionMinute();
 		static final DateField seconds = new DateField().toFinal().precisionSecond();
 
-	/**
-	 * Creates a new ItemA with all the fields initially needed.
-	 * @param hours the initial value for field {@link #hours}.
-	 * @param minutes the initial value for field {@link #minutes}.
-	 * @param seconds the initial value for field {@link #seconds}.
-	 * @throws com.exedio.cope.DatePrecisionViolationException if hours, minutes, seconds violates its precision constraint.
-	 * @throws com.exedio.cope.MandatoryViolationException if hours, minutes, seconds is null.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	ItemA(
-				@javax.annotation.Nonnull final java.util.Date hours,
-				@javax.annotation.Nonnull final java.util.Date minutes,
-				@javax.annotation.Nonnull final java.util.Date seconds)
-			throws
-				com.exedio.cope.DatePrecisionViolationException,
-				com.exedio.cope.MandatoryViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			ItemA.hours.map(hours),
-			ItemA.minutes.map(minutes),
-			ItemA.seconds.map(seconds),
-		});
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.util.Date getHours()
+		{
+			return ItemA.hours.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.util.Date getMinutes()
+		{
+			return ItemA.minutes.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.util.Date getSeconds()
+		{
+			return ItemA.seconds.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new ItemA and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #hours}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Date getHours()
-	{
-		return ItemA.hours.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #minutes}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Date getMinutes()
-	{
-		return ItemA.minutes.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #seconds}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Date getSeconds()
-	{
-		return ItemA.seconds.get(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for itemA.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 
 	@CopeName("ItemAB")
+	@WrapperType(indent=2, comments=false)
 	static final class ItemB extends Item
 	{
 		// toFinal to avoid update counter
@@ -273,82 +231,55 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		static final DateField minutes = new DateField().toFinal();
 		static final DateField seconds = new DateField().toFinal();
 
-	/**
-	 * Creates a new ItemB with all the fields initially needed.
-	 * @param hours the initial value for field {@link #hours}.
-	 * @param minutes the initial value for field {@link #minutes}.
-	 * @param seconds the initial value for field {@link #seconds}.
-	 * @throws com.exedio.cope.MandatoryViolationException if hours, minutes, seconds is null.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
-	ItemB(
-				@javax.annotation.Nonnull final java.util.Date hours,
-				@javax.annotation.Nonnull final java.util.Date minutes,
-				@javax.annotation.Nonnull final java.util.Date seconds)
-			throws
-				com.exedio.cope.MandatoryViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			ItemB.hours.map(hours),
-			ItemB.minutes.map(minutes),
-			ItemB.seconds.map(seconds),
-		});
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		ItemB(
+					@javax.annotation.Nonnull final java.util.Date hours,
+					@javax.annotation.Nonnull final java.util.Date minutes,
+					@javax.annotation.Nonnull final java.util.Date seconds)
+				throws
+					com.exedio.cope.MandatoryViolationException
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+				ItemB.hours.map(hours),
+				ItemB.minutes.map(minutes),
+				ItemB.seconds.map(seconds),
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ItemB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.util.Date getHours()
+		{
+			return ItemB.hours.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.util.Date getMinutes()
+		{
+			return ItemB.minutes.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		java.util.Date getSeconds()
+		{
+			return ItemB.seconds.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new ItemB and sets the given fields initially.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private ItemB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #hours}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Date getHours()
-	{
-		return ItemB.hours.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #minutes}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Date getMinutes()
-	{
-		return ItemB.minutes.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #seconds}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
-	@javax.annotation.Nonnull
-	java.util.Date getSeconds()
-	{
-		return ItemB.seconds.get(this);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for itemB.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
-	private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 
 	static final Model modelA = new Model(ItemA.TYPE);
 	static final Model modelB = new Model(ItemB.TYPE);
-
 }
