@@ -261,21 +261,6 @@ abstract class Dialect
 		return "CHAR_LENGTH";
 	}
 
-	String getDayOfMonth()
-	{
-		return "DAY";
-	}
-
-	String getMonth()
-	{
-		return "MONTH";
-	}
-
-	String getYear()
-	{
-		return "YEAR";
-	}
-
 	String getWeekOfYear()
 	{
 		return "WEEK";

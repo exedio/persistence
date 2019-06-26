@@ -44,7 +44,7 @@ public final class DayPartView extends NumberView<Integer>
 			@Override
 			String getNameForDialect(final Dialect dialect)
 			{
-				return dialect.getYear();
+				return "YEAR";
 			}
 		},
 		MONTH("month")
@@ -58,7 +58,7 @@ public final class DayPartView extends NumberView<Integer>
 			@Override
 			String getNameForDialect(final Dialect dialect)
 			{
-				return dialect.getMonth();
+				return "MONTH";
 			}
 		},
 		WEEK_OF_YEAR("weekOfYear")
@@ -90,7 +90,7 @@ public final class DayPartView extends NumberView<Integer>
 			@Override
 			String getNameForDialect(final Dialect dialect)
 			{
-				return dialect.getDayOfMonth();
+				return "DAY";
 			}
 		};
 
