@@ -60,11 +60,6 @@ abstract class CopeType<F extends CopeFeature>
 		return Modifier.isFinal(getModifier());
 	}
 
-	final boolean isItem()
-	{
-		return kind.isItem;
-	}
-
 	/** return null if the type has no persistent supertype */
 	abstract CopeType<?> getSuperclass();
 

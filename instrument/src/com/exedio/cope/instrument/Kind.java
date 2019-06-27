@@ -20,12 +20,12 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.util.Check.requireNonEmpty;
 
-import com.exedio.cope.Item;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
 final class Kind
 {
+	final Class<?> topClass;
 	final String top;
 	final String topSimple;
 	final String wildcardClassCaster;
@@ -41,7 +41,6 @@ final class Kind
 	final String featurePrefix;
 	final String featurePostfix;
 	final String featureThis;
-	final boolean isItem; // TODO remove dependency on this field
 
 	private Kind(final WrapType anno)
 	{
@@ -78,11 +77,9 @@ final class Kind
 		featurePostfix = anno.featurePostfix();
 		featureThis = anno.featureThis();
 
-		final Class<?> topClass = TypeMirrorHelper.get(anno::top);
+		topClass = TypeMirrorHelper.get(anno::top);
 		top = topClass.getName();
 		topSimple = topClass.getSimpleName();
-
-		isItem = topClass==Item.class;
 	}
 
 	static final String TYPE_FACTORY_METHOD = "newType";

@@ -28,18 +28,21 @@ class LibCompositeUser extends LibComposite
 
 	/**
 	 * Creates a new LibCompositeUser with all the fields initially needed.
+	 * @param superField the initial value for field {@link #superField}.
 	 * @param subField the initial value for field {@link #subField}.
-	 * @throws com.exedio.cope.MandatoryViolationException if subField is null.
-	 * @throws com.exedio.cope.StringLengthViolationException if subField violates its length constraint.
+	 * @throws com.exedio.cope.MandatoryViolationException if superField, subField is null.
+	 * @throws com.exedio.cope.StringLengthViolationException if superField, subField violates its length constraint.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 	LibCompositeUser(
+				@javax.annotation.Nonnull final java.lang.String superField,
 				@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
+			com.exedio.cope.instrument.testlib.LibComposite.superField.map(superField),
 			LibCompositeUser.subField.map(subField),
 		});
 	}

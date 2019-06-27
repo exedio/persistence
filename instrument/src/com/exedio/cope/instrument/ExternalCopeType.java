@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Item;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 
@@ -26,10 +25,10 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 {
 	private final Class<?> itemClass;
 
-	ExternalCopeType(final Class<?> itemClass)
+	ExternalCopeType(final Kind kind, final Class<?> itemClass)
 	{
-		super(Kind.valueOf(Item.class.getAnnotation(WrapType.class)));
-		if (!Item.class.isAssignableFrom(itemClass)) throw new RuntimeException();
+		super(kind);
+		if (!kind.topClass.isAssignableFrom(itemClass)) throw new RuntimeException();
 		this.itemClass=itemClass;
 		registerFeatures();
 	}
@@ -64,10 +63,10 @@ final class ExternalCopeType extends CopeType<ExternalCopeFeature>
 	ExternalCopeType getSuperclass()
 	{
 		final Class<?> superclass = itemClass.getSuperclass();
-		if(superclass==Item.class)
+		if(superclass==kind.topClass)
 			return null;
 		else
-			return new ExternalCopeType(superclass);
+			return new ExternalCopeType(kind, superclass);
 	}
 
 	@Override

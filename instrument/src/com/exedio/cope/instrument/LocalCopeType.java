@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import com.exedio.cope.Item;
 import java.lang.reflect.Modifier;
 import java.util.HashMap;
 
@@ -96,22 +95,19 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		assert !javaClass.file.repository.isBuildStage();
 		assert javaClass.file.repository.isGenerateStage();
 
-		if(!isItem())
-			return;
-
 		final Class<?> externalType = javaClass.file.findTypeExternally(javaClass.fullyQualifiedSuperclass);
-		if(externalType==Item.class)
+		if(externalType==kind.topClass)
 		{
 			supertype = null;
 		}
 		else if (externalType!=null)
 		{
-			supertype = new ExternalCopeType(externalType);
+			supertype = new ExternalCopeType(kind, externalType);
 		}
 		else
 		{
 			supertype = javaClass.file.repository.getCopeType(javaClass.fullyQualifiedSuperclass);
-			if (!supertype.isItem()) throw new RuntimeException();
+			if (supertype.kind.topClass!=kind.topClass) throw new RuntimeException();
 		}
 	}
 
