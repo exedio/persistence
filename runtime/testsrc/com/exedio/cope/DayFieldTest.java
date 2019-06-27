@@ -241,6 +241,9 @@ public class DayFieldTest extends TestWithEnvironment
 
 	@Test void testDayPartViewsWeekAroundNewYear()
 	{
+		// The first week of the year always contains 4 January.
+		// https://en.wikipedia.org/wiki/ISO_week_date
+
 		assertWeek(new Day(2000, 12, 30), 52); // Saturday
 		assertWeek(new Day(2000, 12, 31), 52); // Sunday
 		assertWeek(new Day(2001,  1,  1),  1); // Monday
@@ -254,6 +257,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertWeek(new Day(2002,  1,  1),  1); // Tuesday
 		assertWeek(new Day(2002,  1,  2),  1); // Wednesday
 		assertWeek(new Day(2002,  1,  3),  1); // Thursday
+		assertWeek(new Day(2002,  1,  4),  1); // Friday
 
 		assertWeek(new Day(2002, 12, 27), 52); // Friday
 		assertWeek(new Day(2002, 12, 28), 52); // Saturday
@@ -262,6 +266,8 @@ public class DayFieldTest extends TestWithEnvironment
 		assertWeek(new Day(2002, 12, 31),  1); // Tuesday
 		assertWeek(new Day(2003,  1,  1),  1); // Wednesday
 		assertWeek(new Day(2003,  1,  2),  1); // Thursday
+		assertWeek(new Day(2003,  1,  3),  1); // Friday
+		assertWeek(new Day(2003,  1,  4),  1); // Saturday
 
 		assertWeek(new Day(2003, 12, 27), 52); // Saturday
 		assertWeek(new Day(2003, 12, 28), 52); // Sunday
@@ -270,6 +276,8 @@ public class DayFieldTest extends TestWithEnvironment
 		assertWeek(new Day(2003, 12, 31),  1); // Wednesday
 		assertWeek(new Day(2004,  1,  1),  1); // Thursday
 		assertWeek(new Day(2004,  1,  2),  1); // Friday
+		assertWeek(new Day(2004,  1,  3),  1); // Saturday
+		assertWeek(new Day(2004,  1,  4),  1); // Sunday
 
 		assertWeek(new Day(1998, 12, 30), 53); // Wednesday
 		assertWeek(new Day(1998, 12, 31), 53); // Thursday
@@ -289,6 +297,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertWeek(new Day(2006,  1,  1), 52); // Sunday
 		assertWeek(new Day(2006,  1,  2),  1); // Monday
 		assertWeek(new Day(2006,  1,  3),  1); // Tuesday
+		assertWeek(new Day(2006,  1,  4),  1); // Wednesday
 	}
 
 	private void assertWeek(final Day value, final int week)
