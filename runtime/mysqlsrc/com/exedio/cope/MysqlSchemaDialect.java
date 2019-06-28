@@ -226,12 +226,12 @@ final class MysqlSchemaDialect extends Dialect
 		});
 	}
 
-	private static final String ENGINE = " ENGINE=innodb";
+	private static final String ENGINE_CLAUSE = " ENGINE=innodb";
 
 	@Override
 	protected void appendTableCreateStatement(final StringBuilder bf)
 	{
-		bf.append(ENGINE);
+		bf.append(ENGINE_CLAUSE);
 		appendRowFormat(bf);
 	}
 
@@ -307,7 +307,7 @@ final class MysqlSchemaDialect extends Dialect
 				// MysqlProperties.smallIntegerTypes=true
 				append(sequenceTypeMapper.map(type)).
 				append(" AUTO_INCREMENT PRIMARY KEY)" +
-			ENGINE +
+			ENGINE_CLAUSE +
 			" COMMENT='cope_sequence_table'");
 
 		appendRowFormat(bf);
