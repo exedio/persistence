@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.GroupByTest.postgresqlPosition;
 import static com.exedio.cope.GroupItem.TYPE;
 import static com.exedio.cope.GroupItem.day;
 import static com.exedio.cope.GroupItem.number;
@@ -173,12 +174,11 @@ public class QueryGroupingTest extends TestWithEnvironment
 			{
 				final String message =
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
-						"in the GROUP BY clause or be used in an aggregate function\n" +
-						"  Position: ";
+						"in the GROUP BY clause or be used in an aggregate function";
 				restartTransaction();
-				notAllowed(query, message + "8");
+				notAllowed(query, message + postgresqlPosition(8));
 				restartTransaction();
-				notAllowedTotal(query, message + "31");
+				notAllowedTotal(query, message + postgresqlPosition(31));
 				break;
 			}
 			default:

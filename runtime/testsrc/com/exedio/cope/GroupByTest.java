@@ -130,12 +130,11 @@ public class GroupByTest extends TestWithEnvironment
 			{
 				final String message =
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
-						"in the GROUP BY clause or be used in an aggregate function\n" +
-						"  Position: ";
+						"in the GROUP BY clause or be used in an aggregate function";
 				restartTransaction();
-				notAllowed(query, message + "8");
+				notAllowed(query, message + postgresqlPosition(8));
 				restartTransaction();
-				notAllowedTotal(query, message + "31");
+				notAllowedTotal(query, message + postgresqlPosition(31));
 				break;
 			}
 			default:
@@ -185,8 +184,8 @@ public class GroupByTest extends TestWithEnvironment
 			case postgresql:
 				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
-						"in the GROUP BY clause or be used in an aggregate function\n" +
-						"  Position: 58");
+						"in the GROUP BY clause or be used in an aggregate function" +
+						postgresqlPosition(58));
 				break;
 			default:
 				throw new RuntimeException("" + dialect);
@@ -228,8 +227,8 @@ public class GroupByTest extends TestWithEnvironment
 				break;
 			case postgresql:
 				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
-						"  Position: 49");
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
+						postgresqlPosition(49));
 				break;
 			default:
 				throw new RuntimeException("" + dialect);
@@ -240,6 +239,11 @@ public class GroupByTest extends TestWithEnvironment
 	{
 		assertEquals(expectedSize, items.search().size());
 		assertEquals(expectedTotal, items.total());
+	}
+
+	static final String postgresqlPosition(final int value)
+	{
+		return "\n" + "  Position: " + value;
 	}
 
 	static final class AnItem extends Item

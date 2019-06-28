@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.GroupByTest.postgresqlPosition;
 import static com.exedio.cope.PlusIntegerItem.TYPE;
 import static com.exedio.cope.PlusIntegerItem.numA;
 import static com.exedio.cope.PlusIntegerItem.numC;
@@ -161,8 +162,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				break;
 			case postgresql:
 				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
-						"  Position: 56");
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
+						postgresqlPosition(56));
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
@@ -213,8 +214,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				break;
 			case postgresql:
 				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
-						"  Position: 181");
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
+						postgresqlPosition(181));
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
@@ -272,8 +273,8 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				break;
 			case postgresql:
 				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list\n" +
-						"  Position: 181");
+						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
+						postgresqlPosition(181));
 				break;
 			default:
 				throw new RuntimeException(dialect.name());
