@@ -166,14 +166,14 @@ public abstract class Dialect
 		});
 	}
 
-	protected static final void notifyExistentTable(final Schema schema, final String tableName)
+	protected static final Table notifyExistentTable(final Schema schema, final String tableName)
 	{
 		final Table result = schema.getTable(tableName);
 		if(result==null)
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new Table(schema, tableName, false);
+			return new Table(schema, tableName, false);
 		else
 			result.notifyExists();
+		return result;
 	}
 
 	protected static final Column notifyExistentColumn(
@@ -350,6 +350,11 @@ public abstract class Dialect
 			else
 				throw new IllegalArgumentException(string + '/' + message);
 		}
+	}
+
+	protected static final void notifyAdditionalError(final Node node, final String message)
+	{
+		node.notifyAdditionalError(message);
 	}
 
 	protected static final boolean getBooleanStrict(

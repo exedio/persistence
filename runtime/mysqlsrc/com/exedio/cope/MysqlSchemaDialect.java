@@ -76,7 +76,7 @@ final class MysqlSchemaDialect extends Dialect
 		final String catalog = getCatalog(schema);
 
 		querySQL(schema,
-				"SELECT TABLE_NAME " +
+				"SELECT TABLE_NAME, ENGINE " +
 				"FROM information_schema.TABLES " +
 				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
 		resultSet ->
@@ -86,7 +86,12 @@ final class MysqlSchemaDialect extends Dialect
 				final String tableName = resultSet.getString(1);
 				final Sequence sequence = schema.getSequence(tableName);
 				if(sequence==null || !sequence.required())
-					notifyExistentTable(schema, tableName);
+				{
+					final Table table = notifyExistentTable(schema, tableName);
+					final String engine = resultSet.getString(2);
+					if(!ENGINE.equals(engine))
+						notifyAdditionalError(table, "unexpected engine >" + engine + '<');
+				}
 			}
 		});
 
@@ -226,7 +231,8 @@ final class MysqlSchemaDialect extends Dialect
 		});
 	}
 
-	private static final String ENGINE_CLAUSE = " ENGINE=innodb";
+	private static final String ENGINE = "InnoDB";
+	private static final String ENGINE_CLAUSE = " ENGINE=" + ENGINE;
 
 	@Override
 	protected void appendTableCreateStatement(final StringBuilder bf)

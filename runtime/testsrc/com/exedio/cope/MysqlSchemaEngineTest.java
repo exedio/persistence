@@ -57,7 +57,7 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 		connection.execute(
 				"ALTER TABLE " + SI.tab(MyItem.TYPE) + " ENGINE=myisam");
 
-		assertSchema(null, OK);
+		assertSchema("unexpected engine >MyISAM<", ERROR);
 
 		// test additionalError together with error in nested node
 		model.getSchema().
@@ -65,17 +65,17 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 				getColumn(getPrimaryKeyColumnName(MyItem.TYPE)).
 				modify("bigint");
 
-		assertSchema(null, OK, ERROR, "unexpected type >bigint<", ERROR);
+		assertSchema("unexpected engine >MyISAM<", ERROR, "unexpected type >bigint<", ERROR);
 	}
 
 	private void assertSchema(
 			final String tableError, final Color tableColor)
 	{
-		assertSchema(tableError, tableColor, tableColor, null, OK);
+		assertSchema(tableError, tableColor, null, OK);
 	}
 
 	private void assertSchema(
-			final String tableError, final Color tableParticularColor, final Color tableCumulativeColor,
+			final String tableError, final Color tableColor,
 			final String columnError, final Color columnColor)
 	{
 		final Schema schema = model.getVerifiedSchema();
@@ -85,11 +85,11 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 		assertEquals(columnColor, column.getParticularColor(), "column.particularColor");
 		assertEquals(columnColor, column.getCumulativeColor(), "column.cumulativeColor");
 		assertEquals(tableError,  table .getError(),           "table.error");
-		assertEquals(tableParticularColor,  table .getParticularColor(), "table.particularColor");
-		assertEquals(tableCumulativeColor,  table .getCumulativeColor(), "table.cumulativeColor");
+		assertEquals(tableColor,  table .getParticularColor(), "table.particularColor");
+		assertEquals(tableColor,  table .getCumulativeColor(), "table.cumulativeColor");
 		assertEquals(null,        schema.getError(),           "schema.error");
 		assertEquals(OK,          schema.getParticularColor(), "schema.particularColor");
-		assertEquals(tableCumulativeColor,  schema.getCumulativeColor(), "schema.cumulativeColor");
+		assertEquals(tableColor,  schema.getCumulativeColor(), "schema.cumulativeColor");
 	}
 
 	@CopeSchemaName("MysqlSchemaEngineTest")

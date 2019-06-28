@@ -53,6 +53,7 @@ public abstract class Node
 
 	private final boolean required;
 	private boolean exists;
+	private String additionalError;
 
 	private Result resultIfSet;
 
@@ -139,9 +140,18 @@ public abstract class Node
 		return exists;
 	}
 
+	final void notifyAdditionalError(final String message)
+	{
+		if(additionalError!=null)
+			throw new IllegalStateException(message); // TODO accumulate
+
+		additionalError = requireNonNull(message);
+	}
+
 	final Result finish()
 	{
-		return this.resultIfSet = requireNonNull(computeResult(), "computeResult");
+		return this.resultIfSet = requireNonNull(computeResult(), "computeResult").
+				additionalError(additionalError);
 	}
 
 	abstract Result computeResult();
@@ -207,6 +217,17 @@ public abstract class Node
 					this.error,
 					this.particularColor,
 					child.cumulativeColor);
+		}
+
+		Result additionalError(final String additionalError)
+		{
+			if(additionalError==null)
+				return this;
+
+			return new Result(
+					(error!=null&&particularColor==Color.ERROR) ? error : additionalError,
+					Color.ERROR,
+					Color.ERROR);
 		}
 
 		static final Result ok = new Result(null, Color.OK);
