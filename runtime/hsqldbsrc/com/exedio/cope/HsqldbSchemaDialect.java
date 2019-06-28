@@ -86,7 +86,11 @@ final class HsqldbSchemaDialect extends Dialect
 	@Override
 	protected void verify(final Schema schema)
 	{
-		verifyTablesByMetaData(schema);
+		verifyTables(schema,
+				"SELECT TABLE_NAME " +
+				"FROM INFORMATION_SCHEMA.TABLES " +
+				"WHERE TABLE_SCHEMA='PUBLIC' AND TABLE_TYPE='BASE TABLE'");
+
 		verifyColumnsByMetaData(schema, "PUBLIC");
 
 		querySQL(schema,

@@ -105,16 +105,8 @@ final class OracleSchemaDialect extends Dialect
 	@Override
 	protected void verify(final Schema schema)
 	{
-		querySQL(schema,
-				"SELECT TABLE_NAME FROM user_tables",
-		resultSet ->
-		{
-			while(resultSet.next())
-			{
-				final String tableName = resultSet.getString(1);
-				notifyExistentTable(schema, tableName);
-			}
-		});
+		verifyTables(schema,
+				"SELECT TABLE_NAME FROM user_tables");
 
 		verifyColumnsByMetaData(schema, null);
 

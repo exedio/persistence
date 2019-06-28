@@ -76,14 +76,13 @@ public abstract class Dialect
 
 	protected abstract void verify(Schema schema);
 
-	protected static final void verifyTablesByMetaData(final Schema schema)
+	protected static final void verifyTables(final Schema schema, final String sql)
 	{
-		schema.querySQL(GET_TABLES, resultSet ->
+		schema.querySQL(sql, resultSet ->
 		{
-			final int TABLE_NAME = resultSet.findColumn("TABLE_NAME");
 			while(resultSet.next())
 			{
-				final String tableName = resultSet.getString(TABLE_NAME);
+				final String tableName = resultSet.getString(1);
 				notifyExistentTable(schema, tableName);
 			}
 		});
@@ -445,7 +444,6 @@ public abstract class Dialect
 		}
 	}
 
-	private static final String GET_TABLES = "getTables";
 	private static final String GET_COLUMNS = "getColumns";
 
 	@FunctionalInterface
@@ -477,15 +475,7 @@ public abstract class Dialect
 			connection = connectionProvider.getConnection();
 			//System.err.println(statement);
 
-			if(GET_TABLES==statement)
-			{
-				try(ResultSet resultSet = connection.getMetaData().
-						getTables(null, schema, null, new String[]{"TABLE"}))
-				{
-					resultSetHandler.run(resultSet);
-				}
-			}
-			else if(GET_COLUMNS==statement)
+			if(GET_COLUMNS==statement)
 			{
 				try(ResultSet resultSet = connection.getMetaData().
 						getColumns(null, schema, null, null))

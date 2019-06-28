@@ -94,9 +94,12 @@ final class PostgresqlSchemaDialect extends Dialect
 	@Override
 	protected void verify(final Schema schema)
 	{
-		verifyTablesByMetaData(schema);
-
 		final String catalog = getCatalog(schema);
+
+		verifyTables(schema,
+				"SELECT table_name " +
+				"FROM information_schema.tables " +
+				"WHERE table_schema='" + catalog + "' AND table_type='BASE TABLE'");
 
 		querySQL(schema,
 				"SELECT " +
