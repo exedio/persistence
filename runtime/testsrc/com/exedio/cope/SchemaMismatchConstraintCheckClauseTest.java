@@ -58,23 +58,15 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		final Constraint check = table.getConstraint(nameCkMax(ItemA.field));
 		if(supported)
 		{
-			final String error;
+			String error =
+					"different condition in database: " +
+					"expected "  + "---" + q("field") + "<=88---, " +
+					"but was "   + "---" + q("field") + "<=66---";
 
 			if(postgresql)
-			{
-				error =
-						"different condition in database: " +
-						"expected "  + "---" + q("field") + "<=88---, " +
-						"but was "   + "---" + q("field") + "<=66--- " +
-						"(originally "+"---" + q("field") + " <= 66---)";
-			}
-			else
-			{
-				error =
-						"different condition in database: " +
-						"expected "  + "---" + q("field") + "<=88---, " +
-						"but was "   + "---" + q("field") + "<=66---";
-			}
+				error +=
+						" (originally ---"+ q("field") + " <= 66---)";
+
 			assertIt(error, ERROR, ERROR, Check, check);
 
 			// test propagation to cumulativeColor
