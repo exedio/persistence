@@ -138,25 +138,23 @@ public abstract class Constraint extends Node
 		{
 			final StringBuilder bf = new StringBuilder();
 			bf.append(
-					"different condition in database: " +
-					"expected ---").append(requiredCondition).append(
-					"---, but was ---").append(existingConditionAdjusted).append("---");
+					"unexpected condition >>>").append(existingConditionAdjusted).append("<<<");
 
 			if(!existingCondition.equals(existingConditionAdjusted))
-				bf.append(" (originally ---").
+				bf.append(" (originally >>>").
 					append(existingCondition).
-					append("---)");
+					append("<<<)");
 
 			return Result.error(bf.toString());
 		}
 
 		if(requiredCondition==null && existingCondition!=null)
 			return Result.error(
-					"surplus condition in database: ---" + existingCondition + "---");
+					"surplus condition >>>" + existingCondition + "<<<");
 
 		if(requiredCondition!=null && existingCondition==null)
 			return Result.error(
-					"missing condition in database: ---" + requiredCondition + "---");
+					"missing condition >>>" + requiredCondition + "<<<");
 
 		return Result.ok;
 	}

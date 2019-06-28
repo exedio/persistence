@@ -98,11 +98,11 @@ public final class Sequence extends Node
 
 		if(type.mismatches())
 			return Result.error(
-					"different type in database: >"+type.getExisting()+"<");
+					"unexpected type " + type.getExisting());
 
 		if(start.mismatches())
 			return Result.error(
-					"different start in database: " + start.getExisting());
+					"unexpected start " + start.getExisting());
 
 		return Result.ok;
 	}

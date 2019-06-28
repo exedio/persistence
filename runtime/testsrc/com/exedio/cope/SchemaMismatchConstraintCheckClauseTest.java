@@ -59,13 +59,12 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		if(supported)
 		{
 			String error =
-					"different condition in database: " +
-					"expected "  + "---" + q("field") + "<=88---, " +
-					"but was "   + "---" + q("field") + "<=66---";
+					"unexpected condition " +
+					">>>" + q("field") + "<=66<<<";
 
 			if(postgresql)
 				error +=
-						" (originally ---"+ q("field") + " <= 66---)";
+						" (originally >>>"+ q("field") + " <= 66<<<)";
 
 			assertIt(error, ERROR, ERROR, Check, check);
 

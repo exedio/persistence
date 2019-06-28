@@ -54,7 +54,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 		final Column pk, field;
 		assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
 		assertIt(
-				"different type in database: >" + type(ItemA.field) + "<",
+				"unexpected type >" + type(ItemA.field) + "<",
 				ERROR, ERROR, field = table.getColumn(name(ItemA.field)));
 
 		assertEqualsUnmodifiable(asList(pk, field), table.getColumns());

@@ -52,9 +52,8 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 
 		final Constraint unique;
 		assertIt(
-				"different condition in database: " +
-				"expected "  + "---(" + q("field2") + "," + q("field1") + ")---, " +
-				"but was "   + "---(" + q("field1") + "," + q("field2") + ")---",
+				"unexpected condition " +
+				">>>(" + q("field1") + "," + q("field2") + ")<<<",
 				ERROR, ERROR, Unique, unique = table.getConstraint(name(ItemA.unique)));
 
 		assertTrue(unique instanceof com.exedio.dsmf.UniqueConstraint);

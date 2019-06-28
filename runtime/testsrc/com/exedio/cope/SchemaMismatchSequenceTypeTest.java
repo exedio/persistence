@@ -52,7 +52,7 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 		assertIt(
-				"different type in database: >" + type(ItemA.TYPE.getThis()) + "<",
+				"unexpected type >" + type(ItemA.TYPE.getThis()) + "<",
 				ERROR, ERROR, table.getColumn(name(ItemA.TYPE.getThis())));
 		assertEqualsUnmodifiable(asList(table), schema.getTables());
 
@@ -60,7 +60,7 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 		{
 			assertEquals(nameSeq(ItemA.TYPE.getThis()), nameSeq(ItemB.TYPE.getThis()));
 			final Sequence seq = schema.getSequence(nameSeq(ItemB.TYPE.getThis()));
-			assertIt("different type in database: >bit31<", ERROR, ERROR, seq);
+			assertIt("unexpected type bit31", ERROR, ERROR, seq);
 			assertEqualsUnmodifiable(asList(seq), schema.getSequences());
 		}
 		else

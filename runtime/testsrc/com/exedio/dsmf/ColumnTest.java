@@ -136,7 +136,7 @@ public class ColumnTest extends SchemaReadyTest
 			assertSame(column, table.getColumn(COLUMN1));
 			assertEquals(true, column.required());
 			assertEquals(true, column.exists());
-			assertEquals("different type in database: >"+intType2+"<", column.getError());
+			assertEquals("unexpected type >"+intType2+"<", column.getError());
 			assertEquals(ERROR, column.getParticularColor());
 			assertEquals(intType, column.getType());
 			column.modify(intType);

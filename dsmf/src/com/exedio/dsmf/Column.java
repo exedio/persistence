@@ -127,7 +127,7 @@ public final class Column extends Node
 
 		if(type.mismatches())
 			return Result.error(
-					"different type in database: >"+type.getExisting()+"<");
+					"unexpected type >" + type.getExisting() +'<');
 
 		return Result.ok;
 	}

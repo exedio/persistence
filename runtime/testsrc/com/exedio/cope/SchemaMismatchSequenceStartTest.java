@@ -49,7 +49,7 @@ public class SchemaMismatchSequenceStartTest extends SchemaMismatchTest
 		assertIt(null, OK, supported(ERROR), schema);
 
 		final Sequence sequence = schema.getSequence(name(ItemA.sequence));
-		assertIt(supported("different start in database: 55"), supported(ERROR), supported(ERROR), sequence);
+		assertIt(supported("unexpected start 55"), supported(ERROR), supported(ERROR), sequence);
 
 		assertEqualsUnmodifiable(
 				model.getConnectProperties().primaryKeyGenerator.persistent
