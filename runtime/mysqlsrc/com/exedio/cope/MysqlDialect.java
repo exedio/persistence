@@ -91,7 +91,7 @@ final class MysqlDialect extends Dialect
 						properties.rowFormat.sql()));
 
 		final EnvironmentInfo env = probe.environmentInfo;
-		env.requireDatabaseVersionAtLeast(5, 5);
+		env.requireDatabaseVersionAtLeast("MySQL", 5, 5);
 
 		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;

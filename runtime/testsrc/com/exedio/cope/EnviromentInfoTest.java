@@ -92,14 +92,24 @@ public class EnviromentInfoTest
 		assertEquals(false, i.isDriverVersionAtLeast(15, 18));
 		assertEquals(false, i.isDriverVersionAtLeast(15, 19));
 
-		i.requireDatabaseVersionAtLeast(5, 3);
+		i.requireDatabaseVersionAtLeast("getDatabaseProductName", 5, 3);
 		assertFails(
-				() -> i.requireDatabaseVersionAtLeast(5, 4),
+				() -> i.requireDatabaseVersionAtLeast("getDatabaseProductNameExpected", 5, 3),
+				IllegalArgumentException.class,
+				"requires database getDatabaseProductNameExpected, " +
+				"but was getDatabaseProductName getDatabaseProductVersion (5.3)");
+		assertFails(
+				() -> i.requireDatabaseVersionAtLeast("getDatabaseProductNameExpected", 5, 4),
+				IllegalArgumentException.class,
+				"requires database getDatabaseProductNameExpected, " +
+				"but was getDatabaseProductName getDatabaseProductVersion (5.3)");
+		assertFails(
+				() -> i.requireDatabaseVersionAtLeast("getDatabaseProductName", 5, 4),
 				IllegalArgumentException.class,
 				"requires database version 5.4 or later, " +
 				"but was getDatabaseProductName getDatabaseProductVersion (5.3)");
 		assertFails(
-				() -> i.requireDatabaseVersionAtLeast(66, 77),
+				() -> i.requireDatabaseVersionAtLeast("getDatabaseProductName", 66, 77),
 				IllegalArgumentException.class,
 				"requires database version 66.77 or later, " +
 				"but was getDatabaseProductName getDatabaseProductVersion (5.3)");

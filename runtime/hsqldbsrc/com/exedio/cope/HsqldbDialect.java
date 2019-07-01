@@ -88,7 +88,7 @@ final class HsqldbDialect extends Dialect
 		super(
 				new HsqldbSchemaDialect(props.approximate.supportsCheckConstraints()));
 
-		probe.environmentInfo.requireDatabaseVersionAtLeast(2, 4);
+		probe.environmentInfo.requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 4);
 
 		this.approximate = props.approximate;
 	}

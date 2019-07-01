@@ -180,9 +180,9 @@ public final class EnvironmentInfo
 		return driver.isVersionAtLeast(major, minor);
 	}
 
-	void requireDatabaseVersionAtLeast(final int major, final int minor)
+	void requireDatabaseVersionAtLeast(final String name, final int major, final int minor)
 	{
-		database.requireVersionAtLeast(major, minor);
+		database.requireVersionAtLeast(name, major, minor);
 	}
 
 	private static final class Product
@@ -240,8 +240,12 @@ public final class EnvironmentInfo
 				return minor<=minorVersion;
 		}
 
-		void requireVersionAtLeast(final int major, final int minor)
+		void requireVersionAtLeast(final String name, final int major, final int minor)
 		{
+			if(!this.name.equals(name))
+				throw new IllegalArgumentException(
+						"requires " + product + ' ' + name + ", " +
+						"but was " + this.name + ' ' + getVersionDescription());
 			if(!isVersionAtLeast(major, minor))
 				throw new IllegalArgumentException(
 						"requires " + product + " version " + major + '.' + minor + " or later, " +
