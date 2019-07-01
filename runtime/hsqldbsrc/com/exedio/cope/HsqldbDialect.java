@@ -45,7 +45,7 @@ import java.util.List;
 
 @ServiceProperties(HsqldbDialect.Props.class)
 @DialectProbeInfo({
-		// see completeConnectionInfo
+		// http://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
 		"hsqldb.tx", "mvcc"})
 final class HsqldbDialect extends Dialect
 {
@@ -91,13 +91,6 @@ final class HsqldbDialect extends Dialect
 		probe.environmentInfo.requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 4);
 
 		this.approximate = props.approximate;
-	}
-
-	@Override
-	void completeConnectionInfo(final java.util.Properties info)
-	{
-		// http://hsqldb.org/doc/guide/dbproperties-chapt.html#N15634
-		requireConnectionInfo(info, "hsqldb.tx", "mvcc");
 	}
 
 	@Override

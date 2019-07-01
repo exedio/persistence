@@ -39,7 +39,6 @@ import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
-import java.util.Objects;
 import java.util.Properties;
 
 /**
@@ -64,15 +63,6 @@ abstract class Dialect
 	void completeConnectionInfo(final Properties info)
 	{
 		// default implementation does nothing, may be overwritten by subclasses
-	}
-
-	protected static final void requireConnectionInfo(
-			final java.util.Properties info,
-			final String key, final String value)
-	{
-		final String tx = info.getProperty(key);
-		if(!Objects.equals(value, tx))
-			throw new IllegalStateException(tx);
 	}
 
 	/**
