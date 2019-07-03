@@ -161,13 +161,13 @@ final class MysqlSchemaDialect extends Dialect
 		});
 
 		verifyForeignKeyConstraints(
-				"SELECT tc.CONSTRAINT_NAME,tc.TABLE_NAME,kcu.COLUMN_NAME,tc.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
-				"FROM information_schema.REFERENTIAL_CONSTRAINTS tc " +
+				"SELECT rc.CONSTRAINT_NAME,rc.TABLE_NAME,kcu.COLUMN_NAME,rc.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
+				"FROM information_schema.REFERENTIAL_CONSTRAINTS rc " +
 				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
-						"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
+						"ON rc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
-				"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
-						"AND tc.UNIQUE_CONSTRAINT_SCHEMA='" + catalog + '\'',
+				"WHERE rc.CONSTRAINT_SCHEMA='" + catalog + "' " +
+						"AND rc.UNIQUE_CONSTRAINT_SCHEMA='" + catalog + '\'',
 				schema);
 
 		final String PRIMARY_KEY = "PRIMARY KEY";
