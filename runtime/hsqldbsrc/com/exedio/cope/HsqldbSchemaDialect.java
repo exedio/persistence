@@ -149,13 +149,27 @@ final class HsqldbSchemaDialect extends Dialect
 		});
 
 		verifyForeignKeyConstraints(
-				"SELECT tc.CONSTRAINT_NAME, tc.TABLE_NAME, ccu.COLUMN_NAME, kcu.TABLE_NAME, kcu.COLUMN_NAME " +
+				"SELECT " +
+						"tc.CONSTRAINT_NAME, " + // 1
+						"tc.TABLE_NAME, " + // 2
+						"ccu.COLUMN_NAME, " + // 3
+						"kcu.TABLE_NAME, " + // 4
+						"kcu.COLUMN_NAME, " + // 5
+						"rc.DELETE_RULE, " + // 6
+						"rc.UPDATE_RULE " + // 7
 				"FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.CONSTRAINT_COLUMN_USAGE ccu ON tc.CONSTRAINT_NAME=ccu.CONSTRAINT_NAME " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc ON tc.CONSTRAINT_NAME=rc.CONSTRAINT_NAME " +
 				"LEFT OUTER JOIN INFORMATION_SCHEMA.KEY_COLUMN_USAGE kcu ON rc.UNIQUE_CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 				"WHERE tc.CONSTRAINT_TYPE='FOREIGN KEY'",
-				schema);
+				schema,
+
+				// from HyperSQL User Guide, HyperSQL Database Engine 2.5.0, page 63:
+				// The default is NO ACTION. This means the SQL statement that causes
+				// the DELETE or UPDATE is terminated with an exception.
+				// The RESTRICT option is similar and works exactly the same without
+				// deferrable constraints (which are not allowed by HyperSQL).
+				"NO ACTION", "NO ACTION");
 
 		verifySequences(
 				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE, START_WITH " +

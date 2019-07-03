@@ -142,10 +142,12 @@ public abstract class Node
 
 	final void notifyAdditionalError(final String message)
 	{
-		if(additionalError!=null)
-			throw new IllegalStateException(message); // TODO accumulate
+		requireNonNull(message);
 
-		additionalError = requireNonNull(message);
+		additionalError =
+				(additionalError!=null)
+				? additionalError + ", " + message
+				: message;
 	}
 
 	final Result finish()

@@ -161,14 +161,25 @@ final class MysqlSchemaDialect extends Dialect
 		});
 
 		verifyForeignKeyConstraints(
-				"SELECT rc.CONSTRAINT_NAME,rc.TABLE_NAME,kcu.COLUMN_NAME,rc.REFERENCED_TABLE_NAME,kcu.REFERENCED_COLUMN_NAME " +
+				"SELECT " +
+						"rc.CONSTRAINT_NAME, " + // 1
+						"rc.TABLE_NAME, " + // 2
+						"kcu.COLUMN_NAME, " + // 3
+						"rc.REFERENCED_TABLE_NAME, " + // 4
+						"kcu.REFERENCED_COLUMN_NAME, " + // 5
+						"rc.DELETE_RULE, " + // 6
+						"rc.UPDATE_RULE " + // 7
 				"FROM information_schema.REFERENTIAL_CONSTRAINTS rc " +
 				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
 						"ON rc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
 				"WHERE rc.CONSTRAINT_SCHEMA='" + catalog + "' " +
 						"AND rc.UNIQUE_CONSTRAINT_SCHEMA='" + catalog + '\'',
-				schema);
+				schema,
+
+				// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
+				// same as NO ACTION
+				"RESTRICT", "RESTRICT");
 
 		final String PRIMARY_KEY = "PRIMARY KEY";
 		final String UNIQUE = "UNIQUE";

@@ -55,16 +55,19 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 		assertSchema(null, OK);
 
 		testRules(
-				"ON DELETE Cascade");
+				"ON DELETE Cascade",
+				"unexpected delete rule CASCADE");
 
 		if(oracle) // does not support update rules
 			return;
 
 		testRules(
-				"ON UPDATE set NULL");
+				"ON UPDATE set NULL",
+				"unexpected update rule SET NULL");
 
 		testRules(
-				"ON DELETE SET NULL ON UPDATE CASCADE");
+				"ON DELETE SET NULL ON UPDATE CASCADE",
+				"unexpected delete rule SET NULL, unexpected update rule CASCADE");
 	}
 
 	private void assertSchema(final String error, final Color color)
@@ -88,7 +91,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 				() -> assertEquals(color, schema.getCumulativeColor(), "schema.cumulativeColor"));
 	}
 
-	private void testRules(final String rule) throws SQLException
+	private void testRules(final String rule, final String error) throws SQLException
 	{
 		model.
 				getSchema().
@@ -103,7 +106,7 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 				"FOREIGN KEY (" + SI.col(MyItem.field) + ") " +
 				"REFERENCES " + SI.tab(MyItem.TYPE) + "(" + SI.pk(MyItem.TYPE) + ") " +
 				rule);
-		assertSchema(null, OK);
+		assertSchema(error, ERROR);
 	}
 
 	private static final String FK_NAME = "ForeignKeyRule_field_Fk";

@@ -147,12 +147,21 @@ final class OracleSchemaDialect extends Dialect
 		});
 
 		verifyForeignKeyConstraints(
-				"SELECT uc.CONSTRAINT_NAME,uc.TABLE_NAME,ucc.COLUMN_NAME,uic.TABLE_NAME,uic.COLUMN_NAME " +
+				"SELECT " +
+						"uc.CONSTRAINT_NAME, " + // 1
+						"uc.TABLE_NAME, " + // 2
+						"ucc.COLUMN_NAME, " + // 3
+						"uic.TABLE_NAME, " + // 4
+						"uic.COLUMN_NAME, " + // 5
+						"uc.DELETE_RULE " + // 6
 				"FROM USER_CONSTRAINTS uc " +
 				"JOIN USER_cons_columns ucc ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
 				"JOIN USER_IND_COLUMNS uic ON uc.R_CONSTRAINT_NAME=uic.INDEX_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE='R'",
-				schema);
+				schema,
+
+				// https://docs.oracle.com/cd/E11882_01/server.112/e40540/datainte.htm#CNCPT1649
+				"NO ACTION", null);
 
 		verifyUniqueConstraints(
 				"SELECT " +

@@ -119,20 +119,37 @@ public abstract class Dialect
 		});
 	}
 
-	protected static final void verifyForeignKeyConstraints(final String sql, final Schema schema)
+	protected static final void verifyForeignKeyConstraints(
+			final String sql, final Schema schema,
+			final String deleteRule,
+			final String updateRule)
 	{
 		schema.querySQL(sql, resultSet ->
 		{
 			while(resultSet.next())
 			{
 				final Table table = getTableStrict(schema, resultSet, 2);
-				notifyExistentForeignKey(table,
+				final ForeignKeyConstraint constraint = notifyExistentForeignKey(table,
 						resultSet.getString(1), // constraintName
 						resultSet.getString(3), // foreignKeyColumn
 						resultSet.getString(4), // targetTable
 						resultSet.getString(5));// targetColumn
+
+				verifyForeignKeyConstraintRule(constraint, "delete", deleteRule, resultSet, 6);
+				if(updateRule!=null)
+					verifyForeignKeyConstraintRule(constraint, "update", updateRule, resultSet, 7);
 			}
 		});
+	}
+
+	private static void verifyForeignKeyConstraintRule(
+			final ForeignKeyConstraint constraint, final String name,
+			final String expected, final ResultSet resultSet, final int columnIndex)
+	throws SQLException
+	{
+		final String actual = resultSet.getString(columnIndex);
+		if(!expected.equals(actual))
+			notifyAdditionalError(constraint, "unexpected " + name + " rule " + actual);
 	}
 
 	protected static final void verifyUniqueConstraints(final String sql, final Schema schema)
@@ -217,7 +234,7 @@ public abstract class Dialect
 			result.notifyExists();
 	}
 
-	static final void notifyExistentForeignKey(
+	static final ForeignKeyConstraint notifyExistentForeignKey(
 			final Table table,
 			final String constraintName,
 			final String foreignKeyColumn,
@@ -227,12 +244,12 @@ public abstract class Dialect
 		final ForeignKeyConstraint result = (ForeignKeyConstraint)table.getConstraint(constraintName);
 
 		if(result==null)
-			//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-			new ForeignKeyConstraint(
+			return new ForeignKeyConstraint(
 					table, table.getColumn(foreignKeyColumn), constraintName, false,
 					foreignKeyColumn, targetTable, targetColumn);
 		else
 			result.notifyExists(foreignKeyColumn, targetTable, targetColumn);
+		return result;
 	}
 
 	protected static final void notifyExistentUnique(

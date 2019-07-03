@@ -187,12 +187,22 @@ final class PostgresqlSchemaDialect extends Dialect
 				schema);
 
 		verifyForeignKeyConstraints(
-				"SELECT rc.constraint_name, src.table_name, src.column_name, tgt.table_name, tgt.column_name " +
+				"SELECT " +
+						"rc.constraint_name, " + // 1
+						"src.table_name, " + // 2
+						"src.column_name, " + // 3
+						"tgt.table_name, " + // 4
+						"tgt.column_name, " + // 5
+						"rc.delete_rule, " + // 6
+						"rc.update_rule " + // 7
 				"FROM information_schema.referential_constraints rc " +
 				"JOIN information_schema.key_column_usage src ON rc.constraint_name=src.constraint_name " +
 				"JOIN information_schema.key_column_usage tgt ON rc.unique_constraint_name=tgt.constraint_name " +
 				"WHERE rc.constraint_catalog='" + catalog + '\'',
-				schema);
+				schema,
+
+				// https://www.postgresql.org/docs/9.5/sql-createtable.html
+				"NO ACTION", "NO ACTION");
 
 		verifySequences(
 				"SELECT sequence_name, maximum_value, start_value " +
