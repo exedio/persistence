@@ -605,7 +605,10 @@ final class InterimProcessor extends JavacProcessor
 				}
 				part.continueLine(")");
 				part.endLine();
-				code.addLine(mt.getBody().toString());
+				if (isWrapInterimWithoutBody())
+					code.addLine("{ throw new java.lang.RuntimeException(\"@WrapInterim(methodBody=false)\"); }");
+				else
+					code.addLine(mt.getBody().toString());
 			}
 			else if (mt.getModifiers().getFlags().contains(Modifier.STATIC))
 			{
@@ -632,7 +635,47 @@ final class InterimProcessor extends JavacProcessor
 
 		private boolean isWrapInterim()
 		{
-			return getCurrentPathAnnotation(WrapInterim.class)!=null || getCurrentPathAnnotation(WrapImplementsInterim.class)!=null;
+			final WrapInterim anno = getCurrentPathAnnotation(WrapInterim.class);
+			checkWrapInterimAnnotation(anno);
+			return anno!=null || getCurrentPathAnnotation(WrapImplementsInterim.class)!=null;
+		}
+
+		private void checkWrapInterimAnnotation(final WrapInterim anno)
+		{
+			if (anno==null || anno.methodBody())
+				return;
+
+			final Element element = docTrees.getElement(getCurrentPath());
+			final ElementKind kind = element.getKind();
+			//noinspection EnumSwitchStatementWhichMissesCases
+			switch(kind)
+			{
+				case METHOD:
+				case CONSTRUCTOR:
+					break;
+				default:
+					//noinspection OptionalGetWithoutIsPresent OK: should fail if not present
+					processingEnv.getMessager().printMessage(
+							Diagnostic.Kind.ERROR,
+							"methodBody=false " +
+							"is allowed for methods and constructors only, " +
+							"but was " + kind,
+							element,
+							element.
+									getAnnotationMirrors().
+									stream().
+									filter(m -> m.getAnnotationType().toString().equals(
+											WrapInterim.class.getName())).
+									findFirst().
+									get());
+					break;
+			}
+		}
+
+		private boolean isWrapInterimWithoutBody()
+		{
+			final WrapInterim anno = getCurrentPathAnnotation(WrapInterim.class);
+			return anno!=null && !anno.methodBody();
 		}
 
 		private boolean isWrapperIgnore()

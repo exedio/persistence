@@ -34,5 +34,12 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.CLASS)
 public @interface WrapInterim
 {
-
+	/**
+	 * Whether or not the body of a method or constructor becomes part of the 'interim code'.
+	 * If set to false, the body contains just a {@code throw new RuntimeException()} in the 'interim code'.
+	 * For {@link Target targets} other than
+	 * {@link ElementType#METHOD methods} or
+	 * {@link ElementType#CONSTRUCTOR constructors} it is forbidden to set a non-default value.
+	 */
+	boolean methodBody() default true;
 }
