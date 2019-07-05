@@ -125,6 +125,8 @@ public final class Schedule extends Pattern
 	}
 
 	private final ZoneId zoneId;
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Variant variant;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
 	private final EnumField<Interval> interval = EnumField.create(Interval.class).defaultTo(DAILY);
@@ -136,17 +138,60 @@ public final class Schedule extends Pattern
 
 	public Schedule(final ZoneId zoneId)
 	{
-		this(zoneId, null);
+		this(zoneId, INTERFACE_VARIANT, null);
 	}
 
-	private Schedule(final ZoneId zoneId, final Locale locale)
+	public static <I extends Item> Schedule create(
+			final ZoneId zoneId,
+			final Target<I> target)
+	{
+		return new Schedule(zoneId, new TargetVariant(target), null);
+	}
+
+	private Schedule(final ZoneId zoneId, final Variant variant, final Locale locale)
 	{
 		this.zoneId = requireNonNull(zoneId, "zoneId");
+		this.variant = requireNonNull(variant);
 		//noinspection deprecation
 		this.localeIfSupported = locale;
 		addSourceFeature(enabled,  "enabled");
 		addSourceFeature(interval, "interval");
 	}
+
+	private abstract static class Variant
+	{
+		abstract void run(Schedule schedule, Item item, Date fromDate, Date untilDate, RunContext runCtx);
+	}
+
+	@FunctionalInterface
+	public interface Target<I extends Item>
+	{
+		void run(I item, Date from, Date until, JobContext ctx);
+	}
+
+	private static final class TargetVariant extends Variant
+	{
+		private final Target<?> target;
+
+		private TargetVariant(final Target<?> target)
+		{
+			this.target = requireNonNull(target, "target");
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override void run(final Schedule schedule, final Item item, final Date fromDate, final Date untilDate, final RunContext runCtx)
+		{
+			((Target<Item>)target).run(item, fromDate, untilDate, runCtx);
+		}
+	}
+
+	private static final Variant INTERFACE_VARIANT = new Variant()
+	{
+		@Override void run(final Schedule schedule, final Item item, final Date fromDate, final Date untilDate, final RunContext runCtx)
+		{
+			((Scheduleable)item).run(schedule, fromDate, untilDate, runCtx);
+		}
+	};
 
 	public ZoneId getZoneId()
 	{
@@ -163,7 +208,8 @@ public final class Schedule extends Pattern
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		if(!Scheduleable.class.isAssignableFrom(type.getJavaClass()))
+		if(variant==INTERFACE_VARIANT &&
+			!Scheduleable.class.isAssignableFrom(type.getJavaClass()))
 			throw new ClassCastException(
 					"type of " + getID() + " must implement " + Scheduleable.class +
 					", but was " + type.getJavaClass().getName());
@@ -264,7 +310,7 @@ public final class Schedule extends Pattern
 	}
 
 	@Wrap(order=60)
-	public <P extends Item & Scheduleable> void run(
+	public <P extends Item> void run(
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
@@ -282,7 +328,7 @@ public final class Schedule extends Pattern
 		}
 	}
 
-	private <P extends Item & Scheduleable> void runInternal(
+	private <P extends Item> void runInternal(
 			final Class<P> parentClass,
 			final Instant now,
 			final P item,
@@ -352,7 +398,7 @@ public final class Schedule extends Pattern
 		}
 	}
 
-	private <P extends Item & Scheduleable> void runNow(
+	private <P extends Item> void runNow(
 			final P item,
 			final Interval interval,
 			final Instant from, final Instant until,
@@ -374,7 +420,7 @@ public final class Schedule extends Pattern
 			try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 			{
 				final long elapsedStart = nanoTime();
-				item.run(this, fromDate, untilDate, runCtx); // TODO switch to Instant
+				variant.run(this, item, fromDate, untilDate, runCtx); // TODO switch to Instant
 				final long elapsedEnd = nanoTime();
 				runs.newItem(
 						item, interval, fromDate, untilDate, Date.from(now), // TODO switch to InstantField
@@ -575,6 +621,7 @@ public final class Schedule extends Pattern
 	{
 		this(
 			requireNonNull(timeZone, "timeZone").toZoneId(),
+			INTERFACE_VARIANT,
 			requireNonNull(locale, "locale"));
 	}
 

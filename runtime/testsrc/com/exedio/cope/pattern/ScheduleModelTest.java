@@ -24,6 +24,7 @@ import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static com.exedio.cope.pattern.Schedule.Interval.HOURLY;
 import static com.exedio.cope.pattern.Schedule.Interval.MONTHLY;
 import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
+import static com.exedio.cope.pattern.Schedule.create;
 import static com.exedio.cope.pattern.ScheduleItem.TYPE;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -48,7 +49,7 @@ import java.util.Locale;
 import java.util.TimeZone;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL","NP_NONNULL_PARAM_VIOLATION"})
 public class ScheduleModelTest
 {
 	static final Model MODEL = new Model(TYPE);
@@ -155,6 +156,22 @@ public class ScheduleModelTest
 		assertEquals(false, cal.isLenient());
 	}
 
+	@Test void testCreateTargetNull()
+	{
+		assertFails(
+				() -> create(null, null),
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testCreateZoneIdNull()
+	{
+		assertFails(
+				() -> create(null, (a, b, c, d) -> {}),
+				NullPointerException.class,
+				"zoneId");
+	}
+
 	@Test void testZoneIdNull()
 	{
 		try
@@ -245,11 +262,10 @@ public class ScheduleModelTest
 				NullPointerException.class, "parentClass");
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testRunParentClassWrong()
 	{
 		assertFails(
-				() -> report.run((Class)HashItem.class, new EmptyJobContext()),
+				() -> report.run(HashItem.class, new EmptyJobContext()),
 				ClassCastException.class,
 				"parentClass requires " + ScheduleItem.class.getName() + ", " +
 				"but was " + HashItem.class.getName());
