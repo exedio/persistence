@@ -274,22 +274,6 @@ public class DispatcherModelTest
 		}
 	}
 
-	@Test void testNoDispatchable()
-	{
-		try
-		{
-			DispatcherNoneItem.newTypeAccessible(DispatcherNoneItem.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"type of DispatcherNoneItem.wrong must implement " + Dispatchable.class +
-					", but was " + DispatcherNoneItem.class.getName(),
-					e.getMessage());
-		}
-	}
-
 	@Test void testResult()
 	{
 		@SuppressWarnings("deprecation") // OK: testing deprecated api
