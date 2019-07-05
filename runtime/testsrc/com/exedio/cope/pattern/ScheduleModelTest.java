@@ -39,6 +39,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
+import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.TimeZoneStrict;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -243,6 +244,16 @@ public class ScheduleModelTest
 		assertFails(
 				() -> report.run(null, (JobContext)null),
 				NullPointerException.class, "parentClass");
+	}
+
+	@SuppressWarnings("unchecked") // OK: test bad api usage
+	@Test void testRunParentClassWrong()
+	{
+		assertFails(
+				() -> report.run((Class)HashItem.class, new EmptyJobContext()),
+				ClassCastException.class,
+				"expected " + HashItem.class.getName() + ", " +
+				"but was " + ScheduleItem.class.getName());
 	}
 
 	@Test void testRunJobContextNull()
