@@ -27,6 +27,7 @@ import static com.exedio.cope.pattern.Schedule.Interval.WEEKLY;
 import static com.exedio.cope.pattern.ScheduleItem.TYPE;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
@@ -235,7 +236,14 @@ public class ScheduleModelTest
 		assertEquals( 12, MONTHLY.limit);
 	}
 
-	@Test void testJobContextNull()
+	@Test void testRunParentClassNull()
+	{
+		assertFails(
+				() -> report.run(null, (JobContext)null),
+				NullPointerException.class, "parentClass");
+	}
+
+	@Test void testRunJobContextNull()
 	{
 		try
 		{

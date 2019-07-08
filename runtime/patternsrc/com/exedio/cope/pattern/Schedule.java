@@ -268,6 +268,7 @@ public final class Schedule extends Pattern
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
+		requireNonNull(parentClass, "parentClass");
 		requireNonNull(ctx, "ctx");
 
 		final Instant now = Clock.newDate().toInstant(); // TODO per item
