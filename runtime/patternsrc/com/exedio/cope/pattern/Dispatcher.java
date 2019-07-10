@@ -66,6 +66,8 @@ import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.function.BiConsumer;
+import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
@@ -137,16 +139,117 @@ public final class Dispatcher extends Pattern
 	private final boolean supportRemaining;
 
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final Variant variant;
+
+	private abstract static class Variant
+	{
+		abstract void dispatch(Dispatcher dispatcher, Item item) throws Exception;
+		abstract boolean isDeferred(Dispatcher dispatcher, Item item);
+		abstract void notifyFinalFailure(Dispatcher dispatcher, Item item, Exception cause);
+	}
+
+	@FunctionalInterface
+	public interface Target<I extends Item>
+	{
+		void dispatch(I item) throws Exception;
+	}
+
+	private static final class TargetVariant extends Variant
+	{
+		private final Target<?> target;
+		private final Predicate<? extends Item> deferrer;
+		private final BiConsumer<? extends Item,Exception> onFinalFailure;
+
+		private TargetVariant(
+				final Target<?> target,
+				final Predicate<? extends Item> deferrer,
+				final BiConsumer<? extends Item,Exception> onFinalFailure)
+		{
+			this.target = requireNonNull(target, "target");
+			this.deferrer = deferrer;
+			this.onFinalFailure = onFinalFailure;
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override void dispatch(final Dispatcher dispatcher, final Item item) throws Exception
+		{
+			((Target<Item>)target).dispatch(item);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override boolean isDeferred(final Dispatcher dispatcher, final Item item)
+		{
+			return
+					deferrer!=null &&
+					((Predicate<Item>)deferrer).test(item);
+		}
+
+		@SuppressWarnings("unchecked")
+		@Override void notifyFinalFailure(final Dispatcher dispatcher, final Item item, final Exception cause)
+		{
+			if(onFinalFailure!=null)
+				((BiConsumer<Item,Exception>)onFinalFailure).accept(item, cause);
+		}
+	}
+
+	private static final Variant INTERFACE_VARIANT = new Variant()
+	{
+		@Override void dispatch(final Dispatcher dispatcher, final Item item) throws Exception
+		{
+			((Dispatchable)item).dispatch(dispatcher);
+		}
+
+		@Override boolean isDeferred(final Dispatcher dispatcher, final Item item)
+		{
+			return ((Dispatchable)item).isDeferred(dispatcher);
+		}
+
+		@Override void notifyFinalFailure(final Dispatcher dispatcher, final Item item, final Exception cause)
+		{
+			((Dispatchable)item).notifyFinalFailure(dispatcher, cause);
+		}
+	};
+
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private RunType runTypeIfMounted = null;
 
 	private volatile boolean probeRequired = true;
 
 	public Dispatcher()
 	{
-		this(new BooleanField().defaultTo(true), true, true);
+		this(new BooleanField().defaultTo(true), true, true, INTERFACE_VARIANT);
 	}
 
-	private Dispatcher(final BooleanField pending, final boolean supportPurge, final boolean supportRemaining)
+	public static <I extends Item> Dispatcher create(
+			final Target<I> target)
+	{
+		return create(target, null, null);
+	}
+
+	/**
+	 * @param deferrer Allows to defer dispatching an item even if it is pending.
+	 */
+	public static <I extends Item> Dispatcher create(
+			final Target<I> target,
+			final Predicate<I> deferrer)
+	{
+		return create(target, deferrer, null);
+	}
+
+	/**
+	 * @param deferrer Allows to defer dispatching an item even if it is pending.
+	 */
+	public static <I extends Item> Dispatcher create(
+			final Target<I> target,
+			final Predicate<I> deferrer,
+			final BiConsumer<I,Exception> finalFailureListener)
+	{
+		return new Dispatcher(
+				new BooleanField().defaultTo(true), true, true,
+				new TargetVariant(target, deferrer, finalFailureListener));
+	}
+
+	private Dispatcher(final BooleanField pending, final boolean supportPurge, final boolean supportRemaining, final Variant variant)
 	{
 		this.pending = addSourceFeature(pending, "pending");
 		if(supportPurge)
@@ -160,11 +263,12 @@ public final class Dispatcher extends Pattern
 			unpend = null;
 		}
 		this.supportRemaining = supportRemaining;
+		this.variant = requireNonNull(variant);
 	}
 
 	public Dispatcher defaultPendingTo(final boolean defaultConstant)
 	{
-		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge(), supportRemaining);
+		return new Dispatcher(pending.defaultTo(defaultConstant), supportsPurge(), supportRemaining, variant);
 	}
 
 	/**
@@ -174,7 +278,7 @@ public final class Dispatcher extends Pattern
 	 */
 	public Dispatcher withoutPurge()
 	{
-		return new Dispatcher(pending.copy(), false, supportRemaining);
+		return new Dispatcher(pending.copy(), false, supportRemaining, variant);
 	}
 
 	boolean supportsPurge()
@@ -188,7 +292,7 @@ public final class Dispatcher extends Pattern
 	 */
 	public Dispatcher withoutRemaining()
 	{
-		return new Dispatcher(pending.copy(), supportsPurge(), false);
+		return new Dispatcher(pending.copy(), supportsPurge(), false, variant);
 	}
 
 	@Override
@@ -196,7 +300,8 @@ public final class Dispatcher extends Pattern
 	{
 		super.onMount();
 		final Type<?> type = getType();
-		if(!Dispatchable.class.isAssignableFrom(type.getJavaClass()))
+		if(variant==INTERFACE_VARIANT &&
+			!Dispatchable.class.isAssignableFrom(type.getJavaClass()))
 			throw new ClassCastException(
 					"type of " + getID() + " must implement " + Dispatchable.class +
 					", but was " + type.getJavaClass().getName());
@@ -283,7 +388,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	@Wrap(order=20, doc="Dispatch by {0}.")
-	public <P extends Item & Dispatchable> void dispatch(
+	public <P extends Item> void dispatch(
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("config") final Config config,
 			@Nonnull @Parameter("ctx") final JobContext ctx)
@@ -304,7 +409,7 @@ public final class Dispatcher extends Pattern
 
 	@SuppressFBWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=21, doc="Dispatch by {0}.")
-	public <P extends Item & Dispatchable> void dispatch(
+	public <P extends Item> void dispatch(
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("config") final Config config,
 			@Nonnull @Parameter("probe") final Runnable probe,
@@ -349,7 +454,7 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
-				if(item.isDeferred(this))
+				if(variant.isDeferred(this, item))
 				{
 					tx.commit();
 					if(logger.isDebugEnabled())
@@ -364,7 +469,7 @@ public final class Dispatcher extends Pattern
 				final long nanoStart = nanoTime();
 				try
 				{
-					item.dispatch(this);
+					variant.dispatch(this, item);
 
 					final long elapsed = toMillies(nanoTime(), nanoStart);
 					runType.newItem(
@@ -428,7 +533,7 @@ public final class Dispatcher extends Pattern
 									"took " + elapsed + "ms, " +
 									limit + " runs exhausted",
 									failureCause);
-						item.notifyFinalFailure(this, failureCause);
+						variant.notifyFinalFailure(this, item, failureCause);
 					}
 					else
 					{
@@ -628,7 +733,7 @@ public final class Dispatcher extends Pattern
 			type = newSourceType(Run.class, features, "Run");
 		}
 
-		private <P extends Item & Dispatchable> void newItem(
+		private <P extends Item> void newItem(
 				@Nonnull final Class<P> parentClass,
 				final P parent,
 				final Date date,

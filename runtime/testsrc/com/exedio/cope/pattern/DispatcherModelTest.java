@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
+import static com.exedio.cope.pattern.Dispatcher.create;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherItem.body;
 import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
@@ -27,6 +28,7 @@ import static com.exedio.cope.pattern.DispatcherItem.purgeToTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
@@ -47,6 +49,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class DispatcherModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
@@ -159,12 +162,45 @@ public class DispatcherModelTest
 		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
+	@Test void testCreateDeferrerNull()
+	{
+		create(i -> { throw new Exception(); }, null);
+	}
+
+	@Test void testCreateFinalFailureListenerNull()
+	{
+		create(i -> { throw new Exception(); }, null, null);
+	}
+
+	@Test void testCreateTargetNull()
+	{
+		assertFails(
+				() -> create(null),
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testCreateTargetNullDeferrer()
+	{
+		assertFails(
+				() -> create(null, null),
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testCreateTargetNullFinalFailureListener()
+	{
+		assertFails(
+				() -> create(null, null, null),
+				NullPointerException.class,
+				"target");
+	}
+
 	@Test void testDispatchParentClassWrong()
 	{
 		try
 		{
-			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
+			toTarget.dispatch(HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
 			fail();
 		}
 		catch(final ClassCastException e)

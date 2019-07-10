@@ -148,12 +148,11 @@ public class DispatcherWithoutPurgeModelTest
 		assertSerializedSame(toTarget, 415);
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testDispatchParentClassWrong()
 	{
 		try
 		{
-			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
+			toTarget.dispatch(HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
 			fail();
 		}
 		catch(final ClassCastException e)
