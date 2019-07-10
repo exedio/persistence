@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Schedule does not support Locale anymore.
+	Constructor Schedule(TimeZone, Locale) and methods getLocale() and
+	newGregorianCalendar() were dropped. Were deprecated since Jan 2017.
 * ChangeEvent#getTransactionDuration() added.
 * Aggregate becomes Function, Function#get becomes optional operation.
 	This breaks backwards API compatibility, causes compiler errors.
