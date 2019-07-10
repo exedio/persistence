@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: JavaView#getValue[Generic]Type returns wrapper classes instead of primitives.
+	This fixes copaiba with primitive return type of JavaView getter method.
 * SamplerProperties: keys purgeDays.* renamed to purge.* and expect
 	Duration instead of integer.
 	This breaks backwards API compatibility, check your deployed systems!

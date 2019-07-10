@@ -84,8 +84,8 @@ public class JavaViewTest extends TestWithEnvironment
 		assertEquals(null, numberString.getPattern());
 		assertEquals(Double.class, number.getValueType());
 		assertEquals(Double.class, number.getValueGenericType());
-		assertEquals(double.class, numberPrimitive.getValueType());
-		assertEquals(double.class, numberPrimitive.getValueGenericType());
+		assertEquals(Double.class, numberPrimitive.getValueType());
+		assertEquals(Double.class, numberPrimitive.getValueGenericType());
 		assertEquals(String.class, privat.getValueType());
 		assertEquals(String.class, privat.getValueGenericType());
 		assertEquals(HashMap.class, map.getValueType());
