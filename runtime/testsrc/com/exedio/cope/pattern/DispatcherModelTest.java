@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherItem.body;
 import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
@@ -27,6 +28,7 @@ import static com.exedio.cope.pattern.DispatcherItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -283,5 +285,18 @@ public class DispatcherModelTest
 		assertEquals(false, Result.finalFailure.isSuccess());
 		assertEquals(false, failure.isSuccess());
 		assertEquals(true, Result.success.isSuccess());
+	}
+
+	@Test void testEnumSchemaResult()
+	{
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
+		final Result deprecatedFailure = Result.failure;
+		assertEquals(
+				asList(Result.transientFailure, Result.finalFailure, deprecatedFailure, Result.success),
+				asList(Dispatcher.Result.values()));
+		assertEquals(-20, getColumnValue(Result.transientFailure ));
+		assertEquals(-10, getColumnValue(Result.finalFailure ));
+		assertEquals(  0, getColumnValue(deprecatedFailure ));
+		assertEquals(  1, getColumnValue(Result.success ));
 	}
 }
