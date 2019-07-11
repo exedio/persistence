@@ -215,6 +215,38 @@ public final class Dispatcher extends Pattern
 
 	private volatile boolean probeRequired = true;
 
+	/**
+	 * If your code now looks like this:
+	 * <pre>
+	 * class Mail extends Item <span style="text-decoration: line-through;">implements Dispatchable</span>
+	 * {
+	 *    static final Dispatcher toSmtp =
+	 *       <span style="text-decoration: line-through;">new</span> Dispatcher();
+	 *
+	 *    <span style="text-decoration: line-through;">@Override</span>
+	 *    <span style="text-decoration: line-through;">public</span> void dispatch(<span style="text-decoration: line-through;">Dispatcher dispatcher</span>)
+	 *    {
+	 *       // your code
+	 *    }
+	 * }
+	 * </pre>
+	 * then change it to this:
+	 * <pre>
+	 * class Mail extends Item
+	 * {
+	 *    static final Dispatcher toSmtp =
+	 *       Dispatcher<b>.create</b>(<b>Mail::dispatch</b>);
+	 *
+	 *    <b>@{@link com.exedio.cope.instrument.WrapInterim WrapInterim}(methodBody=false)</b>
+	 *    <b>private</b> void dispatch()
+	 *    {
+	 *       // your code
+	 *    }
+	 * }
+	 * </pre>
+	 * @deprecated Use {@link #create(Target,Predicate,BiConsumer)} instead as described.
+	 */
+	@Deprecated
 	public Dispatcher()
 	{
 		this(new BooleanField().defaultTo(true), true, true, INTERFACE_VARIANT);

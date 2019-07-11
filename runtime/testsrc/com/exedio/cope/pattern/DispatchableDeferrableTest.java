@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.BooleanField;
@@ -27,6 +26,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.util.JobContexts;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -92,37 +92,33 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	}
 
 
-	static final class AnItem extends Item implements Dispatchable
+	static final class AnItem extends Item
 	{
-		static final Dispatcher toTarget = new Dispatcher();
+		static final Dispatcher toTarget = Dispatcher.create(
+				AnItem::dispatch,
+				AnItem::isDeferred,
+				(i, cause) -> { throw new RuntimeException(cause); });
 		static final BooleanField deferred = new BooleanField().defaultTo(true);
 		static final IntegerField deferredCount = new IntegerField().defaultTo(0);
 		static final IntegerField dispatchCount = new IntegerField().defaultTo(0);
 
-		@Override
-		public boolean isDeferred(final Dispatcher dispatcher)
+		@WrapInterim(methodBody=false)
+		private boolean isDeferred()
 		{
-			assertIt(dispatcher);
+			assertIt();
 			setDeferredCount(getDeferredCount()+1);
 			return getDeferred();
 		}
 
-		@Override
-		public void dispatch(final Dispatcher dispatcher)
+		@WrapInterim(methodBody=false)
+		private void dispatch()
 		{
-			assertIt(dispatcher);
+			assertIt();
 			setDispatchCount(getDispatchCount()+1);
 		}
 
-		@Override
-		public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
+		private void assertIt()
 		{
-			throw new RuntimeException(cause);
-		}
-
-		private void assertIt(final Dispatcher dispatcher)
-		{
-			assertSame(toTarget, dispatcher);
 			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		}

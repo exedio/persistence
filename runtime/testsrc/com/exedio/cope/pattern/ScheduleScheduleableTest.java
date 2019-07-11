@@ -240,6 +240,7 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item implements Scheduleable
 	{
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final Schedule report = new Schedule(ZoneId.of("Europe/Berlin"));
 
 		@Override

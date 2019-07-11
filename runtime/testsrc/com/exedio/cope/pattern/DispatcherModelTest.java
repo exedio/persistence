@@ -159,7 +159,7 @@ public class DispatcherModelTest
 	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
 	@Test void testDefaultPendingTo()
 	{
-		assertSame(Boolean.FALSE, new Dispatcher().defaultPendingTo(false).getPending().getDefaultConstant());
+		assertSame(Boolean.FALSE, create(i -> {}).defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
 	@Test void testCreateDeferrerNull()

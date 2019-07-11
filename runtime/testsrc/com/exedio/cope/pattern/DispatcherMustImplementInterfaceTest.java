@@ -42,7 +42,9 @@ public class DispatcherMustImplementInterfaceTest
 	static final class MyItem extends Item
 	{
 		@WrapperIgnore
-		@SuppressWarnings("unused") // OK: added to type
+		@SuppressWarnings({
+				"unused", // OK: added to type
+				"deprecation"}) // OK: testing deprecated API
 		static final Dispatcher wrong = new Dispatcher();
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

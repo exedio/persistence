@@ -172,6 +172,7 @@ public class ScheduleModelTest
 				"zoneId");
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testZoneIdNull()
 	{
 		try

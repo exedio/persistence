@@ -320,6 +320,7 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 			}
 		}
 
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final Dispatcher toTarget = new Dispatcher();
 
 		@Override

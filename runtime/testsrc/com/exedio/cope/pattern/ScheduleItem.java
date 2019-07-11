@@ -20,12 +20,12 @@ package com.exedio.cope.pattern;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.pattern.ScheduleTest.Log;
 import com.exedio.cope.util.JobContext;
 import java.time.ZoneId;
@@ -33,18 +33,17 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-public final class ScheduleItem extends Item implements Scheduleable
+public final class ScheduleItem extends Item
 {
-	static final Schedule report = new Schedule(ZoneId.of("Europe/Berlin"));
+	static final Schedule report = Schedule.create(ZoneId.of("Europe/Berlin"), ScheduleItem::run);
 	static final BooleanField fail = new BooleanField().defaultTo(false);
 	static final IntegerField progress = new IntegerField().optional().min(0);
 
 	private static final ArrayList<Log> logs = new ArrayList<>();
 
-	@Override
-	public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
+	@WrapInterim(methodBody=false)
+	private void run(final Date from, final Date until, final JobContext ctx)
 	{
-		assertSame(report, schedule);
 		assertNotNull(ctx);
 		assertTrue(TYPE.getModel().hasCurrentTransaction());
 		logs.add(new Log(this, from, until, TYPE.getModel().currentTransaction().getName()));

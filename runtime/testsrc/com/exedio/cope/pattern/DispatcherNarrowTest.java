@@ -21,7 +21,6 @@ package com.exedio.cope.pattern;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.BooleanField;
@@ -118,7 +117,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class MyItem extends Item implements Dispatchable
+	static final class MyItem extends Item
 	{
 		@Wrapper(visibility=Visibility.NONE, wrap="get")
 		static final BooleanField dropByNarrowCondition = new BooleanField();
@@ -127,13 +126,7 @@ public class DispatcherNarrowTest extends TestWithEnvironment
 		@Wrapper(visibility=Visibility.DEFAULT, wrap="dispatch", parameters={Config.class, JobContext.class})
 		@Wrapper(visibility=Visibility.DEFAULT, wrap="isPending")
 		@Wrapper(visibility=Visibility.DEFAULT, wrap="getLastSuccessDate")
-		static final Dispatcher toTarget = new Dispatcher();
-
-		@Override
-		public void dispatch(final Dispatcher dispatcher)
-		{
-			assertSame(toTarget, dispatcher);
-		}
+		static final Dispatcher toTarget = Dispatcher.create(i -> {});
 
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

@@ -22,19 +22,19 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static com.exedio.cope.pattern.DispatcherWithoutRemainingModelTest.MODEL;
 import static java.lang.System.nanoTime;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapInterim;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
-public final class DispatcherWithoutRemainingItem extends Item implements Dispatchable
+public final class DispatcherWithoutRemainingItem extends Item
 {
 	static final StringField body = new StringField();
 	static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);
@@ -53,12 +53,15 @@ public final class DispatcherWithoutRemainingItem extends Item implements Dispat
 		}
 	}
 
-	static final Dispatcher toTarget = new Dispatcher().withoutRemaining();
+	static final Dispatcher toTarget = Dispatcher.create(
+			DispatcherWithoutRemainingItem::dispatch,
+			null,
+			DispatcherWithoutRemainingItem::notifyFinalFailure).
+			withoutRemaining();
 
-	@Override
-	public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
+	@WrapInterim(methodBody=false)
+	private void dispatch() throws IOException, InterruptedException
 	{
-		assertSame(toTarget, dispatcher);
 		assertTrue(MODEL.hasCurrentTransaction());
 		assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 		setDispatchCountCommitted(getDispatchCountCommitted()+1);
@@ -91,10 +94,9 @@ public final class DispatcherWithoutRemainingItem extends Item implements Dispat
 		actualHistory.clear();
 	}
 
-	@Override
-	public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
+	@WrapInterim(methodBody=false)
+	private void notifyFinalFailure(final Exception cause)
 	{
-		assertSame(toTarget, dispatcher);
 		assertTrue(!MODEL.hasCurrentTransaction());
 		assertEquals(IOException.class, cause.getClass());
 		historyAdd("notifyFinalFailure " + getCopeID());

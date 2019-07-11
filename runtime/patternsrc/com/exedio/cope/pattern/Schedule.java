@@ -136,6 +136,38 @@ public final class Schedule extends Pattern
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
 
+	/**
+	 * If your code now looks like this:
+	 * <pre>
+	 * class SalesReport extends Item <span style="text-decoration: line-through;">implements Scheduleable</span>
+	 * {
+	 *    static final Schedule report =
+	 *       <span style="text-decoration: line-through;">new</span> Schedule(ZoneId.of("..."));
+	 *
+	 *    <span style="text-decoration: line-through;">@Override</span>
+	 *    <span style="text-decoration: line-through;">public</span> void run(<span style="text-decoration: line-through;">Schedule schedule</span>, Date from, Date until, JobContext ctx)
+	 *    {
+	 *       // your code
+	 *    }
+	 * }
+	 * </pre>
+	 * then change it to this:
+	 * <pre>
+	 * class SalesReport extends Item
+	 * {
+	 *    static final Schedule report =
+	 *       Schedule<b>.create</b>(ZoneId.of("..."), <b>SalesReport::run</b>);
+	 *
+	 *    <b>@{@link com.exedio.cope.instrument.WrapInterim WrapInterim}(methodBody=false)</b>
+	 *    <b>private</b> void run(Date from, Date until, JobContext ctx)
+	 *    {
+	 *       // your code
+	 *    }
+	 * }
+	 * </pre>
+	 * @deprecated Use {@link #create(ZoneId, Target)} instead as described.
+	 */
+	@Deprecated
 	public Schedule(final ZoneId zoneId)
 	{
 		this(zoneId, INTERFACE_VARIANT, null);

@@ -26,6 +26,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.JobContexts;
 import org.junit.jupiter.api.AfterEach;
@@ -108,17 +109,17 @@ public class DispatchableRependWithoutPurgeTest extends TestWithEnvironment
 
 
 	@WrapperType(indent=2)
-	static final class AnItem extends Item implements Dispatchable
+	static final class AnItem extends Item
 	{
-		static final Dispatcher toTarget = new Dispatcher().withoutPurge();
+		static final Dispatcher toTarget = Dispatcher.create(AnItem::dispatch).withoutPurge();
 		static final BooleanField dispatchFails = new BooleanField().defaultTo(false);
 		static final IntegerField dispatchCount = new IntegerField().defaultTo(0);
 
-		@Override
-		public void dispatch(final Dispatcher dispatcher)
+		@WrapInterim(methodBody=false)
+		private void dispatch()
 		{
 			if(getDispatchFails())
-				throw new RuntimeException("dispatch " + dispatcher + " " + this);
+				throw new RuntimeException("dispatch " + this);
 			setDispatchCount(getDispatchCount()+1);
 		}
 
