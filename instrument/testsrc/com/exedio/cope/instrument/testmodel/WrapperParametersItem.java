@@ -38,6 +38,8 @@ class WrapperParametersItem extends Item
 	@Wrapper(wrap="param", parameters=WrapperParametersFeature.SomeEnum.class, visibility=PRIVATE)
 	@Wrapper(wrap="param", parameters=byte[].class, internal=true, visibility=PUBLIC)
 	@Wrapper(wrap="param", parameters=Item[][].class, internal=true, visibility=PROTECTED)
+	@Wrapper(wrap="param", parameters=float.class, internal=true, visibility=PUBLIC)
+	@Wrapper(wrap="param", parameters=double.class, internal=true, visibility=PROTECTED)
 	static final WrapperParametersFeature feature = new WrapperParametersFeature();
 
 	/**
@@ -96,6 +98,18 @@ class WrapperParametersItem extends Item
 	protected final void paramFeatureInternal(final com.exedio.cope.Item[][] feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	public static final void paramFeatureInternal(final float feature)
+	{
+		WrapperParametersItem.feature.param(feature);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	protected static final void paramFeatureInternal(final double feature)
+	{
+		WrapperParametersItem.feature.param(WrapperParametersItem.class,feature);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

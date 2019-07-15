@@ -82,4 +82,18 @@ public class WrapperParametersFeature
 	@SuppressWarnings({"EmptyClass", "RedundantSuppression"}) // OK: just for testing instrumentor
 	public enum SomeEnum { }
 
+	@Wrap(order=500)
+	public void param(
+			@SuppressWarnings("unused") final float arg)
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=510)
+	public <P extends Item> void param(
+			@SuppressWarnings("unused") final Class<P> parent,
+			@SuppressWarnings("unused") final double arg)
+	{
+		throw new RuntimeException();
+	}
 }
