@@ -118,15 +118,6 @@ public final class AntTask extends Task
 		pathToFiles(value, params.classpath, false);
 	}
 
-	@Deprecated
-	public void setEncoding(final String value)
-	{
-		System.out.println(
-				"<instrument ... uses deprecated attribute encoding=\"" + value + "\", " +
-				"use charset=\"" + value + "\" instead.");
-		setCharset(value);
-	}
-
 	public void setNullabilityAnnotations(final boolean value)
 	{
 		params.nullabilityAnnotations = value;

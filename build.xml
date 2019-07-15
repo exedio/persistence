@@ -752,7 +752,7 @@
 		<instrument
 				dir="instrument/testsrc"
 				verify="${instrument.verify}"
-				encoding="ascii"
+				charset="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"
 				finalMethodInFinalClass="false"
@@ -781,7 +781,7 @@
 		<instrument
 				dir="instrument/testlibsrc"
 				verify="${instrument.verify}"
-				encoding="ascii"
+				charset="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"
 				finalMethodInFinalClass="false"
