@@ -23,7 +23,6 @@ import static com.exedio.cope.Intern.intern;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import com.exedio.cope.util.Cast;
 import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.Collections;
@@ -284,7 +283,8 @@ public final class UniqueConstraint extends Feature implements Copyable
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 	{
-		return Cast.verboseCast(typeClass, search(values));
+		final Condition condition = buildCondition(values);
+		return getType().as(typeClass).searchSingleton(condition);
 	}
 
 	/**
@@ -301,7 +301,8 @@ public final class UniqueConstraint extends Feature implements Copyable
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 		throws IllegalArgumentException
 	{
-		return Cast.verboseCast(typeClass, searchStrict(values));
+		final Condition condition = buildCondition(values);
+		return getType().as(typeClass).searchSingletonStrict(condition);
 	}
 
 	void check(final FieldValues fieldValues)
