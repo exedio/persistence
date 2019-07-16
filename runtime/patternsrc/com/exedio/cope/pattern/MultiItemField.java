@@ -40,7 +40,6 @@ import com.exedio.cope.misc.Arrays;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.LinkedHashMap;
@@ -368,7 +367,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		}
 		if(value!=null && !valueSet)
 		{
-			Cast.verboseCast(valueClass, value); // throws ClassCastException
+			valueClass.cast(value); // throws ClassCastException
 
 			throw new IllegalInstanceException(this, exceptionItem, value.getClass());
 		}

@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
-import static com.exedio.cope.util.Cast.verboseCast;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
@@ -277,12 +276,12 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 
 	public V getAndCast(final Item item, final Object key)
 	{
-		return get(item, verboseCast(this.key.getValueClass(), key));
+		return get(item, this.key.getValueClass().cast(key));
 	}
 
 	public void setAndCast(final Item item, final Object key, final Object value)
 	{
-		set(item, verboseCast(this.key.getValueClass(), key), verboseCast(this.value.getValueClass(), value));
+		set(item, this.key.getValueClass().cast(key), this.value.getValueClass().cast(value));
 	}
 
 	public Join join(final Query<?> q, final K key)

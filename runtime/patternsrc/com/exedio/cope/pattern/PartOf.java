@@ -33,7 +33,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import com.exedio.cope.util.Cast;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.Nonnull;
@@ -123,12 +122,12 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public List<? extends Item> getParts(final Item container)
 	{
-		return getParts(getType().getJavaClass(), Cast.verboseCast(this.container.getValueClass(), container));
+		return getParts(getType().getJavaClass(), this.container.getValueClass().cast(container));
 	}
 
 	public Query<? extends Item> getPartsQuery(final Item container, @Nullable final Condition condition)
 	{
-		return getPartsQuery(getType().getJavaClass(), Cast.verboseCast(this.container.getValueClass(), container), condition);
+		return getPartsQuery(getType().getJavaClass(), this.container.getValueClass().cast(container), condition);
 	}
 
 	// static convenience methods ---------------------------------

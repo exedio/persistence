@@ -187,7 +187,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		catch(final ClassCastException e)
 		{
 			assertEquals(
-					"expected a com.exedio.cope.pattern.MultiItemFieldValuex, but was a java.lang.String",
+					"Cannot cast java.lang.String to com.exedio.cope.pattern.MultiItemFieldValuex",
 					e.getMessage());
 		}
 		assertEquals(expected, item.getField());
@@ -383,7 +383,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		catch(final ClassCastException e)
 		{
 			assertEquals(
-					"expected a com.exedio.cope.pattern.MultiItemFieldComponentxA, but was a com.exedio.cope.pattern.MultiItemFieldComponentxB",
+					"Cannot cast com.exedio.cope.pattern.MultiItemFieldComponentxB to com.exedio.cope.pattern.MultiItemFieldComponentxA",
 					e.getMessage());
 		}
 	}

@@ -35,7 +35,6 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import com.exedio.cope.util.Cast;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -136,7 +135,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		final ByteArrayInputStream bis = new ByteArrayInputStream(buf);
 		try(ObjectInputStream ois = new ObjectInputStream(bis))
 		{
-			result = Cast.verboseCast(valueClass, ois.readObject());
+			result = valueClass.cast(ois.readObject());
 		}
 		catch(final IOException | ClassNotFoundException e)
 		{

@@ -26,7 +26,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import com.exedio.cope.util.Cast;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -261,7 +260,7 @@ public abstract class FunctionField<E> extends Field<E>
 	{
 		item.type.assertBelongs(this);
 
-		return Cast.verboseCast(valueClass, item.getEntity().get(this));
+		return valueClass.cast(item.getEntity().get(this));
 	}
 
 	final E getMandatoryObject(final Item item)

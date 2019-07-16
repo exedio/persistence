@@ -32,7 +32,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.misc.SetValueUtil;
-import com.exedio.cope.util.Cast;
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
@@ -1124,7 +1123,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	public T cast(final Item item)
 	{
-		return Cast.verboseCast(javaClass, item);
+		return javaClass.cast(item);
 	}
 
 	/**

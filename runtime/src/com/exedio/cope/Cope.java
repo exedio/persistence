@@ -21,7 +21,6 @@ package com.exedio.cope;
 import com.exedio.cope.CompareFunctionCondition.Operator;
 import com.exedio.cope.misc.ModelByString;
 import com.exedio.cope.misc.ModelMain;
-import com.exedio.cope.util.Cast;
 import java.util.List;
 
 /**
@@ -95,11 +94,11 @@ public final class Cope
 
 	public static <X> SetValue<X> mapAndCast(final Field<X> a, final Object o)
 	{
-		return SetValue.map(a, Cast.verboseCast(a.getValueClass(), o));
+		return SetValue.map(a, a.getValueClass().cast(o));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Field#set(Item, Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
@@ -107,77 +106,77 @@ public final class Cope
 	@SuppressWarnings("StaticMethodOnlyUsedInOneClass")
 	public static <X> void setAndCast(final Field<X> field, final Item item, final Object value)
 	{
-		field.set(item, Cast.verboseCast(field.getValueClass(), value));
+		field.set(item, field.getValueClass().cast(value));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#equal(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> Condition equalAndCast(final Function<X> function, final Object value)
 	{
-		return function.equal(Cast.verboseCast(function.getValueClass(), value));
+		return function.equal(function.getValueClass().cast(value));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#notEqual(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> Condition notEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.notEqual(Cast.verboseCast(function.getValueClass(), value));
+		return function.notEqual(function.getValueClass().cast(value));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#less(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> lessAndCast(final Function<X> function, final Object value)
 	{
-		return function.less(Cast.verboseCast(function.getValueClass(), value));
+		return function.less(function.getValueClass().cast(value));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#lessOrEqual(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> lessOrEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.lessOrEqual(Cast.verboseCast(function.getValueClass(), value));
+		return function.lessOrEqual(function.getValueClass().cast(value));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#greater(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> greaterAndCast(final Function<X> function, final Object value)
 	{
-		return function.greater(Cast.verboseCast(function.getValueClass(), value));
+		return function.greater(function.getValueClass().cast(value));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code value</tt> to <tt>X} before calling
 	 * {@link Function#greaterOrEqual(Object)}
 	 * @throws ClassCastException if {@code value</tt> is not assignable to <tt>X}
 	 */
 	public static <X> CompareCondition<X> greaterOrEqualAndCast(final Function<X> function, final Object value)
 	{
-		return function.greaterOrEqual(Cast.verboseCast(function.getValueClass(), value));
+		return function.greaterOrEqual(function.getValueClass().cast(value));
 	}
 
 	/**
-	 * {@link Cast#verboseCast(Class, Object) Casts}
+	 * {@link Class#cast(Object) Casts}
 	 * {@code values</tt> to <tt>X} before calling
 	 * {@link Function#between(Object, Object)}
 	 * @throws ClassCastException if one of the {@code values</tt> is not assignable to <tt>X}
@@ -186,8 +185,8 @@ public final class Cope
 	{
 		final Class<X> valueClass = function.getValueClass();
 		return function.between(
-				  Cast.verboseCast(valueClass, lowerBound),
-				  Cast.verboseCast(valueClass, upperBound));
+				  valueClass.cast(lowerBound),
+				  valueClass.cast(upperBound));
 	}
 
 
@@ -223,12 +222,12 @@ public final class Cope
 	}
 
 	/**
-	 * @deprecated Use {@link Cast#verboseCast(Class, Object)} instead.
+	 * @deprecated Use {@link Class#cast(Object)} instead.
 	 */
 	@Deprecated
 	public static <X> X verboseCast(final Class<X> clazz, final Object o)
 	{
-		return Cast.verboseCast(clazz, o);
+		return clazz.cast(o);
 	}
 
 	/**

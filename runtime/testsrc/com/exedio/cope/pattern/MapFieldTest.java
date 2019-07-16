@@ -257,7 +257,7 @@ public class MapFieldTest extends TestWithEnvironment
 		}
 		catch (final ClassCastException e)
 		{
-			assertEquals("expected a " + Language.class.getName() + ", but was a " + String.class.getName(), e.getMessage());
+			assertEquals("Cannot cast " + String.class.getName() + " to " + Language.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -285,7 +285,7 @@ public class MapFieldTest extends TestWithEnvironment
 		}
 		catch (final ClassCastException e)
 		{
-			assertEquals("expected a " + Language.class.getName() + ", but was a " + String.class.getName(), e.getMessage());
+			assertEquals("Cannot cast " + String.class.getName() + " to " + Language.class.getName(), e.getMessage());
 		}
 		key = DE;
 		value = 1;
@@ -296,7 +296,7 @@ public class MapFieldTest extends TestWithEnvironment
 		}
 		catch (final ClassCastException e)
 		{
-			assertEquals("expected a " + String.class.getName() + ", but was a " + Integer.class.getName(), e.getMessage());
+			assertEquals("Cannot cast " + Integer.class.getName() + " to " + String.class.getName(), e.getMessage());
 			assertEquals("NAMEde", item.getName(DE));
 		}
 		value = "nameDE";

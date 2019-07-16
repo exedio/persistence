@@ -87,7 +87,7 @@ public class ItemTest extends TestmodelTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + EmptyItem.class.getName() + ", but was a " + EmptyItem2.TYPE.getJavaClass().getName(), e.getMessage());
+			assertEquals("Cannot cast " + EmptyItem2.TYPE.getJavaClass().getName() + " to " + EmptyItem.class.getName(), e.getMessage());
 		}
 
 		assertSame(TYPE, TYPE.as(EmptyItem.class));
