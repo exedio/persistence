@@ -161,7 +161,7 @@ public class DispatcherModelTest
 	}
 
 	@SuppressWarnings("unchecked") // OK: test bad api usage
-	@Test void testDispatchUnchecked()
+	@Test void testDispatchParentClassWrong()
 	{
 		try
 		{

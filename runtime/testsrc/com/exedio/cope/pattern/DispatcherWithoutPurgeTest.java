@@ -22,7 +22,6 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfoAssert.assertNoUpdateCounterColumn;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.toTarget;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -36,8 +35,6 @@ import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.RelativeMockClockStrategy;
 import com.exedio.cope.util.AssertionErrorJobContext;
-import com.exedio.cope.util.EmptyJobContext;
-import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.io.IOException;
 import java.time.Duration;
@@ -151,38 +148,6 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertFailed (item4, 0, list(d1[3], d2[1], d3[1]));
 
 		log.assertEmpty();
-	}
-
-	@SuppressWarnings("unchecked") // OK: test bad api usage
-	@Test void testUnchecked()
-	{
-		try
-		{
-			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), new EmptyJobContext());
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected " + HashItem.class.getName() + ", but was " + DispatcherWithoutPurgeItem.class.getName(), e.getMessage());
-		}
-		try
-		{
-			toTarget.dispatch((Class)HashItem.class, null, (JobContext)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("config", e.getMessage());
-		}
-		try
-		{
-			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), (JobContext)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("ctx", e.getMessage());
-		}
 	}
 
 	@Test void testStop0()
