@@ -172,6 +172,7 @@ public final class SetField<E> extends Pattern implements Copyable
 	@Nonnull
 	public <P extends Item> ItemField<P> getParent(@Nonnull final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return mount().parent.as(parentClass);
 	}
 
@@ -268,6 +269,7 @@ public final class SetField<E> extends Pattern implements Copyable
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("element") final E element)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return new Query<>(
 				mount().parent.as(parentClass),
 				this.element.equal(element)).

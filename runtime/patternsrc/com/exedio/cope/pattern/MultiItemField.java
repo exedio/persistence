@@ -33,6 +33,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
+import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
@@ -286,8 +287,10 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 	{
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		return getType().as(typeClass).searchSingleton(equal(value));
+		return type.searchSingleton(equal(value));
 	}
 
 	/**
@@ -305,8 +308,10 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 		throws IllegalArgumentException
 	{
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
-		return getType().as(typeClass).searchSingletonStrict(equal(value));
+		return type.searchSingletonStrict(equal(value));
 	}
 
 	public List<ItemField<?>> getComponents()

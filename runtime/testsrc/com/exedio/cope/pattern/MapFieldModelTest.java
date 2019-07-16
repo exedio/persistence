@@ -33,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
 import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
@@ -195,7 +194,7 @@ public class MapFieldModelTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + MapFieldItem.class.getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + MapFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 	}
 

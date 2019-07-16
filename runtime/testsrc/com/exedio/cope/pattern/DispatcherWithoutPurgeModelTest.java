@@ -159,16 +159,15 @@ public class DispatcherWithoutPurgeModelTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected " + HashItem.class.getName() + ", but was " + DispatcherWithoutPurgeItem.class.getName(), e.getMessage());
+			assertEquals("parentClass requires " + DispatcherWithoutPurgeItem.class.getName() + ", but was " + HashItem.class.getName(), e.getMessage());
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testDispatchConfigNull()
 	{
 		try
 		{
-			toTarget.dispatch((Class)HashItem.class, null, (JobContext)null);
+			toTarget.dispatch(DispatcherWithoutPurgeItem.class, null, (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -177,12 +176,11 @@ public class DispatcherWithoutPurgeModelTest
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad api usage
 	@Test void testDispatchContextNull()
 	{
 		try
 		{
-			toTarget.dispatch((Class)HashItem.class, new Dispatcher.Config(), (JobContext)null);
+			toTarget.dispatch(DispatcherWithoutPurgeItem.class, new Dispatcher.Config(), (JobContext)null);
 			fail();
 		}
 		catch(final NullPointerException e)

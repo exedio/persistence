@@ -138,6 +138,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	@Nonnull
 	public <P extends Item> ItemField<P> getParent(@Nonnull final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return mount().parent.as(parentClass);
 	}
 

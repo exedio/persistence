@@ -65,7 +65,8 @@ public final class Singleton extends Pattern
 	@Nonnull
 	public <P extends Item> P instance(@Nonnull final Class<P> typeClass)
 	{
-		final Type<P> type = getType().as(typeClass);
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		final P found = type.searchSingleton(source.equal(THE_ONE_OBJECT));
 		if(found!=null)
 			return found;

@@ -133,6 +133,7 @@ public final class PasswordLimiter extends Pattern
 
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return mount().parent.as(parentClass);
 	}
 

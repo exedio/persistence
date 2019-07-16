@@ -109,6 +109,7 @@ public final class PasswordRecovery extends Pattern
 
 	public <P extends Item> ItemField<P> getParent(final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		assert parent!=null;
 		return parent.as(parentClass);
 	}

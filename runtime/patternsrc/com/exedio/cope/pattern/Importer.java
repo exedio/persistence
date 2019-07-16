@@ -79,11 +79,13 @@ public final class Importer<K> extends Pattern
 			@Nonnull @Parameter("keyValue") final K keyValue,
 			@Nonnull @Parameter("setValues") final SetValue<?>... setValues)
 	{
+		final Type<P> type =
+				requireParentClass(parentClass, "parentClass");
 		requireNonNull(keyValue, "keyValue");
 		requireNonNull(setValues, "setValues");
 
 		if(hintInitial)
-			return doImportInitial(parentClass, keyValue, setValues);
+			return doImportInitial(parentClass, type, keyValue, setValues);
 
 		final P existent = key.searchUnique(parentClass, keyValue);
 		if(existent!=null)
@@ -93,18 +95,17 @@ public final class Importer<K> extends Pattern
 		}
 		else
 		{
-			return getType().as(parentClass).newItem(prepend(key.map(keyValue), setValues));
+			return type.newItem(prepend(key.map(keyValue), setValues));
 		}
 	}
 
 	private <P extends Item> P doImportInitial(
 			final Class<P> parentClass,
+			final Type<P> type,
 			final K keyValue,
 			final SetValue<?>... setValues)
 	{
 		final SetValue<?>[] setValuesNew = prepend(key.map(keyValue), setValues);
-		final Type<P> type = getType().as(parentClass);
-
 		try
 		{
 			return type.newItem(setValuesNew);

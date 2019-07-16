@@ -33,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
@@ -225,7 +224,7 @@ public class SetFieldModelTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + SetFieldItem.class.getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 	}
 
@@ -238,7 +237,7 @@ public class SetFieldModelTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + SetFieldItem.class.getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 	}
 
@@ -251,7 +250,7 @@ public class SetFieldModelTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + SetFieldItem.class.getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 	}
 
@@ -264,7 +263,7 @@ public class SetFieldModelTest
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + SetFieldItem.class.getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 	}
 }

@@ -68,6 +68,7 @@ public final class History extends Pattern
 	@Nonnull
 	public <P extends Item> ItemField<P> getEventParent(@Nonnull final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return eventType().parent.as(parentClass);
 	}
 

@@ -49,7 +49,6 @@ import com.exedio.cope.CopyViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
@@ -523,7 +522,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -532,7 +531,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -541,7 +540,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -550,7 +549,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -559,7 +558,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 		try
 		{
@@ -568,7 +567,7 @@ public class ListFieldTest extends TestWithEnvironment
 		}
 		catch(final ClassCastException e)
 		{
-			assertEquals("expected a " + ItemField.class.getName() + "<" + Item.class.getName() + ">, but was a " + ItemField.class.getName() + "<" + item.getClass().getName() + ">", e.getMessage());
+			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
 	}
 

@@ -252,8 +252,8 @@ public class ScheduleModelTest
 		assertFails(
 				() -> report.run((Class)HashItem.class, new EmptyJobContext()),
 				ClassCastException.class,
-				"expected " + HashItem.class.getName() + ", " +
-				"but was " + ScheduleItem.class.getName());
+				"parentClass requires " + ScheduleItem.class.getName() + ", " +
+				"but was " + HashItem.class.getName());
 	}
 
 	@Test void testRunJobContextNull()

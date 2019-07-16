@@ -107,7 +107,8 @@ public final class PartOf<C extends Item> extends Pattern
 			final C container,
 			@Nullable final Condition condition)
 	{
-		final Type<P> type = getType().as(partClass);
+		final Type<P> type =
+				requireParentClass(partClass, "partClass");
 		final Condition parentCondition = this.container.equal(container);
 		final Query<P> q = type.newQuery(condition!=null ? Cope.and(parentCondition, condition) : parentCondition);
 

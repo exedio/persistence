@@ -448,9 +448,11 @@ public abstract class FunctionField<E> extends Field<E>
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 	{
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
-		return getType().as(typeClass).searchSingleton(equal(value));
+		return type.searchSingleton(equal(value));
 	}
 
 	/**
@@ -468,9 +470,11 @@ public abstract class FunctionField<E> extends Field<E>
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 		throws IllegalArgumentException
 	{
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		requireNonNull(value, () -> "cannot search uniquely for null on " + getID());
 		// TODO: search nativly for unique constraints
-		return getType().as(typeClass).searchSingletonStrict(equal(value));
+		return type.searchSingletonStrict(equal(value));
 	}
 
 	boolean isPrimitive()

@@ -37,6 +37,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
+import javax.annotation.Nonnull;
 
 public abstract class Feature implements Serializable
 {
@@ -328,6 +329,20 @@ public abstract class Feature implements Serializable
 	public final String getID()
 	{
 		return mountType().id;
+	}
+
+	protected final <P extends Item> Type<P> requireParentClass(
+			@Nonnull final Class<P> parentClass,
+			@Nonnull final String message)
+	{
+		requireNonNull(parentClass, message);
+		final Class<?> typeClass = getType().getJavaClass();
+		if(!typeClass.equals(parentClass))
+			throw new ClassCastException(
+					message + " " +
+					"requires " + typeClass.getName() + ", " +
+					"but was " + parentClass.getName());
+		return getType().as(parentClass);
 	}
 
 	/**

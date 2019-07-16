@@ -283,8 +283,10 @@ public final class UniqueConstraint extends Feature implements Copyable
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 	{
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		final Condition condition = buildCondition(values);
-		return getType().as(typeClass).searchSingleton(condition);
+		return type.searchSingleton(condition);
 	}
 
 	/**
@@ -301,8 +303,10 @@ public final class UniqueConstraint extends Feature implements Copyable
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 		throws IllegalArgumentException
 	{
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		final Condition condition = buildCondition(values);
-		return getType().as(typeClass).searchSingletonStrict(condition);
+		return type.searchSingletonStrict(condition);
 	}
 
 	void check(final FieldValues fieldValues)

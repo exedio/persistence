@@ -141,6 +141,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	@Nonnull
 	public <P extends Item> ItemField<P> getParent(@Nonnull final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return mount().parent.as(parentClass);
 	}
 
@@ -231,6 +232,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			@Nonnull final Class<P> parentClass,
 			@Parameter("element") final E element)
 	{
+		requireParentClass(parentClass, "parentClass");
 		final Query<P> q = new Query<>(
 				mount().parent.as(parentClass),
 				Cope.equalAndCast(this.element, element));

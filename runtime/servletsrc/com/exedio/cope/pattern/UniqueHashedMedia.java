@@ -278,6 +278,8 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			@Nullable @Parameter(doc = "shall be equal to field {0}.") final Value value)
 		throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
+		final Type<P> type =
+				requireParentClass(typeClass, "typeClass");
 		if(value==null)
 			return null;
 		final ValueWithHash valueWithHash = createValueWithHash(value);
@@ -292,7 +294,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		else
 		{
 			// throws an IllegalContentTypeException
-			return getType().as(typeClass).newItem(
+			return type.newItem(
 					media.map(valueWithHash.media),
 					hash .map(valueWithHash.hash));
 		}

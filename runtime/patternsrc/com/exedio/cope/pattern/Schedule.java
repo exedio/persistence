@@ -186,6 +186,7 @@ public final class Schedule extends Pattern
 	@Nonnull
 	public <P extends Item> ItemField<P> getRunParent(@Nonnull final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return runs.mount().parent.as(parentClass);
 	}
 
@@ -268,13 +269,14 @@ public final class Schedule extends Pattern
 			@Nonnull final Class<P> parentClass,
 			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
-		requireNonNull(parentClass, "parentClass");
+		final Type<P> type =
+				requireParentClass(parentClass, "parentClass");
 		requireNonNull(ctx, "ctx");
 
 		final Instant now = Clock.newDate().toInstant(); // TODO per item
 
 		for(final P item : once(iterateTypeTransactionally(
-				getType().as(parentClass), enabled.equal(true), 1000)))
+				type, enabled.equal(true), 1000)))
 		{
 			deferOrStopIfRequested(ctx);
 			runInternal(parentClass, now, item, ctx);

@@ -238,6 +238,7 @@ public final class Dispatcher extends Pattern
 	@Nonnull
 	public <P extends Item> ItemField<P> getRunParent(@Nonnull final Class<P> parentClass)
 	{
+		requireParentClass(parentClass, "parentClass");
 		return runType().parent.as(parentClass);
 	}
 
@@ -309,12 +310,13 @@ public final class Dispatcher extends Pattern
 			@Nonnull @Parameter("probe") final Runnable probe,
 			@Nonnull @Parameter("ctx") final JobContext ctx)
 	{
+		final Type<P> type =
+				requireParentClass(parentClass, "parentClass");
 		requireNonNull(config, "config");
 		requireNonNull(probe, "probe");
 		requireNonNull(ctx, "ctx");
 
 		final RunType runType = runType();
-		final Type<P> type = getType().as(parentClass);
 		final String id = getID();
 		final ItemField<P> runParent = runType.parent.as(parentClass);
 		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
