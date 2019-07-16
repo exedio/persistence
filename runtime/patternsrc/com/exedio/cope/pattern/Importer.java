@@ -30,7 +30,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.SetValueUtil;
-import com.exedio.cope.util.Cast;
 import java.util.List;
 import javax.annotation.Nonnull;
 
@@ -86,7 +85,7 @@ public final class Importer<K> extends Pattern
 		if(hintInitial)
 			return doImportInitial(parentClass, keyValue, setValues);
 
-		final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
+		final P existent = key.searchUnique(parentClass, keyValue);
 		if(existent!=null)
 		{
 			existent.set(setValues);
@@ -113,7 +112,7 @@ public final class Importer<K> extends Pattern
 		catch(final UniqueViolationException e)
 		{
 			assert key.getImplicitUniqueConstraint()==e.getFeature();
-			final P existent = Cast.verboseCast(parentClass, key.searchUnique(keyValue));
+			final P existent = key.searchUniqueStrict(parentClass, keyValue);
 			existent.set(setValues);
 			return existent;
 		}
