@@ -121,15 +121,6 @@ public abstract class Field<E> extends Feature implements Settable<E>
 		return valueClass;
 	}
 
-	/**
-	 * @deprecated Use {@link Cast#castElements(Class, Collection)} instead
-	 */
-	@Deprecated
-	public final Collection<E> castCollection(final Collection<?> c)
-	{
-		return Cast.castElements(valueClass, c);
-	}
-
 	public final SetValue<E> mapNull()
 	{
 		return SetValue.map(this, null);
@@ -224,6 +215,15 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	public abstract void set(Item item, E value);
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link Cast#castElements(Class, Collection)} instead
+	 */
+	@Deprecated
+	public final Collection<E> castCollection(final Collection<?> c)
+	{
+		return Cast.castElements(valueClass, c);
+	}
 
 	/**
 	 * @deprecated Use {@link SchemaInfo#getColumnName(Field)} instead
