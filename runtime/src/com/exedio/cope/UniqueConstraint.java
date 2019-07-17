@@ -239,8 +239,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 */
 	public Item search(final Object... values)
 	{
-		final Condition condition = buildCondition(values);
-		return getType().searchSingleton(condition);
+		return getType().searchSingleton(buildCondition(values));
 	}
 
 	/**
@@ -249,8 +248,7 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 */
 	public Item searchStrict(final Object... values) throws IllegalArgumentException
 	{
-		final Condition condition = buildCondition(values);
-		return getType().searchSingletonStrict(condition);
+		return getType().searchSingletonStrict(buildCondition(values));
 	}
 
 	private Condition buildCondition(final Object[] values) throws RuntimeException
@@ -283,10 +281,9 @@ public final class UniqueConstraint extends Feature implements Copyable
 			final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 	{
-		final Type<P> type =
-				requireParentClass(typeClass, "typeClass");
-		final Condition condition = buildCondition(values);
-		return type.searchSingleton(condition);
+		return
+				requireParentClass(typeClass, "typeClass").
+				searchSingleton(buildCondition(values));
 	}
 
 	/**
@@ -303,10 +300,9 @@ public final class UniqueConstraint extends Feature implements Copyable
 			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
 		throws IllegalArgumentException
 	{
-		final Type<P> type =
-				requireParentClass(typeClass, "typeClass");
-		final Condition condition = buildCondition(values);
-		return type.searchSingletonStrict(condition);
+		return
+				requireParentClass(typeClass, "typeClass").
+				searchSingletonStrict(buildCondition(values));
 	}
 
 	void check(final FieldValues fieldValues)
