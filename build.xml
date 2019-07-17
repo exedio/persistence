@@ -974,7 +974,7 @@
 	<target name="findbugs" depends="junit4, findbugs.taskdef, compile">
 		<findbugs
 					home="${basedir}/build/findbugs-home"
-					jvmargs="-Xmx250M"
+					jvmargs="-Xmx512M"
 					failOnError="true"
 					output="${findbugs.output}"
 					outputFile="${basedir}/build/findbugs.${findbugs.output}"
