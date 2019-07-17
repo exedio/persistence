@@ -445,7 +445,7 @@ public abstract class FunctionField<E> extends Field<E>
 			hide={NonUniqueGetter.class, PrimitiveGetter.class})
 	@Nullable
 	public final <P extends Item> P searchUnique(
-			final Class<P> typeClass,
+			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 	{
 		final Type<P> type =
@@ -466,7 +466,7 @@ public abstract class FunctionField<E> extends Field<E>
 			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
 	@Nonnull
 	public final <P extends Item> P searchUniqueStrict(
-			final Class<P> typeClass,
+			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 		throws IllegalArgumentException
 	{

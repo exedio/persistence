@@ -284,7 +284,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			hide=NonUniqueMultiItemFieldGetter.class)
 	@Nullable
 	public <P extends Item> P searchUnique(
-			final Class<P> typeClass,
+			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 	{
 		final Type<P> type =
@@ -304,7 +304,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
 	@Nonnull
 	public <P extends Item> P searchUniqueStrict(
-			final Class<P> typeClass,
+			@Nonnull final Class<P> typeClass,
 			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
 		throws IllegalArgumentException
 	{
