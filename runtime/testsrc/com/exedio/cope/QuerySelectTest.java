@@ -22,6 +22,8 @@ import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.QuerySelectTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySelectTest.AnItem.field1;
 import static com.exedio.cope.QuerySelectTest.AnItem.field2;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -77,6 +79,7 @@ public class QuerySelectTest
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
 		assertEquals(TYPE.getThis(), q.getSelectSingle());
+		assertEqualsUnmodifiable(asList(TYPE.getThis()), q.getSelects());
 		assertEquals("select this from AnItem", q.toString());
 
 		try
@@ -89,6 +92,7 @@ public class QuerySelectTest
 			assertEquals("must have at least 2 selects, but was [" + field1 + "]", e.getMessage());
 		}
 		assertEquals(TYPE.getThis(), q.getSelectSingle());
+		assertEqualsUnmodifiable(asList(TYPE.getThis()), q.getSelects());
 		assertEquals("select this from AnItem", q.toString());
 
 		try
@@ -101,6 +105,7 @@ public class QuerySelectTest
 			assertEquals("use setSelect instead", e.getMessage());
 		}
 		assertEquals(TYPE.getThis(), q.getSelectSingle());
+		assertEqualsUnmodifiable(asList(TYPE.getThis()), q.getSelects());
 		assertEquals("select this from AnItem", q.toString());
 	}
 
@@ -145,8 +150,9 @@ public class QuerySelectTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("use getSelectMulti instead", e.getMessage());
+			assertEquals("use getSelects instead", e.getMessage());
 		}
+		assertEqualsUnmodifiable(asList(field1, field2), q.getSelects());
 		try
 		{
 			q.setSelect(TYPE.getThis());
@@ -156,6 +162,7 @@ public class QuerySelectTest
 		{
 			assertEquals("use setSelects instead", e.getMessage());
 		}
+		assertEqualsUnmodifiable(asList(field1, field2), q.getSelects());
 	}
 
 	@Test void testSetHaving()

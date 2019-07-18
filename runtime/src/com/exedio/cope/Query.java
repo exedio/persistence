@@ -163,8 +163,16 @@ public final class Query<R> implements Serializable
 	{
 		final Selectable<? extends R> result = selectSingle;
 		if(result==null)
-			throw new IllegalStateException("use getSelectMulti instead"); // TODO implement getSelectMulti
+			throw new IllegalStateException("use getSelects instead");
 		return result;
+	}
+
+	public List<Selectable<?>> getSelects()
+	{
+		if(selectSingle!=null)
+			return Collections.singletonList(selectSingle);
+		else
+			return Collections.unmodifiableList(Arrays.asList(selectsMulti));
 	}
 
 	public void setSelect(final Selectable<? extends R> select)
