@@ -117,6 +117,7 @@ public class JavaViewTest extends TestWithEnvironment
 		}
 		catch(final RuntimeException e)
 		{
+			assertEquals(RuntimeException.class, e.getClass());
 			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
 			final Throwable cause = e.getCause();
 			assertEquals(InvocationTargetException.class, cause.getClass());
@@ -155,6 +156,7 @@ public class JavaViewTest extends TestWithEnvironment
 		}
 		catch(final RuntimeException e)
 		{
+			assertEquals(RuntimeException.class, e.getClass());
 			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
 			final Throwable cause = e.getCause();
 			assertEquals(InvocationTargetException.class, cause.getClass());
