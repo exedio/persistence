@@ -55,9 +55,9 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(true,  optional.isDefaultNow());
 		assertEquals(false, none.isDefaultNow());
 
-		assertEquals(getTimeZone("Europe/Berlin"), mandatory.getDefaultNowZimeZone());
-		assertEquals(getTimeZone("Europe/Berlin"), optional.getDefaultNowZimeZone());
-		assertEquals(null, none.getDefaultNowZimeZone());
+		assertEquals(getTimeZone("Europe/Berlin"), mandatory.getDefaultNowTimeZone());
+		assertEquals(getTimeZone("Europe/Berlin"), optional.getDefaultNowTimeZone());
+		assertEquals(null, none.getDefaultNowTimeZone());
 	}
 	@Test void testNowToConstant()
 	{
@@ -73,7 +73,7 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(true, feature.hasDefault());
 		assertEquals(null, feature.getDefaultConstant());
 		assertEquals(true, feature.isDefaultNow());
-		assertEquals(getTimeZone("Canada/Eastern"), feature.getDefaultNowZimeZone());
+		assertEquals(getTimeZone("Canada/Eastern"), feature.getDefaultNowTimeZone());
 	}
 	@Test void testZoneNull()
 	{

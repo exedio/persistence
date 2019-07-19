@@ -161,6 +161,10 @@ public final class DayField extends FunctionField<Day>
 		return defaultS instanceof DefaultNow;
 	}
 
+	/**
+	 * @deprecated Use {@link #getDefaultNowTimeZone()} instead.
+	 */
+	@Deprecated
 	public TimeZone getDefaultNowZimeZone()
 	{
 		return getDefaultNowTimeZone();
