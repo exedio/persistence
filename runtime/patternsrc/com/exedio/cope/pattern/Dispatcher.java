@@ -836,25 +836,4 @@ public final class Dispatcher extends Pattern
 		//noinspection ConstantConditions OK: getUnpendDate cannot return null if supportsPurge return true
 		return getUnpendDate().less(new Date(now - duration.toMillis()));
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #dispatch(Class,Config,JobContext)} instead.
-	 * @return the number of successfully dispatched items
-	 */
-	@Wrap(order=10,
-			doc="Dispatch by {0}.",
-			docReturn="the number of successfully dispatched items")
-	@Deprecated
-	public <P extends Item & Dispatchable> int dispatch(
-			@Nonnull final Class<P> parentClass,
-			@Nonnull @Parameter("config") final Config config,
-			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
-			interrupter,
-			ctx -> dispatch(parentClass, config, ctx)
-		);
-	}
 }

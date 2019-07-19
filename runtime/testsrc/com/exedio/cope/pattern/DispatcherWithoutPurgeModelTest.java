@@ -39,7 +39,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
-import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
@@ -167,7 +166,7 @@ public class DispatcherWithoutPurgeModelTest
 	{
 		try
 		{
-			toTarget.dispatch(DispatcherWithoutPurgeItem.class, null, (JobContext)null);
+			toTarget.dispatch(DispatcherWithoutPurgeItem.class, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -180,7 +179,7 @@ public class DispatcherWithoutPurgeModelTest
 	{
 		try
 		{
-			toTarget.dispatch(DispatcherWithoutPurgeItem.class, new Dispatcher.Config(), (JobContext)null);
+			toTarget.dispatch(DispatcherWithoutPurgeItem.class, new Dispatcher.Config(), null);
 			fail();
 		}
 		catch(final NullPointerException e)

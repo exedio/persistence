@@ -336,25 +336,4 @@ public final class PasswordLimiter extends Pattern
 	{
 		this(password, ofMillis(period), limit);
 	}
-
-	/**
-	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
-	 */
-	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return purge(interrupter);
-	}
-
-	/**
-	 * @deprecated Use {@link #purge(JobContext)} instead.
-	 */
-	@Wrap(order=30, docReturn="the number of refusals purged")
-	@Deprecated
-	public int purge(
-			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
-			interrupter, this::purge);
-	}
 }

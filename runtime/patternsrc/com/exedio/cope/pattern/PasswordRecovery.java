@@ -360,27 +360,6 @@ public final class PasswordRecovery extends Pattern
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #purge(com.exedio.cope.util.Interrupter)} instead.
-	 */
-	@Deprecated
-	public int purge(@SuppressWarnings("unused") final Class<?> parentClass, final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return purge(interrupter);
-	}
-
-	/**
-	 * @deprecated Use {@link #purge(JobContext)} instead.
-	 */
-	@Wrap(order=100, docReturn="the number of tokens purged")
-	@Deprecated
-	public int purge(
-			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
-			interrupter, this::purge);
-	}
-
-	/**
 	 * @deprecated Use {@link #issue(Item, Config)} instead.
 	 * @return a valid token for password recovery
 	 */

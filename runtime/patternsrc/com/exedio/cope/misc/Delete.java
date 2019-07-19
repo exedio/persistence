@@ -78,21 +78,4 @@ public final class Delete
 	{
 		// prevent instantiation
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #delete(Query,String,JobContext)} instead.
-	 */
-	@Deprecated
-	public static int delete(
-			final Query<? extends Item> query,
-			final String transactionName,
-			final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
-			interrupter,
-			ctx -> delete(query, transactionName, ctx)
-		);
-	}
 }

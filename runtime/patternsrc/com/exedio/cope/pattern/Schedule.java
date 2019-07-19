@@ -68,7 +68,6 @@ import java.util.LinkedList;
 import java.util.Locale;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -620,20 +619,5 @@ public final class Schedule extends Pattern
 	public Schedule(final Locale locale)
 	{
 		this(TimeZone.getDefault(), locale);
-	}
-
-	/**
-	 * @deprecated Use {@link #run(Class,JobContext)} instead.
-	 */
-	@Wrap(order=50)
-	@Deprecated
-	public <P extends Item & Scheduleable> int run(
-			@Nonnull @SuppressWarnings("unused") final Class<P> parentClass,
-			@Nullable @Parameter("interrupter") final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return com.exedio.cope.util.InterrupterJobContextAdapter.run(
-			interrupter,
-			ctx -> run(parentClass, ctx)
-		);
 	}
 }

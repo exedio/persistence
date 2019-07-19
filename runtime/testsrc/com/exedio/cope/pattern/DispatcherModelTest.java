@@ -42,7 +42,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.util.EmptyJobContext;
-import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
@@ -178,7 +177,7 @@ public class DispatcherModelTest
 	{
 		try
 		{
-			toTarget.dispatch(DispatcherItem.class, null, (JobContext)null);
+			toTarget.dispatch(DispatcherItem.class, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -191,7 +190,7 @@ public class DispatcherModelTest
 	{
 		try
 		{
-			toTarget.dispatch(DispatcherItem.class, new Dispatcher.Config(), (JobContext)null);
+			toTarget.dispatch(DispatcherItem.class, new Dispatcher.Config(), null);
 			fail();
 		}
 		catch(final NullPointerException e)

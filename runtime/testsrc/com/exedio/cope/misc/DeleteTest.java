@@ -28,7 +28,6 @@ import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
-import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobStop;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -75,7 +74,7 @@ public class DeleteTest extends TestWithEnvironment
 	{
 		try
 		{
-			Delete.delete(TYPE.newQuery(), "tx", (JobContext)null);
+			Delete.delete(TYPE.newQuery(), "tx", null);
 			fail();
 		}
 		catch(final NullPointerException e)

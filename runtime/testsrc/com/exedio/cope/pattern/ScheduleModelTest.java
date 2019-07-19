@@ -40,7 +40,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.EmptyJobContext;
-import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.TimeZoneStrict;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.ZoneId;
@@ -242,7 +241,7 @@ public class ScheduleModelTest
 	@Test void testRunParentClassNull()
 	{
 		assertFails(
-				() -> report.run(null, (JobContext)null),
+				() -> report.run(null, null),
 				NullPointerException.class, "parentClass");
 	}
 
