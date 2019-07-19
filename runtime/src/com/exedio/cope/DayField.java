@@ -26,6 +26,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
 import java.lang.reflect.AnnotatedElement;
+import java.time.ZoneId;
 import java.util.Date;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
@@ -125,9 +126,9 @@ public final class DayField extends FunctionField<Day>
 
 	private static final class DefaultNow extends DefaultSupplier<Day>
 	{
-		final TimeZone zone;
+		final ZoneId zone;
 
-		DefaultNow(final TimeZone zone)
+		DefaultNow(final ZoneId zone)
 		{
 			this.zone = requireNonNull(zone, "zone");
 		}
@@ -135,7 +136,7 @@ public final class DayField extends FunctionField<Day>
 		@Override
 		Day generate(final Context ctx)
 		{
-			return new Day(new Date(ctx.currentTimeMillis()), zone);
+			return Day.from(ctx.currentInstant().atZone(zone).toLocalDate());
 		}
 
 		@Override
@@ -152,6 +153,11 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	public DayField defaultToNow(final TimeZone zone)
+	{
+		return defaultToNow(toNew(zone));
+	}
+
+	public DayField defaultToNow(final ZoneId zone)
 	{
 		return new DayField(isfinal, optional, unique, copyFrom, new DefaultNow(zone));
 	}
@@ -171,6 +177,11 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	public TimeZone getDefaultNowTimeZone()
+	{
+		return fromNew(getDefaultNowZone());
+	}
+
+	public ZoneId getDefaultNowZone()
 	{
 		return
 			defaultS instanceof DefaultNow
@@ -276,6 +287,23 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	private static ZoneId toNew(final TimeZone zone)
+	{
+		return zone!=null ? zone.toZoneId() : null;
+	}
+
+	private static TimeZone fromNew(final ZoneId zone)
+	{
+		if(zone==null)
+			return null;
+
+		final TimeZone result = TimeZone.getTimeZone(zone);
+		final ZoneId zoneCheck = result.toZoneId();
+		if(!zone.equals(zoneCheck))
+			throw new IllegalArgumentException(zone.toString() + '/' + zoneCheck + '/' + result);
+		return result;
+	}
 
 	@Deprecated
 	public void touch(final Item item)

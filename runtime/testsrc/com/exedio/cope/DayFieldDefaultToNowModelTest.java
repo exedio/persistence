@@ -29,6 +29,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.time.ZoneId;
+import java.util.TimeZone;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
@@ -55,6 +57,12 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(true,  optional.isDefaultNow());
 		assertEquals(false, none.isDefaultNow());
 
+		assertEquals(ZoneId.of("Europe/Berlin"), mandatory.getDefaultNowZone());
+		assertEquals(ZoneId.of("Europe/Berlin"), optional.getDefaultNowZone());
+		assertEquals(null, none.getDefaultNowZone());
+	}
+	@Test void testModelTimeZone()
+	{
 		assertEquals(getTimeZone("Europe/Berlin"), mandatory.getDefaultNowTimeZone());
 		assertEquals(getTimeZone("Europe/Berlin"), optional.getDefaultNowTimeZone());
 		assertEquals(null, none.getDefaultNowTimeZone());
@@ -69,16 +77,32 @@ public class DayFieldDefaultToNowModelTest
 	@Test void testConstantToNow()
 	{
 		final DayField origin = new DayField().defaultTo(new Day(2011, 1, 13));
+		final DayField feature = origin.defaultToNow(ZoneId.of("Canada/Eastern"));
+		assertEquals(true, feature.hasDefault());
+		assertEquals(null, feature.getDefaultConstant());
+		assertEquals(true, feature.isDefaultNow());
+		assertEquals(ZoneId.of("Canada/Eastern"), feature.getDefaultNowZone());
+	}
+	@Test void testConstantToNowTimeZone()
+	{
+		final DayField origin = new DayField().defaultTo(new Day(2011, 1, 13));
 		final DayField feature = origin.defaultToNow(getTimeZone("Canada/Eastern"));
 		assertEquals(true, feature.hasDefault());
 		assertEquals(null, feature.getDefaultConstant());
 		assertEquals(true, feature.isDefaultNow());
+		assertEquals(ZoneId.of  ("Canada/Eastern"), feature.getDefaultNowZone());
 		assertEquals(getTimeZone("Canada/Eastern"), feature.getDefaultNowTimeZone());
 	}
 	@Test void testZoneNull()
 	{
 		assertFails(
-				() -> none.defaultToNow(null),
+				() -> none.defaultToNow((ZoneId)null),
+				NullPointerException.class, "zone");
+	}
+	@Test void testZoneNullTimeZone()
+	{
+		assertFails(
+				() -> none.defaultToNow((TimeZone)null),
 				NullPointerException.class, "zone");
 	}
 }

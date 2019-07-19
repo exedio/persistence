@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Clock;
 import java.lang.reflect.AnnotatedElement;
+import java.time.Instant;
 
 abstract class DefaultSupplier<E>
 {
@@ -56,6 +57,11 @@ abstract class DefaultSupplier<E>
 				needsNow = false;
 			}
 			return now;
+		}
+
+		Instant currentInstant()
+		{
+			return Instant.ofEpochMilli(currentTimeMillis());
 		}
 	}
 
