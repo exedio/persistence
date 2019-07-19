@@ -98,8 +98,8 @@ public class DefaultToModelTest
 		assertEquals(false, dayEight.isDefaultNow());
 		assertEquals(false, dayNone.isDefaultNow());
 
-		assertEquals(null, dayEight.getDefaultNowTimeZone());
-		assertEquals(null, dayNone.getDefaultNowTimeZone());
+		assertEquals(null, dayEight.getDefaultNowZone());
+		assertEquals(null, dayNone.getDefaultNowZone());
 
 		assertEquals(null, longRandom.getDefaultConstant());
 

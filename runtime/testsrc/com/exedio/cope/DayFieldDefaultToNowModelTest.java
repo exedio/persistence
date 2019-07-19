@@ -61,6 +61,7 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(ZoneId.of("Europe/Berlin"), optional.getDefaultNowZone());
 		assertEquals(null, none.getDefaultNowZone());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testModelTimeZone()
 	{
 		assertEquals(getTimeZone("Europe/Berlin"), mandatory.getDefaultNowTimeZone());
@@ -83,6 +84,7 @@ public class DayFieldDefaultToNowModelTest
 		assertEquals(true, feature.isDefaultNow());
 		assertEquals(ZoneId.of("Canada/Eastern"), feature.getDefaultNowZone());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testConstantToNowTimeZone()
 	{
 		final DayField origin = new DayField().defaultTo(new Day(2011, 1, 13));
@@ -99,6 +101,7 @@ public class DayFieldDefaultToNowModelTest
 				() -> none.defaultToNow((ZoneId)null),
 				NullPointerException.class, "zone");
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testZoneNullTimeZone()
 	{
 		assertFails(

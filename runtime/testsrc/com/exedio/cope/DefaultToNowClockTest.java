@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
@@ -28,6 +27,7 @@ import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.Day;
+import java.time.ZoneId;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -133,8 +133,8 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 		static final StringField notNow = new StringField().defaultTo("notNow");
 		static final DateField date1 = new DateField().defaultToNow();
 		static final DateField date2 = new DateField().defaultToNow();
-		static final DayField day1 = new DayField().defaultToNow(getTimeZone("Europe/Berlin"));
-		static final DayField day2 = new DayField().defaultToNow(getTimeZone("Europe/Berlin"));
+		static final DayField day1 = new DayField().defaultToNow(ZoneId.of("Europe/Berlin"));
+		static final DayField day2 = new DayField().defaultToNow(ZoneId.of("Europe/Berlin"));
 
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

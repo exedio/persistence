@@ -152,6 +152,10 @@ public final class DayField extends FunctionField<Day>
 		}
 	}
 
+	/**
+	 * @deprecated Use {@link #defaultToNow(ZoneId)} instead.
+	 */
+	@Deprecated
 	public DayField defaultToNow(final TimeZone zone)
 	{
 		return defaultToNow(toNew(zone));
@@ -176,6 +180,10 @@ public final class DayField extends FunctionField<Day>
 		return getDefaultNowTimeZone();
 	}
 
+	/**
+	 * @deprecated Use {@link #getDefaultNowZone()} instead.
+	 */
+	@Deprecated
 	public TimeZone getDefaultNowTimeZone()
 	{
 		return fromNew(getDefaultNowZone());
@@ -288,11 +296,13 @@ public final class DayField extends FunctionField<Day>
 
 	// ------------------- deprecated stuff -------------------
 
+	@Deprecated
 	private static ZoneId toNew(final TimeZone zone)
 	{
 		return zone!=null ? zone.toZoneId() : null;
 	}
 
+	@Deprecated
 	private static TimeZone fromNew(final ZoneId zone)
 	{
 		if(zone==null)
