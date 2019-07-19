@@ -163,6 +163,11 @@ public final class DayField extends FunctionField<Day>
 
 	public TimeZone getDefaultNowZimeZone()
 	{
+		return getDefaultNowTimeZone();
+	}
+
+	public TimeZone getDefaultNowTimeZone()
+	{
 		return
 			defaultS instanceof DefaultNow
 			? ((DefaultNow)defaultS).zone
