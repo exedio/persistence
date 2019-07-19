@@ -174,17 +174,6 @@ public final class DispatcherWithoutPurgeItem extends Item implements Dispatchab
 
 	/**
 	 * Dispatch by {@link #toTarget}.
-	 * @return the number of successfully dispatched items
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
-	@java.lang.Deprecated
-	static int dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return DispatcherWithoutPurgeItem.toTarget.dispatch(DispatcherWithoutPurgeItem.class,config,interrupter);
-	}
-
-	/**
-	 * Dispatch by {@link #toTarget}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
 	static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)

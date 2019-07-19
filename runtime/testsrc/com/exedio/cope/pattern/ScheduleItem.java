@@ -114,13 +114,6 @@ public final class ScheduleItem extends Item implements Scheduleable
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
-	@java.lang.Deprecated
-	static int runReport(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return ScheduleItem.report.run(ScheduleItem.class,interrupter);
-	}
-
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="run")
 	static void runReport(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		ScheduleItem.report.run(ScheduleItem.class,ctx);

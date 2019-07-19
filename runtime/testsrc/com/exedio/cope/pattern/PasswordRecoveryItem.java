@@ -141,16 +141,6 @@ public final class PasswordRecoveryItem extends Item
 		return PasswordRecoveryItem.passwordRecovery.redeem(this,secret);
 	}
 
-	/**
-	 * @return the number of tokens purged
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-	@java.lang.Deprecated
-	static int purgePasswordRecovery(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return PasswordRecoveryItem.passwordRecovery.purge(interrupter);
-	}
-
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static void purgePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{

@@ -260,7 +260,7 @@ public class ScheduleModelTest
 	{
 		try
 		{
-			ScheduleItem.runReport((JobContext)null);
+			ScheduleItem.runReport(null);
 			fail();
 		}
 		catch(final NullPointerException e)

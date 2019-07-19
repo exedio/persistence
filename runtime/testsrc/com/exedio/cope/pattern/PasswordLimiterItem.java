@@ -187,16 +187,6 @@ public final class PasswordLimiterItem extends Item
 		PasswordLimiterItem.passwordLimited.reset(this);
 	}
 
-	/**
-	 * @return the number of refusals purged
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
-	@java.lang.Deprecated
-	static int purgePasswordLimited(@javax.annotation.Nullable final com.exedio.cope.util.Interrupter interrupter)
-	{
-		return PasswordLimiterItem.passwordLimited.purge(interrupter);
-	}
-
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
 	static void purgePasswordLimited(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{

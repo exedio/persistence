@@ -366,10 +366,6 @@
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
 			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#issue(com.exedio.cope.Item,int)</generateDeprecated>
-			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#purge(com.exedio.cope.util.Interrupter)</generateDeprecated>
-			<generateDeprecated>com.exedio.cope.pattern.PasswordLimiter#purge(com.exedio.cope.util.Interrupter)</generateDeprecated>
-			<generateDeprecated>com.exedio.cope.pattern.Dispatcher#dispatch(java.lang.Class,com.exedio.cope.pattern.Dispatcher$Config,com.exedio.cope.util.Interrupter)</generateDeprecated>
-			<generateDeprecated>com.exedio.cope.pattern.Schedule#run(java.lang.Class,com.exedio.cope.util.Interrupter)</generateDeprecated>
 		</instrument>
 	</target>
 
