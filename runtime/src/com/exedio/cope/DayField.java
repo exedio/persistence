@@ -152,15 +152,6 @@ public final class DayField extends FunctionField<Day>
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link #defaultToNow(ZoneId)} instead.
-	 */
-	@Deprecated
-	public DayField defaultToNow(final TimeZone zone)
-	{
-		return defaultToNow(toNew(zone));
-	}
-
 	public DayField defaultToNow(final ZoneId zone)
 	{
 		return new DayField(isfinal, optional, unique, copyFrom, new DefaultNow(zone));
@@ -169,24 +160,6 @@ public final class DayField extends FunctionField<Day>
 	public boolean isDefaultNow()
 	{
 		return defaultS instanceof DefaultNow;
-	}
-
-	/**
-	 * @deprecated Use {@link #getDefaultNowTimeZone()} instead.
-	 */
-	@Deprecated
-	public TimeZone getDefaultNowZimeZone()
-	{
-		return getDefaultNowTimeZone();
-	}
-
-	/**
-	 * @deprecated Use {@link #getDefaultNowZone()} instead.
-	 */
-	@Deprecated
-	public TimeZone getDefaultNowTimeZone()
-	{
-		return fromNew(getDefaultNowZone());
 	}
 
 	public ZoneId getDefaultNowZone()
@@ -295,6 +268,33 @@ public final class DayField extends FunctionField<Day>
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated Use {@link #defaultToNow(ZoneId)} instead.
+	 */
+	@Deprecated
+	public DayField defaultToNow(final TimeZone zone)
+	{
+		return defaultToNow(toNew(zone));
+	}
+
+	/**
+	 * @deprecated Use {@link #getDefaultNowTimeZone()} instead.
+	 */
+	@Deprecated
+	public TimeZone getDefaultNowZimeZone()
+	{
+		return getDefaultNowTimeZone();
+	}
+
+	/**
+	 * @deprecated Use {@link #getDefaultNowZone()} instead.
+	 */
+	@Deprecated
+	public TimeZone getDefaultNowTimeZone()
+	{
+		return fromNew(getDefaultNowZone());
+	}
 
 	@Deprecated
 	private static ZoneId toNew(final TimeZone zone)
