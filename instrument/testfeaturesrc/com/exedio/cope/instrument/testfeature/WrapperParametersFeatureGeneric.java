@@ -55,4 +55,13 @@ public class WrapperParametersFeatureGeneric<C extends Number, E extends Enum<E>
 	{
 		throw new RuntimeException();
 	}
+
+	@SuppressWarnings("unused")
+	@Wrap(order=140)
+	public void disabledInBuildXml(
+			@SuppressWarnings("unused") final Item item,
+			@SuppressWarnings("unused") final C arg)
+	{
+		throw new RuntimeException();
+	}
 }

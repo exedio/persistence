@@ -774,6 +774,7 @@
 			</ignore>
 			<generateDeprecated>com.exedio.cope.instrument.testfeature.WrapDeprecationFeature#goneAlmost(com.exedio.cope.Item)</generateDeprecated>
 			<disableWrap>com.exedio.cope.instrument.testfeature.WrapFeature#disabledInBuildXml([[I)</disableWrap>
+			<disableWrap>com.exedio.cope.instrument.testfeature.WrapperParametersFeatureGeneric#disabledInBuildXml(com.exedio.cope.Item,java.lang.Number)</disableWrap>
 		</instrument>
 	</target>
 
