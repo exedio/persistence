@@ -322,6 +322,17 @@ public final class Assert
 		assertWithin(expectedBefore, expectedAfter, Date.from(actual));
 	}
 
+	public static void assertWithin(final Instant expectedBefore, final Instant expectedAfter, final Instant actual)
+	{
+		final String message =
+				"expected date within " + expectedBefore +
+				" and " + expectedAfter +
+				", but was " + actual;
+
+		assertTrue(!expectedBefore.isAfter(actual), message);
+		assertTrue(!expectedAfter.isBefore(actual), message);
+	}
+
 	public static <S extends Serializable> S reserialize(final S value, final int expectedSize)
 	{
 		final byte[] bos = serialize(value);

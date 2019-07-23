@@ -30,14 +30,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Model.NotConnectedException;
 import com.exedio.cope.vaultmock.VaultMockService;
+import java.time.Instant;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 public class ConnectTest extends TestWithEnvironment
 {
-	private static final Date beforeModel = new Date();
+	private static final Instant beforeModel = Instant.now();
 	private static final Model MODEL = new Model(ConnectItem.TYPE, ConnectItem2.TYPE);
-	private static final Date afterModel = new Date();
+	private static final Instant afterModel = Instant.now();
 
 	public ConnectTest()
 	{
@@ -51,7 +52,7 @@ public class ConnectTest extends TestWithEnvironment
 		assertTrue(model.isConnected());
 		final Date connectDate = model.getConnectDate();
 		assertNotNull(connectDate);
-		assertEquals(connectDate.toInstant(), model.getConnectInstant());
+		assertEquals(connectDate, Date.from(model.getConnectInstant()));
 		try
 		{
 			model.connect(defaultProps);
@@ -72,7 +73,7 @@ public class ConnectTest extends TestWithEnvironment
 		}
 		assertTrue(model.isConnected());
 		assertNotSame(connectDate, model.getConnectDate());
-		assertEquals(connectDate.toInstant(), model.getConnectInstant());
+		assertEquals(connectDate, Date.from(model.getConnectInstant()));
 	}
 
 	@Test void testModel()
@@ -99,8 +100,8 @@ public class ConnectTest extends TestWithEnvironment
 
 	@Test void testDisconnect()
 	{
-		assertWithin(beforeModel, afterModel, model.getInitializeDate());
-		assertEquals(model.getInitializeDate().toInstant(), model.getInitializeInstant());
+		assertWithin(beforeModel, afterModel, model.getInitializeInstant());
+		assertEquals(Date.from(model.getInitializeInstant()), model.getInitializeDate());
 
 		model.commit();
 		final ConnectProperties p = model.getConnectProperties();
@@ -148,13 +149,13 @@ public class ConnectTest extends TestWithEnvironment
 		if(vault!=null)
 			assertTrue(vault.isClosed());
 
-		final Date before = new Date();
+		final Instant before = Instant.now();
 		model.connect(p);
-		final Date after = new Date();
+		final Instant after = Instant.now();
 		assertTrue(model.isConnected());
 		assertSame(p, model.getConnectProperties());
-		assertWithin(before, after, model.getConnectDate());
-		assertEquals(model.getConnectDate().toInstant(), model.getConnectInstant());
+		assertWithin(before, after, model.getConnectInstant());
+		assertEquals(Date.from(model.getConnectInstant()), model.getConnectDate());
 		if(vault!=null)
 		{
 			assertTrue(vault.isClosed());
