@@ -266,6 +266,20 @@ public final class Model implements Serializable
 		return connect().properties;
 	}
 
+	/**
+	 * BEWARE: In contrast to {@link #getConnectDate()} this method fails
+	 * if model is not {@link #isConnected() connected}.
+	 * @see #getConnectDate()
+	 */
+	public Instant getConnectInstant()
+	{
+		return connect().date;
+	}
+
+	/**
+	 * Returns null if model is not {@link #isConnected() connected}.
+	 * @see #getConnectInstant()
+	 */
 	public Date getConnectDate()
 	{
 		final Connect connect = connectIfConnected;

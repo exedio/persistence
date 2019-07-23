@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -50,6 +51,7 @@ public class ConnectTest extends TestWithEnvironment
 		assertTrue(model.isConnected());
 		final Date connectDate = model.getConnectDate();
 		assertNotNull(connectDate);
+		assertEquals(connectDate.toInstant(), model.getConnectInstant());
 		try
 		{
 			model.connect(defaultProps);
@@ -70,6 +72,7 @@ public class ConnectTest extends TestWithEnvironment
 		}
 		assertTrue(model.isConnected());
 		assertNotSame(connectDate, model.getConnectDate());
+		assertEquals(connectDate.toInstant(), model.getConnectInstant());
 	}
 
 	@Test void testModel()
@@ -118,6 +121,10 @@ public class ConnectTest extends TestWithEnvironment
 			assertEquals("model not connected, use Model#connect for " + model, e.getMessage());
 		}
 		assertEquals(null, model.getConnectDate());
+		assertFails(
+				model::getConnectInstant,
+				NotConnectedException.class,
+				"model not connected, use Model#connect for " + model);
 		if(vault!=null)
 			assertTrue(vault.isClosed());
 
@@ -133,6 +140,10 @@ public class ConnectTest extends TestWithEnvironment
 		}
 		assertFalse(model.isConnected());
 		assertEquals(null, model.getConnectDate());
+		assertFails(
+				model::getConnectInstant,
+				NotConnectedException.class,
+				"model not connected, use Model#connect for " + model);
 		if(vault!=null)
 			assertTrue(vault.isClosed());
 
@@ -142,6 +153,7 @@ public class ConnectTest extends TestWithEnvironment
 		assertTrue(model.isConnected());
 		assertSame(p, model.getConnectProperties());
 		assertWithin(before, after, model.getConnectDate());
+		assertEquals(model.getConnectDate().toInstant(), model.getConnectInstant());
 		if(vault!=null)
 		{
 			assertTrue(vault.isClosed());
