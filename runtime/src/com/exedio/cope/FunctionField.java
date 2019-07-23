@@ -27,6 +27,7 @@ import com.exedio.cope.misc.PrimitiveUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.lang.reflect.AnnotatedElement;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -94,25 +95,23 @@ public abstract class FunctionField<E> extends Field<E>
 
 	final DefaultConstant<E> defaultConstant(final E value)
 	{
-		return value!=null ? new DefaultConstant<>(value, DefaultConstant.NO_CREATED_TIME_MILLIS) : null;
+		return value!=null ? new DefaultConstant<>(value, null) : null;
 	}
 
 	final DefaultConstant<E> defaultConstantWithCreatedTime(final E value)
 	{
-		return value!=null ? new DefaultConstant<>(value, System.currentTimeMillis()) : null;
+		return value!=null ? new DefaultConstant<>(value, Instant.now()) : null;
 	}
 
 	private static final class DefaultConstant<E> extends DefaultSupplier<E>
 	{
-		private static final long NO_CREATED_TIME_MILLIS = Long.MIN_VALUE;
-
 		final E value;
-		private final long createdTimeMillis;
+		private final Instant createdInstant;
 
-		DefaultConstant(final E value, final long createdTimeMillis)
+		DefaultConstant(final E value, final Instant createdInstant)
 		{
 			this.value = value;
-			this.createdTimeMillis = createdTimeMillis;
+			this.createdInstant = createdInstant;
 
 			assert value!=null;
 		}
@@ -123,10 +122,10 @@ public abstract class FunctionField<E> extends Field<E>
 			return value;
 		}
 
-		long createdTimeMillis()
+		Instant createdInstant()
 		{
-			assert createdTimeMillis!=NO_CREATED_TIME_MILLIS;
-			return createdTimeMillis;
+			assert createdInstant!=null;
+			return createdInstant;
 		}
 
 		@Override
@@ -158,9 +157,9 @@ public abstract class FunctionField<E> extends Field<E>
 		}
 	}
 
-	final long getDefaultConstantCreatedTimeMillis()
+	final Instant getDefaultConstantCreatedInstant()
 	{
-		return ((DefaultConstant<E>)defaultS).createdTimeMillis();
+		return ((DefaultConstant<E>)defaultS).createdInstant();
 	}
 
 	/**

@@ -27,7 +27,6 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
 import java.lang.reflect.AnnotatedElement;
 import java.time.ZoneId;
-import java.util.Date;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
@@ -204,7 +203,7 @@ public final class DayField extends FunctionField<Day>
 		if(defaultConstant==null)
 			return false;
 
-		return defaultConstant.equals(new Day(new Date(getDefaultConstantCreatedTimeMillis()), TimeZone.getDefault()));
+		return defaultConstant.toLocalDate().equals(getDefaultConstantCreatedInstant().atZone(ZoneId.systemDefault()).toLocalDate());
 	}
 
 	@Override

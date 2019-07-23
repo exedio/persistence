@@ -30,6 +30,7 @@ import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.text.SimpleDateFormat;
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.Calendar;
 import java.util.Date;
@@ -429,7 +430,11 @@ public final class DateField extends FunctionField<Date>
 		if(defaultConstant==null)
 			return false;
 
-		return Math.abs(defaultConstant.getTime()-getDefaultConstantCreatedTimeMillis())<100;
+		return Duration.ofMillis(100).compareTo(
+				Duration.between(
+						defaultConstant.toInstant(),
+						getDefaultConstantCreatedInstant()).abs()
+		) > 0;
 	}
 
 	@Override
