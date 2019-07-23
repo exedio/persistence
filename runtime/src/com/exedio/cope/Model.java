@@ -320,6 +320,11 @@ public final class Model implements Serializable
 		return types.getFeature(id);
 	}
 
+	public Instant getInitializeInstant()
+	{
+		return initializeDate;
+	}
+
 	public Date getInitializeDate()
 	{
 		return Date.from(initializeDate);

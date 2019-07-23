@@ -100,6 +100,7 @@ public class ConnectTest extends TestWithEnvironment
 	@Test void testDisconnect()
 	{
 		assertWithin(beforeModel, afterModel, model.getInitializeDate());
+		assertEquals(model.getInitializeDate().toInstant(), model.getInitializeInstant());
 
 		model.commit();
 		final ConnectProperties p = model.getConnectProperties();
