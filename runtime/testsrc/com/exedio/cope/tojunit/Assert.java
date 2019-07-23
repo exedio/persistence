@@ -36,6 +36,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -314,6 +315,11 @@ public final class Assert
 
 		assertTrue(!expectedBefore.after(actual), message);
 		assertTrue(!expectedAfter.before(actual), message);
+	}
+
+	public static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Instant actual)
+	{
+		assertWithin(expectedBefore, expectedAfter, Date.from(actual));
 	}
 
 	public static <S extends Serializable> S reserialize(final S value, final int expectedSize)

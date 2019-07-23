@@ -485,6 +485,7 @@ public class ConnectTokenTest
 	{
 		assertSame(model, token.getModel());
 		assertEquals(id, token.getID());
+		assertWithin(before, after, token.getIssueInstant());
 		assertWithin(before, after, token.getIssueDate());
 		assertEquals(name, token.getName());
 		assertEquals(conditional, token.wasConditional());

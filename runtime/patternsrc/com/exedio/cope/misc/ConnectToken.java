@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -42,7 +43,7 @@ public final class ConnectToken implements AutoCloseable
 	private final Manciple manciple;
 	private final Model model;
 	private final int id;
-	private final long issueDate = System.currentTimeMillis();
+	private final Instant issueDate = Instant.now();
 	private final String name;
 	private final boolean conditional;
 	private final boolean didConnect;
@@ -99,9 +100,14 @@ public final class ConnectToken implements AutoCloseable
 		return id;
 	}
 
+	public Instant getIssueInstant()
+	{
+		return issueDate;
+	}
+
 	public Date getIssueDate()
 	{
-		return new Date(issueDate);
+		return Date.from(issueDate);
 	}
 
 	public String getName()
