@@ -21,8 +21,6 @@ package com.exedio.cope;
 import com.exedio.cope.util.Day;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.NumberFormat;
-import java.util.Locale;
 
 final class DayColumn extends Column
 {
@@ -81,12 +79,7 @@ final class DayColumn extends Column
 		if(cache==null)
 			return "NULL";
 		else
-		{
-			final Day day = getDay((Integer)cache);
-			final NumberFormat nf = NumberFormat.getInstance(Locale.ENGLISH);
-			nf.setMinimumIntegerDigits(2);
-			return "{d '"+day.getYear()+'-'+nf.format(day.getMonthValue())+'-'+nf.format(day.getDayOfMonth())+"'}";
-		}
+			return "{d '" + getDay((Integer)cache).toLocalDate() + "'}";
 	}
 
 	@Override
