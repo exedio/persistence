@@ -522,7 +522,7 @@ final class Generator
 						comma.appendTo(output);
 						writeParameterNullability(parameter);
 						write("final ");
-						write(ctx.write(parameter.getType(), makeVarargs));
+						write(ctx.write(parameter.getGenericType(), makeVarargs));
 						write(' ');
 						write(format(parameter.getName(), arguments));
 					}
@@ -907,7 +907,7 @@ final class Generator
 	private static Type[] getTypes(final List<WrapperX.Parameter> parameters)
 	{
 		final Type[] result = new Type[parameters.size()];
-		Arrays.setAll(result, i -> parameters.get(i).getType());
+		Arrays.setAll(result, i -> parameters.get(i).getGenericType());
 		return result;
 	}
 

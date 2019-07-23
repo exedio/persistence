@@ -18,6 +18,8 @@
 
 package com.exedio.cope.instrument;
 
+import static java.util.Objects.requireNonNull;
+
 import java.lang.reflect.Method;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
@@ -123,7 +125,7 @@ final class WrapperX
 
 	static final class Parameter
 	{
-		private final java.lang.reflect.Type type;
+		private final java.lang.reflect.Type genericType;
 		private final String name;
 		private final String[] comment;
 		final List<?> varargs;
@@ -131,29 +133,27 @@ final class WrapperX
 
 		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Parameter(
-				final java.lang.reflect.Type type,
+				final java.lang.reflect.Type genericType,
 				final String name,
 				final String[] comment,
 				final List<?> varargs,
 				final Nullability nullability)
 		{
-			if(type==null)
-				throw new NullPointerException("type");
-			if(name==null)
-				throw new NullPointerException("name");
+			requireNonNull(genericType, "genericType");
+			requireNonNull(name, "name");
 			for(final String c : comment)
 				assertComment(c);
 
-			this.type = type;
+			this.genericType = genericType;
 			this.name = name;
 			this.comment = comment;
 			this.varargs = varargs;
 			this.nullability = nullability;
 		}
 
-		java.lang.reflect.Type getType()
+		java.lang.reflect.Type getGenericType()
 		{
-			return type;
+			return genericType;
 		}
 
 		String getName()
@@ -179,20 +179,20 @@ final class WrapperX
 		@Override
 		public String toString()
 		{
-			return type.toString();
+			return genericType.toString();
 		}
 	}
 
 	private ArrayList<Parameter> parameters;
 
-	void addParameter(final java.lang.reflect.Type type, final List<?> varargs, final Nullability nullability)
+	void addParameter(final java.lang.reflect.Type genericType, final List<?> varargs, final Nullability nullability)
 	{
-		addParameter(type, "{1}", EMPTY_STRING_ARRAY, varargs, nullability);
+		addParameter(genericType, "{1}", EMPTY_STRING_ARRAY, varargs, nullability);
 	}
 
-	void addParameter(final java.lang.reflect.Type type, final String name, final String[] comment, final List<?> varargs, final Nullability nullability)
+	void addParameter(final java.lang.reflect.Type genericType, final String name, final String[] comment, final List<?> varargs, final Nullability nullability)
 	{
-		final Parameter p = new Parameter(type, name, comment, varargs, nullability);
+		final Parameter p = new Parameter(genericType, name, comment, varargs, nullability);
 		if(parameters==null)
 			parameters = new ArrayList<>();
 		parameters.add(p);
