@@ -33,6 +33,7 @@ import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
 import java.time.Duration;
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -41,8 +42,8 @@ import java.util.HashMap;
 final class SamplerStep
 {
 	final Date date;
-	final Date initialized;
-	final Date connected;
+	final Instant initialized;
+	final Instant connected;
 	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final TransactionCounters transactionCounters;
@@ -72,8 +73,8 @@ final class SamplerStep
 		// gather data
 		final long start = System.nanoTime();
 		date = new Date();
-		initialized = sampledModel.getInitializeDate();
-		connected = sampledModel.getConnectDate();
+		initialized = sampledModel.getInitializeInstant();
+		connected = sampledModel.getConnectInstant();
 		connectionPoolInfo = sampledModel.getConnectionPoolInfo();
 		nextTransactionId = sampledModel.getNextTransactionId();
 		transactionCounters = sampledModel.getTransactionCounters();

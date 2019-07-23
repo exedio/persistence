@@ -146,8 +146,8 @@ public class Sampler
 			sv.add(SamplerModel.from.map(from.date));
 			sv.add(SamplerModel.date.map(to.date));
 			sv.add(SamplerModel.duration.map(to.duration));
-			sv.add(SamplerModel.initialized.map(to.initialized));
-			sv.add(SamplerModel.connected.map(to.connected));
+			sv.add(SamplerModel.initialized.map(Date.from(to.initialized)));
+			sv.add(SamplerModel.connected.map(Date.from(to.connected)));
 			sv.addAll(SamplerModel.mapIt(from.connectionPoolInfo, to.connectionPoolInfo));
 			sv.add(maD(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
 			sv.addAll(SamplerModel.mapIt(from.transactionCounters, to.transactionCounters));
