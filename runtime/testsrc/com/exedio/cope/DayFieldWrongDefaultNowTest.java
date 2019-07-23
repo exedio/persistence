@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
@@ -36,6 +37,10 @@ public class DayFieldWrongDefaultNowTest
 
 	@Test void testIt()
 	{
+		assertBefore(AnItem.past,  AnItem.wrong);
+		assertBefore(AnItem.wrong, AnItem.future);
+
+		log.assertEmpty();
 		newType(AnItem.class);
 		log.assertError(
 				"Very probably you called \"DayField.defaultTo(new Day())\" on field AnItem.wrong. " +
@@ -47,11 +52,11 @@ public class DayFieldWrongDefaultNowTest
 	static final class AnItem extends Item
 	{
 		@WrapperIgnore
-		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DayField wrong = new DayField().defaultTo(new Day(TimeZone.getDefault()));
 		@WrapperIgnore
-		@SuppressWarnings("unused") // OK: test bad API usage
-		static final DayField ok = new DayField().defaultTo(new Day(2005, 10, 10));
+		static final DayField past = new DayField().defaultTo(new Day(2005, 10, 10));
+		@WrapperIgnore
+		static final DayField future = new DayField().defaultTo(new Day(8005, 10, 10));
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
@@ -61,5 +66,14 @@ public class DayFieldWrongDefaultNowTest
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	private static void assertBefore(final DayField before, final DayField after)
+	{
+		assertTrue(
+				before.getDefaultConstant().isBefore(
+				after.getDefaultConstant()),
+				before.getDefaultConstant() + " / " +
+				after.getDefaultConstant());
 	}
 }
