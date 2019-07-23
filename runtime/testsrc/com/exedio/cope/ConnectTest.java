@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.Model.NotConnectedException;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
@@ -111,7 +112,7 @@ public class ConnectTest extends TestWithEnvironment
 			model.getConnectProperties();
 			fail();
 		}
-		catch(final Model.NotConnectedException e)
+		catch(final NotConnectedException e)
 		{
 			assertEquals(model, e.getModel());
 			assertEquals("model not connected, use Model#connect for " + model, e.getMessage());
@@ -125,7 +126,7 @@ public class ConnectTest extends TestWithEnvironment
 			model.disconnect();
 			fail();
 		}
-		catch(final Model.NotConnectedException e)
+		catch(final NotConnectedException e)
 		{
 			assertEquals(model, e.getModel());
 			assertEquals("model not connected, use Model#connect for " + model, e.getMessage());
