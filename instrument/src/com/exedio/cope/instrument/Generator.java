@@ -30,7 +30,6 @@ import com.exedio.cope.SetValue;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
-import java.lang.reflect.Type;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -361,7 +360,7 @@ final class Generator
 			final String pattern = wrapper.getMethodWrapperPattern();
 			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();
 			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
-			final Wrapper option = feature.getOption(modifierTag, getTypes(parameters));
+			final Wrapper option = feature.getOption(modifierTag, getRawTypes(parameters));
 
 			final Visibility visibility = option.visibility();
 			if(!visibility.exists())
@@ -904,10 +903,10 @@ final class Generator
 		output.append(c);
 	}
 
-	private static Type[] getTypes(final List<WrapperX.Parameter> parameters)
+	private static Class<?>[] getRawTypes(final List<WrapperX.Parameter> parameters)
 	{
-		final Type[] result = new Type[parameters.size()];
-		Arrays.setAll(result, i -> parameters.get(i).getGenericType());
+		final Class<?>[] result = new Class<?>[parameters.size()];
+		Arrays.setAll(result, i -> parameters.get(i).getRawType());
 		return result;
 	}
 

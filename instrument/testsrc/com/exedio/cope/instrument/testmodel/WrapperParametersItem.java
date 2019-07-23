@@ -26,6 +26,7 @@ import static com.exedio.cope.instrument.Visibility.PUBLIC;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testfeature.WrapperParametersFeature;
+import com.exedio.cope.instrument.testfeature.WrapperParametersFeatureGeneric;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
@@ -41,6 +42,15 @@ class WrapperParametersItem extends Item
 	@Wrapper(wrap="param", parameters=float.class, internal=true, visibility=PUBLIC)
 	@Wrapper(wrap="param", parameters=double.class, internal=true, visibility=PROTECTED)
 	static final WrapperParametersFeature feature = new WrapperParametersFeature();
+
+	@Wrapper(wrap="method",       parameters=Number.class, visibility=PUBLIC)
+	@Wrapper(wrap="methodStatic", parameters=Number.class, visibility=PROTECTED)
+	@Wrapper(wrap="methodParent", parameters=Number.class, visibility=PRIVATE)
+	@Wrapper(wrap="methodEnum",   parameters=Enum.class, visibility=PUBLIC)
+	static final WrapperParametersFeatureGeneric<Float,MyEnum> generic = new WrapperParametersFeatureGeneric<>();
+
+	@SuppressWarnings("unused")
+	enum MyEnum { a }
 
 	/**
 	 * Creates a new WrapperParametersItem with all the fields initially needed.
@@ -110,6 +120,30 @@ class WrapperParametersItem extends Item
 	protected static final void paramFeatureInternal(final double feature)
 	{
 		WrapperParametersItem.feature.param(WrapperParametersItem.class,feature);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	public final void methodGeneric(final Float generic)
+	{
+		WrapperParametersItem.generic.method(this,generic);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodStatic")
+	protected static final void methodGenericStatic(final Float generic)
+	{
+		WrapperParametersItem.generic.methodStatic(generic);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodParent")
+	private static void methodGenericParent(final Float generic)
+	{
+		WrapperParametersItem.generic.methodParent(WrapperParametersItem.class,generic);
+	}
+
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodEnum")
+	public final void methodGenericEnum(final MyEnum generic)
+	{
+		WrapperParametersItem.generic.methodEnum(this,generic);
 	}
 
 	@javax.annotation.Generated("com.exedio.cope.instrument")

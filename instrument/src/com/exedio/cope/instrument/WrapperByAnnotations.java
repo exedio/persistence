@@ -253,13 +253,13 @@ final class WrapperByAnnotations
 				final Nullability nullability = getNullability(annotations[i], paramAnn==null?NullabilityGetterDefault.class:paramAnn.nullability());
 				final List<?> varargs = ((i+1)==parameterTypes.length) ? methodVarargs : null;
 				if(paramAnn==null)
-					result.addParameter(genericParameterType, varargs, nullability);
+					result.addParameter(parameterTypes[i], genericParameterType, varargs, nullability);
 				else
 				{
 					final String[] comment = paramAnn.doc();
 					final String paramAnnValue = paramAnn.value();
 					final String paramAnnValueFixed = paramAnnValue.isEmpty() ? "{1}" : paramAnnValue;
-					result.addParameter(genericParameterType, paramAnnValueFixed, comment, varargs, nullability);
+					result.addParameter(parameterTypes[i], genericParameterType, paramAnnValueFixed, comment, varargs, nullability);
 				}
 			}
 		}

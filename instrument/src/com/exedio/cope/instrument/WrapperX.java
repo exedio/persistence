@@ -125,6 +125,7 @@ final class WrapperX
 
 	static final class Parameter
 	{
+		private final Class<?> rawType;
 		private final java.lang.reflect.Type genericType;
 		private final String name;
 		private final String[] comment;
@@ -133,22 +134,30 @@ final class WrapperX
 
 		@SuppressWarnings("AssignmentToCollectionOrArrayFieldFromParameter")
 		Parameter(
+				final Class<?> rawType,
 				final java.lang.reflect.Type genericType,
 				final String name,
 				final String[] comment,
 				final List<?> varargs,
 				final Nullability nullability)
 		{
+			requireNonNull(rawType, "rawType");
 			requireNonNull(genericType, "genericType");
 			requireNonNull(name, "name");
 			for(final String c : comment)
 				assertComment(c);
 
+			this.rawType = rawType;
 			this.genericType = genericType;
 			this.name = name;
 			this.comment = comment;
 			this.varargs = varargs;
 			this.nullability = nullability;
+		}
+
+		Class<?> getRawType()
+		{
+			return rawType;
 		}
 
 		java.lang.reflect.Type getGenericType()
@@ -185,14 +194,14 @@ final class WrapperX
 
 	private ArrayList<Parameter> parameters;
 
-	void addParameter(final java.lang.reflect.Type genericType, final List<?> varargs, final Nullability nullability)
+	void addParameter(final Class<?> rawType, final java.lang.reflect.Type genericType, final List<?> varargs, final Nullability nullability)
 	{
-		addParameter(genericType, "{1}", EMPTY_STRING_ARRAY, varargs, nullability);
+		addParameter(rawType, genericType, "{1}", EMPTY_STRING_ARRAY, varargs, nullability);
 	}
 
-	void addParameter(final java.lang.reflect.Type genericType, final String name, final String[] comment, final List<?> varargs, final Nullability nullability)
+	void addParameter(final Class<?> rawType, final java.lang.reflect.Type genericType, final String name, final String[] comment, final List<?> varargs, final Nullability nullability)
 	{
-		final Parameter p = new Parameter(genericType, name, comment, varargs, nullability);
+		final Parameter p = new Parameter(rawType, genericType, name, comment, varargs, nullability);
 		if(parameters==null)
 			parameters = new ArrayList<>();
 		parameters.add(p);
