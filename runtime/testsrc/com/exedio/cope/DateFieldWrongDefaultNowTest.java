@@ -19,8 +19,10 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import java.util.Date;
@@ -40,19 +42,23 @@ public class DateFieldWrongDefaultNowTest
 		log.assertEmpty();
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		private AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		@WrapperIgnore
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DateField wrong = new DateField().defaultTo(new Date());
+		@WrapperIgnore
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final DateField ok = new DateField().defaultTo(new Date(28276523786l));
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
