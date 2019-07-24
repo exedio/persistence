@@ -101,7 +101,7 @@ final class Context
 			return getClassToken();
 
 		final Class<?> featureClass = getFeatureClass();
-		final Class<?> methodClass = wrapper.getMethod().getDeclaringClass();
+		final Class<?> methodClass = wrapper.method.getDeclaringClass();
 		int typeParameterPosition = 0;
 		for(final TypeVariable<?> methodClassVar : methodClass.getTypeParameters())
 		{

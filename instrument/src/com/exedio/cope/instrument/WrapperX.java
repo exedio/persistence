@@ -30,25 +30,15 @@ import java.util.Map;
 
 final class WrapperX
 {
-	private final String name;
-	private final Method method;
+	final String name;
+	final Method method;
 	private final Nullability nullability;
-
-	String getName()
-	{
-		return name;
-	}
 
 	WrapperX(final Method method, final Nullability nullability)
 	{
 		this.name = method.getName();
 		this.method = method;
 		this.nullability = nullability;
-	}
-
-	Method getMethod()
-	{
-		return method;
 	}
 
 
@@ -125,9 +115,9 @@ final class WrapperX
 
 	static final class Parameter
 	{
-		private final Class<?> rawType;
-		private final java.lang.reflect.Type genericType;
-		private final String name;
+		final Class<?> rawType;
+		final java.lang.reflect.Type genericType;
+		final String name;
 		private final String[] comment;
 		final List<?> varargs;
 		private final Nullability nullability;
@@ -153,21 +143,6 @@ final class WrapperX
 			this.comment = comment;
 			this.varargs = varargs;
 			this.nullability = nullability;
-		}
-
-		Class<?> getRawType()
-		{
-			return rawType;
-		}
-
-		java.lang.reflect.Type getGenericType()
-		{
-			return genericType;
-		}
-
-		String getName()
-		{
-			return name;
 		}
 
 		String[] getComment()

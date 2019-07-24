@@ -353,12 +353,12 @@ final class Generator
 		final Kind kind = feature.parent.kind;
 		for(final WrapperX wrapper : getWrappers(instance))
 		{
-			if (wrapper.isMethodDeprecated() && !generateDeprecateds.contains(wrapper.getMethod()))
+			if (wrapper.isMethodDeprecated() && !generateDeprecateds.contains(wrapper.method))
 				continue;
-			if (disabledWraps.contains(wrapper.getMethod()))
+			if (disabledWraps.contains(wrapper.method))
 				continue;
 			final String pattern = wrapper.getMethodWrapperPattern();
-			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.getName();
+			final String modifierTag = wrapper.getOptionTagName()!=null ? wrapper.getOptionTagName() : pattern!=null ? format(pattern, "", "") : wrapper.name;
 			final List<WrapperX.Parameter> parameters = wrapper.getParameters();
 			final Wrapper option = feature.getOption(modifierTag, getRawTypes(parameters));
 
@@ -369,7 +369,7 @@ final class Generator
 				continue;
 
 			final Context ctx = new Context(feature, wrapper);
-			final String methodName = wrapper.getName();
+			final String methodName = wrapper.name;
 			final java.lang.reflect.Type methodReturnType = wrapper.getReturnType();
 			final Map<Class<? extends Throwable>, String[]> throwsClause = wrapper.getThrowsClause();
 			final String featureNameCamelCase = toCamelCase(feature.getName());
@@ -393,7 +393,7 @@ final class Generator
 					{
 						collectCommentParagraph(
 								commentLines,
-								"@param " + format(parameter.getName(), arguments),
+								"@param " + format(parameter.name, arguments),
 								"       ",
 								convertComment(parameter.getComment()), arguments);
 					}
@@ -521,9 +521,9 @@ final class Generator
 						comma.appendTo(output);
 						writeParameterNullability(parameter);
 						write("final ");
-						write(ctx.write(parameter.getGenericType(), makeVarargs));
+						write(ctx.write(parameter.genericType, makeVarargs));
 						write(' ');
-						write(format(parameter.getName(), arguments));
+						write(format(parameter.name, arguments));
 					}
 					else
 					{
@@ -565,7 +565,7 @@ final class Generator
 				for(final WrapperX.Parameter parameter : parameters)
 				{
 					write(',');
-					write(format(parameter.getName(), arguments));
+					write(format(parameter.name, arguments));
 				}
 			}
 			write(')');
@@ -600,7 +600,7 @@ final class Generator
 					if(parameter.varargs==null)
 					{
 						comma.appendTo(output);
-						write(format(parameter.getName(), arguments));
+						write(format(parameter.name, arguments));
 					}
 					else
 					{
@@ -906,7 +906,7 @@ final class Generator
 	private static Class<?>[] getRawTypes(final List<WrapperX.Parameter> parameters)
 	{
 		final Class<?>[] result = new Class<?>[parameters.size()];
-		Arrays.setAll(result, i -> parameters.get(i).getRawType());
+		Arrays.setAll(result, i -> parameters.get(i).rawType);
 		return result;
 	}
 
