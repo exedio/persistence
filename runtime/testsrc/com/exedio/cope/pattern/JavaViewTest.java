@@ -26,14 +26,12 @@ import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.ParameterizedType;
 import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
@@ -93,30 +91,6 @@ public class JavaViewTest extends TestWithEnvironment
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
 		assertNull(number.get(item));
-		try
-		{
-			item.getNumberPrimitive();
-			fail();
-		}
-		catch(final UnsupportedOperationException e)
-		{
-			assertEquals("numberPrimitive", e.getMessage());
-		}
-		try
-		{
-			numberPrimitive.get(item);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals(RuntimeException.class, e.getClass());
-			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
-			final Throwable cause = e.getCause();
-			assertEquals(InvocationTargetException.class, cause.getClass());
-			final Throwable cause2 = cause.getCause();
-			assertEquals(UnsupportedOperationException.class, cause2.getClass());
-			assertEquals("numberPrimitive", cause2.getMessage());
-		}
 
 		item.setNumberString("2.25");
 		assertEquals("2.25", item.getNumberString());
@@ -129,29 +103,5 @@ public class JavaViewTest extends TestWithEnvironment
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
 		assertNull(number.get(item));
-		try
-		{
-			item.getNumberPrimitive();
-			fail();
-		}
-		catch(final UnsupportedOperationException e)
-		{
-			assertEquals("numberPrimitive", e.getMessage());
-		}
-		try
-		{
-			numberPrimitive.get(item);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals(RuntimeException.class, e.getClass());
-			assertEquals("JavaViewItem.numberPrimitive", e.getMessage());
-			final Throwable cause = e.getCause();
-			assertEquals(InvocationTargetException.class, cause.getClass());
-			final Throwable cause2 = cause.getCause();
-			assertEquals(UnsupportedOperationException.class, cause2.getClass());
-			assertEquals("numberPrimitive", cause2.getMessage());
-		}
 	}
 }

@@ -38,10 +38,7 @@ public final class JavaViewItem extends Item
 
 	double getNumberPrimitive()
 	{
-		final String s = getNumberString();
-		if(s==null)
-			throw new UnsupportedOperationException("numberPrimitive");
-		return Double.parseDouble(s);
+		return Double.parseDouble(getNumberString());
 	}
 
 	@SuppressWarnings({"static-method", "unused"}) // Used by JavaView
