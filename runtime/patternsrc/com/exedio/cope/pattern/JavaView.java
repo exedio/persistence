@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.Type;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
@@ -34,18 +33,21 @@ public final class JavaView extends Pattern
 
 	private static final class Mount
 	{
+		final JavaView view;
 		// TODO support lambda instead of reflection call
 		final Method getter;
 		final Class<?> valueType;
 		final java.lang.reflect.Type valueGenericType;
 
 		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
-		Mount(final Type<?> type, final String name)
+		Mount(final JavaView view)
 		{
+			this.view = view;
+			final String name = view.getName();
 			final String getterName =
 				("get" + Character.toUpperCase(name.charAt(0)) + name.substring(1)).replace("-", "");
 
-			final Class<?> javaClass = type.getJavaClass();
+			final Class<?> javaClass = view.getType().getJavaClass();
 			final Method getter;
 			try
 			{
@@ -61,13 +63,33 @@ public final class JavaView extends Pattern
 			this.valueType = replacePrimitive(getter.getReturnType());
 			this.valueGenericType = replacePrimitive(getter.getGenericReturnType());
 		}
+
+		Object get(final Item item)
+		{
+			try
+			{
+				return getter.invoke(item, (Object[])null);
+			}
+			catch(final InvocationTargetException e)
+			{
+				final Throwable cause = e.getTargetException();
+				if(cause instanceof RuntimeException)
+					throw (RuntimeException)cause;
+				else
+					throw new RuntimeException(view.toString(), e);
+			}
+			catch(final ReflectiveOperationException e)
+			{
+				throw new RuntimeException(view.toString(), e);
+			}
+		}
 	}
 
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
-		this.mountIfMounted = new Mount(getType(), getName());
+		this.mountIfMounted = new Mount(this);
 	}
 
 	private Mount mount()
@@ -87,22 +109,7 @@ public final class JavaView extends Pattern
 
 	public Object get(final Item item)
 	{
-		try
-		{
-			return mount().getter.invoke(item, (Object[])null);
-		}
-		catch(final InvocationTargetException e)
-		{
-			final Throwable cause = e.getTargetException();
-			if(cause instanceof RuntimeException)
-				throw (RuntimeException)cause;
-			else
-				throw new RuntimeException(toString(), e);
-		}
-		catch(final ReflectiveOperationException e)
-		{
-			throw new RuntimeException(toString(), e);
-		}
+		return mount().get(item);
 	}
 
 	static java.lang.reflect.Type replacePrimitive(final java.lang.reflect.Type type)
