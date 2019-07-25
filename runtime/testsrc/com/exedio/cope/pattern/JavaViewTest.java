@@ -43,7 +43,7 @@ import org.junit.jupiter.api.Test;
 
 public class JavaViewTest extends TestWithEnvironment
 {
-	private static final Model MODEL = new Model(TYPE, JavaViewItem2.TYPE);
+	private static final Model MODEL = new Model(TYPE);
 
 	static
 	{
@@ -58,12 +58,10 @@ public class JavaViewTest extends TestWithEnvironment
 	}
 
 	JavaViewItem item;
-	JavaViewItem2 item2;
 
 	@BeforeEach final void setUp()
 	{
 		item = new JavaViewItem();
-		item2 = new JavaViewItem2();
 	}
 
 	@Test void testNumber()
@@ -163,25 +161,6 @@ public class JavaViewTest extends TestWithEnvironment
 			final Throwable cause2 = cause.getCause();
 			assertEquals(UnsupportedOperationException.class, cause2.getClass());
 			assertEquals("numberPrimitive", cause2.getMessage());
-		}
-
-		try
-		{
-			number.get(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			number.get(item2);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("object is not an instance of declaring class", e.getMessage());
 		}
 	}
 }

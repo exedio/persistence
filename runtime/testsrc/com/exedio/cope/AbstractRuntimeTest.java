@@ -135,6 +135,11 @@ public final class AbstractRuntimeTest
 		assertTrue(item.existsCopeItem());
 	}
 
+	public static <I extends Item> I activate(final Type<I> type, final long pk)
+	{
+		return type.activate(pk);
+	}
+
 	public static void assertTestAnnotationNull(final Type<?> ae)
 	{
 		assertFalse(ae.isAnnotationPresent(TestAnnotation.class));
