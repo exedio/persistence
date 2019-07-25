@@ -21,11 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.JavaViewItem.TYPE;
 import static com.exedio.cope.pattern.JavaViewItem.map;
-import static com.exedio.cope.pattern.JavaViewItem.n;
 import static com.exedio.cope.pattern.JavaViewItem.number;
 import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
-import static com.exedio.cope.pattern.JavaViewItem.privat;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
@@ -71,8 +69,6 @@ public class JavaViewTest extends TestWithEnvironment
 				numberString,
 				number,
 				numberPrimitive,
-				n,
-				privat,
 				map,
 			}), TYPE.getDeclaredFeatures());
 		assertEquals(TYPE.getDeclaredFeatures(), TYPE.getFeatures());
@@ -84,8 +80,6 @@ public class JavaViewTest extends TestWithEnvironment
 		assertEquals(Double.class, number.getValueGenericType());
 		assertEquals(Double.class, numberPrimitive.getValueType());
 		assertEquals(Double.class, numberPrimitive.getValueGenericType());
-		assertEquals(String.class, privat.getValueType());
-		assertEquals(String.class, privat.getValueGenericType());
 		assertEquals(HashMap.class, map.getValueType());
 		{
 			final ParameterizedType mapType = (ParameterizedType)map.getValueGenericType();
@@ -130,9 +124,6 @@ public class JavaViewTest extends TestWithEnvironment
 		assertEquals(d2, number.get(item));
 		assertEqualBits(2.25, item.getNumberPrimitive());
 		assertEquals(2.25, numberPrimitive.get(item));
-		assertEquals("N2.25", item.getN());
-		assertEquals("N2.25", n.get(item));
-		assertEquals("Privat2.25", privat.get(item));
 
 		item.setNumberString(null);
 		assertNull(item.getNumberString());
