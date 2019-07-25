@@ -22,6 +22,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
 public final class JavaView extends Pattern
@@ -89,6 +90,14 @@ public final class JavaView extends Pattern
 		try
 		{
 			return mount().getter.invoke(item, (Object[])null);
+		}
+		catch(final InvocationTargetException e)
+		{
+			final Throwable cause = e.getTargetException();
+			if(cause instanceof RuntimeException)
+				throw (RuntimeException)cause;
+			else
+				throw new RuntimeException(toString(), e);
 		}
 		catch(final ReflectiveOperationException e)
 		{

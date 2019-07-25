@@ -21,16 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.AbstractRuntimeTest.activate;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public class JavaViewThrowsReflectionTest
 {
 	@Test void test()
@@ -40,14 +36,10 @@ public class JavaViewThrowsReflectionTest
 				item::getView,
 				ArithmeticException.class,
 				"getView message");
-		final RuntimeException re = assertFails(
+		assertFails(
 				() -> MyItem.view.get(item),
-				RuntimeException.class,
-				"MyItem.view");
-		final InvocationTargetException ite = (InvocationTargetException)re.getCause();
-		assertEquals(null, ite.getMessage());
-		final ArithmeticException actual = (ArithmeticException)ite.getCause();
-		assertEquals("getView message", actual.getMessage());
+				ArithmeticException.class,
+				"getView message");
 	}
 
 

@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* JavaView#get omits wrapping InvocationTargetException/RuntimeException if
+	targetException is RuntimeException.
 * Query#getSelects() added.
 * The instrumentor no longer supports parameter "encoding". Use "charset" instead.
 * bugfix: JavaView#getValue[Generic]Type returns wrapper classes instead of primitives.
