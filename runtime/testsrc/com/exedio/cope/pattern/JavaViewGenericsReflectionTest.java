@@ -124,5 +124,6 @@ public class JavaViewGenericsReflectionTest
 		final ParameterizedType genericType = (ParameterizedType)expected.getValueGenericType();
 		assertEquals(rawType, genericType.getRawType());
 		assertEquals(actualTypeArguments, asList(genericType.getActualTypeArguments()));
+		assertEquals(null, genericType.getOwnerType());
 	}
 }
