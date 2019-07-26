@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import java.util.HashMap;
 
 public final class JavaViewItem extends Item
 {
@@ -28,7 +27,6 @@ public final class JavaViewItem extends Item
 
 	static final JavaView number = new JavaView();
 	static final JavaView numberPrimitive = new JavaView();
-	static final JavaView map = new JavaView();
 
 	Double getNumber()
 	{
@@ -39,12 +37,6 @@ public final class JavaViewItem extends Item
 	double getNumberPrimitive()
 	{
 		return Double.parseDouble(getNumberString());
-	}
-
-	@SuppressWarnings({"static-method", "unused"}) // Used by JavaView
-	HashMap<Integer, Double> getMap()
-	{
-		return null;
 	}
 
 	/**

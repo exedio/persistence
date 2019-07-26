@@ -18,9 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.JavaViewItem.TYPE;
-import static com.exedio.cope.pattern.JavaViewItem.map;
 import static com.exedio.cope.pattern.JavaViewItem.number;
 import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
 import static com.exedio.cope.pattern.JavaViewItem.numberString;
@@ -32,8 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import java.lang.reflect.ParameterizedType;
-import java.util.HashMap;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -67,7 +63,6 @@ public class JavaViewTest extends TestWithEnvironment
 				numberString,
 				number,
 				numberPrimitive,
-				map,
 			}), TYPE.getDeclaredFeatures());
 		assertEquals(TYPE.getDeclaredFeatures(), TYPE.getFeatures());
 
@@ -78,15 +73,6 @@ public class JavaViewTest extends TestWithEnvironment
 		assertEquals(Double.class, number.getValueGenericType());
 		assertEquals(Double.class, numberPrimitive.getValueType());
 		assertEquals(Double.class, numberPrimitive.getValueGenericType());
-		assertEquals(HashMap.class, map.getValueType());
-		{
-			final ParameterizedType mapType = (ParameterizedType)map.getValueGenericType();
-			assertEquals(HashMap.class, mapType.getRawType());
-			assertEquals(asList(Integer.class, Double.class), asList(mapType.getActualTypeArguments()));
-		}
-
-		assertSerializedSame(number         , 380);
-		assertSerializedSame(numberPrimitive, 389);
 
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
