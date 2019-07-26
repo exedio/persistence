@@ -18,24 +18,23 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.JavaViewItem.TYPE;
-import static com.exedio.cope.pattern.JavaViewItem.number;
-import static com.exedio.cope.pattern.JavaViewItem.numberPrimitive;
-import static com.exedio.cope.pattern.JavaViewItem.numberString;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class JavaViewTest extends TestWithEnvironment
 {
-	private static final Model MODEL = new Model(TYPE);
+	private static final Model MODEL = new Model(MyItem.TYPE);
 
 	static
 	{
@@ -49,45 +48,99 @@ public class JavaViewTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	JavaViewItem item;
+	MyItem item;
 
 	@BeforeEach final void setUp()
 	{
-		item = new JavaViewItem();
+		item = new MyItem();
 	}
 
 	@Test void testNumber()
 	{
 		assertEquals(asList(new Feature[]{
-				TYPE.getThis(),
-				numberString,
-				number,
-				numberPrimitive,
-			}), TYPE.getDeclaredFeatures());
-		assertEquals(TYPE.getDeclaredFeatures(), TYPE.getFeatures());
+				MyItem.TYPE.getThis(),
+				MyItem.numberString,
+				MyItem.number,
+				MyItem.numberPrimitive,
+			}), MyItem.TYPE.getDeclaredFeatures());
+		assertEquals(MyItem.TYPE.getDeclaredFeatures(), MyItem.TYPE.getFeatures());
 
-		assertEquals(TYPE, number.getType());
-		assertEquals("number", number.getName());
-		assertEquals(null, numberString.getPattern());
-		assertEquals(Double.class, number.getValueType());
-		assertEquals(Double.class, number.getValueGenericType());
-		assertEquals(Double.class, numberPrimitive.getValueType());
-		assertEquals(Double.class, numberPrimitive.getValueGenericType());
+		assertEquals(MyItem.TYPE, MyItem.number.getType());
+		assertEquals("number", MyItem.number.getName());
+		assertEquals(null, MyItem.numberString.getPattern());
+		assertEquals(Double.class, MyItem.number.getValueType());
+		assertEquals(Double.class, MyItem.number.getValueGenericType());
+		assertEquals(Double.class, MyItem.numberPrimitive.getValueType());
+		assertEquals(Double.class, MyItem.numberPrimitive.getValueGenericType());
 
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
-		assertNull(number.get(item));
+		assertNull(MyItem.number.get(item));
 
 		item.setNumberString("2.25");
 		assertEquals("2.25", item.getNumberString());
 		assertEquals(d2, item.getNumber());
-		assertEquals(d2, number.get(item));
+		assertEquals(d2, MyItem.number.get(item));
 		assertEqualBits(2.25, item.getNumberPrimitive());
-		assertEquals(2.25, numberPrimitive.get(item));
+		assertEquals(2.25, MyItem.numberPrimitive.get(item));
 
 		item.setNumberString(null);
 		assertNull(item.getNumberString());
 		assertNull(item.getNumber());
-		assertNull(number.get(item));
+		assertNull(MyItem.number.get(item));
+	}
+
+	@WrapperType(indent=2, comments=false)
+	static final class MyItem extends Item
+	{
+		static final StringField numberString = new StringField().optional();
+
+		static final JavaView number = new JavaView();
+		static final JavaView numberPrimitive = new JavaView();
+
+		Double getNumber()
+		{
+			final String s = getNumberString();
+			return s!=null ? Double.valueOf(Double.parseDouble(s)) : null;
+		}
+
+		double getNumberPrimitive()
+		{
+			return Double.parseDouble(getNumberString());
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		MyItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nullable
+		java.lang.String getNumberString()
+		{
+			return MyItem.numberString.get(this);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		void setNumberString(@javax.annotation.Nullable final java.lang.String numberString)
+				throws
+					com.exedio.cope.StringLengthViolationException
+		{
+			MyItem.numberString.set(this,numberString);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private static final long serialVersionUID = 1l;
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
