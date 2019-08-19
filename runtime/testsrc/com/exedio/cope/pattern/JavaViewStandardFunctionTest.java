@@ -32,18 +32,18 @@ import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class JavaViewTest extends TestWithEnvironment
+public class JavaViewStandardFunctionTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(MyItem.TYPE);
 
 	static
 	{
-		MODEL.enableSerialization(JavaViewTest.class, "MODEL");
+		MODEL.enableSerialization(JavaViewStandardFunctionTest.class, "MODEL");
 	}
 
 	private static final Double d2 = Double.valueOf(2.25d);
 
-	public JavaViewTest()
+	public JavaViewStandardFunctionTest()
 	{
 		super(MODEL);
 	}
@@ -95,8 +95,8 @@ public class JavaViewTest extends TestWithEnvironment
 	{
 		static final StringField numberString = new StringField().optional();
 
-		static final JavaView number = new JavaView();
-		static final JavaView numberPrimitive = new JavaView();
+		static final JavaView number = JavaView.create(Double.class, MyItem::getNumber);
+		static final JavaView numberPrimitive = JavaView.create(Double.class, MyItem::getNumberPrimitive);
 
 		Double getNumber()
 		{
