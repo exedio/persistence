@@ -42,7 +42,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -174,75 +174,19 @@ public final class Assert
 		return Collections.unmodifiableMap(result);
 	}
 
-	@SuppressWarnings("SuspiciousMethodCalls")
 	public static <T> void assertUnmodifiable(final Collection<T> c)
 	{
-		try
-		{
-			c.add(null);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(final UnsupportedOperationException ignored) {/*OK*/}
-		try
-		{
-			c.addAll(Collections.singleton(null));
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(final UnsupportedOperationException ignored) {/*OK*/}
-
-		if(!c.isEmpty())
-		{
-			final Object o = c.iterator().next();
-			try
-			{
-				c.clear();
-				fail("should have thrown UnsupportedOperationException");
-			}
-			catch(final UnsupportedOperationException ignored) {/*OK*/}
-			try
-			{
-				c.remove(o);
-				fail("should have thrown UnsupportedOperationException");
-			}
-			catch(final UnsupportedOperationException ignored) {/*OK*/}
-			try
-			{
-				c.removeAll(Collections.singleton(o));
-				fail("should have thrown UnsupportedOperationException");
-			}
-			catch(final UnsupportedOperationException ignored) {/*OK*/}
-			try
-			{
-				c.retainAll(Collections.emptyList());
-				fail("should have thrown UnsupportedOperationException");
-			}
-			catch(final UnsupportedOperationException ignored) {/*OK*/}
-
-			final Iterator<?> iterator = c.iterator();
-			try
-			{
-				iterator.next();
-				iterator.remove();
-				fail("should have thrown UnsupportedOperationException");
-			}
-			catch(final UnsupportedOperationException ignored) {/*OK*/}
-		}
-
-		if(c instanceof List<?>)
-		{
-			final List<T> l = (List<T>)c;
-
-			if(!l.isEmpty())
-			{
-				try
-				{
-					l.set(0, null);
-					fail("should have thrown UnsupportedOperationException");
-				}
-				catch(final UnsupportedOperationException ignored) {/*OK*/}
-			}
-		}
+		final String name = c.getClass().getName();
+		assertTrue(UNMODIFIABLE_COLLECTIONS.contains(name), name);
 	}
+
+	private static final HashSet<String> UNMODIFIABLE_COLLECTIONS = new HashSet<>(Arrays.asList(
+			"java.util.Collections$UnmodifiableCollection",
+			"java.util.Collections$UnmodifiableRandomAccessList",
+			"java.util.Collections$SingletonList",
+			"java.util.Collections$EmptyList",
+			"java.util.Collections$UnmodifiableSet",
+			"java.util.Collections$UnmodifiableNavigableSet$EmptyNavigableSet"));
 
 	public static void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
 	{
@@ -252,35 +196,13 @@ public final class Assert
 
 	public static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
-		try
-		{
-			actual.clear();
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(final UnsupportedOperationException ignored) {/*OK*/}
-		try
-		{
-			actual.put(null, null);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(final UnsupportedOperationException ignored) {/*OK*/}
-		try
-		{
-			actual.putAll(Collections.emptyMap());
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(final UnsupportedOperationException ignored) {/*OK*/}
-		try
-		{
-			actual.remove(null);
-			fail("should have thrown UnsupportedOperationException");
-		}
-		catch(final UnsupportedOperationException ignored) {/*OK*/}
-		assertUnmodifiable(actual.keySet());
-		assertUnmodifiable(actual.values());
-		assertUnmodifiable(actual.entrySet());
+		final String name = actual.getClass().getName();
+		assertTrue(UNMODIFIABLE_MAPS.contains(name), name);
 		assertEquals(expected, actual);
 	}
+
+	private static final HashSet<String> UNMODIFIABLE_MAPS = new HashSet<>(Arrays.asList(
+			"java.util.Collections$UnmodifiableMap"));
 
 	public static void assertEqualsUnmodifiable(final Set<?> expected, final Collection<?> actual)
 	{
