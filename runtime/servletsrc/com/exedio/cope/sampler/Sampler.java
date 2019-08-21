@@ -143,6 +143,7 @@ public class Sampler
 		// save data
 		try(TransactionTry tx = samplerModel.startTransactionTry(this + " sample"))
 		{
+			//noinspection RedundantOperationOnEmptyContainer
 			sv.clear();
 			sv.add(SamplerModel.from.map(from.date));
 			sv.add(SamplerModel.date.map(to.date));

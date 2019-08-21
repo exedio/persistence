@@ -52,7 +52,6 @@ public final class FinalViolationException extends ConstraintViolationException
 	 * @param item initializes, what is returned by {@link #getItem()}.
 	 * @param feature initializes, what is returned by {@link #getFeature()}.
 	 */
-	@SuppressWarnings("deprecation") // needed for idea
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public static <F extends Feature & Settable<?>> FinalViolationException create(final F feature, final Item item)
 	{

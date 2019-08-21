@@ -194,7 +194,6 @@ public class MediaTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings("MismatchedReadAndWriteOfArray")
 	private static final byte[] bytes0  = {};
 	private static final byte[] bytes4  = {-86,122,-8,23};
 	private static final byte[] bytes6  = {-97,35,-126,86,19,-8};

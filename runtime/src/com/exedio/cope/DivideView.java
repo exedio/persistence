@@ -59,14 +59,17 @@ public final class DivideView<E extends Number> extends NumberView<E>
 
 		if(valueClass==Integer.class)
 		{
+			//noinspection RedundantCast OK: clarifies code
 			return (E)Integer.valueOf((Integer)dividend / (Integer)divisor);
 		}
 		else if(valueClass==Long.class)
 		{
+			//noinspection RedundantCast OK: clarifies code
 			return (E)Long.valueOf((Long)dividend / (Long)divisor);
 		}
 		else if(valueClass==Double.class)
 		{
+			//noinspection RedundantCast OK: clarifies code
 			return (E)Double.valueOf((Double)dividend / (Double)divisor);
 		}
 		else

@@ -58,14 +58,17 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 
 		if(valueClass==Integer.class)
 		{
+			//noinspection RedundantCast OK: clarifies code
 			return (E)Integer.valueOf((Integer)leftValue * (Integer)right);
 		}
 		else if(valueClass==Long.class)
 		{
+			//noinspection RedundantCast OK: clarifies code
 			return (E)Long.valueOf((Long)leftValue * (Long)right);
 		}
 		else if(valueClass==Double.class)
 		{
+			//noinspection RedundantCast OK: clarifies code
 			return (E)Double.valueOf((Double)leftValue * (Double)right);
 		}
 		else

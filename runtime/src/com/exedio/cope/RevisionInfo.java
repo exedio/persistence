@@ -167,6 +167,7 @@ public abstract class RevisionInfo
 		{
 			final RevisionInfoMutex i =
 				RevisionInfoMutex.read(p.getProperty(SAVEPOINT), date, environment, p);
+			//noinspection RedundantIfStatement
 			if(i!=null)
 				return i;
 		}

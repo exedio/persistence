@@ -93,7 +93,7 @@ public final class Model implements Serializable
 		return new ModelBuilder();
 	}
 
-	@SuppressWarnings({"RedundantCast","deprecation"}) // needed for idea
+	@SuppressWarnings("RedundantCast")
 	public Model(final Type<?>... types)
 	{
 		this((Revisions.Factory)null, (TypeSet[])null, types);
@@ -785,7 +785,6 @@ public final class Model implements Serializable
 		{
 			final long oldestStamp = transactions.getOldestCacheStamp(connect.cacheStamp);
 
-			@SuppressWarnings("deprecation") // needed for idea
 			final Runnable within = withinPurgeStamps;
 			if(within!=null)
 				within.run();

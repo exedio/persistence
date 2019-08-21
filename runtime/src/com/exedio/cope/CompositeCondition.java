@@ -112,7 +112,6 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	@SuppressWarnings("deprecation") // needed for idea
 	CompositeCondition copy(final CopyMapper mapper)
 	{
 		final Condition[] c = new Condition[conditions.length];
@@ -170,7 +169,6 @@ public final class CompositeCondition extends Condition
 	}
 
 	@SafeVarargs
-	@SuppressWarnings("deprecation") // needed for idea
 	public static <E> Condition in(final Function<E> function, final E... values)
 	{
 		switch(values.length)
@@ -190,7 +188,6 @@ public final class CompositeCondition extends Condition
 		}
 	}
 
-	@SuppressWarnings("deprecation") // needed for idea
 	public static <E> Condition in(final Function<E> function, final Collection<? extends E> values)
 	{
 		switch(values.size())
@@ -260,7 +257,6 @@ public final class CompositeCondition extends Condition
 		return operator.absorber==literal ? literal : other;
 	}
 
-	@SuppressWarnings("deprecation") // needed for idea
 	private static Condition compositeFlattening(
 			final Operator operator,
 			final Condition leftCondition,
@@ -312,7 +308,6 @@ public final class CompositeCondition extends Condition
 				requireNonNull(conditions, "conditions").toArray(new Condition[conditions.size()]));
 	}
 
-	@SuppressWarnings("deprecation") // needed for idea
 	static Condition composite(final Operator operator, final Condition[] conditions)
 	{
 		requireNonNull(conditions, "conditions");

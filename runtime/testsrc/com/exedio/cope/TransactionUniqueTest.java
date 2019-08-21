@@ -42,6 +42,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	@SuppressWarnings("DuplicateBranchesInSwitch") // OK: looks nicer
 	@Test void test() throws InterruptedException
 	{
 		switch(dialect)

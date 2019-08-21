@@ -34,7 +34,6 @@ public final class SetValue<E>
 	 * you may want to use the convenience functions.
 	 * @see Settable#map(Object)
 	 */
-	@SuppressWarnings("deprecation") // OK
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
 	{
