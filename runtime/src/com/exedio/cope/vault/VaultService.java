@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.io.InputStream;
@@ -32,7 +31,7 @@ import javax.annotation.Nonnull;
  * <p>
  * It is highly recommended to override {@link Object#toString() toString} with a informative message
  * containing essential configuration of the service.
- * For instance, this message is included into the result of {@link ConnectProperties#probe()}.
+ * For instance, this message is included into the result of {@link VaultProperties#probe()}.
  * <p>
  * All methods are guaranteed not to be called for the empty byte sequence -
  * this special case must be handled by the caller.

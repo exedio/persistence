@@ -25,7 +25,7 @@ final class Intern
 		// prevent instantiation
 	}
 
-	private static final boolean skip = Boolean.valueOf(System.getProperty("com.exedio.cope.skipIntern"));
+	private static final boolean skip = Boolean.parseBoolean(System.getProperty("com.exedio.cope.skipIntern"));
 
 	static
 	{

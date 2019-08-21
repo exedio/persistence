@@ -383,10 +383,7 @@ public class Hash extends Pattern implements HashInterface
 
 		checkPlainText(plainText, exceptionItem);
 
-		final String result = algorithmHash(plainText);
-		if(result==null)
-			throw new NullPointerException();
-		return result;
+		return algorithmHash(plainText);
 	}
 
 	public final void checkPlainText(final String plainText)

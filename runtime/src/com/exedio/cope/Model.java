@@ -899,7 +899,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @see ItemFunction#checkTypeColumn()
+	 * @see ItemFunction#checkTypeColumnL()
 	 */
 	public void checkTypeColumns()
 	{
