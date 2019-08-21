@@ -29,10 +29,7 @@ public class TrimmerTest
 	{
 		final String actual = new Trimmer(maxLength).trimString(actualLongString);
 		assertEquals(expected, actual, ">"+expected+"< >"+actual + "<");
-		if(actualLongString.length()>maxLength)
-			assertEquals(maxLength, actual.length());
-		else
-			assertEquals(actualLongString.length(), actual.length());
+		assertEquals(Math.min(actualLongString.length(), maxLength), actual.length());
 	}
 
 	@Test void testTrim()
