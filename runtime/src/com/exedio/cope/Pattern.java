@@ -370,8 +370,6 @@ public abstract class Pattern extends Feature
 	final void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
 	{
 		super.mount(type, name, annotationSource);
-		//noinspection deprecation
-		initialize();
 
 		calledOnMount = false;
 		onMount();
@@ -571,15 +569,6 @@ public abstract class Pattern extends Feature
 			final String postfix)
 	{
 		return newSourceType(javaClass, isAbstract, supertype, new Features(features), postfix);
-	}
-
-	/**
-	 * @deprecated Override {@link #onMount()} instead
-	 */
-	@Deprecated
-	protected void initialize()
-	{
-		// empty default implementation
 	}
 
 	/**
