@@ -25,13 +25,24 @@ final class LiteralHelper
 		else if (constantValue instanceof Double)
 			return getDoubleLiteralFor((double)constantValue);
 		else if (constantValue instanceof Float)
-			return getDoubleLiteralFor((double)(float)constantValue)+"f";
+			return getFloatLiteralFor((float)constantValue);
 		else if (constantValue instanceof Boolean)
 			return String.valueOf(constantValue);
 		else if (constantValue instanceof Character)
 			return "'"+constantValue+"'";
 		else
 			throw new RuntimeException(constantValue.getClass().getName());
+	}
+
+	private static String getFloatLiteralFor(final float constantValue)
+	{
+		if (Float.isNaN(constantValue))
+			return "java.lang.Float.NaN";
+		else if (constantValue==Float.POSITIVE_INFINITY)
+			return "java.lang.Float.POSITIVE_INFINITY";
+		else if (constantValue==Float.NEGATIVE_INFINITY)
+			return "java.lang.Float.NEGATIVE_INFINITY";
+		return constantValue+"f";
 	}
 
 	private static String getDoubleLiteralFor(final double constantValue)

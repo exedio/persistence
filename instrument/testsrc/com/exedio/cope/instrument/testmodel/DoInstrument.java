@@ -35,12 +35,25 @@ class DoInstrument implements InterfaceThatUsesDontInstrument
 
 	static final int notInterim = x();
 
+	static final String constantString = "a" + "b\tx";
 	static final byte constantByte = Byte.MAX_VALUE;
+	static final byte constantByteNeg = Byte.MIN_VALUE;
 	static final short constantShort = Short.MAX_VALUE;
+	static final short constantShortNeg = Short.MIN_VALUE;
 	static final int constantInt = Integer.MAX_VALUE;
+	static final int constantIntNeg = Integer.MIN_VALUE;
 	static final long constantLong = Long.MAX_VALUE;
+	static final long constantLongNeg = Long.MIN_VALUE;
 	static final float constantFloat = 1.0f+1.0f;
-	static final double constantDouble = Double.NaN;
+	static final float constantFloatNeg = -1.0f-1.0f;
+	static final float constantFloatNaN = Float.NaN;
+	static final float constantFloatInfinity = Float.POSITIVE_INFINITY;
+	static final float constantFloatInfinityNeg = Float.NEGATIVE_INFINITY;
+	static final double constantDouble = 2.2d+3.3d;
+	static final double constantDoubleNeg = -2.2d-3.3d;
+	static final double constantDoubleNaN = Double.NaN;
+	static final double constantDoubleInfinity = Double.POSITIVE_INFINITY;
+	static final double constantDoubleInfinityNeg = Double.NEGATIVE_INFINITY;
 	@SuppressWarnings("PointlessBooleanExpression")
 	static final boolean constantBoolean = !true;
 	static final char constantChar = 'a'+1;
