@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.HashItem.with3PinValidator;
 import static com.exedio.cope.pattern.HashItem.withCorruptValidator;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -192,6 +193,38 @@ public class HashTest extends TestWithEnvironment
 		assertFalse(item3.checkInternal("03affe09"));
 		assertTrue(item3.checkInternal("03affe10"));
 		assertFalse(item3.isInternalNull());
+	}
+
+	@Test void testAlgorithmReturnsNull()
+	{
+		final String RETURN_NULL = "RETURN_NULL";
+		assertFalse(item.checkInternal(RETURN_NULL));
+		internal.checkPlainText(RETURN_NULL);
+		internal.blind(RETURN_NULL);
+
+		assertFails(
+				() -> internal.hash(RETURN_NULL),
+				NullPointerException.class,
+				"wrap");
+
+		assertFails(
+				() -> item.setInternal(RETURN_NULL),
+				NullPointerException.class,
+				"wrap");
+		assertEquals(null, item.get(internal.getStorage()));
+
+		final SetValue<String> sv = internal.map(RETURN_NULL);
+		assertFails(
+				() -> item.set(sv),
+				NullPointerException.class,
+				"wrap");
+		assertEquals(null, item.get(internal.getStorage()));
+
+		assertFails(
+				() -> new HashItem(sv),
+				NullPointerException.class,
+				"wrap");
+		assertEquals(Arrays.asList(item), TYPE.search());
 	}
 
 	@Test void testLimit()

@@ -68,6 +68,9 @@ public class WrapHash extends Hash
 			if(plainText==null)
 				throw new NullPointerException();
 
+			if("RETURN_NULL".equals(plainText))
+				return null;
+
 			return "[" + plainText + "]";
 		}
 

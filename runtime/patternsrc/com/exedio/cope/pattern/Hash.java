@@ -205,7 +205,7 @@ public class Hash extends Pattern implements HashInterface
 	{
 		final String result = algorithm.hash(plainText);
 		if(result==null)
-			throw new NullPointerException();
+			throw new NullPointerException(algorithm.getID());
 		return result;
 	}
 
