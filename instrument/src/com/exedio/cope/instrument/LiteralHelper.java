@@ -29,7 +29,7 @@ final class LiteralHelper
 		else if (constantValue instanceof Boolean)
 			return String.valueOf(constantValue);
 		else if (constantValue instanceof Character)
-			return "'"+constantValue+"'";
+			return "'"+escapeCharacter((char)constantValue)+"'";
 		else
 			throw new RuntimeException(constantValue.getClass().getName());
 	}
@@ -56,12 +56,15 @@ final class LiteralHelper
 		return String.valueOf(constantValue);
 	}
 
-	private static String hex(final char ch)
+	private static CharSequence hexFourCharacters(final char ch)
 	{
-		return Integer.toHexString(ch).toUpperCase(Locale.ENGLISH);
+		final StringBuilder result = new StringBuilder(4);
+		result.append( Integer.toHexString(ch).toUpperCase(Locale.ENGLISH) );
+		while (result.length()<4)
+			result.insert(0, "0");
+		return result;
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	private static String escapeJavaStyleString(final String str)
 	{
 		final StringBuilder result = new StringBuilder();
@@ -70,72 +73,62 @@ final class LiteralHelper
 		for (int i = 0; i < sz; i++)
 		{
 			final char ch = str.charAt(i);
-
-			// handle unicode
-			if (ch > 0xfff)
-			{
-				result.append("\\u").append(hex(ch));
-			}
-			else if (ch > 0xff)
-			{
-				result.append("\\u0").append(hex(ch));
-			}
-			else if (ch > 0x7f)
-			{
-				result.append("\\u00").append(hex(ch));
-			}
-			else if (ch < 32)
-			{
-				switch (ch)
-				{
-					case '\b':
-						result.append('\\');
-						result.append('b');
-						break;
-					case '\n':
-						result.append('\\');
-						result.append('n');
-						break;
-					case '\t':
-						result.append('\\');
-						result.append('t');
-						break;
-					case '\f':
-						result.append('\\');
-						result.append('f');
-						break;
-					case '\r':
-						result.append('\\');
-						result.append('r');
-						break;
-					default:
-						if (ch > 0xf)
-						{
-							result.append("\\u00").append(hex(ch));
-						} else
-						{
-							result.append("\\u000").append(hex(ch));
-						}
-						break;
-				}
-			} else
-			{
-				switch (ch)
-				{
-					case '"':
-						result.append('\\');
-						result.append('"');
-						break;
-					case '\\':
-						result.append('\\');
-						result.append('\\');
-						break;
-					default:
-						result.append(ch);
-						break;
-				}
-			}
+			appendCharacter(result, ch);
 		}
 		return result.toString();
+	}
+
+	private static CharSequence escapeCharacter(final char c)
+	{
+		final StringBuilder sb = new StringBuilder();
+		appendCharacter(sb, c);
+		return sb;
+	}
+
+	@SuppressWarnings("HardcodedLineSeparator")
+	private static void appendCharacter(final StringBuilder result, final char ch)
+	{
+		if (ch > 0x7f)
+		{
+			// all characters beyond 7-bit ASCII are escaped as unicode
+			result.append("\\u").append(hexFourCharacters(ch));
+		}
+		else if (ch < 32)
+		{
+			// ASCII control characters
+			switch (ch)
+			{
+				case '\b':
+					result.append('\\');
+					result.append('b');
+					break;
+				case '\n':
+					result.append('\\');
+					result.append('n');
+					break;
+				case '\t':
+					result.append('\\');
+					result.append('t');
+					break;
+				case '\f':
+					result.append('\\');
+					result.append('f');
+					break;
+				case '\r':
+					result.append('\\');
+					result.append('r');
+					break;
+				default:
+					result.append("\\u").append(hexFourCharacters(ch));
+					break;
+			}
+		}
+		else
+		{
+			// 7-bit ASCII non-control
+			if (ch=='"' || ch=='\\' || ch=='\'')
+				result.append('\\');
+			result.append(ch);
+		}
 	}
 }

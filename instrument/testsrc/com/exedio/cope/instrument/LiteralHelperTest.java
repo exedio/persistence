@@ -80,7 +80,7 @@ class LiteralHelperTest
 	void stringLiteral()
 	{
 		assertEquals("\"\\\"\"", LiteralHelper.getLiteralFor("\""));
-		assertEquals("\"'\"", LiteralHelper.getLiteralFor("'"));
+		assertEquals("\"\\'\"", LiteralHelper.getLiteralFor("'"));
 		assertEquals("\"\\r\\n\"", LiteralHelper.getLiteralFor("\r\n"));
 		assertEquals("\"\\u0007\"", LiteralHelper.getLiteralFor("\u0007"));
 		assertEquals("\"\\u0018\"", LiteralHelper.getLiteralFor("\u0018"));
@@ -93,15 +93,15 @@ class LiteralHelperTest
 	@Test
 	void charLiteral()
 	{
-		assertEquals("'\"'", LiteralHelper.getLiteralFor('"'));
-		assertEquals("'''", LiteralHelper.getLiteralFor('\'')); // todo
-		assertEquals("'\n'", LiteralHelper.getLiteralFor('\n')); // todo
-		assertEquals("'\r'", LiteralHelper.getLiteralFor('\r')); // todo
-		assertEquals("'\u0007'", LiteralHelper.getLiteralFor('\u0007')); // todo
-		assertEquals("'\u0018'", LiteralHelper.getLiteralFor('\u0018')); // todo
-		assertEquals("'\u00e4'", LiteralHelper.getLiteralFor('\u00e4')); // german ae
-		assertEquals("'\u00df'", LiteralHelper.getLiteralFor('\u00df')); // german sz
-		assertEquals("'\u0100'", LiteralHelper.getLiteralFor('\u0100'));
-		assertEquals("'\u9009'", LiteralHelper.getLiteralFor('\u9009')); // chinese character
+		assertEquals("'\\\"'", LiteralHelper.getLiteralFor('"'));
+		assertEquals("'\\''", LiteralHelper.getLiteralFor('\''));
+		assertEquals("'\\n'", LiteralHelper.getLiteralFor('\n'));
+		assertEquals("'\\r'", LiteralHelper.getLiteralFor('\r'));
+		assertEquals("'\\u0007'", LiteralHelper.getLiteralFor('\u0007'));
+		assertEquals("'\\u0018'", LiteralHelper.getLiteralFor('\u0018'));
+		assertEquals("'\\u00E4'", LiteralHelper.getLiteralFor('\u00e4')); // german ae
+		assertEquals("'\\u00DF'", LiteralHelper.getLiteralFor('\u00df')); // german sz
+		assertEquals("'\\u0100'", LiteralHelper.getLiteralFor('\u0100'));
+		assertEquals("'\\u9009'", LiteralHelper.getLiteralFor('\u9009')); // chinese character
 	}
 }

@@ -36,6 +36,7 @@ class DoInstrument implements InterfaceThatUsesDontInstrument
 	static final int notInterim = x();
 
 	static final String constantString = "a" + "b\tx";
+	static final String constantStringQuotes = "\"'";
 	static final byte constantByte = Byte.MAX_VALUE;
 	static final byte constantByteNeg = Byte.MIN_VALUE;
 	static final short constantShort = Short.MAX_VALUE;
@@ -57,6 +58,10 @@ class DoInstrument implements InterfaceThatUsesDontInstrument
 	@SuppressWarnings("PointlessBooleanExpression")
 	static final boolean constantBoolean = !true;
 	static final char constantChar = 'a'+1;
+	static final char constantCharDoubleQuote = '"';
+	static final char constantCharQuote = '\'';
+	@SuppressWarnings("HardcodedLineSeparator")
+	static final char constantCharNewline = '\n';
 
 
 	enum NotInterim
