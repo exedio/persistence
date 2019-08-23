@@ -322,7 +322,6 @@ public final class AntTask extends Task
 		}
 	}
 
-	@SuppressWarnings("unused")
 	public final class GenerateDeprecated
 	{
 		public void addText(final String text)
@@ -338,7 +337,6 @@ public final class AntTask extends Task
 		}
 	}
 
-	@SuppressWarnings("unused")
 	public final class DisableWrap
 	{
 		public void addText(final String text)
