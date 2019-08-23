@@ -199,6 +199,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertEquals(false, item.checkPasswordLimited("wrongpass", clock, date));
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
+		assertEquals(item, result.getParent());
 		assertEqualsDate(date, result.getDate());
 		return result;
 	}

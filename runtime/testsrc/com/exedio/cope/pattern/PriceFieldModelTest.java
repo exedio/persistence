@@ -140,6 +140,15 @@ public class PriceFieldModelTest
 		assertEquals(Long.MAX_VALUE  , f.getInt().getMaximum());
 	}
 
+	@Test void testMinZero()
+	{
+		final PriceField f = new PriceField().minZero();
+		assertEquals(Price.ZERO,      f.getMinimum());
+		assertEquals(Price.MAX_VALUE, f.getMaximum());
+		assertEquals(0,              f.getInt().getMinimum());
+		assertEquals(Long.MAX_VALUE, f.getInt().getMaximum());
+	}
+
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testMin()
 	{

@@ -62,6 +62,13 @@ public class PasswordRecoveryModelTest
 				password.getStorage(),
 				passwordRecovery,
 			}), TYPE.getDeclaredFeatures());
+		assertEquals(Arrays.asList(new Feature[]{
+				passwordRecovery.getTokenType().getThis(),
+				passwordRecovery.getParent(PasswordRecoveryItem.class),
+				passwordRecovery.getSecret(),
+				passwordRecovery.getExpires(),
+				passwordRecovery.getTokens(),
+			}), passwordRecovery.getTokenType().getFeatures());
 
 		assertEquals(TYPE, password.getType());
 		assertEquals(passwordRecovery.getTokenType(), passwordRecovery.getSecret().getType());

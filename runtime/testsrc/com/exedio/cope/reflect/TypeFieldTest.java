@@ -54,6 +54,10 @@ public class TypeFieldTest extends TestWithEnvironment
 		assertSame(TypeFieldSubItem.TYPE, item.getIsFinal());
 		assertSame(null, item.getOptional());
 		assertSame(null, item.getRestricted());
+		assertEquals("TypeFieldItem", standard.getId(item));
+		assertEquals("TypeFieldSubItem", isFinal.getId(item));
+		assertEquals(null, optional.getId(item));
+		assertEquals(null, restricted.getId(item));
 
 		item.setOptional(TYPE);
 		assertSame(TYPE, item.getStandard());
@@ -121,6 +125,7 @@ public class TypeFieldTest extends TestWithEnvironment
 	{
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		standard.getIdField().set(item, "zack");
+		assertEquals("zack", standard.getId(item));
 		try
 		{
 			item.getStandard();
@@ -137,6 +142,7 @@ public class TypeFieldTest extends TestWithEnvironment
 					"no such id in model.",
 					e.getMessage());
 		}
+		assertEquals("zack", standard.getId(item));
 	}
 
 	@Test void testNotFoundWrongValueClass()

@@ -88,5 +88,8 @@ public class TransactionCountersTest extends TestWithEnvironment
 		assertEquals(     commitWithConnectionStart +      commitWithConnection, c.getCommitWithConnection());
 		assertEquals(rollbackWithoutConnectionStart + rollbackWithoutConnection, c.getRollbackWithoutConnection());
 		assertEquals(   rollbackWithConnectionStart +    rollbackWithConnection, c.getRollbackWithConnection());
+
+		assertEquals(c.getCommit  (), c.getCommitWithoutConnection  () + c.getCommitWithConnection  ());
+		assertEquals(c.getRollback(), c.getRollbackWithoutConnection() + c.getRollbackWithConnection());
 	}
 }

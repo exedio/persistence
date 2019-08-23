@@ -31,6 +31,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 public class DrivebyHashMigrationTest extends TestWithEnvironment
@@ -74,6 +75,12 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		{
 			assertEquals("mandatory violation for DrivebyHashMigrationItem.password", e.getMessage());
 		}
+
+		assertEquals(false, password.isNull(null));
+		//noinspection SerializableInnerClassWithNonSerializableOuterClass
+		assertEquals("21i3v9", password.newRandomPassword(new SecureRandom(){
+			private static final long serialVersionUID = 1l;
+			@Override public long nextLong() { return 123456789l; }}));
 	}
 
 	@Test void testMigratePasswordOnChange()

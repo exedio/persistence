@@ -63,6 +63,12 @@ public class PasswordLimiterModelTest
 				password.getStorage(),
 				passwordLimited,
 			}), TYPE.getDeclaredFeatures());
+		assertEquals(Arrays.asList(new Feature[]{
+				passwordLimited.getRefusalType().getThis(),
+				passwordLimited.getParent(PasswordLimiterItem.class),
+				passwordLimited.getDate(),
+				passwordLimited.getRefusals(),
+			}), passwordLimited.getRefusalType().getDeclaredFeatures());
 
 		assertEquals(TYPE, password.getType());
 		assertEquals(passwordLimited.getRefusalType(), passwordLimited.getDate().getType());

@@ -22,6 +22,7 @@ import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
@@ -99,9 +100,14 @@ public class QueryCacheTest extends TestWithEnvironment
 		model.setTestDatabaseListener(null);
 	}
 
+	@SuppressFBWarnings("ES_COMPARING_PARAMETER_STRING_WITH_EQ")
 	private static QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
 	{
-		return new QueryCacheHistogram(query, resultSize, hits);
+		final QueryCacheHistogram result = new QueryCacheHistogram(query, resultSize, hits);
+		assertSame(query, result.getQuery());
+		assertEquals(resultSize, result.getResultSize());
+		assertEquals(hits, result.getHits());
+		return result;
 	}
 
 	private List<QueryCacheHistogram> qch()

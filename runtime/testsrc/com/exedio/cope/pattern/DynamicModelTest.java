@@ -151,6 +151,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> akkuTime = cellPhone.addIntegerField("akkuTime");
 		assertEquals(INTEGER, akkuTime.getValueType());
+		assertEquals(cellPhone, akkuTime.getParent());
 		assertEquals(0, akkuTime.getPosition());
 		assertEquals("akkuTime", akkuTime.getCode());
 		assertSame(TYPE, akkuTime.getField().getType());
@@ -162,6 +163,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> memory = cellPhone.addStringField("memory");
 		assertEquals(STRING, memory.getValueType());
+		assertEquals(cellPhone, memory.getParent());
 		assertEquals(1, memory.getPosition());
 		assertEquals("memory", memory.getCode());
 		assertSame(TYPE, memory.getField().getType());
@@ -204,6 +206,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> weight = organizer.addIntegerField("weight");
 		assertEquals(INTEGER, weight.getValueType());
+		assertEquals(organizer, weight.getParent());
 		assertEquals(0, weight.getPosition());
 		assertEquals("weight", weight.getCode());
 		assertSame(akkuTime.getField(), weight.getField());
@@ -218,6 +221,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> bluetooth = organizer.addBooleanField("bluetooth");
 		assertEquals(BOOLEAN, bluetooth.getValueType());
+		assertEquals(organizer, bluetooth.getParent());
 		assertEquals(1, bluetooth.getPosition());
 		assertEquals("bluetooth", bluetooth.getCode());
 		assertSame(TYPE, bluetooth.getField().getType());
@@ -227,6 +231,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> length = organizer.addDoubleField("length");
 		assertEquals(DOUBLE, length.getValueType());
+		assertEquals(organizer, length.getParent());
 		assertEquals(2, length.getPosition());
 		assertEquals("length", length.getCode());
 		assertSame(TYPE, length.getField().getType());
@@ -243,6 +248,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> color = organizer.addEnumField("color");
 		assertEquals(ENUM, color.getValueType());
+		assertEquals(organizer, color.getParent());
 		assertEquals(3, color.getPosition());
 		assertEquals("color", color.getCode());
 		assertSame(TYPE, color.getFieldEnum().getType());
@@ -272,6 +278,7 @@ public class DynamicModelTest extends TestWithEnvironment
 
 		final DynamicModel.Field<DynamicModelLocalizationItem> manufacturer = organizer.addEnumField("manufacturer");
 		assertEquals(ENUM, manufacturer.getValueType());
+		assertEquals(organizer, manufacturer.getParent());
 		assertEquals(4, manufacturer.getPosition());
 		assertEquals("manufacturer", manufacturer.getCode());
 		assertSame(TYPE, manufacturer.getFieldEnum().getType());

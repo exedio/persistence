@@ -27,11 +27,15 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.IOException;
 import javax.servlet.ServletOutputStream;
 import org.junit.jupiter.api.Test;
 
+@MainRule.Tag
 public class MediaUtilTest
 {
 	@Test void testString() throws IOException
@@ -61,6 +65,16 @@ public class MediaUtilTest
 		final ByteArrayOutputStream s = new ByteArrayOutputStream();
 		s.write(new byte[]{'A','B','C'});
 		send("major/minor", s, r);
+		r.assertFinished(false);
+	}
+
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+
+	@Test void testFile() throws IOException
+	{
+		final Response r = new Response();
+		final File f = files.newFile(new byte[]{'A','B','C'});
+		send("major/minor", f, r);
 		r.assertFinished(false);
 	}
 

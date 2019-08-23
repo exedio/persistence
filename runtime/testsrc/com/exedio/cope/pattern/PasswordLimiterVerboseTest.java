@@ -160,6 +160,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertEquals(false, i.checkPasswordLimitedVerbosely("wrongpass", clock, date));
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
+		assertEquals(i, result.getParent());
 		assertEqualsDate(date, result.getDate());
 		return result;
 	}

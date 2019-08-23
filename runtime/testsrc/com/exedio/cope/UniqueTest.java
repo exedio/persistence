@@ -110,6 +110,7 @@ public class UniqueTest extends TestWithEnvironment
 				getConstraintName(uniqueString.getImplicitUniqueConstraint()));
 
 		assertEquals(null, forUniqueString("uniqueString"));
+		assertEquals(null, uniqueString.searchUnique("uniqueString"));
 		try
 		{
 			forUniqueStringStrict("uniqueString");
@@ -124,6 +125,7 @@ public class UniqueTest extends TestWithEnvironment
 		final UniqueSingleItem nullItem1 = new UniqueSingleItem();
 		assertEquals(null, nullItem1.getUniqueString());
 		assertEquals(null, forUniqueString("uniqueString"));
+		assertEquals(null, uniqueString.searchUnique("uniqueString"));
 		try
 		{
 			forUniqueString(null);
@@ -137,6 +139,7 @@ public class UniqueTest extends TestWithEnvironment
 		final UniqueSingleItem nullItem2 = new UniqueSingleItem();
 		assertEquals(null, nullItem2.getUniqueString());
 		assertEquals(null, forUniqueString("uniqueString"));
+		assertEquals(null, uniqueString.searchUnique("uniqueString"));
 		try
 		{
 			forUniqueString(null);
@@ -150,6 +153,7 @@ public class UniqueTest extends TestWithEnvironment
 		nullItem2.setUniqueString("uniqueString");
 		assertEquals("uniqueString", nullItem2.getUniqueString());
 		assertEquals(nullItem2, forUniqueString("uniqueString"));
+		assertEquals(nullItem2, uniqueString.searchUnique("uniqueString"));
 		try
 		{
 			forUniqueString(null);

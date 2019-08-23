@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaPath.getNoSuchPath;
+import static com.exedio.cope.pattern.MediaPath.getNoSuchPathLogs;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,6 +39,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
 import java.util.Date;
+import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
@@ -524,6 +527,7 @@ public final class MediaPathTest extends TestWithEnvironment
 			final int delivered)
 	{
 		final MediaInfo i = MediaPathItem.normal.getInfo();
+
 		assertEquals(noSuchPath,     getNoSuchPath()       - noSuchPathOnSetup,              "noSuchPath");
 		assertEquals(redirectFrom,   i.getRedirectFrom()   - normalInfo.getRedirectFrom(),   "redirectFrom");
 		assertEquals(exception,      i.getException()      - normalInfo.getException(),      "exception");
@@ -536,6 +540,21 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertEquals(notComputable,  i.getNotComputable()  - normalInfo.getNotComputable(),  "notComputable");
 		assertEquals(notModified,    i.getNotModified()    - normalInfo.getNotModified(),    "notModified");
 		assertEquals(delivered,      i.getDelivered()      - normalInfo.getDelivered(),      "delivered");
+
+		assertIt(getNoSuchPath(),       getNoSuchPathLogs());
+		assertIt(i.getException(),      MediaPathItem.normal.getExceptionLogs());
+		assertIt(i.getInvalidSpecial(), MediaPathItem.normal.getInvalidSpecialLogs());
+		assertIt(i.getGuessedUrl(),     MediaPathItem.normal.getGuessedUrlLogs());
+		assertIt(i.getNotAnItem(),      MediaPathItem.normal.getNotAnItemLogs());
+		assertIt(i.getNoSuchItem(),     MediaPathItem.normal.getNoSuchItemLogs());
+		assertIt(i.getIsNull(),         MediaPathItem.normal.getIsNullLogs());
+		assertIt(i.getNotComputable(),  MediaPathItem.normal.getNotComputableLogs());
+	}
+
+	private static void assertIt(final int expected, final List<MediaRequestLog> actual)
+	{
+		assertEquals(expected, actual.size());
+		assertUnmodifiable(actual);
 	}
 
 	private void assertOk(

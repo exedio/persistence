@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
@@ -30,8 +31,23 @@ import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("Convert2MethodRef") // OK: easier to read
-public class MediaPathConditionUnsupportedTest
+public class MediaPathDefaultImplementationTest
 {
+	@Test void testIsContentTypeWrapped()
+	{
+		assertEquals(true, AnItem.path.isContentTypeWrapped());
+	}
+
+	@Test void testIsFinal()
+	{
+		assertEquals(false, AnItem.path.isFinal());
+	}
+
+	@Test void testGetLastModified()
+	{
+		assertEquals(null, AnItem.path.getLastModified(null));
+	}
+
 	@Test void testNull()
 	{
 		assertFails(() ->

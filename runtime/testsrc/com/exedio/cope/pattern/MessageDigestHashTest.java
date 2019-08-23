@@ -92,6 +92,8 @@ public class MessageDigestHashTest extends TestWithEnvironment
 		assertEquals(TYPE, password.getType());
 		assertEquals("password", password.getName());
 		assertEquals("SHA512s8i5", password.getAlgorithmID());
+		assertEquals("SHA512s8i5", password.getAlgorithm2().getID());
+		assertEquals("SHA512s8i5", password.getAlgorithm2().getDescription());
 		assertEquals(TYPE, password.getStorage().getType());
 		assertEquals("password-SHA512s8i5", password.getStorage().getName());
 		assertEquals(144, password.getStorage().getMinimumLength());

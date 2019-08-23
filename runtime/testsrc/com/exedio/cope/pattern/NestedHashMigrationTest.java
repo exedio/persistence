@@ -33,6 +33,7 @@ import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.security.SecureRandom;
 import java.time.Duration;
 import org.junit.jupiter.api.Test;
 
@@ -87,6 +88,12 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 		{
 			assertEquals("ctx", e.getMessage());
 		}
+
+		assertEquals(false, password.isNull(null));
+		//noinspection SerializableInnerClassWithNonSerializableOuterClass
+		assertEquals("21i3v9", password.newRandomPassword(new SecureRandom(){
+			private static final long serialVersionUID = 1l;
+			@Override public long nextLong() { return 123456789l; }}));
 	}
 
 	@Test void testMigratePasswordOnChange()

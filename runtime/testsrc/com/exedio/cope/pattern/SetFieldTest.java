@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.SetFieldModelTest.datesType;
 import static com.exedio.cope.pattern.SetFieldModelTest.stringsElement;
 import static com.exedio.cope.pattern.SetFieldModelTest.stringsType;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,6 +41,7 @@ import com.exedio.cope.TestWithEnvironment;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -160,6 +162,19 @@ public class SetFieldTest extends TestWithEnvironment
 		assertFalse(r1x.existsCopeItem());
 		assertFalse(r2.existsCopeItem());
 		assertFalse(r3.existsCopeItem());
+	}
+
+	@Test void testSetAndCast()
+	{
+		strings.setAndCast(item, asList("1hallo", "2bello"));
+		item.assertStrings("1hallo", "2bello");
+
+		final List<Integer> integers = asList(1, 2);
+		assertFails(
+				() -> strings.setAndCast(item, integers),
+				ClassCastException.class,
+				"expected a java.lang.String, but was a java.lang.Integer");
+		item.assertStrings("1hallo", "2bello");
 	}
 
 	@Test void testAddRemove()

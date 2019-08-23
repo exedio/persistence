@@ -247,6 +247,9 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 		public void run(final Schedule schedule, final Date from, final Date until, final JobContext ctx)
 		{
 			assertSame(report, schedule);
+			assertNotNull(from);
+			assertNotNull(until);
+			assertTrue(from.before(until));
 			assertNotNull(ctx);
 			assertTrue(TYPE.getModel().hasCurrentTransaction());
 			assertTrue(ctx.supportsProgress());

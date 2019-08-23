@@ -153,6 +153,17 @@ public class HavingAggregateTest extends TestWithEnvironment
 		assertIt(asList(asList(group2, 22  ), asList(group3, 33  )), maxQ);
 		assertIt(asList(asList(group2, 43  ), asList(group3, 96  )), sumQ);
 		assertIt(asList(asList(group2, 21.5), asList(group3, 32.0)), avgQ);
+
+		cntQ.setHaving(cnt.between( 2,    3  ));
+		minQ.setHaving(min.between(21,   31  ));
+		maxQ.setHaving(max.between(22,   33  ));
+		sumQ.setHaving(sum.between(43,   96  ));
+		avgQ.setHaving(avg.between(21.5, 32.0));
+		assertIt(asList(asList(group2,  2  ), asList(group3,  3  )), cntQ);
+		assertIt(asList(asList(group2, 21  ), asList(group3, 31  )), minQ);
+		assertIt(asList(asList(group2, 22  ), asList(group3, 33  )), maxQ);
+		assertIt(asList(asList(group2, 43  ), asList(group3, 96  )), sumQ);
+		assertIt(asList(asList(group2, 21.5), asList(group3, 32.0)), avgQ);
 	}
 
 

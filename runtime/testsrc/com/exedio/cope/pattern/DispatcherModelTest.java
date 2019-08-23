@@ -164,12 +164,16 @@ public class DispatcherModelTest
 
 	@Test void testCreateDeferrerNull()
 	{
-		create(i -> { throw new Exception(); }, null);
+		final Dispatcher d =
+				create(i -> { throw new Exception(); }, null);
+		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
 	}
 
 	@Test void testCreateFinalFailureListenerNull()
 	{
-		create(i -> { throw new Exception(); }, null, null);
+		final Dispatcher d =
+				create(i -> { throw new Exception(); }, null, null);
+		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
 	}
 
 	@Test void testCreateTargetNull()

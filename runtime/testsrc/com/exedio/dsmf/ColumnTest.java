@@ -26,6 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
+import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class ColumnTest extends SchemaReadyTest
@@ -201,4 +207,42 @@ public class ColumnTest extends SchemaReadyTest
 		}
 	}
 
+
+	@Test void testUpdate()
+	{
+		final Schema schema = getSchema();
+		final String tableName = schema.quoteName(table.getName());
+		final String columnName = schema.quoteName(column.getName());
+		schema.querySQL("SELECT * FROM " + tableName, new UpdateResultSetHandler());
+
+		schema.executeSQL("INSERT INTO " + tableName + " (" + columnName + ") VALUES (NULL)", null);
+		schema.executeSQL("INSERT INTO " + tableName + " (" + columnName + ") VALUES (55)", null);
+		schema.executeSQL("INSERT INTO " + tableName + " (" + columnName + ") VALUES (66)", null);
+		final String selectSQL = "SELECT " + columnName + " FROM " + tableName;
+		schema.querySQL(selectSQL, new UpdateResultSetHandler(null, "55", "66"));
+
+		column.update("88", null);
+		schema.querySQL(selectSQL, new UpdateResultSetHandler("88", "88", "88"));
+	}
+
+	private static final class UpdateResultSetHandler implements Dialect.ResultSetHandler
+	{
+		private final List<String> expected;
+
+		private UpdateResultSetHandler(final String... expected)
+		{
+			this.expected = Arrays.asList(expected);
+		}
+
+		@Override
+		public void run(final ResultSet resultSet) throws SQLException
+		{
+			final ArrayList<String> actual = new ArrayList<>();
+			while(resultSet.next())
+				actual.add(resultSet.getString(1));
+			actual.sort(Comparator.nullsFirst(Comparator.naturalOrder()));
+			//noinspection MisorderedAssertEqualsArguments
+			assertEquals(expected, actual);
+		}
+	}
 }

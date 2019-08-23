@@ -326,6 +326,7 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 		@Override
 		public void dispatch(final Dispatcher dispatcher) throws IOException, InterruptedException
 		{
+			assertSame(toTarget, dispatcher);
 			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
 			setDispatchCountCommitted(getDispatchCountCommitted()+1);
@@ -341,6 +342,7 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 		@Override
 		public void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
 		{
+			assertSame(toTarget, dispatcher);
 			assertTrue(!MODEL.hasCurrentTransaction());
 			assertEquals(IOException.class, cause.getClass());
 			logs.get(this).notifyFinalFailureCount++;

@@ -34,6 +34,7 @@ import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 import static com.exedio.cope.pattern.ListFieldItem.value;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -59,6 +60,7 @@ import com.exedio.cope.misc.Computed;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -569,6 +571,19 @@ public class ListFieldTest extends TestWithEnvironment
 		{
 			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
 		}
+	}
+
+	@Test void testSetAndCast()
+	{
+		strings.setAndCast(item, asList("1hallo", "2bello"));
+		assertEquals(asList("1hallo", "2bello"), item.getStrings());
+
+		final List<Integer> integers = asList(1, 2);
+		assertFails(
+				() -> strings.setAndCast(item, integers),
+				ClassCastException.class,
+				"expected a java.lang.String, but was a java.lang.Integer");
+		assertEquals(asList("1hallo", "2bello"), item.getStrings());
 	}
 
 	@Test void testRemoveAllSingle()

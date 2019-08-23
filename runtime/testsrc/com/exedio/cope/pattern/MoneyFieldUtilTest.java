@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
+import com.exedio.cope.LongField;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
@@ -132,5 +133,67 @@ public class MoneyFieldUtilTest
 		{
 			assertEquals("currency", e.getMessage());
 		}
+	}
+
+	@Test void testFinal()
+	{
+		final MoneyField<?> f = MoneyField.fixed(CurrencyEnum.A).toFinal();
+
+		assertEquals(true, f.isFinal());
+		assertEquals(true, f.getAmount().isFinal());
+		assertEquals(true, f.getAmount().getInt().isFinal());
+
+		assertEquals(true, f.isMandatory());
+		assertEquals(true, f.getAmount().isMandatory());
+		assertEquals(true, f.getAmount().getInt().isMandatory());
+
+		assertEquals(Price.MIN_VALUE,  f.getAmount().getMinimum());
+		assertEquals(Price.MAX_VALUE,  f.getAmount().getMaximum());
+		assertEquals(Long.MIN_VALUE+1, f.getAmount().getInt().getMinimum());
+		assertEquals(Long.MAX_VALUE,   f.getAmount().getInt().getMaximum());
+	}
+
+	@Test void testOptional()
+	{
+		final MoneyField<?> f = MoneyField.fixed(CurrencyEnum.A).optional();
+
+		assertEquals(false, f.isFinal());
+		assertEquals(false, f.getAmount().isFinal());
+		assertEquals(false, f.getAmount().getInt().isFinal());
+
+		assertEquals(false, f.isMandatory());
+		assertEquals(false, f.getAmount().isMandatory());
+		assertEquals(false, f.getAmount().getInt().isMandatory());
+
+		assertEquals(Price.MIN_VALUE,  f.getAmount().getMinimum());
+		assertEquals(Price.MAX_VALUE,  f.getAmount().getMaximum());
+		assertEquals(Long.MIN_VALUE+1, f.getAmount().getInt().getMinimum());
+		assertEquals(Long.MAX_VALUE,   f.getAmount().getInt().getMaximum());
+	}
+
+	@Test void testMinZero()
+	{
+		final MoneyField<?> f = MoneyField.fixed(CurrencyEnum.A).minZero();
+
+		assertEquals(false, f.isFinal());
+		assertEquals(false, f.getAmount().isFinal());
+		assertEquals(false, f.getAmount().getInt().isFinal());
+
+		assertEquals(true, f.isMandatory());
+		assertEquals(true, f.getAmount().isMandatory());
+		assertEquals(true, f.getAmount().getInt().isMandatory());
+
+		assertEquals(Price.ZERO,      f.getAmount().getMinimum());
+		assertEquals(Price.MAX_VALUE, f.getAmount().getMaximum());
+		assertEquals(0,               f.getAmount().getInt().getMinimum());
+		assertEquals(Long.MAX_VALUE,  f.getAmount().getInt().getMaximum());
+	}
+
+	@Test void testConditions()
+	{
+		final MoneyField<?> f = MoneyField.fixed(CurrencyEnum.A);
+		final LongField i = f.getAmount().getInt();
+		assertEquals(i + " is null", f.isNull().toString());
+		assertEquals(i + " is not null", f.isNotNull().toString());
 	}
 }
