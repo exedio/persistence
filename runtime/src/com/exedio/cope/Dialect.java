@@ -433,7 +433,6 @@ abstract class Dialect
 		return null;
 	}
 
-	@SuppressWarnings("unused")
 	void append(
 			final Statement statement,
 			final StringFunction function,
