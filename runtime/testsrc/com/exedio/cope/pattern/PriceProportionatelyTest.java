@@ -20,14 +20,16 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Price.splitProportionately;
 import static com.exedio.cope.pattern.Price.valueOf;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import java.util.Arrays;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PriceProportionatelyTest
 {
 	@Test void testEquals()
@@ -103,52 +105,30 @@ public class PriceProportionatelyTest
 			assertEquals(expectedSum, actualTotal);
 		}
 
-		assertEqualsArray(expected, splitProportionately(actualTotal, actualWeights));
+		assertArrayEquals(expected, splitProportionately(actualTotal, actualWeights));
 
 		final Price[] expectedNegative = Stream.of(expected).map(Price::negate).toArray(Price[]::new);
-		assertEqualsArray(expectedNegative, splitProportionately(actualTotal.negate(), actualWeights));
+		assertArrayEquals(expectedNegative, splitProportionately(actualTotal.negate(), actualWeights));
 	}
 
 
 
 	@Test void testSpecial()
 	{
-		try
-		{
-			splitProportionately(valueOf(9.99), values());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("weights must not be empty", e.getMessage());
-		}
-		try
-		{
-			splitProportionately(null, values(0.01));
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			splitProportionately(valueOf(9), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
-		try
-		{
-			splitProportionately(valueOf(9), values(0.01, 0.01, -0.01));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("negative weight -0.01", e.getMessage());
-		}
+		assertFails(() ->
+			splitProportionately(valueOf(9.99), values()),
+			IllegalArgumentException.class,
+			"weights must not be empty");
+		assertFails(() ->
+			splitProportionately(null, values(0.01)),
+			NullPointerException.class, null);
+		assertFails(() ->
+			splitProportionately(valueOf(9), null),
+			NullPointerException.class, null);
+		assertFails(() ->
+			splitProportionately(valueOf(9), values(0.01, 0.01, -0.01)),
+			IllegalArgumentException.class,
+			"negative weight -0.01");
 	}
 
 	private static Price[] values(final double... values)
@@ -157,11 +137,5 @@ public class PriceProportionatelyTest
 		for(int i = 0; i<values.length; i++)
 			result[i] = valueOf(values[i]);
 		return result;
-	}
-
-	private static void assertEqualsArray(final Price[] expected, final Price[] actual)
-	{
-		if(!Arrays.equals(expected, actual))
-			fail("expected " + Arrays.toString(expected) + " but was " + Arrays.toString(actual));
 	}
 }

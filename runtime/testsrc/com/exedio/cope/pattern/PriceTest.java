@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.Price.nullToZero;
 import static com.exedio.cope.pattern.Price.parse;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.Price.valueOf;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -31,12 +32,12 @@ import static java.math.RoundingMode.HALF_DOWN;
 import static java.math.RoundingMode.HALF_EVEN;
 import static java.math.RoundingMode.HALF_UP;
 import static java.math.RoundingMode.UP;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.tojunit.Assert;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -46,6 +47,8 @@ import java.text.ParseException;
 import java.util.Locale;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("Convert2MethodRef") // OK: easier to read
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PriceTest
 {
 	private static final long MIN_STORE = Long.MIN_VALUE + 1;
@@ -82,29 +85,19 @@ public class PriceTest
 	@Test void testStoreIntExactOverflow()
 	{
 		final Price p = storeOf(Integer.MAX_VALUE + 1l);
-		try
-		{
-			p.storeIntExact();
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("not an integer: 2147483648", e.getMessage());
-		}
+		assertFails(() ->
+			p.storeIntExact(),
+			ArithmeticException.class,
+			"not an integer: 2147483648");
 	}
 
 	@Test void testStoreIntExactUnderflow()
 	{
 		final Price p = storeOf(Integer.MIN_VALUE - 1l);
-		try
-		{
-			p.storeIntExact();
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("not an integer: -2147483649", e.getMessage());
-		}
+		assertFails(() ->
+			p.storeIntExact(),
+			ArithmeticException.class,
+			"not an integer: -2147483649");
 	}
 
 	@Test void testZero()
@@ -130,15 +123,10 @@ public class PriceTest
 
 	@Test void testStoreOfIntOutOfRange()
 	{
-		try
-		{
-			storeOf(Long.MIN_VALUE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("Long.MIN_VALUE not allowed", e.getMessage());
-		}
+		assertFails(() ->
+			storeOf(Long.MIN_VALUE),
+			IllegalArgumentException.class,
+			"Long.MIN_VALUE not allowed");
 	}
 
 	@Test void testStoreOfLong()
@@ -225,51 +213,26 @@ public class PriceTest
 		assertEquals(MIN_STORE+1407, valueOf((MIN_STORE/100d) + 8.0).store());
 		assertSame(ZERO, valueOf( 0.0));
 		assertSame(ZERO, valueOf(-0.0));
-		try
-		{
-			valueOf((MAX_STORE/100d) + 0.01);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("too big: 9.223372036854776E+16", e.getMessage());
-		}
-		try
-		{
-			valueOf((MIN_STORE/100d) - 0.01);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("too small: -9.223372036854776E+16", e.getMessage());
-		}
-		try
-		{
-			valueOf(Double.NaN);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("NaN not allowed", e.getMessage());
-		}
-		try
-		{
-			valueOf(Double.NEGATIVE_INFINITY);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("Infinity not allowed", e.getMessage());
-		}
-		try
-		{
-			valueOf(Double.POSITIVE_INFINITY);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("Infinity not allowed", e.getMessage());
-		}
+		assertFails(() ->
+			valueOf((MAX_STORE/100d) + 0.01),
+			IllegalArgumentException.class,
+			"too big: 9.223372036854776E+16");
+		assertFails(() ->
+			valueOf((MIN_STORE/100d) - 0.01),
+			IllegalArgumentException.class,
+			"too small: -9.223372036854776E+16");
+		assertFails(() ->
+			valueOf(Double.NaN),
+			IllegalArgumentException.class,
+			"NaN not allowed");
+		assertFails(() ->
+			valueOf(Double.NEGATIVE_INFINITY),
+			IllegalArgumentException.class,
+			"Infinity not allowed");
+		assertFails(() ->
+			valueOf(Double.POSITIVE_INFINITY),
+			IllegalArgumentException.class,
+			"Infinity not allowed");
 	}
 
 	@Test void testValueOfDoubleRoundSpecialProblem()
@@ -375,15 +338,9 @@ public class PriceTest
 		assertSame(ZERO, valueOf(bd(0, 0)));
 		assertValueOfIllegal(bd(MAX_STORE, 2).add(     bd(1, 2)), "too big: 92233720368547758.08");
 		assertValueOfIllegal(bd(MIN_STORE, 2).subtract(bd(1, 2)), "too small: -92233720368547758.08");
-		try
-		{
-			valueOf(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			valueOf(null),
+			NullPointerException.class, null);
 	}
 
 	private static BigDecimal bd(final long unscaledVal, final int scale)
@@ -393,15 +350,10 @@ public class PriceTest
 
 	private static void assertValueOfIllegal(final BigDecimal value, final String message)
 	{
-		try
-		{
-			valueOf(value);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
+		assertFails(() ->
+			valueOf(value),
+			IllegalArgumentException.class,
+			message);
 	}
 
 	@Test void testDoubleValue()
@@ -503,15 +455,10 @@ public class PriceTest
 
 	private static void assertAddOverflows(final Price left, final Price right)
 	{
-		try
-		{
-			left.add(right);
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("overflow " + left  + " plus " + right, e.getMessage());
-		}
+		assertFails(() ->
+			left.add(right),
+			ArithmeticException.class,
+			"overflow " + left  + " plus " + right);
 	}
 
 	@Test void testSubtract()
@@ -544,15 +491,10 @@ public class PriceTest
 
 	private static void assertSubtractOverflows(final Price left, final Price right)
 	{
-		try
-		{
-			left.subtract(right);
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("overflow " + left  + " minus " + right, e.getMessage());
-		}
+		assertFails(() ->
+			left.subtract(right),
+			ArithmeticException.class,
+			"overflow " + left  + " minus " + right);
 	}
 
 	@Test void testNegate()
@@ -613,15 +555,10 @@ public class PriceTest
 
 	private static void assertMultiplyOver(final Price left, final int right)
 	{
-		try
-		{
-			left.multiply(right);
-			fail();
-		}
-		catch(final ArithmeticException e)
-		{
-			assertEquals("overflow " + left  + " multiply " + right, e.getMessage());
-		}
+		assertFails(() ->
+			left.multiply(right),
+			ArithmeticException.class,
+			"overflow " + left  + " multiply " + right);
 	}
 
 	@Test void testMultiplyDouble()
@@ -652,15 +589,10 @@ public class PriceTest
 
 	private static void assertMultiplyOver(final Price left, final double right, final String message)
 	{
-		try
-		{
-			left.multiply(right);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
+		assertFails(() ->
+			left.multiply(right),
+			IllegalArgumentException.class,
+			message);
 	}
 
 	@Test void testDivideDouble()
@@ -674,15 +606,10 @@ public class PriceTest
 	@Test void testDivideDoubleNeutral()
 	{
 		final Price p = storeOf(555);
-		try
-		{
-			p.divide(0.0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("Infinity not allowed", e.getMessage());
-		}
+		assertFails(() ->
+			p.divide(0.0),
+			IllegalArgumentException.class,
+			"Infinity not allowed");
 		assertSame(p, p.divide(1.0));
 		assertEquals(storeOf(-555), p.divide(-1.0));
 	}
@@ -699,15 +626,10 @@ public class PriceTest
 
 	private static void assertDivideOver(final Price left, final double right, final String message)
 	{
-		try
-		{
-			left.divide(right);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(message, e.getMessage());
-		}
+		assertFails(() ->
+			left.divide(right),
+			IllegalArgumentException.class,
+			message);
 	}
 
 	@Test void testEqualsOrSame()
@@ -851,87 +773,55 @@ public class PriceTest
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
-		try
-		{
-			parse("92233720368547758.08", df);
-			fail();
-		}
-		catch(final ParseException e)
-		{
-			assertEquals("too big: 92233720368547758.08", e.getMessage());
-		}
+		assertFails(() ->
+			parse("92233720368547758.08", df),
+			ParseException.class,
+			"too big: 92233720368547758.08");
 	}
 
 	@Test void testParseTooSmall()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
-		try
-		{
-			parse("-92233720368547758.08", df);
-			fail();
-		}
-		catch(final ParseException e)
-		{
-			assertEquals("too small: -92233720368547758.08", e.getMessage());
-		}
+		assertFails(() ->
+			parse("-92233720368547758.08", df),
+			ParseException.class,
+			"too small: -92233720368547758.08");
 	}
 
 	@Test void testParseTooPrecise()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
-		try
-		{
-			parse("1.101", df);
-			fail();
-		}
-		catch(final ParseException e)
-		{
-			assertEquals("Rounding necessary:1.101", e.getMessage());
-		}
+		assertFails(() ->
+			parse("1.101", df),
+			ParseException.class,
+			"Rounding necessary:1.101");
 	}
 
-	@Test void testParseBigDecimalNotSupported() throws ParseException
+	@Test void testParseBigDecimalNotSupported()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
-		try
-		{
-			parse("1.00", df);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("format does not support BigDecimal", e.getMessage());
-		}
+		assertFails(() ->
+			parse("1.00", df),
+			IllegalArgumentException.class,
+			"format does not support BigDecimal");
 	}
 
-	@Test void testParseNullSource() throws ParseException
+	@Test void testParseNullSource()
 	{
 		final DecimalFormat df = (DecimalFormat)NumberFormat.getInstance(Locale.ENGLISH);
 		df.setParseBigDecimal(true);
-		try
-		{
-			parse(null, df);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			parse(null, df),
+			NullPointerException.class, null);
 	}
 
-	@Test void testParseNullFormat() throws ParseException
+	@Test void testParseNullFormat()
 	{
-		try
-		{
-			parse("1.00", null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(() ->
+			parse("1.00", null),
+			NullPointerException.class, null);
 	}
 
 	@Test void testSerialization()
@@ -1070,15 +960,10 @@ public class PriceTest
 		assertEquals(storeOf(  58), storeOf(  69).grossToNetPercent(20, HALF_UP));
 		assertEquals(storeOf( -58), storeOf( -69).grossToNetPercent(20, HALF_UP));
 
-		try
-		{
-			ZERO.grossToNetPercent(-1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("rate must not be negative, but was -1", e.getMessage());
-		}
+		assertFails(() ->
+			ZERO.grossToNetPercent(-1),
+			IllegalArgumentException.class,
+			"rate must not be negative, but was -1");
 		{
 			final Price p = storeOf( 126);
 			assertSame(p, p.grossToNetPercent(0));
@@ -1098,15 +983,10 @@ public class PriceTest
 		assertEquals(storeOf( 57), storeOf( 120).grossToTaxPercent(92, HALF_DOWN));
 		assertEquals(storeOf(-57), storeOf(-120).grossToTaxPercent(92, HALF_DOWN));
 
-		try
-		{
-			ZERO.grossToTaxPercent(-1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("rate must not be negative, but was -1", e.getMessage());
-		}
+		assertFails(() ->
+			ZERO.grossToTaxPercent(-1),
+			IllegalArgumentException.class,
+			"rate must not be negative, but was -1");
 	}
 
 	@Test void testGrossToTaxPercentDouble()
@@ -1122,14 +1002,9 @@ public class PriceTest
 		assertEquals(storeOf( 57), storeOf( 120).grossToTaxPercent(92d, HALF_DOWN));
 		assertEquals(storeOf(-57), storeOf(-120).grossToTaxPercent(92d, HALF_DOWN));
 
-		try
-		{
-			ZERO.grossToTaxPercent(-0.001d);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("rate must not be negative, but was -0.001", e.getMessage());
-		}
+		assertFails(() ->
+			ZERO.grossToTaxPercent(-0.001d),
+			IllegalArgumentException.class,
+			"rate must not be negative, but was -0.001");
 	}
 }
