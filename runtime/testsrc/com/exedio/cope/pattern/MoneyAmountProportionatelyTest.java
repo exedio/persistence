@@ -18,27 +18,28 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Price.ZERO;
-import static com.exedio.cope.pattern.Price.splitProportionately;
-import static com.exedio.cope.pattern.Price.valueOf;
+import static com.exedio.cope.pattern.Money.splitProportionately;
+import static com.exedio.cope.pattern.MoneyAmountUtil.ZERO;
+import static com.exedio.cope.pattern.MoneyAmountUtil.valueOf;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.pattern.MoneyAmountUtil.Cy;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 /**
- * This test is equivalent to {@link MoneyAmountProportionatelyTest}.
+ * This test is equivalent to {@link PriceProportionatelyTest}.
  */
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-public class PriceProportionatelyTest
+public class MoneyAmountProportionatelyTest
 {
 	@Test void testEquals()
 	{
-		final Price[] weights = values(0.11, 0.11, 0.11);
+		final Money<Cy>[] weights = values(0.11, 0.11, 0.11);
 		assertIt(values(0.03, 0.03, 0.03), valueOf(0.09), weights);
 		assertIt(values(0.03, 0.03, 0.02), valueOf(0.08), weights);
 		assertIt(values(0.03, 0.02, 0.02), valueOf(0.07), weights);
@@ -53,7 +54,7 @@ public class PriceProportionatelyTest
 
 	@Test void testUnEquals()
 	{
-		final Price[] weights = values(0.11, 0.22, 0.11);
+		final Money<Cy>[] weights = values(0.11, 0.22, 0.11);
 		assertIt(values(0.03, 0.06, 0.03), valueOf(0.12), weights);
 		assertIt(values(0.03, 0.06, 0.02), valueOf(0.11), weights);
 		assertIt(values(0.03, 0.05, 0.02), valueOf(0.10), weights);
@@ -97,11 +98,11 @@ public class PriceProportionatelyTest
 		assertIt(values(0.01, 0.02, 0.02), valueOf(0.05), values(0.00, 0.03, 0.03)); // TODO should be 0.00, 0.03, 0.02
 	}
 
-	private static void assertIt(final Price[] expected, final Price actualTotal, final Price[] actualWeights)
+	private static void assertIt(final Money<Cy>[] expected, final Money<Cy> actualTotal, final Money<Cy>[] actualWeights)
 	{
 		{
-			Price expectedSum = ZERO;
-			for(final Price p : expected)
+			Money<Cy> expectedSum = ZERO;
+			for(final Money<Cy> p : expected)
 			{
 				assertTrue(ZERO.lessThanOrEqual(p));
 				expectedSum = expectedSum.add(p);
@@ -111,7 +112,7 @@ public class PriceProportionatelyTest
 
 		assertArrayEquals(expected, splitProportionately(actualTotal, actualWeights));
 
-		final Price[] expectedNegative = Stream.of(expected).map(Price::negate).toArray(Price[]::new);
+		final Money<?>[] expectedNegative = Stream.of(expected).map(Money::negate).toArray(Money<?>[]::new);
 		assertArrayEquals(expectedNegative, splitProportionately(actualTotal.negate(), actualWeights));
 	}
 
@@ -135,9 +136,10 @@ public class PriceProportionatelyTest
 			"negative weight -0.01");
 	}
 
-	private static Price[] values(final double... values)
+	private static Money<Cy>[] values(final double... values)
 	{
-		final Price[] result = new Price[values.length];
+		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
+		final Money<Cy>[] result = new Money[values.length];
 		for(int i = 0; i<values.length; i++)
 			result[i] = valueOf(values[i]);
 		return result;

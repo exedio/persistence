@@ -18,11 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import static com.exedio.cope.pattern.Price.ZERO;
-import static com.exedio.cope.pattern.Price.nullToZero;
-import static com.exedio.cope.pattern.Price.parse;
-import static com.exedio.cope.pattern.Price.storeOf;
-import static com.exedio.cope.pattern.Price.valueOf;
+import static com.exedio.cope.pattern.MoneyAmountUtil.CY;
+import static com.exedio.cope.pattern.MoneyAmountUtil.ZERO;
+import static com.exedio.cope.pattern.MoneyAmountUtil.nullToZero;
+import static com.exedio.cope.pattern.MoneyAmountUtil.parse;
+import static com.exedio.cope.pattern.MoneyAmountUtil.storeOf;
+import static com.exedio.cope.pattern.MoneyAmountUtil.valueOf;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
@@ -36,6 +37,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.pattern.MoneyAmountUtil.Cy;
 import com.exedio.cope.tojunit.Assert;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
@@ -48,80 +50,79 @@ import java.util.Locale;
 import org.junit.jupiter.api.Test;
 
 /**
- * This test is equivalent to {@link MoneyAmountTest}.
+ * This test is equivalent to {@link PriceTest}.
  */
-@SuppressWarnings("Convert2MethodRef") // OK: easier to read
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
-public class PriceTest
+public class MoneyAmountTest
 {
 	private static final long MIN_STORE = Long.MIN_VALUE + 1;
 	private static final long MAX_STORE = Long.MAX_VALUE;
 
-	private static final Price p49 = storeOf(4611686018427387903l);
-	private static final Price p50 = storeOf(4611686018427387904l);
-	private static final Price p51 = storeOf(4611686018427387905l);
-	private static final Price p97 = storeOf(9223372036854775805l);
-	private static final Price p98 = storeOf(9223372036854775806l);
-	private static final Price p99 = storeOf(9223372036854775807l);
+	private static final Money<Cy> p49 = storeOf(4611686018427387903l);
+	private static final Money<Cy> p50 = storeOf(4611686018427387904l);
+	private static final Money<Cy> p51 = storeOf(4611686018427387905l);
+	private static final Money<Cy> p97 = storeOf(9223372036854775805l);
+	private static final Money<Cy> p98 = storeOf(9223372036854775806l);
+	private static final Money<Cy> p99 = storeOf(9223372036854775807l);
 
-	private static final Price mp49 = p49.negate();
-	private static final Price mp50 = p50.negate();
-	private static final Price mp51 = p51.negate();
-	private static final Price mp97 = p97.negate();
-	private static final Price mp98 = p98.negate();
-	private static final Price mp99 = p99.negate();
+	private static final Money<Cy> mp49 = p49.negate();
+	private static final Money<Cy> mp50 = p50.negate();
+	private static final Money<Cy> mp51 = p51.negate();
+	private static final Money<Cy> mp97 = p97.negate();
+	private static final Money<Cy> mp98 = p98.negate();
+	private static final Money<Cy> mp99 = p99.negate();
 
 	@Test void testIt()
 	{
-		assertEquals(5, storeOf(5).store());
-		assertEquals(0, storeOf(0).store());
+		assertEquals(5, storeOf(5).amountStore(CY));
+		assertEquals(0, storeOf(0).amountStore(CY));
 	}
 
 	@Test void testStoreIntExact()
 	{
-		assertEquals(5, storeOf(5).storeIntExact());
-		assertEquals(0, storeOf(0).storeIntExact());
-		assertEquals(Integer.MAX_VALUE, storeOf(Integer.MAX_VALUE).storeIntExact());
-		assertEquals(Integer.MIN_VALUE, storeOf(Integer.MIN_VALUE).storeIntExact());
+		assertEquals(5, storeOf(5).amountStoreIntExact(CY));
+		assertEquals(0, storeOf(0).amountStoreIntExact(CY));
+		assertEquals(Integer.MAX_VALUE, storeOf(Integer.MAX_VALUE).amountStoreIntExact(CY));
+		assertEquals(Integer.MIN_VALUE, storeOf(Integer.MIN_VALUE).amountStoreIntExact(CY));
 	}
 
 	@Test void testStoreIntExactOverflow()
 	{
-		final Price p = storeOf(Integer.MAX_VALUE + 1l);
+		final Money<Cy> p = storeOf(Integer.MAX_VALUE + 1l);
 		assertFails(() ->
-			p.storeIntExact(),
+			p.amountStoreIntExact(CY),
 			ArithmeticException.class,
 			"not an integer: 2147483648");
 	}
 
 	@Test void testStoreIntExactUnderflow()
 	{
-		final Price p = storeOf(Integer.MIN_VALUE - 1l);
+		final Money<Cy> p = storeOf(Integer.MIN_VALUE - 1l);
 		assertFails(() ->
-			p.storeIntExact(),
+			p.amountStoreIntExact(CY),
 			ArithmeticException.class,
 			"not an integer: -2147483649");
 	}
 
 	@Test void testZero()
 	{
-		assertEquals(0, ZERO.store());
-		assertEqualBits(0.0, ZERO.doubleValue());
+		assertEquals(0, ZERO.amountStore(CY));
+		assertEqualBits(0.0, ZERO.doubleAmount(CY));
 	}
 
 	@Test void testStoreOfInt()
 	{
 		assertEquals(storeOf(1), storeOf(1));
-		assertSame  (storeOf(1), storeOf(1));
+		assertNotSame(storeOf(1), storeOf(1));
 		assertEquals(storeOf(-1), storeOf(-1));
 		assertNotSame(storeOf(-1), storeOf(-1));
-		assertEquals(storeOf(1000), storeOf(1000)); // yet in cache
-		assertSame  (storeOf(1000), storeOf(1000));
-		assertEquals(storeOf(1001), storeOf(1001)); // outside cache
+		assertEquals(storeOf(1000), storeOf(1000));
+		assertNotSame(storeOf(1000), storeOf(1000));
+		assertEquals(storeOf(1001), storeOf(1001));
 		assertNotSame(storeOf(1001), storeOf(1001));
-		assertSame(ZERO, storeOf(0));
-		assertSame(mp99, storeOf(MIN_STORE));
-		assertSame( p99, storeOf(MAX_STORE));
+		assertEquals(ZERO, storeOf(0));
+		assertEquals(mp99, storeOf(MIN_STORE));
+		assertEquals( p99, storeOf(MAX_STORE));
 	}
 
 	@Test void testStoreOfIntOutOfRange()
@@ -134,88 +135,88 @@ public class PriceTest
 
 	@Test void testStoreOfLong()
 	{
-		assertEquals( 5, storeOf(Long.valueOf( 5)).store());
-		assertEquals(-5, storeOf(Long.valueOf(-5)).store());
-		assertSame(ZERO, storeOf(Long.valueOf( 0)));
+		assertEquals( 5, storeOf(Long.valueOf( 5)).amountStore(CY));
+		assertEquals(-5, storeOf(Long.valueOf(-5)).amountStore(CY));
+		assertEquals(ZERO, storeOf(Long.valueOf( 0)));
 		assertEquals(null, storeOf((Long)null));
 	}
 
 	@Test void testStoreOfInteger()
 	{
-		assertEquals( 5, storeOf(Integer.valueOf( 5)).store());
-		assertEquals(-5, storeOf(Integer.valueOf(-5)).store());
-		assertSame(ZERO, storeOf(Integer.valueOf( 0)));
+		assertEquals( 5, storeOf(Integer.valueOf( 5)).amountStore(CY));
+		assertEquals(-5, storeOf(Integer.valueOf(-5)).amountStore(CY));
+		assertEquals(ZERO, storeOf(Integer.valueOf( 0)));
 		assertEquals(null, storeOf((Integer)null));
 	}
 
 	@Test void testNullToZero()
 	{
-		final Price x = storeOf(1);
+		final Money<Cy> x = storeOf(1);
 		assertSame(x,    nullToZero(x));
-		assertSame(ZERO, nullToZero(null));
+		assertEquals(ZERO, nullToZero(null));
 		assertSame(ZERO, nullToZero(ZERO));
 	}
 
 	@Test void testValueOfDouble()
 	{
-		assertEquals( 222, valueOf( 2.22).store());
-		assertEquals(-222, valueOf(-2.22).store());
-		assertEquals( 220, valueOf( 2.2 ).store());
-		assertEquals(-220, valueOf(-2.2 ).store());
-		assertEquals( 200, valueOf( 2.0 ).store());
-		assertEquals(-200, valueOf(-2.0 ).store());
-		assertEquals( 202, valueOf( 2.02).store());
-		assertEquals(-202, valueOf(-2.02).store());
-		assertEquals(   2, valueOf( 0.02).store());
-		assertEquals(-  2, valueOf(-0.02).store());
+		assertEquals( 222, valueOf( 2.22).amountStore(CY));
+		assertEquals(-222, valueOf(-2.22).amountStore(CY));
+		assertEquals( 220, valueOf( 2.2 ).amountStore(CY));
+		assertEquals(-220, valueOf(-2.2 ).amountStore(CY));
+		assertEquals( 200, valueOf( 2.0 ).amountStore(CY));
+		assertEquals(-200, valueOf(-2.0 ).amountStore(CY));
+		assertEquals( 202, valueOf( 2.02).amountStore(CY));
+		assertEquals(-202, valueOf(-2.02).amountStore(CY));
+		assertEquals(   2, valueOf( 0.02).amountStore(CY));
+		assertEquals(-  2, valueOf(-0.02).amountStore(CY));
 
 		// from wikipedia
-		assertEquals( 301, valueOf( 3.013  ).store()); // because the next digit (3) is 4 or less)
-		assertEquals( 301, valueOf( 3.014  ).store()); // because the next digit (3) is 4 or less)
-		assertEquals( 301, valueOf( 3.01499).store()); // because the next digit (3) is 4 or less)
-		assertEquals( 302, valueOf( 3.015  ).store()); // because the next digit is 5, and the hundredths digit (1) is odd)
-		assertEquals( 302, valueOf( 3.01501).store()); // because the next digit is 5, and the hundredths digit (1) is odd)
-		assertEquals( 302, valueOf( 3.016  ).store()); // because the next digit (6) is 6 or more)
-		assertEquals( 304, valueOf( 3.044  ).store()); // because the next digit (4) is less than 5
-		assertEquals( 304, valueOf( 3.045  ).store()); // because the next digit is 5, and the hundredths digit (4) is even)
-		assertEquals( 305, valueOf( 3.04501).store()); // because the next digit is 5, but it is followed by non-zero digits)
-		assertEquals( 305, valueOf( 3.046  ).store()); // because the next digit (6) is 6 or more)
-		assertEquals(-301, valueOf(-3.013  ).store());
-		assertEquals(-301, valueOf(-3.014  ).store());
-		assertEquals(-301, valueOf(-3.01499).store());
-		assertEquals(-302, valueOf(-3.015  ).store());
-		assertEquals(-302, valueOf(-3.01501).store());
-		assertEquals(-302, valueOf(-3.016  ).store());
-		assertEquals(-304, valueOf(-3.044  ).store());
-		assertEquals(-304, valueOf(-3.045  ).store());
-		assertEquals(-305, valueOf(-3.04501).store());
-		assertEquals(-305, valueOf(-3.046  ).store());
+		assertEquals( 301, valueOf( 3.013  ).amountStore(CY)); // because the next digit (3) is 4 or less)
+		assertEquals( 301, valueOf( 3.014  ).amountStore(CY)); // because the next digit (3) is 4 or less)
+		assertEquals( 301, valueOf( 3.01499).amountStore(CY)); // because the next digit (3) is 4 or less)
+		assertEquals( 302, valueOf( 3.015  ).amountStore(CY)); // because the next digit is 5, and the hundredths digit (1) is odd)
+		assertEquals( 302, valueOf( 3.01501).amountStore(CY)); // because the next digit is 5, and the hundredths digit (1) is odd)
+		assertEquals( 302, valueOf( 3.016  ).amountStore(CY)); // because the next digit (6) is 6 or more)
+		assertEquals( 304, valueOf( 3.044  ).amountStore(CY)); // because the next digit (4) is less than 5
+		assertEquals( 304, valueOf( 3.045  ).amountStore(CY)); // because the next digit is 5, and the hundredths digit (4) is even)
+		assertEquals( 305, valueOf( 3.04501).amountStore(CY)); // because the next digit is 5, but it is followed by non-zero digits)
+		assertEquals( 305, valueOf( 3.046  ).amountStore(CY)); // because the next digit (6) is 6 or more)
+		assertEquals(-301, valueOf(-3.013  ).amountStore(CY));
+		assertEquals(-301, valueOf(-3.014  ).amountStore(CY));
+		assertEquals(-301, valueOf(-3.01499).amountStore(CY));
+		assertEquals(-302, valueOf(-3.015  ).amountStore(CY));
+		assertEquals(-302, valueOf(-3.01501).amountStore(CY));
+		assertEquals(-302, valueOf(-3.016  ).amountStore(CY));
+		assertEquals(-304, valueOf(-3.044  ).amountStore(CY));
+		assertEquals(-304, valueOf(-3.045  ).amountStore(CY));
+		assertEquals(-305, valueOf(-3.04501).amountStore(CY));
+		assertEquals(-305, valueOf(-3.046  ).amountStore(CY));
 
-		assertEquals( 10997, valueOf( 109.974  ).store());
-		assertEquals( 10997, valueOf( 109.97499).store());
-		assertEquals( 10998, valueOf( 109.975  ).store());
-		assertEquals( 10998, valueOf( 109.97501).store());
-		assertEquals( 10998, valueOf( 109.976  ).store());
-		assertEquals( 10998, valueOf( 109.984  ).store());
-		assertEquals( 10998, valueOf( 109.98499).store());
-		assertEquals( 10998, valueOf( 109.985  ).store());
-		assertEquals( 10999, valueOf( 109.98501).store());
-		assertEquals( 10999, valueOf( 109.986  ).store());
-		assertEquals(-10997, valueOf(-109.974  ).store());
-		assertEquals(-10997, valueOf(-109.97499).store());
-		assertEquals(-10998, valueOf(-109.975  ).store());
-		assertEquals(-10998, valueOf(-109.97501).store());
-		assertEquals(-10998, valueOf(-109.976  ).store());
-		assertEquals(-10998, valueOf(-109.984  ).store());
-		assertEquals(-10998, valueOf(-109.98499).store());
-		assertEquals(-10998, valueOf(-109.985  ).store());
-		assertEquals(-10999, valueOf(-109.98501).store());
-		assertEquals(-10999, valueOf(-109.986  ).store());
+		assertEquals( 10997, valueOf( 109.974  ).amountStore(CY));
+		assertEquals( 10997, valueOf( 109.97499).amountStore(CY));
+		assertEquals( 10998, valueOf( 109.975  ).amountStore(CY));
+		assertEquals( 10998, valueOf( 109.97501).amountStore(CY));
+		assertEquals( 10998, valueOf( 109.976  ).amountStore(CY));
+		assertEquals( 10998, valueOf( 109.984  ).amountStore(CY));
+		assertEquals( 10998, valueOf( 109.98499).amountStore(CY));
+		assertEquals( 10998, valueOf( 109.985  ).amountStore(CY));
+		assertEquals( 10999, valueOf( 109.98501).amountStore(CY));
+		assertEquals( 10999, valueOf( 109.986  ).amountStore(CY));
+		assertEquals(-10997, valueOf(-109.974  ).amountStore(CY));
+		assertEquals(-10997, valueOf(-109.97499).amountStore(CY));
+		assertEquals(-10998, valueOf(-109.975  ).amountStore(CY));
+		assertEquals(-10998, valueOf(-109.97501).amountStore(CY));
+		assertEquals(-10998, valueOf(-109.976  ).amountStore(CY));
+		assertEquals(-10998, valueOf(-109.984  ).amountStore(CY));
+		assertEquals(-10998, valueOf(-109.98499).amountStore(CY));
+		assertEquals(-10998, valueOf(-109.985  ).amountStore(CY));
+		assertEquals(-10999, valueOf(-109.98501).amountStore(CY));
+		assertEquals(-10999, valueOf(-109.986  ).amountStore(CY));
 
-		assertEquals(MAX_STORE-1407, valueOf((MAX_STORE/100d) - 8.0).store());
-		assertEquals(MIN_STORE+1407, valueOf((MIN_STORE/100d) + 8.0).store());
-		assertSame(ZERO, valueOf( 0.0));
-		assertSame(ZERO, valueOf(-0.0));
+		assertEquals(MAX_STORE-1407, valueOf((MAX_STORE/100d) - 8.0).amountStore(CY));
+		assertEquals(MIN_STORE+1407, valueOf((MIN_STORE/100d) + 8.0).amountStore(CY));
+		assertEquals(ZERO, valueOf( 0.0));
+		assertEquals(ZERO, valueOf(-0.0));
 		assertFails(() ->
 			valueOf((MAX_STORE/100d) + 0.01),
 			IllegalArgumentException.class,
@@ -243,8 +244,8 @@ public class PriceTest
 		final double problem = 0.575;
 		assertEquals( "0.575", Double.toString( problem));
 		assertEquals("-0.575", Double.toString(-problem));
-		assertEquals(    58,   valueOf( problem).store());
-		assertEquals(   -58,   valueOf(-problem).store());
+		assertEquals(    58,   valueOf( problem).amountStore(CY));
+		assertEquals(   -58,   valueOf(-problem).amountStore(CY));
 		assertValueOfDouble(problem, 58, HALF_EVEN, HALF_UP, UP);
 		assertValueOfDouble(problem, 57, DOWN, HALF_DOWN);
 	}
@@ -254,8 +255,8 @@ public class PriceTest
 		final double problem = 1.435;
 		assertEquals( "1.435", Double.toString( problem));
 		assertEquals("-1.435", Double.toString(-problem));
-		assertEquals(    144,  valueOf( problem).store());
-		assertEquals(   -144,  valueOf(-problem).store());
+		assertEquals(    144,  valueOf( problem).amountStore(CY));
+		assertEquals(   -144,  valueOf(-problem).amountStore(CY));
 		assertValueOfDouble(problem, 144, HALF_EVEN, HALF_UP, UP);
 		assertValueOfDouble(problem, 143, DOWN, HALF_DOWN);
 	}
@@ -264,81 +265,81 @@ public class PriceTest
 	{
 		for(final RoundingMode rm : roundingModes)
 		{
-			assertEquals( expected, valueOf( origin, rm).store());
-			assertEquals(-expected, valueOf(-origin, rm).store());
+			assertEquals( expected, valueOf( origin, rm).amountStore(CY));
+			assertEquals(-expected, valueOf(-origin, rm).amountStore(CY));
 		}
 	}
 
 	@Test void testRoundSpecialProblemOnDivide()
 	{
-		final Price problem = storeOf(115);
+		final Money<Cy> problem = storeOf(115);
 		assertEquals( "2.0", Double.toString( 2d));
 		assertEquals("-2.0", Double.toString(-2d));
 		// result 0.575
-		assertEquals(    58, problem.divide( 2d).store());
-		assertEquals(   -58, problem.divide(-2d).store());
+		assertEquals(    58, problem.divide( 2d).amountStore(CY));
+		assertEquals(   -58, problem.divide(-2d).amountStore(CY));
 		assertValueOfDoubleOnDivide(problem, 2d, 57, DOWN, HALF_DOWN);
 		assertValueOfDoubleOnDivide(problem, 2d, 58, HALF_EVEN, HALF_UP, UP);
 	}
 
-	private static void assertValueOfDoubleOnDivide(final Price origin, final double divisor, final int expected, final RoundingMode... roundingModes)
+	private static void assertValueOfDoubleOnDivide(final Money<Cy> origin, final double divisor, final int expected, final RoundingMode... roundingModes)
 	{
 		for (final RoundingMode rm : roundingModes)
 		{
-			assertEquals( expected, origin.divide( divisor, rm).store());
-			assertEquals(-expected, origin.divide(-divisor, rm).store());
+			assertEquals( expected, origin.divide( divisor, rm).amountStore(CY));
+			assertEquals(-expected, origin.divide(-divisor, rm).amountStore(CY));
 		}
 	}
 
 	@Test void testRoundSpecialProblemOnMultiply()
 	{
-		final Price problem = storeOf(41);
+		final Money<Cy> problem = storeOf(41);
 		final double multiplier = 3.5;
 		assertEquals( "3.5", Double.toString( multiplier));
 		assertEquals("-3.5", Double.toString(-multiplier));
 		// result 1.435
-		assertEquals(   144, problem.multiply( multiplier).store());
-		assertEquals(  -144, problem.multiply(-multiplier).store());
+		assertEquals(   144, problem.multiply( multiplier).amountStore(CY));
+		assertEquals(  -144, problem.multiply(-multiplier).amountStore(CY));
 		assertValueOfDoubleOnMultiply(problem, multiplier, 144, HALF_EVEN, HALF_UP, UP);
 		assertValueOfDoubleOnMultiply(problem, multiplier, 143, DOWN, HALF_DOWN);
 	}
 
-	private static void assertValueOfDoubleOnMultiply(final Price origin, final double multiplier, final int expected, final RoundingMode... roundingModes)
+	private static void assertValueOfDoubleOnMultiply(final Money<Cy> origin, final double multiplier, final int expected, final RoundingMode... roundingModes)
 	{
 		for(final RoundingMode rm : roundingModes)
 		{
-			assertEquals( expected, origin.multiply( multiplier, rm).store());
-			assertEquals(-expected, origin.multiply(-multiplier, rm).store());
+			assertEquals( expected, origin.multiply( multiplier, rm).amountStore(CY));
+			assertEquals(-expected, origin.multiply(-multiplier, rm).amountStore(CY));
 		}
 	}
 
 	@Test void testValueOfBigDecimal()
 	{
-		assertEquals( 222, valueOf(bd( 222, 2)).store());
-		assertEquals(-222, valueOf(bd(-222, 2)).store());
-		assertEquals( 220, valueOf(bd( 22,  1)).store());
-		assertEquals(-220, valueOf(bd(-22,  1)).store());
-		assertEquals( 200, valueOf(bd( 2,   0)).store());
-		assertEquals(-200, valueOf(bd(-2,   0)).store());
-		assertEquals( 202, valueOf(bd( 202, 2)).store());
-		assertEquals(-202, valueOf(bd(-202, 2)).store());
-		assertEquals(   2, valueOf(bd(   2, 2)).store());
-		assertEquals(-  2, valueOf(bd(-  2, 2)).store());
+		assertEquals( 222, valueOf(bd( 222, 2)).amountStore(CY));
+		assertEquals(-222, valueOf(bd(-222, 2)).amountStore(CY));
+		assertEquals( 220, valueOf(bd( 22,  1)).amountStore(CY));
+		assertEquals(-220, valueOf(bd(-22,  1)).amountStore(CY));
+		assertEquals( 200, valueOf(bd( 2,   0)).amountStore(CY));
+		assertEquals(-200, valueOf(bd(-2,   0)).amountStore(CY));
+		assertEquals( 202, valueOf(bd( 202, 2)).amountStore(CY));
+		assertEquals(-202, valueOf(bd(-202, 2)).amountStore(CY));
+		assertEquals(   2, valueOf(bd(   2, 2)).amountStore(CY));
+		assertEquals(-  2, valueOf(bd(-  2, 2)).amountStore(CY));
 		// from wikipedia
-		assertEquals( 302, valueOf(bd( 3016,   3)).store()); // because the next digit (6) is 6 or more)
-		assertEquals( 301, valueOf(bd( 3013,   3)).store()); // because the next digit (3) is 4 or less)
-		assertEquals( 302, valueOf(bd( 3015,   3)).store()); // because the next digit is 5, and the hundredths digit (1) is odd)
-		assertEquals( 304, valueOf(bd( 3045,   3)).store()); // because the next digit is 5, and the hundredths digit (4) is even)
-		assertEquals( 305, valueOf(bd( 304501, 5)).store()); // because the next digit is 5, but it is followed by non-zero digits)
-		assertEquals(-302, valueOf(bd(-3016,   3)).store());
-		assertEquals(-301, valueOf(bd(-3013,   3)).store());
-		assertEquals(-302, valueOf(bd(-3015,   3)).store());
-		assertEquals(-304, valueOf(bd(-3045,   3)).store());
-		assertEquals(-305, valueOf(bd(-304501, 5)).store());
+		assertEquals( 302, valueOf(bd( 3016,   3)).amountStore(CY)); // because the next digit (6) is 6 or more)
+		assertEquals( 301, valueOf(bd( 3013,   3)).amountStore(CY)); // because the next digit (3) is 4 or less)
+		assertEquals( 302, valueOf(bd( 3015,   3)).amountStore(CY)); // because the next digit is 5, and the hundredths digit (1) is odd)
+		assertEquals( 304, valueOf(bd( 3045,   3)).amountStore(CY)); // because the next digit is 5, and the hundredths digit (4) is even)
+		assertEquals( 305, valueOf(bd( 304501, 5)).amountStore(CY)); // because the next digit is 5, but it is followed by non-zero digits)
+		assertEquals(-302, valueOf(bd(-3016,   3)).amountStore(CY));
+		assertEquals(-301, valueOf(bd(-3013,   3)).amountStore(CY));
+		assertEquals(-302, valueOf(bd(-3015,   3)).amountStore(CY));
+		assertEquals(-304, valueOf(bd(-3045,   3)).amountStore(CY));
+		assertEquals(-305, valueOf(bd(-304501, 5)).amountStore(CY));
 
-		assertEquals(MAX_STORE, valueOf(bd(MAX_STORE, 2)).store());
-		assertEquals(MIN_STORE, valueOf(bd(MIN_STORE, 2)).store());
-		assertSame(ZERO, valueOf(bd(0, 0)));
+		assertEquals(MAX_STORE, valueOf(bd(MAX_STORE, 2)).amountStore(CY));
+		assertEquals(MIN_STORE, valueOf(bd(MIN_STORE, 2)).amountStore(CY));
+		assertEquals(ZERO, valueOf(bd(0, 0)));
 		assertValueOfIllegal(bd(MAX_STORE, 2).add(     bd(1, 2)), "too big: 92233720368547758.08");
 		assertValueOfIllegal(bd(MIN_STORE, 2).subtract(bd(1, 2)), "too small: -92233720368547758.08");
 		assertFails(() ->
@@ -361,48 +362,48 @@ public class PriceTest
 
 	@Test void testDoubleValue()
 	{
-		assertEqualBits( 2.22, storeOf( 222).doubleValue());
-		assertEqualBits(-2.22, storeOf(-222).doubleValue());
-		assertEqualBits( 2.2,  storeOf( 220).doubleValue());
-		assertEqualBits(-2.2,  storeOf(-220).doubleValue());
-		assertEqualBits( 0.0,  storeOf(   0).doubleValue());
+		assertEqualBits( 2.22, storeOf( 222).doubleAmount(CY));
+		assertEqualBits(-2.22, storeOf(-222).doubleAmount(CY));
+		assertEqualBits( 2.2,  storeOf( 220).doubleAmount(CY));
+		assertEqualBits(-2.2,  storeOf(-220).doubleAmount(CY));
+		assertEqualBits( 0.0,  storeOf(   0).doubleAmount(CY));
 	}
 
 	@Test void testBigValue()
 	{
-		assertEquals(bd( 222, 2), storeOf( 222).bigValue());
-		assertEquals(bd(-222, 2), storeOf(-222).bigValue());
-		assertEquals(bd( 22,  1), storeOf( 220).bigValue());
-		assertEquals(bd(-22,  1), storeOf(-220).bigValue());
-		assertEquals(bd( 2,   0), storeOf( 200).bigValue());
-		assertEquals(bd(-2,   0), storeOf(-200).bigValue());
-		assertEquals(bd( 0,   0), storeOf(   0).bigValue());
-		assertSame(BigDecimal.ZERO, storeOf(0).bigValue()); // relies on BigDecimal implementation
+		assertEquals(bd( 222, 2), storeOf( 222).bigAmount(CY));
+		assertEquals(bd(-222, 2), storeOf(-222).bigAmount(CY));
+		assertEquals(bd( 22,  1), storeOf( 220).bigAmount(CY));
+		assertEquals(bd(-22,  1), storeOf(-220).bigAmount(CY));
+		assertEquals(bd( 2,   0), storeOf( 200).bigAmount(CY));
+		assertEquals(bd(-2,   0), storeOf(-200).bigAmount(CY));
+		assertEquals(bd( 0,   0), storeOf(   0).bigAmount(CY));
+		assertSame(BigDecimal.ZERO, storeOf(0).bigAmount(CY)); // relies on BigDecimal implementation
 	}
 
 	@Test void testBigValueAndValueOf()
 	{
-		assertEquals( p97, valueOf( p97.bigValue()));
-		assertEquals( p98, valueOf( p98.bigValue()));
-		assertEquals( p99, valueOf( p99.bigValue()));
-		assertEquals(mp97, valueOf(mp97.bigValue()));
-		assertEquals(mp98, valueOf(mp98.bigValue()));
-		assertEquals(mp99, valueOf(mp99.bigValue()));
-		assertValueOfIllegal( p99.bigValue().subtract( p98.bigValue()).add( p99.bigValue()), "too big: 92233720368547758.08");
-		assertValueOfIllegal(mp99.bigValue().subtract(mp98.bigValue()).add(mp99.bigValue()), "too small: -92233720368547758.08");
+		assertEquals( p97, valueOf( p97.bigAmount(CY)));
+		assertEquals( p98, valueOf( p98.bigAmount(CY)));
+		assertEquals( p99, valueOf( p99.bigAmount(CY)));
+		assertEquals(mp97, valueOf(mp97.bigAmount(CY)));
+		assertEquals(mp98, valueOf(mp98.bigAmount(CY)));
+		assertEquals(mp99, valueOf(mp99.bigAmount(CY)));
+		assertValueOfIllegal( p99.bigAmount(CY).subtract( p98.bigAmount(CY)).add( p99.bigAmount(CY)), "too big: 92233720368547758.08");
+		assertValueOfIllegal(mp99.bigAmount(CY).subtract(mp98.bigAmount(CY)).add(mp99.bigAmount(CY)), "too small: -92233720368547758.08");
 	}
 
 	@Test void testAdd()
 	{
-		assertEquals( 555, storeOf( 333).add(storeOf( 222)).store());
-		assertEquals(-111, storeOf(-333).add(storeOf( 222)).store());
-		assertEquals( 111, storeOf( 333).add(storeOf(-222)).store());
-		assertEquals(-555, storeOf(-333).add(storeOf(-222)).store());
+		assertEquals( 555, storeOf( 333).add(storeOf( 222)).amountStore(CY));
+		assertEquals(-111, storeOf(-333).add(storeOf( 222)).amountStore(CY));
+		assertEquals( 111, storeOf( 333).add(storeOf(-222)).amountStore(CY));
+		assertEquals(-555, storeOf(-333).add(storeOf(-222)).amountStore(CY));
 	}
 
 	@Test void testAddNeutral()
 	{
-		final Price p = storeOf(555);
+		final Money<Cy> p = storeOf(555);
 		assertSame(p, p.add(ZERO));
 		assertSame(p, ZERO.add(p));
 		assertSame(ZERO, ZERO.add(ZERO));
@@ -456,25 +457,25 @@ public class PriceTest
 		assertAddOverflows(mp98, mp98);
 	}
 
-	private static void assertAddOverflows(final Price left, final Price right)
+	private static void assertAddOverflows(final Money<Cy> left, final Money<Cy> right)
 	{
 		assertFails(() ->
 			left.add(right),
 			ArithmeticException.class,
-			"overflow " + left  + " plus " + right);
+			"overflow " + left.bigAmount(CY) + " plus " + right.bigAmount(CY));
 	}
 
 	@Test void testSubtract()
 	{
-		assertEquals( 333, storeOf( 555).subtract(storeOf( 222)).store());
-		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).store());
-		assertEquals( 333, storeOf( 111).subtract(storeOf(-222)).store());
-		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).store());
+		assertEquals( 333, storeOf( 555).subtract(storeOf( 222)).amountStore(CY));
+		assertEquals(-333, storeOf(-111).subtract(storeOf( 222)).amountStore(CY));
+		assertEquals( 333, storeOf( 111).subtract(storeOf(-222)).amountStore(CY));
+		assertEquals(-333, storeOf(-555).subtract(storeOf(-222)).amountStore(CY));
 	}
 
 	@Test void testSubtractNeutral()
 	{
-		final Price p = storeOf(555);
+		final Money<Cy> p = storeOf(555);
 		assertSame(p, p.subtract(ZERO));
 		assertEquals(storeOf(-555), ZERO.subtract(p));
 		assertSame(ZERO, ZERO.subtract(ZERO));
@@ -492,35 +493,35 @@ public class PriceTest
 		assertSubtractOverflows(mp99, storeOf( 2));
 	}
 
-	private static void assertSubtractOverflows(final Price left, final Price right)
+	private static void assertSubtractOverflows(final Money<Cy> left, final Money<Cy> right)
 	{
 		assertFails(() ->
 			left.subtract(right),
 			ArithmeticException.class,
-			"overflow " + left  + " minus " + right);
+			"overflow " + left.bigAmount(CY) + " minus " + right.bigAmount(CY));
 	}
 
 	@Test void testNegate()
 	{
 		assertEquals(storeOf(-555), storeOf( 555).negate());
 		assertEquals(storeOf( 555), storeOf(-555).negate());
-		assertSame(ZERO, storeOf(0).negate());
+		assertEquals(ZERO, storeOf(0).negate());
 		assertEquals(storeOf(MIN_STORE),  p99.negate());
 		assertEquals(storeOf(MAX_STORE), mp99.negate());
 	}
 
 	@Test void testMultiplyInt()
 	{
-		assertEquals( 999, storeOf( 333).multiply( 3).store());
-		assertEquals(-999, storeOf(-333).multiply( 3).store());
-		assertEquals(-999, storeOf( 333).multiply(-3).store());
-		assertEquals( 999, storeOf(-333).multiply(-3).store());
+		assertEquals( 999, storeOf( 333).multiply( 3).amountStore(CY));
+		assertEquals(-999, storeOf(-333).multiply( 3).amountStore(CY));
+		assertEquals(-999, storeOf( 333).multiply(-3).amountStore(CY));
+		assertEquals( 999, storeOf(-333).multiply(-3).amountStore(CY));
 	}
 
 	@Test void testMultiplyIntNeutral()
 	{
-		final Price p = storeOf(555);
-		assertSame(ZERO, p.multiply(0));
+		final Money<Cy> p = storeOf(555);
+		assertEquals(ZERO, p.multiply(0));
 		assertSame(p, p.multiply(1));
 		assertEquals(storeOf(-555), p.multiply(-1));
 	}
@@ -556,26 +557,26 @@ public class PriceTest
 		assertMultiplyOver(mp51, -2);
 	}
 
-	private static void assertMultiplyOver(final Price left, final int right)
+	private static void assertMultiplyOver(final Money<Cy> left, final int right)
 	{
 		assertFails(() ->
 			left.multiply(right),
 			ArithmeticException.class,
-			"overflow " + left  + " multiply " + right);
+			"overflow " + left.bigAmount(CY) + " multiply " + right);
 	}
 
 	@Test void testMultiplyDouble()
 	{
-		assertEquals( 999, storeOf( 333).multiply( 3d).store());
-		assertEquals(-999, storeOf(-333).multiply( 3d).store());
-		assertEquals(-999, storeOf( 333).multiply(-3d).store());
-		assertEquals( 999, storeOf(-333).multiply(-3d).store());
+		assertEquals( 999, storeOf( 333).multiply( 3d).amountStore(CY));
+		assertEquals(-999, storeOf(-333).multiply( 3d).amountStore(CY));
+		assertEquals(-999, storeOf( 333).multiply(-3d).amountStore(CY));
+		assertEquals( 999, storeOf(-333).multiply(-3d).amountStore(CY));
 	}
 
 	@Test void testMultiplyDoubleNeutral()
 	{
-		final Price p = storeOf(555);
-		assertSame(ZERO, p.multiply(0.0));
+		final Money<Cy> p = storeOf(555);
+		assertEquals(ZERO, p.multiply(0.0));
 		assertSame(p, p.multiply(1.0));
 		assertEquals(storeOf(-555), p.multiply(-1.0));
 	}
@@ -590,7 +591,7 @@ public class PriceTest
 		assertMultiplyOver(p51,         2d, "too big: 92233720368547758.100");
 	}
 
-	private static void assertMultiplyOver(final Price left, final double right, final String message)
+	private static void assertMultiplyOver(final Money<Cy> left, final double right, final String message)
 	{
 		assertFails(() ->
 			left.multiply(right),
@@ -600,15 +601,15 @@ public class PriceTest
 
 	@Test void testDivideDouble()
 	{
-		assertEquals( 333, storeOf( 999).divide( 3d).store());
-		assertEquals(-333, storeOf(-999).divide( 3d).store());
-		assertEquals(-333, storeOf( 999).divide(-3d).store());
-		assertEquals( 333, storeOf(-999).divide(-3d).store());
+		assertEquals( 333, storeOf( 999).divide( 3d).amountStore(CY));
+		assertEquals(-333, storeOf(-999).divide( 3d).amountStore(CY));
+		assertEquals(-333, storeOf( 999).divide(-3d).amountStore(CY));
+		assertEquals( 333, storeOf(-999).divide(-3d).amountStore(CY));
 	}
 
 	@Test void testDivideDoubleNeutral()
 	{
-		final Price p = storeOf(555);
+		final Money<Cy> p = storeOf(555);
 		assertFails(() ->
 			p.divide(0.0),
 			IllegalArgumentException.class,
@@ -627,7 +628,7 @@ public class PriceTest
 		assertDivideOver( p51,       0.5, "too big: 92233720368547758.10");
 	}
 
-	private static void assertDivideOver(final Price left, final double right, final String message)
+	private static void assertDivideOver(final Money<Cy> left, final double right, final String message)
 	{
 		assertFails(() ->
 			left.divide(right),
@@ -637,7 +638,7 @@ public class PriceTest
 
 	@Test void testEqualsOrSame()
 	{
-		assertSame(         storeOf(  123), storeOf(  123)); // from cache
+		assertEqualsAndHash(storeOf(  123), storeOf(  123));
 		assertEqualsAndHash(storeOf(- 123), storeOf(- 123));
 		assertEqualsAndHash(storeOf( 4123), storeOf( 4123));
 		assertEqualsAndHash(storeOf(-4123), storeOf(-4123));
@@ -681,15 +682,15 @@ public class PriceTest
 		assertToString( "92233720368547758.07",  p99);
 	}
 
-	private static void assertToString(final String expected, final Price actual)
+	private static void assertToString(final String expected, final Money<Cy> actual)
 	{
 		assertToString(expected, actual, expected);
 	}
 
-	private static void assertToString(final String expected, final Price actual, final String expectedShort)
+	private static void assertToString(final String expected, final Money<Cy> actual, final String expectedShort)
 	{
-		assertEquals(expected, actual.toString(), "toString");
-		assertEquals(expectedShort, actual.toStringShort(), "toStringShort");
+		assertEquals(expected     +"[C]", actual.toString(), "toString");
+		assertEquals(expectedShort+"[C]", actual.toStringShort(), "toStringShort");
 	}
 
 	@Test void testFormatReal() throws ParseException
@@ -751,15 +752,15 @@ public class PriceTest
 		assertEquals(groupPos, format.format( 1234.5), "groupPos");
 		assertEquals(groupNeg, format.format(-1234.5), "groupNeg");
 
-		assertEquals(zero,     storeOf(      0).format(format), "zero");
-		assertEquals(fractPos, storeOf(     10).format(format), "fractPos");
-		assertEquals(fractNeg, storeOf(    -10).format(format), "fractNeg");
-		assertEquals(smallPos, storeOf(    110).format(format), "smallPos");
-		assertEquals(smallNeg, storeOf(   -110).format(format), "smallNeg");
-		assertEquals(groupPos, storeOf( 123450).format(format), "groupPos");
-		assertEquals(groupNeg, storeOf(-123450).format(format), "groupNeg");
-		assertEquals( s99,                  p99.format(format),  "p99");
-		assertEquals(sm99,                 mp99.format(format), "mp99");
+		assertEquals(zero,     storeOf(      0).formatAmount(format), "zero");
+		assertEquals(fractPos, storeOf(     10).formatAmount(format), "fractPos");
+		assertEquals(fractNeg, storeOf(    -10).formatAmount(format), "fractNeg");
+		assertEquals(smallPos, storeOf(    110).formatAmount(format), "smallPos");
+		assertEquals(smallNeg, storeOf(   -110).formatAmount(format), "smallNeg");
+		assertEquals(groupPos, storeOf( 123450).formatAmount(format), "groupPos");
+		assertEquals(groupNeg, storeOf(-123450).formatAmount(format), "groupNeg");
+		assertEquals( s99,                  p99.formatAmount(format),  "p99");
+		assertEquals(sm99,                 mp99.formatAmount(format), "mp99");
 
 		assertEquals(storeOf(      0), parse(zero    , format), "zero");
 		assertEquals(storeOf(     10), parse(fractPos, format), "fractPos");
@@ -833,24 +834,9 @@ public class PriceTest
 		assertEquals(storeOf(-3456), reserialize(storeOf(-3456)));
 	}
 
-	@Test void testSerializationCache()
+	private static Money<Cy> reserialize(final Money<Cy> value)
 	{
-		assertEquals(storeOf(  -1), reserialize(storeOf(   -1)));
-		assertEquals(storeOf(   0), reserialize(storeOf(    0)));
-		assertEquals(storeOf(   1), reserialize(storeOf(    1)));
-		assertEquals(storeOf(1000), reserialize(storeOf( 1000)));
-		assertEquals(storeOf(1001), reserialize(storeOf( 1001)));
-
-		assertNotSame(storeOf(  -1), reserialize(storeOf(   -1)));
-		assertSame   (storeOf(   0), reserialize(storeOf(    0)));
-		assertSame   (storeOf(   1), reserialize(storeOf(    1)));
-		assertSame   (storeOf(1000), reserialize(storeOf( 1000)));
-		assertNotSame(storeOf(1001), reserialize(storeOf( 1001)));
-	}
-
-	private static Price reserialize(final Price value)
-	{
-		return Assert.reserialize(value, 66);
+		return Assert.reserialize(value, 268);
 	}
 
 	@Test void testEqualsZero()
@@ -968,7 +954,7 @@ public class PriceTest
 			IllegalArgumentException.class,
 			"rate must not be negative, but was -1");
 		{
-			final Price p = storeOf( 126);
+			final Money<Cy> p = storeOf( 126);
 			assertSame(p, p.grossToNetPercent(0));
 		}
 	}

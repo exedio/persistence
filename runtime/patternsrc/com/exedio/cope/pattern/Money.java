@@ -24,6 +24,10 @@ import com.exedio.cope.instrument.WrapImplementsInterim;
 import com.exedio.cope.pattern.Money.Currency;
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+import java.text.ParseException;
 
 public final class Money<C extends Currency>
 	implements Serializable, Comparable<Money<C>>
@@ -73,6 +77,11 @@ public final class Money<C extends Currency>
 	public long amountStore(final C currency)
 	{
 		return getAmount(currency).store();
+	}
+
+	public long amountStoreIntExact(final C currency)
+	{
+		return getAmount(currency).storeIntExact();
 	}
 
 	public C getCurrency()
@@ -140,6 +149,19 @@ public final class Money<C extends Currency>
 	public String toStringShort()
 	{
 		return amount.toStringShort() + currency;
+	}
+
+
+	// format / parse
+
+	public String formatAmount(final NumberFormat format)
+	{
+		return amount.format(format);
+	}
+
+	public static <C extends Currency> Money<C> parseAmount(final String source, final DecimalFormat format, final C currency) throws ParseException
+	{
+		return valueOf(Price.parse(source, format), currency);
 	}
 
 
@@ -250,9 +272,19 @@ public final class Money<C extends Currency>
 		return wrap( amount.multiply(other) );
 	}
 
+	public Money<C> multiply(final double other, final RoundingMode roundingMode)
+	{
+		return wrap( amount.multiply(other, roundingMode) );
+	}
+
 	public Money<C> divide(final double other)
 	{
 		return wrap( amount.divide(other) );
+	}
+
+	public Money<C> divide(final double other, final RoundingMode roundingMode)
+	{
+		return wrap( amount.divide(other, roundingMode) );
 	}
 
 	public Money<C> grossToNetPercent(final int rate)
@@ -260,14 +292,29 @@ public final class Money<C extends Currency>
 		return wrap( amount.grossToNetPercent(rate) );
 	}
 
+	public Money<C> grossToNetPercent(final int rate, final RoundingMode roundingMode)
+	{
+		return wrap( amount.grossToNetPercent(rate, roundingMode) );
+	}
+
 	public Money<C> grossToTaxPercent(final int rate)
 	{
 		return wrap( amount.grossToTaxPercent(rate) );
 	}
 
+	public Money<C> grossToTaxPercent(final int rate, final RoundingMode roundingMode)
+	{
+		return wrap( amount.grossToTaxPercent(rate, roundingMode) );
+	}
+
 	public Money<C> grossToTaxPercent(final double rate)
 	{
 		return wrap( amount.grossToTaxPercent(rate) );
+	}
+
+	public Money<C> grossToTaxPercent(final double rate, final RoundingMode roundingMode)
+	{
+		return wrap( amount.grossToTaxPercent(rate, roundingMode) );
 	}
 
 	public static <C extends Currency> Money<C>[] splitProportionately(final Money<C> total, final Money<C>[] weights)
@@ -307,6 +354,11 @@ public final class Money<C extends Currency>
 	public static <C extends Currency> Money<C> valueOf(final double amount, final C currency)
 	{
 		return valueOf(Price.valueOf(amount), currency);
+	}
+
+	public static <C extends Currency> Money<C> valueOf(final double amount, final RoundingMode roundingMode, final C currency)
+	{
+		return valueOf(Price.valueOf(amount, roundingMode), currency);
 	}
 
 	public double doubleAmount(final Currency currency)
