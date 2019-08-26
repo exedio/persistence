@@ -23,6 +23,7 @@ import com.exedio.cope.Item;
 import java.util.List;
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("unused") // OK: Methods are tested on implementation classes, but never used as a member of this interface.
 public interface TemplatedField<E extends TemplatedValue>
 {
 	<X extends Feature> X of(final X template);

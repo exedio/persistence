@@ -227,6 +227,7 @@ public abstract class FunctionField<E> extends Field<E>
 	 * the the result is equal to this FunctionField.
 	 * @see #getImplicitUniqueConstraint()
 	 */
+	@SuppressWarnings("unused") // OK: Methods are tested on implementation classes, but never used as a member of this interface.
 	public abstract FunctionField<E> unique();
 
 	public abstract FunctionField<E> nonUnique();
