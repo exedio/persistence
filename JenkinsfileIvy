@@ -25,7 +25,7 @@ timestamps
 				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
-				sh "ant/bin/ant -buildfile ivy"
+				sh "ant/bin/ant -noinput -buildfile ivy"
 				archiveArtifacts 'ivy/artifacts/report/**'
 
 				sh "git status --porcelain --untracked-files=normal > git-status.txt"

@@ -37,7 +37,7 @@ timestamps
 						' BUILD_ID -${BUILD_ID}-' +
 						' isRelease=' + isRelease
 
-				sh "ant/bin/ant clean jenkins" +
+				sh "ant/bin/ant -noinput clean jenkins" +
 						' "-Dbuild.revision=${BUILD_NUMBER}"' +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dbuild.status=' + (isRelease?'release':'integration') +

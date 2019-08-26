@@ -62,12 +62,12 @@ timestamps
 						'cache.stamps=false'
 				)
 
-				sh 'ant/bin/ant' +
+				sh 'ant/bin/ant -noinput' +
 						' -f macros/resetSchema.xml' +
 						' mysql' +
 						' -Dfile=conf/environment/my57-stampsA.properties'
 
-				sh "ant/bin/ant clean runtime.test.withEnv testprotocol" +
+				sh "ant/bin/ant -noinput clean runtime.test.withEnv testprotocol" +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dinstrument.verify=true' +
 						' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +

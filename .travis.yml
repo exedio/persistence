@@ -99,7 +99,7 @@ before_script:
 
 script:
   - >
-    ant/bin/ant clean jenkins
+    ant/bin/ant -noinput clean jenkins
     '-Dbuild.tag=git ${TRAVIS_BRANCH} ${TRAVIS_COMMIT} travis-ci ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JOB_NUMBER} ${TRAVIS_BUILD_ID} `date '+%G-%m-%d_%H:%M:%S'`'
   - mkdir build/travis
   - cp build/testprotocol.* build/travis

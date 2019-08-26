@@ -54,12 +54,12 @@ timestamps
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 
-				sh 'ant/bin/ant' +
+				sh 'ant/bin/ant -noinput' +
 						' -f macros/resetSchema.xml' +
 						' oracle' +
 						' -Dfile=conf/environment/ora.properties'
 
-				sh "ant/bin/ant clean testWithEnv" +
+				sh "ant/bin/ant -noinput clean testWithEnv" +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dinstrument.verify=true' +
 						' -Ddisable-ansi-colors=true'

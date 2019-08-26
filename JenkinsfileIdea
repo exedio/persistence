@@ -28,7 +28,7 @@ timestamps
 				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
-				sh "ant/bin/ant -f conf/idea" +
+				sh "ant/bin/ant -noinput -f conf/idea" +
 						' -Dconfig.home=' + env.HOME + '/' + confighome +
 						' -Djava.home=' + env.JAVA_HOME
 
