@@ -29,7 +29,9 @@ final class Timer
 	private final String msg;
 	private final Interval emptyInterval = new Interval();
 
-	@SuppressWarnings("VolatileLongOrDoubleField")
+	@SuppressWarnings({
+			"VolatileLongOrDoubleField",
+			"unused"})// OK: IDEA bug - does not consider assignment on increment
 	private volatile long totalElapsed = 0;
 
 	Timer(final Logger logger, final String msg)

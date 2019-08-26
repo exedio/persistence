@@ -23,6 +23,7 @@ import com.exedio.cope.instrument.testlib.ExternalItemWithAbstractMethod;
 class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 {
 	@Override
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	protected void abstractMethod()
 	{
 		// method body must not be copied to interim code
@@ -31,6 +32,7 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 
 
 	@Override
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public void doubleAbstract()
 	{
 		// method body must not be copied to interim code

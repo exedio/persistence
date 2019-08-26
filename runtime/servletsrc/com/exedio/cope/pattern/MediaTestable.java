@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 @SuppressWarnings({
 		"InterfaceMayBeAnnotatedFunctional", // OK: is to be implemented by Features only
-		"InterfaceNeverImplemented", "RedundantThrows"}) // TODO there is no implementation of MediaTestable on cope anymore, moved to copeim4java
+		"InterfaceNeverImplemented", "RedundantThrows", "unused"}) // TODO there is no implementation of MediaTestable on cope anymore, moved to copeim4java
 public interface MediaTestable
 {
 	void test() throws Exception;

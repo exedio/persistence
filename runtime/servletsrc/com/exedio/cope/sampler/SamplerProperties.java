@@ -53,6 +53,7 @@ public final class SamplerProperties extends Properties
 
 	private final Duration transactionDuration = value("transactionDuration", Duration.ofSeconds(10), Duration.ZERO);
 
+	@SuppressWarnings("unused") // TODO test
 	public void sample(final Sampler sampler)
 	{
 		sample(sampler, null);

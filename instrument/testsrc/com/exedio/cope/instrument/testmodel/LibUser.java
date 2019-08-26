@@ -41,6 +41,7 @@ class LibUser extends LibItem<String>
 	static final WrapVarargs wrapLibSuper=new WrapVarargs(inSuper);
 
 	@Override
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public String makeTee()
 	{
 		return "tee";

@@ -100,6 +100,7 @@ public class Sampler
 		return original;
 	}
 
+	@SuppressWarnings("unused") // TODO test
 	public final ConnectToken connect(final String tokenName)
 	{
 		//noinspection resource OK: is closed outside this factory method

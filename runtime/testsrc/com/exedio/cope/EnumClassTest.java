@@ -121,8 +121,8 @@ public class EnumClassTest
 
 	enum Subclass
 	{
-		Eins {@Override int zack(){ return 1; } },
-		Zwei {@Override int zack(){ return 2; } };
+		Eins {@Override @SuppressWarnings("unused") int zack(){ return 1; } },
+		Zwei {@Override @SuppressWarnings("unused") int zack(){ return 2; } };
 
 		@SuppressWarnings("unused") abstract int zack();
 	}

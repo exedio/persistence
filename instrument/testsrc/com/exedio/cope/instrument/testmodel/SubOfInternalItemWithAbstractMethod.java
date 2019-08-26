@@ -21,6 +21,7 @@ package com.exedio.cope.instrument.testmodel;
 public class SubOfInternalItemWithAbstractMethod extends InternalItemWithAbstractMethod
 {
 	@Override
+	@SuppressWarnings("unused")
 	protected void abstractMethod()
 	{
 		// method body must not be copied to interim code
