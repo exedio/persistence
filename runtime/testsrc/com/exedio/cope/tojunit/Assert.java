@@ -186,6 +186,7 @@ public final class Assert
 			"java.util.Collections$SingletonList",
 			"java.util.Collections$EmptyList",
 			"java.util.Collections$UnmodifiableSet",
+			"java.util.Collections$UnmodifiableSortedSet",
 			"java.util.Collections$UnmodifiableNavigableSet$EmptyNavigableSet"));
 
 	public static void assertEqualsUnmodifiable(final List<?> expected, final Collection<?> actual)
