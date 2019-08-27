@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Price.ZERO;
 import static com.exedio.cope.pattern.Price.splitProportionately;
 import static com.exedio.cope.pattern.Price.valueOf;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -96,10 +97,10 @@ public class PriceProportionatelyTest
 	private static void assertIt(final Price[] expected, final Price actualTotal, final Price[] actualWeights)
 	{
 		{
-			Price expectedSum = Price.ZERO;
+			Price expectedSum = ZERO;
 			for(final Price p : expected)
 			{
-				assertTrue(Price.ZERO.lessThanOrEqual(p));
+				assertTrue(ZERO.lessThanOrEqual(p));
 				expectedSum = expectedSum.add(p);
 			}
 			assertEquals(expectedSum, actualTotal);
