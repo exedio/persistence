@@ -18,8 +18,7 @@
 
 package com.exedio.cope.pattern;
 
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
@@ -30,72 +29,44 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("Convert2MethodRef") // OK: easier to read
 public class MediaPathConditionUnsupportedTest
 {
 	@Test void testNull()
 	{
-		try
-		{
-			AnItem.path.isNull();
-			fail();
-		}
-		catch(final UnsupportedOperationException e)
-		{
-			assertEquals(
-					"condition not supported by AnItem.path of com.exedio.cope.pattern.MediaPathConditionUnsupportedTest$APath",
-					e.getMessage());
-		}
+		assertFails(() ->
+			AnItem.path.isNull(),
+			UnsupportedOperationException.class,
+			"condition not supported by AnItem.path of " + APath.class.getName());
 	}
 
 	@Test void testNullJoin()
 	{
-		try
-		{
-			AnItem.path.isNull(null);
-			fail();
-		}
-		catch(final UnsupportedOperationException e)
-		{
-			assertEquals(
-					"condition not supported by AnItem.path of com.exedio.cope.pattern.MediaPathConditionUnsupportedTest$APath",
-					e.getMessage());
-		}
+		assertFails(() ->
+			AnItem.path.isNull(null),
+			UnsupportedOperationException.class,
+			"condition not supported by AnItem.path of " + APath.class.getName());
 	}
 
 	@Test void testNotNull()
 	{
-		try
-		{
-			AnItem.path.isNotNull();
-			fail();
-		}
-		catch(final UnsupportedOperationException e)
-		{
-			assertEquals(
-					"condition not supported by AnItem.path of com.exedio.cope.pattern.MediaPathConditionUnsupportedTest$APath",
-					e.getMessage());
-		}
+		assertFails(() ->
+			AnItem.path.isNotNull(),
+			UnsupportedOperationException.class,
+			"condition not supported by AnItem.path of " + APath.class.getName());
 	}
 
 	@Test void testNotNullJoin()
 	{
-		try
-		{
-			AnItem.path.isNotNull(null);
-			fail();
-		}
-		catch(final UnsupportedOperationException e)
-		{
-			assertEquals(
-					"condition not supported by AnItem.path of com.exedio.cope.pattern.MediaPathConditionUnsupportedTest$APath",
-					e.getMessage());
-		}
+		assertFails(() ->
+			AnItem.path.isNotNull(null),
+			UnsupportedOperationException.class,
+			"condition not supported by AnItem.path of " + APath.class.getName());
 	}
 
 
 	static final class APath extends MediaPath
 	{
-
 		@Override
 		public boolean isMandatory()
 		{
