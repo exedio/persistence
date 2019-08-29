@@ -917,7 +917,7 @@ public abstract class MediaPath extends Pattern
 			// prevent instantiation
 		}
 
-		@SuppressWarnings("static-method")
+		@SuppressWarnings({"static-method", "unused"})
 		public int get()
 		{
 			throw new NoSuchMethodError();

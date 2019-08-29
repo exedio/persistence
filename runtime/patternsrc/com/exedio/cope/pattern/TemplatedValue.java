@@ -18,7 +18,9 @@
 
 package com.exedio.cope.pattern;
 
-@SuppressWarnings("InterfaceMayBeAnnotatedFunctional") // OK: maybe we get more methods in the future
+@SuppressWarnings({
+		"InterfaceMayBeAnnotatedFunctional", // OK: maybe we get more methods in the future
+		"unused"}) // OK: Methods are tested on implementation classes, but never used as a member of this interface.
 public interface TemplatedValue
 {
 	TemplatedType<?> getCopeType();

@@ -144,7 +144,6 @@ public final class Query<R> implements Serializable
 		this.condition = replaceTrue(condition);
 	}
 
-	@SuppressWarnings("deprecation") // OK: is a constructor wrapper
 	public static Query<List<Object>> newQuery(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
 		return new Query<>(selects, type, condition);

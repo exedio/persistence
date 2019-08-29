@@ -78,7 +78,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		{
 			final String[] value = dialectProbeInfo.value();
 			for(int i = 0; i<value.length; )
-				//noinspection AssignmentToForLoopParameter
 				result.setProperty(value[i++], value[i++]);
 		}
 
@@ -518,13 +517,11 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return new File(result);
 	}
 
-	@SuppressWarnings("deprecation") // needed for idea
 	public ConnectProperties(final File file)
 	{
 		this(file, null);
 	}
 
-	@SuppressWarnings("deprecation") // needed for idea
 	public static ConnectProperties create(final Source source)
 	{
 		return new ConnectProperties(source, (Source)null);

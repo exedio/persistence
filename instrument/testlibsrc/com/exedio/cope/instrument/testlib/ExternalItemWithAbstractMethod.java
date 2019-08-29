@@ -24,11 +24,12 @@ public abstract class ExternalItemWithAbstractMethod extends ExternalParentWithA
 	protected abstract void abstractMethod();
 
 	// test that an abstract method present in two parents doesn't get added twice in interim code:
-	@SuppressWarnings("AbstractMethodOverridesAbstractMethod")
+	@SuppressWarnings({"AbstractMethodOverridesAbstractMethod", "unused"}) // OK: just for testing instrumentor
 	@Override
 	public abstract void doubleAbstract();
 
 	@Override
+	@SuppressWarnings("unused") // OK: just for testing instrumentor
 	public final void overwrittenExternally()
 	{
 	}

@@ -52,6 +52,7 @@ import javax.servlet.ServletResponse;
  *
  * @author Stephan Frisch, exedio GmbH
  */
+@SuppressWarnings("unused") // TODO remove class
 public final class CopeFilter implements Filter
 {
 	private ConnectToken connectToken = null;

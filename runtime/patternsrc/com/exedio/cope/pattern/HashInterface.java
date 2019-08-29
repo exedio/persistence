@@ -24,6 +24,7 @@ import java.security.SecureRandom;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@SuppressWarnings("unused") // OK: Methods are tested on implementation classes, but never used as a member of this interface.
 public interface HashInterface extends Settable<String>
 {
 	boolean check(@Nonnull Item item, @Nullable String actualPlainText);

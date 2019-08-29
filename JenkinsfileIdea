@@ -10,8 +10,8 @@ timestamps
 			))
 	])
 
-	def idea = 'idea-2018.3.5'
-	def confighome = '.IdeaIC2018.3'
+	def idea = 'idea-2019.2.1'
+	def confighome = '.IdeaIC2019.2'
 
 	//noinspection GroovyAssignabilityCheck
 	lock('idea') { node('GitCloneExedio && OpenJdk18Debian9 && ' + idea)
@@ -32,7 +32,7 @@ timestamps
 						' -Dconfig.home=' + env.HOME + '/' + confighome +
 						' -Djava.home=' + env.JAVA_HOME
 
-				sh "/" + idea + "/bin/inspect.sh . 'Project Default' idea-inspection-output"
+				sh "/" + idea + "/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
 				archiveArtifacts 'idea-inspection-output/**'
 				sh "rm idea-inspection-output/SpellCheckingInspection.xml"
 				recordIssues(

@@ -34,11 +34,6 @@
         <javadocPath>
           <root type="composite" />
         </javadocPath>
-        <sourcePath>
-          <root type="composite">
-            <root url="jar://@JAVA_HOME_1.8@/src.zip!/" type="simple" />
-          </root>
-        </sourcePath>
       </roots>
       <additional />
     </jdk>

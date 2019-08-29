@@ -36,6 +36,7 @@ public abstract class AbstractListField<E> extends Pattern
 		return Integer.MAX_VALUE;
 	}
 
+	@SuppressWarnings("unused") // OK: Methods are tested on implementation classes, but never used as a member of this interface.
 	public abstract List<E> get(Item item);
 	public abstract void set(Item item, Collection<? extends E> value);
 

@@ -32,6 +32,7 @@ import java.lang.annotation.Target;
 @Deprecated
 @Target(FIELD)
 @Retention(RetentionPolicy.RUNTIME)
+@SuppressWarnings("unused") // TODO remove class
 public @interface CopeSchemaType
 {
 	String dialect();

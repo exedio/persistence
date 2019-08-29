@@ -27,5 +27,6 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.SOURCE)
 public @interface WrapperRepeated
 {
+	@SuppressWarnings("unused") // OK: IDEA bug - does not consider @Repeatable
 	Wrapper[] value();
 }

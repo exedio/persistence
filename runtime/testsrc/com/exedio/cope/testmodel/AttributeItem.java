@@ -142,9 +142,9 @@ public final class AttributeItem extends Item
 	 */
 	public enum SomeEnum
 	{
-		enumValue1{@Override void zack(){/*empty*/}},
-		enumValue2{@Override void zack(){/*empty*/}},
-		enumValue3{@Override void zack(){/*empty*/}};
+		enumValue1{@Override @SuppressWarnings("unused") void zack(){/*empty*/}},
+		enumValue2{@Override @SuppressWarnings("unused") void zack(){/*empty*/}},
+		enumValue3{@Override @SuppressWarnings("unused") void zack(){/*empty*/}};
 
 		@SuppressWarnings("unused") abstract void zack();
 	}

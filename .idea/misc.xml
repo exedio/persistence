@@ -10,6 +10,10 @@
     <pattern value="com.exedio.cope.OracleDialect" method="OracleDialect" />
     <pattern value="com.exedio.cope.HsqldbDialect" method="HsqldbDialect" />
     <pattern value="*" method="beforeNewCopeItem" />
+    <pattern value="com.exedio.cope.instrument.AntTask" method="add*" />
+    <pattern value="com.exedio.cope.instrument.AntTask" method="create*" />
+    <pattern value="com.exedio.cope.instrument.AntTask" method="set*" />
+    <pattern value="com.exedio.cope.instrument.AntTask.*" method="add*" />
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="javax.annotation.Nullable" />

@@ -37,7 +37,7 @@ public class LRUMapTest
 	{
 		private static final long serialVersionUID = 1l;
 
-		@SuppressWarnings("unused")
+		@SuppressWarnings({"unused", "FieldCanBeLocal"})
 		private long date;
 
 		/**

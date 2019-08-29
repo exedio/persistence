@@ -184,7 +184,6 @@ public final class Schedule extends Pattern
 	{
 		this.zoneId = requireNonNull(zoneId, "zoneId");
 		this.variant = requireNonNull(variant);
-		//noinspection deprecation
 		this.localeIfSupported = locale;
 		addSourceFeature(enabled,  "enabled");
 		addSourceFeature(interval, "interval");

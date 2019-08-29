@@ -21,6 +21,7 @@ package com.exedio.cope;
 import java.io.Serializable;
 import java.util.List;
 
+@SuppressWarnings("unused") // OK: Methods are tested on implementation classes, but never used as a member of this interface.
 public interface AbstractType<T> extends Serializable
 {
 	Class<T> getJavaClass();

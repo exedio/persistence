@@ -30,7 +30,6 @@ public final class CopeNameUtil
 		if(name!=null)
 			return name.value();
 
-		//noinspection deprecation
 		return getDeprecated(annotatedElement);
 	}
 
