@@ -160,7 +160,7 @@ final class MysqlSchemaDialect extends Dialect
 			}
 		});
 
-		verifyForeignKeyConstraints(
+		verifyForeignKeyConstraints(schema,
 				"SELECT " +
 						"rc.CONSTRAINT_NAME, " + // 1
 						"rc.TABLE_NAME, " + // 2
@@ -175,8 +175,6 @@ final class MysqlSchemaDialect extends Dialect
 						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
 				"WHERE rc.CONSTRAINT_SCHEMA='" + catalog + "' " +
 						"AND rc.UNIQUE_CONSTRAINT_SCHEMA='" + catalog + '\'',
-				schema,
-
 				// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 				// same as NO ACTION
 				"RESTRICT", "RESTRICT");

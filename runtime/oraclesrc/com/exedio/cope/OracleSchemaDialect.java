@@ -146,7 +146,7 @@ final class OracleSchemaDialect extends Dialect
 			}
 		});
 
-		verifyForeignKeyConstraints(
+		verifyForeignKeyConstraints(schema,
 				"SELECT " +
 						"uc.CONSTRAINT_NAME, " + // 1
 						"uc.TABLE_NAME, " + // 2
@@ -158,12 +158,10 @@ final class OracleSchemaDialect extends Dialect
 				"JOIN USER_cons_columns ucc ON uc.CONSTRAINT_NAME=ucc.CONSTRAINT_NAME " +
 				"JOIN USER_IND_COLUMNS uic ON uc.R_CONSTRAINT_NAME=uic.INDEX_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE='R'",
-				schema,
-
 				// https://docs.oracle.com/cd/E11882_01/server.112/e40540/datainte.htm#CNCPT1649
 				"NO ACTION", null);
 
-		verifyUniqueConstraints(
+		verifyUniqueConstraints(schema,
 				"SELECT " +
 				"uc.TABLE_NAME," + // 1
 				"uc.CONSTRAINT_NAME," + // 2
@@ -174,13 +172,11 @@ final class OracleSchemaDialect extends Dialect
 					"AND uc.TABLE_NAME=ucc.TABLE_NAME " +
 				"WHERE uc.CONSTRAINT_TYPE='U' " +
 				"AND uc.CONSTRAINT_NAME NOT LIKE 'BIN$%' " + // needed since Oracle 11.2
-				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION",
-				schema);
+				"ORDER BY uc.TABLE_NAME, uc.CONSTRAINT_NAME, ucc.POSITION");
 
-		verifySequences(
+		verifySequences(schema,
 				"SELECT SEQUENCE_NAME, MAX_VALUE, MIN_VALUE " +
-				"FROM USER_SEQUENCES",
-				schema);
+				"FROM USER_SEQUENCES");
 	}
 
 	@Override

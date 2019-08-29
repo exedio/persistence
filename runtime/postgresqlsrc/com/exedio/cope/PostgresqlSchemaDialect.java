@@ -175,7 +175,7 @@ final class PostgresqlSchemaDialect extends Dialect
 			}
 		});
 
-		verifyUniqueConstraints(
+		verifyUniqueConstraints(schema,
 				"SELECT tc.table_name, tc.constraint_name, cu.column_name " +
 				"FROM information_schema.table_constraints tc " +
 				"JOIN information_schema.key_column_usage cu " +
@@ -183,10 +183,9 @@ final class PostgresqlSchemaDialect extends Dialect
 				"WHERE tc.constraint_type='UNIQUE' " +
 				"AND tc.table_catalog='" + catalog + "' " +
 				"AND cu.table_catalog='" + catalog + "' " +
-				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position",
-				schema);
+				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position");
 
-		verifyForeignKeyConstraints(
+		verifyForeignKeyConstraints(schema,
 				"SELECT " +
 						"rc.constraint_name, " + // 1
 						"src.table_name, " + // 2
@@ -199,16 +198,13 @@ final class PostgresqlSchemaDialect extends Dialect
 				"JOIN information_schema.key_column_usage src ON rc.constraint_name=src.constraint_name " +
 				"JOIN information_schema.key_column_usage tgt ON rc.unique_constraint_name=tgt.constraint_name " +
 				"WHERE rc.constraint_catalog='" + catalog + '\'',
-				schema,
-
 				// https://www.postgresql.org/docs/9.5/sql-createtable.html
 				"NO ACTION", "NO ACTION");
 
-		verifySequences(
+		verifySequences(schema,
 				"SELECT sequence_name, maximum_value, start_value " +
 				"FROM information_schema.sequences " +
-				"WHERE sequence_catalog='" + catalog + '\'',
-				schema);
+				"WHERE sequence_catalog='" + catalog + '\'');
 	}
 
 	@Override

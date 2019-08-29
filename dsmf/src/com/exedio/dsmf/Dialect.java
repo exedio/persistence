@@ -120,7 +120,8 @@ public abstract class Dialect
 	}
 
 	protected static final void verifyForeignKeyConstraints(
-			final String sql, final Schema schema,
+			final Schema schema,
+			final String sql,
 			final String deleteRule,
 			final String updateRule)
 	{
@@ -152,7 +153,7 @@ public abstract class Dialect
 			notifyAdditionalError(constraint, "unexpected " + name + " rule " + actual);
 	}
 
-	protected static final void verifyUniqueConstraints(final String sql, final Schema schema)
+	protected static final void verifyUniqueConstraints(final Schema schema, final String sql)
 	{
 		schema.querySQL(sql, resultSet ->
 		{
@@ -169,7 +170,7 @@ public abstract class Dialect
 		});
 	}
 
-	protected static final void verifySequences(final String sql, final Schema schema)
+	protected static final void verifySequences(final Schema schema, final String sql)
 	{
 		schema.querySQL(sql, resultSet ->
 		{
