@@ -137,7 +137,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return idField.getImplicitUniqueConstraint();
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	@Wrap(order=10, doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)
 	public E get(@Nonnull final Item item)
 	{
 		final String id = idField.get(item);
@@ -216,7 +216,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
@@ -266,14 +266,14 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
-	@Wrap(order=30, name="for{0}",
-			doc="Finds a {2} by it''s {0}.",
-			docReturn="null if there is no matching item.",
+	@Wrap(order=30, name=Wrap.FOR_NAME,
+			doc=Wrap.FOR_DOC_BROKEN,
+			docReturn=Wrap.FOR_RETURN,
 			hide=FeatureNonUniqueGetter.class)
 	@Nullable
 	public <P extends Item> P searchUnique(
 			@Nonnull final Class<P> typeClass,
-			@Nonnull @Parameter(doc="shall be equal to field {0}.") final E value)
+			@Nonnull @Parameter(doc=Wrap.FOR_PARAM) final E value)
 	{
 		return idField.searchUnique(typeClass, value.getID());
 	}

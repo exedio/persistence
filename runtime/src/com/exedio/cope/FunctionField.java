@@ -254,7 +254,7 @@ public abstract class FunctionField<E> extends Field<E>
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 
-	@Wrap(order=10, doc="Returns the value of {0}.", hide=PrimitiveGetter.class, nullability=NullableIfOptional.class)
+	@Wrap(order=10, doc=Wrap.GET_DOC, hide=PrimitiveGetter.class, nullability=NullableIfOptional.class)
 	@Override
 	public final E get(@Nonnull final Item item)
 	{
@@ -281,7 +281,7 @@ public abstract class FunctionField<E> extends Field<E>
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, PrimitiveGetter.class},
 			thrownGetter=InitialThrown.class)
 	@Override
@@ -439,14 +439,14 @@ public abstract class FunctionField<E> extends Field<E>
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
-	@Wrap(order=100, name="for{0}",
-			doc="Finds a {2} by it''s {0}.",
-			docReturn="null if there is no matching item.",
+	@Wrap(order=100, name=Wrap.FOR_NAME,
+			doc=Wrap.FOR_DOC_BROKEN,
+			docReturn=Wrap.FOR_RETURN,
 			hide={NonUniqueGetter.class, PrimitiveGetter.class})
 	@Nullable
 	public final <P extends Item> P searchUnique(
 			@Nonnull final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
+			@Parameter(doc=Wrap.FOR_PARAM) @Nonnull final E value)
 	{
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
@@ -460,14 +460,14 @@ public abstract class FunctionField<E> extends Field<E>
 	 * @throws NullPointerException if value is null.
 	 * @throws IllegalArgumentException if there is no matching item.
 	 */
-	@Wrap(order=110, name="for{0}Strict",
-			doc="Finds a {2} by its {0}.",
+	@Wrap(order=110, name=Wrap.FOR_STRICT_NAME,
+			doc=Wrap.FOR_DOC,
 			hide={NonUniqueGetter.class, PrimitiveGetter.class},
-			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc=Wrap.FOR_STRICT_THROWN))
 	@Nonnull
 	public final <P extends Item> P searchUniqueStrict(
 			@Nonnull final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
+			@Parameter(doc=Wrap.FOR_PARAM) @Nonnull final E value)
 		throws IllegalArgumentException
 	{
 		final Type<P> type =

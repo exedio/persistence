@@ -198,7 +198,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	/**
 	 * @see #getQuery(Item)
 	 */
-	@Wrap(order=10, doc="Returns the value of {0}.")
+	@Wrap(order=10, doc=Wrap.GET_DOC)
 	@Override
 	@Nonnull
 	public List<E> get(final Item item)
@@ -283,7 +283,7 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	}
 
 	@Wrap(order=50,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			thrownGetter=ListThrown.class)
 	@Override
 	@SuppressWarnings("AssignmentToForLoopParameter")

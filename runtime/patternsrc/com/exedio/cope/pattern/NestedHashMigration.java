@@ -94,8 +94,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 	}
 
 	@Override
-	@Wrap(order=10,
-			doc="Returns whether the given value corresponds to the hash in {0}.")
+	@Wrap(order=10, doc=Wrap.HASH_CHECK_DOC)
 	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
 	{
 		return select(item).check(item, actualPlainText);
@@ -126,9 +125,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		return legacyHash.getHash(item);
 	}
 
-	@Wrap(order=20,
-			doc={"Wastes (almost) as much cpu cycles, as a call to <tt>check{3}</tt> would have needed.",
-					"Needed to prevent Timing Attacks."})
+	@Wrap(order=20, doc={Wrap.HASH_BLIND_DOC_1, Wrap.HASH_BLIND_DOC_2})
 	@Override
 	public void blind(@Nonnull final String actualPlainText)
 	{
@@ -143,7 +140,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	@Override
 	@Wrap(order=30,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String plainText)
 	{

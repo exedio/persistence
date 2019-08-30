@@ -416,7 +416,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * of this media.
 	 * Returns null, if this media is null.
 	 */
-	@Wrap(order=20, doc="Returns the last modification date of media {0}.", nullability=NullableIfOptional.class)
+	@Wrap(order=20, doc=Wrap.MEDIA_LAST_MODIFIED, nullability=NullableIfOptional.class)
 	@Override
 	public Date getLastModified(@Nonnull final Item item)
 	{
@@ -432,7 +432,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns the length of the body of this media.
 	 * Returns -1, if this media is null.
 	 */
-	@Wrap(order=30, doc="Returns the body length of the media {0}.")
+	@Wrap(order=30, doc=Wrap.MEDIA_LENGTH)
 	public long getLength(@Nonnull final Item item)
 	{
 		// do check before, because this check is supported by the item cache
@@ -472,7 +472,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	 * Returns the body of this media.
 	 * Returns null, if this media is null.
 	 */
-	@Wrap(order=40, doc="Returns the body of the media {0}.", nullability=NullableIfOptional.class)
+	@Wrap(order=40, doc=Wrap.MEDIA_BODY, nullability=NullableIfOptional.class)
 	public byte[] getBody(@Nonnull final Item item)
 	{
 		return body.getArray(item);

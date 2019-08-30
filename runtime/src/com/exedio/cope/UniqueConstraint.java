@@ -272,14 +272,14 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 */
-	@Wrap(order=10, name="for{0}", optionTagname="finder",
+	@Wrap(order=10, name=Wrap.FOR_NAME, optionTagname="finder",
 			varargsFeatures=SearchVarargs.class,
 			doc="Finds a {2} by it''s unique fields.",
-			docReturn="null if there is no matching item.")
+			docReturn=Wrap.FOR_RETURN)
 	@Nullable
 	public <P extends Item> P search(
 			@Nonnull final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
+			@Parameter(doc=Wrap.FOR_PARAM, nullability=FixedNonnull.class) final Object... values)
 	{
 		return
 				requireParentClass(typeClass, "typeClass").
@@ -290,14 +290,14 @@ public final class UniqueConstraint extends Feature implements Copyable
 	 * Finds an item by its unique fields.
 	 * @throws IllegalArgumentException if there is no matching item.
 	 */
-	@Wrap(order=20, name="for{0}Strict", optionTagname="finderStrict",
+	@Wrap(order=20, name=Wrap.FOR_STRICT_NAME, optionTagname="finderStrict",
 			varargsFeatures=SearchVarargs.class,
 			doc="Finds a {2} by its unique fields.",
-			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc=Wrap.FOR_STRICT_THROWN))
 	@Nonnull
 	public <P extends Item> P searchStrict(
 			@Nonnull final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.", nullability=FixedNonnull.class) final Object... values)
+			@Parameter(doc=Wrap.FOR_PARAM, nullability=FixedNonnull.class) final Object... values)
 		throws IllegalArgumentException
 	{
 		return

@@ -203,7 +203,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		return unison;
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	@Wrap(order=10, doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)
 	@Override
 	@SuppressWarnings({"unchecked", "rawtypes"})
 	public E get(@Nonnull final Item item)
@@ -226,7 +226,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	@SuppressWarnings({"unchecked", "rawtypes"})

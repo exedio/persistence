@@ -120,7 +120,7 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 		return componentList;
 	}
 
-	@Wrap(order=10, name="{1}", doc="Returns the value of {0}.")
+	@Wrap(order=10, name="{1}", doc=Wrap.GET_DOC)
 	@Nonnull
 	@Override
 	public E get(@Nonnull final Item item)

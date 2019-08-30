@@ -249,7 +249,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		return Collections.unmodifiableList(java.util.Arrays.asList(componentClasses));
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	@Wrap(order=10, doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)
 	public E get(final Item item)
 	{
 		for(final ItemField<?> component : components)
@@ -267,7 +267,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 			return null;
 	}
 
-	@Wrap(order=20, doc="Sets a new value for {0}.", hide=FinalSettableGetter.class, thrownGetter=InitialExceptionsSettableGetter.class)
+	@Wrap(order=20, doc=Wrap.SET_DOC, hide=FinalSettableGetter.class, thrownGetter=InitialExceptionsSettableGetter.class)
 	public void set(final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		item.set(map(value));
@@ -278,14 +278,14 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
-	@Wrap(order=100, name="for{0}",
-			doc="Finds a {2} by its {0}.",
-			docReturn="null if there is no matching item.",
+	@Wrap(order=100, name=Wrap.FOR_NAME,
+			doc=Wrap.FOR_DOC,
+			docReturn=Wrap.FOR_RETURN,
 			hide=NonUniqueMultiItemFieldGetter.class)
 	@Nullable
 	public <P extends Item> P searchUnique(
 			@Nonnull final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
+			@Parameter(doc=Wrap.FOR_PARAM) @Nonnull final E value)
 	{
 		final Type<P> type =
 				requireParentClass(typeClass, "typeClass");
@@ -298,14 +298,14 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	 * @throws NullPointerException if value is null.
 	 * @throws IllegalArgumentException if there is no matching item.
 	 */
-	@Wrap(order=110, name="for{0}Strict",
-			doc="Finds a {2} by its {0}.",
+	@Wrap(order=110, name=Wrap.FOR_STRICT_NAME,
+			doc=Wrap.FOR_DOC,
 			hide=NonUniqueMultiItemFieldGetter.class,
-			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc=Wrap.FOR_STRICT_THROWN))
 	@Nonnull
 	public <P extends Item> P searchUniqueStrict(
 			@Nonnull final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") @Nonnull final E value)
+			@Parameter(doc=Wrap.FOR_PARAM) @Nonnull final E value)
 		throws IllegalArgumentException
 	{
 		final Type<P> type =

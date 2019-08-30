@@ -180,7 +180,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 		currency.onMount(this);
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	@Wrap(order=10, doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)
 	public Money<C> get(@Nonnull final Item item)
 	{
 		final Price amountResult = amount.get(item);
@@ -191,7 +191,7 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Money<C> value)

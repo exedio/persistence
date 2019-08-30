@@ -178,7 +178,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	}
 
 	@Wrap(order=10,
-			doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+			doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)
 	public Color get(@Nonnull final Item item)
 	{
 		return
@@ -193,7 +193,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			hide=FinalSettableGetter.class,
 			thrownGetter=InitialExceptionsSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Color value)

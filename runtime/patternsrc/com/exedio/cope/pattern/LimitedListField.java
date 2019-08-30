@@ -205,7 +205,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return result;
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
+	@Wrap(order=10, doc=Wrap.GET_DOC)
 	@Override
 	@Nonnull
 	public List<E> get(@Nonnull final Item item)
@@ -229,7 +229,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			thrownGetter=LimitedListThrown.class)
 	@Override
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)

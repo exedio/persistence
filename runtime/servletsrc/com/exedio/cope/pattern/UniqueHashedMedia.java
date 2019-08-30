@@ -169,7 +169,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		}
 	}
 
-	@Wrap(order = 10, name = "getURL", doc="Returns a URL the content of {0} is available under.")
+	@Wrap(order = 10, name = "getURL", doc=Wrap.MEDIA_URL)
 	@Nonnull
 	public String getURL(@Nonnull final Item item)
 	{
@@ -177,7 +177,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		return media.getURL(item);
 	}
 
-	@Wrap(order = 20, name = "getLocator", doc="Returns a Locator the content of {0} is available under.")
+	@Wrap(order = 20, name = "getLocator", doc=Wrap.MEDIA_LOCATOR)
 	@Nonnull
 	public MediaPath.Locator getLocator(@Nonnull final Item item)
 	{
@@ -189,7 +189,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 * Returns the content type of this media.
 	 * Does never return null.
 	 */
-	@Wrap(order = 30, name = "getContentType", doc = "Returns the content type of the media {0}.")
+	@Wrap(order = 30, name = "getContentType", doc = Wrap.MEDIA_CONTENT_TYPE)
 	@Nonnull
 	public String getContentType(@Nonnull final Item item)
 	{
@@ -200,7 +200,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 * Returns the date of the last modification of the media.
 	 * Does never return null.
 	 */
-	@Wrap(order = 40, name = "getLastModified", doc = "Returns the last modification date of media {0}.")
+	@Wrap(order = 40, name = "getLastModified", doc = Wrap.MEDIA_LAST_MODIFIED)
 	@Nonnull
 	public Date getLastModified(@Nonnull final Item item)
 	{
@@ -210,7 +210,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	/**
 	 * Returns the length of the body of the media.
 	 */
-	@Wrap(order = 50, name = "getLength", doc = "Returns the body length of the media {0}.")
+	@Wrap(order = 50, name = "getLength", doc = Wrap.MEDIA_LENGTH)
 	public long getLength(@Nonnull final Item item)
 	{
 		return media.getLength(item);
@@ -220,7 +220,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	 * Returns the body of the media.
 	 * Does never return null.
 	 */
-	@Wrap(order = 60, name = "getBody", doc = "Returns the body of the media {0}.")
+	@Wrap(order = 60, name = "getBody", doc = Wrap.MEDIA_BODY)
 	@Nonnull
 	public byte[] getBody(@Nonnull final Item item)
 	{
@@ -249,7 +249,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			order = 100,
 			name = "forHash",
 			doc = "Finds a {2} by it''s hash.",
-			docReturn = "null if there is no matching item.")
+			docReturn = Wrap.FOR_RETURN)
 	@Nullable
 	public <P extends Item> P forHash(@Nonnull final Class<P> typeClass, @Nonnull @Parameter("{1}Hash") final String hash)
 	{
@@ -275,7 +275,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 	@Nullable
 	public <P extends Item> P getOrCreate(
 			@Nonnull final Class<P> typeClass,
-			@Nullable @Parameter(doc = "shall be equal to field {0}.") final Value value)
+			@Nullable @Parameter(doc = Wrap.FOR_PARAM) final Value value)
 		throws IOException, IllegalArgumentException, IllegalContentTypeException
 	{
 		final Type<P> type =

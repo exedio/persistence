@@ -241,7 +241,7 @@ public final class SetField<E> extends Pattern implements Copyable
 
 	private static final String MODIFICATION_RETURN = "<tt>true</tt> if the field set changed as a result of the call.";
 
-	@Wrap(order=10, doc="Returns the value of {0}.")
+	@Wrap(order=10, doc=Wrap.GET_DOC)
 	@Nonnull
 	public Set<E> get(@Nonnull final Item item)
 	{
@@ -346,7 +346,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		}
 	}
 
-	@Wrap(order=40, doc="Sets a new value for {0}.", thrownGetter=SetThrown.class)
+	@Wrap(order=40, doc=Wrap.SET_DOC, thrownGetter=SetThrown.class)
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
 		MandatoryViolationException.requireNonNull(value, this, item);

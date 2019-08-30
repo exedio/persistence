@@ -163,7 +163,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 		return result;
 	}
 
-	@Wrap(order=10, doc="Returns the value of {0}.", nullability=NullableIfOptional.class)
+	@Wrap(order=10, doc=Wrap.GET_DOC, nullability=NullableIfOptional.class)
 	public Price get(@Nonnull final Item item)
 	{
 		return
@@ -173,7 +173,7 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			thrownGetter=InitialExceptionsSettableGetter.class,
 			hide=FinalSettableGetter.class)
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Price value)

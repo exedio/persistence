@@ -179,15 +179,12 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		return mount().relationType;
 	}
 
-	private static final String KEY = "k";
-
 	@Override
-	@Wrap(order=10,
-			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.")
+	@Wrap(order=10, doc=Wrap.MAP_GET_DOC)
 	@Nullable
 	public V get(
 			@Nonnull final Item item,
-			@Nonnull @Parameter(KEY) final K key)
+			@Nonnull @Parameter(Wrap.MAP_KEY) final K key)
 	{
 		requireNonNull(key, "key");
 
@@ -201,11 +198,10 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	}
 
 	@Override
-	@Wrap(order=20,
-			doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.")
+	@Wrap(order=20, doc=Wrap.MAP_SET_DOC)
 	public void set(
 			@Nonnull final Item item,
-			@Nonnull @Parameter(KEY) final K key,
+			@Nonnull @Parameter(Wrap.MAP_KEY) final K key,
 			@Nullable final V value)
 	{
 		requireNonNull(key, "key");

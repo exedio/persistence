@@ -136,8 +136,6 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return valueTemplate.getValueClass();
 	}
 
-	private static final String KEY = "k";
-
 	private FunctionField<V> field(final K key)
 	{
 		assertEnum("key", keyClass, key);
@@ -145,21 +143,21 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Override
-	@Wrap(order=10, doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.", nullability=MapValueNullableIgnoringFallbacks.class)
+	@Wrap(order=10, doc=Wrap.MAP_GET_DOC, nullability=MapValueNullableIgnoringFallbacks.class)
 	public V get(
 			@Nonnull final Item item,
-			@Nonnull @Parameter(KEY) final K key)
+			@Nonnull @Parameter(Wrap.MAP_KEY) final K key)
 	{
 		return field(key).get(item);
 	}
 
 	@Override
 	@Wrap(order=20,
-			doc="Associates <tt>" + KEY + "</tt> to a new value in the field map {0}.",
+			doc=Wrap.MAP_SET_DOC,
 			hide=FinalSettableGetter.class)
 	public void set(
 			@Nonnull final Item item,
-			@Nonnull @Parameter(KEY) final K key,
+			@Nonnull @Parameter(Wrap.MAP_KEY) final K key,
 			@Parameter(nullability=MapValueNullableIgnoringFallbacks.class) final V value)
 	{
 		FinalViolationException.check(this, item);
@@ -303,12 +301,12 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 	}
 
 	@Wrap(order=11,
-			doc="Returns the value mapped to <tt>" + KEY + "</tt> by the field map {0}.",
+			doc=Wrap.MAP_GET_DOC,
 			hide=NoFallbacksGetter.class,
 			nullability=MapValueNullable.class)
 	public V getWithFallback(
 			@Nonnull final Item item,
-			@Nonnull @Parameter(KEY) final K key)
+			@Nonnull @Parameter(Wrap.MAP_KEY) final K key)
 	{
 		assertFallbacks();
 

@@ -330,7 +330,7 @@ public abstract class MediaPath extends Pattern
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
 	 */
-	@Wrap(order=20, doc="Returns a Locator the content of {0} is available under.", nullability=NullableIfMediaPathOptional.class)
+	@Wrap(order=20, doc=Wrap.MEDIA_LOCATOR, nullability=NullableIfMediaPathOptional.class)
 	public final Locator getLocator(@Nonnull final Item item)
 	{
 		final String contentType = getContentType(item);
@@ -351,7 +351,7 @@ public abstract class MediaPath extends Pattern
 	 * Returns null, if there is no such content.
 	 * @see Locator#getURLByConnect()
 	 */
-	@Wrap(order=10, doc="Returns a URL the content of {0} is available under.", nullability=NullableIfMediaPathOptional.class)
+	@Wrap(order=10, doc=Wrap.MEDIA_URL, nullability=NullableIfMediaPathOptional.class)
 	public final String getURL(@Nonnull final Item item)
 	{
 		final Locator locator = getLocator(item);
@@ -719,7 +719,7 @@ public abstract class MediaPath extends Pattern
 	 * not return {@code null} for any item. */
 	public abstract boolean isMandatory();
 
-	@Wrap(order=30, doc="Returns the content type of the media {0}.", hide=ContentTypeGetter.class, nullability=NullableIfMediaPathOptional.class)
+	@Wrap(order=30, doc=Wrap.MEDIA_CONTENT_TYPE, hide=ContentTypeGetter.class, nullability=NullableIfMediaPathOptional.class)
 	public abstract String getContentType(@Nonnull Item item);
 
 	// cache

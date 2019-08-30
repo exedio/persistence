@@ -338,14 +338,14 @@ public final class IntegerField extends NumberField<Integer>
 	/**
 	 * @throws IllegalArgumentException if this field is not {@link #isMandatory() mandatory}.
 	 */
-	@Wrap(order=10, name="get{0}", doc="Returns the value of {0}.", hide=OptionalGetter.class)
+	@Wrap(order=10, name="get{0}", doc=Wrap.GET_DOC, hide=OptionalGetter.class)
 	public int getMandatory(@Nonnull final Item item)
 	{
 		return getMandatoryObject(item);
 	}
 
 	@Wrap(order=20,
-			doc="Sets a new value for {0}.",
+			doc=Wrap.SET_DOC,
 			hide={FinalSettableGetter.class, RedundantByCopyConstraintGetter.class, OptionalGetter.class},
 			thrownGetter=InitialThrown.class)
 	public void set(@Nonnull final Item item, final int value)
@@ -358,14 +358,14 @@ public final class IntegerField extends NumberField<Integer>
 	 * @return null if there is no matching item.
 	 * @see FunctionField#searchUnique(Class, Object)
 	 */
-	@Wrap(order=100, name="for{0}",
-			doc="Finds a {2} by it''s {0}.",
-			docReturn="null if there is no matching item.",
+	@Wrap(order=100, name=Wrap.FOR_NAME,
+			doc=Wrap.FOR_DOC_BROKEN,
+			docReturn=Wrap.FOR_RETURN,
 			hide={OptionalGetter.class, NonUniqueGetter.class})
 	@Nullable
 	public <P extends Item> P searchUnique(
 			final Class<P> typeClass,
-			@Parameter(doc="shall be equal to field {0}.") final int value)
+			@Parameter(doc=Wrap.FOR_PARAM) final int value)
 	{
 		return searchUnique(typeClass, Integer.valueOf(value));
 	}
