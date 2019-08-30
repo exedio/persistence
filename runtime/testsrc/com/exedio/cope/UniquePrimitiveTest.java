@@ -52,7 +52,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		assertEquals(null, MyItem.forDoubleField(3.3));
 	}
 
-	@WrapperType(indent=2, comments=false)
+	@WrapperType(indent=2)
 	static final class MyItem extends Item
 	{
 		static final BooleanField booleanField = new BooleanField().unique();
@@ -60,7 +60,15 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		static final    LongField    longField = new    LongField().unique();
 		static final  DoubleField  doubleField = new  DoubleField().unique();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Creates a new MyItem with all the fields initially needed.
+		 * @param booleanField the initial value for field {@link #booleanField}.
+		 * @param integerField the initial value for field {@link #integerField}.
+		 * @param longField the initial value for field {@link #longField}.
+		 * @param doubleField the initial value for field {@link #doubleField}.
+		 * @throws com.exedio.cope.UniqueViolationException if booleanField, integerField, longField, doubleField is not unique.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 		MyItem(
 					final boolean booleanField,
 					final int integerField,
@@ -77,16 +85,25 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Creates a new MyItem and sets the given fields initially.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #booleanField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		boolean getBooleanField()
 		{
 			return MyItem.booleanField.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #booleanField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setBooleanField(final boolean booleanField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -94,20 +111,31 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 			MyItem.booleanField.set(this,booleanField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #booleanField}.
+		 * @param booleanField shall be equal to field {@link #booleanField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forBooleanField(final boolean booleanField)
 		{
 			return MyItem.booleanField.searchUnique(MyItem.class,booleanField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #integerField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		int getIntegerField()
 		{
 			return MyItem.integerField.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #integerField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setIntegerField(final int integerField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -115,20 +143,31 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 			MyItem.integerField.set(this,integerField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #integerField}.
+		 * @param integerField shall be equal to field {@link #integerField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forIntegerField(final int integerField)
 		{
 			return MyItem.integerField.searchUnique(MyItem.class,integerField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #longField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		long getLongField()
 		{
 			return MyItem.longField.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #longField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setLongField(final long longField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -136,20 +175,31 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 			MyItem.longField.set(this,longField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #longField}.
+		 * @param longField shall be equal to field {@link #longField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forLongField(final long longField)
 		{
 			return MyItem.longField.searchUnique(MyItem.class,longField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #doubleField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		double getDoubleField()
 		{
 			return MyItem.doubleField.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #doubleField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setDoubleField(final double doubleField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -157,7 +207,12 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 			MyItem.doubleField.set(this,doubleField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #doubleField}.
+		 * @param doubleField shall be equal to field {@link #doubleField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forDoubleField(final double doubleField)
 		{
@@ -167,9 +222,16 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * The persistent type information for myItem.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}

@@ -140,7 +140,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		assertSame(field.getImplicitUniqueConstraint(), e.getFeature());
 	}
 
-	@WrapperType(indent=2, comments=false)
+	@WrapperType(indent=2)
 	static final class MyItem extends Item
 	{
 		@WrapperInitial static final BooleanField booleanField = new BooleanField().optional().unique();
@@ -154,7 +154,21 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		@WrapperInitial static final EnumField<MyEnum> enumField = EnumField.create(MyEnum.class).optional().unique();
 		@WrapperInitial static final ItemField<MyItem> itemField = ItemField.create(MyItem.class).optional().unique();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Creates a new MyItem with all the fields initially needed.
+		 * @param booleanField the initial value for field {@link #booleanField}.
+		 * @param integerField the initial value for field {@link #integerField}.
+		 * @param longField the initial value for field {@link #longField}.
+		 * @param doubleField the initial value for field {@link #doubleField}.
+		 * @param stringField the initial value for field {@link #stringField}.
+		 * @param dateField the initial value for field {@link #dateField}.
+		 * @param dayField the initial value for field {@link #dayField}.
+		 * @param enumField the initial value for field {@link #enumField}.
+		 * @param itemField the initial value for field {@link #itemField}.
+		 * @throws com.exedio.cope.StringLengthViolationException if stringField violates its length constraint.
+		 * @throws com.exedio.cope.UniqueViolationException if booleanField, integerField, longField, doubleField, stringField, dateField, dayField, enumField, itemField is not unique.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
 		MyItem(
 					@javax.annotation.Nullable final java.lang.Boolean booleanField,
 					@javax.annotation.Nullable final java.lang.Integer integerField,
@@ -182,17 +196,26 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Creates a new MyItem and sets the given fields initially.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #booleanField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		java.lang.Boolean getBooleanField()
 		{
 			return MyItem.booleanField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #booleanField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setBooleanField(@javax.annotation.Nullable final java.lang.Boolean booleanField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -200,14 +223,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.booleanField.set(this,booleanField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #booleanField}.
+		 * @param booleanField shall be equal to field {@link #booleanField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forBooleanField(@javax.annotation.Nonnull final java.lang.Boolean booleanField)
 		{
 			return MyItem.booleanField.searchUnique(MyItem.class,booleanField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #booleanField}.
+		 * @param booleanField shall be equal to field {@link #booleanField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forBooleanFieldStrict(@javax.annotation.Nonnull final java.lang.Boolean booleanField)
 				throws
@@ -216,14 +249,20 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.booleanField.searchUniqueStrict(MyItem.class,booleanField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #integerField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		java.lang.Integer getIntegerField()
 		{
 			return MyItem.integerField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #integerField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setIntegerField(@javax.annotation.Nullable final java.lang.Integer integerField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -231,14 +270,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.integerField.set(this,integerField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #integerField}.
+		 * @param integerField shall be equal to field {@link #integerField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forIntegerField(@javax.annotation.Nonnull final java.lang.Integer integerField)
 		{
 			return MyItem.integerField.searchUnique(MyItem.class,integerField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #integerField}.
+		 * @param integerField shall be equal to field {@link #integerField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forIntegerFieldStrict(@javax.annotation.Nonnull final java.lang.Integer integerField)
 				throws
@@ -247,14 +296,20 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.integerField.searchUniqueStrict(MyItem.class,integerField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #longField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		java.lang.Long getLongField()
 		{
 			return MyItem.longField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #longField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setLongField(@javax.annotation.Nullable final java.lang.Long longField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -262,14 +317,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.longField.set(this,longField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #longField}.
+		 * @param longField shall be equal to field {@link #longField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forLongField(@javax.annotation.Nonnull final java.lang.Long longField)
 		{
 			return MyItem.longField.searchUnique(MyItem.class,longField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #longField}.
+		 * @param longField shall be equal to field {@link #longField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forLongFieldStrict(@javax.annotation.Nonnull final java.lang.Long longField)
 				throws
@@ -278,14 +343,20 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.longField.searchUniqueStrict(MyItem.class,longField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #doubleField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		java.lang.Double getDoubleField()
 		{
 			return MyItem.doubleField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #doubleField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setDoubleField(@javax.annotation.Nullable final java.lang.Double doubleField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -293,14 +364,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.doubleField.set(this,doubleField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #doubleField}.
+		 * @param doubleField shall be equal to field {@link #doubleField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forDoubleField(@javax.annotation.Nonnull final java.lang.Double doubleField)
 		{
 			return MyItem.doubleField.searchUnique(MyItem.class,doubleField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #doubleField}.
+		 * @param doubleField shall be equal to field {@link #doubleField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forDoubleFieldStrict(@javax.annotation.Nonnull final java.lang.Double doubleField)
 				throws
@@ -309,14 +390,20 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.doubleField.searchUniqueStrict(MyItem.class,doubleField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #stringField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		java.lang.String getStringField()
 		{
 			return MyItem.stringField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #stringField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setStringField(@javax.annotation.Nullable final java.lang.String stringField)
 				throws
 					com.exedio.cope.UniqueViolationException,
@@ -325,14 +412,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.stringField.set(this,stringField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #stringField}.
+		 * @param stringField shall be equal to field {@link #stringField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forStringField(@javax.annotation.Nonnull final java.lang.String stringField)
 		{
 			return MyItem.stringField.searchUnique(MyItem.class,stringField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #stringField}.
+		 * @param stringField shall be equal to field {@link #stringField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forStringFieldStrict(@javax.annotation.Nonnull final java.lang.String stringField)
 				throws
@@ -341,14 +438,20 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.stringField.searchUniqueStrict(MyItem.class,stringField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #dateField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		java.util.Date getDateField()
 		{
 			return MyItem.dateField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #dateField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setDateField(@javax.annotation.Nullable final java.util.Date dateField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -356,14 +459,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.dateField.set(this,dateField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #dateField}.
+		 * @param dateField shall be equal to field {@link #dateField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forDateField(@javax.annotation.Nonnull final java.util.Date dateField)
 		{
 			return MyItem.dateField.searchUnique(MyItem.class,dateField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #dateField}.
+		 * @param dateField shall be equal to field {@link #dateField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forDateFieldStrict(@javax.annotation.Nonnull final java.util.Date dateField)
 				throws
@@ -372,20 +485,29 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.dateField.searchUniqueStrict(MyItem.class,dateField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets the current date for the date field {@link #dateField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 		void touchDateField()
 		{
 			MyItem.dateField.touch(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #dayField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		com.exedio.cope.util.Day getDayField()
 		{
 			return MyItem.dayField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #dayField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setDayField(@javax.annotation.Nullable final com.exedio.cope.util.Day dayField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -393,14 +515,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.dayField.set(this,dayField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #dayField}.
+		 * @param dayField shall be equal to field {@link #dayField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forDayField(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayField)
 		{
 			return MyItem.dayField.searchUnique(MyItem.class,dayField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #dayField}.
+		 * @param dayField shall be equal to field {@link #dayField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forDayFieldStrict(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayField)
 				throws
@@ -409,20 +541,29 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.dayField.searchUniqueStrict(MyItem.class,dayField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets today for the date field {@link #dayField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
 		void touchDayField(@javax.annotation.Nonnull final java.util.TimeZone zone)
 		{
 			MyItem.dayField.touch(this,zone);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #enumField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		MyEnum getEnumField()
 		{
 			return MyItem.enumField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #enumField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setEnumField(@javax.annotation.Nullable final MyEnum enumField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -430,14 +571,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.enumField.set(this,enumField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #enumField}.
+		 * @param enumField shall be equal to field {@link #enumField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forEnumField(@javax.annotation.Nonnull final MyEnum enumField)
 		{
 			return MyItem.enumField.searchUnique(MyItem.class,enumField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #enumField}.
+		 * @param enumField shall be equal to field {@link #enumField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forEnumFieldStrict(@javax.annotation.Nonnull final MyEnum enumField)
 				throws
@@ -446,14 +597,20 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			return MyItem.enumField.searchUniqueStrict(MyItem.class,enumField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Returns the value of {@link #itemField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 		@javax.annotation.Nullable
 		MyItem getItemField()
 		{
 			return MyItem.itemField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Sets a new value for {@link #itemField}.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
 		void setItemField(@javax.annotation.Nullable final MyItem itemField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -461,14 +618,24 @@ public class UniqueImplicitTest extends TestWithEnvironment
 			MyItem.itemField.set(this,itemField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by it's {@link #itemField}.
+		 * @param itemField shall be equal to field {@link #itemField}.
+		 * @return null if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
 		@javax.annotation.Nullable
 		static MyItem forItemField(@javax.annotation.Nonnull final MyItem itemField)
 		{
 			return MyItem.itemField.searchUnique(MyItem.class,itemField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * Finds a myItem by its {@link #itemField}.
+		 * @param itemField shall be equal to field {@link #itemField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
 		@javax.annotation.Nonnull
 		static MyItem forItemFieldStrict(@javax.annotation.Nonnull final MyItem itemField)
 				throws
@@ -480,9 +647,16 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		/**
+		 * The persistent type information for myItem.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
