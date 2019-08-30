@@ -19,9 +19,12 @@
 package com.exedio.cope;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class UniquePrimitiveTest extends TestWithEnvironment
 {
@@ -30,11 +33,11 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	// TODO implement and test searchUniqueStrict
 	@Test void test()
 	{
 		final MyItem i1 = new MyItem(false, 1, 11l, 1.1);
 		assertEquals(null, MyItem.forBooleanField(true));
+		assertFailsStrict(() -> MyItem.forBooleanFieldStrict(true));
 		final MyItem i2 = new MyItem(true,  2, 22l, 2.2);
 
 		assertEquals(i1, MyItem.forBooleanField(false));
@@ -42,14 +45,37 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		assertEquals(i1, MyItem.forLongField(11l));
 		assertEquals(i1, MyItem.forDoubleField(1.1));
 
+		assertEquals(i1, MyItem.forBooleanFieldStrict(false));
+		assertEquals(i1, MyItem.forIntegerFieldStrict(1));
+		assertEquals(i1, MyItem.forLongFieldStrict(11l));
+		assertEquals(i1, MyItem.forDoubleFieldStrict(1.1));
+
 		assertEquals(i2, MyItem.forBooleanField(true));
 		assertEquals(i2, MyItem.forIntegerField(2));
 		assertEquals(i2, MyItem.forLongField(22l));
 		assertEquals(i2, MyItem.forDoubleField(2.2));
 
+		assertEquals(i2, MyItem.forBooleanFieldStrict(true));
+		assertEquals(i2, MyItem.forIntegerFieldStrict(2));
+		assertEquals(i2, MyItem.forLongFieldStrict(22l));
+		assertEquals(i2, MyItem.forDoubleFieldStrict(2.2));
+
 		assertEquals(null, MyItem.forIntegerField(3));
 		assertEquals(null, MyItem.forLongField(33l));
 		assertEquals(null, MyItem.forDoubleField(3.3));
+
+		assertFailsStrict(() -> MyItem.forIntegerFieldStrict(3));
+		assertFailsStrict(() -> MyItem.forLongFieldStrict(33l));
+		assertFailsStrict(() -> MyItem.forDoubleFieldStrict(3.3));
+	}
+
+	private static void assertFailsStrict(final Executable executable)
+	{
+		final IllegalArgumentException e =
+				assertThrows(IllegalArgumentException.class, executable);
+		assertTrue(
+				e.getMessage().startsWith("expected result of size one, but was empty for query: "),
+				e.getMessage());
 	}
 
 	@WrapperType(indent=2)
@@ -124,6 +150,20 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		}
 
 		/**
+		 * Finds a myItem by its {@link #booleanField}.
+		 * @param booleanField shall be equal to field {@link #booleanField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@javax.annotation.Nonnull
+		static MyItem forBooleanFieldStrict(final boolean booleanField)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.booleanField.searchUniqueStrict(MyItem.class,booleanField);
+		}
+
+		/**
 		 * Returns the value of {@link #integerField}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -153,6 +193,20 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		static MyItem forIntegerField(final int integerField)
 		{
 			return MyItem.integerField.searchUnique(MyItem.class,integerField);
+		}
+
+		/**
+		 * Finds a myItem by its {@link #integerField}.
+		 * @param integerField shall be equal to field {@link #integerField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@javax.annotation.Nonnull
+		static MyItem forIntegerFieldStrict(final int integerField)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.integerField.searchUniqueStrict(MyItem.class,integerField);
 		}
 
 		/**
@@ -188,6 +242,20 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		}
 
 		/**
+		 * Finds a myItem by its {@link #longField}.
+		 * @param longField shall be equal to field {@link #longField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@javax.annotation.Nonnull
+		static MyItem forLongFieldStrict(final long longField)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.longField.searchUniqueStrict(MyItem.class,longField);
+		}
+
+		/**
 		 * Returns the value of {@link #doubleField}.
 		 */
 		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -217,6 +285,20 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		static MyItem forDoubleField(final double doubleField)
 		{
 			return MyItem.doubleField.searchUnique(MyItem.class,doubleField);
+		}
+
+		/**
+		 * Finds a myItem by its {@link #doubleField}.
+		 * @param doubleField shall be equal to field {@link #doubleField}.
+		 * @throws java.lang.IllegalArgumentException if there is no matching item.
+		 */
+		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@javax.annotation.Nonnull
+		static MyItem forDoubleFieldStrict(final double doubleField)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return MyItem.doubleField.searchUniqueStrict(MyItem.class,doubleField);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

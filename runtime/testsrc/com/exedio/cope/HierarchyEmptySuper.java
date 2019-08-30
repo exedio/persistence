@@ -82,6 +82,20 @@ public class HierarchyEmptySuper extends Item
 		return HierarchyEmptySuper.superInt.searchUnique(HierarchyEmptySuper.class,superInt);
 	}
 
+	/**
+	 * Finds a hierarchyEmptySuper by its {@link #superInt}.
+	 * @param superInt shall be equal to field {@link #superInt}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	public static final HierarchyEmptySuper forSuperIntStrict(final int superInt)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return HierarchyEmptySuper.superInt.searchUniqueStrict(HierarchyEmptySuper.class,superInt);
+	}
+
 	@javax.annotation.Generated("com.exedio.cope.instrument")
 	private static final long serialVersionUID = 1l;
 

@@ -370,6 +370,24 @@ public final class IntegerField extends NumberField<Integer>
 		return searchUnique(typeClass, Integer.valueOf(value));
 	}
 
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws NullPointerException if value is null.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	@Wrap(order=110, name=Wrap.FOR_STRICT_NAME,
+			doc=Wrap.FOR_DOC,
+			hide={OptionalGetter.class, NonUniqueGetter.class},
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+	@Nonnull
+	public <P extends Item> P searchUniqueStrict(
+			@Nonnull final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final int value)
+			throws IllegalArgumentException
+	{
+		return searchUniqueStrict(typeClass, Integer.valueOf(value));
+	}
+
 	@Override
 	void checkNotNull(final Integer value, final Item exceptionItem)
 	{

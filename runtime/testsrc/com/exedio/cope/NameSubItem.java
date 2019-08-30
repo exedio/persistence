@@ -112,6 +112,20 @@ public final class NameSubItem extends NameLongItem
 	}
 
 	/**
+	 * Finds a nameSubItem by its {@link #unique}.
+	 * @param unique shall be equal to field {@link #unique}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static NameSubItem forUniqueStrict(final int unique)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameSubItem.unique.searchUniqueStrict(NameSubItem.class,unique);
+	}
+
+	/**
 	 * Returns the value of {@link #integer}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
@@ -211,6 +225,20 @@ public final class NameSubItem extends NameLongItem
 	static NameSubItem forUniqueX(final int uniqueX)
 	{
 		return NameSubItem.uniqueX.searchUnique(NameSubItem.class,uniqueX);
+	}
+
+	/**
+	 * Finds a nameSubItem by its {@link #uniqueX}.
+	 * @param uniqueX shall be equal to field {@link #uniqueX}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	static NameSubItem forUniqueXStrict(final int uniqueX)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return NameSubItem.uniqueX.searchUniqueStrict(NameSubItem.class,uniqueX);
 	}
 
 	/**

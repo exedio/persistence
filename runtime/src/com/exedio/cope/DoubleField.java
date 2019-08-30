@@ -231,6 +231,24 @@ public final class DoubleField extends NumberField<Double>
 		return searchUnique(typeClass, Double.valueOf(value));
 	}
 
+	/**
+	 * Finds an item by its unique fields.
+	 * @throws NullPointerException if value is null.
+	 * @throws IllegalArgumentException if there is no matching item.
+	 */
+	@Wrap(order=110, name=Wrap.FOR_STRICT_NAME,
+			doc=Wrap.FOR_DOC,
+			hide={OptionalGetter.class, NonUniqueGetter.class},
+			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if there is no matching item."))
+	@Nonnull
+	public <P extends Item> P searchUniqueStrict(
+			@Nonnull final Class<P> typeClass,
+			@Parameter(doc="shall be equal to field {0}.") final double value)
+			throws IllegalArgumentException
+	{
+		return searchUniqueStrict(typeClass, Double.valueOf(value));
+	}
+
 	@Override
 	public Condition equal(final Double value)
 	{

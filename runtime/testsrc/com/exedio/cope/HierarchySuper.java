@@ -81,6 +81,20 @@ public abstract class HierarchySuper extends Item
 	}
 
 	/**
+	 * Finds a hierarchySuper by its {@link #superInt}.
+	 * @param superInt shall be equal to field {@link #superInt}.
+	 * @throws java.lang.IllegalArgumentException if there is no matching item.
+	 */
+	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@javax.annotation.Nonnull
+	public static final HierarchySuper forSuperIntStrict(final int superInt)
+			throws
+				java.lang.IllegalArgumentException
+	{
+		return HierarchySuper.superInt.searchUniqueStrict(HierarchySuper.class,superInt);
+	}
+
+	/**
 	 * Returns the value of {@link #superString}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")

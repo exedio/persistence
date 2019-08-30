@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* bugfix: for*Strict finders for fields of primitives added.
+	Affects instrumented code.
+	To disable the new finders, adapt your <instrument> call:
+	<instrument ...>
+		<disableWrap>com.exedio.cope.BooleanField#searchUniqueStrict(java.lang.Class,boolean)</disableWrap>
+		<disableWrap>com.exedio.cope.IntegerField#searchUniqueStrict(java.lang.Class,int)</disableWrap>
+		<disableWrap>com.exedio.cope.LongField#searchUniqueStrict(java.lang.Class,long)</disableWrap>
+		<disableWrap>com.exedio.cope.DoubleField#searchUniqueStrict(java.lang.Class,double)</disableWrap>
+	</instrument>
 * com.exedio.cope.misc.CopeFilter removed, not used by projects anymore.
 * @CopeSchemaType removed, unsupported since Aug 30 2011.
 * Pattern#initialize() no longer supported, use #onMount() instead.

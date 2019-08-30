@@ -83,6 +83,15 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static ItemA forFieldAStrict(final int fieldA)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return ItemA.fieldA.searchUniqueStrict(ItemA.class,fieldA);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
 		private static final long serialVersionUID = 1l;
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
@@ -109,6 +118,15 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 		static ItemB forFieldB(final int fieldB)
 		{
 			return ItemB.fieldB.searchUnique(ItemB.class,fieldB);
+		}
+
+		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@javax.annotation.Nonnull
+		static ItemB forFieldBStrict(final int fieldB)
+				throws
+					java.lang.IllegalArgumentException
+		{
+			return ItemB.fieldB.searchUniqueStrict(ItemB.class,fieldB);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")
