@@ -99,7 +99,7 @@ final class PostgresqlSchemaDialect extends Dialect
 		verifyTables(schema,
 				"SELECT table_name " +
 				"FROM information_schema.tables " +
-				"WHERE table_schema='" + catalog + "' AND table_type='BASE TABLE'");
+				"WHERE table_schema='" + getSchema() + "' AND table_type='BASE TABLE'");
 
 		querySQL(schema,
 				"SELECT " +
