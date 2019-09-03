@@ -24,10 +24,15 @@ import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -87,6 +92,21 @@ public class SupportsTest extends TestWithEnvironment
 		assertEquals(checkConstraints, supportsCheckConstraints(model));
 		assertEquals(nativeDate      && !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
+	}
+
+	@Test void testCompression() throws SQLException
+	{
+		assumeTrue(mysql);
+
+		try(Connection c = SchemaInfo.newConnection(model);
+			 Statement s = c.createStatement();
+			 ResultSet rs = s.executeQuery("SHOW STATUS LIKE 'Compression'"))
+		{
+			assertTrue(rs.next());
+			assertEquals("Compression", rs.getString(1));
+			assertEquals("OFF", rs.getString(2));
+			assertFalse(rs.next());
+		}
 	}
 
 	@Test void testSchemaSavepoint()
