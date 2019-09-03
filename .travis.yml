@@ -62,11 +62,33 @@ before_script:
     "connection.url=jdbc:mysql://localhost/cope_test_db\n
     connection.username=cope_test_user\n
     connection.password=pass\n
+    dialect.connection.compress=true\n
+    schema.primaryKeyGenerator=sequence\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.dialect=mysql\n
+    x-build.driver=mysql-connector-java.jar\n"
+    | tee conf/environment/my-z.properties
+  - >
+    echo -e -n
+    "connection.url=jdbc:mysql://localhost/cope_test_db\n
+    connection.username=cope_test_user\n
+    connection.password=pass\n
     schema.primaryKeyGenerator=sequence\n
     x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mariadb-java-client.jar\n"
     | tee conf/environment/mym.properties
+  - >
+    echo -e -n
+    "connection.url=jdbc:mysql://localhost/cope_test_db\n
+    connection.username=cope_test_user\n
+    connection.password=pass\n
+    dialect.connection.compress=true\n
+    schema.primaryKeyGenerator=sequence\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.dialect=mysql\n
+    x-build.driver=mariadb-java-client.jar\n"
+    | tee conf/environment/mym-z.properties
   - >
     echo -e -n
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n
