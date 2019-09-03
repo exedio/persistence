@@ -11,7 +11,7 @@
 			Environments cope has been tested in. See <a href="https://exedio.github.io/">exedio.github.io</a>.
 		</div>
 		<div>
-			git master 3c4d1f5984aff72d83c489a8b4668e81dfe95717 travis-ci 546 546.1 580295517 2019-09-03_15:34:22
+			git TravisMysqlCompression b78fff7f90d4653182ca3e560b3f3284073debc6 travis-ci 547 547.1 580296678 2019-09-03_15:36:38
 		</div>
 		<table>
 			<tr>
@@ -83,10 +83,10 @@
 				<td class="text">cache.item.limit=0<br>cache.query.limit=0<br>connectionPool.idleLimit=0<br>dataField.bufferSizeDefault=1<br>dataField.bufferSizeLimit=2<br>media.offsetExpires=PT0S<br></td>
 			</tr>
 			<tr>
-				<td class="text" rowspan="4">MySQL <small>(4x)</small></td>
-				<td class="text" rowspan="4">5.7.27-0ubuntu0.16.04.1-log</td>
-				<td class="text" rowspan="3">MySQL Connector/J <small>(3x)</small></td>
-				<td class="text" rowspan="3">mysql-connector-java-8.0.13 (Revision: 66459e9d)</td>
+				<td class="text" rowspan="6">MySQL <small>(6x)</small></td>
+				<td class="text" rowspan="6">5.7.27-0ubuntu0.16.04.1-log</td>
+				<td class="text" rowspan="4">MySQL Connector/J <small>(4x)</small></td>
+				<td class="text" rowspan="4">mysql-connector-java-8.0.13 (Revision: 66459e9d)</td>
 				<td class="text">my</td>
 				<td class="text"></td>
 			</tr>
@@ -96,12 +96,21 @@
 			</tr>
 			<tr>
 				<td class="text">my-sq</td>
-				<td class="text" rowspan="2">schema.primaryKeyGenerator=sequence<br></td>
+				<td class="text">schema.primaryKeyGenerator=sequence<br></td>
 			</tr>
 			<tr>
-				<td class="text">MariaDB connector/J</td>
-				<td class="text">2.2.1</td>
+				<td class="text">my-z</td>
+				<td class="text">dialect.connection.compress=true<br>schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+			<tr>
+				<td class="text" rowspan="2">MariaDB connector/J <small>(2x)</small></td>
+				<td class="text" rowspan="2">2.2.1</td>
 				<td class="text">mym</td>
+				<td class="text">schema.primaryKeyGenerator=sequence<br></td>
+			</tr>
+			<tr>
+				<td class="text">mym-z</td>
+				<td class="text">dialect.connection.compress=true<br>schema.primaryKeyGenerator=sequence<br></td>
 			</tr>
 			<tr>
 				<td class="text" rowspan="3">PostgreSQL <small>(3x)</small></td>
