@@ -58,6 +58,11 @@ timestamps
 						'cache.stamps=false\n'
 				)
 				writeEnv(
+						'pg95-public',
+						'dialect.search_path=public\n' +
+						'schema.primaryKeyGenerator=sequence\n'
+				)
+				writeEnv(
 						'pg95-sq',
 						'schema.primaryKeyGenerator=sequence\n'
 				)
