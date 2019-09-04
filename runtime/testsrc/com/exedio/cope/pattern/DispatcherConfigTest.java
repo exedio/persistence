@@ -38,6 +38,7 @@ public class DispatcherConfigTest
 		final Config config = new Config();
 		assertEquals(5, config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
+		assertEquals(100, config.getSessionLimit());
 		assertSame(TRUE, config.getNarrowCondition());
 	}
 	@Test void testOk()
@@ -45,6 +46,7 @@ public class DispatcherConfigTest
 		final Config config = new Config(3, 2);
 		assertEquals(3, config.getFailureLimit());
 		assertEquals(2, config.getSearchSize());
+		assertEquals(100, config.getSessionLimit());
 		assertSame(TRUE, config.getNarrowCondition());
 	}
 	@Test void testMinimal()
@@ -52,6 +54,7 @@ public class DispatcherConfigTest
 		final Config config = new Config(1, 1);
 		assertEquals(1, config.getFailureLimit());
 		assertEquals(1, config.getSearchSize());
+		assertEquals(100, config.getSessionLimit());
 		assertSame(TRUE, config.getNarrowCondition());
 	}
 	@Test void testFailureLimitZero()
@@ -82,11 +85,42 @@ public class DispatcherConfigTest
 			IllegalArgumentException.class,
 			"searchSize must be greater zero, but was -10");
 	}
+	@Test void testSessionLimit()
+	{
+		final Config config0 = new Config();
+		assertEquals(5, config0.getFailureLimit());
+		assertEquals(1000, config0.getSearchSize());
+		assertEquals(100, config0.getSessionLimit());
+		assertSame(TRUE, config0.getNarrowCondition());
+
+		final Config config1 = config0.sessionLimit(88);
+		assertEquals(5, config1.getFailureLimit());
+		assertEquals(1000, config1.getSearchSize());
+		assertEquals(88, config1.getSessionLimit());
+		assertSame(TRUE, config1.getNarrowCondition());
+	}
+	@Test void testSessionLimitZero()
+	{
+		final Config config = new Config();
+		assertFails(() ->
+			config.sessionLimit(0),
+			IllegalArgumentException.class,
+			"sessionLimit must be greater zero, but was 0");
+	}
+	@Test void testSessionLimitNegative()
+	{
+		final Config config = new Config();
+		assertFails(() ->
+			config.sessionLimit(-10),
+			IllegalArgumentException.class,
+			"sessionLimit must be greater zero, but was -10");
+	}
 	@Test void testNarrow()
 	{
 		final Config config0 = new Config(55, 66);
 		assertEquals(55, config0.getFailureLimit());
 		assertEquals(66, config0.getSearchSize());
+		assertEquals(100, config0.getSessionLimit());
 		assertSame(TRUE, config0.getNarrowCondition());
 
 		final IntegerField f = new IntegerField();
@@ -95,6 +129,7 @@ public class DispatcherConfigTest
 		assertNotSame(config0, config1);
 		assertEquals(55, config1.getFailureLimit());
 		assertEquals(66, config1.getSearchSize());
+		assertEquals(100, config1.getSessionLimit());
 		assertSame(condition1, config1.getNarrowCondition());
 		assertEquals(f+"='1'", config1.getNarrowCondition().toString());
 
@@ -103,6 +138,7 @@ public class DispatcherConfigTest
 		assertNotSame(config1, config2);
 		assertEquals(55, config2.getFailureLimit());
 		assertEquals(66, config2.getSearchSize());
+		assertEquals(100, config2.getSessionLimit());
 		assertEquals(condition1.and(condition2), config2.getNarrowCondition());
 		assertEquals("("+f+"='1' AND "+f+"='2')", config2.getNarrowCondition().toString());
 	}
@@ -111,6 +147,7 @@ public class DispatcherConfigTest
 		final Config config0 = new Config(55, 66);
 		assertEquals(55, config0.getFailureLimit());
 		assertEquals(66, config0.getSearchSize());
+		assertEquals(100, config0.getSessionLimit());
 		assertSame(TRUE, config0.getNarrowCondition());
 
 		final Condition condition = new IntegerField().equal(1);
@@ -118,6 +155,7 @@ public class DispatcherConfigTest
 		assertNotSame(config0, config1);
 		assertEquals(55, config1.getFailureLimit());
 		assertEquals(66, config1.getSearchSize());
+		assertEquals(100, config1.getSessionLimit());
 		assertSame(condition, config1.getNarrowCondition());
 
 		final Config configR = config1.resetNarrow();
@@ -125,6 +163,7 @@ public class DispatcherConfigTest
 		assertNotSame(config0, configR);
 		assertEquals(55, configR.getFailureLimit());
 		assertEquals(66, configR.getSearchSize());
+		assertEquals(100, configR.getSessionLimit());
 		assertSame(TRUE, configR.getNarrowCondition());
 	}
 	@Test void testNarrowNull()

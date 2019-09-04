@@ -67,6 +67,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.BiConsumer;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
@@ -142,7 +143,14 @@ public final class Dispatcher extends Pattern
 
 	private abstract static class Variant
 	{
-		abstract void dispatch(Dispatcher dispatcher, Item item) throws Exception;
+		final Supplier<? extends AutoCloseable> session;
+
+		protected Variant(final Supplier<? extends AutoCloseable> session)
+		{
+			this.session = session;
+		}
+
+		abstract void dispatch(Dispatcher dispatcher, Item item, AutoCloseable session) throws Exception;
 		abstract void notifyFinalFailure(Dispatcher dispatcher, Item item, Exception cause);
 	}
 
@@ -152,23 +160,32 @@ public final class Dispatcher extends Pattern
 		void dispatch(I item) throws Exception;
 	}
 
+	@FunctionalInterface
+	public interface SessionTarget<I extends Item, S extends AutoCloseable>
+	{
+		void dispatch(I item, S session) throws Exception;
+	}
+
 	private static final class TargetVariant extends Variant
 	{
-		private final Target<?> target;
+		private final SessionTarget<?,?> target;
 		private final BiConsumer<? extends Item,Exception> onFinalFailure;
 
 		private TargetVariant(
-				final Target<?> target,
+				final Supplier<? extends AutoCloseable> session,
+				final SessionTarget<?,?> target,
 				final BiConsumer<? extends Item,Exception> onFinalFailure)
 		{
+			super(session);
 			this.target = requireNonNull(target, "target");
 			this.onFinalFailure = onFinalFailure;
 		}
 
 		@SuppressWarnings("unchecked")
-		@Override void dispatch(final Dispatcher dispatcher, final Item item) throws Exception
+		@Override void dispatch(final Dispatcher dispatcher, final Item item, final AutoCloseable session) throws Exception
 		{
-			((Target<Item>)target).dispatch(item);
+			assert (this.session==null) == (session==null);
+			((SessionTarget<Item,AutoCloseable>)target).dispatch(item, session);
 		}
 
 		@SuppressWarnings("unchecked")
@@ -179,10 +196,11 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	private static final Variant INTERFACE_VARIANT = new Variant()
+	private static final Variant INTERFACE_VARIANT = new Variant(null)
 	{
-		@Override void dispatch(final Dispatcher dispatcher, final Item item) throws Exception
+		@Override void dispatch(final Dispatcher dispatcher, final Item item, final AutoCloseable session) throws Exception
 		{
+			assert session==null;
 			((Dispatchable)item).dispatch(dispatcher);
 		}
 
@@ -244,9 +262,37 @@ public final class Dispatcher extends Pattern
 			final Target<I> target,
 			final BiConsumer<I,Exception> finalFailureListener)
 	{
+		return createWithSession(
+				null,
+				toSession(target),
+				finalFailureListener);
+	}
+
+	private static <I extends Item, S extends AutoCloseable> SessionTarget<I,S> toSession(final Target<I> target)
+	{
+		requireNonNull(target, "target");
+		return (item, session) ->
+		{
+			assert session==null;
+			target.dispatch(item);
+		};
+	}
+
+	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
+			final Supplier<S> session,
+			final SessionTarget<I,S> target)
+	{
+		return createWithSession(session, target, null);
+	}
+
+	public static <I extends Item, S extends AutoCloseable> Dispatcher createWithSession(
+			final Supplier<S> session,
+			final SessionTarget<I,S> target,
+			final BiConsumer<I,Exception> finalFailureListener)
+	{
 		return new Dispatcher(
 				new BooleanField().defaultTo(true), true, true,
-				new TargetVariant(target, finalFailureListener));
+				new TargetVariant(session, target, finalFailureListener));
 	}
 
 	private Dispatcher(final BooleanField pending, final boolean supportPurge, final boolean supportRemaining, final Variant variant)
@@ -308,6 +354,8 @@ public final class Dispatcher extends Pattern
 
 		this.runTypeIfMounted = new RunType(type);
 
+		if(variant.session!=null)
+			FeatureMeter.onMount(this, sessionCreateTimer, sessionCloseTimer);
 		FeatureMeter.onMount(this, succeedTimer, failTimer, probeTimer);
 		if(supportsPurge())
 			FeatureMeter.onMount(this, purgeTimer);
@@ -430,6 +478,11 @@ public final class Dispatcher extends Pattern
 		final ItemField<P> runParent = runType.parent.as(parentClass);
 		final Logger logger = LoggerFactory.getLogger(Dispatcher.class.getName() + '.' + id);
 
+		try(DispatcherSessionManager session = new DispatcherSessionManager(
+				variant.session, config, ctx, id, sessionCreateTimer, sessionCloseTimer, logger))
+		{
+			// TODO indent
+
 		for(final P item : Iterables.once(
 				iterateTypeTransactionally(
 						type,
@@ -449,6 +502,8 @@ public final class Dispatcher extends Pattern
 				probeRequired = false;
 				logger.info("probed, took {}ms", elapsed);
 			}
+
+			session.prepare();
 
 			final String itemID = item.getCopeID();
 			if(ctx.supportsMessage())
@@ -470,7 +525,7 @@ public final class Dispatcher extends Pattern
 				final Timer.Sample startSample = Timer.start();
 				try
 				{
-					variant.dispatch(this, item);
+					variant.dispatch(this, item, session.get());
 
 					final long elapsed = succeedTimer.stopMillies(startSample);
 					runType.newItem(
@@ -552,9 +607,11 @@ public final class Dispatcher extends Pattern
 									remaining + " of " + limit + " runs remaining",
 									failureCause);
 					}
+					session.onFailure();
 				}
 			}
 			ctx.incrementProgress();
+		}
 		}
 	}
 
@@ -653,10 +710,12 @@ public final class Dispatcher extends Pattern
 	{
 		static final int DEFAULT_FAILURE_LIMIT = 5;
 		static final int DEFAULT_SEARCH_SIZE = 1000;
-		private static final Condition DEFAULT_NARROW_CONDITION = Condition.TRUE;
+		static final int DEFAULT_SESSION_LIMIT = 100;
+		static final Condition DEFAULT_NARROW_CONDITION = Condition.TRUE;
 
 		private final int failureLimit;
 		private final int searchSize;
+		private final int sessionLimit;
 		private final Condition narrowCondition;
 
 		public Config()
@@ -666,16 +725,18 @@ public final class Dispatcher extends Pattern
 
 		public Config(final int failureLimit, final int searchSize)
 		{
-			this(failureLimit, searchSize, DEFAULT_NARROW_CONDITION);
+			this(failureLimit, searchSize, DEFAULT_SESSION_LIMIT, DEFAULT_NARROW_CONDITION);
 		}
 
-		private Config(
+		Config(
 				final int failureLimit,
 				final int searchSize,
+				final int sessionLimit,
 				final Condition narrowCondition)
 		{
 			this.failureLimit = requireGreaterZero(failureLimit, "failureLimit");
 			this.searchSize = requireGreaterZero(searchSize, "searchSize");
+			this.sessionLimit = requireGreaterZero(sessionLimit, "sessionLimit");
 			this.narrowCondition = narrowCondition;
 			assert narrowCondition!=null;
 		}
@@ -690,15 +751,25 @@ public final class Dispatcher extends Pattern
 			return searchSize;
 		}
 
+		public Config sessionLimit(final int sessionLimit)
+		{
+			return new Config(failureLimit, searchSize, sessionLimit, narrowCondition);
+		}
+
+		public int getSessionLimit()
+		{
+			return sessionLimit;
+		}
+
 		public Config narrow(final Condition condition)
 		{
-			return new Config(failureLimit, searchSize,
+			return new Config(failureLimit, searchSize, sessionLimit,
 					narrowCondition.and(condition));
 		}
 
 		public Config resetNarrow()
 		{
-			return new Config(failureLimit, searchSize, DEFAULT_NARROW_CONDITION);
+			return new Config(failureLimit, searchSize, sessionLimit, DEFAULT_NARROW_CONDITION);
 		}
 
 		public Condition getNarrowCondition()
@@ -957,6 +1028,10 @@ public final class Dispatcher extends Pattern
 		return getUnpendDate().less(new Date(now - duration.toMillis()));
 	}
 
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer sessionCreateTimer = timer("session", "A session for dispatching was created/closed.", "event", "create");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer sessionCloseTimer = sessionCreateTimer.newValue("close");
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer succeedTimer = timer("dispatch", "An item was dispatched.", "result", "success");
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace

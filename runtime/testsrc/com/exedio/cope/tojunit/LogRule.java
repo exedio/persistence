@@ -114,6 +114,11 @@ public class LogRule extends MainRule
 		assertMessage(Level.WARN, msg, Function.identity());
 	}
 
+	public final void assertWarnMS(final String msg)
+	{
+		assertMessage(Level.WARN, msg, milliSecondsFilter);
+	}
+
 	public final void assertError(final String msg)
 	{
 		assertMessage(Level.ERROR, msg, Function.identity());

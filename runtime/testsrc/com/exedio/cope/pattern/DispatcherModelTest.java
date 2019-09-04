@@ -22,6 +22,7 @@ import static com.exedio.cope.PrometheusMeterRegistrar.getMeters;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.Dispatcher.create;
+import static com.exedio.cope.pattern.Dispatcher.createWithSession;
 import static com.exedio.cope.pattern.DispatcherItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherItem.body;
 import static com.exedio.cope.pattern.DispatcherItem.dispatchCountCommitted;
@@ -47,6 +48,7 @@ import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.Sources;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import java.io.ByteArrayOutputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -182,6 +184,29 @@ public class DispatcherModelTest
 	{
 		assertFails(
 				() -> create(null, null),
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testCreateFinalFailureListenerNullSessioned()
+	{
+		final Dispatcher d =
+				createWithSession(ByteArrayOutputStream::new, (s,i) -> { throw new Exception(); }, null);
+		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
+	}
+
+	@Test void testCreateTargetNullSessioned()
+	{
+		assertFails(
+				() -> createWithSession(ByteArrayOutputStream::new, null),
+				NullPointerException.class,
+				"target");
+	}
+
+	@Test void testCreateTargetNullSessionedFinalFailureListener()
+	{
+		assertFails(
+				() -> createWithSession(ByteArrayOutputStream::new, null, null),
 				NullPointerException.class,
 				"target");
 	}

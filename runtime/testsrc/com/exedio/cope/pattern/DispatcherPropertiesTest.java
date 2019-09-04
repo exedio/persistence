@@ -34,14 +34,17 @@ public class DispatcherPropertiesTest
 		final Config config = factory().create(Sources.EMPTY).get();
 		assertEquals(5,    config.getFailureLimit());
 		assertEquals(1000, config.getSearchSize());
+		assertEquals(100,  config.getSessionLimit());
 	}
 
 	@Test void testCustom()
 	{
 		final Config config = factory().create(cascade(
 				single("failureLimit", 55),
-				single("searchSize", 66))).get();
+				single("searchSize", 66),
+				single("sessionLimit", 77))).get();
 		assertEquals(55, config.getFailureLimit());
 		assertEquals(66, config.getSearchSize());
+		assertEquals(77, config.getSessionLimit());
 	}
 }
