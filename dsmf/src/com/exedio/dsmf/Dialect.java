@@ -40,7 +40,7 @@ public abstract class Dialect
 
 	protected final String getSchema()
 	{
-		return schema;
+		return requireNonNull(schema);
 	}
 
 	/**
