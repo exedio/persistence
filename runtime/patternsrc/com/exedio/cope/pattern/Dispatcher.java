@@ -464,7 +464,7 @@ public final class Dispatcher extends Pattern
 						pending.equal(true).and(config.narrowCondition),
 						config.getSearchSize())))
 		{
-			if(probeRequired)
+			if(probe!=EMPTY_PROBE && probeRequired)
 			{
 				if(ctx.supportsMessage())
 					ctx.setMessage("probe");

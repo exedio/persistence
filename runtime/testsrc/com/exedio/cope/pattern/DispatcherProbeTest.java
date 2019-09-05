@@ -59,10 +59,9 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		DispatcherItem.dispatchToTarget(config, CTX);
 		model.startTransaction("DispatcherTest");
 		historyAssert(
-				"ctx stop", "ctx defer", // TODO probe must not appear here
+				// probe must not appear here
 				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress");
-		log.assertDebug("probing"); // TODO probe must not appear here
-		log.assertInfoMS("probed, took XXms");
+		// probe must not appear here
 		log.assertDebug("dispatching " + item1);
 		log.assertInfoMS("success for " + item1 + ", took XXms");
 		log.assertEmpty();
