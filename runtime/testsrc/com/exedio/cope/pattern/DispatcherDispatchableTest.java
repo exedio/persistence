@@ -36,12 +36,15 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.Visibility;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.pattern.Dispatcher.Run;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Clock;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.JobStop;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -320,6 +323,7 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 			}
 		}
 
+		@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		static final Dispatcher toTarget = new Dispatcher();
 
@@ -405,12 +409,6 @@ public class DispatcherDispatchableTest extends TestWithEnvironment
 		static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 		{
 			MyItem.toTarget.dispatch(MyItem.class,config,ctx);
-		}
-
-		@javax.annotation.Generated("com.exedio.cope.instrument")
-		static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
-		{
-			MyItem.toTarget.dispatch(MyItem.class,config,probe,ctx);
 		}
 
 		@javax.annotation.Generated("com.exedio.cope.instrument")

@@ -92,20 +92,14 @@ public class DispatcherTest extends TestWithEnvironment
 
 		final Date[] d1 = dispatch();
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item3, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
-		log.assertDebug("probing");
-		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item2);
 		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 2 of 3 runs remaining");
-		log.assertDebug("probing");
-		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item3);
 		log.assertInfo("success for " + item3 + ", took " + item3.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -118,16 +112,10 @@ public class DispatcherTest extends TestWithEnvironment
 
 		final Date[] d2 = dispatch();
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
-		log.assertDebug("probing");
-		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item2);
 		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 1 of 3 runs remaining");
-		log.assertDebug("probing");
-		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item4);
 		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 1 of 3 runs remaining");
 		log.assertEmpty();
@@ -139,11 +127,8 @@ public class DispatcherTest extends TestWithEnvironment
 		DispatcherItem.logs.get(item2).fail = false;
 		final Date[] d3 = dispatch();
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "notifyFinalFailure " + item4, "ctx progress");
-		log.assertDebug("probing");
-		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item2);
 		log.assertInfo("success for " + item2 + ", took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -165,10 +150,7 @@ public class DispatcherTest extends TestWithEnvironment
 		item1.setToTargetPending(true);
 		final Date[] d4 = dispatch();
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress");
-		log.assertDebug("probing");
-		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();
@@ -201,10 +183,8 @@ public class DispatcherTest extends TestWithEnvironment
 
 	@Test void testStop0Probe()
 	{
-		//noinspection PointlessArithmeticExpression
-		dispatch(0 + 1); // 1 probe
+		dispatch(0);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx STOP");
 		assertPending(item1);
 		assertPending(item2);
@@ -214,9 +194,8 @@ public class DispatcherTest extends TestWithEnvironment
 
 	@Test void testStop1()
 	{
-		final Date[] d = dispatch(1 + 1); // 1 probe
+		final Date[] d = dispatch(1);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress",
 				"ctx STOP");
 		assertSuccess(item1, 1, d[0], success(d[0]));
@@ -227,9 +206,8 @@ public class DispatcherTest extends TestWithEnvironment
 
 	@Test void testStop2()
 	{
-		final Date[] d = dispatch(2 + 1); // 1 probe
+		final Date[] d = dispatch(2);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
 				"ctx STOP");
@@ -241,12 +219,10 @@ public class DispatcherTest extends TestWithEnvironment
 
 	@Test void testStop3()
 	{
-		final Date[] d = dispatch(3 + 2); // 2 probes
+		final Date[] d = dispatch(3);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item3, "ctx progress",
 				"ctx STOP");
 		assertSuccess(item1, 1, d[0], success(d[0]));
@@ -257,12 +233,10 @@ public class DispatcherTest extends TestWithEnvironment
 
 	@Test void testStop4()
 	{
-		final Date[] d = dispatch(4 + 2); // 2 probes
+		final Date[] d = dispatch(4);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item3, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
 		assertSuccess(item1, 1, d[0], success(d[0]));
@@ -273,12 +247,10 @@ public class DispatcherTest extends TestWithEnvironment
 
 	@Test void testStop5()
 	{
-		final Date[] d = dispatch(5 + 2); // 2 probes
+		final Date[] d = dispatch(5);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item3, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
 		assertSuccess(item1, 1, d[0], success(d[0]));
@@ -296,13 +268,12 @@ public class DispatcherTest extends TestWithEnvironment
 	{
 		model.commit();
 		log.assertEmpty();
-		final Runnable probe = () -> historyAdd("probe");
 		historyAssert();
 		final CS clock = new CS();
 		clockRule.override(clock);
 		try
 		{
-			DispatcherItem.dispatchToTarget(config, probe, ctx);
+			DispatcherItem.dispatchToTarget(config, ctx);
 		}
 		catch(final JobStop js)
 		{

@@ -64,7 +64,6 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		assertIt(true,  null, null);
 		dispatch(10000);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "dispatch " + item, "ctx progress");
 		assertIt(false, true, 10000l);
 
@@ -80,19 +79,16 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 
 		dispatch(20000);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "dispatch " + item, "ctx progress");
 		assertIt(true,  null,  null);
 
 		dispatch(40000);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "dispatch " + item, "ctx progress");
 		assertIt(true,  null,  null);
 
 		dispatch(60000);
 		historyAssert(
-				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "dispatch " + item, "notifyFinalFailure " + item, "ctx progress");
 		assertIt(false, false, 60000l);
 
@@ -106,7 +102,7 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 	{
 		model.commit();
 		historyAssert();
-		DispatcherItem.dispatchToTarget(config, PROBE, CTX);
+		DispatcherItem.dispatchToTarget(config, CTX);
 		clock.assertEmpty();
 		model.startTransaction("DispatcherTest");
 	}
@@ -116,12 +112,10 @@ public class DispatcherUnpendTest extends TestWithEnvironment
 		model.commit();
 		clock.add(date);
 		historyAssert();
-		DispatcherItem.dispatchToTarget(config, PROBE, CTX);
+		DispatcherItem.dispatchToTarget(config, CTX);
 		clock.assertEmpty();
 		model.startTransaction("DispatcherTest");
 	}
-
-	private static final Runnable PROBE = () -> historyAdd("probe");
 
 	private static final AssertionErrorJobContext CTX = new AssertionErrorJobContext()
 	{

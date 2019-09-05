@@ -27,7 +27,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapInterim;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.util.JobContext;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,6 +56,7 @@ public final class DispatcherWithoutRemainingItem extends Item
 		}
 	}
 
+	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
 	static final Dispatcher toTarget = Dispatcher.create(
 			DispatcherWithoutRemainingItem::dispatch,
 			null,
@@ -190,15 +194,6 @@ public final class DispatcherWithoutRemainingItem extends Item
 	static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherWithoutRemainingItem.toTarget.dispatch(DispatcherWithoutRemainingItem.class,config,ctx);
-	}
-
-	/**
-	 * Dispatch by {@link #toTarget}.
-	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
-	static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
-	{
-		DispatcherWithoutRemainingItem.toTarget.dispatch(DispatcherWithoutRemainingItem.class,config,probe,ctx);
 	}
 
 	/**

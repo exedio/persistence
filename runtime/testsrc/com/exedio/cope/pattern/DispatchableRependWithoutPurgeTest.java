@@ -26,8 +26,11 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapInterim;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -111,6 +114,7 @@ public class DispatchableRependWithoutPurgeTest extends TestWithEnvironment
 	@WrapperType(indent=2)
 	static final class AnItem extends Item
 	{
+		@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
 		static final Dispatcher toTarget = Dispatcher.create(AnItem::dispatch).withoutPurge();
 		static final BooleanField dispatchFails = new BooleanField().defaultTo(false);
 		static final IntegerField dispatchCount = new IntegerField().defaultTo(0);
@@ -147,15 +151,6 @@ public class DispatchableRependWithoutPurgeTest extends TestWithEnvironment
 		static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 		{
 			AnItem.toTarget.dispatch(AnItem.class,config,ctx);
-		}
-
-		/**
-		 * Dispatch by {@link #toTarget}.
-		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
-		static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final java.lang.Runnable probe,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
-		{
-			AnItem.toTarget.dispatch(AnItem.class,config,probe,ctx);
 		}
 
 		/**
