@@ -104,7 +104,7 @@ public class LogRule extends MainRule
 		assertMessage(Level.INFO, msg, Function.identity());
 	}
 
-	public final void assertInfoWithoutMilliseconds(final String msg)
+	public final void assertInfoMS(final String msg)
 	{
 		assertMessage(Level.INFO, msg, msFilter);
 	}

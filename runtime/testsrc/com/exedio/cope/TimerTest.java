@@ -42,7 +42,7 @@ public class TimerTest
 
 		log.assertEmpty();
 		interval1.finish("interval1Msg1");
-		log.assertInfoWithoutMilliseconds("interval1Msg1 XXms total timerMsg XXms");
+		log.assertInfoMS("interval1Msg1 XXms total timerMsg XXms");
 
 		log.assertEmpty();
 		try
@@ -65,7 +65,7 @@ public class TimerTest
 
 		log.assertEmpty();
 		interval1.finish("interval1Msg1");
-		log.assertInfoWithoutMilliseconds("interval1Msg1 XXms total XXms");
+		log.assertInfoMS("interval1Msg1 XXms total XXms");
 	}
 
 	@Test void testNullLogger()
