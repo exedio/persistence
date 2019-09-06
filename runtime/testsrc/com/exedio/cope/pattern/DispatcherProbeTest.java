@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import java.time.Duration;
 import org.junit.jupiter.api.AfterEach;
@@ -40,9 +41,31 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		super(DispatcherModelTest.MODEL);
 	}
 
+	private final LogRule log = new LogRule(Dispatcher.class.getName() + '.' + DispatcherItem.toTarget.getID());
+
 	@BeforeEach void setUp()
 	{
 		DispatcherItem.historyClear();
+	}
+
+	@Test void testEmpty()
+	{
+		DispatcherItem.toTarget.setProbeRequired(true);
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		log.setLevelDebug();
+
+		model.commit();
+		historyAssert();
+		DispatcherItem.dispatchToTarget(config, CTX);
+		model.startTransaction("DispatcherTest");
+		historyAssert(
+				"ctx stop", "ctx defer", // TODO probe must not appear here
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress");
+		// probe must not appear here
+		log.assertDebug("dispatching " + item1);
+		log.assertInfoMS("success for " + item1 + ", took XXms");
+		log.assertEmpty();
+		assertEquals(false, item1.isToTargetPending());
 	}
 
 	@Test void testOkRequired()
@@ -59,6 +82,15 @@ public class DispatcherProbeTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress");
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(false, item2.isToTargetPending());
+
+		final DispatcherItem item3 = new DispatcherItem("item3", false);
+		dispatch(probe);
+		historyAssert(
+				// probe must not appear here
+				"ctx stop", "ctx defer", "dispatch " + item3, "ctx progress");
+		assertEquals(false, item1.isToTargetPending());
+		assertEquals(false, item2.isToTargetPending());
+		assertEquals(false, item3.isToTargetPending());
 	}
 
 	@Test void testOkNotRequired()
@@ -157,6 +189,45 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		assertEquals(false, item1.isToTargetPending());
 		assertEquals(true,  item2.isToTargetPending());
 		assertEquals(false, item3.isToTargetPending());
+	}
+
+	@Test void testProbeAtNextDispatch()
+	{
+		final CountProbe probe = new CountProbe(100);
+		DispatcherItem.toTarget.setProbeRequired(false);
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		final DispatcherItem item2 = new DispatcherItem("item2", true);
+
+		dispatch(probe);
+		historyAssert(
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress",
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress");
+		assertEquals(false, item1.isToTargetPending());
+		assertEquals(true,  item2.isToTargetPending());
+
+		dispatch(probe);
+		historyAssert(
+				"ctx stop", "ctx defer", "probe", // cause by failure in previous dispatch
+				"ctx stop", "ctx defer", "dispatch " + item2, "ctx progress");
+		assertEquals(false, item1.isToTargetPending());
+		assertEquals(true,  item2.isToTargetPending());
+	}
+
+	@Test void testLogging()
+	{
+		final CountProbe probe = new CountProbe(1);
+		DispatcherItem.toTarget.setProbeRequired(true);
+		final DispatcherItem item1 = new DispatcherItem("item1", false);
+		log.setLevelDebug();
+
+		dispatch(probe);
+		historyAssert(
+				"ctx stop", "ctx defer", "probe",
+				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress");
+		log.assertDebug("dispatching " + item1);
+		log.assertInfoMS("success for " + item1 + ", took XXms");
+		log.assertEmpty();
+		assertEquals(false, item1.isToTargetPending());
 	}
 
 
