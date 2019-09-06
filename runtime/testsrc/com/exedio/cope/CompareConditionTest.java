@@ -40,6 +40,7 @@ import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.CompareConditionItem.YEnum;
 import com.exedio.cope.util.Day;
@@ -400,6 +401,7 @@ public class CompareConditionTest extends TestWithEnvironment
 			q.search()
 		);
 		assertEquals(6, q.total());
+		assertTrue(q.exists());
 	}
 
 	@Test void testGetAggregateCompare()

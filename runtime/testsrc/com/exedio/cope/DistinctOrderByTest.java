@@ -77,6 +77,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 		assertEquals(9, query.total());
+		assertTrue(query.exists());
 	}
 
 	@Test void noOrder()
@@ -99,6 +100,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		assertContains(item1, item2, item3, query.search());
 		assertEquals(3, query.total());
+		assertTrue(query.exists());
 	}
 
 	@Test void noDistinct()
@@ -123,6 +125,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 		assertEquals(9, query.total());
+		assertTrue(query.exists());
 	}
 
 	@Test void problemWithoutJoin()
@@ -142,6 +145,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
+		assertTrue(query.exists());
 
 		switch(dialect)
 		{
@@ -192,6 +196,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
+		assertTrue(query.exists());
 
 		switch(dialect)
 		{
@@ -244,6 +249,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				SchemaInfo.search(query));
 
 		assertEquals(3, query.total());
+		assertTrue(query.exists());
 
 		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)
@@ -296,6 +302,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				query.toString());
 
 		assertEquals(3, query.total());
+		assertTrue(query.exists());
 
 		final EnvironmentInfo env = model.getEnvironmentInfo();
 		switch(dialect)

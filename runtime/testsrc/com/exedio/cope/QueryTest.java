@@ -113,6 +113,11 @@ public class QueryTest extends TestWithEnvironment
 			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
 			model.currentTransaction().setQueryInfoEnabled(false);
 
+			model.currentTransaction().setQueryInfoEnabled(true);
+			assertEquals(false, q.exists());
+			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
+			model.currentTransaction().setQueryInfoEnabled(false);
+
 			q.setCondition(TRUE);
 			assertSame(null, q.getCondition());
 

@@ -62,6 +62,10 @@ public class SearchTest extends TestmodelTest
 				illegalQuery::total,
 				IllegalArgumentException.class,
 				"AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery);
+		assertFails(
+				illegalQuery::exists,
+				IllegalArgumentException.class,
+				"AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery);
 	}
 
 	@Test void testSearch()

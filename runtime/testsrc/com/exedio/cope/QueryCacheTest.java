@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static com.exedio.cope.Query.Mode.EXISTS;
 import static com.exedio.cope.Query.Mode.SEARCH;
 import static com.exedio.cope.Query.Mode.TOTAL;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -49,8 +50,10 @@ public class QueryCacheTest extends TestWithEnvironment
 
 	private static final String Q1 = "select this from MatchItem where text='someString'";
 	private static final String C1 = "select count(*) from MatchItem where text='someString'";
+	private static final String E1 = "select exists( select count(*) from MatchItem where text='someString' )";
 	private static final String Q2 = "select this from MatchItem where text='someString2'";
 	private static final String C2 = "select count(*) from MatchItem where text='someString2'";
+	private static final String E2 = "select exists( select count(*) from MatchItem where text='someString2' )";
 
 	@Test void testQueryCache()
 	{
@@ -95,6 +98,21 @@ public class QueryCacheTest extends TestWithEnvironment
 		assertEquals(list(sc(q2, TOTAL)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
+
+		q1.exists();
+		assertEquals(list(sc(q1, EXISTS)), l.scs);
+		l.clear();
+		assertEquals(enabled ? list(cqi(E1, 1, 0), cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
+
+		q1.exists();
+		assertEquals(enabled ? list() : list(sc(q1, EXISTS)), l.scs);
+		l.clear();
+		assertEquals(enabled ? list(cqi(E1, 1, 1), cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
+
+		q2.exists();
+		assertEquals(list(sc(q2, EXISTS)), l.scs);
+		l.clear();
+		assertEquals(enabled ? list(cqi(E2, 1, 0), cqi(E1, 1, 1), cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 
 		model.clearCache();
 		assertEquals(list(), qch());

@@ -182,6 +182,7 @@ public class HavingAggregateTest extends TestWithEnvironment
 	{
 		assertEquals(expected, actual.search());
 		assertEquals(expected.size(), actual.total());
+		assertEquals(!expected.isEmpty(), actual.exists());
 	}
 
 	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac

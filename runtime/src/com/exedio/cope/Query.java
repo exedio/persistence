@@ -581,6 +581,31 @@ public final class Query<R> implements Serializable
 		return (Integer)result.iterator().next();
 	}
 
+	/**
+	 * Checks the existence of items matching this query.
+	 * <p>
+	 * Returns whether or not any result matches what
+	 * {@link #search()} would have returned for this query with
+	 * {@link #setPageUnlimited(int)} reset set to {@code (0)}.
+	 */
+	public boolean exists()
+	{
+		final Transaction transaction = model.currentTransaction();
+
+		if(condition==Condition.FALSE)
+		{
+			final List<QueryInfo> queryInfos = transaction.queryInfos;
+			if(queryInfos!=null)
+				queryInfos.add(new QueryInfo("skipped search because condition==false"));
+			return false;
+		}
+
+		final ArrayList<Object> result =
+				transaction.search(this, Mode.EXISTS);
+		assert result.size()==1;
+		return Integer.valueOf(1).equals(result.iterator().next());
+	}
+
 	TC check()
 	{
 		final TC tc = new TC(this);
@@ -630,7 +655,7 @@ public final class Query<R> implements Serializable
 
 	enum Mode
 	{
-		SEARCH, TOTAL;
+		SEARCH, TOTAL, EXISTS;
 
 		boolean isSearch()
 		{
@@ -640,6 +665,11 @@ public final class Query<R> implements Serializable
 		private boolean isTotal()
 		{
 			return this==TOTAL;
+		}
+
+		private boolean isExists()
+		{
+			return this==EXISTS;
 		}
 	}
 
@@ -873,10 +903,13 @@ public final class Query<R> implements Serializable
 
 		bf.append("select ");
 
-		if(distinct)
+		if(mode.isExists())
+			bf.append("exists( select ");
+
+		if(distinct && !mode.isExists())
 			bf.append("distinct ");
 
-		if(mode.isTotal())
+		if(!mode.isSearch())
 		{
 			bf.append("count(*)");
 		}
@@ -952,6 +985,9 @@ public final class Query<R> implements Serializable
 					append('\'');
 		}
 
+		if(mode.isExists())
+			bf.append(" )");
+
 		return bf.toString();
 	}
 
@@ -991,6 +1027,11 @@ public final class Query<R> implements Serializable
 		final ArrayList<Join> joins = this.joins;
 		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
 
+		if(mode.isExists())
+		{
+			bf.append(dialect.getExistsPrefix());
+		}
+
 		final boolean countSubSelect = mode.isTotal() && (distinct || groupBy!=null);
 		if (countSubSelect)
 		{
@@ -1012,7 +1053,7 @@ public final class Query<R> implements Serializable
 		}
 		else
 		{
-			if(distinct)
+			if(distinct && !mode.isExists())
 				bf.append("DISTINCT ");
 
 			selectMarshallers = new Marshaller<?>[selects.length];
@@ -1118,6 +1159,15 @@ public final class Query<R> implements Serializable
 			}
 		}
 
+		if(mode.isExists())
+		{
+			bf.append(dialect.getExistsPostfix());
+			if(dialect.subqueryRequiresAlias())
+			{
+				bf.append(" AS cope_exists");
+			}
+		}
+
 		QueryInfo queryInfo = null;
 		if(queryInfos!=null)
 			queryInfos.add(queryInfo = new QueryInfo(toString()));
@@ -1135,7 +1185,7 @@ public final class Query<R> implements Serializable
 		final int sizeLimit = getSearchSizeLimit();
 		executor.query(connection, bf, queryInfo, false, resultSet ->
 			{
-				if(mode.isTotal())
+				if(!mode.isSearch())
 				{
 					resultSet.next();
 					result.add(resultSet.getInt(1));

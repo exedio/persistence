@@ -392,6 +392,16 @@ abstract class Dialect
 	 */
 	abstract void appendPageClauseAfter(Statement bf, int offset, int limit);
 
+	String getExistsPrefix()
+	{
+		return "SELECT COUNT(*) FROM (";
+	}
+
+	String getExistsPostfix()
+	{
+		return " LIMIT 1)";
+	}
+
 	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
 
 	abstract void appendMatchClauseFullTextIndex(Statement bf, StringFunction function, String value);

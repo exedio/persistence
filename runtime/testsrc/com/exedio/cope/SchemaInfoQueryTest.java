@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SchemaInfo.exists;
 import static com.exedio.cope.SchemaInfo.search;
 import static com.exedio.cope.SchemaInfo.total;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -43,9 +44,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem", q.toString());
 		assertEquals("SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE), search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
+		assertEquals("SELECT COUNT(*) FROM (SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " LIMIT 1)", exists(q));
 	}
 
 	@Test void testConditionTrue()
@@ -54,9 +57,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem", q.toString());
 		assertEquals("SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE), search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
+		assertEquals("SELECT COUNT(*) FROM (SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " LIMIT 1)", exists(q));
 	}
 
 	@Test void testConditionFalse()
@@ -65,9 +70,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem where FALSE", q.toString());
 		assertEquals("skipped because condition==false: select this from " + TYPE + " where FALSE", search(q));
 		assertEquals("skipped because condition==false: select this from " + TYPE + " where FALSE", total(q));
+		assertEquals("skipped because condition==false: select this from " + TYPE + " where FALSE", exists(q));
 	}
 
 	@Test void testLimitZero()
@@ -77,9 +84,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem limit '0'", q.toString());
 		assertEquals("skipped because limit==0: select this from " + TYPE + " limit '0'", search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
+		assertEquals("SELECT COUNT(*) FROM (SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " LIMIT 1)", exists(q));
 	}
 
 	@Test void testOffsetSetLimitZero()
@@ -89,9 +98,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem offset '55' limit '0'", q.toString());
 		assertEquals("skipped because limit==0: select this from " + TYPE + " offset '55' limit '0'", search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
+		assertEquals("SELECT COUNT(*) FROM (SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " LIMIT 1)", exists(q));
 	}
 
 	@Test void testLimitSet()
@@ -101,9 +112,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem limit '66'", q.toString());
 		assertEquals("SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " OFFSET 0 LIMIT 66", search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
+		assertEquals("SELECT COUNT(*) FROM (SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " LIMIT 1)", exists(q));
 	}
 
 	@Test void testOffsetSetLimitSet()
@@ -113,9 +126,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem offset '55' limit '66'", q.toString());
 		assertEquals("SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " OFFSET 55 LIMIT 66", search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
+		assertEquals("SELECT COUNT(*) FROM (SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " LIMIT 1)", exists(q));
 	}
 
 	@Test void testOffsetSet()
@@ -125,9 +140,11 @@ public class SchemaInfoQueryTest
 
 		assertEquals(asList(), q.search());
 		assertEquals(0, q.total());
+		assertEquals(false, q.exists());
 		assertEquals("select this from MyItem offset '55'", q.toString());
 		assertEquals("SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " OFFSET 55", search(q));
 		assertEquals("SELECT COUNT(*) FROM " + SI.tab(TYPE), total(q));
+		assertEquals("SELECT COUNT(*) FROM (SELECT " + SI.pk(TYPE) + " FROM " + SI.tab(TYPE) + " LIMIT 1)", exists(q));
 	}
 
 

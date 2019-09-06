@@ -421,6 +421,18 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	String getExistsPrefix()
+	{
+		return "SELECT EXISTS ( ";
+	}
+
+	@Override
+	String getExistsPostfix()
+	{
+		return " )";
+	}
+
+	@Override
 	void appendAsString(final Statement bf, final NumberFunction<?> source, final Join join)
 	{
 		bf.append("CONVERT(").

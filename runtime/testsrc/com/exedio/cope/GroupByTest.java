@@ -25,6 +25,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.SI;
 import java.util.List;
@@ -125,6 +126,7 @@ public class GroupByTest extends TestWithEnvironment
 				notAllowed(query,
 						"ORA-00979: not a GROUP BY expression\n");
 				assertEquals(4, query.total());
+				assertTrue(query.exists());
 				break;
 			case postgresql:
 			{
@@ -153,6 +155,7 @@ public class GroupByTest extends TestWithEnvironment
 		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		assertEquals(4, query.total());
+		assertTrue(query.exists());
 
 		switch(dialect)
 		{
@@ -201,6 +204,7 @@ public class GroupByTest extends TestWithEnvironment
 		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		assertEquals(4, query.total());
+		assertTrue(query.exists());
 
 		switch(dialect)
 		{
@@ -239,6 +243,7 @@ public class GroupByTest extends TestWithEnvironment
 	{
 		assertEquals(expectedSize, items.search().size());
 		assertEquals(expectedTotal, items.total());
+		assertEquals(expectedTotal>0, items.exists());
 	}
 
 	static final String postgresqlPosition(final int value)

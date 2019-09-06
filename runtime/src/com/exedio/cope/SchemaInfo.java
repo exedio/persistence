@@ -291,6 +291,14 @@ public final class SchemaInfo
 		return search(query, Query.Mode.TOTAL);
 	}
 
+	public static String exists(final Query<?> query)
+	{
+		if(query.getCondition()==Condition.FALSE)
+			return "skipped because condition==false: " + query;
+
+		return search(query, Query.Mode.EXISTS);
+	}
+
 	private static String search(final Query<?> query, final Query.Mode mode)
 	{
 		final StringBuilder bf = new StringBuilder();

@@ -195,10 +195,16 @@ public class DataModelTest
 				query::total,
 				UnsupportedQueryException.class, message);
 		assertFails(
+				query::exists,
+				UnsupportedQueryException.class, message);
+		assertFails(
 				() -> SchemaInfo.search(query),
 				UnsupportedQueryException.class, message);
 		assertFails(
 				() -> SchemaInfo.total(query),
+				UnsupportedQueryException.class, message);
+		assertFails(
+				() -> SchemaInfo.exists(query),
 				UnsupportedQueryException.class, message);
 	}
 }

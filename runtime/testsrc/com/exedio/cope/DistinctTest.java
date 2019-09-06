@@ -25,6 +25,7 @@ import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
@@ -55,28 +56,34 @@ public class DistinctTest extends TestWithEnvironment
 		final Query<Integer> q = new Query<>(numB, TYPE, null);
 		assertContains(2, 3, 4, 4, 4, q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(2, 3, 4, q.search());
 		assertEquals(3, q.total());
+		assertTrue(q.exists());
 
 		item1.setNumB(null);
 		q.setDistinct(false);
 		assertContains(null, 3, 4, 4, 4, q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(null, 3, 4, q.search());
 		assertEquals(3, q.total());
+		assertTrue(q.exists());
 
 		item5.setNumB(null);
 		q.setDistinct(false);
 		assertContains(null, 3, 4, 4, null, q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(null, 3, 4, q.search());
 		assertEquals(3, q.total());
+		assertTrue(q.exists());
 	}
 
 	@Test void testDistinctMulti()
@@ -90,6 +97,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(2, 4),
 			q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(
@@ -99,6 +107,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(2, 4),
 			q.search());
 		assertEquals(4, q.total());
+		assertTrue(q.exists());
 
 		item1.setNumA(null);
 		q.setDistinct(false);
@@ -110,6 +119,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(2, 4),
 			q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(
@@ -119,6 +129,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(2, 4),
 			q.search());
 		assertEquals(4, q.total());
+		assertTrue(q.exists());
 
 		item5.setNumA(null);
 		q.setDistinct(false);
@@ -130,6 +141,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(null, 4),
 			q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(
@@ -139,6 +151,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(null, 4),
 			q.search());
 		assertEquals(4, q.total());
+		assertTrue(q.exists());
 
 		item1.setNumB(null);
 		q.setDistinct(false);
@@ -150,6 +163,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(null, 4),
 			q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(
@@ -159,6 +173,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(null, 4),
 			q.search());
 		assertEquals(4, q.total());
+		assertTrue(q.exists());
 
 		item5.setNumB(null);
 		q.setDistinct(false);
@@ -170,6 +185,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(null, null),
 			q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(
@@ -178,6 +194,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(1, 4),
 			q.search());
 		assertEquals(3, q.total());
+		assertTrue(q.exists());
 	}
 
 	@Test void testDistinctDuplicateColumns()
@@ -191,6 +208,7 @@ public class DistinctTest extends TestWithEnvironment
 				list(2, 2),
 			q.search());
 		assertEquals(5, q.total());
+		assertTrue(q.exists());
 
 		q.setDistinct(true);
 		assertContains(
@@ -203,5 +221,6 @@ public class DistinctTest extends TestWithEnvironment
 		// On MySQL the error message read:
 		//    Duplicate column name 'numA'
 		assertEquals(2, q.total());
+		assertTrue(q.exists());
 	}
 }

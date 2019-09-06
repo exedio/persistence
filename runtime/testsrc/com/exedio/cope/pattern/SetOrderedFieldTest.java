@@ -30,6 +30,7 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -326,21 +327,26 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 
 		assertContains(item, otherItem, q.search());
 		assertEquals(2, q.total());
+		assertTrue(q.exists());
 
 		item.addToStrings("itemS1");
 		assertContains(otherItem, q.search());
 		assertEquals(1, q.total());
+		assertTrue(q.exists());
 
 		item.addToStrings("itemS2");
 		assertContains(otherItem, q.search());
 		assertEquals(1, q.total());
+		assertTrue(q.exists());
 
 		otherItem.addToStrings("oItemS1");
 		assertContains(q.search());
 		assertEquals(0, q.total());
+		assertFalse(q.exists());
 
 		otherItem.addToStrings("oItemS2");
 		assertContains(q.search());
 		assertEquals(0, q.total());
+		assertFalse(q.exists());
 	}
 }

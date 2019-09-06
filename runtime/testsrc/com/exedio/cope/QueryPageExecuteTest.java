@@ -106,6 +106,7 @@ public class QueryPageExecuteTest extends TestWithEnvironment
 		page.accept(query);
 		assertEquals(asList(search), query.search(), "search");
 		assertEquals(total, query.total(), "total");
+		assertEquals(total>0, query.exists(), "exists");
 	}
 
 	@WrapperType(indent=2, comments=false)

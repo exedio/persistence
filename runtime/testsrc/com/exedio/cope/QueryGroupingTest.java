@@ -68,6 +68,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 
 		query.setSelects( day, number.min(), number.max() );
 		assertEquals( "select day,min(number),max(number) from GroupItem group by day", query.toString() );
@@ -76,6 +77,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 
 		query.setCondition( day.greater(day1) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where day>'2006/2/19' group by day", query.toString() );
@@ -84,6 +86,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(2, query.total());
+		assertEquals(true, query.exists());
 
 		query.setCondition( number.notEqual(3) );
 		assertEquals( "select day,min(number),max(number) from GroupItem where number<>'3' group by day", query.toString() );
@@ -92,6 +95,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 
 		query.setSelects( day, optionalDouble.sum() );
 		query.setCondition( day.equal(day2) );
@@ -101,6 +105,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(1, query.total());
+		assertEquals(true, query.exists());
 
 		item2a.setOptionalDouble( 3.5 );
 		assertEquals( null, item2b.getOptionalDouble() );
@@ -109,6 +114,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(1, query.total());
+		assertEquals(true, query.exists());
 
 		item2b.setOptionalDouble( 1.0 );
 		assertContains(
@@ -116,6 +122,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(1, query.total());
+		assertEquals(true, query.exists());
 
 		query.setSelects( day, optionalDouble.sum(), new Count() );
 		assertContains(
@@ -123,6 +130,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(1, query.total());
+		assertEquals(true, query.exists());
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
@@ -169,6 +177,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 				notAllowed(query,
 						"ORA-00979: not a GROUP BY expression\n");
 				assertEquals(2, query.total());
+				assertEquals(true, query.exists());
 				break;
 			case postgresql:
 			{
@@ -197,14 +206,17 @@ public class QueryGroupingTest extends TestWithEnvironment
 		query.setOrderBy(number.max(), true);
 		assertEquals(asList(1, 3, 4), query.search());
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 
 		query.setOrderBy(number.max(), false);
 		assertEquals(asList(4, 3, 1), query.search());
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 
 		query.setCondition(number.lessOrEqual(2));
 		assertEquals(asList(2, 1), query.search());
 		assertEquals(2, query.total());
+		assertEquals(true, query.exists());
 	}
 
 	@Test void testMultiGrouping()
@@ -228,6 +240,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 
 		query.setSelects( day, number, optionalDouble.sum(), new Count() );
 		assertContains(
@@ -235,6 +248,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 	}
 
 	@Test void testGroupJoin()
@@ -254,6 +268,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(5, query.total());
+		assertEquals(true, query.exists());
 
 		query.setGroupBy( day );
 		query.setSelects( day, new Count() );
@@ -262,6 +277,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 			query.search()
 		);
 		assertEquals(2, query.total());
+		assertEquals(true, query.exists());
 	}
 
 	@Test void testSorting()
@@ -280,11 +296,13 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble", query.toString() );
 		assertContains( list(null, 3, 1), list(1.0, 2, 1), list(2.0, 1, 1), query.search() );
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 
 		query.setOrderBy( optionalDouble, false );
 		assertEquals( "select optionalDouble,sum(number),count(*) from GroupItem group by optionalDouble order by optionalDouble desc", query.toString() );
 		assertContains( list(null, 3, 1), list(2.0, 1, 1), list(1.0, 2, 1), query.search() );
 		assertEquals(3, query.total());
+		assertEquals(true, query.exists());
 	}
 
 	@Test void testHaving()
@@ -307,6 +325,7 @@ public class QueryGroupingTest extends TestWithEnvironment
 				asList(asList(day1, 2), asList(day2, 3)),
 				query.search());
 		assertEquals(2, query.total());
+		assertEquals(true, query.exists());
 
 		query.setHaving(number.max().greaterOrEqual(3));
 		assertEquals(
@@ -319,5 +338,6 @@ public class QueryGroupingTest extends TestWithEnvironment
 				asList(asList(day2, 3)),
 				query.search());
 		assertEquals(1, query.total());
+		assertEquals(true, query.exists());
 	}
 }
