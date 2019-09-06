@@ -19,12 +19,14 @@
 package com.exedio.cope.tojunit;
 
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Function;
 import org.apache.log4j.AppenderSkeleton;
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
@@ -94,52 +96,43 @@ public class LogRule extends MainRule
 
 	public final void assertDebug(final String msg)
 	{
-		assertBeforeCalled();
-		assertMessage(Level.DEBUG, msg);
+		assertMessage(Level.DEBUG, msg, Function.identity());
 	}
 
 	public final void assertInfo(final String msg)
 	{
-		assertBeforeCalled();
-		assertMessage(Level.INFO, msg);
+		assertMessage(Level.INFO, msg, Function.identity());
 	}
 
 	public final void assertInfoWithoutMilliseconds(final String msg)
 	{
-		assertBeforeCalled();
-		assertMessageWithoutMilliseconds(Level.INFO, msg);
+		assertMessage(Level.INFO, msg, msFilter);
 	}
 
 	public final void assertWarn(final String msg)
 	{
-		assertBeforeCalled();
-		assertMessage(Level.WARN, msg);
+		assertMessage(Level.WARN, msg, Function.identity());
 	}
 
 	public final void assertError(final String msg)
 	{
+		assertMessage(Level.ERROR, msg, Function.identity());
+	}
+
+	private void assertMessage(
+			final Level level,
+			final String msg,
+			final Function<String, String> msgFilter)
+	{
 		assertBeforeCalled();
-		assertMessage(Level.ERROR, msg);
-	}
-
-	private void assertMessage(final Level level, final String msg)
-	{
 		assertTrue(!events.isEmpty(), "empty");
 		final LoggingEvent event = events.remove(0);
-		assertEquals(
-				"" + level + ' ' + msg,
-				"" + event.getLevel() + ' ' + event.getRenderedMessage());
-		assertEquals(level, event.getLevel());
-		assertEquals(msg, event.getRenderedMessage());
+		assertAll(
+				() -> assertEquals(level, event.getLevel()),
+				() -> assertEquals(msg, msgFilter.apply(event.getRenderedMessage())));
 	}
 
-	private void assertMessageWithoutMilliseconds(final Level level, final String msg)
-	{
-		assertTrue(!events.isEmpty(), "empty");
-		final LoggingEvent event = events.remove(0);
-		assertEquals(level, event.getLevel());
-		assertEquals(msg, event.getRenderedMessage().replaceAll("[0-9]ms", "XXms"));
-	}
+	private static final Function<String, String> msFilter = s -> s.replaceAll(" [0-9]ms", " XXms");
 
 	public final void assertEmpty()
 	{
