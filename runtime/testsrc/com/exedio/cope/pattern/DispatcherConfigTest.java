@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.Condition.TRUE;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -56,51 +56,31 @@ public class DispatcherConfigTest
 	}
 	@Test void testFailureLimitZero()
 	{
-		try
-		{
-			new Config(0, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("failureLimit must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(0, 0),
+			IllegalArgumentException.class,
+			"failureLimit must be greater zero, but was 0");
 	}
 	@Test void testFailureLimitNegative()
 	{
-		try
-		{
-			new Config(-10, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("failureLimit must be greater zero, but was -10", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(-10, 0),
+			IllegalArgumentException.class,
+			"failureLimit must be greater zero, but was -10");
 	}
 	@Test void testSearchSizeZero()
 	{
-		try
-		{
-			new Config(1000, 0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("searchSize must be greater zero, but was 0", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(1000, 0),
+			IllegalArgumentException.class,
+			"searchSize must be greater zero, but was 0");
 	}
 	@Test void testSearchSizeNegative()
 	{
-		try
-		{
-			new Config(1000, -10);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("searchSize must be greater zero, but was -10", e.getMessage());
-		}
+		assertFails(() ->
+			new Config(1000, -10),
+			IllegalArgumentException.class,
+			"searchSize must be greater zero, but was -10");
 	}
 	@Test void testNarrow()
 	{
@@ -150,14 +130,9 @@ public class DispatcherConfigTest
 	@Test void testNarrowNull()
 	{
 		final Config c = new Config();
-		try
-		{
-			c.narrow(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("other", e.getMessage());
-		}
+		assertFails(() ->
+			c.narrow(null),
+			NullPointerException.class,
+			"other");
 	}
 }
