@@ -19,11 +19,12 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DispatcherProperties.factory;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.Dispatcher.Config;
 import com.exedio.cope.util.Sources;
-import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
 public class DispatcherPropertiesTest
@@ -37,10 +38,9 @@ public class DispatcherPropertiesTest
 
 	@Test void testCustom()
 	{
-		final Properties source = new Properties();
-		source.setProperty("failureLimit", "55");
-		source.setProperty("searchSize", "66");
-		final Config config = factory().create(Sources.view(source, "decs")).get();
+		final Config config = factory().create(cascade(
+				single("failureLimit", 55),
+				single("searchSize", 66))).get();
 		assertEquals(55, config.getFailureLimit());
 		assertEquals(66, config.getSearchSize());
 	}
