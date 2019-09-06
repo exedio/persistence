@@ -389,7 +389,7 @@ final class Executor
 		{/* DOES NOTHING */}
 
 		@Override
-		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
+		public void search(final Connection connection, final Query<?> query, final Query.Mode mode)
 		{/* DOES NOTHING */}
 	};
 

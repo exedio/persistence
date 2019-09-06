@@ -185,16 +185,16 @@ public final class Transaction
 		return connect.itemCache.getStateIfPresent(item);
 	}
 
-	ArrayList<Object> search(final Query<?> query, final boolean totalOnly)
+	ArrayList<Object> search(final Query<?> query, final Query.Mode mode)
 	{
 		final QueryCache queryCache = connect.queryCache;
 		if(!queryCache.isEnabled() || isInvalidated(query) || isExternal(query))
 		{
-			return query.searchUncached(this, totalOnly);
+			return query.searchUncached(this, mode);
 		}
 		else
 		{
-			return queryCache.search(this, query, totalOnly);
+			return queryCache.search(this, query, mode);
 		}
 	}
 

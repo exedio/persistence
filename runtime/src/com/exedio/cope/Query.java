@@ -546,7 +546,7 @@ public final class Query<R> implements Serializable
 			return Collections.emptyList();
 		}
 
-		return Collections.unmodifiableList(castQL(transaction.search(this, false)));
+		return Collections.unmodifiableList(castQL(transaction.search(this, Mode.SEARCH)));
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes", "static-method"}) // TODO: Database#search does not support generics
@@ -576,7 +576,7 @@ public final class Query<R> implements Serializable
 		}
 
 		final ArrayList<Object> result =
-			transaction.search(this, true);
+			transaction.search(this, Mode.TOTAL);
 		assert result.size()==1;
 		return (Integer)result.iterator().next();
 	}
@@ -626,6 +626,21 @@ public final class Query<R> implements Serializable
 	public Result<R> searchAndTotal()
 	{
 		return new Result<>(this);
+	}
+
+	enum Mode
+	{
+		SEARCH, TOTAL;
+
+		boolean isSearch()
+		{
+			return this==SEARCH;
+		}
+
+		private boolean isTotal()
+		{
+			return this==TOTAL;
+		}
 	}
 
 	public static final class Result<R>
@@ -842,7 +857,7 @@ public final class Query<R> implements Serializable
 	@Override
 	public String toString()
 	{
-		return toString(false, false);
+		return toString(false, Mode.SEARCH);
 	}
 
 	/**
@@ -851,7 +866,7 @@ public final class Query<R> implements Serializable
 	 * whether to queries are equal for a hit in the query cache.
 	 * Do not forget anything !!!
 	 */
-	String toString(final boolean key, final boolean totalOnly)
+	String toString(final boolean key, final Mode mode)
 	{
 		final Type<?> type = this.type;
 		final StringBuilder bf = new StringBuilder();
@@ -861,7 +876,7 @@ public final class Query<R> implements Serializable
 		if(distinct)
 			bf.append("distinct ");
 
-		if(totalOnly)
+		if(mode.isTotal())
 		{
 			bf.append("count(*)");
 		}
@@ -910,7 +925,7 @@ public final class Query<R> implements Serializable
 			having.toString(bf, key, type);
 		}
 
-		if(!totalOnly)
+		if(mode.isSearch())
 		{
 			if(orderBy!=null)
 			{
@@ -941,12 +956,12 @@ public final class Query<R> implements Serializable
 	}
 
 	@SuppressWarnings("RedundantCast")
-	ArrayList<Object> searchUncached(final Transaction transaction, final boolean totalOnly)
+	ArrayList<Object> searchUncached(final Transaction transaction, final Mode mode)
 	{
 		return search(
 				transaction.getConnection(),
 				transaction.connect.executor,
-				totalOnly,
+				mode,
 				(StringBuilder)null,
 				transaction.queryInfos);
 	}
@@ -959,11 +974,11 @@ public final class Query<R> implements Serializable
 	ArrayList<Object> search(
 			final Connection connection,
 			final Executor executor,
-			final boolean totalOnly,
+			final Mode mode,
 			final StringBuilder sqlOnlyBuffer,
 			final ArrayList<QueryInfo> queryInfos)
 	{
-		executor.testListener().search(connection, this, totalOnly);
+		executor.testListener().search(connection, this, mode);
 
 		final Dialect dialect = executor.dialect;
 		final Dialect.PageSupport pageSupport = executor.pageSupport;
@@ -977,13 +992,13 @@ public final class Query<R> implements Serializable
 		final ArrayList<Join> joins = this.joins;
 		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
 
-		final boolean countSubSelect = totalOnly && (distinct || groupBy!=null);
+		final boolean countSubSelect = mode.isTotal() && (distinct || groupBy!=null);
 		if (countSubSelect)
 		{
 			bf.append("SELECT COUNT(*) FROM ( ");
 		}
 
-		if(!totalOnly && pageActive && pageSupport==Dialect.PageSupport.CLAUSES_AROUND)
+		if(mode.isSearch() && pageActive && pageSupport==Dialect.PageSupport.CLAUSES_AROUND)
 			dialect.appendPageClause(bf, pageOffset, pageLimit);
 
 		bf.append("SELECT ");
@@ -991,7 +1006,7 @@ public final class Query<R> implements Serializable
 		final Selectable<?>[] selects = selects();
 		final Marshaller<?>[] selectMarshallers;
 
-		if(!countSubSelect&&totalOnly)
+		if(!countSubSelect && mode.isTotal())
 		{
 			bf.append("COUNT(*)");
 			selectMarshallers = null;
@@ -1010,7 +1025,7 @@ public final class Query<R> implements Serializable
 					bf.append(',');
 
 				bf.appendSelect(selects[i], null);
-				if(totalOnly && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
+				if(mode.isTotal() && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
 					bf.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
 				selectMarshallers[i] = marshallers.get(selects[i]);
 			}
@@ -1050,7 +1065,7 @@ public final class Query<R> implements Serializable
 			having.append(bf);
 		}
 
-		if(!totalOnly)
+		if(mode.isSearch())
 		{
 			final Selectable<?>[] orderBy = this.orderBy;
 
@@ -1129,7 +1144,7 @@ public final class Query<R> implements Serializable
 		final int sizeLimit = getSearchSizeLimit();
 		executor.query(connection, bf, queryInfo, false, resultSet ->
 			{
-				if(totalOnly)
+				if(mode.isTotal())
 				{
 					resultSet.next();
 					result.add(resultSet.getInt(1));
@@ -1149,6 +1164,7 @@ public final class Query<R> implements Serializable
 
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
+						@SuppressWarnings("ConstantConditions") // OK
 						final Object resultCell =
 							selectMarshallers[selectIndex].unmarshal(resultSet, columnIndex);
 						columnIndex += selectMarshallers[selectIndex].columns;

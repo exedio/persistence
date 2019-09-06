@@ -280,7 +280,7 @@ public final class SchemaInfo
 		if(query.getPageLimitOrMinusOne()==0)
 			return "skipped because limit==0: " + query;
 
-		return search(query, false);
+		return search(query, Query.Mode.SEARCH);
 	}
 
 	public static String total(final Query<?> query)
@@ -288,13 +288,13 @@ public final class SchemaInfo
 		if(query.getCondition()==Condition.FALSE)
 			return "skipped because condition==false: " + query;
 
-		return search(query, true);
+		return search(query, Query.Mode.TOTAL);
 	}
 
-	private static String search(final Query<?> query, final boolean totalOnly)
+	private static String search(final Query<?> query, final Query.Mode mode)
 	{
 		final StringBuilder bf = new StringBuilder();
-		query.search(null, query.getType().getModel().connect().executor, totalOnly, bf, null);
+		query.search(null, query.getType().getModel().connect().executor, mode, bf, null);
 		return bf.toString();
 	}
 

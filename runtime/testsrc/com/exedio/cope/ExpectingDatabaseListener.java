@@ -42,7 +42,7 @@ public class ExpectingDatabaseListener implements TestDatabaseListener
 	}
 
 	@Override
-	public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
+	public void search(final Connection connection, final Query<?> query, final Query.Mode mode)
 	{
 		nextExpectedCall().checkSearch( connection, query );
 	}

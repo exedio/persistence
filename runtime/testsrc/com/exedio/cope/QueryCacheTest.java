@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static com.exedio.cope.Query.Mode.SEARCH;
+import static com.exedio.cope.Query.Mode.TOTAL;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -65,32 +67,32 @@ public class QueryCacheTest extends TestWithEnvironment
 		final Query<?> q2 = TYPE.newQuery(text.equal("someString2"));
 
 		q1.search();
-		assertEquals(list(sc(q1, false)), l.scs);
+		assertEquals(list(sc(q1, SEARCH)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 0, 0)) : list(), qch());
 
 		q1.search();
-		assertEquals(enabled ? list() : list(sc(q1, false)), l.scs);
+		assertEquals(enabled ? list() : list(sc(q1, SEARCH)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q1, 0, 1)) : list(), qch());
 
 		q2.search();
-		assertEquals(list(sc(q2, false)), l.scs);
+		assertEquals(list(sc(q2, SEARCH)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 
 		q1.total();
-		assertEquals(list(sc(q1, true)), l.scs);
+		assertEquals(list(sc(q1, TOTAL)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C1, 1, 0), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 
 		q1.total();
-		assertEquals(enabled ? list() : list(sc(q1, true)), l.scs);
+		assertEquals(enabled ? list() : list(sc(q1, TOTAL)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 
 		q2.total();
-		assertEquals(list(sc(q2, true)), l.scs);
+		assertEquals(list(sc(q2, TOTAL)), l.scs);
 		l.clear();
 		assertEquals(enabled ? list(cqi(C2, 1, 0), cqi(C1, 1, 1), cqi(Q2, 0, 0), cqi(Q1, 0, 1)) : list(), qch());
 
@@ -115,20 +117,20 @@ public class QueryCacheTest extends TestWithEnvironment
 		return Arrays.asList(model.getQueryCacheHistogram());
 	}
 
-	private static SC sc(final Query<?> query, final boolean totalOnly)
+	private static SC sc(final Query<?> query, final Query.Mode mode)
 	{
-		return new SC(query, totalOnly);
+		return new SC(query, mode);
 	}
 
 	private static final class SC
 	{
 		final Query<?> query;
-		final boolean totalOnly;
+		final Query.Mode mode;
 
-		SC(final Query<?> query, final boolean totalOnly)
+		SC(final Query<?> query, final Query.Mode mode)
 		{
 			this.query = query;
-			this.totalOnly = totalOnly;
+			this.mode = mode;
 		}
 
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
@@ -139,7 +141,7 @@ public class QueryCacheTest extends TestWithEnvironment
 			final SC o = (SC)other;
 			return
 				query == o.query && // do not use equals !!!
-				totalOnly == o.totalOnly;
+				mode == o.mode;
 		}
 
 		@Override
@@ -154,7 +156,7 @@ public class QueryCacheTest extends TestWithEnvironment
 		@Override
 		public String toString()
 		{
-			return (totalOnly ? "TOTAL " : "SEARCH ") + query;
+			return mode.name() + ' ' + query;
 		}
 	}
 
@@ -174,9 +176,9 @@ public class QueryCacheTest extends TestWithEnvironment
 		}
 
 		@Override
-		public void search(final Connection connection, final Query<?> query, final boolean totalOnly)
+		public void search(final Connection connection, final Query<?> query, final Query.Mode mode)
 		{
-			scs.add(new SC(query, totalOnly));
+			scs.add(new SC(query, mode));
 		}
 
 		void clear()

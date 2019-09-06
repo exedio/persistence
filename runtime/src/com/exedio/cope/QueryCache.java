@@ -134,13 +134,13 @@ final class QueryCache
 	ArrayList<Object> search(
 			final Transaction transaction,
 			final Query<?> query,
-			final boolean totalOnly)
+			final Query.Mode mode)
 	{
 		if(map==null)
 		{
 			throw new RuntimeException("search in cache must not be called if query caching is disabled");
 		}
-		final Key key = new Key(query, totalOnly);
+		final Key key = new Key(query, mode);
 		Value result;
 		synchronized(map)
 		{
@@ -149,9 +149,9 @@ final class QueryCache
 		if ( result==null )
 		{
 			final ArrayList<Object> resultList =
-				query.searchUncached(transaction, totalOnly);
+				query.searchUncached(transaction, mode);
 
-			if(totalOnly ||
+			if(!mode.isSearch() ||
 				resultList.size()<=query.getSearchSizeCacheLimit())
 			{
 				if(isStamped(query, transaction.getCacheStamp()))
@@ -370,9 +370,9 @@ final class QueryCache
 
 		private static final Charset CHARSET = UTF_8;
 
-		Key(final Query<?> query, final boolean totalOnly)
+		Key(final Query<?> query, final Query.Mode mode)
 		{
-			text = query.toString(true, totalOnly).getBytes(CHARSET);
+			text = query.toString(true, mode).getBytes(CHARSET);
 			// TODO compress
 			hashCode = Arrays.hashCode(text);
 		}

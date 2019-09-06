@@ -23,5 +23,5 @@ import java.sql.Connection;
 interface TestDatabaseListener
 {
 	void load(Connection connection, Item item);
-	void search(Connection connection, Query<?> query, boolean totalOnly);
+	void search(Connection connection, Query<?> query, Query.Mode mode);
 }
