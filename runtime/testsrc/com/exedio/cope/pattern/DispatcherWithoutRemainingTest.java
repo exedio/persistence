@@ -182,17 +182,6 @@ public class DispatcherWithoutRemainingTest extends TestWithEnvironment
 		assertPending(item4);
 	}
 
-	@Test void testStop0Probe()
-	{
-		dispatch(0);
-		historyAssert(
-				"ctx STOP");
-		assertPending(item1);
-		assertPending(item2);
-		assertPending(item3);
-		assertPending(item4);
-	}
-
 	@Test void testStop1()
 	{
 		final Date[] d = dispatch(1);

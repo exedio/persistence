@@ -159,15 +159,6 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 	}
 
-	@Test void testStop0Probe()
-	{
-		dispatch(0, 0);
-		assertPending(item1, 0, list());
-		assertPending(item2, 0, list());
-		assertPending(item3, 0, list());
-		assertPending(item4, 0, list());
-	}
-
 	@Test void testStop1()
 	{
 		final Date[] d = dispatch(1, 1);
