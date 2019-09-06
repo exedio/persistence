@@ -18,13 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.Dispatcher.Config.DEFAULT_FAILURE_LIMIT;
+import static com.exedio.cope.pattern.Dispatcher.Config.DEFAULT_SEARCH_SIZE;
+
 import com.exedio.cope.pattern.Dispatcher.Config;
 import com.exedio.cope.util.Properties;
 
 public final class DispatcherProperties extends Properties
 {
-	private final int failureLimit = value("failureLimit", Config.DEFAULT_FAILURE_LIMIT, 1);
-	private final int searchSize   = value("searchSize",   Config.DEFAULT_SEARCH_SIZE,   1);
+	private final int failureLimit = value("failureLimit", DEFAULT_FAILURE_LIMIT, 1);
+	private final int searchSize   = value("searchSize",   DEFAULT_SEARCH_SIZE,   1);
 	private final Config value =
 			new Config(
 				failureLimit,
