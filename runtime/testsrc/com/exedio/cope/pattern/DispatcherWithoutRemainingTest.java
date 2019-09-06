@@ -99,10 +99,14 @@ public class DispatcherWithoutRemainingTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item3, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item2);
 		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 2 of 3 runs remaining");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item3);
 		log.assertInfo("success for " + item3 + ", took " + item3.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -119,8 +123,12 @@ public class DispatcherWithoutRemainingTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "ctx progress");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item2);
 		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 1 of 3 runs remaining");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item4);
 		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 1 of 3 runs remaining");
 		log.assertEmpty();
@@ -135,6 +143,8 @@ public class DispatcherWithoutRemainingTest extends TestWithEnvironment
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item2, "ctx progress",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item4, "notifyFinalFailure " + item4, "ctx progress");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item2);
 		log.assertInfo("success for " + item2 + ", took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -158,6 +168,8 @@ public class DispatcherWithoutRemainingTest extends TestWithEnvironment
 		historyAssert(
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "ctx progress");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();

@@ -86,10 +86,14 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list());
 
 		final Date[] d1 = dispatch(4);
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item2);
 		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 2 of 3 runs remaining");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item3);
 		log.assertInfo("success for " + item3 + ", took " + item3.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -101,8 +105,12 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 		assertPending(item4, 0, list(d1[3]));
 
 		final Date[] d2 = dispatch(2);
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item2);
 		log.assertWarn("transient failure for " + item2 + ", took " + item2.lastElapsed() + "ms, 1 of 3 runs remaining");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item4);
 		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 1 of 3 runs remaining");
 		log.assertEmpty();
@@ -113,6 +121,8 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 		DispatcherWithoutPurgeItem.logs.get(item2).fail = false;
 		final Date[] d3 = dispatch(2);
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item2);
 		log.assertInfo("success for " + item2 + ", took " + item2.lastElapsed() + "ms");
 		log.assertDebug("dispatching " + item4);
@@ -132,6 +142,8 @@ public class DispatcherWithoutPurgeTest extends TestWithEnvironment
 
 		item1.setToTargetPending(true);
 		final Date[] d4 = dispatch(1);
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();

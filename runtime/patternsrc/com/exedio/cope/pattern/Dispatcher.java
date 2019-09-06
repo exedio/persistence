@@ -469,8 +469,13 @@ public final class Dispatcher extends Pattern
 				if(ctx.supportsMessage())
 					ctx.setMessage("probe");
 				deferOrStopIfRequested(ctx);
+				if(logger.isDebugEnabled())
+					logger.debug("probing");
+				final long nanoStart = nanoTime();
 				probe.run();
+				final long elapsed = toMillies(nanoTime(), nanoStart);
 				probeRequired = false;
+				logger.info("probed, took {}ms", elapsed);
 			}
 
 			final String itemID = item.getCopeID();

@@ -61,7 +61,8 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		historyAssert(
 				"ctx stop", "ctx defer", // TODO probe must not appear here
 				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress");
-		// probe must not appear here
+		log.assertDebug("probing"); // TODO probe must not appear here
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfoMS("success for " + item1 + ", took XXms");
 		log.assertEmpty();
@@ -224,6 +225,8 @@ public class DispatcherProbeTest extends TestWithEnvironment
 		historyAssert(
 				"ctx stop", "ctx defer", "probe",
 				"ctx stop", "ctx defer", "dispatch " + item1, "ctx progress");
+		log.assertDebug("probing");
+		log.assertInfoMS("probed, took XXms");
 		log.assertDebug("dispatching " + item1);
 		log.assertInfoMS("success for " + item1 + ", took XXms");
 		log.assertEmpty();
