@@ -22,13 +22,13 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import javax.servlet.http.HttpServletRequest;
 
 final class ErrorLog
 {
 	private final int capacity;
-	private final AtomicInteger value = new AtomicInteger();
+	private final AtomicLong value = new AtomicLong();
 	private final ArrayDeque<MediaRequestLog> logs;
 
 	ErrorLog()
@@ -59,7 +59,7 @@ final class ErrorLog
 		}
 	}
 
-	int get()
+	long get()
 	{
 		return value.get();
 	}

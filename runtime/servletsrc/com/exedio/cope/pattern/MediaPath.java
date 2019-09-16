@@ -43,7 +43,7 @@ import java.lang.annotation.Annotation;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -416,17 +416,17 @@ public abstract class MediaPath extends Pattern
 
 
 	private static final ErrorLog noSuchPath = new ErrorLog();
-	private final AtomicInteger redirectFrom = new AtomicInteger();
+	private final AtomicLong  redirectFrom = new AtomicLong();
 	private final ErrorLog    exception = new ErrorLog();
 	private final ErrorLog    invalidSpecial = new ErrorLog();
 	private final ErrorLog    guessedUrl = new ErrorLog();
 	private final ErrorLog    notAnItem = new ErrorLog();
 	private final ErrorLog    noSuchItem = new ErrorLog();
-	private final AtomicInteger moved = new AtomicInteger();
+	private final AtomicLong  moved = new AtomicLong();
 	private final ErrorLog    isNull = new ErrorLog();
 	private final ErrorLog    notComputable = new ErrorLog();
-	private final AtomicInteger notModified = new AtomicInteger();
-	private final AtomicInteger delivered = new AtomicInteger();
+	private final AtomicLong  notModified = new AtomicLong();
+	private final AtomicLong  delivered = new AtomicLong();
 
 	final void incRedirectFrom()
 	{
@@ -526,24 +526,33 @@ public abstract class MediaPath extends Pattern
 
 	public static final int getNoSuchPath()
 	{
-		return noSuchPath.get();
+		return toIntMetrics(noSuchPath.get());
 	}
 
 	public final MediaInfo getInfo()
 	{
 		return new MediaInfo(
 				this,
-				redirectFrom.get(),
-				exception.get(),
-				invalidSpecial.get(),
-				guessedUrl.get(),
-				notAnItem.get(),
-				noSuchItem.get(),
-				moved.get(),
-				isNull.get(),
-				notComputable.get(),
-				notModified.get(),
-				delivered.get());
+				toIntMetrics(redirectFrom.get()),
+				toIntMetrics(exception.get()),
+				toIntMetrics(invalidSpecial.get()),
+				toIntMetrics(guessedUrl.get()),
+				toIntMetrics(notAnItem.get()),
+				toIntMetrics(noSuchItem.get()),
+				toIntMetrics(moved.get()),
+				toIntMetrics(isNull.get()),
+				toIntMetrics(notComputable.get()),
+				toIntMetrics(notModified.get()),
+				toIntMetrics(delivered.get()));
+	}
+
+	private static int toIntMetrics(final long l)
+	{
+		if(l>Integer.MAX_VALUE)
+			return Integer.MAX_VALUE;
+		if(l<Integer.MIN_VALUE)
+			return Integer.MIN_VALUE;
+		return (int)l;
 	}
 
 	/**
