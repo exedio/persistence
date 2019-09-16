@@ -20,10 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
-import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.pattern.FeatureTimer.timer;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
-import static java.lang.System.nanoTime;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
@@ -57,6 +56,7 @@ import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Timer;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
@@ -339,6 +339,10 @@ public final class Dispatcher extends Pattern
 					", but was " + type.getJavaClass().getName());
 
 		this.runTypeIfMounted = new RunType(type);
+
+		FeatureTimer.onMount(this, succeedTimer, failTimer, probeTimer);
+		if(supportsPurge())
+			FeatureTimer.onMount(this, purgeTimer);
 	}
 
 	public BooleanField getPending()
@@ -471,9 +475,9 @@ public final class Dispatcher extends Pattern
 				deferOrStopIfRequested(ctx);
 				if(logger.isDebugEnabled())
 					logger.debug("probing");
-				final long nanoStart = nanoTime();
+				final Timer.Sample nanoStart = Timer.start();
 				probe.run();
-				final long elapsed = toMillies(nanoTime(), nanoStart);
+				final long elapsed = probeTimer.stopMillies(nanoStart);
 				probeRequired = false;
 				logger.info("probed, took {}ms", elapsed);
 			}
@@ -503,12 +507,12 @@ public final class Dispatcher extends Pattern
 				if(logger.isDebugEnabled())
 					logger.debug("dispatching {}", itemID);
 				final long start = Clock.currentTimeMillis();
-				final long nanoStart = nanoTime();
+				final Timer.Sample nanoStart = Timer.start();
 				try
 				{
 					variant.dispatch(this, item);
 
-					final long elapsed = toMillies(nanoTime(), nanoStart);
+					final long elapsed = succeedTimer.stopMillies(nanoStart);
 					runType.newItem(
 							parentClass, item, new Date(start), elapsed,
 							0, limit,
@@ -520,7 +524,7 @@ public final class Dispatcher extends Pattern
 				}
 				catch(final Exception failureCause)
 				{
-					final long elapsed = toMillies(nanoTime(), nanoStart);
+					final long elapsed = failTimer.stopMillies(nanoStart);
 					probeRequired = true;
 					tx.rollbackIfNotCommitted();
 
@@ -935,7 +939,11 @@ public final class Dispatcher extends Pattern
 
 		final Query<? extends Item> query = purgeQuery(properties, restriction);
 		if(query!=null)
+		{
+			final Timer.Sample start = Timer.start();
 			Delete.delete(query, "Dispatcher#purge " + getID(), ctx);
+			purgeTimer.stop(start);
+		}
 	}
 
 	Query<? extends Item> purgeQuery(
@@ -978,4 +986,13 @@ public final class Dispatcher extends Pattern
 		//noinspection ConstantConditions OK: getUnpendDate cannot return null if supportsPurge return true
 		return getUnpendDate().less(new Date(now - duration.toMillis()));
 	}
+
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer succeedTimer = timer("dispatch", "An item was dispatched.", "result", "success");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer failTimer = succeedTimer.newValue("failure");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer probeTimer = timer("probe", "The dispatcher probe was run successfully.");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer purgeTimer = timer("purge", "Items were purged (Dispatcher#purge).");
 }

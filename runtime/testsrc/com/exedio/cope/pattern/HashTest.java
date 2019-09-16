@@ -165,22 +165,37 @@ public class HashTest extends TestWithEnvironment
 		assertFalse(item.checkInternal("zack"));
 		assertTrue(item.isInternalNull());
 
+		hashT.assertCount(0);
 		item.setInternal("03affe07");
+		hashT.assertCount(1);
 		assertEquals("[03affe07]", item.get(internal.getStorage()));
 		assertFalse(item.checkInternal(null));
+		checkMatchT.assertCount(0);
+		checkMismatchT.assertCount(0);
 		assertFalse(item.checkInternal("0"));
+		checkMismatchT.assertCount(1);
 		assertTrue(item.checkInternal("03affe07"));
+		checkMatchT.assertCount(1);
 		assertFalse(item.isInternalNull());
 
+		hashT.assertCount(0);
 		item.set(internal.map("03affe08"));
+		hashT.assertCount(1);
 		assertEquals("[03affe08]", item.get(internal.getStorage()));
 		assertFalse(item.checkInternal(null));
+		checkMatchT.assertCount(0);
+		checkMismatchT.assertCount(0);
 		assertFalse(item.checkInternal("0"));
+		checkMismatchT.assertCount(1);
 		assertFalse(item.checkInternal("03affe07"));
+		checkMismatchT.assertCount(1);
 		assertTrue(item.checkInternal("03affe08"));
+		checkMatchT.assertCount(1);
 		assertFalse(item.isInternalNull());
 
+		hashT.assertCount(0);
 		final HashItem item2 = new HashItem(internal.map("03affe09"));
+		hashT.assertCount(1);
 		assertEquals("[03affe09]", item2.get(internal.getStorage()));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
@@ -194,6 +209,10 @@ public class HashTest extends TestWithEnvironment
 		assertTrue(item3.checkInternal("03affe10"));
 		assertFalse(item3.isInternalNull());
 	}
+
+	private final FeatureTimerTester hashT          = new FeatureTimerTester(internal, "hash");
+	private final FeatureTimerTester checkMatchT    = new FeatureTimerTester(internal, "check", "result", "match");
+	private final FeatureTimerTester checkMismatchT = new FeatureTimerTester(internal, "check", "result", "mismatch");
 
 	@Test void testAlgorithmReturnsNull()
 	{

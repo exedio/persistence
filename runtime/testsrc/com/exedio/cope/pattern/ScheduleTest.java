@@ -110,28 +110,34 @@ public class ScheduleTest extends TestWithEnvironment
 				log("2008-03-13 00:00", "2008-03-14 00:00"));
 		assertRuns(
 				ern(DAILY, "2008-03-13 00:00", "2008-03-14 00:00", "2008-03-14 01:49:49.888"));
+		runT.assertCount(1);
 
 		run(0, "2008-03-14 01:49:49.888");
 		assertLogs();
 		assertRuns();
+		runT.assertCount(0);
 
 		run(0, "2008-03-15 00:04:59.999");
 		assertLogs();
 		assertRuns();
+		runT.assertCount(0);
 
 		run(1, "2008-03-15 00:05");
 		assertLogs(
 				log("2008-03-14 00:00", "2008-03-15 00:00"));
 		assertRuns(
 				ern(DAILY, "2008-03-14 00:00", "2008-03-15 00:00", "2008-03-15 00:05"));
+		runT.assertCount(1);
 
 		run(0, "2008-03-15 00:00");
 		assertLogs();
 		assertRuns();
+		runT.assertCount(0);
 
 		run(0, "2008-03-16 00:04:59.999");
 		assertLogs();
 		assertRuns();
+		runT.assertCount(0);
 
 		run(2, "2008-03-17 00:05");
 		assertLogs(
@@ -140,6 +146,7 @@ public class ScheduleTest extends TestWithEnvironment
 		assertRuns(
 				ern(DAILY, "2008-03-15 00:00", "2008-03-16 00:00", "2008-03-17 00:05"),
 				ern(DAILY, "2008-03-16 00:00", "2008-03-17 00:00", "2008-03-17 00:05"));
+		runT.assertCount(2);
 
 		run(3, "2008-03-20 00:05");
 		assertLogs(
@@ -150,6 +157,7 @@ public class ScheduleTest extends TestWithEnvironment
 				ern(DAILY, "2008-03-17 00:00", "2008-03-18 00:00", "2008-03-20 00:05"),
 				ern(DAILY, "2008-03-18 00:00", "2008-03-19 00:00", "2008-03-20 00:05"),
 				ern(DAILY, "2008-03-19 00:00", "2008-03-20 00:00", "2008-03-20 00:05"));
+		runT.assertCount(3);
 	}
 
 	@Test void testFail()
@@ -892,4 +900,6 @@ public class ScheduleTest extends TestWithEnvironment
 			progress += delta;
 		}
 	}
+
+	private final FeatureTimerTester runT = new FeatureTimerTester(report, "run");
 }

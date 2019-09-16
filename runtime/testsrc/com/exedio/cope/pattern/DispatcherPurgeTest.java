@@ -75,7 +75,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 				"AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 12));
 
-		assertPurged(false, false);
+		assertPurged(false, false, 1);
 	}
 
 	@Test void testDifferent()
@@ -91,7 +91,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1970-01-06 00:00:00.555')))",
 				purge(555+20*day, 12, 15));
 
-		assertPurged(false, false);
+		assertPurged(false, false, 1);
 	}
 
 	@Test void testNoPurge()
@@ -114,7 +114,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1970-01-06 00:00:00.555')))",
 				purge(555+20*day, 12, 15));
 
-		assertPurged(true, true);
+		assertPurged(true, true, 1);
 	}
 
 	@Test void testOmitSuccess()
@@ -128,7 +128,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 				"AND toTarget-unpend-success='false' AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 0, 12));
 
-		assertPurged(true, false);
+		assertPurged(true, false, 1);
 	}
 
 	@Test void testOmitFinalFailure()
@@ -142,7 +142,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 				"AND toTarget-unpend-success='true' AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 0));
 
-		assertPurged(false, true);
+		assertPurged(false, true, 1);
 	}
 
 	@Test void testOmitBoth()
@@ -153,7 +153,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 				null,
 				purge(null, 0, 0));
 
-		assertPurged(true, true);
+		assertPurged(true, true, 0);
 	}
 
 	@Test void testRestriction()
@@ -168,7 +168,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 				"AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 12, DispatcherItem.body.equal("bodyMismatch")));
 
-		assertPurged(true, true);
+		assertPurged(true, true, 1);
 
 		assertEquals(
 				"select this from DispatcherItem " +
@@ -177,7 +177,7 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 				"AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 12));
 
-		assertPurged(false, false);
+		assertPurged(false, false, 1);
 	}
 
 
@@ -249,13 +249,16 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		return query!=null ? query.toString() : null;
 	}
 
-	private void assertPurged(final boolean success, final boolean failure)
+	private void assertPurged(final boolean success, final boolean failure, final int timerCount)
 	{
 		assertEquals(success, itemSuccessBefore.existsCopeItem());
 		assertEquals(true,    itemSuccessAfter .existsCopeItem());
 		assertEquals(failure, itemFailureBefore.existsCopeItem());
 		assertEquals(true,    itemFailureAfter .existsCopeItem());
+		timer.assertCount(timerCount);
 	}
+
+	private final FeatureTimerTester timer = new FeatureTimerTester(DispatcherItem.toTarget, "purge");
 
 	@AfterEach void afterEach()
 	{

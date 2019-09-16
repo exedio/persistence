@@ -217,6 +217,7 @@
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -252,6 +253,7 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -346,6 +348,10 @@
 		<pathelement location="lib/opentest4j.jar" />
 		<pathelement location="lib/slf4j-api.jar" />
 		<pathelement location="lib/log4j-bundle.jar" />
+		<pathelement location="lib/micrometer-core.jar" />
+		<pathelement location="lib/micrometer-registry-prometheus.jar" />
+		<pathelement location="lib/simpleclient-bundle.jar" />
+		<pathelement location="lib/simpleclient_common-bundle.jar" />
 		<pathelement location="lib/exedio-cope-util.jar" />
 		<pathelement location="lib/findbugs-annotations.jar" />
 	</path>
@@ -413,6 +419,11 @@
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/slf4j-log4j12.jar" />
 				<pathelement location="lib/log4j-bundle.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
+				<pathelement location="lib/LatencyUtils.jar" />
+				<pathelement location="lib/micrometer-registry-prometheus.jar" />
+				<pathelement location="lib/simpleclient-bundle.jar" />
+				<pathelement location="lib/simpleclient_common-bundle.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 			</classpath>
@@ -451,6 +462,11 @@
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
 						<pathelement location="lib/log4j-bundle.jar" />
+						<pathelement location="lib/micrometer-core.jar" />
+						<pathelement location="lib/LatencyUtils.jar" />
+						<pathelement location="lib/micrometer-registry-prometheus.jar" />
+						<pathelement location="lib/simpleclient-bundle.jar" />
+						<pathelement location="lib/simpleclient_common-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/exedio-cope-servletutil.jar" />
 					</classpath>
@@ -494,6 +510,10 @@
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/slf4j-log4j12.jar" />
 						<pathelement location="lib/log4j-bundle.jar" />
+						<pathelement location="lib/micrometer-core.jar" />
+						<pathelement location="lib/micrometer-registry-prometheus.jar" />
+						<pathelement location="lib/simpleclient-bundle.jar" />
+						<pathelement location="lib/simpleclient_common-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/exedio-cope-servletutil.jar" />
 					</classpath>
@@ -523,6 +543,12 @@
 				<copy todir="build/runtime/web-@{env}/WEB-INF/lib">
 					<fileset file="lib/trove4j.jar" />
 					<fileset file="lib/slf4j-api.jar" />
+					<fileset file="lib/micrometer-core.jar" />
+					<fileset file="lib/LatencyUtils.jar" />
+					<fileset file="lib/micrometer-registry-prometheus.jar" />
+					<fileset file="lib/simpleclient-bundle.jar" />
+					<fileset file="lib/simpleclient_common-bundle.jar" />
+					<fileset file="lib/opentest4j.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
 					<fileset file="lib/exedio-cope-servletutil.jar" />
 					<fileset file="lib/exedio-cope-console.jar" />
@@ -605,6 +631,8 @@
 			<fileset file="lib/slf4j-api.jar" />
 			<fileset file="lib/slf4j-log4j12.jar" />
 			<fileset file="lib/log4j-bundle.jar" />
+			<fileset file="lib/micrometer-core.jar" />
+			<fileset file="lib/opentest4j.jar" />
 		</copy>
 	</target>
 
@@ -753,6 +781,7 @@
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
 			</classpath>
 		</taskdef>
 		<mkdir dir="build/timestamps"/>
@@ -902,6 +931,7 @@
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/junit-jupiter-engine.jar" />
@@ -989,6 +1019,7 @@
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
 			</myClasspath>
@@ -1007,6 +1038,10 @@
 				<pathelement location="lib/exedio-cops.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
+				<pathelement location="lib/micrometer-core.jar" />
+				<pathelement location="lib/micrometer-registry-prometheus.jar" />
+				<pathelement location="lib/simpleclient-bundle.jar" />
+				<pathelement location="lib/simpleclient_common-bundle.jar" />
 			</classpath>
 			<arg value="build/runtime/testprotocol.html"/>
 			<assertions><enable/></assertions>

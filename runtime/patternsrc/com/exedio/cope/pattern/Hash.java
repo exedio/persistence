@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.AlgorithmAdapter.wrap;
+import static com.exedio.cope.pattern.FeatureTimer.timer;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
@@ -44,6 +45,7 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Timer;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
 import java.util.Set;
@@ -203,7 +205,9 @@ public class Hash extends Pattern implements HashInterface
 
 	private String algorithmHash(final String plainText)
 	{
+		final Timer.Sample start = Timer.start();
 		final String result = algorithm.hash(plainText);
+		hashTimer.stop(start);
 		if(result==null)
 			throw new NullPointerException(algorithm.getID());
 		return result;
@@ -216,7 +220,10 @@ public class Hash extends Pattern implements HashInterface
 		if(hash==null)
 			throw new NullPointerException();
 
-		return algorithm.check(plainText, hash);
+		final Timer.Sample start = Timer.start();
+		final boolean result = algorithm.check(plainText, hash);
+		(result ? checkTimerMatch : checkTimerMismatch).stop(start);
+		return result;
 	}
 
 
@@ -281,6 +288,13 @@ public class Hash extends Pattern implements HashInterface
 	public final Hash validate(final PlainTextValidator validator)
 	{
 		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
+	}
+
+	@Override
+	protected void onMount()
+	{
+		super.onMount();
+		FeatureTimer.onMount(Hash.class, this, hashTimer, checkTimerMatch, checkTimerMismatch);
 	}
 
 	@Override
@@ -544,6 +558,13 @@ public class Hash extends Pattern implements HashInterface
 			return wasLimit;
 		}
 	}
+
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer hashTimer = timer("hash", "Creates a new hash from plain text.");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer checkTimerMatch = timer("check", "Checks a hash against plain text.", "result", "match");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer checkTimerMismatch = checkTimerMatch.newValue("mismatch");
 
 	// ------------------- deprecated stuff -------------------
 

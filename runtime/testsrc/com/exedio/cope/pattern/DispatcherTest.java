@@ -105,6 +105,8 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item4);
 		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 2 of 3 runs remaining");
 		log.assertEmpty();
+		succeedT.assertCount(2);
+		failT.   assertCount(2);
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertPending(item2, failure(d1[1]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
@@ -119,6 +121,8 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item4);
 		log.assertWarn("transient failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 1 of 3 runs remaining");
 		log.assertEmpty();
+		succeedT.assertCount(0);
+		failT.   assertCount(2);
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertPending(item2, failure(d1[1]), failure(d2[0], 1));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
@@ -134,6 +138,8 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item4);
 		log.assertError("final failure for " + item4 + ", took " + item4.lastElapsed() + "ms, 3 runs exhausted" );
 		log.assertEmpty();
+		succeedT.assertCount(1);
+		failT.   assertCount(1);
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
@@ -142,6 +148,8 @@ public class DispatcherTest extends TestWithEnvironment
 		dispatch();
 		historyAssert();
 		log.assertEmpty();
+		succeedT.assertCount(0);
+		failT.   assertCount(0);
 		assertSuccess(item1, 1, d1[0], success(d1[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
@@ -154,6 +162,8 @@ public class DispatcherTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
 		log.assertEmpty();
+		succeedT.assertCount(1);
+		failT.   assertCount(0);
 		assertSuccess(item1, 2, d4[0], success(d1[0]), success(d4[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
@@ -162,12 +172,16 @@ public class DispatcherTest extends TestWithEnvironment
 		dispatch();
 		historyAssert();
 		log.assertEmpty();
+		succeedT.assertCount(0);
+		failT.   assertCount(0);
 		assertSuccess(item1, 2, d4[0], success(d1[0]), success(d4[0]));
 		assertSuccess(item2, 1, d3[0], failure(d1[1]), failure(d2[0], 1), success(d3[0]));
 		assertSuccess(item3, 1, d1[2], success(d1[2]));
 		assertFailed (item4, failure(d1[3]), failure(d2[1], 1), finalFailure(d3[1]));
 
 		log.assertEmpty();
+		probeT.assertCount(0);
+		purgeT.assertCount(0);
 	}
 
 	@Test void testStop0()
@@ -467,6 +481,11 @@ public class DispatcherTest extends TestWithEnvironment
 					() -> assertEquals(success, actual.isSuccess(), "success"));
 		}
 	}
+
+	private final FeatureTimerTester succeedT = new FeatureTimerTester(toTarget, "dispatch", "result", "success");
+	private final FeatureTimerTester failT    = new FeatureTimerTester(toTarget, "dispatch", "result", "failure");
+	private final FeatureTimerTester probeT   = new FeatureTimerTester(toTarget, "probe");
+	private final FeatureTimerTester purgeT   = new FeatureTimerTester(toTarget, "purge");
 
 	@AfterEach void afterEach()
 	{

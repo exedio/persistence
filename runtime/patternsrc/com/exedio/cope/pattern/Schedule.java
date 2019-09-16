@@ -21,10 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
 import static com.exedio.cope.misc.Iterables.once;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
-import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.pattern.FeatureTimer.timer;
 import static com.exedio.cope.pattern.Schedule.Interval.DAILY;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
-import static java.lang.System.nanoTime;
 import static java.time.DayOfWeek.MONDAY;
 import static java.time.temporal.ChronoField.DAY_OF_WEEK;
 import static java.time.temporal.ChronoUnit.DAYS;
@@ -56,6 +55,7 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ProxyJobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Timer;
 import java.time.Duration;
 import java.time.Instant;
 import java.time.ZoneId;
@@ -246,6 +246,7 @@ public final class Schedule extends Pattern
 					", but was " + type.getJavaClass().getName());
 
 		runs.onMount(this, type);
+		FeatureTimer.onMount(this, runTimer);
 	}
 
 	public BooleanField getEnabled()
@@ -450,13 +451,13 @@ public final class Schedule extends Pattern
 			final RunContext runCtx = new RunContext(ctx);
 			try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 			{
-				final long elapsedStart = nanoTime();
+				final Timer.Sample elapsedStart = Timer.start();
 				variant.run(this, item, fromDate, untilDate, runCtx); // TODO switch to Instant
-				final long elapsedEnd = nanoTime();
+				final long elapsed = runTimer.stopMillies(elapsedStart);
 				runs.newItem(
 						item, interval, fromDate, untilDate, Date.from(now), // TODO switch to InstantField
 						runCtx.getProgress(),
-						toMillies(elapsedEnd, elapsedStart));
+						elapsed);
 				tx.commit();
 			}
 		}
@@ -634,6 +635,9 @@ public final class Schedule extends Pattern
 			return getPattern().runs.elapsed.getMandatory(this);
 		}
 	}
+
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer runTimer = timer("run", "The schedule was run for an item");
 
 	// ------------------- deprecated stuff -------------------
 
