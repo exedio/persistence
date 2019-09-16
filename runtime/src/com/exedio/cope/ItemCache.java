@@ -18,8 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.count;
+
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -27,7 +31,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
 
 final class ItemCache
 {
@@ -39,11 +44,11 @@ final class ItemCache
 
 	private final TypeStats[] typeStats;
 
-	ItemCache(final List<Type<?>> typesSorted, final ConnectProperties properties)
+	ItemCache(final Model model, final ConnectProperties properties)
 	{
 		final int limit=properties.getItemCacheLimit();
 		final List<TypeStats> typesStatsList=new ArrayList<>();
-		for(final Type<?> type : typesSorted)
+		for(final Type<?> type : model.types.typeListSorted)
 			if(!type.isAbstract)
 			{
 				final boolean cachingDisabled =
@@ -67,7 +72,7 @@ final class ItemCache
 		}
 
 		map = new LRUMap<>(limit, eldest ->
-				typeStats[eldest.getKey().type.cacheIdTransiently].replacements++);
+				typeStats[eldest.getKey().type.cacheIdTransiently].replacements.increment());
 		if(properties.cacheStamps)
 		{
 			stampList=new LinkedHashMap<>();
@@ -75,6 +80,53 @@ final class ItemCache
 		else
 		{
 			stampList=null;
+		}
+
+		final Metrics metrics = new Metrics(model);
+		metrics.gaugeD(c -> c.map.maxSize, "maximumSize", "The maximum number of entries in this cache, causing eviction if exceeded"); // name conforms to com.google.common.cache.CacheBuilder
+		metrics.gaugeM(c -> c.map,         "size",        "The exact number of entries in this cache"); // name conforms to CacheMeterBinder
+		metrics.gaugeM(c -> c.stampList,   "stamp.transactions", "Number of transactions in stamp list");
+	}
+
+	private static final class Metrics
+	{
+		final MetricsBuilder back;
+		final Model model;
+
+		Metrics(final Model model)
+		{
+			this.back = new MetricsBuilder(ItemCache.class, model);
+			this.model = model;
+		}
+
+		void gaugeD(
+				final ToDoubleFunction<ItemCache> f,
+				final String nameSuffix,
+				final String description)
+		{
+			back.gauge(model,
+					m -> f.applyAsDouble(m.connect().itemCache),
+					nameSuffix, description);
+		}
+
+		void gaugeM(
+				final Function<ItemCache, Map<?, ?>> f,
+				final String nameSuffix,
+				final String description)
+		{
+			back.gauge(model, m ->
+					{
+						final ItemCache cache = m.connect().itemCache;
+						final Map<?,?> map = f.apply(cache);
+						if(map==null)
+							return 0.0;
+
+						synchronized(cache.map)
+						{
+							return map.size();
+						}
+					},
+					nameSuffix, description);
 		}
 	}
 
@@ -118,18 +170,18 @@ final class ItemCache
 			state = tx.connect.database.load(tx.getConnection(), item);
 			if (typeStat!=null)
 			{
-				typeStat.misses.incrementAndGet();
+				typeStat.misses.increment();
 				synchronized (map)
 				{
 					if (isStamped(item, tx.getCacheStamp()))
 					{
-						typeStat.stampsHit++;
+						typeStat.stampsHit.increment();
 					}
 					else
 					{
 						if(map.put(item, state)!=null)
 						{
-							typeStat.concurrentLoads++;
+							typeStat.concurrentLoads.increment();
 						}
 					}
 				}
@@ -137,7 +189,7 @@ final class ItemCache
 		}
 		else
 		{
-			typeStat.hits.incrementAndGet();
+			typeStat.hits.increment();
 		}
 		return state;
 	}
@@ -182,11 +234,11 @@ final class ItemCache
 						if (stampsEnabled) invalidated.add(item);
 						if (map.remove(item)!=null)
 						{
-							typeStat.invalidationsDone++;
+							typeStat.invalidationsDone.increment();
 						}
 						else
 						{
-							typeStat.invalidationsFutile++;
+							typeStat.invalidationsFutile.increment();
 						}
 					}
 				}
@@ -217,7 +269,7 @@ final class ItemCache
 						for (final Item item: entry.getValue())
 						{
 							// non-cached items don't get stamped, so the typeStats entry can't be null
-							typeStats[item.type.cacheIdTransiently].stampsPurged++;
+							typeStats[item.type.cacheIdTransiently].stampsPurged.increment();
 						}
 						iter.remove();
 					}
@@ -283,18 +335,55 @@ final class ItemCache
 	static class TypeStats
 	{
 		final Type<?> type;
-		final AtomicLong hits = new AtomicLong();
-		final AtomicLong misses = new AtomicLong();
-		long concurrentLoads = 0;
-		long replacements = 0;
-		long invalidationsFutile = 0;
-		long invalidationsDone = 0;
-		long stampsHit = 0;
-		long stampsPurged = 0;
+		final Counter hits;
+		final Counter misses;
+		final Counter concurrentLoads;
+		final Counter replacements;
+		final Counter invalidationsFutile;
+		final Counter invalidationsDone;
+		final Counter stampsHit;
+		final Counter stampsPurged;
 
 		TypeStats(final Type<?> type)
 		{
 			this.type=type;
+			final Metrics metrics = new Metrics(type);
+			hits                = metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
+			misses              = metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
+			concurrentLoads     = metrics.counter("concurrentLoad", "How often an item was loaded concurrently");
+			replacements        = metrics.counter("evictions",      "Evictions in the item cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
+			invalidationsFutile = metrics.counter("invalidations", "effect", "futile", "Invalidations in the item cache, that were futile because the item was not in cache");
+			invalidationsDone   = metrics.counter("invalidations", "effect", "actual", "Invalidations in the item cache, that were effective because the item was in cache");
+			stampsHit           = metrics.counter("stamp.hit",   "How often a stamp prevented an item from being stored");
+			stampsPurged        = metrics.counter("stamp.purge", "How many stamps that were purged because there was no transaction older that the stamp");
+		}
+
+		private static final class Metrics
+		{
+			final MetricsBuilder back;
+
+			Metrics(final Type<?> type)
+			{
+				this.back = new MetricsBuilder(ItemCache.class, Tags.of(
+						"type", type.getID(),
+						"model", type.getModel().toString()));
+			}
+
+			Counter counter(
+					final String nameSuffix,
+					final String description)
+			{
+				return back.counter(nameSuffix, description, Tags.empty());
+			}
+
+			Counter counter(
+					final String nameSuffix,
+					final String key,
+					final String value,
+					final String description)
+			{
+				return back.counter(nameSuffix, description, Tags.of(key, value));
+			}
 		}
 
 		ItemCacheInfo createItemCacheInfo(final int[] levels, final int[] stampsSizes)
@@ -302,13 +391,13 @@ final class ItemCache
 			return new ItemCacheInfo(
 				type,
 				levels[type.cacheIdTransiently],
-				hits.get(),
-				misses.get(),
-				concurrentLoads,
-				replacements,
-				invalidationsFutile, invalidationsDone,
+				count(hits),
+				count(misses),
+				count(concurrentLoads),
+				count(replacements),
+				count(invalidationsFutile), count(invalidationsDone),
 				stampsSizes[type.cacheIdTransiently],
-				stampsHit, stampsPurged
+				count(stampsHit), count(stampsPurged)
 			);
 		}
 	}

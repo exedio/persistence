@@ -18,12 +18,15 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.count;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntArrayList;
 import gnu.trove.TIntHashSet;
 import gnu.trove.TLongHashSet;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
 import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -32,6 +35,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
+import java.util.function.ToDoubleFunction;
 
 final class QueryCache
 {
@@ -39,18 +44,90 @@ final class QueryCache
 	// https://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap<Key, Value> map;
 	private final LinkedHashMap<Long,TIntArrayList> stampList;
-	private final AtomicLong hits = new AtomicLong();
-	private final AtomicLong misses = new AtomicLong();
-	private final AtomicLong invalidations = new AtomicLong();
-	private final AtomicLong concurrentLoads = new AtomicLong();
-	private final AtomicLong replacements = new AtomicLong();
-	private final AtomicLong stampsHit = new AtomicLong(0);
-	private final AtomicLong stampsPurged = new AtomicLong(0);
+	private final Counter hits;
+	private final Counter misses;
+	private final Counter invalidations;
+	private final Counter concurrentLoads;
+	private final Counter replacements;
+	private final Counter stampsHit;
+	private final Counter stampsPurged;
 
-	QueryCache(final int limit, final boolean stamps)
+	QueryCache(final Model model, final int limit, final boolean stamps)
 	{
-		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.incrementAndGet()) : null;
+		final Metrics metrics = new Metrics(model);
+		metrics.gaugeD(
+				c -> c.map!=null ? c.map.maxSize : 0,
+				"maximumSize",                                "The maximum number of entries in this cache, causing eviction if exceeded"); // name conforms to com.google.common.cache.CacheBuilder
+		metrics.gaugeM(c -> c.map,        "size",           "The exact number of entries in this cache"); // name conforms to CacheMeterBinder
+		hits            = metrics.counter("gets", "result", "hit",  "The number of times cache lookup methods have returned a cached value."); // name conforms to CacheMeterBinder
+		misses          = metrics.counter("gets", "result", "miss", "The number of times cache lookup methods have returned an uncached (newly loaded) value"); // name conforms to CacheMeterBinder
+		invalidations   = metrics.counter("invalidations",  "Invalidations in the query cache");
+		concurrentLoads = metrics.counter("concurrentLoad", "How often a query was loaded concurrently");
+		replacements    = metrics.counter("evictions",      "Evictions in the query cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
+		metrics.gaugeM(c -> c.stampList,  "stamp.transactions", "Number of transactions in stamp list");
+		stampsHit       = metrics.counter("stamp.hit",      "How often a stamp prevented a query from being stored");
+		stampsPurged    = metrics.counter("stamp.purge",    "How many stamps that were purged because there was no transaction older that the stamp");
+
+		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.increment()) : null;
 		this.stampList = (stamps && map!=null) ? new LinkedHashMap<>() : null;
+	}
+
+	private static final class Metrics
+	{
+		final MetricsBuilder back;
+		final Model model;
+
+		Metrics(final Model model)
+		{
+			this.back = new MetricsBuilder(QueryCache.class, model);
+			this.model = model;
+		}
+
+		Counter counter(
+				final String nameSuffix,
+				final String description)
+		{
+			return back.counter(nameSuffix, description, Tags.empty());
+		}
+
+		Counter counter(
+				final String nameSuffix,
+				final String key,
+				final String value,
+				final String description)
+		{
+			return back.counter(nameSuffix, description, Tags.of(key, value));
+		}
+
+		void gaugeD(
+				final ToDoubleFunction<QueryCache> f,
+				final String nameSuffix,
+				final String description)
+		{
+			back.gauge(model,
+					m -> f.applyAsDouble(m.connect().queryCache),
+					nameSuffix, description);
+		}
+
+		void gaugeM(
+				final Function<QueryCache, Map<?, ?>> f,
+				final String nameSuffix,
+				final String description)
+		{
+			back.gauge(model, m ->
+					{
+						final QueryCache cache = m.connect().queryCache;
+						final Map<?,?> map = f.apply(cache);
+						if(map==null)
+							return 0.0;
+
+						synchronized(cache.map)
+						{
+							return map.size();
+						}
+					},
+					nameSuffix, description);
+		}
 	}
 
 	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
@@ -79,7 +156,7 @@ final class QueryCache
 			{
 				if(isStamped(query, transaction.getCacheStamp()))
 				{
-					stampsHit.incrementAndGet();
+					stampsHit.increment();
 				}
 				else
 				{
@@ -90,15 +167,15 @@ final class QueryCache
 						collision = map.put(key, result);
 					}
 					if(collision!=null)
-						concurrentLoads.incrementAndGet();
+						concurrentLoads.increment();
 				}
 			}
-			misses.incrementAndGet();
+			misses.increment();
 			return resultList;
 		}
 		else
 		{
-			hits.incrementAndGet();
+			hits.increment();
 			result.hits.incrementAndGet();
 
 			final List<QueryInfo> queryInfos = transaction.queryInfos;
@@ -173,7 +250,7 @@ final class QueryCache
 				if(stampsEnabled)
 					stampList.put(stamp, invalidatedTypesTransientlyList);
 			}
-			this.invalidations.addAndGet(invalidationsCounter);
+			this.invalidations.increment(invalidationsCounter);
 		}
 	}
 
@@ -212,7 +289,7 @@ final class QueryCache
 			}
 		}
 		if(count>0)
-			stampsPurged.addAndGet(count);
+			stampsPurged.increment(count);
 	}
 
 	/**
@@ -250,14 +327,14 @@ final class QueryCache
 		}
 
 		return new QueryCacheInfo(
-				hits.get(),
-				misses.get(),
-				replacements.get(),
-				invalidations.get(),
-				concurrentLoads.get(),
+				count(hits),
+				count(misses),
+				count(replacements),
+				count(invalidations),
+				count(concurrentLoads),
 				stampListSize,
-				stampsHit.get(),
-				stampsPurged.get(),
+				count(stampsHit),
+				count(stampsPurged),
 				level);
 	}
 

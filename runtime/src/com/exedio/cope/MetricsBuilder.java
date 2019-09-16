@@ -20,13 +20,22 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.CharSet;
 import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
+import java.util.function.ToDoubleFunction;
 
 final class MetricsBuilder
 {
 	private final String nameClass;
 	private final Tags tags;
+
+	MetricsBuilder(
+			final Class<?> nameClass,
+			final Model model)
+	{
+		this(nameClass, Tags.of("model", model.toString()));
+	}
 
 	MetricsBuilder(
 			final Class<?> nameClass,
@@ -56,6 +65,18 @@ final class MetricsBuilder
 		return InfoRegistry.counter(name(nameSuffix)).
 				description(description).
 				tags(this.tags.and(tags)).
+				register(Metrics.globalRegistry);
+	}
+
+	<T> void gauge(
+			final T obj,
+			final ToDoubleFunction<T> f,
+			final String nameSuffix,
+			final String description)
+	{
+		Gauge.builder(name(nameSuffix), obj, f).
+				description(description).
+				tags(tags).
 				register(Metrics.globalRegistry);
 	}
 }

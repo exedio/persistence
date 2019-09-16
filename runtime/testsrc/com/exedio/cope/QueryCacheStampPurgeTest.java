@@ -20,11 +20,15 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
+import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -224,6 +228,30 @@ public class QueryCacheStampPurgeTest extends TestWithEnvironment
 				() -> assertEquals(stampsPurged,  curr.getStampsPurged()  - last.getStampsPurged(),  "stampsPurged(7)")
 		);
 		last = curr;
+		assertEquals(curr.getLevel(),  gauge("size"));
+		assertEquals(curr.getHits(),   count("gets", "result", "hit"));
+		assertEquals(curr.getMisses(), count("gets", "result", "miss"));
+		assertEquals(curr.getReplacements(),    count("evictions"));
+		assertEquals(curr.getInvalidations(),   count("invalidations"));
+		assertEquals(curr.getConcurrentLoads(), count("concurrentLoad"));
+		assertEquals(curr.getStampsSize(),   gauge("stamp.transactions"));
+		assertEquals(curr.getStampsHits(),   count("stamp.hit"));
+		assertEquals(curr.getStampsPurged(), count("stamp.purge"));
+	}
+
+	private double count(final String nameSuffix)
+	{
+		return ((Counter)meterCope(QueryCache.class, nameSuffix, tag(model))).count();
+	}
+
+	private double count(final String nameSuffix, final String key, final String value)
+	{
+		return ((Counter)meterCope(QueryCache.class, nameSuffix, tag(model).and(key, value))).count();
+	}
+
+	private double gauge(final String nameSuffix)
+	{
+		return ((Gauge)meterCope(QueryCache.class, nameSuffix, tag(model))).value();
 	}
 
 	private void assumeCacheEnabled()

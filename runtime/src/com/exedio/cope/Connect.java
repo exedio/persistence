@@ -67,7 +67,7 @@ final class Connect
 	boolean revised = false;
 
 	Connect(
-			final String modelName,
+			final Model model,
 			final Types types,
 			final Revisions.Factory revisionsFactory,
 			final ConnectProperties properties,
@@ -76,6 +76,7 @@ final class Connect
 	{
 		this.properties = properties;
 
+		final String modelName = model.toString();
 		final CopeProbe probe = new CopeProbe(properties, properties.probeEnvironmentInfo());
 
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
@@ -112,8 +113,8 @@ final class Connect
 		}
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);
-		this.itemCache = new ItemCache(types.typeListSorted, properties);
-		this.queryCache = new QueryCache(properties.getQueryCacheLimit(), properties.cacheStamps);
+		this.itemCache = new ItemCache(model, properties);
+		this.queryCache = new QueryCache(model, properties.getQueryCacheLimit(), properties.cacheStamps);
 
 		{
 			final ClusterProperties props = properties.cluster;

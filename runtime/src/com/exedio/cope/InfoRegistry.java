@@ -29,6 +29,8 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 final class InfoRegistry
 {
 	private static final String[] ACCEPTED = {
+			QueryCache.class.getName() + '.',
+			ItemCache.class.getName() + '.',
 			DataField.class.getName() + '.'};
 
 	private static boolean isAccepted(final String name)

@@ -20,12 +20,16 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
+import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -232,6 +236,31 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 				() -> assertEquals(stampsPurged,         curr.getStampsPurged()         - last.getStampsPurged(),         "stampsPurged(8)")
 		);
 		last = curr;
+		assertEquals(curr.getLevel(),  gauge("size"));
+		assertEquals(curr.getHits(),   count("gets", "result", "hit"));
+		assertEquals(curr.getMisses(), count("gets", "result", "miss"));
+		assertEquals(curr.getConcurrentLoads(), count("concurrentLoad"));
+		assertEquals(curr.getReplacementsL(),   count("evictions"));
+		assertEquals(curr.getInvalidationsOrdered() - curr.getInvalidationsDone(), count("invalidations", "effect", "futile"));
+		assertEquals(                                 curr.getInvalidationsDone(), count("invalidations", "effect", "actual"));
+		assertEquals(Math.min(1, curr.getStampsSize()), gauge("stamp.transactions")); // Math.min because getStampsSize() tracks items in stampList, but gauge track stamps (equivalent to transactions) in stampList
+		assertEquals(curr.getStampsHits(),   count("stamp.hit"));
+		assertEquals(curr.getStampsPurged(), count("stamp.purge"));
+	}
+
+	private static double count(final String nameSuffix)
+	{
+		return ((Counter)meterCope(ItemCache.class, nameSuffix, tag(TYPE))).count();
+	}
+
+	private static double count(final String nameSuffix, final String key, final String value)
+	{
+		return ((Counter)meterCope(ItemCache.class, nameSuffix, tag(TYPE).and(key, value))).count();
+	}
+
+	private double gauge(final String nameSuffix)
+	{
+		return ((Gauge)meterCope(ItemCache.class, nameSuffix, tag(model))).value();
 	}
 
 	private void assumeCacheEnabled()

@@ -18,7 +18,7 @@
 
 package com.exedio.cope;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -65,7 +65,11 @@ public final class PrometheusMeterRegistrar
 			final String nameSuffix,
 			final Tags tags)
 	{
-		assertEquals(DataField.class, nameClass);
+		assertTrue(asList(
+				DataField.class,
+				ItemCache.class,
+				QueryCache.class
+				).contains(nameClass), nameClass.getName());
 		return meter(
 				InfoRegistry.REGISTRY,
 				nameClass, nameSuffix, tags);
@@ -97,6 +101,15 @@ public final class PrometheusMeterRegistrar
 	}
 
 
+	static Tags tag(final Model model)
+	{
+		return Tags.of("model", model.toString());
+	}
+
+	static Tags tag(final Type<?> type)
+	{
+		return tag(type.getModel()).and("type", type.getID());
+	}
 
 	public static Tags tag(final Feature feature)
 	{
