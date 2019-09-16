@@ -10,7 +10,9 @@ before_install:
     "[server]\n
     server-id=1\n
     log_bin=/var/log/mysql/mysql-bin.log\n
-    binlog_do_db=binlogtest\n"
+    binlog_do_db=binlogtest\n
+    gtid_mode=ON\n
+    enforce_gtid_consistency=ON\n"
     | sudo tee /etc/mysql/conf.d/cope.cnf
   - sudo service mysql start
 
@@ -33,7 +35,7 @@ before_script:
     "connection.url=jdbc:mysql://localhost/cope_test_db\n
     connection.username=cope_test_user\n
     connection.password=pass\n
-    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my.properties
@@ -43,7 +45,7 @@ before_script:
     connection.username=cope_test_user\n
     connection.password=pass\n
     disableSupport.preparedStatements=true\n
-    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my-nprep.properties
@@ -53,7 +55,7 @@ before_script:
     connection.username=cope_test_user\n
     connection.password=pass\n
     schema.primaryKeyGenerator=sequence\n
-    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my-sq.properties
@@ -64,7 +66,7 @@ before_script:
     connection.password=pass\n
     dialect.connection.compress=true\n
     schema.primaryKeyGenerator=sequence\n
-    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my-z.properties
@@ -74,7 +76,7 @@ before_script:
     connection.username=cope_test_user\n
     connection.password=pass\n
     schema.primaryKeyGenerator=sequence\n
-    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mariadb-java-client.jar\n"
     | tee conf/environment/mym.properties
@@ -85,7 +87,7 @@ before_script:
     connection.password=pass\n
     dialect.connection.compress=true\n
     schema.primaryKeyGenerator=sequence\n
-    x-build.schemasavepoint=OK: SHOW MASTER STATUS mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
+    x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mariadb-java-client.jar\n"
     | tee conf/environment/mym-z.properties
