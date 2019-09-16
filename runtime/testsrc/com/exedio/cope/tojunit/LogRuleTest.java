@@ -36,6 +36,9 @@ public class LogRuleTest
 		assertEquals(" XXms", msFilter.apply(" 00ms"));
 		assertEquals(" XXms", msFilter.apply(" 11ms"));
 		assertEquals(" XXms", msFilter.apply(" 99ms"));
+		assertEquals(" 000ms", msFilter.apply(" 000ms"));
+		assertEquals(" 111ms", msFilter.apply(" 111ms"));
+		assertEquals(" 999ms", msFilter.apply(" 999ms"));
 		assertEquals("1ms", msFilter.apply("1ms"));
 		assertEquals(" Ams", msFilter.apply(" Ams"));
 		assertEquals(" 1m", msFilter.apply(" 1m"));
