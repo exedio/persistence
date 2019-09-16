@@ -27,12 +27,14 @@ import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
 import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import javax.annotation.Nonnull;
 
 final class DataFieldVaultStore extends DataFieldStore
@@ -59,6 +61,53 @@ final class DataFieldVaultStore extends DataFieldStore
 		this.algorithm = properties.getAlgorithmFactory();
 		this.hashForEmpty = properties.getAlgorithmDigestForEmptyByteSequence();
 		this.service = connect.vault;
+
+		final Metrics metrics = new Metrics(field);
+		metrics.counter(f -> f.getLength, "getLength");
+		metrics.counter(f -> f.getBytes,  "get", "sink", "bytes");
+		metrics.counter(f -> f.getStream, "get", "sink", "stream");
+		metrics.counter(f -> f.putInitial,   "put", "result", "initial");
+		metrics.counter(f -> f.putRedundant, "put", "result", "redundant");
+	}
+
+	private static final class Metrics
+	{
+		final MetricsBuilder back;
+		final DataField field;
+
+		Metrics(final DataField field)
+		{
+			this.back = new MetricsBuilder(DataField.class, Tags.of("feature", field.getID()));
+			this.field = field;
+		}
+
+		void counter(
+				final Function<DataFieldVaultStore, AtomicLong> function,
+				final String methodName)
+		{
+			counter(function, methodName, Tags.empty());
+		}
+
+		void counter(
+				final Function<DataFieldVaultStore, AtomicLong> function,
+				final String methodName,
+				final String key,
+				final String value)
+		{
+			counter(function, methodName, Tags.of(key, value));
+		}
+
+		void counter(
+				final Function<DataFieldVaultStore, AtomicLong> function,
+				final String methodName,
+				final Tags tags)
+		{
+			back.counter(field,
+					f -> f.applyToVaultStore(function).doubleValue(),
+					"vault." + methodName,
+					"VaultService#" + methodName + " calls",
+					tags);
+		}
 	}
 
 	private static final MysqlExtendedVarchar mysqlExtendedVarchar = new MysqlExtendedVarchar() { @Override public Class<? extends Annotation> annotationType() { return MysqlExtendedVarchar.class; } };

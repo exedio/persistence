@@ -26,9 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.micrometer.PrometheusMeterRegistrar;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
+import io.micrometer.core.instrument.FunctionCounter;
+import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -115,6 +118,22 @@ public class DataVaultInfoTest
 		assertEquals(putRedundant, actual.getPutRedundantCount(), "putRedundant");
 		assertEquals(getLength+getBytes+getStream, actual.getGetCount(), "get");
 		assertEquals(putInitial+putRedundant,      actual.getPutCount(), "put");
+
+		assertCount("getLength", Tags.empty(), actual.getGetLengthCount());
+		assertCount("get", Tags.of("sink", "bytes"),  actual.getGetBytesCount());
+		assertCount("get", Tags.of("sink", "stream"), actual.getGetStreamCount());
+		assertCount("put", Tags.of("result", "initial"),   actual.getPutInitialCount());
+		assertCount("put", Tags.of("result", "redundant"), actual.getPutRedundantCount());
+	}
+
+	private static void assertCount(final String nameSuffix, final Tags tags, final long actual)
+	{
+		assertEquals(
+				((FunctionCounter)PrometheusMeterRegistrar.meter(
+						DataField.class, "vault." + nameSuffix,
+						tags.and(Tags.of("feature", MyItem.field.getID())))).count(),
+				actual,
+				nameSuffix);
 	}
 
 	@SuppressWarnings("static-method")

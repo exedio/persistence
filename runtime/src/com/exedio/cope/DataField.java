@@ -43,6 +43,8 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
+import java.util.concurrent.atomic.AtomicLong;
+import java.util.function.Function;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.annotation.Nonnull;
@@ -121,6 +123,14 @@ public final class DataField extends Field<DataField.Value>
 		bufferSizeLimit   = min(properties.dataFieldBufferSizeLimit  , maximumLength);
 
 		return store.column();
+	}
+
+	AtomicLong applyToVaultStore(final Function<DataFieldVaultStore, AtomicLong> f)
+	{
+		final DataFieldStore store = this.store;
+		if(!(store instanceof DataFieldVaultStore))
+			return new AtomicLong(0);
+		return f.apply((DataFieldVaultStore)store);
 	}
 
 	@Override
