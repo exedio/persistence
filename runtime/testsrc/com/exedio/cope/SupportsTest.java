@@ -77,7 +77,8 @@ public class SupportsTest extends TestWithEnvironment
 				dataHashAlgorithms.clear(); // TODO support more
 				break;
 			case postgresql:
-				dataHashAlgorithms.retainAll(asList("MD5")); // TODO support more
+				if(model.getConnectProperties().getField("dialect.pgcryptoSchema").get().equals("<disabled>"))
+					dataHashAlgorithms.retainAll(asList("MD5"));
 				break;
 			default:
 				fail(dialect.name());

@@ -34,6 +34,23 @@ final class PostgresqlProperties extends Properties
 	}
 
 
+	/**
+	 * Requires pgcrypto extension in the schema set in this property.
+	 * Set to {@code <disabled>}, if pgcrypto extension should not be required.
+	 * Then cope will just support MD5.
+	 *
+	 * To enable pgcrypto do
+	 * <pre>
+	 * sudo su - postgres
+	 * psql
+	 * \connect database_name
+	 * CREATE EXTENSION pgcrypto WITH SCHEMA "public";
+	 * </pre>
+	 * https://www.postgresql.org/docs/9.5/static/sql-createextension.html
+	 */
+	final String pgcryptoSchema = valueX("pgcryptoSchema", "public", '"');
+
+
 	private String valueX(final String key, final String defaultValue, final char forbidden)
 	{
 		final String result = value(key, defaultValue);

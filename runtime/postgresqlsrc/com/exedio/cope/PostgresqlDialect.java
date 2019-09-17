@@ -39,6 +39,7 @@ import java.util.Locale;
 final class PostgresqlDialect extends Dialect
 {
 	private final String searchPath;
+	private final String pgcryptoSchemaQuoted;
 
 	/**
 	 * @param probe must be there to be called by reflection
@@ -55,6 +56,12 @@ final class PostgresqlDialect extends Dialect
 		probe.environmentInfo.requireDatabaseVersionAtLeast("PostgreSQL", 9, 5);
 
 		searchPath = properties.searchPath;
+		pgcryptoSchemaQuoted = quoteSchema(properties.pgcryptoSchema);
+	}
+
+	private String quoteSchema(final String schema)
+	{
+		return "<disabled>".equals(schema) ? null : dsmfDialect.quoteName(schema);
 	}
 
 	@Override
@@ -222,11 +229,10 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String[] getBlobHashAlgorithms()
 	{
-		// others need pgcrypto extension
-		// https://www.postgresql.org/docs/9.5/static/pgcrypto.html
-		// https://www.postgresql.org/docs/9.5/static/catalog-pg-extension.html
-		// https://www.postgresql.org/docs/9.5/static/sql-createextension.html
-		return new String[]{HASH_MD5};
+		return
+				pgcryptoSchemaQuoted!=null
+				? new String[]{HASH_MD5, HASH_SHA, HASH_SHA224, HASH_SHA256, HASH_SHA384, HASH_SHA512}
+				: new String[]{HASH_MD5};
 	}
 
 	@Override
@@ -234,13 +240,36 @@ final class PostgresqlDialect extends Dialect
 			final Statement bf, final BlobColumn column, final Join join,
 			final String algorithm)
 	{
-		//noinspection SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(algorithm)
 		{
 			case HASH_MD5: bf.append("MD5(").append(column, join).append(')'); break;
+			case HASH_SHA:    appendDigest(bf, column, join, algorithm, "sha1"  ); break;
+			case HASH_SHA224: appendDigest(bf, column, join, algorithm, "sha224"); break;
+			case HASH_SHA256: appendDigest(bf, column, join, algorithm, "sha256"); break;
+			case HASH_SHA384: appendDigest(bf, column, join, algorithm, "sha384"); break;
+			case HASH_SHA512: appendDigest(bf, column, join, algorithm, "sha512"); break;
 			default:
 				super.appendBlobHash(bf, column, join, algorithm);
 		}
+	}
+
+	/**
+	 * See https://www.postgresql.org/docs/9.5/static/pgcrypto.html
+	 */
+	private void appendDigest(
+			final Statement bf, final BlobColumn column, final Join join,
+			final String algorithm, final String type)
+	{
+		if(pgcryptoSchemaQuoted==null)
+			super.appendBlobHash(bf, column, join, algorithm);
+
+		bf.append("encode(").
+			append(pgcryptoSchemaQuoted).
+			append(".digest(").
+			append(column, join).
+			append(",'").
+			append(type).
+			append("'::\"text\"),'hex')");
 	}
 
 	@Override

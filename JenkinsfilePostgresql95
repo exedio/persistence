@@ -64,7 +64,8 @@ timestamps
 				)
 				writeEnv(
 						'pg95-sq',
-						'schema.primaryKeyGenerator=sequence\n'
+						'schema.primaryKeyGenerator=sequence\n' +
+						'dialect.pgcryptoSchema=<disabled>\n'
 				)
 
 				sh 'ant/bin/ant -noinput' +

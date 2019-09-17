@@ -30,6 +30,7 @@ before_script:
     mysql -u root --password= -e
     "GRANT REPLICATION CLIENT ON *.* TO 'cope_test_user'@'localhost';"
   - psql  -c 'CREATE DATABASE cope_test_db;' -U postgres
+  - psql  -c 'CREATE EXTENSION pgcrypto WITH SCHEMA "public";' -U postgres -d cope_test_db
   - >
     echo -e -n
     "connection.url=jdbc:mysql://localhost/cope_test_db\n
@@ -117,6 +118,7 @@ before_script:
     connection.password=\n
     dialect.search_path=public\n
     schema.primaryKeyGenerator=sequence\n
+    dialect.pgcryptoSchema=<disabled>\n
     x-build.dialect=postgresql\n
     x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg-sq.properties

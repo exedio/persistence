@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -74,6 +75,21 @@ public class PostgresqlPropertiesTest
 					"but did at position 3 and was '123,567'",
 					e.getMessage());
 		}
+	}
+
+	@Test void testPgcryptoSchema()
+	{
+		final String propKey = "pgcryptoSchema";
+		final Source source =
+				describe("DESC", cascade(
+						single(propKey, "123\"567"),
+						loadProperties()
+				));
+		assertFails(
+				() -> new PostgresqlProperties(source),
+				IllegalPropertiesException.class,
+				"property " + propKey + " in DESC must not contain '\"', "+
+				"but did at position 3 and was '123\"567'");
 	}
 
 
