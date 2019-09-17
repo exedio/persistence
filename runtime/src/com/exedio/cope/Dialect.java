@@ -340,6 +340,13 @@ abstract class Dialect
 
 	abstract String getBlobType(long maximumLength);
 
+	protected static final String HASH_MD5 = "MD5";
+	protected static final String HASH_SHA    = "SHA";
+	protected static final String HASH_SHA224 = "SHA-224";
+	protected static final String HASH_SHA256 = "SHA-256";
+	protected static final String HASH_SHA384 = "SHA-384";
+	protected static final String HASH_SHA512 = "SHA-512";
+
 	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS") // OK: is converted into empty set by calling code
 	String[] getBlobHashAlgorithms()
 	{

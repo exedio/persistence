@@ -226,7 +226,7 @@ final class PostgresqlDialect extends Dialect
 		// https://www.postgresql.org/docs/9.5/static/pgcrypto.html
 		// https://www.postgresql.org/docs/9.5/static/catalog-pg-extension.html
 		// https://www.postgresql.org/docs/9.5/static/sql-createextension.html
-		return new String[]{"MD5"};
+		return new String[]{HASH_MD5};
 	}
 
 	@Override
@@ -237,7 +237,7 @@ final class PostgresqlDialect extends Dialect
 		//noinspection SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(algorithm)
 		{
-			case "MD5": bf.append("MD5(").append(column, join).append(')'); break;
+			case HASH_MD5: bf.append("MD5(").append(column, join).append(')'); break;
 			default:
 				super.appendBlobHash(bf, column, join, algorithm);
 		}
