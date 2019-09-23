@@ -32,7 +32,10 @@ import java.lang.reflect.AnnotatedElement;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.Locale;
@@ -422,6 +425,19 @@ public final class DateField extends FunctionField<Date>
 					"Very probably you called \"DateField.defaultTo(new Date())\" on field {}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					getID());
+	}
+
+	@Override
+	public Collection<String> getSuspicions()
+	{
+		final Collection<String> superResult = super.getSuspicions();
+		if(!suspiciousForWrongDefaultNow())
+			return superResult;
+		final ArrayList<String> result = new ArrayList<>(superResult);
+		result.add(
+				"Very probably you called \"DateField.defaultTo(new Date())\". " +
+				"This will not work as expected, use \"defaultToNow()\" instead.");
+		return Collections.unmodifiableList(result);
 	}
 
 	private boolean suspiciousForWrongDefaultNow()

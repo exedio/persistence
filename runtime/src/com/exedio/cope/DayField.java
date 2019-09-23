@@ -27,6 +27,9 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
 import java.lang.reflect.AnnotatedElement;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
@@ -195,6 +198,19 @@ public final class DayField extends FunctionField<Day>
 					"Very probably you called \"DayField.defaultTo(new Day())\" on field {}. " +
 					"This will not work as expected, use \"defaultToNow()\" instead.",
 					getID());
+	}
+
+	@Override
+	public Collection<String> getSuspicions()
+	{
+		final Collection<String> superResult = super.getSuspicions();
+		if(!suspiciousForWrongDefaultNow())
+			return superResult;
+		final ArrayList<String> result = new ArrayList<>(superResult);
+		result.add(
+				"Very probably you called \"DayField.defaultTo(new Day())\". " +
+				"This will not work as expected, use \"defaultToNow()\" instead.");
+		return Collections.unmodifiableList(result);
 	}
 
 	private boolean suspiciousForWrongDefaultNow()

@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -39,12 +41,26 @@ public class DateFieldWrongDefaultNowTest
 		assertBefore(AnItem.past,  AnItem.wrong);
 		assertBefore(AnItem.wrong, AnItem.future);
 
+		assertEqualsUnmodifiable(asList(
+				"Very probably you called \"DateField.defaultTo(new Date())\". " +
+				"This will not work as expected, use \"defaultToNow()\" instead."),
+				AnItem.wrong.getSuspicions());
+		assertEqualsUnmodifiable(asList(), AnItem.past.getSuspicions());
+		assertEqualsUnmodifiable(asList(), AnItem.future.getSuspicions());
+
 		log.assertEmpty();
 		newType(AnItem.class);
 		log.assertError(
 				"Very probably you called \"DateField.defaultTo(new Date())\" on field AnItem.wrong. " +
 				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();
+
+		assertEqualsUnmodifiable(asList(
+				"Very probably you called \"DateField.defaultTo(new Date())\". " +
+				"This will not work as expected, use \"defaultToNow()\" instead."),
+				AnItem.wrong.getSuspicions());
+		assertEqualsUnmodifiable(asList(), AnItem.past.getSuspicions());
+		assertEqualsUnmodifiable(asList(), AnItem.future.getSuspicions());
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
