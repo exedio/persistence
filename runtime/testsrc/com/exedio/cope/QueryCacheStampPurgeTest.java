@@ -216,7 +216,9 @@ public class QueryCacheStampPurgeTest extends TestWithEnvironment
 				() -> assertEquals(level,         curr.getLevel(),                                   "level(1)"),
 				() -> assertEquals(hits,          curr.getHits()          - last.getHits(),          "hits(2)"),
 				() -> assertEquals(misses,        curr.getMisses()        - last.getMisses(),        "misses(3)"),
+				() -> assertEquals(0,             curr.getReplacements()  - last.getReplacements(),  "replacements"),
 				() -> assertEquals(invalidations, curr.getInvalidations() - last.getInvalidations(), "invalidations(4)"),
+				() -> assertEquals(0,             curr.getConcurrentLoads()-last.getConcurrentLoads(),"concurrentLoads"),
 				() -> assertEquals(stampsSize,    curr.getStampsSize(),                              "stampsSize(5)"),
 				() -> assertEquals(stampsHits,    curr.getStampsHits()    - last.getStampsHits(),    "stampsHits(6)"),
 				() -> assertEquals(stampsPurged,  curr.getStampsPurged()  - last.getStampsPurged(),  "stampsPurged(7)")

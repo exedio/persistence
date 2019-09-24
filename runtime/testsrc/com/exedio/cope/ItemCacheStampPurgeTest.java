@@ -223,6 +223,8 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 				() -> assertEquals(level,                curr.getLevel(),                                                 "level(1)"),
 				() -> assertEquals(hits,                 curr.getHits()                 - last.getHits(),                 "hits(2)"),
 				() -> assertEquals(misses,               curr.getMisses()               - last.getMisses(),               "misses(3)"),
+				() -> assertEquals(0,                    curr.getConcurrentLoads()      - last.getConcurrentLoads(),      "concurrentLoads"),
+				() -> assertEquals(0,                    curr.getReplacementsL()        - last.getReplacementsL(),        "replacements"),
 				() -> assertEquals(invalidationsOrdered, curr.getInvalidationsOrdered() - last.getInvalidationsOrdered(), "invalidationsOrdered(4)"),
 				() -> assertEquals(invalidationsDone,    curr.getInvalidationsDone()    - last.getInvalidationsDone(),    "invalidationsDone(5)"),
 				() -> assertEquals(stampsSize,           curr.getStampsSize(),                                            "stampsSize(6)"),

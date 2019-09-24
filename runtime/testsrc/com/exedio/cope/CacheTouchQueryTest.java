@@ -126,7 +126,9 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 				() -> assertEquals(level,             curr.getLevel(),                                   "level(1)"),
 				() -> assertEquals(hits,              curr.getHits()          - last.getHits(),          "hits(2)"),
 				() -> assertEquals(misses,            curr.getMisses()        - last.getMisses(),        "misses(3)"),
+				() -> assertEquals(0,                 curr.getReplacements()  - last.getReplacements(),  "replacements"),
 				() -> assertEquals(invalidations,     curr.getInvalidations() - last.getInvalidations(), "invalidations(4)"),
+				() -> assertEquals(0,                 curr.getConcurrentLoads()- last.getConcurrentLoads(),"concurrentLoads"),
 				() -> assertEquals(st?stampsSize  :0, curr.getStampsSize(),                              "stampsSize(5)"),
 				() -> assertEquals(st?stampsHits  :0, curr.getStampsHits()    - last.getStampsHits(),    "stampsHits(6)"),
 				() -> assertEquals(st?stampsPurged:0, curr.getStampsPurged()  - last.getStampsPurged(),  "stampsPurged(7)")
