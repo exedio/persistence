@@ -678,6 +678,7 @@
 			<fileset file="lib/slf4j-log4j12.jar" />
 			<fileset file="lib/log4j-bundle.jar" />
 			<fileset file="lib/micrometer-core.jar" />
+			<fileset file="lib/LatencyUtils.jar" />
 			<fileset file="lib/opentest4j.jar" />
 		</copy>
 	</target>
@@ -829,6 +830,7 @@
 				<pathelement location="lib/jsr305.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
+				<pathelement location="lib/LatencyUtils.jar" />
 			</classpath>
 		</taskdef>
 		<mkdir dir="build/timestamps"/>

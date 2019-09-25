@@ -19,23 +19,20 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Check.requireNonEmpty;
-import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.util.CharSet;
 import io.micrometer.core.instrument.Measurement;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
-import java.lang.reflect.Modifier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
- * @see MediaMeter
+ * @see FeatureMeter
  */
-abstract class FeatureMeter<M extends Meter>
+abstract class MediaMeter<M extends Meter>
 {
 	static MeterRegistry registry = Metrics.globalRegistry;
 
@@ -45,7 +42,7 @@ abstract class FeatureMeter<M extends Meter>
 	final String value;
 	M meter;
 
-	FeatureMeter(
+	MediaMeter(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
@@ -57,7 +54,7 @@ abstract class FeatureMeter<M extends Meter>
 		this.value = value;
 
 		//noinspection UnnecessarilyQualifiedInnerClassAccess OK: bug in idea
-		if(!(meter instanceof FeatureMeter.LogMeter))
+		if(!(meter instanceof MediaMeter.LogMeter))
 			throw new IllegalArgumentException(meter.toString());
 
 		{
@@ -80,31 +77,18 @@ abstract class FeatureMeter<M extends Meter>
 	}
 
 	@SuppressWarnings("unused") // OK: requires subclasses to have this method
-	abstract FeatureMeter<M> newValue(String value);
+	abstract MediaMeter<M> newValue(String value);
 
-	static void onMount(
-			final Feature feature,
-			final FeatureMeter<?>... meters)
-	{
-		requireNonNull(feature, "feature");
-		final Class<? extends Feature> featureClass = feature.getClass();
-		if(!Modifier.isFinal(featureClass.getModifiers()))
-			throw new IllegalArgumentException("not final: " + featureClass + ' ' + feature);
-
-		for(final FeatureMeter<?> meter : meters)
-			meter.onMount(featureClass, feature);
-	}
-
-	private void onMount(final Class<? extends Feature> featureClass, final Feature feature)
+	void onMount(final MediaPath feature)
 	{
 		//noinspection UnnecessarilyQualifiedInnerClassAccess OK: bug in idea
-		if(!(meter instanceof FeatureMeter.LogMeter))
+		if(!(meter instanceof MediaMeter.LogMeter))
 			throw new IllegalStateException("already mounted");
 
 		final Tags tags = key!=null ? Tags.of(key, value) : Tags.empty();
 		meter = onMount(
-				featureClass.getName() + '.' + nameSuffix,
-				tags.and(Tags.of("feature", feature.getID())),
+				MediaPath.class.getName() + '.' + nameSuffix,
+				tags.and(Tags.of("feature", feature!=null ? feature.getID() : "NONE")),
 				description,
 				registry);
 	}
@@ -131,5 +115,5 @@ abstract class FeatureMeter<M extends Meter>
 		}
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(FeatureMeter.class);
+	private static final Logger logger = LoggerFactory.getLogger(MediaMeter.class);
 }

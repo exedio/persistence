@@ -35,7 +35,8 @@ final class InfoRegistry
 			ItemCache.class.getName() + '.',
 			Cluster.class.getName() + '.',
 			ChangeListener.class.getName() + '.',
-			DataField.class.getName() + '.'};
+			DataField.class.getName() + '.',
+			"com.exedio.cope.pattern.MediaPath."};
 
 	@SuppressWarnings("MethodOnlyUsedFromInnerClass") // OK: bug in idea, used from class itself as well
 	private static boolean isAccepted(final String name)

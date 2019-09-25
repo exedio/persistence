@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Check.requireNonEmpty;
 
-import com.exedio.cope.misc.MicrometerUtil;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
@@ -31,29 +30,29 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 /**
- * @see MediaTimer
+ * @see FeatureTimer
  */
-final class FeatureTimer extends FeatureMeter<Timer>
+final class MediaTimer extends MediaMeter<Timer>
 {
-	static FeatureTimer timer(
+	static MediaTimer timer(
 			final String nameSuffix,
 			final String description)
 	{
-		return new FeatureTimer(nameSuffix, description, null, null);
+		return new MediaTimer(nameSuffix, description, null, null);
 	}
 
-	static FeatureTimer timer(
+	static MediaTimer timer(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
 	{
-		return new FeatureTimer(
+		return new MediaTimer(
 				nameSuffix, description,
 				requireNonEmpty(key, "key"),
 				requireNonEmpty(value, "value"));
 	}
 
-	private FeatureTimer(
+	private MediaTimer(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
@@ -64,15 +63,15 @@ final class FeatureTimer extends FeatureMeter<Timer>
 	@Override
 	LogMeter newLogMeter()
 	{
-		return new LogMeter(Metrics.timer(FeatureTimer.class.getName()));
+		return new LogMeter(Metrics.timer(MediaTimer.class.getName()));
 	}
 
 	@Override
-	FeatureTimer newValue(final String value)
+	MediaTimer newValue(final String value)
 	{
 		onNewValue(value);
 
-		return new FeatureTimer(nameSuffix, description, key, value);
+		return new MediaTimer(nameSuffix, description, key, value);
 	}
 
 	@Override
@@ -94,12 +93,12 @@ final class FeatureTimer extends FeatureMeter<Timer>
 		sample.stop(meter);
 	}
 
-	long stopMillies(final Timer.Sample sample)
+	long get()
 	{
-		return MicrometerUtil.toMillies(meter, sample);
+		return meter.count();
 	}
 
-	private final class LogMeter extends FeatureMeter<?>.LogMeter implements Timer
+	private final class LogMeter extends MediaMeter<?>.LogMeter implements Timer
 	{
 		private final Timer back;
 

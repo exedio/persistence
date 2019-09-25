@@ -22,24 +22,34 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import javax.servlet.http.HttpServletRequest;
 
 final class ErrorLog
 {
 	private final int capacity;
-	private final AtomicLong value = new AtomicLong();
+	private final MediaCounter value;
 	private final ArrayDeque<MediaRequestLog> logs;
 
-	ErrorLog()
+	ErrorLog(final MediaCounter value)
 	{
-		this(100);
+		this(100, value);
 	}
 
-	ErrorLog(final int capacity)
+	ErrorLog(final int capacity, final MediaCounter value)
 	{
 		this.capacity = capacity;
+		this.value = value;
 		this.logs = new ArrayDeque<>(capacity);
+	}
+
+	ErrorLog newValue(final String value)
+	{
+		return new ErrorLog(capacity, this.value.newValue(value));
+	}
+
+	void onMount(final MediaPath feature)
+	{
+		value.onMount(feature);
 	}
 
 	void count(final HttpServletRequest request, final Exception exception)
@@ -49,7 +59,7 @@ final class ErrorLog
 				exception,
 				request);
 
-		value.incrementAndGet();
+		value.increment();
 
 		synchronized(logs)
 		{
