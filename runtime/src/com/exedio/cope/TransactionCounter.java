@@ -18,18 +18,39 @@
 
 package com.exedio.cope;
 
-import java.util.concurrent.atomic.AtomicLong;
+import io.micrometer.core.instrument.Timer;
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Tags;
 
 final class TransactionCounter
 {
-	private final AtomicLong commitWithout   = new AtomicLong();
-	private final AtomicLong commitWith      = new AtomicLong();
-	private final AtomicLong rollbackWithout = new AtomicLong();
-	private final AtomicLong rollbackWith    = new AtomicLong();
+	private Timer commitWithout   = new NoNameTimer();
+	private Timer commitWith      = new NoNameTimer();
+	private Timer rollbackWithout = new NoNameTimer();
+	private Timer rollbackWith    = new NoNameTimer();
 
-	void count(final boolean commit, final boolean hadConnection)
+	void onModelNameSet(final Tags tags)
 	{
-		final AtomicLong c;
+		commitWithout   = counter(tags, "commit", "without");
+		commitWith      = counter(tags, "commit", "with");
+		rollbackWithout = counter(tags, "rollback", "without");
+		rollbackWith    = counter(tags, "rollback", "with");
+	}
+
+	private static Timer counter(
+			final Tags tags,
+			final String end,
+			final String connection)
+	{
+		return Timer.builder(Transaction.class.getName() + ".finished").
+				tags(tags.and("end", end, "connection", connection)).
+				description("Transactions finished that required or did not require a database (JDBC) connection").
+				register(Metrics.globalRegistry);
+	}
+
+	void count(final Timer.Sample start, final boolean commit, final boolean hadConnection)
+	{
+		final Timer c;
 
 		if(hadConnection)
 			if(commit)
@@ -42,15 +63,15 @@ final class TransactionCounter
 			else
 				c = rollbackWithout;
 
-		c.incrementAndGet();
+		start.stop(c);
 	}
 
 	TransactionCounters get()
 	{
 		return new TransactionCounters(
-				commitWithout.get(),
-				commitWith.get(),
-				rollbackWithout.get(),
-				rollbackWith.get());
+				commitWithout.count(),
+				commitWith.count(),
+				rollbackWithout.count(),
+				rollbackWith.count());
 	}
 }

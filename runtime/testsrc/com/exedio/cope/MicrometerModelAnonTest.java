@@ -26,6 +26,7 @@ import com.exedio.cope.tojunit.TestSources;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -35,33 +36,57 @@ public class MicrometerModelAnonTest
 {
 	@Test void test()
 	{
+		// transaction open
 		assertThrows(AbsentError.class, () -> meter(ID_TX_OPEN));
 		assertEquals(0, MODEL.getOpenTransactions().size());
+		// transaction counter
+		assertThrows(AbsentError.class, () -> meter(ID_TX_COUNT));
+		assertEquals(0, MODEL.getTransactionCounters().getCommitWithoutConnection());
 
 		try(TransactionTry tx = MODEL.startTransactionTry(getClass().getName()))
 		{
+			// transaction open
 			assertThrows(AbsentError.class, () -> meter(ID_TX_OPEN));
 			assertEquals(1, MODEL.getOpenTransactions().size());
+			// transaction counter
+			assertThrows(AbsentError.class, () -> meter(ID_TX_COUNT));
+			assertEquals(0, MODEL.getTransactionCounters().getCommitWithoutConnection());
 			tx.commit();
 		}
 
+		// transaction open
 		assertThrows(AbsentError.class, () -> meter(ID_TX_OPEN));
 		assertEquals(0, MODEL.getOpenTransactions().size());
+		// transaction counter
+		assertThrows(AbsentError.class, () -> meter(ID_TX_COUNT));
+		assertEquals(1, MODEL.getTransactionCounters().getCommitWithoutConnection());
 
 		MODEL.enableSerialization(getClass(), "MODEL");
 
+		// transaction open
 		assertEquals(0, ((Gauge)meter(ID_TX_OPEN)).value());
 		assertEquals(0, MODEL.getOpenTransactions().size());
+		// transaction counter
+		assertEquals(0, ((Timer)meter(ID_TX_COUNT)).count()); // TODO 1 missing
+		assertEquals(0, MODEL.getTransactionCounters().getCommitWithoutConnection()); // TODO 1 missing
 
 		try(TransactionTry tx = MODEL.startTransactionTry(getClass().getName()))
 		{
+			// transaction open
 			assertEquals(1, ((Gauge)meter(ID_TX_OPEN)).value());
 			assertEquals(1, MODEL.getOpenTransactions().size());
+			// transaction counter
+			assertEquals(0, ((Timer)meter(ID_TX_COUNT)).count()); // TODO 1 missing
+			assertEquals(0, MODEL.getTransactionCounters().getCommitWithoutConnection()); // TODO 1 missing
 			tx.commit();
 		}
 
+		// transaction open
 		assertEquals(0, ((Gauge)meter(ID_TX_OPEN)).value());
 		assertEquals(0, MODEL.getOpenTransactions().size());
+		// transaction counter
+		assertEquals(1, ((Timer)meter(ID_TX_COUNT)).count()); // TODO 1 missing
+		assertEquals(1, MODEL.getTransactionCounters().getCommitWithoutConnection()); // TODO 1 missing
 	}
 
 	private static final Tags MODEL_TAGS = Tags.of("model", MicrometerModelAnonTest.class.getName() + "#MODEL");
@@ -69,6 +94,10 @@ public class MicrometerModelAnonTest
 	private static final Meter.Id ID_TX_OPEN = new Meter.Id(
 			Transaction.class.getName() + ".open", MODEL_TAGS,
 			null, null, Meter.Type.GAUGE);
+
+	private static final Meter.Id ID_TX_COUNT = new Meter.Id(
+			Transaction.class.getName() + ".finished", MODEL_TAGS.and("end", "commit", "connection", "without"),
+			null, null, Meter.Type.COUNTER);
 
 	private static Meter meter(final Meter.Id id)
 	{

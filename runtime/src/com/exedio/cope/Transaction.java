@@ -22,6 +22,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongObjectHashMap;
+import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -40,6 +41,7 @@ public final class Transaction
 	final long id;
 	final String name;
 	final long startDate;
+	final Timer.Sample startSample;
 
 	/**
 	 * index in array is {@link Type#cacheIdTransiently};
@@ -68,6 +70,7 @@ public final class Transaction
 		this.id = id;
 		this.name = name;
 		this.startDate = startDate;
+		this.startSample = Timer.start();
 		this.entityMaps = cast(new TLongObjectHashMap<?>[concreteTypeCount]);
 
 		if(logger.isDebugEnabled())
@@ -387,7 +390,7 @@ public final class Transaction
 				connect.invalidate(invalidations, true, new TransactionInfoLocal(this));
 		}
 
-		transactionCounter.count(commit, hadConnection);
+		transactionCounter.count(startSample, commit, hadConnection);
 
 		if(logger.isDebugEnabled())
 			logger.debug(MessageFormat.format("{0} {2}: {1}", id, name, (commit ? "commit" : "rollback")));

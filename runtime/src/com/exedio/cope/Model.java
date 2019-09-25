@@ -123,6 +123,7 @@ public final class Model implements Serializable
 	{
 		final Tags tags = Tags.of("model", name);
 		transactions.onModelNameSet(tags);
+		transactionCounter.onModelNameSet(tags);
 	}
 
 	public boolean contains(final TypeSet typeSet)

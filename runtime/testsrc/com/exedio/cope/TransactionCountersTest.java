@@ -18,8 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.micrometer.core.instrument.Timer;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -91,5 +94,17 @@ public class TransactionCountersTest extends TestWithEnvironment
 
 		assertEquals(c.getCommit  (), c.getCommitWithoutConnection  () + c.getCommitWithConnection  ());
 		assertEquals(c.getRollback(), c.getRollbackWithoutConnection() + c.getRollbackWithConnection());
+
+		assertEquals(c.getCommitWithoutConnection(),   count("commit",   "without"));
+		assertEquals(c.getCommitWithConnection(),      count("commit",   "with"));
+		assertEquals(c.getRollbackWithoutConnection(), count("rollback", "without"));
+		assertEquals(c.getRollbackWithConnection(),    count("rollback", "with"));
+	}
+
+	private double count(final String end, final String connection)
+	{
+		return ((Timer)meterCope(
+				Transaction.class, "finished",
+				tag(model).and("end", end, "connection", connection))).count();
 	}
 }
