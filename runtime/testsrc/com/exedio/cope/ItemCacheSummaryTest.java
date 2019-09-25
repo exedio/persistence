@@ -32,6 +32,9 @@ public class ItemCacheSummaryTest
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 141, 151, 161);
 		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, 33, 43, 53, 73, 113, 123, 143, 153, 163);
 		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0);
+		assertEquals(111+121, i1.getInvalidationsOrdered());
+		assertEquals(113+123, i2.getInvalidationsOrdered());
+		assertEquals(0,       i0.getInvalidationsOrdered());
 		assertEquals(null, i1.getLastReplacementRun());
 		assertEquals(null, i2.getLastReplacementRun());
 		assertEquals(null, i0.getLastReplacementRun());
@@ -50,7 +53,7 @@ public class ItemCacheSummaryTest
 		assertEquals( -1, ms.getAgeMinimumMillis());
 		assertEquals( -1, ms.getAgeAverageMillis());
 		assertEquals( -1, ms.getAgeMaximumMillis());
-		assertEquals(224, ms.getInvalidationsOrdered());
+		assertEquals(224+244, ms.getInvalidationsOrdered());
 		assertEquals(244, ms.getInvalidationsDone());
 		assertEquals(284, ms.getStampsSize());
 		assertEquals(304, ms.getStampsHits());

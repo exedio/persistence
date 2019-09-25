@@ -180,10 +180,13 @@ final class ItemCache
 						if (type.cacheIdTransiently!=typeTransiently) throw new RuntimeException();
 						final Item item=type.activate(i.next());
 						if (stampsEnabled) invalidated.add(item);
-						typeStat.invalidationsOrdered++;
 						if (map.remove(item)!=null)
 						{
 							typeStat.invalidationsDone++;
+						}
+						else
+						{
+							typeStat.invalidationsFutile++;
 						}
 					}
 				}
@@ -284,7 +287,7 @@ final class ItemCache
 		final AtomicLong misses = new AtomicLong();
 		long concurrentLoads = 0;
 		long replacements = 0;
-		long invalidationsOrdered = 0;
+		long invalidationsFutile = 0;
 		long invalidationsDone = 0;
 		long stampsHit = 0;
 		long stampsPurged = 0;
@@ -303,7 +306,7 @@ final class ItemCache
 				misses.get(),
 				concurrentLoads,
 				replacements,
-				invalidationsOrdered, invalidationsDone,
+				invalidationsFutile, invalidationsDone,
 				stampsSizes[type.cacheIdTransiently],
 				stampsHit, stampsPurged
 			);

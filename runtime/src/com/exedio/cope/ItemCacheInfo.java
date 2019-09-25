@@ -42,7 +42,7 @@ public final class ItemCacheInfo
 			final long hits, final long misses,
 			final long concurrentLoads,
 			final long replacements,
-			final long invalidationsOrdered, final long invalidationsDone,
+			final long invalidationsFutile, final long invalidationsDone,
 			final int stampsSize, final long stampsHits, final long stampsPurged
 			)
 	{
@@ -52,7 +52,7 @@ public final class ItemCacheInfo
 		this.misses = misses;
 		this.concurrentLoads = concurrentLoads;
 		this.replacements = replacements;
-		this.invalidationsOrdered = invalidationsOrdered;
+		this.invalidationsOrdered = invalidationsFutile + invalidationsDone;
 		this.invalidationsDone = invalidationsDone;
 		this.stampsSize   = stampsSize;
 		this.stampsHits   = stampsHits;
