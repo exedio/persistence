@@ -53,17 +53,18 @@ public class ChangeListenerTest extends TestWithEnvironment
 	@Test void testIt() throws ChangeEvent.NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 0, 0, 0);
+		assertInfo(0, 0, 0);
 
 		model.addChangeListener(l);
 		assertEqualsUnmodifiable(list(l), model.getChangeListeners());
-		assertInfo(1, 0, 0, 0);
+		assertInfo(1, 0, 0);
 
 		final MatchItem item1 = new MatchItem("item1");
 		l.assertIt(null, null);
 		final Transaction firstTransaction = model.currentTransaction();
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(list(item1), firstTransaction);
 		l.assertIt(null, null);
 
@@ -72,6 +73,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.assertIt(null, null);
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(null, null);
 
 		final Transaction t3 = model.startTransaction("CommitListenerTest3");
@@ -79,6 +81,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.assertIt(null, null);
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(list(item2), t3);
 
 		final Transaction t4 = model.startTransaction("CommitListenerTest4");
@@ -86,6 +89,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.assertIt(null, null);
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(list(item1), t4);
 
 		final Transaction t5 = model.startTransaction("CommitListenerTest5");
@@ -94,6 +98,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.assertIt(null, null);
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(list(item1, item2), t5);
 
 		model.startTransaction("CommitListenerTest6");
@@ -102,6 +107,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.assertIt(null, null);
 		model.rollback();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(null, null);
 
 		final Transaction t7 = model.startTransaction("CommitListenerTest7");
@@ -110,6 +116,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.assertIt(null, null);
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(list(item1, item3), t7);
 
 		final Transaction t8 = model.startTransaction("CommitListenerTest8");
@@ -117,6 +124,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.assertIt(null, null);
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 0);
 		l.assertIt(list(item3), t8);
 
 		log.assertEmpty();
@@ -126,14 +134,15 @@ public class ChangeListenerTest extends TestWithEnvironment
 		l.exception = true;
 		model.commit();
 		waitWhilePending();
+		assertInfo(1, 0, 1);
 		l.assertIt(list(item1), te);
 		assertEquals(false, l.exception);
 		log.assertError("change listener [" + item1 + "] " + te.getID() + " CommitListenerTestE MockListener");
 
-		assertInfo(1, 0, 0, 1);
+		assertInfo(1, 0, 1);
 		model.removeChangeListener(l);
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
-		assertInfo(0, 0, 1, 1);
+		assertInfo(0, 1, 1);
 
 		model.startTransaction("CommitListenerTestX");
 		log.assertEmpty();
@@ -262,17 +271,17 @@ public class ChangeListenerTest extends TestWithEnvironment
 		}
 	}
 
-	private void assertInfo(final int size, final int cleared, final int removed, final int failed)
+	private void assertInfo(final int size, final int removed, final int failed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
 		assertEquals(size,    info.getSize());
-		assertEquals(cleared, info.getCleared());
+		assertEquals(0,       info.getCleared());
 		assertEquals(removed, info.getRemoved());
 		assertEquals(failed,  info.getFailed ());
 
 		@SuppressWarnings("deprecation")
 		final int clearedDeprecated = model.getChangeListenersCleared();
-		assertEquals(cleared, clearedDeprecated);
+		assertEquals(0,       clearedDeprecated);
 
 		final ChangeListenerDispatcherInfo dispatcherInfo = model.getChangeListenerDispatcherInfo();
 		assertEquals(0, dispatcherInfo.getOverflow ());
