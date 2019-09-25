@@ -32,6 +32,7 @@ import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.MediaInfo;
 import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
+import io.micrometer.core.instrument.Timer;
 import java.time.Duration;
 import java.time.Instant;
 import java.util.ArrayList;
@@ -71,7 +72,7 @@ final class SamplerStep
 		this.mediaInfos = new MediaInfo[medias.length];
 
 		// gather data
-		final long start = System.nanoTime();
+		final Timer.Sample start = Timer.start();
 		date = new Date();
 		initialized = sampledModel.getInitializeInstant();
 		connected = sampledModel.getConnectInstant();
@@ -91,7 +92,7 @@ final class SamplerStep
 		}
 		clusterSenderInfo = sampledModel.getClusterSenderInfo();
 		clusterListenerInfo = sampledModel.getClusterListenerInfo();
-		duration = System.nanoTime() - start;
+		duration = Sampler.stop(start, sampledModel, "gather");
 
 		// process data
 		itemCacheInfos = itemCacheStatistics.getDetails();

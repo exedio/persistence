@@ -21,7 +21,7 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.search;
-import static com.exedio.cope.misc.TimeUtil.toMillies;
+import static com.exedio.cope.misc.MicrometerUtil.toMillies;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 
 import com.exedio.cope.ActivationParameters;
@@ -37,6 +37,8 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -72,18 +74,19 @@ final class SamplerPurge extends Item
 		if(ctx.supportsMessage())
 			ctx.setMessage("purge " + query);
 
+		final Timer timer = Metrics.timer(SamplerPurge.class.getName(), "type", type.getID());
 		final int rows;
-		final long start = System.nanoTime();
+		final Timer.Sample start = Timer.start();
 		try(Statement stat = con.createStatement())
 		{
 			rows = stat.executeUpdate(bf);
 		}
-		final long end = System.nanoTime();
+		final long elapsed = toMillies(timer, start);
 
 		try(TransactionTry tx = model.startTransactionTry(samplerString + " purge register"))
 		{
 			//noinspection ResultOfObjectAllocationIgnored persistent object
-			new SamplerPurge(type, limit, rows, toMillies(end, start));
+			new SamplerPurge(type, limit, rows, elapsed);
 			tx.commit();
 		}
 

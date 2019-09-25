@@ -39,6 +39,9 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Duration;
@@ -141,6 +144,7 @@ public class Sampler
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		// save data
+		final Timer.Sample start = Timer.start();
 		try(TransactionTry tx = samplerModel.startTransactionTry(this + " sample"))
 		{
 			//noinspection RedundantOperationOnEmptyContainer
@@ -207,8 +211,16 @@ public class Sampler
 				}
 			}
 			tx.commit();
+			stop(start, sampledModel, "store");
 			return model;
 		}
+	}
+
+	static final long stop(final Timer.Sample start, final Model sampledModel, final String phase)
+	{
+		return start.stop(Metrics.timer(
+				Sampler.class.getName(),
+				Tags.of("model", sampledModel.toString(), "phase", phase)));
 	}
 
 	void reset()
