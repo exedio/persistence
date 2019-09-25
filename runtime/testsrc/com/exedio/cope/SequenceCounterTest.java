@@ -19,19 +19,25 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.SequenceInfoAssert.assertInfoAny;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
+import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
+import io.micrometer.core.instrument.Tags;
+import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SequenceCounterTest
 {
-	private static final StringField feature = new StringField();
-
 	@Test void testNormal()
 	{
 		final SequenceCounter c =
-				new SequenceCounter(feature, 15, 10, 20);
+				newSequenceCounter(MyItem.featureNormal, 15, 10, 20);
 		assertIt(c, 15, 10, 20);
 		c.next(15);
 		assertIt(c, 15, 10, 20, 1, 15, 15);
@@ -44,7 +50,7 @@ public class SequenceCounterTest
 	@Test void testLimit()
 	{
 		final SequenceCounter c =
-				new SequenceCounter(feature, 10, 10, 12);
+				newSequenceCounter(MyItem.featureLimit, 10, 10, 12);
 		assertIt(c, 10, 10, 12);
 		c.next(10);
 		assertIt(c, 10, 10, 12, 1, 10, 10);
@@ -67,7 +73,7 @@ public class SequenceCounterTest
 	@Test void testHole()
 	{
 		final SequenceCounter c =
-				new SequenceCounter(feature, 15, 10, 20);
+				newSequenceCounter(MyItem.featureHole, 15, 10, 20);
 		assertIt(c, 15, 10, 20);
 		c.next(17);
 		assertIt(c, 15, 10, 20, 1, 17, 17);
@@ -78,7 +84,7 @@ public class SequenceCounterTest
 	@Test void testMin()
 	{
 		final SequenceCounter c =
-				new SequenceCounter(feature, 15, 10, 20);
+				newSequenceCounter(MyItem.featureMin, 15, 10, 20);
 		assertIt(c, 15, 10, 20);
 		try
 		{
@@ -95,7 +101,7 @@ public class SequenceCounterTest
 	@Test void testMax()
 	{
 		final SequenceCounter c =
-				new SequenceCounter(feature, 15, 10, 20);
+				newSequenceCounter(MyItem.featureMax, 15, 10, 20);
 		assertIt(c, 15, 10, 20);
 		try
 		{
@@ -109,18 +115,61 @@ public class SequenceCounterTest
 		assertIt(c, 15, 10, 20);
 	}
 
-	private static void assertIt(
+	private void assertIt(
 			final SequenceCounter counter,
 			final int start, final int minimum, final int maximum,
 			final int count, final int first, final int last)
 	{
+		assertNotNull(feature);
 		assertInfoAny(feature, start, minimum, maximum, count, first, last, counter.getInfo());
 	}
 
-	private static void assertIt(
+	private void assertIt(
 			final SequenceCounter counter,
 			final int start, final int minimum, final int maximum)
 	{
+		assertNotNull(feature);
 		assertInfoAny(feature, start, minimum, maximum, counter.getInfo());
 	}
+
+	private SequenceCounter newSequenceCounter(
+			final StringField feature, final long start, final long minimum, final long maximum)
+	{
+		assertNull(this.feature);
+		assertNotNull(feature);
+		this.feature = feature;
+		final SequenceCounter result = new SequenceCounter(feature, start, minimum, maximum);
+		result.onModelNameSet(Tags.of("model", MODEL.toString()));
+		return result;
+	}
+
+	StringField feature = null;
+
+	@BeforeEach @AfterEach
+	void resetFeature()
+	{
+		feature = null;
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static class MyItem extends Item
+	{
+		@WrapperIgnore static final StringField featureNormal = new StringField();
+		@WrapperIgnore static final StringField featureLimit  = new StringField();
+		@WrapperIgnore static final StringField featureHole   = new StringField();
+		@WrapperIgnore static final StringField featureMin    = new StringField();
+		@WrapperIgnore static final StringField featureMax    = new StringField();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@SuppressWarnings("unused") // makes sure model is loaded
+	private static final Model MODEL = new Model(MyItem.TYPE);
 }

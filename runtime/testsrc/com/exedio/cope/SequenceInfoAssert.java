@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -25,6 +27,8 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Tags;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -50,12 +54,15 @@ public final class SequenceInfoAssert
 	{
 		assertSame(feature, info.getFeature(), "feature");
 		assertEquals(start, info.getStartL(), "start");
+		assertGauge (start, "start", feature);
 		assertEquals(minimum, info.getMinimumL(), "minimum");
 		assertEquals(maximum, info.getMaximumL(), "maximum");
+		assertGauge (maximum, "end", feature);
 		assertEquals(count, info.getCountL(), "count");
 		assertTrue(info.isKnown(), "known");
 		assertEquals(first, info.getFirstL(), "first");
 		assertEquals(last, info.getLastL(), "last");
+		assertGauge (last, "last",  feature);
 	}
 
 	public static void assertInfo(final Type<?> type, final SequenceInfo info)
@@ -77,8 +84,10 @@ public final class SequenceInfoAssert
 	{
 		assertSame(feature, info.getFeature(), "feature");
 		assertEquals(start, info.getStartL(), "start");
+		assertGauge (start, "start", feature);
 		assertEquals(minimum, info.getMinimumL(), "minimum");
 		assertEquals(maximum, info.getMaximumL(), "maximum");
+		assertGauge (maximum, "end", feature);
 		assertEquals(0, info.getCountL(), "count");
 		assertFalse(info.isKnown(), "known");
 		try
@@ -99,6 +108,20 @@ public final class SequenceInfoAssert
 		{
 			assertEquals("not known", e.getMessage());
 		}
+		assertGauge(Double.NaN, "last", feature);
+	}
+
+	private static void assertGauge(
+			final double expected,
+			final String type,
+			final Feature feature)
+	{
+		assertEquals(
+				expected,
+				((Gauge)meter(Sequence.class, "value",
+						Tags.of("type", type).and(
+						tag(feature)).and(
+						tag(feature.getType().getModel())))).value());
 	}
 
 	public static void assertInfo(final List<SequenceInfo> actual, final Feature... expected)

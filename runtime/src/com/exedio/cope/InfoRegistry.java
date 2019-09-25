@@ -30,7 +30,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 final class InfoRegistry
 {
 	private static final String[] ACCEPTED = {
-			// Model.class not needed, as there are gauges only, no counters or timers
+			// Model.class and Sequence.class not needed, as there are gauges only, no counters or timers
 			Transaction.class.getName() + '.',
 			QueryCache.class.getName() + '.',
 			ItemCache.class.getName() + '.',

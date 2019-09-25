@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
+import io.micrometer.core.instrument.Tags;
 import java.sql.Connection;
 
 final class SequenceX
@@ -41,6 +42,11 @@ final class SequenceX
 		this.type = type;
 		this.start = start;
 		this.counter = new SequenceCounter(feature, start, minimum, maximum);
+	}
+
+	void onModelNameSet(final Tags tags)
+	{
+		counter.onModelNameSet(tags);
 	}
 
 	void connectPrimaryKey(final Database database, final IntegerColumn column)

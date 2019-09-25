@@ -38,13 +38,15 @@ import org.junit.jupiter.api.Test;
 
 public class HierarchyTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(
+	public static final Model MODEL = Model.builder().
+		name(HierarchyTest.class).
+		add(
 			HierarchyFirstSub.TYPE,
 			HierarchySecondSub.TYPE,
 			HierarchySuper.TYPE, // deliberately put this type below it's sub types to test correct functionality
 			HierarchySingleSuper.TYPE,
 			HierarchySingleSub.TYPE
-		);
+		).build();
 
 	public HierarchyTest()
 	{

@@ -34,6 +34,7 @@ import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Tags;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -357,6 +358,16 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final HashMap<String, Feature> result = new HashMap<>(inherited);
 		result.putAll(declared);
 		return result;
+	}
+
+	void onModelNameSet(final Tags tags)
+	{
+		if(supertype==null)
+			primaryKeySequence.onModelNameSet(tags);
+
+		for(final Feature feature : features)
+			if(feature instanceof Sequence)
+				((Sequence)feature).sequenceX.onModelNameSet(tags);
 	}
 
 	void registerMounted(final Feature feature)

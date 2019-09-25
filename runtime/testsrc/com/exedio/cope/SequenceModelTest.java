@@ -31,7 +31,10 @@ import org.junit.jupiter.api.Test;
 
 public class SequenceModelTest
 {
-	static final Model MODEL = new Model(TYPE);
+	static final Model MODEL = Model.builder().
+			name(SequenceModelTest.class).
+			add(TYPE).
+			build();
 
 	@Test void testIt()
 	{

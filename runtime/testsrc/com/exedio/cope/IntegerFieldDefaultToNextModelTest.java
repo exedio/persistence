@@ -34,7 +34,10 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class IntegerFieldDefaultToNextModelTest
 {
-	public static final Model MODEL = new Model(TYPE);
+	public static final Model MODEL = Model.builder().
+			name(IntegerFieldDefaultToNextModelTest.class).
+			add(TYPE).
+			build();
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testModel()

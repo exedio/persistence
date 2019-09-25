@@ -130,6 +130,8 @@ public final class Model implements Serializable
 		changeListeners.onModelNameSet(tags);
 		transactions.onModelNameSet(tags);
 		transactionCounter.onModelNameSet(tags);
+		for(final Type<?> type : types.typeListSorted)
+			type.onModelNameSet(tags);
 	}
 
 	public boolean contains(final TypeSet typeSet)

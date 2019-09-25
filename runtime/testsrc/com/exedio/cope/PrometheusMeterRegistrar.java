@@ -71,7 +71,7 @@ public final class PrometheusMeterRegistrar
 			final Tags tags)
 	{
 		assertTrue(asList(
-				// Model.class not needed, as there are gauges only, no counters or timers
+				// Model.class and Sequence.class not needed, as there are gauges only, no counters or timers
 				Transaction.class,
 				DataField.class,
 				ChangeListener.class,

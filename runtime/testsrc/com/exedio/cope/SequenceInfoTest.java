@@ -32,7 +32,10 @@ public class SequenceInfoTest extends TestWithEnvironment
 	 * Otherwise problems may be hidden, because
 	 * model has been connected before.
 	 */
-	private static final Model MODEL = new Model(TYPE);
+	private static final Model MODEL = Model.builder().
+			name(SequenceInfoTest.class).
+			add(TYPE).
+			build();
 
 	public SequenceInfoTest()
 	{
