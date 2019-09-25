@@ -32,6 +32,11 @@ public class MatchTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
 
+	static
+	{
+		MODEL.enableSerialization(MatchTest.class, "MODEL");
+	}
+
 	public MatchTest()
 	{
 		super(MODEL);

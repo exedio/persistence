@@ -22,6 +22,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.config.MeterFilter;
 import io.micrometer.core.instrument.config.MeterFilterReply;
 import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
@@ -32,6 +33,7 @@ final class InfoRegistry
 			Transaction.class.getName() + '.',
 			QueryCache.class.getName() + '.',
 			ItemCache.class.getName() + '.',
+			ChangeListener.class.getName() + '.',
 			DataField.class.getName() + '.'};
 
 	private static boolean isAccepted(final String name)
@@ -66,6 +68,12 @@ final class InfoRegistry
 		return Counter.builder(name);
 	}
 
+	static Timer.Builder timer(final String name)
+	{
+		assert isAccepted(name) : name;
+		return Timer.builder(name);
+	}
+
 	@SuppressFBWarnings("FE_FLOATING_POINT_EQUALITY") // OK: tests backward conversion
 	static long count(final Counter counter)
 	{
@@ -75,6 +83,16 @@ final class InfoRegistry
 		if(l!=d)
 			throw new IllegalStateException(counter.getId().toString() + '/' + d);
 		return l;
+	}
+
+	static int countInt(final Counter counter)
+	{
+		return Math.toIntExact(count(counter));
+	}
+
+	static int countInt(final Timer timer)
+	{
+		return Math.toIntExact(timer.count());
 	}
 
 

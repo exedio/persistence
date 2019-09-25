@@ -23,6 +23,7 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.util.function.ToDoubleFunction;
 
 final class MetricsBuilder
@@ -63,6 +64,17 @@ final class MetricsBuilder
 			final Tags tags)
 	{
 		return InfoRegistry.counter(name(nameSuffix)).
+				description(description).
+				tags(this.tags.and(tags)).
+				register(Metrics.globalRegistry);
+	}
+
+	Timer timer(
+			final String nameSuffix,
+			final String description,
+			final Tags tags)
+	{
+		return InfoRegistry.timer(name(nameSuffix)).
 				description(description).
 				tags(this.tags.and(tags)).
 				register(Metrics.globalRegistry);

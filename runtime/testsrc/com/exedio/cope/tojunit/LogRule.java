@@ -119,6 +119,11 @@ public class LogRule extends MainRule
 		assertMessage(Level.ERROR, msg, Function.identity());
 	}
 
+	public final void assertErrorNS(final String msg)
+	{
+		assertMessage(Level.ERROR, msg, nanoSecondsFilter);
+	}
+
 	private void assertMessage(
 			final Level level,
 			final String msg,
@@ -133,6 +138,7 @@ public class LogRule extends MainRule
 	}
 
 	static final Function<String, String> msFilter = s -> s.replaceAll(" [0-9]{1,2}ms", " XXms");
+	static final Function<String, String> nanoSecondsFilter  = s -> s.replaceAll(" [.,[0-9]]{1,8}ns", " XXns");
 
 	public final void assertEmpty()
 	{

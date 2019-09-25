@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Tags;
@@ -35,6 +36,18 @@ public class MicrometerModelNamedTest
 {
 	@Test void test()
 	{
+		// change listeners remove
+		assertEquals(0, ((Counter)meter(ID_CL_REMOVE)).count());
+		assertEquals(0, MODEL.getChangeListenersInfo().getRemoved());
+		MODEL.addChangeListener(CHANGE_LISTENER);
+		MODEL.removeChangeListener(CHANGE_LISTENER);
+		assertEquals(1, ((Counter)meter(ID_CL_REMOVE)).count());
+		assertEquals(1, MODEL.getChangeListenersInfo().getRemoved());
+		MODEL.addChangeListener(CHANGE_LISTENER);
+		MODEL.removeChangeListener(CHANGE_LISTENER);
+		assertEquals(2, ((Counter)meter(ID_CL_REMOVE)).count());
+		assertEquals(2, MODEL.getChangeListenersInfo().getRemoved());
+
 		// transaction open
 		assertEquals(0, ((Gauge)meter(ID_TX_OPEN)).value());
 		assertEquals(0, MODEL.getOpenTransactions().size());
@@ -61,6 +74,18 @@ public class MicrometerModelNamedTest
 		assertEquals(1, MODEL.getTransactionCounters().getCommitWithoutConnection());
 
 		MODEL.enableSerialization(getClass(), "MODEL");
+
+		// change listeners remove
+		assertEquals(2, ((Counter)meter(ID_CL_REMOVE)).count());
+		assertEquals(2, MODEL.getChangeListenersInfo().getRemoved());
+		MODEL.addChangeListener(CHANGE_LISTENER);
+		MODEL.removeChangeListener(CHANGE_LISTENER);
+		assertEquals(3, ((Counter)meter(ID_CL_REMOVE)).count());
+		assertEquals(3, MODEL.getChangeListenersInfo().getRemoved());
+		MODEL.addChangeListener(CHANGE_LISTENER);
+		MODEL.removeChangeListener(CHANGE_LISTENER);
+		assertEquals(4, ((Counter)meter(ID_CL_REMOVE)).count());
+		assertEquals(4, MODEL.getChangeListenersInfo().getRemoved());
 
 		// transaction open
 		assertEquals(0, ((Gauge)meter(ID_TX_OPEN)).value());
@@ -89,6 +114,12 @@ public class MicrometerModelNamedTest
 	}
 
 	private static final Tags MODEL_TAGS = Tags.of("model", "MicrometerModelNamedTestNAME");
+
+	private static final Meter.Id ID_CL_REMOVE = new Meter.Id(
+			ChangeListener.class.getName() + ".remove", MODEL_TAGS.and("cause", "remove"),
+			null, null, Meter.Type.COUNTER);
+
+	private static final ChangeListener CHANGE_LISTENER = event -> {};
 
 	private static final Meter.Id ID_TX_OPEN = new Meter.Id(
 			Transaction.class.getName() + ".open", MODEL_TAGS,

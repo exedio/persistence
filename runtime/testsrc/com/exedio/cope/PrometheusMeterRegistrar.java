@@ -68,6 +68,7 @@ public final class PrometheusMeterRegistrar
 		assertTrue(asList(
 				Transaction.class,
 				DataField.class,
+				ChangeListener.class,
 				ItemCache.class,
 				QueryCache.class
 				).contains(nameClass), nameClass.getName());

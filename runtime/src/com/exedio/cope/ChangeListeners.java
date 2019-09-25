@@ -18,8 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.countInt;
 import static java.util.Objects.requireNonNull;
 
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.lang.ref.WeakReference;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -27,7 +31,6 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -37,15 +40,35 @@ final class ChangeListeners
 
 	private volatile boolean used = false;
 	private final LinkedList<WeakReference<ChangeListener>> list = new LinkedList<>();
-	private int cleared = 0;
-	private int removed = 0;
+	private Counter cleared = new NoNameCounter();
+	private Counter removed = new NoNameCounter();
+	private Timer success = new NoNameTimer();
+	private Timer failed  = new NoNameTimer();
 
-	private final AtomicInteger failed = new AtomicInteger();
+	void onModelNameSet(final Tags tags)
+	{
+		final MetricsBuilder metrics =
+				new MetricsBuilder(ChangeListener.class, tags);
+		cleared = metrics.counter("remove", "Number of ChangeListeners that were removed because they were eligible for garbage collection.", Tags.of("cause", "reference"));
+		removed = metrics.counter("remove", "Number of ChangeListeners removed via Model#removeChangeListener or #removeAllChangeListeners.", Tags.of("cause", "remove"));
+		success = metrics.timer("dispatch", "How often calls to ChangeListener#onChange did succeed.", Tags.of("result", "success"));
+		failed  = metrics.timer("dispatch", "How often calls to ChangeListener#onChange did fail.",    Tags.of("result", "failure"));
+		metrics.gauge(list,
+				// BEWARE:
+				// Must not use Collections#synchronizedCollection because
+				// it uses the synchronized wrapper as mutex, but the code
+				// in this class uses "open" itself as mutex.
+				l -> {
+					//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parameter is actually field "list"
+					synchronized(l) { return l.size(); } },
+				"size", "Number of ChangeListeners registered in Model.");
+	}
 
 	List<ChangeListener> get()
 	{
 		final ArrayList<ChangeListener> result;
 
+		int cleared = 0;
 		synchronized(list)
 		{
 			final int size = list.size();
@@ -66,6 +89,7 @@ final class ChangeListeners
 					result.add(listener);
 			}
 		}
+		this.cleared.increment(cleared);
 
 		return Collections.unmodifiableList(result);
 	}
@@ -78,16 +102,12 @@ final class ChangeListeners
 	ChangeListenerInfo getInfo()
 	{
 		final int size;
-		final int cleared;
-		final int removed;
 
 		synchronized(list)
 		{
 			size = list.size();
-			cleared = this.cleared;
-			removed = this.removed;
 		}
-		return new ChangeListenerInfo(size, cleared, removed, failed.get());
+		return new ChangeListenerInfo(size, countInt(cleared), countInt(removed), countInt(failed));
 	}
 
 	void add(final ChangeListener listener)
@@ -106,6 +126,8 @@ final class ChangeListeners
 	{
 		requireNonNull(listener, "listener");
 
+		int cleared = 0;
+		int removed = 0;
 		synchronized(list)
 		{
 			for(final Iterator<WeakReference<ChangeListener>> i = list.iterator(); i.hasNext(); )
@@ -123,16 +145,19 @@ final class ChangeListeners
 				}
 			}
 		}
+		this.cleared.increment(cleared);
+		this.removed.increment(removed);
 	}
 
 	void removeAll()
 	{
+		final int removed;
 		synchronized(list)
 		{
-			final int size = list.size();
+			removed = list.size();
 			list.clear();
-			removed += size;
 		}
+		this.removed.increment(removed);
 	}
 
 	void dispatch(final ChangeEvent event, final ChangeListenerDispatcher interrupter)
@@ -144,15 +169,17 @@ final class ChangeListeners
 			if(interrupter.interrupts())
 				return;
 
+			final Timer.Sample start = Timer.start();
 			try
 			{
 				listener.onChange(event);
+				start.stop(success);
 			}
 			catch(final Exception | AssertionError e)
 			{
-				failed.incrementAndGet();
+				final long elapsed = start.stop(failed);
 				if(logger.isErrorEnabled())
-					logger.error(MessageFormat.format("change listener {0} {1}", event, listener), e);
+					logger.error(MessageFormat.format("change listener {0} {1} {2}ns", event, listener, elapsed), e);
 			}
 		}
 	}

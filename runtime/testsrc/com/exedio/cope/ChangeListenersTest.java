@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
@@ -25,6 +27,9 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Timer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -203,6 +208,11 @@ public class ChangeListenersTest
 		assertEquals(cleared, info.getCleared() - baselineInfo.getCleared(), "cleared");
 		assertEquals(removed, info.getRemoved() - baselineInfo.getRemoved(), "removed");
 		assertEquals(0,       info.getFailed()  - baselineInfo.getFailed(),  "failed");
+		assertEquals(size,              gauge("size"));
+		assertEquals(info.getCleared(), count("remove", "cause", "reference"));
+		assertEquals(info.getRemoved(), count("remove", "cause", "remove"));
+		assertEquals(0,                 timer("dispatch", "result", "success"));
+		assertEquals(0,                 timer("dispatch", "result", "failure"));
 
 		@SuppressWarnings("deprecation")
 		final int clearedDeprecated = model.getChangeListenersCleared() - baselineInfo.getCleared();
@@ -219,7 +229,27 @@ public class ChangeListenersTest
 		}
 	}
 
+	private static double count(final String nameSuffix, final String key, final String value)
+	{
+		return ((Counter)meterCope(ChangeListener.class, nameSuffix, tag(model).and(key, value))).count();
+	}
+
+	private static double timer(final String nameSuffix, final String key, final String value)
+	{
+		return ((Timer)meterCope(ChangeListener.class, nameSuffix, tag(model).and(key, value))).count();
+	}
+
+	private static double gauge(final String nameSuffix)
+	{
+		return ((Gauge)meterCope(ChangeListener.class, nameSuffix, tag(model))).value();
+	}
+
 	private static final Model model = new Model(TypesBound.newType(AnItem.class));
+
+	static
+	{
+		model.enableSerialization(ChangeListenersTest.class, "model");
+	}
 
 	@WrapperIgnore
 	private static final class AnItem extends Item

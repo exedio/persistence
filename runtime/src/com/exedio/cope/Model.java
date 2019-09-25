@@ -122,6 +122,7 @@ public final class Model implements Serializable
 	private void onNameSet(final String name)
 	{
 		final Tags tags = Tags.of("model", name);
+		changeListeners.onModelNameSet(tags);
 		transactions.onModelNameSet(tags);
 		transactionCounter.onModelNameSet(tags);
 	}
@@ -152,7 +153,7 @@ public final class Model implements Serializable
 			if(connectIfConnected!=null)
 				throw new IllegalStateException("model already been connected");
 
-			connectIfConnected = new Connect(this, types, revisions, properties, transactions, changeListeners);
+			connectIfConnected = new Connect(this, types, revisions, properties, transactions);
 			types.connect(connectIfConnected.database);
 		}
 

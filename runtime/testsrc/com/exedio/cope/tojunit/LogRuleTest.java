@@ -19,13 +19,14 @@
 package com.exedio.cope.tojunit;
 
 import static com.exedio.cope.tojunit.LogRule.msFilter;
+import static com.exedio.cope.tojunit.LogRule.nanoSecondsFilter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
 public class LogRuleTest
 {
-	@Test void testIt()
+	@Test void testMillisecondsFilter()
 	{
 		assertEquals("", msFilter.apply(""));
 		assertEquals("abc", msFilter.apply("abc"));
@@ -42,5 +43,28 @@ public class LogRuleTest
 		assertEquals("1ms", msFilter.apply("1ms"));
 		assertEquals(" Ams", msFilter.apply(" Ams"));
 		assertEquals(" 1m", msFilter.apply(" 1m"));
+		assertEquals(" 1ns", msFilter.apply(" 1ns"));
+		assertEquals(" 1,1ms", msFilter.apply(" 1,1ms"));
+		assertEquals(" 1.1ms", msFilter.apply(" 1.1ms"));
+	}
+
+	@Test void testNanosecondsFilter()
+	{
+		assertEquals("", nanoSecondsFilter.apply(""));
+		assertEquals("abc", nanoSecondsFilter.apply("abc"));
+		assertEquals("abc XXnsdef", nanoSecondsFilter.apply("abc 0nsdef"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 0ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 1ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 9ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 000000.0ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 111111,1ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 999999,9ns"));
+		assertEquals(" 000000000ns", nanoSecondsFilter.apply(" 000000000ns"));
+		assertEquals(" 111111111ns", nanoSecondsFilter.apply(" 111111111ns"));
+		assertEquals(" 999999999ns", nanoSecondsFilter.apply(" 999999999ns"));
+		assertEquals("1ns", nanoSecondsFilter.apply("1ns"));
+		assertEquals(" Ans", nanoSecondsFilter.apply(" Ans"));
+		assertEquals(" 1n", nanoSecondsFilter.apply(" 1n"));
+		assertEquals(" 1ms", nanoSecondsFilter.apply(" 1ms"));
 	}
 }

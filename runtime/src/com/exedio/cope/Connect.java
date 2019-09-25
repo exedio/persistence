@@ -71,8 +71,7 @@ final class Connect
 			final Types types,
 			final Revisions.Factory revisionsFactory,
 			final ConnectProperties properties,
-			final Transactions transactions,
-			final ChangeListeners changeListeners)
+			final Transactions transactions)
 	{
 		this.properties = properties;
 
@@ -123,8 +122,7 @@ final class Connect
 		}
 
 		this.changeListenerDispatcher =
-			new ChangeListenerDispatcher(
-					types, modelName, changeListeners, properties);
+				new ChangeListenerDispatcher(model, properties);
 	}
 
 	private static SortedSet<String> toUnmodifiableSortedSet(final String[] array)
