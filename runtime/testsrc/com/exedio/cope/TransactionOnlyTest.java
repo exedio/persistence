@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
@@ -26,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import io.micrometer.core.instrument.Gauge;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
@@ -125,6 +128,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 	{
 		final Transaction copeTest = model.currentTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );
+		assertEquals(1, count());
 		assertUnmodifiable( model.getOpenTransactions() );
 		assertSame(Thread.currentThread(), copeTest.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
@@ -132,6 +136,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 		model.leaveTransaction();
 		assertContains( copeTest, model.getOpenTransactions() );
+		assertEquals(1, count());
 		assertSame(null, copeTest.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
 		assertCurrentTransaction( null );
@@ -140,6 +145,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		final Transaction tx1 = model.startTransaction( "tx1" );
 		final Date after = new Date();
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
+		assertEquals(2, count());
 		assertEquals(copeTest.getID()+1, tx1.getID());
 		assertEquals("tx1", tx1.getName());
 		assertWithin(before, after, tx1.getStartDate());
@@ -151,6 +157,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 		model.leaveTransaction();
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
+		assertEquals(2, count());
 		assertSame(null, copeTest.getBoundThread());
 		assertSame(null, tx1.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
@@ -159,6 +166,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 		model.joinTransaction( copeTest );
 		assertContains( copeTest, tx1, model.getOpenTransactions() );
+		assertEquals(2, count());
 		assertSame(Thread.currentThread(), copeTest.getBoundThread());
 		assertSame(null, tx1.getBoundThread());
 		assertEquals( false, copeTest.isClosed() );
@@ -167,6 +175,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 		model.commit();
 		assertContains( tx1, model.getOpenTransactions() );
+		assertEquals(1, count());
 		assertSame(null, copeTest.getBoundThread());
 		assertSame(null, tx1.getBoundThread());
 		assertEquals( true, copeTest.isClosed() );
@@ -175,6 +184,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 		model.joinTransaction( tx1 );
 		assertContains( tx1, model.getOpenTransactions() );
+		assertEquals(1, count());
 		assertSame(null, copeTest.getBoundThread());
 		assertSame(Thread.currentThread(), tx1.getBoundThread());
 		assertEquals( true, copeTest.isClosed() );
@@ -183,6 +193,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 
 		model.rollback();
 		assertContains( model.getOpenTransactions() );
+		assertEquals(0, count());
 		assertSame(null, copeTest.getBoundThread());
 		assertSame(null, tx1.getBoundThread());
 		assertEquals( true, copeTest.isClosed() );
@@ -211,5 +222,10 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		{
 			assertEquals( tx, model.currentTransaction() );
 		}
+	}
+
+	private double count()
+	{
+		return ((Gauge)meterCope(Transaction.class, "open", tag(model))).value();
 	}
 }

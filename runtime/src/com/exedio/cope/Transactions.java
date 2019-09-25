@@ -18,6 +18,9 @@
 
 package com.exedio.cope;
 
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Tags;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -31,6 +34,24 @@ final class Transactions
 
 	@SuppressWarnings("ThreadLocalNotStaticFinal") // OK: class is instantiated on static context only
 	private final ThreadLocal<Transaction> threadLocal = new ThreadLocal<>();
+
+	void onModelNameSet(final Tags tags)
+	{
+		Gauge.
+				builder(
+						Transaction.class.getName() + ".open",
+						open,
+						// BEWARE:
+						// Must not use Collections#synchronizedCollection because
+						// it uses the synchronized wrapper as mutex, but the code
+						// in this class uses "open" itself as mutex.
+						(s) -> {
+							//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parameter is actually field "open"
+							synchronized(s) { return s.size(); } }).
+				tags(tags).
+				description("The number of open (currently running) transactions.").
+				register(Metrics.globalRegistry);
+	}
 
 	void add(final Transaction tx)
 	{

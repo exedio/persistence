@@ -34,6 +34,11 @@ public class CacheIsolationTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(CacheIsolationItem.TYPE);
 
+	static
+	{
+		MODEL.enableSerialization(CacheIsolationTest.class, "MODEL");
+	}
+
 	CacheIsolationItem item, collisionItem;
 
 	public CacheIsolationTest()

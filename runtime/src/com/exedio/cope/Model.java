@@ -32,6 +32,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Tags;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
 import java.io.ObjectInputStream;
@@ -114,6 +115,14 @@ public final class Model implements Serializable
 		this.changeHook = ChangeHooks.create(changeHook, this);
 
 		this.types.afterModelCreated();
+		if(name!=null)
+			onNameSet(name);
+	}
+
+	private void onNameSet(final String name)
+	{
+		final Tags tags = Tags.of("model", name);
+		transactions.onModelNameSet(tags);
 	}
 
 	public boolean contains(final TypeSet typeSet)
@@ -935,6 +944,8 @@ public final class Model implements Serializable
 			throw new IllegalArgumentException("enableSerialization does not resolve to itself " + serialized);
 
 		this.serialized = serialized;
+		if(this.name==null)
+			onNameSet(serialized.toString());
 	}
 
 	/**

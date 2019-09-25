@@ -66,6 +66,7 @@ public final class PrometheusMeterRegistrar
 			final Tags tags)
 	{
 		assertTrue(asList(
+				Transaction.class,
 				DataField.class,
 				ItemCache.class,
 				QueryCache.class

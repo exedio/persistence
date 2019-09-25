@@ -29,6 +29,7 @@ import io.micrometer.core.instrument.simple.SimpleMeterRegistry;
 final class InfoRegistry
 {
 	private static final String[] ACCEPTED = {
+			Transaction.class.getName() + '.',
 			QueryCache.class.getName() + '.',
 			ItemCache.class.getName() + '.',
 			DataField.class.getName() + '.'};
