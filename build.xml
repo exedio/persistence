@@ -748,10 +748,8 @@
 	</target>
 
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
-		<echo taskname="JAVA_HOME" message="${env.JAVA_HOME}" unless:set="jdk9" />
 		<compile srcdir="instrument/src">
 			<classpath>
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
@@ -844,7 +842,6 @@
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</classpath>
 			<ignore>
 				<fileset file="instrument/testsrc/com/exedio/cope/instrument/testmodel/DontInstrument.java" />
@@ -924,7 +921,6 @@
 	<target name="instrument.test.compile" depends="instrument.test.libcompile, instrument.testfeature.compile, instrument.test.srcinstrument">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
@@ -957,7 +953,6 @@
 				depends="runtime.compile, instrument.compile, instrument.test.compile, instrument.testparams.compile">
 		<ljunit scansrc="instrument/testsrc" testproperty="instrument.test">
 			<classpath>
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
@@ -1062,7 +1057,6 @@
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/jsr305.jar" />
 				<pathelement location="lib/annotations.jar" />
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</myClasspath>
 		</api>
 	</target>

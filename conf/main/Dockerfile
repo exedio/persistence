@@ -1,5 +1,4 @@
-ARG RELEASE=stretch
-FROM debian:${RELEASE}-20220418
+FROM debian:buster-20220418
 
 ARG JDK
 RUN \
@@ -7,10 +6,6 @@ RUN \
 	apt-get install --no-install-recommends --assume-yes \
 		${JDK}-jdk-headless && \
 	rm -rf /var/lib/apt/lists/*
-
-# needed for path to tools.jar when compiling instrumentor
-ARG JAVAHOME=/usr/lib/jvm/java-8-openjdk-amd64
-ENV JAVA_HOME ${JAVAHOME}
 
 # TODO drop default once there is no JenkinsfileXxx anymore
 ARG JENKINS_OWNER=1001:1001
