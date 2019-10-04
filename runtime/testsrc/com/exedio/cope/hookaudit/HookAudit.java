@@ -57,17 +57,14 @@ final class HookAudit extends Item
 	 * Creates a new HookAudit and sets the given fields initially.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
-	private HookAudit(final com.exedio.cope.SetValue<?>... setValues)
-	{
-		super(setValues);
-	}
+	private HookAudit(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #value}.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
 	@javax.annotation.Nonnull
-	final java.lang.String getValue()
+	java.lang.String getValue()
 	{
 		return HookAudit.value.get(this);
 	}
@@ -76,7 +73,7 @@ final class HookAudit extends Item
 	private static final long serialVersionUID = 1l;
 
 	/**
-	 * The persistent type information for changeHookHistoryItem.
+	 * The persistent type information for hookAudit.
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<HookAudit> TYPE = com.exedio.cope.TypesBound.newType(HookAudit.class);
@@ -86,5 +83,5 @@ final class HookAudit extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@javax.annotation.Generated("com.exedio.cope.instrument")
-	@SuppressWarnings("unused") private HookAudit(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	private HookAudit(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
