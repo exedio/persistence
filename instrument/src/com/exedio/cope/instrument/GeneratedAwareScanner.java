@@ -23,7 +23,6 @@ import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.TreePathScanner;
 import java.lang.annotation.Annotation;
-import javax.annotation.Generated;
 import javax.lang.model.element.Element;
 import javax.tools.Diagnostic;
 
@@ -82,7 +81,7 @@ abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 
 	final boolean hasGeneratedAnnotation()
 	{
-		final Generated generated=getAnnotation(Generated.class);
+		final javax.annotation.Generated generated=getAnnotation(javax.annotation.Generated.class);
 		return generated!=null
 			&& generated.value().length==1
 			&& generated.value()[0].equals(Main.GENERATED_VALUE);

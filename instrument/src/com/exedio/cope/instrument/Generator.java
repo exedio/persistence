@@ -41,7 +41,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.regex.Pattern;
-import javax.annotation.Generated;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -164,7 +163,7 @@ final class Generator
 	private void writeGeneratedAnnotation(final String extraCommentForAnnotations)
 	{
 		writeIndent();
-		writeAnnotation(Generated.class);
+		writeAnnotation(javax.annotation.Generated.class);
 		write("(\"" + Main.GENERATED_VALUE + "\")");
 		if(typeContext.comments && extraCommentForAnnotations!=null)
 		{
