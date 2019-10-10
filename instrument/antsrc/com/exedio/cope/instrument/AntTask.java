@@ -80,6 +80,11 @@ public final class AntTask extends Task
 		return new DisableWrap();
 	}
 
+	public Suppressors createSuppressWarnings()
+	{
+		return new Suppressors();
+	}
+
 	public void setVerify(final boolean value)
 	{
 		params.verify = value;
@@ -344,6 +349,41 @@ public final class AntTask extends Task
 			try
 			{
 				params.addDisabledWrap(getProject().replaceProperties(text));
+			}
+			catch (final HumanReadableException e)
+			{
+				throw new BuildException(e.getMessage());
+			}
+		}
+	}
+
+	public final class Suppressors
+	{
+		public Suppressor createConstructor()
+		{
+			return new Suppressor(params.suppressWarningsConstructor);
+		}
+
+		public Suppressor createWrapper()
+		{
+			return new Suppressor(params.suppressWarningsWrapper);
+		}
+	}
+
+	public static final class Suppressor
+	{
+		final Params.Suppressor back;
+
+		Suppressor(final Params.Suppressor back)
+		{
+			this.back = back;
+		}
+
+		public void addText(final String text)
+		{
+			try
+			{
+				back.add(text);
 			}
 			catch (final HumanReadableException e)
 			{

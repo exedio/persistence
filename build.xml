@@ -774,6 +774,20 @@
 		</instrument>
 	</target>
 
+	<target name="instrument.test.paramssrcinstrument" depends="instrument.taskdef" unless="skip.instrument">
+		<instrument
+				dir="instrument/testparamssrc"
+				verify="${instrument.verify}"
+				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
+			<resources refid="instrument.resources" />
+			<suppressWarnings>
+				<constructor>constructor-first</constructor>
+				<constructor>constructor-second</constructor>
+				<wrapper>wrapper-single</wrapper>
+			</suppressWarnings>
+		</instrument>
+	</target>
+
 	<target name="instrument.test.libinstrument" depends="junit4, instrument.taskdef, instrument.testfeature.compile" unless="skip.instrument">
 		<instrument
 				dir="instrument/testlibsrc"
@@ -827,8 +841,18 @@
 		</compile>
 	</target>
 
+	<target name="instrument.testparams.compile" depends="junit4,instrument.test.paramssrcinstrument">
+		<compile srcdir="instrument/testparamssrc">
+			<classpath>
+				<pathelement location="build/classes/runtime/src" />
+				<pathelement location="build/classes/instrument/annosrc" />
+				<pathelement location="lib/findbugs-annotations.jar" />
+			</classpath>
+		</compile>
+	</target>
+
 	<target name="instrument.test"
-				depends="junit4, runtime.compile, instrument.compile, instrument.test.compile">
+				depends="junit4, runtime.compile, instrument.compile, instrument.test.compile, instrument.testparams.compile">
 		<ljunit scansrc="instrument/testsrc" testproperty="instrument.test">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
@@ -865,7 +889,11 @@
 
 	<target name="src" depends="index" description="creates all sources, so the IDE does not complain" />
 
-	<target name="instrument" depends="runtime.servlet.test.instrument, instrument.test.instrument, runtime.test.instrument" />
+	<target name="instrument" depends="
+			runtime.servlet.test.instrument,
+			instrument.test.instrument,
+			instrument.test.paramssrcinstrument,
+			runtime.test.instrument" />
 
 	<target name="compile"
 			  depends="dsmf.compile,

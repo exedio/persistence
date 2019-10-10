@@ -14,6 +14,7 @@
     <pattern value="com.exedio.cope.instrument.AntTask" method="create*" />
     <pattern value="com.exedio.cope.instrument.AntTask" method="set*" />
     <pattern value="com.exedio.cope.instrument.AntTask.*" method="add*" />
+    <pattern value="com.exedio.cope.instrument.AntTask.*" method="create*" />
   </component>
   <component name="NullableNotNullManager">
     <option name="myDefaultNullable" value="javax.annotation.Nullable" />

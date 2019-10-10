@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import static com.exedio.cope.util.Check.requireNonNegative;
 
+import com.exedio.cope.util.CharSet;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.nio.charset.Charset;
@@ -27,6 +28,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -179,4 +182,26 @@ final class Params
 		}
 	}
 
+	static final class Suppressor
+	{
+		private final TreeSet<String> set = new TreeSet<>();
+		private final SortedSet<String> unmodifiable = Collections.unmodifiableSortedSet(set);
+
+		void add(final String s) throws HumanReadableException
+		{
+			if(CHARSET.indexOfNotContains(s)>=0)
+				throw new HumanReadableException("invalid character in <suppressWarnings>, allowed is " + CHARSET);
+			set.add(s);
+		}
+
+		private static final CharSet CHARSET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
+
+		SortedSet<String> get()
+		{
+			return unmodifiable;
+		}
+	}
+
+	final Suppressor suppressWarningsConstructor = new Suppressor();
+	final Suppressor suppressWarningsWrapper = new Suppressor();
 }

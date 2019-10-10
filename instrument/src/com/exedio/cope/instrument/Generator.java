@@ -23,6 +23,7 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptySortedSet;
 import static java.util.Collections.singletonList;
 
 import com.exedio.cope.BooleanField;
@@ -77,6 +78,8 @@ final class Generator
 	private final boolean genericConstructorMultiline;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
+	private final SortedSet<String> suppressWarningsConstructor;
+	private final SortedSet<String> suppressWarningsWrapper;
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params, final Set<Method> generateDeprecateds, final Set<Method> disabledWraps)
 	{
@@ -97,6 +100,8 @@ final class Generator
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.disabledWraps = disabledWraps;
+		this.suppressWarningsConstructor = params.suppressWarningsConstructor.get();
+		this.suppressWarningsWrapper     = params.suppressWarningsWrapper    .get();
 	}
 
 	private static String toCamelCase(final String name)
@@ -160,7 +165,9 @@ final class Generator
 		}
 	}
 
-	private void writeGeneratedAnnotation(final String extraCommentForAnnotations)
+	private void writeGeneratedAnnotation(
+			final String extraCommentForAnnotations,
+			final SortedSet<String> suppressWarnings)
 	{
 		writeIndent();
 		writeAnnotation(javax.annotation.Generated.class);
@@ -171,6 +178,28 @@ final class Generator
 			write(extraCommentForAnnotations);
 		}
 		write(lineSeparator);
+
+		if(!suppressWarnings.isEmpty())
+		{
+			writeIndent();
+			writeAnnotation(SuppressWarnings.class);
+			write('(');
+			final boolean multi = suppressWarnings.size()>1;
+			if(multi)
+				write('{');
+			final CharSeparator comma = new CharSeparator(',');
+			for(final String w : suppressWarnings)
+			{
+				comma.appendTo(output);
+				write('"');
+				write(w);
+				write('"');
+			}
+			if(multi)
+				write('}');
+			write(')');
+			write(lineSeparator);
+		}
 	}
 
 	private void writeInitialConstructor(final LocalCopeType type)
@@ -210,7 +239,7 @@ final class Generator
 			commentLines.add("@throws " + constructorException.getCanonicalName() + ' ' + format(pattern, fields.toString()));
 		}
 		writeComment(commentLines);
-		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE);
+		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE, suppressWarningsConstructor);
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier(publicConstructorInAbstractClass));
@@ -292,7 +321,7 @@ final class Generator
 			return;
 
 		writeComment(singletonList(format(CONSTRUCTOR_GENERIC, type.getName())));
-		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE);
+		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE, emptySortedSet());
 
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
@@ -334,7 +363,7 @@ final class Generator
 					"Activation constructor. Used for internal purposes only.",
 					"@see " + type.kind.top + '#' + type.kind.topSimple + '(' + activation + ')')
 		);
-		writeGeneratedAnnotation(null);
+		writeGeneratedAnnotation(null, emptySortedSet());
 
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
@@ -433,8 +462,8 @@ final class Generator
 				writeGeneratedAnnotation(
 					modifierTag!=null
 					?  hintCustomize(Wrapper.class, "wrap", "\"" + modifierTag + "\"")
-					: null
-				);
+					: null,
+					suppressWarningsWrapper);
 			}
 
 			if(wrapper.isMethodDeprecated() || feature.isDeprecated())
@@ -716,7 +745,7 @@ final class Generator
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{
 		write(lineSeparator);
-		writeGeneratedAnnotation(null);
+		writeGeneratedAnnotation(null, emptySortedSet());
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
@@ -747,7 +776,7 @@ final class Generator
 		writeComment(singletonList(
 				format("Use {0}.classWildcard.value instead of {0}.class to avoid rawtypes warnings.", type.getName())
 		));
-		writeGeneratedAnnotation(WILDCARD_CUSTOMIZE);
+		writeGeneratedAnnotation(WILDCARD_CUSTOMIZE, emptySortedSet());
 		writeIndent();
 		final int modifier = visibility.getModifier(type.getModifier());
 		writeModifier(modifier | (STATIC | FINAL));
@@ -776,7 +805,7 @@ final class Generator
 			return;
 
 		writeComment(singletonList(format(kind.typeDoc, lowerCamelCase(type.getName()))));
-		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
+		writeGeneratedAnnotation(TYPE_CUSTOMIZE, emptySortedSet());
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write(kind.typeField);
