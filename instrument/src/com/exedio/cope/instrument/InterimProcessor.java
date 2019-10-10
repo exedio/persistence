@@ -627,11 +627,6 @@ final class InterimProcessor extends JavacProcessor
 			return element.getAnnotation(annotationType);
 		}
 
-		private boolean isGenerated()
-		{
-			return getCurrentPathAnnotation(javax.annotation.Generated.class)!=null;
-		}
-
 		private boolean isWrapInterim()
 		{
 			final WrapInterim anno = getCurrentPathAnnotation(WrapInterim.class);
@@ -773,8 +768,6 @@ final class InterimProcessor extends JavacProcessor
 			final TreePath path = docTrees.getPath(getCompilationUnit(), vt.getType());
 			final Element typeElement = docTrees.getElement(path);
 			if (!(typeElement instanceof TypeElement)) // null for primitive types; maybe something else for generics
-				return false;
-			if (isGenerated())
 				return false;
 			final TypeElement type = (TypeElement)typeElement;
 			final VariableElement variable = (VariableElement)docTrees.getElement(getCurrentPath());
