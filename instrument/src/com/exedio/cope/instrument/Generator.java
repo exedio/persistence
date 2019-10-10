@@ -174,7 +174,7 @@ final class Generator
 		writeIndent();
 		if(javaxAnnotationGenerated)
 		{
-			writeAnnotation(javax.annotation.Generated.class);
+			writeAnnotation(GeneratedJavaxAccess.get());
 			write("(\"" + Main.GENERATED_VALUE + "\")");
 		}
 		else
