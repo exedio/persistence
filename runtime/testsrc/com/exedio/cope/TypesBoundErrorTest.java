@@ -322,13 +322,13 @@ public class TypesBoundErrorTest
 	{
 		@WrapperIgnore static final IntegerField superField=new IntegerField();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<UniqueConstraintOnInheritedFeatureSuper> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintOnInheritedFeatureSuper.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintOnInheritedFeatureSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -339,10 +339,10 @@ public class TypesBoundErrorTest
 		@SuppressWarnings("unused")
 		@WrapperIgnore private static final UniqueConstraint superAndSub=UniqueConstraint.create(superField, subField);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintOnInheritedFeatureSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

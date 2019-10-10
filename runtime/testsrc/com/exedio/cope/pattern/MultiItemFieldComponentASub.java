@@ -28,7 +28,8 @@ public class MultiItemFieldComponentASub extends MultiItemFieldComponentA
 	/**
 	 * Creates a new MultiItemFieldComponentASub with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public MultiItemFieldComponentASub()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -38,13 +39,14 @@ public class MultiItemFieldComponentASub extends MultiItemFieldComponentA
 	/**
 	 * Creates a new MultiItemFieldComponentASub and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected MultiItemFieldComponentASub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #otherValue}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public final java.lang.String getOtherValue()
 	{
@@ -54,7 +56,8 @@ public class MultiItemFieldComponentASub extends MultiItemFieldComponentA
 	/**
 	 * Sets a new value for {@link #otherValue}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setOtherValue(@javax.annotation.Nonnull final java.lang.String otherValue)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -63,19 +66,19 @@ public class MultiItemFieldComponentASub extends MultiItemFieldComponentA
 		MultiItemFieldComponentASub.otherValue.set(this,otherValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for multiItemFieldComponentASub.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<MultiItemFieldComponentASub> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentASub.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected MultiItemFieldComponentASub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

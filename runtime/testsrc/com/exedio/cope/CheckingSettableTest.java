@@ -313,17 +313,19 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 		static final StringField field2 = new StringField().optional();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.lang.String getField2()
 		{
 			return MyItem.field2.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField2(@javax.annotation.Nullable final java.lang.String field2)
 				throws
 					com.exedio.cope.StringLengthViolationException
@@ -331,13 +333,13 @@ public class CheckingSettableTest extends TestWithEnvironment
 			MyItem.field2.set(this,field2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -346,17 +348,19 @@ public class CheckingSettableTest extends TestWithEnvironment
 	{
 		static final StringField field = new StringField();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private OtherItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField()
 		{
 			return OtherItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField(@javax.annotation.Nonnull final java.lang.String field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -365,13 +369,13 @@ public class CheckingSettableTest extends TestWithEnvironment
 			OtherItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

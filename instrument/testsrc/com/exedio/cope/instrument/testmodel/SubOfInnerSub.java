@@ -34,7 +34,8 @@ class SubOfInnerSub extends InnerContainer.Sub
 	 * @throws com.exedio.cope.MandatoryViolationException if superField, superField2, externalEnum, shortExternalEnum, subField, subReference is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if subField violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SubOfInnerSub(
 				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.InnerContainer.Target superField,
 				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.InnerContainer.Super.InnerSuperEnum superField2,
@@ -59,22 +60,22 @@ class SubOfInnerSub extends InnerContainer.Sub
 	/**
 	 * Creates a new SubOfInnerSub and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected SubOfInnerSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for subOfInnerSub.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<SubOfInnerSub> TYPE = com.exedio.cope.TypesBound.newType(SubOfInnerSub.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected SubOfInnerSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

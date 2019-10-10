@@ -45,7 +45,8 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	 * @param toMid the initial value for field {@link #toMid}.
 	 * @param toSuper the initial value for field {@link #toSuper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	GenericComplexSuper(
 				@javax.annotation.Nonnull final GenericComplexSub toSub,
 				@javax.annotation.Nonnull final GenericComplexMid<?> toMid,
@@ -61,58 +62,63 @@ public class GenericComplexSuper<N extends Number, L extends Collection<String>>
 	/**
 	 * Creates a new GenericComplexSuper and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected GenericComplexSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final GenericComplexSub methodToSub(final GenericComplexSub toSub)
 	{
 		return GenericComplexSuper.toSub.method(this,toSub);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final GenericComplexMid<?> methodToMid(final GenericComplexMid<?> toMid)
 	{
 		return GenericComplexSuper.toMid.method(this,toMid);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final GenericComplexSuper<?,?> methodToSuper(final GenericComplexSuper<?,?> toSuper)
 	{
 		return GenericComplexSuper.toSuper.method(this,toSuper);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final GenericComplexSuper<?,?> methodFromSuper()
 	{
 		return GenericComplexSuper.fromSuper.method(classWildcard.value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="methodNested")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final java.util.List<GenericComplexSuper<?,?>> methodFromSuperNested()
 	{
 		return GenericComplexSuper.fromSuper.methodNested(classWildcard.value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * Use GenericComplexSuper.classWildcard.value instead of GenericComplexSuper.class to avoid rawtypes warnings.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(wildcardClass=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(wildcardClass=...)
 	public static final class classWildcard { public static final java.lang.Class<GenericComplexSuper<?,?>> value = com.exedio.cope.ItemWildcardCast.cast(GenericComplexSuper.class); private classWildcard(){} }
 
 	/**
 	 * The persistent type information for genericComplexSuper.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<GenericComplexSuper<?,?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected GenericComplexSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

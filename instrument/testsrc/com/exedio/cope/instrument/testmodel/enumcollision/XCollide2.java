@@ -28,7 +28,8 @@ final class XCollide2 extends Item
 	/**
 	 * Creates a new XCollide2 with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	XCollide2()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -38,22 +39,22 @@ final class XCollide2 extends Item
 	/**
 	 * Creates a new XCollide2 and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private XCollide2(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for xCollide2.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<XCollide2> TYPE = com.exedio.cope.TypesBound.newType(XCollide2.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private XCollide2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

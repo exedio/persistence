@@ -36,31 +36,33 @@ class WrapperStarItem extends Item
 	static final WrapFeature field=new WrapFeature();
 
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final int simpleField()
 	{
 		return WrapperStarItem.field.simple(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simpleVoid")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simpleVoid")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void simpleFieldVoid()
 	{
 		WrapperStarItem.field.simpleVoid(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for wrapperStarItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<WrapperStarItem> TYPE = com.exedio.cope.TypesBound.newType(WrapperStarItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected WrapperStarItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

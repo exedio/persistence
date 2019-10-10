@@ -44,7 +44,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Creates a new ThumbnailItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public ThumbnailItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -54,13 +55,14 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Creates a new ThumbnailItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ThumbnailItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns a Locator the content of {@link #file} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getFileLocator()
 	{
@@ -70,7 +72,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns the content type of the media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getFileContentType()
 	{
@@ -80,7 +83,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns whether media {@link #file} is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isFileNull()
 	{
 		return ThumbnailItem.file.isNull(this);
@@ -89,7 +93,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns the last modification date of media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getFileLastModified()
 	{
@@ -99,7 +104,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns the body length of the media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getFileLength()
 	{
 		return ThumbnailItem.file.getLength(this);
@@ -108,7 +114,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns the body of the media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	byte[] getFileBody()
 	{
@@ -120,7 +127,8 @@ public final class ThumbnailItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getFileBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -133,7 +141,8 @@ public final class ThumbnailItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getFileBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -146,7 +155,8 @@ public final class ThumbnailItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getFileBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -158,7 +168,8 @@ public final class ThumbnailItem extends Item
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFile(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 			throws
 				java.io.IOException
@@ -169,7 +180,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Sets the content of media {@link #file}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFile(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		ThumbnailItem.file.set(this,body,contentType);
@@ -179,7 +191,8 @@ public final class ThumbnailItem extends Item
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFile(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -191,7 +204,8 @@ public final class ThumbnailItem extends Item
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFile(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -203,7 +217,8 @@ public final class ThumbnailItem extends Item
 	 * Sets the content of media {@link #file}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFile(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -214,7 +229,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumb} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getThumbLocator()
 	{
@@ -224,7 +240,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getThumbURLWithFallbackToSource()
 	{
@@ -234,7 +251,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumb} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getThumbLocatorWithFallbackToSource()
 	{
@@ -244,7 +262,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns the body of {@link #thumb}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	byte[] getThumb()
 			throws
@@ -256,7 +275,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbLarge} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getThumbLargeLocator()
 	{
@@ -266,7 +286,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns a URL the content of {@link #thumbLarge} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getThumbLargeURLWithFallbackToSource()
 	{
@@ -276,7 +297,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #thumbLarge} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getThumbLargeLocatorWithFallbackToSource()
 	{
@@ -286,7 +308,8 @@ public final class ThumbnailItem extends Item
 	/**
 	 * Returns the body of {@link #thumbLarge}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	byte[] getThumbLarge()
 			throws
@@ -295,19 +318,19 @@ public final class ThumbnailItem extends Item
 		return ThumbnailItem.thumbLarge.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for thumbnailItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<ThumbnailItem> TYPE = com.exedio.cope.TypesBound.newType(ThumbnailItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ThumbnailItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

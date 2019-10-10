@@ -30,7 +30,8 @@ final class GroupItem extends Item
 	 * @param number the initial value for field {@link #number}.
 	 * @throws com.exedio.cope.MandatoryViolationException if day is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	GroupItem(
 				@javax.annotation.Nonnull final com.exedio.cope.util.Day day,
 				final int number)
@@ -46,13 +47,14 @@ final class GroupItem extends Item
 	/**
 	 * Creates a new GroupItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private GroupItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.util.Day getDay()
 	{
@@ -62,7 +64,8 @@ final class GroupItem extends Item
 	/**
 	 * Sets a new value for {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -73,7 +76,8 @@ final class GroupItem extends Item
 	/**
 	 * Sets today for the date field {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		GroupItem.day.touch(this,zone);
@@ -82,7 +86,8 @@ final class GroupItem extends Item
 	/**
 	 * Returns the value of {@link #number}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getNumber()
 	{
 		return GroupItem.number.getMandatory(this);
@@ -91,7 +96,8 @@ final class GroupItem extends Item
 	/**
 	 * Sets a new value for {@link #number}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNumber(final int number)
 	{
 		GroupItem.number.set(this,number);
@@ -100,7 +106,8 @@ final class GroupItem extends Item
 	/**
 	 * Returns the value of {@link #optionalDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Double getOptionalDouble()
 	{
@@ -110,25 +117,26 @@ final class GroupItem extends Item
 	/**
 	 * Sets a new value for {@link #optionalDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOptionalDouble(@javax.annotation.Nullable final java.lang.Double optionalDouble)
 	{
 		GroupItem.optionalDouble.set(this,optionalDouble);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for groupItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<GroupItem> TYPE = com.exedio.cope.TypesBound.newType(GroupItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private GroupItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

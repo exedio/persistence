@@ -35,7 +35,8 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	/**
 	 * Creates a new CheckConstraintHierarchyItemBottom with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public CheckConstraintHierarchyItemBottom()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -45,13 +46,14 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	/**
 	 * Creates a new CheckConstraintHierarchyItemBottom and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CheckConstraintHierarchyItemBottom(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #bottom1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getBottom1()
 	{
 		return CheckConstraintHierarchyItemBottom.bottom1.getMandatory(this);
@@ -60,7 +62,8 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	/**
 	 * Sets a new value for {@link #bottom1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBottom1(final int bottom1)
 	{
 		CheckConstraintHierarchyItemBottom.bottom1.set(this,bottom1);
@@ -69,7 +72,8 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	/**
 	 * Returns the value of {@link #bottom2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getBottom2()
 	{
 		return CheckConstraintHierarchyItemBottom.bottom2.getMandatory(this);
@@ -78,7 +82,8 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	/**
 	 * Sets a new value for {@link #bottom2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBottom2(final int bottom2)
 	{
 		CheckConstraintHierarchyItemBottom.bottom2.set(this,bottom2);
@@ -87,7 +92,8 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	/**
 	 * Returns the value of {@link #cross2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getCross2()
 	{
 		return CheckConstraintHierarchyItemBottom.cross2.getMandatory(this);
@@ -96,25 +102,26 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	/**
 	 * Sets a new value for {@link #cross2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCross2(final int cross2)
 	{
 		CheckConstraintHierarchyItemBottom.cross2.set(this,cross2);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for checkConstraintHierarchyItemBottom.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<CheckConstraintHierarchyItemBottom> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintHierarchyItemBottom.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CheckConstraintHierarchyItemBottom(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

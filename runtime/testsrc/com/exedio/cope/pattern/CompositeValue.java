@@ -56,7 +56,8 @@ public final class CompositeValue extends Composite
 	 * @throws com.exedio.cope.MandatoryViolationException if aString, anEnum, anItem is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if aString violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CompositeValue(
 				@javax.annotation.Nonnull final java.lang.String aString,
 				final int anInt,
@@ -77,13 +78,14 @@ public final class CompositeValue extends Composite
 	/**
 	 * Creates a new CompositeValue and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CompositeValue(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #aString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getAString()
 	{
@@ -93,7 +95,8 @@ public final class CompositeValue extends Composite
 	/**
 	 * Sets a new value for {@link #aString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAString(@javax.annotation.Nonnull final java.lang.String aString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -105,7 +108,8 @@ public final class CompositeValue extends Composite
 	/**
 	 * Returns the value of {@link #anInt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getAnInt()
 	{
 		return getMandatory(CompositeValue.anInt);
@@ -114,7 +118,8 @@ public final class CompositeValue extends Composite
 	/**
 	 * Sets a new value for {@link #anInt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAnInt(final int anInt)
 	{
 		set(CompositeValue.anInt,anInt);
@@ -123,7 +128,8 @@ public final class CompositeValue extends Composite
 	/**
 	 * Returns the value of {@link #anEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	AnEnum getAnEnum()
 	{
@@ -133,7 +139,8 @@ public final class CompositeValue extends Composite
 	/**
 	 * Sets a new value for {@link #anEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -144,7 +151,8 @@ public final class CompositeValue extends Composite
 	/**
 	 * Returns the value of {@link #anItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CompositeOptionalItem getAnItem()
 	{
@@ -154,7 +162,8 @@ public final class CompositeValue extends Composite
 	/**
 	 * Sets a new value for {@link #anItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAnItem(@javax.annotation.Nonnull final CompositeOptionalItem anItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -162,6 +171,6 @@ public final class CompositeValue extends Composite
 		set(CompositeValue.anItem,anItem);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 }

@@ -570,7 +570,8 @@ public class CompositeTest
 	 * @throws com.exedio.cope.MandatoryViolationException if string4 is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if string4 violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	Value(
 				@javax.annotation.Nonnull final java.lang.String string4,
 				final int intMax4,
@@ -594,13 +595,14 @@ public class CompositeTest
 	/**
 	 * Creates a new Value and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private Value(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #string4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getString4()
 	{
@@ -610,7 +612,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #string4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setString4(@javax.annotation.Nonnull final java.lang.String string4)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -622,7 +625,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #intMax4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public int getIntMax4()
 	{
 		return getMandatory(Value.intMax4);
@@ -631,7 +635,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #intMax4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setIntMax4(final int intMax4)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -642,7 +647,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #stringDefault}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getStringDefault()
 	{
@@ -652,7 +658,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #stringDefault}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setStringDefault(@javax.annotation.Nonnull final java.lang.String stringDefault)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -664,7 +671,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #stringDefaultOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getStringDefaultOptional()
 	{
@@ -674,7 +682,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #stringDefaultOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setStringDefaultOptional(@javax.annotation.Nullable final java.lang.String stringDefaultOptional)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -685,7 +694,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #longField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public long getLongField()
 	{
 		return getMandatory(Value.longField);
@@ -694,7 +704,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #longField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLongField(final long longField)
 	{
 		set(Value.longField,longField);
@@ -703,7 +714,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #doubleField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public double getDoubleField()
 	{
 		return getMandatory(Value.doubleField);
@@ -712,7 +724,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #doubleField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDoubleField(final double doubleField)
 	{
 		set(Value.doubleField,doubleField);
@@ -721,7 +734,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean getBooleanField()
 	{
 		return getMandatory(Value.booleanField);
@@ -730,7 +744,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setBooleanField(final boolean booleanField)
 	{
 		set(Value.booleanField,booleanField);
@@ -739,7 +754,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #intOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getIntOptional()
 	{
@@ -749,7 +765,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #intOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setIntOptional(@javax.annotation.Nullable final java.lang.Integer intOptional)
 	{
 		set(Value.intOptional,intOptional);
@@ -758,7 +775,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #longOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getLongOptional()
 	{
@@ -768,7 +786,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #longOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLongOptional(@javax.annotation.Nullable final java.lang.Long longOptional)
 	{
 		set(Value.longOptional,longOptional);
@@ -777,7 +796,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #doubleOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getDoubleOptional()
 	{
@@ -787,7 +807,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #doubleOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDoubleOptional(@javax.annotation.Nullable final java.lang.Double doubleOptional)
 	{
 		set(Value.doubleOptional,doubleOptional);
@@ -796,7 +817,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #booleanOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Boolean getBooleanOptional()
 	{
@@ -806,7 +828,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #booleanOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setBooleanOptional(@javax.annotation.Nullable final java.lang.Boolean booleanOptional)
 	{
 		set(Value.booleanOptional,booleanOptional);
@@ -815,7 +838,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.util.Date getDate()
 	{
@@ -825,7 +849,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDate(@javax.annotation.Nullable final java.util.Date date)
 	{
 		set(Value.date,date);
@@ -834,7 +859,8 @@ public class CompositeTest
 	/**
 	 * Sets the current date for the date field {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void touchDate()
 	{
 		touch(Value.date);
@@ -843,7 +869,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public com.exedio.cope.util.Day getDay()
 	{
@@ -853,7 +880,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		set(Value.day,day);
@@ -862,13 +890,14 @@ public class CompositeTest
 	/**
 	 * Sets today for the date field {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		touch(Value.day,zone);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 }
 
@@ -891,7 +920,8 @@ public class CompositeTest
 	 * @throws com.exedio.cope.MandatoryViolationException if stringField is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if stringField violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ValueX(
 				@javax.annotation.Nonnull final java.lang.String stringField,
 				final int intField,
@@ -914,13 +944,14 @@ public class CompositeTest
 	/**
 	 * Creates a new ValueX and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ValueX(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #stringField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getStringField()
 	{
@@ -930,7 +961,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #stringField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setStringField(@javax.annotation.Nonnull final java.lang.String stringField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -942,7 +974,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #intField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public int getIntField()
 	{
 		return getMandatory(ValueX.intField);
@@ -951,7 +984,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #intField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setIntField(final int intField)
 	{
 		set(ValueX.intField,intField);
@@ -960,7 +994,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #longField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public long getLongField()
 	{
 		return getMandatory(ValueX.longField);
@@ -969,7 +1004,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #longField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLongField(final long longField)
 	{
 		set(ValueX.longField,longField);
@@ -978,7 +1014,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #doubleField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public double getDoubleField()
 	{
 		return getMandatory(ValueX.doubleField);
@@ -987,7 +1024,8 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #doubleField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDoubleField(final double doubleField)
 	{
 		set(ValueX.doubleField,doubleField);
@@ -996,7 +1034,8 @@ public class CompositeTest
 	/**
 	 * Returns the value of {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean getBooleanField()
 	{
 		return getMandatory(ValueX.booleanField);
@@ -1005,13 +1044,14 @@ public class CompositeTest
 	/**
 	 * Sets a new value for {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setBooleanField(final boolean booleanField)
 	{
 		set(ValueX.booleanField,booleanField);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 }
 

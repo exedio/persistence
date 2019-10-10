@@ -175,7 +175,8 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 		// TODO column name duplicate to subtype
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		MySuperItem(
 					@javax.annotation.Nullable final java.lang.Integer supPlain,
 					@javax.annotation.Nullable final MyEnum supEnum)
@@ -186,16 +187,16 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MySuperItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MySuperItem> TYPE = com.exedio.cope.TypesBound.newType(MySuperItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MySuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -213,7 +214,8 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		static final DateField date = new DateField().toFinal().optional();
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		MyItem(
 					@javax.annotation.Nullable final java.lang.Integer supPlain,
 					@javax.annotation.Nullable final com.exedio.cope.misc.SchemaViewGeneratorTest.MyEnum supEnum,
@@ -230,16 +232,16 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

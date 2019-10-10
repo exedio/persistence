@@ -36,7 +36,8 @@ public final class UniqueSingleNotNullItem extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if uniqueNotNullString violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if uniqueNotNullString is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public UniqueSingleNotNullItem(
 				@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 			throws
@@ -52,13 +53,14 @@ public final class UniqueSingleNotNullItem extends Item
 	/**
 	 * Creates a new UniqueSingleNotNullItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private UniqueSingleNotNullItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #uniqueNotNullString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getUniqueNotNullString()
 	{
@@ -68,7 +70,8 @@ public final class UniqueSingleNotNullItem extends Item
 	/**
 	 * Sets a new value for {@link #uniqueNotNullString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -83,7 +86,8 @@ public final class UniqueSingleNotNullItem extends Item
 	 * @param uniqueNotNullString shall be equal to field {@link #uniqueNotNullString}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public static UniqueSingleNotNullItem forUniqueNotNullString(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 	{
@@ -95,7 +99,8 @@ public final class UniqueSingleNotNullItem extends Item
 	 * @param uniqueNotNullString shall be equal to field {@link #uniqueNotNullString}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public static UniqueSingleNotNullItem forUniqueNotNullStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueNotNullString)
 			throws
@@ -104,19 +109,19 @@ public final class UniqueSingleNotNullItem extends Item
 		return UniqueSingleNotNullItem.uniqueNotNullString.searchUniqueStrict(UniqueSingleNotNullItem.class,uniqueNotNullString);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for uniqueSingleNotNullItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<UniqueSingleNotNullItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueSingleNotNullItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private UniqueSingleNotNullItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

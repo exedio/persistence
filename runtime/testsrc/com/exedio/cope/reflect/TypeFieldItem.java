@@ -62,7 +62,8 @@ public final class TypeFieldItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if standard, isFinal is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if standard, isFinal, restricted violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	TypeFieldItem(
 				@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> standard,
 				@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> isFinal,
@@ -81,13 +82,14 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Creates a new TypeFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private TypeFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #standard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.Type<? extends Item> getStandard()
 	{
@@ -97,7 +99,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #standard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStandard(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> standard)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -109,7 +112,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Returns the value of {@link #isFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.Type<? extends Item> getIsFinal()
 	{
@@ -119,7 +123,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Returns the value of {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.Type<? extends Item> getOptional()
 	{
@@ -129,7 +134,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOptional(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> optional)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -140,7 +146,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Returns the value of {@link #unique}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.Type<? extends Item> getUnique()
 	{
@@ -150,7 +157,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #unique}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUnique(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> unique)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -164,7 +172,8 @@ public final class TypeFieldItem extends Item
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static TypeFieldItem forUnique(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> unique)
 	{
@@ -174,7 +183,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Returns the value of {@link #renamed}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.Type<? extends Item> getRenamed()
 	{
@@ -184,7 +194,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #renamed}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRenamed(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> renamed)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -195,7 +206,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Returns the value of {@link #restricted}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.Type<? extends TypeFieldSubItem> getRestricted()
 	{
@@ -205,7 +217,8 @@ public final class TypeFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #restricted}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRestricted(@javax.annotation.Nullable final com.exedio.cope.Type<? extends TypeFieldSubItem> restricted)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -213,19 +226,19 @@ public final class TypeFieldItem extends Item
 		TypeFieldItem.restricted.set(this,restricted);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for typeFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<TypeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(TypeFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private TypeFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

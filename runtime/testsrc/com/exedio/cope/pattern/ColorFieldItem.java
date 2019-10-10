@@ -61,7 +61,8 @@ final class ColorFieldItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if mandatory is null.
 	 * @throws com.exedio.cope.pattern.ColorAlphaViolationException if mandatory, finalColor violates its alpha constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ColorFieldItem(
 				@javax.annotation.Nonnull final java.awt.Color mandatory,
 				@javax.annotation.Nullable final java.awt.Color finalColor)
@@ -78,13 +79,14 @@ final class ColorFieldItem extends Item
 	/**
 	 * Creates a new ColorFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ColorFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.awt.Color getMandatory()
 	{
@@ -94,7 +96,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMandatory(@javax.annotation.Nonnull final java.awt.Color mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -106,7 +109,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Returns the value of {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.awt.Color getOptional()
 	{
@@ -116,7 +120,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOptional(@javax.annotation.Nullable final java.awt.Color optional)
 			throws
 				com.exedio.cope.pattern.ColorAlphaViolationException
@@ -127,7 +132,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Returns the value of {@link #defaultTo}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.awt.Color getDefaultTo()
 	{
@@ -137,7 +143,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #defaultTo}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDefaultTo(@javax.annotation.Nonnull final java.awt.Color defaultTo)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -149,7 +156,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Returns the value of {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.awt.Color getAlpha()
 	{
@@ -159,7 +167,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAlpha(@javax.annotation.Nullable final java.awt.Color alpha)
 	{
 		ColorFieldItem.alpha.set(this,alpha);
@@ -168,7 +177,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Returns the value of {@link #mandatoryAlpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.awt.Color getMandatoryAlpha()
 	{
@@ -178,7 +188,8 @@ final class ColorFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #mandatoryAlpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMandatoryAlpha(@javax.annotation.Nonnull final java.awt.Color mandatoryAlpha)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -189,26 +200,27 @@ final class ColorFieldItem extends Item
 	/**
 	 * Returns the value of {@link #finalColor}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.awt.Color getFinalColor()
 	{
 		return ColorFieldItem.finalColor.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for colorFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ColorFieldItem> TYPE = com.exedio.cope.TypesBound.newType(ColorFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ColorFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

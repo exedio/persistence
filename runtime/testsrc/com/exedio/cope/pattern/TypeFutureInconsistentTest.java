@@ -136,26 +136,26 @@ public class TypeFutureInconsistentTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ValueClassItem extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<ValueClassItem> TYPE = com.exedio.cope.TypesBound.newType(ValueClassItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ValueClassItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class TypeItem extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<TypeItem> TYPE = com.exedio.cope.TypesBound.newType(TypeItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private TypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -165,13 +165,13 @@ public class TypeFutureInconsistentTest
 		@WrapperIgnore
 		static final ItemField<ValueClassItem> field = inconsistentField("FeatureItem");
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<FeatureItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private FeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -181,10 +181,10 @@ public class TypeFutureInconsistentTest
 		@WrapperIgnore
 		static final ItemField<ValueClassItem> field = inconsistentField("FeatureComposite");
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private FeatureComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -194,13 +194,13 @@ public class TypeFutureInconsistentTest
 		@WrapperIgnore
 		static final ItemField<ValueClassItem> field = inconsistentField("FeatureBlock");
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.pattern.BlockType<FeatureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(FeatureBlock.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private FeatureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 

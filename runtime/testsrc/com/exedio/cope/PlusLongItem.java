@@ -55,7 +55,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Creates a new PlusLongItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public PlusLongItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -65,13 +66,14 @@ public final class PlusLongItem extends Item
 	/**
 	 * Creates a new PlusLongItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PlusLongItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #numA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getNumA()
 	{
@@ -81,7 +83,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Sets a new value for {@link #numA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumA(@javax.annotation.Nullable final java.lang.Long numA)
 	{
 		PlusLongItem.numA.set(this,numA);
@@ -90,7 +93,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #numB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getNumB()
 	{
@@ -100,7 +104,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Sets a new value for {@link #numB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumB(@javax.annotation.Nullable final java.lang.Long numB)
 	{
 		PlusLongItem.numB.set(this,numB);
@@ -109,7 +114,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #numC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getNumC()
 	{
@@ -119,7 +125,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Sets a new value for {@link #numC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumC(@javax.annotation.Nullable final java.lang.Long numC)
 	{
 		PlusLongItem.numC.set(this,numC);
@@ -128,7 +135,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #plusA9}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusA9()
 	{
 		return PlusLongItem.plusA9.get(this);
@@ -137,7 +145,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #plusAB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusAB()
 	{
 		return PlusLongItem.plusAB.get(this);
@@ -146,7 +155,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #plusAC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusAC()
 	{
 		return PlusLongItem.plusAC.get(this);
@@ -155,7 +165,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #plusBC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusBC()
 	{
 		return PlusLongItem.plusBC.get(this);
@@ -164,7 +175,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #plusABC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusABC()
 	{
 		return PlusLongItem.plusABC.get(this);
@@ -173,7 +185,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #plusABaC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusABaC()
 	{
 		return PlusLongItem.plusABaC.get(this);
@@ -182,7 +195,8 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #multiplyB9}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getMultiplyB9()
 	{
 		return PlusLongItem.multiplyB9.get(this);
@@ -191,25 +205,26 @@ public final class PlusLongItem extends Item
 	/**
 	 * Returns the value of {@link #multiplyBC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getMultiplyBC()
 	{
 		return PlusLongItem.multiplyBC.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for plusLongItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PlusLongItem> TYPE = com.exedio.cope.TypesBound.newType(PlusLongItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PlusLongItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

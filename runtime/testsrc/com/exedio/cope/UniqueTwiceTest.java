@@ -60,17 +60,19 @@ public class UniqueTwiceTest
 		static final StringField one    = new StringField().unique();
 		static final StringField oneDup = new StringField().unique().unique();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getOne()
 		{
 			return MyItem.one.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setOne(@javax.annotation.Nonnull final java.lang.String one)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -80,14 +82,16 @@ public class UniqueTwiceTest
 			MyItem.one.set(this,one);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forOne(@javax.annotation.Nonnull final java.lang.String one)
 		{
 			return MyItem.one.searchUnique(MyItem.class,one);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forOneStrict(@javax.annotation.Nonnull final java.lang.String one)
 				throws
@@ -96,14 +100,16 @@ public class UniqueTwiceTest
 			return MyItem.one.searchUniqueStrict(MyItem.class,one);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getOneDup()
 		{
 			return MyItem.oneDup.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setOneDup(@javax.annotation.Nonnull final java.lang.String oneDup)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -113,14 +119,16 @@ public class UniqueTwiceTest
 			MyItem.oneDup.set(this,oneDup);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forOneDup(@javax.annotation.Nonnull final java.lang.String oneDup)
 		{
 			return MyItem.oneDup.searchUnique(MyItem.class,oneDup);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forOneDupStrict(@javax.annotation.Nonnull final java.lang.String oneDup)
 				throws
@@ -129,13 +137,13 @@ public class UniqueTwiceTest
 			return MyItem.oneDup.searchUniqueStrict(MyItem.class,oneDup);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

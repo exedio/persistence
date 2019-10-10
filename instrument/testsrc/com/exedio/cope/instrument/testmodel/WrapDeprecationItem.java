@@ -31,7 +31,8 @@ final class WrapDeprecationItem extends Item
 	/**
 	 * Creates a new WrapDeprecationItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	WrapDeprecationItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -41,49 +42,53 @@ final class WrapDeprecationItem extends Item
 	/**
 	 * Creates a new WrapDeprecationItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private WrapDeprecationItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="bare")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="bare")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int bareGood()
 	{
 		return WrapDeprecationItem.good.bare(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="goneAlmost")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="goneAlmost")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@java.lang.Deprecated
 	int goneGoodAlmost()
 	{
 		return WrapDeprecationItem.good.goneAlmost(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="bare")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="bare")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@java.lang.Deprecated
 	int bareBad()
 	{
 		return WrapDeprecationItem.bad.bare(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="goneAlmost")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="goneAlmost")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@java.lang.Deprecated
 	int goneBadAlmost()
 	{
 		return WrapDeprecationItem.bad.goneAlmost(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for wrapDeprecationItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<WrapDeprecationItem> TYPE = com.exedio.cope.TypesBound.newType(WrapDeprecationItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private WrapDeprecationItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

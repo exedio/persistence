@@ -48,7 +48,8 @@ public final class NameSubItem extends NameLongItem
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if code, unique, integer, item, uniqueX, integerX, itemX is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	NameSubItem(
 				@javax.annotation.Nonnull final java.lang.String code,
 				final int unique,
@@ -76,13 +77,14 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Creates a new NameSubItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private NameSubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #unique}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getUnique()
 	{
 		return NameSubItem.unique.getMandatory(this);
@@ -91,7 +93,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Sets a new value for {@link #unique}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUnique(final int unique)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -104,7 +107,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static NameSubItem forUnique(final int unique)
 	{
@@ -116,7 +120,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static NameSubItem forUniqueStrict(final int unique)
 			throws
@@ -128,7 +133,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Returns the value of {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteger()
 	{
 		return NameSubItem.integer.getMandatory(this);
@@ -137,7 +143,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Sets a new value for {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger(final int integer)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -148,7 +155,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Returns the value of {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	NameSubItem getItem()
 	{
@@ -158,7 +166,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Sets a new value for {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItem(@javax.annotation.Nonnull final NameSubItem item)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -173,7 +182,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param item shall be equal to field {@link #item}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static NameSubItem forIntegers(final int integer,@javax.annotation.Nonnull final NameSubItem item)
 	{
@@ -186,7 +196,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param item shall be equal to field {@link #item}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static NameSubItem forIntegersStrict(final int integer,@javax.annotation.Nonnull final NameSubItem item)
 			throws
@@ -198,7 +209,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Returns the value of {@link #uniqueX}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getUniqueX()
 	{
 		return NameSubItem.uniqueX.getMandatory(this);
@@ -207,7 +219,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Sets a new value for {@link #uniqueX}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUniqueX(final int uniqueX)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -220,7 +233,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param uniqueX shall be equal to field {@link #uniqueX}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static NameSubItem forUniqueX(final int uniqueX)
 	{
@@ -232,7 +246,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param uniqueX shall be equal to field {@link #uniqueX}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static NameSubItem forUniqueXStrict(final int uniqueX)
 			throws
@@ -244,7 +259,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Returns the value of {@link #integerX}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getIntegerX()
 	{
 		return NameSubItem.integerX.getMandatory(this);
@@ -253,7 +269,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Sets a new value for {@link #integerX}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntegerX(final int integerX)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -264,7 +281,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Returns the value of {@link #itemX}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	NameSubItem getItemX()
 	{
@@ -274,7 +292,8 @@ public final class NameSubItem extends NameLongItem
 	/**
 	 * Sets a new value for {@link #itemX}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItemX(@javax.annotation.Nonnull final NameSubItem itemX)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -289,7 +308,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param itemX shall be equal to field {@link #itemX}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static NameSubItem forIntegersX(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 	{
@@ -302,7 +322,8 @@ public final class NameSubItem extends NameLongItem
 	 * @param itemX shall be equal to field {@link #itemX}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static NameSubItem forIntegersXStrict(final int integerX,@javax.annotation.Nonnull final NameSubItem itemX)
 			throws
@@ -311,19 +332,19 @@ public final class NameSubItem extends NameLongItem
 		return NameSubItem.integersX.searchStrict(NameSubItem.class,integerX,itemX);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for nameSubItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<NameSubItem> TYPE = com.exedio.cope.TypesBound.newType(NameSubItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private NameSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -188,13 +188,13 @@ public class ModelSerializationTest
 		static final ListField<String> list = ListField.create(new StringField());
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -206,13 +206,13 @@ public class ModelSerializationTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final ListField<String> pattern = ListField.create(new StringField());
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<NotItem> TYPE = com.exedio.cope.TypesBound.newType(NotItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected NotItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

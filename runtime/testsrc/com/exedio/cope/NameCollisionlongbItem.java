@@ -32,7 +32,8 @@ final class NameCollisionlongbItem extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if code is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	NameCollisionlongbItem(
 				@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -48,13 +49,14 @@ final class NameCollisionlongbItem extends Item
 	/**
 	 * Creates a new NameCollisionlongbItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private NameCollisionlongbItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getCode()
 	{
@@ -64,7 +66,8 @@ final class NameCollisionlongbItem extends Item
 	/**
 	 * Sets a new value for {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -79,7 +82,8 @@ final class NameCollisionlongbItem extends Item
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static NameCollisionlongbItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
@@ -91,7 +95,8 @@ final class NameCollisionlongbItem extends Item
 	 * @param code shall be equal to field {@link #code}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static NameCollisionlongbItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -100,19 +105,19 @@ final class NameCollisionlongbItem extends Item
 		return NameCollisionlongbItem.code.searchUniqueStrict(NameCollisionlongbItem.class,code);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for nameCollisionlongbItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<NameCollisionlongbItem> TYPE = com.exedio.cope.TypesBound.newType(NameCollisionlongbItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private NameCollisionlongbItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

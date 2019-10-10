@@ -65,7 +65,8 @@ final class DeleteItem extends Item
 	/**
 	 * Creates a new DeleteItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DeleteItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -75,13 +76,14 @@ final class DeleteItem extends Item
 	/**
 	 * Creates a new DeleteItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DeleteItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #selfForbid}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteItem getSelfForbid()
 	{
@@ -91,7 +93,8 @@ final class DeleteItem extends Item
 	/**
 	 * Sets a new value for {@link #selfForbid}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSelfForbid(@javax.annotation.Nullable final DeleteItem selfForbid)
 	{
 		DeleteItem.selfForbid.set(this,selfForbid);
@@ -100,7 +103,8 @@ final class DeleteItem extends Item
 	/**
 	 * Returns the value of {@link #selfNullify}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteItem getSelfNullify()
 	{
@@ -110,7 +114,8 @@ final class DeleteItem extends Item
 	/**
 	 * Sets a new value for {@link #selfNullify}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSelfNullify(@javax.annotation.Nullable final DeleteItem selfNullify)
 	{
 		DeleteItem.selfNullify.set(this,selfNullify);
@@ -119,7 +124,8 @@ final class DeleteItem extends Item
 	/**
 	 * Returns the value of {@link #selfCascade}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteItem getSelfCascade()
 	{
@@ -129,7 +135,8 @@ final class DeleteItem extends Item
 	/**
 	 * Sets a new value for {@link #selfCascade}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSelfCascade(@javax.annotation.Nullable final DeleteItem selfCascade)
 	{
 		DeleteItem.selfCascade.set(this,selfCascade);
@@ -138,7 +145,8 @@ final class DeleteItem extends Item
 	/**
 	 * Returns the value of {@link #selfCascade2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteItem getSelfCascade2()
 	{
@@ -148,7 +156,8 @@ final class DeleteItem extends Item
 	/**
 	 * Sets a new value for {@link #selfCascade2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSelfCascade2(@javax.annotation.Nullable final DeleteItem selfCascade2)
 	{
 		DeleteItem.selfCascade2.set(this,selfCascade2);
@@ -157,7 +166,8 @@ final class DeleteItem extends Item
 	/**
 	 * Returns the value of {@link #otherForbid}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteOtherItem getOtherForbid()
 	{
@@ -167,7 +177,8 @@ final class DeleteItem extends Item
 	/**
 	 * Sets a new value for {@link #otherForbid}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOtherForbid(@javax.annotation.Nullable final DeleteOtherItem otherForbid)
 	{
 		DeleteItem.otherForbid.set(this,otherForbid);
@@ -176,7 +187,8 @@ final class DeleteItem extends Item
 	/**
 	 * Returns the value of {@link #otherNullify}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteOtherItem getOtherNullify()
 	{
@@ -186,7 +198,8 @@ final class DeleteItem extends Item
 	/**
 	 * Sets a new value for {@link #otherNullify}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOtherNullify(@javax.annotation.Nullable final DeleteOtherItem otherNullify)
 	{
 		DeleteItem.otherNullify.set(this,otherNullify);
@@ -195,7 +208,8 @@ final class DeleteItem extends Item
 	/**
 	 * Returns the value of {@link #otherCascade}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteOtherItem getOtherCascade()
 	{
@@ -205,25 +219,26 @@ final class DeleteItem extends Item
 	/**
 	 * Sets a new value for {@link #otherCascade}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOtherCascade(@javax.annotation.Nullable final DeleteOtherItem otherCascade)
 	{
 		DeleteItem.otherCascade.set(this,otherCascade);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for deleteItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<DeleteItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DeleteItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

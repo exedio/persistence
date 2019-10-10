@@ -74,13 +74,13 @@ public class DayFieldWrongDefaultNowTest
 		@WrapperIgnore
 		static final DayField future = new DayField().defaultTo(new Day(8005, 10, 10));
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

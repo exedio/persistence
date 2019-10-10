@@ -323,17 +323,19 @@ public class CompositeMountTest
 		@Anno("intAnno")
 		static final IntegerField intMax4 = new IntegerField().max(4);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getString4()
 		{
 			return get(MyComposite.string4);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setString4(@javax.annotation.Nonnull final java.lang.String string4)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -342,13 +344,15 @@ public class CompositeMountTest
 			set(MyComposite.string4,string4);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getIntMax4()
 		{
 			return getMandatory(MyComposite.intMax4);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setIntMax4(final int intMax4)
 				throws
 					com.exedio.cope.IntegerRangeViolationException
@@ -356,7 +360,7 @@ public class CompositeMountTest
 			set(MyComposite.intMax4,intMax4);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 

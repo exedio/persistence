@@ -53,7 +53,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Creates a new SetFieldItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public SetFieldItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -63,13 +64,14 @@ public final class SetFieldItem extends Item
 	/**
 	 * Creates a new SetFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private SetFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #strings}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Set<String> getStrings()
 	{
@@ -79,7 +81,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Returns a query for the value of {@link #strings}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.Query<String> getStringsQuery()
 	{
@@ -89,7 +92,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Returns the items, for which field set {@link #strings} contains the given element.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParentsOf")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<SetFieldItem> getParentsOfStrings(@javax.annotation.Nonnull final String element)
 	{
@@ -99,7 +103,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #strings}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -113,7 +118,8 @@ public final class SetFieldItem extends Item
 	 * Adds a new element to {@link #strings}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean addToStrings(@javax.annotation.Nonnull final String element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -127,7 +133,8 @@ public final class SetFieldItem extends Item
 	 * Removes an element from {@link #strings}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean removeFromStrings(@javax.annotation.Nonnull final String element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -140,7 +147,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #strings}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<SetFieldItem> stringsParent()
 	{
@@ -150,7 +158,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Returns the value of {@link #dates}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Set<Date> getDates()
 	{
@@ -160,7 +169,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Returns a query for the value of {@link #dates}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.Query<Date> getDatesQuery()
 	{
@@ -170,7 +180,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Returns the items, for which field set {@link #dates} contains the given element.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParentsOf")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<SetFieldItem> getParentsOfDates(@javax.annotation.Nonnull final Date element)
 	{
@@ -180,7 +191,8 @@ public final class SetFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #dates}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -193,7 +205,8 @@ public final class SetFieldItem extends Item
 	 * Adds a new element to {@link #dates}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean addToDates(@javax.annotation.Nonnull final Date element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -206,7 +219,8 @@ public final class SetFieldItem extends Item
 	 * Removes an element from {@link #dates}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean removeFromDates(@javax.annotation.Nonnull final Date element)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -218,26 +232,27 @@ public final class SetFieldItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #dates}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<SetFieldItem> datesParent()
 	{
 		return SetFieldItem.dates.getParent(SetFieldItem.class);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for setFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<SetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SetFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

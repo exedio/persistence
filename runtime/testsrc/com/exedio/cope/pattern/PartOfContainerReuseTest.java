@@ -68,7 +68,8 @@ public class PartOfContainerReuseTest
 	/**
 	 * Creates a new AContainer with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AContainer()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -78,23 +79,23 @@ public class PartOfContainerReuseTest
 	/**
 	 * Creates a new AContainer and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private AContainer(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for aContainer.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<AContainer> TYPE = com.exedio.cope.TypesBound.newType(AContainer.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private AContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
@@ -117,7 +118,8 @@ public class PartOfContainerReuseTest
 	 * @param order2 the initial value for field {@link #order2}.
 	 * @throws com.exedio.cope.MandatoryViolationException if container is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	APart(
 				@javax.annotation.Nonnull final AContainer container,
 				final int order1,
@@ -135,13 +137,14 @@ public class PartOfContainerReuseTest
 	/**
 	 * Creates a new APart and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private APart(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #container}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	AContainer getContainer()
 	{
@@ -151,7 +154,8 @@ public class PartOfContainerReuseTest
 	/**
 	 * Returns the value of {@link #order1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getOrder1()
 	{
 		return APart.order1.getMandatory(this);
@@ -160,7 +164,8 @@ public class PartOfContainerReuseTest
 	/**
 	 * Sets a new value for {@link #order1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOrder1(final int order1)
 	{
 		APart.order1.set(this,order1);
@@ -169,7 +174,8 @@ public class PartOfContainerReuseTest
 	/**
 	 * Returns the value of {@link #order2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getOrder2()
 	{
 		return APart.order2.getMandatory(this);
@@ -178,7 +184,8 @@ public class PartOfContainerReuseTest
 	/**
 	 * Sets a new value for {@link #order2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOrder2(final int order2)
 	{
 		APart.order2.set(this,order2);
@@ -187,7 +194,8 @@ public class PartOfContainerReuseTest
 	/**
 	 * Returns the container this item is part of by {@link #parts1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContainer")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	AContainer getParts1Container()
 	{
@@ -197,7 +205,8 @@ public class PartOfContainerReuseTest
 	/**
 	 * Returns the parts of the given container.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container)
 	{
@@ -207,27 +216,28 @@ public class PartOfContainerReuseTest
 	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<APart> getParts1Parts(@javax.annotation.Nonnull final AContainer container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return APart.parts1.getParts(APart.class,container,condition);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for aPart.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<APart> TYPE = com.exedio.cope.TypesBound.newType(APart.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private APart(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 

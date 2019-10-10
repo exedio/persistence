@@ -235,23 +235,24 @@ public class SetFieldCopyTest extends TestWithEnvironment
 	private static class Catalog extends Item
 	{
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private Catalog()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected Catalog(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<Catalog> TYPE = com.exedio.cope.TypesBound.newType(Catalog.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected Catalog(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -269,7 +270,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		@Wrapper(wrap="addTo", visibility=DEFAULT)
 		private static final SetField<ElementInCatalog> elementsSameCatalog = SetField.create(ItemField.create(ElementInCatalog.class)).copyWith(catalog);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private ParentInCatalog(
 					@javax.annotation.Nonnull final Catalog catalog)
 				throws
@@ -280,17 +282,19 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ParentInCatalog(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		private java.util.Set<ElementInCatalog> getElementsSameCatalog()
 		{
 			return ParentInCatalog.elementsSameCatalog.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private void setElementsSameCatalog(@javax.annotation.Nonnull final java.util.Collection<? extends ElementInCatalog> elementsSameCatalog)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -299,7 +303,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			ParentInCatalog.elementsSameCatalog.set(this,elementsSameCatalog);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private boolean addToElementsSameCatalog(@javax.annotation.Nonnull final ElementInCatalog element)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -308,13 +313,13 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			return ParentInCatalog.elementsSameCatalog.add(this,element);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<ParentInCatalog> TYPE = com.exedio.cope.TypesBound.newType(ParentInCatalog.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ParentInCatalog(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -326,7 +331,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		@CopeSchemaName("schemaNameAtElement")
 		private static final ItemField<Catalog> javaNameIsNotCatalog = ItemField.create(Catalog.class).toFinal();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private ElementInCatalog(
 					@javax.annotation.Nonnull final Catalog javaNameIsNotCatalog)
 				throws
@@ -337,16 +343,16 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ElementInCatalog(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<ElementInCatalog> TYPE = com.exedio.cope.TypesBound.newType(ElementInCatalog.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ElementInCatalog(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -356,7 +362,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		@Wrapper(wrap="*", visibility=NONE)
 		private static final IntegerField number = new IntegerField().optional().toFinal();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private ElementWithNumber(
 					@javax.annotation.Nullable final java.lang.Integer number)
 		{
@@ -365,16 +372,16 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ElementWithNumber(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<ElementWithNumber> TYPE = com.exedio.cope.TypesBound.newType(ElementWithNumber.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ElementWithNumber(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -390,7 +397,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		@Wrapper(wrap="get", visibility=DEFAULT)
 		private static final SetField<ElementWithNumber> elements = SetField.create(ItemField.create(ElementWithNumber.class)).copyWith(number).ordered();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private ParentWithNumber(
 					@javax.annotation.Nullable final java.lang.Integer number)
 		{
@@ -399,17 +407,19 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ParentWithNumber(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		private java.util.Set<ElementWithNumber> getElements()
 		{
 			return ParentWithNumber.elements.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private void setElements(@javax.annotation.Nonnull final java.util.Collection<? extends ElementWithNumber> elements)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -418,7 +428,8 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			ParentWithNumber.elements.set(this,elements);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private boolean addToElements(@javax.annotation.Nonnull final ElementWithNumber element)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -427,13 +438,13 @@ public class SetFieldCopyTest extends TestWithEnvironment
 			return ParentWithNumber.elements.add(this,element);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<ParentWithNumber> TYPE = com.exedio.cope.TypesBound.newType(ParentWithNumber.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ParentWithNumber(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

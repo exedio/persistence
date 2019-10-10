@@ -44,7 +44,8 @@ final class VarargsItem extends VarargsSuper
 	/**
 	 * Creates a new VarargsItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	VarargsItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -54,16 +55,18 @@ final class VarargsItem extends VarargsSuper
 	/**
 	 * Creates a new VarargsItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private VarargsItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void simpleIntegerOnly(final java.lang.Integer integerValue)
 	{
 		VarargsItem.integerOnly.simple(integerValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void moreIntegerOnlyParameters(final int integerOnly,final java.lang.Integer integerValue)
 	{
 		VarargsItem.integerOnly.moreParameters(integerOnly,integerValue);
@@ -72,19 +75,22 @@ final class VarargsItem extends VarargsSuper
 	/**
 	 * @param integerValue myDoc/{@link #integerValue}/integerValue/varargsItem/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static VarargsItem staticIntegerOnlyToken(final java.lang.Integer integerValue)
 	{
 		return VarargsItem.integerOnly.staticToken(VarargsItem.class,integerValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void simpleIntegerAndDouble(final java.lang.Integer integerValue,final Double doubleValue)
 	{
 		VarargsItem.integerAndDouble.simple(integerValue,doubleValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void moreIntegerAndDoubleParameters(final int integerAndDouble,final java.lang.Integer integerValue,final Double doubleValue)
 	{
 		VarargsItem.integerAndDouble.moreParameters(integerAndDouble,integerValue,doubleValue);
@@ -94,19 +100,22 @@ final class VarargsItem extends VarargsSuper
 	 * @param integerValue myDoc/{@link #integerValue}/integerValue/varargsItem/
 	 * @param doubleValue myDoc/{@link #doubleValue}/doubleValue/varargsItem/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static VarargsItem staticIntegerAndDoubleToken(final java.lang.Integer integerValue,final Double doubleValue)
 	{
 		return VarargsItem.integerAndDouble.staticToken(VarargsItem.class,integerValue,doubleValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void simpleIntegerMandatoryOnly(final int integerMandatoryValue)
 	{
 		VarargsItem.integerMandatoryOnly.simple(integerMandatoryValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void moreIntegerMandatoryOnlyParameters(final int integerMandatoryOnly,final int integerMandatoryValue)
 	{
 		VarargsItem.integerMandatoryOnly.moreParameters(integerMandatoryOnly,integerMandatoryValue);
@@ -115,19 +124,22 @@ final class VarargsItem extends VarargsSuper
 	/**
 	 * @param integerMandatoryValue myDoc/{@link #integerMandatoryValue}/integerMandatoryValue/varargsItem/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static VarargsItem staticIntegerMandatoryOnlyToken(final int integerMandatoryValue)
 	{
 		return VarargsItem.integerMandatoryOnly.staticToken(VarargsItem.class,integerMandatoryValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void simpleListOnly(final List<?> listValue)
 	{
 		VarargsItem.listOnly.simple(listValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void moreListOnlyParameters(final int listOnly,final List<?> listValue)
 	{
 		VarargsItem.listOnly.moreParameters(listOnly,listValue);
@@ -136,19 +148,22 @@ final class VarargsItem extends VarargsSuper
 	/**
 	 * @param listValue myDoc/{@link #listValue}/listValue/varargsItem/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static VarargsItem staticListOnlyToken(final List<?> listValue)
 	{
 		return VarargsItem.listOnly.staticToken(VarargsItem.class,listValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void simpleOnlySuper(final java.lang.Integer superInteger)
 	{
 		VarargsItem.onlySuper.simple(superInteger);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void moreOnlySuperParameters(final int onlySuper,final java.lang.Integer superInteger)
 	{
 		VarargsItem.onlySuper.moreParameters(onlySuper,superInteger);
@@ -157,19 +172,22 @@ final class VarargsItem extends VarargsSuper
 	/**
 	 * @param superInteger myDoc/{@link #superInteger}/superInteger/varargsSuper/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static VarargsItem staticOnlySuperToken(final java.lang.Integer superInteger)
 	{
 		return VarargsItem.onlySuper.staticToken(VarargsItem.class,superInteger);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void simpleSubAndSuper(final java.lang.Integer superInteger,final Double doubleValue)
 	{
 		VarargsItem.subAndSuper.simple(superInteger,doubleValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void moreSubAndSuperParameters(final int subAndSuper,final java.lang.Integer superInteger,final Double doubleValue)
 	{
 		VarargsItem.subAndSuper.moreParameters(subAndSuper,superInteger,doubleValue);
@@ -179,19 +197,22 @@ final class VarargsItem extends VarargsSuper
 	 * @param superInteger myDoc/{@link #superInteger}/superInteger/varargsSuper/
 	 * @param doubleValue myDoc/{@link #doubleValue}/doubleValue/varargsItem/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static VarargsItem staticSubAndSuperToken(final java.lang.Integer superInteger,final Double doubleValue)
 	{
 		return VarargsItem.subAndSuper.staticToken(VarargsItem.class,superInteger,doubleValue);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void simpleOnlyLib(final java.lang.Integer libInteger)
 	{
 		VarargsItem.onlyLib.simple(libInteger);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void moreOnlyLibParameters(final int onlyLib,final java.lang.Integer libInteger)
 	{
 		VarargsItem.onlyLib.moreParameters(onlyLib,libInteger);
@@ -200,25 +221,26 @@ final class VarargsItem extends VarargsSuper
 	/**
 	 * @param libInteger myDoc/{@link #libInteger}/libInteger/varargsLib/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static VarargsItem staticOnlyLibToken(final java.lang.Integer libInteger)
 	{
 		return VarargsItem.onlyLib.staticToken(VarargsItem.class,libInteger);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for varargsItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<VarargsItem> TYPE = com.exedio.cope.TypesBound.newType(VarargsItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private VarargsItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

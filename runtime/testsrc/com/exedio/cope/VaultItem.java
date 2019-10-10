@@ -144,7 +144,8 @@ final class VaultItem extends Item
 	 * @param field the initial value for field {@link #field}.
 	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	private VaultItem(
 				@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
 			throws
@@ -158,13 +159,14 @@ final class VaultItem extends Item
 	/**
 	 * Creates a new VaultItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private VaultItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns, whether there is no data for field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isFieldNull()
 	{
 		return VaultItem.field.isNull(this);
@@ -173,7 +175,8 @@ final class VaultItem extends Item
 	/**
 	 * Returns the length of the data of the data field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private long getFieldLengthInternal()
 	{
 		return VaultItem.field.getLength(this);
@@ -182,7 +185,8 @@ final class VaultItem extends Item
 	/**
 	 * Returns the value of the persistent field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private byte[] getFieldArray()
 	{
@@ -192,7 +196,8 @@ final class VaultItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void getField(@javax.annotation.Nonnull final java.io.OutputStream field)
 			throws
 				java.io.IOException
@@ -203,7 +208,8 @@ final class VaultItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setField(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -214,7 +220,8 @@ final class VaultItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setField(@javax.annotation.Nonnull final byte[] field)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -225,7 +232,8 @@ final class VaultItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setField(@javax.annotation.Nonnull final java.io.InputStream field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -237,7 +245,8 @@ final class VaultItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setField(@javax.annotation.Nonnull final java.nio.file.Path field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -249,7 +258,8 @@ final class VaultItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setField(@javax.annotation.Nonnull final java.io.File field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -258,19 +268,19 @@ final class VaultItem extends Item
 		VaultItem.field.set(this,field);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for vaultItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<VaultItem> TYPE = com.exedio.cope.TypesBound.newType(VaultItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private VaultItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

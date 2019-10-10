@@ -61,7 +61,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * @param isFinalFinger the initial value for field {@link #isFinalFinger}.
 	 * @throws com.exedio.cope.MandatoryViolationException if nonFinal, isFinal, nonFinalFinger, isFinalFinger is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem(
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value nonFinal,
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value isFinal,
@@ -81,13 +82,14 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns a URL the content of {@link #nonFinal} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalURL()
 	{
@@ -97,7 +99,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns a Locator the content of {@link #nonFinal} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getNonFinalLocator()
 	{
@@ -107,7 +110,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the content type of the media {@link #nonFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalContentType()
 	{
@@ -117,7 +121,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the last modification date of media {@link #nonFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.util.Date getNonFinalLastModified()
 	{
@@ -127,7 +132,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body length of the media {@link #nonFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getNonFinalLength()
 	{
 		return AnItem.nonFinal.getLength(this);
@@ -136,7 +142,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body of the media {@link #nonFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final byte[] getNonFinalBody()
 	{
@@ -148,7 +155,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getNonFinalBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -161,7 +169,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getNonFinalBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -174,7 +183,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getNonFinalBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -186,7 +196,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinal}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinal(@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value nonFinal)
 			throws
 				java.io.IOException
@@ -197,7 +208,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Sets the content of media {@link #nonFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinal(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		AnItem.nonFinal.set(this,body,contentType);
@@ -207,7 +219,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinal}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinal(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -219,7 +232,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinal}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinal(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -231,7 +245,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinal}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinal(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -242,7 +257,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns a URL the content of {@link #isFinal} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalURL()
 	{
@@ -252,7 +268,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns a Locator the content of {@link #isFinal} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getIsFinalLocator()
 	{
@@ -262,7 +279,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the content type of the media {@link #isFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalContentType()
 	{
@@ -272,7 +290,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the last modification date of media {@link #isFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.util.Date getIsFinalLastModified()
 	{
@@ -282,7 +301,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body length of the media {@link #isFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getIsFinalLength()
 	{
 		return AnItem.isFinal.getLength(this);
@@ -291,7 +311,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body of the media {@link #isFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final byte[] getIsFinalBody()
 	{
@@ -303,7 +324,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getIsFinalBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -316,7 +338,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getIsFinalBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -329,7 +352,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getIsFinalBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -340,7 +364,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns a URL the content of {@link #nonFinalFinger} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalFingerURL()
 	{
@@ -350,7 +375,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns a Locator the content of {@link #nonFinalFinger} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getNonFinalFingerLocator()
 	{
@@ -360,7 +386,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the content type of the media {@link #nonFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getNonFinalFingerContentType()
 	{
@@ -370,7 +397,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the last modification date of media {@link #nonFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.util.Date getNonFinalFingerLastModified()
 	{
@@ -380,7 +408,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body length of the media {@link #nonFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getNonFinalFingerLength()
 	{
 		return AnItem.nonFinalFinger.getLength(this);
@@ -389,7 +418,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body of the media {@link #nonFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final byte[] getNonFinalFingerBody()
 	{
@@ -401,7 +431,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getNonFinalFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -414,7 +445,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getNonFinalFingerBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -427,7 +459,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getNonFinalFingerBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -439,7 +472,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinalFinger}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinalFinger(@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value nonFinalFinger)
 			throws
 				java.io.IOException
@@ -450,7 +484,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Sets the content of media {@link #nonFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinalFinger(@javax.annotation.Nonnull final byte[] body,@javax.annotation.Nonnull final java.lang.String contentType)
 	{
 		AnItem.nonFinalFinger.set(this,body,contentType);
@@ -460,7 +495,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinalFinger}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinalFinger(@javax.annotation.Nonnull final java.io.InputStream body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -472,7 +508,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinalFinger}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinalFinger(@javax.annotation.Nonnull final java.nio.file.Path body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -484,7 +521,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Sets the content of media {@link #nonFinalFinger}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setNonFinalFinger(@javax.annotation.Nonnull final java.io.File body,@javax.annotation.Nonnull final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -495,7 +533,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns a URL the content of {@link #isFinalFinger} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURL")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURL")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalFingerURL()
 	{
@@ -505,7 +544,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns a Locator the content of {@link #isFinalFinger} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final com.exedio.cope.pattern.MediaPath.Locator getIsFinalFingerLocator()
 	{
@@ -515,7 +555,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the content type of the media {@link #isFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getIsFinalFingerContentType()
 	{
@@ -525,7 +566,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the last modification date of media {@link #isFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.util.Date getIsFinalFingerLastModified()
 	{
@@ -535,7 +577,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body length of the media {@link #isFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getIsFinalFingerLength()
 	{
 		return AnItem.isFinalFinger.getLength(this);
@@ -544,7 +587,8 @@ public class MediaFinalUrlFingerPrintingTest
 	/**
 	 * Returns the body of the media {@link #isFinalFinger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final byte[] getIsFinalFingerBody()
 	{
@@ -556,7 +600,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getIsFinalFingerBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -569,7 +614,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getIsFinalFingerBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -582,7 +628,8 @@ public class MediaFinalUrlFingerPrintingTest
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getIsFinalFingerBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -590,20 +637,20 @@ public class MediaFinalUrlFingerPrintingTest
 		AnItem.isFinalFinger.getBody(this,body);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for anItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 

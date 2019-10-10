@@ -80,13 +80,13 @@ public class DefaultChangeHookTest
 			throw new AssertionError();
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected BeforeNewNotStatic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	private static final Model modelBeforeNewNotStatic = Model.builder().
@@ -120,13 +120,13 @@ public class DefaultChangeHookTest
 			throw new AssertionError();
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected BeforeNewWrongReturn(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	private static final Model modelBeforeNewWrongReturn = Model.builder().

@@ -41,7 +41,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if name violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public DeleteAfterUniqueViolationItem(
 				@javax.annotation.Nonnull final java.lang.String name)
 			throws
@@ -56,13 +57,14 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	/**
 	 * Creates a new DeleteAfterUniqueViolationItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DeleteAfterUniqueViolationItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #uniqueString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getUniqueString()
 	{
@@ -72,7 +74,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	/**
 	 * Sets a new value for {@link #uniqueString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -86,7 +89,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static DeleteAfterUniqueViolationItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
@@ -98,7 +102,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static DeleteAfterUniqueViolationItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
 			throws
@@ -110,7 +115,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	/**
 	 * Returns the value of {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getName()
 	{
@@ -120,7 +126,8 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	/**
 	 * Sets a new value for {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setName(@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -129,19 +136,19 @@ public final class DeleteAfterUniqueViolationItem extends Item
 		DeleteAfterUniqueViolationItem.name.set(this,name);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for deleteAfterUniqueViolationItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DeleteAfterUniqueViolationItem> TYPE = com.exedio.cope.TypesBound.newType(DeleteAfterUniqueViolationItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DeleteAfterUniqueViolationItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

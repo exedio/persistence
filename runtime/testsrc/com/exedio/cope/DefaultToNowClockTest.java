@@ -137,17 +137,19 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 		static final DayField day2 = new DayField().defaultToNow(ZoneId.of("Europe/Berlin"));
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getNotNow()
 		{
 			return MyItem.notNow.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setNotNow(@javax.annotation.Nonnull final java.lang.String notNow)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -156,14 +158,16 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 			MyItem.notNow.set(this,notNow);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.util.Date getDate1()
 		{
 			return MyItem.date1.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDate1(@javax.annotation.Nonnull final java.util.Date date1)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -171,20 +175,23 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 			MyItem.date1.set(this,date1);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void touchDate1()
 		{
 			MyItem.date1.touch(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.util.Date getDate2()
 		{
 			return MyItem.date2.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDate2(@javax.annotation.Nonnull final java.util.Date date2)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -192,20 +199,23 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 			MyItem.date2.set(this,date2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void touchDate2()
 		{
 			MyItem.date2.touch(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		com.exedio.cope.util.Day getDay1()
 		{
 			return MyItem.day1.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDay1(@javax.annotation.Nonnull final com.exedio.cope.util.Day day1)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -213,20 +223,23 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 			MyItem.day1.set(this,day1);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void touchDay1(@javax.annotation.Nonnull final java.util.TimeZone zone)
 		{
 			MyItem.day1.touch(this,zone);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		com.exedio.cope.util.Day getDay2()
 		{
 			return MyItem.day2.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDay2(@javax.annotation.Nonnull final com.exedio.cope.util.Day day2)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -234,19 +247,20 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 			MyItem.day2.set(this,day2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void touchDay2(@javax.annotation.Nonnull final java.util.TimeZone zone)
 		{
 			MyItem.day2.touch(this,zone);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

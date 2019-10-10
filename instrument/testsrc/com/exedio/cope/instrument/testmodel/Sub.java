@@ -50,7 +50,8 @@ public final class Sub extends Super
 	 * @throws com.exedio.cope.MandatoryViolationException if superMandatory is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if superMandatory violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public Sub(
 				@javax.annotation.Nonnull final java.lang.String superMandatory,
 				@javax.annotation.Nullable final java.lang.Integer superInitial,
@@ -73,13 +74,14 @@ public final class Sub extends Super
 	/**
 	 * Creates a new Sub and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private Sub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subMandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean getSubMandatory()
 	{
 		return Sub.subMandatory.getMandatory(this);
@@ -88,7 +90,8 @@ public final class Sub extends Super
 	/**
 	 * Sets a new value for {@link #subMandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSubMandatory(final boolean subMandatory)
 	{
 		Sub.subMandatory.set(this,subMandatory);
@@ -97,7 +100,8 @@ public final class Sub extends Super
 	/**
 	 * Returns the value of {@link #subInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getSubInitial()
 	{
@@ -107,7 +111,8 @@ public final class Sub extends Super
 	/**
 	 * Sets a new value for {@link #subInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSubInitial(@javax.annotation.Nullable final java.lang.Long subInitial)
 	{
 		Sub.subInitial.set(this,subInitial);
@@ -116,7 +121,8 @@ public final class Sub extends Super
 	/**
 	 * Returns the value of {@link #subInitialAnnotated}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getSubInitialAnnotated()
 	{
@@ -126,7 +132,8 @@ public final class Sub extends Super
 	/**
 	 * Sets a new value for {@link #subInitialAnnotated}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSubInitialAnnotated(@javax.annotation.Nullable final java.lang.Double subInitialAnnotated)
 	{
 		Sub.subInitialAnnotated.set(this,subInitialAnnotated);
@@ -135,7 +142,8 @@ public final class Sub extends Super
 	/**
 	 * Returns the value of {@link #subNonInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.util.Date getSubNonInitial()
 	{
@@ -145,7 +153,8 @@ public final class Sub extends Super
 	/**
 	 * Sets a new value for {@link #subNonInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSubNonInitial(@javax.annotation.Nullable final java.util.Date subNonInitial)
 	{
 		Sub.subNonInitial.set(this,subNonInitial);
@@ -154,7 +163,8 @@ public final class Sub extends Super
 	/**
 	 * Sets the current date for the date field {@link #subNonInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void touchSubNonInitial()
 	{
 		Sub.subNonInitial.touch(this);
@@ -163,7 +173,8 @@ public final class Sub extends Super
 	/**
 	 * Returns the value of {@link #override}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	@java.lang.Override
 	java.lang.Long getOverride()
@@ -174,25 +185,26 @@ public final class Sub extends Super
 	/**
 	 * Sets a new value for {@link #override}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOverride(@javax.annotation.Nullable final java.lang.Long override)
 	{
 		Sub.override.set(this,override);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for sub.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private Sub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

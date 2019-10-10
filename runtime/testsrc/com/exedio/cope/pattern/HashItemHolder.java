@@ -35,7 +35,8 @@ public final class HashItemHolder extends Item
 	 * @param hashItem the initial value for field {@link #hashItem}.
 	 * @throws com.exedio.cope.MandatoryViolationException if hashItem is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public HashItemHolder(
 				@javax.annotation.Nonnull final HashItem hashItem)
 			throws
@@ -49,13 +50,14 @@ public final class HashItemHolder extends Item
 	/**
 	 * Creates a new HashItemHolder and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	HashItemHolder(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #hashItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public HashItem getHashItem()
 	{
@@ -65,7 +67,8 @@ public final class HashItemHolder extends Item
 	/**
 	 * Sets a new value for {@link #hashItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setHashItem(@javax.annotation.Nonnull final HashItem hashItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -73,19 +76,19 @@ public final class HashItemHolder extends Item
 		HashItemHolder.hashItem.set(this,hashItem);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for hashItemHolder.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<HashItemHolder> TYPE = com.exedio.cope.TypesBound.newType(HashItemHolder.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private HashItemHolder(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

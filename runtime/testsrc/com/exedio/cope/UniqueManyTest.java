@@ -119,17 +119,19 @@ public class UniqueManyTest extends TestWithEnvironment
 		}
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField1()
 		{
 			return MyItem.field1.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField1(@javax.annotation.Nonnull final java.lang.String field1)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -139,14 +141,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field1.set(this,field1);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField2()
 		{
 			return MyItem.field2.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField2(@javax.annotation.Nonnull final java.lang.String field2)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -156,14 +160,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field2.set(this,field2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField3()
 		{
 			return MyItem.field3.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField3(@javax.annotation.Nonnull final java.lang.String field3)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -173,14 +179,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field3.set(this,field3);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField4()
 		{
 			return MyItem.field4.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField4(@javax.annotation.Nonnull final java.lang.String field4)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -190,14 +198,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field4.set(this,field4);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField5()
 		{
 			return MyItem.field5.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField5(@javax.annotation.Nonnull final java.lang.String field5)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -207,14 +217,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field5.set(this,field5);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField6()
 		{
 			return MyItem.field6.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField6(@javax.annotation.Nonnull final java.lang.String field6)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -224,14 +236,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field6.set(this,field6);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField7()
 		{
 			return MyItem.field7.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField7(@javax.annotation.Nonnull final java.lang.String field7)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -241,14 +255,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field7.set(this,field7);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField8()
 		{
 			return MyItem.field8.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField8(@javax.annotation.Nonnull final java.lang.String field8)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -258,14 +274,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field8.set(this,field8);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField9()
 		{
 			return MyItem.field9.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField9(@javax.annotation.Nonnull final java.lang.String field9)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -275,14 +293,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field9.set(this,field9);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField10()
 		{
 			return MyItem.field10.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField10(@javax.annotation.Nonnull final java.lang.String field10)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -292,14 +312,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field10.set(this,field10);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField11()
 		{
 			return MyItem.field11.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField11(@javax.annotation.Nonnull final java.lang.String field11)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -309,14 +331,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field11.set(this,field11);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField12()
 		{
 			return MyItem.field12.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField12(@javax.annotation.Nonnull final java.lang.String field12)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -326,14 +350,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field12.set(this,field12);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getField13()
 		{
 			return MyItem.field13.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField13(@javax.annotation.Nonnull final java.lang.String field13)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -343,14 +369,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			MyItem.field13.set(this,field13);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint2(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2)
 		{
 			return MyItem.constraint2.search(MyItem.class,field1,field2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint2Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2)
 				throws
@@ -359,14 +387,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint2.searchStrict(MyItem.class,field1,field2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint3(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3)
 		{
 			return MyItem.constraint3.search(MyItem.class,field1,field2,field3);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint3Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3)
 				throws
@@ -375,14 +405,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint3.searchStrict(MyItem.class,field1,field2,field3);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint4(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4)
 		{
 			return MyItem.constraint4.search(MyItem.class,field1,field2,field3,field4);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint4Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4)
 				throws
@@ -391,14 +423,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint4.searchStrict(MyItem.class,field1,field2,field3,field4);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint5(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5)
 		{
 			return MyItem.constraint5.search(MyItem.class,field1,field2,field3,field4,field5);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint5Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5)
 				throws
@@ -407,14 +441,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint5.searchStrict(MyItem.class,field1,field2,field3,field4,field5);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint6(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6)
 		{
 			return MyItem.constraint6.search(MyItem.class,field1,field2,field3,field4,field5,field6);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint6Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6)
 				throws
@@ -423,14 +459,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint6.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint7(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7)
 		{
 			return MyItem.constraint7.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint7Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7)
 				throws
@@ -439,14 +477,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint7.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint8(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8)
 		{
 			return MyItem.constraint8.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint8Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8)
 				throws
@@ -455,14 +495,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint8.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint9(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9)
 		{
 			return MyItem.constraint9.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint9Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9)
 				throws
@@ -471,14 +513,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint9.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint10(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10)
 		{
 			return MyItem.constraint10.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint10Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10)
 				throws
@@ -487,14 +531,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint10.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint11(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11)
 		{
 			return MyItem.constraint11.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint11Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11)
 				throws
@@ -503,14 +549,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint11.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint12(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11,@javax.annotation.Nonnull final java.lang.String field12)
 		{
 			return MyItem.constraint12.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint12Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11,@javax.annotation.Nonnull final java.lang.String field12)
 				throws
@@ -519,14 +567,16 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint12.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraint13(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11,@javax.annotation.Nonnull final java.lang.String field12,@javax.annotation.Nonnull final java.lang.String field13)
 		{
 			return MyItem.constraint13.search(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraint13Strict(@javax.annotation.Nonnull final java.lang.String field1,@javax.annotation.Nonnull final java.lang.String field2,@javax.annotation.Nonnull final java.lang.String field3,@javax.annotation.Nonnull final java.lang.String field4,@javax.annotation.Nonnull final java.lang.String field5,@javax.annotation.Nonnull final java.lang.String field6,@javax.annotation.Nonnull final java.lang.String field7,@javax.annotation.Nonnull final java.lang.String field8,@javax.annotation.Nonnull final java.lang.String field9,@javax.annotation.Nonnull final java.lang.String field10,@javax.annotation.Nonnull final java.lang.String field11,@javax.annotation.Nonnull final java.lang.String field12,@javax.annotation.Nonnull final java.lang.String field13)
 				throws
@@ -535,13 +585,13 @@ public class UniqueManyTest extends TestWithEnvironment
 			return MyItem.constraint13.searchStrict(MyItem.class,field1,field2,field3,field4,field5,field6,field7,field8,field9,field10,field11,field12,field13);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

@@ -256,7 +256,8 @@ public class MapFieldCopyTest extends TestWithEnvironment
 			this(field, "other");
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		MapFieldCopyItem(
 					@javax.annotation.Nonnull final java.lang.String field,
 					@javax.annotation.Nonnull final java.lang.String otherField)
@@ -270,195 +271,222 @@ public class MapFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MapFieldCopyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		final java.lang.String getField()
 		{
 			return MapFieldCopyItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		final java.lang.String getOtherField()
 		{
 			return MapFieldCopyItem.otherField.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final MapFieldCopyItem getKeyShared(@javax.annotation.Nonnull final MapFieldCopyItem k)
 		{
 			return MapFieldCopyItem.keyShared.get(this,k);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setKeyShared(@javax.annotation.Nonnull final MapFieldCopyItem k,@javax.annotation.Nullable final MapFieldCopyItem keyShared)
 		{
 			MapFieldCopyItem.keyShared.set(this,k,keyShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		final java.util.Map<MapFieldCopyItem,MapFieldCopyItem> getKeySharedMap()
 		{
 			return MapFieldCopyItem.keyShared.getMap(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setKeySharedMap(@javax.annotation.Nonnull final java.util.Map<? extends MapFieldCopyItem,? extends MapFieldCopyItem> keyShared)
 		{
 			MapFieldCopyItem.keyShared.setMap(this,keyShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final com.exedio.cope.ItemField<MapFieldCopyItem> keySharedParent()
 		{
 			return MapFieldCopyItem.keyShared.getParent(MapFieldCopyItem.class);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final MapFieldCopyItem getValueShared(@javax.annotation.Nonnull final MapFieldCopyItem k)
 		{
 			return MapFieldCopyItem.valueShared.get(this,k);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setValueShared(@javax.annotation.Nonnull final MapFieldCopyItem k,@javax.annotation.Nullable final MapFieldCopyItem valueShared)
 		{
 			MapFieldCopyItem.valueShared.set(this,k,valueShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		final java.util.Map<MapFieldCopyItem,MapFieldCopyItem> getValueSharedMap()
 		{
 			return MapFieldCopyItem.valueShared.getMap(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setValueSharedMap(@javax.annotation.Nonnull final java.util.Map<? extends MapFieldCopyItem,? extends MapFieldCopyItem> valueShared)
 		{
 			MapFieldCopyItem.valueShared.setMap(this,valueShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final com.exedio.cope.ItemField<MapFieldCopyItem> valueSharedParent()
 		{
 			return MapFieldCopyItem.valueShared.getParent(MapFieldCopyItem.class);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final MapFieldCopyItem getBothDifferentShared(@javax.annotation.Nonnull final MapFieldCopyItem k)
 		{
 			return MapFieldCopyItem.bothDifferentShared.get(this,k);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setBothDifferentShared(@javax.annotation.Nonnull final MapFieldCopyItem k,@javax.annotation.Nullable final MapFieldCopyItem bothDifferentShared)
 		{
 			MapFieldCopyItem.bothDifferentShared.set(this,k,bothDifferentShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		final java.util.Map<MapFieldCopyItem,MapFieldCopyItem> getBothDifferentSharedMap()
 		{
 			return MapFieldCopyItem.bothDifferentShared.getMap(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setBothDifferentSharedMap(@javax.annotation.Nonnull final java.util.Map<? extends MapFieldCopyItem,? extends MapFieldCopyItem> bothDifferentShared)
 		{
 			MapFieldCopyItem.bothDifferentShared.setMap(this,bothDifferentShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final com.exedio.cope.ItemField<MapFieldCopyItem> bothDifferentSharedParent()
 		{
 			return MapFieldCopyItem.bothDifferentShared.getParent(MapFieldCopyItem.class);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final MapFieldCopyItem getBothSameShared(@javax.annotation.Nonnull final MapFieldCopyItem k)
 		{
 			return MapFieldCopyItem.bothSameShared.get(this,k);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setBothSameShared(@javax.annotation.Nonnull final MapFieldCopyItem k,@javax.annotation.Nullable final MapFieldCopyItem bothSameShared)
 		{
 			MapFieldCopyItem.bothSameShared.set(this,k,bothSameShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		final java.util.Map<MapFieldCopyItem,MapFieldCopyItem> getBothSameSharedMap()
 		{
 			return MapFieldCopyItem.bothSameShared.getMap(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setBothSameSharedMap(@javax.annotation.Nonnull final java.util.Map<? extends MapFieldCopyItem,? extends MapFieldCopyItem> bothSameShared)
 		{
 			MapFieldCopyItem.bothSameShared.setMap(this,bothSameShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final com.exedio.cope.ItemField<MapFieldCopyItem> bothSameSharedParent()
 		{
 			return MapFieldCopyItem.bothSameShared.getParent(MapFieldCopyItem.class);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final MapFieldCopyItem getBothDoubleShared(@javax.annotation.Nonnull final MapFieldCopyItem k)
 		{
 			return MapFieldCopyItem.bothDoubleShared.get(this,k);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setBothDoubleShared(@javax.annotation.Nonnull final MapFieldCopyItem k,@javax.annotation.Nullable final MapFieldCopyItem bothDoubleShared)
 		{
 			MapFieldCopyItem.bothDoubleShared.set(this,k,bothDoubleShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		final java.util.Map<MapFieldCopyItem,MapFieldCopyItem> getBothDoubleSharedMap()
 		{
 			return MapFieldCopyItem.bothDoubleShared.getMap(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setBothDoubleSharedMap(@javax.annotation.Nonnull final java.util.Map<? extends MapFieldCopyItem,? extends MapFieldCopyItem> bothDoubleShared)
 		{
 			MapFieldCopyItem.bothDoubleShared.setMap(this,bothDoubleShared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final com.exedio.cope.ItemField<MapFieldCopyItem> bothDoubleSharedParent()
 		{
 			return MapFieldCopyItem.bothDoubleShared.getParent(MapFieldCopyItem.class);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MapFieldCopyItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldCopyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MapFieldCopyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

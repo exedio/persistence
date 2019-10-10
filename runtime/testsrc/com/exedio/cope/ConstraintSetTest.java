@@ -162,13 +162,14 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Creates a new AnItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		protected AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #field}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final java.lang.Boolean getField()
 		{
@@ -178,7 +179,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #field}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setField(@javax.annotation.Nullable final java.lang.Boolean field)
 		{
 			AnItem.field.set(this,field);
@@ -187,7 +189,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #item}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final AnItem getItem()
 		{
@@ -197,7 +200,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #item}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setItem(@javax.annotation.Nullable final AnItem item)
 		{
 			AnItem.item.set(this,item);
@@ -206,7 +210,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #uniqueSingle}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final java.lang.Boolean getUniqueSingle()
 		{
@@ -216,7 +221,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #uniqueSingle}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setUniqueSingle(@javax.annotation.Nullable final java.lang.Boolean uniqueSingle)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -229,7 +235,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
 		 * @return null if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static final AnItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.Boolean uniqueSingle)
 		{
@@ -241,7 +248,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
 		 * @throws java.lang.IllegalArgumentException if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final AnItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.Boolean uniqueSingle)
 				throws
@@ -253,7 +261,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #uniqueA}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final java.lang.Boolean getUniqueA()
 		{
@@ -263,7 +272,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #uniqueA}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setUniqueA(@javax.annotation.Nullable final java.lang.Boolean uniqueA)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -274,7 +284,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #uniqueB}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final java.lang.Boolean getUniqueB()
 		{
@@ -284,7 +295,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #uniqueB}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setUniqueB(@javax.annotation.Nullable final java.lang.Boolean uniqueB)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -298,7 +310,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * @param uniqueB shall be equal to field {@link #uniqueB}.
 		 * @return null if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static final AnItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.Boolean uniqueA,@javax.annotation.Nonnull final java.lang.Boolean uniqueB)
 		{
@@ -311,7 +324,8 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * @param uniqueB shall be equal to field {@link #uniqueB}.
 		 * @throws java.lang.IllegalArgumentException if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final AnItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.Boolean uniqueA,@javax.annotation.Nonnull final java.lang.Boolean uniqueB)
 				throws
@@ -320,20 +334,20 @@ public class ConstraintSetTest extends TestWithEnvironment
 			return AnItem.uniqueDouble.searchStrict(AnItem.class,uniqueA,uniqueB);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for anItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
@@ -345,23 +359,23 @@ public class ConstraintSetTest extends TestWithEnvironment
 		/**
 		 * Creates a new ASubItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private ASubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for aSubItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ASubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

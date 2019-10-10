@@ -62,7 +62,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Creates a new TextUrlFilterItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public TextUrlFilterItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -72,13 +73,14 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Creates a new TextUrlFilterItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private TextUrlFilterItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getName()
 	{
@@ -88,7 +90,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Sets a new value for {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -99,7 +102,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #roh} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getRohLocator()
 	{
@@ -109,7 +113,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns the content type of the media {@link #roh}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getRohContentType()
 	{
@@ -119,7 +124,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns whether media {@link #roh} is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isRohNull()
 	{
 		return TextUrlFilterItem.roh.isNull(this);
@@ -128,7 +134,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns the last modification date of media {@link #roh}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getRohLastModified()
 	{
@@ -138,7 +145,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns the body length of the media {@link #roh}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getRohLength()
 	{
 		return TextUrlFilterItem.roh.getLength(this);
@@ -147,7 +155,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns the body of the media {@link #roh}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	byte[] getRohBody()
 	{
@@ -159,7 +168,8 @@ public final class TextUrlFilterItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getRohBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -172,7 +182,8 @@ public final class TextUrlFilterItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getRohBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -185,7 +196,8 @@ public final class TextUrlFilterItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getRohBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -197,7 +209,8 @@ public final class TextUrlFilterItem extends Item
 	 * Sets the content of media {@link #roh}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRoh(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value roh)
 			throws
 				java.io.IOException
@@ -208,7 +221,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Sets the content of media {@link #roh}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRoh(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		TextUrlFilterItem.roh.set(this,body,contentType);
@@ -218,7 +232,8 @@ public final class TextUrlFilterItem extends Item
 	 * Sets the content of media {@link #roh}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRoh(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -230,7 +245,8 @@ public final class TextUrlFilterItem extends Item
 	 * Sets the content of media {@link #roh}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRoh(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -242,7 +258,8 @@ public final class TextUrlFilterItem extends Item
 	 * Sets the content of media {@link #roh}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRoh(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -253,7 +270,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #fertig} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getFertigLocator()
 	{
@@ -263,7 +281,8 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns a URL the content of {@link #fertig} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getURLWithFallbackToSource")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getFertigURLWithFallbackToSource()
 	{
@@ -273,14 +292,16 @@ public final class TextUrlFilterItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #fertig} is available under, falling back to source if necessary.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocatorWithFallbackToSource")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getFertigLocatorWithFallbackToSource()
 	{
 		return TextUrlFilterItem.fertig.getLocatorWithFallbackToSource(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRaw")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRaw")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFertigRaw(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value raw)
 			throws
 				java.io.IOException
@@ -288,14 +309,16 @@ public final class TextUrlFilterItem extends Item
 		TextUrlFilterItem.fertig.setRaw(this,raw);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addPaste")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addPaste")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.TextUrlFilter.Paste addFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 	{
 		return TextUrlFilterItem.fertig.addPaste(this,key,value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="modifyPaste")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="modifyPaste")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void modifyFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
 				java.io.IOException
@@ -303,7 +326,8 @@ public final class TextUrlFilterItem extends Item
 		TextUrlFilterItem.fertig.modifyPaste(this,key,value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPaste")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="putPaste")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.TextUrlFilter.Paste putFertigPaste(@javax.annotation.Nonnull final java.lang.String key,@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value value)
 			throws
@@ -312,7 +336,8 @@ public final class TextUrlFilterItem extends Item
 		return TextUrlFilterItem.fertig.putPaste(this,key,value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getFertigContent(@javax.annotation.Nonnull final javax.servlet.http.HttpServletRequest request)
 			throws
@@ -321,7 +346,8 @@ public final class TextUrlFilterItem extends Item
 		return TextUrlFilterItem.fertig.getContent(this,request);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Set<java.lang.String> checkFertig()
 			throws
@@ -330,7 +356,8 @@ public final class TextUrlFilterItem extends Item
 		return TextUrlFilterItem.fertig.check(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="putPastesFromZip")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="putPastesFromZip")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void putFertigPastesFromZip(@javax.annotation.Nonnull final java.io.File file)
 			throws
 				java.io.IOException
@@ -338,19 +365,19 @@ public final class TextUrlFilterItem extends Item
 		TextUrlFilterItem.fertig.putPastesFromZip(this,file);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for textUrlFilterItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<TextUrlFilterItem> TYPE = com.exedio.cope.TypesBound.newType(TextUrlFilterItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private TextUrlFilterItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

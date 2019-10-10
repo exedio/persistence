@@ -34,7 +34,8 @@ public final class SingletonItem extends Item
 	/**
 	 * Creates a new SingletonItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public SingletonItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -44,13 +45,14 @@ public final class SingletonItem extends Item
 	/**
 	 * Creates a new SingletonItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private SingletonItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getInteger()
 	{
@@ -60,7 +62,8 @@ public final class SingletonItem extends Item
 	/**
 	 * Sets a new value for {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		SingletonItem.integer.set(this,integer);
@@ -69,7 +72,8 @@ public final class SingletonItem extends Item
 	/**
 	 * Returns the value of {@link #integer55}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteger55()
 	{
 		return SingletonItem.integer55.getMandatory(this);
@@ -78,7 +82,8 @@ public final class SingletonItem extends Item
 	/**
 	 * Sets a new value for {@link #integer55}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger55(final int integer55)
 	{
 		SingletonItem.integer55.set(this,integer55);
@@ -87,7 +92,8 @@ public final class SingletonItem extends Item
 	/**
 	 * Returns the value of {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean getBooleanField()
 	{
 		return SingletonItem.booleanField.getMandatory(this);
@@ -96,7 +102,8 @@ public final class SingletonItem extends Item
 	/**
 	 * Sets a new value for {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBooleanField(final boolean booleanField)
 	{
 		SingletonItem.booleanField.set(this,booleanField);
@@ -107,26 +114,27 @@ public final class SingletonItem extends Item
 	 * Creates an instance, if none exists.
 	 * @return never returns null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="instance")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="instance")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static SingletonItem instance()
 	{
 		return SingletonItem.einzigartig.instance(SingletonItem.class);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for singletonItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<SingletonItem> TYPE = com.exedio.cope.TypesBound.newType(SingletonItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SingletonItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

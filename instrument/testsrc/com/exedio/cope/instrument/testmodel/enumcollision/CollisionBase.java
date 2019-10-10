@@ -44,7 +44,8 @@ final class CollisionBase extends Item
 	/**
 	 * Creates a new CollisionBase with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CollisionBase()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -54,13 +55,14 @@ final class CollisionBase extends Item
 	/**
 	 * Creates a new CollisionBase and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CollisionBase(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #innerA1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	ACollide1 getInnerA1()
 	{
@@ -70,7 +72,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #innerA1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInnerA1(@javax.annotation.Nonnull final ACollide1 innerA1)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -81,7 +84,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #innerX1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	XCollide1 getInnerX1()
 	{
@@ -91,7 +95,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #innerX1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInnerX1(@javax.annotation.Nonnull final XCollide1 innerX1)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -102,7 +107,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #innerX2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	XCollide2 getInnerX2()
 	{
@@ -112,7 +118,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #innerX2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInnerX2(@javax.annotation.Nonnull final XCollide2 innerX2)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -123,7 +130,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #topA1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CollisionBase.ACollide1 getTopA1()
 	{
@@ -133,7 +141,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #topA1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTopA1(@javax.annotation.Nonnull final CollisionBase.ACollide1 topA1)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -144,7 +153,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #topX1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CollisionBase.XCollide1 getTopX1()
 	{
@@ -154,7 +164,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #topX1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTopX1(@javax.annotation.Nonnull final CollisionBase.XCollide1 topX1)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -165,7 +176,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #topX2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CollisionBase.XCollide2 getTopX2()
 	{
@@ -175,7 +187,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #topX2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTopX2(@javax.annotation.Nonnull final CollisionBase.XCollide2 topX2)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -186,7 +199,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #fullA1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.ACollide1 getFullA1()
 	{
@@ -196,7 +210,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #fullA1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFullA1(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.ACollide1 fullA1)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -207,7 +222,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #fullX1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide1 getFullX1()
 	{
@@ -217,7 +233,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #fullX1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFullX1(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide1 fullX1)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -228,7 +245,8 @@ final class CollisionBase extends Item
 	/**
 	 * Returns the value of {@link #fullX2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide2 getFullX2()
 	{
@@ -238,7 +256,8 @@ final class CollisionBase extends Item
 	/**
 	 * Sets a new value for {@link #fullX2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFullX2(@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.enumcollision.CollisionBase.XCollide2 fullX2)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -246,19 +265,19 @@ final class CollisionBase extends Item
 		CollisionBase.fullX2.set(this,fullX2);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for collisionBase.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CollisionBase> TYPE = com.exedio.cope.TypesBound.newType(CollisionBase.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CollisionBase(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

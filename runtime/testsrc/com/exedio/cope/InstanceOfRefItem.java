@@ -48,7 +48,8 @@ final class InstanceOfRefItem extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if code is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	private InstanceOfRefItem(
 				@javax.annotation.Nullable final InstanceOfAItem ref,
 				@javax.annotation.Nonnull final java.lang.String code)
@@ -66,13 +67,14 @@ final class InstanceOfRefItem extends Item
 	/**
 	 * Creates a new InstanceOfRefItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private InstanceOfRefItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #ref}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	InstanceOfAItem getRef()
 	{
@@ -82,7 +84,8 @@ final class InstanceOfRefItem extends Item
 	/**
 	 * Returns the value of {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getCode()
 	{
@@ -94,7 +97,8 @@ final class InstanceOfRefItem extends Item
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static InstanceOfRefItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
@@ -106,7 +110,8 @@ final class InstanceOfRefItem extends Item
 	 * @param code shall be equal to field {@link #code}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static InstanceOfRefItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -118,7 +123,8 @@ final class InstanceOfRefItem extends Item
 	/**
 	 * Returns the value of {@link #refb2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	InstanceOfB2Item getRefb2()
 	{
@@ -128,25 +134,26 @@ final class InstanceOfRefItem extends Item
 	/**
 	 * Sets a new value for {@link #refb2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRefb2(@javax.annotation.Nullable final InstanceOfB2Item refb2)
 	{
 		InstanceOfRefItem.refb2.set(this,refb2);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for instanceOfRefItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<InstanceOfRefItem> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfRefItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private InstanceOfRefItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -30,7 +30,8 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	/**
 	 * Creates a new IntegerTypeSubItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public IntegerTypeSubItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -40,13 +41,14 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	/**
 	 * Creates a new IntegerTypeSubItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected IntegerTypeSubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #itemReference2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final IntegerTypeSubItem getItemReference2()
 	{
@@ -56,7 +58,8 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	/**
 	 * Sets a new value for {@link #itemReference2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setItemReference2(@javax.annotation.Nullable final IntegerTypeSubItem itemReference2)
 	{
 		IntegerTypeSubItem.itemReference2.set(this,itemReference2);
@@ -65,7 +68,8 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	/**
 	 * Returns the value of {@link #value2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final java.lang.Long getValue2()
 	{
@@ -75,25 +79,26 @@ public class IntegerTypeSubItem extends IntegerTypeBigIntItem
 	/**
 	 * Sets a new value for {@link #value2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setValue2(@javax.annotation.Nullable final java.lang.Long value2)
 	{
 		IntegerTypeSubItem.value2.set(this,value2);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for integerTypeSubItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<IntegerTypeSubItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeSubItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected IntegerTypeSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

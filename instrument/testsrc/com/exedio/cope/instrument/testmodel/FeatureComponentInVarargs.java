@@ -31,7 +31,8 @@ public class FeatureComponentInVarargs extends Item
 	/**
 	 * Creates a new FeatureComponentInVarargs with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public FeatureComponentInVarargs()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -41,16 +42,18 @@ public class FeatureComponentInVarargs extends Item
 	/**
 	 * Creates a new FeatureComponentInVarargs and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected FeatureComponentInVarargs(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final void simpleFeatureUsingComponents(final java.lang.String withComponent_first,final int withComponent_second)
 	{
 		FeatureComponentInVarargs.featureUsingComponents.simple(withComponent_first,withComponent_second);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final void moreFeatureUsingComponentsParameters(final int featureUsingComponents,final java.lang.String withComponent_first,final int withComponent_second)
 	{
 		FeatureComponentInVarargs.featureUsingComponents.moreParameters(featureUsingComponents,withComponent_first,withComponent_second);
@@ -60,25 +63,26 @@ public class FeatureComponentInVarargs extends Item
 	 * @param withComponent_first myDoc/'first' of {@link #withComponent}/withComponent_first/featureComponentInVarargs/
 	 * @param withComponent_second myDoc/'second' of {@link #withComponent}/withComponent_second/featureComponentInVarargs/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final FeatureComponentInVarargs staticFeatureUsingComponentsToken(final java.lang.String withComponent_first,final int withComponent_second)
 	{
 		return FeatureComponentInVarargs.featureUsingComponents.staticToken(FeatureComponentInVarargs.class,withComponent_first,withComponent_second);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for featureComponentInVarargs.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<FeatureComponentInVarargs> TYPE = com.exedio.cope.TypesBound.newType(FeatureComponentInVarargs.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected FeatureComponentInVarargs(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

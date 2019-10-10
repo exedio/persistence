@@ -64,7 +64,8 @@ public abstract class LibItem<T> extends LibSuperItem
 	 * @param strings the initial value for field {@link #strings}.
 	 * @param nestedGenerics the initial value for field {@link #nestedGenerics}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	protected LibItem(
 				@javax.annotation.Nullable final java.lang.String inSuper,
 				@javax.annotation.Nullable final java.lang.String a,
@@ -84,58 +85,63 @@ public abstract class LibItem<T> extends LibSuperItem
 	/**
 	 * Creates a new LibItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected LibItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final java.lang.String oneA()
 	{
 		return LibItem.a.one(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void simpleOption()
 	{
 		LibItem.option.simple(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public static final LibItem.Inner methodInner(final LibItem.Inner inner)
 	{
 		return LibItem.inner.method(inner);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public static final String[] methodStrings(final String[] strings)
 	{
 		return LibItem.strings.method(strings);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public static final Set<List<Object>> methodNestedGenerics(final Set<List<Object>> nestedGenerics)
 	{
 		return LibItem.nestedGenerics.method(nestedGenerics);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 2l;
 
 	/**
 	 * Use LibItem.classWildcard.value instead of LibItem.class to avoid rawtypes warnings.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(wildcardClass=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(wildcardClass=...)
 	public static final class classWildcard { public static final java.lang.Class<LibItem<?>> value = com.exedio.cope.ItemWildcardCast.cast(LibItem.class); private classWildcard(){} }
 
 	/**
 	 * The persistent type information for libItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<LibItem<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected LibItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

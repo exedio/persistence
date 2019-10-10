@@ -191,10 +191,10 @@ public class LocalizationKeysPatternTest
 		@CopeName("compFieldActual")
 		static final IntegerField compFieldPure = new IntegerField();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyComp(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -213,13 +213,13 @@ public class LocalizationKeysPatternTest
 		@CopeName("blokPatternActual")
 		static final MyPatt blokPatternPure = new MyPatt();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.pattern.BlockType<MyBlok> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlok.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyBlok(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
@@ -242,13 +242,13 @@ public class LocalizationKeysPatternTest
 		@CopeName("itemBlokActual")
 		static final BlockField<MyBlok> itemBlokPure = BlockField.create(MyBlok.TYPE);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

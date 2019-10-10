@@ -31,7 +31,8 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public HierarchyFirstSub(
 				final int superInt)
 			throws
@@ -45,13 +46,14 @@ public final class HierarchyFirstSub extends HierarchySuper
 	/**
 	 * Creates a new HierarchyFirstSub and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private HierarchyFirstSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #firstSubString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getFirstSubString()
 	{
@@ -61,7 +63,8 @@ public final class HierarchyFirstSub extends HierarchySuper
 	/**
 	 * Sets a new value for {@link #firstSubString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setFirstSubString(@javax.annotation.Nullable final java.lang.String firstSubString)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -75,7 +78,8 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 * @param firstSubString shall be equal to field {@link #firstSubString}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public static HierarchyFirstSub forFirstSubString(@javax.annotation.Nonnull final java.lang.String firstSubString)
 	{
@@ -87,7 +91,8 @@ public final class HierarchyFirstSub extends HierarchySuper
 	 * @param firstSubString shall be equal to field {@link #firstSubString}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public static HierarchyFirstSub forFirstSubStringStrict(@javax.annotation.Nonnull final java.lang.String firstSubString)
 			throws
@@ -99,25 +104,26 @@ public final class HierarchyFirstSub extends HierarchySuper
 	/**
 	 * Returns the value of {@link #firstSubStringUpper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getFirstSubStringUpper()
 	{
 		return HierarchyFirstSub.firstSubStringUpper.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for hierarchyFirstSub.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<HierarchyFirstSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchyFirstSub.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private HierarchyFirstSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

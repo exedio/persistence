@@ -27,7 +27,8 @@ final class SequenceItem extends Item
 	/**
 	 * Creates a new SequenceItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SequenceItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -37,14 +38,15 @@ final class SequenceItem extends Item
 	/**
 	 * Creates a new SequenceItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private SequenceItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="next")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static int nextFull()
 	{
 		return SequenceItem.full.next();
@@ -54,25 +56,26 @@ final class SequenceItem extends Item
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="next")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static int nextLimited()
 	{
 		return SequenceItem.limited.next();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for sequenceItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<SequenceItem> TYPE = com.exedio.cope.TypesBound.newType(SequenceItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SequenceItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

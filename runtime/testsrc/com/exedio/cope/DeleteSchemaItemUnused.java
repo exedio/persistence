@@ -37,13 +37,14 @@ final class DeleteSchemaItemUnused extends Item
 	/**
 	 * Creates a new DeleteSchemaItemUnused and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DeleteSchemaItemUnused(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getCode()
 	{
 		return DeleteSchemaItemUnused.code.getMandatory(this);
@@ -52,7 +53,8 @@ final class DeleteSchemaItemUnused extends Item
 	/**
 	 * Sets a new value for {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCode(final int code)
 	{
 		DeleteSchemaItemUnused.code.set(this,code);
@@ -61,7 +63,8 @@ final class DeleteSchemaItemUnused extends Item
 	/**
 	 * Returns the value of {@link #unusedPointer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DeleteSchemaItem getUnusedPointer()
 	{
@@ -71,25 +74,26 @@ final class DeleteSchemaItemUnused extends Item
 	/**
 	 * Sets a new value for {@link #unusedPointer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUnusedPointer(@javax.annotation.Nullable final DeleteSchemaItem unusedPointer)
 	{
 		DeleteSchemaItemUnused.unusedPointer.set(this,unusedPointer);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for deleteSchemaItemUnused.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<DeleteSchemaItemUnused> TYPE = com.exedio.cope.TypesBound.newType(DeleteSchemaItemUnused.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DeleteSchemaItemUnused(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

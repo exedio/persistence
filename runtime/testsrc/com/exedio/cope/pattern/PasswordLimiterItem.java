@@ -99,7 +99,8 @@ public final class PasswordLimiterItem extends Item
 	 * @param password the initial value for field {@link #password}.
 	 * @throws com.exedio.cope.MandatoryViolationException if password is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	PasswordLimiterItem(
 				@javax.annotation.Nonnull final java.lang.String password)
 			throws
@@ -113,13 +114,14 @@ public final class PasswordLimiterItem extends Item
 	/**
 	 * Creates a new PasswordLimiterItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PasswordLimiterItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordLimiterItem.password.check(this,password);
@@ -129,7 +131,8 @@ public final class PasswordLimiterItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPassword} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		PasswordLimiterItem.password.blind(password);
@@ -138,7 +141,8 @@ public final class PasswordLimiterItem extends Item
 	/**
 	 * Sets a new value for {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -149,7 +153,8 @@ public final class PasswordLimiterItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i8")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i8")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getPasswordSHA512s8i8()
 	{
@@ -159,7 +164,8 @@ public final class PasswordLimiterItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i8")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i8")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPasswordSHA512s8i8(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -167,13 +173,15 @@ public final class PasswordLimiterItem extends Item
 		PasswordLimiterItem.password.setHash(this,password);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private boolean checkPasswordLimited(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordLimiterItem.passwordLimited.check(this,password);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="checkVerbosely")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="checkVerbosely")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private boolean checkPasswordLimitedVerbosely(@javax.annotation.Nullable final java.lang.String password)
 			throws
 				com.exedio.cope.pattern.PasswordLimiter.ExceededException
@@ -181,31 +189,33 @@ public final class PasswordLimiterItem extends Item
 		return PasswordLimiterItem.passwordLimited.checkVerbosely(this,password);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="reset")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="reset")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void resetPasswordLimited()
 	{
 		PasswordLimiterItem.passwordLimited.reset(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgePasswordLimited(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		PasswordLimiterItem.passwordLimited.purge(ctx);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for passwordLimiterItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PasswordLimiterItem> TYPE = com.exedio.cope.TypesBound.newType(PasswordLimiterItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PasswordLimiterItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

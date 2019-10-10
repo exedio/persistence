@@ -54,7 +54,8 @@ public final class LongItem extends Item
 	 * Creates a new LongItem with all the fields initially needed.
 	 * @param mandatory the initial value for field {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public LongItem(
 				final long mandatory)
 	{
@@ -66,13 +67,14 @@ public final class LongItem extends Item
 	/**
 	 * Creates a new LongItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	LongItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #any}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getAny()
 	{
@@ -82,7 +84,8 @@ public final class LongItem extends Item
 	/**
 	 * Sets a new value for {@link #any}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setAny(@javax.annotation.Nullable final java.lang.Long any)
 	{
 		LongItem.any.set(this,any);
@@ -91,7 +94,8 @@ public final class LongItem extends Item
 	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public long getMandatory()
 	{
 		return LongItem.mandatory.getMandatory(this);
@@ -100,7 +104,8 @@ public final class LongItem extends Item
 	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMandatory(final long mandatory)
 	{
 		LongItem.mandatory.set(this,mandatory);
@@ -109,7 +114,8 @@ public final class LongItem extends Item
 	/**
 	 * Returns the value of {@link #min4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getMin4()
 	{
@@ -119,7 +125,8 @@ public final class LongItem extends Item
 	/**
 	 * Sets a new value for {@link #min4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMin4(@javax.annotation.Nullable final java.lang.Long min4)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -130,7 +137,8 @@ public final class LongItem extends Item
 	/**
 	 * Returns the value of {@link #max4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getMax4()
 	{
@@ -140,7 +148,8 @@ public final class LongItem extends Item
 	/**
 	 * Sets a new value for {@link #max4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMax4(@javax.annotation.Nullable final java.lang.Long max4)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -151,7 +160,8 @@ public final class LongItem extends Item
 	/**
 	 * Returns the value of {@link #min4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getMin4Max8()
 	{
@@ -161,7 +171,8 @@ public final class LongItem extends Item
 	/**
 	 * Sets a new value for {@link #min4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMin4Max8(@javax.annotation.Nullable final java.lang.Long min4Max8)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -169,19 +180,19 @@ public final class LongItem extends Item
 		LongItem.min4Max8.set(this,min4Max8);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for longItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private LongItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

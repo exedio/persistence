@@ -32,7 +32,8 @@ final class CompositeDefaultValue extends Composite
 	 * @throws com.exedio.cope.MandatoryViolationException if normal is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if normal violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CompositeDefaultValue(
 				@javax.annotation.Nonnull final java.lang.String normal)
 			throws
@@ -47,13 +48,14 @@ final class CompositeDefaultValue extends Composite
 	/**
 	 * Creates a new CompositeDefaultValue and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CompositeDefaultValue(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #normal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getNormal()
 	{
@@ -63,7 +65,8 @@ final class CompositeDefaultValue extends Composite
 	/**
 	 * Sets a new value for {@link #normal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNormal(@javax.annotation.Nonnull final java.lang.String normal)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -75,7 +78,8 @@ final class CompositeDefaultValue extends Composite
 	/**
 	 * Returns the value of {@link #deflt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getDeflt()
 	{
 		return getMandatory(CompositeDefaultValue.deflt);
@@ -84,12 +88,13 @@ final class CompositeDefaultValue extends Composite
 	/**
 	 * Sets a new value for {@link #deflt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDeflt(final int deflt)
 	{
 		set(CompositeDefaultValue.deflt,deflt);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 }

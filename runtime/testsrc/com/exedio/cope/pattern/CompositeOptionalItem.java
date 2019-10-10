@@ -35,7 +35,8 @@ public final class CompositeOptionalItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public CompositeOptionalItem(
 				@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -50,13 +51,14 @@ public final class CompositeOptionalItem extends Item
 	/**
 	 * Creates a new CompositeOptionalItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CompositeOptionalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getCode()
 	{
@@ -66,7 +68,8 @@ public final class CompositeOptionalItem extends Item
 	/**
 	 * Returns the value of {@link #uno}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public CompositeValue getUno()
 	{
@@ -76,7 +79,8 @@ public final class CompositeOptionalItem extends Item
 	/**
 	 * Sets a new value for {@link #uno}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setUno(@javax.annotation.Nullable final CompositeValue uno)
 	{
 		CompositeOptionalItem.uno.set(this,uno);
@@ -85,7 +89,8 @@ public final class CompositeOptionalItem extends Item
 	/**
 	 * Returns the value of {@link #duo}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public CompositeValue getDuo()
 	{
@@ -95,25 +100,26 @@ public final class CompositeOptionalItem extends Item
 	/**
 	 * Sets a new value for {@link #duo}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDuo(@javax.annotation.Nullable final CompositeValue duo)
 	{
 		CompositeOptionalItem.duo.set(this,duo);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for compositeOptionalItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<CompositeOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeOptionalItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CompositeOptionalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

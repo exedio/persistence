@@ -33,7 +33,8 @@ class PartOfWithOptionalContainerItem extends Item
 	 * Creates a new PartOfWithOptionalContainerItem with all the fields initially needed.
 	 * @param container the initial value for field {@link #container}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	PartOfWithOptionalContainerItem(
 				@javax.annotation.Nullable final PartOfOptionalContainerItem container)
 	{
@@ -45,13 +46,14 @@ class PartOfWithOptionalContainerItem extends Item
 	/**
 	 * Creates a new PartOfWithOptionalContainerItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected PartOfWithOptionalContainerItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #container}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final PartOfOptionalContainerItem getContainer()
 	{
@@ -61,7 +63,8 @@ class PartOfWithOptionalContainerItem extends Item
 	/**
 	 * Sets a new value for {@link #container}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setContainer(@javax.annotation.Nullable final PartOfOptionalContainerItem container)
 	{
 		PartOfWithOptionalContainerItem.container.set(this,container);
@@ -70,7 +73,8 @@ class PartOfWithOptionalContainerItem extends Item
 	/**
 	 * Returns the container this item is part of by {@link #parts}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContainer")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final PartOfOptionalContainerItem getPartsContainer()
 	{
@@ -80,7 +84,8 @@ class PartOfWithOptionalContainerItem extends Item
 	/**
 	 * Returns the parts of the given container.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(@javax.annotation.Nullable final PartOfOptionalContainerItem container)
 	{
@@ -90,26 +95,27 @@ class PartOfWithOptionalContainerItem extends Item
 	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static final java.util.List<PartOfWithOptionalContainerItem> getPartsParts(@javax.annotation.Nullable final PartOfOptionalContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return PartOfWithOptionalContainerItem.parts.getParts(PartOfWithOptionalContainerItem.class,container,condition);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for partOfWithOptionalContainerItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<PartOfWithOptionalContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfWithOptionalContainerItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected PartOfWithOptionalContainerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -83,7 +83,8 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 		@Wrapper(wrap="setMap", visibility=NONE)
 		private static final EnumMapField<Color,EnumMapFieldCopyValue> map = EnumMapField.create(Color.class, ItemField.create(EnumMapFieldCopyValue.class).copyTo(field).optional() );
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private EnumMapFieldCopyItem(
 					@javax.annotation.Nonnull final java.lang.String field)
 				throws
@@ -95,29 +96,31 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected EnumMapFieldCopyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		private EnumMapFieldCopyValue getMap(@javax.annotation.Nonnull final Color k)
 		{
 			return EnumMapFieldCopyItem.map.get(this,k);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private void setMap(@javax.annotation.Nonnull final Color k,@javax.annotation.Nullable final EnumMapFieldCopyValue map)
 		{
 			EnumMapFieldCopyItem.map.set(this,k,map);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<EnumMapFieldCopyItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldCopyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected EnumMapFieldCopyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -127,7 +130,8 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 		@Wrapper(wrap="*", visibility=NONE)
 		private static final StringField field = new StringField().toFinal();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private EnumMapFieldCopyValue(
 					@javax.annotation.Nonnull final java.lang.String field)
 				throws
@@ -139,16 +143,16 @@ public class EnumMapFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected EnumMapFieldCopyValue(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<EnumMapFieldCopyValue> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldCopyValue.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected EnumMapFieldCopyValue(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

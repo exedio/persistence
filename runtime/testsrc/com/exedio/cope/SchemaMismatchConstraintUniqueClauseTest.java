@@ -72,26 +72,30 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 
 		static final UniqueConstraint unique = UniqueConstraint.create(field1, field2);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getField1()
 		{
 			return ItemA.field1.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getField2()
 		{
 			return ItemA.field2.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static ItemA forUnique(final int field1,final int field2)
 		{
 			return ItemA.unique.search(ItemA.class,field1,field2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static ItemA forUniqueStrict(final int field1,final int field2)
 				throws
@@ -100,13 +104,13 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 			return ItemA.unique.searchStrict(ItemA.class,field1,field2);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -119,26 +123,30 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 
 		static final UniqueConstraint unique = UniqueConstraint.create(field2, field1);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getField1()
 		{
 			return ItemB.field1.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getField2()
 		{
 			return ItemB.field2.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static ItemB forUnique(final int field2,final int field1)
 		{
 			return ItemB.unique.search(ItemB.class,field2,field1);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static ItemB forUniqueStrict(final int field2,final int field1)
 				throws
@@ -147,13 +155,13 @@ public class SchemaMismatchConstraintUniqueClauseTest extends SchemaMismatchTest
 			return ItemB.unique.searchStrict(ItemB.class,field2,field1);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

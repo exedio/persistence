@@ -29,7 +29,8 @@ class InstanceOfB1Item extends InstanceOfAItem
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if code is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	InstanceOfB1Item(
 				@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -45,13 +46,14 @@ class InstanceOfB1Item extends InstanceOfAItem
 	/**
 	 * Creates a new InstanceOfB1Item and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected InstanceOfB1Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #textb1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final java.lang.String getTextb1()
 	{
@@ -61,7 +63,8 @@ class InstanceOfB1Item extends InstanceOfAItem
 	/**
 	 * Sets a new value for {@link #textb1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setTextb1(@javax.annotation.Nullable final java.lang.String textb1)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -69,19 +72,19 @@ class InstanceOfB1Item extends InstanceOfAItem
 		InstanceOfB1Item.textb1.set(this,textb1);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for instanceOfB1Item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<InstanceOfB1Item> TYPE = com.exedio.cope.TypesBound.newType(InstanceOfB1Item.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected InstanceOfB1Item(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -53,7 +53,8 @@ public final class HashItem extends Item
 	/**
 	 * Creates a new HashItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public HashItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -63,13 +64,14 @@ public final class HashItem extends Item
 	/**
 	 * Creates a new HashItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	HashItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #explicitExternalWrap}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getExplicitExternalWrap()
 	{
@@ -79,7 +81,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets a new value for {@link #explicitExternalWrap}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setExplicitExternalWrap(@javax.annotation.Nullable final java.lang.String explicitExternalWrap)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -90,7 +93,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #explicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		return HashItem.explicitExternal.check(this,explicitExternal);
@@ -100,7 +104,8 @@ public final class HashItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkExplicitExternal} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.blind(explicitExternal);
@@ -109,7 +114,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets a new value for {@link #explicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setExplicitExternal(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.set(this,explicitExternal);
@@ -118,7 +124,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #explicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getExplicitExternalwrap()
 	{
@@ -128,7 +135,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #explicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setExplicitExternalwrap(@javax.annotation.Nullable final java.lang.String explicitExternal)
 	{
 		HashItem.explicitExternal.setHash(this,explicitExternal);
@@ -137,7 +145,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #implicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		return HashItem.implicitExternal.check(this,implicitExternal);
@@ -147,7 +156,8 @@ public final class HashItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkImplicitExternal} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.blind(implicitExternal);
@@ -156,7 +166,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets a new value for {@link #implicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setImplicitExternal(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.set(this,implicitExternal);
@@ -165,7 +176,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #implicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getImplicitExternalwrap()
 	{
@@ -175,7 +187,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #implicitExternal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setImplicitExternalwrap(@javax.annotation.Nullable final java.lang.String implicitExternal)
 	{
 		HashItem.implicitExternal.setHash(this,implicitExternal);
@@ -184,7 +197,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #internal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		return HashItem.internal.check(this,internal);
@@ -194,7 +208,8 @@ public final class HashItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkInternal} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.blind(internal);
@@ -203,7 +218,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets a new value for {@link #internal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInternal(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.set(this,internal);
@@ -212,7 +228,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #internal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getInternalwrap()
 	{
@@ -222,7 +239,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #internal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInternalwrap(@javax.annotation.Nullable final java.lang.String internal)
 	{
 		HashItem.internal.setHash(this,internal);
@@ -231,7 +249,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #limited15}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		return HashItem.limited15.check(this,limited15);
@@ -241,7 +260,8 @@ public final class HashItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkLimited15} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.blind(limited15);
@@ -250,7 +270,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets a new value for {@link #limited15}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setLimited15(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.set(this,limited15);
@@ -259,7 +280,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #limited15}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getLimited15wrap()
 	{
@@ -269,7 +291,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #limited15}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setLimited15wrap(@javax.annotation.Nullable final java.lang.String limited15)
 	{
 		HashItem.limited15.setHash(this,limited15);
@@ -278,7 +301,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #withCorruptValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		return HashItem.withCorruptValidator.check(this,withCorruptValidator);
@@ -288,7 +312,8 @@ public final class HashItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkWithCorruptValidator} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.blind(withCorruptValidator);
@@ -297,7 +322,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets a new value for {@link #withCorruptValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setWithCorruptValidator(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.set(this,withCorruptValidator);
@@ -306,7 +332,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #withCorruptValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getWithCorruptValidatorwrap()
 	{
@@ -316,7 +343,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #withCorruptValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setWithCorruptValidatorwrap(@javax.annotation.Nullable final java.lang.String withCorruptValidator)
 	{
 		HashItem.withCorruptValidator.setHash(this,withCorruptValidator);
@@ -325,7 +353,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #with3PinValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		return HashItem.with3PinValidator.check(this,with3PinValidator);
@@ -335,7 +364,8 @@ public final class HashItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkWith3PinValidator} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.blind(with3PinValidator);
@@ -344,7 +374,8 @@ public final class HashItem extends Item
 	/**
 	 * Sets a new value for {@link #with3PinValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setWith3PinValidator(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.set(this,with3PinValidator);
@@ -353,7 +384,8 @@ public final class HashItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #with3PinValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getWith3PinValidatorwrap()
 	{
@@ -363,25 +395,26 @@ public final class HashItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #with3PinValidator}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setwrap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setwrap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setWith3PinValidatorwrap(@javax.annotation.Nullable final java.lang.String with3PinValidator)
 	{
 		HashItem.with3PinValidator.setHash(this,with3PinValidator);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for hashItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<HashItem> TYPE = com.exedio.cope.TypesBound.newType(HashItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private HashItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

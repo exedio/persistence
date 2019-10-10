@@ -160,7 +160,8 @@ final class CopySimpleSource extends Item
 	 * @param templateItem the initial value for field {@link #templateItem}.
 	 * @throws com.exedio.cope.StringLengthViolationException if templateString violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CopySimpleSource(
 				@javax.annotation.Nullable final CopySimpleTarget targetItem,
 				@javax.annotation.Nullable final java.lang.String templateString,
@@ -178,13 +179,14 @@ final class CopySimpleSource extends Item
 	/**
 	 * Creates a new CopySimpleSource and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CopySimpleSource(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #targetItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	CopySimpleTarget getTargetItem()
 	{
@@ -194,7 +196,8 @@ final class CopySimpleSource extends Item
 	/**
 	 * Sets a new value for {@link #targetItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTargetItem(@javax.annotation.Nullable final CopySimpleTarget targetItem)
 	{
 		CopySimpleSource.targetItem.set(this,targetItem);
@@ -203,7 +206,8 @@ final class CopySimpleSource extends Item
 	/**
 	 * Returns the value of {@link #templateString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getTemplateString()
 	{
@@ -213,7 +217,8 @@ final class CopySimpleSource extends Item
 	/**
 	 * Sets a new value for {@link #templateString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTemplateString(@javax.annotation.Nullable final java.lang.String templateString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -224,7 +229,8 @@ final class CopySimpleSource extends Item
 	/**
 	 * Returns the value of {@link #templateItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	CopyValue getTemplateItem()
 	{
@@ -234,25 +240,26 @@ final class CopySimpleSource extends Item
 	/**
 	 * Sets a new value for {@link #templateItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTemplateItem(@javax.annotation.Nullable final CopyValue templateItem)
 	{
 		CopySimpleSource.templateItem.set(this,templateItem);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for copySimpleSource.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CopySimpleSource> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleSource.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CopySimpleSource(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

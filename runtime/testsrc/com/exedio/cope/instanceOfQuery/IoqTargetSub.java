@@ -28,7 +28,8 @@ final class IoqTargetSub extends IoqTargetSuper
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	IoqTargetSub(
 				@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -43,22 +44,22 @@ final class IoqTargetSub extends IoqTargetSuper
 	/**
 	 * Creates a new IoqTargetSub and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private IoqTargetSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for ioqTargetSub.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<IoqTargetSub> TYPE = com.exedio.cope.TypesBound.newType(IoqTargetSub.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private IoqTargetSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

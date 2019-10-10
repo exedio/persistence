@@ -32,7 +32,8 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	 * @param toMid the initial value for field {@link #toMid}.
 	 * @param toSuper the initial value for field {@link #toSuper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	GenericComplexMid(
 				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.GenericComplexSub toSub,
 				@javax.annotation.Nonnull final com.exedio.cope.instrument.testmodel.GenericComplexMid<?> toMid,
@@ -48,40 +49,42 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	/**
 	 * Creates a new GenericComplexMid and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected GenericComplexMid(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final GenericComplexMid<?> methodFromMid()
 	{
 		return GenericComplexMid.fromMid.method(classWildcard.value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="methodNested")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final java.util.List<GenericComplexMid<?>> methodFromMidNested()
 	{
 		return GenericComplexMid.fromMid.methodNested(classWildcard.value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * Use GenericComplexMid.classWildcard.value instead of GenericComplexMid.class to avoid rawtypes warnings.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(wildcardClass=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(wildcardClass=...)
 	public static final class classWildcard { public static final java.lang.Class<GenericComplexMid<?>> value = com.exedio.cope.ItemWildcardCast.cast(GenericComplexMid.class); private classWildcard(){} }
 
 	/**
 	 * The persistent type information for genericComplexMid.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<GenericComplexMid<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected GenericComplexMid(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

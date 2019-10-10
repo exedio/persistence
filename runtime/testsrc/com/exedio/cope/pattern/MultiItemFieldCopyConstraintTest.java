@@ -190,7 +190,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @throws com.exedio.cope.MandatoryViolationException if value, template, field is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value, template violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		DoubleCopyConstraintItem(
 					@javax.annotation.Nonnull final java.lang.String value,
 					@javax.annotation.Nonnull final java.lang.String template,
@@ -209,13 +210,14 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Creates a new DoubleCopyConstraintItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private DoubleCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getValue()
 		{
@@ -225,7 +227,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #template}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getTemplate()
 		{
@@ -235,27 +238,28 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #field}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValuex getField()
 		{
 			return DoubleCopyConstraintItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for doubleCopyConstraintItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<DoubleCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleCopyConstraintItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private DoubleCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -276,7 +280,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @throws com.exedio.cope.MandatoryViolationException if value, field is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AllCopyConstraintItem(
 					@javax.annotation.Nonnull final java.lang.String value,
 					@javax.annotation.Nonnull final MultiItemFieldValuex field)
@@ -293,13 +298,14 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Creates a new AllCopyConstraintItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private AllCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getValue()
 		{
@@ -309,27 +315,28 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #field}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValuex getField()
 		{
 			return AllCopyConstraintItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for allCopyConstraintItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<AllCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(AllCopyConstraintItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AllCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -350,7 +357,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @throws com.exedio.cope.MandatoryViolationException if value, field is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		PartialCopyConstraintItem(
 					@javax.annotation.Nonnull final java.lang.String value,
 					@javax.annotation.Nonnull final MultiItemFieldValuex field)
@@ -367,13 +375,14 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Creates a new PartialCopyConstraintItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private PartialCopyConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getValue()
 		{
@@ -383,27 +392,28 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #field}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValuex getField()
 		{
 			return PartialCopyConstraintItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for partialCopyConstraintItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<PartialCopyConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(PartialCopyConstraintItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private PartialCopyConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -420,7 +430,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @throws com.exedio.cope.MandatoryViolationException if value is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		A(
 					@javax.annotation.Nonnull final java.lang.String value)
 				throws
@@ -435,33 +446,34 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Creates a new A and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private A(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		public java.lang.String getValue()
 		{
 			return A.value.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for a.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<A> TYPE = com.exedio.cope.TypesBound.newType(A.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private A(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -478,7 +490,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @throws com.exedio.cope.MandatoryViolationException if value is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		B(
 					@javax.annotation.Nonnull final java.lang.String value)
 				throws
@@ -493,33 +506,34 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Creates a new B and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private B(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		public java.lang.String getValue()
 		{
 			return B.value.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for b.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<B> TYPE = com.exedio.cope.TypesBound.newType(B.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private B(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -538,7 +552,8 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		 * @throws com.exedio.cope.MandatoryViolationException if value, template is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if value, template violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		C(
 					@javax.annotation.Nonnull final java.lang.String value,
 					@javax.annotation.Nonnull final java.lang.String template)
@@ -555,13 +570,14 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Creates a new C and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private C(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #value}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		public java.lang.String getValue()
 		{
@@ -571,27 +587,28 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #template}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		public java.lang.String getTemplate()
 		{
 			return C.template.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for c.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<C> TYPE = com.exedio.cope.TypesBound.newType(C.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private C(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

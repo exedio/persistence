@@ -45,7 +45,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Creates a new DivideDoubleItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public DivideDoubleItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -55,13 +56,14 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Creates a new DivideDoubleItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DivideDoubleItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #numA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getNumA()
 	{
@@ -71,7 +73,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #numA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumA(@javax.annotation.Nullable final java.lang.Double numA)
 	{
 		DivideDoubleItem.numA.set(this,numA);
@@ -80,7 +83,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Returns the value of {@link #numB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getNumB()
 	{
@@ -90,7 +94,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #numB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumB(@javax.annotation.Nullable final java.lang.Double numB)
 	{
 		DivideDoubleItem.numB.set(this,numB);
@@ -99,7 +104,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Returns the value of {@link #numC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getNumC()
 	{
@@ -109,7 +115,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #numC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumC(@javax.annotation.Nullable final java.lang.Double numC)
 	{
 		DivideDoubleItem.numC.set(this,numC);
@@ -118,7 +125,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Returns the value of {@link #divideAB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Double getDivideAB()
 	{
 		return DivideDoubleItem.divideAB.get(this);
@@ -127,7 +135,8 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Returns the value of {@link #divideAC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Double getDivideAC()
 	{
 		return DivideDoubleItem.divideAC.get(this);
@@ -136,25 +145,26 @@ public final class DivideDoubleItem extends Item
 	/**
 	 * Returns the value of {@link #divideBC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Double getDivideBC()
 	{
 		return DivideDoubleItem.divideBC.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for divideDoubleItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DivideDoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DivideDoubleItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DivideDoubleItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

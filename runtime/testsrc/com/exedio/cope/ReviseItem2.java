@@ -35,7 +35,8 @@ final class ReviseItem2 extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if field5, field6, field6b, field7 is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if field5, field6, field6b, field7 violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ReviseItem2(
 				@javax.annotation.Nonnull final java.lang.String field5,
 				@javax.annotation.Nonnull final java.lang.String field6,
@@ -56,13 +57,14 @@ final class ReviseItem2 extends Item
 	/**
 	 * Creates a new ReviseItem2 and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ReviseItem2(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field5}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField5()
 	{
@@ -72,7 +74,8 @@ final class ReviseItem2 extends Item
 	/**
 	 * Sets a new value for {@link #field5}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField5(@javax.annotation.Nonnull final java.lang.String field5)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -84,7 +87,8 @@ final class ReviseItem2 extends Item
 	/**
 	 * Returns the value of {@link #field6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField6()
 	{
@@ -94,7 +98,8 @@ final class ReviseItem2 extends Item
 	/**
 	 * Sets a new value for {@link #field6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField6(@javax.annotation.Nonnull final java.lang.String field6)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -106,7 +111,8 @@ final class ReviseItem2 extends Item
 	/**
 	 * Returns the value of {@link #field6b}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField6b()
 	{
@@ -116,7 +122,8 @@ final class ReviseItem2 extends Item
 	/**
 	 * Sets a new value for {@link #field6b}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField6b(@javax.annotation.Nonnull final java.lang.String field6b)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -128,7 +135,8 @@ final class ReviseItem2 extends Item
 	/**
 	 * Returns the value of {@link #field7}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField7()
 	{
@@ -138,7 +146,8 @@ final class ReviseItem2 extends Item
 	/**
 	 * Sets a new value for {@link #field7}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField7(@javax.annotation.Nonnull final java.lang.String field7)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -147,19 +156,19 @@ final class ReviseItem2 extends Item
 		ReviseItem2.field7.set(this,field7);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for reviseItem2.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ReviseItem2> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem2.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ReviseItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

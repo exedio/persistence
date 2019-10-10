@@ -377,61 +377,61 @@ public class IsComparableTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class AnItemSuper extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItemSuper> TYPE = com.exedio.cope.TypesBound.newType(AnItemSuper.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected AnItemSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class AnItem extends AnItemSuper
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class AnItemBrother extends AnItemSuper
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItemBrother> TYPE = com.exedio.cope.TypesBound.newType(AnItemBrother.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected AnItemBrother(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItemSub extends AnItem
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItemSub> TYPE = com.exedio.cope.TypesBound.newType(AnItemSub.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItemSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItemOther extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItemOther> TYPE = com.exedio.cope.TypesBound.newType(AnItemOther.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItemOther(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -472,10 +472,10 @@ public class IsComparableTest
 		@WrapperIgnore static final ItemField<AnItemOther  > itemOther   = ItemField.create(AnItemOther  .class);
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

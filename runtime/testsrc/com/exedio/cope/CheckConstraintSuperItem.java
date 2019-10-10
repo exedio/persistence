@@ -55,7 +55,8 @@ public class CheckConstraintSuperItem extends Item
 	 * @param zwei the initial value for field {@link #zwei}.
 	 * @param drei the initial value for field {@link #drei}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public CheckConstraintSuperItem(
 				@javax.annotation.Nullable final java.lang.Integer eins,
 				@javax.annotation.Nullable final java.lang.Integer zwei,
@@ -71,13 +72,14 @@ public class CheckConstraintSuperItem extends Item
 	/**
 	 * Creates a new CheckConstraintSuperItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected CheckConstraintSuperItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #eins}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public final java.lang.Integer getEins()
 	{
@@ -87,7 +89,8 @@ public class CheckConstraintSuperItem extends Item
 	/**
 	 * Sets a new value for {@link #eins}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setEins(@javax.annotation.Nullable final java.lang.Integer eins)
 	{
 		CheckConstraintSuperItem.eins.set(this,eins);
@@ -96,7 +99,8 @@ public class CheckConstraintSuperItem extends Item
 	/**
 	 * Returns the value of {@link #zwei}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public final java.lang.Integer getZwei()
 	{
@@ -106,7 +110,8 @@ public class CheckConstraintSuperItem extends Item
 	/**
 	 * Sets a new value for {@link #zwei}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setZwei(@javax.annotation.Nullable final java.lang.Integer zwei)
 	{
 		CheckConstraintSuperItem.zwei.set(this,zwei);
@@ -115,7 +120,8 @@ public class CheckConstraintSuperItem extends Item
 	/**
 	 * Returns the value of {@link #drei}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public final java.lang.Integer getDrei()
 	{
@@ -125,25 +131,26 @@ public class CheckConstraintSuperItem extends Item
 	/**
 	 * Sets a new value for {@link #drei}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setDrei(@javax.annotation.Nullable final java.lang.Integer drei)
 	{
 		CheckConstraintSuperItem.drei.set(this,drei);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for checkConstraintSuperItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<CheckConstraintSuperItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintSuperItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected CheckConstraintSuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

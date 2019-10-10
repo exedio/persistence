@@ -92,7 +92,8 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 			4
 		);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private LimitedListCopyItem(
 					final int value)
 		{
@@ -101,17 +102,19 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected LimitedListCopyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		private java.util.List<LimitedListCopyItem> getList()
 		{
 			return LimitedListCopyItem.list.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private void setList(@javax.annotation.Nonnull final java.util.Collection<? extends LimitedListCopyItem> list)
 				throws
 					java.lang.ClassCastException,
@@ -120,13 +123,13 @@ public class LimitedListFieldCopyTest extends TestWithEnvironment
 			LimitedListCopyItem.list.set(this,list);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<LimitedListCopyItem> TYPE = com.exedio.cope.TypesBound.newType(LimitedListCopyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected LimitedListCopyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

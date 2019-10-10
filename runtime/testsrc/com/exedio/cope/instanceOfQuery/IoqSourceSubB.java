@@ -32,7 +32,8 @@ final class IoqSourceSubB extends IoqSourceSuper
 	 * @throws com.exedio.cope.MandatoryViolationException if ref, code, brother is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	IoqSourceSubB(
 				@javax.annotation.Nonnull final com.exedio.cope.instanceOfQuery.IoqTargetSuper ref,
 				@javax.annotation.Nonnull final java.lang.String code,
@@ -51,13 +52,14 @@ final class IoqSourceSubB extends IoqSourceSuper
 	/**
 	 * Creates a new IoqSourceSubB and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private IoqSourceSubB(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #brother}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	IoqSourceSubA getBrother()
 	{
@@ -67,7 +69,8 @@ final class IoqSourceSubB extends IoqSourceSuper
 	/**
 	 * Sets a new value for {@link #brother}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBrother(@javax.annotation.Nonnull final IoqSourceSubA brother)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -75,19 +78,19 @@ final class IoqSourceSubB extends IoqSourceSuper
 		IoqSourceSubB.brother.set(this,brother);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for ioqSourceSubB.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<IoqSourceSubB> TYPE = com.exedio.cope.TypesBound.newType(IoqSourceSubB.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private IoqSourceSubB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

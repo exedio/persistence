@@ -51,7 +51,8 @@ final class NameCollisionlongaItem extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if code is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	NameCollisionlongaItem(
 				@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -67,13 +68,14 @@ final class NameCollisionlongaItem extends Item
 	/**
 	 * Creates a new NameCollisionlongaItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private NameCollisionlongaItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getCode()
 	{
@@ -83,7 +85,8 @@ final class NameCollisionlongaItem extends Item
 	/**
 	 * Sets a new value for {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -98,7 +101,8 @@ final class NameCollisionlongaItem extends Item
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static NameCollisionlongaItem forCode(@javax.annotation.Nonnull final java.lang.String code)
 	{
@@ -110,7 +114,8 @@ final class NameCollisionlongaItem extends Item
 	 * @param code shall be equal to field {@link #code}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static NameCollisionlongaItem forCodeStrict(@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -122,7 +127,8 @@ final class NameCollisionlongaItem extends Item
 	/**
 	 * Returns the value of {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber()
 	{
@@ -132,7 +138,8 @@ final class NameCollisionlongaItem extends Item
 	/**
 	 * Sets a new value for {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber)
 	{
 		NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongaNumber);
@@ -141,7 +148,8 @@ final class NameCollisionlongaItem extends Item
 	/**
 	 * Returns the value of {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber()
 	{
@@ -151,25 +159,26 @@ final class NameCollisionlongaItem extends Item
 	/**
 	 * Sets a new value for {@link #collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCollisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber(@javax.annotation.Nullable final java.lang.Integer collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber)
 	{
 		NameCollisionlongaItem.collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber.set(this,collisionloooooooooooooooooooooooooooooooooooooooooooooooongbNumber);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for nameCollisionlongaItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<NameCollisionlongaItem> TYPE = com.exedio.cope.TypesBound.newType(NameCollisionlongaItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private NameCollisionlongaItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

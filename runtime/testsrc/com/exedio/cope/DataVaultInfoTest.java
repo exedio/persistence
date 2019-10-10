@@ -146,7 +146,8 @@ public class DataVaultInfoTest
 		@Vault
 		static final DataField field = new DataField();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		MyItem(
 					@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
 				throws
@@ -157,29 +158,33 @@ public class DataVaultInfoTest
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final boolean isFieldNull()
 		{
 			return MyItem.field.isNull(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final long getFieldLength()
 		{
 			return MyItem.field.getLength(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		final byte[] getFieldArray()
 		{
 			return MyItem.field.getArray(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void getField(@javax.annotation.Nonnull final java.io.OutputStream field)
 				throws
 					java.io.IOException
@@ -187,7 +192,8 @@ public class DataVaultInfoTest
 			MyItem.field.get(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void getField(@javax.annotation.Nonnull final java.nio.file.Path field)
 				throws
 					java.io.IOException
@@ -195,7 +201,8 @@ public class DataVaultInfoTest
 			MyItem.field.get(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void getField(@javax.annotation.Nonnull final java.io.File field)
 				throws
 					java.io.IOException
@@ -203,7 +210,8 @@ public class DataVaultInfoTest
 			MyItem.field.get(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setField(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -211,7 +219,8 @@ public class DataVaultInfoTest
 			MyItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setField(@javax.annotation.Nonnull final byte[] field)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -219,7 +228,8 @@ public class DataVaultInfoTest
 			MyItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setField(@javax.annotation.Nonnull final java.io.InputStream field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -228,7 +238,8 @@ public class DataVaultInfoTest
 			MyItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setField(@javax.annotation.Nonnull final java.nio.file.Path field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -237,7 +248,8 @@ public class DataVaultInfoTest
 			MyItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final void setField(@javax.annotation.Nonnull final java.io.File field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -246,13 +258,13 @@ public class DataVaultInfoTest
 			MyItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

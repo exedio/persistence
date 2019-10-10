@@ -131,7 +131,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Creates a new AnItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -141,13 +142,14 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Dispatch by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="dispatch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		AnItem.toTarget.dispatch(AnItem.class,config,ctx);
@@ -156,7 +158,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns, whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isPending")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isToTargetPending()
 	{
 		return AnItem.toTarget.isPending(this);
@@ -165,7 +168,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Sets whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setPending")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setToTargetPending(final boolean pending)
 	{
 		AnItem.toTarget.setPending(this,pending);
@@ -174,7 +178,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns, whether this item is allowed to be purged by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNoPurge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNoPurge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isToTargetNoPurge()
 	{
 		return AnItem.toTarget.isNoPurge(this);
@@ -183,7 +188,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Sets whether this item is allowed to be purged by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setNoPurge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setNoPurge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setToTargetNoPurge(final boolean noPurge)
 	{
 		AnItem.toTarget.setNoPurge(this,noPurge);
@@ -192,7 +198,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the date, this item was last successfully dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastSuccessDate")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getToTargetLastSuccessDate()
 	{
@@ -202,7 +209,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the milliseconds, this item needed to be last successfully dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastSuccessElapsed")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Long getToTargetLastSuccessElapsed()
 	{
@@ -212,7 +220,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the attempts to dispatch this item by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getRuns")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 	{
@@ -222,20 +231,23 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the failed attempts to dispatch this item by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getFailures")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 	{
 		return AnItem.toTarget.getFailures(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		AnItem.toTarget.purge(properties,ctx);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		AnItem.toTarget.purge(properties,restriction,ctx);
@@ -244,7 +256,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the parent field of the run type of {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="RunParent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<AnItem> toTargetRunParent()
 	{
@@ -254,7 +267,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #deferred}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean getDeferred()
 	{
 		return AnItem.deferred.getMandatory(this);
@@ -263,7 +277,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #deferred}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDeferred(final boolean deferred)
 	{
 		AnItem.deferred.set(this,deferred);
@@ -272,7 +287,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #deferredCount}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getDeferredCount()
 	{
 		return AnItem.deferredCount.getMandatory(this);
@@ -281,7 +297,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #deferredCount}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDeferredCount(final int deferredCount)
 	{
 		AnItem.deferredCount.set(this,deferredCount);
@@ -290,7 +307,8 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #dispatchCount}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getDispatchCount()
 	{
 		return AnItem.dispatchCount.getMandatory(this);
@@ -299,26 +317,27 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #dispatchCount}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDispatchCount(final int dispatchCount)
 	{
 		AnItem.dispatchCount.set(this,dispatchCount);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for anItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 

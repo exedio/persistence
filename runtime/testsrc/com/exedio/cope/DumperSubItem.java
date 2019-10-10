@@ -32,7 +32,8 @@ public final class DumperSubItem extends DumperItem
 	 * @throws com.exedio.cope.StringLengthViolationException if string, unique, subString violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if unique is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DumperSubItem(
 				@javax.annotation.Nonnull final java.lang.String string,
 				@javax.annotation.Nonnull final java.lang.String unique,
@@ -54,13 +55,14 @@ public final class DumperSubItem extends DumperItem
 	/**
 	 * Creates a new DumperSubItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DumperSubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getSubString()
 	{
@@ -70,7 +72,8 @@ public final class DumperSubItem extends DumperItem
 	/**
 	 * Sets a new value for {@link #subString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSubString(@javax.annotation.Nonnull final java.lang.String subString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -79,19 +82,19 @@ public final class DumperSubItem extends DumperItem
 		DumperSubItem.subString.set(this,subString);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for dumperSubItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DumperSubItem> TYPE = com.exedio.cope.TypesBound.newType(DumperSubItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DumperSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

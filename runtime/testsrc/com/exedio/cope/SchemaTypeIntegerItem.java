@@ -67,7 +67,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte1()
 	{
 		return SchemaTypeIntegerItem.byte1.getMandatory(this);
@@ -76,7 +77,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte1(final long byte1)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -87,7 +89,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte1l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte1l()
 	{
 		return SchemaTypeIntegerItem.byte1l.getMandatory(this);
@@ -96,7 +99,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte1l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte1l(final long byte1l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -107,7 +111,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte1u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte1u()
 	{
 		return SchemaTypeIntegerItem.byte1u.getMandatory(this);
@@ -116,7 +121,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte1u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte1u(final long byte1u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -127,7 +133,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte2()
 	{
 		return SchemaTypeIntegerItem.byte2.getMandatory(this);
@@ -136,7 +143,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte2(final long byte2)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -147,7 +155,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte2l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte2l()
 	{
 		return SchemaTypeIntegerItem.byte2l.getMandatory(this);
@@ -156,7 +165,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte2l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte2l(final long byte2l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -167,7 +177,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte2u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte2u()
 	{
 		return SchemaTypeIntegerItem.byte2u.getMandatory(this);
@@ -176,7 +187,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte2u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte2u(final long byte2u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -187,7 +199,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte3()
 	{
 		return SchemaTypeIntegerItem.byte3.getMandatory(this);
@@ -196,7 +209,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte3(final long byte3)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -207,7 +221,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte3l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte3l()
 	{
 		return SchemaTypeIntegerItem.byte3l.getMandatory(this);
@@ -216,7 +231,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte3l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte3l(final long byte3l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -227,7 +243,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte3u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte3u()
 	{
 		return SchemaTypeIntegerItem.byte3u.getMandatory(this);
@@ -236,7 +253,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte3u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte3u(final long byte3u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -247,7 +265,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte4()
 	{
 		return SchemaTypeIntegerItem.byte4.getMandatory(this);
@@ -256,7 +275,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte4(final long byte4)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -267,7 +287,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte4l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte4l()
 	{
 		return SchemaTypeIntegerItem.byte4l.getMandatory(this);
@@ -276,7 +297,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte4l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte4l(final long byte4l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -287,7 +309,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte4u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte4u()
 	{
 		return SchemaTypeIntegerItem.byte4u.getMandatory(this);
@@ -296,7 +319,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte4u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte4u(final long byte4u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -307,7 +331,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #byte8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getByte8()
 	{
 		return SchemaTypeIntegerItem.byte8.getMandatory(this);
@@ -316,7 +341,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #byte8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByte8(final long byte8)
 	{
 		SchemaTypeIntegerItem.byte8.set(this,byte8);
@@ -325,7 +351,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal1()
 	{
 		return SchemaTypeIntegerItem.decimal1.getMandatory(this);
@@ -334,7 +361,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal1(final long decimal1)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -345,7 +373,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal1l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal1l()
 	{
 		return SchemaTypeIntegerItem.decimal1l.getMandatory(this);
@@ -354,7 +383,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal1l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal1l(final long decimal1l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -365,7 +395,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal1u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal1u()
 	{
 		return SchemaTypeIntegerItem.decimal1u.getMandatory(this);
@@ -374,7 +405,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal1u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal1u(final long decimal1u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -385,7 +417,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal2()
 	{
 		return SchemaTypeIntegerItem.decimal2.getMandatory(this);
@@ -394,7 +427,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal2(final long decimal2)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -405,7 +439,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal2l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal2l()
 	{
 		return SchemaTypeIntegerItem.decimal2l.getMandatory(this);
@@ -414,7 +449,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal2l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal2l(final long decimal2l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -425,7 +461,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal2u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal2u()
 	{
 		return SchemaTypeIntegerItem.decimal2u.getMandatory(this);
@@ -434,7 +471,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal2u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal2u(final long decimal2u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -445,7 +483,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal3()
 	{
 		return SchemaTypeIntegerItem.decimal3.getMandatory(this);
@@ -454,7 +493,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal3(final long decimal3)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -465,7 +505,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal3l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal3l()
 	{
 		return SchemaTypeIntegerItem.decimal3l.getMandatory(this);
@@ -474,7 +515,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal3l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal3l(final long decimal3l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -485,7 +527,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal3u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal3u()
 	{
 		return SchemaTypeIntegerItem.decimal3u.getMandatory(this);
@@ -494,7 +537,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal3u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal3u(final long decimal3u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -505,7 +549,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal4()
 	{
 		return SchemaTypeIntegerItem.decimal4.getMandatory(this);
@@ -514,7 +559,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal4(final long decimal4)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -525,7 +571,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal4l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal4l()
 	{
 		return SchemaTypeIntegerItem.decimal4l.getMandatory(this);
@@ -534,7 +581,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal4l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal4l(final long decimal4l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -545,7 +593,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal4u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal4u()
 	{
 		return SchemaTypeIntegerItem.decimal4u.getMandatory(this);
@@ -554,7 +603,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal4u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal4u(final long decimal4u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -565,7 +615,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal11}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal11()
 	{
 		return SchemaTypeIntegerItem.decimal11.getMandatory(this);
@@ -574,7 +625,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal11}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal11(final long decimal11)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -585,7 +637,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal11l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal11l()
 	{
 		return SchemaTypeIntegerItem.decimal11l.getMandatory(this);
@@ -594,7 +647,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal11l}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal11l(final long decimal11l)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -605,7 +659,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #decimal11u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDecimal11u()
 	{
 		return SchemaTypeIntegerItem.decimal11u.getMandatory(this);
@@ -614,7 +669,8 @@ public final class SchemaTypeIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #decimal11u}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDecimal11u(final long decimal11u)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -622,19 +678,19 @@ public final class SchemaTypeIntegerItem extends Item
 		SchemaTypeIntegerItem.decimal11u.set(this,decimal11u);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for schemaTypeIntegerItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<SchemaTypeIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeIntegerItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SchemaTypeIntegerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

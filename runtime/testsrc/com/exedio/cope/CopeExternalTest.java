@@ -118,23 +118,24 @@ public class CopeExternalTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	static class CachedItem extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		CachedItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected CachedItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<CachedItem> TYPE = com.exedio.cope.TypesBound.newType(CachedItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected CachedItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -142,23 +143,24 @@ public class CopeExternalTest extends TestWithEnvironment
 	@CopeExternal
 	static class NoCacheItem extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		NoCacheItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected NoCacheItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<NoCacheItem> TYPE = com.exedio.cope.TypesBound.newType(NoCacheItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected NoCacheItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -167,23 +169,24 @@ public class CopeExternalTest extends TestWithEnvironment
 	@CopeCacheWeight(0)
 	static class WeightZeroItem extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		WeightZeroItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected WeightZeroItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<WeightZeroItem> TYPE = com.exedio.cope.TypesBound.newType(WeightZeroItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected WeightZeroItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

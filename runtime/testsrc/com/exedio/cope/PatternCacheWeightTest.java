@@ -99,13 +99,13 @@ public class PatternCacheWeightTest
 		static final MyPattern set222 = new MyPattern();
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -128,10 +128,10 @@ public class PatternCacheWeightTest
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
 		static final class AbsentType extends Item
 		{
-			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;
 
-			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@com.exedio.cope.instrument.Generated
 			private AbsentType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 
@@ -140,10 +140,10 @@ public class PatternCacheWeightTest
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
 		static final class Set333Type extends Item
 		{
-			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;
 
-			@javax.annotation.Generated("com.exedio.cope.instrument")
+			@com.exedio.cope.instrument.Generated
 			private Set333Type(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 	}

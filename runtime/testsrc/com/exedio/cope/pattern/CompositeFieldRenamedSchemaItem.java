@@ -34,7 +34,8 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	 * @param wrongComp the initial value for field {@link #wrongComp}.
 	 * @throws com.exedio.cope.MandatoryViolationException if virgnComp, wrongComp is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CompositeFieldRenamedSchemaItem(
 				@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite virgnComp,
 				@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite wrongComp)
@@ -50,13 +51,14 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	/**
 	 * Creates a new CompositeFieldRenamedSchemaItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CompositeFieldRenamedSchemaItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #virgnComp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CompositeFieldRenamedSchemaComposite getVirgnComp()
 	{
@@ -66,7 +68,8 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #virgnComp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setVirgnComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite virgnComp)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -77,7 +80,8 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	/**
 	 * Returns the value of {@link #wrongComp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CompositeFieldRenamedSchemaComposite getWrongComp()
 	{
@@ -87,7 +91,8 @@ final class CompositeFieldRenamedSchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #wrongComp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setWrongComp(@javax.annotation.Nonnull final CompositeFieldRenamedSchemaComposite wrongComp)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -95,19 +100,19 @@ final class CompositeFieldRenamedSchemaItem extends Item
 		CompositeFieldRenamedSchemaItem.wrongComp.set(this,wrongComp);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for compositeFieldRenamedSchemaItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CompositeFieldRenamedSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(CompositeFieldRenamedSchemaItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CompositeFieldRenamedSchemaItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

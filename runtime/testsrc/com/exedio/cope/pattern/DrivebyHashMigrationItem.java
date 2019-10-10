@@ -43,7 +43,8 @@ final class DrivebyHashMigrationItem extends Item
 	 * @param password the initial value for field {@link #password}.
 	 * @throws com.exedio.cope.MandatoryViolationException if password is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DrivebyHashMigrationItem(
 				@javax.annotation.Nonnull final java.lang.String password)
 			throws
@@ -57,13 +58,14 @@ final class DrivebyHashMigrationItem extends Item
 	/**
 	 * Creates a new DrivebyHashMigrationItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DrivebyHashMigrationItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return DrivebyHashMigrationItem.password.check(this,password);
@@ -73,7 +75,8 @@ final class DrivebyHashMigrationItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPassword} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		DrivebyHashMigrationItem.password.blind(password);
@@ -82,7 +85,8 @@ final class DrivebyHashMigrationItem extends Item
 	/**
 	 * Sets a new value for {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -90,19 +94,19 @@ final class DrivebyHashMigrationItem extends Item
 		DrivebyHashMigrationItem.password.set(this,password);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for drivebyHashMigrationItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<DrivebyHashMigrationItem> TYPE = com.exedio.cope.TypesBound.newType(DrivebyHashMigrationItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DrivebyHashMigrationItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -33,7 +33,8 @@ public final class PasswordRecoveryItem extends Item
 	 * @param password the initial value for field {@link #password}.
 	 * @throws com.exedio.cope.MandatoryViolationException if password is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	PasswordRecoveryItem(
 				@javax.annotation.Nonnull final java.lang.String password)
 			throws
@@ -47,13 +48,14 @@ public final class PasswordRecoveryItem extends Item
 	/**
 	 * Creates a new PasswordRecoveryItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PasswordRecoveryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return PasswordRecoveryItem.password.check(this,password);
@@ -63,7 +65,8 @@ public final class PasswordRecoveryItem extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPassword} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		PasswordRecoveryItem.password.blind(password);
@@ -72,7 +75,8 @@ public final class PasswordRecoveryItem extends Item
 	/**
 	 * Sets a new value for {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -83,7 +87,8 @@ public final class PasswordRecoveryItem extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getPasswordSHA512s8i5()
 	{
@@ -93,7 +98,8 @@ public final class PasswordRecoveryItem extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPasswordSHA512s8i5(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -101,7 +107,8 @@ public final class PasswordRecoveryItem extends Item
 		PasswordRecoveryItem.password.setHash(this,password);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="issue")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="issue")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.pattern.PasswordRecovery.Config config)
 	{
@@ -111,7 +118,8 @@ public final class PasswordRecoveryItem extends Item
 	/**
 	 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="issue")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="issue")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@java.lang.Deprecated
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(final int expiryMillis)
@@ -123,7 +131,8 @@ public final class PasswordRecoveryItem extends Item
 	 * @param secret a secret for password recovery
 	 * @return a valid token, if existing, otherwise null
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getValidToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getValidToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.PasswordRecovery.Token getValidPasswordRecoveryToken(final long secret)
 	{
@@ -134,32 +143,34 @@ public final class PasswordRecoveryItem extends Item
 	 * @param secret a secret for password recovery
 	 * @return a new password, if the secret was valid, otherwise null
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="redeem")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="redeem")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String redeemPasswordRecovery(final long secret)
 	{
 		return PasswordRecoveryItem.passwordRecovery.redeem(this,secret);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgePasswordRecovery(@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		PasswordRecoveryItem.passwordRecovery.purge(ctx);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for passwordRecoveryItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PasswordRecoveryItem> TYPE = com.exedio.cope.TypesBound.newType(PasswordRecoveryItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PasswordRecoveryItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

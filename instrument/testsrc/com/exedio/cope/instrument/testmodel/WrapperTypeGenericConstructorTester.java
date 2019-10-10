@@ -38,10 +38,10 @@ public final class WrapperTypeGenericConstructorTester
 		/**
 		 * Creates a new DefaultNonFinal and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		protected DefaultNonFinal(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -52,10 +52,10 @@ public final class WrapperTypeGenericConstructorTester
 		/**
 		 * Creates a new DefaultFinal and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private DefaultFinal(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -68,10 +68,10 @@ public final class WrapperTypeGenericConstructorTester
 		/**
 		 * Creates a new SetPublic and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		public SetPublic(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -83,10 +83,10 @@ public final class WrapperTypeGenericConstructorTester
 		/**
 		 * Creates a new SetProtected and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		protected SetProtected(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -97,10 +97,10 @@ public final class WrapperTypeGenericConstructorTester
 		/**
 		 * Creates a new SetPackage and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		SetPackage(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -111,10 +111,10 @@ public final class WrapperTypeGenericConstructorTester
 		/**
 		 * Creates a new SetPrivate and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private SetPrivate(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 }

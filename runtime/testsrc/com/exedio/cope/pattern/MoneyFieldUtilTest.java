@@ -98,13 +98,13 @@ public class MoneyFieldUtilTest
 		@WrapperIgnore
 		static final EnumField<CurrencyEnum> currency = EnumField.create(CurrencyEnum.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private CurrencyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -115,10 +115,10 @@ public class MoneyFieldUtilTest
 		@SuppressWarnings("unused")
 		static final MoneyField<CurrencyEnum> field = MoneyField.shared(CurrencyItem.currency);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private FieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

@@ -47,10 +47,10 @@ public class DispatcherMustImplementInterfaceTest
 				"deprecation"}) // OK: testing deprecated API
 		static final Dispatcher wrong = new Dispatcher();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

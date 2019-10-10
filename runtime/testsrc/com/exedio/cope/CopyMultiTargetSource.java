@@ -106,7 +106,8 @@ final class CopyMultiTargetSource extends Item
 	 * @param copy the initial value for field {@link #copy}.
 	 * @throws com.exedio.cope.StringLengthViolationException if copy violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CopyMultiTargetSource(
 				@javax.annotation.Nullable final CopyMultiTargetA targetA,
 				@javax.annotation.Nullable final CopyMultiTargetB targetB,
@@ -124,13 +125,14 @@ final class CopyMultiTargetSource extends Item
 	/**
 	 * Creates a new CopyMultiTargetSource and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CopyMultiTargetSource(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #targetA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	CopyMultiTargetA getTargetA()
 	{
@@ -140,7 +142,8 @@ final class CopyMultiTargetSource extends Item
 	/**
 	 * Sets a new value for {@link #targetA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTargetA(@javax.annotation.Nullable final CopyMultiTargetA targetA)
 	{
 		CopyMultiTargetSource.targetA.set(this,targetA);
@@ -149,7 +152,8 @@ final class CopyMultiTargetSource extends Item
 	/**
 	 * Returns the value of {@link #targetB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	CopyMultiTargetB getTargetB()
 	{
@@ -159,7 +163,8 @@ final class CopyMultiTargetSource extends Item
 	/**
 	 * Sets a new value for {@link #targetB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setTargetB(@javax.annotation.Nullable final CopyMultiTargetB targetB)
 	{
 		CopyMultiTargetSource.targetB.set(this,targetB);
@@ -168,7 +173,8 @@ final class CopyMultiTargetSource extends Item
 	/**
 	 * Returns the value of {@link #copy}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getCopy()
 	{
@@ -178,7 +184,8 @@ final class CopyMultiTargetSource extends Item
 	/**
 	 * Sets a new value for {@link #copy}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCopy(@javax.annotation.Nullable final java.lang.String copy)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -186,19 +193,19 @@ final class CopyMultiTargetSource extends Item
 		CopyMultiTargetSource.copy.set(this,copy);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for copyMultiTargetSource.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CopyMultiTargetSource> TYPE = com.exedio.cope.TypesBound.newType(CopyMultiTargetSource.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CopyMultiTargetSource(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

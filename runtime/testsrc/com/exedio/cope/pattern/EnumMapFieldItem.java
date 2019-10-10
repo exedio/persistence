@@ -52,7 +52,8 @@ public final class EnumMapFieldItem extends Item
 	/**
 	 * Creates a new EnumMapFieldItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public EnumMapFieldItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -62,13 +63,14 @@ public final class EnumMapFieldItem extends Item
 	/**
 	 * Creates a new EnumMapFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private EnumMapFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getName(@javax.annotation.Nonnull final Language k)
 	{
@@ -78,20 +80,23 @@ public final class EnumMapFieldItem extends Item
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
 	{
 		EnumMapFieldItem.name.set(this,k,name);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<Language,String> getNameMap()
 	{
 		return EnumMapFieldItem.name.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
 		EnumMapFieldItem.name.setMap(this,name);
@@ -100,7 +105,8 @@ public final class EnumMapFieldItem extends Item
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #nameLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Integer getNameLength(@javax.annotation.Nonnull final Language k)
 	{
@@ -110,20 +116,23 @@ public final class EnumMapFieldItem extends Item
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #nameLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
 	{
 		EnumMapFieldItem.nameLength.set(this,k,nameLength);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<Language,Integer> getNameLengthMap()
 	{
 		return EnumMapFieldItem.nameLength.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
 		EnumMapFieldItem.nameLength.setMap(this,nameLength);
@@ -132,7 +141,8 @@ public final class EnumMapFieldItem extends Item
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #defaults}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getDefaults(@javax.annotation.Nonnull final Language k)
 	{
@@ -142,38 +152,41 @@ public final class EnumMapFieldItem extends Item
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #defaults}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDefaults(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String defaults)
 	{
 		EnumMapFieldItem.defaults.set(this,k,defaults);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<Language,String> getDefaultsMap()
 	{
 		return EnumMapFieldItem.defaults.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDefaultsMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> defaults)
 	{
 		EnumMapFieldItem.defaults.setMap(this,defaults);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for enumMapFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<EnumMapFieldItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private EnumMapFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

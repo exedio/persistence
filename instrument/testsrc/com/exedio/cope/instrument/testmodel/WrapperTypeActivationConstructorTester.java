@@ -35,14 +35,14 @@ public final class WrapperTypeActivationConstructorTester
 			type=NONE, constructor=NONE, genericConstructor=NONE, indent=2)
 	public static class DefaultNonFinal extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected DefaultNonFinal(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -50,14 +50,14 @@ public final class WrapperTypeActivationConstructorTester
 			type=NONE, constructor=NONE, genericConstructor=NONE, indent=2)
 	public static final class DefaultFinal extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private DefaultFinal(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -67,14 +67,14 @@ public final class WrapperTypeActivationConstructorTester
 	@SuppressWarnings("PublicConstructorInNonPublicClass")
 	static final class SetPublic extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		public SetPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -83,14 +83,14 @@ public final class WrapperTypeActivationConstructorTester
 	@SuppressWarnings("ProtectedMemberInFinalClass")
 	static final class SetProtected extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected SetProtected(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -98,14 +98,14 @@ public final class WrapperTypeActivationConstructorTester
 			type=NONE, constructor=NONE, genericConstructor=NONE, indent=2)
 	public static final class SetPackage extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		SetPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -113,14 +113,14 @@ public final class WrapperTypeActivationConstructorTester
 			type=NONE, constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class SetPrivate extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private SetPrivate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

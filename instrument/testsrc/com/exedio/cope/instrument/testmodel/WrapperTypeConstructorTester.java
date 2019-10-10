@@ -41,14 +41,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new DefaultPublic with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		public DefaultPublic()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -61,14 +62,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new DefaultPublicAbstract with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected DefaultPublicAbstract()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 2l;
 	}
 
@@ -82,14 +84,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new DefaultProtected with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected DefaultProtected()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -102,14 +105,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new DefaultProtectedAbstract with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected DefaultProtectedAbstract()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 2l;
 	}
 
@@ -122,14 +126,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new DefaultPackage with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		DefaultPackage()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -142,14 +147,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new DefaultPrivate with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private DefaultPrivate()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -163,14 +169,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new DefaultPrivateAbstract with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private DefaultPrivateAbstract()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 2l;
 	}
 
@@ -185,14 +192,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new SetPublic with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		public SetPublic()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -206,14 +214,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new SetPublicAbstract with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		public SetPublicAbstract()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 2l;
 	}
 
@@ -227,14 +236,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new SetProtected with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected SetProtected()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -247,14 +257,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new SetPackage with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		SetPackage()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -267,14 +278,15 @@ public final class WrapperTypeConstructorTester
 		/**
 		 * Creates a new SetPrivate with all the fields initially needed.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private SetPrivate()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 }

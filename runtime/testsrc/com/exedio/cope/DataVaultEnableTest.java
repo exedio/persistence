@@ -191,13 +191,13 @@ public class DataVaultEnableTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media vaultM = new Media();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -219,13 +219,13 @@ public class DataVaultEnableTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media vaultM = new Media();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnVault> TYPE = com.exedio.cope.TypesBound.newType(AnVault.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected AnVault(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

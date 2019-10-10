@@ -109,7 +109,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if name violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ModelItem(
 				@javax.annotation.Nonnull final java.lang.String name)
 			throws
@@ -124,13 +125,14 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Creates a new ModelItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ModelItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getName()
 	{
@@ -140,7 +142,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Returns the dynamic type of this item in the model {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.DynamicModel.Type<Locale> getAlphaType()
 	{
@@ -150,7 +153,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Sets the dynamic type of this item in the model {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAlphaType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<Locale> type)
 	{
 		ModelItem.alpha.setType(this,type);
@@ -159,7 +163,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@code field} for this item in the model {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Object getAlpha(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field)
 	{
@@ -169,7 +174,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Sets the value of {@code field} for this item in the model {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAlpha(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		ModelItem.alpha.set(this,field,value);
@@ -178,7 +184,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Returns the dynamic type of this item in the model {@link #alfa}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.DynamicModel.Type<Locale> getAlfaType()
 	{
@@ -188,7 +195,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Sets the dynamic type of this item in the model {@link #alfa}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAlfaType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<Locale> type)
 	{
 		ModelItem.alfa.setType(this,type);
@@ -197,7 +205,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@code field} for this item in the model {@link #alfa}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Object getAlfa(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field)
 	{
@@ -207,7 +216,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Sets the value of {@code field} for this item in the model {@link #alfa}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAlfa(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<Locale> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		ModelItem.alfa.set(this,field,value);
@@ -216,7 +226,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Returns the dynamic type of this item in the model {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.DynamicModel.Type<String> getBetaType()
 	{
@@ -226,7 +237,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Sets the dynamic type of this item in the model {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBetaType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<String> type)
 	{
 		ModelItem.beta.setType(this,type);
@@ -235,7 +247,8 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@code field} for this item in the model {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Object getBeta(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<String> field)
 	{
@@ -245,26 +258,27 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	/**
 	 * Sets the value of {@code field} for this item in the model {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBeta(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<String> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		ModelItem.beta.set(this,field,value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for modelItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ModelItem> TYPE = com.exedio.cope.TypesBound.newType(ModelItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ModelItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

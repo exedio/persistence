@@ -27,7 +27,8 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 	/**
 	 * Returns the value of {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField()
 	{
@@ -37,7 +38,8 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 	/**
 	 * Sets a new value for {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -46,19 +48,19 @@ public final class BlockFully extends com.exedio.cope.pattern.Block
 		field().of(BlockFully.field).set(item(),field);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The type information for blockFully.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.pattern.BlockType<BlockFully> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockFully.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private BlockFully(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }

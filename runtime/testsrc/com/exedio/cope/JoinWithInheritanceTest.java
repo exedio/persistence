@@ -128,7 +128,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new Container with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	Container()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -138,13 +139,14 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new Container and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected Container(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #articles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.util.List<Article> getArticles()
 	{
@@ -154,7 +156,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Returns a query for the value of {@link #articles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<Article> getArticlesQuery()
 	{
@@ -164,7 +167,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Returns the items, for which field list {@link #articles} contains the given element.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static final java.util.List<Container> getDistinctParentsOfArticles(final Article element)
 	{
@@ -174,7 +178,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Adds a new value for {@link #articles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void addToArticles(@javax.annotation.Nonnull final Article articles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -187,7 +192,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * Removes all occurrences of {@code element} from {@link #articles}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeAllFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean removeAllFromArticles(@javax.annotation.Nonnull final Article articles)
 	{
 		return Container.articles.removeAll(this,articles);
@@ -196,7 +202,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #articles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setArticles(@javax.annotation.Nonnull final java.util.Collection<? extends Article> articles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -208,7 +215,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Returns the parent field of the type of {@link #articles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<Container> articlesParent()
 	{
@@ -218,7 +226,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #specificArticles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.util.List<SpecificArticle> getSpecificArticles()
 	{
@@ -228,7 +237,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Returns a query for the value of {@link #specificArticles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final com.exedio.cope.Query<SpecificArticle> getSpecificArticlesQuery()
 	{
@@ -238,7 +248,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Returns the items, for which field list {@link #specificArticles} contains the given element.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static final java.util.List<Container> getDistinctParentsOfSpecificArticles(final SpecificArticle element)
 	{
@@ -248,7 +259,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Adds a new value for {@link #specificArticles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void addToSpecificArticles(@javax.annotation.Nonnull final SpecificArticle specificArticles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -261,7 +273,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * Removes all occurrences of {@code element} from {@link #specificArticles}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeAllFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean removeAllFromSpecificArticles(@javax.annotation.Nonnull final SpecificArticle specificArticles)
 	{
 		return Container.specificArticles.removeAll(this,specificArticles);
@@ -270,7 +283,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #specificArticles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setSpecificArticles(@javax.annotation.Nonnull final java.util.Collection<? extends SpecificArticle> specificArticles)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -282,27 +296,28 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Returns the parent field of the type of {@link #specificArticles}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static final com.exedio.cope.ItemField<Container> specificArticlesParent()
 	{
 		return Container.specificArticles.getParent(Container.class);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for container.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
@@ -313,7 +328,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new Article with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	Article()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -323,23 +339,23 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new Article and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected Article(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 2l;
 
 	/**
 	 * The persistent type information for article.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<Article> TYPE = com.exedio.cope.TypesBound.newType(Article.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected Article(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
@@ -350,7 +366,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new SpecificArticle with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SpecificArticle()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -360,23 +377,23 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new SpecificArticle and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected SpecificArticle(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for specificArticle.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<SpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(SpecificArticle.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected SpecificArticle(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
@@ -387,7 +404,8 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new ReallySpecificArticle with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ReallySpecificArticle()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -397,23 +415,23 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	/**
 	 * Creates a new ReallySpecificArticle and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected ReallySpecificArticle(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for reallySpecificArticle.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ReallySpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(ReallySpecificArticle.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected ReallySpecificArticle(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

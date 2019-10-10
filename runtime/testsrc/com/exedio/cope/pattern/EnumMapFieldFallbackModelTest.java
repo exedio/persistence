@@ -140,7 +140,8 @@ public class EnumMapFieldFallbackModelTest
 	 * @throws com.exedio.cope.MandatoryViolationException if noneMand, fallMand is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if noneMand, fallMand violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem(
 				@javax.annotation.Nonnull final java.util.EnumMap<AnEnum,String> noneMand,
 				@javax.annotation.Nonnull final java.util.EnumMap<AnEnum,String> fallMand)
@@ -157,13 +158,14 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #noneMand}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	String getNoneMand(@javax.annotation.Nonnull final AnEnum k)
 	{
@@ -173,20 +175,23 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #noneMand}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNoneMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nonnull final String noneMand)
 	{
 		AnItem.noneMand.set(this,k,noneMand);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<AnEnum,String> getNoneMandMap()
 	{
 		return AnItem.noneMand.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNoneMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneMand)
 	{
 		AnItem.noneMand.setMap(this,noneMand);
@@ -195,7 +200,8 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #noneOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getNoneOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
@@ -205,20 +211,23 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #noneOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNoneOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String noneOpt)
 	{
 		AnItem.noneOpt.set(this,k,noneOpt);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<AnEnum,String> getNoneOptMap()
 	{
 		return AnItem.noneOpt.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNoneOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> noneOpt)
 	{
 		AnItem.noneOpt.setMap(this,noneOpt);
@@ -227,7 +236,8 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #fallMand}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getFallMand(@javax.annotation.Nonnull final AnEnum k)
 	{
@@ -237,7 +247,8 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #fallMand}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getWithFallback")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	String getFallMandWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
@@ -247,27 +258,31 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #fallMand}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFallMand(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallMand)
 	{
 		AnItem.fallMand.set(this,k,fallMand);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<AnEnum,String> getFallMandMap()
 	{
 		return AnItem.fallMand.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMapWithFallback")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<AnEnum,String> getFallMandMapWithFallback()
 	{
 		return AnItem.fallMand.getMapWithFallback(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFallMandMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallMand)
 	{
 		AnItem.fallMand.setMap(this,fallMand);
@@ -276,7 +291,8 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #fallOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getFallOpt(@javax.annotation.Nonnull final AnEnum k)
 	{
@@ -286,7 +302,8 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #fallOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getWithFallback")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getWithFallback")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getFallOptWithFallback(@javax.annotation.Nonnull final AnEnum k)
 	{
@@ -296,46 +313,50 @@ public class EnumMapFieldFallbackModelTest
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #fallOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFallOpt(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final String fallOpt)
 	{
 		AnItem.fallOpt.set(this,k,fallOpt);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<AnEnum,String> getFallOptMap()
 	{
 		return AnItem.fallOpt.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMapWithFallback")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMapWithFallback")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<AnEnum,String> getFallOptMapWithFallback()
 	{
 		return AnItem.fallOpt.getMapWithFallback(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFallOptMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends String> fallOpt)
 	{
 		AnItem.fallOpt.setMap(this,fallOpt);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for anItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

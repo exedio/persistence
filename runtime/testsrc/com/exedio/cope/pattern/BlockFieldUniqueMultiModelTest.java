@@ -120,7 +120,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Returns the value of {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getAlpha()
 	{
@@ -130,7 +131,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAlpha(@javax.annotation.Nonnull final java.lang.String alpha)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -143,7 +145,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Returns the value of {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getBeta()
 	{
 		return field().of(ABlock.beta).getMandatory(item());
@@ -152,7 +155,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Sets a new value for {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBeta(final int beta)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -163,7 +167,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Returns the value of {@link #alphaPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Price getAlphaPrice()
 	{
@@ -173,7 +178,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Sets a new value for {@link #alphaPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAlphaPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price alphaPrice)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -185,7 +191,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Returns the value of {@link #betaPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Price getBetaPrice()
 	{
@@ -195,7 +202,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Sets a new value for {@link #betaPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBetaPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price betaPrice)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -204,20 +212,20 @@ public class BlockFieldUniqueMultiModelTest
 		field().of(ABlock.betaPrice).set(item(),betaPrice);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The type information for aBlock.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }
 
@@ -250,7 +258,8 @@ public class BlockFieldUniqueMultiModelTest
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem(
 				@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -265,13 +274,14 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getCode()
 	{
@@ -281,7 +291,8 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Returns the value of {@link #eins}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	ABlock eins()
 	{
@@ -291,27 +302,28 @@ public class BlockFieldUniqueMultiModelTest
 	/**
 	 * Returns the value of {@link #zwei}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	ABlock zwei()
 	{
 		return AnItem.zwei.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for anItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

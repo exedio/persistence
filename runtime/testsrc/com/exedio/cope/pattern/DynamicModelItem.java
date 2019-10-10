@@ -36,7 +36,8 @@ public final class DynamicModelItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if name is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if name violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DynamicModelItem(
 				@javax.annotation.Nonnull final java.lang.String name)
 			throws
@@ -51,13 +52,14 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Creates a new DynamicModelItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DynamicModelItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getName()
 	{
@@ -67,7 +69,8 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Returns the dynamic type of this item in the model {@link #features}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> getFeaturesType()
 	{
@@ -77,7 +80,8 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Sets the dynamic type of this item in the model {@link #features}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFeaturesType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> type)
 	{
 		DynamicModelItem.features.setType(this,type);
@@ -86,7 +90,8 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Returns the value of {@code field} for this item in the model {@link #features}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Object getFeatures(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field)
 	{
@@ -96,7 +101,8 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Sets the value of {@code field} for this item in the model {@link #features}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFeatures(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		DynamicModelItem.features.set(this,field,value);
@@ -105,7 +111,8 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Returns the dynamic type of this item in the model {@link #small}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> getSmallType()
 	{
@@ -115,7 +122,8 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Sets the dynamic type of this item in the model {@link #small}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSmallType(@javax.annotation.Nullable final com.exedio.cope.pattern.DynamicModel.Type<DynamicModelLocalizationItem> type)
 	{
 		DynamicModelItem.small.setType(this,type);
@@ -124,7 +132,8 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Returns the value of {@code field} for this item in the model {@link #small}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Object getSmall(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field)
 	{
@@ -134,25 +143,26 @@ public final class DynamicModelItem extends Item
 	/**
 	 * Sets the value of {@code field} for this item in the model {@link #small}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSmall(@javax.annotation.Nonnull final com.exedio.cope.pattern.DynamicModel.Field<DynamicModelLocalizationItem> field,@javax.annotation.Nullable final java.lang.Object value)
 	{
 		DynamicModelItem.small.set(this,field,value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for dynamicModelItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DynamicModelItem> TYPE = com.exedio.cope.TypesBound.newType(DynamicModelItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DynamicModelItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

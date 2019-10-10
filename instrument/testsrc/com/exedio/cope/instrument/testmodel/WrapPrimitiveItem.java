@@ -48,7 +48,8 @@ final class WrapPrimitiveItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if date is null.
 	 * @throws com.exedio.cope.UniqueViolationException if integer, date, booleanField, longField, doubleField is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	WrapPrimitiveItem(
 				final int integer,
 				@javax.annotation.Nonnull final java.util.Date date,
@@ -71,13 +72,14 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Creates a new WrapPrimitiveItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private WrapPrimitiveItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteger()
 	{
 		return WrapPrimitiveItem.integer.getMandatory(this);
@@ -86,7 +88,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Sets a new value for {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger(final int integer)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -97,7 +100,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Returns the value of {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getDate()
 	{
@@ -107,7 +111,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Sets a new value for {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDate(@javax.annotation.Nonnull final java.util.Date date)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -119,7 +124,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDate()
 	{
 		WrapPrimitiveItem.date.touch(this);
@@ -128,7 +134,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Returns the value of {@link #integerOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getIntegerOptional()
 	{
@@ -138,7 +145,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Sets a new value for {@link #integerOptional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntegerOptional(@javax.annotation.Nullable final java.lang.Integer integerOptional)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -153,7 +161,8 @@ final class WrapPrimitiveItem extends Item
 	 * @param integerOptional shall be equal to field {@link #integerOptional}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static WrapPrimitiveItem forMixed(final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
 	{
@@ -167,7 +176,8 @@ final class WrapPrimitiveItem extends Item
 	 * @param integerOptional shall be equal to field {@link #integerOptional}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static WrapPrimitiveItem forMixedStrict(final int integer,@javax.annotation.Nonnull final java.util.Date date,@javax.annotation.Nonnull final java.lang.Integer integerOptional)
 			throws
@@ -179,7 +189,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Returns the value of {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean getBooleanField()
 	{
 		return WrapPrimitiveItem.booleanField.getMandatory(this);
@@ -188,7 +199,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Sets a new value for {@link #booleanField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBooleanField(final boolean booleanField)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -199,7 +211,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Returns the value of {@link #longField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getLongField()
 	{
 		return WrapPrimitiveItem.longField.getMandatory(this);
@@ -208,7 +221,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Sets a new value for {@link #longField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setLongField(final long longField)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -219,7 +233,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Returns the value of {@link #doubleField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	double getDoubleField()
 	{
 		return WrapPrimitiveItem.doubleField.getMandatory(this);
@@ -228,7 +243,8 @@ final class WrapPrimitiveItem extends Item
 	/**
 	 * Sets a new value for {@link #doubleField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDoubleField(final double doubleField)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -244,7 +260,8 @@ final class WrapPrimitiveItem extends Item
 	 * @param doubleField shall be equal to field {@link #doubleField}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static WrapPrimitiveItem forPrimitive(final boolean booleanField,final int integer,final long longField,final double doubleField)
 	{
@@ -259,7 +276,8 @@ final class WrapPrimitiveItem extends Item
 	 * @param doubleField shall be equal to field {@link #doubleField}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static WrapPrimitiveItem forPrimitiveStrict(final boolean booleanField,final int integer,final long longField,final double doubleField)
 			throws
@@ -268,19 +286,19 @@ final class WrapPrimitiveItem extends Item
 		return WrapPrimitiveItem.primitive.searchStrict(WrapPrimitiveItem.class,booleanField,integer,longField,doubleField);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for wrapPrimitiveItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<WrapPrimitiveItem> TYPE = com.exedio.cope.TypesBound.newType(WrapPrimitiveItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private WrapPrimitiveItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

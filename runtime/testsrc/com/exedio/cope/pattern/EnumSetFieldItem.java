@@ -51,7 +51,8 @@ public final class EnumSetFieldItem extends Item
 	 * Creates a new EnumSetFieldItem with all the fields initially needed.
 	 * @param activeLanguage the initial value for field {@link #activeLanguage}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	EnumSetFieldItem(
 				@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
 	{
@@ -63,53 +64,58 @@ public final class EnumSetFieldItem extends Item
 	/**
 	 * Creates a new EnumSetFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private EnumSetFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="contains")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="contains")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean containsActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		return EnumSetFieldItem.activeLanguage.contains(this,element);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="add")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="add")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void addActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.add(this,element);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="remove")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="remove")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void removeActiveLanguage(@javax.annotation.Nonnull final Language element)
 	{
 		EnumSetFieldItem.activeLanguage.remove(this,element);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.EnumSet<Language> getActiveLanguage()
 	{
 		return EnumSetFieldItem.activeLanguage.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setActiveLanguage(@javax.annotation.Nonnull final java.util.EnumSet<Language> activeLanguage)
 	{
 		EnumSetFieldItem.activeLanguage.set(this,activeLanguage);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for enumSetFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<EnumSetFieldItem> TYPE = com.exedio.cope.TypesBound.newType(EnumSetFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private EnumSetFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -30,7 +30,8 @@ public final class MD5Item extends Item
 	 * @param password the initial value for field {@link #password}.
 	 * @throws com.exedio.cope.MandatoryViolationException if password is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	MD5Item(
 				@javax.annotation.Nonnull final java.lang.String password)
 			throws
@@ -44,13 +45,14 @@ public final class MD5Item extends Item
 	/**
 	 * Creates a new MD5Item and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private MD5Item(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean checkPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		return MD5Item.password.check(this,password);
@@ -60,7 +62,8 @@ public final class MD5Item extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPassword} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void blindPassword(@javax.annotation.Nullable final java.lang.String password)
 	{
 		MD5Item.password.blind(password);
@@ -69,7 +72,8 @@ public final class MD5Item extends Item
 	/**
 	 * Sets a new value for {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPassword(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -80,7 +84,8 @@ public final class MD5Item extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMD5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMD5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getPasswordMD5()
 	{
@@ -90,7 +95,8 @@ public final class MD5Item extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #password}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMD5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMD5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPasswordMD5(@javax.annotation.Nonnull final java.lang.String password)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -98,19 +104,19 @@ public final class MD5Item extends Item
 		MD5Item.password.setHash(this,password);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for mD5Item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<MD5Item> TYPE = com.exedio.cope.TypesBound.newType(MD5Item.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private MD5Item(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

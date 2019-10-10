@@ -31,7 +31,8 @@ public final class CompositeImported extends Composite
 	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if field violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CompositeImported(
 				@javax.annotation.Nonnull final java.lang.String field)
 			throws
@@ -46,13 +47,14 @@ public final class CompositeImported extends Composite
 	/**
 	 * Creates a new CompositeImported and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CompositeImported(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField()
 	{
@@ -62,7 +64,8 @@ public final class CompositeImported extends Composite
 	/**
 	 * Sets a new value for {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -71,6 +74,6 @@ public final class CompositeImported extends Composite
 		set(CompositeImported.field,field);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 }

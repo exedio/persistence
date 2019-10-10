@@ -158,54 +158,62 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		));
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.lang.String getUnoURL()
 		{
 			return field().of(ABlock.uno).getURL(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		com.exedio.cope.pattern.MediaPath.Locator getUnoLocator()
 		{
 			return field().of(ABlock.uno).getLocator(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.lang.String getUnoContentType()
 		{
 			return field().of(ABlock.uno).getContentType(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean isUnoNull()
 		{
 			return field().of(ABlock.uno).isNull(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.util.Date getUnoLastModified()
 		{
 			return field().of(ABlock.uno).getLastModified(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		long getUnoLength()
 		{
 			return field().of(ABlock.uno).getLength(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		byte[] getUnoBody()
 		{
 			return field().of(ABlock.uno).getBody(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getUnoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 				throws
 					java.io.IOException
@@ -213,7 +221,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.uno).getBody(item(),body);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getUnoBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 				throws
 					java.io.IOException
@@ -221,7 +230,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.uno).getBody(item(),body);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getUnoBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
@@ -229,7 +239,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.uno).getBody(item(),body);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setUno(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value uno)
 				throws
 					java.io.IOException
@@ -237,13 +248,15 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.uno).set(item(),uno);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setUno(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 		{
 			field().of(ABlock.uno).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setUno(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -251,7 +264,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.uno).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setUno(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -259,7 +273,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.uno).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setUno(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -267,54 +282,62 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.uno).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.lang.String getDuoURL()
 		{
 			return field().of(ABlock.duo).getURL(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		com.exedio.cope.pattern.MediaPath.Locator getDuoLocator()
 		{
 			return field().of(ABlock.duo).getLocator(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.lang.String getDuoContentType()
 		{
 			return field().of(ABlock.duo).getContentType(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean isDuoNull()
 		{
 			return field().of(ABlock.duo).isNull(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.util.Date getDuoLastModified()
 		{
 			return field().of(ABlock.duo).getLastModified(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		long getDuoLength()
 		{
 			return field().of(ABlock.duo).getLength(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		byte[] getDuoBody()
 		{
 			return field().of(ABlock.duo).getBody(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getDuoBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 				throws
 					java.io.IOException
@@ -322,7 +345,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.duo).getBody(item(),body);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getDuoBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 				throws
 					java.io.IOException
@@ -330,7 +354,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.duo).getBody(item(),body);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getDuoBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
@@ -338,7 +363,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.duo).getBody(item(),body);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDuo(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value duo)
 				throws
 					java.io.IOException
@@ -346,13 +372,15 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.duo).set(item(),duo);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDuo(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 		{
 			field().of(ABlock.duo).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDuo(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -360,7 +388,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.duo).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDuo(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -368,7 +397,8 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.duo).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDuo(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -376,13 +406,13 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 			field().of(ABlock.duo).set(item(),body,contentType);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
@@ -393,37 +423,40 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		ABlock eins()
 		{
 			return AnItem.eins.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		ABlock zwei()
 		{
 			return AnItem.zwei.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

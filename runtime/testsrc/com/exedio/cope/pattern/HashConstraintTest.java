@@ -161,7 +161,8 @@ public class HashConstraintTest
 		 * @throws com.exedio.cope.MandatoryViolationException if hash, data is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if hash violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnItem(
 					@javax.annotation.Nonnull final java.lang.String hash,
 					@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
@@ -178,13 +179,14 @@ public class HashConstraintTest
 		/**
 		 * Creates a new AnItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #hash}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getHash()
 		{
@@ -194,7 +196,8 @@ public class HashConstraintTest
 		/**
 		 * Sets a new value for {@link #hash}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setHash(@javax.annotation.Nonnull final java.lang.String hash)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -206,7 +209,8 @@ public class HashConstraintTest
 		/**
 		 * Returns, whether there is no data for field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean isDataNull()
 		{
 			return AnItem.data.isNull(this);
@@ -215,7 +219,8 @@ public class HashConstraintTest
 		/**
 		 * Returns the length of the data of the data field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		long getDataLength()
 		{
 			return AnItem.data.getLength(this);
@@ -224,7 +229,8 @@ public class HashConstraintTest
 		/**
 		 * Returns the value of the persistent field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		byte[] getDataArray()
 		{
@@ -234,7 +240,8 @@ public class HashConstraintTest
 		/**
 		 * Writes the data of this persistent data field into the given stream.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 				throws
 					java.io.IOException
@@ -245,7 +252,8 @@ public class HashConstraintTest
 		/**
 		 * Writes the data of this persistent data field into the given file.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getData(@javax.annotation.Nonnull final java.nio.file.Path data)
 				throws
 					java.io.IOException
@@ -256,7 +264,8 @@ public class HashConstraintTest
 		/**
 		 * Writes the data of this persistent data field into the given file.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					java.io.IOException
@@ -267,7 +276,8 @@ public class HashConstraintTest
 		/**
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setData(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -278,7 +288,8 @@ public class HashConstraintTest
 		/**
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setData(@javax.annotation.Nonnull final byte[] data)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -289,7 +300,8 @@ public class HashConstraintTest
 		/**
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setData(@javax.annotation.Nonnull final java.io.InputStream data)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -301,7 +313,8 @@ public class HashConstraintTest
 		/**
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setData(@javax.annotation.Nonnull final java.nio.file.Path data)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -313,7 +326,8 @@ public class HashConstraintTest
 		/**
 		 * Sets a new value for the persistent field {@link #data}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setData(@javax.annotation.Nonnull final java.io.File data)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -322,20 +336,20 @@ public class HashConstraintTest
 			AnItem.data.set(this,data);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for anItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

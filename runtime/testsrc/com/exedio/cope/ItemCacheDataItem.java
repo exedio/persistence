@@ -54,7 +54,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Creates a new ItemCacheDataItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ItemCacheDataItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -64,13 +65,14 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Creates a new ItemCacheDataItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ItemCacheDataItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getString()
 	{
@@ -80,7 +82,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Sets a new value for {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -91,7 +94,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isDataNull()
 	{
 		return ItemCacheDataItem.data.isNull(this);
@@ -100,7 +104,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDataLength()
 	{
 		return ItemCacheDataItem.data.getLength(this);
@@ -109,7 +114,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Returns the value of the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	byte[] getDataArray()
 	{
@@ -119,7 +125,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
@@ -130,7 +137,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getData(@javax.annotation.Nonnull final java.nio.file.Path data)
 			throws
 				java.io.IOException
@@ -141,7 +149,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
@@ -152,7 +161,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDataInternal(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		ItemCacheDataItem.data.set(this,data);
@@ -161,7 +171,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDataInternal(@javax.annotation.Nullable final byte[] data)
 	{
 		ItemCacheDataItem.data.set(this,data);
@@ -170,7 +181,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDataInternal(@javax.annotation.Nullable final java.io.InputStream data)
 			throws
 				java.io.IOException
@@ -181,7 +193,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDataInternal(@javax.annotation.Nullable final java.nio.file.Path data)
 			throws
 				java.io.IOException
@@ -192,7 +205,8 @@ final class ItemCacheDataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDataInternal(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
@@ -200,19 +214,19 @@ final class ItemCacheDataItem extends Item
 		ItemCacheDataItem.data.set(this,data);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for itemCacheDataItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ItemCacheDataItem> TYPE = com.exedio.cope.TypesBound.newType(ItemCacheDataItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ItemCacheDataItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -45,19 +45,19 @@ public final class SchemaTypeStringItem extends Item
 	@MysqlExtendedVarchar static final SchemaTypeStringField f20846Ext = new SchemaTypeStringField(21846);
 
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for schemaTypeStringItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<SchemaTypeStringItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaTypeStringItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SchemaTypeStringItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

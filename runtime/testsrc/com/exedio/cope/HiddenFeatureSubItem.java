@@ -37,7 +37,8 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	/**
 	 * Creates a new HiddenFeatureSubItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	HiddenFeatureSubItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -47,13 +48,14 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	/**
 	 * Creates a new HiddenFeatureSubItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private HiddenFeatureSubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #nonHiddenSub}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getNonHiddenSub()
 	{
@@ -63,7 +65,8 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 	/**
 	 * Sets a new value for {@link #nonHiddenSub}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNonHiddenSub(@javax.annotation.Nullable final java.lang.String nonHiddenSub)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -71,19 +74,19 @@ final class HiddenFeatureSubItem extends HiddenFeatureSuperItem
 		HiddenFeatureSubItem.nonHiddenSub.set(this,nonHiddenSub);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for hiddenFeatureSubItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<HiddenFeatureSubItem> TYPE = com.exedio.cope.TypesBound.newType(HiddenFeatureSubItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private HiddenFeatureSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

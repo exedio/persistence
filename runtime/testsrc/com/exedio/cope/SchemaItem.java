@@ -78,7 +78,8 @@ final class SchemaItem extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if string, stringLong violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if string, anEnum is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SchemaItem(
 				final int nonFinalInteger,
 				@javax.annotation.Nonnull final java.lang.String string,
@@ -116,13 +117,14 @@ final class SchemaItem extends Item
 	/**
 	 * Creates a new SchemaItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private SchemaItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #nonFinalInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getNonFinalInteger()
 	{
 		return SchemaItem.nonFinalInteger.getMandatory(this);
@@ -131,7 +133,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #nonFinalInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNonFinalInteger(final int nonFinalInteger)
 	{
 		SchemaItem.nonFinalInteger.set(this,nonFinalInteger);
@@ -140,7 +143,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getString()
 	{
@@ -150,7 +154,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString(@javax.annotation.Nonnull final java.lang.String string)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -163,7 +168,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #integ}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteg()
 	{
 		return SchemaItem.integ.getMandatory(this);
@@ -172,7 +178,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #integ}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteg(final int integ)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -183,7 +190,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #doub}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	double getDoub()
 	{
 		return SchemaItem.doub.getMandatory(this);
@@ -192,7 +200,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #doub}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDoub(final double doub)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
@@ -203,7 +212,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getDate()
 	{
@@ -213,7 +223,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDate(@javax.annotation.Nonnull final java.util.Date date)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -224,7 +235,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDate()
 	{
 		SchemaItem.date.touch(this);
@@ -233,7 +245,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.util.Day getDay()
 	{
@@ -243,7 +256,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDay(@javax.annotation.Nonnull final com.exedio.cope.util.Day day)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -254,7 +268,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets today for the date field {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		SchemaItem.day.touch(this,zone);
@@ -263,7 +278,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #bool}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean getBool()
 	{
 		return SchemaItem.bool.getMandatory(this);
@@ -272,7 +288,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #bool}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBool(final boolean bool)
 	{
 		SchemaItem.bool.set(this,bool);
@@ -281,7 +298,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #anEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	SomeEnum getAnEnum()
 	{
@@ -291,7 +309,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #anEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAnEnum(@javax.annotation.Nonnull final SomeEnum anEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -303,7 +322,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	SchemaTargetItem getItem()
 	{
@@ -313,7 +333,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItem(@javax.annotation.Nonnull final SchemaTargetItem item)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -324,7 +345,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #poly}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	SchemaTargetPolymorphicItem getPoly()
 	{
@@ -334,7 +356,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #poly}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPoly(@javax.annotation.Nonnull final SchemaTargetPolymorphicItem poly)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -345,7 +368,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getStringOpt()
 	{
@@ -355,7 +379,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringOpt(@javax.annotation.Nullable final java.lang.String stringOpt)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -366,7 +391,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #integOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getIntegOpt()
 	{
@@ -376,7 +402,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #integOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntegOpt(@javax.annotation.Nullable final java.lang.Integer integOpt)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -387,7 +414,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #doubOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Double getDoubOpt()
 	{
@@ -397,7 +425,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #doubOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDoubOpt(@javax.annotation.Nullable final java.lang.Double doubOpt)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
@@ -408,7 +437,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #dateOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getDateOpt()
 	{
@@ -418,7 +448,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #dateOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDateOpt(@javax.annotation.Nullable final java.util.Date dateOpt)
 	{
 		SchemaItem.dateOpt.set(this,dateOpt);
@@ -427,7 +458,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #dateOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDateOpt()
 	{
 		SchemaItem.dateOpt.touch(this);
@@ -436,7 +468,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #dayOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.util.Day getDayOpt()
 	{
@@ -446,7 +479,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #dayOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDayOpt(@javax.annotation.Nullable final com.exedio.cope.util.Day dayOpt)
 	{
 		SchemaItem.dayOpt.set(this,dayOpt);
@@ -455,7 +489,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets today for the date field {@link #dayOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDayOpt(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		SchemaItem.dayOpt.touch(this,zone);
@@ -464,7 +499,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #boolOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Boolean getBoolOpt()
 	{
@@ -474,7 +510,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #boolOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBoolOpt(@javax.annotation.Nullable final java.lang.Boolean boolOpt)
 	{
 		SchemaItem.boolOpt.set(this,boolOpt);
@@ -483,7 +520,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #enumOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	SomeEnum getEnumOpt()
 	{
@@ -493,7 +531,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #enumOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setEnumOpt(@javax.annotation.Nullable final SomeEnum enumOpt)
 	{
 		SchemaItem.enumOpt.set(this,enumOpt);
@@ -502,7 +541,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #itemOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	SchemaTargetItem getItemOpt()
 	{
@@ -512,7 +552,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #itemOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItemOpt(@javax.annotation.Nullable final SchemaTargetItem itemOpt)
 	{
 		SchemaItem.itemOpt.set(this,itemOpt);
@@ -521,7 +562,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #polyOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	SchemaTargetPolymorphicItem getPolyOpt()
 	{
@@ -531,7 +573,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #polyOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPolyOpt(@javax.annotation.Nullable final SchemaTargetPolymorphicItem polyOpt)
 	{
 		SchemaItem.polyOpt.set(this,polyOpt);
@@ -540,7 +583,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #uniqueString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getUniqueString()
 	{
@@ -550,7 +594,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #uniqueString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -564,7 +609,8 @@ final class SchemaItem extends Item
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static SchemaItem forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
@@ -576,7 +622,8 @@ final class SchemaItem extends Item
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static SchemaItem forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
 			throws
@@ -591,7 +638,8 @@ final class SchemaItem extends Item
 	 * @param anEnum shall be equal to field {@link #anEnum}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static SchemaItem forDoubleUnique(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SomeEnum anEnum)
 	{
@@ -604,7 +652,8 @@ final class SchemaItem extends Item
 	 * @param anEnum shall be equal to field {@link #anEnum}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static SchemaItem forDoubleUniqueStrict(@javax.annotation.Nonnull final java.lang.String string,@javax.annotation.Nonnull final SomeEnum anEnum)
 			throws
@@ -616,7 +665,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringMin4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getStringMin4()
 	{
@@ -626,7 +676,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringMin4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringMin4(@javax.annotation.Nullable final java.lang.String stringMin4)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -637,7 +688,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringMax4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getStringMax4()
 	{
@@ -647,7 +699,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringMax4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringMax4(@javax.annotation.Nullable final java.lang.String stringMax4)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -658,7 +711,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringMin4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getStringMin4Max8()
 	{
@@ -668,7 +722,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringMin4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringMin4Max8(@javax.annotation.Nullable final java.lang.String stringMin4Max8)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -679,7 +734,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringExact6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getStringExact6()
 	{
@@ -689,7 +745,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringExact6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringExact6(@javax.annotation.Nullable final java.lang.String stringExact6)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -700,7 +757,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringUpper6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getStringUpper6()
 	{
@@ -710,7 +768,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringUpper6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringUpper6(@javax.annotation.Nullable final java.lang.String stringUpper6)
 			throws
 				com.exedio.cope.StringLengthViolationException,
@@ -722,7 +781,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringEmpty}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getStringEmpty()
 	{
@@ -732,7 +792,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringEmpty}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringEmpty(@javax.annotation.Nullable final java.lang.String stringEmpty)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -743,7 +804,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of {@link #stringLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getStringLong()
 	{
@@ -753,7 +815,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for {@link #stringLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringLong(@javax.annotation.Nonnull final java.lang.String stringLong)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -765,7 +828,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isDataNull()
 	{
 		return SchemaItem.data.isNull(this);
@@ -774,7 +838,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	long getDataLength()
 	{
 		return SchemaItem.data.getLength(this);
@@ -783,7 +848,8 @@ final class SchemaItem extends Item
 	/**
 	 * Returns the value of the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	byte[] getDataArray()
 	{
@@ -793,7 +859,8 @@ final class SchemaItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
@@ -804,7 +871,8 @@ final class SchemaItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getData(@javax.annotation.Nonnull final java.nio.file.Path data)
 			throws
 				java.io.IOException
@@ -815,7 +883,8 @@ final class SchemaItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
@@ -826,7 +895,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setData(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		SchemaItem.data.set(this,data);
@@ -835,7 +905,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setData(@javax.annotation.Nullable final byte[] data)
 	{
 		SchemaItem.data.set(this,data);
@@ -844,7 +915,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setData(@javax.annotation.Nullable final java.io.InputStream data)
 			throws
 				java.io.IOException
@@ -855,7 +927,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setData(@javax.annotation.Nullable final java.nio.file.Path data)
 			throws
 				java.io.IOException
@@ -866,7 +939,8 @@ final class SchemaItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
@@ -874,19 +948,19 @@ final class SchemaItem extends Item
 		SchemaItem.data.set(this,data);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for schemaItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<SchemaItem> TYPE = com.exedio.cope.TypesBound.newType(SchemaItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SchemaItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

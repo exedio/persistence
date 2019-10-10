@@ -77,7 +77,8 @@ final class SettableItem extends Item
 	 * @param fixedParamBound the initial value for field {@link #fixedParamBound}.
 	 * @param fixedParamBoundSub the initial value for field {@link #fixedParamBoundSub}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SettableItem(
 				@javax.annotation.Nonnull final AtomicInteger open,
 				@javax.annotation.Nonnull final AtomicReference<AtomicLong> openParam,
@@ -113,46 +114,50 @@ final class SettableItem extends Item
 	/**
 	 * Creates a new SettableItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private SettableItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static AtomicInteger methodOpen(final AtomicInteger open)
 	{
 		return SettableItem.open.method(open);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static AtomicReference<AtomicLong> methodOpenParam(final AtomicReference<AtomicLong> openParam)
 	{
 		return SettableItem.openParam.method(openParam);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static AtomicReference<?> methodOpenParamWildcard(final AtomicReference<?> openParamWildcard)
 	{
 		return SettableItem.openParamWildcard.method(openParamWildcard);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static AtomicReference<? extends AtomicLong> methodOpenParamBound(final AtomicReference<? extends AtomicLong> openParamBound)
 	{
 		return SettableItem.openParamBound.method(openParamBound);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for settableItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<SettableItem> TYPE = com.exedio.cope.TypesBound.newType(SettableItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SettableItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

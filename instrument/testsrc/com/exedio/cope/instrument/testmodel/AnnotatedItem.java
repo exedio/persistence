@@ -95,7 +95,8 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		 * Creates a new AnnotatedItem with all the fields initially needed.
 		 * @param initialFeature the initial value for field {@link #initialFeature}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private AnnotatedItem(
 					@javax.annotation.Nullable final java.lang.String initialFeature)
 		{
@@ -107,46 +108,53 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		/**
 		 * Creates a new AnnotatedItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		public AnnotatedItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final java.lang.String oneInitialFeature()
 		{
 			return AnnotatedItem.initialFeature.one(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		public final java.lang.String onePublicFeature()
 		{
 			return AnnotatedItem.publicFeature.one(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		final java.lang.String onePackageFeature()
 		{
 			return AnnotatedItem.packageFeature.one(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		protected final java.lang.String oneProtectedFeature()
 		{
 			return AnnotatedItem.protectedFeature.one(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private java.lang.String onePrivateFeature()
 		{
 			return AnnotatedItem.privateFeature.one(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private java.lang.String oneNonFinalFeature()
 		{
 			return AnnotatedItem.nonFinalFeature.one(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private java.lang.String oneInternalFeatureInternal()
 		{
 			return AnnotatedItem.internalFeature.one(this);
@@ -155,7 +163,8 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		/**
 		 * Returns the value of {@link #booleanAsIsFeature}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		private java.lang.Boolean isBooleanAsIsFeature()
 		{
@@ -165,7 +174,8 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		/**
 		 * Sets a new value for {@link #booleanAsIsFeature}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private void setBooleanAsIsFeature(@javax.annotation.Nullable final java.lang.Boolean booleanAsIsFeature)
 		{
 			AnnotatedItem.booleanAsIsFeature.set(this,booleanAsIsFeature);
@@ -174,7 +184,8 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		/**
 		 * Returns the value of {@link #booleanAsIsPublicFeature}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		public final java.lang.Boolean isBooleanAsIsPublicFeature()
 		{
@@ -184,32 +195,34 @@ public class AnnotatedItem extends Item implements OneOverrideFeatureable
 		/**
 		 * Sets a new value for {@link #booleanAsIsPublicFeature}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private void setBooleanAsIsPublicFeature(@javax.annotation.Nullable final java.lang.Boolean booleanAsIsPublicFeature)
 		{
 			AnnotatedItem.booleanAsIsPublicFeature.set(this,booleanAsIsPublicFeature);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@java.lang.Override
 		public final java.lang.String oneOverrideFeature()
 		{
 			return AnnotatedItem.overrideFeature.one(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for annotatedItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		private static final com.exedio.cope.Type<AnnotatedItem> TYPE = com.exedio.cope.TypesBound.newType(AnnotatedItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		AnnotatedItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

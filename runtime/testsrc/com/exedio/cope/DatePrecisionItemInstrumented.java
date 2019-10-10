@@ -55,7 +55,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	 * @throws com.exedio.cope.DatePrecisionViolationException if seconds, minutes, hours, finalSeconds, finalMinutes, finalHours, pastSeconds, pastMinutes, pastHours violates its precision constraint.
 	 * @throws com.exedio.cope.MandatoryViolationException if millis, seconds, minutes, hours, finalMillis, finalSeconds, finalMinutes, finalHours, pastMillis, pastSeconds, pastMinutes, pastHours is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DatePrecisionItemInstrumented(
 				@javax.annotation.Nonnull final java.util.Date millis,
 				@javax.annotation.Nonnull final java.util.Date seconds,
@@ -92,13 +93,14 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Creates a new DatePrecisionItemInstrumented and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DatePrecisionItemInstrumented(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #millis}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getMillis()
 	{
@@ -108,7 +110,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #millis}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMillis(@javax.annotation.Nonnull final java.util.Date millis)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -119,7 +122,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets the current date for the date field {@link #millis}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchMillis()
 	{
 		DatePrecisionItemInstrumented.millis.touch(this);
@@ -128,7 +132,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #seconds}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getSeconds()
 	{
@@ -138,7 +143,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #seconds}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSeconds(@javax.annotation.Nonnull final java.util.Date seconds)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -150,7 +156,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #seconds}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSecondsRounded(@javax.annotation.Nonnull final java.util.Date seconds,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -162,7 +169,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #minutes}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getMinutes()
 	{
@@ -172,7 +180,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #minutes}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMinutes(@javax.annotation.Nonnull final java.util.Date minutes)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -184,7 +193,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #minutes}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMinutesRounded(@javax.annotation.Nonnull final java.util.Date minutes,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -196,7 +206,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #hours}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getHours()
 	{
@@ -206,7 +217,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #hours}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setHours(@javax.annotation.Nonnull final java.util.Date hours)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -218,7 +230,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #hours}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setHoursRounded(@javax.annotation.Nonnull final java.util.Date hours,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -230,7 +243,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #finalMillis}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getFinalMillis()
 	{
@@ -240,7 +254,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #finalSeconds}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getFinalSeconds()
 	{
@@ -250,7 +265,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #finalMinutes}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getFinalMinutes()
 	{
@@ -260,7 +276,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #finalHours}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getFinalHours()
 	{
@@ -270,7 +287,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #pastMillis}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getPastMillis()
 	{
@@ -280,7 +298,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastMillis}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastMillis(@javax.annotation.Nonnull final java.util.Date pastMillis)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -291,7 +310,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets the current date for the date field {@link #pastMillis}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchPastMillis()
 	{
 		DatePrecisionItemInstrumented.pastMillis.touch(this);
@@ -300,7 +320,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #pastSeconds}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getPastSeconds()
 	{
@@ -310,7 +331,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastSeconds}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastSeconds(@javax.annotation.Nonnull final java.util.Date pastSeconds)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -322,7 +344,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastSeconds}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastSecondsRounded(@javax.annotation.Nonnull final java.util.Date pastSeconds)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -333,7 +356,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastSeconds}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastSecondsRounded(@javax.annotation.Nonnull final java.util.Date pastSeconds,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -345,7 +369,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets the current date for the date field {@link #pastSeconds}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchPastSeconds()
 	{
 		DatePrecisionItemInstrumented.pastSeconds.touch(this);
@@ -354,7 +379,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #pastMinutes}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getPastMinutes()
 	{
@@ -364,7 +390,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastMinutes}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastMinutes(@javax.annotation.Nonnull final java.util.Date pastMinutes)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -376,7 +403,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastMinutes}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastMinutesRounded(@javax.annotation.Nonnull final java.util.Date pastMinutes)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -387,7 +415,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastMinutes}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastMinutesRounded(@javax.annotation.Nonnull final java.util.Date pastMinutes,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -399,7 +428,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets the current date for the date field {@link #pastMinutes}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchPastMinutes()
 	{
 		DatePrecisionItemInstrumented.pastMinutes.touch(this);
@@ -408,7 +438,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Returns the value of {@link #pastHours}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getPastHours()
 	{
@@ -418,7 +449,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastHours}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastHours(@javax.annotation.Nonnull final java.util.Date pastHours)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -430,7 +462,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastHours}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastHoursRounded(@javax.annotation.Nonnull final java.util.Date pastHours)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -441,7 +474,8 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets a new value for {@link #pastHours}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastHoursRounded(@javax.annotation.Nonnull final java.util.Date pastHours,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -453,25 +487,26 @@ public final class DatePrecisionItemInstrumented extends Item
 	/**
 	 * Sets the current date for the date field {@link #pastHours}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchPastHours()
 	{
 		DatePrecisionItemInstrumented.pastHours.touch(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for datePrecisionItemInstrumented.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DatePrecisionItemInstrumented> TYPE = com.exedio.cope.TypesBound.newType(DatePrecisionItemInstrumented.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DatePrecisionItemInstrumented(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

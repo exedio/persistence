@@ -94,7 +94,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param doubleField the initial value for field {@link #doubleField}.
 		 * @throws com.exedio.cope.UniqueViolationException if booleanField, integerField, longField, doubleField is not unique.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		MyItem(
 					final boolean booleanField,
 					final int integerField,
@@ -114,13 +115,14 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Creates a new MyItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #booleanField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean getBooleanField()
 		{
 			return MyItem.booleanField.getMandatory(this);
@@ -129,7 +131,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #booleanField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setBooleanField(final boolean booleanField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -142,7 +145,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param booleanField shall be equal to field {@link #booleanField}.
 		 * @return null if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forBooleanField(final boolean booleanField)
 		{
@@ -154,7 +158,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param booleanField shall be equal to field {@link #booleanField}.
 		 * @throws java.lang.IllegalArgumentException if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forBooleanFieldStrict(final boolean booleanField)
 				throws
@@ -166,7 +171,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #integerField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getIntegerField()
 		{
 			return MyItem.integerField.getMandatory(this);
@@ -175,7 +181,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #integerField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setIntegerField(final int integerField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -188,7 +195,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param integerField shall be equal to field {@link #integerField}.
 		 * @return null if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forIntegerField(final int integerField)
 		{
@@ -200,7 +208,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param integerField shall be equal to field {@link #integerField}.
 		 * @throws java.lang.IllegalArgumentException if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forIntegerFieldStrict(final int integerField)
 				throws
@@ -212,7 +221,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #longField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		long getLongField()
 		{
 			return MyItem.longField.getMandatory(this);
@@ -221,7 +231,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #longField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setLongField(final long longField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -234,7 +245,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param longField shall be equal to field {@link #longField}.
 		 * @return null if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forLongField(final long longField)
 		{
@@ -246,7 +258,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param longField shall be equal to field {@link #longField}.
 		 * @throws java.lang.IllegalArgumentException if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forLongFieldStrict(final long longField)
 				throws
@@ -258,7 +271,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #doubleField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		double getDoubleField()
 		{
 			return MyItem.doubleField.getMandatory(this);
@@ -267,7 +281,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #doubleField}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setDoubleField(final double doubleField)
 				throws
 					com.exedio.cope.UniqueViolationException
@@ -280,7 +295,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param doubleField shall be equal to field {@link #doubleField}.
 		 * @return null if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forDoubleField(final double doubleField)
 		{
@@ -292,7 +308,8 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * @param doubleField shall be equal to field {@link #doubleField}.
 		 * @throws java.lang.IllegalArgumentException if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forDoubleFieldStrict(final double doubleField)
 				throws
@@ -301,20 +318,20 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 			return MyItem.doubleField.searchUniqueStrict(MyItem.class,doubleField);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for myItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

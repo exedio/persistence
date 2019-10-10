@@ -84,7 +84,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Creates a new MediaPathItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public MediaPathItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -94,13 +95,14 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Creates a new MediaPathItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private MediaPathItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #catchphrase}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getCatchphrase()
 	{
@@ -110,7 +112,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Sets a new value for {@link #catchphrase}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCatchphrase(@javax.annotation.Nullable final java.lang.String catchphrase)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -121,7 +124,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns the value of {@link #cacheControlMaximumAge}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.lang.String getCacheControlMaximumAgeInternal()
 	{
@@ -131,7 +135,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Sets a new value for {@link #cacheControlMaximumAge}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCacheControlMaximumAge(@javax.annotation.Nullable final java.lang.String cacheControlMaximumAge)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -142,7 +147,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns the value of {@link #cacheControlPrivate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean getCacheControlPrivate()
 	{
 		return MediaPathItem.cacheControlPrivate.getMandatory(this);
@@ -151,7 +157,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Sets a new value for {@link #cacheControlPrivate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCacheControlPrivate(final boolean cacheControlPrivate)
 	{
 		MediaPathItem.cacheControlPrivate.set(this,cacheControlPrivate);
@@ -160,7 +167,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns the value of {@link #accessControlAllowOriginWildcard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean getAccessControlAllowOriginWildcard()
 	{
 		return MediaPathItem.accessControlAllowOriginWildcard.getMandatory(this);
@@ -169,7 +177,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Sets a new value for {@link #accessControlAllowOriginWildcard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAccessControlAllowOriginWildcard(final boolean accessControlAllowOriginWildcard)
 	{
 		MediaPathItem.accessControlAllowOriginWildcard.set(this,accessControlAllowOriginWildcard);
@@ -178,7 +187,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns a Locator the content of {@link #normal} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getNormalLocator()
 	{
@@ -188,26 +198,30 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns the content type of the media {@link #normal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getNormalContentType()
 	{
 		return MediaPathItem.normal.getContentType(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNormalContentType(final java.lang.String normal)
 	{
 		MediaPathItem.normal.setContentType(this,normal);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNormalLastModified(final java.util.Date normal)
 	{
 		MediaPathItem.normal.setLastModified(this,normal);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setResult")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNormalResult(final com.exedio.cope.pattern.MediaPathFeature.Result normal)
 	{
 		MediaPathItem.normal.setResult(this,normal);
@@ -216,7 +230,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns a Locator the content of {@link #finger} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getFingerLocator()
 	{
@@ -226,26 +241,30 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns the content type of the media {@link #finger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getFingerContentType()
 	{
 		return MediaPathItem.finger.getContentType(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFingerContentType(final java.lang.String finger)
 	{
 		MediaPathItem.finger.setContentType(this,finger);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFingerLastModified(final java.util.Date finger)
 	{
 		MediaPathItem.finger.setLastModified(this,finger);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setResult")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFingerResult(final com.exedio.cope.pattern.MediaPathFeature.Result finger)
 	{
 		MediaPathItem.finger.setResult(this,finger);
@@ -254,7 +273,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns a Locator the content of {@link #guess} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getGuessLocator()
 	{
@@ -264,26 +284,30 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns the content type of the media {@link #guess}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getGuessContentType()
 	{
 		return MediaPathItem.guess.getContentType(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setGuessContentType(final java.lang.String guess)
 	{
 		MediaPathItem.guess.setContentType(this,guess);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setGuessLastModified(final java.util.Date guess)
 	{
 		MediaPathItem.guess.setLastModified(this,guess);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setResult")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result guess)
 	{
 		MediaPathItem.guess.setResult(this,guess);
@@ -292,7 +316,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns a Locator the content of {@link #fingerGuess} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.MediaPath.Locator getFingerGuessLocator()
 	{
@@ -302,44 +327,48 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	/**
 	 * Returns the content type of the media {@link #fingerGuess}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getFingerGuessContentType()
 	{
 		return MediaPathItem.fingerGuess.getContentType(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFingerGuessContentType(final java.lang.String fingerGuess)
 	{
 		MediaPathItem.fingerGuess.setContentType(this,fingerGuess);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFingerGuessLastModified(final java.util.Date fingerGuess)
 	{
 		MediaPathItem.fingerGuess.setLastModified(this,fingerGuess);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setResult")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setResult")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFingerGuessResult(final com.exedio.cope.pattern.MediaPathFeature.Result fingerGuess)
 	{
 		MediaPathItem.fingerGuess.setResult(this,fingerGuess);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for mediaPathItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<MediaPathItem> TYPE = com.exedio.cope.TypesBound.newType(MediaPathItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private MediaPathItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

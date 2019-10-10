@@ -169,7 +169,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #aString}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getAString()
 		{
@@ -179,7 +180,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets a new value for {@link #aString}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAString(@javax.annotation.Nonnull final java.lang.String aString)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -191,7 +193,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #anInt}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getAnInt()
 		{
 			return field().of(ABlock.anInt).getMandatory(item());
@@ -200,7 +203,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets a new value for {@link #anInt}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAnInt(final int anInt)
 		{
 			field().of(ABlock.anInt).set(item(),anInt);
@@ -209,7 +213,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #anEnum}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		AnEnum getAnEnum()
 		{
@@ -219,7 +224,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets a new value for {@link #anEnum}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAnEnum(@javax.annotation.Nonnull final AnEnum anEnum)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -230,7 +236,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #anItem}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		AnItem getAnItem()
 		{
@@ -240,7 +247,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets a new value for {@link #anItem}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAnItem(@javax.annotation.Nullable final AnItem anItem)
 		{
 			field().of(ABlock.anItem).set(item(),anItem);
@@ -249,7 +257,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #aColor}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.awt.Color getAColor()
 		{
@@ -259,7 +268,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets a new value for {@link #aColor}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAColor(@javax.annotation.Nonnull final java.awt.Color aColor)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -271,7 +281,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns a Locator the content of {@link #aMedia} is available under.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		com.exedio.cope.pattern.MediaPath.Locator getAMediaLocator()
 		{
@@ -281,7 +292,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the content type of the media {@link #aMedia}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.lang.String getAMediaContentType()
 		{
@@ -291,7 +303,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns whether media {@link #aMedia} is null.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean isAMediaNull()
 		{
 			return field().of(ABlock.aMedia).isNull(item());
@@ -300,7 +313,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the last modification date of media {@link #aMedia}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		java.util.Date getAMediaLastModified()
 		{
@@ -310,7 +324,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the body length of the media {@link #aMedia}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		long getAMediaLength()
 		{
 			return field().of(ABlock.aMedia).getLength(item());
@@ -319,7 +334,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the body of the media {@link #aMedia}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		byte[] getAMediaBody()
 		{
@@ -331,7 +347,8 @@ public class BlockFieldStandardModelTest
 		 * Does nothing, if the media is null.
 		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getAMediaBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 				throws
 					java.io.IOException
@@ -344,7 +361,8 @@ public class BlockFieldStandardModelTest
 		 * Does nothing, if the media is null.
 		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getAMediaBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 				throws
 					java.io.IOException
@@ -357,7 +375,8 @@ public class BlockFieldStandardModelTest
 		 * Does nothing, if the media is null.
 		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void getAMediaBody(@javax.annotation.Nonnull final java.io.File body)
 				throws
 					java.io.IOException
@@ -369,7 +388,8 @@ public class BlockFieldStandardModelTest
 		 * Sets the content of media {@link #aMedia}.
 		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAMedia(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value aMedia)
 				throws
 					java.io.IOException
@@ -380,7 +400,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets the content of media {@link #aMedia}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAMedia(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 		{
 			field().of(ABlock.aMedia).set(item(),body,contentType);
@@ -390,7 +411,8 @@ public class BlockFieldStandardModelTest
 		 * Sets the content of media {@link #aMedia}.
 		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAMedia(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -402,7 +424,8 @@ public class BlockFieldStandardModelTest
 		 * Sets the content of media {@link #aMedia}.
 		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAMedia(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -414,7 +437,8 @@ public class BlockFieldStandardModelTest
 		 * Sets the content of media {@link #aMedia}.
 		 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAMedia(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 				throws
 					java.io.IOException
@@ -425,7 +449,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #aList}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.util.List<String> getAList()
 		{
@@ -435,7 +460,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns a query for the value of {@link #aList}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		com.exedio.cope.Query<String> getAListQuery()
 		{
@@ -445,7 +471,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Adds a new value for {@link #aList}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void addToAList(@javax.annotation.Nonnull final String aList)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -459,7 +486,8 @@ public class BlockFieldStandardModelTest
 		 * Removes all occurrences of {@code element} from {@link #aList}.
 		 * @return {@code true} if the field set changed as a result of the call.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeAllFrom")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean removeAllFromAList(@javax.annotation.Nonnull final String aList)
 		{
 			return field().of(ABlock.aList).removeAll(item(),aList);
@@ -468,7 +496,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets a new value for {@link #aList}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAList(@javax.annotation.Nonnull final java.util.Collection<? extends String> aList)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -481,7 +510,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #aSet}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.util.Set<Integer> getASet()
 		{
@@ -491,7 +521,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns a query for the value of {@link #aSet}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		com.exedio.cope.Query<Integer> getASetQuery()
 		{
@@ -501,7 +532,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Sets a new value for {@link #aSet}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setASet(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> aSet)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -514,7 +546,8 @@ public class BlockFieldStandardModelTest
 		 * Adds a new element to {@link #aSet}.
 		 * @return {@code true} if the field set changed as a result of the call.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean addToASet(@javax.annotation.Nonnull final Integer element)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -527,7 +560,8 @@ public class BlockFieldStandardModelTest
 		 * Removes an element from {@link #aSet}.
 		 * @return {@code true} if the field set changed as a result of the call.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeFrom")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeFrom")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		boolean removeFromASet(@javax.annotation.Nonnull final Integer element)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -539,7 +573,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value mapped to {@code k} by the field map {@link #anEnumMap}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		Integer getAnEnumMap(@javax.annotation.Nonnull final AnEnum k)
 		{
@@ -549,39 +584,42 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Associates {@code k} to a new value in the field map {@link #anEnumMap}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAnEnumMap(@javax.annotation.Nonnull final AnEnum k,@javax.annotation.Nullable final Integer anEnumMap)
 		{
 			field().of(ABlock.anEnumMap).set(item(),k,anEnumMap);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.util.Map<AnEnum,Integer> getAnEnumMapMap()
 		{
 			return field().of(ABlock.anEnumMap).getMap(item());
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setAnEnumMapMap(@javax.annotation.Nonnull final java.util.Map<? extends AnEnum,? extends Integer> anEnumMap)
 		{
 			field().of(ABlock.anEnumMap).setMap(item(),anEnumMap);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The type information for aBlock.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
@@ -615,7 +653,8 @@ public class BlockFieldStandardModelTest
 		 * @throws com.exedio.cope.MandatoryViolationException if code is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnItem(
 					@javax.annotation.Nonnull final java.lang.String code)
 				throws
@@ -630,13 +669,14 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Creates a new AnItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #code}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getCode()
 		{
@@ -646,7 +686,8 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #eins}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		ABlock eins()
 		{
@@ -656,27 +697,28 @@ public class BlockFieldStandardModelTest
 		/**
 		 * Returns the value of {@link #zwei}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		ABlock zwei()
 		{
 			return AnItem.zwei.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for anItem.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

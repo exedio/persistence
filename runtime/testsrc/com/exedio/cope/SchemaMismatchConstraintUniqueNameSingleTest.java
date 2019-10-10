@@ -69,20 +69,23 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	{
 		static final IntegerField fieldA = new IntegerField().unique().toFinal(); // avoid update counter
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getFieldA()
 		{
 			return ItemA.fieldA.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static ItemA forFieldA(final int fieldA)
 		{
 			return ItemA.fieldA.searchUnique(ItemA.class,fieldA);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static ItemA forFieldAStrict(final int fieldA)
 				throws
@@ -91,13 +94,13 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 			return ItemA.fieldA.searchUniqueStrict(ItemA.class,fieldA);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -107,20 +110,23 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 	{
 		static final IntegerField fieldB = new IntegerField().unique().toFinal(); // avoid update counter
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		int getFieldB()
 		{
 			return ItemB.fieldB.getMandatory(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static ItemB forFieldB(final int fieldB)
 		{
 			return ItemB.fieldB.searchUnique(ItemB.class,fieldB);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static ItemB forFieldBStrict(final int fieldB)
 				throws
@@ -129,13 +135,13 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 			return ItemB.fieldB.searchUniqueStrict(ItemB.class,fieldB);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

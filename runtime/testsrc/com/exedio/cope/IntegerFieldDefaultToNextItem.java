@@ -32,7 +32,8 @@ final class IntegerFieldDefaultToNextItem extends Item
 	/**
 	 * Creates a new IntegerFieldDefaultToNextItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	IntegerFieldDefaultToNextItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -42,13 +43,14 @@ final class IntegerFieldDefaultToNextItem extends Item
 	/**
 	 * Creates a new IntegerFieldDefaultToNextItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	IntegerFieldDefaultToNextItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #next}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getNext()
 	{
@@ -58,7 +60,8 @@ final class IntegerFieldDefaultToNextItem extends Item
 	/**
 	 * Sets a new value for {@link #next}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNext(@javax.annotation.Nullable final java.lang.Integer next)
 	{
 		IntegerFieldDefaultToNextItem.next.set(this,next);
@@ -67,7 +70,8 @@ final class IntegerFieldDefaultToNextItem extends Item
 	/**
 	 * Returns the value of {@link #none}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getNone()
 	{
@@ -77,25 +81,26 @@ final class IntegerFieldDefaultToNextItem extends Item
 	/**
 	 * Sets a new value for {@link #none}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNone(@javax.annotation.Nullable final java.lang.Integer none)
 	{
 		IntegerFieldDefaultToNextItem.none.set(this,none);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for integerFieldDefaultToNextItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<IntegerFieldDefaultToNextItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerFieldDefaultToNextItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private IntegerFieldDefaultToNextItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

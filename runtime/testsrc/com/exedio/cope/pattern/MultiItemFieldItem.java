@@ -67,7 +67,8 @@ final class MultiItemFieldItem extends Item
 	 * @param field the initial value for field {@link #field}.
 	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	MultiItemFieldItem(
 				@javax.annotation.Nonnull final MultiItemFieldValuex field)
 			throws
@@ -81,13 +82,14 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Creates a new MultiItemFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private MultiItemFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	MultiItemFieldValuex getField()
 	{
@@ -97,7 +99,8 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField(@javax.annotation.Nonnull final MultiItemFieldValuex field)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -108,7 +111,8 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Returns the value of {@link #optionalField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	MultiItemFieldValuex getOptionalField()
 	{
@@ -118,7 +122,8 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #optionalField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOptionalField(@javax.annotation.Nullable final MultiItemFieldValuex optionalField)
 	{
 		MultiItemFieldItem.optionalField.set(this,optionalField);
@@ -127,7 +132,8 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Returns the value of {@link #uniqueField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	MultiItemFieldValuex getUniqueField()
 	{
@@ -137,7 +143,8 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #uniqueField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUniqueField(@javax.annotation.Nullable final MultiItemFieldValuex uniqueField)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -150,7 +157,8 @@ final class MultiItemFieldItem extends Item
 	 * @param uniqueField shall be equal to field {@link #uniqueField}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static MultiItemFieldItem forUniqueField(@javax.annotation.Nonnull final MultiItemFieldValuex uniqueField)
 	{
@@ -162,7 +170,8 @@ final class MultiItemFieldItem extends Item
 	 * @param uniqueField shall be equal to field {@link #uniqueField}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static MultiItemFieldItem forUniqueFieldStrict(@javax.annotation.Nonnull final MultiItemFieldValuex uniqueField)
 			throws
@@ -174,7 +183,8 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Returns the container this item is part of by {@link #partOfClassA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContainer")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	MultiItemFieldComponentxA getPartOfClassAContainer()
 	{
@@ -184,7 +194,8 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Returns the parts of the given container.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<MultiItemFieldItem> getPartOfClassAParts(@javax.annotation.Nullable final MultiItemFieldComponentxA container)
 	{
@@ -194,26 +205,27 @@ final class MultiItemFieldItem extends Item
 	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<MultiItemFieldItem> getPartOfClassAParts(@javax.annotation.Nullable final MultiItemFieldComponentxA container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
 		return MultiItemFieldItem.partOfClassA.getParts(MultiItemFieldItem.class,container,condition);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for multiItemFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<MultiItemFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private MultiItemFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

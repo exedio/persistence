@@ -25,7 +25,8 @@ public class MultiItemFieldComponentD extends Item implements MultiItemFieldValu
 	/**
 	 * Creates a new MultiItemFieldComponentD with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public MultiItemFieldComponentD()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -35,22 +36,22 @@ public class MultiItemFieldComponentD extends Item implements MultiItemFieldValu
 	/**
 	 * Creates a new MultiItemFieldComponentD and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected MultiItemFieldComponentD(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for multiItemFieldComponentD.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<MultiItemFieldComponentD> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentD.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected MultiItemFieldComponentD(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -78,7 +78,8 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 * @throws com.exedio.cope.StringLengthViolationException if other violates its length constraint.
 		 * @throws com.exedio.cope.UniqueViolationException if price, other is not unique.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		ItemWithUniquePrice(
 					@javax.annotation.Nonnull final com.exedio.cope.pattern.Price price,
 					@javax.annotation.Nonnull final java.lang.String other)
@@ -96,13 +97,14 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		/**
 		 * Creates a new ItemWithUniquePrice and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private ItemWithUniquePrice(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #price}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		public com.exedio.cope.pattern.Price getPrice()
 		{
@@ -112,7 +114,8 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #price}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		public void setPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price price)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -124,7 +127,8 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #other}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		public java.lang.String getOther()
 		{
@@ -134,7 +138,8 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #other}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		public void setOther(@javax.annotation.Nonnull final java.lang.String other)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -150,7 +155,8 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 * @param other shall be equal to field {@link #other}.
 		 * @return null if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		public static ItemWithUniquePrice forPriceAndOther(final long price_int,@javax.annotation.Nonnull final java.lang.String other)
 		{
@@ -163,7 +169,8 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 * @param other shall be equal to field {@link #other}.
 		 * @throws java.lang.IllegalArgumentException if there is no matching item.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		public static ItemWithUniquePrice forPriceAndOtherStrict(final long price_int,@javax.annotation.Nonnull final java.lang.String other)
 				throws
@@ -172,20 +179,20 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 			return ItemWithUniquePrice.priceAndOther.searchStrict(ItemWithUniquePrice.class,price_int,other);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for itemWithUniquePrice.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<ItemWithUniquePrice> TYPE = com.exedio.cope.TypesBound.newType(ItemWithUniquePrice.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ItemWithUniquePrice(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

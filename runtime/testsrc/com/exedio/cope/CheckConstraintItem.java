@@ -61,7 +61,8 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	 * @param gamma the initial value for field {@link #gamma}.
 	 * @param delta the initial value for field {@link #delta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public CheckConstraintItem(
 				@javax.annotation.Nullable final java.lang.Integer eins,
 				@javax.annotation.Nullable final java.lang.Integer zwei,
@@ -85,13 +86,14 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Creates a new CheckConstraintItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CheckConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getAlpha()
 	{
@@ -101,7 +103,8 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Sets a new value for {@link #alpha}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setAlpha(@javax.annotation.Nullable final java.lang.Integer alpha)
 	{
 		CheckConstraintItem.alpha.set(this,alpha);
@@ -110,7 +113,8 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Returns the value of {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getBeta()
 	{
@@ -120,7 +124,8 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Sets a new value for {@link #beta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setBeta(@javax.annotation.Nullable final java.lang.Integer beta)
 	{
 		CheckConstraintItem.beta.set(this,beta);
@@ -129,7 +134,8 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Returns the value of {@link #gamma}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getGamma()
 	{
@@ -139,7 +145,8 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Sets a new value for {@link #gamma}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setGamma(@javax.annotation.Nullable final java.lang.Integer gamma)
 	{
 		CheckConstraintItem.gamma.set(this,gamma);
@@ -148,7 +155,8 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Returns the value of {@link #delta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getDelta()
 	{
@@ -158,25 +166,26 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	/**
 	 * Sets a new value for {@link #delta}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDelta(@javax.annotation.Nullable final java.lang.Integer delta)
 	{
 		CheckConstraintItem.delta.set(this,delta);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for checkConstraintItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<CheckConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CheckConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

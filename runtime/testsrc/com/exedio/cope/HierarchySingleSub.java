@@ -36,7 +36,8 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	/**
 	 * Creates a new HierarchySingleSub with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public HierarchySingleSub()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -46,13 +47,14 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	/**
 	 * Creates a new HierarchySingleSub and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private HierarchySingleSub(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getSubString()
 	{
@@ -62,7 +64,8 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	/**
 	 * Sets a new value for {@link #subString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSubString(@javax.annotation.Nullable final java.lang.String subString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -73,7 +76,8 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	/**
 	 * Returns the value of {@link #hierarchySuper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public HierarchySuper getHierarchySuper()
 	{
@@ -83,25 +87,26 @@ public final class HierarchySingleSub extends HierarchySingleSuper
 	/**
 	 * Sets a new value for {@link #hierarchySuper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setHierarchySuper(@javax.annotation.Nullable final HierarchySuper hierarchySuper)
 	{
 		HierarchySingleSub.hierarchySuper.set(this,hierarchySuper);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for hierarchySingleSub.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<HierarchySingleSub> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSub.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private HierarchySingleSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

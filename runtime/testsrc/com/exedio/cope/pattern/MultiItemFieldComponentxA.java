@@ -25,7 +25,8 @@ public class MultiItemFieldComponentxA extends Item implements MultiItemFieldVal
 	/**
 	 * Creates a new MultiItemFieldComponentxA with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public MultiItemFieldComponentxA()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -35,22 +36,22 @@ public class MultiItemFieldComponentxA extends Item implements MultiItemFieldVal
 	/**
 	 * Creates a new MultiItemFieldComponentxA and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected MultiItemFieldComponentxA(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for multiItemFieldComponentxA.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<MultiItemFieldComponentxA> TYPE = com.exedio.cope.TypesBound.newType(MultiItemFieldComponentxA.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected MultiItemFieldComponentxA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

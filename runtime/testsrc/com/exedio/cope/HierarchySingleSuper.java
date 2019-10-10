@@ -25,7 +25,8 @@ public abstract class HierarchySingleSuper extends Item
 	/**
 	 * Creates a new HierarchySingleSuper with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	protected HierarchySingleSuper()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -35,13 +36,14 @@ public abstract class HierarchySingleSuper extends Item
 	/**
 	 * Creates a new HierarchySingleSuper and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected HierarchySingleSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #superInt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public final java.lang.Integer getSuperInt()
 	{
@@ -51,25 +53,26 @@ public abstract class HierarchySingleSuper extends Item
 	/**
 	 * Sets a new value for {@link #superInt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setSuperInt(@javax.annotation.Nullable final java.lang.Integer superInt)
 	{
 		HierarchySingleSuper.superInt.set(this,superInt);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 2l;
 
 	/**
 	 * The persistent type information for hierarchySingleSuper.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<HierarchySingleSuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySingleSuper.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected HierarchySingleSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

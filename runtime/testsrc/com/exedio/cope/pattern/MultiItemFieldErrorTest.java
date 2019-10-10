@@ -66,7 +66,7 @@ public class MultiItemFieldErrorTest
 		@Wrapper(wrap="*", visibility=NONE)
 		private static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -92,7 +92,7 @@ public class MultiItemFieldErrorTest
 		private static final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class).
 				canBe(MultiItemFieldComponentA.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 

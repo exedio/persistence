@@ -29,7 +29,8 @@ final class DayItem extends Item
 	 * @param mandatory the initial value for field {@link #mandatory}.
 	 * @throws com.exedio.cope.MandatoryViolationException if mandatory is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DayItem(
 				@javax.annotation.Nonnull final com.exedio.cope.util.Day mandatory)
 			throws
@@ -43,13 +44,14 @@ final class DayItem extends Item
 	/**
 	 * Creates a new DayItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DayItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.util.Day getMandatory()
 	{
@@ -59,7 +61,8 @@ final class DayItem extends Item
 	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMandatory(@javax.annotation.Nonnull final com.exedio.cope.util.Day mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -70,7 +73,8 @@ final class DayItem extends Item
 	/**
 	 * Sets today for the date field {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchMandatory(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.mandatory.touch(this,zone);
@@ -79,7 +83,8 @@ final class DayItem extends Item
 	/**
 	 * Returns the value of {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.util.Day getOptional()
 	{
@@ -89,7 +94,8 @@ final class DayItem extends Item
 	/**
 	 * Sets a new value for {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOptional(@javax.annotation.Nullable final com.exedio.cope.util.Day optional)
 	{
 		DayItem.optional.set(this,optional);
@@ -98,25 +104,26 @@ final class DayItem extends Item
 	/**
 	 * Sets today for the date field {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchOptional(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DayItem.optional.touch(this,zone);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for dayItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<DayItem> TYPE = com.exedio.cope.TypesBound.newType(DayItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DayItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

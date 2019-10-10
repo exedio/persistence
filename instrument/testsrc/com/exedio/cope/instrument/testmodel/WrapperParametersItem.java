@@ -55,7 +55,8 @@ class WrapperParametersItem extends Item
 	/**
 	 * Creates a new WrapperParametersItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	WrapperParametersItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -65,100 +66,113 @@ class WrapperParametersItem extends Item
 	/**
 	 * Creates a new WrapperParametersItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected WrapperParametersItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void paramFeatureInternal()
 	{
 		WrapperParametersItem.feature.param(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void paramFeature(final WrapperParametersFeature feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void paramFeature(final java.lang.Integer feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected final void paramFeature(final int feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void paramFeature(final com.exedio.cope.instrument.testfeature.WrapperParametersFeature.SomeEnum feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void paramFeatureInternal(final byte[] feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected final void paramFeatureInternal(final com.exedio.cope.Item[][] feature)
 	{
 		WrapperParametersItem.feature.param(this,feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public static final void paramFeatureInternal(final float feature)
 	{
 		WrapperParametersItem.feature.param(feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="param")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected static final void paramFeatureInternal(final double feature)
 	{
 		WrapperParametersItem.feature.param(WrapperParametersItem.class,feature);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void methodGeneric(final Float generic)
 	{
 		WrapperParametersItem.generic.method(this,generic);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodStatic")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="methodStatic")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected static final void methodGenericStatic(final Float generic)
 	{
 		WrapperParametersItem.generic.methodStatic(generic);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodParent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="methodParent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private static void methodGenericParent(final Float generic)
 	{
 		WrapperParametersItem.generic.methodParent(WrapperParametersItem.class,generic);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodEnum")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="methodEnum")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void methodGenericEnum(final MyEnum generic)
 	{
 		WrapperParametersItem.generic.methodEnum(this,generic);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for wrapperParametersItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<WrapperParametersItem> TYPE = com.exedio.cope.TypesBound.newType(WrapperParametersItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected WrapperParametersItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -70,7 +70,8 @@ public final class EnumMapFieldFinalItem extends Item
 	 * @param text the initial value for field {@link #text}.
 	 * @throws com.exedio.cope.StringLengthViolationException if text violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	EnumMapFieldFinalItem(
 				@javax.annotation.Nonnull final java.util.EnumMap<EnumMapFieldItem.Language,String> text)
 			throws
@@ -84,39 +85,41 @@ public final class EnumMapFieldFinalItem extends Item
 	/**
 	 * Creates a new EnumMapFieldFinalItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private EnumMapFieldFinalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #text}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getText(@javax.annotation.Nonnull final EnumMapFieldItem.Language k)
 	{
 		return EnumMapFieldFinalItem.text.get(this,k);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<EnumMapFieldItem.Language,String> getTextMap()
 	{
 		return EnumMapFieldFinalItem.text.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for enumMapFieldFinalItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<EnumMapFieldFinalItem> TYPE = com.exedio.cope.TypesBound.newType(EnumMapFieldFinalItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private EnumMapFieldFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

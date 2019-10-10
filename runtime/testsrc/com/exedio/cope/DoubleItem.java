@@ -54,7 +54,8 @@ public final class DoubleItem extends Item
 	 * Creates a new DoubleItem with all the fields initially needed.
 	 * @param mandatory the initial value for field {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public DoubleItem(
 				final double mandatory)
 	{
@@ -66,13 +67,14 @@ public final class DoubleItem extends Item
 	/**
 	 * Creates a new DoubleItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	DoubleItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #any}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getAny()
 	{
@@ -82,7 +84,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #any}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setAny(@javax.annotation.Nullable final java.lang.Double any)
 	{
 		DoubleItem.any.set(this,any);
@@ -91,7 +94,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public double getMandatory()
 	{
 		return DoubleItem.mandatory.getMandatory(this);
@@ -100,7 +104,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMandatory(final double mandatory)
 	{
 		DoubleItem.mandatory.set(this,mandatory);
@@ -109,7 +114,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Returns the value of {@link #min4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getMin4()
 	{
@@ -119,7 +125,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #min4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMin4(@javax.annotation.Nullable final java.lang.Double min4)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
@@ -130,7 +137,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Returns the value of {@link #max4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getMax4()
 	{
@@ -140,7 +148,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #max4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMax4(@javax.annotation.Nullable final java.lang.Double max4)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
@@ -151,7 +160,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Returns the value of {@link #min4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getMin4Max8()
 	{
@@ -161,7 +171,8 @@ public final class DoubleItem extends Item
 	/**
 	 * Sets a new value for {@link #min4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMin4Max8(@javax.annotation.Nullable final java.lang.Double min4Max8)
 			throws
 				com.exedio.cope.DoubleRangeViolationException
@@ -169,19 +180,19 @@ public final class DoubleItem extends Item
 		DoubleItem.min4Max8.set(this,min4Max8);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for doubleItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DoubleItem> TYPE = com.exedio.cope.TypesBound.newType(DoubleItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DoubleItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

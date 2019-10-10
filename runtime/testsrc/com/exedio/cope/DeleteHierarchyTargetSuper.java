@@ -28,7 +28,8 @@ public class DeleteHierarchyTargetSuper extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if code is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if code violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DeleteHierarchyTargetSuper(
 				@javax.annotation.Nonnull final java.lang.String code)
 			throws
@@ -43,13 +44,14 @@ public class DeleteHierarchyTargetSuper extends Item
 	/**
 	 * Creates a new DeleteHierarchyTargetSuper and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected DeleteHierarchyTargetSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getCode()
 	{
@@ -59,7 +61,8 @@ public class DeleteHierarchyTargetSuper extends Item
 	/**
 	 * Sets a new value for {@link #code}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setCode(@javax.annotation.Nonnull final java.lang.String code)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -68,19 +71,19 @@ public class DeleteHierarchyTargetSuper extends Item
 		DeleteHierarchyTargetSuper.code.set(this,code);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for deleteHierarchyTargetSuper.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DeleteHierarchyTargetSuper> TYPE = com.exedio.cope.TypesBound.newType(DeleteHierarchyTargetSuper.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected DeleteHierarchyTargetSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -59,7 +59,8 @@ final class DefaultToItem extends Item
 	 * Creates a new DefaultToItem with all the fields initially needed.
 	 * @param booleanNone the initial value for field {@link #booleanNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DefaultToItem(
 				final boolean booleanNone)
 	{
@@ -71,13 +72,14 @@ final class DefaultToItem extends Item
 	/**
 	 * Creates a new DefaultToItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	DefaultToItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #booleanTrue}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Boolean getBooleanTrue()
 	{
@@ -87,7 +89,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #booleanTrue}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBooleanTrue(@javax.annotation.Nullable final java.lang.Boolean booleanTrue)
 	{
 		DefaultToItem.booleanTrue.set(this,booleanTrue);
@@ -96,7 +99,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #booleanNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean getBooleanNone()
 	{
 		return DefaultToItem.booleanNone.getMandatory(this);
@@ -105,7 +109,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #booleanNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBooleanNone(final boolean booleanNone)
 	{
 		DefaultToItem.booleanNone.set(this,booleanNone);
@@ -114,7 +119,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #integerFive}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getIntegerFive()
 	{
 		return DefaultToItem.integerFive.getMandatory(this);
@@ -123,7 +129,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #integerFive}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntegerFive(final int integerFive)
 	{
 		DefaultToItem.integerFive.set(this,integerFive);
@@ -132,7 +139,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #integerFifty}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getIntegerFifty()
 	{
@@ -142,7 +150,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #integerFifty}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntegerFifty(@javax.annotation.Nullable final java.lang.Integer integerFifty)
 	{
 		DefaultToItem.integerFifty.set(this,integerFifty);
@@ -151,7 +160,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #integerNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getIntegerNone()
 	{
@@ -161,7 +171,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #integerNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntegerNone(@javax.annotation.Nullable final java.lang.Integer integerNone)
 	{
 		DefaultToItem.integerNone.set(this,integerNone);
@@ -170,7 +181,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #dateEight}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getDateEight()
 	{
@@ -180,7 +192,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #dateEight}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDateEight(@javax.annotation.Nonnull final java.util.Date dateEight)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -191,7 +204,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #dateEight}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDateEight()
 	{
 		DefaultToItem.dateEight.touch(this);
@@ -200,7 +214,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #dateEighty}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getDateEighty()
 	{
@@ -210,7 +225,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #dateEighty}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDateEighty(@javax.annotation.Nullable final java.util.Date dateEighty)
 	{
 		DefaultToItem.dateEighty.set(this,dateEighty);
@@ -219,7 +235,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #dateEighty}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDateEighty()
 	{
 		DefaultToItem.dateEighty.touch(this);
@@ -228,7 +245,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #dateNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getDateNone()
 	{
@@ -238,7 +256,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #dateNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDateNone(@javax.annotation.Nullable final java.util.Date dateNone)
 	{
 		DefaultToItem.dateNone.set(this,dateNone);
@@ -247,7 +266,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #dateNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDateNone()
 	{
 		DefaultToItem.dateNone.touch(this);
@@ -256,7 +276,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #dayEight}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.util.Day getDayEight()
 	{
@@ -266,7 +287,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #dayEight}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDayEight(@javax.annotation.Nonnull final com.exedio.cope.util.Day dayEight)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -277,7 +299,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets today for the date field {@link #dayEight}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDayEight(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayEight.touch(this,zone);
@@ -286,7 +309,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #dayNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.util.Day getDayNone()
 	{
@@ -296,7 +320,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #dayNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDayNone(@javax.annotation.Nullable final com.exedio.cope.util.Day dayNone)
 	{
 		DefaultToItem.dayNone.set(this,dayNone);
@@ -305,7 +330,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets today for the date field {@link #dayNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDayNone(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		DefaultToItem.dayNone.touch(this,zone);
@@ -314,7 +340,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #longRandom}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Long getLongRandom()
 	{
@@ -324,7 +351,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #longRandom}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setLongRandom(@javax.annotation.Nullable final java.lang.Long longRandom)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -335,7 +363,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #enumOne}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	DefaultToEnum getEnumOne()
 	{
@@ -345,7 +374,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #enumOne}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setEnumOne(@javax.annotation.Nonnull final DefaultToEnum enumOne)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -356,7 +386,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #enumTwo}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DefaultToEnum getEnumTwo()
 	{
@@ -366,7 +397,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #enumTwo}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setEnumTwo(@javax.annotation.Nullable final DefaultToEnum enumTwo)
 	{
 		DefaultToItem.enumTwo.set(this,enumTwo);
@@ -375,7 +407,8 @@ final class DefaultToItem extends Item
 	/**
 	 * Returns the value of {@link #enumNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	DefaultToEnum getEnumNone()
 	{
@@ -385,25 +418,26 @@ final class DefaultToItem extends Item
 	/**
 	 * Sets a new value for {@link #enumNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setEnumNone(@javax.annotation.Nullable final DefaultToEnum enumNone)
 	{
 		DefaultToItem.enumNone.set(this,enumNone);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for defaultToItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<DefaultToItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultToItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DefaultToItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

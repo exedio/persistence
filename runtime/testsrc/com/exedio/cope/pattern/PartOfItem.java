@@ -45,7 +45,8 @@ public final class PartOfItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if container, partString is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if partString violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	PartOfItem(
 				@javax.annotation.Nonnull final PartOfContainerItem container,
 				final int order,
@@ -66,13 +67,14 @@ public final class PartOfItem extends Item
 	/**
 	 * Creates a new PartOfItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PartOfItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #container}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	PartOfContainerItem getContainer()
 	{
@@ -82,7 +84,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the value of {@link #order}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getOrder()
 	{
 		return PartOfItem.order.getMandatory(this);
@@ -91,7 +94,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Sets a new value for {@link #order}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOrder(final int order)
 	{
 		PartOfItem.order.set(this,order);
@@ -100,7 +104,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the container this item is part of by {@link #unordered}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContainer")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	PartOfContainerItem getUnorderedContainer()
 	{
@@ -110,7 +115,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the parts of the given container.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
@@ -120,7 +126,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<PartOfItem> getUnorderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
@@ -130,7 +137,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the container this item is part of by {@link #ordered}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContainer")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContainer")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	PartOfContainerItem getOrderedContainer()
 	{
@@ -140,7 +148,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the parts of the given container.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container)
 	{
@@ -150,7 +159,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the parts of the given container matching the given condition.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getParts")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getParts")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<PartOfItem> getOrderedParts(@javax.annotation.Nonnull final PartOfContainerItem container,@javax.annotation.Nullable final com.exedio.cope.Condition condition)
 	{
@@ -160,7 +170,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the value of {@link #partString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getPartString()
 	{
@@ -170,7 +181,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Sets a new value for {@link #partString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPartString(@javax.annotation.Nonnull final java.lang.String partString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -182,7 +194,8 @@ public final class PartOfItem extends Item
 	/**
 	 * Returns the value of {@link #partInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getPartInteger()
 	{
 		return PartOfItem.partInteger.getMandatory(this);
@@ -191,25 +204,26 @@ public final class PartOfItem extends Item
 	/**
 	 * Sets a new value for {@link #partInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPartInteger(final int partInteger)
 	{
 		PartOfItem.partInteger.set(this,partInteger);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for partOfItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PartOfItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PartOfItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

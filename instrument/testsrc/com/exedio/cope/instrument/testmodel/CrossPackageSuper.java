@@ -54,7 +54,8 @@ class CrossPackageSuper extends Item
 	 * @param compositeFully the initial value for field {@link #compositeFully}.
 	 * @throws com.exedio.cope.MandatoryViolationException if superField, superField2, externalEnum, shortExternalEnum, compositeImported, compositeFully is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CrossPackageSuper(
 				@javax.annotation.Nonnull final SubTarget superField,
 				@javax.annotation.Nonnull final SuperEnum superField2,
@@ -78,13 +79,14 @@ class CrossPackageSuper extends Item
 	/**
 	 * Creates a new CrossPackageSuper and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected CrossPackageSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #superField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final SubTarget getSuperField()
 	{
@@ -94,7 +96,8 @@ class CrossPackageSuper extends Item
 	/**
 	 * Returns the value of {@link #superField2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final SuperEnum getSuperField2()
 	{
@@ -104,7 +107,8 @@ class CrossPackageSuper extends Item
 	/**
 	 * Returns the value of {@link #externalEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final EnumContainer.Enum3 getExternalEnum()
 	{
@@ -114,7 +118,8 @@ class CrossPackageSuper extends Item
 	/**
 	 * Returns the value of {@link #shortExternalEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final Enum4 getShortExternalEnum()
 	{
@@ -124,7 +129,8 @@ class CrossPackageSuper extends Item
 	/**
 	 * Returns the value of {@link #compositeImported}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final CompositeImported getCompositeImported()
 	{
@@ -134,7 +140,8 @@ class CrossPackageSuper extends Item
 	/**
 	 * Returns the value of {@link #compositeFully}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final CompositeFully getCompositeFully()
 	{
@@ -144,7 +151,8 @@ class CrossPackageSuper extends Item
 	/**
 	 * Returns the value of {@link #blockImported}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final BlockImported blockImported()
 	{
@@ -154,26 +162,27 @@ class CrossPackageSuper extends Item
 	/**
 	 * Returns the value of {@link #blockFully}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final BlockFully blockFully()
 	{
 		return CrossPackageSuper.blockFully.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for crossPackageSuper.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CrossPackageSuper> TYPE = com.exedio.cope.TypesBound.newType(CrossPackageSuper.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected CrossPackageSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

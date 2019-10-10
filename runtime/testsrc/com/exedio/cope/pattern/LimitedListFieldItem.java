@@ -105,7 +105,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Creates a new LimitedListFieldItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public LimitedListFieldItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -115,13 +116,14 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Creates a new LimitedListFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	LimitedListFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #num1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getNum1()
 	{
@@ -131,7 +133,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #num1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNum1(@javax.annotation.Nullable final java.lang.Integer num1)
 	{
 		LimitedListFieldItem.num1.set(this,num1);
@@ -140,7 +143,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Returns the value of {@link #num2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getNum2()
 	{
@@ -150,7 +154,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #num2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNum2(@javax.annotation.Nullable final java.lang.Integer num2)
 	{
 		LimitedListFieldItem.num2.set(this,num2);
@@ -159,7 +164,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Returns the value of {@link #num3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getNum3()
 	{
@@ -169,7 +175,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #num3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNum3(@javax.annotation.Nullable final java.lang.Integer num3)
 	{
 		LimitedListFieldItem.num3.set(this,num3);
@@ -178,7 +185,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Returns the value of {@link #nums}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<Integer> getNums()
 	{
@@ -188,7 +196,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #nums}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNums(@javax.annotation.Nonnull final java.util.Collection<? extends Integer> nums)
 			throws
 				java.lang.ClassCastException,
@@ -200,7 +209,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Returns the value of {@link #dates}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<Date> getDates()
 	{
@@ -210,7 +220,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #dates}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDates(@javax.annotation.Nonnull final java.util.Collection<? extends Date> dates)
 			throws
 				java.lang.ClassCastException,
@@ -222,7 +233,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Returns the value of {@link #strings}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<String> getStrings()
 	{
@@ -232,7 +244,8 @@ public final class LimitedListFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #strings}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStrings(@javax.annotation.Nonnull final java.util.Collection<? extends String> strings)
 			throws
 				com.exedio.cope.StringLengthViolationException,
@@ -242,19 +255,19 @@ public final class LimitedListFieldItem extends Item
 		LimitedListFieldItem.strings.set(this,strings);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for limitedListFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<LimitedListFieldItem> TYPE = com.exedio.cope.TypesBound.newType(LimitedListFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private LimitedListFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

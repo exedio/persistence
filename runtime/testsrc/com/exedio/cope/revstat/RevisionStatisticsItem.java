@@ -39,7 +39,8 @@ final class RevisionStatisticsItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if field is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if field violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	RevisionStatisticsItem(
 				@javax.annotation.Nonnull final java.lang.String field,
 				final int num)
@@ -56,13 +57,14 @@ final class RevisionStatisticsItem extends Item
 	/**
 	 * Creates a new RevisionStatisticsItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private RevisionStatisticsItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField()
 	{
@@ -72,7 +74,8 @@ final class RevisionStatisticsItem extends Item
 	/**
 	 * Sets a new value for {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -84,7 +87,8 @@ final class RevisionStatisticsItem extends Item
 	/**
 	 * Returns the value of {@link #num}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getNum()
 	{
 		return RevisionStatisticsItem.num.getMandatory(this);
@@ -93,25 +97,26 @@ final class RevisionStatisticsItem extends Item
 	/**
 	 * Sets a new value for {@link #num}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNum(final int num)
 	{
 		RevisionStatisticsItem.num.set(this,num);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for revisionStatisticsItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<RevisionStatisticsItem> TYPE = com.exedio.cope.TypesBound.newType(RevisionStatisticsItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private RevisionStatisticsItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

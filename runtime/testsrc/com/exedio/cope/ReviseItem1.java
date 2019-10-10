@@ -29,7 +29,8 @@ final class ReviseItem1 extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if field5 is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if field5 violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ReviseItem1(
 				@javax.annotation.Nonnull final java.lang.String field5)
 			throws
@@ -44,13 +45,14 @@ final class ReviseItem1 extends Item
 	/**
 	 * Creates a new ReviseItem1 and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ReviseItem1(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field5}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField5()
 	{
@@ -60,7 +62,8 @@ final class ReviseItem1 extends Item
 	/**
 	 * Sets a new value for {@link #field5}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField5(@javax.annotation.Nonnull final java.lang.String field5)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -69,19 +72,19 @@ final class ReviseItem1 extends Item
 		ReviseItem1.field5.set(this,field5);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for reviseItem1.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ReviseItem1> TYPE = com.exedio.cope.TypesBound.newType(ReviseItem1.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ReviseItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

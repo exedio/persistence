@@ -36,7 +36,8 @@ final class ItemSerializationItem extends Item
 	 * @param name the initial value for field {@link #name}.
 	 * @throws com.exedio.cope.StringLengthViolationException if name violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ItemSerializationItem(
 				@javax.annotation.Nullable final java.lang.String name)
 			throws
@@ -50,13 +51,14 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Creates a new ItemSerializationItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private ItemSerializationItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getName()
 	{
@@ -66,7 +68,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Sets a new value for {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -77,7 +80,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Returns the value of {@link #name2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getName2()
 	{
@@ -87,7 +91,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Sets a new value for {@link #name2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setName2(@javax.annotation.Nullable final java.lang.String name2)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -98,7 +103,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Returns the value of {@link #list}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<String> getList()
 	{
@@ -108,7 +114,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Returns a query for the value of {@link #list}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.Query<String> getListQuery()
 	{
@@ -118,7 +125,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Returns the items, for which field list {@link #list} contains the given element.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<ItemSerializationItem> getDistinctParentsOfList(final String element)
 	{
@@ -128,7 +136,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Adds a new value for {@link #list}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void addToList(@javax.annotation.Nonnull final String list)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -142,7 +151,8 @@ final class ItemSerializationItem extends Item
 	 * Removes all occurrences of {@code element} from {@link #list}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeAllFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean removeAllFromList(@javax.annotation.Nonnull final String list)
 	{
 		return ItemSerializationItem.list.removeAll(this,list);
@@ -151,7 +161,8 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Sets a new value for {@link #list}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setList(@javax.annotation.Nonnull final java.util.Collection<? extends String> list)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -164,26 +175,27 @@ final class ItemSerializationItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #list}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<ItemSerializationItem> listParent()
 	{
 		return ItemSerializationItem.list.getParent(ItemSerializationItem.class);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for itemSerializationItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ItemSerializationItem> TYPE = com.exedio.cope.TypesBound.newType(ItemSerializationItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private ItemSerializationItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

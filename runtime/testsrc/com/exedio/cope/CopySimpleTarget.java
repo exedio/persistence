@@ -46,7 +46,8 @@ final class CopySimpleTarget extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if otherString, otherItem is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if templateString, otherString violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CopySimpleTarget(
 				@javax.annotation.Nullable final java.lang.String templateString,
 				@javax.annotation.Nonnull final java.lang.String otherString,
@@ -67,13 +68,14 @@ final class CopySimpleTarget extends Item
 	/**
 	 * Creates a new CopySimpleTarget and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CopySimpleTarget(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #templateString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getTemplateString()
 	{
@@ -83,7 +85,8 @@ final class CopySimpleTarget extends Item
 	/**
 	 * Returns the value of {@link #otherString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getOtherString()
 	{
@@ -93,7 +96,8 @@ final class CopySimpleTarget extends Item
 	/**
 	 * Sets a new value for {@link #otherString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOtherString(@javax.annotation.Nonnull final java.lang.String otherString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -105,7 +109,8 @@ final class CopySimpleTarget extends Item
 	/**
 	 * Returns the value of {@link #templateItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	CopyValue getTemplateItem()
 	{
@@ -115,7 +120,8 @@ final class CopySimpleTarget extends Item
 	/**
 	 * Returns the value of {@link #otherItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CopyValue getOtherItem()
 	{
@@ -125,7 +131,8 @@ final class CopySimpleTarget extends Item
 	/**
 	 * Sets a new value for {@link #otherItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOtherItem(@javax.annotation.Nonnull final CopyValue otherItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -133,19 +140,19 @@ final class CopySimpleTarget extends Item
 		CopySimpleTarget.otherItem.set(this,otherItem);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for copySimpleTarget.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CopySimpleTarget> TYPE = com.exedio.cope.TypesBound.newType(CopySimpleTarget.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CopySimpleTarget(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

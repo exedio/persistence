@@ -49,7 +49,8 @@ final class CompareConditionItem extends Item
 	 * @param enumx the initial value for field {@link #enumx}.
 	 * @throws com.exedio.cope.StringLengthViolationException if string violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CompareConditionItem(
 				@javax.annotation.Nullable final java.lang.String string,
 				@javax.annotation.Nullable final java.lang.Integer intx,
@@ -75,13 +76,14 @@ final class CompareConditionItem extends Item
 	/**
 	 * Creates a new CompareConditionItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CompareConditionItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getString()
 	{
@@ -91,7 +93,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -102,7 +105,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #otherString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getOtherString()
 	{
@@ -112,7 +116,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #otherString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOtherString(@javax.annotation.Nullable final java.lang.String otherString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -123,7 +128,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #intx}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getIntx()
 	{
@@ -133,7 +139,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #intx}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntx(@javax.annotation.Nullable final java.lang.Integer intx)
 	{
 		CompareConditionItem.intx.set(this,intx);
@@ -142,7 +149,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #longx}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Long getLongx()
 	{
@@ -152,7 +160,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #longx}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setLongx(@javax.annotation.Nullable final java.lang.Long longx)
 	{
 		CompareConditionItem.longx.set(this,longx);
@@ -161,7 +170,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #doublex}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Double getDoublex()
 	{
@@ -171,7 +181,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #doublex}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDoublex(@javax.annotation.Nullable final java.lang.Double doublex)
 	{
 		CompareConditionItem.doublex.set(this,doublex);
@@ -180,7 +191,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getDate()
 	{
@@ -190,7 +202,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDate(@javax.annotation.Nullable final java.util.Date date)
 	{
 		CompareConditionItem.date.set(this,date);
@@ -199,7 +212,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #date}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDate()
 	{
 		CompareConditionItem.date.touch(this);
@@ -208,7 +222,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.util.Day getDay()
 	{
@@ -218,7 +233,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		CompareConditionItem.day.set(this,day);
@@ -227,7 +243,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets today for the date field {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		CompareConditionItem.day.touch(this,zone);
@@ -236,7 +253,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #enumx}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	YEnum getEnumx()
 	{
@@ -246,7 +264,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #enumx}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setEnumx(@javax.annotation.Nullable final YEnum enumx)
 	{
 		CompareConditionItem.enumx.set(this,enumx);
@@ -255,7 +274,8 @@ final class CompareConditionItem extends Item
 	/**
 	 * Returns the value of {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	CompareConditionItem getItem()
 	{
@@ -265,25 +285,26 @@ final class CompareConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItem(@javax.annotation.Nullable final CompareConditionItem item)
 	{
 		CompareConditionItem.item.set(this,item);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for compareConditionItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CompareConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CompareConditionItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CompareConditionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

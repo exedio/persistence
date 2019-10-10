@@ -101,7 +101,8 @@ public final class StringItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if mandatory is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if mandatory violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public StringItem(
 				@javax.annotation.Nonnull final java.lang.String mandatory)
 			throws
@@ -116,13 +117,14 @@ public final class StringItem extends Item
 	/**
 	 * Creates a new StringItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	public StringItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #any}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getAny()
 	{
@@ -132,7 +134,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #any}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setAny(@javax.annotation.Nullable final java.lang.String any)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -143,7 +146,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getMandatory()
 	{
@@ -153,7 +157,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #mandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMandatory(@javax.annotation.Nonnull final java.lang.String mandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -165,7 +170,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #min4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getMin4()
 	{
@@ -175,7 +181,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #min4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMin4(@javax.annotation.Nullable final java.lang.String min4)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -186,7 +193,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #max4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getMax4()
 	{
@@ -196,7 +204,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #max4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMax4(@javax.annotation.Nullable final java.lang.String max4)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -207,7 +216,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #min4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getMin4Max8()
 	{
@@ -217,7 +227,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #min4Max8}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMin4Max8(@javax.annotation.Nullable final java.lang.String min4Max8)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -228,7 +239,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #exact6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getExact6()
 	{
@@ -238,7 +250,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #exact6}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setExact6(@javax.annotation.Nullable final java.lang.String exact6)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -249,7 +262,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #lowercase}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getLowercase()
 	{
@@ -259,7 +273,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #lowercase}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLowercase(@javax.annotation.Nullable final java.lang.String lowercase)
 			throws
 				com.exedio.cope.StringLengthViolationException,
@@ -271,7 +286,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #lowercaseMin4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getLowercaseMin4()
 	{
@@ -281,7 +297,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #lowercaseMin4}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLowercaseMin4(@javax.annotation.Nullable final java.lang.String lowercaseMin4)
 			throws
 				com.exedio.cope.StringLengthViolationException,
@@ -293,7 +310,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #long1K}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getLong1K()
 	{
@@ -303,7 +321,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #long1K}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLong1K(@javax.annotation.Nullable final java.lang.String long1K)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -314,7 +333,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #long1M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getLong1M()
 	{
@@ -324,7 +344,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #long1M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLong1M(@javax.annotation.Nullable final java.lang.String long1M)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -335,7 +356,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #long40M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getLong40M()
 	{
@@ -345,7 +367,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #long40M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setLong40M(@javax.annotation.Nullable final java.lang.String long40M)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -356,7 +379,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #oracleNoCLOB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getOracleNoCLOB()
 	{
@@ -366,7 +390,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #oracleNoCLOB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setOracleNoCLOB(@javax.annotation.Nullable final java.lang.String oracleNoCLOB)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -377,7 +402,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #oracleCLOB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getOracleCLOB()
 	{
@@ -387,7 +413,8 @@ public final class StringItem extends Item
 	/**
 	 * Sets a new value for {@link #oracleCLOB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setOracleCLOB(@javax.annotation.Nullable final java.lang.String oracleCLOB)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -398,7 +425,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #min4Upper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getMin4Upper()
 	{
 		return StringItem.min4Upper.get(this);
@@ -407,7 +435,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #max4Upper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getMax4Upper()
 	{
 		return StringItem.max4Upper.get(this);
@@ -416,7 +445,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #min4UpperLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.Integer getMin4UpperLength()
 	{
 		return StringItem.min4UpperLength.get(this);
@@ -425,7 +455,8 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #max4UpperLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.Integer getMax4UpperLength()
 	{
 		return StringItem.max4UpperLength.get(this);
@@ -434,25 +465,26 @@ public final class StringItem extends Item
 	/**
 	 * Returns the value of {@link #min4AndMax4UpperLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getMin4AndMax4UpperLength()
 	{
 		return StringItem.min4AndMax4UpperLength.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for stringItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<StringItem> TYPE = com.exedio.cope.TypesBound.newType(StringItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private StringItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

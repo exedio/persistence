@@ -127,7 +127,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if body is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if body violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DispatcherWithoutRemainingItem(
 				@javax.annotation.Nonnull final java.lang.String body)
 			throws
@@ -142,13 +143,14 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Creates a new DispatcherWithoutRemainingItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DispatcherWithoutRemainingItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #body}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getBody()
 	{
@@ -158,7 +160,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Sets a new value for {@link #body}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBody(@javax.annotation.Nonnull final java.lang.String body)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -170,7 +173,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns the value of {@link #dispatchCountCommitted}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getDispatchCountCommitted()
 	{
 		return DispatcherWithoutRemainingItem.dispatchCountCommitted.getMandatory(this);
@@ -179,7 +183,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Sets a new value for {@link #dispatchCountCommitted}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setDispatchCountCommitted(final int dispatchCountCommitted)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -190,7 +195,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Dispatch by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="dispatch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="dispatch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void dispatchToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.Dispatcher.Config config,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherWithoutRemainingItem.toTarget.dispatch(DispatcherWithoutRemainingItem.class,config,ctx);
@@ -199,7 +205,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns, whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isPending")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isPending")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isToTargetPending()
 	{
 		return DispatcherWithoutRemainingItem.toTarget.isPending(this);
@@ -208,7 +215,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Sets whether this item is yet to be dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setPending")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setPending")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setToTargetPending(final boolean pending)
 	{
 		DispatcherWithoutRemainingItem.toTarget.setPending(this,pending);
@@ -217,7 +225,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns, whether this item is allowed to be purged by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNoPurge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNoPurge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean isToTargetNoPurge()
 	{
 		return DispatcherWithoutRemainingItem.toTarget.isNoPurge(this);
@@ -226,7 +235,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Sets whether this item is allowed to be purged by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setNoPurge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setNoPurge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setToTargetNoPurge(final boolean noPurge)
 	{
 		DispatcherWithoutRemainingItem.toTarget.setNoPurge(this,noPurge);
@@ -235,7 +245,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns the date, this item was last successfully dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessDate")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastSuccessDate")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getToTargetLastSuccessDate()
 	{
@@ -245,7 +256,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns the milliseconds, this item needed to be last successfully dispatched by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastSuccessElapsed")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastSuccessElapsed")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Long getToTargetLastSuccessElapsed()
 	{
@@ -255,7 +267,8 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns the attempts to dispatch this item by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getRuns")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getRuns")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetRuns()
 	{
@@ -265,20 +278,23 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns the failed attempts to dispatch this item by {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFailures")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getFailures")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<com.exedio.cope.pattern.Dispatcher.Run> getToTargetFailures()
 	{
 		return DispatcherWithoutRemainingItem.toTarget.getFailures(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherWithoutRemainingItem.toTarget.purge(properties,ctx);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="purge")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="purge")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void purgeToTarget(@javax.annotation.Nonnull final com.exedio.cope.pattern.DispatcherPurgeProperties properties,@javax.annotation.Nonnull final com.exedio.cope.Condition restriction,@javax.annotation.Nonnull final com.exedio.cope.util.JobContext ctx)
 	{
 		DispatcherWithoutRemainingItem.toTarget.purge(properties,restriction,ctx);
@@ -287,26 +303,27 @@ public final class DispatcherWithoutRemainingItem extends Item
 	/**
 	 * Returns the parent field of the run type of {@link #toTarget}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="RunParent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="RunParent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<DispatcherWithoutRemainingItem> toTargetRunParent()
 	{
 		return DispatcherWithoutRemainingItem.toTarget.getRunParent(DispatcherWithoutRemainingItem.class);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for dispatcherWithoutRemainingItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DispatcherWithoutRemainingItem> TYPE = com.exedio.cope.TypesBound.newType(DispatcherWithoutRemainingItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DispatcherWithoutRemainingItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

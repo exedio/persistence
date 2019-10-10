@@ -33,7 +33,8 @@ class ConnectItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if itemField, itemFieldSelf, stringField is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if stringField violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	ConnectItem(
 				@javax.annotation.Nonnull final ConnectItem2 itemField,
 				@javax.annotation.Nonnull final ConnectItem itemFieldSelf,
@@ -52,13 +53,14 @@ class ConnectItem extends Item
 	/**
 	 * Creates a new ConnectItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected ConnectItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #itemField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final ConnectItem2 getItemField()
 	{
@@ -68,7 +70,8 @@ class ConnectItem extends Item
 	/**
 	 * Sets a new value for {@link #itemField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setItemField(@javax.annotation.Nonnull final ConnectItem2 itemField)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -79,7 +82,8 @@ class ConnectItem extends Item
 	/**
 	 * Returns the value of {@link #itemFieldSelf}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final ConnectItem getItemFieldSelf()
 	{
@@ -89,7 +93,8 @@ class ConnectItem extends Item
 	/**
 	 * Sets a new value for {@link #itemFieldSelf}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setItemFieldSelf(@javax.annotation.Nonnull final ConnectItem itemFieldSelf)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -100,7 +105,8 @@ class ConnectItem extends Item
 	/**
 	 * Returns the value of {@link #stringField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getStringField()
 	{
@@ -110,7 +116,8 @@ class ConnectItem extends Item
 	/**
 	 * Sets a new value for {@link #stringField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setStringField(@javax.annotation.Nonnull final java.lang.String stringField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -122,7 +129,8 @@ class ConnectItem extends Item
 	/**
 	 * Returns the value of {@link #integerField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final int getIntegerField()
 	{
 		return ConnectItem.integerField.getMandatory(this);
@@ -131,25 +139,26 @@ class ConnectItem extends Item
 	/**
 	 * Sets a new value for {@link #integerField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setIntegerField(final int integerField)
 	{
 		ConnectItem.integerField.set(this,integerField);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for connectItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<ConnectItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected ConnectItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

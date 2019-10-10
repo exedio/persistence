@@ -77,13 +77,13 @@ public class OverlapsTest
 		@WrapperIgnore static final ItemField<AnItem1> item1 = ItemField.create(AnItem1.class);
 		@WrapperIgnore static final ItemField<AnItem2> item2 = ItemField.create(AnItem2.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItem1> TYPE = com.exedio.cope.TypesBound.newType(AnItem1.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -101,13 +101,13 @@ public class OverlapsTest
 		@WrapperIgnore static final ItemField<AnItem1> item1 = ItemField.create(AnItem1.class).toFinal().optional();
 		@WrapperIgnore static final ItemField<AnItem2> item2 = ItemField.create(AnItem2.class).toFinal().optional();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItem2> TYPE = com.exedio.cope.TypesBound.newType(AnItem2.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

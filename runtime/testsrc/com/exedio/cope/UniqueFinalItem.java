@@ -35,7 +35,8 @@ public final class UniqueFinalItem extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if uniqueFinalString violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if uniqueFinalString is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public UniqueFinalItem(
 				@javax.annotation.Nullable final java.lang.String uniqueFinalString)
 			throws
@@ -50,13 +51,14 @@ public final class UniqueFinalItem extends Item
 	/**
 	 * Creates a new UniqueFinalItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private UniqueFinalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #uniqueFinalString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getUniqueFinalString()
 	{
@@ -68,7 +70,8 @@ public final class UniqueFinalItem extends Item
 	 * @param uniqueFinalString shall be equal to field {@link #uniqueFinalString}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public static UniqueFinalItem forUniqueFinalString(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
 	{
@@ -80,7 +83,8 @@ public final class UniqueFinalItem extends Item
 	 * @param uniqueFinalString shall be equal to field {@link #uniqueFinalString}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public static UniqueFinalItem forUniqueFinalStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueFinalString)
 			throws
@@ -89,19 +93,19 @@ public final class UniqueFinalItem extends Item
 		return UniqueFinalItem.uniqueFinalString.searchUniqueStrict(UniqueFinalItem.class,uniqueFinalString);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for uniqueFinalItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<UniqueFinalItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueFinalItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private UniqueFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

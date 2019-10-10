@@ -191,7 +191,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Creates a new AnItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -201,13 +202,14 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #past}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getPast()
 	{
@@ -217,7 +219,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #past}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPast(@javax.annotation.Nonnull final java.util.Date past)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -229,7 +232,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #past}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastRounded(@javax.annotation.Nonnull final java.util.Date past)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -240,7 +244,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #past}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setPastRounded(@javax.annotation.Nonnull final java.util.Date past,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -252,7 +257,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets the current date for the date field {@link #past}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchPast()
 	{
 		AnItem.past.touch(this);
@@ -261,7 +267,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #future}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Date getFuture()
 	{
@@ -271,7 +278,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #future}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFuture(@javax.annotation.Nonnull final java.util.Date future)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -283,7 +291,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #future}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -294,7 +303,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #future}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFutureRounded(@javax.annotation.Nonnull final java.util.Date future,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -306,7 +316,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets the current date for the date field {@link #future}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void touchFuture()
 	{
 		AnItem.future.touch(this);
@@ -315,7 +326,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #none}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.util.Date getNone()
 	{
@@ -325,7 +337,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #none}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNone(@javax.annotation.Nullable final java.util.Date none)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
@@ -336,7 +349,8 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 	/**
 	 * Sets a new value for {@link #none}, but rounds it before according to the precision of the field.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setRounded")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setRounded")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNoneRounded(@javax.annotation.Nullable final java.util.Date none,@javax.annotation.Nonnull final com.exedio.cope.DateField.RoundingMode roundingMode)
 			throws
 				com.exedio.cope.DatePrecisionViolationException
@@ -344,20 +358,20 @@ public class DatePrecisionDefaultToNowTest extends TestWithEnvironment
 		AnItem.none.setRounded(this,none,roundingMode);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for anItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

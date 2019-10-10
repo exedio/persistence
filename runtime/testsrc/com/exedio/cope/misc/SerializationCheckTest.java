@@ -91,13 +91,13 @@ public class SerializationCheckTest
 		static transient int staticTransientField2;
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<ItemOk> TYPE = com.exedio.cope.TypesBound.newType(ItemOk.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ItemOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -114,10 +114,10 @@ public class SerializationCheckTest
 		int serializedField1;
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private PatternItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -146,10 +146,10 @@ public class SerializationCheckTest
 		int serializedField1;
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private CompositeWrong(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -167,13 +167,13 @@ public class SerializationCheckTest
 		int serializedField1;
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.pattern.BlockType<BlockWrong> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWrong.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private BlockWrong(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
@@ -202,13 +202,13 @@ public class SerializationCheckTest
 		int serializedField1;
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -225,13 +225,13 @@ public class SerializationCheckTest
 		int serializedField2;
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected Item2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

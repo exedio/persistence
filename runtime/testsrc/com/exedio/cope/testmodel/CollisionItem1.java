@@ -38,7 +38,8 @@ public final class CollisionItem1 extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if collisionAttribute is null.
 	 * @throws com.exedio.cope.UniqueViolationException if collisionAttribute is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public CollisionItem1(
 				@javax.annotation.Nonnull final EmptyItem collisionAttribute)
 			throws
@@ -53,13 +54,14 @@ public final class CollisionItem1 extends Item
 	/**
 	 * Creates a new CollisionItem1 and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CollisionItem1(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #collisionAttribute}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public EmptyItem getCollisionAttribute()
 	{
@@ -71,7 +73,8 @@ public final class CollisionItem1 extends Item
 	 * @param collisionAttribute shall be equal to field {@link #collisionAttribute}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public static CollisionItem1 forCollisionAttribute(@javax.annotation.Nonnull final EmptyItem collisionAttribute)
 	{
@@ -83,7 +86,8 @@ public final class CollisionItem1 extends Item
 	 * @param collisionAttribute shall be equal to field {@link #collisionAttribute}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public static CollisionItem1 forCollisionAttributeStrict(@javax.annotation.Nonnull final EmptyItem collisionAttribute)
 			throws
@@ -92,19 +96,19 @@ public final class CollisionItem1 extends Item
 		return CollisionItem1.collisionAttribute.searchUniqueStrict(CollisionItem1.class,collisionAttribute);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for collisionItem1.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<CollisionItem1> TYPE = com.exedio.cope.TypesBound.newType(CollisionItem1.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CollisionItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

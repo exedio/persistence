@@ -36,13 +36,13 @@ public final class WrapperTypeTypeTester
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	public static final class DefaultPublic extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for defaultPublic.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		public static final com.exedio.cope.Type<DefaultPublic> TYPE = com.exedio.cope.TypesBound.newType(DefaultPublic.class);
 	}
 
@@ -52,13 +52,13 @@ public final class WrapperTypeTypeTester
 	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 	protected static final class DefaultProtected extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for defaultProtected.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		protected static final com.exedio.cope.Type<DefaultProtected> TYPE = com.exedio.cope.TypesBound.newType(DefaultProtected.class);
 	}
 
@@ -66,13 +66,13 @@ public final class WrapperTypeTypeTester
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	static final class DefaultPackage extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for defaultPackage.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<DefaultPackage> TYPE = com.exedio.cope.TypesBound.newType(DefaultPackage.class);
 	}
 
@@ -80,13 +80,13 @@ public final class WrapperTypeTypeTester
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	private static final class DefaultPrivate extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for defaultPrivate.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		private static final com.exedio.cope.Type<DefaultPrivate> TYPE = com.exedio.cope.TypesBound.newType(DefaultPrivate.class);
 	}
 
@@ -95,13 +95,13 @@ public final class WrapperTypeTypeTester
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	static final class SetPublic extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for setPublic.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		public static final com.exedio.cope.Type<SetPublic> TYPE = com.exedio.cope.TypesBound.newType(SetPublic.class);
 	}
 
@@ -111,13 +111,13 @@ public final class WrapperTypeTypeTester
 	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 	static final class SetProtected extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for setProtected.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		protected static final com.exedio.cope.Type<SetProtected> TYPE = com.exedio.cope.TypesBound.newType(SetProtected.class);
 	}
 
@@ -125,13 +125,13 @@ public final class WrapperTypeTypeTester
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	public static final class SetPackage extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for setPackage.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<SetPackage> TYPE = com.exedio.cope.TypesBound.newType(SetPackage.class);
 	}
 
@@ -139,13 +139,13 @@ public final class WrapperTypeTypeTester
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
 	static final class SetPrivate extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for setPrivate.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		private static final com.exedio.cope.Type<SetPrivate> TYPE = com.exedio.cope.TypesBound.newType(SetPrivate.class);
 	}
 }

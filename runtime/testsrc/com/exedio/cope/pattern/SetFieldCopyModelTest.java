@@ -252,13 +252,13 @@ public class SetFieldCopyModelTest
 		static final SetField<SetFieldItemWithCopyConstraints> any = SetField.create(ItemField.create(SetFieldItemWithCopyConstraints.class));
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<SetFieldItemWithCopyConstraints> TYPE = com.exedio.cope.TypesBound.newType(SetFieldItemWithCopyConstraints.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected SetFieldItemWithCopyConstraints(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -273,13 +273,13 @@ public class SetFieldCopyModelTest
 		static final SetField<DoesntHaveField> noTarget = SetField.create(ItemField.create(DoesntHaveField.class)).copyWith(field);
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<NoTargetItem> TYPE = com.exedio.cope.TypesBound.newType(NoTargetItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected NoTargetItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -294,13 +294,13 @@ public class SetFieldCopyModelTest
 		static final SetField<BrokenNonFinalTemplate> set = SetField.create(ItemField.create(BrokenNonFinalTemplate.class)).copyWith(stuff);
 
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<BrokenNonFinalTemplate> TYPE = com.exedio.cope.TypesBound.newType(BrokenNonFinalTemplate.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected BrokenNonFinalTemplate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -308,13 +308,13 @@ public class SetFieldCopyModelTest
 	private static class DoesntHaveField extends Item
 	{
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<DoesntHaveField> TYPE = com.exedio.cope.TypesBound.newType(DoesntHaveField.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected DoesntHaveField(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

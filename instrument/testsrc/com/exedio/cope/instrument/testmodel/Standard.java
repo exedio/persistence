@@ -217,7 +217,8 @@ public final class Standard extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if notNullString, mandatoryDate, mandatoryHash, privateSetterHash is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if notNullString, finalString, initialString violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public Standard(
 				@javax.annotation.Nonnull final java.lang.String notNullString,
 				@javax.annotation.Nullable final java.lang.String finalString,
@@ -250,13 +251,14 @@ public final class Standard extends Item
 	/**
 	 * Creates a new Standard and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private Standard(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #defaultString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getDefaultString()
 	{
@@ -266,7 +268,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDefaultString(@javax.annotation.Nullable final java.lang.String defaultString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -277,7 +280,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #notNullString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getNotNullString()
 	{
@@ -287,7 +291,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #notNullString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNotNullString(@javax.annotation.Nonnull final java.lang.String notNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -299,7 +304,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #finalString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getFinalString()
 	{
@@ -309,7 +315,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultToString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getDefaultToString()
 	{
@@ -319,7 +326,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultToString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDefaultToString(@javax.annotation.Nonnull final java.lang.String defaultToString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -331,7 +339,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultToLessThanSignString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	private java.lang.String getDefaultToLessThanSignString()
 	{
@@ -341,7 +350,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultToLessThanSignString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setDefaultToLessThanSignString(@javax.annotation.Nonnull final java.lang.String defaultToLessThanSignString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -353,7 +363,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultToEscapedLessThanSignString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	private java.lang.String getDefaultToEscapedLessThanSignString()
 	{
@@ -363,7 +374,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultToEscapedLessThanSignString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setDefaultToEscapedLessThanSignString(@javax.annotation.Nonnull final java.lang.String defaultToEscapedLessThanSignString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -375,7 +387,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #lessThanSignInCommentString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.lang.String getLessThanSignInCommentString()
 	{
@@ -385,7 +398,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #lessThanSignInCommentString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setLessThanSignInCommentString(@javax.annotation.Nullable final java.lang.String lessThanSignInCommentString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -396,7 +410,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #uniqueString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getUniqueString()
 	{
@@ -406,7 +421,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #uniqueString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setUniqueString(@javax.annotation.Nullable final java.lang.String uniqueString)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -420,7 +436,8 @@ public final class Standard extends Item
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public static Standard forUniqueString(@javax.annotation.Nonnull final java.lang.String uniqueString)
 	{
@@ -432,7 +449,8 @@ public final class Standard extends Item
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public static Standard forUniqueStringStrict(@javax.annotation.Nonnull final java.lang.String uniqueString)
 			throws
@@ -444,7 +462,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #initialString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getInitialString()
 	{
@@ -454,7 +473,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #initialString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setInitialString(@javax.annotation.Nullable final java.lang.String initialString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -465,7 +485,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getDefaultInteger()
 	{
@@ -475,7 +496,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDefaultInteger(@javax.annotation.Nullable final java.lang.Integer defaultInteger)
 	{
 		Standard.defaultInteger.set(this,defaultInteger);
@@ -484,7 +506,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #nativeInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public int getNativeInteger()
 	{
 		return Standard.nativeInteger.getMandatory(this);
@@ -493,7 +516,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #nativeInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNativeInteger(final int nativeInteger)
 	{
 		Standard.nativeInteger.set(this,nativeInteger);
@@ -502,7 +526,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getDefaultLong()
 	{
@@ -512,7 +537,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDefaultLong(@javax.annotation.Nullable final java.lang.Long defaultLong)
 	{
 		Standard.defaultLong.set(this,defaultLong);
@@ -521,7 +547,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #nativeLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public long getNativeLong()
 	{
 		return Standard.nativeLong.getMandatory(this);
@@ -530,7 +557,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #nativeLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNativeLong(final long nativeLong)
 	{
 		Standard.nativeLong.set(this,nativeLong);
@@ -539,7 +567,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getDefaultDouble()
 	{
@@ -549,7 +578,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDefaultDouble(@javax.annotation.Nullable final java.lang.Double defaultDouble)
 	{
 		Standard.defaultDouble.set(this,defaultDouble);
@@ -558,7 +588,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #nativeDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public double getNativeDouble()
 	{
 		return Standard.nativeDouble.getMandatory(this);
@@ -567,7 +598,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #nativeDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNativeDouble(final double nativeDouble)
 	{
 		Standard.nativeDouble.set(this,nativeDouble);
@@ -576,7 +608,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Boolean getDefaultBoolean()
 	{
@@ -586,7 +619,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDefaultBoolean(@javax.annotation.Nullable final java.lang.Boolean defaultBoolean)
 	{
 		Standard.defaultBoolean.set(this,defaultBoolean);
@@ -595,7 +629,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #nativeBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean getNativeBoolean()
 	{
 		return Standard.nativeBoolean.getMandatory(this);
@@ -604,7 +639,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #nativeBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNativeBoolean(final boolean nativeBoolean)
 	{
 		Standard.nativeBoolean.set(this,nativeBoolean);
@@ -613,7 +649,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #mandatoryDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.util.Date getMandatoryDate()
 	{
@@ -623,7 +660,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #mandatoryDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMandatoryDate(@javax.annotation.Nonnull final java.util.Date mandatoryDate)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -634,7 +672,8 @@ public final class Standard extends Item
 	/**
 	 * Sets the current date for the date field {@link #mandatoryDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void touchMandatoryDate()
 	{
 		Standard.mandatoryDate.touch(this);
@@ -643,7 +682,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #privateDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.util.Date getPrivateDate()
 	{
@@ -653,7 +693,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #privateDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setPrivateDate(@javax.annotation.Nullable final java.util.Date privateDate)
 	{
 		Standard.privateDate.set(this,privateDate);
@@ -662,7 +703,8 @@ public final class Standard extends Item
 	/**
 	 * Sets the current date for the date field {@link #privateDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void touchPrivateDate()
 	{
 		Standard.privateDate.touch(this);
@@ -671,7 +713,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #nowDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.util.Date getNowDate()
 	{
@@ -681,7 +724,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #nowDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNowDate(@javax.annotation.Nonnull final java.util.Date nowDate)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -692,7 +736,8 @@ public final class Standard extends Item
 	/**
 	 * Sets the current date for the date field {@link #nowDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void touchNowDate()
 	{
 		Standard.nowDate.touch(this);
@@ -701,7 +746,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #mandatoryEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public Enum1 getMandatoryEnum()
 	{
@@ -711,7 +757,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #mandatoryEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMandatoryEnum(@javax.annotation.Nonnull final Enum1 mandatoryEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -722,7 +769,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #protectedEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	protected Enum2 getProtectedEnum()
 	{
@@ -732,7 +780,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #protectedEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected void setProtectedEnum(@javax.annotation.Nullable final Enum2 protectedEnum)
 	{
 		Standard.protectedEnum.set(this,protectedEnum);
@@ -741,7 +790,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #externalEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	protected EnumContainer.Enum3 getExternalEnum()
 	{
@@ -751,7 +801,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #externalEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected void setExternalEnum(@javax.annotation.Nullable final EnumContainer.Enum3 externalEnum)
 	{
 		Standard.externalEnum.set(this,externalEnum);
@@ -760,7 +811,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #shortExternalEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	protected Enum4 getShortExternalEnum()
 	{
@@ -770,7 +822,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #shortExternalEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected void setShortExternalEnum(@javax.annotation.Nullable final Enum4 shortExternalEnum)
 	{
 		Standard.shortExternalEnum.set(this,shortExternalEnum);
@@ -779,7 +832,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #inlineA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public int getInlineA()
 	{
 		return Standard.inlineA.getMandatory(this);
@@ -788,7 +842,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #inlineA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setInlineA(final int inlineA)
 	{
 		Standard.inlineA.set(this,inlineA);
@@ -797,7 +852,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #inlineB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public int getInlineB()
 	{
 		return Standard.inlineB.getMandatory(this);
@@ -806,7 +862,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #inlineB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setInlineB(final int inlineB)
 	{
 		Standard.inlineB.set(this,inlineB);
@@ -815,7 +872,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #privateString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.lang.String getPrivateString()
 	{
@@ -825,7 +883,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #privateString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setPrivateString(@javax.annotation.Nullable final java.lang.String privateString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -836,7 +895,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #noneGetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNoneGetterString(@javax.annotation.Nullable final java.lang.String noneGetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -847,7 +907,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #privateGetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.lang.String getPrivateGetterString()
 	{
@@ -857,7 +918,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #privateGetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setPrivateGetterString(@javax.annotation.Nullable final java.lang.String privateGetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -868,7 +930,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #internalGetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.lang.String getInternalGetterStringInternal()
 	{
@@ -878,7 +941,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #internalGetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setInternalGetterString(@javax.annotation.Nullable final java.lang.String internalGetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -889,7 +953,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #internalGetterStringAnnotated}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.lang.String getInternalGetterStringAnnotatedInternal()
 	{
@@ -899,7 +964,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #internalGetterStringAnnotated}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setInternalGetterStringAnnotated(@javax.annotation.Nullable final java.lang.String internalGetterStringAnnotated)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -910,7 +976,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #internalPackageGetterStringAnnotated}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getInternalPackageGetterStringAnnotatedInternal()
 	{
@@ -920,7 +987,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #internalPackageGetterStringAnnotated}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setInternalPackageGetterStringAnnotated(@javax.annotation.Nullable final java.lang.String internalPackageGetterStringAnnotated)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -931,7 +999,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #noneSetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getNoneSetterString()
 	{
@@ -941,7 +1010,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #privateSetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getPrivateSetterString()
 	{
@@ -951,7 +1021,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #privateSetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setPrivateSetterString(@javax.annotation.Nullable final java.lang.String privateSetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -962,7 +1033,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #internalSetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getInternalSetterString()
 	{
@@ -972,7 +1044,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #internalSetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setInternalSetterStringInternal(@javax.annotation.Nullable final java.lang.String internalSetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -983,7 +1056,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #nonfinalGetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getNonfinalGetterString()
 	{
@@ -993,7 +1067,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #nonfinalGetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected void setNonfinalGetterString(@javax.annotation.Nullable final java.lang.String nonfinalGetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -1004,7 +1079,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #nonfinalSetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	protected java.lang.String getNonfinalSetterString()
 	{
@@ -1014,7 +1090,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #nonfinalSetterString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNonfinalSetterString(@javax.annotation.Nullable final java.lang.String nonfinalSetterString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -1025,7 +1102,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #asIsBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Boolean isAsIsBoolean()
 	{
@@ -1035,7 +1113,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #asIsBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setAsIsBoolean(@javax.annotation.Nullable final java.lang.Boolean asIsBoolean)
 	{
 		Standard.asIsBoolean.set(this,asIsBoolean);
@@ -1044,7 +1123,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #doubleUnique1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getDoubleUnique1()
 	{
@@ -1054,7 +1134,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #doubleUnique1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDoubleUnique1(@javax.annotation.Nullable final java.lang.String doubleUnique1)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -1066,7 +1147,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #doubleUnique2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getDoubleUnique2()
 	{
@@ -1076,7 +1158,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #doubleUnique2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDoubleUnique2(@javax.annotation.Nullable final java.lang.Integer doubleUnique2)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -1090,7 +1173,8 @@ public final class Standard extends Item
 	 * @param doubleUnique2 shall be equal to field {@link #doubleUnique2}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public static Standard forDoubleUnique(@javax.annotation.Nonnull final java.lang.String doubleUnique1,@javax.annotation.Nonnull final java.lang.Integer doubleUnique2)
 	{
@@ -1103,7 +1187,8 @@ public final class Standard extends Item
 	 * @param doubleUnique2 shall be equal to field {@link #doubleUnique2}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public static Standard forDoubleUniqueStrict(@javax.annotation.Nonnull final java.lang.String doubleUnique1,@javax.annotation.Nonnull final java.lang.Integer doubleUnique2)
 			throws
@@ -1115,7 +1200,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #defaultFeature}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Double get()
 	{
@@ -1125,7 +1211,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #defaultFeature}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void set(@javax.annotation.Nullable final java.lang.Double defaultFeature)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -1139,7 +1226,8 @@ public final class Standard extends Item
 	 * @param defaultFeature shall be equal to field {@link #defaultFeature}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static Standard forDefaultFeature(@javax.annotation.Nonnull final java.lang.Double defaultFeature)
 	{
@@ -1151,7 +1239,8 @@ public final class Standard extends Item
 	 * @param defaultFeature shall be equal to field {@link #defaultFeature}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static Standard forStrict(@javax.annotation.Nonnull final java.lang.Double defaultFeature)
 			throws
@@ -1163,7 +1252,8 @@ public final class Standard extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #publicHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean checkPublicHash(@javax.annotation.Nullable final java.lang.String publicHash)
 	{
 		return Standard.publicHash.check(this,publicHash);
@@ -1173,7 +1263,8 @@ public final class Standard extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPublicHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public static void blindPublicHash(@javax.annotation.Nullable final java.lang.String publicHash)
 	{
 		Standard.publicHash.blind(publicHash);
@@ -1182,7 +1273,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #publicHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setPublicHash(@javax.annotation.Nullable final java.lang.String publicHash)
 	{
 		Standard.publicHash.set(this,publicHash);
@@ -1191,7 +1283,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #publicHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getPublicHashSHA512s8i5()
 	{
@@ -1201,7 +1294,8 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #publicHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setPublicHashSHA512s8i5(@javax.annotation.Nullable final java.lang.String publicHash)
 	{
 		Standard.publicHash.setHash(this,publicHash);
@@ -1210,7 +1304,8 @@ public final class Standard extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #privateHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private boolean checkPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		return Standard.privateHash.check(this,privateHash);
@@ -1220,7 +1315,8 @@ public final class Standard extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPrivateHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private static void blindPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		Standard.privateHash.blind(privateHash);
@@ -1229,7 +1325,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #privateHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setPrivateHash(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		Standard.privateHash.set(this,privateHash);
@@ -1238,7 +1335,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #privateHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	private java.lang.String getPrivateHashSHA512s8i5()
 	{
@@ -1248,7 +1346,8 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #privateHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setPrivateHashSHA512s8i5(@javax.annotation.Nullable final java.lang.String privateHash)
 	{
 		Standard.privateHash.setHash(this,privateHash);
@@ -1257,7 +1356,8 @@ public final class Standard extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #mandatoryHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean checkMandatoryHash(@javax.annotation.Nullable final java.lang.String mandatoryHash)
 	{
 		return Standard.mandatoryHash.check(this,mandatoryHash);
@@ -1267,7 +1367,8 @@ public final class Standard extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkMandatoryHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public static void blindMandatoryHash(@javax.annotation.Nullable final java.lang.String mandatoryHash)
 	{
 		Standard.mandatoryHash.blind(mandatoryHash);
@@ -1276,7 +1377,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #mandatoryHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMandatoryHash(@javax.annotation.Nonnull final java.lang.String mandatoryHash)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -1287,7 +1389,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #mandatoryHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getMandatoryHashSHA512s8i5()
 	{
@@ -1297,7 +1400,8 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #mandatoryHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setMandatoryHashSHA512s8i5(@javax.annotation.Nonnull final java.lang.String mandatoryHash)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -1308,7 +1412,8 @@ public final class Standard extends Item
 	/**
 	 * Returns whether the given value corresponds to the hash in {@link #privateSetterHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="check")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="check")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean checkPrivateSetterHash(@javax.annotation.Nullable final java.lang.String privateSetterHash)
 	{
 		return Standard.privateSetterHash.check(this,privateSetterHash);
@@ -1318,7 +1423,8 @@ public final class Standard extends Item
 	 * Wastes (almost) as much cpu cycles, as a call to {@code checkPrivateSetterHash} would have needed.
 	 * Needed to prevent Timing Attacks.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="blind")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="blind")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public static void blindPrivateSetterHash(@javax.annotation.Nullable final java.lang.String privateSetterHash)
 	{
 		Standard.privateSetterHash.blind(privateSetterHash);
@@ -1327,7 +1433,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #privateSetterHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	private void setPrivateSetterHash(@javax.annotation.Nonnull final java.lang.String privateSetterHash)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -1338,7 +1445,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the encoded hash value for hash {@link #privateSetterHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getPrivateSetterHashSHA512s8i5()
 	{
@@ -1348,7 +1456,8 @@ public final class Standard extends Item
 	/**
 	 * Sets the encoded hash value for hash {@link #privateSetterHash}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setSHA512s8i5")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setSHA512s8i5")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setPrivateSetterHashSHA512s8i5(@javax.annotation.Nonnull final java.lang.String privateSetterHash)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -1359,7 +1468,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #XMLReader}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getXMLReader()
 	{
@@ -1369,7 +1479,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #XMLReader}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setXMLReader(@javax.annotation.Nullable final java.lang.String XMLReader)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -1380,7 +1491,8 @@ public final class Standard extends Item
 	/**
 	 * Returns the value of {@link #stringFullyQualified}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getStringFullyQualified()
 	{
@@ -1390,7 +1502,8 @@ public final class Standard extends Item
 	/**
 	 * Sets a new value for {@link #stringFullyQualified}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setStringFullyQualified(@javax.annotation.Nullable final java.lang.String stringFullyQualified)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -1398,19 +1511,19 @@ public final class Standard extends Item
 		Standard.stringFullyQualified.set(this,stringFullyQualified);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for standard.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<Standard> TYPE = com.exedio.cope.TypesBound.newType(Standard.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private Standard(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

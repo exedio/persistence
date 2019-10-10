@@ -44,13 +44,13 @@ public class CopyConstraintNotOverlapsChoiceTest
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice("field");
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -60,13 +60,13 @@ public class CopyConstraintNotOverlapsChoiceTest
 		@WrapperIgnore
 		static final ItemField<Target> field = ItemField.create(Target.class).toFinal();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

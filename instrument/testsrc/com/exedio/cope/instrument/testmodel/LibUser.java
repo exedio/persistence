@@ -57,7 +57,8 @@ class LibUser extends LibItem<String>
 	 * @param nestedGenerics the initial value for field {@link #nestedGenerics}.
 	 * @param ref the initial value for field {@link #ref}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	LibUser(
 				@javax.annotation.Nullable final java.lang.String inSuper,
 				@javax.annotation.Nullable final java.lang.String a,
@@ -79,40 +80,46 @@ class LibUser extends LibItem<String>
 	/**
 	 * Creates a new LibUser and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected LibUser(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void simpleFilter()
 	{
 		LibUser.filter.simple(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final LibItem<?> methodRef(final LibItem<?> ref)
 	{
 		return LibUser.ref.method(this,ref);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String oneSimple()
 	{
 		return LibUser.simple.one(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="one")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="one")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final java.lang.String oneSimple2()
 	{
 		return LibUser.simple2.one(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="simple")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="simple")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final void simpleWrapLibSuper(final java.lang.String inSuper)
 	{
 		LibUser.wrapLibSuper.simple(inSuper);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="moreParameters")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="moreParameters")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final void moreWrapLibSuperParameters(final int wrapLibSuper,final java.lang.String inSuper)
 	{
 		LibUser.wrapLibSuper.moreParameters(wrapLibSuper,inSuper);
@@ -121,25 +128,26 @@ class LibUser extends LibItem<String>
 	/**
 	 * @param inSuper myDoc/{@link #inSuper}/inSuper/libSuperItem/
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="staticToken")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="staticToken")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final LibUser staticWrapLibSuperToken(final java.lang.String inSuper)
 	{
 		return LibUser.wrapLibSuper.staticToken(LibUser.class,inSuper);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for libUser.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<LibUser> TYPE = com.exedio.cope.TypesBound.newType(LibUser.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected LibUser(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

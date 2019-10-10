@@ -32,7 +32,8 @@ public final class FieldPrivatePublic extends Item
 	 * @param field the initial value for field {@link #field}.
 	 * @param fieldPublic the initial value for field {@link #fieldPublic}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	private FieldPrivatePublic(
 				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean field,
 				@javax.annotation.Nonnull final java.util.concurrent.atomic.AtomicBoolean fieldPublic)
@@ -46,22 +47,22 @@ public final class FieldPrivatePublic extends Item
 	/**
 	 * Creates a new FieldPrivatePublic and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private FieldPrivatePublic(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for fieldPrivatePublic.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<FieldPrivatePublic> TYPE = com.exedio.cope.TypesBound.newType(FieldPrivatePublic.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private FieldPrivatePublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

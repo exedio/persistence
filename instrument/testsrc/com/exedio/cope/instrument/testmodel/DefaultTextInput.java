@@ -30,7 +30,8 @@ public final class DefaultTextInput extends Input
 	 * @throws com.exedio.cope.StringLengthViolationException if string violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if string, integer is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public DefaultTextInput(
 				@javax.annotation.Nonnull final java.lang.String string,
 				final int integer)
@@ -48,22 +49,22 @@ public final class DefaultTextInput extends Input
 	/**
 	 * Creates a new DefaultTextInput and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private DefaultTextInput(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for defaultTextInput.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<DefaultTextInput> TYPE = com.exedio.cope.TypesBound.newType(DefaultTextInput.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private DefaultTextInput(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

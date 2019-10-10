@@ -360,13 +360,20 @@
 		<instrument
 				dir="runtime/testsrc"
 				verify="${instrument.verify}"
-				javaxAnnotationGenerated="true"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				buildDirectory="build/instrument/runtime.test">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
 			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#issue(com.exedio.cope.Item,int)</generateDeprecated>
+			<suppressWarnings>
+				<constructor>RedundantSuppression</constructor>
+				<constructor>TypeParameterExtendsFinalClass</constructor>
+				<constructor>UnnecessarilyQualifiedInnerClassAccess</constructor>
+				<wrapper>RedundantSuppression</wrapper>
+				<wrapper>TypeParameterExtendsFinalClass</wrapper>
+				<wrapper>UnnecessarilyQualifiedStaticUsage</wrapper>
+			</suppressWarnings>
 		</instrument>
 	</target>
 
@@ -547,7 +554,6 @@
 		<instrument
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
-				javaxAnnotationGenerated="true"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
@@ -555,6 +561,14 @@
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
 			</classpath>
 			<resources refid="instrument.resources" />
+			<suppressWarnings>
+				<constructor>RedundantSuppression</constructor>
+				<constructor>TypeParameterExtendsFinalClass</constructor>
+				<constructor>UnnecessarilyQualifiedInnerClassAccess</constructor>
+				<wrapper>RedundantSuppression</wrapper>
+				<wrapper>TypeParameterExtendsFinalClass</wrapper>
+				<wrapper>UnnecessarilyQualifiedStaticUsage</wrapper>
+			</suppressWarnings>
 		</instrument>
 	</target>
 
@@ -750,7 +764,6 @@
 		<instrument
 				dir="instrument/testsrc"
 				verify="${instrument.verify}"
-				javaxAnnotationGenerated="true"
 				charset="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"
@@ -774,6 +787,14 @@
 			<generateDeprecated>com.exedio.cope.instrument.testfeature.WrapDeprecationFeature#goneAlmost(com.exedio.cope.Item)</generateDeprecated>
 			<disableWrap>com.exedio.cope.instrument.testfeature.WrapFeature#disabledInBuildXml([[I)</disableWrap>
 			<disableWrap>com.exedio.cope.instrument.testfeature.WrapperParametersFeatureGeneric#disabledInBuildXml(com.exedio.cope.Item,java.lang.Number)</disableWrap>
+			<suppressWarnings>
+				<constructor>RedundantSuppression</constructor>
+				<constructor>TypeParameterExtendsFinalClass</constructor>
+				<constructor>UnnecessarilyQualifiedInnerClassAccess</constructor>
+				<wrapper>RedundantSuppression</wrapper>
+				<wrapper>TypeParameterExtendsFinalClass</wrapper>
+				<wrapper>UnnecessarilyQualifiedStaticUsage</wrapper>
+			</suppressWarnings>
 		</instrument>
 	</target>
 
@@ -796,7 +817,6 @@
 		<instrument
 				dir="instrument/testlibsrc"
 				verify="${instrument.verify}"
-				javaxAnnotationGenerated="true"
 				charset="ascii"
 				maxwarns="20000"
 				serialVersionUIDSuffix="small"
@@ -807,6 +827,14 @@
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/junit4" />
 			</classpath>
+			<suppressWarnings>
+				<constructor>RedundantSuppression</constructor>
+				<constructor>TypeParameterExtendsFinalClass</constructor>
+				<constructor>UnnecessarilyQualifiedInnerClassAccess</constructor>
+				<wrapper>RedundantSuppression</wrapper>
+				<wrapper>TypeParameterExtendsFinalClass</wrapper>
+				<wrapper>UnnecessarilyQualifiedStaticUsage</wrapper>
+			</suppressWarnings>
 		</instrument>
 	</target>
 

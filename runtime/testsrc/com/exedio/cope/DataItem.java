@@ -45,7 +45,8 @@ class DataItem extends Item
 	/**
 	 * Creates a new DataItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	DataItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -55,13 +56,14 @@ class DataItem extends Item
 	/**
 	 * Creates a new DataItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected DataItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns, whether there is no data for field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean isDataNull()
 	{
 		return DataItem.data.isNull(this);
@@ -70,7 +72,8 @@ class DataItem extends Item
 	/**
 	 * Returns the length of the data of the data field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getDataLength()
 	{
 		return DataItem.data.getLength(this);
@@ -79,7 +82,8 @@ class DataItem extends Item
 	/**
 	 * Returns the value of the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final byte[] getDataArray()
 	{
@@ -89,7 +93,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData(@javax.annotation.Nonnull final java.io.OutputStream data)
 			throws
 				java.io.IOException
@@ -100,7 +105,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData(@javax.annotation.Nonnull final java.nio.file.Path data)
 			throws
 				java.io.IOException
@@ -111,7 +117,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData(@javax.annotation.Nonnull final java.io.File data)
 			throws
 				java.io.IOException
@@ -122,7 +129,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data)
 	{
 		DataItem.data.set(this,data);
@@ -131,7 +139,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData(@javax.annotation.Nullable final byte[] data)
 	{
 		DataItem.data.set(this,data);
@@ -140,7 +149,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData(@javax.annotation.Nullable final java.io.InputStream data)
 			throws
 				java.io.IOException
@@ -151,7 +161,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData(@javax.annotation.Nullable final java.nio.file.Path data)
 			throws
 				java.io.IOException
@@ -162,7 +173,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData(@javax.annotation.Nullable final java.io.File data)
 			throws
 				java.io.IOException
@@ -173,7 +185,8 @@ class DataItem extends Item
 	/**
 	 * Returns, whether there is no data for field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean isData10Null()
 	{
 		return DataItem.data10.isNull(this);
@@ -182,7 +195,8 @@ class DataItem extends Item
 	/**
 	 * Returns the length of the data of the data field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getData10Length()
 	{
 		return DataItem.data10.getLength(this);
@@ -191,7 +205,8 @@ class DataItem extends Item
 	/**
 	 * Returns the value of the persistent field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final byte[] getData10Array()
 	{
@@ -201,7 +216,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData10(@javax.annotation.Nonnull final java.io.OutputStream data10)
 			throws
 				java.io.IOException
@@ -212,7 +228,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData10(@javax.annotation.Nonnull final java.nio.file.Path data10)
 			throws
 				java.io.IOException
@@ -223,7 +240,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData10(@javax.annotation.Nonnull final java.io.File data10)
 			throws
 				java.io.IOException
@@ -234,7 +252,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data10)
 	{
 		DataItem.data10.set(this,data10);
@@ -243,7 +262,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10(@javax.annotation.Nullable final byte[] data10)
 	{
 		DataItem.data10.set(this,data10);
@@ -252,7 +272,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10(@javax.annotation.Nullable final java.io.InputStream data10)
 			throws
 				java.io.IOException
@@ -263,7 +284,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10(@javax.annotation.Nullable final java.nio.file.Path data10)
 			throws
 				java.io.IOException
@@ -274,7 +296,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10(@javax.annotation.Nullable final java.io.File data10)
 			throws
 				java.io.IOException
@@ -285,7 +308,8 @@ class DataItem extends Item
 	/**
 	 * Returns, whether there is no data for field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean isData10kNull()
 	{
 		return DataItem.data10k.isNull(this);
@@ -294,7 +318,8 @@ class DataItem extends Item
 	/**
 	 * Returns the length of the data of the data field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getData10kLength()
 	{
 		return DataItem.data10k.getLength(this);
@@ -303,7 +328,8 @@ class DataItem extends Item
 	/**
 	 * Returns the value of the persistent field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final byte[] getData10kArray()
 	{
@@ -313,7 +339,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData10k(@javax.annotation.Nonnull final java.io.OutputStream data10k)
 			throws
 				java.io.IOException
@@ -324,7 +351,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData10k(@javax.annotation.Nonnull final java.nio.file.Path data10k)
 			throws
 				java.io.IOException
@@ -335,7 +363,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData10k(@javax.annotation.Nonnull final java.io.File data10k)
 			throws
 				java.io.IOException
@@ -346,7 +375,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10k(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data10k)
 	{
 		DataItem.data10k.set(this,data10k);
@@ -355,7 +385,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10k(@javax.annotation.Nullable final byte[] data10k)
 	{
 		DataItem.data10k.set(this,data10k);
@@ -364,7 +395,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10k(@javax.annotation.Nullable final java.io.InputStream data10k)
 			throws
 				java.io.IOException
@@ -375,7 +407,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10k(@javax.annotation.Nullable final java.nio.file.Path data10k)
 			throws
 				java.io.IOException
@@ -386,7 +419,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data10k}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData10k(@javax.annotation.Nullable final java.io.File data10k)
 			throws
 				java.io.IOException
@@ -397,7 +431,8 @@ class DataItem extends Item
 	/**
 	 * Returns, whether there is no data for field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final boolean isData100MNull()
 	{
 		return DataItem.data100M.isNull(this);
@@ -406,7 +441,8 @@ class DataItem extends Item
 	/**
 	 * Returns the length of the data of the data field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final long getData100MLength()
 	{
 		return DataItem.data100M.getLength(this);
@@ -415,7 +451,8 @@ class DataItem extends Item
 	/**
 	 * Returns the value of the persistent field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getArray")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final byte[] getData100MArray()
 	{
@@ -425,7 +462,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given stream.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData100M(@javax.annotation.Nonnull final java.io.OutputStream data100M)
 			throws
 				java.io.IOException
@@ -436,7 +474,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData100M(@javax.annotation.Nonnull final java.nio.file.Path data100M)
 			throws
 				java.io.IOException
@@ -447,7 +486,8 @@ class DataItem extends Item
 	/**
 	 * Writes the data of this persistent data field into the given file.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void getData100M(@javax.annotation.Nonnull final java.io.File data100M)
 			throws
 				java.io.IOException
@@ -458,7 +498,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData100M(@javax.annotation.Nullable final com.exedio.cope.DataField.Value data100M)
 	{
 		DataItem.data100M.set(this,data100M);
@@ -467,7 +508,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData100M(@javax.annotation.Nullable final byte[] data100M)
 	{
 		DataItem.data100M.set(this,data100M);
@@ -476,7 +518,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData100M(@javax.annotation.Nullable final java.io.InputStream data100M)
 			throws
 				java.io.IOException
@@ -487,7 +530,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData100M(@javax.annotation.Nullable final java.nio.file.Path data100M)
 			throws
 				java.io.IOException
@@ -498,7 +542,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for the persistent field {@link #data100M}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setData100M(@javax.annotation.Nullable final java.io.File data100M)
 			throws
 				java.io.IOException
@@ -509,7 +554,8 @@ class DataItem extends Item
 	/**
 	 * Returns the value of {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final java.lang.String getName()
 	{
@@ -519,7 +565,8 @@ class DataItem extends Item
 	/**
 	 * Sets a new value for {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setName(@javax.annotation.Nullable final java.lang.String name)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -527,19 +574,19 @@ class DataItem extends Item
 		DataItem.name.set(this,name);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for dataItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<DataItem> TYPE = com.exedio.cope.TypesBound.newType(DataItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected DataItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

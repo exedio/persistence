@@ -48,7 +48,8 @@ package com.exedio.cope;
 	 * @throws com.exedio.cope.StringLengthViolationException if uniqueDouble1 violates its length constraint.
 	 * @throws com.exedio.cope.UniqueViolationException if uniqueDouble1, uniqueDouble2 is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	RenamedSchemaItem(
 				@javax.annotation.Nonnull final java.lang.String uniqueDouble1,
 				final int uniqueDouble2)
@@ -66,13 +67,14 @@ package com.exedio.cope;
 	/**
 	 * Creates a new RenamedSchemaItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private RenamedSchemaItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	RenamedSchemaTargetItem getItem()
 	{
@@ -82,7 +84,8 @@ package com.exedio.cope;
 	/**
 	 * Sets a new value for {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItem(@javax.annotation.Nullable final RenamedSchemaTargetItem item)
 	{
 		RenamedSchemaItem.item.set(this,item);
@@ -91,7 +94,8 @@ package com.exedio.cope;
 	/**
 	 * Returns the value of {@link #uniqueSingle}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getUniqueSingle()
 	{
@@ -101,7 +105,8 @@ package com.exedio.cope;
 	/**
 	 * Sets a new value for {@link #uniqueSingle}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUniqueSingle(@javax.annotation.Nullable final java.lang.String uniqueSingle)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -115,7 +120,8 @@ package com.exedio.cope;
 	 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static RenamedSchemaItem forUniqueSingle(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
 	{
@@ -127,7 +133,8 @@ package com.exedio.cope;
 	 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static RenamedSchemaItem forUniqueSingleStrict(@javax.annotation.Nonnull final java.lang.String uniqueSingle)
 			throws
@@ -139,7 +146,8 @@ package com.exedio.cope;
 	/**
 	 * Returns the value of {@link #uniqueDouble1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getUniqueDouble1()
 	{
@@ -149,7 +157,8 @@ package com.exedio.cope;
 	/**
 	 * Sets a new value for {@link #uniqueDouble1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUniqueDouble1(@javax.annotation.Nonnull final java.lang.String uniqueDouble1)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -162,7 +171,8 @@ package com.exedio.cope;
 	/**
 	 * Returns the value of {@link #uniqueDouble2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getUniqueDouble2()
 	{
 		return RenamedSchemaItem.uniqueDouble2.getMandatory(this);
@@ -171,7 +181,8 @@ package com.exedio.cope;
 	/**
 	 * Sets a new value for {@link #uniqueDouble2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUniqueDouble2(final int uniqueDouble2)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -185,7 +196,8 @@ package com.exedio.cope;
 	 * @param uniqueDouble2 shall be equal to field {@link #uniqueDouble2}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finder")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finder")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static RenamedSchemaItem forUniqueDouble(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
 	{
@@ -198,7 +210,8 @@ package com.exedio.cope;
 	 * @param uniqueDouble2 shall be equal to field {@link #uniqueDouble2}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="finderStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="finderStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static RenamedSchemaItem forUniqueDoubleStrict(@javax.annotation.Nonnull final java.lang.String uniqueDouble1,final int uniqueDouble2)
 			throws
@@ -210,7 +223,8 @@ package com.exedio.cope;
 	/**
 	 * Returns the value of {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getString()
 	{
@@ -220,7 +234,8 @@ package com.exedio.cope;
 	/**
 	 * Sets a new value for {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString(@javax.annotation.Nullable final java.lang.String string)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -231,7 +246,8 @@ package com.exedio.cope;
 	/**
 	 * Returns the value of {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getInteger()
 	{
@@ -241,7 +257,8 @@ package com.exedio.cope;
 	/**
 	 * Sets a new value for {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger(@javax.annotation.Nullable final java.lang.Integer integer)
 	{
 		RenamedSchemaItem.integer.set(this,integer);
@@ -251,25 +268,26 @@ package com.exedio.cope;
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="next")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static int nextSequence()
 	{
 		return RenamedSchemaItem.sequence.next();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for renamedSchemaItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<RenamedSchemaItem> TYPE = com.exedio.cope.TypesBound.newType(RenamedSchemaItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private RenamedSchemaItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

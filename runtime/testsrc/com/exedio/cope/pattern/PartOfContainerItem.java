@@ -64,7 +64,8 @@ public final class PartOfContainerItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if containerString is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if containerString violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	PartOfContainerItem(
 				@javax.annotation.Nonnull final java.lang.String containerString)
 			throws
@@ -79,13 +80,14 @@ public final class PartOfContainerItem extends Item
 	/**
 	 * Creates a new PartOfContainerItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PartOfContainerItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #containerString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getContainerString()
 	{
@@ -95,7 +97,8 @@ public final class PartOfContainerItem extends Item
 	/**
 	 * Sets a new value for {@link #containerString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setContainerString(@javax.annotation.Nonnull final java.lang.String containerString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -104,19 +107,19 @@ public final class PartOfContainerItem extends Item
 		PartOfContainerItem.containerString.set(this,containerString);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for partOfContainerItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PartOfContainerItem> TYPE = com.exedio.cope.TypesBound.newType(PartOfContainerItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PartOfContainerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

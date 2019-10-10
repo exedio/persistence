@@ -143,7 +143,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Creates a new BeforeSetItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	BeforeSetItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -153,13 +154,14 @@ final class BeforeSetItem extends Item
 	/**
 	 * Creates a new BeforeSetItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private BeforeSetItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getField1()
 	{
 		return BeforeSetItem.field1.getMandatory(this);
@@ -168,7 +170,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Sets a new value for {@link #field1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField1(final int field1)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -179,7 +182,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Returns the value of {@link #field2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getField2()
 	{
 		return BeforeSetItem.field2.getMandatory(this);
@@ -188,7 +192,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Sets a new value for {@link #field2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField2(final int field2)
 	{
 		BeforeSetItem.field2.set(this,field2);
@@ -197,7 +202,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Returns the value of {@link #action}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Action getAction()
 	{
@@ -207,7 +213,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Sets a new value for {@link #action}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setAction(@javax.annotation.Nullable final Action action)
 	{
 		BeforeSetItem.action.set(this,action);
@@ -216,7 +223,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Returns the value of {@link #calls}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.List<String> getCalls()
 	{
@@ -226,7 +234,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Returns a query for the value of {@link #calls}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getQuery")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.Query<String> getCallsQuery()
 	{
@@ -236,7 +245,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Returns the items, for which field list {@link #calls} contains the given element.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static java.util.List<BeforeSetItem> getDistinctParentsOfCalls(final String element)
 	{
@@ -246,7 +256,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Adds a new value for {@link #calls}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="addTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void addToCalls(@javax.annotation.Nonnull final String calls)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -260,7 +271,8 @@ final class BeforeSetItem extends Item
 	 * Removes all occurrences of {@code element} from {@link #calls}.
 	 * @return {@code true} if the field set changed as a result of the call.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="removeAllFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeAllFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean removeAllFromCalls(@javax.annotation.Nonnull final String calls)
 	{
 		return BeforeSetItem.calls.removeAll(this,calls);
@@ -269,7 +281,8 @@ final class BeforeSetItem extends Item
 	/**
 	 * Sets a new value for {@link #calls}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCalls(@javax.annotation.Nonnull final java.util.Collection<? extends String> calls)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -282,26 +295,27 @@ final class BeforeSetItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #calls}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<BeforeSetItem> callsParent()
 	{
 		return BeforeSetItem.calls.getParent(BeforeSetItem.class);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for beforeSetItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<BeforeSetItem> TYPE = com.exedio.cope.TypesBound.newType(BeforeSetItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private BeforeSetItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

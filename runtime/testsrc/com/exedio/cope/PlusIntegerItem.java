@@ -64,7 +64,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Creates a new PlusIntegerItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public PlusIntegerItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -74,13 +75,14 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Creates a new PlusIntegerItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PlusIntegerItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #numA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getNumA()
 	{
@@ -90,7 +92,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #numA}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumA(@javax.annotation.Nullable final java.lang.Integer numA)
 	{
 		PlusIntegerItem.numA.set(this,numA);
@@ -99,7 +102,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #numB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getNumB()
 	{
@@ -109,7 +113,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #numB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumB(@javax.annotation.Nullable final java.lang.Integer numB)
 	{
 		PlusIntegerItem.numB.set(this,numB);
@@ -118,7 +123,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #numC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getNumC()
 	{
@@ -128,7 +134,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Sets a new value for {@link #numC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setNumC(@javax.annotation.Nullable final java.lang.Integer numC)
 	{
 		PlusIntegerItem.numC.set(this,numC);
@@ -137,7 +144,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #plusA9}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusA9()
 	{
 		return PlusIntegerItem.plusA9.get(this);
@@ -146,7 +154,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #plusAB}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusAB()
 	{
 		return PlusIntegerItem.plusAB.get(this);
@@ -155,7 +164,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #plusAC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusAC()
 	{
 		return PlusIntegerItem.plusAC.get(this);
@@ -164,7 +174,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #plusBC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusBC()
 	{
 		return PlusIntegerItem.plusBC.get(this);
@@ -173,7 +184,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #plusABC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusABC()
 	{
 		return PlusIntegerItem.plusABC.get(this);
@@ -182,7 +194,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #plusABaC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusABaC()
 	{
 		return PlusIntegerItem.plusABaC.get(this);
@@ -191,7 +204,8 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #multiplyB9}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getMultiplyB9()
 	{
 		return PlusIntegerItem.multiplyB9.get(this);
@@ -200,25 +214,26 @@ public final class PlusIntegerItem extends Item
 	/**
 	 * Returns the value of {@link #multiplyBC}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getMultiplyBC()
 	{
 		return PlusIntegerItem.multiplyBC.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for plusIntegerItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PlusIntegerItem> TYPE = com.exedio.cope.TypesBound.newType(PlusIntegerItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PlusIntegerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

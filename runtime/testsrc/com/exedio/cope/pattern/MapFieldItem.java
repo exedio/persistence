@@ -42,7 +42,8 @@ public final class MapFieldItem extends Item
 	/**
 	 * Creates a new MapFieldItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public MapFieldItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -52,13 +53,14 @@ public final class MapFieldItem extends Item
 	/**
 	 * Creates a new MapFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private MapFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getName(@javax.annotation.Nonnull final Language k)
 	{
@@ -68,20 +70,23 @@ public final class MapFieldItem extends Item
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setName(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final String name)
 	{
 		MapFieldItem.name.set(this,k,name);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<Language,String> getNameMap()
 	{
 		return MapFieldItem.name.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNameMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends String> name)
 	{
 		MapFieldItem.name.setMap(this,name);
@@ -90,7 +95,8 @@ public final class MapFieldItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #name}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<MapFieldItem> nameParent()
 	{
@@ -100,7 +106,8 @@ public final class MapFieldItem extends Item
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #nameLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Integer getNameLength(@javax.annotation.Nonnull final Language k)
 	{
@@ -110,20 +117,23 @@ public final class MapFieldItem extends Item
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #nameLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNameLength(@javax.annotation.Nonnull final Language k,@javax.annotation.Nullable final Integer nameLength)
 	{
 		MapFieldItem.nameLength.set(this,k,nameLength);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<Language,Integer> getNameLengthMap()
 	{
 		return MapFieldItem.nameLength.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setNameLengthMap(@javax.annotation.Nonnull final java.util.Map<? extends Language,? extends Integer> nameLength)
 	{
 		MapFieldItem.nameLength.setMap(this,nameLength);
@@ -132,7 +142,8 @@ public final class MapFieldItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #nameLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<MapFieldItem> nameLengthParent()
 	{
@@ -142,7 +153,8 @@ public final class MapFieldItem extends Item
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	String getString(@javax.annotation.Nonnull final String k)
 	{
@@ -152,20 +164,23 @@ public final class MapFieldItem extends Item
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final String string)
 	{
 		MapFieldItem.string.set(this,k,string);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<String,String> getStringMap()
 	{
 		return MapFieldItem.string.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStringMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends String> string)
 	{
 		MapFieldItem.string.setMap(this,string);
@@ -174,7 +189,8 @@ public final class MapFieldItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #string}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<MapFieldItem> stringParent()
 	{
@@ -184,7 +200,8 @@ public final class MapFieldItem extends Item
 	/**
 	 * Returns the value mapped to {@code k} by the field map {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Integer getInteger(@javax.annotation.Nonnull final String k)
 	{
@@ -194,20 +211,23 @@ public final class MapFieldItem extends Item
 	/**
 	 * Associates {@code k} to a new value in the field map {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger(@javax.annotation.Nonnull final String k,@javax.annotation.Nullable final Integer integer)
 	{
 		MapFieldItem.integer.set(this,k,integer);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.util.Map<String,Integer> getIntegerMap()
 	{
 		return MapFieldItem.integer.getMap(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setMap")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setMap")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setIntegerMap(@javax.annotation.Nonnull final java.util.Map<? extends String,? extends Integer> integer)
 	{
 		MapFieldItem.integer.setMap(this,integer);
@@ -216,26 +236,27 @@ public final class MapFieldItem extends Item
 	/**
 	 * Returns the parent field of the type of {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="Parent")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static com.exedio.cope.ItemField<MapFieldItem> integerParent()
 	{
 		return MapFieldItem.integer.getParent(MapFieldItem.class);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for mapFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<MapFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private MapFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

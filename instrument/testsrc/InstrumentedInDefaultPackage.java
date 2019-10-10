@@ -34,7 +34,8 @@ public final class InstrumentedInDefaultPackage extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if field, item is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if field violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	InstrumentedInDefaultPackage(
 				@javax.annotation.Nonnull final java.lang.String field,
 				@javax.annotation.Nonnull final InstrumentedInDefaultPackage item)
@@ -51,13 +52,14 @@ public final class InstrumentedInDefaultPackage extends Item
 	/**
 	 * Creates a new InstrumentedInDefaultPackage and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private InstrumentedInDefaultPackage(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getField()
 	{
@@ -67,7 +69,8 @@ public final class InstrumentedInDefaultPackage extends Item
 	/**
 	 * Sets a new value for {@link #field}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setField(@javax.annotation.Nonnull final java.lang.String field)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -79,7 +82,8 @@ public final class InstrumentedInDefaultPackage extends Item
 	/**
 	 * Returns the value of {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	InstrumentedInDefaultPackage getItem()
 	{
@@ -89,7 +93,8 @@ public final class InstrumentedInDefaultPackage extends Item
 	/**
 	 * Sets a new value for {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItem(@javax.annotation.Nonnull final InstrumentedInDefaultPackage item)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -97,19 +102,19 @@ public final class InstrumentedInDefaultPackage extends Item
 		InstrumentedInDefaultPackage.item.set(this,item);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for instrumentedInDefaultPackage.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<InstrumentedInDefaultPackage> TYPE = com.exedio.cope.TypesBound.newType(InstrumentedInDefaultPackage.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private InstrumentedInDefaultPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

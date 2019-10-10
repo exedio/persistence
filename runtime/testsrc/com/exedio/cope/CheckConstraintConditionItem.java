@@ -67,7 +67,8 @@ final class CheckConstraintConditionItem extends Item
 	 * @param item the initial value for field {@link #item}.
 	 * @throws com.exedio.cope.MandatoryViolationException if item is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CheckConstraintConditionItem(
 				final int integer1,
 				final int integer2,
@@ -85,13 +86,14 @@ final class CheckConstraintConditionItem extends Item
 	/**
 	 * Creates a new CheckConstraintConditionItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CheckConstraintConditionItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #integer1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteger1()
 	{
 		return CheckConstraintConditionItem.integer1.getMandatory(this);
@@ -100,7 +102,8 @@ final class CheckConstraintConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #integer1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger1(final int integer1)
 	{
 		CheckConstraintConditionItem.integer1.set(this,integer1);
@@ -109,7 +112,8 @@ final class CheckConstraintConditionItem extends Item
 	/**
 	 * Returns the value of {@link #integer2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getInteger2()
 	{
 		return CheckConstraintConditionItem.integer2.getMandatory(this);
@@ -118,7 +122,8 @@ final class CheckConstraintConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #integer2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger2(final int integer2)
 	{
 		CheckConstraintConditionItem.integer2.set(this,integer2);
@@ -127,7 +132,8 @@ final class CheckConstraintConditionItem extends Item
 	/**
 	 * Returns the value of {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	CheckConstraintConditionItemTarget getItem()
 	{
@@ -137,7 +143,8 @@ final class CheckConstraintConditionItem extends Item
 	/**
 	 * Sets a new value for {@link #item}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setItem(@javax.annotation.Nonnull final CheckConstraintConditionItemTarget item)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -145,19 +152,19 @@ final class CheckConstraintConditionItem extends Item
 		CheckConstraintConditionItem.item.set(this,item);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for checkConstraintConditionItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<CheckConstraintConditionItem> TYPE = com.exedio.cope.TypesBound.newType(CheckConstraintConditionItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private CheckConstraintConditionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -45,7 +45,8 @@ public abstract class Super extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if superMandatory is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if superMandatory violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	protected Super(
 				@javax.annotation.Nonnull final java.lang.String superMandatory,
 				@javax.annotation.Nullable final java.lang.Integer superInitial)
@@ -62,13 +63,14 @@ public abstract class Super extends Item
 	/**
 	 * Creates a new Super and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected Super(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #superMandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public final java.lang.String getSuperMandatory()
 	{
@@ -78,7 +80,8 @@ public abstract class Super extends Item
 	/**
 	 * Sets a new value for {@link #superMandatory}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setSuperMandatory(@javax.annotation.Nonnull final java.lang.String superMandatory)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -90,7 +93,8 @@ public abstract class Super extends Item
 	/**
 	 * Returns the value of {@link #superInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public final java.lang.Integer getSuperInitial()
 	{
@@ -100,7 +104,8 @@ public abstract class Super extends Item
 	/**
 	 * Sets a new value for {@link #superInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setSuperInitial(@javax.annotation.Nullable final java.lang.Integer superInitial)
 	{
 		Super.superInitial.set(this,superInitial);
@@ -109,7 +114,8 @@ public abstract class Super extends Item
 	/**
 	 * Returns the value of {@link #superNonInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public final com.exedio.cope.util.Day getSuperNonInitial()
 	{
@@ -119,7 +125,8 @@ public abstract class Super extends Item
 	/**
 	 * Sets a new value for {@link #superNonInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setSuperNonInitial(@javax.annotation.Nullable final com.exedio.cope.util.Day superNonInitial)
 	{
 		Super.superNonInitial.set(this,superNonInitial);
@@ -128,25 +135,26 @@ public abstract class Super extends Item
 	/**
 	 * Sets today for the date field {@link #superNonInitial}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void touchSuperNonInitial(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		Super.superNonInitial.touch(this,zone);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 2l;
 
 	/**
 	 * The persistent type information for super.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected Super(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

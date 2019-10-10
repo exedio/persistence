@@ -56,13 +56,13 @@ public class MediaServletDefaultTest
 	{
 		@WrapperIgnore static final Media path = new Media();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MaximumAgeItem> TYPE = com.exedio.cope.TypesBound.newType(MaximumAgeItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MaximumAgeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	private static final Model MaximumAgeItemModel = new Model(MaximumAgeItem.TYPE);
@@ -100,13 +100,13 @@ public class MediaServletDefaultTest
 		@PreventUrlGuessing @UrlFingerPrinting
 		@WrapperIgnore static final Media secfin = new Media();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<CacheControlPrivateItem> TYPE = com.exedio.cope.TypesBound.newType(CacheControlPrivateItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private CacheControlPrivateItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

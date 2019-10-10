@@ -43,7 +43,8 @@ public class MultiItemFieldStandardTest
 				canBe(MultiItemFieldComponentA.class).
 				canBe(MultiItemFieldComponentB.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnMandatoryItem(
 					@javax.annotation.Nonnull final MultiItemFieldValue field)
 				throws
@@ -54,17 +55,19 @@ public class MultiItemFieldStandardTest
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnMandatoryItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValue getField()
 		{
 			return AnMandatoryItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField(@javax.annotation.Nonnull final MultiItemFieldValue field)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -72,13 +75,13 @@ public class MultiItemFieldStandardTest
 			AnMandatoryItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnMandatoryItem> TYPE = com.exedio.cope.TypesBound.newType(AnMandatoryItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnMandatoryItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -90,36 +93,39 @@ public class MultiItemFieldStandardTest
 				canBe(MultiItemFieldComponentB.class).
 				optional();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnOptionalItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnOptionalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		MultiItemFieldValue getField()
 		{
 			return AnOptionalItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField(@javax.annotation.Nullable final MultiItemFieldValue field)
 		{
 			AnOptionalItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnOptionalItem> TYPE = com.exedio.cope.TypesBound.newType(AnOptionalItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnOptionalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -131,7 +137,8 @@ public class MultiItemFieldStandardTest
 				canBe(MultiItemFieldComponentB.class).
 				toFinal();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnFinalItem(
 					@javax.annotation.Nonnull final MultiItemFieldValue field)
 				throws
@@ -142,23 +149,24 @@ public class MultiItemFieldStandardTest
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnFinalItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValue getField()
 		{
 			return AnFinalItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnFinalItem> TYPE = com.exedio.cope.TypesBound.newType(AnFinalItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnFinalItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -176,7 +184,8 @@ public class MultiItemFieldStandardTest
 				canBe(MultiItemFieldComponentC.class).
 				optional();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		ThreeItem(
 					@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
 				throws
@@ -187,17 +196,19 @@ public class MultiItemFieldStandardTest
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ThreeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValue getMandatory()
 		{
 			return ThreeItem.mandatory.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setMandatory(@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -205,26 +216,28 @@ public class MultiItemFieldStandardTest
 			ThreeItem.mandatory.set(this,mandatory);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		MultiItemFieldValue getOptional()
 		{
 			return ThreeItem.optional.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setOptional(@javax.annotation.Nullable final MultiItemFieldValue optional)
 		{
 			ThreeItem.optional.set(this,optional);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<ThreeItem> TYPE = com.exedio.cope.TypesBound.newType(ThreeItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private ThreeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -244,7 +257,8 @@ public class MultiItemFieldStandardTest
 				canBe(MultiItemFieldComponentD.class).
 				optional();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		FourItem(
 					@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
 				throws
@@ -255,17 +269,19 @@ public class MultiItemFieldStandardTest
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private FourItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValue getMandatory()
 		{
 			return FourItem.mandatory.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setMandatory(@javax.annotation.Nonnull final MultiItemFieldValue mandatory)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -273,26 +289,28 @@ public class MultiItemFieldStandardTest
 			FourItem.mandatory.set(this,mandatory);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		MultiItemFieldValue getOptional()
 		{
 			return FourItem.optional.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setOptional(@javax.annotation.Nullable final MultiItemFieldValue optional)
 		{
 			FourItem.optional.set(this,optional);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<FourItem> TYPE = com.exedio.cope.TypesBound.newType(FourItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private FourItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -304,7 +322,8 @@ public class MultiItemFieldStandardTest
 				canBe(MultiItemFieldComponentB.class).
 				cascade();
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnCascadeItem(
 					@javax.annotation.Nonnull final MultiItemFieldValue field)
 				throws
@@ -315,17 +334,19 @@ public class MultiItemFieldStandardTest
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnCascadeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		MultiItemFieldValue getField()
 		{
 			return AnCascadeItem.field.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setField(@javax.annotation.Nonnull final MultiItemFieldValue field)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -333,13 +354,13 @@ public class MultiItemFieldStandardTest
 			AnCascadeItem.field.set(this,field);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

@@ -45,7 +45,8 @@ public final class RangeFieldItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if text is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if text violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	RangeFieldItem(
 				@javax.annotation.Nullable final com.exedio.cope.pattern.Range<Integer> valid,
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<String> text)
@@ -63,17 +64,19 @@ public final class RangeFieldItem extends Item
 	/**
 	 * Creates a new RangeFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private RangeFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Range<Integer> getValid()
 	{
 		return RangeFieldItem.valid.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setValid(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> valid)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -81,21 +84,24 @@ public final class RangeFieldItem extends Item
 		RangeFieldItem.valid.set(this,valid);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Integer getValidFrom()
 	{
 		return RangeFieldItem.valid.getFrom(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Integer getValidTo()
 	{
 		return RangeFieldItem.valid.getTo(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setValidFrom(@javax.annotation.Nullable final Integer valid)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -103,7 +109,8 @@ public final class RangeFieldItem extends Item
 		RangeFieldItem.valid.setFrom(this,valid);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="setTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setValidTo(@javax.annotation.Nullable final Integer valid)
 			throws
 				com.exedio.cope.IntegerRangeViolationException
@@ -111,52 +118,57 @@ public final class RangeFieldItem extends Item
 		RangeFieldItem.valid.setTo(this,valid);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="doesContain")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="doesContain")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean doesValidContain(@javax.annotation.Nonnull final Integer valid)
 	{
 		return RangeFieldItem.valid.doesContain(this,valid);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Range<String> getText()
 	{
 		return RangeFieldItem.text.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getFrom")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	String getTextFrom()
 	{
 		return RangeFieldItem.text.getFrom(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getTo")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	String getTextTo()
 	{
 		return RangeFieldItem.text.getTo(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="doesContain")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="doesContain")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	boolean doesTextContain(@javax.annotation.Nonnull final String text)
 	{
 		return RangeFieldItem.text.doesContain(this,text);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for rangeFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<RangeFieldItem> TYPE = com.exedio.cope.TypesBound.newType(RangeFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private RangeFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

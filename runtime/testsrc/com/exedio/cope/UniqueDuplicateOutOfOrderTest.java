@@ -53,17 +53,19 @@ public class UniqueDuplicateOutOfOrderTest
 		static final UniqueConstraint constraintA = UniqueConstraint.create(one, two);
 		static final UniqueConstraint constraintB = UniqueConstraint.create(two, one);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getOne()
 		{
 			return MyItem.one.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setOne(@javax.annotation.Nonnull final java.lang.String one)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -73,14 +75,16 @@ public class UniqueDuplicateOutOfOrderTest
 			MyItem.one.set(this,one);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getTwo()
 		{
 			return MyItem.two.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setTwo(@javax.annotation.Nonnull final java.lang.String two)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -90,14 +94,16 @@ public class UniqueDuplicateOutOfOrderTest
 			MyItem.two.set(this,two);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraintA(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 		{
 			return MyItem.constraintA.search(MyItem.class,one,two);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraintAStrict(@javax.annotation.Nonnull final java.lang.String one,@javax.annotation.Nonnull final java.lang.String two)
 				throws
@@ -106,14 +112,16 @@ public class UniqueDuplicateOutOfOrderTest
 			return MyItem.constraintA.searchStrict(MyItem.class,one,two);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static MyItem forConstraintB(@javax.annotation.Nonnull final java.lang.String two,@javax.annotation.Nonnull final java.lang.String one)
 		{
 			return MyItem.constraintB.search(MyItem.class,two,one);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static MyItem forConstraintBStrict(@javax.annotation.Nonnull final java.lang.String two,@javax.annotation.Nonnull final java.lang.String one)
 				throws
@@ -122,10 +130,10 @@ public class UniqueDuplicateOutOfOrderTest
 			return MyItem.constraintB.searchStrict(MyItem.class,two,one);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

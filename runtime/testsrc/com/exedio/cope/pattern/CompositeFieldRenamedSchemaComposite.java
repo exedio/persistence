@@ -34,7 +34,8 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	 * @throws com.exedio.cope.MandatoryViolationException if virgnTemp, wrongTemp is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if virgnTemp, wrongTemp violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CompositeFieldRenamedSchemaComposite(
 				@javax.annotation.Nonnull final java.lang.String virgnTemp,
 				@javax.annotation.Nonnull final java.lang.String wrongTemp)
@@ -51,13 +52,14 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	/**
 	 * Creates a new CompositeFieldRenamedSchemaComposite and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private CompositeFieldRenamedSchemaComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #virgnTemp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getVirgnTemp()
 	{
@@ -67,7 +69,8 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	/**
 	 * Sets a new value for {@link #virgnTemp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setVirgnTemp(@javax.annotation.Nonnull final java.lang.String virgnTemp)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -79,7 +82,8 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	/**
 	 * Returns the value of {@link #wrongTemp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	java.lang.String getWrongTemp()
 	{
@@ -89,7 +93,8 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 	/**
 	 * Sets a new value for {@link #wrongTemp}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setWrongTemp(@javax.annotation.Nonnull final java.lang.String wrongTemp)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -98,6 +103,6 @@ final class CompositeFieldRenamedSchemaComposite extends Composite
 		set(CompositeFieldRenamedSchemaComposite.wrongTemp,wrongTemp);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 }

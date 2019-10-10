@@ -162,7 +162,8 @@ public final class MoneyFieldItem extends Item
 	 * @param exclMan the initial value for field {@link #exclMan}.
 	 * @throws com.exedio.cope.MandatoryViolationException if currency, sharMan, exclMan is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	MoneyFieldItem(
 				@javax.annotation.Nonnull final Currency currency,
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan,
@@ -180,13 +181,14 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Creates a new MoneyFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private MoneyFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #fixeOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.Money<CurrFix> getFixeOpt()
 	{
@@ -196,7 +198,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #fixeOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFixeOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrFix> fixeOpt)
 	{
 		MoneyFieldItem.fixeOpt.set(this,fixeOpt);
@@ -205,7 +208,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Returns the value of {@link #fixeEnu}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.Money<Currency> getFixeEnu()
 	{
@@ -215,7 +219,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #fixeEnu}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setFixeEnu(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> fixeEnu)
 	{
 		MoneyFieldItem.fixeEnu.set(this,fixeEnu);
@@ -224,7 +229,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Returns the value of {@link #currency}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	Currency getCurrency()
 	{
@@ -234,7 +240,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #currency}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setCurrency(@javax.annotation.Nonnull final Currency currency)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -245,7 +252,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Returns the value of {@link #sharOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.Money<Currency> getSharOpt()
 	{
@@ -255,7 +263,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #sharOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSharOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> sharOpt)
 	{
 		MoneyFieldItem.sharOpt.set(this,sharOpt);
@@ -264,7 +273,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Returns the value of {@link #sharMan}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Money<Currency> getSharMan()
 	{
@@ -274,7 +284,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #sharMan}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setSharMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> sharMan)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -285,7 +296,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Returns the value of {@link #exclOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.Money<Currency> getExclOpt()
 	{
@@ -295,7 +307,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #exclOpt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setExclOpt(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<Currency> exclOpt)
 	{
 		MoneyFieldItem.exclOpt.set(this,exclOpt);
@@ -304,7 +317,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Returns the value of {@link #exclMan}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Money<Currency> getExclMan()
 	{
@@ -314,7 +328,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #exclMan}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setExclMan(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> exclMan)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -325,7 +340,8 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Returns the value of {@link #byItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.Money<CurrencyItem> getByItem()
 	{
@@ -335,25 +351,26 @@ public final class MoneyFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #byItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setByItem(@javax.annotation.Nullable final com.exedio.cope.pattern.Money<CurrencyItem> byItem)
 	{
 		MoneyFieldItem.byItem.set(this,byItem);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for moneyFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<MoneyFieldItem> TYPE = com.exedio.cope.TypesBound.newType(MoneyFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private MoneyFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

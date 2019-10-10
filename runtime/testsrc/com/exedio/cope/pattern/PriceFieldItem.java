@@ -50,7 +50,8 @@ public final class PriceFieldItem extends Item
 	 * @throws com.exedio.cope.LongRangeViolationException if bigPrice violates its range constraint.
 	 * @throws com.exedio.cope.MandatoryViolationException if finalPrice, bigPrice is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	PriceFieldItem(
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Price finalPrice,
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Price bigPrice)
@@ -67,13 +68,14 @@ public final class PriceFieldItem extends Item
 	/**
 	 * Creates a new PriceFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	PriceFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #finalPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Price getFinalPrice()
 	{
@@ -83,7 +85,8 @@ public final class PriceFieldItem extends Item
 	/**
 	 * Returns the value of {@link #optionalPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	com.exedio.cope.pattern.Price getOptionalPrice()
 	{
@@ -93,7 +96,8 @@ public final class PriceFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #optionalPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOptionalPrice(@javax.annotation.Nullable final com.exedio.cope.pattern.Price optionalPrice)
 	{
 		PriceFieldItem.optionalPrice.set(this,optionalPrice);
@@ -102,7 +106,8 @@ public final class PriceFieldItem extends Item
 	/**
 	 * Returns the value of {@link #bigPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	com.exedio.cope.pattern.Price getBigPrice()
 	{
@@ -112,7 +117,8 @@ public final class PriceFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #bigPrice}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setBigPrice(@javax.annotation.Nonnull final com.exedio.cope.pattern.Price bigPrice)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -121,19 +127,19 @@ public final class PriceFieldItem extends Item
 		PriceFieldItem.bigPrice.set(this,bigPrice);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for priceFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PriceFieldItem> TYPE = com.exedio.cope.TypesBound.newType(PriceFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PriceFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

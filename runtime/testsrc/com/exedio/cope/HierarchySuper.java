@@ -31,7 +31,8 @@ public abstract class HierarchySuper extends Item
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @throws com.exedio.cope.UniqueViolationException if superInt is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	protected HierarchySuper(
 				final int superInt)
 			throws
@@ -45,13 +46,14 @@ public abstract class HierarchySuper extends Item
 	/**
 	 * Creates a new HierarchySuper and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected HierarchySuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #superInt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final int getSuperInt()
 	{
 		return HierarchySuper.superInt.getMandatory(this);
@@ -60,7 +62,8 @@ public abstract class HierarchySuper extends Item
 	/**
 	 * Sets a new value for {@link #superInt}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setSuperInt(final int superInt)
 			throws
 				com.exedio.cope.UniqueViolationException
@@ -73,7 +76,8 @@ public abstract class HierarchySuper extends Item
 	 * @param superInt shall be equal to field {@link #superInt}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public static final HierarchySuper forSuperInt(final int superInt)
 	{
@@ -85,7 +89,8 @@ public abstract class HierarchySuper extends Item
 	 * @param superInt shall be equal to field {@link #superInt}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public static final HierarchySuper forSuperIntStrict(final int superInt)
 			throws
@@ -97,7 +102,8 @@ public abstract class HierarchySuper extends Item
 	/**
 	 * Returns the value of {@link #superString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public final java.lang.String getSuperString()
 	{
@@ -107,7 +113,8 @@ public abstract class HierarchySuper extends Item
 	/**
 	 * Sets a new value for {@link #superString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final void setSuperString(@javax.annotation.Nullable final java.lang.String superString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -118,25 +125,26 @@ public abstract class HierarchySuper extends Item
 	/**
 	 * Returns the value of {@link #superStringUpper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final java.lang.String getSuperStringUpper()
 	{
 		return HierarchySuper.superStringUpper.get(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 2l;
 
 	/**
 	 * The persistent type information for hierarchySuper.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<HierarchySuper> TYPE = com.exedio.cope.TypesBound.newType(HierarchySuper.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected HierarchySuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

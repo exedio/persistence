@@ -61,10 +61,10 @@ public class CopeExternalModelTest
 	@WrapperType(indent=2, comments=false, type=NONE, genericConstructor=NONE, constructor=NONE)
 	static class InvalidCachedItem extends NoCacheItem
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected InvalidCachedItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -72,10 +72,10 @@ public class CopeExternalModelTest
 	@CopeExternal
 	static class InvalidUncachedItem extends CachedItem
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected InvalidUncachedItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

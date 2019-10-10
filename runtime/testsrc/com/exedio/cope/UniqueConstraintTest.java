@@ -132,7 +132,8 @@ public class UniqueConstraintTest extends TestWithEnvironment
 
 		static final UniqueConstraint aAndB = UniqueConstraint.create(a, b);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private UniqueConstraintItem(
 					@javax.annotation.Nonnull final java.lang.String a,
 					final int b)
@@ -147,17 +148,19 @@ public class UniqueConstraintTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		static final UniqueConstraintItem forAAndB(@javax.annotation.Nonnull final java.lang.String a,final int b)
 		{
 			return UniqueConstraintItem.aAndB.search(UniqueConstraintItem.class,a,b);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		static final UniqueConstraintItem forAAndBStrict(@javax.annotation.Nonnull final java.lang.String a,final int b)
 				throws
@@ -166,13 +169,13 @@ public class UniqueConstraintTest extends TestWithEnvironment
 			return UniqueConstraintItem.aAndB.searchStrict(UniqueConstraintItem.class,a,b);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<UniqueConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

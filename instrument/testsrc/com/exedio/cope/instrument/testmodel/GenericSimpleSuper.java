@@ -40,7 +40,8 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	 * @param toSub the initial value for field {@link #toSub}.
 	 * @param toSuper the initial value for field {@link #toSuper}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	GenericSimpleSuper(
 				@javax.annotation.Nonnull final GenericSimpleSub toSub,
 				@javax.annotation.Nonnull final GenericSimpleSuper<?> toSuper)
@@ -54,52 +55,56 @@ public class GenericSimpleSuper<N extends Number> extends Item
 	/**
 	 * Creates a new GenericSimpleSuper and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected GenericSimpleSuper(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final GenericSimpleSub methodToSub(final GenericSimpleSub toSub)
 	{
 		return GenericSimpleSuper.toSub.method(this,toSub);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final GenericSimpleSuper<?> methodToSuper(final GenericSimpleSuper<?> toSuper)
 	{
 		return GenericSimpleSuper.toSuper.method(this,toSuper);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="method")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final GenericSimpleSuper<?> methodFromSuper()
 	{
 		return GenericSimpleSuper.fromSuper.method(classWildcard.value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="methodNested")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="methodNested")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static final java.util.List<GenericSimpleSuper<?>> methodFromSuperNested()
 	{
 		return GenericSimpleSuper.fromSuper.methodNested(classWildcard.value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * Use GenericSimpleSuper.classWildcard.value instead of GenericSimpleSuper.class to avoid rawtypes warnings.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(wildcardClass=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(wildcardClass=...)
 	public static final class classWildcard { public static final java.lang.Class<GenericSimpleSuper<?>> value = com.exedio.cope.ItemWildcardCast.cast(GenericSimpleSuper.class); private classWildcard(){} }
 
 	/**
 	 * The persistent type information for genericSimpleSuper.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<GenericSimpleSuper<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected GenericSimpleSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

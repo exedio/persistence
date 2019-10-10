@@ -23,19 +23,19 @@ import com.exedio.cope.instrument.testlib.LibBlock;
 /** test extending a block that is imported from a library */
 class LibBlockUser extends LibBlock
 {
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The type information for libBlockUser.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.pattern.BlockType<LibBlockUser> TYPE = com.exedio.cope.pattern.BlockType.newType(LibBlockUser.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.pattern.Block#Block(com.exedio.cope.pattern.BlockActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected LibBlockUser(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }

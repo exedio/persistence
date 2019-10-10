@@ -47,7 +47,8 @@ public final class NameFeatureItem extends Item
 	/**
 	 * Creates a new NameFeatureItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public NameFeatureItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -57,94 +58,106 @@ public final class NameFeatureItem extends Item
 	/**
 	 * Creates a new NameFeatureItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private NameFeatureItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="withinMethod")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void withinFeatureMethod()
 	{
 		NameFeatureItem.feature.within0(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="withinMethod")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void withinfeatureMethod()
 	{
 		NameFeatureItem.feature.within1(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void Feature()
 	{
 		NameFeatureItem.feature.only0(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void feature()
 	{
 		NameFeatureItem.feature.only1(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="withinMethod")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void withinAlphaMethod()
 	{
 		NameFeatureItem.alpha.within0(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="withinMethod")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void withinalphaMethod()
 	{
 		NameFeatureItem.alpha.within1(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void Alpha()
 	{
 		NameFeatureItem.alpha.only0(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void alpha()
 	{
 		NameFeatureItem.alpha.only1(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="withinMethod")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void withinBetaMethod()
 	{
 		NameFeatureItem.beta.within0(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="withinMethod")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="withinMethod")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void withinbetaMethod()
 	{
 		NameFeatureItem.beta.within1(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected void Beta()
 	{
 		NameFeatureItem.beta.only0(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	protected void beta()
 	{
 		NameFeatureItem.beta.only1(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for nameFeatureItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<NameFeatureItem> TYPE = com.exedio.cope.TypesBound.newType(NameFeatureItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private NameFeatureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

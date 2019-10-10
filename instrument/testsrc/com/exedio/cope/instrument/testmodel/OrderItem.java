@@ -28,7 +28,8 @@ public final class OrderItem extends Item
 	/**
 	 * Creates a new OrderItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public OrderItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -38,58 +39,64 @@ public final class OrderItem extends Item
 	/**
 	 * Creates a new OrderItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private OrderItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="super10")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="super10")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void super10Feature()
 	{
 		OrderItem.feature.super10();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="super20")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="super20")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void super20Feature()
 	{
 		OrderItem.feature.super20();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="super30")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="super30")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void super30Feature()
 	{
 		OrderItem.feature.super30();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="sub10")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="sub10")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void sub10Feature()
 	{
 		OrderItem.feature.sub10();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="sub20")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="sub20")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void sub20Feature()
 	{
 		OrderItem.feature.sub20();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="sub30")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="sub30")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static void sub30Feature()
 	{
 		OrderItem.feature.sub30();
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for orderItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<OrderItem> TYPE = com.exedio.cope.TypesBound.newType(OrderItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private OrderItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

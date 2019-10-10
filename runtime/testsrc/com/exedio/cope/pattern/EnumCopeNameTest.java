@@ -50,13 +50,13 @@ public class EnumCopeNameTest
 		@WrapperIgnore static final EnumSetField<MyEnum       > set = EnumSetField.create(MyEnum.class);
 		@WrapperIgnore static final EnumMapField<MyEnum,String> map = EnumMapField.create(MyEnum.class, new StringField());
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

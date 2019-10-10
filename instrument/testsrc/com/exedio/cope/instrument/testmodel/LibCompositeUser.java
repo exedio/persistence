@@ -33,7 +33,8 @@ class LibCompositeUser extends LibComposite
 	 * @throws com.exedio.cope.MandatoryViolationException if superField, subField is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if superField, subField violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	LibCompositeUser(
 				@javax.annotation.Nonnull final java.lang.String superField,
 				@javax.annotation.Nonnull final java.lang.String subField)
@@ -50,13 +51,14 @@ class LibCompositeUser extends LibComposite
 	/**
 	 * Creates a new LibCompositeUser and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected LibCompositeUser(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	final java.lang.String getSubField()
 	{
@@ -66,7 +68,8 @@ class LibCompositeUser extends LibComposite
 	/**
 	 * Sets a new value for {@link #subField}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setSubField(@javax.annotation.Nonnull final java.lang.String subField)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -75,6 +78,6 @@ class LibCompositeUser extends LibComposite
 		set(LibCompositeUser.subField,subField);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 }

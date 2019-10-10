@@ -27,7 +27,8 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	 * @param superInt the initial value for field {@link #superInt}.
 	 * @param subIntNone the initial value for field {@link #subIntNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public FinalSubNoneItem(
 				final int superInt,
 				final int subIntNone)
@@ -41,13 +42,14 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	/**
 	 * Creates a new FinalSubNoneItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private FinalSubNoneItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #subIntNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public int getSubIntNone()
 	{
 		return FinalSubNoneItem.subIntNone.getMandatory(this);
@@ -56,25 +58,26 @@ public final class FinalSubNoneItem extends FinalSuperItem
 	/**
 	 * Sets a new value for {@link #subIntNone}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSubIntNone(final int subIntNone)
 	{
 		FinalSubNoneItem.subIntNone.set(this,subIntNone);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for finalSubNoneItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<FinalSubNoneItem> TYPE = com.exedio.cope.TypesBound.newType(FinalSubNoneItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private FinalSubNoneItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

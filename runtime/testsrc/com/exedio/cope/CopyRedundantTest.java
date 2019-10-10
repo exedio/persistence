@@ -70,7 +70,8 @@ public class CopyRedundantTest
 		 * @throws com.exedio.cope.MandatoryViolationException if targetMan, copyNone, copyOpt is null.
 		 * @throws com.exedio.cope.StringLengthViolationException if copyNone, copyOpt violates its length constraint.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnItem(
 					@javax.annotation.Nonnull final AnItem targetMan,
 					@javax.annotation.Nonnull final java.lang.String copyNone,
@@ -89,13 +90,14 @@ public class CopyRedundantTest
 		/**
 		 * Creates a new AnItem and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #targetMan}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		AnItem getTargetMan()
 		{
@@ -105,7 +107,8 @@ public class CopyRedundantTest
 		/**
 		 * Sets a new value for {@link #targetMan}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setTargetMan(@javax.annotation.Nonnull final AnItem targetMan)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -116,7 +119,8 @@ public class CopyRedundantTest
 		/**
 		 * Returns the value of {@link #targetOpt}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		AnItem getTargetOpt()
 		{
@@ -126,7 +130,8 @@ public class CopyRedundantTest
 		/**
 		 * Sets a new value for {@link #targetOpt}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setTargetOpt(@javax.annotation.Nullable final AnItem targetOpt)
 		{
 			AnItem.targetOpt.set(this,targetOpt);
@@ -135,7 +140,8 @@ public class CopyRedundantTest
 		/**
 		 * Returns the value of {@link #copyNone}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getCopyNone()
 		{
@@ -145,7 +151,8 @@ public class CopyRedundantTest
 		/**
 		 * Sets a new value for {@link #copyNone}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setCopyNone(@javax.annotation.Nonnull final java.lang.String copyNone)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -157,7 +164,8 @@ public class CopyRedundantTest
 		/**
 		 * Returns the value of {@link #copyMan}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getCopyMan()
 		{
@@ -167,7 +175,8 @@ public class CopyRedundantTest
 		/**
 		 * Returns the value of {@link #copyOpt}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getCopyOpt()
 		{
@@ -177,7 +186,8 @@ public class CopyRedundantTest
 		/**
 		 * Sets a new value for {@link #copyOpt}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setCopyOpt(@javax.annotation.Nonnull final java.lang.String copyOpt)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -189,21 +199,22 @@ public class CopyRedundantTest
 		/**
 		 * Returns the value of {@link #copyBoth}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		java.lang.String getCopyBoth()
 		{
 			return AnItem.copyBoth.get(this);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

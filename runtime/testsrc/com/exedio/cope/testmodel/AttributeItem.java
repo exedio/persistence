@@ -162,7 +162,8 @@ public final class AttributeItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if someNotNullString, someNotNullItem, someNotNullEnum is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if someNotNullString violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public AttributeItem(
 				@javax.annotation.Nonnull final java.lang.String someNotNullString,
 				final int someNotNullInteger,
@@ -189,13 +190,14 @@ public final class AttributeItem extends Item
 	/**
 	 * Creates a new AttributeItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private AttributeItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #someString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getSomeString()
 	{
@@ -205,7 +207,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeString(@javax.annotation.Nullable final java.lang.String someString)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -216,7 +219,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someStringUpperCase}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getSomeStringUpperCase()
 	{
 		return AttributeItem.someStringUpperCase.get(this);
@@ -225,7 +229,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someStringLength}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.Integer getSomeStringLength()
 	{
 		return AttributeItem.someStringLength.get(this);
@@ -234,7 +239,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someNotNullString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public java.lang.String getSomeNotNullString()
 	{
@@ -244,7 +250,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someNotNullString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeNotNullString(@javax.annotation.Nonnull final java.lang.String someNotNullString)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -256,7 +263,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Integer getSomeInteger()
 	{
@@ -266,7 +274,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeInteger(@javax.annotation.Nullable final java.lang.Integer someInteger)
 	{
 		AttributeItem.someInteger.set(this,someInteger);
@@ -275,7 +284,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someNotNullInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public int getSomeNotNullInteger()
 	{
 		return AttributeItem.someNotNullInteger.getMandatory(this);
@@ -284,7 +294,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someNotNullInteger}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeNotNullInteger(final int someNotNullInteger)
 	{
 		AttributeItem.someNotNullInteger.set(this,someNotNullInteger);
@@ -293,7 +304,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Long getSomeLong()
 	{
@@ -303,7 +315,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeLong(@javax.annotation.Nullable final java.lang.Long someLong)
 	{
 		AttributeItem.someLong.set(this,someLong);
@@ -312,7 +325,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someNotNullLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public long getSomeNotNullLong()
 	{
 		return AttributeItem.someNotNullLong.getMandatory(this);
@@ -321,7 +335,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someNotNullLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeNotNullLong(final long someNotNullLong)
 	{
 		AttributeItem.someNotNullLong.set(this,someNotNullLong);
@@ -330,7 +345,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Double getSomeDouble()
 	{
@@ -340,7 +356,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeDouble(@javax.annotation.Nullable final java.lang.Double someDouble)
 	{
 		AttributeItem.someDouble.set(this,someDouble);
@@ -349,7 +366,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someNotNullDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public double getSomeNotNullDouble()
 	{
 		return AttributeItem.someNotNullDouble.getMandatory(this);
@@ -358,7 +376,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someNotNullDouble}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeNotNullDouble(final double someNotNullDouble)
 	{
 		AttributeItem.someNotNullDouble.set(this,someNotNullDouble);
@@ -367,7 +386,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.util.Date getSomeDate()
 	{
@@ -377,7 +397,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeDate(@javax.annotation.Nullable final java.util.Date someDate)
 	{
 		AttributeItem.someDate.set(this,someDate);
@@ -386,7 +407,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets the current date for the date field {@link #someDate}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void touchSomeDate()
 	{
 		AttributeItem.someDate.touch(this);
@@ -395,7 +417,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public com.exedio.cope.util.Day getDay()
 	{
@@ -405,7 +428,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
 	{
 		AttributeItem.day.set(this,day);
@@ -414,7 +438,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets today for the date field {@link #day}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="touch")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
 	{
 		AttributeItem.day.touch(this,zone);
@@ -423,7 +448,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.Boolean getSomeBoolean()
 	{
@@ -433,7 +459,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeBoolean(@javax.annotation.Nullable final java.lang.Boolean someBoolean)
 	{
 		AttributeItem.someBoolean.set(this,someBoolean);
@@ -442,7 +469,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someNotNullBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean getSomeNotNullBoolean()
 	{
 		return AttributeItem.someNotNullBoolean.getMandatory(this);
@@ -451,7 +479,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someNotNullBoolean}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeNotNullBoolean(final boolean someNotNullBoolean)
 	{
 		AttributeItem.someNotNullBoolean.set(this,someNotNullBoolean);
@@ -460,7 +489,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public EmptyItem getSomeItem()
 	{
@@ -470,7 +500,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeItem(@javax.annotation.Nullable final EmptyItem someItem)
 	{
 		AttributeItem.someItem.set(this,someItem);
@@ -479,7 +510,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someNotNullItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public EmptyItem getSomeNotNullItem()
 	{
@@ -489,7 +521,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someNotNullItem}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeNotNullItem(@javax.annotation.Nonnull final EmptyItem someNotNullItem)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -500,7 +533,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public SomeEnum getSomeEnum()
 	{
@@ -510,7 +544,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeEnum(@javax.annotation.Nullable final SomeEnum someEnum)
 	{
 		AttributeItem.someEnum.set(this,someEnum);
@@ -519,7 +554,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the value of {@link #someNotNullEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	public SomeEnum getSomeNotNullEnum()
 	{
@@ -529,7 +565,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets a new value for {@link #someNotNullEnum}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeNotNullEnum(@javax.annotation.Nonnull final SomeEnum someNotNullEnum)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -540,7 +577,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns a Locator the content of {@link #someData} is available under.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLocator")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public com.exedio.cope.pattern.MediaPath.Locator getSomeDataLocator()
 	{
@@ -550,7 +588,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the content type of the media {@link #someData}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getContentType")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.lang.String getSomeDataContentType()
 	{
@@ -560,7 +599,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns whether media {@link #someData} is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="isNull")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="isNull")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public boolean isSomeDataNull()
 	{
 		return AttributeItem.someData.isNull(this);
@@ -569,7 +609,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the last modification date of media {@link #someData}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLastModified")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public java.util.Date getSomeDataLastModified()
 	{
@@ -579,7 +620,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the body length of the media {@link #someData}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getLength")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLength")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public long getSomeDataLength()
 	{
 		return AttributeItem.someData.getLength(this);
@@ -588,7 +630,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Returns the body of the media {@link #someData}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	public byte[] getSomeDataBody()
 	{
@@ -600,7 +643,8 @@ public final class AttributeItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void getSomeDataBody(@javax.annotation.Nonnull final java.io.OutputStream body)
 			throws
 				java.io.IOException
@@ -613,7 +657,8 @@ public final class AttributeItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void getSomeDataBody(@javax.annotation.Nonnull final java.nio.file.Path body)
 			throws
 				java.io.IOException
@@ -626,7 +671,8 @@ public final class AttributeItem extends Item
 	 * Does nothing, if the media is null.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="getBody")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getBody")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void getSomeDataBody(@javax.annotation.Nonnull final java.io.File body)
 			throws
 				java.io.IOException
@@ -638,7 +684,8 @@ public final class AttributeItem extends Item
 	 * Sets the content of media {@link #someData}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeData(@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value someData)
 			throws
 				java.io.IOException
@@ -649,7 +696,8 @@ public final class AttributeItem extends Item
 	/**
 	 * Sets the content of media {@link #someData}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeData(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
 	{
 		AttributeItem.someData.set(this,body,contentType);
@@ -659,7 +707,8 @@ public final class AttributeItem extends Item
 	 * Sets the content of media {@link #someData}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeData(@javax.annotation.Nullable final java.io.InputStream body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -671,7 +720,8 @@ public final class AttributeItem extends Item
 	 * Sets the content of media {@link #someData}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeData(@javax.annotation.Nullable final java.nio.file.Path body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -683,7 +733,8 @@ public final class AttributeItem extends Item
 	 * Sets the content of media {@link #someData}.
 	 * @throws java.io.IOException if accessing {@code body} throws an IOException.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public void setSomeData(@javax.annotation.Nullable final java.io.File body,@javax.annotation.Nullable final java.lang.String contentType)
 			throws
 				java.io.IOException
@@ -691,19 +742,19 @@ public final class AttributeItem extends Item
 		AttributeItem.someData.set(this,body,contentType);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for attributeItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<AttributeItem> TYPE = com.exedio.cope.TypesBound.newType(AttributeItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private AttributeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

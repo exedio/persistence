@@ -240,7 +240,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * @param shared the initial value for field {@link #shared}.
 		 * @throws com.exedio.cope.MandatoryViolationException if currency, fixed, shared is null.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private Source(
 					@javax.annotation.Nullable final Target target,
 					@javax.annotation.Nonnull final Currency currency,
@@ -260,13 +261,14 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Creates a new Source and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private Source(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		/**
 		 * Returns the value of {@link #target}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nullable
 		Target getTarget()
 		{
@@ -276,7 +278,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #target}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setTarget(@javax.annotation.Nullable final Target target)
 		{
 			Source.target.set(this,target);
@@ -285,7 +288,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #currency}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		Currency getCurrency()
 		{
@@ -295,7 +299,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #currency}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setCurrency(@javax.annotation.Nonnull final Currency currency)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -306,7 +311,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #fixed}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		com.exedio.cope.pattern.Money<Currency> getFixed()
 		{
@@ -316,7 +322,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #fixed}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setFixed(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> fixed)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -327,7 +334,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Returns the value of {@link #shared}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
 		com.exedio.cope.pattern.Money<Currency> getShared()
 		{
@@ -337,7 +345,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Sets a new value for {@link #shared}.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		void setShared(@javax.annotation.Nonnull final com.exedio.cope.pattern.Money<Currency> shared)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -345,20 +354,20 @@ public class MoneyCopyTest extends TestWithEnvironment
 			Source.shared.set(this,shared);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for source.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -373,7 +382,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 		 * @param currency the initial value for field {@link #currency}.
 		 * @throws com.exedio.cope.MandatoryViolationException if currency is null.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		Target(
 					@javax.annotation.Nonnull final Currency currency)
 				throws
@@ -387,23 +397,23 @@ public class MoneyCopyTest extends TestWithEnvironment
 		/**
 		 * Creates a new Target and sets the given fields initially.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 		private Target(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		/**
 		 * The persistent type information for target.
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
 		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 		 */
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

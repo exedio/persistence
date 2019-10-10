@@ -42,7 +42,8 @@ public final class SerializerItem extends Item
 	 * @param mandatoryString the initial value for field {@link #mandatoryString}.
 	 * @throws com.exedio.cope.MandatoryViolationException if mandatoryString is null.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SerializerItem(
 				@javax.annotation.Nonnull final String mandatoryString)
 			throws
@@ -56,13 +57,14 @@ public final class SerializerItem extends Item
 	/**
 	 * Creates a new SerializerItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	SerializerItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Integer getInteger()
 	{
@@ -72,7 +74,8 @@ public final class SerializerItem extends Item
 	/**
 	 * Sets a new value for {@link #integer}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger(@javax.annotation.Nullable final Integer integer)
 	{
 		SerializerItem.integer.set(this,integer);
@@ -81,7 +84,8 @@ public final class SerializerItem extends Item
 	/**
 	 * Returns the value of {@link #map}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Map getMap()
 	{
@@ -91,7 +95,8 @@ public final class SerializerItem extends Item
 	/**
 	 * Sets a new value for {@link #map}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMap(@javax.annotation.Nullable final Map map)
 	{
 		SerializerItem.map.set(this,map);
@@ -100,7 +105,8 @@ public final class SerializerItem extends Item
 	/**
 	 * Returns the value of {@link #mapWildcard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Map<?,?> getMapWildcard()
 	{
@@ -110,7 +116,8 @@ public final class SerializerItem extends Item
 	/**
 	 * Sets a new value for {@link #mapWildcard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMapWildcard(@javax.annotation.Nullable final Map<?,?> mapWildcard)
 	{
 		SerializerItem.mapWildcard.set(this,mapWildcard);
@@ -119,7 +126,8 @@ public final class SerializerItem extends Item
 	/**
 	 * Returns the value of {@link #mandatoryString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	String getMandatoryString()
 	{
@@ -129,7 +137,8 @@ public final class SerializerItem extends Item
 	/**
 	 * Sets a new value for {@link #mandatoryString}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setMandatoryString(@javax.annotation.Nonnull final String mandatoryString)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -137,19 +146,19 @@ public final class SerializerItem extends Item
 		SerializerItem.mandatoryString.set(this,mandatoryString);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for serializerItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<SerializerItem> TYPE = com.exedio.cope.TypesBound.newType(SerializerItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private SerializerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

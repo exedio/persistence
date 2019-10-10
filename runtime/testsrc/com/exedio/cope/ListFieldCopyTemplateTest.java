@@ -91,7 +91,8 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 		@Wrapper(wrap="*", visibility=NONE)
 		private static final SetField<ItemWithComplexTemplate> set = SetField.create(ItemField.create(ItemWithComplexTemplate.class)).copyWith(value);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private ItemWithComplexTemplate(
 					@javax.annotation.Nullable final ItemWithComplexTemplate other,
 					@javax.annotation.Nonnull final java.lang.String value)
@@ -106,10 +107,11 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 			});
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ItemWithComplexTemplate(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		private void addToList(@javax.annotation.Nonnull final ItemWithComplexTemplate list)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -118,13 +120,13 @@ public class ListFieldCopyTemplateTest extends TestWithEnvironment
 			ItemWithComplexTemplate.list.add(this,list);
 		}
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<ItemWithComplexTemplate> TYPE = com.exedio.cope.TypesBound.newType(ItemWithComplexTemplate.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected ItemWithComplexTemplate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

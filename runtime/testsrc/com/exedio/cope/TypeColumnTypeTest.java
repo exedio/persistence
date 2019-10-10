@@ -74,26 +74,26 @@ public class TypeColumnTypeTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class StandardSuper extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<StandardSuper> TYPE = com.exedio.cope.TypesBound.newType(StandardSuper.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected StandardSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class StandardSub extends StandardSuper
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<StandardSub> TYPE = com.exedio.cope.TypesBound.newType(StandardSub.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private StandardSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -101,39 +101,39 @@ public class TypeColumnTypeTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MinLengthSuper extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<MinLengthSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSuper.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MinLengthSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MinLengthSub extends MinLengthSuper
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<MinLengthSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSub.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MinLengthSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MinLengthSubber extends MinLengthSub
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<MinLengthSubber> TYPE = com.exedio.cope.TypesBound.newType(MinLengthSubber.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MinLengthSubber(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -141,26 +141,26 @@ public class TypeColumnTypeTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class MinLengthIneffectiveSuper extends Item
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<MinLengthIneffectiveSuper> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSuper.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		protected MinLengthIneffectiveSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MinLengthIneffectiveSub extends MinLengthIneffectiveSuper
 	{
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<MinLengthIneffectiveSub> TYPE = com.exedio.cope.TypesBound.newType(MinLengthIneffectiveSub.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private MinLengthIneffectiveSub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
@@ -172,13 +172,13 @@ public class TypeColumnTypeTest
 		@WrapperIgnore static final ItemField<MinLengthSub> minLengthSub = ItemField.create(MinLengthSub.class);
 		@WrapperIgnore static final ItemField<MinLengthIneffectiveSuper> minLengthIneffective = ItemField.create(MinLengthIneffectiveSuper.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private static final com.exedio.cope.Type<Ref> TYPE = com.exedio.cope.TypesBound.newType(Ref.class);
 
-		@javax.annotation.Generated("com.exedio.cope.instrument")
+		@com.exedio.cope.instrument.Generated
 		private Ref(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 

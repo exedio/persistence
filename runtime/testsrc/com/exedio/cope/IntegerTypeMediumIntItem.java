@@ -31,7 +31,8 @@ public class IntegerTypeMediumIntItem extends Item
 	/**
 	 * Creates a new IntegerTypeMediumIntItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public IntegerTypeMediumIntItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -41,13 +42,14 @@ public class IntegerTypeMediumIntItem extends Item
 	/**
 	 * Creates a new IntegerTypeMediumIntItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	protected IntegerTypeMediumIntItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #itemReference}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final IntegerTypeMediumIntItem getItemReference()
 	{
@@ -57,7 +59,8 @@ public class IntegerTypeMediumIntItem extends Item
 	/**
 	 * Sets a new value for {@link #itemReference}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setItemReference(@javax.annotation.Nullable final IntegerTypeMediumIntItem itemReference)
 	{
 		IntegerTypeMediumIntItem.itemReference.set(this,itemReference);
@@ -66,7 +69,8 @@ public class IntegerTypeMediumIntItem extends Item
 	/**
 	 * Returns the value of {@link #value}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	final java.lang.Long getValue()
 	{
@@ -76,7 +80,8 @@ public class IntegerTypeMediumIntItem extends Item
 	/**
 	 * Sets a new value for {@link #value}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	final void setValue(@javax.annotation.Nullable final java.lang.Long value)
 			throws
 				com.exedio.cope.LongRangeViolationException
@@ -84,19 +89,19 @@ public class IntegerTypeMediumIntItem extends Item
 		IntegerTypeMediumIntItem.value.set(this,value);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for integerTypeMediumIntItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<IntegerTypeMediumIntItem> TYPE = com.exedio.cope.TypesBound.newType(IntegerTypeMediumIntItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	protected IntegerTypeMediumIntItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

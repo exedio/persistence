@@ -26,7 +26,8 @@ public final class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectS
 	 * Creates a new PolymorphicBoundSelectSubItem with all the fields initially needed.
 	 * @param parent the initial value for field {@link #parent}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public PolymorphicBoundSelectSubItem(
 				@javax.annotation.Nullable final com.exedio.cope.PolymorphicBoundSelectSuperItem parent)
 	{
@@ -38,22 +39,22 @@ public final class PolymorphicBoundSelectSubItem extends PolymorphicBoundSelectS
 	/**
 	 * Creates a new PolymorphicBoundSelectSubItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private PolymorphicBoundSelectSubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for polymorphicBoundSelectSubItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<PolymorphicBoundSelectSubItem> TYPE = com.exedio.cope.TypesBound.newType(PolymorphicBoundSelectSubItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private PolymorphicBoundSelectSubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

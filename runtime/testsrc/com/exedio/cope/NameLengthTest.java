@@ -176,7 +176,8 @@ public class NameLengthTest extends TestWithEnvironment
 	 * @throws com.exedio.cope.MandatoryViolationException if fieldLong, fieldShort, foreignLong, foreignShort is null.
 	 * @throws com.exedio.cope.UniqueViolationException if fieldLong, fieldShort is not unique.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	AnItem(
 				@javax.annotation.Nonnull final AnEnum fieldLong,
 				@javax.annotation.Nonnull final AnEnum fieldShort,
@@ -197,13 +198,14 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Creates a new AnItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #fieldLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	AnEnum getFieldLong()
 	{
@@ -215,7 +217,8 @@ public class NameLengthTest extends TestWithEnvironment
 	 * @param fieldLong shall be equal to field {@link #fieldLong}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static AnItem forFieldLong(@javax.annotation.Nonnull final AnEnum fieldLong)
 	{
@@ -227,7 +230,8 @@ public class NameLengthTest extends TestWithEnvironment
 	 * @param fieldLong shall be equal to field {@link #fieldLong}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static AnItem forFieldLongStrict(@javax.annotation.Nonnull final AnEnum fieldLong)
 			throws
@@ -239,7 +243,8 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #fieldShort}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	AnEnum getFieldShort()
 	{
@@ -251,7 +256,8 @@ public class NameLengthTest extends TestWithEnvironment
 	 * @param fieldShort shall be equal to field {@link #fieldShort}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static AnItem forFieldShort(@javax.annotation.Nonnull final AnEnum fieldShort)
 	{
@@ -263,7 +269,8 @@ public class NameLengthTest extends TestWithEnvironment
 	 * @param fieldShort shall be equal to field {@link #fieldShort}.
 	 * @throws java.lang.IllegalArgumentException if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="forStrict")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="forStrict")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	static AnItem forFieldShortStrict(@javax.annotation.Nonnull final AnEnum fieldShort)
 			throws
@@ -275,7 +282,8 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #foreignLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	AnItem getForeignLong()
 	{
@@ -285,7 +293,8 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #foreignShort}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	AnItem getForeignShort()
 	{
@@ -296,7 +305,8 @@ public class NameLengthTest extends TestWithEnvironment
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="next")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static int nextSequenceLong()
 	{
 		return AnItem.sequenceLong.next();
@@ -306,7 +316,8 @@ public class NameLengthTest extends TestWithEnvironment
 	 * Generates a new sequence number.
 	 * The result is not managed by a {@link com.exedio.cope.Transaction}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="next")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="next")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	static int nextSequenceShort()
 	{
 		return AnItem.sequenceShort.next();
@@ -315,7 +326,8 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #nextLong}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getNextLong()
 	{
 		return AnItem.nextLong.getMandatory(this);
@@ -324,26 +336,27 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Returns the value of {@link #nextShort}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	int getNextShort()
 	{
 		return AnItem.nextShort.getMandatory(this);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for anItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
@@ -355,7 +368,8 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Creates a new LongItem with all the fields initially needed.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	LongItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -365,23 +379,23 @@ public class NameLengthTest extends TestWithEnvironment
 	/**
 	 * Creates a new LongItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private LongItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for longItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private LongItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 }

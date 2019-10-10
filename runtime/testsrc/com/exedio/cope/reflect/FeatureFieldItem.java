@@ -48,7 +48,8 @@ public final class FeatureFieldItem extends Item
 	 * @throws com.exedio.cope.MandatoryViolationException if standard, isFinal is null.
 	 * @throws com.exedio.cope.StringLengthViolationException if standard, isFinal violates its length constraint.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	FeatureFieldItem(
 				@javax.annotation.Nonnull final Feature standard,
 				@javax.annotation.Nonnull final Feature isFinal)
@@ -65,13 +66,14 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Creates a new FeatureFieldItem and sets the given fields initially.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(genericConstructor=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
 	private FeatureFieldItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	/**
 	 * Returns the value of {@link #integer1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getInteger1()
 	{
@@ -81,7 +83,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #integer1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger1(@javax.annotation.Nullable final java.lang.Integer integer1)
 	{
 		FeatureFieldItem.integer1.set(this,integer1);
@@ -90,7 +93,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #integer2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getInteger2()
 	{
@@ -100,7 +104,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #integer2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger2(@javax.annotation.Nullable final java.lang.Integer integer2)
 	{
 		FeatureFieldItem.integer2.set(this,integer2);
@@ -109,7 +114,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #integer3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.Integer getInteger3()
 	{
@@ -119,7 +125,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #integer3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setInteger3(@javax.annotation.Nullable final java.lang.Integer integer3)
 	{
 		FeatureFieldItem.integer3.set(this,integer3);
@@ -128,7 +135,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #string1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getString1()
 	{
@@ -138,7 +146,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #string1}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString1(@javax.annotation.Nullable final java.lang.String string1)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -149,7 +158,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #string2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getString2()
 	{
@@ -159,7 +169,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #string2}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString2(@javax.annotation.Nullable final java.lang.String string2)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -170,7 +181,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #string3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	java.lang.String getString3()
 	{
@@ -180,7 +192,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #string3}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setString3(@javax.annotation.Nullable final java.lang.String string3)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -191,7 +204,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #standard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	Feature getStandard()
 	{
@@ -201,7 +215,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #standard}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setStandard(@javax.annotation.Nonnull final Feature standard)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -213,7 +228,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #isFinal}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nonnull
 	Feature getIsFinal()
 	{
@@ -223,7 +239,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Feature getOptional()
 	{
@@ -233,7 +250,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #optional}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setOptional(@javax.annotation.Nullable final Feature optional)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -244,7 +262,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #unique}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Feature getUnique()
 	{
@@ -254,7 +273,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #unique}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setUnique(@javax.annotation.Nullable final Feature unique)
 			throws
 				com.exedio.cope.UniqueViolationException,
@@ -268,7 +288,8 @@ public final class FeatureFieldItem extends Item
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="for")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="for")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	static FeatureFieldItem forUnique(@javax.annotation.Nonnull final Feature unique)
 	{
@@ -278,7 +299,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #renamed}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	Feature getRenamed()
 	{
@@ -288,7 +310,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #renamed}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRenamed(@javax.annotation.Nullable final Feature renamed)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -299,7 +322,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Returns the value of {@link #restricted}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="get")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	@javax.annotation.Nullable
 	StringField getRestricted()
 	{
@@ -309,7 +333,8 @@ public final class FeatureFieldItem extends Item
 	/**
 	 * Sets a new value for {@link #restricted}.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @Wrapper(wrap="set")
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	void setRestricted(@javax.annotation.Nullable final StringField restricted)
 			throws
 				com.exedio.cope.StringLengthViolationException
@@ -317,19 +342,19 @@ public final class FeatureFieldItem extends Item
 		FeatureFieldItem.restricted.set(this,restricted);
 	}
 
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
 	/**
 	 * The persistent type information for featureFieldItem.
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument") // customize with @WrapperType(type=...)
+	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 	public static final com.exedio.cope.Type<FeatureFieldItem> TYPE = com.exedio.cope.TypesBound.newType(FeatureFieldItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
-	@javax.annotation.Generated("com.exedio.cope.instrument")
+	@com.exedio.cope.instrument.Generated
 	private FeatureFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
