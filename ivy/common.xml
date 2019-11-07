@@ -35,11 +35,11 @@
 		</copy>
 		<!-- download icons, otherwise Content-Security-Policy of jenkins frontend complains -->
 		<get dest="artifacts/report/resources" retries="1">
-			<url url="https://ant.apache.org/ivy/images/searched.gif" />
-			<url url="https://ant.apache.org/ivy/images/downloaded.gif" />
-			<url url="https://ant.apache.org/ivy/images/evicted.gif" />
-			<url url="https://ant.apache.org/ivy/images/logo.png" />
-			<url url="https://ant.apache.org/ivy/images/error.gif" />
+			<url url="https://ivyartifacts.exedio.com/resources/searched.gif" />
+			<url url="https://ivyartifacts.exedio.com/resources/downloaded.gif" />
+			<url url="https://ivyartifacts.exedio.com/resources/evicted.gif" />
+			<url url="https://ivyartifacts.exedio.com/resources/logo.png" />
+			<url url="https://ivyartifacts.exedio.com/resources/error.gif" />
 		</get>
 		<ivy:makepom ivyfile="ivy.xml" pomfile="pom.xml">
 			<mapping conf="default" scope="compile" />
