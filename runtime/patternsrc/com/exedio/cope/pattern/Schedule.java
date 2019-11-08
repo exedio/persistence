@@ -451,9 +451,9 @@ public final class Schedule extends Pattern
 			final RunContext runCtx = new RunContext(ctx);
 			try(TransactionTry tx = startTransaction(item, "run " + count + '/' + total))
 			{
-				final Timer.Sample elapsedStart = Timer.start();
+				final Timer.Sample start = Timer.start();
 				variant.run(this, item, fromDate, untilDate, runCtx); // TODO switch to Instant
-				final long elapsed = runTimer.stopMillies(elapsedStart);
+				final long elapsed = runTimer.stopMillies(start);
 				runs.newItem(
 						item, interval, fromDate, untilDate, Date.from(now), // TODO switch to InstantField
 						runCtx.getProgress(),

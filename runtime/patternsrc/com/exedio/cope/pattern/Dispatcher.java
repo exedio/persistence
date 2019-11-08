@@ -475,9 +475,9 @@ public final class Dispatcher extends Pattern
 				deferOrStopIfRequested(ctx);
 				if(logger.isDebugEnabled())
 					logger.debug("probing");
-				final Timer.Sample nanoStart = Timer.start();
+				final Timer.Sample start = Timer.start();
 				probe.run();
-				final long elapsed = probeTimer.stopMillies(nanoStart);
+				final long elapsed = probeTimer.stopMillies(start);
 				probeRequired = false;
 				logger.info("probed, took {}ms", elapsed);
 			}
@@ -507,12 +507,12 @@ public final class Dispatcher extends Pattern
 				if(logger.isDebugEnabled())
 					logger.debug("dispatching {}", itemID);
 				final long start = Clock.currentTimeMillis();
-				final Timer.Sample nanoStart = Timer.start();
+				final Timer.Sample startSample = Timer.start();
 				try
 				{
 					variant.dispatch(this, item);
 
-					final long elapsed = succeedTimer.stopMillies(nanoStart);
+					final long elapsed = succeedTimer.stopMillies(startSample);
 					runType.newItem(
 							parentClass, item, new Date(start), elapsed,
 							0, limit,
@@ -524,7 +524,7 @@ public final class Dispatcher extends Pattern
 				}
 				catch(final Exception failureCause)
 				{
-					final long elapsed = failTimer.stopMillies(nanoStart);
+					final long elapsed = failTimer.stopMillies(startSample);
 					probeRequired = true;
 					tx.rollbackIfNotCommitted();
 
