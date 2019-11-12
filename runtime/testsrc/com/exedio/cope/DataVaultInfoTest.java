@@ -25,6 +25,7 @@ import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exedio.cope.micrometer.PrometheusMeterRegistrar;
 import com.exedio.cope.util.Hex;
@@ -126,6 +127,21 @@ public class DataVaultInfoTest
 		assertCount("put", Tags.of("result", "redundant"), actual.getPutRedundantCount());
 	}
 
+	@Test void testDisconnected()
+	{
+		tearDown();
+
+		assertThrows(
+				Model.NotConnectedException.class,
+				MyItem.field::getVaultInfo);
+
+		assertCount("getLength", Tags.empty(), 0);
+		assertCount("get", Tags.of("sink", "bytes"),  0);
+		assertCount("get", Tags.of("sink", "stream"), 0);
+		assertCount("put", Tags.of("result", "initial"),   0);
+		assertCount("put", Tags.of("result", "redundant"), 0);
+	}
+
 	private static void assertCount(final String nameSuffix, final Tags tags, final long actual)
 	{
 		assertEquals(
@@ -151,10 +167,12 @@ public class DataVaultInfoTest
 	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
-		model.rollbackIfNotCommitted();
-		model.tearDownSchema();
 		if(model.isConnected())
+		{
+			model.rollbackIfNotCommitted();
+			model.tearDownSchema();
 			model.disconnect();
+		}
 	}
 
 	static final Model model = new Model(MyItem.TYPE);
