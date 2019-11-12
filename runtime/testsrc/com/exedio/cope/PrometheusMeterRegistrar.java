@@ -16,14 +16,17 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.micrometer;
+package com.exedio.cope;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Meter;
+import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.prometheus.PrometheusConfig;
@@ -37,12 +40,14 @@ public final class PrometheusMeterRegistrar
 		// just for executing the static block
 	}
 
+	private static final PrometheusMeterRegistry PROMETHEUS_REGISTRY = new PrometheusMeterRegistry(
+			PrometheusConfig.DEFAULT,
+			CollectorRegistry.defaultRegistry,
+			Clock.SYSTEM);
+
 	static
 	{
-		Metrics.globalRegistry.add(new PrometheusMeterRegistry(
-				PrometheusConfig.DEFAULT,
-				CollectorRegistry.defaultRegistry,
-				Clock.SYSTEM));
+		Metrics.globalRegistry.add(PROMETHEUS_REGISTRY);
 	}
 
 	public static Meter meter(
@@ -50,8 +55,29 @@ public final class PrometheusMeterRegistrar
 			final String nameSuffix,
 			final Tags tags)
 	{
-		final PrometheusMeterRegistry registry =
-				(PrometheusMeterRegistry)Metrics.globalRegistry.getRegistries().iterator().next();
+		return meter(
+				PROMETHEUS_REGISTRY,
+				nameClass, nameSuffix, tags);
+	}
+
+	static Meter meterCope(
+			final Class<?> nameClass,
+			final String nameSuffix,
+			final Tags tags)
+	{
+		assertEquals(DataField.class, nameClass);
+		return meter(
+				InfoRegistry.REGISTRY,
+				nameClass, nameSuffix, tags);
+	}
+
+	private static Meter meter(
+			final MeterRegistry registry,
+			final Class<?> nameClass,
+			final String nameSuffix,
+			final Tags tags)
+	{
+		assertTrue(Metrics.globalRegistry.getRegistries().contains(registry));
 		final String name = nameClass.getName() + "." + nameSuffix;
 		Meter result = null;
 		for(final Meter m : registry.getMeters())

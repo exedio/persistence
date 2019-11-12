@@ -19,10 +19,9 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.CharSet;
-import io.micrometer.core.instrument.FunctionCounter;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
-import java.util.function.ToDoubleFunction;
 
 final class MetricsBuilder
 {
@@ -49,14 +48,12 @@ final class MetricsBuilder
 
 	private static final CharSet SUFFIX_CHARSET = new CharSet('.', '.', '0', '9', 'A', 'Z', 'a', 'z');
 
-	<T> void counter(
-			final T obj,
-			final ToDoubleFunction<T> f,
+	Counter counter(
 			final String nameSuffix,
 			final String description,
 			final Tags tags)
 	{
-		FunctionCounter.builder(name(nameSuffix), obj, f).
+		return InfoRegistry.counter(name(nameSuffix)).
 				description(description).
 				tags(this.tags.and(tags)).
 				register(Metrics.globalRegistry);

@@ -27,14 +27,13 @@ import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.lang.annotation.Annotation;
 import java.security.MessageDigest;
-import java.util.concurrent.atomic.AtomicLong;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import javax.annotation.Nonnull;
 
 final class DataFieldVaultStore extends DataFieldStore
@@ -63,47 +62,41 @@ final class DataFieldVaultStore extends DataFieldStore
 		this.service = connect.vault;
 
 		final Metrics metrics = new Metrics(field);
-		metrics.counter(f -> f.getLength, "getLength");
-		metrics.counter(f -> f.getBytes,  "get", "sink", "bytes");
-		metrics.counter(f -> f.getStream, "get", "sink", "stream");
-		metrics.counter(f -> f.putInitial,   "put", "result", "initial");
-		metrics.counter(f -> f.putRedundant, "put", "result", "redundant");
+		getLength = metrics.counter("getLength");
+		getBytes  = metrics.counter("get", "sink", "bytes");
+		getStream = metrics.counter("get", "sink", "stream");
+		putInitial   = metrics.counter("put", "result", "initial");
+		putRedundant = metrics.counter("put", "result", "redundant");
 	}
 
 	private static final class Metrics
 	{
 		final MetricsBuilder back;
-		final DataField field;
 
 		Metrics(final DataField field)
 		{
 			this.back = new MetricsBuilder(DataField.class, Tags.of("feature", field.getID()));
-			this.field = field;
 		}
 
-		void counter(
-				final Function<DataFieldVaultStore, AtomicLong> function,
+		Counter counter(
 				final String methodName)
 		{
-			counter(function, methodName, Tags.empty());
+			return counter(methodName, Tags.empty());
 		}
 
-		void counter(
-				final Function<DataFieldVaultStore, AtomicLong> function,
+		Counter counter(
 				final String methodName,
 				final String key,
 				final String value)
 		{
-			counter(function, methodName, Tags.of(key, value));
+			return counter(methodName, Tags.of(key, value));
 		}
 
-		void counter(
-				final Function<DataFieldVaultStore, AtomicLong> function,
+		Counter counter(
 				final String methodName,
 				final Tags tags)
 		{
-			back.counter(field,
-					f -> f.applyToVaultStore(function).doubleValue(),
+			return back.counter(
 					"vault." + methodName,
 					"VaultService#" + methodName + " calls",
 					tags);
@@ -142,7 +135,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		if(hashForEmpty.equals(hash))
 			return 0;
 
-		getLength.incrementAndGet();
+		getLength.increment();
 		try
 		{
 			return service.getLength(hash);
@@ -164,7 +157,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		if(hashForEmpty.equals(hash))
 			return EMPTY_BYTES;
 
-		getBytes.incrementAndGet();
+		getBytes.increment();
 		try
 		{
 			return service.get(hash);
@@ -187,7 +180,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		if(hashForEmpty.equals(hash))
 			return;
 
-		getStream.incrementAndGet();
+		getStream.increment();
 		try
 		{
 			service.get(hash, sink);
@@ -286,18 +279,18 @@ final class DataFieldVaultStore extends DataFieldStore
 		{
 			throw new RuntimeException(field.toString(), e);
 		}
-		(result ? putInitial : putRedundant).incrementAndGet();
+		(result ? putInitial : putRedundant).increment();
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
 
 
-	private final AtomicLong
-			getLength = new AtomicLong(),
-			getBytes = new AtomicLong(),
-			getStream = new AtomicLong(),
-			putInitial = new AtomicLong(),
-			putRedundant = new AtomicLong();
+	private final Counter
+			getLength,
+			getBytes,
+			getStream,
+			putInitial,
+			putRedundant;
 
 	@Override
 	DataFieldVaultInfo getVaultInfo()

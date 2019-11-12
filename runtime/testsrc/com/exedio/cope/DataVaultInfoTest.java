@@ -27,17 +27,18 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
-import com.exedio.cope.micrometer.PrometheusMeterRegistrar;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
-import io.micrometer.core.instrument.FunctionCounter;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DataVaultInfoTest
 {
 	@Test void testGetLength()
@@ -101,7 +102,7 @@ public class DataVaultInfoTest
 	}
 
 
-	private static void assertIt(
+	private void assertIt(
 			final int getLength,
 			final int getBytes,
 			final int getStream,
@@ -112,13 +113,13 @@ public class DataVaultInfoTest
 		assertNotNull(actual);
 		assertSame(MyItem.field, actual.getField());
 		assertEquals("VaultMockService:exampleDefault", actual.getService());
-		assertEquals(getLength,    actual.getGetLengthCount(),    "getLength");
-		assertEquals(getBytes,     actual.getGetBytesCount(),     "getBytes");
-		assertEquals(getStream,    actual.getGetStreamCount(),    "getStream");
-		assertEquals(putInitial,   actual.getPutInitialCount(),   "putInitial");
-		assertEquals(putRedundant, actual.getPutRedundantCount(), "putRedundant");
-		assertEquals(getLength+getBytes+getStream, actual.getGetCount(), "get");
-		assertEquals(putInitial+putRedundant,      actual.getPutCount(), "put");
+		assertEquals(getLength,    actual.getGetLengthCount()   -onSetup.getGetLengthCount(),    "getLength");
+		assertEquals(getBytes,     actual.getGetBytesCount()    -onSetup.getGetBytesCount(),     "getBytes");
+		assertEquals(getStream,    actual.getGetStreamCount()   -onSetup.getGetStreamCount(),    "getStream");
+		assertEquals(putInitial,   actual.getPutInitialCount()  -onSetup.getPutInitialCount(),   "putInitial");
+		assertEquals(putRedundant, actual.getPutRedundantCount()-onSetup.getPutRedundantCount(), "putRedundant");
+		assertEquals(getLength+getBytes+getStream, actual.getGetCount()-onSetup.getGetCount(), "get");
+		assertEquals(putInitial+putRedundant,      actual.getPutCount()-onSetup.getPutCount(), "put");
 
 		assertCount("getLength", Tags.empty(), actual.getGetLengthCount());
 		assertCount("get", Tags.of("sink", "bytes"),  actual.getGetBytesCount());
@@ -135,22 +136,24 @@ public class DataVaultInfoTest
 				Model.NotConnectedException.class,
 				MyItem.field::getVaultInfo);
 
-		assertCount("getLength", Tags.empty(), 0);
-		assertCount("get", Tags.of("sink", "bytes"),  0);
-		assertCount("get", Tags.of("sink", "stream"), 0);
-		assertCount("put", Tags.of("result", "initial"),   0);
-		assertCount("put", Tags.of("result", "redundant"), 0);
+		assertCount("getLength", Tags.empty(), onSetup.getGetLengthCount());
+		assertCount("get", Tags.of("sink", "bytes"),  onSetup.getGetBytesCount());
+		assertCount("get", Tags.of("sink", "stream"), onSetup.getGetStreamCount());
+		assertCount("put", Tags.of("result", "initial"),   onSetup.getPutInitialCount());
+		assertCount("put", Tags.of("result", "redundant"), onSetup.getPutRedundantCount());
 	}
 
 	private static void assertCount(final String nameSuffix, final Tags tags, final long actual)
 	{
 		assertEquals(
-				((FunctionCounter)PrometheusMeterRegistrar.meter(
+				((Counter)PrometheusMeterRegistrar.meterCope(
 						DataField.class, "vault." + nameSuffix,
 						tags.and(Tags.of("feature", MyItem.field.getID())))).count(),
 				actual,
 				nameSuffix);
 	}
+
+	private DataFieldVaultInfo onSetup;
 
 	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()
@@ -162,6 +165,7 @@ public class DataVaultInfoTest
 		)));
 		model.createSchema();
 		model.startTransaction("DataVaultInfoTest");
+		onSetup = MyItem.field.getVaultInfo();
 	}
 
 	@SuppressWarnings("static-method")

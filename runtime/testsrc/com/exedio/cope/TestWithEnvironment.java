@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapInterim;
-import com.exedio.cope.micrometer.PrometheusMeterRegistrar;
 import com.exedio.cope.tojunit.CopeRule;
 import com.exedio.cope.tojunit.CopeRuntimeRule;
 import com.exedio.cope.tojunit.MainRule;

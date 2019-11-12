@@ -23,8 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.misc.DataFieldVaultSummary;
+import com.exedio.cope.tojunit.AssertionFailedErrorCounter;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.util.concurrent.atomic.AtomicLong;
 import org.junit.jupiter.api.Test;
 
 public class DataFieldVaultSummaryTest
@@ -95,11 +95,11 @@ public class DataFieldVaultSummaryTest
 		return new DataFieldVaultInfo(
 				null,
 				new Service(),
-				new AtomicLong(getLength),
-				new AtomicLong(getBytes),
-				new AtomicLong(getStream),
-				new AtomicLong(putInitial),
-				new AtomicLong(putRedundant));
+				new ConstantCounter(getLength),
+				new ConstantCounter(getBytes),
+				new ConstantCounter(getStream),
+				new ConstantCounter(putInitial),
+				new ConstantCounter(putRedundant));
 	}
 
 	private static final class Service extends AssertionErrorVaultService
@@ -108,6 +108,22 @@ public class DataFieldVaultSummaryTest
 		public String toString()
 		{
 			return Service.class.getName();
+		}
+	}
+
+	private static final class ConstantCounter extends AssertionFailedErrorCounter
+	{
+		private final long count;
+
+		ConstantCounter(final long count)
+		{
+			this.count = count;
+		}
+
+		@Override
+		public double count()
+		{
+			return count;
 		}
 	}
 }

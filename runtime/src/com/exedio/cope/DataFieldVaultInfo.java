@@ -18,8 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.count;
+
 import com.exedio.cope.vault.VaultService;
-import java.util.concurrent.atomic.AtomicLong;
+import io.micrometer.core.instrument.Counter;
 
 public final class DataFieldVaultInfo
 {
@@ -34,19 +36,19 @@ public final class DataFieldVaultInfo
 	DataFieldVaultInfo(
 			final DataField field,
 			final VaultService service,
-			final AtomicLong getLength,
-			final AtomicLong getBytes,
-			final AtomicLong getStream,
-			final AtomicLong putInitial,
-			final AtomicLong putRedundant)
+			final Counter getLength,
+			final Counter getBytes,
+			final Counter getStream,
+			final Counter putInitial,
+			final Counter putRedundant)
 	{
 		this.field = field;
 		this.service = service.toString();
-		this.getLength = getLength.get();
-		this.getBytes = getBytes.get();
-		this.getStream = getStream.get();
-		this.putInitial = putInitial.get();
-		this.putRedundant = putRedundant.get();
+		this.getLength = count(getLength);
+		this.getBytes = count(getBytes);
+		this.getStream = count(getStream);
+		this.putInitial = count(putInitial);
+		this.putRedundant = count(putRedundant);
 	}
 
 	public DataField getField()
