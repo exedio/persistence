@@ -42,6 +42,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final MessageDigestFactory algorithm;
 	private final String hashForEmpty;
 	private final VaultService service;
+	private final Counter getLength, getBytes, getStream, putInitial, putRedundant;
 
 	DataFieldVaultStore(
 			final DataField field,
@@ -283,14 +284,6 @@ final class DataFieldVaultStore extends DataFieldStore
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
-
-
-	private final Counter
-			getLength,
-			getBytes,
-			getStream,
-			putInitial,
-			putRedundant;
 
 	@Override
 	DataFieldVaultInfo getVaultInfo()
