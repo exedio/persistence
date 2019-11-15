@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -37,7 +38,7 @@ final class FeatureTimerTester extends MainRule
 			final Feature feature,
 			final String nameSuffix)
 	{
-		this(feature.getClass(), nameSuffix, Tags.of("feature", feature.getID()));
+		this(feature.getClass(), nameSuffix, tag(feature));
 	}
 
 	FeatureTimerTester(
@@ -45,7 +46,7 @@ final class FeatureTimerTester extends MainRule
 			final String nameSuffix,
 			final String key, final String value)
 	{
-		this(feature.getClass(), nameSuffix, Tags.of("feature", feature.getID(), key, value));
+		this(feature.getClass(), nameSuffix, tag(feature).and(key, value));
 	}
 
 	private FeatureTimerTester(

@@ -97,6 +97,13 @@ public final class PrometheusMeterRegistrar
 	}
 
 
+
+	public static Tags tag(final Feature feature)
+	{
+		return Tags.of("feature", feature.getID());
+	}
+
+
 	private PrometheusMeterRegistrar()
 	{
 		// prevent instantiation
