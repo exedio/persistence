@@ -58,91 +58,91 @@ public class FeatureTimerTest
 	@Test void test()
 	{
 		log.setLevelDebug();
-		final FeatureTimer timer = timer("myNameSuffix", "myDescription");
+		final FeatureTimer meter = timer("myNameSuffix", "myDescription");
 		registry.assertIt();
 		log.assertEmpty();
 
-		timer.stop(Timer.start());
+		meter.stop(Timer.start());
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		timer.stopMillies(Timer.start());
+		meter.stopMillies(Timer.start());
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		timer.stop(Timer.start());
+		meter.stop(Timer.start());
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		timer.stopMillies(Timer.start());
+		meter.stopMillies(Timer.start());
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		timer.stop(Timer.start());
+		meter.stop(Timer.start());
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		timer.stopMillies(Timer.start());
+		meter.stopMillies(Timer.start());
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		onMount(MyItem.myFeature, timer);
+		onMount(MyItem.myFeature, meter);
 		registry.assertIt();
 		log.assertEmpty();
 
-		timer.stop(Timer.start());
+		meter.stop(Timer.start());
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 
-		timer.stopMillies(Timer.start());
+		meter.stopMillies(Timer.start());
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 
-		timer.stop(Timer.start());
+		meter.stop(Timer.start());
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 
-		timer.stopMillies(Timer.start());
+		meter.stopMillies(Timer.start());
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 
-		timer.stop(Timer.start());
+		meter.stop(Timer.start());
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 
-		timer.stopMillies(Timer.start());
+		meter.stopMillies(Timer.start());
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 	}
 
 	@Test void testNewValue()
 	{
-		final FeatureTimer timer1 = timer("myNameSuffixTags", "myDescription", "myKey", "myValue1");
-		final FeatureTimer timer2 = timer1.newValue("myValue2");
+		final FeatureTimer meter1 = timer("myNameSuffixTags", "myDescription", "myKey", "myValue1");
+		final FeatureTimer meter2 = meter1.newValue("myValue2");
 		registry.assertIt();
 
-		onMount(MyItem.myFeature, timer1, timer2);
+		onMount(MyItem.myFeature, meter1, meter2);
 		registry.assertIt();
 
-		timer1.stop(Timer.start());
+		meter1.stop(Timer.start());
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
 				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
 
-		timer1.stopMillies(Timer.start());
+		meter1.stopMillies(Timer.start());
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
 				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
 
-		timer2.stop(Timer.start());
+		meter2.stop(Timer.start());
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
 				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue2)]}");
 
-		timer2.stopMillies(Timer.start());
+		meter2.stopMillies(Timer.start());
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
@@ -151,19 +151,19 @@ public class FeatureTimerTest
 
 	@Test void testFeatureClass()
 	{
-		final FeatureTimer timer = timer("myNameSuffixTags", "myDescription", "myKey", "myValue1");
+		final FeatureTimer meter = timer("myNameSuffixTags", "myDescription", "myKey", "myValue1");
 		registry.assertIt();
 
-		onMount(FunctionField.class, MyItem.myFeature, timer);
+		onMount(FunctionField.class, MyItem.myFeature, meter);
 		registry.assertIt();
 
-		timer.stop(Timer.start());
+		meter.stop(Timer.start());
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
 				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
 
-		timer.stopMillies(Timer.start());
+		meter.stopMillies(Timer.start());
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
@@ -277,36 +277,36 @@ public class FeatureTimerTest
 
 	@Test void testNewValueNull()
 	{
-		final FeatureTimer timer = timer("myNameSuffix", "myDescription", "myKey", "myValue");
+		final FeatureTimer meter = timer("myNameSuffix", "myDescription", "myKey", "myValue");
 		assertFails(
-				() -> timer.newValue(null),
+				() -> meter.newValue(null),
 				NullPointerException.class,
 				"value");
 	}
 
 	@Test void testNewValueEmpty()
 	{
-		final FeatureTimer timer = timer("myNameSuffix", "myDescription", "myKey", "myValue");
+		final FeatureTimer meter = timer("myNameSuffix", "myDescription", "myKey", "myValue");
 		assertFails(
-				() -> timer.newValue(""),
+				() -> meter.newValue(""),
 				IllegalArgumentException.class,
 				"value must not be empty");
 	}
 
 	@Test void testNewValueSame()
 	{
-		final FeatureTimer timer = timer("myNameSuffix", "myDescription", "myKey", "myValue");
+		final FeatureTimer meter = timer("myNameSuffix", "myDescription", "myKey", "myValue");
 		assertFails(
-				() -> timer.newValue("myValue"),
+				() -> meter.newValue("myValue"),
 				IllegalArgumentException.class,
 				"value must be different");
 	}
 
 	@Test void testNewValueWithoutKey()
 	{
-		final FeatureTimer timer = timer("myNameSuffix", "myDescription");
+		final FeatureTimer meter = timer("myNameSuffix", "myDescription");
 		assertFails(
-				() -> timer.newValue("myValue"),
+				() -> meter.newValue("myValue"),
 				IllegalArgumentException.class,
 				"not allowed without key");
 	}
@@ -339,10 +339,10 @@ public class FeatureTimerTest
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Test void testMountTwice()
 	{
-		final FeatureTimer timer = timer("myNameSuffix" + (testMountTwiceSuffix++), "myDescription");
-		onMount(MyItem.myFeature, timer);
+		final FeatureTimer meter = timer("myNameSuffix" + (testMountTwiceSuffix++), "myDescription");
+		onMount(MyItem.myFeature, meter);
 		assertFails(
-				() -> onMount(MyItem.myFeature, timer),
+				() -> onMount(MyItem.myFeature, meter),
 				IllegalStateException.class,
 				"already mounted");
 	}
