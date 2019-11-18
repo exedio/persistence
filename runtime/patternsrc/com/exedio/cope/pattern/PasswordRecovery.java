@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.pattern.FeatureCounter.counter;
+import static com.exedio.cope.pattern.FeatureTimer.timer;
 import static com.exedio.cope.util.Check.requireAtLeast;
 import static java.util.Objects.requireNonNull;
 
@@ -39,10 +41,12 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -100,6 +104,9 @@ public final class PasswordRecovery extends Pattern
 		features.put("expires", expires);
 		features.put("tokens", tokens);
 		tokenType = newSourceType(Token.class, features, "Token");
+
+		FeatureCounter.onMount(this, issueCounter, issueReuseCounter, redeemFailCounter, setPasswordCounter);
+		FeatureTimer.onMount(this, redeemTimer);
 	}
 
 	public HashInterface getPassword()
@@ -157,13 +164,17 @@ public final class PasswordRecovery extends Pattern
 			tokens.setPage(0, 1);
 			final Token token = tokens.searchSingleton();
 			if(token!=null)
+			{
+				issueReuseCounter.increment();
 				return token;
+			}
 		}
 
 		long secret = NOT_A_SECRET;
 		while(secret==NOT_A_SECRET)
 			secret = random.nextLong();
 
+		issueCounter.increment();
 		return tokenType.newItem(
 			Cope.mapAndCast(parent, item),
 			this.secret.map(secret),
@@ -183,17 +194,21 @@ public final class PasswordRecovery extends Pattern
 		if(secret==NOT_A_SECRET)
 			throw new IllegalArgumentException("not a valid secret: " + NOT_A_SECRET);
 
+		final Date now = Clock.newDate();
 		final List<Token> tokens =
 			tokenType.search(Cope.and(
 				Cope.equalAndCast(this.parent, item),
 				this.secret.equal(secret),
-				this.expires.greaterOrEqual(Clock.newDate())));
+				this.expires.greaterOrEqual(now)));
 
 		if(!tokens.isEmpty())
 		{
-			return tokens.get(0);
+			final Token token = tokens.get(0);
+			redeemTimer.record(token.getExpires().getTime() - now.getTime(), TimeUnit.MILLISECONDS);
+			return token;
 		}
 
+		redeemFailCounter.increment();
 		return null;
 	}
 
@@ -353,9 +368,21 @@ public final class PasswordRecovery extends Pattern
 			final HashInterface password = getPattern().password;
 			final String newPassword = password.newRandomPassword(getPattern().random);
 			password.set(parent, newPassword);
+			getPattern().setPasswordCounter.increment();
 			return newPassword;
 		}
 	}
+
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureCounter issueCounter = counter("issue", "A token was issued.", "reuse", "no");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureCounter issueReuseCounter = issueCounter.newValue("yes");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureTimer redeemTimer = timer("redeem", "A token was redeemed the measured time before expiry.");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureCounter redeemFailCounter = counter("redeemFail", "An attempt to redeem a secret failed, because either there was no token with such a secret or that token was expired.");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureCounter setPasswordCounter = counter("setPassword", "The password was set to a new value, because a token was redeemed.");
 
 	// ------------------- deprecated stuff -------------------
 

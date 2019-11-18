@@ -22,37 +22,32 @@ import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.misc.MicrometerUtil;
 import com.exedio.cope.util.CharSet;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
-import io.micrometer.core.instrument.Timer;
-import io.micrometer.core.instrument.distribution.HistogramSnapshot;
 import java.lang.reflect.Modifier;
-import java.util.concurrent.Callable;
-import java.util.concurrent.TimeUnit;
-import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-final class FeatureTimer
+final class FeatureCounter
 {
 	static MeterRegistry registry = Metrics.globalRegistry;
 
-	static FeatureTimer timer(
+	static FeatureCounter counter(
 			final String nameSuffix,
 			final String description)
 	{
-		return new FeatureTimer(nameSuffix, description, null, null);
+		return new FeatureCounter(nameSuffix, description, null, null);
 	}
 
-	static FeatureTimer timer(
+	static FeatureCounter counter(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
 	{
-		return new FeatureTimer(
+		return new FeatureCounter(
 				nameSuffix, description,
 				requireNonEmpty(key, "key"),
 				requireNonEmpty(value, "value"));
@@ -62,9 +57,9 @@ final class FeatureTimer
 	private final String description;
 	private final String key;
 	private final String value;
-	private Timer meter = new LogMeter(Metrics.timer(FeatureTimer.class.getName()));
+	private Counter meter = new LogMeter(Metrics.counter(FeatureCounter.class.getName()));
 
-	private FeatureTimer(
+	private FeatureCounter(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
@@ -82,19 +77,19 @@ final class FeatureTimer
 		}
 	}
 
-	FeatureTimer newValue(final String value)
+	FeatureCounter newValue(final String value)
 	{
 		if(key==null)
 			throw new IllegalArgumentException("not allowed without key");
 		if(this.value.equals(value))
 			throw new IllegalArgumentException("value must be different");
 
-		return new FeatureTimer(nameSuffix, description, key, requireNonEmpty(value, "value"));
+		return new FeatureCounter(nameSuffix, description, key, requireNonEmpty(value, "value"));
 	}
 
 	static void onMount(
 			final Feature feature,
-			final FeatureTimer... meters)
+			final FeatureCounter... meters)
 	{
 		requireNonNull(feature, "feature");
 		final Class<?> featureClass = feature.getClass();
@@ -108,7 +103,7 @@ final class FeatureTimer
 	private static void onMountInternal(
 			final Class<?> featureClass,
 			final Feature feature,
-			final FeatureTimer[] meters)
+			final FeatureCounter[] meters)
 	{
 		onMount((Class)featureClass, feature, meters);
 	}
@@ -116,11 +111,11 @@ final class FeatureTimer
 	static <F extends Feature> void onMount(
 			final Class<F> featureClass,
 			final F feature,
-			final FeatureTimer... meters)
+			final FeatureCounter... meters)
 	{
 		requireNonNull(featureClass, "featureClass");
 		requireNonNull(feature, "feature");
-		for(final FeatureTimer meter : meters)
+		for(final FeatureCounter meter : meters)
 			meter.onMount(featureClass, feature);
 	}
 
@@ -130,87 +125,35 @@ final class FeatureTimer
 			throw new IllegalStateException("already mounted");
 
 		final Tags tags = key!=null ? Tags.of(key, value) : Tags.empty();
-		meter = Timer.builder(featureClass.getName() + '.' + nameSuffix).
+		meter = Counter.builder(featureClass.getName() + '.' + nameSuffix).
 				tags(tags.and(Tags.of("feature", feature.getID()))).
 				description(description).
 				register(registry);
 	}
 
-	void record(final long amount, final TimeUnit unit)
+	void increment()
 	{
-		meter.record(amount, unit);
+		meter.increment();
 	}
 
-	void stop(final Timer.Sample sample)
+	private final class LogMeter implements Counter
 	{
-		sample.stop(meter);
-	}
+		private final Counter back;
 
-	long stopMillies(final Timer.Sample sample)
-	{
-		return MicrometerUtil.toMillies(meter, sample);
-	}
-
-	private final class LogMeter implements Timer
-	{
-		private final Timer back;
-
-		private LogMeter(final Timer back)
+		private LogMeter(final Counter back)
 		{
 			this.back = back;
 		}
 
 		@Override
-		public void record(final long amount, final TimeUnit unit)
+		public void increment(final double amount)
 		{
-			back.record(amount, unit);
+			back.increment(amount);
 			logger.error("unmounted {} {}", nameSuffix, description);
 		}
 
 		@Override
-		public <T> T record(final Supplier<T> f)
-		{
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public <T> T recordCallable(final Callable<T> f)
-		{
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public void record(final Runnable f)
-		{
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public long count()
-		{
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public double totalTime(final TimeUnit unit)
-		{
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public double max(final TimeUnit unit)
-		{
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public TimeUnit baseTimeUnit()
-		{
-			throw new NoSuchMethodError();
-		}
-
-		@Override
-		public HistogramSnapshot takeSnapshot()
+		public double count()
 		{
 			throw new NoSuchMethodError();
 		}
@@ -222,5 +165,5 @@ final class FeatureTimer
 		}
 	}
 
-	private static final Logger logger = LoggerFactory.getLogger(FeatureTimer.class);
+	private static final Logger logger = LoggerFactory.getLogger(FeatureCounter.class);
 }

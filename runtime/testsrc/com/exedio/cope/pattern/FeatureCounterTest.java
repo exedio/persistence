@@ -19,13 +19,11 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.pattern.FeatureTimer.onMount;
-import static com.exedio.cope.pattern.FeatureTimer.timer;
+import static com.exedio.cope.pattern.FeatureCounter.counter;
+import static com.exedio.cope.pattern.FeatureCounter.onMount;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
-import static java.util.concurrent.TimeUnit.NANOSECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -33,18 +31,15 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.AssertionFailedErrorClock;
+import com.exedio.cope.tojunit.AssertionFailedErrorCounter;
 import com.exedio.cope.tojunit.AssertionFailedErrorMeterRegistry;
-import com.exedio.cope.tojunit.AssertionFailedErrorTimer;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Metrics;
-import io.micrometer.core.instrument.Timer;
-import io.micrometer.core.instrument.distribution.DistributionStatisticConfig;
-import io.micrometer.core.instrument.distribution.pause.PauseDetector;
 import java.util.ArrayList;
-import java.util.concurrent.TimeUnit;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -52,42 +47,26 @@ import org.opentest4j.AssertionFailedError;
 
 @MainRule.Tag
 @SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS","NP_NULL_PARAM_DEREF_NONVIRTUAL","RV_RETURN_VALUE_IGNORED_INFERRED"})
-public class FeatureTimerTest
+public class FeatureCounterTest
 {
-	private final LogRule log = new LogRule(FeatureTimer.class);
+	private final LogRule log = new LogRule(FeatureCounter.class);
 
 	@Test void test()
 	{
 		log.setLevelDebug();
-		final FeatureTimer meter = timer("myNameSuffix", "myDescription");
+		final FeatureCounter meter = counter("myNameSuffix", "myDescription");
 		registry.assertIt();
 		log.assertEmpty();
 
-		meter.record(5, NANOSECONDS);
+		meter.increment();
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		meter.stop(Timer.start());
+		meter.increment();
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
-		meter.stopMillies(Timer.start());
-		registry.assertIt();
-		log.assertError("unmounted myNameSuffix myDescription");
-
-		meter.stop(Timer.start());
-		registry.assertIt();
-		log.assertError("unmounted myNameSuffix myDescription");
-
-		meter.stopMillies(Timer.start());
-		registry.assertIt();
-		log.assertError("unmounted myNameSuffix myDescription");
-
-		meter.stop(Timer.start());
-		registry.assertIt();
-		log.assertError("unmounted myNameSuffix myDescription");
-
-		meter.stopMillies(Timer.start());
+		meter.increment();
 		registry.assertIt();
 		log.assertError("unmounted myNameSuffix myDescription");
 
@@ -95,75 +74,41 @@ public class FeatureTimerTest
 		registry.assertIt();
 		log.assertEmpty();
 
-		meter.record(5, NANOSECONDS);
+		meter.increment();
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 
-		meter.stop(Timer.start());
+		meter.increment();
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 
-		meter.stopMillies(Timer.start());
-		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
-		log.assertEmpty();
-
-		meter.stop(Timer.start());
-		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
-		log.assertEmpty();
-
-		meter.stopMillies(Timer.start());
-		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
-		log.assertEmpty();
-
-		meter.stop(Timer.start());
-		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
-		log.assertEmpty();
-
-		meter.stopMillies(Timer.start());
+		meter.increment();
 		registry.assertIt("record MeterId{name='com.exedio.cope.StringField.myNameSuffix', tags=[tag(feature=MyItem.myFeature)]}");
 		log.assertEmpty();
 	}
 
 	@Test void testNewValue()
 	{
-		final FeatureTimer meter1 = timer("myNameSuffixTags", "myDescription", "myKey", "myValue1");
-		final FeatureTimer meter2 = meter1.newValue("myValue2");
+		final FeatureCounter meter1 = counter("myNameSuffixTags", "myDescription", "myKey", "myValue1");
+		final FeatureCounter meter2 = meter1.newValue("myValue2");
 		registry.assertIt();
 
 		onMount(MyItem.myFeature, meter1, meter2);
 		registry.assertIt();
 
-		meter1.record(5, NANOSECONDS);
+		meter1.increment();
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
 				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
 
-		meter1.stop(Timer.start());
+		meter1.increment();
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
 				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
 
-		meter1.stopMillies(Timer.start());
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
-
-		meter2.record(5, NANOSECONDS);
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue2)]}");
-
-		meter2.stop(Timer.start());
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue2)]}");
-
-		meter2.stopMillies(Timer.start());
+		meter2.increment();
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
@@ -172,25 +117,13 @@ public class FeatureTimerTest
 
 	@Test void testFeatureClass()
 	{
-		final FeatureTimer meter = timer("myNameSuffixTags", "myDescription", "myKey", "myValue1");
+		final FeatureCounter meter = counter("myNameSuffixTags", "myDescription", "myKey", "myValue1");
 		registry.assertIt();
 
 		onMount(FunctionField.class, MyItem.myFeature, meter);
 		registry.assertIt();
 
-		meter.record(5, NANOSECONDS);
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
-
-		meter.stop(Timer.start());
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
-
-		meter.stopMillies(Timer.start());
+		meter.increment();
 		registry.assertIt(
 				"record MeterId{" +
 				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
@@ -220,20 +153,20 @@ public class FeatureTimerTest
 	@BeforeEach void before()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
-		FeatureTimer.registry = registry;
+		FeatureCounter.registry = registry;
 	}
 
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@AfterEach void after()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
-		FeatureTimer.registry = Metrics.globalRegistry;
+		FeatureCounter.registry = Metrics.globalRegistry;
 	}
 
 	@Test void testNameSuffixNull()
 	{
 		assertFails(
-				() -> timer(null, null),
+				() -> counter(null, null),
 				NullPointerException.class,
 				"nameSuffix");
 	}
@@ -241,7 +174,7 @@ public class FeatureTimerTest
 	@Test void testNameSuffixEmpty()
 	{
 		assertFails(
-				() -> timer("", null),
+				() -> counter("", null),
 				IllegalArgumentException.class,
 				"nameSuffix must not be empty");
 	}
@@ -249,7 +182,7 @@ public class FeatureTimerTest
 	@Test void testNameSuffixChars()
 	{
 		assertFails(
-				() -> timer("abc.xyz", "myDescription"),
+				() -> counter("abc.xyz", "myDescription"),
 				IllegalArgumentException.class,
 				"character not allowed at position 3: >abc.xyz<");
 	}
@@ -257,7 +190,7 @@ public class FeatureTimerTest
 	@Test void testDescriptionNull()
 	{
 		assertFails(
-				() -> timer("myNameSuffix", null),
+				() -> counter("myNameSuffix", null),
 				NullPointerException.class,
 				"description");
 	}
@@ -265,7 +198,7 @@ public class FeatureTimerTest
 	@Test void testDescriptionEmpty()
 	{
 		assertFails(
-				() -> timer("myNameSuffix", ""),
+				() -> counter("myNameSuffix", ""),
 				IllegalArgumentException.class,
 				"description must not be empty");
 	}
@@ -273,7 +206,7 @@ public class FeatureTimerTest
 	@Test void testKeyNull()
 	{
 		assertFails(
-				() -> timer("myNameSuffix", "myDescription", null, null),
+				() -> counter("myNameSuffix", "myDescription", null, null),
 				NullPointerException.class,
 				"key");
 	}
@@ -281,7 +214,7 @@ public class FeatureTimerTest
 	@Test void testKeyEmpty()
 	{
 		assertFails(
-				() -> timer("myNameSuffix", "myDescription", "", null),
+				() -> counter("myNameSuffix", "myDescription", "", null),
 				IllegalArgumentException.class,
 				"key must not be empty");
 	}
@@ -289,7 +222,7 @@ public class FeatureTimerTest
 	@Test void testValueNull()
 	{
 		assertFails(
-				() -> timer("myNameSuffix", "myDescription", "myKey", null),
+				() -> counter("myNameSuffix", "myDescription", "myKey", null),
 				NullPointerException.class,
 				"value");
 	}
@@ -297,14 +230,14 @@ public class FeatureTimerTest
 	@Test void testValueEmpty()
 	{
 		assertFails(
-				() -> timer("myNameSuffix", "myDescription", "myKey", ""),
+				() -> counter("myNameSuffix", "myDescription", "myKey", ""),
 				IllegalArgumentException.class,
 				"value must not be empty");
 	}
 
 	@Test void testNewValueNull()
 	{
-		final FeatureTimer meter = timer("myNameSuffix", "myDescription", "myKey", "myValue");
+		final FeatureCounter meter = counter("myNameSuffix", "myDescription", "myKey", "myValue");
 		assertFails(
 				() -> meter.newValue(null),
 				NullPointerException.class,
@@ -313,7 +246,7 @@ public class FeatureTimerTest
 
 	@Test void testNewValueEmpty()
 	{
-		final FeatureTimer meter = timer("myNameSuffix", "myDescription", "myKey", "myValue");
+		final FeatureCounter meter = counter("myNameSuffix", "myDescription", "myKey", "myValue");
 		assertFails(
 				() -> meter.newValue(""),
 				IllegalArgumentException.class,
@@ -322,7 +255,7 @@ public class FeatureTimerTest
 
 	@Test void testNewValueSame()
 	{
-		final FeatureTimer meter = timer("myNameSuffix", "myDescription", "myKey", "myValue");
+		final FeatureCounter meter = counter("myNameSuffix", "myDescription", "myKey", "myValue");
 		assertFails(
 				() -> meter.newValue("myValue"),
 				IllegalArgumentException.class,
@@ -331,7 +264,7 @@ public class FeatureTimerTest
 
 	@Test void testNewValueWithoutKey()
 	{
-		final FeatureTimer meter = timer("myNameSuffix", "myDescription");
+		final FeatureCounter meter = counter("myNameSuffix", "myDescription");
 		assertFails(
 				() -> meter.newValue("myValue"),
 				IllegalArgumentException.class,
@@ -349,7 +282,7 @@ public class FeatureTimerTest
 	@Test void testOnMountClassFeatureClassNull()
 	{
 		assertFails(
-				() -> onMount(null, null, new FeatureTimer[]{}),
+				() -> onMount(null, null, new FeatureCounter[]{}),
 				NullPointerException.class,
 				"featureClass");
 	}
@@ -357,7 +290,7 @@ public class FeatureTimerTest
 	@Test void testOnMountClassFeatureNull()
 	{
 		assertFails(
-				() -> onMount(StringField.class, null, new FeatureTimer[]{}),
+				() -> onMount(StringField.class, null, new FeatureCounter[]{}),
 				NullPointerException.class,
 				"feature");
 	}
@@ -366,7 +299,7 @@ public class FeatureTimerTest
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Test void testMountTwice()
 	{
-		final FeatureTimer meter = timer("myNameSuffix" + (testMountTwiceSuffix++), "myDescription");
+		final FeatureCounter meter = counter("myNameSuffix" + (testMountTwiceSuffix++), "myDescription");
 		onMount(MyItem.myFeature, meter);
 		assertFails(
 				() -> onMount(MyItem.myFeature, meter),
@@ -421,32 +354,18 @@ public class FeatureTimerTest
 		}
 
 		@Override
-		protected Timer newTimer(
-				final Meter.Id id,
-				final DistributionStatisticConfig distributionStatisticConfig,
-				final PauseDetector pauseDetector)
+		protected Counter newCounter(
+				final Meter.Id id)
 		{
-			return new AssertionFailedErrorTimer()
+			return new AssertionFailedErrorCounter()
 			{
 				@Override
-				public void record(final long amount, final TimeUnit unit)
+				public void increment(final double amount)
 				{
-					assertSame(NANOSECONDS, unit);
+					assertEquals(1.0, amount);
 					actual.add("record " + id);
 				}
 			};
-		}
-
-		@Override
-		protected TimeUnit getBaseTimeUnit()
-		{
-			return TimeUnit.SECONDS;
-		}
-
-		@Override
-		protected DistributionStatisticConfig defaultHistogramConfig()
-		{
-			return DistributionStatisticConfig.DEFAULT;
 		}
 
 		public void assertIt(final String... expected)
