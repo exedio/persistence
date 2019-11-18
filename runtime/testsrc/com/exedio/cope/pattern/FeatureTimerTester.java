@@ -31,8 +31,8 @@ import io.micrometer.core.instrument.Timer;
 
 final class FeatureTimerTester extends MainRule
 {
-	private final Timer timer;
-	private final String timerMessage;
+	private final Timer meter;
+	private final String meterMessage;
 
 	FeatureTimerTester(
 			final Feature feature,
@@ -54,8 +54,8 @@ final class FeatureTimerTester extends MainRule
 			final String nameSuffix,
 			final Tags tags)
 	{
-		timer = (Timer)meter(nameClass, nameSuffix, tags);
-		timerMessage = timer.getId().toString();
+		meter = (Timer)meter(nameClass, nameSuffix, tags);
+		meterMessage = meter.getId().toString();
 	}
 
 
@@ -67,15 +67,15 @@ final class FeatureTimerTester extends MainRule
 	protected void before()
 	{
 		assertFalse(initialized, "initialized");
-		lastActualCount = timer.count();
+		lastActualCount = meter.count();
 		initialized = true;
 	}
 
 	void assertCount(final int expected)
 	{
 		assertTrue(initialized, "not initialized");
-		final double actualCount = timer.count();
-		assertEquals(expected, actualCount - lastActualCount, timerMessage);
+		final double actualCount = meter.count();
+		assertEquals(expected, actualCount - lastActualCount, meterMessage);
 		lastActualCount = actualCount;
 	}
 }
