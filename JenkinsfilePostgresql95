@@ -10,7 +10,7 @@ timestamps
 			))
 	])
 
-	env.DATABASE_HOST = 'postgresql95.ci.test'
+	env.DATABASE_HOST = 'postgresql96.ci.test'
 
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && ' + jdk + ' && ' + env.DATABASE_HOST)
