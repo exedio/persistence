@@ -62,7 +62,7 @@ final class FeatureTimer
 	private final String description;
 	private final String key;
 	private final String value;
-	private Timer meter = new LogTimer(Metrics.timer(FeatureTimer.class.getName()));
+	private Timer meter = new LogMeter(Metrics.timer(FeatureTimer.class.getName()));
 
 	private FeatureTimer(
 			final String nameSuffix,
@@ -94,39 +94,39 @@ final class FeatureTimer
 
 	static void onMount(
 			final Feature feature,
-			final FeatureTimer... timers)
+			final FeatureTimer... meters)
 	{
 		requireNonNull(feature, "feature");
 		final Class<?> featureClass = feature.getClass();
 		if(!Modifier.isFinal(featureClass.getModifiers()))
 			throw new IllegalArgumentException("not final: " + featureClass + ' ' + feature);
 
-		onMountInternal(featureClass, feature, timers);
+		onMountInternal(featureClass, feature, meters);
 	}
 
 	@SuppressWarnings("unchecked")
 	private static void onMountInternal(
 			final Class<?> featureClass,
 			final Feature feature,
-			final FeatureTimer[] timers)
+			final FeatureTimer[] meters)
 	{
-		onMount((Class)featureClass, feature, timers);
+		onMount((Class)featureClass, feature, meters);
 	}
 
 	static <F extends Feature> void onMount(
 			final Class<F> featureClass,
 			final F feature,
-			final FeatureTimer... timers)
+			final FeatureTimer... meters)
 	{
 		requireNonNull(featureClass, "featureClass");
 		requireNonNull(feature, "feature");
-		for(final FeatureTimer timer : timers)
-			timer.onMount(featureClass, feature);
+		for(final FeatureTimer meter : meters)
+			meter.onMount(featureClass, feature);
 	}
 
 	private <F extends Feature> void onMount(final Class<F> featureClass, final F feature)
 	{
-		if(!(meter instanceof LogTimer))
+		if(!(meter instanceof LogMeter))
 			throw new IllegalStateException("already mounted");
 
 		final Tags tags = key!=null ? Tags.of(key, value) : Tags.empty();
@@ -146,11 +146,11 @@ final class FeatureTimer
 		return MicrometerUtil.toMillies(meter, sample);
 	}
 
-	private final class LogTimer implements Timer
+	private final class LogMeter implements Timer
 	{
 		private final Timer back;
 
-		private LogTimer(final Timer back)
+		private LogMeter(final Timer back)
 		{
 			this.back = back;
 		}
