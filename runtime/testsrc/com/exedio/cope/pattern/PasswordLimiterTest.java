@@ -88,11 +88,16 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		final Refusal refusal2 = refuse(period0);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
+		denyC.assertCount(0);
 		assertFalse(i.checkPasswordLimited(PASSWORD, clock, period0));
+		denyC.assertCount(1);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 		assertTrue(i2.checkPasswordLimited(PASSWORD2, clock, period0));
+		denyC.assertCount(0);
+		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		assertFalse(i.checkPasswordLimited("wrongpass", clock, period0));
+		denyC.assertCount(1);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		clock.add(period0);
@@ -103,19 +108,24 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertTrue(refusal2.existsCopeItem());
 
 		assertFalse(i.checkPasswordLimited(PASSWORD, clock, period1M));
+		denyC.assertCount(1);
 		assertTrue (i.checkPasswordLimited(PASSWORD, clock, period1 ));
+		denyC.assertCount(0);
 
 		final Refusal refusal3 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3), getRefusals());
 		assertTrue(i.checkPasswordLimited(PASSWORD, clock, period1));
+		denyC.assertCount(0);
 
 		final Refusal refusal4 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		assertFalse(i.checkPasswordLimited(PASSWORD, clock, period1));
+		denyC.assertCount(1);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		assertFalse(i.checkPasswordLimited("wrongpass", clock, period1));
+		denyC.assertCount(1);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		clock.add(period1);
@@ -153,6 +163,9 @@ public class PasswordLimiterTest extends TestWithEnvironment
 		assertFalse(refusal2.existsCopeItem());
 		assertFalse(refusal3.existsCopeItem());
 		assertFalse(refusal4.existsCopeItem());
+
+		denyC.assertCount(0);
+		denyOtherC.assertCount(0);
 	}
 
 	@Test void testReset()
@@ -169,23 +182,35 @@ public class PasswordLimiterTest extends TestWithEnvironment
 
 		final Refusal refusal1b = refuse(i, now);
 		assertEquals(list(refusal1a, refusal1b), getRefusals());
+		denyC.assertCount(0);
 		assertEquals(false, i .checkPasswordLimited(PASSWORD , clock, now));
+		denyC.assertCount(1);
 		assertEquals(true , i2.checkPasswordLimited(PASSWORD2, clock, now));
+		denyC.assertCount(0);
 
 		final Refusal refusal2a = refuse(i2, now);
 		assertEquals(list(refusal1a, refusal1b, refusal2a), getRefusals());
 		assertEquals(false, i .checkPasswordLimited(PASSWORD , clock, now));
+		denyC.assertCount(1);
 		assertEquals(true , i2.checkPasswordLimited(PASSWORD2, clock, now));
+		denyC.assertCount(0);
 
 		final Refusal refusal2b = refuse(i2, now);
 		assertEquals(list(refusal1a, refusal1b, refusal2a, refusal2b), getRefusals());
 		assertEquals(false, i .checkPasswordLimited(PASSWORD , clock, now));
+		denyC.assertCount(1);
 		assertEquals(false, i2.checkPasswordLimited(PASSWORD2, clock, now));
+		denyC.assertCount(1);
 
 		i.resetPasswordLimited();
 		assertEquals(list(refusal2a, refusal2b), getRefusals());
 		assertEquals(true , i .checkPasswordLimited(PASSWORD , clock, now));
+		denyC.assertCount(0);
 		assertEquals(false, i2.checkPasswordLimited(PASSWORD2, clock, now));
+		denyC.assertCount(1);
+
+		denyC.assertCount(0);
+		denyOtherC.assertCount(0);
 	}
 
 	private Refusal refuse(final String date)
@@ -196,7 +221,9 @@ public class PasswordLimiterTest extends TestWithEnvironment
 	private Refusal refuse(final PasswordLimiterItem item, final String date)
 	{
 		final List<Refusal> existing = getRefusals();
+		denyC.assertCount(0);
 		assertEquals(false, item.checkPasswordLimited("wrongpass", clock, date));
+		denyC.assertCount(0);
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
 		assertEquals(item, result.getParent());
@@ -222,4 +249,7 @@ public class PasswordLimiterTest extends TestWithEnvironment
 	{
 		clock.assertEqualsFormatted(expected, actual);
 	}
+
+	private final FeatureCounterTester denyC       = new FeatureCounterTester(passwordLimited, "deny", "verbose", "no");
+	private final FeatureCounterTester denyOtherC  = new FeatureCounterTester(passwordLimited, "deny", "verbose", "yes");
 }

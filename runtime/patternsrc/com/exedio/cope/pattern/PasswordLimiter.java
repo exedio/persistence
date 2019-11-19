@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.pattern.FeatureCounter.counter;
 import static com.exedio.cope.util.Check.requireAtLeast;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.time.Duration.ofMillis;
@@ -103,6 +104,8 @@ public final class PasswordLimiter extends Pattern
 		features.put("refusals", refusals);
 		final Type<Refusal> refusalType = newSourceType(Refusal.class, features, "Refusal");
 		this.mountIfMounted = new Mount(parent, refusals, refusalType);
+
+		FeatureMeter.onMount(this, denyCounter, denyVerboselyCounter);
 	}
 
 	private static final class Mount
@@ -161,6 +164,7 @@ public final class PasswordLimiter extends Pattern
 		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
+			denyCounter.increment();
 			// prevent Timing Attacks
 			this.password.blind(password);
 			return false;
@@ -178,6 +182,7 @@ public final class PasswordLimiter extends Pattern
 		final Query<Refusal> query = getCheckQuery(item, now);
 		if(query.total()>=limit)
 		{
+			denyVerboselyCounter.increment();
 			query.setOrderBy(date, true);
 			query.setPage(0, 1);
 			// TODO use one query to compute both
@@ -309,6 +314,11 @@ public final class PasswordLimiter extends Pattern
 			return getPattern().date.get(this);
 		}
 	}
+
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureCounter denyCounter = counter("deny", "Checking a password was denied, because the limit of failed attempts was exceeded.", "verbose", "no");
+	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
+	private final FeatureCounter denyVerboselyCounter = denyCounter.newValue("yes");
 
 	// ------------------- deprecated stuff -------------------
 

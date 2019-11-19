@@ -86,11 +86,16 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		final Refusal refusal2 = refuse(period0);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
+		denyC.assertCount(0);
 		i.checkPasswordLimitedVerboselyFails(PASSWORD, clock, period0, period1);
+		denyC.assertCount(1);
+		assertEquals(list(refusal1, refusal2), getRefusals());
 		assertTrue(i2.checkPasswordLimitedVerbosely(PASSWORD2, clock, period0));
+		denyC.assertCount(0);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		i.checkPasswordLimitedVerboselyFails("wrongpass", clock, period0, period1);
+		denyC.assertCount(1);
 		assertEquals(list(refusal1, refusal2), getRefusals());
 
 		clock.add(period0); // start
@@ -101,20 +106,24 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertTrue(refusal2.existsCopeItem());
 
 		i.checkPasswordLimitedVerboselyFails(PASSWORD, clock, period1M, period1);
-
+		denyC.assertCount(1);
 		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, period1)); // refusal expires
+		denyC.assertCount(0);
 
 		final Refusal refusal3 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3), getRefusals());
 		assertTrue(i.checkPasswordLimitedVerbosely(PASSWORD, clock, period1));
+		denyC.assertCount(0);
 
 		final Refusal refusal4 = refuse(period1);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		i.checkPasswordLimitedVerboselyFails(PASSWORD, clock, period1, period2);
+		denyC.assertCount(1);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		i.checkPasswordLimitedVerboselyFails("wrongpass", clock, period1, period2);
+		denyC.assertCount(1);
 		assertEquals(list(refusal1, refusal2, refusal3, refusal4), getRefusals());
 
 		clock.add(period1);
@@ -152,12 +161,17 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 		assertFalse(refusal2.existsCopeItem());
 		assertFalse(refusal3.existsCopeItem());
 		assertFalse(refusal4.existsCopeItem());
+
+		denyC.assertCount(0);
+		denyOtherC.assertCount(0);
 	}
 
 	private Refusal refuse(final String date) throws ExceededException
 	{
 		final List<Refusal> existing = getRefusals();
+		denyC.assertCount(0);
 		assertEquals(false, i.checkPasswordLimitedVerbosely("wrongpass", clock, date));
+		denyC.assertCount(0);
 		final Refusal result = passwordLimited.getRefusalType().searchSingletonStrict(passwordLimited.getRefusalType().getThis().in(existing).not());
 		assertNotNull(result);
 		assertEquals(i, result.getParent());
@@ -183,4 +197,7 @@ public class PasswordLimiterVerboseTest extends TestWithEnvironment
 	{
 		clock.assertEqualsFormatted(expected, actual);
 	}
+
+	private final FeatureCounterTester denyC       = new FeatureCounterTester(passwordLimited, "deny", "verbose", "yes");
+	private final FeatureCounterTester denyOtherC  = new FeatureCounterTester(passwordLimited, "deny", "verbose", "no");
 }
