@@ -365,10 +365,11 @@ public final class PasswordRecovery extends Pattern
 		{
 			final Item parent = getParent();
 			redeem();
-			final HashInterface password = getPattern().password;
-			final String newPassword = password.newRandomPassword(getPattern().random);
+			final PasswordRecovery passwordRecovery = getPattern();
+			final HashInterface password = passwordRecovery.password;
+			final String newPassword = password.newRandomPassword(passwordRecovery.random);
 			password.set(parent, newPassword);
-			getPattern().setPasswordCounter.increment();
+			passwordRecovery.setPasswordCounter.increment();
 			return newPassword;
 		}
 	}
