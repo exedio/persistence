@@ -105,8 +105,7 @@ public final class PasswordRecovery extends Pattern
 		features.put("tokens", tokens);
 		tokenType = newSourceType(Token.class, features, "Token");
 
-		FeatureCounter.onMount(this, issueCounter, issueReuseCounter, redeemFailCounter, setPasswordCounter);
-		FeatureTimer.onMount(this, redeemTimer);
+		FeatureMeter.onMount(this, issueCounter, issueReuseCounter, redeemTimer, redeemFailCounter, setPasswordCounter);
 	}
 
 	public HashInterface getPassword()

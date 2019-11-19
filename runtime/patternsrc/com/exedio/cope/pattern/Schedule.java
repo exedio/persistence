@@ -246,7 +246,7 @@ public final class Schedule extends Pattern
 					", but was " + type.getJavaClass().getName());
 
 		runs.onMount(this, type);
-		FeatureTimer.onMount(this, runTimer);
+		FeatureMeter.onMount(this, runTimer);
 	}
 
 	public BooleanField getEnabled()

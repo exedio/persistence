@@ -340,9 +340,9 @@ public final class Dispatcher extends Pattern
 
 		this.runTypeIfMounted = new RunType(type);
 
-		FeatureTimer.onMount(this, succeedTimer, failTimer, probeTimer);
+		FeatureMeter.onMount(this, succeedTimer, failTimer, probeTimer);
 		if(supportsPurge())
-			FeatureTimer.onMount(this, purgeTimer);
+			FeatureMeter.onMount(this, purgeTimer);
 	}
 
 	public BooleanField getPending()

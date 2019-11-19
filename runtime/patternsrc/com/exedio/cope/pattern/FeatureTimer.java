@@ -19,27 +19,19 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Check.requireNonEmpty;
-import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.Feature;
 import com.exedio.cope.misc.MicrometerUtil;
-import com.exedio.cope.util.CharSet;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.distribution.HistogramSnapshot;
-import java.lang.reflect.Modifier;
 import java.util.concurrent.Callable;
 import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-final class FeatureTimer
+final class FeatureTimer extends FeatureMeter<Timer>
 {
-	static MeterRegistry registry = Metrics.globalRegistry;
-
 	static FeatureTimer timer(
 			final String nameSuffix,
 			final String description)
@@ -58,80 +50,33 @@ final class FeatureTimer
 				requireNonEmpty(value, "value"));
 	}
 
-	private final String nameSuffix;
-	private final String description;
-	private final String key;
-	private final String value;
-	private Timer meter = new LogMeter(Metrics.timer(FeatureTimer.class.getName()));
-
 	private FeatureTimer(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
 	{
-		this.nameSuffix = requireNonEmpty(nameSuffix, "nameSuffix");
-		this.description = requireNonEmpty(description, "description");
-		this.key = key;
-		this.value = value;
-
-		{
-			final int pos = CharSet.ALPHA_NUMERIC.indexOfNotContains(nameSuffix);
-			if(pos>=0)
-				throw new IllegalArgumentException(
-						"character not allowed at position " + pos + ": >" + nameSuffix + "<");
-		}
+		super(nameSuffix, description, key, value);
 	}
 
+	@Override
+	LogMeter newLogMeter()
+	{
+		return new LogMeter(Metrics.timer(FeatureTimer.class.getName()));
+	}
+
+	@Override
 	FeatureTimer newValue(final String value)
 	{
-		if(key==null)
-			throw new IllegalArgumentException("not allowed without key");
-		if(this.value.equals(value))
-			throw new IllegalArgumentException("value must be different");
+		onNewValue(value);
 
-		return new FeatureTimer(nameSuffix, description, key, requireNonEmpty(value, "value"));
+		return new FeatureTimer(nameSuffix, description, key, value);
 	}
 
-	static void onMount(
-			final Feature feature,
-			final FeatureTimer... meters)
+	@Override
+	Timer onMount(final String name, final Tags tags, final String description, final MeterRegistry registry)
 	{
-		requireNonNull(feature, "feature");
-		final Class<?> featureClass = feature.getClass();
-		if(!Modifier.isFinal(featureClass.getModifiers()))
-			throw new IllegalArgumentException("not final: " + featureClass + ' ' + feature);
-
-		onMountInternal(featureClass, feature, meters);
-	}
-
-	@SuppressWarnings("unchecked")
-	private static void onMountInternal(
-			final Class<?> featureClass,
-			final Feature feature,
-			final FeatureTimer[] meters)
-	{
-		onMount((Class)featureClass, feature, meters);
-	}
-
-	static <F extends Feature> void onMount(
-			final Class<F> featureClass,
-			final F feature,
-			final FeatureTimer... meters)
-	{
-		requireNonNull(featureClass, "featureClass");
-		requireNonNull(feature, "feature");
-		for(final FeatureTimer meter : meters)
-			meter.onMount(featureClass, feature);
-	}
-
-	private <F extends Feature> void onMount(final Class<F> featureClass, final F feature)
-	{
-		if(!(meter instanceof LogMeter))
-			throw new IllegalStateException("already mounted");
-
-		final Tags tags = key!=null ? Tags.of(key, value) : Tags.empty();
-		meter = Timer.builder(featureClass.getName() + '.' + nameSuffix).
-				tags(tags.and(Tags.of("feature", feature.getID()))).
+		return Timer.builder(name).
+				tags(tags).
 				description(description).
 				register(registry);
 	}
@@ -151,7 +96,7 @@ final class FeatureTimer
 		return MicrometerUtil.toMillies(meter, sample);
 	}
 
-	private final class LogMeter implements Timer
+	private final class LogMeter extends FeatureMeter<?>.LogMeter implements Timer
 	{
 		private final Timer back;
 
@@ -164,7 +109,7 @@ final class FeatureTimer
 		public void record(final long amount, final TimeUnit unit)
 		{
 			back.record(amount, unit);
-			logger.error("unmounted {} {}", nameSuffix, description);
+			log();
 		}
 
 		@Override
@@ -214,13 +159,5 @@ final class FeatureTimer
 		{
 			throw new NoSuchMethodError();
 		}
-
-		@Override
-		public Id getId()
-		{
-			throw new NoSuchMethodError();
-		}
 	}
-
-	private static final Logger logger = LoggerFactory.getLogger(FeatureTimer.class);
 }

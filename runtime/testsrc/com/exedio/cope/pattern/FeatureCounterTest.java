@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.FeatureCounter.counter;
-import static com.exedio.cope.pattern.FeatureCounter.onMount;
+import static com.exedio.cope.pattern.FeatureMeter.onMount;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -49,7 +49,7 @@ import org.opentest4j.AssertionFailedError;
 @SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS","NP_NULL_PARAM_DEREF_NONVIRTUAL","RV_RETURN_VALUE_IGNORED_INFERRED"})
 public class FeatureCounterTest
 {
-	private final LogRule log = new LogRule(FeatureCounter.class);
+	private final LogRule log = new LogRule(FeatureMeter.class);
 
 	@Test void test()
 	{
@@ -153,14 +153,14 @@ public class FeatureCounterTest
 	@BeforeEach void before()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
-		FeatureCounter.registry = registry;
+		FeatureMeter.registry = registry;
 	}
 
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@AfterEach void after()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
-		FeatureCounter.registry = Metrics.globalRegistry;
+		FeatureMeter.registry = Metrics.globalRegistry;
 	}
 
 	@Test void testNameSuffixNull()

@@ -294,7 +294,7 @@ public class Hash extends Pattern implements HashInterface
 	protected void onMount()
 	{
 		super.onMount();
-		FeatureTimer.onMount(Hash.class, this, hashTimer, checkTimerMatch, checkTimerMismatch);
+		FeatureMeter.onMount(Hash.class, this, hashTimer, checkTimerMatch, checkTimerMismatch);
 	}
 
 	@Override

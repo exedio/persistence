@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static com.exedio.cope.pattern.FeatureTimer.onMount;
+import static com.exedio.cope.pattern.FeatureMeter.onMount;
 import static com.exedio.cope.pattern.FeatureTimer.timer;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
@@ -54,7 +54,7 @@ import org.opentest4j.AssertionFailedError;
 @SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS","NP_NULL_PARAM_DEREF_NONVIRTUAL","RV_RETURN_VALUE_IGNORED_INFERRED"})
 public class FeatureTimerTest
 {
-	private final LogRule log = new LogRule(FeatureTimer.class);
+	private final LogRule log = new LogRule(FeatureMeter.class);
 
 	@Test void test()
 	{
@@ -220,14 +220,14 @@ public class FeatureTimerTest
 	@BeforeEach void before()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
-		FeatureTimer.registry = registry;
+		FeatureMeter.registry = registry;
 	}
 
 	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@AfterEach void after()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
-		FeatureTimer.registry = Metrics.globalRegistry;
+		FeatureMeter.registry = Metrics.globalRegistry;
 	}
 
 	@Test void testNameSuffixNull()
