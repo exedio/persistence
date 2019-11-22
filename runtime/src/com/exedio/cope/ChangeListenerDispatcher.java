@@ -62,6 +62,7 @@ final class ChangeListenerDispatcher implements Runnable
 		final Metrics metrics = new Metrics(model);
 		overflow  = metrics.counter("overflow",          "How often the queue overflows, because ChangeEvents coming in faster than they can be dispatched to ChangeListeners.", Tags.empty());
 		exception = metrics.counter("dispatchEventFail", "How often dispatching a ChangeEvent to all ChangeListeners fails.", Tags.empty());
+		metrics.gauge(d -> d.queue.capacity,"capacity",  "How many ChangeEvents the queue can hold.");
 		metrics.gauge(d -> d.queue.size(), "pending",    "How many ChangeEvents are in the queue waiting to be dispatched.");
 	}
 

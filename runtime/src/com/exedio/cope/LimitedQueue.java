@@ -23,6 +23,7 @@ import java.util.concurrent.ArrayBlockingQueue;
 final class LimitedQueue<E>
 {
 	private final ArrayBlockingQueue<E> back;
+	final int capacity;
 
 	LimitedQueue(final int capacity)
 	{
@@ -30,6 +31,7 @@ final class LimitedQueue<E>
 			throw new IllegalArgumentException(String.valueOf(capacity));
 
 		back = new ArrayBlockingQueue<>(capacity);
+		this.capacity = capacity;
 	}
 
 	/**

@@ -300,6 +300,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 		assertEquals(0, count("overflow"));
 		assertEquals(0, count("dispatchEventFail"));
 		assertEquals(0, gauge("pending"));
+		assertEquals(model.getConnectProperties().changeListenersQueueCapacity, gauge("capacity"));
 	}
 
 	private double count(final String nameSuffix)
