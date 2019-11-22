@@ -18,9 +18,9 @@
 
 package com.exedio.cope;
 
-import io.micrometer.core.instrument.Timer;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 
 final class TransactionCounter
 {
