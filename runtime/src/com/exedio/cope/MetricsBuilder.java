@@ -24,6 +24,8 @@ import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
+import java.time.Instant;
+import java.time.format.DateTimeFormatter;
 import java.util.function.ToDoubleFunction;
 
 final class MetricsBuilder
@@ -86,9 +88,25 @@ final class MetricsBuilder
 			final String nameSuffix,
 			final String description)
 	{
+		gauge(obj, f, nameSuffix, description, Tags.empty());
+	}
+
+	<T> void gauge(
+			final T obj,
+			final ToDoubleFunction<T> f,
+			final String nameSuffix,
+			final String description,
+			final Tags tags)
+	{
 		Gauge.builder(name(nameSuffix), obj, f).
 				description(description).
-				tags(tags).
+				tags(this.tags.and(tags)).
 				register(Metrics.globalRegistry);
+	}
+
+
+	static Tags tag(final String key, final Instant value)
+	{
+		return Tags.of(key, DateTimeFormatter.ISO_INSTANT.format(value));
 	}
 }

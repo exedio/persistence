@@ -50,6 +50,11 @@ public final class PrometheusMeterRegistrar
 		Metrics.globalRegistry.add(PROMETHEUS_REGISTRY);
 	}
 
+	public static Iterable<Meter> getMeters()
+	{
+		return PROMETHEUS_REGISTRY.getMeters();
+	}
+
 	public static Meter meter(
 			final Class<?> nameClass,
 			final String nameSuffix,
@@ -66,6 +71,7 @@ public final class PrometheusMeterRegistrar
 			final Tags tags)
 	{
 		assertTrue(asList(
+				// Model.class not needed, as there are gauges only, no counters or timers
 				Transaction.class,
 				DataField.class,
 				ChangeListener.class,

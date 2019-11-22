@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MetricsBuilder.tag;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 
 import com.exedio.cope.util.JobContext;
@@ -123,6 +124,11 @@ final class Connect
 
 		this.changeListenerDispatcher =
 				new ChangeListenerDispatcher(model, properties);
+
+		new MetricsBuilder(Model.class, model).gauge(
+				date, d -> 1.0,
+				"connect", "Describes the connect of the model to the database.",
+				tag("date", date).and(probe.tags()));
 	}
 
 	private static SortedSet<String> toUnmodifiableSortedSet(final String[] array)

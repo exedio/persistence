@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.SQLRuntimeException;
+import io.micrometer.core.instrument.Tags;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.DriverManager;
@@ -68,6 +69,13 @@ final class ConnectionProperties extends Properties
 	{
 		e.put(prefix + ".url", url);
 		e.put(prefix + ".user", username);
+	}
+
+	Tags tags(final String prefix)
+	{
+		return Tags.of(
+				prefix + "Url", url,
+				prefix + "Username", username);
 	}
 
 

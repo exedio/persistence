@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static java.time.format.DateTimeFormatter.ISO_INSTANT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -37,6 +38,9 @@ public class MicrometerModelAnonTest
 {
 	@Test void test()
 	{
+		// initialize
+		assertThrows(AbsentError.class, () -> meterOther(ID_INITIALIZE));
+
 		// change listeners remove
 		assertThrows(AbsentError.class, () -> meter(ID_CL_REMOVE));
 		assertEquals(0, MODEL.getChangeListenersInfo().getRemoved());
@@ -75,6 +79,9 @@ public class MicrometerModelAnonTest
 		assertEquals(1, MODEL.getTransactionCounters().getCommitWithoutConnection());
 
 		MODEL.enableSerialization(getClass(), "MODEL");
+
+		// initialize
+		assertEquals(1.0, ((Gauge)meterOther(ID_INITIALIZE)).value());
 
 		// change listeners remove TODO 2 are missing
 		assertEquals(0, ((Counter)meter(ID_CL_REMOVE)).count());
@@ -139,6 +146,15 @@ public class MicrometerModelAnonTest
 		throw new AbsentError();
 	}
 
+	private static Meter meterOther(final Meter.Id id)
+	{
+		for(final Meter m : PrometheusMeterRegistrar.getMeters())
+			if(id.equals(m.getId()))
+				return m;
+
+		throw new AbsentError();
+	}
+
 	private static final class AbsentError extends AssertionFailedError
 	{
 		private static final long serialVersionUID = 3435620421628273951L;
@@ -171,6 +187,10 @@ public class MicrometerModelAnonTest
 
 	private static final Model MODEL =
 			new Model(MyItem.TYPE);
+
+	private static final Meter.Id ID_INITIALIZE = new Meter.Id(
+			Model.class.getName() + ".initialize", MODEL_TAGS.and("date", ISO_INSTANT.format(MODEL.getInitializeInstant())),
+			null, null, Meter.Type.GAUGE);
 
 	@SuppressWarnings("static-method")
 	@BeforeEach

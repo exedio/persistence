@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static java.time.format.DateTimeFormatter.ISO_INSTANT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
@@ -36,6 +37,9 @@ public class MicrometerModelNamedTest
 {
 	@Test void test()
 	{
+		// initialize
+		assertEquals(1.0, ((Gauge)meterOther(ID_INITIALIZE)).value());
+
 		// change listeners remove
 		assertEquals(0, ((Counter)meter(ID_CL_REMOVE)).count());
 		assertEquals(0, MODEL.getChangeListenersInfo().getRemoved());
@@ -74,6 +78,9 @@ public class MicrometerModelNamedTest
 		assertEquals(1, MODEL.getTransactionCounters().getCommitWithoutConnection());
 
 		MODEL.enableSerialization(getClass(), "MODEL");
+
+		// initialize
+		assertEquals(1.0, ((Gauge)meterOther(ID_INITIALIZE)).value());
 
 		// change listeners remove
 		assertEquals(2, ((Counter)meter(ID_CL_REMOVE)).count());
@@ -138,6 +145,15 @@ public class MicrometerModelNamedTest
 		throw new AssertionFailedError();
 	}
 
+	private static Meter meterOther(final Meter.Id id)
+	{
+		for(final Meter m : PrometheusMeterRegistrar.getMeters())
+			if(id.equals(m.getId()))
+				return m;
+
+		throw new AssertionFailedError();
+	}
+
 
 	@WrapperType(indent=2, comments=false)
 	static final class MyItem extends Item
@@ -165,6 +181,10 @@ public class MicrometerModelNamedTest
 
 	private static final Model MODEL =
 			Model.builder().add(MyItem.TYPE).name("MicrometerModelNamedTestNAME").build();
+
+	private static final Meter.Id ID_INITIALIZE = new Meter.Id(
+			Model.class.getName() + ".initialize", MODEL_TAGS.and("date", ISO_INSTANT.format(MODEL.getInitializeInstant())),
+			null, null, Meter.Type.GAUGE);
 
 	@SuppressWarnings("static-method")
 	@BeforeEach

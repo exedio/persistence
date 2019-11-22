@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import io.micrometer.core.instrument.Tags;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.util.HashMap;
@@ -55,5 +56,12 @@ final class CopeProbe
 		environmentInfo.putRevisionEnvironment(env);
 
 		return env;
+	}
+
+	Tags tags()
+	{
+		return
+				properties.tags().and(
+				environmentInfo.tags());
 	}
 }

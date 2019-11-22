@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MetricsBuilder.tag;
 import static com.exedio.cope.util.Check.requireGreaterZero;
 import static java.util.Objects.requireNonNull;
 
@@ -122,6 +123,10 @@ public final class Model implements Serializable
 	private void onNameSet(final String name)
 	{
 		final Tags tags = Tags.of("model", name);
+		new MetricsBuilder(Model.class, this).gauge(
+				initializeDate, d -> 1.0,
+				"initialize", "Describes the initialization of the model.",
+				tag("date", initializeDate));
 		changeListeners.onModelNameSet(tags);
 		transactions.onModelNameSet(tags);
 		transactionCounter.onModelNameSet(tags);

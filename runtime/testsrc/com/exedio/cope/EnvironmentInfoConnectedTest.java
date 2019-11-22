@@ -18,11 +18,15 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.SchemaTest.MODEL;
+import static java.time.format.DateTimeFormatter.ISO_INSTANT;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.tojunit.TestSources;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Tags;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,6 +55,21 @@ public class EnvironmentInfoConnectedTest
 						"org.hsqldb.jdbc.JDBCDriver " +
 						"PUBLIC",
 						ei.toString()));
+
+		final ConnectProperties props = MODEL.getConnectProperties();
+		assertEquals(1.0, ((Gauge)meter(Model.class, "connect", Tags.of(
+				"model", MODEL.toString(),
+				"date", ISO_INSTANT.format(MODEL.getConnectInstant()),
+				"connectionUrl",      props.getConnectionUrl(),
+				"connectionUsername", props.getConnectionUsername(),
+				"dialect", props.getDialect(),
+				"catalog", ei.getCatalog(),
+				"databaseName",    ei.getDatabaseProductName(),
+				"databaseVersion", ei.getDatabaseProductVersion(),
+				"driverName",      ei.getDriverName(),
+				"driverVersion",   ei.getDriverVersion(),
+				"driverClass",     ei.getDriverClass()
+		))).value());
 	}
 
 	@BeforeEach final void setUp()

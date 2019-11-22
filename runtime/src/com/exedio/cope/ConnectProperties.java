@@ -31,6 +31,7 @@ import com.exedio.cope.util.ServiceFactory;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultProperties;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import io.micrometer.core.instrument.Tags;
 import java.io.File;
 import java.time.Duration;
 import java.util.HashMap;
@@ -151,6 +152,13 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	public String getDialect()
 	{
 		return dialect.getServiceClass().getName();
+	}
+
+	Tags tags()
+	{
+		return
+				connection.tags("connection").and(
+				"dialect", dialect.getServiceClass().getName());
 	}
 
 

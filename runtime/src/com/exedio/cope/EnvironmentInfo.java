@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import io.micrometer.core.instrument.Tags;
 import java.sql.DatabaseMetaData;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -168,6 +169,17 @@ public final class EnvironmentInfo
 	{
 		database.putRevisionEnvironment(e);
 		driver  .putRevisionEnvironment(e);
+	}
+
+	Tags tags()
+	{
+		return Tags.of(
+				"catalog", catalog,
+				"databaseName",    database.name,
+				"databaseVersion", database.getVersionDescription(),
+				"driverName",    driver.name,
+				"driverVersion", driver.getVersionDescription(),
+				"driverClass", sqlDriver.getClass().getName());
 	}
 
 	public boolean isDatabaseVersionAtLeast(final int major, final int minor)
