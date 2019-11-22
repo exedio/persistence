@@ -21,6 +21,7 @@ package com.exedio.cope;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 
 final class SequenceX
@@ -49,13 +50,20 @@ final class SequenceX
 		counter.onModelNameSet(tags);
 	}
 
+	private Timer.Builder timer()
+	{
+		return Timer.builder(com.exedio.cope.Sequence.class.getName() + ".fetch").
+				tags("feature", feature.getID(), "model", feature.getType().getModel().toString()).
+				description("How long fetching a sequence takes in the database");
+	}
+
 	void connectPrimaryKey(final Database database, final IntegerColumn column)
 	{
 		knownToBeEmptyForTest = false;
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
-		impl = database.newSequenceImpl(type, start, column);
+		impl = database.newSequenceImpl(timer(), type, start, column);
 	}
 
 	void connectSequence(final Database database, final String name)
@@ -64,7 +72,7 @@ final class SequenceX
 
 		if(impl!=null)
 			throw new IllegalStateException("already connected " + feature);
-		impl = database.newSequenceImplCluster(type, start, name);
+		impl = database.newSequenceImplCluster(timer(), type, start, name);
 	}
 
 	void disconnect()

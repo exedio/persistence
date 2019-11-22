@@ -20,10 +20,13 @@ package com.exedio.cope;
 
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
+import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 
 final class SequenceImplSequence implements SequenceImpl
 {
+	private final Timer timer;
 	private final Sequence.Type type;
 	private final long start;
 	private final Executor executor;
@@ -32,6 +35,7 @@ final class SequenceImplSequence implements SequenceImpl
 	private final String quotedName;
 
 	SequenceImplSequence(
+			final Timer.Builder timer,
 			final IntegerColumn column,
 			final Sequence.Type type,
 			final long start,
@@ -39,6 +43,7 @@ final class SequenceImplSequence implements SequenceImpl
 			final Database database,
 			final String nameSuffix)
 	{
+		this.timer = timer.register(Metrics.globalRegistry);
 		this.type = type;
 		this.start = start;
 		this.executor = database.executor;
@@ -48,6 +53,7 @@ final class SequenceImplSequence implements SequenceImpl
 	}
 
 	SequenceImplSequence(
+			final Timer.Builder timer,
 			final String name,
 			final Sequence.Type type,
 			final long start,
@@ -56,6 +62,7 @@ final class SequenceImplSequence implements SequenceImpl
 			final Executor executor,
 			final com.exedio.dsmf.Dialect dsmfDialect)
 	{
+		this.timer = timer.register(Metrics.globalRegistry);
 		this.type = type;
 		this.start = start;
 		this.executor = executor;
@@ -76,7 +83,10 @@ final class SequenceImplSequence implements SequenceImpl
 		final Connection connection = connectionPool.get(true);
 		try
 		{
-			return executor.dialect.nextSequence(executor, connection, quotedName);
+			final Timer.Sample start = Timer.start();
+			final long result = executor.dialect.nextSequence(executor, connection, quotedName);
+			start.stop(timer);
+			return result;
 		}
 		finally
 		{

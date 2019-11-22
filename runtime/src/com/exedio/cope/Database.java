@@ -22,6 +22,7 @@ import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
+import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -73,17 +74,19 @@ final class Database
 	}
 
 	SequenceImpl newSequenceImpl(
+			final Timer.Builder timer,
 			final Sequence.Type type, final long start, final IntegerColumn column)
 	{
 		return
-			properties.primaryKeyGenerator.newSequenceImpl(column, type, start, connectionPool, this);
+			properties.primaryKeyGenerator.newSequenceImpl(timer, column, type, start, connectionPool, this);
 	}
 
 	SequenceImpl newSequenceImplCluster(
+			final Timer.Builder timer,
 			final Sequence.Type type, final long start, final String name)
 	{
 		return
-			new SequenceImplSequence(name, type, start, properties, connectionPool, executor, dsmfDialect);
+			new SequenceImplSequence(timer, name, type, start, properties, connectionPool, executor, dsmfDialect);
 	}
 
 	void addTable(final Table table)
