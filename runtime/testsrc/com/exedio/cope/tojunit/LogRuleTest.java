@@ -56,9 +56,9 @@ public class LogRuleTest
 		assertEquals(" XXns", nanoSecondsFilter.apply(" 0ns"));
 		assertEquals(" XXns", nanoSecondsFilter.apply(" 1ns"));
 		assertEquals(" XXns", nanoSecondsFilter.apply(" 9ns"));
-		assertEquals(" XXns", nanoSecondsFilter.apply(" 000000.0ns"));
-		assertEquals(" XXns", nanoSecondsFilter.apply(" 111111,1ns"));
-		assertEquals(" XXns", nanoSecondsFilter.apply(" 999999,9ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 00000000ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 11111111ns"));
+		assertEquals(" XXns", nanoSecondsFilter.apply(" 99999999ns"));
 		assertEquals(" 000000000ns", nanoSecondsFilter.apply(" 000000000ns"));
 		assertEquals(" 111111111ns", nanoSecondsFilter.apply(" 111111111ns"));
 		assertEquals(" 999999999ns", nanoSecondsFilter.apply(" 999999999ns"));

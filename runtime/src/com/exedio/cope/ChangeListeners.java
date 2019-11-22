@@ -25,7 +25,6 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
 import java.lang.ref.WeakReference;
-import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Iterator;
@@ -179,7 +178,8 @@ final class ChangeListeners
 			{
 				final long elapsed = start.stop(failed);
 				if(logger.isErrorEnabled())
-					logger.error(MessageFormat.format("change listener {0} {1} {2}ns", event, listener, elapsed), e);
+					//noinspection StringConcatenationArgumentToLogCall
+					logger.error("change listener " + event + ' ' + listener + ' ' + elapsed + "ns", e);
 			}
 		}
 	}

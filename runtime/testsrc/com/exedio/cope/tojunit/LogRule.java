@@ -137,8 +137,8 @@ public class LogRule extends MainRule
 				() -> assertEquals(msg, msgFilter.apply(event.getRenderedMessage())));
 	}
 
-	static final Function<String, String> milliSecondsFilter = s -> s.replaceAll(" [0-9]{1,2}ms",     " XXms");
-	static final Function<String, String> nanoSecondsFilter  = s -> s.replaceAll(" [.,[0-9]]{1,8}ns", " XXns");
+	static final Function<String, String> milliSecondsFilter = s -> s.replaceAll(" [0-9]{1,2}ms", " XXms");
+	static final Function<String, String> nanoSecondsFilter  = s -> s.replaceAll(" [0-9]{1,8}ns", " XXns");
 
 	public final void assertEmpty()
 	{
