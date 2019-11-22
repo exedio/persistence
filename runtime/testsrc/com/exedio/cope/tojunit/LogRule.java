@@ -106,7 +106,7 @@ public class LogRule extends MainRule
 
 	public final void assertInfoMS(final String msg)
 	{
-		assertMessage(Level.INFO, msg, msFilter);
+		assertMessage(Level.INFO, msg, milliSecondsFilter);
 	}
 
 	public final void assertWarn(final String msg)
@@ -137,7 +137,7 @@ public class LogRule extends MainRule
 				() -> assertEquals(msg, msgFilter.apply(event.getRenderedMessage())));
 	}
 
-	static final Function<String, String> msFilter = s -> s.replaceAll(" [0-9]{1,2}ms", " XXms");
+	static final Function<String, String> milliSecondsFilter = s -> s.replaceAll(" [0-9]{1,2}ms",     " XXms");
 	static final Function<String, String> nanoSecondsFilter  = s -> s.replaceAll(" [.,[0-9]]{1,8}ns", " XXns");
 
 	public final void assertEmpty()

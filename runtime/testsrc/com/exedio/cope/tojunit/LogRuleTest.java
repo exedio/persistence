@@ -18,7 +18,7 @@
 
 package com.exedio.cope.tojunit;
 
-import static com.exedio.cope.tojunit.LogRule.msFilter;
+import static com.exedio.cope.tojunit.LogRule.milliSecondsFilter;
 import static com.exedio.cope.tojunit.LogRule.nanoSecondsFilter;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -28,24 +28,24 @@ public class LogRuleTest
 {
 	@Test void testMillisecondsFilter()
 	{
-		assertEquals("", msFilter.apply(""));
-		assertEquals("abc", msFilter.apply("abc"));
-		assertEquals("abc XXmsdef", msFilter.apply("abc 0msdef"));
-		assertEquals(" XXms", msFilter.apply(" 0ms"));
-		assertEquals(" XXms", msFilter.apply(" 1ms"));
-		assertEquals(" XXms", msFilter.apply(" 9ms"));
-		assertEquals(" XXms", msFilter.apply(" 00ms"));
-		assertEquals(" XXms", msFilter.apply(" 11ms"));
-		assertEquals(" XXms", msFilter.apply(" 99ms"));
-		assertEquals(" 000ms", msFilter.apply(" 000ms"));
-		assertEquals(" 111ms", msFilter.apply(" 111ms"));
-		assertEquals(" 999ms", msFilter.apply(" 999ms"));
-		assertEquals("1ms", msFilter.apply("1ms"));
-		assertEquals(" Ams", msFilter.apply(" Ams"));
-		assertEquals(" 1m", msFilter.apply(" 1m"));
-		assertEquals(" 1ns", msFilter.apply(" 1ns"));
-		assertEquals(" 1,1ms", msFilter.apply(" 1,1ms"));
-		assertEquals(" 1.1ms", msFilter.apply(" 1.1ms"));
+		assertEquals("", milliSecondsFilter.apply(""));
+		assertEquals("abc", milliSecondsFilter.apply("abc"));
+		assertEquals("abc XXmsdef", milliSecondsFilter.apply("abc 0msdef"));
+		assertEquals(" XXms", milliSecondsFilter.apply(" 0ms"));
+		assertEquals(" XXms", milliSecondsFilter.apply(" 1ms"));
+		assertEquals(" XXms", milliSecondsFilter.apply(" 9ms"));
+		assertEquals(" XXms", milliSecondsFilter.apply(" 00ms"));
+		assertEquals(" XXms", milliSecondsFilter.apply(" 11ms"));
+		assertEquals(" XXms", milliSecondsFilter.apply(" 99ms"));
+		assertEquals(" 000ms", milliSecondsFilter.apply(" 000ms"));
+		assertEquals(" 111ms", milliSecondsFilter.apply(" 111ms"));
+		assertEquals(" 999ms", milliSecondsFilter.apply(" 999ms"));
+		assertEquals("1ms", milliSecondsFilter.apply("1ms"));
+		assertEquals(" Ams", milliSecondsFilter.apply(" Ams"));
+		assertEquals(" 1m", milliSecondsFilter.apply(" 1m"));
+		assertEquals(" 1ns", milliSecondsFilter.apply(" 1ns"));
+		assertEquals(" 1,1ms", milliSecondsFilter.apply(" 1,1ms"));
+		assertEquals(" 1.1ms", milliSecondsFilter.apply(" 1.1ms"));
 	}
 
 	@Test void testNanosecondsFilter()
