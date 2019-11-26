@@ -34,12 +34,15 @@ import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TLongHashSet;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
+import java.util.Objects;
+import java.util.concurrent.TimeUnit;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -52,6 +55,7 @@ abstract class ClusterListener
 	private final int localNode;
 	private final int sequenceCheckerCapacity;
 	private final int typeLength;
+	private final Tags tags;
 
 	ClusterListener(
 			final ClusterProperties properties,
@@ -63,7 +67,8 @@ abstract class ClusterListener
 		this.localNode = properties.node;
 		this.sequenceCheckerCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
-		final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, Tags.of("model", modelName));
+		this.tags = Tags.of("model", modelName);
+		final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, tags);
 		exception    = metrics.counter("fail",         "How often a received packet failed to parse.", Tags.empty());
 		missingMagic = metrics.counter("missingMagic", "How often a received packet did not start with the magic bytes " + Hex.encodeUpper(MAGIC) + '.', Tags.empty());
 		wrongSecret  = metrics.counter("wrongSecret",  "How often a received packet did not carry the secret this cluster is configured with.", Tags.empty());
@@ -205,6 +210,7 @@ abstract class ClusterListener
 		private final long firstEncounter;
 		private final InetAddress address;
 		private final int port;
+		private final Timer roundTrip;
 		private long lastRoundTripDate  = Long.MIN_VALUE;
 		private long lastRoundTripNanos = Long.MIN_VALUE;
 		private long  minRoundTripDate  = Long.MIN_VALUE;
@@ -218,6 +224,7 @@ abstract class ClusterListener
 		Node(
 				final int id,
 				final DatagramPacket packet,
+				final Tags tags,
 				final int sequenceCheckerCapacity)
 		{
 			this.id = id;
@@ -225,6 +232,11 @@ abstract class ClusterListener
 			this.firstEncounter = System.currentTimeMillis();
 			this.address = packet.getAddress();
 			this.port = packet.getPort();
+			final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, tags.and(
+					"id", idString,
+					"address", Objects.toString(address),
+					"port", String.valueOf(port)));
+			this.roundTrip = metrics.timer("roundTrip", "The time needed by a round trip of a ping to / pong from this node.", Tags.empty());
 			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
 			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
 			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
@@ -255,6 +267,8 @@ abstract class ClusterListener
 		{
 			final long now = System.currentTimeMillis();
 			final long nanos = System.nanoTime() - pingNanos;
+
+			roundTrip.record(nanos, TimeUnit.NANOSECONDS);
 
 			lastRoundTripDate = now;
 			lastRoundTripNanos = nanos;
@@ -319,7 +333,7 @@ abstract class ClusterListener
 			if(result!=null)
 				return result;
 
-			nodes.put(id, result = new Node(id, packet, sequenceCheckerCapacity));
+			nodes.put(id, result = new Node(id, packet, tags, sequenceCheckerCapacity));
 			return result;
 		}
 	}

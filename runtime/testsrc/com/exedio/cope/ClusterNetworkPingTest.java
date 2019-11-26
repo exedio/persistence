@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.util.SequenceChecker;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -122,8 +123,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertEquals(senderB.getNodeIDString(), nodeA.getIDString());
 			assertEquals(senderA.getLocalPort(), nodeB.getPort());
 			assertEquals(senderB.getLocalPort(), nodeA.getPort());
-			assertLastRoundTripSet(pingA>0, nodeA);
-			assertLastRoundTripSet(pingB>0, nodeB);
+			assertLastRoundTripSet(pingA, modelA, nodeA);
+			assertLastRoundTripSet(pingB, modelB, nodeB);
 			assertIt(pingB, nodeA.getPingInfo());
 			assertIt(pingA, nodeB.getPingInfo());
 			assertIt(pingA, nodeA.getPongInfo());
@@ -164,10 +165,11 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 	}
 
 	static void assertLastRoundTripSet(
-			final boolean expected,
+			final long expected,
+			final Model expectedLocalModel,
 			final ClusterListenerInfo.Node actual)
 	{
-		if(expected)
+		if(expected>0)
 		{
 			assertNotNull(actual.getLastRoundTrip   ());
 			assertNotNull(actual.getMinimumRoundTrip());
@@ -187,6 +189,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertNull(actual.getMinimumRoundTrip());
 			assertNull(actual.getMaximumRoundTrip());
 		}
+		assertEquals(expected, ((Timer)PrometheusMeterRegistrar.meter(Cluster.class, "roundTrip",
+				Tags.of(
+						"model", expectedLocalModel.toString(),
+						"id", actual.getIDString(),
+						"address", actual.getAddress().toString(),
+						"port", "" + actual.getPort()))).count());
 	}
 
 	private static void assertGreaterZero(final long actual)
