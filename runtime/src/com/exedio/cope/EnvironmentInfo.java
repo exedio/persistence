@@ -174,7 +174,7 @@ public final class EnvironmentInfo
 	Tags tags()
 	{
 		return Tags.of(
-				"catalog", catalog,
+				"catalog", catalog!=null ? catalog : "<null>",
 				"databaseName",    database.name,
 				"databaseVersion", database.getVersionDescription(),
 				"driverName",    driver.name,

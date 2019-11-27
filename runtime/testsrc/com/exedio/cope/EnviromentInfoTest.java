@@ -21,17 +21,19 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.micrometer.core.instrument.Tags;
 import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("UseOfJDBCDriverClass")
 public class EnviromentInfoTest
 {
 	@Test void testInt() throws SQLException
 	{
 		final EnvironmentInfo i = new EnvironmentInfo(
-				null,
+				new AssertionFailedDriver(),
 				"getCatalog",
 				new VersionDatabaseMetaData(5, 3, 14, 18));
 
@@ -113,6 +115,34 @@ public class EnviromentInfoTest
 				IllegalArgumentException.class,
 				"requires database version 66.77 or later, " +
 				"but was getDatabaseProductName getDatabaseProductVersion (5.3)");
+
+		assertEquals(Tags.of(
+				"catalog", "getCatalog",
+				"databaseName",    "getDatabaseProductName",
+				"databaseVersion", "getDatabaseProductVersion (5.3)",
+				"driverName",    "getDriverName",
+				"driverVersion", "getDriverVersion (14.18)",
+				"driverClass", AssertionFailedDriver.class.getName()),
+				i.tags());
+	}
+
+	@Test void testCatalogNull() throws SQLException
+	{
+		final EnvironmentInfo i = new EnvironmentInfo(
+				new AssertionFailedDriver(),
+				null,
+				new VersionDatabaseMetaData(5, 3, 14, 18));
+
+		assertEquals(null, i.getCatalog());
+
+		assertEquals(Tags.of(
+				"catalog", "<null>",
+				"databaseName",    "getDatabaseProductName",
+				"databaseVersion", "getDatabaseProductVersion (5.3)",
+				"driverName",    "getDriverName",
+				"driverVersion", "getDriverVersion (14.18)",
+				"driverClass", AssertionFailedDriver.class.getName()),
+				i.tags());
 	}
 
 	@Test void testShortDescription() throws SQLException
