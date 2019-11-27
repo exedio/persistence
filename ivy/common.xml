@@ -10,8 +10,8 @@
 		<delete dir="artifacts" />
 		<mkdir dir="artifacts" />
 		<get dest="artifacts" retries="1" httpusecaches="false">
-			<url url="https://ivyartifacts.exedio.com/ivy.jar" />
-			<url url="https://ivyartifacts.exedio.com/ivysettings.xml" />
+			<url url="https://ivyartifacts.exedio.com/v2.5.0/ivy.jar" />
+			<url url="https://ivyartifacts.exedio.com/v2.5.0/ivysettings.xml" />
 		</get>
 		<taskdef
 			resource="org/apache/ivy/ant/antlib.xml"
