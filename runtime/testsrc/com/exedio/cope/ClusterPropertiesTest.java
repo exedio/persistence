@@ -48,7 +48,8 @@ public class ClusterPropertiesTest
 				single("cluster.listen.threads.max", 5)
 		);
 
-		model.connect(ConnectProperties.create(s));
+		final ConnectProperties props = ConnectProperties.create(s);
+		model.connect(props);
 		assertEquals(true, model.isClusterEnabled());
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();
 		assertEquals(5, p.listenThreads.initial);
