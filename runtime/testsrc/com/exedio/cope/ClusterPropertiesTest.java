@@ -49,6 +49,7 @@ public class ClusterPropertiesTest
 		);
 
 		final ConnectProperties props = ConnectProperties.create(s);
+		assertEquals(true, props.isClusterEnabled());
 		model.connect(props);
 		assertEquals(true, model.isClusterEnabled());
 		final ClusterProperties p = (ClusterProperties)model.getClusterProperties();

@@ -31,6 +31,8 @@ public class ClusterDisabledTest
 {
 	@Test void test()
 	{
+		final ConnectProperties props = model.getConnectProperties();
+		assertEquals(false, props. isClusterEnabled());
 		assertEquals(false, model. isClusterEnabled());
 		assertEquals(null,  model.getClusterProperties());
 		assertEquals(null,  model.getClusterSenderInfo());

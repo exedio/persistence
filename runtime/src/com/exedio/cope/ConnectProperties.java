@@ -358,6 +358,11 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	final ClusterProperties cluster = value("cluster", false, ClusterProperties.factory());
 
+	public boolean isClusterEnabled()
+	{
+		return cluster!=null;
+	}
+
 
 	// media
 
