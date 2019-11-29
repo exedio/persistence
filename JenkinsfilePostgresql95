@@ -1,6 +1,7 @@
 
 timestamps
 {
+	def jdk = 'openjdk-8-deb9'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -12,7 +13,7 @@ timestamps
 	env.DATABASE_HOST = 'postgresql95.ci.test'
 
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && OpenJdk18Debian9 && ' + env.DATABASE_HOST)
+	node('GitCloneExedio && ' + jdk + ' && ' + env.DATABASE_HOST)
 	{
 		try
 		{
@@ -25,7 +26,7 @@ timestamps
 				computeGitTree(scmResult)
 
 				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss")
-				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
+				env.JAVA_HOME = tool jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 				env.SCHEMA = "ci_${HOSTNAME}_${EXECUTOR_NUMBER}"
 

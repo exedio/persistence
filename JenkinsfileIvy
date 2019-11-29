@@ -1,6 +1,7 @@
 
 timestamps
 {
+	def jdk = 'openjdk-8-deb9'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -11,7 +12,7 @@ timestamps
 	])
 
 	//noinspection GroovyAssignabilityCheck
-	lock('ivy-cache') { node('GitCloneExedio && OpenJdk18Debian9')
+	lock('ivy-cache') { node('GitCloneExedio && ' + jdk)
 	{
 		try
 		{
@@ -22,7 +23,7 @@ timestamps
 
 				checkout scm
 
-				env.JAVA_HOME = "${tool 'openjdk 1.8 debian9'}"
+				env.JAVA_HOME = tool jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
 				sh "ant/bin/ant -noinput -buildfile ivy"
