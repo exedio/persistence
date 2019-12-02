@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
@@ -33,7 +34,10 @@ import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -44,14 +48,14 @@ public final class PartOf<C extends Item> extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private final ItemField<C> container;
-	private final FunctionField<?> order;
+	private final OrderBy[] orders;
 
-	private PartOf(final ItemField<C> container, final FunctionField<?> order)
+	private PartOf(final ItemField<C> container, final OrderBy[] orders)
 	{
 		this.container = requireNonNull(container, "container");
 		if(!container.isSourceAlready())
 			addSourceFeature(container, "Container");
-		this.order = order;
+		this.orders = orders;
 	}
 
 	public static <C extends Item> PartOf<C> create(final ItemField<C> container)
@@ -61,15 +65,23 @@ public final class PartOf<C extends Item> extends Pattern
 
 	public static <C extends Item> PartOf<C> create(final ItemField<C> container, final FunctionField<?> order)
 	{
-		return new PartOf<>(container, requireNonNull(order, "order"));
+		return new PartOf<>(container, new OrderBy[]{orderBy(order)});
+	}
+
+	public static <C extends Item> PartOf<C> create(final ItemField<C> container, final OrderBy... orders)
+	{
+		//noinspection ConstantConditions
+		return new PartOf<>(container,
+				(orders==null||orders.length>0) ? requireNonEmptyAndCopy(orders, "orders") : null);
 	}
 
 	@Override
 	protected void onMount()
 	{
 		super.onMount();
-		if(order!=null)
-			check(order, "order");
+		if(orders!=null)
+			for(final OrderBy order : orders)
+				check(order.field, "order");
 	}
 
 	private void check(final FunctionField<?> field, final String name)
@@ -84,9 +96,20 @@ public final class PartOf<C extends Item> extends Pattern
 		return container;
 	}
 
+	/**
+	 * Gets the first ordering field, or null if no ordering specified.
+	 *
+	 * @deprecated use {@link #getOrders}
+	 */
+	@Deprecated
 	public FunctionField<?> getOrder()
 	{
-		return order;
+		return orders==null ? null : orders[0].field;
+	}
+
+	public List<OrderBy> getOrders()
+	{
+		return orders==null ? Collections.emptyList() : Collections.unmodifiableList(Arrays.asList(orders));
 	}
 
 	@Wrap(order=10, doc="Returns the container this item is part of by {0}.", nullability=NullableIfContainerOptional.class)
@@ -126,8 +149,19 @@ public final class PartOf<C extends Item> extends Pattern
 		final Query<P> q = type.newQuery(condition!=null ? Cope.and(parentCondition, condition) : parentCondition);
 
 		final This<?> typeThis = type.getThis(); // make search deterministic
-		if(order!=null)
-			q.setOrderBy(new Function<?>[]{order, typeThis}, new boolean[]{true, true});
+		if(orders!=null)
+		{
+			final Function<?>[] orderBy   = new Function<?>[orders.length+1];
+			final boolean    [] ascending = new boolean    [orders.length+1];
+			for(int i = 0; i<orders.length; i++)
+			{
+				orderBy  [i] = orders[i].field;
+				ascending[i] = orders[i].ascending;
+			}
+			orderBy  [orderBy.length-1] = typeThis;
+			ascending[orderBy.length-1] = true;
+			q.setOrderBy(orderBy, ascending);
+		}
 		else
 			q.setOrderBy(typeThis, true);
 
@@ -142,6 +176,79 @@ public final class PartOf<C extends Item> extends Pattern
 	public Query<? extends Item> getPartsQuery(final Item container, @Nullable final Condition condition)
 	{
 		return getPartsQuery(getType().getJavaClass(), this.container.getValueClass().cast(container), condition);
+	}
+
+	/**
+	 * @return an {@link OrderBy} to order by the given field, ascending
+	 */
+	public static OrderBy orderBy(final FunctionField<?> field)
+	{
+		return orderBy(field, true);
+	}
+
+	/**
+	 * @return an {@link OrderBy} to order by the given field, descending
+	 */
+	public static OrderBy orderByDesc(final FunctionField<?> field)
+	{
+		return orderBy(field, false);
+	}
+
+	/**
+	 * @return an {@link OrderBy} to order by the given field, ascending or descending
+	 */
+	public static OrderBy orderBy(final FunctionField<?> field, final boolean ascending)
+	{
+		return new OrderBy(field, ascending);
+	}
+
+	public static final class OrderBy implements Serializable
+	{
+		private static final long serialVersionUID = 1L;
+
+		private final FunctionField<?> field;
+		private final boolean ascending;
+
+		private OrderBy(final FunctionField<?> field, final boolean ascending)
+		{
+			this.field = requireNonNull(field, "order");
+			this.ascending = ascending;
+		}
+
+		public FunctionField<?> getField()
+		{
+			return field;
+		}
+
+		public boolean isAscending()
+		{
+			return ascending;
+		}
+
+		@Override
+		public boolean equals(final Object other)
+		{
+			if(this==other)
+				return true;
+
+			if(!(other instanceof OrderBy))
+				return false;
+
+			final OrderBy o = (OrderBy) other;
+			return field.equals(o.field) && ascending==o.ascending;
+		}
+
+		@Override
+		public int hashCode()
+		{
+			return field.hashCode() ^ (ascending?0:1);
+		}
+
+		@Override
+		public String toString()
+		{
+			return field + (ascending ? " asc" : " desc");
+		}
 	}
 
 	// static convenience methods ---------------------------------

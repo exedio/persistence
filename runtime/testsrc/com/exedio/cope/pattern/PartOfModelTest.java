@@ -19,13 +19,17 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.pattern.PartOf.orderBy;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
@@ -71,15 +75,22 @@ public class PartOfModelTest
 		assertEquals("unordered", PartOfItem.unordered.getName());
 
 		assertSame(PartOfItem.container, PartOfItem.unordered.getContainer());
-		assertSame(null, PartOfItem.unordered.getOrder());
+		assertEqualsUnmodifiable(asList(), PartOfItem.unordered.getOrders());
 		assertSame(PartOfItem.unordered, PartOfItem.container.getPattern());
 		assertEqualsUnmodifiable(list(PartOfItem.container), PartOfItem.unordered.getSourceFeatures());
 
 		assertSame(PartOfItem.container, PartOfItem.ordered.getContainer());
-		assertSame(PartOfItem.order, PartOfItem.ordered.getOrder());
+		assertEqualsUnmodifiable(asList(orderBy(PartOfItem.order)), PartOfItem.ordered.getOrders());
 		assertSame(PartOfItem.unordered, PartOfItem.container.getPattern());
 		assertSame(null, PartOfItem.order.getPattern());
 		assertEqualsUnmodifiable(list(), PartOfItem.ordered.getSourceFeatures());
+	}
+
+	@Deprecated // OK: test deprecated api
+	@Test void testOrderByDeprecated()
+	{
+		assertSame(null, PartOfItem.unordered.getOrder());
+		assertSame(PartOfItem.order, PartOfItem.ordered.getOrder());
 	}
 
 	@Test void testGetPartOfs()
@@ -115,8 +126,35 @@ public class PartOfModelTest
 	@Test void testOrderNull()
 	{
 		assertFails(
-				() -> PartOf.create(null, null),
+				() -> PartOf.create(null, (FunctionField)null),
 				NullPointerException.class,
 				"order");
+	}
+
+	@Test void testOrdersNull()
+	{
+		assertFails(
+				() -> PartOf.create(null, (PartOf.OrderBy[])null),
+				NullPointerException.class,
+				"orders");
+	}
+
+	@Test void testOrdersEmpty()
+	{
+		final ItemField<?> container = ItemField.create(PartOfContainerItem.class);
+		final PartOf<?> partOf = PartOf.create(container, new PartOf.OrderBy[]{});
+		assertEquals(container, partOf.getContainer());
+		assertEqualsUnmodifiable(asList(), partOf.getOrders());
+	}
+
+	@Test void testOrdersContainsNull()
+	{
+		final ItemField<?> container = ItemField.create(PartOfContainerItem.class);
+		final PartOf.OrderBy order0 = orderBy(new IntegerField());
+		final PartOf.OrderBy order2 = orderBy(new IntegerField());
+		assertFails(
+				() -> PartOf.create(container, order0, null, order2),
+				NullPointerException.class,
+				"orders[1]");
 	}
 }
