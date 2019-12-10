@@ -404,13 +404,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	PageSupport getPageSupport()
-	{
-		return PageSupport.CLAUSE_AFTER_WHERE;
-	}
-
-	@Override
-	void appendPageClause(final Statement bf, final int offset, final int limit)
+	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
 	{
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
@@ -424,12 +418,6 @@ final class MysqlDialect extends Dialect
 		// using MAX_VALUE is really the recommended usage, see MySQL doc.
 		final int countInStatement = limit!=Query.UNLIMITED ? limit : Integer.MAX_VALUE;
 		bf.appendParameter(countInStatement);
-	}
-
-	@Override
-	void appendPageClause2(final Statement bf, final int offset, final int limit)
-	{
-		throw new RuntimeException(bf.toString());
 	}
 
 	@Override

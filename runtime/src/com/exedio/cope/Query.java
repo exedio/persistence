@@ -981,7 +981,6 @@ public final class Query<R> implements Serializable
 		executor.testListener().search(connection, this, mode);
 
 		final Dialect dialect = executor.dialect;
-		final Dialect.PageSupport pageSupport = executor.pageSupport;
 		final int pageOffset = this.pageOffset;
 		final int pageLimit = this.pageLimit;
 		final boolean pageActive = pageOffset>0 || pageLimit!=UNLIMITED;
@@ -998,8 +997,8 @@ public final class Query<R> implements Serializable
 			bf.append("SELECT COUNT(*) FROM ( ");
 		}
 
-		if(mode.isSearch() && pageActive && pageSupport==Dialect.PageSupport.CLAUSES_AROUND)
-			dialect.appendPageClause(bf, pageOffset, pageLimit);
+		if(mode.isSearch() && pageActive)
+			dialect.appendPageClauseBefore(bf, pageOffset, pageLimit);
 
 		bf.append("SELECT ");
 
@@ -1107,15 +1106,7 @@ public final class Query<R> implements Serializable
 			}
 
 			if(pageActive)
-			{
-				switch(pageSupport)
-				{
-					case CLAUSE_AFTER_WHERE: dialect.appendPageClause (bf, pageOffset, pageLimit); break;
-					case CLAUSES_AROUND:     dialect.appendPageClause2(bf, pageOffset, pageLimit); break;
-					default:
-						throw new RuntimeException(pageSupport.name());
-				}
-			}
+				dialect.appendPageClauseAfter(bf, pageOffset, pageLimit);
 		}
 
 		if(countSubSelect)

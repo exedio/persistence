@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.lang.System.nanoTime;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
-import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -43,7 +42,6 @@ final class Executor
 	final Marshallers marshallers;
 	final boolean prepare;
 	private final boolean supportsUniqueViolation;
-	final Dialect.PageSupport pageSupport;
 	final boolean fulltextIndex;
 	private final HashMap<String, UniqueConstraint> uniqueConstraints = new HashMap<>();
 	volatile DatabaseListener listener = null;
@@ -58,7 +56,6 @@ final class Executor
 		this.marshallers = marshallers;
 		this.prepare = !properties.isSupportDisabledForPreparedStatements();
 		this.supportsUniqueViolation = supportsUniqueViolation;
-		this.pageSupport = requireNonNull(dialect.getPageSupport(), dialect.toString());
 		this.fulltextIndex = properties.getFulltextIndex();
 	}
 

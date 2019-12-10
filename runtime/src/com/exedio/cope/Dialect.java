@@ -373,14 +373,6 @@ abstract class Dialect
 				: " NULLS LAST" );
 	}
 
-	abstract PageSupport getPageSupport();
-
-	enum PageSupport
-	{
-		CLAUSE_AFTER_WHERE,
-		CLAUSES_AROUND
-	}
-
 	/**
 	 * Appends a clause to the statement causing the database paging the query result.
 	 * This method is never called for {@code offset==0 &amp;&amp; limit=={@link Query#UNLIMITED}}.
@@ -392,14 +384,13 @@ abstract class Dialect
 	 *        or {@link Query#UNLIMITED} if all rows to be returned.
 	 *        Is always positive (greater zero).
 	 */
-	abstract void appendPageClause(Statement bf, int offset, int limit);
+	void appendPageClauseBefore(final Statement bf, final int offset, final int limit) {}
 
 	/**
-	 * Same as {@link #appendPageClause(Statement, int, int)}.
-	 * Is used for {@link PageSupport#CLAUSES_AROUND} only,
+	 * Same as {@link #appendPageClauseBefore(Statement, int, int)}.
 	 * for the postfix.
 	 */
-	abstract void appendPageClause2(Statement bf, int offset, int limit);
+	abstract void appendPageClauseAfter(Statement bf, int offset, int limit);
 
 	abstract void appendAsString(Statement bf, NumberFunction<?> source, Join join);
 

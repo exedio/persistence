@@ -273,13 +273,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	PageSupport getPageSupport()
-	{
-		return PageSupport.CLAUSE_AFTER_WHERE;
-	}
-
-	@Override
-	void appendPageClause(final Statement bf, final int offset, final int limit)
+	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
 	{
 		assert offset>=0;
 		assert limit>0 || limit==Query.UNLIMITED;
@@ -290,12 +284,6 @@ final class PostgresqlDialect extends Dialect
 
 		if(offset>0)
 			bf.append(" OFFSET ").appendParameter(offset);
-	}
-
-	@Override
-	void appendPageClause2(final Statement bf, final int offset, final int limit)
-	{
-		throw new RuntimeException();
 	}
 
 	@Override

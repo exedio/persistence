@@ -70,17 +70,12 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	PageSupport getPageSupport()
+	void appendPageClauseBefore(final Statement bf, final int offset, final int limit)
 	{
 		throw new AssertionError();
 	}
 	@Override
-	void appendPageClause(final Statement bf, final int offset, final int limit)
-	{
-		throw new AssertionError();
-	}
-	@Override
-	void appendPageClause2(final Statement bf, final int offset, final int limit)
+	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
 	{
 		throw new AssertionError();
 	}
