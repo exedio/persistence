@@ -220,6 +220,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(offset, query.getPageOffset());
 			assertEquals(limit, query.getPageLimitOrMinusOne());
 			assertEquals(expectedOrder, query.search());
+			assertEquals(5, query.total());
 			assertNotNull(query.toString());
 		}
 		{
@@ -234,6 +235,7 @@ public class OrderByTest extends TestmodelTest
 			assertEquals(offset, query.getPageOffset());
 			assertEquals(limit, query.getPageLimitOrMinusOne());
 			assertEquals(expectedReverseOrder, query.search());
+			assertEquals(5, query.total());
 		}
 		{
 			final Query<String> query2 = new Query<>(someNotNullString, TYPE, null);
@@ -252,6 +254,7 @@ public class OrderByTest extends TestmodelTest
 				expected.add(((AttributeItem)object).getSomeNotNullString());
 
 			assertEquals(expected, query2.search());
+			assertEquals(5, query2.total());
 		}
 		{
 			final Query<AttributeItem> query = TYPE.newQuery(null);
