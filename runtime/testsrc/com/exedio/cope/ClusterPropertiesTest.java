@@ -62,7 +62,7 @@ public class ClusterPropertiesTest
 		final ClusterProperties p = ClusterProperties.factory().create(describe("DESC", cascade(
 				single("secret", 1234)
 		)));
-		final String ADDRESS = "230.0.0.1";
+		final String ADDRESS = "224.0.0.50";
 		final int PORT = 14446;
 		final Iterator<Field<?>> fields = p.getFields().iterator();
 		assertIt("secret", 0, 1234, fields);

@@ -199,5 +199,8 @@ def port(int offset)
 
 def multicastAddress()
 {
-	return env.MULTICAST_ADDRESS_PREFIX + (1 + env.EXECUTOR_NUMBER.toInteger())
+	// Multicast address for Local subnetwork (Not routable, 224.0.0.0 to 224.0.0.255).
+	// Not one of the "Notable addresses":
+	// https://en.wikipedia.org/wiki/Multicast_address
+	return "224.0.0." + (60 + env.EXECUTOR_NUMBER_HOST_OFFSET.toInteger() + env.EXECUTOR_NUMBER.toInteger())
 }

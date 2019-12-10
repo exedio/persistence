@@ -38,7 +38,12 @@ final class ClusterProperties extends Properties
 {
 	private static final Logger logger = LoggerFactory.getLogger(ClusterProperties.class);
 
-	private static final String MULTICAST_ADDRESS = "230.0.0.1";
+	/**
+	 * Multicast address for Local subnetwork (Not routable, 224.0.0.0 to 224.0.0.255).
+	 * Not one of the "Notable addresses":
+	 * https://en.wikipedia.org/wiki/Multicast_address
+	 */
+	private static final String MULTICAST_ADDRESS = "224.0.0.50";
 	private static final int PORT = 14446;
 
 	        final int     secret              = value("secret", 0, MIN_VALUE);

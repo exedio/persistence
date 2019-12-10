@@ -54,7 +54,7 @@ public abstract class ClusterNetworkTest
 	private static final String PORT_LISTEN;
 	static
 	{
-		MULTICAST_ADDRESS = System.getProperty(ClusterNetworkTest.class.getName() + ".multicast", "230.0.0.1");
+		MULTICAST_ADDRESS = System.getProperty(ClusterNetworkTest.class.getName() + ".multicast", "224.0.0.41");
 		final String prefix = ClusterNetworkTest.class.getName() + ".port";
 		PORT_SEND   = System.getProperty(prefix + ".send",   "14446");
 		PORT_LISTEN = System.getProperty(prefix + ".listen", "14447");
