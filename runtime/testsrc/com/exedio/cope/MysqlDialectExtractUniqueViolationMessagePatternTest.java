@@ -24,59 +24,67 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.junit.jupiter.api.Test;
 
-public class MysqlDialectMariaDriverExceptionPatternTest
+public class MysqlDialectExtractUniqueViolationMessagePatternTest
 {
 	@Test void testMatchLongId()
 	{
-		assertMatch("(conn=1234567890) remainder");
+		assertMatch("(conn=1234567890) " + remainder);
 	}
 	@Test void testMatchShortId()
 	{
-		assertMatch("(conn=4) remainder");
+		assertMatch("(conn=4) " + remainder);
 	}
 	@Test void testMismatchOpeningParenthesis()
 	{
-		assertMismatch("conn=1234) remainder");
+		assertMismatch("conn=1234) " + remainder);
 	}
 	@Test void testMismatchConnStart()
 	{
-		assertMismatch("(onn=1234) remainder");
+		assertMismatch("(onn=1234) " + remainder);
 	}
 	@Test void testMismatchConnEnd()
 	{
-		assertMismatch("(con=1234) remainder");
+		assertMismatch("(con=1234) " + remainder);
 	}
 	@Test void testSeparator()
 	{
-		assertMismatch("(conn1234) remainder");
+		assertMismatch("(conn1234) " + remainder);
 	}
 	@Test void testMismatchId()
 	{
-		assertMismatch("(conn=) remainder");
+		assertMismatch("(conn=) " + remainder);
 	}
 	@Test void testClosingParenthesis()
 	{
-		assertMismatch("(conn=1234 remainder");
+		assertMismatch("(conn=1234 " + remainder);
 	}
 	@Test void testSpace()
 	{
-		assertMismatch("(conn=1234)remainder");
+		assertMismatch("(conn=1234)" + remainder);
 	}
 	@Test void testMatchLongIdColon()
 	{
-		assertMatch("(conn:1234567890) remainder");
+		assertMatch("(conn:1234567890) " + remainder);
 	}
 	@Test void testMatchShortIdColon()
 	{
-		assertMatch("(conn:4) remainder");
+		assertMatch("(conn:4) " + remainder);
 	}
 
+	@Test void testNoConn()
+	{
+		assertMatch(remainder);
+	}
+	@Test void testAlmostNoConn()
+	{
+		assertMismatch(" " + remainder);
+	}
 
 	private static void assertMatch(final String s)
 	{
 		final Matcher matcher = PATTERN.matcher(s);
 		assertEquals(true, matcher.matches());
-		assertEquals("remainder", matcher.group(1));
+		assertEquals(FEATURE, matcher.group(1));
 	}
 
 	private static void assertMismatch(final String s)
@@ -85,5 +93,7 @@ public class MysqlDialectMariaDriverExceptionPatternTest
 		assertEquals(false, matcher.matches());
 	}
 
-	private static final Pattern PATTERN = Pattern.compile(MysqlDialect.MARIA_DRIVER_CONN_PATTERN);
+	private static final Pattern PATTERN = MysqlDialect.EXTRACT_UNIQUE_VIOLATION_MESSAGE_PATTERN;
+	private static final String FEATURE = "Type1234_feature4567_Unq";
+	private static final String remainder = "Duplicate entry 'value1234AZ$'%&/' for key '" + FEATURE + "'";
 }
