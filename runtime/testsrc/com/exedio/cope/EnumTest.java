@@ -81,7 +81,7 @@ public class EnumTest extends TestWithEnvironment
 			features.put("wrong", wrong);
 			try
 			{
-				new Type<>(EnumItem.class, EnumItem.class, false, "Wrong", null, null, features);
+				new Type<>(EnumItem.class, EnumItem::new, EnumItem.class, false, "Wrong", null, null, features);
 				fail();
 			}
 			catch(final IllegalArgumentException e)

@@ -31,6 +31,7 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 /**
  * A common super class for all patterns.
@@ -193,30 +194,66 @@ public abstract class Pattern extends Feature
 
 	/**
 	 * @see #getSourceTypes()
+	 * To be deprecated, use {@link #newSourceType(Class, Function, Features)} instead
 	 */
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features)
 	{
-		return newSourceType(javaClass, features, null);
+		return newSourceType(javaClass, Type.reflectionActivator(javaClass), features);
 	}
 
 	/**
 	 * @see #getSourceTypes()
+	 */
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final Function<ActivationParameters,T> activator,
+			final Features features)
+	{
+		return newSourceType(javaClass, activator, features, null);
+	}
+
+	/**
+	 * @see #getSourceTypes()
+	 * To be deprecated, use {@link #newSourceType(Class, Function, Features, String)} instead
 	 */
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
 			final Features features,
 			final String postfix)
 	{
-		return newSourceType(javaClass, null, features, postfix);
+		return newSourceType(javaClass, Type.reflectionActivator(javaClass), features, postfix);
+	}
+
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final Function<ActivationParameters,T> activator,
+			final Features features,
+			final String postfix)
+	{
+		return newSourceType(javaClass, activator, null, features, postfix);
+	}
+
+	/**
+	 * @see #getSourceTypes()
+	 * To be deprecated, use {@link #newSourceType(Class, Function, Type, Features, String)} instead
+	 */
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final Type<? super T> supertype,
+			final Features features,
+			final String postfix)
+	{
+		return newSourceType(javaClass, Type.reflectionActivator(javaClass), supertype, features, postfix);
 	}
 
 	/**
 	 * @see #getSourceTypes()
 	 */
-	protected final <T extends Item> Type<T> newSourceType(
+	protected <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
+			final Function<ActivationParameters,T> activator,
 			final Type<? super T> supertype,
 			final Features features,
 			final String postfix)
@@ -227,7 +264,7 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
 		final String id = newSourceTypeId(getType().getID(), getName(), postfix);
-		final Type<T> result = new Type<>(javaClass, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, supertype, features);
+		final Type<T> result = new Type<>(javaClass, activator, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
 	}
@@ -442,7 +479,7 @@ public abstract class Pattern extends Feature
 			(isAbstract != Modifier.isAbstract(javaClass.getModifiers())))
 			throw new IllegalArgumentException(javaClass + " must" + (isAbstract?"":" not") + " be abstract");
 
-		return newSourceType(javaClass, supertype, features, postfix);
+		return newSourceType(javaClass, Type.reflectionActivator(javaClass), supertype, features, postfix);
 	}
 
 	/**

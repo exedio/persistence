@@ -30,6 +30,7 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
@@ -152,9 +153,32 @@ public class BlockErrorTest
 	@Test void newTypeNull()
 	{
 		assertFails(
-				() -> newType(null),
+				() -> newType(null, null),
 				NullPointerException.class,
 				"javaClass");
+	}
+
+
+	@Test void newTypeActivatorNull()
+	{
+		assertFails(
+				() -> newType(ActivatorNull.class, null),
+				NullPointerException.class, "activator");
+		assertNotExists(ActivatorNull.class);
+	}
+
+	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class ActivatorNull extends Block
+	{
+		@WrapperIgnore
+		@SuppressWarnings("unused") // OK: Block must not be empty
+		static final StringField field = new StringField();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private ActivatorNull(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 
@@ -284,7 +308,7 @@ public class BlockErrorTest
 	@Test void newTypeNoBlock()
 	{
 		assertFails(
-				() -> newType((Class)BlockErrorTest.class),
+				() -> newType((Class)BlockErrorTest.class, null),
 				IllegalArgumentException.class,
 				"BlockField requires a subclass of " + Block.class.getName() + ": " +
 				BlockErrorTest.class.getName());

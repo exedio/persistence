@@ -41,18 +41,21 @@ import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Function;
 
 public final class BlockType<T extends Block> implements TemplatedType<T>
 {
 	final Class<T> javaClass;
-	private final Constructor<T> constructor;
+	private final Function<BlockActivationParameters,T> constructor;
 	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<>();
 	final List<? extends Feature> templateList;
 
-	private BlockType(final Class<T> javaClass)
+	private BlockType(
+			final Class<T> javaClass,
+			final Function<BlockActivationParameters,T> constructor)
 	{
 		this.javaClass = javaClass;
-		this.constructor = getConstructor(javaClass, BlockActivationParameters.class);
+		this.constructor = constructor;
 		final String id = javaClass.getName();
 		for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
 		{
@@ -74,6 +77,13 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 					"block has no templates: " + javaClass.getName());
 
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
+	}
+
+	@Deprecated
+	private static <T extends Block> Function<BlockActivationParameters,T> reflectionActivator(final Class<T> javaClass)
+	{
+		final Constructor<T> constructor = getConstructor(javaClass, BlockActivationParameters.class);
+		return ap -> newValue(constructor, ap);
 	}
 
 	@Override
@@ -155,9 +165,16 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 
 	T newValue(final BlockField<?> field, final Item item)
 	{
+		return constructor.apply(new BlockActivationParameters(field, item));
+	}
+
+	private static <T extends Block> T newValue(
+			final Constructor<T> constructor,
+			final BlockActivationParameters ap)
+	{
 		try
 		{
-			return constructor.newInstance(new BlockActivationParameters(field, item));
+			return constructor.newInstance(ap);
 		}
 		catch(final InvocationTargetException e)
 		{
@@ -260,13 +277,24 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 		return result;
 	}
 
+	/**
+	 * To be deprecated, use {@link #newType(Class, Function)} instead.
+	 */
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{
+		return newType(javaClass, reflectionActivator(javaClass));
+	}
+
+	public static <T extends Block> BlockType<T> newType(
+			final Class<T> javaClass,
+			final Function<BlockActivationParameters,T> activator)
+	{
 		assertFinalSubClass(BlockField.class, Block.class, javaClass);
+		requireNonNull(activator, "activator");
 		if(types.containsKey(javaClass))
 			throw new IllegalArgumentException("class is already bound to a type: " + javaClass.getName());
 
-		final BlockType<T> result = new BlockType<>(javaClass);
+		final BlockType<T> result = new BlockType<>(javaClass, activator);
 		types.put(javaClass, result);
 
 		return result;

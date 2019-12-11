@@ -55,6 +55,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Function;
 
 @SuppressWarnings("ComparableImplementedButEqualsNotOverridden") // OK: compareTo just changes order, but not equality
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, AbstractType<T>
@@ -88,7 +89,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final FeatureSubSet<CopyConstraint> copyConstraints;
 	private final Map<FunctionField<?>,List<CopyConstraint>> copyConstraintsByCopyField;
 
-	private final Constructor<T> activationConstructor;
+	private final Function<ActivationParameters,T> activator;
 	final long createLimit;
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
@@ -157,6 +158,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	Type(
 			final Class<T> javaClass,
+			final Function<ActivationParameters,T> activator,
 			final AnnotatedElement annotationSource,
 			final boolean bound,
 			final String id,
@@ -275,7 +277,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 		checkForDuplicateUniqueConstraint(id, uniqueConstraints.all);
 
-		this.activationConstructor = isAbstract ? null : getActivationConstructor(javaClass);
+		if(isAbstract != (activator==null))
+			throw new IllegalArgumentException((
+					isAbstract
+					? "activator must be omitted for abstract type "
+					: "activator must be supplied for non-abstract type ") + javaClass.getName());
+		this.activator = activator;
 
 		if(supertype!=null)
 		{
@@ -1158,7 +1165,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * @param condition the condition the searched items must match.
 	 * @param ascending whether the result is sorted ascendingly ({@code true</tt>) or descendingly (<tt>false}).
 	 */
-	public List<T> search(final Condition condition, final Function<?> orderBy, final boolean ascending)
+	public List<T> search(final Condition condition, final com.exedio.cope.Function<?> orderBy, final boolean ascending)
 	{
 		final Query<T> query = newQuery(condition);
 		query.setOrderBy(orderBy, ascending);
@@ -1237,15 +1244,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 	T activate(final long pk)
 	{
-		final ActivationParameters ap = new ActivationParameters(this, pk);
-		try
-		{
-			return activationConstructor.newInstance(ap);
-		}
-		catch(final ReflectiveOperationException e)
-		{
-			throw new RuntimeException(ap.toString() + '/' + javaClass.getName(), e);
-		}
+		return activator.apply(new ActivationParameters(this, pk));
 	}
 
 	private static void checkForDuplicateUniqueConstraint(
@@ -1276,8 +1275,13 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 	}
 
-	private static <C> Constructor<C> getActivationConstructor(final Class<C> javaClass)
+	static <C extends Item> Function<ActivationParameters,C> reflectionActivator(final Class<C> javaClass)
 	{
+		requireNonNull(javaClass, "javaClass");
+
+		if(Modifier.isAbstract(javaClass.getModifiers()))
+			return null;
+
 		final Constructor<C> result;
 		try
 		{
@@ -1291,7 +1295,17 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 
 		result.setAccessible(true);
-		return result;
+		return ap ->
+		{
+			try
+			{
+				return result.newInstance(ap);
+			}
+			catch(final ReflectiveOperationException e)
+			{
+				throw new RuntimeException(ap.toString() + '/' + javaClass.getName(), e);
+			}
+		};
 	}
 
 	void testActivation()
@@ -1300,7 +1314,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return;
 
 		final T item = activate(createLimit);
-		//noinspection ConstantConditions OkK: prepares Activation constructor can be called without reflection
 		if(item==null)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.type!=this)

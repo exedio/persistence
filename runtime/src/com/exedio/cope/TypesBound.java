@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
+import java.util.function.Function;
 
 import com.exedio.cope.misc.CopeNameUtil;
 import java.lang.reflect.Field;
@@ -28,6 +29,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.SortedMap;
 import java.util.TreeMap;
+import javax.annotation.Nonnull;
 
 public final class TypesBound
 {
@@ -59,7 +61,17 @@ public final class TypesBound
 		return result;
 	}
 
+	/**
+	 * To be deprecated, use {@link #newType(Class, Function)} instead.
+	 */
 	public static <T extends Item> Type<T> newType(final Class<T> javaClass)
+	{
+		return newType(javaClass, Type.reflectionActivator(javaClass));
+	}
+
+	public static <T extends Item> Type<T> newType(
+			@Nonnull final Class<T> javaClass,
+			final Function<ActivationParameters,T> activator)
 	{
 		requireNonNull(javaClass, "javaClass");
 		if(types.containsKey(javaClass))
@@ -90,6 +102,7 @@ public final class TypesBound
 
 		final Type<T> result = new Type<>(
 				javaClass,
+				activator,
 				javaClass, // annotationSource
 				true, // bound
 				id,

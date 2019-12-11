@@ -29,10 +29,10 @@ public class ModelCharSetTest
 {
 	@Test void testType()
 	{
-		new Type<>(AnItem.class, AnItem.class, false, "Zack-Zick123", null, null, new Features());
+		new Type<>(AnItem.class, AnItem::new, AnItem.class, false, "Zack-Zick123", null, null, new Features());
 		try
 		{
-			new Type<>(AnItem.class, AnItem.class, false, "Zack.Zick123", null, null, new Features());
+			new Type<>(AnItem.class, AnItem::new, AnItem.class, false, "Zack.Zick123", null, null, new Features());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -58,7 +58,7 @@ public class ModelCharSetTest
 
 	@Test void testFeatureNaked()
 	{
-		final Type<AnItem> t = new Type<>(AnItem.class, AnItem.class, false, "Type123", null, null, new Features());
+		final Type<AnItem> t = new Type<>(AnItem.class, AnItem::new, AnItem.class, false, "Type123", null, null, new Features());
 		final StringField f = new StringField();
 		try
 		{

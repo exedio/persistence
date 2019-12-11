@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -25,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import java.util.concurrent.atomic.AtomicReference;
+import java.util.function.Function;
 import org.junit.jupiter.api.Test;
 
 public class TypesBoundErrorTest
@@ -50,7 +53,7 @@ public class TypesBoundErrorTest
 	@Test void classNoItem()
 	{
 		assertFails(
-				() -> newType(castItemClass(NoItem.class)),
+				() -> newType(castItemClass(NoItem.class), null),
 				IllegalArgumentException.class,
 				NoItem.class + " is not a subclass of Item");
 	}
@@ -82,6 +85,123 @@ public class TypesBoundErrorTest
 	}
 
 
+	@Test void activatorMissing()
+	{
+		assertFails(
+				() -> newType(ActivatorMissing.class, null),
+				IllegalArgumentException.class,
+				"activator must be supplied for non-abstract type " + ActivatorMissing.class.getName());
+	}
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	private static class ActivatorMissing extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
+	@Test void activatorSuperfluous()
+	{
+		assertFails(
+				() -> newType(ActivatorSuperfluous.class, failingActivator()),
+				IllegalArgumentException.class,
+				"activator must be omitted for abstract type " + ActivatorSuperfluous.class.getName());
+	}
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("AbstractClassNeverImplemented") // OK: just for test
+	private abstract static class ActivatorSuperfluous extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 2l;
+	}
+
+
+	@Test void wrongActivatorNull()
+	{
+		final Type<WrongActivatorNull> wrongActivator = newType(WrongActivatorNull.class, ap -> null);
+		assertFails(
+				() -> new Model(wrongActivator),
+				IllegalArgumentException.class,
+				"WrongActivatorNull/" + WrongActivatorNull.class.getName());
+	}
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	private static class WrongActivatorNull extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
+	@Test void wrongActivatorType()
+	{
+		final Type<WrongActivatorType> wrongActivator = newType(WrongActivatorType.class, WrongActivatorType::new);
+		assertFails(
+				() -> new Model(wrongActivator),
+				IllegalArgumentException.class,
+				"WrongActivatorType/" + WrongActivatorType.class.getName() + "/type:BeforeNewNotStatic");
+	}
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	private static class WrongActivatorType extends Item
+	{
+		WrongActivatorType(final ActivationParameters ap)
+		{
+			super(new ActivationParameters(BeforeNewNotStatic.TYPE, ap.pk));
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
+	@Test void wrongActivatorClass()
+	{
+		final AtomicReference<Type<WrongActivatorClass>> otherType = new AtomicReference<>();
+		final Function<ActivationParameters, WrongActivatorClassOther> otherActivator =
+				ap -> new WrongActivatorClassOther(ap, otherType.get());
+		@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
+		final Type<WrongActivatorClass> wrongActivator = newType(WrongActivatorClass.class,
+				(Function<ActivationParameters,WrongActivatorClass>)(Function)otherActivator);
+		otherType.set(wrongActivator);
+		assertFails(
+				() -> new Model(wrongActivator),
+				IllegalArgumentException.class,
+				"WrongActivatorClass/" + WrongActivatorClass.class.getName() + "/class:" + WrongActivatorClassOther.class.getName());
+	}
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	private static class WrongActivatorClass extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	private static class WrongActivatorClassOther extends Item
+	{
+		WrongActivatorClassOther(final ActivationParameters ap, final Type<WrongActivatorClass> otherType)
+		{
+			super(new ActivationParameters(otherType, ap.pk));
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
+	@Test void wrongActivatorPk()
+	{
+		final Type<WrongActivatorPk> wrongActivator = newType(WrongActivatorPk.class, WrongActivatorPk::new);
+		assertFails(
+				() -> new Model(wrongActivator),
+				IllegalArgumentException.class,
+				"WrongActivatorPk/" + WrongActivatorPk.class.getName() + "/pk:2147483646/2147483647");
+	}
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	private static class WrongActivatorPk extends Item
+	{
+		WrongActivatorPk(final ActivationParameters ap)
+		{
+			super(new ActivationParameters(ap.type, ap.pk-1));
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
 	@Test void wrongActivationConstructor()
 	{
 		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);
@@ -110,7 +230,7 @@ public class TypesBoundErrorTest
 	@Test void featureNull()
 	{
 		assertFails(
-				() -> newType(NullFeature.class),
+				() -> newType(NullFeature.class, null),
 				NullPointerException.class,
 				NullFeature.class.getName() + "#nullFeature");
 	}
@@ -128,7 +248,7 @@ public class TypesBoundErrorTest
 	@Test void featureDuplicate()
 	{
 		assertFails(
-				() -> newType(DuplicateFeature.class),
+				() -> newType(DuplicateFeature.class, null),
 				IllegalArgumentException.class,
 				DuplicateFeature.class.getName() + "#duplicate is same as #origin");
 	}
