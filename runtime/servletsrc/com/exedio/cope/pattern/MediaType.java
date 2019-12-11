@@ -165,6 +165,7 @@ public final class MediaType
 	public static final String TTF  = "application/x-font-ttf";
 	public static final String DOCX = "application/vnd.openxmlformats-officedocument.wordprocessingml.document";
 	public static final String XLSX = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+	public static final String STL = "model/stl";
 
 	private static final byte[] ZIP_MAGIC = {(byte)'P', (byte)'K', 0x03, 0x04};
 
@@ -273,6 +274,13 @@ public final class MediaType
 					XLSX,
 					"application/x-zip-compressed" // seen on IE8, Windows XP
 			),
+			new MediaType(
+					".stl",
+					// https://en.wikipedia.org/wiki/STL_(file_format)
+					new byte[]{(byte)'s', (byte)'o', (byte)'l', (byte)'i', (byte)'d'},
+					STL,
+					"model/x.stl-ascii"
+			)
 	};
 
 	private static final HashMap<String, MediaType> typesByExtension    = new HashMap<>();

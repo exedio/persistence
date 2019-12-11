@@ -39,6 +39,7 @@ public class MediaTypeMediaTest
 	private static final String ICO = "00000100";
 	private static final String ZIP = "504b0304";
 	private static final String PDF = "25504446";
+	private static final String STL = "736f6c6964";
 
 	@Test void testDefault()
 	{
@@ -57,7 +58,8 @@ public class MediaTypeMediaTest
 				"(("+c+"='application/font-woff' OR "+c+"='font/woff' OR "+c+"='font/x-woff') AND !("+b+" startsWith '774f4646')) OR " +
 				"("+c+"='font/woff2' AND !("+b+" startsWith '774f4632')) OR " +
 				"(("+c+"='application/x-font-ttf' OR "+c+"='application/x-font-truetype' OR "+c+"='font/ttf') AND !("+b+" startsWith '0001000000')) OR " +
-				"(("+c+"='application/pdf' OR "+c+"='text/pdf') AND !("+b+" startsWith '"+PDF+"'))" +
+				"(("+c+"='application/pdf' OR "+c+"='text/pdf') AND !("+b+" startsWith '"+PDF+"')) OR " +
+				"(("+c+"='model/stl' OR "+c+"='model/x.stl-ascii') AND !("+b+" startsWith '"+STL+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
