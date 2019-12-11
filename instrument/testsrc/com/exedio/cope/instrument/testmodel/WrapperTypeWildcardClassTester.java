@@ -34,7 +34,7 @@ import com.exedio.cope.instrument.WrapperType;
 public final class WrapperTypeWildcardClassTester
 {
 	@WrapperType(wildcardClass=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	public static final class DefaultPublic<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -51,11 +51,18 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		public static final com.exedio.cope.Type<DefaultPublic<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@SuppressWarnings("ProtectedMemberInFinalClass")
 	@WrapperType(wildcardClass=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	protected static final class DefaultProtected<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -72,10 +79,17 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		protected static final com.exedio.cope.Type<DefaultProtected<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultProtected(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(wildcardClass=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class DefaultPackage<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -92,10 +106,17 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<DefaultPackage<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(wildcardClass=DEFAULT,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	private static final class DefaultPrivate<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -112,11 +133,18 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		private static final com.exedio.cope.Type<DefaultPrivate<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private DefaultPrivate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
 	@WrapperType(wildcardClass=PUBLIC,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class SetPublic<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -133,10 +161,17 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<SetPublic<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetPublic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(wildcardClass=PROTECTED,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class SetProtected<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -153,10 +188,17 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<SetProtected<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetProtected(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(wildcardClass=PACKAGE,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	public static final class SetPackage<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -173,10 +215,17 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		public static final com.exedio.cope.Type<SetPackage<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetPackage(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(wildcardClass=PRIVATE,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class SetPrivate<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -193,10 +242,17 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<SetPrivate<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetPrivate(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(wildcardClass=NONE,
-			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
+			constructor=NONE, genericConstructor=NONE, indent=2)
 	static final class SetNone<E> extends Item
 	{
 		@WrapInterim
@@ -213,5 +269,12 @@ public final class WrapperTypeWildcardClassTester
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
 		static final com.exedio.cope.Type<SetNone<?>> TYPE = com.exedio.cope.TypesBound.newType(classWildcard.value);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private SetNone(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

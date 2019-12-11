@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Instrumentor uses activator. Affects instrumented code.
+	Use this parameter:
+		<instrument activator="false" ...
+	to enable previous behaviour.
 * bugfix: Vault Trails did not work with disableSupport.nativeDate=true.
 * Schedule does not support Locale anymore.
 	Constructor Schedule(TimeZone, Locale) and methods getLocale() and
