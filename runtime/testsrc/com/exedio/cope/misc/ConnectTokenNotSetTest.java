@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.misc.ConnectToken.getTokens;
 import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
@@ -25,22 +26,26 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class ConnectTokenNotSetTest
 {
 	private static final Model model = new Model(AnItem.TYPE);
-	@WrapperIgnore private static final class AnItem extends Item
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class AnItem extends Item
 	{
-		private AnItem(final ActivationParameters ap) { super(ap); }
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static

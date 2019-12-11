@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class TypeSetModelTest
@@ -39,10 +40,13 @@ public class TypeSetModelTest
 		new TypeSet(type1);
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class Item1 extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private Item1(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		private Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

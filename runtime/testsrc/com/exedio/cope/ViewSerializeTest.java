@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ViewSerializeTest.AnItem.TYPE;
 import static com.exedio.cope.ViewSerializeTest.AnItem.field;
 import static com.exedio.cope.ViewSerializeTest.AnItem.view;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static com.exedio.cope.tojunit.Assert.serialize;
 import static java.util.Arrays.asList;
@@ -29,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.jupiter.api.Test;
 
 public class ViewSerializeTest
@@ -103,15 +105,20 @@ public class ViewSerializeTest
 		assertSame(value, reserialize(value, expectedSize));
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
-		static final StringField field = new StringField();
-		static final UppercaseView view = field.toUpperCase();
+		@WrapperIgnore static final StringField field = new StringField();
+		@WrapperIgnore static final UppercaseView view = field.toUpperCase();
 
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-		private AnItem(final ActivationParameters ap) { super(ap); }
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final Model MODEL = new Model(TYPE);

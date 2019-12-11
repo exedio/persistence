@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyBlock.virgnTemp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyBlock.wrongTemp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.TYPE;
@@ -25,14 +26,11 @@ import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.virgnComp;
 import static com.exedio.cope.pattern.BlockRenamedIdTest.MyItem.wrongComp;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.jupiter.api.Test;
 
 public class BlockRenamedIdTest
@@ -68,28 +66,37 @@ public class BlockRenamedIdTest
 		return a!=null ? a.value() : null;
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class MyBlock extends Block
 	{
-		static final StringField virgnTemp = new StringField();
+		@WrapperIgnore static final StringField virgnTemp = new StringField();
 		@CopeName("namedTemp")
-		static final StringField wrongTemp = new StringField();
+		@WrapperIgnore static final StringField wrongTemp = new StringField();
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final BlockType<MyBlock> TYPE = BlockType.newType(MyBlock.class);
-		private MyBlock(final BlockActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
+
+		@com.exedio.cope.instrument.Generated
+		private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		static final BlockField<MyBlock> virgnComp = BlockField.create(MyBlock.TYPE);
+		@WrapperIgnore static final BlockField<MyBlock> virgnComp = BlockField.create(MyBlock.TYPE);
 		@CopeName("namedComp")
-		static final BlockField<MyBlock> wrongComp = BlockField.create(MyBlock.TYPE);
+		@WrapperIgnore static final BlockField<MyBlock> wrongComp = BlockField.create(MyBlock.TYPE);
 
-		private MyItem(final SetValue<?>... setValues) { super(setValues); }
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<MyItem> TYPE = TypesBound.newType(MyItem.class);
-		private MyItem(final ActivationParameters ap){super(ap);}
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

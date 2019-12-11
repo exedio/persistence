@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.QueryPageTest.AnItem.TYPE;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -117,11 +118,16 @@ public class QueryPageTest
 		return result;
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private AnItem(final com.exedio.cope.ActivationParameters ap){ super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

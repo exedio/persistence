@@ -18,11 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.util.Sources.view;
 
-import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.Properties;
@@ -108,17 +108,17 @@ public abstract class ClusterNetworkTest
 		protected TypeA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class TypeB extends Item
 	{
-		private TypeB(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		static final Type<TypeB> TYPE = TypesBound.newType(TypeB.class);
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<TypeB> TYPE = com.exedio.cope.TypesBound.newType(TypeB.class);
+
+		@com.exedio.cope.instrument.Generated
+		private TypeB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final Model modelA = new Model(TypeA.TYPE);

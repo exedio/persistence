@@ -18,15 +18,14 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import java.lang.annotation.Annotation;
 import org.junit.jupiter.api.Test;
 
@@ -55,30 +54,38 @@ public class PreventUrlGuessingTypeTest
 			assertNull(ann, msg);
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AbsentItem extends Item
 	{
-		static final Media absent = new Media();
+		@WrapperIgnore static final Media absent = new Media();
 		@PreventUrlGuessing
-		static final Media present = new Media();
+		@WrapperIgnore static final Media present = new Media();
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<AbsentItem> TYPE = TypesBound.newType(AbsentItem.class);
-		private AbsentItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AbsentItem> TYPE = com.exedio.cope.TypesBound.newType(AbsentItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AbsentItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
 	@PreventUrlGuessing
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class PresentItem extends Item
 	{
-		static final Media absent = new Media();
+		@WrapperIgnore static final Media absent = new Media();
 		@PreventUrlGuessing
-		static final Media present = new Media();
+		@WrapperIgnore static final Media present = new Media();
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<PresentItem> TYPE = TypesBound.newType(PresentItem.class);
-		private PresentItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<PresentItem> TYPE = com.exedio.cope.TypesBound.newType(PresentItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private PresentItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

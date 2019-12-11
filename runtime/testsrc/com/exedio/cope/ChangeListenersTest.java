@@ -20,12 +20,13 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
@@ -244,18 +245,23 @@ public class ChangeListenersTest
 		return ((Gauge)meterCope(ChangeListener.class, nameSuffix, tag(model))).value();
 	}
 
-	private static final Model model = new Model(TypesBound.newType(AnItem.class));
+	private static final Model model = new Model(AnItem.TYPE);
 
 	static
 	{
 		model.enableSerialization(ChangeListenersTest.class, "model");
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		private AnItem(final ActivationParameters ap) { super(ap); }
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

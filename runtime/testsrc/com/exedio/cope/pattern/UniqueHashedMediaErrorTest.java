@@ -19,17 +19,16 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DataField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.IllegalAlgorithmException;
 import org.junit.jupiter.api.Test;
 
@@ -120,13 +119,18 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	@SuppressWarnings({"ClassWithOnlyPrivateConstructors", "AbstractClassNeverImplemented", "unused"}) // OK: test bad API usage
-	@WrapperIgnore abstract static class AbstractItem extends Item
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings({"AbstractClassNeverImplemented", "unused"}) // OK: test bad API usage
+	abstract static class AbstractItem extends Item
 	{
+		@WrapperIgnore
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
 
-		private static final long serialVersionUID = 1l;
-		private AbstractItem(final ActivationParameters ap) { super(ap); }
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 2l;
+
+		@com.exedio.cope.instrument.Generated
+		protected AbstractItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -145,16 +149,23 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: test bad API usage
-	@WrapperIgnore static final class NonCreateableFunctionFieldItem extends Item
+	static final class NonCreateableFunctionFieldItem extends Item
 	{
+		@WrapperIgnore
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
+		@WrapperIgnore
 		static final IntegerField field = new IntegerField();
-		static final Type<NonCreateableFunctionFieldItem> TYPE =
-				TypesBound.newType(NonCreateableFunctionFieldItem.class);
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private NonCreateableFunctionFieldItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<NonCreateableFunctionFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableFunctionFieldItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private NonCreateableFunctionFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -173,16 +184,23 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: test bad API usage
-	@WrapperIgnore static final class NonCreateableDataFieldItem extends Item
+	static final class NonCreateableDataFieldItem extends Item
 	{
+		@WrapperIgnore
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
+		@WrapperIgnore
 		static final DataField field = new DataField();
-		static final Type<NonCreateableDataFieldItem> TYPE =
-				TypesBound.newType(NonCreateableDataFieldItem.class);
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private NonCreateableDataFieldItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<NonCreateableDataFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableDataFieldItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private NonCreateableDataFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -191,19 +209,29 @@ public class UniqueHashedMediaErrorTest
 		// test, that is does not throw an exception
 		new Model(CreateableItem.TYPE);
 	}
-	@WrapperIgnore static final class CreateableItem extends Item
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class CreateableItem extends Item
 	{
+		@WrapperIgnore
 		@SuppressWarnings("unused")
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
+		@WrapperIgnore
 		@SuppressWarnings("unused")
 		static final IntegerField optionalField = new IntegerField().optional();
+		@WrapperIgnore
 		@SuppressWarnings("unused")
 		static final IntegerField defaultField = new IntegerField().defaultTo(77);
+		@WrapperIgnore
 		@SuppressWarnings("unused")
 		static final DataField dataField = new DataField().optional();
-		static final Type<CreateableItem> TYPE = TypesBound.newType(CreateableItem.class);
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private CreateableItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<CreateableItem> TYPE = com.exedio.cope.TypesBound.newType(CreateableItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private CreateableItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

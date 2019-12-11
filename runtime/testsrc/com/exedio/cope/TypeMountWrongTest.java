@@ -18,11 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class TypeMountWrongTest
@@ -125,29 +127,32 @@ public class TypeMountWrongTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Item1 extends Item
 	{
-		Item1(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<Item1> TYPE = TypesBound.newType(Item1.class);
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Item2 extends Item
 	{
+		@WrapperIgnore
 		static final ItemField<Item1> f = ItemField.create(Item1.class);
 
-		Item2(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<Item2> TYPE = TypesBound.newType(Item2.class);
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Item2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

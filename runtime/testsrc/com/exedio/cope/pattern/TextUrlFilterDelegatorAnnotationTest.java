@@ -18,18 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 import org.junit.jupiter.api.Test;
@@ -120,23 +120,27 @@ public class TextUrlFilterDelegatorAnnotationTest
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
-		static final TextUrlFilter delegate = new TextUrlFilter(new Media(), "text/plain", UTF_8, "<paste>", "</paste>", new StringField(), new Media());
+		@WrapperIgnore static final TextUrlFilter delegate = new TextUrlFilter(new Media(), "text/plain", UTF_8, "<paste>", "</paste>", new StringField(), new Media());
 
-		static final TextUrlFilterDelegator simple = new ATextUrlFilterDelegator(new Media(), delegate);
+		@WrapperIgnore static final TextUrlFilterDelegator simple = new ATextUrlFilterDelegator(new Media(), delegate);
 		@PreventUrlGuessing
-		static final TextUrlFilterDelegator secret = new ATextUrlFilterDelegator(new Media(), delegate);
+		@WrapperIgnore static final TextUrlFilterDelegator secret = new ATextUrlFilterDelegator(new Media(), delegate);
 		@UrlFingerPrinting
-		static final TextUrlFilterDelegator finger = new ATextUrlFilterDelegator(new Media(), delegate);
+		@WrapperIgnore static final TextUrlFilterDelegator finger = new ATextUrlFilterDelegator(new Media(), delegate);
 		@PreventUrlGuessing @UrlFingerPrinting
-		static final TextUrlFilterDelegator secfin = new ATextUrlFilterDelegator(new Media(), delegate);
+		@WrapperIgnore static final TextUrlFilterDelegator secfin = new ATextUrlFilterDelegator(new Media(), delegate);
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final class ATextUrlFilterDelegator extends TextUrlFilterDelegator

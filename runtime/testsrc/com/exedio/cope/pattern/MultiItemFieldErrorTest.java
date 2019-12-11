@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.Wrapper;
-import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
@@ -217,9 +216,10 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	static final class AnotherItem1 extends com.exedio.cope.Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 

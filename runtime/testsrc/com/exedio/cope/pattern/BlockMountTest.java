@@ -31,6 +31,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.LongField;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -235,17 +236,22 @@ public class BlockMountTest
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(indent=2, comments=false)
 	static final class MyBlock extends Block
 	{
 		@Anno("stringAnno")
-		static final StringField string4 = new StringField().lengthMax(4);
+		@WrapperIgnore static final StringField string4 = new StringField().lengthMax(4);
 		@Anno("intAnno")
-		static final IntegerField intMax4 = new IntegerField().max(4);
+		@WrapperIgnore static final IntegerField intMax4 = new IntegerField().max(4);
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final BlockType<?> TYPE = BlockType.newType(MyBlock.class);
-		private MyBlock(final BlockActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
+
+		@com.exedio.cope.instrument.Generated
+		private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	private static final String blockName = MyBlock.class.getName() + '#';

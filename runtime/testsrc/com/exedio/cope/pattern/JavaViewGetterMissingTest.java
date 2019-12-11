@@ -18,24 +18,28 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class JavaViewGetterMissingTest
 {
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
 		@SuppressWarnings("unused")
 		static final JavaView schauHer = new JavaView();
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Test void testIt()

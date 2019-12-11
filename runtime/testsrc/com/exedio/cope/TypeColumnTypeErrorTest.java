@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class TypeColumnTypeErrorTest
@@ -43,10 +44,13 @@ public class TypeColumnTypeErrorTest
 	}
 
 	@CopeTypeColumnMinLength(0)
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class AnItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

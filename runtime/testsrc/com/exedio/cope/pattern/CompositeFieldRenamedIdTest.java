@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.Composite.getTemplateName;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyComposite.virgnTemp;
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyComposite.wrongTemp;
@@ -26,14 +27,11 @@ import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.virgnCo
 import static com.exedio.cope.pattern.CompositeFieldRenamedIdTest.MyItem.wrongComp;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import org.junit.jupiter.api.Test;
 
 public class CompositeFieldRenamedIdTest
@@ -72,27 +70,34 @@ public class CompositeFieldRenamedIdTest
 		return a!=null ? a.value() : null;
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class MyComposite extends Composite
 	{
-		static final StringField virgnTemp = new StringField();
+		@WrapperIgnore static final StringField virgnTemp = new StringField();
 		@CopeName("namedTemp")
-		static final StringField wrongTemp = new StringField();
+		@WrapperIgnore static final StringField wrongTemp = new StringField();
 
-		private MyComposite(final SetValue<?>... setValues) { super(setValues); }
+		@com.exedio.cope.instrument.Generated
+		private MyComposite(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class MyItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		static final CompositeField<MyComposite> virgnComp = CompositeField.create(MyComposite.class);
+		@WrapperIgnore static final CompositeField<MyComposite> virgnComp = CompositeField.create(MyComposite.class);
 		@CopeName("namedComp")
-		static final CompositeField<MyComposite> wrongComp = CompositeField.create(MyComposite.class);
+		@WrapperIgnore static final CompositeField<MyComposite> wrongComp = CompositeField.create(MyComposite.class);
 
-		private MyItem(final SetValue<?>... setValues) { super(setValues); }
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<MyItem> TYPE = TypesBound.newType(MyItem.class);
-		private MyItem(final ActivationParameters ap){super(ap);}
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

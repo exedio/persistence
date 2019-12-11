@@ -22,12 +22,14 @@ import static com.exedio.cope.Query.newQuery;
 import static com.exedio.cope.QuerySelectTest.AnItem.TYPE;
 import static com.exedio.cope.QuerySelectTest.AnItem.field1;
 import static com.exedio.cope.QuerySelectTest.AnItem.field2;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.util.Day;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -194,14 +196,20 @@ public class QuerySelectTest
 		assertEquals("select this from AnItem", q.toString());
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
-		static final DayField field1 = new DayField();
-		static final DayField field2 = new DayField();
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+		@WrapperIgnore static final DayField field1 = new DayField();
+		@WrapperIgnore static final DayField field2 = new DayField();
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static

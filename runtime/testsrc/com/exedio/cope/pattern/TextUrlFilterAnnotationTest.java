@@ -18,18 +18,18 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 import org.junit.jupiter.api.Test;
@@ -154,49 +154,61 @@ public class TextUrlFilterAnnotationTest
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
-		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
 		@PreventUrlGuessing
-		static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
 		@UrlFingerPrinting
-		static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
 		@PreventUrlGuessing @UrlFingerPrinting
-		static final TextUrlFilter secfin = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter secfin = new ATextUrlFilter(new Media(), new Media());
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@PreventUrlGuessing
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class SecretItem extends Item
 	{
-		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
 		@PreventUrlGuessing
-		static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter secret = new ATextUrlFilter(new Media(), new Media());
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<SecretItem> TYPE = TypesBound.newType(SecretItem.class);
-		private SecretItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<SecretItem> TYPE = com.exedio.cope.TypesBound.newType(SecretItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private SecretItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@UrlFingerPrinting
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class FingerItem extends Item
 	{
-		static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter simple = new ATextUrlFilter(new Media(), new Media());
 		@UrlFingerPrinting
-		static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
+		@WrapperIgnore static final TextUrlFilter finger = new ATextUrlFilter(new Media(), new Media());
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<FingerItem> TYPE = TypesBound.newType(FingerItem.class);
-		private FingerItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<FingerItem> TYPE = com.exedio.cope.TypesBound.newType(FingerItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private FingerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	static final class ATextUrlFilter extends TextUrlFilter

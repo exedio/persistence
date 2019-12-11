@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.misc.Conditions.equal;
 import static com.exedio.cope.misc.Conditions.implies;
 import static com.exedio.cope.misc.Conditions.unisonNull;
@@ -28,11 +29,9 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Condition;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
+import com.exedio.cope.instrument.WrapperIgnore;
 import java.util.Collections;
 import org.junit.jupiter.api.Test;
 
@@ -126,16 +125,20 @@ public class ConditionsTest
 		}
 	}
 
-	@com.exedio.cope.instrument.WrapperIgnore // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		static final StringField name1 = new StringField();
-		static final StringField name2 = new StringField();
-		static final StringField name3 = new StringField();
+		@WrapperIgnore static final StringField name1 = new StringField();
+		@WrapperIgnore static final StringField name2 = new StringField();
+		@WrapperIgnore static final StringField name3 = new StringField();
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

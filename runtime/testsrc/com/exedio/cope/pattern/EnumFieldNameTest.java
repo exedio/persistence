@@ -18,14 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class EnumFieldNameTest
@@ -44,14 +43,19 @@ public class EnumFieldNameTest
 		under_line
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
-		static final EnumSetField<AnEnum        > set = EnumSetField.create(AnEnum.class);
-		static final EnumMapField<AnEnum, String> map = EnumMapField.create(AnEnum.class, new StringField());
+		@WrapperIgnore static final EnumSetField<AnEnum        > set = EnumSetField.create(AnEnum.class);
+		@WrapperIgnore static final EnumMapField<AnEnum, String> map = EnumMapField.create(AnEnum.class, new StringField());
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused")
-		private static final Type<?> TYPE = TypesBound.newType(AnItem.class);
-		private AnItem(final ActivationParameters ap){super(ap);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

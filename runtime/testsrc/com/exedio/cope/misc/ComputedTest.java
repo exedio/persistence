@@ -18,13 +18,12 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class ComputedTest
@@ -37,29 +36,43 @@ public class ComputedTest
 	}
 
 	@Computed
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class Super extends Item
 	{
-
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<Super> TYPE = TypesBound.newType(Super.class);
-		Super(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Super(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class Sub extends Super
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<Sub> TYPE = TypesBound.newType(Sub.class);
-		Sub(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Sub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class Single extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<Single> TYPE = TypesBound.newType(Single.class);
-		Single(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<Single> TYPE = com.exedio.cope.TypesBound.newType(Single.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Single(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static boolean comp(final Type<?> f)

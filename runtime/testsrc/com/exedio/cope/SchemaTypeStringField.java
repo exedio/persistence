@@ -20,10 +20,11 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Objects.requireNonNull;
 import static org.junit.Assert.fail;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.SQLRuntimeException;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.annotation.Annotation;
@@ -58,11 +59,14 @@ public final class SchemaTypeStringField extends Pattern
 		sourceTypeIfMounted = newSourceType(StringItem.class, features);
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class StringItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		StringItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		private StringItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	Type<StringItem> sourceType()

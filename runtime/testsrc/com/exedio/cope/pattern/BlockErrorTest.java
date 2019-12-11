@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.BlockType.newType;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -26,7 +27,9 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Field;
 import com.exedio.cope.Pattern;
+import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
@@ -63,12 +66,14 @@ public class BlockErrorTest
 		}
 	}
 
-	@WrapperIgnore
-	@SuppressWarnings("ClassWithOnlyPrivateConstructors")
+	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class NonFinal extends Block
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private NonFinal(final BlockActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		protected NonFinal(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 
@@ -89,12 +94,15 @@ public class BlockErrorTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	static final class NoConstructor extends Block
 	{
-		private static final long serialVersionUID = 1l;
+		@WrapInterim
 		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 		private NoConstructor() { super(null); }
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 
@@ -111,11 +119,14 @@ public class BlockErrorTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class NoFields extends Block
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private NoFields(final BlockActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		private NoFields(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 
@@ -132,7 +143,7 @@ public class BlockErrorTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperIgnore // instrumentor fails on null field
 	static final class NullField extends Block
 	{
 		private static final long serialVersionUID = 1l;
@@ -159,13 +170,17 @@ public class BlockErrorTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class NotCopyableField extends Block
 	{
-		private static final long serialVersionUID = 1l;
-		private NotCopyableField(final BlockActivationParameters ap) { super(ap); }
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final NotCopyable notCopyableField = new NotCopyable();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private NotCopyableField(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	static final class NotCopyable extends Pattern
@@ -224,13 +239,21 @@ public class BlockErrorTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: both in instrumented and non-instrumented code
 	static final class AlreadyBound extends Block
 	{
-		private static final long serialVersionUID = 1l;
-		private AlreadyBound(final BlockActivationParameters ap) { super(ap); }
 		@SuppressWarnings("unused") // OK: Block must not be empty
+		@WrapperIgnore
 		static final BooleanField field = new BooleanField();
-		static final BlockType<AlreadyBound> TYPE = newType(AlreadyBound.class);
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.pattern.BlockType<AlreadyBound> TYPE = com.exedio.cope.pattern.BlockType.newType(AlreadyBound.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AlreadyBound(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 }

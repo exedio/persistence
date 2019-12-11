@@ -18,11 +18,13 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.dsmf.Constraint;
@@ -35,16 +37,20 @@ import org.junit.jupiter.api.Test;
  */
 public class ModelTest extends TestWithEnvironment
 {
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ModelTestItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		private ModelTestItem(final ActivationParameters ap) { super(ap); }
-
+		@WrapperIgnore
 		static final IntegerField next = new IntegerField().defaultToNext(5);
 
-		static final Type<ModelTestItem> TYPE = TypesBound.newType(ModelTestItem.class);
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<ModelTestItem> TYPE = com.exedio.cope.TypesBound.newType(ModelTestItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private ModelTestItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
  	}
 
 	private static final Model model = Model.builder().

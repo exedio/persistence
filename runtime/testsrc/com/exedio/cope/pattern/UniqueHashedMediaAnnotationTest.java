@@ -18,16 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 import org.junit.jupiter.api.Test;
@@ -171,62 +170,78 @@ public class UniqueHashedMediaAnnotationTest
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
-		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
 		@PreventUrlGuessing
-		static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
 		@UrlFingerPrinting
-		static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
 		@PreventUrlGuessing @UrlFingerPrinting
-		static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
 
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@PreventUrlGuessing
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class SecretItem extends Item
 	{
-		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
 		@PreventUrlGuessing
-		static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia secret = new UniqueHashedMedia(new Media());
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<SecretItem> TYPE = TypesBound.newType(SecretItem.class);
-		private SecretItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<SecretItem> TYPE = com.exedio.cope.TypesBound.newType(SecretItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private SecretItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@UrlFingerPrinting
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class FingerItem extends Item
 	{
-		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
 		@UrlFingerPrinting
-		static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia finger = new UniqueHashedMedia(new Media());
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<FingerItem> TYPE = TypesBound.newType(FingerItem.class);
-		private FingerItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<FingerItem> TYPE = com.exedio.cope.TypesBound.newType(FingerItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private FingerItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@PreventUrlGuessing @UrlFingerPrinting
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class SecFinItem extends Item
 	{
-		static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia simple = new UniqueHashedMedia(new Media());
 		@PreventUrlGuessing @UrlFingerPrinting
-		static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
+		@WrapperIgnore static final UniqueHashedMedia secfin = new UniqueHashedMedia(new Media());
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<SecFinItem> TYPE = TypesBound.newType(SecFinItem.class);
-		private SecFinItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<SecFinItem> TYPE = com.exedio.cope.TypesBound.newType(SecFinItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private SecFinItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

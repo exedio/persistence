@@ -18,33 +18,30 @@
 
 package com.exedio.cope.sampler;
 
-import com.exedio.cope.ActivationParameters;
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Media;
 
-@WrapperIgnore
+@WrapperType(constructor=NONE, genericConstructor=NONE, comments=false)
 public class SampledModelItem extends Item
 {
+	@WrapperIgnore
 	static final StringField code = new StringField();
+	@WrapperIgnore
 	static final Media mediaA = new Media();
+	@WrapperIgnore
 	static final Media mediaB = new Media();
 
-	SampledModelItem(final SetValue<?>... values)
-	{
-		super(values);
-	}
-
-	SampledModelItem(final ActivationParameters ap)
-	{
-		super(ap);
-	}
-
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
-	static final Type<SampledModelItem> TYPE = TypesBound.newType(SampledModelItem.class);
+	@com.exedio.cope.instrument.Generated
+	public static final com.exedio.cope.Type<SampledModelItem> TYPE = com.exedio.cope.TypesBound.newType(SampledModelItem.class);
+
+	@com.exedio.cope.instrument.Generated
+	protected SampledModelItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

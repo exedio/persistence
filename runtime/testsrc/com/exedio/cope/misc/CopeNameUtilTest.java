@@ -18,15 +18,14 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.CopeName;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class CopeNameUtilTest
@@ -39,25 +38,29 @@ public class CopeNameUtilTest
 		assertEquals("bothAnnoName", AnItem.both .getName());
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static final class AnItem extends Item
 	{
-		static final StringField naked = new StringField();
+		@WrapperIgnore static final StringField naked = new StringField();
 
 		@CopeName("nameAnno")
-		static final StringField name = new StringField();
+		@WrapperIgnore static final StringField name = new StringField();
 
 		@com.exedio.cope.CopeID("idAnno")
-		static final StringField id = new StringField();
+		@WrapperIgnore static final StringField id = new StringField();
 
 		@CopeName("bothAnnoName")
 		@com.exedio.cope.CopeID("bothAnnoID")
-		static final StringField both = new StringField();
+		@WrapperIgnore static final StringField both = new StringField();
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

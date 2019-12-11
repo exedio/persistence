@@ -18,19 +18,19 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.ActivationParameters;
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.TestAnnotation;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 
 @TestAnnotation("PatternTestTypeItemAnn")
-@WrapperIgnore
+@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, comments=false)
 final class PatternTestTypeItem extends Item
 {
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
 
-	PatternTestTypeItem(final ActivationParameters ap)
-	{
-		super(ap);
-	}
+	@com.exedio.cope.instrument.Generated
+	private PatternTestTypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

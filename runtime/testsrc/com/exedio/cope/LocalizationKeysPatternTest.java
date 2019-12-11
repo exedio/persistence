@@ -165,12 +165,14 @@ public class LocalizationKeysPatternTest
 			return sourceType;
 		}
 
-		@WrapperIgnore
+		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
 		static final class SourceItem extends Item
 		{
-			SourceItem(final ActivationParameters ap) { super(ap); }
-
+			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;
+
+			@com.exedio.cope.instrument.Generated
+			private SourceItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 		}
 
 		@Override

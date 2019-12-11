@@ -18,17 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.MysqlExtendedVarchar;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.lang.annotation.Annotation;
 import org.junit.jupiter.api.Test;
@@ -75,15 +74,19 @@ public class UniqueHashedMediaHashAnnotationTest
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
-		static final UniqueHashedMedia shorter = new UniqueHashedMedia(new Media(), "MD5");
-		static final UniqueHashedMedia longer  = new UniqueHashedMedia(new Media(), "SHA");
+		@WrapperIgnore static final UniqueHashedMedia shorter = new UniqueHashedMedia(new Media(), "MD5");
+		@WrapperIgnore static final UniqueHashedMedia longer  = new UniqueHashedMedia(new Media(), "SHA");
 
-		@SuppressWarnings("unused") // OK: TYPE without Model
-		static final Type<AnItem> TYPE = TypesBound.newType(AnItem.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private AnItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

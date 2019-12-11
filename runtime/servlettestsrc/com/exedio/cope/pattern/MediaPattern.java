@@ -19,16 +19,16 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Cope;
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.Computed;
 import java.text.DecimalFormat;
 import java.text.ParseException;
@@ -96,14 +96,13 @@ public final class MediaPattern extends Pattern
 	}
 
 	@Computed
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class SourceItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		SourceItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		@com.exedio.cope.instrument.Generated
+		private SourceItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

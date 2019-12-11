@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.CompositeField.create;
 import static com.exedio.cope.pattern.CompositeType.get;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -31,6 +32,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class CompositeErrorTest
@@ -68,9 +70,10 @@ public class CompositeErrorTest
 			"CompositeField requires a final class: " + NonFinal.class.getName());
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	static class NonFinal extends Composite
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -95,9 +98,10 @@ public class CompositeErrorTest
 		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class NoConstructor extends Composite
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -118,11 +122,14 @@ public class CompositeErrorTest
 			"composite has no templates: " + NoFields.class.getName());
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
 	static final class NoFields extends Composite
 	{
+		@com.exedio.cope.instrument.Generated
+		private NoFields(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private NoFields(final SetValue<?>[] setValues) { super(setValues); }
 	}
 
 
@@ -142,7 +149,7 @@ public class CompositeErrorTest
 			NullField.class.getName() + "#nullField");
 	}
 
-	@WrapperIgnore
+	@WrapperIgnore // instrumentor fails on null field
 	static final class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
@@ -170,13 +177,17 @@ public class CompositeErrorTest
 			FunctionField.class);
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
 	static final class NotFunctionField extends Composite
 	{
-		private static final long serialVersionUID = 1l;
-		private NotFunctionField(final SetValue<?>[] setValues) { super(setValues); }
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature notFunctionField = MapField.create(new StringField(), new StringField());
+
+		@com.exedio.cope.instrument.Generated
+		private NotFunctionField(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 
@@ -215,13 +226,17 @@ public class CompositeErrorTest
 			"final fields not supported: " + FinalField.class.getName() + "#finalField");
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
 	static final class FinalField extends Composite
 	{
-		private static final long serialVersionUID = 1l;
-		private FinalField(final SetValue<?>[] setValues) { super(setValues); }
 		@SuppressWarnings("unused") // OK: test bad API usage
-		static final BooleanField finalField = new BooleanField().toFinal();
+		@WrapperIgnore static final BooleanField finalField = new BooleanField().toFinal();
+
+		@com.exedio.cope.instrument.Generated
+		private FinalField(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 
@@ -243,13 +258,17 @@ public class CompositeErrorTest
 			NonConstantDefaultField.class.getName() + "#defaultNowField");
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
 	static final class NonConstantDefaultField extends Composite
 	{
-		private static final long serialVersionUID = 1l;
-		private NonConstantDefaultField(final SetValue<?>[] setValues) { super(setValues); }
 		@SuppressWarnings("unused") // OK: test bad API usage
-		static final DateField defaultNowField = new DateField().defaultToNow();
+		@WrapperIgnore static final DateField defaultNowField = new DateField().defaultToNow();
+
+		@com.exedio.cope.instrument.Generated
+		private NonConstantDefaultField(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 

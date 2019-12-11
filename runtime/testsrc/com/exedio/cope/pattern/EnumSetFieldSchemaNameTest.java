@@ -18,17 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Sources;
 import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
@@ -61,17 +61,24 @@ public class EnumSetFieldSchemaNameTest
 		two
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
 		@CopeSchemaName("alfa")
-		static final EnumSetField<AnEnum> alpha = EnumSetField.create(AnEnum.class);
-		static final EnumSetField<AnEnum> beta  = EnumSetField.create(AnEnum.class);
+		@WrapperIgnore static final EnumSetField<AnEnum> alpha = EnumSetField.create(AnEnum.class);
+		@WrapperIgnore static final EnumSetField<AnEnum> beta  = EnumSetField.create(AnEnum.class);
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		private AnItem(final ActivationParameters ap){super(ap);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	private static final Model MODEL = new Model(TypesBound.newType(AnItem.class));
+	private static final Model MODEL = new Model(AnItem.TYPE);
 
 	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()

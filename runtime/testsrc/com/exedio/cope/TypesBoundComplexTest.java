@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.TypesBound.forClass;
 import static com.exedio.cope.TypesBound.forClassUnchecked;
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
@@ -30,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
@@ -301,31 +303,29 @@ public class TypesBoundComplexTest
 		assertEqualsUnmodifiable(list(typO), typO.getTypesOfInstances());
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class AnItem extends Item
 	{
+		@WrapperIgnore static final IntegerField intField = new IntegerField();
+		@WrapperIgnore static final BooleanField boolField = new BooleanField();
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		protected AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
-		static final IntegerField intField = new IntegerField();
-		static final BooleanField boolField = new BooleanField();
+		@com.exedio.cope.instrument.Generated
+		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnotherItem extends AnItem
 	{
+		@WrapperIgnore static final DoubleField doubleField = new DoubleField();
+		@WrapperIgnore static final ItemField<AnItem> itemField = ItemField.create(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		private AnotherItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
-		static final DoubleField doubleField = new DoubleField();
-		static final ItemField<AnItem> itemField = ItemField.create(AnItem.class);
+		@com.exedio.cope.instrument.Generated
+		private AnotherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

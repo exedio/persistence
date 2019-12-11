@@ -19,61 +19,72 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class CreateLimitAnnotationTest
 {
 	@Test void testDefault()
 	{
-		assertEquals(Integer.MAX_VALUE, DefaultType.getCreateLimit());
+		assertEquals(Integer.MAX_VALUE, DefaultItem.TYPE.getCreateLimit());
 	}
 
-	static final Type<DefaultItem> DefaultType = newType(DefaultItem.class);
-
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class DefaultItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		DefaultItem(final SetValue<?>[] setValues) { super(setValues); }
-		DefaultItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<DefaultItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected DefaultItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
 	@Test void testOk()
 	{
-		assertEquals(5, OkType.getCreateLimit());
+		assertEquals(5, OkItem.TYPE.getCreateLimit());
 	}
 
-	static final Type<OkItem> OkType = newType(OkItem.class);
-
 	@CopeCreateLimit(5)
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class OkItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		OkItem(final SetValue<?>[] setValues) { super(setValues); }
-		OkItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<OkItem> TYPE = com.exedio.cope.TypesBound.newType(OkItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected OkItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
 	@Test void testMinimum()
 	{
-		assertEquals(0, MinimumType.getCreateLimit());
+		assertEquals(0, MinimumItem.TYPE.getCreateLimit());
 	}
 
-	static final Type<MinimumItem> MinimumType = newType(MinimumItem.class);
-
 	@CopeCreateLimit(0)
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class MinimumItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		MinimumItem(final SetValue<?>[] setValues) { super(setValues); }
-		MinimumItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<MinimumItem> TYPE = com.exedio.cope.TypesBound.newType(MinimumItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected MinimumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -93,33 +104,42 @@ public class CreateLimitAnnotationTest
 	}
 
 	@CopeCreateLimit(-1)
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class LessMinimumItem extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		LessMinimumItem(final SetValue<?>[] setValues) { super(setValues); }
-		LessMinimumItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<LessMinimumItem> TYPE = com.exedio.cope.TypesBound.newType(LessMinimumItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected LessMinimumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
 	@Test void testSubOk()
 	{
-		assertEquals(5, SubOkType.getCreateLimit());
+		assertEquals(5, SubOkItem.TYPE.getCreateLimit());
 	}
 
-	static final Type<SubOkItem> SubOkType = newType(SubOkItem.class);
-
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class SubOkItem extends OkItem
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		SubOkItem(final SetValue<?>[] setValues) { super(setValues); }
-		SubOkItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<SubOkItem> TYPE = com.exedio.cope.TypesBound.newType(SubOkItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected SubOkItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
 	@Test void testSub()
 	{
+		assertNotNull(SubOkItem.TYPE.getID()); // just load type
 		try
 		{
 			newType(SubItem.class);
@@ -135,11 +155,13 @@ public class CreateLimitAnnotationTest
 	}
 
 	@CopeCreateLimit(5)
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class SubItem extends OkItem
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		SubItem(final SetValue<?>[] setValues) { super(setValues); }
-		SubItem(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		protected SubItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

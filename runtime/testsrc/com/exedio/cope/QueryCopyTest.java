@@ -186,7 +186,7 @@ public class QueryCopyTest
 		}
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, constructor=NONE, genericConstructor=NONE) // TODO use import, but this is not accepted by javac
+	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static class AnItem extends Item
 	{
 		@WrapperIgnore
@@ -199,16 +199,9 @@ public class QueryCopyTest
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		/**
-		 * The persistent type information for anItem.
-		 */
-		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
+		@com.exedio.cope.instrument.Generated
 		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
-		/**
-		 * Activation constructor. Used for internal purposes only.
-		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-		 */
 		@com.exedio.cope.instrument.Generated
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}

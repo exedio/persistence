@@ -18,10 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -83,14 +84,20 @@ public class ClusterDisabledTest
 			model.disconnect();
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
-		private AnItem(final ActivationParameters ap) { super(ap); }
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	private static final Model model = new Model(TypesBound.newType(AnItem.class));
+	private static final Model model = new Model(AnItem.TYPE);
 
 	static
 	{

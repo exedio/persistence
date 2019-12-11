@@ -35,7 +35,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
@@ -345,7 +344,6 @@ public class ConnectTokenTest
 		assertSame(null, target.token());
 	}
 
-	@WrapperIgnore
 	private static class Target implements Consumer<ConnectToken>
 	{
 		private final boolean fail;

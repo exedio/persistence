@@ -18,18 +18,16 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectTokenRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
@@ -359,27 +357,42 @@ public class ServletUtilTest
 		}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ModelOk extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<ModelOk> TYPE = TypesBound.newType(ModelOk.class);
-		private ModelOk(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<ModelOk> TYPE = com.exedio.cope.TypesBound.newType(ModelOk.class);
+
+		@com.exedio.cope.instrument.Generated
+		private ModelOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ModelOk2 extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<ModelOk2> TYPE = TypesBound.newType(ModelOk2.class);
-		private ModelOk2(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<ModelOk2> TYPE = com.exedio.cope.TypesBound.newType(ModelOk2.class);
+
+		@com.exedio.cope.instrument.Generated
+		private ModelOk2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class ModelContext extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		static final Type<ModelContext> TYPE = TypesBound.newType(ModelContext.class);
-		private ModelContext(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<ModelContext> TYPE = com.exedio.cope.TypesBound.newType(ModelContext.class);
+
+		@com.exedio.cope.instrument.Generated
+		private ModelContext(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

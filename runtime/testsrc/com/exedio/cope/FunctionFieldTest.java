@@ -18,11 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class FunctionFieldTest
@@ -90,10 +91,11 @@ public class FunctionFieldTest
 		assertEquals(fieldA.getClass(), fieldD.getClass());
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	static class SomeItem extends Item
 	{
-		private static final long serialVersionUID = 1L;
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty

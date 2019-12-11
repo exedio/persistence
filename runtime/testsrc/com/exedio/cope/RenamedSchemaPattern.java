@@ -18,7 +18,9 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import static com.exedio.cope.instrument.Visibility.NONE;
+
+import com.exedio.cope.instrument.WrapperType;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 
@@ -127,14 +129,13 @@ class RenamedSchemaPattern extends Pattern
 	}
 
 	@TestAnnotation("sourceType-TestAnnotation")
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class SourceType extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
-		private SourceType(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		@com.exedio.cope.instrument.Generated
+		private SourceType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

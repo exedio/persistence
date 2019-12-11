@@ -18,16 +18,20 @@
 
 package com.exedio.cope.misc;
 
-import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.Item;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import static com.exedio.cope.instrument.Visibility.NONE;
 
-@WrapperIgnore
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(constructor=NONE, genericConstructor=NONE, comments=false)
 final class ConnectTokenItem extends Item
 {
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
-	static final Type<ConnectTokenItem> TYPE = TypesBound.newType(ConnectTokenItem.class);
-	private ConnectTokenItem(final ActivationParameters ap) { super(ap); }
+
+	@com.exedio.cope.instrument.Generated
+	static final com.exedio.cope.Type<ConnectTokenItem> TYPE = com.exedio.cope.TypesBound.newType(ConnectTokenItem.class);
+
+	@com.exedio.cope.instrument.Generated
+	private ConnectTokenItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

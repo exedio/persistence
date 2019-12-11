@@ -18,11 +18,12 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.ActivationParameters;
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class JavaViewInPatternTest
@@ -37,7 +38,7 @@ public class JavaViewInPatternTest
 		private static final long serialVersionUID = 1l;
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
 		@SuppressWarnings("unused") // accessed by reflection
@@ -49,8 +50,11 @@ public class JavaViewInPatternTest
 			return "zack";
 		}
 
-		private AnItem(final ActivationParameters ap) { super(ap); }
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@Test void testIt()

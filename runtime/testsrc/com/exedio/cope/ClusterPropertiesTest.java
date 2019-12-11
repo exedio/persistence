@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -26,7 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
@@ -243,14 +244,20 @@ public class ClusterPropertiesTest
 			model.disconnect();
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AType extends Item
 	{
-		private AType(final ActivationParameters ap) { super(ap); }
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<AType> TYPE = com.exedio.cope.TypesBound.newType(AType.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AType(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	private static final Model model = new Model(TypesBound.newType(AType.class));
+	private static final Model model = new Model(AType.TYPE);
 
 	static
 	{

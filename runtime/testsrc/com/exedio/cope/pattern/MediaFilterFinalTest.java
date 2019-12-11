@@ -18,11 +18,12 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class MediaFilterFinalTest
@@ -35,16 +36,19 @@ public class MediaFilterFinalTest
 		assertEquals(true , AnItem.filterFinal   .isFinal());
 	}
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class AnItem extends Item
 	{
-		static final Media sourceNonFinal = new Media();
-		static final Media sourceFinal    = new Media().toFinal();
+		@WrapperIgnore static final Media sourceNonFinal = new Media();
+		@WrapperIgnore static final Media sourceFinal    = new Media().toFinal();
 
-		static final MediaThumbnail filterNonFinal = new MediaThumbnail(sourceNonFinal, 10, 20);
-		static final MediaThumbnail filterFinal    = new MediaThumbnail(sourceFinal   , 10, 20);
+		@WrapperIgnore static final MediaThumbnail filterNonFinal = new MediaThumbnail(sourceNonFinal, 10, 20);
+		@WrapperIgnore static final MediaThumbnail filterFinal    = new MediaThumbnail(sourceFinal   , 10, 20);
 
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		@SuppressWarnings("unused") private AnItem(final ActivationParameters ap){super(ap);}
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }

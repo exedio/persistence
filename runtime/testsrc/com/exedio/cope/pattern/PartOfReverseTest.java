@@ -18,18 +18,17 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.PartOf.getDeclaredPartOfs;
 import static com.exedio.cope.pattern.PartOf.getPartOfs;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
 
-import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
-import com.exedio.cope.Type;
-import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
 public class PartOfReverseTest
@@ -60,51 +59,81 @@ public class PartOfReverseTest
 		assertEqualsUnmodifiable(asList(), getPartOfs(Order.TYPE));
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class SuperContainer extends Item
 	{
-		static final Type<SuperContainer> TYPE = TypesBound.newType(SuperContainer.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		SuperContainer(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected SuperContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Container extends SuperContainer
 	{
-		static final Type<Container> TYPE = TypesBound.newType(Container.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		Container(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class SubContainer extends Container
 	{
-		static final Type<SubContainer> TYPE = TypesBound.newType(SubContainer.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		SubContainer(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected SubContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Order extends Item
 	{
-		static final Type<Order> TYPE = TypesBound.newType(Order.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		Order(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<Order> TYPE = com.exedio.cope.TypesBound.newType(Order.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Order(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@WrapperIgnore
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static class Part extends Item
 	{
+		@WrapperIgnore
 		static final ItemField<Container> container = ItemField.create(Container.class);
+		@WrapperIgnore
 		static final PartOf<Container> parts = PartOf.create(container);
 
+		@WrapperIgnore
 		static final ItemField<Container> containerOrdered = ItemField.create(Container.class);
+		@WrapperIgnore
 		static final ItemField<Order> order = ItemField.create(Order.class);
+		@WrapperIgnore
 		static final PartOf<Container> partsOrdered = PartOf.create(containerOrdered, order);
 
-		static final Type<Part> TYPE = TypesBound.newType(Part.class);
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-		Part(final ActivationParameters ap) { super(ap); }
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected Part(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@SuppressWarnings("unused") // OK: Model that is never connected

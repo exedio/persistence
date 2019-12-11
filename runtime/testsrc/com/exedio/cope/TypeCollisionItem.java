@@ -18,12 +18,19 @@
 
 package com.exedio.cope;
 
-import com.exedio.cope.instrument.WrapperIgnore;
+import static com.exedio.cope.instrument.Visibility.NONE;
 
-@WrapperIgnore
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(constructor=NONE, genericConstructor=NONE, comments=false)
 final class TypeCollisionItem extends Item
 {
+	@com.exedio.cope.instrument.Generated
 	private static final long serialVersionUID = 1l;
-	static final Type<TypeCollisionItem> TYPE = TypesBound.newType(TypeCollisionItem.class);
-	private TypeCollisionItem(final ActivationParameters ap) { super(ap); }
+
+	@com.exedio.cope.instrument.Generated
+	static final com.exedio.cope.Type<TypeCollisionItem> TYPE = com.exedio.cope.TypesBound.newType(TypeCollisionItem.class);
+
+	@com.exedio.cope.instrument.Generated
+	private TypeCollisionItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

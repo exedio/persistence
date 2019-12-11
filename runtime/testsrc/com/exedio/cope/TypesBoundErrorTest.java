@@ -97,8 +97,10 @@ public class TypesBoundErrorTest
 			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 		}
 	}
-	@WrapperIgnore static class NoActivationConstructor extends Item
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	static class NoActivationConstructor extends Item
 	{
+		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -125,14 +127,16 @@ public class TypesBoundErrorTest
 			assertEquals("class is already bound to a type: " + WrongActivationConstructor.class.getName(), e.getMessage());
 		}
 	}
-	@WrapperIgnore static class WrongActivationConstructor extends Item
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	static class WrongActivationConstructor extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
 		WrongActivationConstructor(final ActivationParameters ap)
 		{
 			super(new ActivationParameters(ap.type, ap.pk-1));
 		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 
@@ -148,12 +152,14 @@ public class TypesBoundErrorTest
 			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
 		}
 	}
-	@WrapperIgnore static class NullFeature extends Item
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	static class NullFeature extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature nullFeature = null;
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 
@@ -169,13 +175,15 @@ public class TypesBoundErrorTest
 			assertEquals(DuplicateFeature.class.getName() + "#duplicate is same as #origin", e.getMessage());
 		}
 	}
-	@WrapperIgnore static class DuplicateFeature extends Item
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
+	static class DuplicateFeature extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
 		static final Feature origin = new IntegerField();
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature duplicate = origin;
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
 
@@ -212,16 +220,17 @@ public class TypesBoundErrorTest
 			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
 		}
 	}
-	@WrapperIgnore static class NonResolvingItemField extends Item
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static class NonResolvingItemField extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
+		@WrapperIgnore
 		static final ItemField<NullFeature> itemField = ItemField.create(NullFeature.class);
 
-		NonResolvingItemField(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		protected NonResolvingItemField(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -241,10 +250,9 @@ public class TypesBoundErrorTest
 					e.getMessage());
 		}
 	}
-	@WrapperIgnore static class BeforeNewNotStatic extends Item
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static class BeforeNewNotStatic extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
 		@SuppressWarnings({"static-method", "MethodMayBeStatic"})
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
@@ -252,12 +260,14 @@ public class TypesBoundErrorTest
 			throw new AssertionError();
 		}
 
-		static final Type<?> TYPE = TypesBound.newType(BeforeNewNotStatic.class);
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 
-		BeforeNewNotStatic(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected BeforeNewNotStatic(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 
@@ -277,22 +287,23 @@ public class TypesBoundErrorTest
 					"but returns java.lang.String", e.getMessage());
 		}
 	}
-	@WrapperIgnore static class BeforeNewWrongReturn extends Item
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static class BeforeNewWrongReturn extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			throw new AssertionError();
 		}
 
-		static final Type<?> TYPE = TypesBound.newType(BeforeNewWrongReturn.class);
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 
-		BeforeNewWrongReturn(final ActivationParameters ap)
-		{
-			super(ap);
-		}
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected BeforeNewWrongReturn(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 

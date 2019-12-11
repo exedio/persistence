@@ -18,7 +18,8 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.ActivationParameters;
+import static com.exedio.cope.instrument.Visibility.NONE;
+
 import com.exedio.cope.Features;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
@@ -27,7 +28,7 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
-import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.opentest4j.AssertionFailedError;
 
@@ -105,16 +106,9 @@ final class TypeFutureInPatternsFeature extends Pattern
 	}
 
 
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	public static final class TypeItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		TypeItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
 		public TypeFutureInPatternsFeature getPattern()
 		{
 			return (TypeFutureInPatternsFeature)getCopeType().getPattern();
@@ -129,6 +123,12 @@ final class TypeFutureInPatternsFeature extends Pattern
 		{
 			return getPattern().self().get(this);
 		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private TypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	private static final long serialVersionUID = 1l;

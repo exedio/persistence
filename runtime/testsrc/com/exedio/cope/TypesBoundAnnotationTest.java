@@ -25,11 +25,13 @@ import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotationNull;
 import static com.exedio.cope.TypesBound.forClass;
 import static com.exedio.cope.TypesBound.forClassUnchecked;
 import static com.exedio.cope.TypesBound.newType;
+import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.SetField;
 import org.junit.jupiter.api.Test;
 
@@ -91,29 +93,23 @@ public class TypesBoundAnnotationTest
 
 	@CopeName("AnItemAnn")
 	@TestAnnotation("AnItemAnnVal")
-	@WrapperIgnore
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class AnItem extends Item
 	{
-		private static final long serialVersionUID = 1l;
-
-		private AnItem(final SetValue<?>[] setValues)
-		{
-			super(setValues);
-		}
-
-		private AnItem(final ActivationParameters ap)
-		{
-			super(ap);
-		}
-
 		@CopeName("intFieldAnn")
 		@TestAnnotation("intFieldAnnVal")
-		static final IntegerField intField = new IntegerField();
+		@WrapperIgnore static final IntegerField intField = new IntegerField();
 
 		@TestAnnotation2
-		static final BooleanField boolField = new BooleanField();
+		@WrapperIgnore static final BooleanField boolField = new BooleanField();
 
 		@TestAnnotation("setFieldAnnVal")
-		static final SetField<String> setField = SetField.create(new StringField());
+		@WrapperIgnore static final SetField<String> setField = SetField.create(new StringField());
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
