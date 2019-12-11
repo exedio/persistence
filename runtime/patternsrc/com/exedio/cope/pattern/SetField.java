@@ -135,7 +135,7 @@ public final class SetField<E> extends Pattern implements Copyable
 		features.put("element", element);
 		features.put("uniqueConstraint", uniqueElement);
 		copyWith.onMount(features, parent, element);
-		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
+		final Type<PatternItem> relationType = newSourceType(PatternItem.class, PatternItem::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueOrder, uniqueElement, relationType);
 	}
 

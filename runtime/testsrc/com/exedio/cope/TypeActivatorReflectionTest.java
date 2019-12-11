@@ -30,7 +30,7 @@ import org.junit.jupiter.api.Test;
 
 /**
  * Tests item/block activation using reflection.
- * This will become deprecated functionality soon.
+ * This is deprecated functionality.
  */
 public class TypeActivatorReflectionTest extends TestWithEnvironment
 {
@@ -117,7 +117,7 @@ public class TypeActivatorReflectionTest extends TestWithEnvironment
 			super.onMount();
 			final Features features = new Features();
 			features.put("field", sourceTypeField);
-			@SuppressWarnings("UnnecessaryLocalVariable") // OK: prepares testing deprecated API
+			@SuppressWarnings("deprecation") // OK: testing deprecated API
 			final Type<SourceType> sourceType = newSourceType(SourceType.class, features);
 			this.sourceType = sourceType;
 		}

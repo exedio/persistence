@@ -70,7 +70,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 		final Features features = new Features();
 		features.put("field", field);
 		features.put("self", self);
-		final Type<TypeItem> runType = newSourceType(TypeItem.class, features, "Type");
+		final Type<TypeItem> runType = newSourceType(TypeItem.class, TypeItem::new, features, "Type");
 		this.mountIfMounted = new Mount(self, runType);
 	}
 

@@ -103,7 +103,7 @@ public final class PasswordRecovery extends Pattern
 		features.put("secret", secret);
 		features.put("expires", expires);
 		features.put("tokens", tokens);
-		tokenType = newSourceType(Token.class, features, "Token");
+		tokenType = newSourceType(Token.class, Token::new, features, "Token");
 
 		FeatureMeter.onMount(this, issueCounter, issueReuseCounter, redeemTimer, redeemFailCounter, setPasswordCounter);
 	}

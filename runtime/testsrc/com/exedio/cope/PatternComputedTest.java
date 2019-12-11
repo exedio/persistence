@@ -123,12 +123,12 @@ public class PatternComputedTest
 			final Features features = new Features();
 			features.put("virgnField", virgnTypeVirgnField);
 			features.put("compuField", virgnTypeCompuField, ComputedElement.get());
-			this.virgnType = newSourceType(VirgnType.class, features, "virgn");
+			this.virgnType = newSourceType(VirgnType.class, VirgnType::new, features, "virgn");
 
 			features.clear();
 			features.put("virgnField", compuTypeVirgnField);
 			features.put("compuField", compuTypeCompuField, ComputedElement.get());
-			this.compuType = newSourceType(CompuType.class, features, "compu");
+			this.compuType = newSourceType(CompuType.class, CompuType::new, features, "compu");
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)

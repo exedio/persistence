@@ -103,7 +103,7 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		features.put("uniqueConstraint", uniqueConstraint);
 		features.put("value", value);
 		CopyFields.onMountAll(features, parent, new FunctionField<?>[]{key, value}, new CopyFields[]{keyCopyWiths, valueCopyWiths});
-		final Type<PatternItem> relationType = newSourceType(PatternItem.class, features);
+		final Type<PatternItem> relationType = newSourceType(PatternItem.class, PatternItem::new, features);
 		this.mountIfMounted = new Mount(parent, uniqueConstraint, relationType);
 	}
 

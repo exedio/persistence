@@ -100,7 +100,7 @@ public final class PasswordLimiter extends Pattern
 		features.put("parent", parent);
 		features.put("date", date);
 		features.put("refusals", refusals);
-		final Type<Refusal> refusalType = newSourceType(Refusal.class, features, "Refusal");
+		final Type<Refusal> refusalType = newSourceType(Refusal.class, Refusal::new, features, "Refusal");
 		this.mountIfMounted = new Mount(parent, refusals, refusalType);
 
 		FeatureMeter.onMount(this, denyCounter, denyVerboselyCounter);

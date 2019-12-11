@@ -93,8 +93,8 @@ public class CopeExternalPatternTest
 		{
 			super.onMount();
 			final Features features = new Features();
-			this.absentType = newSourceType(AbsentType.class, features, "absent");
-			this.presentType = newSourceType(PresentType.class, features, "present");
+			this.absentType = newSourceType(AbsentType.class, AbsentType::new, features, "absent");
+			this.presentType = newSourceType(PresentType.class, PresentType::new, features, "present");
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)

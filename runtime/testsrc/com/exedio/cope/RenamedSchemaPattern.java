@@ -122,11 +122,11 @@ class RenamedSchemaPattern extends Pattern
 
 		final Features features = new Features();
 		features.put("field", srcTField);
-		this.srcT = newSourceType(SourceType.class, features);
+		this.srcT = newSourceType(SourceType.class, SourceType::new, features);
 
 		features.clear();
 		features.put("field", srcTtailField);
-		this.srcTtail = newSourceType(SourceType.class, features, "tail");
+		this.srcTtail = newSourceType(SourceType.class, SourceType::new, features, "tail");
 	}
 
 	Type<?> srcT()

@@ -156,7 +156,7 @@ public class LocalizationKeysPatternTest
 			super.onMount();
 			final Features features = new Features();
 			features.put("sourceTypeField", sourceTypeField);
-			sourceType = newSourceType(SourceItem.class, features, "SourceItemZack");
+			sourceType = newSourceType(SourceItem.class, SourceItem::new, features, "SourceItemZack");
 		}
 
 		Type<SourceItem> sourceType()

@@ -184,7 +184,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		features.put("parentAndKey", pasteParentAndKey);
 		features.put("value", pasteValue, new MediaPathFeatureOfTypeAnnotationProxy(this));
 		features.put("pastes", PartOf.create(pasteParent, pasteKey));
-		final Type<Paste> pasteType = newSourceType(Paste.class, features);
+		final Type<Paste> pasteType = newSourceType(Paste.class, Paste::new, features);
 		this.mountIfMounted = new Mount(pasteParent, pasteType);
 	}
 

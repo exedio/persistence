@@ -128,7 +128,7 @@ public class SerializationCheckTest
 		protected void onMount()
 		{
 			super.onMount();
-			newSourceType(PatternItem.class, new Features());
+			newSourceType(PatternItem.class, PatternItem::new, new Features());
 		}
 		private static final long serialVersionUID = 1l;
 	}
