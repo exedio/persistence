@@ -168,6 +168,11 @@ public final class AntTask extends Task
 		params.useConstantForEmptySetValuesArray = value;
 	}
 
+	public void setActivator(final boolean value)
+	{
+		params.activator = value;
+	}
+
 	public void setSerialAnnotation(final boolean value)
 	{
 		params.serialAnnotation = value;

@@ -71,6 +71,7 @@ final class Params
 	boolean directSetValueMap = false;
 	boolean finalMethodInFinalClass = true;
 	boolean useConstantForEmptySetValuesArray = true;
+	boolean activator = true;
 	boolean serialAnnotation = false;
 	boolean verbose = false;
 	File buildDirectory = null;
