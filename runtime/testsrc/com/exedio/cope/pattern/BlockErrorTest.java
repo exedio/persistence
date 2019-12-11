@@ -205,6 +205,7 @@ public class BlockErrorTest
 	}
 
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void newTypeNoConstructor()
 	{
 		final Exception e = assertFails(

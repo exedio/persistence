@@ -72,7 +72,6 @@ final class Generator
 	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
 	private final boolean useConstantForEmptySetValuesArray;
-	private final boolean activator;
 	private final Class<? extends Annotation> serialAnnotation;
 
 	/**
@@ -106,7 +105,6 @@ final class Generator
 		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.useConstantForEmptySetValuesArray = params.useConstantForEmptySetValuesArray;
-		this.activator = params.activator;
 		this.serialAnnotation = params.serialAnnotation ? SerialAccess.get() : null;
 		this.introCommentOneTime = params.introCommentOneTime;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -826,10 +824,10 @@ final class Generator
 		write(kind.typeFactory);
 		final boolean isAbstract = Modifier.isAbstract(type.javaClass.modifier);
 		write('.');
-		write((activator&&isAbstract) ? Kind.ABSTRACT_TYPE_FACTORY_METHOD : Kind.TYPE_FACTORY_METHOD);
+		write(isAbstract ? Kind.ABSTRACT_TYPE_FACTORY_METHOD : Kind.TYPE_FACTORY_METHOD);
 		write('(');
 		writeClass(type);
-		if(activator&&!isAbstract)
+		if(!isAbstract)
 		{
 			write(',');
 			write(type.getName());

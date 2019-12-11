@@ -179,7 +179,7 @@ public final class AntTask extends Task
 
 	public void setActivator(final boolean value)
 	{
-		params.activator = value;
+		throwNoLongerSupported("activator", true);
 	}
 
 	public void setSerialAnnotation(final boolean value)

@@ -62,8 +62,9 @@ public final class TypesBound
 	}
 
 	/**
-	 * To be deprecated, use {@link #newType(Class, Function)} or {@link #newTypeAbstract(Class)} instead.
+	 * @deprecated Use {@link #newType(Class, Function)} or {@link #newTypeAbstract(Class)} instead.
 	 */
+	@Deprecated
 	public static <T extends Item> Type<T> newType(final Class<T> javaClass)
 	{
 		return newType(javaClass, Type.reflectionActivator(javaClass));
