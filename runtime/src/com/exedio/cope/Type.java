@@ -289,7 +289,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		}
 		checkForDuplicateUniqueConstraint(id, uniqueConstraints.all);
 
-		this.activationConstructor = getActivationConstructor(javaClass);
+		this.activationConstructor = isAbstract ? null : getActivationConstructor(javaClass);
 
 		if(supertype!=null)
 		{
