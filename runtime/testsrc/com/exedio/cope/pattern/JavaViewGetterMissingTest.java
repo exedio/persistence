@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -46,7 +47,7 @@ public class JavaViewGetterMissingTest
 	{
 		try
 		{
-			TypesBound.newType(AnItem.class);
+			TypesBound.newType(AnItem.class, failingActivator());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

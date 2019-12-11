@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -81,7 +82,7 @@ public class MoneyFieldUtilTest
 	{
 		try
 		{
-			TypesBound.newType(FieldItem.class);
+			TypesBound.newType(FieldItem.class, failingActivator());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

@@ -58,5 +58,5 @@ final class SamplerClusterNode extends Item
 	@SuppressWarnings("unused")
 	private SamplerClusterNode(final ActivationParameters ap){ super(ap); }
 	private static final long serialVersionUID = 1l;
-	static final Type<SamplerClusterNode> TYPE = TypesBound.newType(SamplerClusterNode.class);
+	static final Type<SamplerClusterNode> TYPE = TypesBound.newType(SamplerClusterNode.class, SamplerClusterNode::new);
 }

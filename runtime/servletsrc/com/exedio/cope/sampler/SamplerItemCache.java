@@ -64,6 +64,6 @@ final class SamplerItemCache extends Item
 	private static final IntegerField stampsPurged         = field(0);
 
 	private static final long serialVersionUID = 1l;
-	static final Type<SamplerItemCache> TYPE = TypesBound.newType(SamplerItemCache.class);
+	static final Type<SamplerItemCache> TYPE = TypesBound.newType(SamplerItemCache.class, SamplerItemCache::new);
 	@SuppressWarnings("unused") private SamplerItemCache(final ActivationParameters ap){ super(ap); }
 }

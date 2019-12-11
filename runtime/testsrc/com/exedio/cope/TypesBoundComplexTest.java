@@ -58,7 +58,7 @@ public class TypesBoundComplexTest
 		}
 
 
-		final Type<AnItem> type = newType(AnItem.class);
+		final Type<AnItem> type = newType(AnItem.class, AnItem::new);
 
 		assertSame(type, forClass(AnItem.class));
 		assertSame(type, forClassUnchecked(AnItem.class));
@@ -113,7 +113,7 @@ public class TypesBoundComplexTest
 		assertTrue(type.isAssignableFrom(type));
 
 
-		final Type<AnotherItem> typO = newType(AnotherItem.class);
+		final Type<AnotherItem> typO = newType(AnotherItem.class, AnotherItem::new);
 		assertSame(typO, forClass(AnotherItem.class));
 		assertSame(typO, forClassUnchecked(AnotherItem.class));
 		assertEquals("AnotherItem", typO.getID());

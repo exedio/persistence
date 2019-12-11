@@ -32,7 +32,7 @@ public class LibBlock extends Block
 
 	private static final long serialVersionUID = 1l;
 
-	public static final BlockType<LibBlock> TYPE = BlockType.newType(LibBlock.class);
+	public static final BlockType<LibBlock> TYPE = BlockType.newType(LibBlock.class, LibBlock::new);
 
 	protected LibBlock(final BlockActivationParameters ap){super(ap);}
 }

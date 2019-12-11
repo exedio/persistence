@@ -29,7 +29,7 @@ public class TypeSetModelTest
 {
 	@Test void testIt()
 	{
-		final Type<Item1> type1 = TypesBound.newType(Item1.class);
+		final Type<Item1> type1 = TypesBound.newType(Item1.class, Item1::new);
 		final TypeSet typeSet1 = new TypeSet(type1);
 		new TypeSet(type1);
 

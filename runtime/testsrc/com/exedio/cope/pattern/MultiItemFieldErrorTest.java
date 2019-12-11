@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -48,7 +49,7 @@ public class MultiItemFieldErrorTest
 	{
 		try
 		{
-			TypesBound.newType(TestCreateNoComponentClass.class, null);
+			TypesBound.newType(TestCreateNoComponentClass.class, failingActivator());
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -73,7 +74,7 @@ public class MultiItemFieldErrorTest
 	{
 		try
 		{
-			TypesBound.newType(TestCreateOnlyOneComponent.class, null);
+			TypesBound.newType(TestCreateOnlyOneComponent.class, failingActivator());
 			fail();
 		}
 		catch(final IllegalArgumentException e)

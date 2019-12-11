@@ -31,8 +31,8 @@ public class TypeCompareTest
 	@SuppressWarnings("EqualsWithItself")
 	@Test void testType()
 	{
-		final Type<AnItem> type1 = newType(AnItem.class);
-		final Type<AnotherItem> type2 = newType(AnotherItem.class);
+		final Type<AnItem> type1 = newType(AnItem.class, AnItem::new);
+		final Type<AnotherItem> type2 = newType(AnotherItem.class, AnotherItem::new);
 		try
 		{
 			type1.compareTo(type2);
@@ -64,7 +64,7 @@ public class TypeCompareTest
 		assertEquals(-1, type1.compareTo(type2));
 		assertEquals( 1, type2.compareTo(type1));
 
-		final Type<AnotherModelItem> typeOtherModel = newType(AnotherModelItem.class);
+		final Type<AnotherModelItem> typeOtherModel = newType(AnotherModelItem.class, AnotherModelItem::new);
 		try
 		{
 			type1.compareTo(typeOtherModel);

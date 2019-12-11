@@ -86,7 +86,7 @@ final class RevstatBody extends Item
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<RevstatBody> TYPE = TypesBound.newType(RevstatBody.class);
+	static final Type<RevstatBody> TYPE = TypesBound.newType(RevstatBody.class, RevstatBody::new);
 
 	private RevstatBody(final ActivationParameters ap) { super(ap); }
 }

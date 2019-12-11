@@ -22,6 +22,7 @@ import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation;
 import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation2;
 import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotation2Null;
 import static com.exedio.cope.AbstractRuntimeTest.assertTestAnnotationNull;
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.TypesBound.forClass;
 import static com.exedio.cope.TypesBound.forClassUnchecked;
 import static com.exedio.cope.TypesBound.newType;
@@ -59,7 +60,7 @@ public class TypesBoundAnnotationTest
 		}
 
 
-		final Type<AnItem> type = newType(AnItem.class);
+		final Type<AnItem> type = newType(AnItem.class, failingActivator());
 
 		assertSame(type, forClass(AnItem.class));
 		assertSame(type, forClassUnchecked(AnItem.class));

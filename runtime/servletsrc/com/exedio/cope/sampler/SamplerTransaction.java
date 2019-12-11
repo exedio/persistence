@@ -119,5 +119,5 @@ final class SamplerTransaction extends Item
 
 	private static final long serialVersionUID = 1l;
 
-	static final Type<SamplerTransaction> TYPE = TypesBound.newType(SamplerTransaction.class);
+	static final Type<SamplerTransaction> TYPE = TypesBound.newType(SamplerTransaction.class, SamplerTransaction::new);
 }

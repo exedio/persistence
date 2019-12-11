@@ -67,6 +67,6 @@ final class SamplerMedia extends Item
 
 
 	private static final long serialVersionUID = 1l;
-	static final Type<SamplerMedia> TYPE = TypesBound.newType(SamplerMedia.class);
+	static final Type<SamplerMedia> TYPE = TypesBound.newType(SamplerMedia.class, SamplerMedia::new);
 	@SuppressWarnings("unused") private SamplerMedia(final ActivationParameters ap){ super(ap); }
 }

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -38,7 +39,7 @@ public class PartOfWrongTypeOrderTest
 	void test()
 	{
 		assertFails(
-				() -> newType(Part.class),
+				() -> newType(Part.class, failingActivator()),
 				IllegalArgumentException.class,
 				"order Container.order of PartOf Part.partOf " +
 				"must be declared on the same type or super type");

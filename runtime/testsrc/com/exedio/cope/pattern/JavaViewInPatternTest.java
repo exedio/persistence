@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.Item;
@@ -59,6 +60,6 @@ public class JavaViewInPatternTest
 
 	@Test void testIt()
 	{
-		TypesBound.newType(AnItem.class);
+		TypesBound.newType(AnItem.class, failingActivator());
 	}
 }

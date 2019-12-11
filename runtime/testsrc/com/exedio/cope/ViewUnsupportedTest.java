@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -33,7 +34,7 @@ public class ViewUnsupportedTest
 		assertEquals(Integer.class, MyItem.view.getValueClass());
 		assertEquals("(sum(" + MyItem.field + ")+5)", MyItem.view.toString());
 		assertFails(
-				() -> newType(MyItem.class),
+				() -> newType(MyItem.class, failingActivator()),
 				IllegalArgumentException.class,
 				"view contains unsupported function: sum(MyItem.field)");
 	}

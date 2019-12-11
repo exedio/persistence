@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.RuntimeAssert.failingActivator;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 
@@ -33,7 +34,7 @@ public class ScheduleMustImplementInterfaceTest
 	@Test void test()
 	{
 		assertFails(
-				() -> TypesBound.newType(MyItem.class),
+				() -> TypesBound.newType(MyItem.class, failingActivator()),
 				ClassCastException.class,
 				"type of MyItem.wrong must implement " + Scheduleable.class + ", " +
 				"but was " + MyItem.class.getName());

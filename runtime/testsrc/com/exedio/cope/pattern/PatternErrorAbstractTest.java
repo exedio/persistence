@@ -33,7 +33,7 @@ public class PatternErrorAbstractTest
 	@Test void testAbstract()
 	{
 		assertFails(
-				() -> TypesBound.newType(ContainerAbstract.class),
+				() -> TypesBound.newType(ContainerAbstract.class, ContainerAbstract::new),
 				IllegalArgumentException.class,
 				TypeAbstract.class + " must not be abstract");
 	}
@@ -67,7 +67,7 @@ public class PatternErrorAbstractTest
 	@Test void testConcrete()
 	{
 		assertFails(
-				() -> TypesBound.newType(ContainerConcrete.class),
+				() -> TypesBound.newType(ContainerConcrete.class, ContainerConcrete::new),
 				IllegalArgumentException.class,
 				TypeConcrete.class + " must be abstract");
 	}

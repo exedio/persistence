@@ -138,6 +138,6 @@ final class SamplerPurge extends Item
 	}
 
 	private static final long serialVersionUID = 1l;
-	static final Type<SamplerPurge> TYPE = TypesBound.newType(SamplerPurge.class);
+	static final Type<SamplerPurge> TYPE = TypesBound.newType(SamplerPurge.class, SamplerPurge::new);
 	private SamplerPurge(final ActivationParameters ap){ super(ap); }
 }

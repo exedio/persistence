@@ -58,7 +58,7 @@ public class TypesBoundTest
 		}
 
 
-		final Type<AnItem> type = newType(AnItem.class);
+		final Type<AnItem> type = newType(AnItem.class, AnItem::new);
 
 		assertSame(type, forClass(AnItem.class));
 		assertSame(type, forClassUnchecked(AnItem.class));
