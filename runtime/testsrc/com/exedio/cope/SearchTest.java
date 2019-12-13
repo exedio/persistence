@@ -25,6 +25,7 @@ import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
 import static com.exedio.cope.testmodel.AttributeItem.someString;
 import static com.exedio.cope.tojunit.Assert.assertContainsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -53,24 +54,14 @@ public class SearchTest extends TestmodelTest
 	@Test void testIllegalSearch()
 	{
 		final Query<EmptyItem> illegalQuery = EmptyItem.TYPE.newQuery(someInteger.equal(0));
-		try
-		{
-			illegalQuery.search();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
-		}
-		try
-		{
-			illegalQuery.total();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery, e.getMessage());
-		}
+		assertFails(
+				illegalQuery::search,
+				IllegalArgumentException.class,
+				"AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery);
+		assertFails(
+				illegalQuery::total,
+				IllegalArgumentException.class,
+				"AttributeItem.someInteger does not belong to a type of the query: " + illegalQuery);
 	}
 
 	@Test void testSearch()
