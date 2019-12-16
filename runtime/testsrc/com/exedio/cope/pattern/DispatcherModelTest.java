@@ -139,7 +139,7 @@ public class DispatcherModelTest
 		assertSame(TYPE, toTargetRunParent().getValueType());
 
 		assertSame(toTargetRunParent(), toTarget.getRunRuns().getContainer());
-		assertSame(toTarget.getRunDate(), toTarget.getRunRuns().getOrder());
+		assertEquals(asList(PartOf.orderBy(toTarget.getRunDate())), toTarget.getRunRuns().getOrders());
 	}
 
 	@Test void testComputed()

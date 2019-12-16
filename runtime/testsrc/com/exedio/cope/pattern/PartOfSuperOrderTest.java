@@ -19,6 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.pattern.PartOf.orderBy;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -41,7 +43,7 @@ public class PartOfSuperOrderTest extends TestWithEnvironment
 	void test()
 	{
 		assertSame(Sub.container, Sub.parts.getContainer());
-		assertSame(Super.order, Sub.parts.getOrder());
+		assertEqualsUnmodifiable(asList(orderBy(Super.order)), Sub.parts.getOrders());
 		assertEquals(asList(Sub.parts), PartOf.getDeclaredPartOfs(Container.TYPE));
 		assertEquals(asList(Sub.parts), PartOf.getPartOfs        (Container.TYPE));
 		assertEquals(asList(), PartOf.getDeclaredPartOfs(Super.TYPE));

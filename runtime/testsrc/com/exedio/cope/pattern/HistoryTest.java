@@ -29,6 +29,7 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Double.valueOf;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -175,9 +176,9 @@ public class HistoryTest extends TestWithEnvironment
 		assertSame(audit.getEventType(), audit.getFeatureEvent().getValueType());
 
 		assertSame(auditEventParent(), audit.getEventEvents().getContainer());
-		assertSame(audit.getEventDate(), audit.getEventEvents().getOrder());
+		assertEquals(asList(PartOf.orderBy(audit.getEventDate())), audit.getEventEvents().getOrders());
 		assertSame(audit.getFeatureEvent(), audit.getFeatureFeatures().getContainer());
-		assertSame(null, audit.getFeatureFeatures().getOrder());
+		assertEquals(asList(), audit.getFeatureFeatures().getOrders());
 
 		assertTrue(  eventType.isAnnotationPresent(Computed.class));
 		assertTrue(featureType.isAnnotationPresent(Computed.class));

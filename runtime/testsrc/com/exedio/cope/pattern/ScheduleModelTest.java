@@ -218,7 +218,7 @@ public class ScheduleModelTest
 	@Test void testMoreGetters()
 	{
 		assertSame(report.getRunParent(), report.getRunRuns().getContainer());
-		assertSame(report.getRunFrom(),   report.getRunRuns().getOrder());
+		assertEquals(asList(PartOf.orderBy(report.getRunFrom())), report.getRunRuns().getOrders());
 		assertSame(report.getRunParent(), ScheduleItem.reportRunParent());
 	}
 

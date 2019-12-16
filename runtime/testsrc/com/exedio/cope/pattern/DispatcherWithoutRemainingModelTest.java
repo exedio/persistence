@@ -26,6 +26,7 @@ import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.toTarget;
 import static com.exedio.cope.pattern.DispatcherWithoutRemainingItem.toTargetRunParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -128,7 +129,7 @@ public class DispatcherWithoutRemainingModelTest
 		assertSame(TYPE, toTargetRunParent().getValueType());
 
 		assertSame(toTargetRunParent(), toTarget.getRunRuns().getContainer());
-		assertSame(toTarget.getRunDate(), toTarget.getRunRuns().getOrder());
+		assertEquals(asList(PartOf.orderBy(toTarget.getRunDate())), toTarget.getRunRuns().getOrders());
 	}
 
 	@Test void testComputed()

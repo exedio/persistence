@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.PartOf.orderBy;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.TYPE;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.container;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.order1;
@@ -26,6 +27,7 @@ import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.parts1;
 import static com.exedio.cope.pattern.PartOfContainerReuseTest.APart.parts2;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.IntegerField;
@@ -47,8 +49,8 @@ public class PartOfContainerReuseTest
 
 		assertSame(container, parts1.getContainer());
 		assertSame(container, parts2.getContainer());
-		assertSame(order1, parts1.getOrder());
-		assertSame(order2, parts2.getOrder());
+		assertEqualsUnmodifiable(asList(orderBy(order1)), parts1.getOrders());
+		assertEqualsUnmodifiable(asList(orderBy(order2)), parts2.getOrders());
 
 		assertSame(parts1, container.getPattern()); // TODO should be parts2 as well
 		assertSame(null, order1.getPattern());
