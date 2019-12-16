@@ -20,15 +20,17 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PartOfModelTest
 {
 	static final Model MODEL = new Model(PartOfItem.TYPE, PartOfContainerItem.TYPE);
@@ -96,40 +98,25 @@ public class PartOfModelTest
 
 	@Test void testContainerNull()
 	{
-		try
-		{
-			PartOf.create(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("container", e.getMessage());
-		}
+		assertFails(
+				() -> PartOf.create(null),
+				NullPointerException.class,
+				"container");
 	}
 
 	@Test void testContainerNullWithOrder()
 	{
-		try
-		{
-			PartOf.create(null, new IntegerField());
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("container", e.getMessage());
-		}
+		assertFails(
+				() -> PartOf.create(null, new IntegerField()),
+				NullPointerException.class,
+				"container");
 	}
 
 	@Test void testOrderNull()
 	{
-		try
-		{
-			PartOf.create(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("order", e.getMessage());
-		}
+		assertFails(
+				() -> PartOf.create(null, null),
+				NullPointerException.class,
+				"order");
 	}
 }
