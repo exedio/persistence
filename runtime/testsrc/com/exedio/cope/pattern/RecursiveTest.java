@@ -78,6 +78,19 @@ public class RecursiveTest extends TestWithEnvironment
 					testPattern2.fetch
 				), testPattern2.getSourceFeatures());
 
+		assertEqualsUnmodifiable(list(
+					testPattern.media.getBody(),
+					testPattern.media.getContentType(),
+					testPattern.media.getLastModified(),
+					testPattern.media.getUnison()
+				), testPattern.media.getSourceFeatures());
+		assertEqualsUnmodifiable(list(
+					testPattern2.media.getBody(),
+					testPattern2.media.getContentType(),
+					testPattern2.media.getLastModified(),
+					testPattern2.media.getUnison()
+			), testPattern2.media.getSourceFeatures());
+
 		assertSame(testPattern,  testPattern .media.getPattern());
 		assertSame(testPattern,  testPattern .fetch.getPattern());
 		assertSame(testPattern2, testPattern2.media.getPattern());
