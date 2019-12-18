@@ -43,28 +43,28 @@ timestamps
 				sh 'rm -f conf/environment/*.properties'
 
 				writeEnv(
-						'pg95',
+						'pg96',
 						''
 				)
 				writeEnv(
-						'pg95-mysql',
+						'pg96-mysql',
 						'disableSupport.nativeDate=true\n'
 				)
 				writeEnv(
-						'pg95-nprep',
+						'pg96-nprep',
 						'disableSupport.preparedStatements=true\n'
 				)
 				writeEnv(
-						'pg95-nstmp',
+						'pg96-nstmp',
 						'cache.stamps=false\n'
 				)
 				writeEnv(
-						'pg95-public',
+						'pg96-public',
 						'dialect.search_path=public\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(
-						'pg95-sq',
+						'pg96-sq',
 						'schema.primaryKeyGenerator=sequence\n' +
 						'dialect.pgcryptoSchema=<disabled>\n'
 				)
@@ -72,7 +72,7 @@ timestamps
 				sh 'ant/bin/ant -noinput' +
 						' -f macros/resetSchema.xml' +
 						' postgresql' +
-						' -Dfile=conf/environment/pg95.properties'
+						' -Dfile=conf/environment/pg96.properties'
 
 				sh "ant/bin/ant -noinput clean testWithEnv" +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
