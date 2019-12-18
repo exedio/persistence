@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.JavaVersion.isAtLeastJava9;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
@@ -44,8 +45,11 @@ public class LocalizationKeysTest
 
 	@Test void testDefaultPackageCharacterization() throws ClassNotFoundException
 	{
-		// on jdk9 getPackage() returns a package with an empty name
-		assertEquals(null, Class.forName("LocalizationKeysClassInDefaultPackage").getPackage());
+		final Package pack = Class.forName("LocalizationKeysClassInDefaultPackage").getPackage();
+		if(isAtLeastJava9)
+			assertEquals("", pack.getName()); // on jdk9 getPackage() returns a package with an empty name
+		else
+			assertEquals(null, pack); // on jdk1.8 getPackage() returns null
 	}
 
 	@Test void testDefaultPackage() throws ClassNotFoundException

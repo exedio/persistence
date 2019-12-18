@@ -4,8 +4,11 @@
 			xmlns:if="ant:if"
 			xmlns:unless="ant:unless">
 
+	<condition property="jdk9"><available classname="java.lang.Runtime$Version" /></condition>
 	<echo taskname="which ant" message="${ant.version}" />
 	<echo taskname="which java" message="${java.vm.name} ${java.version}" />
+	<echo taskname="which java" message="JDK >=9"       if:set="jdk9" />
+	<echo taskname="which java" message="JDK ==1.8" unless:set="jdk9" />
 	<!--suppress AntMissingPropertiesFileInspection -->
 	<property file="local.properties" />
 	<property file="project.properties" />
@@ -718,13 +721,16 @@
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
 		<compile srcdir="instrument/src">
 			<classpath>
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
+				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
+			<compilerarg if:set="jdk9" value="--add-exports" />
+			<compilerarg if:set="jdk9" value="jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED" />
 		</compile>
 	</target>
 
@@ -809,7 +815,7 @@
 				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</classpath>
 			<ignore>
 				<fileset file="instrument/testsrc/com/exedio/cope/instrument/testmodel/DontInstrument.java" />
@@ -886,7 +892,7 @@
 	<target name="instrument.test.compile" depends="junit4, instrument.test.libcompile, instrument.testfeature.compile, instrument.test.srcinstrument">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
@@ -899,6 +905,7 @@
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/opentest4j.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
+				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -909,6 +916,7 @@
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
+				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -918,7 +926,7 @@
 				depends="junit4, runtime.compile, instrument.compile, instrument.test.compile, instrument.testparams.compile">
 		<ljunit scansrc="instrument/testsrc" testproperty="instrument.test">
 			<classpath>
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 				<pathelement location="build/classes/dsmf/src" />
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
@@ -1021,8 +1029,9 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
+				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</myClasspath>
 		</api>
 	</target>
@@ -1065,7 +1074,7 @@
 						webtest" />
 
 
-	<target name="findbugs" depends="junit4, findbugs.taskdef, compile">
+	<target name="findbugs" depends="junit4, findbugs.taskdef, compile" unless="jdk9">
 		<findbugs
 					home="${basedir}/build/findbugs-home"
 					jvmargs="-Xmx512M"
@@ -1103,7 +1112,7 @@
 				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
 				<pathelement location="${basedir}/lib/log4j-bundle.jar" />
 				<pathelement location="${ant.core.lib}" />
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar"/>
+				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</auxclasspath>
 		</findbugs>
 	</target>

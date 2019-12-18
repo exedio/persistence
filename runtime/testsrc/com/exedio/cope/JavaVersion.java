@@ -32,17 +32,20 @@ public final class JavaVersion
 		assertFails(
 				executable,
 				ClassCastException.class,
-				from.getName() + " cannot be cast to " + to.getName());
+				isAtLeastJava9
+				? from           + " cannot be cast to " + to + " (" +
+				  from.getName() + " and "               + to.getName() + " are in unnamed module of loader 'app')"
+				: from.getName() + " cannot be cast to " + to.getName());
 	}
 
 	public static void assertThrowsNegativeArraySizeException(
 			final Executable executable,
-			@SuppressWarnings("unused") final int index)
+			final int index)
 	{
 		assertFails(
 				executable,
 				NegativeArraySizeException.class,
-				null);
+				isAtLeastJava9 ? "" + index : null);
 	}
 
 	public static void assertThrowsArrayIndexOutOfBoundsException(
@@ -52,7 +55,27 @@ public final class JavaVersion
 		assertFails(
 				executable,
 				ArrayIndexOutOfBoundsException.class,
-				"" + index);
+				isAtLeastJava9
+				? "Index " + index + " out of bounds for length " + index
+				: ""       + index);
+	}
+
+
+	public static final boolean isAtLeastJava9 = isAtLeastJava9();
+
+	private static boolean isAtLeastJava9()
+	{
+		try
+		{
+			Class.forName(Runtime.class.getName() + "$Version");
+			System.out.println(JavaVersion.class.getName() + " >=9");
+			return true;
+		}
+		catch(final ClassNotFoundException e)
+		{
+			System.out.println(JavaVersion.class.getName() + " ==1.8");
+			return false;
+		}
 	}
 
 

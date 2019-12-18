@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 
-<project name="api" default="fail" basedir=".">
+<project name="api" default="fail" basedir="." xmlns:if="ant:if">
 
 	<macrodef name="api">
 		<attribute name="title" />
@@ -36,6 +36,8 @@
 				<arg value="-Xdoclint:all,-missing" />
 				<arg value="-Xmaxerrs"  /><arg value="10000" />
 				<arg value="-Xmaxwarns" /><arg value="10000" />
+				<arg if:set="jdk9" value="--add-exports" />
+				<arg if:set="jdk9" value="jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED" />
 			</javadoc>
 
 		</sequential>
