@@ -18,13 +18,13 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.JavaVersion.assertThrowsNegativeArraySizeException;
 import static com.exedio.cope.pattern.Money.array;
 import static com.exedio.cope.pattern.Money.nullToZero;
 import static com.exedio.cope.pattern.Money.storeOf;
 import static com.exedio.cope.pattern.Money.zero;
 import static com.exedio.cope.pattern.MoneyTest.Cy.eur;
 import static com.exedio.cope.pattern.MoneyTest.Cy.usd;
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -112,8 +112,8 @@ public class MoneyTest
 
 	@Test void testArrayNegative()
 	{
-		assertFails(
+		assertThrowsNegativeArraySizeException(
 				() -> array(-1),
-				NegativeArraySizeException.class, null);
+				-1);
 	}
 }

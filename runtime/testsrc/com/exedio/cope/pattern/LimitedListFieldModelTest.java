@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.JavaVersion.assertThrowsArrayIndexOutOfBoundsException;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.LimitedListFieldItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldItem.dates;
@@ -28,10 +29,10 @@ import static com.exedio.cope.pattern.LimitedListFieldItem.nums;
 import static com.exedio.cope.pattern.LimitedListFieldItem.strings;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -200,70 +201,29 @@ public class LimitedListFieldModelTest
 		final Date ts2 = new Date(3874656234632l);
 
 		// TODO return Condition.FALSE instead
-		try
-		{
-			nums.equal(asList(i1, i2, i3, i4));
-			fail();
-		}
-		catch(final ArrayIndexOutOfBoundsException e)
-		{
-			assertEquals("3", e.getMessage());
-		}
-		try
-		{
-			dates.equal(asList(ts1, ts2, ts1));
-			fail();
-		}
-		catch(final ArrayIndexOutOfBoundsException e)
-		{
-			assertEquals("2", e.getMessage());
-		}
-		try
-		{
-			strings.equal(asList("one", "two", "three", "four", "five"));
-			fail();
-		}
-		catch(final ArrayIndexOutOfBoundsException e)
-		{
-			assertEquals("4", e.getMessage());
-		}
+		assertThrowsArrayIndexOutOfBoundsException(
+				() -> nums.equal(asList(i1, i2, i3, i4)),
+				3);
+		assertThrowsArrayIndexOutOfBoundsException(
+				() -> dates.equal(asList(ts1, ts2, ts1)),
+				2);
+		assertThrowsArrayIndexOutOfBoundsException(
+				() -> strings.equal(asList("one", "two", "three", "four", "five")),
+				4);
 		// TODO return Condition.TRUE instead
-		try
-		{
-			nums.notEqual(asList(i1, i2, i3, i4));
-			fail();
-		}
-		catch(final ArrayIndexOutOfBoundsException e)
-		{
-			assertEquals("3", e.getMessage());
-		}
-		try
-		{
-			dates.notEqual(asList(ts1, ts2, ts1));
-			fail();
-		}
-		catch(final ArrayIndexOutOfBoundsException e)
-		{
-			assertEquals("2", e.getMessage());
-		}
-		try
-		{
-			strings.notEqual(asList("one", "two", "three", "four", "five"));
-			fail();
-		}
-		catch(final ArrayIndexOutOfBoundsException e)
-		{
-			assertEquals("4", e.getMessage());
-		}
-		try
-		{
-			LimitedListField.create(new StringField(), 1);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("maximumSize must be greater 1, but was 1", e.getMessage());
-		}
+		assertThrowsArrayIndexOutOfBoundsException(
+				() -> nums.notEqual(asList(i1, i2, i3, i4)),
+				3);
+		assertThrowsArrayIndexOutOfBoundsException(
+				() -> dates.notEqual(asList(ts1, ts2, ts1)),
+				2);
+		assertThrowsArrayIndexOutOfBoundsException(
+				() -> strings.notEqual(asList("one", "two", "three", "four", "five")),
+				4);
+		assertFails(
+				() -> LimitedListField.create(new StringField(), 1),
+				IllegalArgumentException.class,
+				"maximumSize must be greater 1, but was 1");
 	}
 
 	private static DateField assertDate(final Iterator<?> i, final int num)
