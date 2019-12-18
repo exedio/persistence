@@ -99,7 +99,7 @@ before_script:
     connection.password=\n
     dialect.search_path=public\n
     x-build.dialect=postgresql\n
-    x-build.driver=postgresql.jar\n"
+    x-build.driver=postgresql-bundle.jar\n"
     | tee conf/environment/pg.properties
   - >
     echo -e -n
@@ -109,7 +109,7 @@ before_script:
     dialect.search_path=public\n
     disableSupport.preparedStatements=true\n
     x-build.dialect=postgresql\n
-    x-build.driver=postgresql.jar\n"
+    x-build.driver=postgresql-bundle.jar\n"
     | tee conf/environment/pg-nprep.properties
   - >
     echo -e -n
@@ -120,7 +120,7 @@ before_script:
     schema.primaryKeyGenerator=sequence\n
     dialect.pgcryptoSchema=<disabled>\n
     x-build.dialect=postgresql\n
-    x-build.driver=postgresql.jar\n"
+    x-build.driver=postgresql-bundle.jar\n"
     | tee conf/environment/pg-sq.properties
 
 script:
