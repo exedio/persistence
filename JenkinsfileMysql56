@@ -95,7 +95,7 @@ timestamps
 
 				sh "ant/bin/ant -noinput clean testWithEnv" +
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
-						' -Dinstrument.verify=true' +
+						' -Dskip.instrument=true' + // already verified in Jenkinsfile
 						' -Ddisable-ansi-colors=true'
 			}
 		}
