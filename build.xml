@@ -786,6 +786,7 @@
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
+				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
@@ -815,6 +816,7 @@
 				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
+				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</classpath>
 			<ignore>
@@ -841,6 +843,9 @@
 				javaxAnnotationGenerated="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
+			<classpath>
+				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
+			</classpath>
 			<suppressWarnings>
 				<constructor>constructor-first</constructor>
 				<constructor>constructor-second</constructor>
