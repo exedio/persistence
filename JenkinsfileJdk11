@@ -43,7 +43,6 @@ timestamps
 						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
 						' -Dbuild.status=' + (isRelease?'release':'integration') +
 						' -Dinstrument.verify=true' +
-						' -Dskip.instrument=true' + // TODO remove once instrumentor is fixed for jdk 11
 						' -Ddisable-ansi-colors=true' +
 						' -Dtomcat.port.shutdown=' + port(0) +
 						' -Dtomcat.port.http=' + port(1) +
