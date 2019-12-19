@@ -58,10 +58,8 @@ timestamps
 						qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]],
 						tools: [
 							java(),
-							spotBugs(pattern: 'build/findbugs.xml', useRankAsPriority: true),
 						],
 				)
-				archiveArtifacts 'build/success/*'
 				plot(
 						csvFileName: 'plots.csv',
 						exclZero: false,
