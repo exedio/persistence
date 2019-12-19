@@ -29,7 +29,7 @@ import com.exedio.cope.instrument.testfeature.WrapFeature;
 import java.lang.reflect.Method;
 import org.junit.jupiter.api.Test;
 
-public class MainTest
+public class InstrumentorWriteProcessorTest
 {
 	@Test void findMethods() throws HumanReadableException, NoSuchMethodException
 	{
@@ -57,7 +57,7 @@ public class MainTest
 	{
 		try
 		{
-			new Main().findMethods(MainTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class));
+			InstrumentorWriteProcessor.findMethods(InstrumentorWriteProcessorTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Deprecated.class, Wrap.class));
 			fail();
 		}
 		catch (final HumanReadableException e)
@@ -70,7 +70,7 @@ public class MainTest
 	{
 		assertEquals(
 			singleton(expectedMethod),
-			new Main().findMethods(MainTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Wrap.class))
+			InstrumentorWriteProcessor.findMethods(InstrumentorWriteProcessorTest.class.getClassLoader(), asList(new Params.Method(methodLine)), "<testtag>", asList(Wrap.class))
 		);
 	}
 }

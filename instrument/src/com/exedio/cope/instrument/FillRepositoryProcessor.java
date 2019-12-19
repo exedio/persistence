@@ -48,6 +48,8 @@ final class FillRepositoryProcessor extends JavacProcessor
 	@Override
 	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
 	{
+		if (roundEnv.processingOver())
+			return false;
 		final ClassLoader interimClassLoader = interimProcessor.getInterimClassLoader();
 		if (interimClassLoader==null)
 		{
@@ -78,6 +80,7 @@ final class FillRepositoryProcessor extends JavacProcessor
 				visitor.scan(tp, null);
 			}
 		}
+		javaRepository.endBuildStage();
 		return false;
 	}
 

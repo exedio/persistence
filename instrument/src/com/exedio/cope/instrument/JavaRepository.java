@@ -40,7 +40,7 @@ final class JavaRepository
 
 	void endBuildStage()
 	{
-		assert stage==Stage.BUILD;
+		if (stage!=Stage.BUILD) throw new RuntimeException();
 		stage = Stage.BETWEEN;
 
 		// TODO put this into a new class CopeType

@@ -72,7 +72,7 @@ final class ByteReplacements
 	byte[] applyReplacements(final InputStream inputStream) throws IOException
 	{
 		final Iterator<Replacement> replacementIter=replacements.iterator();
-		try (final ByteArrayOutputStream os = new ByteArrayOutputStream(Main.INITIAL_BUFFER_SIZE))
+		try (final ByteArrayOutputStream os = new ByteArrayOutputStream(InstrumentorWriteProcessor.INITIAL_BUFFER_SIZE))
 		{
 			final byte[] buffer = new byte[bufferSize];
 			int indexInSource = 0;
