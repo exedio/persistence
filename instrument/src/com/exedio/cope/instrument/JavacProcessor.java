@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
+import javax.lang.model.SourceVersion;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
@@ -44,5 +45,11 @@ abstract class JavacProcessor extends AbstractProcessor
 		if (ignoreFiles==null)
 			throw new IllegalStateException();
 		return ignoreFiles.contains(requireNonNull(e));
+	}
+
+	@Override
+	public SourceVersion getSupportedSourceVersion()
+	{
+		return SourceVersion.latestSupported();
 	}
 }
