@@ -28,7 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.Day;
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -37,6 +40,7 @@ import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
 import java.util.Date;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class TimeZoneTest extends TestWithEnvironment
@@ -73,10 +77,26 @@ public class TimeZoneTest extends TestWithEnvironment
 		itemA = new AnItem(dateA, dayA);
 		itemB = new AnItem(dateB, dayB);
 		MODEL.commit();
-		assertTimeZone(SYSTEM);
+		assertTimeZone("+00:00");
 		assertItems();
 
 		MODEL.clearCache();
+		assertItems();
+
+		reconnect("<default>");
+		assertTimeZone(SYSTEM);
+		assertItems();
+
+		reconnect("+05:00");
+		assertTimeZone("+05:00");
+		assertItems();
+
+		reconnect("-08:30");
+		assertTimeZone("-08:30");
+		assertItems();
+
+		reconnect("+00:00");
+		assertTimeZone("+00:00");
 		assertItems();
 	}
 
@@ -105,6 +125,22 @@ public class TimeZoneTest extends TestWithEnvironment
 	}
 
 	private static final String SYSTEM = "SYSTEM";
+
+	private void reconnect(
+			final String mysql)
+	{
+		model.disconnect();
+		model.connect(ConnectProperties.create(Sources.cascade(
+				TestSources.single("dialect.connection.timeZone", mysql),
+				initialConnectProperties)));
+	}
+
+	private Properties.Source initialConnectProperties;
+
+	@BeforeEach void before()
+	{
+		initialConnectProperties = model.getConnectProperties().getSourceObject();
+	}
 
 	@WrapperType(indent=2, comments=false)
 	private static final class AnItem extends Item

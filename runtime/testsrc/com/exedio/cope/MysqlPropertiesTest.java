@@ -18,9 +18,14 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.TestSources.describe;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
@@ -47,6 +52,22 @@ public class MysqlPropertiesTest
 		}
 
 		p.ensureValidity();
+	}
+
+	@Test void testTimeZoneContainsQuote()
+	{
+		final String propKey = "connection.timeZone";
+		final Source source =
+				describe("DESC", cascade(
+						single(propKey, "123'567"),
+						loadProperties()
+				));
+
+		assertFails(
+				() -> new MysqlProperties(source),
+				IllegalPropertiesException.class,
+				"property " + propKey + " in DESC must not contain \"'\", "+
+				"but did at position 3 and was \"123'567\"");
 	}
 
 

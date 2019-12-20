@@ -81,6 +81,7 @@ final class MysqlDialect extends Dialect
 {
 	private static final Logger logger = LoggerFactory.getLogger(MysqlDialect.class);
 
+	private final String timeZoneStatement;
 	private final boolean connectionCompress;
 	private final boolean utf8mb4;
 
@@ -112,6 +113,7 @@ final class MysqlDialect extends Dialect
 		final EnvironmentInfo env = probe.environmentInfo;
 		env.requireDatabaseVersionAtLeast("MySQL", 5, 5);
 
+		this.timeZoneStatement = properties.timeZoneStatement();
 		this.connectionCompress = properties.connectionCompress;
 		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
@@ -199,15 +201,17 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
+	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void completeConnection(final Connection connection) throws SQLException
 	{
-		if(utf8mb4)
+		try(java.sql.Statement st = connection.createStatement())
 		{
+			if(timeZoneStatement!=null)
+				st.execute(timeZoneStatement);
+
 			// for some reason, jdbc parameters cannot be set to utf8mb4
-			try(java.sql.Statement st = connection.createStatement())
-			{
+			if(utf8mb4)
 				st.execute("SET NAMES utf8mb4 COLLATE utf8mb4_bin");
-			}
 		}
 	}
 

@@ -22,6 +22,24 @@ import com.exedio.cope.util.Properties;
 
 final class MysqlProperties extends Properties
 {
+	private final String timeZone = valueX("connection.timeZone", "+00:00", '\'');
+
+	String timeZoneStatement()
+	{
+		if("<default>".equals(timeZone))
+			return null;
+
+		// from mysql doc:
+		// https://dev.mysql.com/doc/refman/5.7/en/time-zone-support.html#time-zone-variables
+		//
+		// If set to SYSTEM, every MySQL function call that requires a time zone
+		// calculation makes a system library call to determine the current
+		// system time zone. This call may be protected by a global mutex,
+		// resulting in contention.
+		return "SET TIME_ZONE='" + timeZone + '\'';
+	}
+
+
 	final boolean connectionCompress = value("connection.compress", false);
 
 	// schema
@@ -38,6 +56,20 @@ final class MysqlProperties extends Properties
 	 * Avoids long write locks on sequence tables.
 	 */
 	final int purgeSequenceLimit = value("purgeSequenceLimit", 10000, 1);
+
+
+	private String valueX(final String key, final String defaultValue, final char forbidden)
+	{
+		final String result = value(key, defaultValue);
+
+		final int position = result.indexOf(forbidden);
+		if(position>=0)
+			throw newException(key,
+					"must not contain \"" + forbidden + "\", " +
+					"but did at position " + position + " and was \"" + result + '"');
+
+		return result;
+	}
 
 	MysqlProperties(final Source source)
 	{
