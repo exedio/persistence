@@ -34,12 +34,12 @@ import javax.lang.model.element.TypeElement;
 
 @SupportedSourceVersion(SourceVersion.RELEASE_8)
 @SupportedAnnotationTypes("*")
-final class InstrumentorProcessor extends JavacProcessor
+final class FillRepositoryProcessor extends JavacProcessor
 {
 	private final JavaRepository javaRepository;
 	private final InterimProcessor interimProcessor;
 
-	InstrumentorProcessor(final JavaRepository javaRepository, final InterimProcessor interimProcessor)
+	FillRepositoryProcessor(final JavaRepository javaRepository, final InterimProcessor interimProcessor)
 	{
 		this.javaRepository = javaRepository;
 		this.interimProcessor = interimProcessor;

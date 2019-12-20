@@ -183,8 +183,8 @@ final class Main
 	private static ClassLoader runJavac(final Params params, final JavaRepository repository) throws IOException, HumanReadableException
 	{
 		final InterimProcessor interimProcessor = new InterimProcessor(params);
-		final InstrumentorProcessor instrumentorProcessor = new InstrumentorProcessor(repository, interimProcessor);
-		new JavacRunner(interimProcessor, instrumentorProcessor).run(params);
+		final FillRepositoryProcessor fillRepositoryProcessor = new FillRepositoryProcessor(repository, interimProcessor);
+		new JavacRunner(interimProcessor, fillRepositoryProcessor).run(params);
 		return interimProcessor.getInterimClassLoader();
 	}
 
