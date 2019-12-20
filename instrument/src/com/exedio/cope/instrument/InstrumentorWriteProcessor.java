@@ -1,6 +1,5 @@
 package com.exedio.cope.instrument;
 
-import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 
@@ -65,6 +64,7 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 
 			final Set<Method> generateDeprecateds = findMethods(interimClassLoader, params.getGenerateDeprecateds(), "<generateDeprecated>", asList(Deprecated.class, Wrap.class));
 			final Set<Method> disabledWraps = findMethods(interimClassLoader, params.getDisabledWraps(), "<disableWrap>", singletonList(Wrap.class));
+			boolean foundNotYetInstrumented = false;
 			for(final JavaFile javaFile : repository.getFiles())
 			{
 				final StringBuilder buffer = new StringBuilder(INITIAL_BUFFER_SIZE);
@@ -74,37 +74,39 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 				if(! javaFile.inputEqual(buffer, params.charset))
 				{
 					if(params.verify)
-						throw new HumanReadableException(
-								"Not yet instrumented " + javaFile.getSourceFileName() + lineSeparator() +
-								"Instrumentor runs in verify mode, which is typically enabled while Continuous Integration." + lineSeparator() +
-								"Probably you did commit a change causing another change in instrumented code," + lineSeparator() +
-								"but you did not run the instrumentor.");
-					logInstrumented(javaFile);
-					javaFile.overwrite(buffer, params.charset);
+					{
+						foundNotYetInstrumented = true;
+						processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "not yet instrumented", javaFile.getRootClass().sourceLocation);
+					}
+					else
+					{
+						logInstrumented(javaFile);
+						javaFile.overwrite(buffer, params.charset);
+					}
 				}
 				else
 				{
 					logSkipped(javaFile);
 				}
 			}
+			if (foundNotYetInstrumented)
+			{
+				System.out.println(
+						"Instrumentor runs in verify mode (which is typically enabled while Continuous Integration), but found non-instrumented files. " +
+						"Probably you committed a change causing an other change in instrumented code, but you did not run the instrumentor."
+				);
+				return false;
+			}
 
-			int invalidWraps = 0;
 			for(final JavaFile javaFile : repository.getFiles())
 			{
 				for(final JavaClass clazz : javaFile.classes)
 				{
 					for(final JavaField field : clazz.getFields())
 					{
-						if(field.hasInvalidWrapperUsages())
-						{
-							invalidWraps++;
-						}
+						field.reportInvalidWrapperUsages(processingEnv.getMessager());
 					}
 				}
-			}
-			if(invalidWraps > 0)
-			{
-				throw new HumanReadableException("fix invalid wraps at " + invalidWraps + " field(s)");
 			}
 
 			if(params.getTimestampFile().exists())

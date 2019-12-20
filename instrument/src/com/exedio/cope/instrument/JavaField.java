@@ -32,10 +32,13 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.annotation.Nullable;
+import javax.annotation.processing.Messager;
+import javax.lang.model.element.Element;
 import javax.lang.model.type.DeclaredType;
 import javax.lang.model.type.MirroredTypesException;
 import javax.lang.model.type.TypeMirror;
 import javax.lang.model.type.WildcardType;
+import javax.tools.Diagnostic;
 
 /**
  * Represents an attribute of a class.
@@ -71,7 +74,7 @@ final class JavaField
 		final TypeMirror typeMirror,
 		final String typeFullyQualified,
 		final String name,
-		final String sourceLocation,
+		final Element sourceLocation,
 		final String initializer,
 		final WrapperInitial wrapperInitial,
 		final WrapperIgnore wrapperIgnore,
@@ -157,18 +160,14 @@ final class JavaField
 		return shortType==null ? typeName : shortType;
 	}
 
-	boolean hasInvalidWrapperUsages()
+	void reportInvalidWrapperUsages(final Messager messager)
 	{
 		final List<Wrapper> unused=new ArrayList<>(wrappers);
 		unused.removeAll(copeWrapsThatHaveBeenRead);
-		if (unused.isEmpty())
-		{
-			return false;
-		}
-		else
+		if (!unused.isEmpty())
 		{
 			final StringBuilder details=new StringBuilder();
-			details.append('\t').append(name).append(" has unused ").append(Wrapper.class.getSimpleName()).append(" annotations:");
+			details.append("unused ").append(Wrapper.class.getSimpleName()).append(" annotation").append(unused.size()>1?"s":"");
 			for (final Wrapper copeWrap: unused)
 			{
 				details.append(" ").append(copeWrap.wrap());
@@ -188,22 +187,19 @@ final class JavaField
 					details.append(" (\"").append(Wrapper.ALL_WRAPS).append("\" is only supported as full value)");
 				}
 			}
-			details.append(System.lineSeparator());
 			if (unusedValidWrapKeys.isEmpty())
 			{
-				details.append("\tThere are no unused valid wrap values.");
+				details.append(" - there are no unused valid wrap values.");
 			}
 			else
 			{
-				details.append("\tUnused valid wrap values are:");
+				details.append(" - unused valid wrap values are:");
 				for (final String validWrapKey: unusedValidWrapKeys)
 				{
 					details.append(" ").append(validWrapKey);
 				}
 			}
-			details.append(System.lineSeparator());
-			reportSourceProblem("invalid wrap", details.toString());
-			return true;
+			messager.printMessage(Diagnostic.Kind.ERROR, details.toString(), sourceLocation);
 		}
 	}
 

@@ -20,6 +20,7 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
+import javax.lang.model.element.Element;
 
 /**
  * Represents a java feature.
@@ -50,14 +51,14 @@ abstract class JavaFeature
 
 	final String name;
 
-	private final String sourceLocation;
+	final Element sourceLocation;
 
 	JavaFeature(
 							final JavaFile file,
 							final JavaClass parent,
 							final int modifier,
 							final String name,
-							final String sourceLocation)
+							final Element sourceLocation)
 	{
 		this.file=file;
 		this.parent=parent;
@@ -78,13 +79,6 @@ abstract class JavaFeature
 			"modifier(s) "+Modifier.toString(over)+
 			" not allowed for class feature "+name+
 			" of type "+getClass().getName()+'.');
-	}
-
-	void reportSourceProblem(final String message, final String details)
-	{
-		System.out.println(sourceLocation+": error: "+message);
-		if (details!=null)
-			System.out.println(details);
 	}
 
 	/**

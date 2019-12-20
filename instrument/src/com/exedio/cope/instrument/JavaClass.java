@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
+import javax.lang.model.element.Element;
 
 /**
  * Represents a class.
@@ -48,7 +49,7 @@ final class JavaClass extends JavaFeature
 			final JavaFile file, final JavaClass parent,
 			final int modifiers, final String simpleName,
 			final int typeParameters,
-			final String sourceLocation,
+			final Element sourceLocation,
 			final Kind kind,
 			final String fullyQualifiedSuperclass,
 			final WrapperType typeOption,

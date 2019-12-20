@@ -73,13 +73,6 @@ final class TreeApiContext
 		return sourcePositions.getEndPosition(compilationUnit, mt);
 	}
 
-	String getSourcePosition(final Tree t)
-	{
-		final long bytePos=getStartPosition(t);
-		final long lineNumber=compilationUnit.getLineMap().getLineNumber(bytePos);
-		return getFileName()+":"+lineNumber;
-	}
-
 	DocCommentTree getDocCommentTree(final TreePath currentPath)
 	{
 		return docTrees.getDocCommentTree(currentPath);

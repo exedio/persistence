@@ -133,6 +133,21 @@ final class JavaFile
 		return Collections.unmodifiableList(classes);
 	}
 
+	JavaClass getRootClass()
+	{
+		final List<JavaClass> result = new ArrayList<>(classes.size());
+		for(final JavaClass javaClass : classes)
+		{
+			if (javaClass.parent==null)
+				result.add(javaClass);
+		}
+		if (result.isEmpty())
+			throw new RuntimeException("found no root classes in "+this);
+		if (result.size()!=1)
+			throw new RuntimeException("found multiple root classes in "+this);
+		return result.get(0);
+	}
+
 	/**
 	 * Gets the value of the package statement encountered
 	 * in this java file.
