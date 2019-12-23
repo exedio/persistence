@@ -138,7 +138,7 @@ public class InMemoryCompilerTest
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("there already is a java file for HelloWorld.java", e.getMessage());
+			assertEquals("there already is a java file for HelloWorld.java; cope instrumentor does not support two top-level classes in one source file", e.getMessage());
 		}
 		assertEquals(1, invoke(compiler.compile(JavacRunner.getJavaCompiler(), ""), "HelloWorld", "version"));
 	}

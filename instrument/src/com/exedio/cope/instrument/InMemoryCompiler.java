@@ -53,7 +53,7 @@ final class InMemoryCompiler
 	{
 		final JavaFile previous = javaFiles.putIfAbsent(path, new JavaFile(path, content));
 		if (previous!=null)
-			throw new IllegalArgumentException("there already is a java file for "+path);
+			throw new IllegalArgumentException("there already is a java file for "+path+"; cope instrumentor does not support two top-level classes in one source file");
 	}
 
 	@SuppressWarnings("ClassLoaderInstantiation")
