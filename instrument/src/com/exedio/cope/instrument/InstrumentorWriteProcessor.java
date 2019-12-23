@@ -13,7 +13,6 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
-import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
 
 @SupportedAnnotationTypes("*")
@@ -38,10 +37,8 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 	}
 
 	@Override
-	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
+	public void processInternal(final RoundEnvironment roundEnv)
 	{
-		if (roundEnv.processingOver())
-			return false;
 		try
 		{
 			final ClassLoader interimClassLoader = interimProcessor.getInterimClassLoader();
@@ -95,7 +92,7 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 						"Instrumentor runs in verify mode (which is typically enabled while Continuous Integration), but found non-instrumented files. " +
 						"Probably you committed a change causing an other change in instrumented code, but you did not run the instrumentor."
 				);
-				return false;
+				return;
 			}
 
 			for(final JavaFile javaFile : repository.getFiles())
@@ -127,7 +124,6 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 		{
 			processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, e.getMessage());
 		}
-		return false;
 	}
 
 	static Set<Method> findMethods(final ClassLoader classLoader, final List<Params.Method> methodConfigurations, final String tagForErrors, final List<Class<? extends Annotation>> requiredAnnotations) throws HumanReadableException

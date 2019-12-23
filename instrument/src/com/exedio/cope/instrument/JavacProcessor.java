@@ -23,13 +23,26 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
+import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
+import javax.lang.model.element.TypeElement;
 import javax.tools.JavaFileObject;
 import javax.tools.StandardJavaFileManager;
 
 abstract class JavacProcessor extends AbstractProcessor
 {
 	private Set<JavaFileObject> ignoreFiles;
+
+	@Override
+	public final boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
+	{
+		if (roundEnv.processingOver())
+			return false;
+		processInternal(roundEnv);
+		return false;
+	}
+
+	abstract void processInternal(final RoundEnvironment roundEnv);
 
 	final void prepare(final Params params, final StandardJavaFileManager fileManager)
 	{

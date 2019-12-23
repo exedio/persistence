@@ -97,10 +97,8 @@ final class InterimProcessor extends JavacProcessor
 	}
 
 	@Override
-	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
+	void processInternal(final RoundEnvironment roundEnv)
 	{
-		if (roundEnv.getRootElements().isEmpty())
-			return false;
 		if (interimClassLoader!=null) throw new RuntimeException();
 		final DocTrees docTrees = DocTrees.instance(processingEnv);
 		final List<InterimVisitor> interimVisitors = new ArrayList<>();
@@ -195,7 +193,6 @@ final class InterimProcessor extends JavacProcessor
 				processingEnv.getMessager().printMessage(diagnostic.getKind(), diagnostic.toString());
 			}
 		}
-		return false;
 	}
 
 	private static class Import

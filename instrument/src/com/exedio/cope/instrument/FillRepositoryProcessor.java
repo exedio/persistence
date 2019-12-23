@@ -24,11 +24,9 @@ import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
-import javax.lang.model.element.TypeElement;
 
 @SupportedAnnotationTypes("*")
 final class FillRepositoryProcessor extends JavacProcessor
@@ -43,15 +41,13 @@ final class FillRepositoryProcessor extends JavacProcessor
 	}
 
 	@Override
-	public boolean process(final Set<? extends TypeElement> annotations, final RoundEnvironment roundEnv)
+	void processInternal(final RoundEnvironment roundEnv)
 	{
-		if (roundEnv.processingOver())
-			return false;
 		final ClassLoader interimClassLoader = interimProcessor.getInterimClassLoader();
 		if (interimClassLoader==null)
 		{
 			// InterimProcessor failed
-			return false;
+			return;
 		}
 		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
 		final DocTrees docTrees = DocTrees.instance(processingEnv);
@@ -78,7 +74,6 @@ final class FillRepositoryProcessor extends JavacProcessor
 			}
 		}
 		javaRepository.endBuildStage();
-		return false;
 	}
 
 	private static String getPackageName(final CompilationUnitTree compilationUnit)
