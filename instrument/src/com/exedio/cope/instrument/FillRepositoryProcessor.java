@@ -22,8 +22,8 @@ import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.ExpressionTree;
 import com.sun.source.util.DocTrees;
 import com.sun.source.util.TreePath;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.HashSet;
+import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
@@ -49,7 +49,7 @@ final class FillRepositoryProcessor extends JavacProcessor
 			// InterimProcessor failed
 			return;
 		}
-		final Map<CompilationUnitTree,JavaFile> files = new HashMap<>();
+		final UniqueGuard<CompilationUnitTree> compilationUnitGuard = new UniqueGuard<>("two root elements in same compilation unit should be prevented by "+InMemoryCompiler.class.getSimpleName()+"#addJavaFile");
 		final DocTrees docTrees = DocTrees.instance(processingEnv);
 		for (final Element e: roundEnv.getRootElements())
 		{
@@ -57,11 +57,8 @@ final class FillRepositoryProcessor extends JavacProcessor
 			// but in a test run that made hardly any runtime difference and caused quite some complications.
 			final TreePath tp = docTrees.getPath(e);
 			final CompilationUnitTree compilationUnit=tp.getCompilationUnit();
-			JavaFile javaFile=files.get(compilationUnit);
-			if ( javaFile==null )
-			{
-				files.put(compilationUnit, javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit)));
-			}
+			compilationUnitGuard.check(compilationUnit);
+			final JavaFile javaFile=new JavaFile(javaRepository, interimClassLoader, compilationUnit.getSourceFile(), getPackageName(compilationUnit));
 			final TreeApiContext treeApiContext=new TreeApiContext(processingEnv, javaFile, compilationUnit);
 			if (isFileIgnored(compilationUnit.getSourceFile()))
 			{
@@ -83,5 +80,24 @@ final class FillRepositoryProcessor extends JavacProcessor
 				packageName!=null
 				? packageName.toString()
 				: null;
+	}
+
+	static class UniqueGuard<T>
+	{
+		private final Set<T> set = new HashSet<>();
+		private final String violationMessage;
+
+		UniqueGuard(final String violationMessage)
+		{
+			this.violationMessage = violationMessage;
+		}
+
+		void check(final T element)
+		{
+			if (!set.add(element))
+			{
+				throw new RuntimeException(violationMessage);
+			}
+		}
 	}
 }
