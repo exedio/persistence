@@ -12,10 +12,8 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.tools.Diagnostic;
 
-@SupportedAnnotationTypes("*")
 final class InstrumentorWriteProcessor extends JavacProcessor
 {
 	static final int INITIAL_BUFFER_SIZE=16384;

@@ -20,6 +20,7 @@ package com.exedio.cope.instrument;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.processing.AbstractProcessor;
@@ -64,5 +65,11 @@ abstract class JavacProcessor extends AbstractProcessor
 	public SourceVersion getSupportedSourceVersion()
 	{
 		return SourceVersion.latestSupported();
+	}
+
+	@Override
+	public Set<String> getSupportedAnnotationTypes()
+	{
+		return Collections.singleton("*");
 	}
 }

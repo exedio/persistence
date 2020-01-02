@@ -25,10 +25,8 @@ import com.sun.source.util.TreePath;
 import java.util.HashSet;
 import java.util.Set;
 import javax.annotation.processing.RoundEnvironment;
-import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 
-@SupportedAnnotationTypes("*")
 final class FillRepositoryProcessor extends JavacProcessor
 {
 	private final JavaRepository javaRepository;
