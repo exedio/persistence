@@ -29,7 +29,7 @@
 				<include name="*.html" />
 				<include name="*.css" />
 			</fileset>
-			<filterset begintoken="http://" endtoken="images/">
+			<filterset begintoken="https://" endtoken="images/">
 				<filter token="ant.apache.org/ivy/" value="resources/" />
 			</filterset>
 		</copy>
