@@ -22,6 +22,18 @@ import com.exedio.cope.util.Properties;
 
 final class PostgresqlProperties extends Properties
 {
+	private final String timeZone = valueX("connection.timeZone", "GMT", '\'');
+
+	String timeZoneStatement()
+	{
+		if("<default>".equals(timeZone))
+			return null;
+
+		// https://www.postgresql.org/docs/9.6/sql-set.html
+		return "SET TIME ZONE '" + timeZone + '\'';
+	}
+
+
 	private static final String searchPathDEFAULT = "\"$user\"";
 	final String searchPath = valueX("search_path", searchPathDEFAULT, ',');
 

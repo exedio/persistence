@@ -55,6 +55,22 @@ public class PostgresqlPropertiesTest
 		p.ensureValidity();
 	}
 
+	@Test void testTimeZoneContainsQuote()
+	{
+		final String propKey = "connection.timeZone";
+		final Source source =
+				describe("DESC", cascade(
+						single(propKey, "123'567"),
+						loadProperties()
+				));
+
+		assertFails(
+				() -> new PostgresqlProperties(source),
+				IllegalPropertiesException.class,
+				"property " + propKey + " in DESC must not contain ''', "+
+				"but did at position 3 and was '123'567'");
+	}
+
 	@Test void testPostgresqlSearchPath()
 	{
 		final String propKey = "search_path";

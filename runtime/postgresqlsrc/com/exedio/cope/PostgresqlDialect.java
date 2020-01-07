@@ -38,6 +38,7 @@ import java.util.Locale;
 @ServiceProperties(PostgresqlProperties.class)
 final class PostgresqlDialect extends Dialect
 {
+	private final String timeZoneStatement;
 	private final String searchPath;
 	private final String pgcryptoSchemaQuoted;
 
@@ -55,6 +56,7 @@ final class PostgresqlDialect extends Dialect
 
 		probe.environmentInfo.requireDatabaseVersionAtLeast("PostgreSQL", 9, 6);
 
+		timeZoneStatement = properties.timeZoneStatement();
 		searchPath = properties.searchPath;
 		pgcryptoSchemaQuoted = quoteSchema(properties.pgcryptoSchema);
 	}
@@ -70,6 +72,9 @@ final class PostgresqlDialect extends Dialect
 	{
 		try(java.sql.Statement st = connection.createStatement())
 		{
+			if(timeZoneStatement!=null)
+				st.execute(timeZoneStatement);
+
 			// https://www.postgresql.org/docs/9.6/runtime-config-client.html#GUC-SEARCH-PATH
 			st.execute("SET search_path TO " + searchPath);
 

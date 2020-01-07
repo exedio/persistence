@@ -24,6 +24,7 @@ import static java.time.Month.OCTOBER;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -42,6 +43,7 @@ import java.time.ZoneId;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class TimeZoneTest extends TestWithEnvironment
 {
@@ -77,34 +79,35 @@ public class TimeZoneTest extends TestWithEnvironment
 		itemA = new AnItem(dateA, dayA);
 		itemB = new AnItem(dateB, dayB);
 		MODEL.commit();
-		assertTimeZone("+00:00");
+		assertTimeZone("+00:00", GMT);
 		assertItems();
 
 		MODEL.clearCache();
 		assertItems();
 
-		reconnect("<default>");
-		assertTimeZone(SYSTEM);
+		reconnect("<default>", "<default>");
+		assertTimeZone(SYSTEM, null);
 		assertItems();
 
-		reconnect("+05:00");
-		assertTimeZone("+05:00");
+		reconnect("+05:00", "Europe/Moscow");
+		assertTimeZone("+05:00", "Europe/Moscow");
 		assertItems();
 
-		reconnect("-08:30");
-		assertTimeZone("-08:30");
+		reconnect("-08:30", "Canada/Eastern");
+		assertTimeZone("-08:30", "Canada/Eastern");
 		assertItems();
 
-		reconnect("+00:00");
-		assertTimeZone("+00:00");
+		reconnect("+00:00", GMT);
+		assertTimeZone("+00:00", GMT);
 		assertItems();
 	}
 
 	private void assertTimeZone(
-			final String mysql)
+			final String mysql,
+			final String postgresql)
 			throws SQLException
 	{
-		//noinspection EnumSwitchStatementWhichMissesCases,SwitchStatementWithTooFewBranches
+		//noinspection EnumSwitchStatementWhichMissesCases
 		switch(dialect)
 		{
 			case mysql:
@@ -119,19 +122,43 @@ public class TimeZoneTest extends TestWithEnvironment
 					assertFalse(rs.next());
 				}
 				break;
+			case postgresql:
+				try(Connection c = SchemaInfo.newConnection(model);
+					Statement s = c.createStatement();
+					ResultSet rs = s.executeQuery("show TimeZone"))
+				{
+					assertTrue(rs.next());
+					if(postgresql==null)
+						assertNotNull(rs.getString(1));
+					else
+						assertEquals(postgresql, rs.getString(1));
+					assertFalse(rs.next());
+				}
+				break;
 			default:
 				assumeTrue(false);
 		}
 	}
 
 	private static final String SYSTEM = "SYSTEM";
+	private static final String GMT = "GMT";
 
 	private void reconnect(
-			final String mysql)
+			final String mysql,
+			final String postgresql)
 	{
 		model.disconnect();
+		final String value;
+		//noinspection EnumSwitchStatementWhichMissesCases
+		switch(dialect)
+		{
+			case mysql:      value = mysql;      break;
+			case postgresql: value = postgresql; break;
+			default:
+				throw new AssertionFailedError();
+		}
 		model.connect(ConnectProperties.create(Sources.cascade(
-				TestSources.single("dialect.connection.timeZone", mysql),
+				TestSources.single("dialect.connection.timeZone", value),
 				initialConnectProperties)));
 	}
 
