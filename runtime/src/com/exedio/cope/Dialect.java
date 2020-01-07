@@ -107,7 +107,7 @@ abstract class Dialect
 		// https://docs.oracle.com/database/122/SQLRF/Database-Object-Names-and-Qualifiers.htm#SQLRF51129
 
 		// PostgreSQL maximum length is 63:
-		// https://www.postgresql.org/docs/9.3/static/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
+		// https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
 
 		final Trimmer dataTrimmer = new Trimmer(25);
 		trimmers.put(TrimClass.Data, dataTrimmer);

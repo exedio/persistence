@@ -70,16 +70,16 @@ final class PostgresqlDialect extends Dialect
 	{
 		try(java.sql.Statement st = connection.createStatement())
 		{
-			// https://www.postgresql.org/docs/9.3/interactive/runtime-config-client.html#GUC-SEARCH-PATH
+			// https://www.postgresql.org/docs/9.6/runtime-config-client.html#GUC-SEARCH-PATH
 			st.execute("SET search_path TO " + searchPath);
 
-			// https://www.postgresql.org/docs/9.3/interactive/runtime-config-compatible.html#GUC-QUOTE-ALL-IDENTIFIERS
+			// https://www.postgresql.org/docs/9.6/runtime-config-compatible.html#GUC-QUOTE-ALL-IDENTIFIERS
 			st.execute("SET quote_all_identifiers TO ON");
 		}
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.3/static/datatype-numeric.html
+	 * See https://www.postgresql.org/docs/9.6/datatype-numeric.html
 	 */
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
@@ -105,7 +105,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.3/static/datatype-character.html
+	 * See https://www.postgresql.org/docs/9.6/datatype-character.html
 	 * Datatype "varchar" can have at most 10485760 characters in postgresql.
 	 * <p>
 	 * Does never return "char(n)", because even if minChars==maxChars,
@@ -126,7 +126,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.3/static/datatype-datetime.html
+	 * See https://www.postgresql.org/docs/9.6/datatype-datetime.html
 	 */
 	@Override
 	String getDayType()
@@ -193,7 +193,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.3/interactive/datatype-binary.html#AEN5318
+	 * See https://www.postgresql.org/docs/9.6/datatype-binary.html#AEN5318
 	 */
 	@Override
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
@@ -254,7 +254,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.5/static/pgcrypto.html
+	 * See https://www.postgresql.org/docs/9.6/pgcrypto.html
 	 */
 	private void appendDigest(
 			final Statement bf, final BlobColumn column, final Join join,

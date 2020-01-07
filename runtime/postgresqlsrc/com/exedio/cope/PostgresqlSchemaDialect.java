@@ -208,7 +208,7 @@ final class PostgresqlSchemaDialect extends Dialect
 				"AND  src.table_catalog='"      + catalog + "' AND src.table_schema='"      + getSchema() + "' " +
 				"AND  tgt.constraint_catalog='" + catalog + "' AND tgt.constraint_schema='" + getSchema() + "' " +
 				"AND  tgt.table_catalog='"      + catalog + "' AND tgt.table_schema='"      + getSchema() + '\'',
-				// https://www.postgresql.org/docs/9.5/sql-createtable.html
+				// https://www.postgresql.org/docs/9.6/sql-createtable.html
 				"NO ACTION", "NO ACTION");
 
 		verifySequences(schema,
@@ -245,7 +245,7 @@ final class PostgresqlSchemaDialect extends Dialect
 					" MINVALUE ").append(start).append(
 
 					// CACHE 1 disables cache
-					// https://www.postgresql.org/docs/9.3/static/sql-createsequence.html
+					// https://www.postgresql.org/docs/9.6/sql-createsequence.html
 					// BEWARE:
 					// With CACHE enabled com.exedio.cope.PostgresqlDialect#getNextSequence
 					// returns wrong results!
