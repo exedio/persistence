@@ -60,7 +60,7 @@ timestamps
 				)
 				writeEnv(
 						'pg96-public',
-						'dialect.search_path=public\n' +
+						'dialect.connection.schema=public\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(

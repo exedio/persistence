@@ -97,7 +97,7 @@ before_script:
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n
     connection.username=postgres\n
     connection.password=\n
-    dialect.search_path=public\n
+    dialect.connection.schema=public\n
     x-build.dialect=postgresql\n
     x-build.driver=postgresql-bundle.jar\n"
     | tee conf/environment/pg.properties
@@ -106,7 +106,7 @@ before_script:
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n
     connection.username=postgres\n
     connection.password=\n
-    dialect.search_path=public\n
+    dialect.connection.schema=public\n
     disableSupport.preparedStatements=true\n
     x-build.dialect=postgresql\n
     x-build.driver=postgresql-bundle.jar\n"
@@ -116,7 +116,7 @@ before_script:
     "connection.url=jdbc:postgresql://localhost/cope_test_db\n
     connection.username=postgres\n
     connection.password=\n
-    dialect.search_path=public\n
+    dialect.connection.schema=public\n
     schema.primaryKeyGenerator=sequence\n
     dialect.pgcryptoSchema=<disabled>\n
     x-build.dialect=postgresql\n

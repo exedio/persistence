@@ -34,8 +34,8 @@ final class PostgresqlProperties extends Properties
 	}
 
 
-	private static final String searchPathDEFAULT = "\"$user\"";
-	final String searchPath = valueX("search_path", searchPathDEFAULT, ',');
+	private static final String searchPathDEFAULT = "$user";
+	private final String searchPath = valueX("connection.schema", searchPathDEFAULT, '\'');
 
 	String schema(final ConnectProperties connect)
 	{
@@ -43,6 +43,13 @@ final class PostgresqlProperties extends Properties
 				searchPathDEFAULT.equals(searchPath)
 				? connect.connection.username
 				: searchPath;
+	}
+
+	String schemaStatement()
+	{
+		// https://www.postgresql.org/docs/9.6/sql-set.html
+		// https://www.postgresql.org/docs/9.6/runtime-config-client.html#GUC-SEARCH-PATH
+		return "SET SCHEMA '" + searchPath + '\'';
 	}
 
 

@@ -117,14 +117,14 @@ public class SupportsTest extends TestWithEnvironment
 		assumeTrue(postgresql);
 
 		final ConnectProperties props = model.getConnectProperties();
-		final String property = (String)props.getField("dialect.search_path").get();
+		final String property = (String)props.getField("dialect.connection.schema").get();
 
 		try(Connection c = SchemaInfo.newConnection(model);
 			 Statement s = c.createStatement();
 			 ResultSet rs = s.executeQuery("SHOW search_path"))
 		{
 			assertTrue(rs.next());
-			assertEquals(property, rs.getString(1));
+			assertEquals("$user".equals(property) ? "\"$user\"" : property, rs.getString(1));
 			assertFalse(rs.next());
 		}
 	}

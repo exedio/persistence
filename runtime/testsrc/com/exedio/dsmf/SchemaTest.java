@@ -52,7 +52,7 @@ public abstract class SchemaTest
 		final String connectionUsername = value      ("connection.username", (String)null);
 		final String connectionPassword = valueHidden("connection.password", null);
 		final String mysqlRowFormat     = value      ("dialect.rowFormat", "NONE");
-		final String connectionPostgresqlSearchPath = value("dialect.search_path", connectionUsername);
+		final String connectionPostgresqlSchema = value("dialect.connection.schema", connectionUsername);
 
 		Properties()
 		{
@@ -114,7 +114,7 @@ public abstract class SchemaTest
 		}
 		else if(url.startsWith("jdbc:postgresql:"))
 		{
-			dialect = newD("Postgresql", config.connectionPostgresqlSearchPath);
+			dialect = newD("Postgresql", config.connectionPostgresqlSchema);
 			stringType = "character varying(8)";
 			intType  = "integer";
 			intType2 = "bigint";
@@ -135,7 +135,7 @@ public abstract class SchemaTest
 				try(java.sql.Statement st = connection.createStatement())
 				{
 					// https://www.postgresql.org/docs/9.6/runtime-config-client.html#GUC-SEARCH-PATH
-					st.execute("SET search_path TO " + config.connectionPostgresqlSearchPath);
+					st.execute("SET SCHEMA '" + config.connectionPostgresqlSchema + "'");
 				}
 			}
 		}

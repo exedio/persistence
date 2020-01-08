@@ -71,12 +71,12 @@ public class PostgresqlPropertiesTest
 				"but did at position 3 and was '123'567'");
 	}
 
-	@Test void testPostgresqlSearchPath()
+	@Test void testSchemaContainsQuote()
 	{
-		final String propKey = "search_path";
+		final String propKey = "connection.schema";
 		final Source source =
 				describe("DESC", cascade(
-						single(propKey, "123,567"),
+						single(propKey, "123'567"),
 						loadProperties()
 				));
 		try
@@ -87,8 +87,8 @@ public class PostgresqlPropertiesTest
 		catch(final IllegalPropertiesException e)
 		{
 			assertEquals(
-					"property " + propKey + " in DESC must not contain ',', "+
-					"but did at position 3 and was '123,567'",
+					"property " + propKey + " in DESC must not contain ''', "+
+					"but did at position 3 and was '123'567'",
 					e.getMessage());
 		}
 	}
