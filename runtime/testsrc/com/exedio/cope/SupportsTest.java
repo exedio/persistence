@@ -112,6 +112,23 @@ public class SupportsTest extends TestWithEnvironment
 		}
 	}
 
+	@Test void testSchema() throws SQLException
+	{
+		assumeTrue(postgresql);
+
+		final ConnectProperties props = model.getConnectProperties();
+		final String property = (String)props.getField("dialect.search_path").get();
+
+		try(Connection c = SchemaInfo.newConnection(model);
+			 Statement s = c.createStatement();
+			 ResultSet rs = s.executeQuery("SHOW search_path"))
+		{
+			assertTrue(rs.next());
+			assertEquals(property, rs.getString(1));
+			assertFalse(rs.next());
+		}
+	}
+
 	@Test void testSchemaSavepoint()
 	{
 		final String conf = System.getProperty(SupportsTest.class.getName() + ".testSchemaSavepoint");
