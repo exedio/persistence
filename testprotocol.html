@@ -11,7 +11,7 @@
 			Environments cope has been tested in. See <a href="https://exedio.github.io/">exedio.github.io</a>.
 		</div>
 		<div>
-			git PostgresqlTimezone a48d7bc3898375bb8aa52158b5ef6c0b42be906a travis-ci 577 577.1 634136861 2020-01-08_08:44:47
+			git PostgresqlSchema 3052718c05cc2c342da20cc42c48a83df18a8508 travis-ci 578 578.1 634209271 2020-01-08_12:15:00
 		</div>
 		<table>
 			<tr>
@@ -118,15 +118,15 @@
 				<td class="text" rowspan="3">PostgreSQL JDBC Driver</td>
 				<td class="text" rowspan="3">42.2.9</td>
 				<td class="text">pg</td>
-				<td class="text">dialect.search_path=public<br></td>
+				<td class="text">dialect.connection.schema=public<br></td>
 			</tr>
 			<tr>
 				<td class="text">pg-nprep</td>
-				<td class="text">dialect.search_path=public<br>disableSupport.preparedStatements=true<br></td>
+				<td class="text">dialect.connection.schema=public<br>disableSupport.preparedStatements=true<br></td>
 			</tr>
 			<tr>
 				<td class="text">pg-sq</td>
-				<td class="text">dialect.pgcryptoSchema=&lt;disabled&gt;<br>dialect.search_path=public<br>schema.primaryKeyGenerator=sequence<br></td>
+				<td class="text">dialect.connection.schema=public<br>dialect.pgcryptoSchema=&lt;disabled&gt;<br>schema.primaryKeyGenerator=sequence<br></td>
 			</tr>
 		</table>
 		<address>
