@@ -39,7 +39,7 @@ public final class SequenceInfo
 			final long maximum,
 			final long count,
 			final long first,
-			final long last)
+			final double last)
 	{
 		assert feature!=null;
 
@@ -51,7 +51,7 @@ public final class SequenceInfo
 		this.known = true;
 		this.count = count;
 		this.first = first;
-		this.last = last;
+		this.last = Math.round(last);
 	}
 
 	SequenceInfo(

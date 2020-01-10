@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static java.lang.Long.MAX_VALUE;
-import static java.lang.Long.MIN_VALUE;
 import static java.util.Objects.requireNonNull;
 
 import io.micrometer.core.instrument.Tags;
@@ -46,7 +45,7 @@ final class SequenceCounter
 
 	private volatile long count = 0;
 	private volatile long first = MAX_VALUE;
-	private volatile long last  = MIN_VALUE;
+	private volatile double last = Double.NaN;
 
 	void next(final long result)
 	{
@@ -64,38 +63,24 @@ final class SequenceCounter
 	{
 		count = 0;
 		first = MAX_VALUE;
-		last  = MIN_VALUE;
+		last  = Double.NaN;
 	}
 
 	SequenceInfo getInfo()
 	{
-		final long count = this.count;
-		final long first = this.first;
-		final long last  = this.last;
+		final double last = this.last;
 		return
-			count!=0 && first!=MAX_VALUE && last!=MIN_VALUE
+			!Double.isNaN(last)
 			? new SequenceInfo(feature, start, minimum, maximum, count, first, last)
 			: new SequenceInfo(feature, start, minimum, maximum);
 	}
 
-	private double last()
-	{
-		final long count = this.count;
-		final long first = this.first;
-		final long last  = this.last;
-		return
-			count!=0 && first!=MAX_VALUE && last!=MIN_VALUE
-			? last
-			: Double.NaN;
-	}
-
-	@SuppressWarnings("Convert2MethodRef") // OK: easier to read
 	void onModelNameSet(final Tags tags)
 	{
 		final Metrics metrics = new Metrics(tags, this);
 		metrics.value(c -> c.start,   "start", "The initial value this sequence started with.");
 		metrics.value(c -> c.maximum, "end",   "The largest value possible value this sequence can produce.");
-		metrics.value(c -> c.last(),  "last",  "The last value produced by this sequence. None, if no value was produced since last restart.");
+		metrics.value(c -> c.last,    "last",  "The last value produced by this sequence. None, if no value was produced since last restart.");
 	}
 
 	private static final class Metrics
