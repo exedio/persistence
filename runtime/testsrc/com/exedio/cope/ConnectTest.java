@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -74,6 +75,7 @@ public class ConnectTest extends TestWithEnvironment
 		assertTrue(model.isConnected());
 		assertNotSame(connectDate, model.getConnectDate());
 		assertEquals(connectDate, Date.from(model.getConnectInstant()));
+		assertUnmodifiable(model.getThreadControllers());
 	}
 
 	@Test void testModel()
@@ -125,6 +127,10 @@ public class ConnectTest extends TestWithEnvironment
 		assertEquals(null, model.getConnectDate());
 		assertFails(
 				model::getConnectInstant,
+				NotConnectedException.class,
+				"model not connected, use Model#connect for " + model);
+		assertFails(
+				model::getThreadControllers,
 				NotConnectedException.class,
 				"model not connected, use Model#connect for " + model);
 		if(vault!=null)

@@ -18,10 +18,9 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -36,15 +35,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	@Test void testMulticast() throws InterruptedException
 	{
-		try
-		{
-			modelA.getThreadControllers();
-			fail();
-		}
-		catch(final Model.NotConnectedException e)
-		{
-			assertEquals(modelA, e.getModel());
-		}
+		assertFalse(modelA.isConnected());
+		assertFalse(modelB.isConnected());
 
 		// when running this test alone, it fails on Windows if modelA is connected before modelB
 		modelB.connect(getPropertiesMulticast());
@@ -59,6 +51,9 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	@Test void testSinglecast() throws InterruptedException
 	{
+		assertFalse(modelA.isConnected());
+		assertFalse(modelB.isConnected());
+
 		modelA.connect(getPropertiesSinglecast(true));
 		modelB.connect(getPropertiesSinglecast(false));
 
@@ -70,9 +65,10 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	private void test() throws InterruptedException
 	{
+		assertTrue(modelA.isConnected());
+		assertTrue(modelB.isConnected());
 		assertNotNull(modelA.getClusterProperties());
 		assertNotNull(modelB.getClusterProperties());
-		assertUnmodifiable(modelA.getThreadControllers());
 
 		assertIt(0, 0);
 
