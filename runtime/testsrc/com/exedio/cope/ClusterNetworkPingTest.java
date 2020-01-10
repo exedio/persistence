@@ -151,7 +151,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(0, actual.getPending());
 	}
 
-	private static void assertLastRoundTripSet(
+	static void assertLastRoundTripSet(
 			final boolean expected,
 			final ClusterListenerInfo.Node actual)
 	{
