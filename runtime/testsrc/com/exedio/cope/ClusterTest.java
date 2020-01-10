@@ -498,18 +498,18 @@ public abstract class ClusterTest
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0x99, (byte)0x88, (byte)0x77, (byte)0x66, // 24 pingNanos
 				(byte)0x55, (byte)0x44, (byte)0x33, (byte)0x22, // 28 pingNanos
-				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 32 fillup
-				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 36 fillup
-				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 40 fillup
-				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 44 fillup
-				(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 48 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 52 fillup
-				(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 56 fillup
-				(byte)99,   (byte)-45,  (byte)-99,  (byte)-6,   // 60 fillup
-				(byte)-110, (byte)-123, (byte)-30,  (byte)-79); // 64 fillup
+				(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 32 pingNode
+				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 36 fillup
+				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 40 fillup
+				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 44 fillup
+				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 48 fillup
+				(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 52 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 56 fillup
+				(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 60 fillup
+				(byte)99,   (byte)-45,  (byte)-99,  (byte)-6);  // 64 fillup
 
 		assertEquals(
-				"PONG(2233445566778899)",
+				"PONG(2233445566778899,11224433)",
 				umi(buf));
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 
@@ -573,7 +573,7 @@ public abstract class ClusterTest
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 
-		buf[36] = (byte)35;
+		buf[40] = (byte)35;
 		try
 		{
 			um(buf);
@@ -581,11 +581,11 @@ public abstract class ClusterTest
 		}
 		catch(final RuntimeException e)
 		{
-			assertEquals("invalid ping, at position 36 expected 40, but was 35", e.getMessage());
+			assertEquals("invalid ping, at position 40 expected 40, but was 35", e.getMessage());
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 
-		buf[28] = (byte)29;
+		buf[32] = (byte)29;
 		try
 		{
 			um(buf);
@@ -593,7 +593,7 @@ public abstract class ClusterTest
 		}
 		catch(final RuntimeException e)
 		{
-			assertEquals("invalid ping, at position 28 expected 89, but was 29", e.getMessage());
+			assertEquals("invalid ping, at position 32 expected 89, but was 29", e.getMessage());
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 1, 0}});
 	}
@@ -616,15 +616,15 @@ public abstract class ClusterTest
 					count++,    b0,         b0,         b0,         // 20 sequence
 					(byte)0x99, (byte)0x88, (byte)0x77, (byte)0x66, // 24 pingNanos TODO should increment with count
 					(byte)0x55, (byte)0x44, (byte)0x33, (byte)0x22, // 28 pingNanos
-					(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 32 fillup
-					(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 36 fillup
-					(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 40 fillup
-					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 44 fillup
-					(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 48 fillup
-					(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 52 fillup
-					(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 56 fillup
-					(byte)99,   (byte)-45,  (byte)-99,  (byte)-6,   // 60 fillup
-					(byte)-110, (byte)-123, (byte)-30,  (byte)-79); // 64 fillup
+					(byte)0x33, (byte)0x44, (byte)0x22, (byte)0x11, // 32 pingNode
+					(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 36 fillup
+					(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 40 fillup
+					(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 44 fillup
+					(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 48 fillup
+					(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 52 fillup
+					(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 56 fillup
+					(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 60 fillup
+					(byte)99,   (byte)-45,  (byte)-99,  (byte)-6);  // 64 fillup
 		}
 	}
 
@@ -632,7 +632,7 @@ public abstract class ClusterTest
 	{
 		final ArrayList<byte[]> sink = new ArrayList<>();
 		cs.testSink = sink;
-		cs.pong(0xaa334455667788bbl);
+		cs.pong(0xaa334455667788bbl, 0x88aa99cc);
 		cs.testSink = null;
 		assertEquals(1, sink.size());
 		final byte[] buf = sink.get(0);
@@ -645,15 +645,15 @@ public abstract class ClusterTest
 				(byte)0,    b0,         b0,         b0,         // 20 sequence
 				(byte)0xbb, (byte)0x88, (byte)0x77, (byte)0x66, // 24 pingNanos
 				(byte)0x55, (byte)0x44, (byte)0x33, (byte)0xaa, // 28 pingNanos
-				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 32 fillup
-				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 36 fillup
-				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 40 fillup
-				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 44 fillup
-				(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 48 fillup
-				(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 52 fillup
-				(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 56 fillup
-				(byte)99,   (byte)-45,  (byte)-99,  (byte)-6,   // 60 fillup
-				(byte)-110, (byte)-123, (byte)-30,  (byte)-79); // 64 fillup
+				(byte)0xcc, (byte)0x99, (byte)0xaa, (byte)0x88, // 32 pingNode
+				(byte)89,   (byte)-95,  (byte)-8,   (byte)-6,   // 36 fillup
+				(byte)-84,  (byte)-73,  (byte)23,   (byte)83,   // 40 fillup
+				(byte)40,   (byte)-93,  (byte)75,   (byte)-62,  // 44 fillup
+				(byte)98,   (byte)-74,  (byte)-68,  (byte)-97,  // 48 fillup
+				(byte)47,   (byte)-43,  (byte)103,  (byte)46,   // 52 fillup
+				(byte)56,   (byte)-32,  (byte)-117, (byte)126,  // 56 fillup
+				(byte)12,   (byte)-64,  (byte)-63,  (byte)68,   // 60 fillup
+				(byte)99,   (byte)-45,  (byte)-99,  (byte)-6);  // 64 fillup
 
 		ume(buf);
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
@@ -718,7 +718,7 @@ public abstract class ClusterTest
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
 
-		buf[36] = (byte)35;
+		buf[40] = (byte)35;
 		try
 		{
 			um(buf);
@@ -726,11 +726,11 @@ public abstract class ClusterTest
 		}
 		catch(final RuntimeException e)
 		{
-			assertEquals("invalid pong, at position 36 expected 40, but was 35", e.getMessage());
+			assertEquals("invalid pong, at position 40 expected 40, but was 35", e.getMessage());
 		}
 		assertInfo(0, 0, 0, 0, new long[][]{new long[]{0x11224433, 0, 1}});
 
-		buf[28] = (byte)29;
+		buf[32] = (byte)29;
 		try
 		{
 			um(buf);
@@ -738,7 +738,7 @@ public abstract class ClusterTest
 		}
 		catch(final RuntimeException e)
 		{
-			assertEquals("invalid pong, at position 28 expected 89, but was 29", e.getMessage());
+			assertEquals("invalid pong, at position 32 expected 89, but was 29", e.getMessage());
 		}
 	}
 

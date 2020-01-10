@@ -98,7 +98,7 @@ final class ClusterProperties extends Properties
 		{
 			final Random r = new Random(secret);
 			final byte[] pingPayload = new byte[packetSize];
-			for(int pos = 28; pos<pingPayload.length; pos++)
+			for(int pos = 32; pos<pingPayload.length; pos++)
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;
 		}

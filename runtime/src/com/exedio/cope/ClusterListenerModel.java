@@ -42,8 +42,8 @@ abstract class ClusterListenerModel extends ClusterListener
 	}
 
 	@Override
-	final void pong(final long pingNanos)
+	final void pong(final long pingNanos, final int pingNode)
 	{
-		sender.pong(pingNanos);
+		sender.pong(pingNanos, pingNode);
 	}
 }

@@ -40,6 +40,7 @@ abstract class ClusterSender
 	private static final int KIND = 12;
 	private static final int SEQUENCE = 16;
 	private static final int PING_NANOS = 20;
+	private static final int PING_NODE = 28;
 	private final byte[] pingPongTemplate;
 
 	private static final int INVALIDATE_TEMPLATE_SIZE = 16;
@@ -69,6 +70,8 @@ abstract class ClusterSender
 			pos = marshal(pos, pingPongTemplate, 0xdddddd);
 			assert pos==PING_NANOS;
 			pos = marshal(pos, pingPongTemplate, 0xccccccbbbbbbl);
+			assert pos==PING_NODE;
+			pos = marshal(pos, pingPongTemplate, 0xaaaaaa);
 
 			pos = properties.copyPingPayload(pos, pingPongTemplate);
 			assert pos==properties.packetSize : pos;
@@ -94,15 +97,17 @@ abstract class ClusterSender
 
 	final void ping(final int count)
 	{
-		pingPong(KIND_PING, pingSequence, count, nanoTime());
+		pingPong(KIND_PING, pingSequence, count, nanoTime(), properties.node);
 	}
 
-	final void pong(final long pingNanos)
+	final void pong(final long pingNanos, final int pingNode)
 	{
-		pingPong(KIND_PONG, pongSequence, 1, pingNanos);
+		pingPong(KIND_PONG, pongSequence, 1, pingNanos, pingNode);
 	}
 
-	private void pingPong(final int kind, final AtomicInteger sequence, final int count, final long nanos)
+	private void pingPong(
+			final int kind, final AtomicInteger sequence,
+			final int count, final long nanos, final int node)
 	{
 		assert kind==KIND_PING||kind==KIND_PONG : kind;
 		final int packetSize = properties.packetSize;
@@ -118,6 +123,7 @@ abstract class ClusterSender
 			{
 				marshal(SEQUENCE, buf, sequenceStart++);
 				marshal(PING_NANOS, buf, nanos);
+				marshal(PING_NODE, buf, node);
 				send(packetSize, buf);
 			}
 		}

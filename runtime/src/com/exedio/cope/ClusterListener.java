@@ -150,6 +150,7 @@ abstract class ClusterListener
 	{
 		final int sequence = iter.next();
 		final long nanos = iter.nextLong();
+		final int pingNode = iter.next();
 
 		iter.checkPingPayload(properties, ping);
 
@@ -162,13 +163,20 @@ abstract class ClusterListener
 		}
 
 		if(ping)
-			pong(nanos);
+		{
+			pong(nanos, pingNode);
+		}
 		else
-			node.roundTrip(nanos);
+		{
+			// Must capture round trip time only if pong was triggered by a ping coming from local node.
+			// Otherwise System#nanoTime() of different JVMs is used to measure elapsed time.
+			if(pingNode==localNode)
+				node.roundTrip(nanos);
+		}
 	}
 
 	abstract void invalidate(int remoteNode, TLongHashSet[] invalidations);
-	abstract void pong(long pingNanos);
+	abstract void pong(long pingNanos, int pingNode);
 	abstract int getReceiveBufferSize();
 
 	// info

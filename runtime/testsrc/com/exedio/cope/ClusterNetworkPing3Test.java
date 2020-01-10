@@ -146,12 +146,12 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 			assertIt(0, nodeCB.getInvalidateInfo());
 			assertIt(0, nodeAC.getInvalidateInfo());
 			assertIt(0, nodeBC.getInvalidateInfo());
-			assertLastRoundTripSet((pingB+pingC)>0, nodeBA);
-			assertLastRoundTripSet((pingB+pingC)>0, nodeCA);
-			assertLastRoundTripSet((pingA+pingC)>0, nodeAB);
-			assertLastRoundTripSet((pingA+pingC)>0, nodeCB);
-			assertLastRoundTripSet((pingA+pingB)>0, nodeAC);
-			assertLastRoundTripSet((pingA+pingB)>0, nodeBC);
+			assertLastRoundTripSet(pingB>0, nodeBA);
+			assertLastRoundTripSet(pingC>0, nodeCA);
+			assertLastRoundTripSet(pingA>0, nodeAB);
+			assertLastRoundTripSet(pingC>0, nodeCB);
+			assertLastRoundTripSet(pingA>0, nodeAC);
+			assertLastRoundTripSet(pingB>0, nodeBC);
 		}
 		else
 		{
