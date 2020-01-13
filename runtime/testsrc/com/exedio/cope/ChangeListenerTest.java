@@ -214,7 +214,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 				assertContainsList(expectedItems, event.getItems());
 				assertEquals("local", event.getNodeID());
 				assertEquals(false, event.isRemote());
-				assertFails(() -> event.getRemoteNodeID(), NotAvailableException.class, "not remote");
+				assertFails(() -> event.getRemoteNodeID(), NotAvailableException.class, "local");
 				assertEquals(expectedTransaction.getID(), event.getTransactionID());
 				assertEquals(expectedTransaction.getName(), event.getTransactionName());
 				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());

@@ -37,8 +37,10 @@ final class TransactionInfoLocal extends TransactionInfo
 	@Override
 	String getNodeID()
 	{
-		return "local";
+		return LOCAL;
 	}
+
+	private static final String LOCAL = "local";
 
 	@Override
 	boolean isRemote()
@@ -49,7 +51,7 @@ final class TransactionInfoLocal extends TransactionInfo
 	@Override
 	int getRemoteNodeID() throws NotAvailableException
 	{
-		throw new NotAvailableException("not remote");
+		throw new NotAvailableException(LOCAL);
 	}
 
 	@Override
