@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.ChangeEvent.NotAvailableException;
+import java.time.Duration;
 import java.util.Date;
 
 final class TransactionInfoLocal extends TransactionInfo
@@ -26,12 +27,14 @@ final class TransactionInfoLocal extends TransactionInfo
 	private final long id;
 	private final String name;
 	private final long startDate;
+	private final long durationNanos;
 
-	TransactionInfoLocal(final Transaction transaction)
+	TransactionInfoLocal(final Transaction transaction, final long durationNanos)
 	{
 		this.id = transaction.id;
 		this.name = transaction.name;
 		this.startDate = transaction.startDate;
+		this.durationNanos = durationNanos;
 	}
 
 	@Override
@@ -70,6 +73,12 @@ final class TransactionInfoLocal extends TransactionInfo
 	Date getStartDate()
 	{
 		return new Date(startDate);
+	}
+
+	@Override
+	Duration getDuration()
+	{
+		return Duration.ofNanos(durationNanos);
 	}
 
 	@Override

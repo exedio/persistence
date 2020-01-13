@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.ChangeEvent.NotAvailableException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -154,6 +155,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertEquals(expectedTransaction.getID(), event.getTransactionID());
 			assertEquals(expectedTransaction.getName(), event.getTransactionName());
 			assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
+			assertTrue(event.getTransactionDuration().compareTo(Duration.ZERO) > 0);
 			assertEquals("" + expectedItems + ' ' + expectedTransaction.getID() + " ClusterNetworkChangeListenerTest#transactionA", event.toString());
 			assertNull(expectedTransaction.getBoundThread());
 			assertTrue(expectedTransaction.isClosed());
@@ -181,6 +183,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertFails(() -> event.getTransactionID(),        NotAvailableException.class, "remote");
 			assertFails(() -> event.getTransactionName(),      NotAvailableException.class, "remote");
 			assertFails(() -> event.getTransactionStartDate(), NotAvailableException.class, "remote");
+			assertFails(() -> event.getTransactionDuration(),  NotAvailableException.class, "remote");
 			assertEquals(expectedItems + " remote " + modelA.getClusterSenderInfo().getNodeIDString(), event.toString());
 
 			event = null;

@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.ChangeEvent.NotAvailableException;
+import java.time.Duration;
 import java.util.Date;
 
 final class TransactionInfoRemote extends TransactionInfo
@@ -62,6 +63,12 @@ final class TransactionInfoRemote extends TransactionInfo
 
 	@Override
 	Date getStartDate() throws NotAvailableException
+	{
+		throw newRemoteException();
+	}
+
+	@Override
+	Duration getDuration() throws NotAvailableException
 	{
 		throw newRemoteException();
 	}

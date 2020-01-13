@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import com.exedio.cope.ChangeEvent.NotAvailableException;
+import java.time.Duration;
 import java.util.Date;
 
 abstract class TransactionInfo
@@ -29,6 +30,7 @@ abstract class TransactionInfo
 	abstract long getID() throws NotAvailableException;
 	abstract String getName() throws NotAvailableException;
 	abstract Date getStartDate() throws NotAvailableException;
+	abstract Duration getDuration() throws NotAvailableException;
 
 	// enforce implementation
 	@Override
