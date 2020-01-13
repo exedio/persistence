@@ -160,13 +160,12 @@ final class Connect
 
 	void invalidate(
 			final TLongHashSet[] invalidations,
-			final boolean propagateToCluster,
 			final TransactionInfo transactionInfo)
 	{
 		final long cacheStamp = this.cacheStamp.next();
 		itemCache.invalidate(invalidations, cacheStamp);
 		queryCache.invalidate(invalidations, cacheStamp);
-		if(propagateToCluster && cluster!=null)
+		if((transactionInfo instanceof TransactionInfoLocal) && cluster!=null)
 			cluster.sendInvalidate(invalidations);
 		changeListenerDispatcher.invalidate(invalidations, transactionInfo);
 	}

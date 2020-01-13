@@ -38,7 +38,7 @@ abstract class ClusterListenerModel extends ClusterListener
 	@Override
 	final void invalidate(final TLongHashSet[] invalidations, final TransactionInfoRemote info)
 	{
-		connect.invalidate(invalidations, false, info);
+		connect.invalidate(invalidations, info);
 	}
 
 	@Override

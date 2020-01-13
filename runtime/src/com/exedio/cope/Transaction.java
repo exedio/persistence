@@ -387,7 +387,7 @@ public final class Transaction
 		if(invalidations!=null)
 		{
 			if(commit) // notify global cache
-				connect.invalidate(invalidations, true, new TransactionInfoLocal(this));
+				connect.invalidate(invalidations, new TransactionInfoLocal(this));
 		}
 
 		transactionCounter.count(startSample, commit, hadConnection);
