@@ -23,6 +23,7 @@ import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
@@ -32,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.ChangeEvent.NotAvailableException;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
 import io.micrometer.core.instrument.Counter;
@@ -55,7 +57,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 
 	final MockListener l = new MockListener();
 
-	@Test void testIt() throws ChangeEvent.NotAvailableException
+	@Test void testIt() throws NotAvailableException
 	{
 		assertEqualsUnmodifiable(list(), model.getChangeListeners());
 		assertInfo(0, 0, 0, 0);
@@ -178,7 +180,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 				assertNotNull(event.getTransactionName());
 				assertNotNull(event.getTransactionStartDate());
 			}
-			catch(final ChangeEvent.NotAvailableException e)
+			catch(final NotAvailableException e)
 			{
 				throw new RuntimeException(e);
 			}
@@ -205,22 +207,14 @@ public class ChangeListenerTest extends TestWithEnvironment
 			}
 		}
 
-		void assertIt(final List<?> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
+		void assertIt(final List<?> expectedItems, final Transaction expectedTransaction) throws NotAvailableException
 		{
 			if(expectedTransaction!=null)
 			{
 				assertContainsList(expectedItems, event.getItems());
 				assertEquals("local", event.getNodeID());
 				assertEquals(false, event.isRemote());
-				try
-				{
-					event.getRemoteNodeID();
-					fail();
-				}
-				catch(final ChangeEvent.NotAvailableException e)
-				{
-					assertEquals("not remote", e.getMessage());
-				}
+				assertFails(() -> event.getRemoteNodeID(), NotAvailableException.class, "not remote");
 				assertEquals(expectedTransaction.getID(), event.getTransactionID());
 				assertEquals(expectedTransaction.getName(), event.getTransactionName());
 				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());

@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static java.util.Arrays.asList;
@@ -138,7 +139,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertSame(null, event);
 		}
 
-		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction) throws ChangeEvent.NotAvailableException
+		void assertLocal(final List<? extends Item> expectedItems, final Transaction expectedTransaction) throws NotAvailableException
 		{
 			assertInfo(modelA);
 			assertInfo(modelB);
@@ -149,15 +150,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 
 			assertEquals("local", event.getNodeID());
 			assertEquals(false, event.isRemote());
-			try
-			{
-				event.getRemoteNodeID();
-				fail();
-			}
-			catch(final ChangeEvent.NotAvailableException e)
-			{
-				assertEquals("not remote", e.getMessage());
-			}
+			assertFails(() -> event.getRemoteNodeID(), NotAvailableException.class, "not remote");
 			assertEquals(expectedTransaction.getID(), event.getTransactionID());
 			assertEquals(expectedTransaction.getName(), event.getTransactionName());
 			assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
@@ -168,7 +161,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			event = null;
 		}
 
-		void assertRemote(final List<String> expectedItems) throws ChangeEvent.NotAvailableException
+		void assertRemote(final List<String> expectedItems) throws NotAvailableException
 		{
 			assertInfo(modelA);
 			assertInfo(modelB);
@@ -185,33 +178,9 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 			assertEquals(true, event.isRemote());
 			assertEquals(remoteModel.getClusterSenderInfo().getNodeID(), event.getRemoteNodeID());
 			assertEquals(remoteModel.getClusterSenderInfo().getNodeIDString(), event.getRemoteNodeIDString());
-			try
-			{
-				event.getTransactionID();
-				fail();
-			}
-			catch(final ChangeEvent.NotAvailableException e)
-			{
-				assertEquals("remote", e.getMessage());
-			}
-			try
-			{
-				event.getTransactionName();
-				fail();
-			}
-			catch(final ChangeEvent.NotAvailableException e)
-			{
-				assertEquals("remote", e.getMessage());
-			}
-			try
-			{
-				event.getTransactionStartDate();
-				fail();
-			}
-			catch(final ChangeEvent.NotAvailableException e)
-			{
-				assertEquals("remote", e.getMessage());
-			}
+			assertFails(() -> event.getTransactionID(),        NotAvailableException.class, "remote");
+			assertFails(() -> event.getTransactionName(),      NotAvailableException.class, "remote");
+			assertFails(() -> event.getTransactionStartDate(), NotAvailableException.class, "remote");
 			assertEquals(expectedItems + " remote " + modelA.getClusterSenderInfo().getNodeIDString(), event.toString());
 
 			event = null;
