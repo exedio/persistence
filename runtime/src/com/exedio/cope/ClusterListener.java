@@ -131,7 +131,7 @@ abstract class ClusterListener
 					}
 				}
 
-				invalidate(remoteNode, invalidations);
+				invalidate(invalidations, new TransactionInfoRemote(remoteNode));
 
 				break;
 			}
@@ -175,7 +175,7 @@ abstract class ClusterListener
 		}
 	}
 
-	abstract void invalidate(int remoteNode, TLongHashSet[] invalidations);
+	abstract void invalidate(TLongHashSet[] invalidations, TransactionInfoRemote info);
 	abstract void pong(long pingNanos, int pingNode);
 	abstract int getReceiveBufferSize();
 

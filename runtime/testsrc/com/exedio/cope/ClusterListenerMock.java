@@ -34,7 +34,7 @@ final class ClusterListenerMock extends ClusterListener
 	}
 
 	@Override
-	void invalidate(final int remoteNode, final TLongHashSet[] invalidations)
+	void invalidate(final TLongHashSet[] invalidations, final TransactionInfoRemote info)
 	{
 		testSink.add(invalidations);
 	}
