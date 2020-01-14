@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.count;
+
+import io.micrometer.core.instrument.Counter;
+
 public final class ClusterSenderInfo
 {
 	private final int nodeID;
@@ -31,13 +35,13 @@ public final class ClusterSenderInfo
 			final int localPort,
 			final int sendBufferSize,
 			final int trafficClass,
-			final long invalidationSplit)
+			final Counter invalidationSplit)
 	{
 		this.nodeID = nodeID;
 		this.localPort = localPort;
 		this.sendBufferSize = sendBufferSize;
 		this.trafficClass = trafficClass;
-		this.invalidationSplit = invalidationSplit;
+		this.invalidationSplit = count(invalidationSplit);
 	}
 
 	/**

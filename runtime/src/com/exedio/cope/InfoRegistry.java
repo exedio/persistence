@@ -34,6 +34,7 @@ final class InfoRegistry
 			Transaction.class.getName() + '.',
 			QueryCache.class.getName() + '.',
 			ItemCache.class.getName() + '.',
+			Cluster.class.getName() + '.',
 			ChangeListener.class.getName() + '.',
 			DataField.class.getName() + '.'};
 

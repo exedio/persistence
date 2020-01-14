@@ -44,7 +44,7 @@ public final class ClusterSenderMulticastTest
 				single("packetSize", 47),
 				single("secret", SECRET)
 			));
-		sender = new ClusterSenderMulticast(properties);
+		sender = new ClusterSenderMulticast(properties, "SENDER_TEST_MODEL_NAME");
 	}
 
 	@AfterEach void tearDown()

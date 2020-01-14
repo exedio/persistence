@@ -34,7 +34,7 @@ final class Cluster
 			final Connect connect)
 	{
 		this.properties = properties;
-		this.sender   = new ClusterSenderMulticast(properties);
+		this.sender   = new ClusterSenderMulticast(properties, modelName);
 		this.listener = new ClusterListenerMulticast(properties, modelName, sender, types.concreteTypeCount, connect);
 	}
 

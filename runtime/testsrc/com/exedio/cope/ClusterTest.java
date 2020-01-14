@@ -30,6 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongHashSet;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
 import java.net.DatagramPacket;
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +62,15 @@ public abstract class ClusterTest
 			));
 	}
 
+	private double invalidationSplitBefore;
+
 	@BeforeEach final void setUpClusterTest()
 	{
 		csp = getProperties(0x11224433);
 		clp = getProperties(0x11224434);
 		cs = new ClusterSenderMock(csp);
 		cl = new ClusterListenerMock(clp, 4);
+		invalidationSplitBefore = count("invalidationSplit");
 	}
 
 	@AfterEach final void tearDownClusterTest()
@@ -846,7 +851,8 @@ public abstract class ClusterTest
 		assertEquals(123456, senderInfo.getLocalPort());
 		assertEquals(123457, senderInfo.getSendBufferSize());
 		assertEquals(123458, senderInfo.getTrafficClass());
-		assertEquals(invalidationSplit, senderInfo.getInvalidationSplit());
+		assertEquals(invalidationSplit, senderInfo.getInvalidationSplit() - invalidationSplitBefore);
+		assertEquals(invalidationSplit, count("invalidationSplit")        - invalidationSplitBefore);
 
 		final ClusterListenerInfo listenerInfo = cl.getInfo();
 		assertEquals(234567, listenerInfo.getReceiveBufferSize());
@@ -886,6 +892,13 @@ public abstract class ClusterTest
 			fail("node not found: " + Long.toHexString(id));
 		}
 		assertEquals(listenerNodes.length, listenerInfoNodes.size());
+	}
+
+	private static double count(final String nameSuffix)
+	{
+		return ((Counter)PrometheusMeterRegistrar.meterCope(
+				Cluster.class, nameSuffix,
+				Tags.of("model", "MOCK_MODEL_NAME"))).count();
 	}
 
 	private static final byte b0 = 0;

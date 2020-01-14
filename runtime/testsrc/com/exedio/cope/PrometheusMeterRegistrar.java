@@ -75,6 +75,7 @@ public final class PrometheusMeterRegistrar
 				Transaction.class,
 				DataField.class,
 				ChangeListener.class,
+				Cluster.class,
 				ItemCache.class,
 				QueryCache.class
 				).contains(nameClass), nameClass.getName());

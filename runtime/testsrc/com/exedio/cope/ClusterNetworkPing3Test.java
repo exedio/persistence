@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ClusterNetworkPingTest.assertLastRoundTripSet;
+import static com.exedio.cope.ClusterNetworkPingTest.count;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -94,6 +95,9 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertEquals(0, senderA.getInvalidationSplit());
 		assertEquals(0, senderB.getInvalidationSplit());
 		assertEquals(0, senderC.getInvalidationSplit());
+		assertEquals(0, count("invalidationSplit", modelA));
+		assertEquals(0, count("invalidationSplit", modelB));
+		assertEquals(0, count("invalidationSplit", modelC));
 
 		final ClusterListenerInfo listenerA = modelA.getClusterListenerInfo();
 		final ClusterListenerInfo listenerB = modelB.getClusterListenerInfo();

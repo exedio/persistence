@@ -26,6 +26,8 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.util.SequenceChecker;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -93,6 +95,8 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(0, senderB.getTrafficClass());
 		assertEquals(0, senderA.getInvalidationSplit());
 		assertEquals(0, senderB.getInvalidationSplit());
+		assertEquals(0, count("invalidationSplit", modelA));
+		assertEquals(0, count("invalidationSplit", modelB));
 
 		final ClusterListenerInfo listenerA = modelA.getClusterListenerInfo();
 		final ClusterListenerInfo listenerB = modelB.getClusterListenerInfo();
@@ -185,5 +189,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 	private static void assertLessOrEqual(final long a, final long b)
 	{
 		assertTrue(a<=b, "" + a + "<=" + b);
+	}
+
+	static double count(final String nameSuffix, final Model model)
+	{
+		return ((Counter)PrometheusMeterRegistrar.meterCope(
+				Cluster.class, nameSuffix,
+				Tags.of("model", model.toString()))).count();
 	}
 }

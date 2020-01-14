@@ -29,9 +29,10 @@ import static com.exedio.cope.ClusterUtil.marshal;
 
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicLong;
 
 abstract class ClusterSender
 {
@@ -50,7 +51,7 @@ abstract class ClusterSender
 	private final AtomicInteger pongSequence = new AtomicInteger();
 	private final AtomicInteger invalidationSequence = new AtomicInteger();
 
-	ClusterSender(final ClusterProperties properties)
+	ClusterSender(final ClusterProperties properties, final String modelName)
 	{
 		this.properties = properties;
 		{
@@ -93,6 +94,8 @@ abstract class ClusterSender
 			assert pos==INVALIDATE_TEMPLATE_SIZE;
 			this.invalidateTemplate = invalidateTemplate;
 		}
+		final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, Tags.of("model", modelName));
+		invalidationSplit = metrics.counter("invalidationSplit", "How often an invalidation must be split before sending due to packet size constraint.", Tags.empty());
 	}
 
 	final void ping(final int count)
@@ -134,7 +137,7 @@ abstract class ClusterSender
 	}
 
 	// info
-	private final AtomicLong invalidationSplit = new AtomicLong();
+	private final Counter invalidationSplit;
 
 	final void invalidate(final TLongHashSet[] invalidations)
 	{
@@ -220,7 +223,7 @@ abstract class ClusterSender
 			}
 			while(true);
 
-			invalidationSplit.addAndGet(packetCount-1);
+			invalidationSplit.increment(packetCount-1);
 		}
 		catch(final IOException e)
 		{
@@ -235,7 +238,7 @@ abstract class ClusterSender
 				getLocalPort(),
 				getSendBufferSize(),
 				getTrafficClass(),
-				invalidationSplit.get());
+				invalidationSplit);
 	}
 
 	abstract long nanoTime();

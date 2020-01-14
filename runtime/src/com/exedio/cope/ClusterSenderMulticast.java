@@ -30,9 +30,9 @@ final class ClusterSenderMulticast extends ClusterSender
 	private final int port;
 	private final DatagramSocket socket;
 
-	ClusterSenderMulticast(final ClusterProperties properties)
+	ClusterSenderMulticast(final ClusterProperties properties, final String modelName)
 	{
-		super(properties);
+		super(properties, modelName);
 		this.address = properties.sendAddress;
 		this.port = properties.sendDestinationPort;
 		this.socket = properties.newSendSocket();
