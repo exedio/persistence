@@ -19,11 +19,18 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.list;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import org.junit.jupiter.api.BeforeEach;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
@@ -36,18 +43,65 @@ public class MatchTest extends TestWithEnvironment
 
 	AnItem item;
 
-	@BeforeEach final void setUp()
+	@SuppressFBWarnings({"SF_SWITCH_NO_DEFAULT","SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"})
+	@Test void test() throws SQLException
 	{
-		item = new AnItem();
-	}
+		final ConnectProperties propsBefore = MODEL.getConnectProperties();
+		assertFalse(propsBefore.getFulltextIndex(), "fulltextIndex");
 
-	@Test void testStrings() throws StringLengthViolationException
-	{
+		item = new AnItem();
 		item.setText("hallo bello cnallo");
+		MODEL.commit();
+
+		MODEL.startTransaction(MatchTest.class.getName());
 		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "hallo")));
 		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "bello")));
 		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "cnallo")));
 		assertEquals(list(), AnItem.TYPE.search(new MatchCondition(AnItem.text, "zack")));
+		MODEL.commit();
+
+		MODEL.disconnect();
+		MODEL.connect(ConnectProperties.create(cascade(
+				single("fulltextIndex", true),
+				propsBefore.getSourceObject()
+		)));
+		assertTrue(MODEL.getConnectProperties().getFulltextIndex(), "fulltextIndex");
+
+		//noinspection EnumSwitchStatementWhichMissesCases OK: prepares more branches
+		switch(dialect)
+		{
+			case mysql:
+				if(MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 6))
+				{
+					try(Connection c = SchemaInfo.newConnection(MODEL);
+						 Statement s = c.createStatement())
+					{
+						s.execute(
+								"CREATE FULLTEXT INDEX index_name " +
+								"ON " + SI.tab(AnItem.TYPE) + " " +
+								"(" + SI.col(AnItem.text) + ")");
+					}
+				}
+				break;
+			case oracle:
+				try(Connection c = SchemaInfo.newConnection(MODEL);
+					 Statement s = c.createStatement())
+				{
+					s.execute(
+							"CREATE INDEX index_name " +
+							"ON " + SI.tab(AnItem.TYPE) + " " +
+							"(" + SI.col(AnItem.text) + ") " +
+							"indextype is CTXSYS.CONTEXT");
+				}
+				break;
+		}
+
+		MODEL.startTransaction(MatchTest.class.getName());
+		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "hallo")));
+		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "bello")));
+		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "cnallo")));
+		assertEquals(list(), AnItem.TYPE.search(new MatchCondition(AnItem.text, "zack")));
+		MODEL.commit();
 	}
 
 	@WrapperType(indent=2, comments=false)
