@@ -23,6 +23,8 @@ import java.lang.reflect.Type;
 
 final class LocalCopeFeature extends CopeFeature
 {
+	private static final String[] EMPTY_STRING_ARRAY = new String[0];
+
 	private final JavaField javaField;
 	private final Boolean initialByConfiguration;
 
@@ -93,6 +95,7 @@ final class LocalCopeFeature extends CopeFeature
 		@Override public boolean booleanAsIs() { return false; }
 		@Override public boolean asFinal() { return true; }
 		@Override public boolean override() { return false; }
+		@Override public String[] annotate() { return EMPTY_STRING_ARRAY; }
 	};
 
 	@Override

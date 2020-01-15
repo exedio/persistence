@@ -413,6 +413,7 @@ final class Generator
 			final boolean isStatic = wrapper.isStatic();
 			final boolean internal = option.internal();
 			final boolean override = option.override();
+			final String[] customAnnotations = option.annotate();
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
 
 			final Object[] arguments = new String[]{
@@ -498,6 +499,12 @@ final class Generator
 			if(override)
 			{
 				writeEmptyAnnotationOnSeparateLine(Override.class);
+			}
+			for (final String customAnnotation: customAnnotations)
+			{
+				writeIndent();
+				write(customAnnotation);
+				write(lineSeparator);
 			}
 
 			writeIndent();

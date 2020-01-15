@@ -77,4 +77,9 @@ public @interface Wrapper
 	 * Annotates the generated wrapper method with @{@link Override}.
 	 */
 	boolean override() default false;
+
+	/**
+	 * Adds the given texts as annotations to the generated wrapper method. Values must start with "{@literal @}".
+	 */
+	String[] annotate() default {};
 }
