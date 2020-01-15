@@ -28,16 +28,18 @@ import static com.exedio.cope.ClusterUtil.MAGIC2;
 import static com.exedio.cope.ClusterUtil.MAGIC3;
 import static com.exedio.cope.ClusterUtil.pingString;
 
+import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.SequenceChecker;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TLongHashSet;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
 import java.net.DatagramPacket;
 import java.net.InetAddress;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Locale;
-import java.util.concurrent.atomic.AtomicLong;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,6 +55,7 @@ abstract class ClusterListener
 
 	ClusterListener(
 			final ClusterProperties properties,
+			final String modelName,
 			final int typeLength)
 	{
 		this.properties = properties;
@@ -60,6 +63,11 @@ abstract class ClusterListener
 		this.localNode = properties.node;
 		this.sequenceCheckerCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
+		final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, Tags.of("model", modelName));
+		exception    = metrics.counter("fail",         "How often a received packet failed to parse.", Tags.empty());
+		missingMagic = metrics.counter("missingMagic", "How often a received packet did not start with the magic bytes " + Hex.encodeUpper(MAGIC) + '.', Tags.empty());
+		wrongSecret  = metrics.counter("wrongSecret",  "How often a received packet did not carry the secret this cluster is configured with.", Tags.empty());
+		fromMyself   = metrics.counter("fromMyself",   "How often a received packet did come from this node itself.", Tags.empty());
 	}
 
 	final void handle(final DatagramPacket packet)
@@ -68,20 +76,20 @@ abstract class ClusterListener
 
 		if(!iter.checkBytes(MAGIC))
 		{
-			missingMagic.incrementAndGet();
+			missingMagic.increment();
 			return;
 		}
 
 		if(secret!=iter.next())
 		{
-			wrongSecret.incrementAndGet();
+			wrongSecret.increment();
 			return;
 		}
 
 		final int remoteNode = iter.next();
 		if(localNode==remoteNode)
 		{
-			fromMyself.incrementAndGet();
+			fromMyself.increment();
 			return;
 		}
 
@@ -181,10 +189,10 @@ abstract class ClusterListener
 
 	// info
 
-	final AtomicLong exception = new AtomicLong();
-	private final AtomicLong missingMagic = new AtomicLong();
-	private final AtomicLong wrongSecret = new AtomicLong();
-	private final AtomicLong fromMyself = new AtomicLong();
+	final Counter exception;
+	private final Counter missingMagic;
+	private final Counter wrongSecret;
+	private final Counter fromMyself;
 	private final TIntObjectHashMap<Node> nodes = new TIntObjectHashMap<>();
 
 	private static final class Node
@@ -329,10 +337,10 @@ abstract class ClusterListener
 
 		return new ClusterListenerInfo(
 				getReceiveBufferSize(),
-				exception.get(),
-				missingMagic.get(),
-				wrongSecret.get(),
-				fromMyself.get(),
+				exception,
+				missingMagic,
+				wrongSecret,
+				fromMyself,
 				infoNodes);
 	}
 }

@@ -39,6 +39,10 @@ import org.junit.jupiter.api.Test;
 
 public class ClusterNetworkPing3Test extends ClusterNetworkTest
 {
+	private double fromMyselfBeforeA;
+	private double fromMyselfBeforeB;
+	private double fromMyselfBeforeC;
+
 	@Test void test() throws InterruptedException
 	{
 		assertFalse(modelA.isConnected());
@@ -59,6 +63,10 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertNotNull(modelA.getClusterProperties());
 		assertNotNull(modelB.getClusterProperties());
 		assertNotNull(modelC.getClusterProperties());
+
+		fromMyselfBeforeA = count("fromMyself", modelA);
+		fromMyselfBeforeB = count("fromMyself", modelB);
+		fromMyselfBeforeC = count("fromMyself", modelC);
 
 		assertIt(0, 0, 0);
 
@@ -87,7 +95,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertIt(3, 1, 2);
 	}
 
-	private static void assertIt(final int pingA, final int pingB, final int pingC)
+	private void assertIt(final int pingA, final int pingB, final int pingC)
 	{
 		final ClusterSenderInfo senderA = modelA.getClusterSenderInfo();
 		final ClusterSenderInfo senderB = modelB.getClusterSenderInfo();
@@ -102,9 +110,9 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		final ClusterListenerInfo listenerA = modelA.getClusterListenerInfo();
 		final ClusterListenerInfo listenerB = modelB.getClusterListenerInfo();
 		final ClusterListenerInfo listenerC = modelC.getClusterListenerInfo();
-		assertIt(pingA+pingB+pingC, listenerA);
-		assertIt(pingA+pingB+pingC, listenerB);
-		assertIt(pingA+pingB+pingC, listenerC);
+		assertIt(pingA+pingB+pingC, fromMyselfBeforeA, modelA, listenerA);
+		assertIt(pingA+pingB+pingC, fromMyselfBeforeB, modelB, listenerB);
+		assertIt(pingA+pingB+pingC, fromMyselfBeforeC, modelC, listenerC);
 
 		final Map<Integer,Node> nodesA = getNodes(listenerA);
 		final Map<Integer,Node> nodesB = getNodes(listenerB);
@@ -167,12 +175,15 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 
 	private static void assertIt(
 			final int fromMyself,
+			final double fromMyselfBefore,
+			final Model model,
 			final ClusterListenerInfo actual)
 	{
 		assertEquals(0, actual.getException());
 		assertEquals(0, actual.getMissingMagic());
 		assertEquals(0, actual.getWrongSecret());
-		assertEquals(fromMyself, actual.getFromMyself());
+		assertEquals(fromMyself, actual.getFromMyself()     - fromMyselfBefore);
+		assertEquals(fromMyself, count("fromMyself", model) - fromMyselfBefore);
 	}
 
 	private static Map<Integer,Node> getNodes(final ClusterListenerInfo i)

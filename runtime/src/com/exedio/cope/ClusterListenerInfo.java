@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.count;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.SequenceChecker;
+import io.micrometer.core.instrument.Counter;
 import java.net.InetAddress;
 import java.util.Collections;
 import java.util.Date;
@@ -37,17 +39,17 @@ public final class ClusterListenerInfo
 
 	ClusterListenerInfo(
 			final int receiveBufferSize,
-			final long exception,
-			final long missingMagic,
-			final long wrongSecret,
-			final long fromMyself,
+			final Counter exception,
+			final Counter missingMagic,
+			final Counter wrongSecret,
+			final Counter fromMyself,
 			final List<Node> nodes)
 	{
 		this.receiveBufferSize = receiveBufferSize;
-		this.exception = exception;
-		this.missingMagic = missingMagic;
-		this.wrongSecret = wrongSecret;
-		this.fromMyself = fromMyself;
+		this.exception = count(exception);
+		this.missingMagic = count(missingMagic);
+		this.wrongSecret = count(wrongSecret);
+		this.fromMyself = count(fromMyself);
 		this.nodes = Collections.unmodifiableList(nodes);
 	}
 

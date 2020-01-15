@@ -63,6 +63,9 @@ public abstract class ClusterTest
 	}
 
 	private double invalidationSplitBefore;
+	private double missingMagicBefore;
+	private double wrongSecretBefore;
+	private double fromMyselfBefore;
 
 	@BeforeEach final void setUpClusterTest()
 	{
@@ -71,6 +74,9 @@ public abstract class ClusterTest
 		cs = new ClusterSenderMock(csp);
 		cl = new ClusterListenerMock(clp, 4);
 		invalidationSplitBefore = count("invalidationSplit");
+		missingMagicBefore = count("missingMagic");
+		wrongSecretBefore = count("wrongSecret");
+		fromMyselfBefore = count("fromMyself");
 	}
 
 	@AfterEach final void tearDownClusterTest()
@@ -857,9 +863,13 @@ public abstract class ClusterTest
 		final ClusterListenerInfo listenerInfo = cl.getInfo();
 		assertEquals(234567, listenerInfo.getReceiveBufferSize());
 		assertEquals(0, listenerInfo.getException());
-		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic());
-		assertEquals(listenerWrongSecret, listenerInfo.getWrongSecret());
-		assertEquals(listenerFromMyself, listenerInfo.getFromMyself());
+		assertEquals(0, count("fail"));
+		assertEquals(listenerMissingMagic, listenerInfo.getMissingMagic() - missingMagicBefore);
+		assertEquals(listenerWrongSecret,  listenerInfo.getWrongSecret()  - wrongSecretBefore);
+		assertEquals(listenerFromMyself,   listenerInfo.getFromMyself()   - fromMyselfBefore);
+		assertEquals(listenerMissingMagic, count("missingMagic") - missingMagicBefore);
+		assertEquals(listenerWrongSecret,  count("wrongSecret")  - wrongSecretBefore);
+		assertEquals(listenerFromMyself,   count("fromMyself")   - fromMyselfBefore);
 		final List<ClusterListenerInfo.Node> listenerInfoNodes = listenerInfo.getNodes();
 		assertUnmodifiable(listenerInfoNodes);
 		nodes: for(final long[] node : listenerNodes)

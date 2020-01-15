@@ -48,7 +48,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			final ClusterSender sender,
 			final int typeLength, final Connect connect)
 	{
-		super(properties, sender, typeLength, connect);
+		super(properties, modelName, sender, typeLength, connect);
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
 		this.socket = properties.newListenSocket();
@@ -100,7 +100,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			{
 				if(threadRun)
 				{
-					exception.incrementAndGet();
+					exception.increment();
 					logger.error("fail", e);
 				}
 				else
@@ -114,7 +114,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 			}
 			catch(final Exception | AssertionError e)
 			{
-				exception.incrementAndGet();
+				exception.increment();
 				if(logger.isErrorEnabled())
 					logger.error(MessageFormat.format("ClusterListenerMulticast {0}", Hex.encodeLower(packet.getData(), packet.getOffset(), packet.getLength()) ), e);
 			}
