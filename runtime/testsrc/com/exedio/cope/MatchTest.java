@@ -18,12 +18,10 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.MatchItem.TYPE;
-import static com.exedio.cope.MatchItem.text;
-import static com.exedio.cope.MatchModel.MODEL;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -36,19 +34,64 @@ public class MatchTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	MatchItem item;
+	AnItem item;
 
 	@BeforeEach final void setUp()
 	{
-		item = new MatchItem();
+		item = new AnItem();
 	}
 
 	@Test void testStrings() throws StringLengthViolationException
 	{
 		item.setText("hallo bello cnallo");
-		assertEquals(list(item), TYPE.search(new MatchCondition(text, "hallo")));
-		assertEquals(list(item), TYPE.search(new MatchCondition(text, "bello")));
-		assertEquals(list(item), TYPE.search(new MatchCondition(text, "cnallo")));
-		assertEquals(list(), TYPE.search(new MatchCondition(text, "zack")));
+		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "hallo")));
+		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "bello")));
+		assertEquals(list(item), AnItem.TYPE.search(new MatchCondition(AnItem.text, "cnallo")));
+		assertEquals(list(), AnItem.TYPE.search(new MatchCondition(AnItem.text, "zack")));
 	}
+
+	@WrapperType(indent=2, comments=false)
+	static final class AnItem extends Item
+	{
+		static final StringField text = new StringField().optional();
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
+		AnItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		java.lang.String getText()
+		{
+			return AnItem.text.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setText(@javax.annotation.Nullable final java.lang.String text)
+				throws
+					com.exedio.cope.StringLengthViolationException
+		{
+			AnItem.text.set(this,text);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	private static final Model MODEL = new Model(AnItem.TYPE);
 }
