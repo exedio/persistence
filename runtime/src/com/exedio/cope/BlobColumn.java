@@ -102,7 +102,7 @@ final class BlobColumn extends Column
 				if(!resultSet.next())
 					throw new SQLException(NO_SUCH_ROW);
 
-				return tx.connect.executor.dialect.getBytes(resultSet, 1);
+				return resultSet.getBytes(1);
 			}
 		);
 	}

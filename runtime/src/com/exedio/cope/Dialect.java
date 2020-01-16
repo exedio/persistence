@@ -134,11 +134,6 @@ abstract class Dialect
 		return null;
 	}
 
-	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
-	{
-		return resultSet.getBytes(columnIndex);
-	}
-
 	void fetchBlob(
 			final ResultSet resultSet, final int columnIndex,
 			final Item item, final OutputStream sink, final DataField field)

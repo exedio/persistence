@@ -36,7 +36,6 @@ import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.sql.Blob;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -176,17 +175,6 @@ final class HsqldbDialect extends Dialect
 	String getDateIntegerPrecision(final String quotedName, final Precision precision)
 	{
 		return "MOD(" + quotedName + ',' + precision.divisor() + ")=0";
-	}
-
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
-	@Override
-	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
-	{
-		final Blob blob = resultSet.getBlob(columnIndex);
-		if(blob==null)
-			return null;
-
-		return DataField.copy(blob.getBinaryStream(), blob.length());
 	}
 
 	@Override

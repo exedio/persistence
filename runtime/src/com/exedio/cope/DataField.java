@@ -151,11 +151,6 @@ public final class DataField extends Field<DataField.Value>
 		this.bufferSizeLimit   = limit;
 	}
 
-	private static int toInt(final long l)
-	{
-		return min(Integer.MAX_VALUE, l);
-	}
-
 	/**
 	 * @throws IllegalArgumentException if either i or l is negative
 	 */
@@ -472,44 +467,6 @@ public final class DataField extends Field<DataField.Value>
 				throw new DataLengthViolationException(this, exceptionItem, transferredLength, false);
 
 			out.write(b, 0, len);
-		}
-	}
-
-	static byte[] copy(final InputStream input, final long length)
-	{
-		try(InputStream in = input)
-		{
-			if(length==0)
-				//noinspection ZeroLengthArrayAllocation OK: happens almost never
-				return new byte[]{};
-
-			if(length>Integer.MAX_VALUE)
-				throw new RuntimeException("byte array cannot be longer than int");
-
-			assert length>0;
-
-			final byte[] result = new byte[toInt(length)];
-			final int readBytes = in.read(result);
-			// TODO
-			// method InputStream.read(byte[]) may read less than result.length bytes
-			// even is the stream is not yet at its end
-			// Probably we could use
-			//    new BufferedInputStream(in).read(result);
-			// to rely on complete reading guaranteed by
-			// BufferedInputStream#read(byte[]) which extends contract of
-			// InputStream#read(byte[])
-			if(readBytes!=length)
-				throw new RuntimeException("expected " + length + " bytes, but got " + readBytes + ", TODO not yet fully implemented");
-
-			final int tooManyBytes = in.read(new byte[1]);
-			if(tooManyBytes!=-1)
-				throw new RuntimeException("expected " + length + " bytes, but got more.");
-
-			return result;
-		}
-		catch(final IOException e)
-		{
-			throw new RuntimeException(e);
 		}
 	}
 

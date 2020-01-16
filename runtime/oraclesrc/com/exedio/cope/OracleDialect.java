@@ -33,9 +33,7 @@ import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
-import java.sql.Blob;
 import java.sql.Connection;
-import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.util.Arrays;
@@ -314,17 +312,6 @@ final class OracleDialect extends Dialect
 	boolean supportsEmptyStrings()
 	{
 		return false;
-	}
-
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
-	@Override
-	byte[] getBytes(final ResultSet resultSet, final int columnIndex) throws SQLException
-	{
-		final Blob blob = resultSet.getBlob(columnIndex);
-		if(blob==null)
-			return null;
-
-		return DataField.copy(blob.getBinaryStream(), blob.length());
 	}
 
 	private static final Random statementIDCounter = new Random();

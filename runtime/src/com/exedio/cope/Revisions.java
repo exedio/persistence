@@ -187,7 +187,7 @@ public final class Revisions
 					while(resultSet.next())
 					{
 						final int currentRevision = resultSet.getInt(1);
-						final byte[] info = dialect.getBytes(resultSet, 2);
+						final byte[] info = resultSet.getBytes(2);
 						final byte[] previous = result.putIfAbsent(currentRevision, info);
 						if(previous!=null)
 							throw new RuntimeException("duplicate revision " + currentRevision);
