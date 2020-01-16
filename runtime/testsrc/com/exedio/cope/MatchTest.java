@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static com.exedio.cope.MatchModel.MODEL;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -30,13 +31,6 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class MatchTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(TYPE);
-
-	static
-	{
-		MODEL.enableSerialization(MatchTest.class, "MODEL");
-	}
-
 	public MatchTest()
 	{
 		super(MODEL);

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MatchModel.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
@@ -34,7 +35,7 @@ public class ModificationListenerTest extends TestWithEnvironment
 {
 	public ModificationListenerTest()
 	{
-		super(MatchTest.MODEL);
+		super(MODEL);
 	}
 
 	@SuppressWarnings("deprecation")

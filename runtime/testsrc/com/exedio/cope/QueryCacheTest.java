@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static com.exedio.cope.MatchModel.MODEL;
 import static com.exedio.cope.Query.Mode.EXISTS;
 import static com.exedio.cope.Query.Mode.SEARCH;
 import static com.exedio.cope.Query.Mode.TOTAL;
@@ -39,7 +40,7 @@ public class QueryCacheTest extends TestWithEnvironment
 {
 	public QueryCacheTest()
 	{
-		super(MatchTest.MODEL);
+		super(MODEL);
 	}
 
 	@SuppressWarnings("static-method")

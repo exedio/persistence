@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.MatchModel.MODEL;
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.Assert.assertContains;
@@ -50,7 +51,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 {
 	public ChangeListenerTest()
 	{
-		super(MatchTest.MODEL);
+		super(MODEL);
 	}
 
 	private final LogRule log = new LogRule(ChangeListeners.class);

@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MatchItem.TYPE;
 import static com.exedio.cope.MatchItem.text;
+import static com.exedio.cope.MatchModel.MODEL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -38,7 +39,7 @@ public class DatabaseLogTest extends TestWithEnvironment
 {
 	public DatabaseLogTest()
 	{
-		super(MatchTest.MODEL);
+		super(MODEL);
 	}
 
 	MatchItem item;

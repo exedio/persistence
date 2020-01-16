@@ -33,7 +33,7 @@ import com.exedio.cope.HiddenFeatureTest;
 import com.exedio.cope.HierarchyTest;
 import com.exedio.cope.InstanceOfModelTest;
 import com.exedio.cope.IntegerModelTest;
-import com.exedio.cope.MatchTest;
+import com.exedio.cope.MatchModel;
 import com.exedio.cope.Model;
 import com.exedio.cope.NameTest;
 import com.exedio.cope.badquery.BadQueryTest;
@@ -64,7 +64,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				LimitedListFieldModelTest.MODEL,
 				CacheIsolationTest.MODEL,
 				NameTest.MODEL,
-				MatchTest.MODEL,
+				MatchModel.MODEL,
 				HierarchyTest.MODEL,
 				InstanceOfModelTest.MODEL,
 				HiddenFeatureTest.MODEL,
