@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.StrictFile.delete;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.fail;
@@ -103,14 +104,14 @@ public class DataDigestTest
 	private static final byte[] bytes4  = {-86,122,-8,23};
 
 
-	@Test void testExhaustionArray() throws IOException
+	@Test void testExhaustionArray()
 	{
 		final Value value = toValue(bytes4);
 		assertAsArray(bytes4, value);
 		assertExhausted(value);
 	}
 
-	@Test void testExhaustionStream() throws IOException
+	@Test void testExhaustionStream()
 	{
 		final ByteArrayInputStream stream = new ByteArrayInputStream(bytes4);
 		final Value value = toValue(stream);
@@ -229,33 +230,19 @@ public class DataDigestTest
 			fail("expected " + Arrays.toString(expectedData) + ", but was " + Arrays.toString(actualData));
 	}
 
-	private static void assertExhausted(final Value value) throws IOException
+	private static void assertExhausted(final Value value)
 	{
 		messageDigest.reset();
-		try
-		{
-			value.update(messageDigest);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"Value already exhausted: " + value + ". " +
-					"Each DataField.Value can be used for at most one setter action.",
-					e.getMessage());
-		}
-		try
-		{
-			value.asArray(null, null);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"Value already exhausted: " + value + ". " +
-					"Each DataField.Value can be used for at most one setter action.",
-					e.getMessage());
-		}
+		assertFails(
+				() -> value.update(messageDigest),
+				IllegalStateException.class,
+				"Value already exhausted: " + value + ". " +
+				"Each DataField.Value can be used for at most one setter action.");
+		assertFails(
+				() -> value.asArray(null, null),
+				IllegalStateException.class,
+				"Value already exhausted: " + value + ". " +
+				"Each DataField.Value can be used for at most one setter action.");
 	}
 
 	public void assertAsArray(final byte[] expected, final Value value)
