@@ -914,22 +914,4 @@ public abstract class MediaPath extends Pattern
 	{
 		return new UnsupportedOperationException("condition not supported by " + getID() + " of " + getClass().getName());
 	}
-
-
-	// ------------------- deprecated stuff -------------------
-
-	@Deprecated
-	public static final class Log
-	{
-		private Log()
-		{
-			// prevent instantiation
-		}
-
-		@SuppressWarnings({"static-method", "unused"})
-		public int get()
-		{
-			throw new NoSuchMethodError();
-		}
-	}
 }

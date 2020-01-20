@@ -103,17 +103,4 @@ public final class MultiplyView<E extends Number> extends NumberView<E>
 		}
 		bf.append(')');
 	}
-
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link MultiplyView#MultiplyView(Function[])} instead.
-	 */
-	@SuppressWarnings({"unchecked", "rawtypes"})
-	@Deprecated
-	public MultiplyView(final NumberFunction[] multipliers)
-	{
-		this((Function<E>[])multipliers);
-	}
 }

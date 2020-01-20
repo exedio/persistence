@@ -19,8 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import com.exedio.cope.misc.ModelByString;
-import com.exedio.cope.misc.ModelMain;
 import java.util.List;
 
 /**
@@ -199,56 +197,5 @@ public final class Cope
 	private Cope()
 	{
 		// prevent instantiation
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction)}.
-	 */
-	@Deprecated
-	public static <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2)
-	{
-		return plus(addend1, addend2);
-	}
-
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction, NumberFunction, NumberFunction)}.
-	 */
-	@Deprecated
-	public static <E extends Number> PlusView<E> sum(final NumberFunction<E> addend1, final NumberFunction<E> addend2, final NumberFunction<E> addend3)
-	{
-		return plus(addend1, addend2, addend3);
-	}
-
-	/**
-	 * @deprecated Use {@link Class#cast(Object)} instead.
-	 */
-	@Deprecated
-	public static <X> X verboseCast(final Class<X> clazz, final Object o)
-	{
-		return clazz.cast(o);
-	}
-
-	/**
-	 * @deprecated Use {@link ModelByString#get(String)} instead.
-	 */
-	@Deprecated
-	public static Model getModel(final String name)
-	{
-		return ModelByString.get(name);
-	}
-
-	/**
-	 * @deprecated Use {@link ModelMain#main(String[])} instead.
-	 */
-	@Deprecated
-	public static void main(final String[] args)
-	{
-		System.out.println(
-				Cope.class.getName() + " is deprecated, use " +
-				ModelMain.class.getName() + " instead.");
-
-		ModelMain.main(args);
 	}
 }

@@ -251,6 +251,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class BeforeNewNotStatic extends Item
 	{
 		@SuppressWarnings({"static-method", "MethodMayBeStatic"})
@@ -288,6 +289,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class BeforeNewWrongReturn extends Item
 	{
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
@@ -329,6 +331,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class UniqueConstraintOnInheritedFeatureSuper extends Item
 	{
 		@WrapperIgnore static final IntegerField superField=new IntegerField();

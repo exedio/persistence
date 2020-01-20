@@ -329,19 +329,4 @@ public final class DayField extends FunctionField<Day>
 			throw new IllegalArgumentException(zone.toString() + '/' + zoneCheck + '/' + result);
 		return result;
 	}
-
-	@Deprecated
-	public void touch(final Item item)
-	{
-		touch(item, TimeZone.getDefault());
-	}
-
-	/**
-	 * @deprecated Use {@link #defaultToNow(TimeZone)} instead.
-	 */
-	@Deprecated
-	public DayField defaultToNow()
-	{
-		return defaultToNow(TimeZone.getDefault());
-	}
 }

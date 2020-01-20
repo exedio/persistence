@@ -684,22 +684,4 @@ public final class Schedule extends Pattern
 		result.setLenient(false);
 		return result;
 	}
-
-	/**
-	 * @deprecated Use {@link #Schedule(TimeZone,Locale)} instead.
-	 */
-	@Deprecated
-	public Schedule()
-	{
-		this(Locale.getDefault());
-	}
-
-	/**
-	 * @deprecated Use {@link #Schedule(TimeZone,Locale)} instead.
-	 */
-	@Deprecated
-	public Schedule(final Locale locale)
-	{
-		this(TimeZone.getDefault(), locale);
-	}
 }

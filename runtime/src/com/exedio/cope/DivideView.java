@@ -93,15 +93,4 @@ public final class DivideView<E extends Number> extends NumberView<E>
 		}
 		bf.append(')');
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #DivideView(Function,Function)} instead.
-	 */
-	@Deprecated
-	public DivideView(final NumberFunction<E> dividend, final NumberFunction<E> divisor)
-	{
-		this((Function<E>)dividend, divisor);
-	}
 }

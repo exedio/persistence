@@ -78,15 +78,4 @@ public final class FinalViolationException extends ConstraintViolationException
 	{
 		return "final violation" + getItemPhrase() + (withFeature ? (" for " + feature) : "");
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public Feature getFinalAttribute()
-	{
-		return feature;
-	}
 }

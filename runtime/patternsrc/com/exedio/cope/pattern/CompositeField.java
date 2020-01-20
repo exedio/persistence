@@ -320,24 +320,4 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	{
 		return isNullComponent.bind(join).isNotNull();
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #of(FunctionField)} instead
-	 */
-	@Deprecated
-	public <X extends FunctionField<?>> X getComponent(final X template)
-	{
-		return of(template);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(Class)} instead
-	 */
-	@Deprecated
-	public static <E extends Composite> CompositeField<E> newComposite(final Class<E> valueClass)
-	{
-		return create(valueClass);
-	}
 }

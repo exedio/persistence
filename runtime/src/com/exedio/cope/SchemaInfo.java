@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.util.Check.requireNonEmpty;
-import static java.lang.Math.toIntExact;
 import static java.util.Objects.requireNonNull;
 
 import java.sql.Connection;
@@ -106,16 +105,6 @@ public final class SchemaInfo
 	public static String getPrimaryKeyColumnName(final Type<?> type)
 	{
 		return type.table.primaryKey.id;
-	}
-
-	/**
-	 * Returns the value of primary key column in the database for the item.
-	 * @deprecated Use {@link #getPrimaryKeyColumnValueL(Item)} instead.
-	 */
-	@Deprecated
-	public static int getPrimaryKeyColumnValue(final Item item)
-	{
-		return toIntExact(getPrimaryKeyColumnValueL(item));
 	}
 
 	/**
@@ -310,35 +299,5 @@ public final class SchemaInfo
 	private SchemaInfo()
 	{
 		// prevent instantiation
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated always returns true
-	 * @see #getUpdateCounterColumnName(Type)
-	 */
-	@Deprecated
-	public static boolean isUpdateCounterEnabled(@SuppressWarnings("unused") final Model model)
-	{
-		return true;
-	}
-
-	/**
-	 * @deprecated Use {@link #isUpdateCounterEnabled(Model)} instead
-	 */
-	@Deprecated
-	public static boolean isConcurrentModificationDetectionEnabled(final Model model)
-	{
-		return isUpdateCounterEnabled(model);
-	}
-
-	/**
-	 * @deprecated Use {@link #getUpdateCounterColumnName(Type)} instead
-	 */
-	@Deprecated
-	public static String getModificationCounterColumnName(final Type<?> type)
-	{
-		return getUpdateCounterColumnName(type);
 	}
 }

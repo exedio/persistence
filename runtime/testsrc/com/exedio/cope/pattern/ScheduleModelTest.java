@@ -177,7 +177,7 @@ public class ScheduleModelTest
 	{
 		try
 		{
-			new Schedule((ZoneId)null);
+			new Schedule(null);
 			fail();
 		}
 		catch(final NullPointerException e)

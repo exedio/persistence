@@ -110,24 +110,4 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 
 		return bf.toString();
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #StringLengthViolationException(StringField, Item, String)} instead.
-	 */
-	@Deprecated
-	public StringLengthViolationException(final StringField feature, final Item item, final String value, @SuppressWarnings("unused") final boolean isTooShort, @SuppressWarnings("unused") final int border)
-	{
-		this(feature, item, value);
-	}
-
-	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public StringField getStringAttribute()
-	{
-		return feature;
-	}
 }

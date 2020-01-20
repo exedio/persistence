@@ -70,21 +70,6 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	}
 
 	/**
-	 * @deprecated Use {@link #create(Feature, Item)} instead.
-	 */
-	@Deprecated
-	public MandatoryViolationException(
-			final Feature feature,
-			final Settable<?> settable,
-			final Item item)
-	{
-		super(item, null);
-		if(feature!=settable)
-			throw new IllegalArgumentException("feature and settable must be the same object, but was " + feature + " and " + settable);
-		this.feature = feature;
-	}
-
-	/**
 	 * Returns the feature, that was attempted to be written.
 	 */
 	@Override
@@ -97,16 +82,5 @@ public final class MandatoryViolationException extends ConstraintViolationExcept
 	public String getMessage(final boolean withFeature)
 	{
 		return "mandatory violation" + getItemPhrase() + (withFeature ? (" for " + feature) : "");
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public Feature getMandatoryAttribute()
-	{
-		return feature;
 	}
 }

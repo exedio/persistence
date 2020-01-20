@@ -23,9 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashSet;
-import java.util.List;
 import java.util.Set;
 
 /**
@@ -223,24 +221,5 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	public final Collection<E> castCollection(final Collection<?> c)
 	{
 		return Cast.castElements(valueClass, c);
-	}
-
-	/**
-	 * @deprecated Use {@link SchemaInfo#getColumnName(Field)} instead
-	 */
-	@Deprecated
-	public final String getColumnName()
-	{
-		return SchemaInfo.getColumnName(this);
-	}
-
-	@Deprecated
-	public final List<Pattern> getPatterns()
-	{
-		final Pattern pattern = getPattern();
-		return
-			pattern!=null
-			? Collections.singletonList(pattern)
-			: Collections.emptyList();
 	}
 }

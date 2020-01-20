@@ -20,10 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.CopeNameUtil;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.AnnotatedElement;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
@@ -91,7 +89,7 @@ public final class TypesBound
 			features.put(
 					CopeNameUtil.getAndFallbackToName(field),
 					entry.getKey(),
-					(AnnotatedElement)field);
+					field);
 		}
 
 		final Type<T> result = new Type<>(
@@ -176,25 +174,5 @@ public final class TypesBound
 				return javaClass.getName();
 			}
 		};
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link ItemField#create(Class)} instead
-	 */
-	@Deprecated
-	public static <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
-	{
-		return ItemField.create(valueClass);
-	}
-
-	/**
-	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
-	 */
-	@Deprecated
-	public static <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return ItemField.create(valueClass, policy);
 	}
 }

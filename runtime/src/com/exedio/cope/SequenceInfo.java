@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static java.lang.Math.toIntExact;
-
 public final class SequenceInfo
 {
 	private final Feature feature;
@@ -78,27 +76,9 @@ public final class SequenceInfo
 		return feature;
 	}
 
-	/**
-	 * @deprecated Use {@link #getStartL()} instead.
-	 */
-	@Deprecated
-	public int getStart()
-	{
-		return toIntExact(getStartL());
-	}
-
 	public long getStartL()
 	{
 		return start;
-	}
-
-	/**
-	 * @deprecated Use {@link #getMinimumL()} instead.
-	 */
-	@Deprecated
-	public int getMinimum()
-	{
-		return toIntExact(getMinimumL());
 	}
 
 	public long getMinimumL()
@@ -106,27 +86,9 @@ public final class SequenceInfo
 		return minimum;
 	}
 
-	/**
-	 * @deprecated Use {@link #getMaximumL()} instead.
-	 */
-	@Deprecated
-	public int getMaximum()
-	{
-		return toIntExact(getMaximumL());
-	}
-
 	public long getMaximumL()
 	{
 		return maximum;
-	}
-
-	/**
-	 * @deprecated Use {@link #getCountL()} instead.
-	 */
-	@Deprecated
-	public int getCount()
-	{
-		return toIntExact(getCountL());
 	}
 
 	public long getCountL()
@@ -141,16 +103,6 @@ public final class SequenceInfo
 
 	/**
 	 * Returns the first primary key number generated for the type since the startup of the application.
-	 * @deprecated Use {@link #getFirstL()} instead.
-	 */
-	@Deprecated
-	public int getFirst()
-	{
-		return toIntExact(getFirstL());
-	}
-
-	/**
-	 * Returns the first primary key number generated for the type since the startup of the application.
 	 */
 	public long getFirstL()
 	{
@@ -158,16 +110,6 @@ public final class SequenceInfo
 			throw new IllegalStateException("not known");
 
 		return first;
-	}
-
-	/**
-	 * Returns the last primary key number generated for the type.
-	 * @deprecated Use {@link #getLastL()} instead.
-	 */
-	@Deprecated
-	public int getLast()
-	{
-		return toIntExact(getLastL());
 	}
 
 	/**

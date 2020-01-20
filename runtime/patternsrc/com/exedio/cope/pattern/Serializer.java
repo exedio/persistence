@@ -71,6 +71,10 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		this.source = addSourceFeature(source, "data", ComputedElement.get());
 	}
 
+	/**
+	 * @deprecated Do not use this method anymore.
+	 */
+	@Deprecated
 	public static <E> Serializer<E> create(final Class<E> valueClass, final DataField source)
 	{
 		return new Serializer<>(valueClass, source);
@@ -179,25 +183,5 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 			throw new RuntimeException(toString(), e);
 		}
 		return bos.toByteArray();
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(Class,DataField)} instead
-	 */
-	@Deprecated
-	public static <E> Serializer<E> newSerializer(final Class<E> valueClass, final DataField source)
-	{
-		return create(valueClass, source);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(Class)} instead
-	 */
-	@Deprecated
-	public static <E> Serializer<E> newSerializer(final Class<E> valueClass)
-	{
-		return create(valueClass);
 	}
 }

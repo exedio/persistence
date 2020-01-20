@@ -314,35 +314,4 @@ public final class Table extends Node
 	{
 		return name;
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #Table(Schema, String)} instead
-	 * @param options is ignored
-	 */
-	@Deprecated
-	public Table(final Schema schema, final String name, final String options)
-	{
-		this(schema, name, true);
-	}
-
-	/**
-	 * @deprecated Is not supported anymore, does nothing.
-	 */
-	@Deprecated
-	public void makeDefensive()
-	{
-		// do nothing
-	}
-
-	/**
-	 * @deprecated Not supported anymore, always returns null.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public String getOptions()
-	{
-		return null;
-	}
 }

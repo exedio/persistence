@@ -28,7 +28,6 @@ import com.exedio.cope.misc.ListUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -483,78 +482,5 @@ public abstract class Pattern extends Feature
 			final Class<?> precedingLocalizationKeysClass)
 	{
 		addSourceFeature(feature, postfix, annotationSource, precedingLocalizationKeysClass);
-	}
-
-	/**
-	 * @deprecated Use {@link #getSourceTypes()} instead
-	 */
-	@Deprecated
-	public final List<Type<?>> getGeneratedTypes()
-	{
-		return getSourceTypes();
-	}
-
-	/**
-	 * @deprecated Use {@link #addSourceFeature(Feature,String)} instead
-	 */
-	@Deprecated
-	protected final void registerSource(final Field<?> field, final String postfix)
-	{
-		addSourceFeature(field, postfix);
-	}
-
-	/**
-	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap)} instead
-	 */
-	@Deprecated
-	protected final <T extends Item> Type<T> newType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features)
-	{
-		return newSourceType(javaClass, features);
-	}
-
-	/**
-	 * @deprecated Use {@link #newSourceType(Class,LinkedHashMap,String)} instead
-	 */
-	@Deprecated
-	protected final <T extends Item> Type<T> newType(final Class<T> javaClass, final LinkedHashMap<String, Feature> features, final String postfix)
-	{
-		return newSourceType(javaClass, features, postfix);
-	}
-
-	@Deprecated
-	protected final <T extends Item> Type<T> newSourceType(
-			final Class<T> javaClass,
-			final LinkedHashMap<String, Feature> features)
-	{
-		return newSourceType(javaClass, new Features(features));
-	}
-
-	@Deprecated
-	protected final <T extends Item> Type<T> newSourceType(
-			final Class<T> javaClass,
-			final LinkedHashMap<String, Feature> features,
-			final String postfix)
-	{
-		return newSourceType(javaClass, new Features(features), postfix);
-	}
-
-	@Deprecated
-	protected final <T extends Item> Type<T> newSourceType(
-			final Class<T> javaClass,
-			final boolean isAbstract,
-			final Type<? super T> supertype,
-			final LinkedHashMap<String, Feature> features,
-			final String postfix)
-	{
-		return newSourceType(javaClass, isAbstract, supertype, new Features(features), postfix);
-	}
-
-	/**
-	 * @deprecated For binary compatibility only, use {@link #addSourceFeature(Feature,String,AnnotatedElement)} instead.
-	 */
-	@Deprecated
-	protected final void addSource(final Feature feature, final String postfix, final java.lang.reflect.Field annotationSource)
-	{
-		addSourceFeature(feature, postfix, annotationSource);
 	}
 }

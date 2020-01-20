@@ -75,15 +75,6 @@ public final class UniqueViolationException extends ConstraintViolationException
 		return feature.getFields();
 	}
 
-	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public UniqueConstraint getConstraint()
-	{
-		return feature;
-	}
-
 	@Override
 	public String getMessage(final boolean withFeature)
 	{

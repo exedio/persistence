@@ -36,7 +36,7 @@ public final class Range<E extends Comparable<E>> implements Serializable
 		if(from==null && to==null)
 			return all();
 
-		return new Range<>(from, to, true);
+		return new Range<>(from, to);
 	}
 
 	@SuppressWarnings("unchecked") // OK
@@ -46,7 +46,7 @@ public final class Range<E extends Comparable<E>> implements Serializable
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"})
-	private static final Range all = new Range(null, null, true);
+	private static final Range all = new Range(null, null);
 
 
 	private static final long serialVersionUID = 1l;
@@ -56,16 +56,7 @@ public final class Range<E extends Comparable<E>> implements Serializable
 	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
 	private final E to;
 
-	/**
-	 * @deprecated Use {@link #valueOf(Comparable, Comparable)} instead.
-	 */
-	@Deprecated
-	public Range(final E from, final E to)
-	{
-		this(from, to, true);
-	}
-
-	private Range(final E from, final E to, @SuppressWarnings("unused") final boolean dummy)
+	private Range(final E from, final E to)
 	{
 		if(from!=null && to!=null && from.compareTo(to)>0)
 			throw new IllegalArgumentException("from " + from + " greater than to " + to);
@@ -115,16 +106,5 @@ public final class Range<E extends Comparable<E>> implements Serializable
 		return
 				"[" + Objects.toString(from, "") +
 				'-' + Objects.toString(to,   "") + ']';
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #valueOf(Comparable,Comparable)} instead
-	 */
-	@Deprecated
-	public static <E extends Comparable<E>> Range<E> newRange(final E from, final E to)
-	{
-		return valueOf(from, to);
 	}
 }

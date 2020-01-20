@@ -94,20 +94,6 @@ public final class RevisionInfoRevise extends RevisionInfo
 		}
 	}
 
-	/**
-	 * @deprecated Use {@link #RevisionInfoRevise(int, String, Date, Map, String, Body[])} instead.
-	 */
-	@Deprecated
-	public RevisionInfoRevise(
-			final int number,
-			final Date date,
-			final Map<String, String> environment,
-			final String comment,
-			final Body... body)
-	{
-		this(number, null, date, environment, comment, body);
-	}
-
 	public RevisionInfoRevise(
 			final int number,
 			final String savepoint,

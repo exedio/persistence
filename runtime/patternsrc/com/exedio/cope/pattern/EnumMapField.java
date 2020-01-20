@@ -387,27 +387,4 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 		return result;
 	}
-
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(Class,FunctionField)} instead
-	 */
-	@Deprecated
-	public static <K extends Enum<K>,V> EnumMapField<K,V> newMap(
-			final Class<K> keyClass,
-			final FunctionField<V> value)
-	{
-		return create(keyClass, value);
-	}
-
-	/**
-	 * @deprecated renamed to {@link #getField(Enum)}.
-	 */
-	@Deprecated
-	public FunctionField<V> getAttribute(final K key)
-	{
-		return getField(key);
-	}
 }

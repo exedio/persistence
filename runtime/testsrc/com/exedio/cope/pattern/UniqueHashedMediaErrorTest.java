@@ -150,7 +150,9 @@ public class UniqueHashedMediaErrorTest
 		}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("unused") // OK: test bad API usage
+	@SuppressWarnings({
+			"unused", // OK: test bad API usage
+			"UnnecessarilyQualifiedStaticallyImportedElement"}) // OK: instrumented code
 	static final class NonCreateableFunctionFieldItem extends Item
 	{
 		@WrapperIgnore
@@ -185,7 +187,9 @@ public class UniqueHashedMediaErrorTest
 		}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("unused") // OK: test bad API usage
+	@SuppressWarnings({
+			"unused", // OK: test bad API usage
+			"UnnecessarilyQualifiedStaticallyImportedElement"}) // OK: instrumented code
 	static final class NonCreateableDataFieldItem extends Item
 	{
 		@WrapperIgnore
@@ -210,6 +214,7 @@ public class UniqueHashedMediaErrorTest
 		new Model(CreateableItem.TYPE);
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static final class CreateableItem extends Item
 	{
 		@WrapperIgnore

@@ -22,12 +22,8 @@ import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
-import com.exedio.cope.EnumField;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
-import com.exedio.cope.Item;
-import com.exedio.cope.ItemField;
-import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
@@ -150,40 +146,5 @@ public abstract class Composite implements Serializable, TemplatedValue
 	public final int hashCode()
 	{
 		return getClass().hashCode() ^ Arrays.hashCode(values);
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	@Deprecated
-	public final void touch(final DayField member)
-	{
-		touch(member, TimeZone.getDefault());
-	}
-
-	/**
-	 * @deprecated Use {@link EnumField#create(Class)} instead
-	 */
-	@Deprecated
-	public static final <E extends Enum<E>> EnumField<E> newEnumField(final Class<E> valueClass)
-	{
-		return EnumField.create(valueClass);
-	}
-
-	/**
-	 * @deprecated Use {@link ItemField#create(Class)} instead
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass)
-	{
-		return ItemField.create(valueClass);
-	}
-
-	/**
-	 * @deprecated Use {@link ItemField#create(Class, DeletePolicy)} instead
-	 */
-	@Deprecated
-	public static final <E extends Item> ItemField<E> newItemField(final Class<E> valueClass, final DeletePolicy policy)
-	{
-		return ItemField.create(valueClass, policy);
 	}
 }

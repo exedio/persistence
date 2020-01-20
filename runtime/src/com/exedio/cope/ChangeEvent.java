@@ -117,15 +117,4 @@ public final class ChangeEvent
 	{
 		return Arrays.toString(items) + ' ' + transactionInfo;
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #getRemoteNodeID()} instead
-	 */
-	@Deprecated
-	public int getOriginClusterNodeID() throws NotAvailableException
-	{
-		return getRemoteNodeID();
-	}
 }

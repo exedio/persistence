@@ -330,16 +330,4 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 			}
 		}
 	}
-
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField)} instead
-	 */
-	@Deprecated
-	public static <E> ListField<E> newList(final FunctionField<E> element)
-	{
-		return create(element);
-	}
 }

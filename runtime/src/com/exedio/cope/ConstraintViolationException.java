@@ -66,24 +66,4 @@ public abstract class ConstraintViolationException extends RuntimeException
 	}
 
 	protected abstract String getMessage(boolean withFeature);
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #getItemText()} instead
-	 */
-	@Deprecated
-	public final String getItemID()
-	{
-		return getItemText();
-	}
-
-	/**
-	 * @deprecated Use {@link #getItemPhrase()} instead.
-	 */
-	@Deprecated
-	public final String getItemText()
-	{
-		return item!=null ? item.getCopeID() : "a newly created item";
-	}
 }

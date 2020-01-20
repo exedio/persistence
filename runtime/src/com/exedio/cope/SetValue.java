@@ -40,11 +40,7 @@ public final class SetValue<E>
 		return new SetValue<>(settable, value);
 	}
 
-	/**
-	 * @deprecated Use {@link #map(Feature, Object)} instead.
-	 */
-	@Deprecated
-	public SetValue(final Settable<E> settable, final E value)
+	SetValue(final Settable<E> settable, final E value)
 	{
 		this.settable = requireNonNull(settable, "settable");
 		this.value = value;

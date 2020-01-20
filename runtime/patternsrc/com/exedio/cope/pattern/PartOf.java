@@ -290,34 +290,4 @@ public final class PartOf<C extends Item> extends Pattern
 		}
 		return result;
 	}
-
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #getParts(Item)} instead
-	 */
-	@Deprecated
-	public List<? extends Item> getPartsAndCast(final Item container)
-	{
-		return getParts(container);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(ItemField)} instead
-	 */
-	@Deprecated
-	public static <C extends Item> PartOf<C> newPartOf(final ItemField<C> container)
-	{
-		return create(container);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(ItemField,FunctionField)} instead
-	 */
-	@Deprecated
-	public static <C extends Item> PartOf<C> newPartOf(final ItemField<C> container, final FunctionField<?> order)
-	{
-		return create(container, order);
-	}
 }

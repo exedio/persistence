@@ -187,15 +187,4 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 		assert valueType.isValid(surface);
 		row.put(getColumn(), surface==null ? null : valueType.getNumber(surface));
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #as(Class)} instead
-	 */
-	@Deprecated
-	public <X extends Enum<X>> EnumField<X> cast(final Class<X> clazz)
-	{
-		return as(clazz);
-	}
 }

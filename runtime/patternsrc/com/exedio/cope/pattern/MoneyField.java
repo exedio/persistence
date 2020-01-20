@@ -231,15 +231,4 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 	{
 		return amount.isNotNull();
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #getCurrencyField()} instead
-	 */
-	@Deprecated
-	public FunctionField<C> getCurrency()
-	{
-		return getCurrencyField();
-	}
 }

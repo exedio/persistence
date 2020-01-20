@@ -35,6 +35,7 @@ public class CreateLimitAnnotationTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class DefaultItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -55,6 +56,7 @@ public class CreateLimitAnnotationTest
 
 	@CopeCreateLimit(5)
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class OkItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -75,6 +77,7 @@ public class CreateLimitAnnotationTest
 
 	@CopeCreateLimit(0)
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class MinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -105,6 +108,7 @@ public class CreateLimitAnnotationTest
 
 	@CopeCreateLimit(-1)
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class LessMinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
@@ -124,6 +128,7 @@ public class CreateLimitAnnotationTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class SubOkItem extends OkItem
 	{
 		@com.exedio.cope.instrument.Generated

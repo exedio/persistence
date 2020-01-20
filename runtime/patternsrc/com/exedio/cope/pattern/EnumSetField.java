@@ -196,24 +196,4 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	{
 		return field(element).equal(true);
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(Class)} instead
-	 */
-	@Deprecated
-	public static <E extends Enum<E>> EnumSetField<E> newSet(final Class<E> elementClass)
-	{
-		return create(elementClass);
-	}
-
-	/**
-	 * @deprecated Use {@link #getElementClass()} instead
-	 */
-	@Deprecated
-	public Class<E> getKeyClass()
-	{
-		return getElementClass();
-	}
 }

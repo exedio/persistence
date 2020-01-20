@@ -824,31 +824,4 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	{
 		return bodyMismatchesContentTypeIfSupported();
 	}
-
-	/**
-	 * @deprecated use {@link #contentType(String)} instead.
-	 */
-	@Deprecated
-	public Media(final String fixedMimeMajor, final String fixedMimeMinor)
-	{
-		this(false, false, DEFAULT_LENGTH, new FixedContentType(fixedMimeMajor, fixedMimeMinor));
-	}
-
-	/**
-	 * @deprecated use {@link #contentTypeSub(String)} instead.
-	 */
-	@Deprecated
-	public Media(final String fixedMimeMajor)
-	{
-		this(false, false, DEFAULT_LENGTH, new SubContentType(fixedMimeMajor, false, false, SubContentType.DEFAULT_LENGTH));
-	}
-
-	/**
-	 * @deprecated Use {@link #contentTypeSub(String)} instead
-	 */
-	@Deprecated
-	public Media contentTypeMajor(final String majorContentType)
-	{
-		return contentTypeSub(majorContentType);
-	}
 }

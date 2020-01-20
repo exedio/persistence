@@ -132,11 +132,7 @@ public final class Query<R> implements Serializable
 		this.condition = replaceTrue(condition);
 	}
 
-	/**
-	 * @deprecated Use {@link #newQuery(Selectable[], Type, Condition)} instead
-	 */
-	@Deprecated
-	public Query(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
+	private Query(final Selectable<?>[] selects, final Type<?> type, final Condition condition)
 	{
 		this.model = type.getModel();
 		this.selectsMulti = checkAndCopy(selects);
@@ -812,15 +808,6 @@ public final class Query<R> implements Serializable
 		{
 			return getPageLimitOrMinusOne();
 		}
-
-		/**
-		 * @deprecated Use {@link #getTotal()} instead
-		 */
-		@Deprecated
-		public int getCountWithoutLimit()
-		{
-			return getTotal();
-		}
 	}
 
 	/**
@@ -1311,41 +1298,5 @@ public final class Query<R> implements Serializable
 	public void setLimit(final int offset)
 	{
 		setPageUnlimited(offset);
-	}
-
-	/**
-	 * @deprecated Use {@link #searchAndTotal()} instead
-	 */
-	@Deprecated
-	public Result<R> searchAndCountWithoutLimit()
-	{
-		return searchAndTotal();
-	}
-
-	/**
-	 * @deprecated Use {@link #total()} instead
-	 */
-	@Deprecated
-	public int countWithoutLimit()
-	{
-		return total();
-	}
-
-	/**
-	 * @deprecated renamed to {@link #searchSingleton()}.
-	 */
-	@Deprecated
-	public R searchUnique()
-	{
-		return searchSingleton();
-	}
-
-	/**
-	 * @deprecated Use {@link Result#empty()} instead
-	 */
-	@Deprecated
-	public static <R> Result<R> emptyResult()
-	{
-		return Result.empty();
 	}
 }

@@ -45,6 +45,7 @@ public class PartOfWrongTypeOrderTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class Container extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)

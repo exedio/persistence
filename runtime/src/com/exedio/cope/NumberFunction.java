@@ -92,15 +92,4 @@ public interface NumberFunction<E extends Number> extends Function<E>
 	}
 
 	long serialVersionUID = 3484464008830007161L;
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated renamed to {@link #plus(NumberFunction)}.
-	 */
-	@Deprecated
-	default PlusView<E> sum(final NumberFunction<E> other)
-	{
-		return plus(other);
-	}
 }

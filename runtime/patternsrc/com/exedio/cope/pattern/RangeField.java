@@ -192,15 +192,4 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	{
 		return from.getInitialExceptions();
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField)} instead
-	 */
-	@Deprecated
-	public static <E extends Comparable<E>> RangeField<E> newRange(final FunctionField<E> borderTemplate)
-	{
-		return create(borderTemplate);
-	}
 }

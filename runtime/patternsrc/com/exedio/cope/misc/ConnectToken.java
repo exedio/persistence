@@ -447,28 +447,4 @@ public final class ConnectToken implements AutoCloseable
 	{
 		return manciple(model).getTokens();
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #returnStrictly()} instead
-	 */
-	@Deprecated
-	public boolean returnIt()
-	{
-		return returnStrictly();
-	}
-
-	/**
-	 * @param properties is ignored
-	 * @deprecated Use {@link #issue(Model, String)} instead. Parameter {@code properties} is ignored.
-	 */
-	@Deprecated
-	public static ConnectToken issue(
-			final Model model,
-			final ConnectProperties properties,
-			final String tokenName)
-	{
-		return issue(model, tokenName);
-	}
 }

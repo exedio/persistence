@@ -110,15 +110,6 @@ public class Sampler
 		// OTHERWISE ConnectTokens MAY BE LOST
 	}
 
-	/**
-	 * @deprecated Use {@link #connect(String)} for connecting AND checking instead
-	 */
-	@Deprecated
-	public final void check()
-	{
-		checkInternal();
-	}
-
 	void checkInternal()
 	{
 		samplerModel.reviseIfSupportedAndAutoEnabled();
@@ -311,28 +302,5 @@ public class Sampler
 		// constant over time, therefore we need to compute
 		// the result live.
 		return "Sampler#" + sampledModel;
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
-	 */
-	@Deprecated
-	public final void sample()
-	{
-		sampleInternal(Duration.ofMillis(getTransactionDuration()), null);
-	}
-
-	/**
-	 * Return the minimum duration (in milliseconds)
-	 * for a transaction to be recorded by the sampler.
-	 * This default implementation returns 10 seconds.
-	 * @deprecated Use {@link SamplerProperties#sample(Sampler)} instead.
-	 */
-	@Deprecated
-	public long getTransactionDuration()
-	{
-		return (10*1000);
 	}
 }

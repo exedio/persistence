@@ -287,24 +287,4 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	{
 		return valueClass.cast(feature);
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create()} instead
-	 */
-	@Deprecated
-	public static FeatureField<Feature> newField()
-	{
-		return create();
-	}
-
-	/**
-	 * @deprecated Use {@link #create(Class)} instead
-	 */
-	@Deprecated
-	public static <E extends Feature> FeatureField<E> newField(final Class<E> valueClass)
-	{
-		return create(valueClass);
-	}
 }

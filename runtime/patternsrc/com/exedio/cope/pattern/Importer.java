@@ -137,15 +137,4 @@ public final class Importer<K> extends Pattern
 		System.arraycopy(tail, 0, result, 1, tail.length);
 		return result;
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField)} instead
-	 */
-	@Deprecated
-	public static <K> Importer<K> newImporter(final FunctionField<K> key)
-	{
-		return create(key);
-	}
 }

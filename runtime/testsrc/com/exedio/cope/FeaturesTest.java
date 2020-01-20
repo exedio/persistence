@@ -72,7 +72,7 @@ public class FeaturesTest
 		final BooleanField zack = new BooleanField();
 		features.put("zack", zack, annotationSource);
 		final BooleanField zock = new BooleanField();
-		features.put("zock", zock, (AnnotatedElement)null);
+		features.put("zock", zock, null);
 	}
 
 	@Test void testDuplicateName()

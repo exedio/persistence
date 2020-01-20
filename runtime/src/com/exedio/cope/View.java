@@ -102,15 +102,6 @@ public abstract class View<E> extends Feature
 		return mapJava(values);
 	}
 
-	/**
-	 * @deprecated use {@link #get(Item)} instead.
-	 */
-	@Deprecated
-	public final Object getObject(final Item item)
-	{
-		return get(item);
-	}
-
 	@Override
 	public final Class<E> getValueClass()
 	{

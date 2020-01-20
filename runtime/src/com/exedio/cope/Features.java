@@ -67,7 +67,7 @@ public final class Features
 
 	public void put(final String name, final Feature feature)
 	{
-		put(name, feature, (AnnotatedElement)null);
+		put(name, feature, null);
 	}
 
 	public void clear()
@@ -113,28 +113,5 @@ public final class Features
 		}
 
 		return ListUtil.trimUnmodifiable(result);
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	@Deprecated
-	Features(final LinkedHashMap<String, Feature> map)
-	{
-		this.map = new LinkedHashMap<>(map);
-		this.annotationSources = new IdentityHashMap<>();
-		for(final Feature feature : map.values())
-			annotationSources.put(feature, null);
-
-		if(map.size()!=annotationSources.size())
-			throw new IllegalArgumentException("map contains duplicate features: " + map);
-	}
-
-	/**
-	 * @deprecated For binary compatibility only, use {@link #put(String,Feature,AnnotatedElement)} instead.
-	 */
-	@Deprecated
-	public void put(final String name, final Feature feature, final java.lang.reflect.Field annotationSource)
-	{
-		put(name, feature, (AnnotatedElement)annotationSource);
 	}
 }

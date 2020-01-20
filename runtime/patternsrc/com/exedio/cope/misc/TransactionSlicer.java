@@ -65,15 +65,4 @@ public final class TransactionSlicer
 	{
 		return sliceCount;
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #commitAndStartPossibly()} instead
-	 */
-	@Deprecated
-	public boolean biteOff()
-	{
-		return commitAndStartPossibly();
-	}
 }

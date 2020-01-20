@@ -284,15 +284,4 @@ public final class PriceField extends Pattern implements Settable<Price>, Copyab
 	{
 		return integer.greaterOrEqual(right.integer);
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #min(Price)} instead.
-	 */
-	@Deprecated
-	public PriceField min(final int minimum)
-	{
-		return new PriceField(integer.min(minimum));
-	}
 }

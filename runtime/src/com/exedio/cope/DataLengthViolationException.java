@@ -97,15 +97,4 @@ public final class DataLengthViolationException extends ConstraintViolationExcep
 			"is too long" +
 			(withFeature ? (" for " + feature) : "");
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public DataField getDataAttribute()
-	{
-		return feature;
-	}
 }

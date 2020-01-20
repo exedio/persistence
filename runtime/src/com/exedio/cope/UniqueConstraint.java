@@ -335,33 +335,4 @@ public final class UniqueConstraint extends Feature implements Copyable
 
 		return false;
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Renamed to {@link #getFields()}.
-	 */
-	@Deprecated
-	public List<FunctionField<?>> getUniqueAttributes()
-	{
-		return getFields();
-	}
-
-	/**
-	 * @deprecated Use {@link #search(Object[])} instead
-	 */
-	@Deprecated
-	public Item searchUnique(final Object... values)
-	{
-		return search(values);
-	}
-
-	/**
-	 * @deprecated Use {@link #search(Class,Object[])} instead
-	 */
-	@Deprecated
-	public <P extends Item> P searchUnique(final Class<P> typeClass, final Object... values)
-	{
-		return search(typeClass, values);
-	}
 }

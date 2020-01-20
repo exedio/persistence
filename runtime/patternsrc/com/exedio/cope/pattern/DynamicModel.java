@@ -563,88 +563,6 @@ public final class DynamicModel<L> extends Pattern
 		{
 			getPattern().typeLocalization.set(this, locale, value);
 		}
-
-		/**
-		 * @deprecated Use {@link #addField(String,DynamicModel.ValueType)} instead
-		 */
-		@Deprecated
-		@SuppressWarnings("UnnecessarilyQualifiedInnerClassAccess") // otherwise javadoc issues warnings
-		public Field<L> addAttribute(final String code, final ValueType valueType)
-		{
-			return addField(code, valueType);
-		}
-
-		/**
-		 * @deprecated Use {@link #addStringField(String)} instead
-		 */
-		@Deprecated
-		public Field<L> addStringAttribute(final String code)
-		{
-			return addStringField(code);
-		}
-
-		/**
-		 * @deprecated Use {@link #addBooleanField(String)} instead
-		 */
-		@Deprecated
-		public Field<L> addBooleanAttribute(final String code)
-		{
-			return addBooleanField(code);
-		}
-
-		/**
-		 * @deprecated Use {@link #addIntegerField(String)} instead
-		 */
-		@Deprecated
-		public Field<L> addIntegerAttribute(final String code)
-		{
-			return addIntegerField(code);
-		}
-
-		/**
-		 * @deprecated Use {@link #addDoubleField(String)} instead
-		 */
-		@Deprecated
-		public Field<L> addDoubleAttribute(final String code)
-		{
-			return addDoubleField(code);
-		}
-
-		/**
-		 * @deprecated Use {@link #addEnumField(String)} instead
-		 */
-		@Deprecated
-		public Field<L> addEnumAttribute(final String code)
-		{
-			return addEnumField(code);
-		}
-
-		/**
-		 * @deprecated Use {@link #getFields()} instead
-		 */
-		@Deprecated
-		public List<Field<L>> getAttributes()
-		{
-			return getFields();
-		}
-
-		/**
-		 * @deprecated Use {@link #getField(String)} instead
-		 */
-		@Deprecated
-		public Field<L> getAttribute(final String code)
-		{
-			return getField(code);
-		}
-
-		/**
-		 * @deprecated Use {@link #getModel()} instead
-		 */
-		@Deprecated
-		public DynamicModel<?> getDtypeSystem()
-		{
-			return getModel();
-		}
 	}
 
 	public static final class Field<L> extends Item
@@ -812,32 +730,5 @@ public final class DynamicModel<L> extends Pattern
 		{
 			getPattern().enumLocalization.set(this, locale, value);
 		}
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField,int,int,int,int,int)} instead
-	 */
-	@Deprecated
-	public static <L> DynamicModel<L> newModel(
-			final FunctionField<L> locale,
-			final int stringCapacity,
-			final int booleanCapacity,
-			final int integerCapacity,
-			final int doubleCapacity,
-			final int enumCapacity)
-	{
-		return create(locale, stringCapacity, booleanCapacity, integerCapacity,
-				doubleCapacity, enumCapacity);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField)} instead
-	 */
-	@Deprecated
-	public static <L> DynamicModel<L> newModel(final FunctionField<L> locale)
-	{
-		return create(locale);
 	}
 }

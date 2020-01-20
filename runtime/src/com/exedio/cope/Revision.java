@@ -34,7 +34,6 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.Properties;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -135,34 +134,5 @@ public final class Revision
 		{
 			throw new SQLRuntimeException(e, sql);
 		}
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link RevisionInfo#parse(byte[])} instead
-	 */
-	@Deprecated
-	public static Properties parse(final byte[] info)
-	{
-		return RevisionInfo.parse(info);
-	}
-
-	/**
-	 * @deprecated Use {@link #getNumber()} instead
-	 */
-	@Deprecated
-	public int getVersion()
-	{
-		return getNumber();
-	}
-
-	/**
-	 * @deprecated Use {@link #getNumber()} instead
-	 */
-	@Deprecated
-	public int getRevision()
-	{
-		return getNumber();
 	}
 }

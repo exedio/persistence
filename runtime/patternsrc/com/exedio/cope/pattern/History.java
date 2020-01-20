@@ -82,27 +82,9 @@ public final class History extends Pattern
 		return eventType().date;
 	}
 
-	/**
-	 * @deprecated Use {@link #getEventAuthor()} instead
-	 */
-	@Deprecated
-	public StringField getEventOrigin()
-	{
-		return getEventAuthor();
-	}
-
 	public StringField getEventAuthor()
 	{
 		return eventType().author;
-	}
-
-	/**
-	 * @deprecated Use {@link #getEventNew()} instead
-	 */
-	@Deprecated
-	public BooleanField getEventCreation()
-	{
-		return getEventNew();
 	}
 
 	public BooleanField getEventNew()
@@ -242,27 +224,9 @@ public final class History extends Pattern
 			return type().date.get(this);
 		}
 
-		/**
-		 * @deprecated Use {@link #getAuthor()} instead
-		 */
-		@Deprecated
-		public String getCause()
-		{
-			return getAuthor();
-		}
-
 		public String getAuthor()
 		{
 			return type().author.get(this);
-		}
-
-		/**
-		 * @deprecated Use {@link #isNew()} instead
-		 */
-		@Deprecated
-		public boolean isCreation()
-		{
-			return isNew();
 		}
 
 		public boolean isNew()
@@ -371,15 +335,6 @@ public final class History extends Pattern
 		public com.exedio.cope.Feature getFeature()
 		{
 			return type().id.get(this);
-		}
-
-		/**
-		 * @deprecated Use {@link #getFeatureID()} instead
-		 */
-		@Deprecated
-		public String getId()
-		{
-			return getFeatureID();
 		}
 
 		public String getFeatureID()

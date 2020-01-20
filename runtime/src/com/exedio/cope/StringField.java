@@ -318,46 +318,4 @@ public final class StringField extends FunctionField<String>
 	{
 		return hashDoesNotMatchIfSupported(algorithm, data);
 	}
-
-	/**
-	 * @deprecated use {@link #lengthMax(int)}.
-	 */
-	@Deprecated
-	public StringField lengthMaxUnchecked(final int maximumLength)
-	{
-		return lengthMax(maximumLength);
-	}
-
-	/**
-	 * @deprecated renamed to {@link #toUpperCase()}
-	 */
-	@Deprecated
-	public UppercaseView uppercase()
-	{
-		return toUpperCase();
-	}
-
-	/**
-	 * @deprecated Use {@link #charSet(CharSet)} instead
-	 */
-	@Deprecated
-	public StringField characterSet(final com.exedio.cope.util.CharacterSet characterSet)
-	{
-		return charSet(characterSet.getCharSet());
-	}
-
-	/**
-	 * @deprecated Use {@link #getCharSet()} instead
-	 */
-	@Deprecated
-	public com.exedio.cope.util.CharacterSet getCharacterSet()
-	{
-		return new com.exedio.cope.util.CharacterSet(getCharSet());
-	}
-
-	/**
-	 * @deprecated Use {@link #DEFAULT_MAXIMUM_LENGTH} instead
-	 */
-	@Deprecated
-	public static final int DEFAULT_LENGTH = DEFAULT_MAXIMUM_LENGTH;
 }

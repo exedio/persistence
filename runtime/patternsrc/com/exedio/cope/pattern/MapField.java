@@ -288,15 +288,4 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 				mount().parent.equalTarget().
 					and(this.key.equal(key)));
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
-	 */
-	@Deprecated
-	public static <K,V> MapField<K,V> newMap(final FunctionField<K> key, final FunctionField<V> value)
-	{
-		return create(key, value);
-	}
 }

@@ -350,33 +350,4 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		return Cope.or(conditions);
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField,FunctionField)} instead
-	 */
-	@Deprecated
-	public static <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2)
-	{
-		return create(source1, source2);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField,FunctionField,FunctionField)} instead
-	 */
-	@Deprecated
-	public static <E> LimitedListField<E> newList(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
-	{
-		return create(source1, source2, source3);
-	}
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField,int)} instead
-	 */
-	@Deprecated
-	public static <E> LimitedListField<E> newList(final FunctionField<E> template, final int maximumSize)
-	{
-		return create(template, maximumSize);
-	}
 }

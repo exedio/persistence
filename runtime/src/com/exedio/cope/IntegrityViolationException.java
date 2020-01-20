@@ -75,15 +75,4 @@ public final class IntegrityViolationException extends ConstraintViolationExcept
 			(withFeature ? (" because of " + feature) : "") +
 			" referring to " + referrers + " item(s)";
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Renamed to {@link #getFeature()}.
-	 */
-	@Deprecated
-	public ItemField<?> getAttribute()
-	{
-		return feature;
-	}
 }

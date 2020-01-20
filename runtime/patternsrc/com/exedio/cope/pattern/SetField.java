@@ -421,16 +421,4 @@ public final class SetField<E> extends Pattern implements Copyable
 	{
 		set(item, Cast.castElements(element.getValueClass(), value));
 	}
-
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #create(FunctionField)} instead
-	 */
-	@Deprecated
-	public static <E> SetField<E> newSet(final FunctionField<E> element)
-	{
-		return create(element);
-	}
 }

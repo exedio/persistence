@@ -95,15 +95,4 @@ public final class PlusLiteralView<E extends Number> extends NumberView<E>
 		bf.appendParameter(right);
 		bf.append(')');
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #PlusLiteralView(Function,Number)} instead.
-	 */
-	@Deprecated
-	public PlusLiteralView(final NumberFunction<E> left, final E right)
-	{
-		this((Function<E>)left, right);
-	}
 }

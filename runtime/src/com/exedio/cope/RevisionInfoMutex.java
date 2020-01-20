@@ -29,19 +29,6 @@ public final class RevisionInfoMutex extends RevisionInfo
 	private final int expectedNumber;
 	private final int actualNumber;
 
-	/**
-	 * @deprecated Use {@link #RevisionInfoMutex(String, Date, Map, int, int)} instead.
-	 */
-	@Deprecated
-	public RevisionInfoMutex(
-			final Date date,
-			final Map<String, String> environment,
-			final int expectedNumber,
-			final int actualNumber)
-	{
-		this(null, date, environment, expectedNumber, actualNumber);
-	}
-
 	public RevisionInfoMutex(
 			final String savepoint,
 			final Date date,

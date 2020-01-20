@@ -92,17 +92,6 @@ public final class MediaType
 		return extensions[0];
 	}
 
-	/**
-	 * @deprecated
-	 * There are multiple extensions now.
-	 * Please use {@link #getDefaultExtension()} or {@link #getExtensions()}.
-	 */
-	@Deprecated
-	public String getExtension()
-	{
-		return getDefaultExtension();
-	}
-
 	public String getName()
 	{
 		return name;

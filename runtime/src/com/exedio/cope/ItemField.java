@@ -596,22 +596,4 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		return toIntCapped(checkTypeColumnL());
 	}
-
-	/**
-	 * @deprecated Use {@link #as(Class)} instead
-	 */
-	@Deprecated
-	public <X extends Item> ItemField<X> cast(final Class<X> clazz)
-	{
-		return as(clazz);
-	}
-
-	/**
-	 * @deprecated Use {@link SchemaInfo#getTypeColumnName(ItemField)} instead
-	 */
-	@Deprecated
-	public String getTypeColumnName()
-	{
-		return SchemaInfo.getTypeColumnName(this);
-	}
 }

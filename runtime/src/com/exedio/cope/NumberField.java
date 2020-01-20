@@ -33,15 +33,4 @@ public abstract class NumberField<E extends Number> extends FunctionField<E>
 	{
 		super(isfinal, optional, valueClass, unique, copyFrom, defaultS);
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #average()} instead
-	 */
-	@Deprecated
-	public final AverageAggregate avg()
-	{
-		return average();
-	}
 }

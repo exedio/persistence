@@ -438,16 +438,4 @@ public abstract class FunctionField<E> extends Field<E>
 	{
 		return isMandatory() && (PrimitiveUtil.toPrimitive(getValueClass())!=null);
 	}
-
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Renamed to {@link #copy()}.
-	 */
-	@Deprecated
-	public final FunctionField<E> copyFunctionField()
-	{
-		return copy();
-	}
 }

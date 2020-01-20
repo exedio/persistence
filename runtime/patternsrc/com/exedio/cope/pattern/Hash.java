@@ -558,15 +558,6 @@ public class Hash extends Pattern implements HashInterface
 	// ------------------- deprecated stuff -------------------
 
 	/**
-	 * @deprecated Use {@link #getAlgorithmID()} instead
-	 */
-	@Deprecated
-	public final String getAlgorithmName()
-	{
-		return getAlgorithmID();
-	}
-
-	/**
 	 * @deprecated
 	 * Use {@link #getAlgorithm2()} instead.
 	 * Throws exception if not initialized via {@link Algorithm}.
@@ -575,14 +566,5 @@ public class Hash extends Pattern implements HashInterface
 	public final Algorithm getAlgorithm()
 	{
 		return AlgorithmAdapter.unwrap(algorithm, storage);
-	}
-
-	/**
-	 * @deprecated Use {@link #blind(String)} instead.
-	 */
-	@Deprecated
-	public final void blind(@SuppressWarnings("unused") final Class<? extends Item> parentClass, final String actualPlainText)
-	{
-		blind(actualPlainText);
 	}
 }

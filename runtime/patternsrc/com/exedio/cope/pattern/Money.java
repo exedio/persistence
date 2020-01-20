@@ -395,75 +395,9 @@ public final class Money<C extends Currency>
 		return amount;
 	}
 
-	/**
-	 * <b>BEWARE</b>:
-	 * Use {@link #getAmount(Currency)} instead
-	 */
-	@Deprecated
-	public Price getAmount()
-	{
-		return amount;
-	}
-
 	// TODO remove
 	Price amountWithoutCurrency()
 	{
 		return amount;
-	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #amountStore(Currency)} instead
-	 */
-	@Deprecated
-	public long store(final C currency)
-	{
-		return amountStore(currency);
-	}
-
-	/**
-	 * @deprecated Use {@link #doubleAmount(Currency)} instead
-	 */
-	@Deprecated
-	public double doubleValue(final Currency currency)
-	{
-		return doubleAmount(currency);
-	}
-
-	/**
-	 * @deprecated Use {@link #bigAmount(Currency)} instead
-	 */
-	@Deprecated
-	public BigDecimal bigValue(final C currency)
-	{
-		return bigAmount(currency);
-	}
-
-	/**
-	 * @deprecated Use {@link #min(Money)} instead
-	 */
-	@Deprecated
-	public Money<C> getLower(final Money<C> other)
-	{
-		return min(other);
-	}
-
-	/**
-	 * @deprecated Use {@link #max(Money)} instead
-	 */
-	@Deprecated
-	public Money<C> getGreater(final Money<C> other)
-	{
-		return max(other);
-	}
-
-	/**
-	 * @deprecated Use {@link #negate()} instead
-	 */
-	@Deprecated
-	public Money<C> negative()
-	{
-		return negate();
 	}
 }

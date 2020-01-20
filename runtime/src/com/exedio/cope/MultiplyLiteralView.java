@@ -95,15 +95,4 @@ public final class MultiplyLiteralView<E extends Number> extends NumberView<E>
 		bf.appendParameter(right);
 		bf.append(')');
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #MultiplyLiteralView(Function,Number)} instead.
-	 */
-	@Deprecated
-	public MultiplyLiteralView(final NumberFunction<E> left, final E right)
-	{
-		this((Function<E>)left, right);
-	}
 }

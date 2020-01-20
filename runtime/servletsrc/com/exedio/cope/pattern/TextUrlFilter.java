@@ -447,25 +447,4 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 			}
 		}
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #getPasteContentTypesAllowed()} instead
-	 */
-	@Deprecated
-	public final List<String> getSupportedPasteContentTypes()
-	{
-		return getPasteContentTypesAllowed();
-	}
-
-	/**
-	 * @deprecated Use {@link #getPasteURL(Item,String)} instead
-	 */
-	@Deprecated
-	@SuppressFBWarnings("NM_CONFUSING")
-	public final String getPasteUrl( final Item item, final String key )
-	{
-		return getPasteURL(item, key);
-	}
 }
