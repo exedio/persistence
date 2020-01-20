@@ -40,6 +40,7 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import org.junit.jupiter.api.AfterEach;
@@ -328,17 +329,41 @@ public class DataTest extends TestWithEnvironment
 				"length violation on " + item + ", 11 bytes is too long for " + data10);
 		assertData(bytes10, item.getData10Array());
 
-		assertFailsLength(
-				() -> DataItem.TYPE.newItem(data10.map(bytes11)),
-				null, data10, 11, true,
-				"length violation, 11 bytes is too long for " + data10);
-
 		item.set(
 				data.mapNull(),
 				data10.mapNull()
 		);
 		assertNull(item.getDataArray());
 		assertNull(item.getData10Array());
+	}
+
+	@Test void testCreate()
+	{
+		assertEquals(Arrays.asList(item), DataItem.TYPE.search());
+
+		assertFailsLength(
+				() -> DataItem.TYPE.newItem(data10.map(bytes11)),
+				null, data10, 11, true,
+				"length violation, 11 bytes is too long for " + data10);
+		assertEquals(Arrays.asList(item), DataItem.TYPE.search());
+
+		assertFailsLength(
+				() -> DataItem.TYPE.newItem(data10.map(stream(bytes11))),
+				null, data10, 11, false,
+				"length violation, 11 bytes or more is too long for " + data10);
+		assertEquals(Arrays.asList(item), DataItem.TYPE.search());
+
+		assertFailsLength(
+				() -> DataItem.TYPE.newItem(data10.map(files.newPath(bytes11))),
+				null, data10, 11, true,
+				"length violation, 11 bytes is too long for " + data10);
+		assertEquals(Arrays.asList(item), DataItem.TYPE.search());
+
+		assertFailsLength(
+				() -> DataItem.TYPE.newItem(data10.map(files.newFile(bytes11))),
+				null, data10, 11, true,
+				"length violation, 11 bytes is too long for " + data10);
+		assertEquals(Arrays.asList(item), DataItem.TYPE.search());
 	}
 
 	@Test void testZipSet() throws IOException, URISyntaxException
