@@ -22,7 +22,8 @@ import static com.exedio.cope.AbstractRuntimeTest.assertEqualContent;
 import static com.exedio.cope.DataItem.data;
 import static com.exedio.cope.DataItem.data10;
 import static com.exedio.cope.RuntimeAssert.assertData;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -44,6 +45,7 @@ import java.util.zip.ZipFile;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 @MainRule.Tag
 public class DataTest extends TestWithEnvironment
@@ -251,79 +253,39 @@ public class DataTest extends TestWithEnvironment
 		item.setData10(bytes10);
 		assertData(bytes10, item.getData10Array());
 
-		try
-		{
-			item.setData10(bytes11);
-			fail();
-		}
-		catch(final DataLengthViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(data10, e.getFeature());
-			assertEquals(data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
-		}
+		assertFailsLength(
+				() -> item.setData10(bytes11),
+				item, data10, 11, true,
+				"length violation on " + item + ", 11 bytes is too long for " + data10);
 		assertData(bytes10, item.getData10Array());
-		try
-		{
-			item.setData10(stream(bytes11));
-			fail();
-		}
-		catch(final DataLengthViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(data10, e.getFeature());
-			assertEquals(data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(false, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes or more is too long for " + data10, e.getMessage(), e.getMessage());
-		}
+
+		assertFailsLength(
+				() -> item.setData10(stream(bytes11)),
+				item, data10, 11, false,
+				"length violation on " + item + ", 11 bytes or more is too long for " + data10);
 		assertData(bytes10, item.getData10Array());
-		try
-		{
-			item.setData10(files.newPath(bytes11));
-			fail();
-		}
-		catch(final DataLengthViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(data10, e.getFeature());
-			assertEquals(data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
-		}
+
+		assertFailsLength(
+				() -> item.setData10(files.newPath(bytes11)),
+				item, data10, 11, true,
+				"length violation on " + item + ", 11 bytes is too long for " + data10);
 		assertData(bytes10, item.getData10Array());
-		try
-		{
-			item.setData10(files.newFile(bytes11));
-			fail();
-		}
-		catch(final DataLengthViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(data10, e.getFeature());
-			assertEquals(data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
-		}
+
+		assertFailsLength(
+				() -> item.setData10(files.newFile(bytes11)),
+				item, data10, 11, true,
+				"length violation on " + item + ", 11 bytes is too long for " + data10);
 		assertData(bytes10, item.getData10Array());
 
 		final DataField.Value value4 = DataField.toValue(bytes4);
 		item.setData(value4);
 		assertData(bytes4, item.getDataArray());
-		try
-		{
-			item.setData(value4);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("Value already exhausted: DataField.Value:aa7af817. Each DataField.Value can be used for at most one setter action.", e.getMessage());
-		}
+
+		assertFails(
+				() -> item.setData(value4),
+				IllegalStateException.class,
+				"Value already exhausted: DataField.Value:aa7af817. " +
+				"Each DataField.Value can be used for at most one setter action.");
 
 		// implements Settable
 		assertNull(item.getName());
@@ -359,36 +321,18 @@ public class DataTest extends TestWithEnvironment
 		}
 
 		assertData(bytes10, item.getData10Array());
-		try
-		{
-			item.set(data10.map(bytes11));
-			fail();
-		}
-		catch(final DataLengthViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(data10, e.getFeature());
-			assertEquals(data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation on " + item + ", 11 bytes is too long for " + data10, e.getMessage());
-		}
+
+		assertFailsLength(
+				() -> item.set(data10.map(bytes11)),
+				item, data10, 11, true,
+				"length violation on " + item + ", 11 bytes is too long for " + data10);
 		assertData(bytes10, item.getData10Array());
 
-		try
-		{
-			DataItem.TYPE.newItem(data10.map(bytes11));
-			fail();
-		}
-		catch(final DataLengthViolationException e)
-		{
-			assertEquals(null, e.getItem());
-			assertEquals(data10, e.getFeature());
-			assertEquals(data10, e.getFeature());
-			assertEquals(11, e.getLength());
-			assertEquals(true, e.isLengthExact());
-			assertEquals("length violation, 11 bytes is too long for " + data10, e.getMessage());
-		}
+		assertFailsLength(
+				() -> DataItem.TYPE.newItem(data10.map(bytes11)),
+				null, data10, 11, true,
+				"length violation, 11 bytes is too long for " + data10);
+
 		item.set(
 				data.mapNull(),
 				data10.mapNull()
@@ -426,30 +370,19 @@ public class DataTest extends TestWithEnvironment
 	{
 		data.set(item, bytes8);
 		assertData(bytes8, item.getDataArray());
-		try
-		{
-			item.set(
-					SetValue.map((Field)data, "zack")
-			);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.String for " + data + '.', e.getMessage());
-		}
+
+		assertFails(
+				() -> item.set(SetValue.map((Field)data, "zack")),
+				ClassCastException.class,
+				"expected a " + DataField.Value.class.getName() + ", " +
+				"but was a java.lang.String for " + data + '.');
 		assertData(bytes8, item.getDataArray());
 
-		try
-		{
-			DataItem.TYPE.newItem(
-					SetValue.map((Field)data, Integer.valueOf(1))
-			);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("expected a " + DataField.Value.class.getName() + ", but was a java.lang.Integer for " + data + '.', e.getMessage());
-		}
+		assertFails(
+				() -> DataItem.TYPE.newItem(SetValue.map((Field)data, Integer.valueOf(1))),
+				ClassCastException.class,
+				"expected a " + DataField.Value.class.getName() + ", " +
+				"but was a java.lang.Integer for " + data + '.');
 		assertData(bytes8, item.getDataArray());
 	}
 
@@ -464,6 +397,24 @@ public class DataTest extends TestWithEnvironment
 	private static final byte[] bytes8  = {-54,104,-63,23,19,-45,71,-23};
 	private static final byte[] bytes10 = {-97,19,-8,35,-126,-86,122,86,19,-8};
 	private static final byte[] bytes11 = {22,-97,19,-8,35,-126,-86,122,86,19,-8};
+
+	private static void assertFailsLength(
+			final Executable executable,
+			final Item item,
+			final DataField field,
+			final int length,
+			final boolean lengthExact,
+			final String message)
+	{
+		final DataLengthViolationException e =
+				assertFails(executable, DataLengthViolationException.class, message);
+		assertAll(
+				() -> assertEquals(item, e.getItem(), "item"),
+				() -> assertEquals(field, e.getFeature(), "field"),
+				() -> assertEquals(length, e.getLength(), "length"),
+				() -> assertEquals(lengthExact, e.isLengthExact(), "lengthExact"),
+				() -> assertEquals(null, e.getCause()));
+	}
 
 	static ZipFile openZip() throws IOException, URISyntaxException
 	{
