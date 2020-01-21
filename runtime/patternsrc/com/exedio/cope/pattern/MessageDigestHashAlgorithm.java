@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.misc.EncodingToCharset;
 import java.nio.charset.Charset;
 import java.security.MessageDigest;
 import java.security.SecureRandom;
@@ -49,19 +48,5 @@ public final class MessageDigestHashAlgorithm
 	private MessageDigestHashAlgorithm()
 	{
 		// prevent instantiation
-	}
-
-	/**
-	 * @deprecated Use {@link #create(Charset, String, int, SecureRandom, int)} instead.
-	 */
-	@Deprecated
-	public static HashAlgorithm create(
-			final String encoding,
-			final String digest,
-			final int saltLength,
-			final SecureRandom saltSource,
-			final int iterations)
-	{
-		return create(EncodingToCharset.convert(encoding), digest, saltLength, saltSource, iterations);
 	}
 }

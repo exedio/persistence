@@ -22,7 +22,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.Hash;
-import java.nio.charset.Charset;
 import org.junit.jupiter.api.Test;
 
 public class ByteAlgorithmTest
@@ -64,39 +63,12 @@ public class ByteAlgorithmTest
 	{
 		try
 		{
-			new Hash(a, (Charset)null);
+			new Hash(a, null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("charset", e.getMessage());
-		}
-	}
-	@Deprecated // OK: testing deprecated API
-	@Test void testEncodingNull()
-	{
-		try
-		{
-			new Hash(a, (String)null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("encoding", e.getMessage());
-		}
-	}
-	@Deprecated // OK: testing deprecated API
-	@Test void testEncodingWrong()
-	{
-		try
-		{
-			new Hash(a, "nixus");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("nixus", e.getMessage());
-			assertEquals(null, e.getCause());
 		}
 	}
 }

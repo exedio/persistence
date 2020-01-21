@@ -26,15 +26,6 @@ public final class MessageDigestHash extends Hash
 	private static final int DEFAULT_SALT_LENGTH = 8;
 
 	/**
-	 * @deprecated Use {@link Hash#Hash(Algorithm, String)} and {@link #algorithm(int)} instead.
-	 */
-	@Deprecated
-	public MessageDigestHash(final int iterations, final String encoding)
-	{
-		super(algorithm(iterations), encoding);
-	}
-
-	/**
 	 * @deprecated Use {@link Hash#Hash(Algorithm)} and {@link #algorithm(int)} instead.
 	 */
 	@Deprecated

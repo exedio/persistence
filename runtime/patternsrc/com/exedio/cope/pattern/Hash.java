@@ -39,7 +39,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ComputedElement;
-import com.exedio.cope.misc.EncodingToCharset;
 import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
@@ -567,24 +566,6 @@ public class Hash extends Pattern implements HashInterface
 	private final FeatureTimer checkTimerMismatch = checkTimerMatch.newValue("mismatch");
 
 	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link Hash#Hash(StringField, Algorithm, Charset)} instead
-	 */
-	@Deprecated
-	public Hash(final StringField storage, final Algorithm algorithm, final String encoding)
-	{
-		this(storage, algorithm, EncodingToCharset.convert(encoding));
-	}
-
-	/**
-	 * @deprecated Use {@link Hash#Hash(Algorithm, Charset)} instead
-	 */
-	@Deprecated
-	public Hash(final Algorithm algorithm, final String encoding)
-	{
-		this(algorithm, EncodingToCharset.convert(encoding));
-	}
 
 	/**
 	 * @deprecated Use {@link #getAlgorithmID()} instead
