@@ -487,20 +487,6 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		setPasswordC.assertCount(0);
 	}
 
-	@Deprecated
-	@Test void testIssueDeprecated()
-	{
-		try
-		{
-			i.issuePasswordRecovery(0);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expiry must be at least PT0.001S, but was PT0S", e.getMessage());
-		}
-	}
-
 	private int purge()
 	{
 		final DeleteJobContext ctx = new DeleteJobContext(MODEL);

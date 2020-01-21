@@ -116,18 +116,6 @@ public final class PasswordRecoveryItem extends Item
 	}
 
 	/**
-	 * @param expiryMillis the time span, after which this token will not be valid anymore, in milliseconds
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="issue")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@java.lang.Deprecated
-	@javax.annotation.Nonnull
-	com.exedio.cope.pattern.PasswordRecovery.Token issuePasswordRecovery(final int expiryMillis)
-	{
-		return PasswordRecoveryItem.passwordRecovery.issue(this,expiryMillis);
-	}
-
-	/**
 	 * @param secret a secret for password recovery
 	 * @return a valid token, if existing, otherwise null
 	 */

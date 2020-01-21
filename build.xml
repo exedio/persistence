@@ -375,7 +375,6 @@
 				buildDirectory="build/instrument/runtime.test">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
-			<generateDeprecated>com.exedio.cope.pattern.PasswordRecovery#issue(com.exedio.cope.Item,int)</generateDeprecated>
 			<suppressWarnings>
 				<constructor>RedundantSuppression</constructor>
 				<constructor>TypeParameterExtendsFinalClass</constructor>

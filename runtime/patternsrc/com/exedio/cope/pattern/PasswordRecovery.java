@@ -383,20 +383,4 @@ public final class PasswordRecovery extends Pattern
 	private final FeatureCounter redeemFailCounter = counter("redeemFail", "An attempt to redeem a secret failed, because either there was no token with such a secret or that token was expired.");
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureCounter setPasswordCounter = counter("setPassword", "The password was set to a new value, because a token was redeemed.");
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #issue(Item, Config)} instead.
-	 * @return a valid token for password recovery
-	 */
-	@Deprecated
-	@Wrap(order=11)
-	@Nonnull
-	public Token issue(
-			@Nonnull final Item item,
-			@Parameter(value="expiryMillis", doc="the time span, after which this token will not be valid anymore, in milliseconds") final int expiryMillis)
-	{
-		return issue(item, new Config(expiryMillis));
-	}
 }
