@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.StringField;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.nio.charset.Charset;
 import org.junit.jupiter.api.Test;
 
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
@@ -34,7 +33,7 @@ public class TextUrlFilterModelTest
 	{
 		try
 		{
-			new TextUrlFilter(null, null, (Charset)null, null, null, null, null);
+			new TextUrlFilter(null, null, null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -47,7 +46,7 @@ public class TextUrlFilterModelTest
 		final Media roh = new Media();
 		try
 		{
-			new TextUrlFilter(roh, null, (Charset)null, null, null, null, null);
+			new TextUrlFilter(roh, null, null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -60,7 +59,7 @@ public class TextUrlFilterModelTest
 		final Media roh = new Media();
 		try
 		{
-			new TextUrlFilter(roh, "", (Charset)null, null, null, null, null);
+			new TextUrlFilter(roh, "", null, null, null, null, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -73,40 +72,12 @@ public class TextUrlFilterModelTest
 		final Media roh = new Media();
 		try
 		{
-			new TextUrlFilter(roh, "text/plain", (Charset)null, null, null, null, null);
+			new TextUrlFilter(roh, "text/plain", null, null, null, null, null);
 			fail();
 		}
 		catch(final NullPointerException e)
 		{
 			assertEquals("charset", e.getMessage());
-		}
-	}
-	@Deprecated // OK: testing deprecated API
-	@Test void testEncodingNull()
-	{
-		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", (String)null, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("encoding", e.getMessage());
-		}
-	}
-	@Deprecated // OK: testing deprecated API
-	@Test void testEncondingWrong()
-	{
-		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", "zack", null, null, null, null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("zack", e.getMessage());
 		}
 	}
 	@Test void testPasteStartNull()

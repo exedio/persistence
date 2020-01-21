@@ -35,7 +35,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
-import com.exedio.cope.misc.EncodingToCharset;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
@@ -450,24 +449,6 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 	}
 
 	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #TextUrlFilter(Media, String, Charset, String, String, StringField, Media)} instead
-	 */
-	@Deprecated
-	public TextUrlFilter(
-			final Media raw,
-			final String supportedContentType,
-			final String encoding,
-			final String pasteStart,
-			final String pasteStop,
-			final StringField pasteKey,
-			final Media pasteValue)
-	{
-		this(
-				raw, supportedContentType, EncodingToCharset.convert(encoding),
-				pasteStart, pasteStop, pasteKey, pasteValue);
-	}
 
 	/**
 	 * @deprecated Use {@link #getPasteContentTypesAllowed()} instead
