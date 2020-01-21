@@ -486,28 +486,6 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @deprecated Use {@link #getSourceFeatures()} instead
-	 */
-	@Deprecated
-	public List<? extends Field<?>> getSourceFields()
-	{
-		final ArrayList<Field<?>> result = new ArrayList<>();
-		for(final Feature f : getSourceFeatures())
-			if(f instanceof Field<?>)
-				result.add((Field<?>)f);
-		return ListUtil.trimUnmodifiable(result);
-	}
-
-	/**
-	 * @deprecated Use {@link #getSourceFields()} instead
-	 */
-	@Deprecated
-	public final List<? extends Field<?>> getSources()
-	{
-		return getSourceFields();
-	}
-
-	/**
 	 * @deprecated Use {@link #getSourceTypes()} instead
 	 */
 	@Deprecated

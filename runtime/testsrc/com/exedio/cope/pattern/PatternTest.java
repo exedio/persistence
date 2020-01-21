@@ -234,19 +234,4 @@ public class PatternTest extends TestWithEnvironment
 		assertTestAnnotation("PatternTestTypeItemAnn", superType);
 		assertTestAnnotation("PatternTestTypeItemAnn", subType);
 	}
-
-	@Deprecated
-	@Test void testDeprecated()
-	{
-		assertEqualsUnmodifiable(list(
-				PatternTestItem.testPattern.ownString,
-				PatternTestItem.testPattern.ownInt,
-				PatternTestItem.testPattern.getOwnItem()
-			), PatternTestItem.testPattern.getSourceFields());
-	assertEqualsUnmodifiable(list(
-				PatternTestItem.testPattern2.ownString,
-				PatternTestItem.testPattern2.ownInt,
-				PatternTestItem.testPattern2.getOwnItem()
-			), PatternTestItem.testPattern2.getSourceFields());
-	}
 }

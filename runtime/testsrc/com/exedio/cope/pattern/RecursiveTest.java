@@ -154,15 +154,4 @@ public class RecursiveTest extends TestWithEnvironment
 		assertTrue(item.fetch());
 		assertEquals("RecursiveItem/testPattern-media/" + item + ".png", testPattern.getLocator(item).toString());
 	}
-
-	@Deprecated
-	@Test void testDeprecated()
-	{
-		assertEqualsUnmodifiable(list(
-					testPattern.fetch
-				), testPattern.getSourceFields());
-		assertEqualsUnmodifiable(list(
-					testPattern2.fetch
-				), testPattern2.getSourceFields());
-	}
 }
