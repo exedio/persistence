@@ -932,13 +932,4 @@ public abstract class MediaPath extends Pattern
 			throw new NoSuchMethodError();
 		}
 	}
-
-	/**
-	 * @param name is ignored
-	 * @deprecated Use {@link #getURL(Item)} and {@link MediaUrlCatchphraseProvider#getMediaUrlCatchphrase(MediaPath)} instead.
-	 */
-	@Deprecated public final String getNamedURL(final Item item, final String name)
-	{
-		return getURL(item);
-	}
 }
