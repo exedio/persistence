@@ -1394,15 +1394,6 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated use {@link #getChangeListenersInfo()}.{@link ChangeListenerInfo#getCleared()} instead.
-	 */
-	@Deprecated
-	public int getChangeListenersCleared()
-	{
-		return changeListeners.getInfo().getCleared();
-	}
-
-	/**
 	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} or {@link DirectRevisionsFactory} instead.
 	 */
 	@Deprecated

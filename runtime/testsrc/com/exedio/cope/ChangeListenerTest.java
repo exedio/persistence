@@ -284,10 +284,6 @@ public class ChangeListenerTest extends TestWithEnvironment
 		assertEquals(success, timer("dispatch", "result", "success"));
 		assertEquals(failed,  timer("dispatch", "result", "failure"));
 
-		@SuppressWarnings("deprecation")
-		final int clearedDeprecated = model.getChangeListenersCleared();
-		assertEquals(0,       clearedDeprecated);
-
 		final ChangeListenerDispatcherInfo dispatcherInfo = model.getChangeListenerDispatcherInfo();
 		assertEquals(0, dispatcherInfo.getOverflow ());
 		assertEquals(0, dispatcherInfo.getException());

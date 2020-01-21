@@ -215,10 +215,6 @@ public class ChangeListenersTest
 		assertEquals(0,                 timer("dispatch", "result", "success"));
 		assertEquals(0,                 timer("dispatch", "result", "failure"));
 
-		@SuppressWarnings("deprecation")
-		final int clearedDeprecated = model.getChangeListenersCleared() - baselineInfo.getCleared();
-		assertEquals(cleared, clearedDeprecated);
-
 		try
 		{
 			model.getChangeListenerDispatcherInfo();
