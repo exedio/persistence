@@ -350,24 +350,4 @@ public final class SchemaInfo
 	{
 		return getUpdateCounterColumnName(type);
 	}
-
-	/**
-	 * @deprecated Always returns true, because all databases are required to support sequences.
-	 * @param model is ignored
-	 */
-	@Deprecated
-	public static boolean supportsSequences(final Model model)
-	{
-		return true;
-	}
-
-	/**
-	 * @deprecated Always returns true, because all databases are required to support not-null columns.
-	 */
-	@Deprecated
-	public static boolean supportsNotNull(final Model model)
-	{
-		model.connect(); // make sure it works only when connected
-		return true;
-	}
 }

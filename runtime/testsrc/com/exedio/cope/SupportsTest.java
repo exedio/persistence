@@ -166,12 +166,4 @@ public class SupportsTest extends TestWithEnvironment
 	}
 
 	private static final String NOT_SUPPORTED = "FAILS: not supported";
-
-	@Deprecated
-	@Test void testDeprecated()
-	{
-		assertEquals(true, SchemaInfo.supportsSequences(model));
-		assertEquals(true, SchemaInfo.supportsNotNull(model));
-		assertEquals(true, model.nullsAreSortedLow());
-	}
 }

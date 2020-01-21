@@ -1138,18 +1138,6 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated
-	 * Is not supported any longer.
-	 * Always returns true.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public boolean nullsAreSortedLow()
-	{
-		return true;
-	}
-
-	/**
 	 * @deprecated Use {@link #startTransaction(String)} instead and provide a useful name.
 	 */
 	@Deprecated
@@ -1394,15 +1382,6 @@ public final class Model implements Serializable
 	public boolean supportsCheckConstraints()
 	{
 		return SchemaInfo.supportsCheckConstraints(this);
-	}
-
-	/**
-	 * @deprecated Use {@link SchemaInfo#supportsSequences(Model)} instead
-	 */
-	@Deprecated
-	public boolean supportsSequences()
-	{
-		return SchemaInfo.supportsSequences(this);
 	}
 
 	/**
