@@ -117,7 +117,7 @@ public final class ConnectToken implements AutoCloseable
 
 	/**
 	 * Returns true, if this token was issued by {@link #issueIfConnected(Model, String)}.
-	 * Returns false, if this token was issued by {@link #issue(Model, ConnectProperties, String)}.
+	 * Returns false, if this token was issued by {@link #issue(Model, String)}.
 	 */
 	public boolean wasConditional()
 	{
