@@ -322,8 +322,6 @@ public class MessageDigestHashTest extends TestWithEnvironment
 
 	static String encoding(final Hash hash)
 	{
-		@SuppressWarnings("deprecation")
-		final String result = hash.getEncoding();
-		return result;
+		return ((AlgorithmAdapter)hash.getAlgorithm2()).charset.name();
 	}
 }

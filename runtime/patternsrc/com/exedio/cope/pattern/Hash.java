@@ -147,16 +147,6 @@ public class Hash extends Pattern implements HashInterface
 	}
 
 	/**
-	 * @deprecated
-	 * Throws exception if not initialized via {@link Algorithm}.
-	 */
-	@Deprecated
-	public final String getEncoding()
-	{
-		return AlgorithmAdapter.unwrapEncoding(algorithm);
-	}
-
-	/**
 	 * @see #validate(PlainTextValidator)
 	 */
 	public final PlainTextValidator getPlainTextValidator()

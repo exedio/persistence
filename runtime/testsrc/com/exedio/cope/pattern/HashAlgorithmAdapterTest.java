@@ -66,13 +66,6 @@ public class HashAlgorithmAdapterTest
 		}
 	}
 
-	@Test void testEncoding()
-	{
-		@SuppressWarnings("deprecation")
-		final String encoding = AnItem.hash.getEncoding();
-		assertEquals("UNKNOWN", encoding);
-	}
-
 	static final class AnAlgorithm implements HashAlgorithm
 	{
 		@Override

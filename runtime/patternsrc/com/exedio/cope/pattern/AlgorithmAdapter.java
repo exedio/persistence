@@ -36,7 +36,7 @@ final class AlgorithmAdapter implements HashAlgorithm
 	}
 
 	private final Hash.Algorithm algorithm;
-	private final Charset charset;
+	final Charset charset;
 
 	private AlgorithmAdapter(
 			final Hash.Algorithm algorithm,
@@ -117,14 +117,5 @@ final class AlgorithmAdapter implements HashAlgorithm
 				throw new IllegalArgumentException("not implementable");
 			}
 		};
-	}
-
-	@Deprecated
-	static String unwrapEncoding(final HashAlgorithm algorithm)
-	{
-		return
-				(algorithm instanceof AlgorithmAdapter)
-				? ((AlgorithmAdapter)algorithm).charset.name()
-				: "UNKNOWN";
 	}
 }
