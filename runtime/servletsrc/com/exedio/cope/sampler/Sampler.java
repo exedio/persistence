@@ -27,7 +27,6 @@ import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
-import com.exedio.cope.Query;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Transaction;
@@ -46,7 +45,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -336,28 +334,5 @@ public class Sampler
 	public long getTransactionDuration()
 	{
 		return (10*1000);
-	}
-
-	/**
-	 * @deprecated
-	 * This method is no longer needed.
-	 * Always returns an empty list.
-	 */
-	@Deprecated
-	public final List<Query<List<Object>>> differentiate()
-	{
-		return differentiate(null, null);
-	}
-
-	/**
-	 * @deprecated
-	 * This method is no longer needed.
-	 * Always returns an empty list.
-	 */
-	@Deprecated
-	@SuppressWarnings({"static-method", "MethodMayBeStatic", "unused"})
-	public final List<Query<List<Object>>> differentiate(final Date from, final Date until)
-	{
-		return Collections.emptyList();
 	}
 }
