@@ -58,6 +58,10 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return connection.username;
 	}
 
+	/**
+	 * @deprecated Do not use this method anymore
+	 */
+	@Deprecated
 	public String getConnectionPassword()
 	{
 		return connection.password;
