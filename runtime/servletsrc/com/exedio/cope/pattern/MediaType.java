@@ -459,30 +459,4 @@ public final class MediaType
 			result[i++] = new Magic(e.getKey(), e.getValue());
 		return result;
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link MediaType#forMagics(byte[])} instead.
-	 */
-	@Deprecated
-	public static MediaType forMagic(final byte[] magic)
-	{
-		return first(forMagics(magic));
-	}
-
-	/**
-	 * @deprecated Use {@link MediaType#forMagics(File)} instead.
-	 */
-	@Deprecated
-	public static MediaType forMagic(final File file) throws IOException
-	{
-		return first(forMagics(file));
-	}
-
-	@Deprecated
-	private static MediaType first(final Set<MediaType> set)
-	{
-		return set.isEmpty() ? null : set.iterator().next();
-	}
 }

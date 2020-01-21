@@ -202,21 +202,6 @@ public class MediaTypeTest
 		assertEqualsUnmodifiable(set(types), forMagics(magicBytes));
 		assertEqualsUnmodifiable(set(types), forMagics(files.newFile(magicBytes)));
 		assertEqualsUnmodifiable(set(types), forMagics(files.newPath(magicBytes)));
-		final MediaType first = types.length>0 ? types[0] : null;
-		assertSame(forMagic(magicBytes), first);
-		assertSame(forMagic(files.newFile(magicBytes)), first);
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated code
-	private static MediaType forMagic(final byte[] magic)
-	{
-		return MediaType.forMagic(magic);
-	}
-
-	@SuppressWarnings("deprecation") // OK: testing deprecated code
-	private static MediaType forMagic(final File magic) throws IOException
-	{
-		return MediaType.forMagic(magic);
 	}
 
 	private static Set<Object> set(final MediaType... o)
