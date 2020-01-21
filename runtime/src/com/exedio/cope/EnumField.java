@@ -198,13 +198,4 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 	{
 		return as(clazz);
 	}
-
-	/**
-	 * @deprecated Use {@link SchemaInfo#getColumnValue(EnumField,Enum)} instead
-	 */
-	@Deprecated
-	public int getColumnValue(final E value)
-	{
-		return SchemaInfo.getColumnValue(this, value);
-	}
 }

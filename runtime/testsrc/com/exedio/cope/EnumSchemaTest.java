@@ -79,23 +79,6 @@ public class EnumSchemaTest
 	}
 
 
-	@SuppressWarnings({"unchecked","cast"}) // OK: test bad api usage
-	@Deprecated // OK: test deprecated api
-	@Test void testUnchecked()
-	{
-		final EnumField<Normal2> normal = EnumField.create(Normal2.class);
-		try
-		{
-			getColumnValue((EnumField)normal, Normal.Eins);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("expected " + Normal2.class.getName() + ", but was a " + Normal.class.getName(), e.getMessage());
-		}
-	}
-
-
 	@Test void testAnnotatedBefore()
 	{
 		assertColumnValues(AnnotatedBefore.class, 10, 11, 20);
