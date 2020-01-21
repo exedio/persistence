@@ -46,7 +46,7 @@ public class StringCopyTest
 	@Deprecated // OK test deprecated api
 	@Test void testEmpty()
 	{
-		final StringField orig = new StringField(StringField.EMPTY).optional();
+		final StringField orig = new StringField().optional().lengthMin(0);
 		assertEquals(false, orig.isFinal());
 		assertEquals(false, orig.isMandatory());
 		assertEquals(0, orig.getMinimumLength());

@@ -69,19 +69,6 @@ public final class StringField extends FunctionField<String>
 		mountDefault();
 	}
 
-	public StringField(final StringFieldMinimumLength minimumLength)
-	{
-		this(false, false, false, null, null, minimumLength.value, DEFAULT_MAXIMUM_LENGTH, null);
-	}
-
-	/**
-	 * @deprecated
-	 * Check carefully, if empty string should really be allowed.
-	 * If yes, use {@link #lengthMin(int) lengthMin(0)} instead.
-	 */
-	@Deprecated
-	public static final StringFieldMinimumLength EMPTY = new StringFieldMinimumLength(0);
-
 	/**
 	 * Creates a new mandatory {@code StringField}.
 	 */
