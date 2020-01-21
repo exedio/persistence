@@ -99,9 +99,15 @@ class PatternTestPattern extends Pattern
 		return subType;
 	}
 
-	@SuppressWarnings("deprecation") // OK test deprecated api
 	private AnnotatedElement af(final String name)
 	{
-		return annotationField(name);
+		try
+		{
+			return getClass().getDeclaredField(name);
+		}
+		catch(final NoSuchFieldException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 }

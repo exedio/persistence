@@ -572,22 +572,6 @@ public abstract class Pattern extends Feature
 	}
 
 	/**
-	 * @deprecated Do not use this method anymore.
-	 */
-	@Deprecated
-	protected final java.lang.reflect.Field annotationField(final String name)
-	{
-		try
-		{
-			return getClass().getDeclaredField(name);
-		}
-		catch(final NoSuchFieldException e)
-		{
-			throw new RuntimeException(e);
-		}
-	}
-
-	/**
 	 * @deprecated For binary compatibility only, use {@link #addSourceFeature(Feature,String,AnnotatedElement)} instead.
 	 */
 	@Deprecated
