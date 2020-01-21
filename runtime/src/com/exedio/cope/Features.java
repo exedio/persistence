@@ -81,20 +81,12 @@ public final class Features
 		return map.size();
 	}
 
-	private AnnotatedElement getAnnotationSource(final Feature feature)
-	{
-		return
-			(annotationSources!=null)
-			? annotationSources.get(feature)
-			: null;
-	}
-
 	void mount(final Type<?> type)
 	{
 		for(final Map.Entry<String, Feature> entry : map.entrySet())
 		{
 			final Feature feature = entry.getValue();
-			feature.mount(type, entry.getKey(), getAnnotationSource(feature));
+			feature.mount(type, entry.getKey(), annotationSources.get(feature));
 		}
 	}
 
@@ -110,7 +102,7 @@ public final class Features
 			final Feature source = entry.getValue();
 			final String postfix = entry.getKey();
 			if(!source.isMountedToType())
-				source.mount(type, name + '-' + postfix, getAnnotationSource(source));
+				source.mount(type, name + '-' + postfix, annotationSources.get(source));
 			final Type<?> sourceType = source.getType();
 			//System.out.println("----------check"+source);
 			if(!sourceType.equals(type))
