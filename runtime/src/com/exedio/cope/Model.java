@@ -27,7 +27,6 @@ import com.exedio.cope.misc.DatabaseListener;
 import com.exedio.cope.misc.DirectRevisionsFactory;
 import com.exedio.cope.misc.HiddenFeatures;
 import com.exedio.cope.util.JobContext;
-import com.exedio.cope.util.ModificationListener;
 import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
@@ -1160,53 +1159,6 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 * Always returns an empty list.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public List<ModificationListener> getModificationListeners()
-	{
-		return ModificationListeners.get();
-	}
-
-	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 * Always returns zero.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public int getModificationListenersCleared()
-	{
-		return ModificationListeners.getCleared();
-	}
-
-	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 * Always throws a {@link NoSuchMethodError}.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public void addModificationListener(final ModificationListener listener)
-	{
-		ModificationListeners.add(listener);
-	}
-
-	/**
-	 * @deprecated
-	 * ModificationListener is no longer supported.
-	 */
-	@Deprecated
-	@SuppressWarnings("static-method")
-	public void removeModificationListener(final ModificationListener listener)
-	{
-		ModificationListeners.remove(listener);
-	}
-
-	/**
 	 * @deprecated renamed to {@link #getItemCacheInfo()}.
 	 */
 	@Deprecated
@@ -1258,15 +1210,6 @@ public final class Model implements Serializable
 	public Map<Integer, byte[]> getMigrationLogs()
 	{
 		return getRevisionLogs();
-	}
-
-	/**
-	 * @deprecated Use {@link #getModificationListenersCleared()} instead
-	 */
-	@Deprecated
-	public int getModificationListenersRemoved()
-	{
-		return getModificationListenersCleared();
 	}
 
 	/**
