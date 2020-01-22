@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
-import static com.exedio.cope.CopyConstraint.newCopyConstraint;
 import static com.exedio.cope.Executor.longResultSetHandler;
 import static com.exedio.cope.TypesBound.future;
 import static com.exedio.cope.util.Check.requireNonEmpty;
@@ -88,7 +87,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = newCopyConstraint(this, copyFrom[i]);
+			result[i] = new CopyConstraint(this, copyFrom[i]);
 		return result;
 	}
 

@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.CopyConstraint.newCopyConstraint;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.instrument.Parameter;
@@ -73,7 +72,7 @@ public abstract class FunctionField<E> extends Field<E>
 		assert copyFrom.length>0;
 		final CopyConstraint[] result = new CopyConstraint[copyFrom.length];
 		for(int i = 0; i<copyFrom.length; i++)
-			result[i] = newCopyConstraint(copyFrom[i], this);
+			result[i] = new CopyConstraint(copyFrom[i], this);
 		return result;
 	}
 

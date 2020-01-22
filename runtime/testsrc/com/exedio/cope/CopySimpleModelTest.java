@@ -158,25 +158,6 @@ public class CopySimpleModelTest
 		assertEquals(templateStringCopyFromTarget, templateString.getImplicitCopyConstraint());
 		assertEquals(templateItemCopyFromTarget  , templateItem  .getImplicitCopyConstraint());
 		assertEquals(selfTemplateCopyFromTarget  , selfTemplate  .getImplicitCopyConstraint());
-		try
-		{
-			new CopyConstraint(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("target", e.getMessage());
-		}
-		final ItemField<CopyValue> target = ItemField.create(CopyValue.class);
-		try
-		{
-			new CopyConstraint(target, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("copy", e.getMessage());
-		}
 	}
 
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")

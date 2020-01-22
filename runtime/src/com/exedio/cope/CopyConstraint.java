@@ -32,25 +32,13 @@ public final class CopyConstraint extends Feature
 	private final ItemField<?> target;
 	private final Copy copy;
 
-	/**
-	 * @deprecated
-	 * Use {@code copy.{@link FunctionField#copyFrom(ItemField) copyFrom}(target)}
-	 * or {@code target.{@link ItemField#copyTo(FunctionField) copyTo}(copy)}
-	 * instead.
-	 */
-	@Deprecated
-	public CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
+	CopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
 	{
-		this.target = requireNonNull(target, "target");
-		this.copy = new CopyField(requireNonNull(copy, "copy"));
+		this.target = requireNonNull(target);
+		this.copy = new CopyField(requireNonNull(copy));
 
 		if(target.isMandatory())
 			copy.setRedundantByCopyConstraint();
-	}
-
-	static CopyConstraint newCopyConstraint(final ItemField<?> target, final FunctionField<?> copy)
-	{
-		return new CopyConstraint(target, copy);
 	}
 
 
