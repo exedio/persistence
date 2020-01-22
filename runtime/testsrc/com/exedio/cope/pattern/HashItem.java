@@ -30,17 +30,17 @@ import com.exedio.cope.testmodel.WrapHash;
 public final class HashItem extends Item
 {
 	static final StringField explicitExternalWrap = new StringField().optional();
-	static final Hash explicitExternal = new WrapHash(explicitExternalWrap);
+	static final Hash explicitExternal = new Hash(explicitExternalWrap, WrapHash.ALGORITHM);
 
-	static final Hash implicitExternal = new WrapHash(new StringField().optional());
+	static final Hash implicitExternal = new Hash(new StringField().optional(), WrapHash.ALGORITHM);
 
-	static final Hash internal = new WrapHash().optional();
+	static final Hash internal = new Hash(WrapHash.ALGORITHM).optional();
 
-	static final Hash limited15 = new WrapHash().optional().limit(15);
+	static final Hash limited15 = new Hash(WrapHash.ALGORITHM).optional().limit(15);
 
-	static final Hash withCorruptValidator = new WrapHash().validate(new WrapHash.CorruptValidator()).optional();
+	static final Hash withCorruptValidator = new Hash(WrapHash.ALGORITHM).validate(new WrapHash.CorruptValidator()).optional();
 
-	static final Hash with3PinValidator = new WrapHash().validate(new DigitPinValidator(3)).optional();
+	static final Hash with3PinValidator = new Hash(WrapHash.ALGORITHM).validate(new DigitPinValidator(3)).optional();
 
 	/**
 	 * Maybe instrumentor should create this.

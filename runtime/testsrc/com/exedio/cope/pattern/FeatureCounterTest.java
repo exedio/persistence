@@ -27,6 +27,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
+import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
@@ -43,7 +44,6 @@ import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 @MainRule.Tag
 @SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS","NP_NULL_PARAM_DEREF_NONVIRTUAL","RV_RETURN_VALUE_IGNORED_INFERRED"})
@@ -310,38 +310,15 @@ public class FeatureCounterTest
 
 	@Test void testFeatureNotFinal()
 	{
-		final Hash hash = new Hash(new HashAlgorithm()
-		{
-			@Override
-			public String getID()
-			{
-				return "id";
-			}
-			@Override
-			public String getDescription()
-			{
-				throw new AssertionFailedError();
-			}
-			@Override
-			public StringField constrainStorage(final StringField storage)
-			{
-				return storage;
-			}
-			@Override
-			public String hash(final String plainText)
-			{
-				throw new AssertionFailedError();
-			}
-			@Override
-			public boolean check(final String plainText, final String hash)
-			{
-				throw new AssertionFailedError();
-			}
-		});
+		final NonFinalPattern hash = new NonFinalPattern();
 		assertFails(
 				() -> onMount(hash),
 				IllegalArgumentException.class,
-				"not final: " + Hash.class + " " + hash);
+				"not final: " + NonFinalPattern.class + " " + hash);
+	}
+	static class NonFinalPattern extends Pattern
+	{
+		private static final long serialVersionUID = 1l;
 	}
 
 	private static final class MockMeterRegistry extends AssertionFailedErrorMeterRegistry

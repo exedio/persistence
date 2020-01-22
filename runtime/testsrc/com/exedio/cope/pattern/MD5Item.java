@@ -22,8 +22,7 @@ import com.exedio.cope.Item;
 
 public final class MD5Item extends Item
 {
-	@SuppressWarnings("deprecation")
-	static final Hash password = new MD5Hash();
+	static final Hash password = new Hash(new MessageDigestAlgorithm("MD5", 0, 1));
 
 	/**
 	 * Creates a new MD5Item with all the fields initially needed.

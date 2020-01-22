@@ -28,21 +28,9 @@ import java.security.SecureRandom;
  * A nonsense test hash for unit-testing the hashing mechanism.
  * @author Ralf Wiebicke
  */
-public class WrapHash extends Hash
+public final class WrapHash
 {
-	private static final long serialVersionUID = 1l;
-
-	public WrapHash(final StringField storage)
-	{
-		super(storage, ALGORITHM);
-	}
-
-	public WrapHash()
-	{
-		super(ALGORITHM);
-	}
-
-	private static final HashAlgorithm ALGORITHM = new HashAlgorithm()
+	public static final HashAlgorithm ALGORITHM = new HashAlgorithm()
 	{
 		@Override
 		public String getID()
@@ -87,10 +75,10 @@ public class WrapHash extends Hash
 	};
 
 	/** this validator throws an exception whatever member method is called */
-	public static final class CorruptValidator extends PlainTextValidator
+	public static final class CorruptValidator extends Hash.PlainTextValidator
 	{
 		@Override protected void validate(final String plainText, final Item exceptionItem, final Hash hash)
-			throws InvalidPlainTextException
+			throws Hash.InvalidPlainTextException
 		{
 			throw new IllegalStateException("validate");
 		}
@@ -98,5 +86,11 @@ public class WrapHash extends Hash
 		{
 			throw new IllegalStateException("newRandomPlainText");
 		}
+	}
+
+
+	private WrapHash()
+	{
+		// prevent instantiation
 	}
 }
