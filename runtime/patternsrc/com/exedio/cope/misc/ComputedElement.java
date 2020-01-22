@@ -19,13 +19,28 @@
 package com.exedio.cope.misc;
 
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Field;
 
 public final class ComputedElement
 {
-	@SuppressWarnings("deprecation")
 	public static AnnotatedElement get()
 	{
-		return ComputedInstance.get();
+		return instance;
+	}
+
+	@Computed
+	private static final Field instance;
+
+	static
+	{
+		try
+		{
+			instance = ComputedElement.class.getDeclaredField("instance");
+		}
+		catch(final NoSuchFieldException e)
+		{
+			throw new RuntimeException(e);
+		}
 	}
 
 	private ComputedElement()
