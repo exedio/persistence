@@ -24,7 +24,6 @@ import com.exedio.cope.CopeName;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.Test;
 
-@Deprecated
 @SuppressWarnings("unused")
 public class CopeNameUtilFieldTest
 {
@@ -32,12 +31,12 @@ public class CopeNameUtilFieldTest
 	{
 		assertField(null,           "fieldNaked",   "Naked");
 		assertField("nameAnno",     "nameAnno",     "Name");
-		assertField("idAnno",       "idAnno",       "Id");
+		assertField(null,           "fieldId",      "Id");
 		assertField("bothAnnoName", "bothAnnoName", "Both");
 
 		assertClass(null,           "ClassNaked",   ClassNaked.class);
 		assertClass("nameAnno",     "nameAnno",     ClassName .class);
-		assertClass("idAnno",       "idAnno",       ClassId   .class);
+		assertClass(null,           "ClassId",      ClassId   .class);
 		assertClass("bothAnnoName", "bothAnnoName", ClassBoth .class);
 	}
 
@@ -67,23 +66,23 @@ public class CopeNameUtilFieldTest
 	@CopeName("nameAnno") private static final int fieldName = 0;
 	@CopeName("nameAnno") private static class ClassName { /* empty */ }
 
-	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static final int fieldId = 0;
-	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("idAnno") private static class ClassId { /* empty */ }
+	private static final int fieldId = 0;
+	private static class ClassId { /* empty */ }
 
-	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static final int fieldBoth = 0;
-	/** @deprecated */ @Deprecated @com.exedio.cope.CopeID("bothAnnoID") @CopeName("bothAnnoName") private static class ClassBoth { /* empty */ }
+	@CopeName("bothAnnoName") private static final int fieldBoth = 0;
+	@CopeName("bothAnnoName") private static class ClassBoth { /* empty */ }
 
 
 	private enum MyEnum
 	{
 		normal,
 		@CopeName("actual") pure,
-		@com.exedio.cope.CopeID("actualID") pureID
+		pureID
 	}
 	@Test void testEnum()
 	{
 		assertEquals("normal",   CopeNameUtil.getAndFallbackToName(MyEnum.normal));
 		assertEquals("actual",   CopeNameUtil.getAndFallbackToName(MyEnum.pure));
-		assertEquals("actualID", CopeNameUtil.getAndFallbackToName(MyEnum.pureID));
+		assertEquals("pureID",   CopeNameUtil.getAndFallbackToName(MyEnum.pureID));
 	}
 }

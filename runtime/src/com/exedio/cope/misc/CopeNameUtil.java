@@ -30,15 +30,7 @@ public final class CopeNameUtil
 		if(name!=null)
 			return name.value();
 
-		return getDeprecated(annotatedElement);
-	}
-
-	@Deprecated
-	private static String getDeprecated(final AnnotatedElement annotatedElement)
-	{
-		final com.exedio.cope.CopeID id =
-				annotatedElement.getAnnotation(com.exedio.cope.CopeID.class);
-		return (id!=null) ? id.value() : null;
+		return null;
 	}
 
 	public static String getAndFallbackToSimpleName(final Class<?> clazz)

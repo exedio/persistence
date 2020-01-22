@@ -34,12 +34,11 @@ public class CopeNameUtilTest
 	{
 		assertEquals("naked",        AnItem.naked.getName());
 		assertEquals("nameAnno",     AnItem.name .getName());
-		assertEquals("idAnno",       AnItem.id   .getName());
+		assertEquals("id",           AnItem.id   .getName());
 		assertEquals("bothAnnoName", AnItem.both .getName());
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static final class AnItem extends Item
 	{
 		@WrapperIgnore static final StringField naked = new StringField();
@@ -47,11 +46,9 @@ public class CopeNameUtilTest
 		@CopeName("nameAnno")
 		@WrapperIgnore static final StringField name = new StringField();
 
-		@com.exedio.cope.CopeID("idAnno")
 		@WrapperIgnore static final StringField id = new StringField();
 
 		@CopeName("bothAnnoName")
-		@com.exedio.cope.CopeID("bothAnnoID")
 		@WrapperIgnore static final StringField both = new StringField();
 
 		@com.exedio.cope.instrument.Generated
