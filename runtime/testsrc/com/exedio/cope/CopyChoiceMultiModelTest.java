@@ -75,15 +75,6 @@ public class CopyChoiceMultiModelTest
 		assertFails(constraintB::getCopy, IllegalArgumentException.class, "Container.choiceBChoiceparent is choice");
 	}
 
-	@Deprecated // OK: testing deprecated API
-	@Test void testImplicitCopyConstraints()
-	{
-		assertEqualsUnmodifiable(asList(), Container.choiceA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(asList(), Container.choiceB.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(asList(), PartA.parent.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(asList(), PartB.parent.getImplicitCopyConstraints());
-	}
-
 	@SuppressWarnings("unused") // makes sure model is loaded
 	private static final Model MODEL = CopyChoiceMultiTest.MODEL;
 }

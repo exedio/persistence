@@ -148,18 +148,6 @@ public class CopySimpleModelTest
 		assertSerializedSame(selfTemplateCopyFromTarget   , 405);
 	}
 
-	@SuppressWarnings("deprecation") // OK testing deprecated api
-	@Test void testDeprecated()
-	{
-		assertEqualsUnmodifiable(list(templateStringCopyFromTarget), templateString  .getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(templateItemCopyFromTarget  ), templateItem    .getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(selfTemplateCopyFromTarget  ), selfTemplate    .getImplicitCopyConstraints());
-
-		assertEquals(templateStringCopyFromTarget, templateString.getImplicitCopyConstraint());
-		assertEquals(templateItemCopyFromTarget  , templateItem  .getImplicitCopyConstraint());
-		assertEquals(selfTemplateCopyFromTarget  , selfTemplate  .getImplicitCopyConstraint());
-	}
-
 	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testFailures()
 	{

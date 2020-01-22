@@ -101,20 +101,4 @@ public class CopyMultiCopyModelTest
 		assertSerializedSame(constraintA, 402);
 		assertSerializedSame(constraintB, 402);
 	}
-
-	@SuppressWarnings("deprecation")
-	@Test void testDeprecated()
-	{
-		assertEqualsUnmodifiable(list(), copyA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), copyB.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), target.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiCopyTarget.copyA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiCopyTarget.copyB.getImplicitCopyConstraints());
-
-		assertEquals(null, target.getImplicitCopyConstraint());
-		assertEquals(null, copyA.getImplicitCopyConstraint());
-		assertEquals(null, copyB.getImplicitCopyConstraint());
-		assertEquals(null, CopyMultiCopyTarget.copyA.getImplicitCopyConstraint());
-		assertEquals(null, CopyMultiCopyTarget.copyB.getImplicitCopyConstraint());
-	}
 }

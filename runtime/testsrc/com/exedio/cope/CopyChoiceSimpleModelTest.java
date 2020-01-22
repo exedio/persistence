@@ -60,13 +60,6 @@ public class CopyChoiceSimpleModelTest
 		assertFails(constraint::getCopy, IllegalArgumentException.class, "Container.choiceChoiceparent is choice");
 	}
 
-	@Deprecated // OK: testing deprecated API
-	@Test void testImplicitCopyConstraints()
-	{
-		assertEqualsUnmodifiable(asList(), Container.choice.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(asList(), Part.parent.getImplicitCopyConstraints());
-	}
-
 	@SuppressWarnings("unused") // makes sure model is loaded
 	private static final Model MODEL = CopyChoiceSimpleTest.MODEL;
 }

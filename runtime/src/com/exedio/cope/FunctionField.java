@@ -28,7 +28,6 @@ import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.lang.reflect.AnnotatedElement;
 import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
@@ -340,47 +339,6 @@ public abstract class FunctionField<E> extends Field<E>
 	public List<UniqueConstraint> getUniqueConstraints()
 	{
 		return uniqueConstraints!=null ? Collections.unmodifiableList(uniqueConstraints) : Collections.emptyList();
-	}
-
-	/**
-	 * Returns the copy constraint of this field,
-	 * that has been created implicitly when creating this field.
-	 * Does return null, if there is no such copy constraint.
-	 * @see StringField#copyFrom(ItemField)
-	 * @see ItemField#copyFrom(ItemField)
-	 * @deprecated
-	 * Use {@link #getImplicitCopyConstraints()} instead.
-	 * Throws a RuntimeException, if {@link #getImplicitCopyConstraints()} returns more than one constraint.
-	 */
-	@Deprecated
-	public CopyConstraint getImplicitCopyConstraint()
-	{
-		final List<CopyConstraint> constraints = getImplicitCopyConstraints();
-		switch(constraints.size())
-		{
-			case 0: return null;
-			case 1: return constraints.get(0);
-			default: throw new RuntimeException(constraints.toString());
-		}
-	}
-
-	/**
-	 * Returns the copy constraints of this field,
-	 * that has been created implicitly when creating this field.
-	 * Does return an empty list, if there is no such copy constraint.
-	 * @see StringField#copyFrom(ItemField)
-	 * @see ItemField#copyFrom(ItemField)
-	 * @deprecated
-	 * This method makes no sense anymore, since there is a
-	 * {@link ItemField#copyTo(FunctionField)} as well.
-	 */
-	@Deprecated
-	public List<CopyConstraint> getImplicitCopyConstraints()
-	{
-		return
-				implicitCopyConstraintsFrom!=null
-				? Collections.unmodifiableList(Arrays.asList(implicitCopyConstraintsFrom))
-				: Collections.emptyList();
 	}
 
 	@Override

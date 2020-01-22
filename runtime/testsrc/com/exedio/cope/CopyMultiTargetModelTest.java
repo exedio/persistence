@@ -25,7 +25,6 @@ import static com.exedio.cope.CopyMultiTargetSource.targetB;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -103,31 +102,5 @@ public class CopyMultiTargetModelTest
 
 		assertSerializedSame(constraintA, 406);
 		assertSerializedSame(constraintB, 406);
-	}
-
-	@SuppressWarnings("deprecation")
-	@Test void testDeprecated()
-	{
-		assertEqualsUnmodifiable(list(), targetA.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), targetB.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(constraintA, constraintB), copy.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiTargetA.copy.getImplicitCopyConstraints());
-		assertEqualsUnmodifiable(list(), CopyMultiTargetB.copy.getImplicitCopyConstraints());
-
-		assertEquals(null, targetA.getImplicitCopyConstraint());
-		assertEquals(null, targetB.getImplicitCopyConstraint());
-		try
-		{
-			copy.getImplicitCopyConstraint();
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals(
-					"[CopyMultiTargetSource.copyCopyFromtargetA, CopyMultiTargetSource.copyCopyFromtargetB]",
-					e.getMessage());
-		}
-		assertEquals(null, CopyMultiTargetA.copy.getImplicitCopyConstraint());
-		assertEquals(null, CopyMultiTargetB.copy.getImplicitCopyConstraint());
 	}
 }
