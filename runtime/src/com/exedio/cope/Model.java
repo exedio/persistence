@@ -1410,31 +1410,4 @@ public final class Model implements Serializable
 	{
 		this(DirectRevisionsFactory.make(revisions), typeSets, types);
 	}
-
-	/**
-	 * @deprecated Use {@link #Model(Revisions.Factory, Type...)} instead.
-	 */
-	@Deprecated
-	public Model(final RevisionsFuture revisions, final Type<?>... types)
-	{
-		this(wrap(revisions), types);
-	}
-
-	/**
-	 * @deprecated Use {@link #Model(Revisions.Factory, TypeSet[], Type...)} instead.
-	 */
-	@Deprecated
-	public Model(final RevisionsFuture revisions, final TypeSet[] typeSets, final Type<?>... types)
-	{
-		this(wrap(revisions), typeSets, types);
-	}
-
-	@Deprecated
-	private static Revisions.Factory wrap(final RevisionsFuture revisions)
-	{
-		if(revisions==null)
-			return null;
-
-		return ctx -> revisions.get(ctx.getEnvironment());
-	}
 }
