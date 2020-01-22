@@ -84,34 +84,15 @@ abstract class FeatureMeter<M extends Meter>
 			final FeatureMeter<?>... meters)
 	{
 		requireNonNull(feature, "feature");
-		final Class<?> featureClass = feature.getClass();
+		final Class<? extends Feature> featureClass = feature.getClass();
 		if(!Modifier.isFinal(featureClass.getModifiers()))
 			throw new IllegalArgumentException("not final: " + featureClass + ' ' + feature);
 
-		onMountInternal(featureClass, feature, meters);
-	}
-
-	@SuppressWarnings("unchecked")
-	private static void onMountInternal(
-			final Class<?> featureClass,
-			final Feature feature,
-			final FeatureMeter<?>[] meters)
-	{
-		onMount((Class)featureClass, feature, meters);
-	}
-
-	static <F extends Feature> void onMount(
-			final Class<F> featureClass,
-			final F feature,
-			final FeatureMeter<?>... meters)
-	{
-		requireNonNull(featureClass, "featureClass");
-		requireNonNull(feature, "feature");
 		for(final FeatureMeter<?> meter : meters)
 			meter.onMount(featureClass, feature);
 	}
 
-	private <F extends Feature> void onMount(final Class<F> featureClass, final F feature)
+	private void onMount(final Class<? extends Feature> featureClass, final Feature feature)
 	{
 		//noinspection UnnecessarilyQualifiedInnerClassAccess OK: bug in idea
 		if(!(meter instanceof FeatureMeter.LogMeter))

@@ -18,20 +18,16 @@
 
 package com.exedio.cope.pattern;
 
-public final class MessageDigestHash extends Hash
-{
-	private static final long serialVersionUID = 1l;
+import com.exedio.cope.pattern.Hash.Algorithm;
 
+public final class MessageDigestHash
+{
 	private static final String DEFAULT_DIGEST = "SHA-512";
 	private static final int DEFAULT_SALT_LENGTH = 8;
 
-	/**
-	 * @deprecated Use {@link Hash#Hash(Algorithm)} and {@link #algorithm(int)} instead.
-	 */
-	@Deprecated
-	public MessageDigestHash(final int iterations)
+	private MessageDigestHash()
 	{
-		super(algorithm(iterations));
+		// prevent instantiation
 	}
 
 	public static Algorithm algorithm(final int iterations)

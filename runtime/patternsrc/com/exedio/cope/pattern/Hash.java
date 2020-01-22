@@ -54,7 +54,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 @WrapFeature
-public class Hash extends Pattern implements HashInterface
+public final class Hash extends Pattern implements HashInterface
 {
 	private static final Logger logger = LoggerFactory.getLogger(Hash.class);
 
@@ -123,7 +123,7 @@ public class Hash extends Pattern implements HashInterface
 		this.validator = validator;
 	}
 
-	public final StringField getStorage()
+	public StringField getStorage()
 	{
 		return storage;
 	}
@@ -131,17 +131,17 @@ public class Hash extends Pattern implements HashInterface
 	/**
 	 * @see #limit(int)
 	 */
-	public final int getPlainTextLimit()
+	public int getPlainTextLimit()
 	{
 		return plainTextLimit;
 	}
 
-	public final HashAlgorithm getAlgorithm2()
+	public HashAlgorithm getAlgorithm2()
 	{
 		return algorithm;
 	}
 
-	public final String getAlgorithmID()
+	public String getAlgorithmID()
 	{
 		return algorithm.getID();
 	}
@@ -149,37 +149,37 @@ public class Hash extends Pattern implements HashInterface
 	/**
 	 * @see #validate(PlainTextValidator)
 	 */
-	public final PlainTextValidator getPlainTextValidator()
+	public PlainTextValidator getPlainTextValidator()
 	{
 		return validator!=DEFAULT_VALIDATOR ? validator : null;
 	}
 
 	@Override
-	public final boolean isInitial()
+	public boolean isInitial()
 	{
 		return storage.isInitial();
 	}
 
 	@Override
-	public final boolean isFinal()
+	public boolean isFinal()
 	{
 		return isfinal;
 	}
 
 	@Override
-	public final boolean isMandatory()
+	public boolean isMandatory()
 	{
 		return storage.isMandatory();
 	}
 
 	@Override
-	public final Class<?> getInitialType()
+	public Class<?> getInitialType()
 	{
 		return String.class;
 	}
 
 	@Override
-	public final Set<Class<? extends Throwable>> getInitialExceptions()
+	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		final Set<Class<? extends Throwable>> result = storage.getInitialExceptions();
 		result.remove(StringLengthViolationException.class);
@@ -248,12 +248,12 @@ public class Hash extends Pattern implements HashInterface
 		boolean compatibleTo(Algorithm other);
 	}
 
-	public final Hash toFinal()
+	public Hash toFinal()
 	{
 		return new Hash(storage.toFinal(), plainTextLimit, algorithm, validator);
 	}
 
-	public final Hash optional()
+	public Hash optional()
 	{
 		return new Hash(storage.optional(), plainTextLimit, algorithm, validator);
 	}
@@ -266,7 +266,7 @@ public class Hash extends Pattern implements HashInterface
 	 * This is a precaution against DOS attacks with very long plain texts.
 	 * @see #getPlainTextLimit()
 	 */
-	public final Hash limit(final int plainTextLimit)
+	public Hash limit(final int plainTextLimit)
 	{
 		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
 	}
@@ -274,7 +274,7 @@ public class Hash extends Pattern implements HashInterface
 	/**
 	 * @see #getPlainTextValidator()
 	 */
-	public final Hash validate(final PlainTextValidator validator)
+	public Hash validate(final PlainTextValidator validator)
 	{
 		return new Hash(storage.copy(), plainTextLimit, algorithm, validator);
 	}
@@ -283,7 +283,7 @@ public class Hash extends Pattern implements HashInterface
 	protected void onMount()
 	{
 		super.onMount();
-		FeatureMeter.onMount(Hash.class, this, hashTimer, checkTimerMatch, checkTimerMismatch);
+		FeatureMeter.onMount(this, hashTimer, checkTimerMatch, checkTimerMismatch);
 	}
 
 	@Override
@@ -291,7 +291,7 @@ public class Hash extends Pattern implements HashInterface
 			doc=Wrap.SET_DOC,
 			hide=FinalSettableGetter.class,
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public final void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String plainText)
+	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String plainText)
 	{
 		FinalViolationException.check(this, item);
 
@@ -300,7 +300,7 @@ public class Hash extends Pattern implements HashInterface
 
 	@Override
 	@Wrap(order=10, doc=Wrap.HASH_CHECK_DOC)
-	public final boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
+	public boolean check(@Nonnull final Item item, @Nullable final String actualPlainText)
 	{
 		final String expectedHash = storage.get(item);
 		if(actualPlainText!=null)
@@ -313,7 +313,7 @@ public class Hash extends Pattern implements HashInterface
 	}
 
 	@Override
-	public final boolean isNull(@Nonnull final Item item)
+	public boolean isNull(@Nonnull final Item item)
 	{
 		return storage.get(item)==null;
 	}
@@ -329,7 +329,7 @@ public class Hash extends Pattern implements HashInterface
 	 */
 	@Override
 	@Wrap(order=20, doc={Wrap.HASH_BLIND_DOC_1, Wrap.HASH_BLIND_DOC_2})
-	public final void blind(@Nullable final String actualPlainText)
+	public void blind(@Nullable final String actualPlainText)
 	{
 		if(actualPlainText!=null)
 		{
@@ -341,7 +341,7 @@ public class Hash extends Pattern implements HashInterface
 	}
 
 	@Override
-	public final SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
+	public SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
 		final String hash = hash(value, exceptionItem);
 		return new SetValue<?>[]{ storage.map(hash) };
@@ -349,7 +349,7 @@ public class Hash extends Pattern implements HashInterface
 
 	@Override
 	@Wrap(order=40, nameGetter=GetNameGetter.class, doc="Returns the encoded hash value for hash {0}.", nullability=NullableIfOptional.class)
-	public final String getHash(@Nonnull final Item item)
+	public String getHash(@Nonnull final Item item)
 	{
 		return storage.get(item);
 	}
@@ -359,7 +359,7 @@ public class Hash extends Pattern implements HashInterface
 			doc="Sets the encoded hash value for hash {0}.",
 			hide=FinalSettableGetter.class,
 			thrownGetter=InitialExceptionsSettableGetter.class)
-	public final void setHash(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String hash)
+	public void setHash(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final String hash)
 	{
 		FinalViolationException.check(this, item);
 
@@ -371,7 +371,7 @@ public class Hash extends Pattern implements HashInterface
 		return feature.getAlgorithmID().replaceAll("\\W", "");
 	}
 
-	public final String hash(final String plainText)
+	public String hash(final String plainText)
 	{
 		return hash(plainText, null);
 	}
@@ -386,7 +386,7 @@ public class Hash extends Pattern implements HashInterface
 		return algorithmHash(plainText);
 	}
 
-	public final void checkPlainText(final String plainText)
+	public void checkPlainText(final String plainText)
 	{
 		if(plainText==null)
 		{
@@ -416,28 +416,28 @@ public class Hash extends Pattern implements HashInterface
 		return plainText.length()<=plainTextLimit;
 	}
 
-	public final Condition isNull()
+	public Condition isNull()
 	{
 		return storage.isNull();
 	}
 
-	public final Condition isNull(final Join join)
+	public Condition isNull(final Join join)
 	{
 		return storage.bind(join).isNull();
 	}
 
-	public final Condition isNotNull()
+	public Condition isNotNull()
 	{
 		return storage.isNotNull();
 	}
 
-	public final Condition isNotNull(final Join join)
+	public Condition isNotNull(final Join join)
 	{
 		return storage.bind(join).isNotNull();
 	}
 
 	@Override
-	public final String newRandomPassword(final SecureRandom random)
+	public String newRandomPassword(final SecureRandom random)
 	{
 		return validator.newRandomPlainText(random);
 	}
@@ -563,7 +563,7 @@ public class Hash extends Pattern implements HashInterface
 	 * Throws exception if not initialized via {@link Algorithm}.
 	 */
 	@Deprecated
-	public final Algorithm getAlgorithm()
+	public Algorithm getAlgorithm()
 	{
 		return AlgorithmAdapter.unwrap(algorithm, storage);
 	}

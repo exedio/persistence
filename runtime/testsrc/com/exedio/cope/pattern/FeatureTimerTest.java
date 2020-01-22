@@ -27,7 +27,6 @@ import static java.util.concurrent.TimeUnit.NANOSECONDS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -168,33 +167,6 @@ public class FeatureTimerTest
 				"record MeterId{" +
 				"name='com.exedio.cope.StringField.myNameSuffixTags', " +
 				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue2)]}");
-	}
-
-	@Test void testFeatureClass()
-	{
-		final FeatureTimer meter = timer("myNameSuffixTags", "myDescription", "myKey", "myValue1");
-		registry.assertIt();
-
-		onMount(FunctionField.class, MyItem.myFeature, meter);
-		registry.assertIt();
-
-		meter.record(5, NANOSECONDS);
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
-
-		meter.stop(Timer.start());
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
-
-		meter.stopMillies(Timer.start());
-		registry.assertIt(
-				"record MeterId{" +
-				"name='com.exedio.cope.FunctionField.myNameSuffixTags', " +
-				"tags=[tag(feature=MyItem.myFeature),tag(myKey=myValue1)]}");
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -342,22 +314,6 @@ public class FeatureTimerTest
 	{
 		assertFails(
 				() -> onMount(null),
-				NullPointerException.class,
-				"feature");
-	}
-
-	@Test void testOnMountClassFeatureClassNull()
-	{
-		assertFails(
-				() -> onMount(null, null, new FeatureTimer[]{}),
-				NullPointerException.class,
-				"featureClass");
-	}
-
-	@Test void testOnMountClassFeatureNull()
-	{
-		assertFails(
-				() -> onMount(StringField.class, null, new FeatureTimer[]{}),
 				NullPointerException.class,
 				"feature");
 	}
