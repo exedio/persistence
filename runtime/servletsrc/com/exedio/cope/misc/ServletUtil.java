@@ -20,8 +20,6 @@ package com.exedio.cope.misc;
 
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
-import com.exedio.cope.servletutil.ServletSource;
-import com.exedio.cope.util.Properties;
 import java.io.File;
 import javax.servlet.Filter;
 import javax.servlet.FilterConfig;
@@ -165,15 +163,6 @@ public final class ServletUtil
 			new ConnectProperties(
 				new File(context.getRealPath("WEB-INF/cope.properties"))
 			);
-	}
-
-	/**
-	 * @deprecated Use {@link ServletSource#create(ServletContext)} instead
-	 */
-	@Deprecated
-	public static Properties.Source getPropertyContext(final ServletContext context)
-	{
-		return ServletSource.create(context);
 	}
 
 	// ------------------- deprecated stuff -------------------
