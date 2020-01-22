@@ -22,7 +22,6 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MediaItem.TYPE;
 import static com.exedio.cope.pattern.MediaItem.custom;
 import static com.exedio.cope.pattern.MediaItem.file;
-import static com.exedio.cope.pattern.MediaItem.foto;
 import static com.exedio.cope.pattern.MediaItem.image;
 import static com.exedio.cope.pattern.MediaItem.name;
 import static com.exedio.cope.pattern.MediaItem.photo;
@@ -30,7 +29,6 @@ import static com.exedio.cope.pattern.MediaItem.sheet;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -42,8 +40,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
-import java.io.IOException;
-import java.io.InputStream;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -71,7 +67,7 @@ public class MediaTest extends TestWithEnvironment
 		item = new MediaItem("test media item");
 	}
 
-	@Test void testData() throws IOException
+	@Test void testData()
 	{
 		assertEquals(0, bytes0.length);
 		assertEquals(4, bytes4.length);
@@ -96,7 +92,6 @@ public class MediaTest extends TestWithEnvironment
 				photo,
 				photo.getBody(),
 				photo.getLastModified(),
-				foto,
 				sheet,
 				sheet.getBody(),
 				sheet.getContentType(),
@@ -104,24 +99,6 @@ public class MediaTest extends TestWithEnvironment
 				sheet.getUnison(),
 				custom,
 			}), TYPE.getFeatures());
-
-		// foto
-		assertEquals(TYPE, foto.getType());
-		assertEquals("foto", foto.getName());
-		assertSame(photo, foto.getTarget());
-		assertEquals(photo.isNull(), foto.isNull());
-		assertEquals(photo.isNotNull(), foto.isNotNull());
-
-		assertEquals(null, item.getFotoContentType());
-		assertLocator(null, item.getFotoLocator());
-
-		item.setPhoto(bytes4, "image/jpeg");
-		assertEquals("image/jpeg", item.getFotoContentType());
-		assertLocator("MediaItem/foto/" + item.getCopeID() + ".jpg", item.getFotoLocator());
-
-		item.setPhoto((InputStream)null, null);
-		assertEquals(null, item.getFotoContentType());
-		assertLocator(null, item.getFotoLocator());
 
 		// custom
 		assertEquals(TYPE, custom.getType());
@@ -138,7 +115,6 @@ public class MediaTest extends TestWithEnvironment
 		assertSerializedSame(file,   372);
 		assertSerializedSame(image,  373);
 		assertSerializedSame(photo,  373);
-		assertSerializedSame(foto,   372);
 		assertSerializedSame(sheet,  373);
 		assertSerializedSame(custom, 374);
 	}
@@ -176,21 +152,6 @@ public class MediaTest extends TestWithEnvironment
 			query.narrow( photo.isNotNull(join2) );
 
 			assertEquals( list(), query.search() );
-		}
-	}
-
-
-	@Deprecated
-	@Test void testDeprecated()
-	{
-		try
-		{
-			new MediaRedirect(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("target", e.getMessage());
 		}
 	}
 

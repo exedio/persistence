@@ -205,10 +205,6 @@ public class MediaServletTest
 		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG + "."   , prefix + "content/"  + ITEM_JPG + "."   );
 		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG         , prefix + "content/"  + ITEM_JPG         );
 
-		assertMoved(prefix + "redirect/" + ITEM_JPG + ".jpg", prefix + "content/"  + ITEM_JPG + ".jpg");
-		assertMoved(prefix + "redirect/" + ITEM_JPG + "."   , prefix + "redirect/" + ITEM_JPG + ".jpg");
-		assertMoved(prefix + "redirect/" + ITEM_JPG         , prefix + "redirect/" + ITEM_JPG + ".jpg");
-
 		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
 		assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));

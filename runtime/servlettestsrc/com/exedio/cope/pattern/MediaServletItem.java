@@ -85,15 +85,7 @@ final class MediaServletItem extends Item
 	}
 
 	@Wrapper(wrap="getURL", visibility=NONE)
-	@Deprecated
-	static final MediaRedirect redirect = new MediaRedirect(content);
-
-	@Wrapper(wrap="getURL", visibility=NONE)
 	static final MediaThumbnail thumbnail = new MediaThumbnail(content, 150, 150);
-
-	@Wrapper(wrap="getURL", visibility=NONE)
-	@Deprecated
-	static final MediaRedirect thumbnailRedirect = new MediaRedirect(thumbnail);
 
 	@Wrapper(wrap="getURL", visibility=NONE)
 	static final TextUrlFilter html = new TextUrlFilter(
@@ -326,30 +318,6 @@ final class MediaServletItem extends Item
 	}
 
 	/**
-	 * Returns a Locator the content of {@link #redirect} is available under.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@java.lang.Deprecated
-	@javax.annotation.Nullable
-	com.exedio.cope.pattern.MediaPath.Locator getRedirectLocator()
-	{
-		return MediaServletItem.redirect.getLocator(this);
-	}
-
-	/**
-	 * Returns the content type of the media {@link #redirect}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@java.lang.Deprecated
-	@javax.annotation.Nullable
-	java.lang.String getRedirectContentType()
-	{
-		return MediaServletItem.redirect.getContentType(this);
-	}
-
-	/**
 	 * Returns a Locator the content of {@link #thumbnail} is available under.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
@@ -393,18 +361,6 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		return MediaServletItem.thumbnail.get(this);
-	}
-
-	/**
-	 * Returns a Locator the content of {@link #thumbnailRedirect} is available under.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@java.lang.Deprecated
-	@javax.annotation.Nullable
-	com.exedio.cope.pattern.MediaPath.Locator getThumbnailRedirectLocator()
-	{
-		return MediaServletItem.thumbnailRedirect.getLocator(this);
 	}
 
 	/**
