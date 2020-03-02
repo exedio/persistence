@@ -34,8 +34,6 @@ public class CopeNameUtilTest
 	{
 		assertEquals("naked",        AnItem.naked.getName());
 		assertEquals("nameAnno",     AnItem.name .getName());
-		assertEquals("id",           AnItem.id   .getName());
-		assertEquals("bothAnnoName", AnItem.both .getName());
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -45,11 +43,6 @@ public class CopeNameUtilTest
 
 		@CopeName("nameAnno")
 		@WrapperIgnore static final StringField name = new StringField();
-
-		@WrapperIgnore static final StringField id = new StringField();
-
-		@CopeName("bothAnnoName")
-		@WrapperIgnore static final StringField both = new StringField();
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
