@@ -1115,6 +1115,9 @@
 				<pathelement location="${basedir}/lib/slf4j-api.jar" />
 				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
 				<pathelement location="${basedir}/lib/log4j-bundle.jar" />
+				<pathelement location="${basedir}/lib/micrometer-core.jar" />
+				<pathelement location="${basedir}/lib/micrometer-registry-prometheus.jar" />
+				<pathelement location="${basedir}/lib/simpleclient-bundle.jar" />
 				<pathelement location="${ant.core.lib}" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</auxclasspath>
