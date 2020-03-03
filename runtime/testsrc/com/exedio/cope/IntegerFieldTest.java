@@ -265,6 +265,6 @@ public class IntegerFieldTest
 			final IntegerField field,
 			final Integer value)
 	{
-		return new CompareCondition<>(operator, (Selectable<Integer>)field, value);
+		return new CompareCondition<>(operator, field, value);
 	}
 }

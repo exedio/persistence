@@ -615,7 +615,7 @@ public class DoubleTest extends TestWithEnvironment
 			final DoubleField field,
 			final Double value)
 	{
-		return new CompareCondition<>(operator, (Selectable<Double>)field, value);
+		return new CompareCondition<>(operator, field, value);
 	}
 
 	@Test void testSchema()

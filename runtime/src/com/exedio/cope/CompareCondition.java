@@ -198,18 +198,4 @@ public final class CompareCondition<E> extends Condition
 		else
 			bf.append(o);
 	}
-
-	// ------------------- deprecated stuff -------------------
-
-	/**
-	 * @deprecated Use {@link #CompareCondition(CompareFunctionCondition.Operator, Selectable, Object)}} instead
-	 */
-	@Deprecated
-	public CompareCondition(
-			final CompareFunctionCondition.Operator operator,
-			final Function<E> left,
-			final E right)
-	{
-		this(operator, (Selectable<E>)left, right);
-	}
 }

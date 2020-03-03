@@ -92,7 +92,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareCondition<E> less(final E value)
 	{
-		return new CompareCondition<>(Operator.Less, (Selectable<E>)this, value);
+		return new CompareCondition<>(Operator.Less, this, value);
 	}
 
 	/**
@@ -102,7 +102,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareCondition<E> lessOrEqual(final E value)
 	{
-		return new CompareCondition<>(Operator.LessEqual, (Selectable<E>)this, value);
+		return new CompareCondition<>(Operator.LessEqual, this, value);
 	}
 
 	/**
@@ -112,7 +112,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareCondition<E> greater(final E value)
 	{
-		return new CompareCondition<>(Operator.Greater, (Selectable<E>)this, value);
+		return new CompareCondition<>(Operator.Greater, this, value);
 	}
 
 	/**
@@ -122,7 +122,7 @@ public interface Function<E> extends Selectable<E>
 	 */
 	default CompareCondition<E> greaterOrEqual(final E value)
 	{
-		return new CompareCondition<>(Operator.GreaterEqual, (Selectable<E>)this, value);
+		return new CompareCondition<>(Operator.GreaterEqual, this, value);
 	}
 
 	/**
