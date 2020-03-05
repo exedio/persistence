@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaRedirect no longer supported, use @RedirectFrom instead.
+	Was deprecated since Mar 1 2010.
+	You MUST update copeconsole (if present in your project) to rev>=7051.
 * Query#exists() supported, is faster than #total()
 * PartOf does not add order as source anymore.
 	This breaks backwards API compatibility:
