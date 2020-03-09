@@ -36,11 +36,6 @@ final class BlobColumn extends Column
 	{
 		super(table, id, false, false, optional);
 		this.maximumLength = maximumLength;
-
-		if(table.database.dialect.getBlobType(maximumLength)==null)
-			throw new RuntimeException(
-					"dialect does not support BLOBs of maximum length " + maximumLength +
-					" for " + table.id + '.' + id + '.');
 	}
 
 	@Override

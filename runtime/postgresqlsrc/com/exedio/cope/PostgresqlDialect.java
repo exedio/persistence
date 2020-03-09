@@ -192,7 +192,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	String getBlobType(final long maximumLength)
 	{
-		return (maximumLength<Integer.MAX_VALUE) ? "\"bytea\"" : null;
+		return "\"bytea\"";
 	}
 
 	/**
