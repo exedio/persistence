@@ -85,12 +85,12 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 					type1 = "tinyint";
 					type2 = "smallint";
 					type3 = "mediumint";
-					type4 = "int";
 				}
 				else
 				{
-					type1 = type2 = type3 = type4 = "int";
+					type1 = type2 = type3 = "int";
 				}
+				type4 = "int";
 				type8 = "bigint";
 				break;
 			case oracle:
