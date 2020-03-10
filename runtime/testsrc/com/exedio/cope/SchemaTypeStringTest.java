@@ -40,8 +40,8 @@ import static com.exedio.cope.SchemaTypeStringItem.f85Ext;
 import static com.exedio.cope.SchemaTypeStringItem.f86;
 import static com.exedio.cope.SchemaTypeStringItem.f86Ext;
 import static com.exedio.cope.SchemaTypeStringItem.fMax;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -63,24 +63,14 @@ public class SchemaTypeStringTest extends TestWithEnvironment
 	{
 		// make sure, relation types are as small as possible -
 		// just the primary key and the StringField
-		try
-		{
-			SchemaInfo.getTypeColumnName(f1.sourceType());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no type column for SchemaTypeStringItem-f1", e.getMessage());
-		}
-		try
-		{
-			SchemaInfo.getUpdateCounterColumnName(f1.sourceType());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("no update counter for SchemaTypeStringItem-f1", e.getMessage());
-		}
+		assertFails(
+				() -> SchemaInfo.getTypeColumnName(f1.sourceType()),
+				IllegalArgumentException.class,
+				"no type column for SchemaTypeStringItem-f1");
+		assertFails(
+				() -> SchemaInfo.getUpdateCounterColumnName(f1.sourceType()),
+				IllegalArgumentException.class,
+				"no update counter for SchemaTypeStringItem-f1");
 
 		assertEquals(false, f85   .isAnnotationPresent(MysqlExtendedVarchar.class));
 		assertEquals(true,  f85Ext.isAnnotationPresent(MysqlExtendedVarchar.class));
