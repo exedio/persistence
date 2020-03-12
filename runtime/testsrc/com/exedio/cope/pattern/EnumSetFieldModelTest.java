@@ -78,6 +78,13 @@ public class EnumSetFieldModelTest
 		assertSerializedSame(activeLanguage, 401);
 	}
 
+	@Test void testContains()
+	{
+		assertEquals(
+				"EnumSetFieldItem.activeLanguage-DE='true'",
+				activeLanguage.contains(DE).toString());
+	}
+
 	@Test void testInitialType()
 	{
 		assertEquals("java.util.EnumSet<" + Language.class.getName() + ">", activeLanguage.getInitialType().toString());
