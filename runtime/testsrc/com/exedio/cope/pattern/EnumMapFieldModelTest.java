@@ -106,6 +106,24 @@ public class EnumMapFieldModelTest
 		assertSerializedSame(nameLength, 397);
 	}
 
+	@Test void testIsEmpty()
+	{
+		assertEquals(
+				"(" +
+				"EnumMapFieldItem.name-DE is null AND " +
+				"EnumMapFieldItem.name-EN is null AND " +
+				"EnumMapFieldItem.name-PL is null AND " +
+				"EnumMapFieldItem.name-SUBCLASS is null)",
+				name.isEmpty().toString());
+		assertEquals(
+				"(" +
+				"EnumMapFieldItem.name-DE is not null OR " +
+				"EnumMapFieldItem.name-EN is not null OR " +
+				"EnumMapFieldItem.name-PL is not null OR " +
+				"EnumMapFieldItem.name-SUBCLASS is not null)",
+				name.isNotEmpty().toString());
+	}
+
 	@Test void testInitialType()
 	{
 		assertEquals("java.util.EnumMap<" + Language.class.getName() + ", java.lang.String>" , name      .getInitialType().toString());

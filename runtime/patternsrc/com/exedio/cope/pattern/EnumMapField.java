@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.CoalesceView.coalesce;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
@@ -259,6 +261,26 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		for(final FunctionField<V> field : fields.values())
 			result.addAll(field.getInitialExceptions());
 		return result;
+	}
+
+	public Condition isEmpty()
+	{
+		final Condition[] c = new Condition[fields.size()];
+		int i = 0;
+		for(final Enum<K> e : keyClass.getEnumConstants())
+			//noinspection SuspiciousMethodCalls OK: bug in idea
+			c[i++] = fields.get(e).isNull();
+		return Cope.and(c);
+	}
+
+	public Condition isNotEmpty()
+	{
+		final Condition[] c = new Condition[fields.size()];
+		int i = 0;
+		for(final Enum<K> e : keyClass.getEnumConstants())
+			//noinspection SuspiciousMethodCalls OK: bug in idea
+			c[i++] = fields.get(e).isNotNull();
+		return Cope.or(c);
 	}
 
 

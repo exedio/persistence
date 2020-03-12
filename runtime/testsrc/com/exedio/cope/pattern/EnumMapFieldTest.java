@@ -26,16 +26,20 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.name;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.map;
 import static java.lang.Integer.valueOf;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -180,27 +184,39 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		final HashMap<Language, String> map = new HashMap<>();
 		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
 		assertEqualsUnmodifiable(map(), item.getNameMap());
+		assertEquals(asList(item, itemX), search(name.isEmpty()));
+		assertEquals(asList(), search(name.isNotEmpty()));
 
 		item.setNameMap(mapU);
 		assertEqualsUnmodifiable(map(), item.getNameMap());
+		assertEquals(asList(item, itemX), search(name.isEmpty()));
+		assertEquals(asList(), search(name.isNotEmpty()));
 
 		map.put(DE, "nameDE");
 		item.setNameMap(mapU);
 		assertEqualsUnmodifiable(map(DE, "nameDE"), item.getNameMap());
+		assertEquals(asList(itemX), search(name.isEmpty()));
+		assertEquals(asList(item), search(name.isNotEmpty()));
 
 		map.put(EN, "nameEN");
 		map.put(DE, "nameDE2");
 		item.setNameMap(mapU);
 		assertEqualsUnmodifiable(map(DE, "nameDE2", EN, "nameEN"), item.getNameMap());
+		assertEquals(asList(itemX), search(name.isEmpty()));
+		assertEquals(asList(item), search(name.isNotEmpty()));
 
 		map.put(PL, "namePL");
 		map.remove(DE);
 		item.setNameMap(mapU);
 		assertEqualsUnmodifiable(map(PL, "namePL", EN, "nameEN"), item.getNameMap());
+		assertEquals(asList(itemX), search(name.isEmpty()));
+		assertEquals(asList(item), search(name.isNotEmpty()));
 
 		map.clear();
 		item.setNameMap(mapU);
 		assertEqualsUnmodifiable(map(), item.getNameMap());
+		assertEquals(asList(item, itemX), search(name.isEmpty()));
+		assertEquals(asList(), search(name.isNotEmpty()));
 	}
 
 	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
@@ -268,5 +284,12 @@ public class EnumMapFieldTest extends TestWithEnvironment
 
 		item.setName(SUBCLASS, "withsubclass");
 		assertEquals("withsubclass", item.getName(SUBCLASS));
+	}
+
+	private static List<EnumMapFieldItem> search(final Condition condition)
+	{
+		final Query<EnumMapFieldItem> q = EnumMapFieldItem.TYPE.newQuery(condition);
+		q.setOrderByThis(true);
+		return q.search();
 	}
 }

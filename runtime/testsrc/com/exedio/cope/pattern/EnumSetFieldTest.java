@@ -63,6 +63,8 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 		assertContains(TYPE.search(activeLanguage.contains(DE)));
 		assertContains(TYPE.search(activeLanguage.contains(EN)));
+		assertContains(item, itemX, TYPE.search(activeLanguage.isEmpty()));
+		assertContains(TYPE.search(activeLanguage.isNotEmpty()));
 
 		item.addActiveLanguage(DE);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -73,6 +75,8 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 		assertContains(item, TYPE.search(activeLanguage.contains(DE)));
 		assertContains(TYPE.search(activeLanguage.contains(EN)));
+		assertContains(itemX, TYPE.search(activeLanguage.isEmpty()));
+		assertContains(item, TYPE.search(activeLanguage.isNotEmpty()));
 
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));
@@ -83,6 +87,8 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(EnumSet.noneOf(EnumSetFieldItem.Language.class), itemX.getActiveLanguage());
 		assertContains(item, TYPE.search(activeLanguage.contains(DE)));
 		assertContains(item, TYPE.search(activeLanguage.contains(EN)));
+		assertContains(itemX, TYPE.search(activeLanguage.isEmpty()));
+		assertContains(item, TYPE.search(activeLanguage.isNotEmpty()));
 
 		item.addActiveLanguage(EN);
 		assertEquals(true,  item.containsActiveLanguage(DE));

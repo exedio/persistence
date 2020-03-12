@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.EnumMapField.name;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Condition;
+import com.exedio.cope.Cope;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
@@ -195,5 +196,25 @@ public final class EnumSetField<E extends Enum<E>> extends Pattern implements Se
 	public Condition contains(final E element)
 	{
 		return field(element).equal(true);
+	}
+
+	public Condition isEmpty()
+	{
+		final Condition[] c = new Condition[fields.size()];
+		int i = 0;
+		for(final Enum<E> e : elementClass.getEnumConstants())
+			//noinspection SuspiciousMethodCalls OK: bug in idea
+			c[i++] = fields.get(e).equal(false);
+		return Cope.and(c);
+	}
+
+	public Condition isNotEmpty()
+	{
+		final Condition[] c = new Condition[fields.size()];
+		int i = 0;
+		for(final Enum<E> e : elementClass.getEnumConstants())
+			//noinspection SuspiciousMethodCalls OK: bug in idea
+			c[i++] = fields.get(e).equal(true);
+		return Cope.or(c);
 	}
 }

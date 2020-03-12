@@ -85,6 +85,24 @@ public class EnumSetFieldModelTest
 				activeLanguage.contains(DE).toString());
 	}
 
+	@Test void testIsEmpty()
+	{
+		assertEquals(
+				"(" +
+				"EnumSetFieldItem.activeLanguage-DE='false' AND " +
+				"EnumSetFieldItem.activeLanguage-EN='false' AND " +
+				"EnumSetFieldItem.activeLanguage-PL='false' AND " +
+				"EnumSetFieldItem.activeLanguage-SUBCLASS='false')",
+				activeLanguage.isEmpty().toString());
+		assertEquals(
+				"(" +
+				"EnumSetFieldItem.activeLanguage-DE='true' OR " +
+				"EnumSetFieldItem.activeLanguage-EN='true' OR " +
+				"EnumSetFieldItem.activeLanguage-PL='true' OR " +
+				"EnumSetFieldItem.activeLanguage-SUBCLASS='true')",
+				activeLanguage.isNotEmpty().toString());
+	}
+
 	@Test void testInitialType()
 	{
 		assertEquals("java.util.EnumSet<" + Language.class.getName() + ">", activeLanguage.getInitialType().toString());
