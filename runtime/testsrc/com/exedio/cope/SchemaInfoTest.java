@@ -22,16 +22,19 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
+import static com.exedio.cope.SchemaInfo.getSuperForeignKeyConstraintName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class SchemaInfoTest extends TestWithEnvironment
 {
 	public SchemaInfoTest()
@@ -101,6 +104,12 @@ public class SchemaInfoTest extends TestWithEnvironment
 		assertEquals("ref", getColumnName(InstanceOfRefItem.ref));
 		assertEquals("refType", getTypeColumnName(InstanceOfRefItem.ref));
 		assertEquals("InstanceOfRefItem_ref_Fk", getForeignKeyConstraintName(InstanceOfRefItem.ref));
+
+		assertFails (                  () -> getSuperForeignKeyConstraintName(null), NullPointerException.class, null);
+		assertFails (                  () -> getSuperForeignKeyConstraintName(InstanceOfAItem.TYPE), IllegalArgumentException.class, "no super type for InstanceOfAItem");
+		assertEquals("InstanceOfB1Item_Sup", getSuperForeignKeyConstraintName(InstanceOfB1Item.TYPE));
+		assertEquals("InstanceOfB2Item_Sup", getSuperForeignKeyConstraintName(InstanceOfB2Item.TYPE));
+		assertEquals("InstanceOfC1Item_Sup", getSuperForeignKeyConstraintName(InstanceOfC1Item.TYPE));
 
 		// without sub types
 		assertEquals(filterTableName("InstanceOfB2Item"), getTableName(InstanceOfB2Item.TYPE));

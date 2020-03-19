@@ -218,6 +218,14 @@ public final class SchemaInfo
 		return ((ItemColumn)field.getColumn()).integrityConstraintName;
 	}
 
+	public static String getSuperForeignKeyConstraintName(final Type<?> type)
+	{
+		final IntegerColumn column = type.table.primaryKey;
+		if(!(column instanceof ItemColumn))
+			throw new IllegalArgumentException("no super type for " + type);
+		return ((ItemColumn)column).integrityConstraintName;
+	}
+
 	/**
 	 * Returns the value of database column for the field
 	 * and the given enum value.
