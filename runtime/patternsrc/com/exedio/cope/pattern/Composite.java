@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
@@ -93,6 +95,20 @@ public abstract class Composite implements Serializable, TemplatedValue
 	{
 		member.check(value);
 		values[position(member)] = value;
+	}
+
+	@SuppressWarnings("unchecked")
+	public final void set(final SetValue<?>... setValues)
+	{
+		requireNonNull(setValues, "setValues");
+		if(setValues.length==0)
+			return;
+
+		for(final SetValue<?> sv : setValues)
+			//noinspection OverlyStrongTypeCast OK: shall throw ClasscastException
+			((FunctionField)sv.settable).check(sv.value);
+		for(final SetValue<?> sv : setValues)
+			values[position(((FunctionField)sv.settable))] = sv.value;
 	}
 
 	public final void touch(final DateField member)

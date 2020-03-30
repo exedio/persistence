@@ -38,6 +38,7 @@ import com.exedio.cope.IntegerRangeViolationException;
 import com.exedio.cope.JavaVersion;
 import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.instrument.WrapperType;
@@ -46,7 +47,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
+@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class CompositeTest
 {
 	@Test void testCheck()
@@ -215,6 +216,80 @@ public class CompositeTest
 				"member is not mandatory"); // TODO message with member name
 	}
 
+	@Test void testMultiSet()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+
+		value.set(
+				Value.intMax4.map(-4),
+				Value.longField.map(-5l));
+		assertEquals("1234", value.getString4());
+		assertEquals(-4, value.getIntMax4());
+		assertEquals(-5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+	}
+
+	@Test void testMultiSetEmpty()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+
+		value.set();
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+	}
+
+	@Test void testMultiSetNull()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+
+		assertFails(
+				() -> value.set((SetValue<?>[])null),
+				NullPointerException.class,
+				"setValues");
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+	}
+
+	@Test void testMultiSetCheck()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+
+		assertFails(
+				() -> value.set(
+						Value.string4.map("3456"),
+						Value.intMax4.map(44), // fails
+						Value.longField.map(55l),
+						Value.doubleField.map(66.6)),
+				IntegerRangeViolationException.class,
+				"range violation, 44 is too big for " + Value.intMax4 + ", " +
+				"must be at most 4.",
+				Value.intMax4);
+		assertEquals("1234", value.getString4());
+		assertEquals(4, value.getIntMax4());
+		assertEquals(5l, value.getLongField());
+		assertEqualBits(6.6, value.getDoubleField());
+	}
+
 	@Test void testOverrideDefault()
 	{
 		final Value value = new Value("overrideDefault", false);
@@ -297,6 +372,12 @@ public class CompositeTest
 		assertFails(() -> value.set(ValueX.intField, valueOf(7)), IllegalArgumentException.class, "not a member");
 		assertFails(() -> value.set(ValueX.doubleField, valueOf(7.7)), IllegalArgumentException.class, "not a member");
 		assertFails(() -> value.set(ValueX.booleanField, valueOf(true)), IllegalArgumentException.class, "not a member");
+
+		// setMulti
+		assertFails(() -> value.set(ValueX.stringField.map("77s")), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(ValueX.intField.map(valueOf(7))), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(ValueX.doubleField.map(valueOf(7.7))), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(ValueX.booleanField.map(valueOf(true))), IllegalArgumentException.class, "not a member");
 	}
 
 	@Test void testTouchDate()
@@ -331,6 +412,16 @@ public class CompositeTest
 				FunctionField.class);
 	}
 
+	@Test void testSettableNonFunctionFieldSetMulti()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+
+		JavaVersion.assertThrowsClassCastException(
+				() -> value.set(PRICE_FIELD.map(Price.ZERO)),
+				PriceField.class,
+				FunctionField.class);
+	}
+
 	private static final PriceField PRICE_FIELD = new PriceField();
 
 	@SuppressWarnings("unchecked") // OK: testing bad api usage
@@ -357,6 +448,18 @@ public class CompositeTest
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertFails(
 				() -> value.set((FunctionField)Value.booleanOptional, ""),
+				ClassCastException.class,
+				"expected a java.lang.Boolean, " +
+				"but was a java.lang.String for " +
+				Value.booleanOptional + ".");
+	}
+
+	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	@Test void testWrongValueTypeSetMulti()
+	{
+		final Value value = new Value("1234", 4, 5l, 6.6, false);
+		assertFails(
+				() -> value.set(((FunctionField)Value.booleanOptional).map("")),
 				ClassCastException.class,
 				"expected a java.lang.Boolean, " +
 				"but was a java.lang.String for " +
