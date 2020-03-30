@@ -25,6 +25,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Field;
@@ -165,7 +166,7 @@ public class CompositeErrorTest
 			create(NotFunctionField.class),
 			IllegalArgumentException.class,
 			NotFunctionField.class.getName() + "#notFunctionField must be an instance of " +
-			FunctionField.class);
+			FunctionField.class + " or " + CheckConstraint.class);
 	}
 
 	@Test void testNotFunctionFieldGet()
@@ -174,7 +175,7 @@ public class CompositeErrorTest
 			get(NotFunctionField.class),
 			IllegalArgumentException.class,
 			NotFunctionField.class.getName() + "#notFunctionField must be an instance of " +
-			FunctionField.class);
+			FunctionField.class + " or " + CheckConstraint.class);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)

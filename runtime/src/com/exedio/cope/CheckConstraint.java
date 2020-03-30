@@ -22,6 +22,7 @@ import static com.exedio.cope.Intern.intern;
 import static java.util.Objects.requireNonNull;
 
 import java.util.HashSet;
+import java.util.Map;
 
 public final class CheckConstraint extends Feature implements Copyable
 {
@@ -53,6 +54,11 @@ public final class CheckConstraint extends Feature implements Copyable
 	{
 		if(condition.getTri(item)==Trilean.False)
 			throw new CheckViolationException(item, this);
+	}
+
+	public void check(final Map<FunctionField<?>, Object> values)
+	{
+		check(new FieldValues(values));
 	}
 
 	void makeSchema(final Table table, final com.exedio.dsmf.Table dsmf)

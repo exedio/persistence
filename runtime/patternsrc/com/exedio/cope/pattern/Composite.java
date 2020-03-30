@@ -44,11 +44,11 @@ import java.util.TimeZone;
 )
 public abstract class Composite implements Serializable, TemplatedValue
 {
-	private final Object[] values;
+	private Object[] values;
 
 	protected Composite(final SetValue<?>... setValues)
 	{
-		values = getCopeType().values(setValues);
+		values = getCopeType().values(setValues, null);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -91,22 +91,16 @@ public abstract class Composite implements Serializable, TemplatedValue
 
 	public final <X> void set(final FunctionField<X> member, final X value)
 	{
-		member.check(value);
-		values[position(member)] = value;
+		set(member.map(value));
 	}
 
-	@SuppressWarnings("unchecked")
 	public final void set(final SetValue<?>... setValues)
 	{
 		requireNonNull(setValues, "setValues");
 		if(setValues.length==0)
 			return;
 
-		for(final SetValue<?> sv : setValues)
-			//noinspection OverlyStrongTypeCast OK: shall throw ClasscastException
-			((FunctionField)sv.settable).check(sv.value);
-		for(final SetValue<?> sv : setValues)
-			values[position(((FunctionField)sv.settable))] = sv.value;
+		values = getCopeType().values(setValues, values);
 	}
 
 	public final void touch(final DateField member)
@@ -150,6 +144,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 		if(this==other)
 			return true;
 
+		//noinspection NonFinalFieldReferenceInEquals OK: contents of values may change anyway
 		return
 			other!=null &&
 			getClass().equals(other.getClass()) &&
@@ -159,6 +154,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 	@Override
 	public final int hashCode()
 	{
+		//noinspection NonFinalFieldReferencedInHashCode OK: contents of values may change anyway
 		return getClass().hashCode() ^ Arrays.hashCode(values);
 	}
 

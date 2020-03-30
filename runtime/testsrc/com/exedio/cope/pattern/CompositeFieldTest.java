@@ -284,8 +284,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					feature + " is not a template/component of CompositeItem.eins " +
-					"because it is not a FunctionField, but a " + PriceField.class.getName(),
+					feature + " is not a template of CompositeItem.eins",
 					e.getMessage());
 		}
 		try
@@ -296,8 +295,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		catch(final IllegalArgumentException e)
 		{
 			assertEquals(
-					feature + " is not a template/component of CompositeItem.eins " +
-					"because it is not a FunctionField, but a " + PriceField.class.getName(),
+					feature + " is not a component of CompositeItem.eins",
 					e.getMessage());
 		}
 

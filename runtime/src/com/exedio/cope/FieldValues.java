@@ -54,6 +54,13 @@ public final class FieldValues
 		this.backingType = backingItem.type;
 	}
 
+	FieldValues(final Map<FunctionField<?>, Object> initialDirt)
+	{
+		dirt.putAll(initialDirt);
+		this.backingItem = null;
+		this.backingType = null;
+	}
+
 	private void setDirty(final SetValue<?>[] initialDirt)
 	{
 		for(final SetValue<?> dirt : initialDirt)
@@ -141,7 +148,8 @@ public final class FieldValues
 	public <E> E get(@Nonnull final Field<E> field)
 	{
 		requireNonNull(field, "field");
-		backingType.assertBelongs(field);
+		if(backingType!=null) // is null for CheckConstraint in Composite
+			backingType.assertBelongs(field);
 
 		if(dirt.containsKey(field))
 			return getX(field);

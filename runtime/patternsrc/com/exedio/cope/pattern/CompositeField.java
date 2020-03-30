@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopyMapper;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
@@ -68,6 +69,9 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final FunctionField<?> isNullComponent;
 	private final CheckConstraint unison;
 
+	private final HashMap<Feature, Feature> templateToComponentFeature;
+	private final HashMap<Feature, Feature> componentToTemplateFeature;
+
 	private CompositeField(final boolean isfinal, final boolean optional, final Class<E> valueClass)
 	{
 		this.isfinal = isfinal;
@@ -82,7 +86,10 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		FunctionField<?> mandatoryComponent = null;
 		final ArrayList<Condition> isNull    = optional ? new ArrayList<>() : null;
 		final ArrayList<Condition> isNotNull = optional ? new ArrayList<>() : null;
+		final HashMap<Feature, Feature> templateToComponentFeature = new HashMap<>();
+		final HashMap<Feature, Feature> componentToTemplateFeature = new HashMap<>();
 
+		final CopyMapper mapper = new CopyMapper();
 		for(final Map.Entry<String, FunctionField<?>> e : valueType.getTemplateMap().entrySet())
 		{
 			final FunctionField<?> template = e.getValue();
@@ -98,9 +105,21 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 				if(template.isMandatory())
 					isNotNull.add(component.isNotNull());
 			}
+			mapper.put(template, component);
+			templateToComponentFeature.put(template, component);
+			componentToTemplateFeature.put(component, template);
 		}
 		if(optional && mandatoryComponent==null)
 			throw new IllegalArgumentException("valueClass of optional composite must have at least one mandatory field in " + valueClass.getName());
+
+		for(final Map.Entry<String, CheckConstraint> e : valueType.getConstraintMap().entrySet())
+		{
+			final CheckConstraint template = e.getValue();
+			final CheckConstraint component = template.copy(mapper);
+			addSourceFeature(component, e.getKey(), new FeatureAnnotatedElementAdapter(template), valueClass);
+			templateToComponentFeature.put(template, component);
+			componentToTemplateFeature.put(component, template);
+		}
 
 		this.templateToComponent = templateToComponent;
 		this.componentToTemplate = componentToTemplate;
@@ -108,6 +127,8 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.mandatoryComponent = mandatoryComponent;
 		this.isNullComponent = optional ? mandatoryComponent : componentList.get(0);
 		this.unison = optional ? addSourceFeature(new CheckConstraint(Cope.and(isNull).or(Cope.and(isNotNull))), "unison") : null;
+		this.templateToComponentFeature = templateToComponentFeature;
+		this.componentToTemplateFeature = componentToTemplateFeature;
 	}
 
 	public static <E extends Composite> CompositeField<E> create(final Class<E> valueClass)
@@ -162,29 +183,23 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public <X extends Feature> X of(final X template)
 	{
-		assertFunctionField(template);
-		return (X)of((FunctionField<?>)template);
+		@SuppressWarnings("unchecked")
+		final X result = (X)templateToComponentFeature.get(template);
+		if(result==null)
+			throw new IllegalArgumentException(template + " is not a template of " + this);
+		return result;
 	}
 
 	@Override
-	@SuppressWarnings("unchecked")
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public <X extends Feature> X getTemplate(final X component)
 	{
-		assertFunctionField(component);
-		return (X)getTemplate((FunctionField<?>)component);
-	}
-
-	private void assertFunctionField(final Feature f)
-	{
-		if(!(f instanceof FunctionField))
-			throw new IllegalArgumentException(
-					f + " is not a template/component of " + this + " " +
-					"because it is not a FunctionField, but a " + f.getClass().getName());
+		@SuppressWarnings("unchecked")
+		final X result = (X)componentToTemplateFeature.get(component);
+		if(result==null)
+			throw new IllegalArgumentException(component + " is not a component of " + this);
+		return result;
 	}
 
 	public List<? extends FunctionField<?>> getTemplates()

@@ -22,6 +22,7 @@ import static com.exedio.cope.pattern.BlockCompositeHelper.assertFinalSubClass;
 import static com.exedio.cope.pattern.BlockCompositeHelper.getConstructor;
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
@@ -54,12 +55,18 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 
 	private static final HashMap<FunctionField<?>, String> templateNames = new HashMap<>();
 
+	private final LinkedHashMap<String, CheckConstraint> constraints = new LinkedHashMap<>();
+
+	private final LinkedHashMap<String, Feature> templatesFeature;
+	private final List<Feature> templateListFeature;
+
 	private CompositeType(final Class<T> javaClass)
 	{
 		//System.out.println("---------------new Composite.Type(" + vc + ')');
 		this.javaClass = javaClass;
 		this.constructor = getConstructor(javaClass, SetValue[].class);
 		final String id = javaClass.getName();
+		final LinkedHashMap<String, Feature> templatesFeature = new LinkedHashMap<>();
 		{
 			int position = 0;
 			for(final Map.Entry<Feature, java.lang.reflect.Field> entry : TypesBound.getFeatures(javaClass).entrySet())
@@ -79,19 +86,26 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 					templatePositions.put(template, position++);
 					templateNames.put(template, fieldName);
 				}
+				else if(feature instanceof CheckConstraint)
+				{
+					constraints.put(fieldName, (CheckConstraint)feature);
+				}
 				else
 				{
 					throw new IllegalArgumentException(
 							fieldID + " must be an instance of " +
-							FunctionField.class);
+							FunctionField.class + " or " + CheckConstraint.class);
 				}
 
 				//noinspection ThisEscapedInObjectConstruction
 				feature.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
+				templatesFeature.put(fieldName, feature);
 			}
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
+		this.templatesFeature = templatesFeature;
+		this.templateListFeature = Collections.unmodifiableList(new ArrayList<>(templatesFeature.values()));
 	}
 
 	@Override
@@ -100,7 +114,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		return javaClass;
 	}
 
-	Object[] values(final SetValue<?>... setValues)
+	Object[] values(final SetValue<?>[] setValues, final Object[] valuesBefore)
 	{
 		final Object[] values = new Object[componentSize];
 		final boolean[] valueSet = new boolean[values.length];
@@ -112,11 +126,24 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		}
 		for(int i = 0; i<valueSet.length; i++)
 			if(!valueSet[i])
-				values[i] = templateList.get(i).getDefaultConstant();
+				values[i] =
+						valuesBefore==null
+						? templateList.get(i).getDefaultConstant() // create
+						: valuesBefore[i]; // set
 
 		int i = 0;
 		for(final FunctionField<?> ff : templateList)
 			check(ff, values[i++]);
+
+		if(!constraints.isEmpty())
+		{
+			final HashMap<FunctionField<?>, Object> valueMap = new HashMap<>();
+			i = 0;
+			for(final FunctionField<?> ff : templateList)
+				valueMap.put(ff, values[i++]);
+			for(final CheckConstraint cc : constraints.values())
+				cc.check(valueMap);
+		}
 
 		return values;
 	}
@@ -130,6 +157,11 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	Map<String,FunctionField<?>> getTemplateMap()
 	{
 		return Collections.unmodifiableMap(templates);
+	}
+
+	Map<String, CheckConstraint> getConstraintMap()
+	{
+		return Collections.unmodifiableMap(constraints);
 	}
 
 	@Override
@@ -147,25 +179,25 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	@Override
 	public List<? extends Feature> getDeclaredFeatures()
 	{
-		return templateList;
+		return templateListFeature;
 	}
 
 	@Override
 	public List<? extends Feature> getFeatures()
 	{
-		return templateList;
+		return templateListFeature;
 	}
 
 	@Override
 	public Feature getDeclaredFeature(final String name)
 	{
-		return templates.get(name);
+		return templatesFeature.get(name);
 	}
 
 	@Override
 	public Feature getFeature(final String name)
 	{
-		return templates.get(name);
+		return templatesFeature.get(name);
 	}
 
 	private List<String> localizationKeysIfInitialized = null;
