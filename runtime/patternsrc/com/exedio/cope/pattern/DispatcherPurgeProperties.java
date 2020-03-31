@@ -31,6 +31,8 @@ public final class DispatcherPurgeProperties extends FactoryProperties<Dispatche
 	final Duration retainSuccess      = value("retain.success",      factory.retainSuccess,      ZERO);
 	final Duration retainFinalFailure = value("retain.finalFailure", factory.retainFinalFailure, ZERO);
 
+	final int deleteLimit = value("delete.limit", 100, 1);
+
 	public static Factory factory()
 	{
 		return new Factory(ZERO, ZERO);

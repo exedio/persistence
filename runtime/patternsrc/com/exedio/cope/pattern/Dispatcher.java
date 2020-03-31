@@ -943,7 +943,7 @@ public final class Dispatcher extends Pattern
 			final Timer.Sample start = Timer.start();
 			Delete.delete(
 					query,
-					100, // TODO allow customization
+					properties.deleteLimit,
 					"Dispatcher#purge " + getID(),
 					ctx);
 			purgeTimer.stop(start);
