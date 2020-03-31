@@ -26,6 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.ConstraintViolationException;
+import com.exedio.cope.Feature;
+import com.exedio.cope.Item;
 import com.exedio.cope.Query;
 import com.exedio.cope.QueryInfo;
 import com.exedio.cope.Transaction;
@@ -59,6 +62,31 @@ public final class Assert
 		final T result = assertThrows(expectedType, executable);
 		assertSame(expectedType, result.getClass());
 		assertEquals(expectedMessage, result.getMessage());
+		return result;
+	}
+
+	@SuppressWarnings("UnusedReturnValue") // OK: for later use
+	public static <T extends ConstraintViolationException> T assertFails(
+			final Executable executable,
+			final Class<T> expectedType,
+			final String expectedMessage,
+			final Feature expectedFeature)
+	{
+		return assertFails(executable, expectedType, expectedMessage, expectedFeature, null);
+	}
+
+	public static <T extends ConstraintViolationException> T assertFails(
+			final Executable executable,
+			final Class<T> expectedType,
+			final String expectedMessage,
+			final Feature expectedFeature,
+			final Item expectedItem)
+	{
+		final T result = assertThrows(expectedType, executable);
+		assertSame(expectedType, result.getClass());
+		assertEquals(expectedMessage, result.getMessage());
+		assertSame(expectedFeature, result.getFeature());
+		assertSame(expectedItem, result.getItem());
 		return result;
 	}
 

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualBits;
 import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
@@ -25,9 +26,7 @@ import static java.lang.Boolean.valueOf;
 import static java.lang.Double.valueOf;
 import static java.lang.Integer.valueOf;
 import static java.lang.Long.valueOf;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.DateField;
@@ -46,34 +45,22 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 public class CompositeTest
 {
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testCheck()
 	{
-		try
-		{
-			new Value("12345", 5, 0l, 0.0, false);
-			fail();
-		}
-		catch(final StringLengthViolationException e)
-		{
-			assertEquals("length violation, '12345' is too long for " + Value.string4 + ", must be at most 4 characters, but was 5.", e.getMessage());
-			assertSame(Value.string4, e.getFeature());
-			assertSame(null, e.getItem());
-		}
-
-		try
-		{
-			new Value(null, 5, 0l, 0.0, false);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals("mandatory violation for " + Value.string4, e.getMessage());
-			assertSame(Value.string4, e.getFeature());
-			assertSame(null, e.getItem());
-		}
+		assertFails(
+				() -> new Value("12345", 5, 0l, 0.0, false),
+				StringLengthViolationException.class,
+				"length violation, '12345' is too long for " + Value.string4 + ", " +
+				"must be at most 4 characters, but was 5.",
+				Value.string4);
+		assertFails(
+				() -> new Value(null, 5, 0l, 0.0, false),
+				MandatoryViolationException.class,
+				"mandatory violation for " + Value.string4,
+				Value.string4);
 
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertEquals("1234", value.getString4());
@@ -87,17 +74,12 @@ public class CompositeTest
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 
-		try
-		{
-			value.setString4("12345");
-			fail();
-		}
-		catch(final StringLengthViolationException e)
-		{
-			assertEquals("length violation, '12345' is too long for " + Value.string4 + ", must be at most 4 characters, but was 5.", e.getMessage());
-			assertSame(Value.string4, e.getFeature());
-			assertSame(null, e.getItem());
-		}
+		assertFails(
+				() -> value.setString4("12345"),
+				StringLengthViolationException.class,
+				"length violation, '12345' is too long for " + Value.string4 + ", " +
+				"must be at most 4 characters, but was 5.",
+				Value.string4);
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
@@ -108,17 +90,11 @@ public class CompositeTest
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 
-		try
-		{
-			value.setString4(null);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals("mandatory violation for " + Value.string4, e.getMessage());
-			assertSame(Value.string4, e.getFeature());
-			assertSame(null, e.getItem());
-		}
+		assertFails(
+				() -> value.setString4(null),
+				MandatoryViolationException.class,
+				"mandatory violation for " + Value.string4,
+				Value.string4);
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
@@ -129,17 +105,12 @@ public class CompositeTest
 		assertEquals(null, value.getDoubleOptional());
 		assertEquals(null, value.getBooleanOptional());
 
-		try
-		{
-			value.setIntMax4(5);
-			fail();
-		}
-		catch(final IntegerRangeViolationException e)
-		{
-			assertEquals("range violation, 5 is too big for " + Value.intMax4 + ", must be at most 4.", e.getMessage());
-			assertSame(Value.intMax4, e.getFeature());
-			assertSame(null, e.getItem());
-		}
+		assertFails(
+				() -> value.setIntMax4(5),
+				IntegerRangeViolationException.class,
+				"range violation, 5 is too big for " + Value.intMax4 + ", " +
+				"must be at most 4.",
+				Value.intMax4);
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
 		assertEquals(5l, value.getLongField());
@@ -179,42 +150,22 @@ public class CompositeTest
 		assertEquals(null, value.get(Value.longOptional));
 		assertEquals(null, value.get(Value.doubleOptional));
 		assertEquals(null, value.get(Value.booleanOptional));
-		try
-		{
-			value.getMandatory(Value.intOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
-		try
-		{
-			value.getMandatory(Value.longOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
-		try
-		{
-			value.getMandatory(Value.doubleOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
-		try
-		{
-			value.getMandatory(Value.booleanOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
+		assertFails(
+				() -> value.getMandatory(Value.intOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
+		assertFails(
+				() -> value.getMandatory(Value.longOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
+		assertFails(
+				() -> value.getMandatory(Value.doubleOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
+		assertFails(
+				() -> value.getMandatory(Value.booleanOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
 
 
 		value.setIntOptional    (valueOf(44));
@@ -245,42 +196,22 @@ public class CompositeTest
 		assertEquals(valueOf(55l),  value.get(Value.longOptional));
 		assertEquals(valueOf(66.0), value.get(Value.doubleOptional));
 		assertEquals(valueOf(true), value.get(Value.booleanOptional));
-		try
-		{
-			value.getMandatory(Value.intOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
-		try
-		{
-			value.getMandatory(Value.longOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
-		try
-		{
-			value.getMandatory(Value.doubleOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
-		try
-		{
-			value.getMandatory(Value.booleanOptional);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("member is not mandatory", e.getMessage()); // TODO message with member name
-		}
+		assertFails(
+				() -> value.getMandatory(Value.intOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
+		assertFails(
+				() -> value.getMandatory(Value.longOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
+		assertFails(
+				() -> value.getMandatory(Value.doubleOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
+		assertFails(
+				() -> value.getMandatory(Value.booleanOptional),
+				IllegalArgumentException.class,
+				"member is not mandatory"); // TODO message with member name
 	}
 
 	@Test void testOverrideDefault()
@@ -319,17 +250,11 @@ public class CompositeTest
 
 	@Test void testOverrideDefaultNull()
 	{
-		try
-		{
-			new Value(null, false);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals("mandatory violation for " + Value.stringDefault, e.getMessage());
-			assertSame(Value.stringDefault, e.getFeature());
-			assertSame(null, e.getItem());
-		}
+		assertFails(
+				() -> new Value(null, false),
+				MandatoryViolationException.class,
+				"mandatory violation for " + Value.stringDefault,
+				Value.stringDefault);
 	}
 
 	@Test void testOverrideDefaultNullOptional()
@@ -354,136 +279,23 @@ public class CompositeTest
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 
 		// get
-		try
-		{
-			value.get(ValueX.stringField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.get(ValueX.intField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.get(ValueX.longField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.get(ValueX.doubleField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.get(ValueX.booleanField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
+		assertFails(() -> value.get(ValueX.stringField), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.get(ValueX.intField), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.get(ValueX.longField), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.get(ValueX.doubleField), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.get(ValueX.booleanField), IllegalArgumentException.class, "not a member");
 
 		// getMandatory
-		try
-		{
-			value.getMandatory(ValueX.intField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.getMandatory(ValueX.longField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.getMandatory(ValueX.doubleField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.getMandatory(ValueX.booleanField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
+		assertFails(() -> value.getMandatory(ValueX.intField), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.getMandatory(ValueX.longField), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.getMandatory(ValueX.doubleField), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.getMandatory(ValueX.booleanField), IllegalArgumentException.class, "not a member");
 
 		// set
-		try
-		{
-			value.set(ValueX.stringField, "77s");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.set(ValueX.intField, valueOf(7));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.set(ValueX.longField, valueOf(7l));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.set(ValueX.doubleField, valueOf(7.7));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
-		try
-		{
-			value.set(ValueX.booleanField, valueOf(true));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not a member", e.getMessage());
-		}
+		assertFails(() -> value.set(ValueX.stringField, "77s"), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(ValueX.intField, valueOf(7)), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(ValueX.doubleField, valueOf(7.7)), IllegalArgumentException.class, "not a member");
+		assertFails(() -> value.set(ValueX.booleanField, valueOf(true)), IllegalArgumentException.class, "not a member");
 	}
 
 	@Test void testTouchDate()
@@ -514,19 +326,12 @@ public class CompositeTest
 	@Test void testIt()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
-		try
-		{
-			value.set((FunctionField)Value.booleanOptional, "");
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"expected a java.lang.Boolean, " +
-					"but was a java.lang.String for " +
-					Value.booleanOptional + ".",
-				e.getMessage());
-		}
+		assertFails(
+				() -> value.set((FunctionField)Value.booleanOptional, ""),
+				ClassCastException.class,
+				"expected a java.lang.Boolean, " +
+				"but was a java.lang.String for " +
+				Value.booleanOptional + ".");
 	}
 
 	@WrapperType(indent=2)
