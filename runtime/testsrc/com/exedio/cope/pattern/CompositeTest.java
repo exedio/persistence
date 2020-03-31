@@ -40,6 +40,7 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Day;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
@@ -528,6 +529,7 @@ public class CompositeTest
 		}
 	}
 
+	@WrapperType(indent=2)
 	static final class Value extends Composite
 	{
 		static final StringField string4 = new StringField().lengthMax(4);
@@ -559,348 +561,349 @@ public class CompositeTest
 			});
 		}
 
-	/**
-	 * Creates a new Value with all the fields initially needed.
-	 * @param string4 the initial value for field {@link #string4}.
-	 * @param intMax4 the initial value for field {@link #intMax4}.
-	 * @param longField the initial value for field {@link #longField}.
-	 * @param doubleField the initial value for field {@link #doubleField}.
-	 * @param booleanField the initial value for field {@link #booleanField}.
-	 * @throws com.exedio.cope.IntegerRangeViolationException if intMax4 violates its range constraint.
-	 * @throws com.exedio.cope.MandatoryViolationException if string4 is null.
-	 * @throws com.exedio.cope.StringLengthViolationException if string4 violates its length constraint.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Value(
-				@javax.annotation.Nonnull final java.lang.String string4,
-				final int intMax4,
-				final long longField,
-				final double doubleField,
-				final boolean booleanField)
-			throws
-				com.exedio.cope.IntegerRangeViolationException,
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			Value.string4.map(string4),
-			Value.intMax4.map(intMax4),
-			Value.longField.map(longField),
-			Value.doubleField.map(doubleField),
-			Value.booleanField.map(booleanField),
-		});
+		/**
+		 * Creates a new Value with all the fields initially needed.
+		 * @param string4 the initial value for field {@link #string4}.
+		 * @param intMax4 the initial value for field {@link #intMax4}.
+		 * @param longField the initial value for field {@link #longField}.
+		 * @param doubleField the initial value for field {@link #doubleField}.
+		 * @param booleanField the initial value for field {@link #booleanField}.
+		 * @throws com.exedio.cope.IntegerRangeViolationException if intMax4 violates its range constraint.
+		 * @throws com.exedio.cope.MandatoryViolationException if string4 is null.
+		 * @throws com.exedio.cope.StringLengthViolationException if string4 violates its length constraint.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
+		Value(
+					@javax.annotation.Nonnull final java.lang.String string4,
+					final int intMax4,
+					final long longField,
+					final double doubleField,
+					final boolean booleanField)
+				throws
+					com.exedio.cope.IntegerRangeViolationException,
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+				Value.string4.map(string4),
+				Value.intMax4.map(intMax4),
+				Value.longField.map(longField),
+				Value.doubleField.map(doubleField),
+				Value.booleanField.map(booleanField),
+			});
+		}
+
+		/**
+		 * Creates a new Value and sets the given fields initially.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
+		private Value(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		/**
+		 * Returns the value of {@link #string4}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		java.lang.String getString4()
+		{
+			return get(Value.string4);
+		}
+
+		/**
+		 * Sets a new value for {@link #string4}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setString4(@javax.annotation.Nonnull final java.lang.String string4)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			set(Value.string4,string4);
+		}
+
+		/**
+		 * Returns the value of {@link #intMax4}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		int getIntMax4()
+		{
+			return getMandatory(Value.intMax4);
+		}
+
+		/**
+		 * Sets a new value for {@link #intMax4}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setIntMax4(final int intMax4)
+				throws
+					com.exedio.cope.IntegerRangeViolationException
+		{
+			set(Value.intMax4,intMax4);
+		}
+
+		/**
+		 * Returns the value of {@link #stringDefault}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		java.lang.String getStringDefault()
+		{
+			return get(Value.stringDefault);
+		}
+
+		/**
+		 * Sets a new value for {@link #stringDefault}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setStringDefault(@javax.annotation.Nonnull final java.lang.String stringDefault)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			set(Value.stringDefault,stringDefault);
+		}
+
+		/**
+		 * Returns the value of {@link #stringDefaultOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		java.lang.String getStringDefaultOptional()
+		{
+			return get(Value.stringDefaultOptional);
+		}
+
+		/**
+		 * Sets a new value for {@link #stringDefaultOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setStringDefaultOptional(@javax.annotation.Nullable final java.lang.String stringDefaultOptional)
+				throws
+					com.exedio.cope.StringLengthViolationException
+		{
+			set(Value.stringDefaultOptional,stringDefaultOptional);
+		}
+
+		/**
+		 * Returns the value of {@link #longField}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		long getLongField()
+		{
+			return getMandatory(Value.longField);
+		}
+
+		/**
+		 * Sets a new value for {@link #longField}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setLongField(final long longField)
+		{
+			set(Value.longField,longField);
+		}
+
+		/**
+		 * Returns the value of {@link #doubleField}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		double getDoubleField()
+		{
+			return getMandatory(Value.doubleField);
+		}
+
+		/**
+		 * Sets a new value for {@link #doubleField}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setDoubleField(final double doubleField)
+		{
+			set(Value.doubleField,doubleField);
+		}
+
+		/**
+		 * Returns the value of {@link #booleanField}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		boolean getBooleanField()
+		{
+			return getMandatory(Value.booleanField);
+		}
+
+		/**
+		 * Sets a new value for {@link #booleanField}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setBooleanField(final boolean booleanField)
+		{
+			set(Value.booleanField,booleanField);
+		}
+
+		/**
+		 * Returns the value of {@link #intOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		java.lang.Integer getIntOptional()
+		{
+			return get(Value.intOptional);
+		}
+
+		/**
+		 * Sets a new value for {@link #intOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setIntOptional(@javax.annotation.Nullable final java.lang.Integer intOptional)
+		{
+			set(Value.intOptional,intOptional);
+		}
+
+		/**
+		 * Returns the value of {@link #longOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		java.lang.Long getLongOptional()
+		{
+			return get(Value.longOptional);
+		}
+
+		/**
+		 * Sets a new value for {@link #longOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setLongOptional(@javax.annotation.Nullable final java.lang.Long longOptional)
+		{
+			set(Value.longOptional,longOptional);
+		}
+
+		/**
+		 * Returns the value of {@link #doubleOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		java.lang.Double getDoubleOptional()
+		{
+			return get(Value.doubleOptional);
+		}
+
+		/**
+		 * Sets a new value for {@link #doubleOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setDoubleOptional(@javax.annotation.Nullable final java.lang.Double doubleOptional)
+		{
+			set(Value.doubleOptional,doubleOptional);
+		}
+
+		/**
+		 * Returns the value of {@link #booleanOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		java.lang.Boolean getBooleanOptional()
+		{
+			return get(Value.booleanOptional);
+		}
+
+		/**
+		 * Sets a new value for {@link #booleanOptional}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setBooleanOptional(@javax.annotation.Nullable final java.lang.Boolean booleanOptional)
+		{
+			set(Value.booleanOptional,booleanOptional);
+		}
+
+		/**
+		 * Returns the value of {@link #date}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		java.util.Date getDate()
+		{
+			return get(Value.date);
+		}
+
+		/**
+		 * Sets a new value for {@link #date}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setDate(@javax.annotation.Nullable final java.util.Date date)
+		{
+			set(Value.date,date);
+		}
+
+		/**
+		 * Sets the current date for the date field {@link #date}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void touchDate()
+		{
+			touch(Value.date);
+		}
+
+		/**
+		 * Returns the value of {@link #day}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		com.exedio.cope.util.Day getDay()
+		{
+			return get(Value.day);
+		}
+
+		/**
+		 * Sets a new value for {@link #day}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
+		{
+			set(Value.day,day);
+		}
+
+		/**
+		 * Sets today for the date field {@link #day}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
+		{
+			touch(Value.day,zone);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
 
-	/**
-	 * Creates a new Value and sets the given fields initially.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
-	private Value(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #string4}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	java.lang.String getString4()
-	{
-		return get(Value.string4);
-	}
-
-	/**
-	 * Sets a new value for {@link #string4}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setString4(@javax.annotation.Nonnull final java.lang.String string4)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		set(Value.string4,string4);
-	}
-
-	/**
-	 * Returns the value of {@link #intMax4}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	int getIntMax4()
-	{
-		return getMandatory(Value.intMax4);
-	}
-
-	/**
-	 * Sets a new value for {@link #intMax4}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setIntMax4(final int intMax4)
-			throws
-				com.exedio.cope.IntegerRangeViolationException
-	{
-		set(Value.intMax4,intMax4);
-	}
-
-	/**
-	 * Returns the value of {@link #stringDefault}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	java.lang.String getStringDefault()
-	{
-		return get(Value.stringDefault);
-	}
-
-	/**
-	 * Sets a new value for {@link #stringDefault}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setStringDefault(@javax.annotation.Nonnull final java.lang.String stringDefault)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		set(Value.stringDefault,stringDefault);
-	}
-
-	/**
-	 * Returns the value of {@link #stringDefaultOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.String getStringDefaultOptional()
-	{
-		return get(Value.stringDefaultOptional);
-	}
-
-	/**
-	 * Sets a new value for {@link #stringDefaultOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setStringDefaultOptional(@javax.annotation.Nullable final java.lang.String stringDefaultOptional)
-			throws
-				com.exedio.cope.StringLengthViolationException
-	{
-		set(Value.stringDefaultOptional,stringDefaultOptional);
-	}
-
-	/**
-	 * Returns the value of {@link #longField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	long getLongField()
-	{
-		return getMandatory(Value.longField);
-	}
-
-	/**
-	 * Sets a new value for {@link #longField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setLongField(final long longField)
-	{
-		set(Value.longField,longField);
-	}
-
-	/**
-	 * Returns the value of {@link #doubleField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	double getDoubleField()
-	{
-		return getMandatory(Value.doubleField);
-	}
-
-	/**
-	 * Sets a new value for {@link #doubleField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setDoubleField(final double doubleField)
-	{
-		set(Value.doubleField,doubleField);
-	}
-
-	/**
-	 * Returns the value of {@link #booleanField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	boolean getBooleanField()
-	{
-		return getMandatory(Value.booleanField);
-	}
-
-	/**
-	 * Sets a new value for {@link #booleanField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setBooleanField(final boolean booleanField)
-	{
-		set(Value.booleanField,booleanField);
-	}
-
-	/**
-	 * Returns the value of {@link #intOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.Integer getIntOptional()
-	{
-		return get(Value.intOptional);
-	}
-
-	/**
-	 * Sets a new value for {@link #intOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setIntOptional(@javax.annotation.Nullable final java.lang.Integer intOptional)
-	{
-		set(Value.intOptional,intOptional);
-	}
-
-	/**
-	 * Returns the value of {@link #longOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.Long getLongOptional()
-	{
-		return get(Value.longOptional);
-	}
-
-	/**
-	 * Sets a new value for {@link #longOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setLongOptional(@javax.annotation.Nullable final java.lang.Long longOptional)
-	{
-		set(Value.longOptional,longOptional);
-	}
-
-	/**
-	 * Returns the value of {@link #doubleOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.Double getDoubleOptional()
-	{
-		return get(Value.doubleOptional);
-	}
-
-	/**
-	 * Sets a new value for {@link #doubleOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setDoubleOptional(@javax.annotation.Nullable final java.lang.Double doubleOptional)
-	{
-		set(Value.doubleOptional,doubleOptional);
-	}
-
-	/**
-	 * Returns the value of {@link #booleanOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.lang.Boolean getBooleanOptional()
-	{
-		return get(Value.booleanOptional);
-	}
-
-	/**
-	 * Sets a new value for {@link #booleanOptional}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setBooleanOptional(@javax.annotation.Nullable final java.lang.Boolean booleanOptional)
-	{
-		set(Value.booleanOptional,booleanOptional);
-	}
-
-	/**
-	 * Returns the value of {@link #date}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	java.util.Date getDate()
-	{
-		return get(Value.date);
-	}
-
-	/**
-	 * Sets a new value for {@link #date}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setDate(@javax.annotation.Nullable final java.util.Date date)
-	{
-		set(Value.date,date);
-	}
-
-	/**
-	 * Sets the current date for the date field {@link #date}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void touchDate()
-	{
-		touch(Value.date);
-	}
-
-	/**
-	 * Returns the value of {@link #day}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	com.exedio.cope.util.Day getDay()
-	{
-		return get(Value.day);
-	}
-
-	/**
-	 * Sets a new value for {@link #day}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setDay(@javax.annotation.Nullable final com.exedio.cope.util.Day day)
-	{
-		set(Value.day,day);
-	}
-
-	/**
-	 * Sets today for the date field {@link #day}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="touch")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void touchDay(@javax.annotation.Nonnull final java.util.TimeZone zone)
-	{
-		touch(Value.day,zone);
-	}
-
-	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 1l;
-}
-
+	@WrapperType(indent=2, comments=false)
 	static final class ValueX extends Composite
 	{
 		static final  StringField  stringField = new  StringField();
@@ -910,149 +913,105 @@ public class CompositeTest
 		static final BooleanField booleanField = new BooleanField();
 
 
-	/**
-	 * Creates a new ValueX with all the fields initially needed.
-	 * @param stringField the initial value for field {@link #stringField}.
-	 * @param intField the initial value for field {@link #intField}.
-	 * @param longField the initial value for field {@link #longField}.
-	 * @param doubleField the initial value for field {@link #doubleField}.
-	 * @param booleanField the initial value for field {@link #booleanField}.
-	 * @throws com.exedio.cope.MandatoryViolationException if stringField is null.
-	 * @throws com.exedio.cope.StringLengthViolationException if stringField violates its length constraint.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	ValueX(
-				@javax.annotation.Nonnull final java.lang.String stringField,
-				final int intField,
-				final long longField,
-				final double doubleField,
-				final boolean booleanField)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			ValueX.stringField.map(stringField),
-			ValueX.intField.map(intField),
-			ValueX.longField.map(longField),
-			ValueX.doubleField.map(doubleField),
-			ValueX.booleanField.map(booleanField),
-		});
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
+		ValueX(
+					@javax.annotation.Nonnull final java.lang.String stringField,
+					final int intField,
+					final long longField,
+					final double doubleField,
+					final boolean booleanField)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+				ValueX.stringField.map(stringField),
+				ValueX.intField.map(intField),
+				ValueX.longField.map(longField),
+				ValueX.doubleField.map(doubleField),
+				ValueX.booleanField.map(booleanField),
+			});
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private ValueX(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		java.lang.String getStringField()
+		{
+			return get(ValueX.stringField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setStringField(@javax.annotation.Nonnull final java.lang.String stringField)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			set(ValueX.stringField,stringField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		int getIntField()
+		{
+			return getMandatory(ValueX.intField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setIntField(final int intField)
+		{
+			set(ValueX.intField,intField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		long getLongField()
+		{
+			return getMandatory(ValueX.longField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setLongField(final long longField)
+		{
+			set(ValueX.longField,longField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		double getDoubleField()
+		{
+			return getMandatory(ValueX.doubleField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setDoubleField(final double doubleField)
+		{
+			set(ValueX.doubleField,doubleField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		boolean getBooleanField()
+		{
+			return getMandatory(ValueX.booleanField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setBooleanField(final boolean booleanField)
+		{
+			set(ValueX.booleanField,booleanField);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
 	}
-
-	/**
-	 * Creates a new ValueX and sets the given fields initially.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
-	private ValueX(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #stringField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	java.lang.String getStringField()
-	{
-		return get(ValueX.stringField);
-	}
-
-	/**
-	 * Sets a new value for {@link #stringField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setStringField(@javax.annotation.Nonnull final java.lang.String stringField)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		set(ValueX.stringField,stringField);
-	}
-
-	/**
-	 * Returns the value of {@link #intField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	int getIntField()
-	{
-		return getMandatory(ValueX.intField);
-	}
-
-	/**
-	 * Sets a new value for {@link #intField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setIntField(final int intField)
-	{
-		set(ValueX.intField,intField);
-	}
-
-	/**
-	 * Returns the value of {@link #longField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	long getLongField()
-	{
-		return getMandatory(ValueX.longField);
-	}
-
-	/**
-	 * Sets a new value for {@link #longField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setLongField(final long longField)
-	{
-		set(ValueX.longField,longField);
-	}
-
-	/**
-	 * Returns the value of {@link #doubleField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	double getDoubleField()
-	{
-		return getMandatory(ValueX.doubleField);
-	}
-
-	/**
-	 * Sets a new value for {@link #doubleField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setDoubleField(final double doubleField)
-	{
-		set(ValueX.doubleField,doubleField);
-	}
-
-	/**
-	 * Returns the value of {@link #booleanField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	boolean getBooleanField()
-	{
-		return getMandatory(ValueX.booleanField);
-	}
-
-	/**
-	 * Sets a new value for {@link #booleanField}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	void setBooleanField(final boolean booleanField)
-	{
-		set(ValueX.booleanField,booleanField);
-	}
-
-	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 1l;
-}
-
 }
