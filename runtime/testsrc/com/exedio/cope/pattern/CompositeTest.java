@@ -323,7 +323,25 @@ public class CompositeTest
 	}
 
 	@SuppressWarnings("unchecked") // OK: testing bad api usage
-	@Test void testIt()
+	@Test void testWrongValueTypeCreate()
+	{
+		assertFails(
+				() -> new Value(
+						Value.string4.map("1234"),
+						Value.intMax4.map(4),
+						Value.longField.map(5l),
+						Value.doubleField.map(6.6),
+						Value.booleanField.map(false),
+						((FunctionField)Value.booleanOptional).map("")
+				),
+				ClassCastException.class,
+				"expected a java.lang.Boolean, " +
+				"but was a java.lang.String for " +
+				Value.booleanOptional + ".");
+	}
+
+	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	@Test void testWrongValueTypeSet()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
 		assertFails(
