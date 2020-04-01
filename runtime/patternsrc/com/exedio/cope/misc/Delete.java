@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Objects.requireNonNull;
 
@@ -32,13 +33,14 @@ public final class Delete
 {
 	public static void delete(
 			final Query<? extends Item> query,
+			final int limit,
 			final String transactionName,
 			final JobContext ctx)
 	{
+		requireGreaterZero(limit, "limit"); // prevents infinite loop
 		requireNonNull(ctx, "ctx");
 
-		final int LIMIT = 100;
-		query.setPage(0, LIMIT);
+		query.setPage(0, limit);
 		final Model model = query.getType().getModel();
 		for(int transaction = 0; ; transaction++)
 		{
@@ -60,7 +62,7 @@ public final class Delete
 
 				model.commit();
 
-				if(itemsSize<LIMIT)
+				if(itemsSize<limit)
 					return;
 			}
 			catch(final JobStop ignored)
@@ -77,5 +79,22 @@ public final class Delete
 	private Delete()
 	{
 		// prevent instantiation
+	}
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated
+	 * Use {@link #delete(Query, int, String, JobContext)} instead.
+	 * Choose {@code limit} wisely and allow customization,
+	 * {@code 100} is probably too small.
+	 */
+	@Deprecated
+	public static void delete(
+			final Query<? extends Item> query,
+			final String transactionName,
+			final JobContext ctx)
+	{
+		delete(query, 100, transactionName, ctx);
 	}
 }

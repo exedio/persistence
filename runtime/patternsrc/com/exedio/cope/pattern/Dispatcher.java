@@ -941,7 +941,11 @@ public final class Dispatcher extends Pattern
 		if(query!=null)
 		{
 			final Timer.Sample start = Timer.start();
-			Delete.delete(query, "Dispatcher#purge " + getID(), ctx);
+			Delete.delete(
+					query,
+					100, // TODO allow customization
+					"Dispatcher#purge " + getID(),
+					ctx);
 			purgeTimer.stop(start);
 		}
 	}

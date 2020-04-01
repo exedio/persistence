@@ -19,6 +19,7 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -29,10 +30,12 @@ import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.JobStop;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class DeleteTest extends TestWithEnvironment
 {
 	public DeleteTest()
@@ -53,7 +56,7 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 
 		final Context ctx = new Context(2);
-		Delete.delete(q, "tx", ctx);
+		Delete.delete(q, 100, "tx", ctx);
 		model.startTransaction("setUp");
 		assertEquals(false, i1.existsCopeItem());
 		assertEquals(false, i2.existsCopeItem());
@@ -66,7 +69,7 @@ public class DeleteTest extends TestWithEnvironment
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 		final Context ctx = new Context(1);
 
-		Delete.delete(q, "tx", ctx);
+		Delete.delete(q, 100, "tx", ctx);
 		ctx.assertProgress(0);
 	}
 
@@ -74,7 +77,7 @@ public class DeleteTest extends TestWithEnvironment
 	{
 		try
 		{
-			Delete.delete(TYPE.newQuery(), "tx", null);
+			Delete.delete(TYPE.newQuery(), 100, "tx", null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -84,7 +87,7 @@ public class DeleteTest extends TestWithEnvironment
 
 		try
 		{
-			Delete.delete(null, "tx", new AssertionErrorJobContext());
+			Delete.delete(null, 100, "tx", new AssertionErrorJobContext());
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -108,7 +111,7 @@ public class DeleteTest extends TestWithEnvironment
 		final Context ctx = new Context(1);
 		try
 		{
-			Delete.delete(q, "tx", ctx);
+			Delete.delete(q, 100, "tx", ctx);
 			fail();
 		}
 		catch(final JobStop js)
@@ -141,7 +144,7 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 		final long transactionIdBefore = model.getNextTransactionId();
 		final DeleteJobContext ctx = new DeleteJobContext(CacheIsolationTest.MODEL);
-		Delete.delete(TYPE.newQuery(), "DeleteTest", ctx);
+		Delete.delete(TYPE.newQuery(), 100, "DeleteTest", ctx);
 		assertEquals(itemNumber, ctx.getProgress());
 		assertEquals(transactionIdBefore+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("DeleteTest");
@@ -178,5 +181,14 @@ public class DeleteTest extends TestWithEnvironment
 		{
 			assertEquals(expected, getProgress());
 		}
+	}
+
+	@Test void testLimitZero()
+	{
+		final Query<CacheIsolationItem> q = TYPE.newQuery();
+		assertFails(
+				() -> Delete.delete(q, 0, null, null),
+				IllegalArgumentException.class,
+				"limit must be greater zero, but was 0");
 	}
 }

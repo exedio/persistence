@@ -315,6 +315,7 @@ public final class PasswordRecovery extends Pattern
 	{
 		Delete.delete(
 				tokenType.newQuery(expires.less(Clock.newDate())),
+				100, // TODO allow customization
 				"PasswordRecovery#purge " + getID(),
 				ctx);
 	}

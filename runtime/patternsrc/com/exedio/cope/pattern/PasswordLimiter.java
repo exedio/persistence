@@ -280,6 +280,7 @@ public final class PasswordLimiter extends Pattern
 		Delete.delete(
 				mount().refusalType.newQuery(
 						date.less(getExpiryDate(now))),
+				100, // TODO allow customization
 				"PasswordLimiter#purge " + getID(),
 				ctx);
 	}
