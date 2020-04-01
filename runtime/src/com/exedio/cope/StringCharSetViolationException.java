@@ -102,7 +102,8 @@ public final class StringCharSetViolationException extends ConstraintViolationEx
 				append(feature);
 
 		bf.append(", contains forbidden character '").append(character).
-			append("' on position ").append(position).append('.');
+			append("' (U+").append(String.format("%04x", (int)character)).
+			append(") on position ").append(position).append('.');
 
 		return bf.toString();
 	}

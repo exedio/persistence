@@ -481,7 +481,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"character set violation on " + item + ", " +
 					"'abcABC' for " + lowercase + ", " +
-					"contains forbidden character 'A' on position 3.",
+					"contains forbidden character 'A' (U+0041) on position 3.",
 					e.getMessage());
 		}
 		assertEquals(null, item.getLowercase());
