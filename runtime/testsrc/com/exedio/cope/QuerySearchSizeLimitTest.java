@@ -19,8 +19,8 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.DayItem.TYPE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Day;
@@ -79,26 +79,18 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 		}
 		else
 		{
-			try
-			{
-				q.search();
-				fail();
-			}
-			catch(final IllegalStateException e)
-			{
-				assertEquals("exceeded hard limit of 4: select this from DayItem", e.getMessage());
-			}
+			assertFails(
+					q::search,
+					IllegalStateException.class,
+					"exceeded hard limit of 4: " +
+					"select this from DayItem");
 		}
 
 		model.clearCache();
-		try
-		{
-			q.search();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("exceeded hard limit of 4: select this from DayItem", e.getMessage());
-		}
+		assertFails(
+				q::search,
+				IllegalStateException.class,
+				"exceeded hard limit of 4: " +
+				"select this from DayItem");
 	}
 }
