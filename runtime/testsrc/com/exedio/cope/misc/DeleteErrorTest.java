@@ -1,0 +1,64 @@
+/*
+ * Copyright (C) 2004-2015  exedio GmbH (www.exedio.com)
+ *
+ * This library is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU Lesser General Public
+ * License as published by the Free Software Foundation; either
+ * version 2.1 of the License, or (at your option) any later version.
+ *
+ * This library is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU
+ * Lesser General Public License for more details.
+ *
+ * You should have received a copy of the GNU Lesser General Public
+ * License along with this library; if not, write to the Free Software
+ * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+ */
+
+package com.exedio.cope.misc;
+
+import static com.exedio.cope.CacheIsolationItem.TYPE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
+
+import com.exedio.cope.CacheIsolationItem;
+import com.exedio.cope.CacheIsolationTest;
+import com.exedio.cope.Model;
+import com.exedio.cope.Query;
+import com.exedio.cope.util.AssertionErrorJobContext;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
+import org.junit.jupiter.api.Test;
+
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
+public class DeleteErrorTest
+{
+	@Test void testQueryNull()
+	{
+		final AssertionErrorJobContext ctx = new AssertionErrorJobContext();
+		assertFails(
+				() -> Delete.delete(null, 100, "tx", ctx),
+				NullPointerException.class,
+				null);
+	}
+
+	@Test void testLimitZero()
+	{
+		final Query<CacheIsolationItem> q = TYPE.newQuery();
+		assertFails(
+				() -> Delete.delete(q, 0, null, null),
+				IllegalArgumentException.class,
+				"limit must be greater zero, but was 0");
+	}
+
+	@Test void testContextNull()
+	{
+		final Query<CacheIsolationItem> q = TYPE.newQuery();
+		assertFails(
+				() -> Delete.delete(q, 100, "tx", null),
+				NullPointerException.class,
+				"ctx");
+	}
+
+	@SuppressWarnings("unused") // OK: just load the model
+	private static final Model MODEL = CacheIsolationTest.MODEL;
+}
