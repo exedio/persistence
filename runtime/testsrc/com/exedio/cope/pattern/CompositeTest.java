@@ -35,6 +35,7 @@ import com.exedio.cope.DoubleField;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.IntegerRangeViolationException;
+import com.exedio.cope.JavaVersion;
 import com.exedio.cope.LongField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.StringField;
@@ -321,6 +322,16 @@ public class CompositeTest
 		assertEquals(null, value.getDate());
 		assertEquals(new Day(getTimeZone("Europe/Berlin")), value.getDay());
 	}
+
+	@Test void testSettableNonFunctionFieldCreate()
+	{
+		JavaVersion.assertThrowsClassCastException(
+				() -> new Value(PRICE_FIELD.map(Price.ZERO)),
+				PriceField.class,
+				FunctionField.class);
+	}
+
+	private static final PriceField PRICE_FIELD = new PriceField();
 
 	@SuppressWarnings("unchecked") // OK: testing bad api usage
 	@Test void testWrongValueTypeCreate()
