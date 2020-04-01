@@ -56,7 +56,7 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 
 		final Context ctx = new Context(2);
-		Delete.delete(q, "tx", ctx);
+		Delete.delete(q, 100, "tx", ctx);
 		model.startTransaction("setUp");
 		assertEquals(false, i1.existsCopeItem());
 		assertEquals(false, i2.existsCopeItem());
@@ -69,7 +69,7 @@ public class DeleteTest extends TestWithEnvironment
 		final Query<CacheIsolationItem> q = TYPE.newQuery();
 		final Context ctx = new Context(1);
 
-		Delete.delete(q, "tx", ctx);
+		Delete.delete(q, 100, "tx", ctx);
 		ctx.assertProgress(0);
 	}
 
@@ -77,7 +77,7 @@ public class DeleteTest extends TestWithEnvironment
 	{
 		try
 		{
-			Delete.delete(TYPE.newQuery(), "tx", null);
+			Delete.delete(TYPE.newQuery(), 100, "tx", null);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -87,7 +87,7 @@ public class DeleteTest extends TestWithEnvironment
 
 		try
 		{
-			Delete.delete(null, "tx", new AssertionErrorJobContext());
+			Delete.delete(null, 100, "tx", new AssertionErrorJobContext());
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -111,7 +111,7 @@ public class DeleteTest extends TestWithEnvironment
 		final Context ctx = new Context(1);
 		try
 		{
-			Delete.delete(q, "tx", ctx);
+			Delete.delete(q, 100, "tx", ctx);
 			fail();
 		}
 		catch(final JobStop js)
@@ -144,7 +144,7 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 		final long transactionIdBefore = model.getNextTransactionId();
 		final DeleteJobContext ctx = new DeleteJobContext(CacheIsolationTest.MODEL);
-		Delete.delete(TYPE.newQuery(), "DeleteTest", ctx);
+		Delete.delete(TYPE.newQuery(), 100, "DeleteTest", ctx);
 		assertEquals(itemNumber, ctx.getProgress());
 		assertEquals(transactionIdBefore+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("DeleteTest");
