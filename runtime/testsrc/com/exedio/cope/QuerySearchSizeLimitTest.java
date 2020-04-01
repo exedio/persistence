@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.Query.SearchSizeLimitExceededException;
 import com.exedio.cope.util.Day;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -81,7 +82,7 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 		{
 			assertFails(
 					q::search,
-					IllegalStateException.class,
+					SearchSizeLimitExceededException.class,
 					"exceeded hard limit of 4: " +
 					"select this from DayItem");
 		}
@@ -89,7 +90,7 @@ public class QuerySearchSizeLimitTest extends TestWithEnvironment
 		model.clearCache();
 		assertFails(
 				q::search,
-				IllegalStateException.class,
+				SearchSizeLimitExceededException.class,
 				"exceeded hard limit of 4: " +
 				"select this from DayItem");
 	}

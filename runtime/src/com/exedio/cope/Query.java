@@ -468,7 +468,7 @@ public final class Query<R> implements Serializable
 	/**
 	 * Sets the search size limit for this query.
 	 * <p>
-	 * Method {@link #search()} will fail with an {@link IllegalStateException}
+	 * Method {@link #search()} will fail with an {@link SearchSizeLimitExceededException}
 	 * as soon as the size of the result set exceeds the search size limit.
 	 * Method {@link #total()} is not affected by this limit.
 	 * <p>
@@ -485,6 +485,19 @@ public final class Query<R> implements Serializable
 	public void setSearchSizeLimit(final int searchSizeLimit)
 	{
 		this.searchSizeLimit = requireGreaterZero(searchSizeLimit, "searchSizeLimit");
+	}
+
+	/**
+	 * @see #setSearchSizeLimit(int)
+	 */
+	public static final class SearchSizeLimitExceededException extends IllegalStateException
+	{
+		private static final long serialVersionUID = 1l;
+
+		SearchSizeLimitExceededException(final String message)
+		{
+			super(message);
+		}
 	}
 
 
@@ -1185,7 +1198,7 @@ public final class Query<R> implements Serializable
 				while(resultSet.next())
 				{
 					if((--sizeLimitCountDown)<0)
-						throw new IllegalStateException("exceeded hard limit of " + sizeLimit + ": " + this);
+						throw new SearchSizeLimitExceededException("exceeded hard limit of " + sizeLimit + ": " + this);
 
 					int columnIndex = 1;
 					final Object[] resultRow = (selects.length > 1) ? new Object[selects.length] : null;

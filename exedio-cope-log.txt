@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Query#setSearchSizeLimit triggers a SearchSizeLimitExceededException instead of
+	just an IllegalStateException. Makes it easier to catch.
+	SearchSizeLimitExceededException is a subclass of IllegalStateException.
 * Enum[Map|Set]Field#is[Not]Empty() added
 * MediaRedirect no longer supported, use @RedirectFrom instead.
 	Was deprecated since Mar 1 2010.
