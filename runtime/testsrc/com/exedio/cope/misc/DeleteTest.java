@@ -101,11 +101,12 @@ public class DeleteTest extends TestWithEnvironment
 
 	@Test void testTransactions()
 	{
-		assertPurge(  0, 1);
-		assertPurge(  1, 1);
-		assertPurge( 99, 1);
-		assertPurge(100, 2);
-		assertPurge(101, 2);
+		assertPurge( 0, 1);
+		assertPurge( 1, 1);
+		assertPurge( 5, 1);
+		assertPurge( 6, 2);
+		assertPurge(11, 2);
+		assertPurge(12, 3);
 	}
 
 	private void assertPurge(final int itemNumber, final int transactionNumber)
@@ -117,7 +118,7 @@ public class DeleteTest extends TestWithEnvironment
 		model.commit();
 		final long transactionIdBefore = model.getNextTransactionId();
 		final DeleteJobContext ctx = new DeleteJobContext(CacheIsolationTest.MODEL);
-		Delete.delete(TYPE.newQuery(), 100, "DeleteTest", ctx);
+		Delete.delete(TYPE.newQuery(), 6, "DeleteTest", ctx);
 		assertEquals(itemNumber, ctx.getProgress());
 		assertEquals(transactionIdBefore+transactionNumber, model.getNextTransactionId());
 		model.startTransaction("DeleteTest");
