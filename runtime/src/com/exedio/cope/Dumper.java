@@ -38,7 +38,6 @@ public final class Dumper
 		// just to make it deprecated
 	}
 
-	@SuppressWarnings("static-method")
 	public void prepare(
 			final Appendable out,
 			final Model model)
@@ -47,7 +46,6 @@ public final class Dumper
 		model.connect().dialect.prepareDumperConnection(out);
 	}
 
-	@SuppressWarnings("static-method")
 	public void unprepare(
 			final Appendable out,
 			final Model model)

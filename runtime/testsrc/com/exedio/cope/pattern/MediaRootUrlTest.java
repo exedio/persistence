@@ -74,7 +74,6 @@ public class MediaRootUrlTest
 		assertEquals(null, iN.getFileURL());
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();

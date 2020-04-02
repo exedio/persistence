@@ -24,21 +24,18 @@ import com.exedio.cope.instrument.WrapFeature;
 @WrapFeature
 public abstract class OrderFeatureSuper
 {
-	@SuppressWarnings("static-method")
 	@Wrap(order=10)
 	public void super10()
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=20)
 	public void super20()
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=30)
 	public void super30()
 	{

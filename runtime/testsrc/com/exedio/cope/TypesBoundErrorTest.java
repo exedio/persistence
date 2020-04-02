@@ -254,7 +254,7 @@ public class TypesBoundErrorTest
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	static class BeforeNewNotStatic extends Item
 	{
-		@SuppressWarnings({"static-method", "MethodMayBeStatic"})
+		@SuppressWarnings("MethodMayBeStatic")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{

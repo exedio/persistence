@@ -57,7 +57,6 @@ public abstract class ConnectedTest extends TestWithEnvironment
 				original));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDownConnectedTest()
 	{
 		samplerModel.rollbackIfNotCommitted();

@@ -496,25 +496,25 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			}
 		}
 
-		@SuppressWarnings({"unchecked", "static-method"})
+		@SuppressWarnings("unchecked")
 		private List<Type<? extends C>> castTypeInstanceList(final List<Type<?>> l)
 		{
 			return (List)l;
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		@SuppressWarnings({"unchecked", "rawtypes"})
 		private HashMap<String, Type<? extends C>> castTypeInstanceHasMap(final HashMap m)
 		{
 			return m;
 		}
 
-		@SuppressWarnings({"unchecked", "static-method"})
+		@SuppressWarnings("unchecked")
 		private List<ItemField<C>> castDeclaredReferences(final List<ItemField<?>> l)
 		{
 			return (List)l;
 		}
 
-		@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+		@SuppressWarnings({"unchecked", "rawtypes"})
 		private List<ItemField<? super C>> castReferences(final List l)
 		{
 			return l;
@@ -1432,7 +1432,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -1442,7 +1441,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
 	private Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);

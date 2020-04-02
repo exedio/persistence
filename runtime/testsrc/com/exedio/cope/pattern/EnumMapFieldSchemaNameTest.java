@@ -81,7 +81,6 @@ public class EnumMapFieldSchemaNameTest
 
 	private static final Model MODEL = new Model(AnItem.TYPE);
 
-	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()
 	{
 		final Properties source = new Properties();
@@ -91,7 +90,6 @@ public class EnumMapFieldSchemaNameTest
 		MODEL.connect(ConnectProperties.create(Sources.view(source , "EnumMapFieldSchemaNameTest")));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		MODEL.disconnect();

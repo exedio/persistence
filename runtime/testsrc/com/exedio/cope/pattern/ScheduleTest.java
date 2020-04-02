@@ -90,7 +90,6 @@ public class ScheduleTest extends TestWithEnvironment
 		ScheduleItem.clearLogs();
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		ScheduleItem.clearLogs();

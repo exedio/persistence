@@ -39,7 +39,6 @@ public class SelectBindTest extends TestWithEnvironment
 		super(CompareConditionTest.MODEL);
 	}
 
-	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()
 	{
 		new CompareConditionItem("string1", 1, 11l, 2.1, null, null, null);

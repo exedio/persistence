@@ -25,14 +25,12 @@ import com.exedio.cope.instrument.WrapFeature;
 @WrapFeature
 public final class OptionFeature
 {
-	@SuppressWarnings("static-method")
 	@Wrap(order=10)
 	public void simple(@SuppressWarnings("unused") final Item item)
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	public OptionFeature fail()
 	{
 		// fail if run during instrumentation:

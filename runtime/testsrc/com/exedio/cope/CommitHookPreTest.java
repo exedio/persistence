@@ -285,13 +285,11 @@ public class CommitHookPreTest
 	}
 
 
-	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()
 	{
 		model.connect(ConnectProperties.create(TestSources.minimal()));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		model.rollbackIfNotCommitted();

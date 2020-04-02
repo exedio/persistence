@@ -109,7 +109,6 @@ public final class DispatcherPurgeProperties extends FactoryProperties<Dispatche
 		 *        How many days {@link Dispatcher.Result#finalFailure finally failed} items are retained.
 		 *        {@link Duration#ZERO Zero} retains forever.
 		 */
-		@SuppressWarnings("static-method") // OK: will have to be non-static when there are more fields
 		public Factory retainDefault(
 				final Duration success,
 				final Duration finalFailure)

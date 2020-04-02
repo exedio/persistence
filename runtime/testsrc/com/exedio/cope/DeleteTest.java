@@ -61,13 +61,11 @@ public class DeleteTest extends TestWithEnvironment
 	private DeleteItem item;
 	private DeleteOtherItem other;
 
-	@SuppressWarnings("static-method")
 	@BeforeEach final void setUpDeleteTest()
 	{
 		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.set(new LinkedList<>());
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDownDeleteTest()
 	{
 		DeleteItem.BEFORE_DELETE_COPE_ITEM_CALLS.remove();

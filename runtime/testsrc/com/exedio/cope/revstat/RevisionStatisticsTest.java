@@ -138,7 +138,6 @@ public class RevisionStatisticsTest
 		assertFalse(sheetIterator.hasNext());
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();

@@ -25,27 +25,24 @@ import com.exedio.cope.instrument.WrapFeature;
 @WrapFeature
 public final class NameFeature
 {
-	@SuppressWarnings("static-method")
 	@Wrap(order=10, name="within{0}Method")
 	public void within0(@SuppressWarnings("unused") final Item item)
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=11, name="within{1}Method")
 	public void within1(@SuppressWarnings("unused") final Item item)
 	{
 		throw new RuntimeException();
 	}
-	@SuppressWarnings("static-method")
+
 	@Wrap(order=20, name="{0}")
 	public void only0(@SuppressWarnings("unused") final Item item)
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=21, name="{1}")
 	public void only1(@SuppressWarnings("unused") final Item item)
 	{

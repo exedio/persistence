@@ -80,7 +80,6 @@ public class EnumSetFieldSchemaNameTest
 
 	private static final Model MODEL = new Model(AnItem.TYPE);
 
-	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()
 	{
 		final Properties source = new Properties();
@@ -90,7 +89,6 @@ public class EnumSetFieldSchemaNameTest
 		MODEL.connect(ConnectProperties.create(Sources.view(source , "EnumSetFieldSchemaNameTest")));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		MODEL.disconnect();

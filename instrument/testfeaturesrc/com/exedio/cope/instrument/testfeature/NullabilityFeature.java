@@ -37,7 +37,6 @@ public class NullabilityFeature
 		this.optional = optional;
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=10)
 	@Nullable
 	public Object allCanReturnNull()
@@ -45,7 +44,6 @@ public class NullabilityFeature
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=20)
 	@Nonnull
 	public Object allCannotReturnNull()
@@ -53,28 +51,24 @@ public class NullabilityFeature
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=30, nullability=IfOptional.class)
 	public Object onlyOptionalsCanReturnNull()
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=40)
 	public void allCanTakeNull(@Nullable @SuppressWarnings("unused") final Object parameter)
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=50)
 	public void allCannotTakeNull(@Nonnull @SuppressWarnings("unused") final Object parameter)
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=60)
 	public void onlyOptionalsCanTakeNull(
 			@SuppressWarnings("unused") final Item item,

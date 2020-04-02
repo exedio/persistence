@@ -113,7 +113,7 @@ public final class DynamicModel<L> extends Pattern
 		return MapField.create(localeTemplate.copy(), new StringField());
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes", "static-method"}) // OK: no generic arrays
+	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
 	private ItemField<Enum<L>>[] newItemField(final int length)
 	{
 		return new ItemField[length];
@@ -247,19 +247,19 @@ public final class DynamicModel<L> extends Pattern
 		return requireMounted(mountIfMounted);
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private com.exedio.cope.Type<Type<L>> castType(final com.exedio.cope.Type t)
 	{
 		return t;
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private com.exedio.cope.Type<Field<L>> castField(final com.exedio.cope.Type t)
 	{
 		return t;
 	}
 
-	@SuppressWarnings({"unchecked", "rawtypes", "static-method"})
+	@SuppressWarnings({"unchecked", "rawtypes"})
 	private com.exedio.cope.Type<Enum<L>> castEnum(final com.exedio.cope.Type t)
 	{
 		return t;
@@ -371,7 +371,6 @@ public final class DynamicModel<L> extends Pattern
 		return array[pos];
 	}
 
-	@SuppressWarnings("static-method")
 	private void assertValueType(final Field<L> field, final ValueType valueType)
 	{
 		final ValueType fieldValueType = field.getValueType();

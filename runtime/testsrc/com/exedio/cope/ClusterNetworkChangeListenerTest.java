@@ -40,7 +40,6 @@ import org.junit.jupiter.api.Test;
 
 public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 {
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		modelB.rollbackIfNotCommitted();

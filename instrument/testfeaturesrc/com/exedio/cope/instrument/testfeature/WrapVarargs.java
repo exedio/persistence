@@ -40,7 +40,6 @@ public final class WrapVarargs
 		this.varargs = Arrays.asList(vararg1, vararg2);
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=10, varargsFeatures=VarargsGetter.class)
 	public void simple(
 			@SuppressWarnings("unused") final Object... values)
@@ -48,7 +47,6 @@ public final class WrapVarargs
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=20, varargsFeatures=VarargsGetter.class)
 	public void moreParameters(
 			@SuppressWarnings("unused") final int n,
@@ -57,7 +55,6 @@ public final class WrapVarargs
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=30, varargsFeatures=VarargsGetter.class)
 	public <P extends Item> P staticToken(
 			@SuppressWarnings("unused") final Class<P> typeClass,

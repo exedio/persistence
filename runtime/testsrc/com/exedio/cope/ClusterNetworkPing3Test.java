@@ -226,7 +226,6 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		modelC.enableSerialization(ClusterNetworkPing3Test.class, "modelC");
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach
 	void tearDown()
 	{

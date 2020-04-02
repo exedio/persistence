@@ -189,13 +189,11 @@ public class TypeColumnTypeTest
 			Ref.TYPE);
 
 
-	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()
 	{
 		model.connect(props);
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		model.disconnect();

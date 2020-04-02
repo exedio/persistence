@@ -70,7 +70,6 @@ public class ItemCacheLimitTest
 				Sources.view(source , "MediaUrlSecretTestSource"));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		if(model.isConnected())

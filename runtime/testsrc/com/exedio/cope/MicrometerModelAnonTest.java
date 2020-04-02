@@ -192,14 +192,12 @@ public class MicrometerModelAnonTest
 			Model.class.getName() + ".initialize", MODEL_TAGS.and("date", ISO_INSTANT.format(MODEL.getInitializeInstant())),
 			null, null, Meter.Type.GAUGE);
 
-	@SuppressWarnings("static-method")
 	@BeforeEach
 	final void setUp()
 	{
 		MODEL.connect(ConnectProperties.create(TestSources.minimal()));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach
 	final void tearDown()
 	{

@@ -165,7 +165,6 @@ public class DataVaultEnableTest
 				getType();
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		if(model.isConnected())

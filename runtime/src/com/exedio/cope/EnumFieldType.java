@@ -201,7 +201,6 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -211,7 +210,6 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
 	private Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);

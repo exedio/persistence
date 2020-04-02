@@ -44,7 +44,7 @@ public class JavaViewInPatternTest
 		@SuppressWarnings("unused") // accessed by reflection
 		static final Muster muster = new Muster();
 
-		@SuppressWarnings({"unused", "static-method"}) // accessed by reflection
+		@SuppressWarnings("unused") // accessed by reflection
 		String getMusterschau()
 		{
 			return "zack";

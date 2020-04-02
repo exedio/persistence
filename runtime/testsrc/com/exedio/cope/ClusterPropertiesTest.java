@@ -237,7 +237,6 @@ public class ClusterPropertiesTest
 		}
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		if(model.isConnected())

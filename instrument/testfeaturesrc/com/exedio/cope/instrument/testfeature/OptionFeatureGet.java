@@ -25,7 +25,6 @@ import com.exedio.cope.instrument.WrapFeature;
 @WrapFeature
 public final class OptionFeatureGet
 {
-	@SuppressWarnings("static-method")
 	@Wrap(order=10)
 	public void get(@SuppressWarnings("unused") final Item item)
 	{

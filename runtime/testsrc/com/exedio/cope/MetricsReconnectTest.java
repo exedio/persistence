@@ -186,13 +186,11 @@ public class MetricsReconnectTest
 
 
 
-	@SuppressWarnings("static-method")
 	void connect()
 	{
 		MODEL.connect(ConnectProperties.create(TestSources.minimal()));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();

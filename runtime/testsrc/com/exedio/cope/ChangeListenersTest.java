@@ -48,7 +48,6 @@ public class ChangeListenersTest
 		baselineInfo = model.getChangeListenersInfo();
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		model.removeAllChangeListeners();

@@ -22,21 +22,18 @@ import com.exedio.cope.instrument.Wrap;
 
 public final class OrderFeatureSub extends OrderFeatureSuper
 {
-	@SuppressWarnings("static-method")
 	@Wrap(order=10)
 	public void sub10()
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=20)
 	public void sub20()
 	{
 		throw new RuntimeException();
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=30)
 	public void sub30()
 	{

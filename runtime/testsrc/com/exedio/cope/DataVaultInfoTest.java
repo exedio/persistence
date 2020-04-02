@@ -157,7 +157,6 @@ public class DataVaultInfoTest
 
 	private DataFieldVaultInfo onSetup;
 
-	@SuppressWarnings("static-method")
 	@BeforeEach final void setUp()
 	{
 		model.connect(ConnectProperties.create(cascade(
@@ -170,7 +169,6 @@ public class DataVaultInfoTest
 		onSetup = MyItem.field.getVaultInfo();
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDown()
 	{
 		if(model.isConnected())

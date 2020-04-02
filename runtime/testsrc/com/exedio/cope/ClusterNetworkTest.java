@@ -75,7 +75,6 @@ public abstract class ClusterNetworkTest
 			));
 	}
 
-	@SuppressWarnings("static-method")
 	@AfterEach final void tearDownClusterNetworkTest()
 	{
 		modelB.disconnect();

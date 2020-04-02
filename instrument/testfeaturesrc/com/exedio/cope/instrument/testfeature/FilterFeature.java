@@ -32,7 +32,6 @@ public final class FilterFeature
 		this.source=source;
 	}
 
-	@SuppressWarnings("static-method")
 	@Wrap(order=10)
 	public void simple(@SuppressWarnings("unused") final Item item)
 	{

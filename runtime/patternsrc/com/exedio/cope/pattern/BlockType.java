@@ -177,7 +177,6 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
 	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);
@@ -187,7 +186,6 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	@SuppressWarnings("static-method")
 	private Object readResolve() throws InvalidObjectException
 	{
 		throw new InvalidObjectException("required " + Serialized.class);

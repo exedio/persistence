@@ -27,7 +27,6 @@ import java.util.List;
 public final class GenericFeatureClass
 {
 	@Wrap(order=10)
-	@SuppressWarnings("static-method")
 	public <P extends Item> P method(
 			@SuppressWarnings("unused") final Class<P> typeClass)
 	{
@@ -35,7 +34,6 @@ public final class GenericFeatureClass
 	}
 
 	@Wrap(order=20)
-	@SuppressWarnings("static-method")
 	public <P extends Item> List<P> methodNested(
 			@SuppressWarnings("unused") final Class<P> typeClass)
 	{
