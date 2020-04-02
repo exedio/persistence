@@ -500,7 +500,7 @@ public abstract class Feature implements Serializable
 	 * Block malicious data streams.
 	 * @see #writeReplace()
 	 */
-	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws IOException, ClassNotFoundException
+	private void readObject(final ObjectInputStream ois) throws IOException, ClassNotFoundException
 	{
 		if(isSerializableNonMounted())
 			ois.defaultReadObject();
