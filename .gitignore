@@ -6,7 +6,6 @@
 /lib/ojdbc6.jar
 /cope.properties
 /local.properties
-/.eclipse-output/
 /.idea-output/
 /nbproject/private/
 /.idea/workspace.xml

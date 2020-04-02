@@ -58,7 +58,6 @@
       <sourceFolder url="file://$MODULE_DIR$/junit4" isTestSource="true" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/testresources" type="java-test-resource" />
       <sourceFolder url="file://$MODULE_DIR$/instrument/testparamssrc" isTestSource="true" />
-      <excludeFolder url="file://$MODULE_DIR$/.eclipse-output" />
       <excludeFolder url="file://$MODULE_DIR$/ant" />
       <excludeFolder url="file://$MODULE_DIR$/build" />
       <excludeFolder url="file://$MODULE_DIR$/ivy/artifacts" />
