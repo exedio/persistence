@@ -32,6 +32,8 @@ import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapType;
 import com.exedio.cope.util.Day;
+import java.io.InvalidObjectException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.util.Arrays;
 import java.util.Date;
@@ -44,11 +46,13 @@ import java.util.TimeZone;
 )
 public abstract class Composite implements Serializable, TemplatedValue
 {
+	private final transient CompositeType<?> type;
 	private Object[] values;
 
 	protected Composite(final SetValue<?>... setValues)
 	{
-		values = getCopeType().values(setValues, null);
+		type = CompositeType.get(getClass());
+		values = type.values(setValues, null);
 	}
 
 	@SuppressWarnings("unchecked")
@@ -114,23 +118,15 @@ public abstract class Composite implements Serializable, TemplatedValue
 	}
 
 
-	@SuppressWarnings("TransientFieldNotInitialized") // OK: lazy initialization
-	private transient CompositeType<?> typeIfSet = null;
-
 	@Override
 	public final CompositeType<?> getCopeType()
 	{
-		CompositeType<?> typeIfSet = this.typeIfSet;
-		if(typeIfSet!=null)
-			return typeIfSet;
-		typeIfSet = CompositeType.get(getClass());
-		this.typeIfSet = typeIfSet;
-		return typeIfSet;
+		return type;
 	}
 
 	private int position(final FunctionField<?> member)
 	{
-		return getCopeType().position(member);
+		return type.position(member);
 	}
 
 	public static final String getTemplateName(final FunctionField<?> template)
@@ -170,14 +166,26 @@ public abstract class Composite implements Serializable, TemplatedValue
 	 */
 	protected final Object writeReplace()
 	{
-		final CompositeType<?> type = getCopeType();
 		return new Serialized(type, type.templateList.toArray(new FunctionField<?>[values.length]), values);
 	}
 
-	// TODO
-	// Block malicious data streams by implementing readObject and readResolve
-	// throwing a InvalidObjectException once all projects have adopted serialization
-	// implemented by writeReplace.
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	private void readObject(@SuppressWarnings("unused") final ObjectInputStream ois) throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
+
+	/**
+	 * Block malicious data streams.
+	 * @see #writeReplace()
+	 */
+	protected final Object readResolve() throws InvalidObjectException
+	{
+		throw new InvalidObjectException("required " + Serialized.class);
+	}
 
 	private static final class Serialized implements Serializable
 	{
