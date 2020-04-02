@@ -453,7 +453,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 		assertSame(eins.getValueType(), value.getCopeType());
 
 		// test serialization
-		final CompositeValue serializedValue = reserialize(value, 481);
+		final CompositeValue serializedValue = reserialize(value, 985);
 		assertEquals(value, serializedValue);
 		assertNotSame(value, serializedValue);
 		assertEquals("firstString1X", value.getAString());

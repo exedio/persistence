@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.BooleanField;
+import com.exedio.cope.Cope;
 import com.exedio.cope.DateField;
 import com.exedio.cope.DayField;
 import com.exedio.cope.DoubleField;
@@ -43,9 +44,6 @@ import java.util.TimeZone;
 )
 public abstract class Composite implements Serializable, TemplatedValue
 {
-	private static final long serialVersionUID = 1l;
-
-	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
 	private final Object[] values;
 
 	protected Composite(final SetValue<?>... setValues)
@@ -162,5 +160,56 @@ public abstract class Composite implements Serializable, TemplatedValue
 	public final int hashCode()
 	{
 		return getClass().hashCode() ^ Arrays.hashCode(values);
+	}
+
+	// serialization -------------
+
+	private static final long serialVersionUID = 1l;
+
+	/**
+	 * We cannot just serialize {@link #values} as the contents of
+	 * {@link CompositeType#templateList} may change between serialization and deserialization.
+	 * <p>
+	 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/output.html#5324">See Spec</a>
+	 */
+	protected final Object writeReplace()
+	{
+		final CompositeType<?> type = getCopeType();
+		return new Serialized(type, type.templateList.toArray(new FunctionField<?>[values.length]), values);
+	}
+
+	// TODO
+	// Block malicious data streams by implementing readObject and readResolve
+	// throwing a InvalidObjectException once all projects have adopted serialization
+	// implemented by writeReplace.
+
+	private static final class Serialized implements Serializable
+	{
+		private static final long serialVersionUID = 2l;
+
+		private final CompositeType<?> type;
+		private final FunctionField<?>[] fields;
+		@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
+		private final Object[] values;
+
+		Serialized(
+				final CompositeType<?> type,
+				final FunctionField<?>[] fields,
+				final Object[] values)
+		{
+			this.type = type;
+			this.fields = fields;
+			this.values = values;
+		}
+
+		/**
+		 * <a href="https://java.sun.com/j2se/1.5.0/docs/guide/serialization/spec/input.html#5903">See Spec</a>
+		 */
+		private Object readResolve()
+		{
+			final SetValue<?>[] setValues = new SetValue<?>[values.length];
+			Arrays.setAll(setValues, i -> Cope.mapAndCast(fields[i], values[i]));
+			return type.newValue(setValues);
+		}
 	}
 }
