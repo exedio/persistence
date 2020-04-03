@@ -67,19 +67,27 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 				final Feature feature = entry.getKey();
 				final java.lang.reflect.Field field = entry.getValue();
 				final String fieldID = id + '#' + field.getName();
-				if(!(feature instanceof FunctionField<?>))
-					throw new IllegalArgumentException(fieldID + " must be an instance of " + FunctionField.class);
-				final FunctionField<?> template = (FunctionField<?>)feature;
-				if(template.isFinal())
-					throw new IllegalArgumentException("final fields not supported: " + fieldID);
-				if(template.hasDefault() && template.getDefaultConstant()==null)
-					throw new IllegalArgumentException("fields with non-constant defaults are not supported: " + fieldID);
 				final String fieldName = CopeNameUtil.getAndFallbackToName(field);
-				templates.put(fieldName, template);
-				templatePositions.put(template, position++);
+				if(feature instanceof FunctionField<?>)
+				{
+					final FunctionField<?> template = (FunctionField<?>)feature;
+					if(template.isFinal())
+						throw new IllegalArgumentException("final fields not supported: " + fieldID);
+					if(template.hasDefault() && template.getDefaultConstant()==null)
+						throw new IllegalArgumentException("fields with non-constant defaults are not supported: " + fieldID);
+					templates.put(fieldName, template);
+					templatePositions.put(template, position++);
+					templateNames.put(template, fieldName);
+				}
+				else
+				{
+					throw new IllegalArgumentException(
+							fieldID + " must be an instance of " +
+							FunctionField.class);
+				}
+
 				//noinspection ThisEscapedInObjectConstruction
-				template.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
-				templateNames.put(template, fieldName);
+				feature.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
 			}
 		}
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
