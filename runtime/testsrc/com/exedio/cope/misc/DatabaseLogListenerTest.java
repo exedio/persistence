@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.DatabaseLogListener.Builder.LOGS_LIMIT_DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.lang.System.lineSeparator;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -45,6 +46,7 @@ public class DatabaseLogListenerTest
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(0, l.getThreshold());
 		assertEquals(null, l.getSQL());
+		assertEquals(false, l.isPrintStackTraceEnabled());
 		assertEquals("", out.toString("UTF-8"));
 
 		l.onStatement("sql", asList("param1", "param2"), 1, 2, 3, 4);
@@ -72,6 +74,7 @@ public class DatabaseLogListenerTest
 		assertEquals(3, l.getLogsLeft());
 		assertEquals(5, l.getThreshold());
 		assertEquals("sqlFilter", l.getSQL());
+		assertEquals(false, l.isPrintStackTraceEnabled());
 		assertEquals("", out.toString("UTF-8"));
 
 		l.onStatement("sqlFilter", null, 0, 0, 0, 0);
@@ -114,6 +117,7 @@ public class DatabaseLogListenerTest
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(40, l.getThreshold());
 		assertEquals(null, l.getSQL());
+		assertEquals(false, l.isPrintStackTraceEnabled());
 		assertEquals("", out.toString("UTF-8"));
 
 		l.onStatement("sql", null, 10, 10, 10, 10);
@@ -144,6 +148,7 @@ public class DatabaseLogListenerTest
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(0, l.getThreshold());
 		assertEquals("match", l.getSQL());
+		assertEquals(false, l.isPrintStackTraceEnabled());
 		assertEquals("", out.toString("UTF-8"));
 
 		l.onStatement("match", null, 0, 0, 0, 0);
@@ -157,6 +162,26 @@ public class DatabaseLogListenerTest
 
 		l.onStatement("match", null, 0, 0, 0, 0);
 		assertIt("0|0|0|0|match");
+	}
+
+	@Test void testPrintStackTrace() throws UnsupportedEncodingException
+	{
+		final DatabaseLogListener l =
+				new Builder(print).printStackTrace().build();
+		assertNotNull(l.getDate());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
+		assertEquals(0, l.getThreshold());
+		assertEquals(null, l.getSQL());
+		assertEquals(true, l.isPrintStackTraceEnabled());
+		assertEquals("", out.toString("UTF-8"));
+
+		l.onStatement("sql", null, 0, 0, 0, 0);
+		assertItStart(
+				"0|0|0|0|sql" + lineSeparator() +
+				"java.lang.Exception: DatabaseLogListener" + lineSeparator() +
+				"\tat " + DatabaseLogListener.class.getName() + ".onStatement(DatabaseLogListener.java:186)" + lineSeparator() +
+				"\tat " + DatabaseLogListenerTest.class.getName() + ".testPrintStackTrace(");
 	}
 
 
@@ -179,6 +204,16 @@ public class DatabaseLogListenerTest
 		assertEquals(expected, actual.substring(pos, actual.length()-1));
 	}
 
+	private void assertItStart(final String expected) throws UnsupportedEncodingException
+	{
+		final String actual = out.toString("UTF-8");
+		out.reset();
+		//noinspection HardcodedLineSeparator
+		assertTrue(actual.endsWith("\n"));
+		final int pos = actual.indexOf('|') + 1;
+		assertTrue(actual.substring(pos, actual.length()-1).startsWith(expected), actual);
+	}
+
 	private void assertEmpty() throws UnsupportedEncodingException
 	{
 		print.flush();
@@ -196,6 +231,7 @@ public class DatabaseLogListenerTest
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(567, l.getThreshold());
 		assertEquals("sqlFilter", l.getSQL());
+		assertEquals(false, l.isPrintStackTraceEnabled());
 		assertEquals("", out.toString("UTF-8"));
 
 		l.onStatement("sqlFilter", asList(), 1, 2, 3, 567);
@@ -228,6 +264,7 @@ public class DatabaseLogListenerTest
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(0, l.getThreshold());
 		assertEquals(null, l.getSQL());
+		assertEquals(false, l.isPrintStackTraceEnabled());
 		assertEquals("", out.toString("UTF-8"));
 
 		l.onStatement("sql", asList(), 1, 2, 3, 4);
@@ -246,6 +283,7 @@ public class DatabaseLogListenerTest
 		assertEquals(8765432, l.getLogsLeft());
 		assertEquals(567, l.getThreshold());
 		assertEquals("specialSql", l.getSQL());
+		assertEquals(false, l.isPrintStackTraceEnabled());
 		assertEquals("", out.toString("UTF-8"));
 
 		l.onStatement("specialSql", asList(), 1, 2, 3, 567);

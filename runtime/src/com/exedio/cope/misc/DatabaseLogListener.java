@@ -38,6 +38,7 @@ public final class DatabaseLogListener implements DatabaseListener
 		private int logsLimit = LOGS_LIMIT_DEFAULT;
 		private int durationThreshold = 0;
 		private String sqlFilter = null;
+		private boolean printStackTrace = false;
 
 		public Builder(final PrintStream out)
 		{
@@ -62,9 +63,15 @@ public final class DatabaseLogListener implements DatabaseListener
 			return this;
 		}
 
+		public Builder printStackTrace()
+		{
+			this.printStackTrace = true;
+			return this;
+		}
+
 		public DatabaseLogListener build()
 		{
-			return new DatabaseLogListener(logsLimit, durationThreshold, sqlFilter, out);
+			return new DatabaseLogListener(logsLimit, durationThreshold, sqlFilter, printStackTrace, out);
 		}
 	}
 
@@ -73,6 +80,7 @@ public final class DatabaseLogListener implements DatabaseListener
 	private int logsLeft;
 	private final int threshold;
 	private final String sql;
+	private final boolean printStackTrace;
 	private final PrintStream out;
 
 	/**
@@ -85,6 +93,7 @@ public final class DatabaseLogListener implements DatabaseListener
 				Builder.LOGS_LIMIT_DEFAULT,
 				requireNonNegative(threshold, "threshold"),
 				sql,
+				false,
 				requireNonNull(out, "out"));
 	}
 
@@ -92,6 +101,7 @@ public final class DatabaseLogListener implements DatabaseListener
 			final int logsLimit,
 			final int threshold,
 			final String sql,
+			final boolean printStackTrace,
 			final PrintStream out)
 	{
 		this.date = System.currentTimeMillis();
@@ -99,6 +109,7 @@ public final class DatabaseLogListener implements DatabaseListener
 		this.logsLeft = logsLimit;
 		this.threshold = threshold;
 		this.sql = sql;
+		this.printStackTrace = printStackTrace;
 		this.out = out;
 	}
 
@@ -125,6 +136,11 @@ public final class DatabaseLogListener implements DatabaseListener
 	public String getSQL()
 	{
 		return sql;
+	}
+
+	public boolean isPrintStackTraceEnabled()
+	{
+		return printStackTrace;
 	}
 
 	@Override
@@ -165,6 +181,9 @@ public final class DatabaseLogListener implements DatabaseListener
 			}
 
 			out.println(bf);
+
+			if(printStackTrace)
+				new Exception("DatabaseLogListener").printStackTrace(out); // same as Thread.dumpStack(), but directed to out
 		}
 	}
 }
