@@ -38,9 +38,8 @@ public class DatabaseLogListenerTest
 {
 	@Test void test() throws UnsupportedEncodingException
 	{
-		@SuppressWarnings("deprecation")
 		final DatabaseLogListener l =
-				new DatabaseLogListener(0, null, print);
+				new Builder(print).build();
 		assertNotNull(l.getDate());
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
@@ -108,9 +107,8 @@ public class DatabaseLogListenerTest
 
 	@Test void testThreshold() throws UnsupportedEncodingException
 	{
-		@SuppressWarnings("deprecation")
 		final DatabaseLogListener l =
-				new DatabaseLogListener(40, null, print);
+				new Builder(print).durationThreshold(40).build();
 		assertNotNull(l.getDate());
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
@@ -139,9 +137,8 @@ public class DatabaseLogListenerTest
 
 	@Test void testSQL() throws UnsupportedEncodingException
 	{
-		@SuppressWarnings("deprecation")
 		final DatabaseLogListener l =
-				new DatabaseLogListener(0, "match", print);
+				new Builder(print).sqlFilter("match").build();
 		assertNotNull(l.getDate());
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
 		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
@@ -188,6 +185,22 @@ public class DatabaseLogListenerTest
 		assertEquals("", out.toString("UTF-8"));
 	}
 
+
+	@SuppressWarnings("deprecation") // OK testing deprecated api
+	@Test void testDeprecated() throws UnsupportedEncodingException
+	{
+		final DatabaseLogListener l =
+				new DatabaseLogListener(567, "sqlFilter", print);
+		assertNotNull(l.getDate());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
+		assertEquals(567, l.getThreshold());
+		assertEquals("sqlFilter", l.getSQL());
+		assertEquals("", out.toString("UTF-8"));
+
+		l.onStatement("sqlFilter", asList(), 1, 2, 3, 567);
+		assertIt("1|2|3|567|sqlFilter|[]");
+	}
 
 	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testThresholdNegative()
