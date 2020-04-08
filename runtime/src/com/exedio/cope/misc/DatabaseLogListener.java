@@ -34,12 +34,20 @@ public final class DatabaseLogListener implements DatabaseListener
 	public static final class Builder
 	{
 		private final PrintStream out;
+		public static final int LOGS_LIMIT_DEFAULT = 100;
+		private int logsLimit = LOGS_LIMIT_DEFAULT;
 		private int durationThreshold = 0;
 		private String sqlFilter = null;
 
 		public Builder(final PrintStream out)
 		{
 			this.out = requireNonNull(out, "out");
+		}
+
+		public Builder logsLimit(final int logsLimit)
+		{
+			this.logsLimit = requireGreaterZero(logsLimit, "logsLimit");
+			return this;
 		}
 
 		public Builder durationThreshold(final int durationThreshold)
@@ -56,26 +64,57 @@ public final class DatabaseLogListener implements DatabaseListener
 
 		public DatabaseLogListener build()
 		{
-			return new DatabaseLogListener(durationThreshold, sqlFilter, out);
+			return new DatabaseLogListener(logsLimit, durationThreshold, sqlFilter, out);
 		}
 	}
 
 	private final long date;
+	private final int logsLimit;
+	private int logsLeft;
 	private final int threshold;
 	private final String sql;
 	private final PrintStream out;
 
+	/**
+	 * @deprecated Use {@link Builder} instead.
+	 */
+	@Deprecated
 	public DatabaseLogListener(final int threshold, final String sql, final PrintStream out)
 	{
+		this(
+				Builder.LOGS_LIMIT_DEFAULT,
+				requireNonNegative(threshold, "threshold"),
+				sql,
+				requireNonNull(out, "out"));
+	}
+
+	private DatabaseLogListener(
+			final int logsLimit,
+			final int threshold,
+			final String sql,
+			final PrintStream out)
+	{
 		this.date = System.currentTimeMillis();
-		this.threshold = requireNonNegative(threshold, "threshold");
+		this.logsLimit = logsLimit;
+		this.logsLeft = logsLimit;
+		this.threshold = threshold;
 		this.sql = sql;
-		this.out = requireNonNull(out, "out");
+		this.out = out;
 	}
 
 	public Date getDate()
 	{
 		return new Date(date);
+	}
+
+	public int getLogsLimit()
+	{
+		return logsLimit;
+	}
+
+	public int getLogsLeft()
+	{
+		return logsLeft;
 	}
 
 	public int getThreshold()
@@ -97,9 +136,14 @@ public final class DatabaseLogListener implements DatabaseListener
 			final long durationRead,
 			final long durationClose)
 	{
+		if(logsLeft<=0)
+			return;
+
 		if(( (threshold==0) || ((durationPrepare+durationExecute+durationRead+durationClose)>=threshold) ) &&
 			( (sql==null)    || (statement.contains(sql)) ))
 		{
+			logsLeft--;
+
 			final StringBuilder bf = new StringBuilder(
 					new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(new Date()));
 

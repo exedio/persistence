@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.misc.DatabaseLogListener.Builder.LOGS_LIMIT_DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,9 +38,12 @@ public class DatabaseLogListenerTest
 {
 	@Test void test() throws UnsupportedEncodingException
 	{
+		@SuppressWarnings("deprecation")
 		final DatabaseLogListener l =
 				new DatabaseLogListener(0, null, print);
 		assertNotNull(l.getDate());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(0, l.getThreshold());
 		assertEquals(null, l.getSQL());
 		assertEquals("", out.toString("UTF-8"));
@@ -57,11 +61,59 @@ public class DatabaseLogListenerTest
 		assertIt("-1|-1|-1|-1|null");
 	}
 
+	@Test void testLogsLimit() throws UnsupportedEncodingException
+	{
+		final DatabaseLogListener l = new Builder(print).
+				logsLimit(3).
+				durationThreshold(5).
+				sqlFilter("sqlFilter").
+				build();
+		assertNotNull(l.getDate());
+		assertEquals(3, l.getLogsLimit());
+		assertEquals(3, l.getLogsLeft());
+		assertEquals(5, l.getThreshold());
+		assertEquals("sqlFilter", l.getSQL());
+		assertEquals("", out.toString("UTF-8"));
+
+		l.onStatement("sqlFilter", null, 0, 0, 0, 0);
+		assertEmpty();
+		assertEquals(3, l.getLogsLeft());
+
+		l.onStatement("sql", null, 0, 0, 0, 0);
+		assertEmpty();
+		assertEquals(3, l.getLogsLeft());
+
+		l.onStatement("sqlFilter", null, 5, 0, 0, 0);
+		assertIt("5|0|0|0|sqlFilter");
+		assertEquals(2, l.getLogsLeft());
+
+		l.onStatement("sqlFilter", null, 5, 0, 0, 0);
+		assertIt("5|0|0|0|sqlFilter");
+		assertEquals(1, l.getLogsLeft());
+
+		l.onStatement("sqlFilter", null, 5, 0, 0, 0);
+		assertIt("5|0|0|0|sqlFilter");
+		assertEquals(0, l.getLogsLeft());
+
+		l.onStatement("sqlFilter", null, 5, 0, 0, 0);
+		assertEmpty();
+		assertEquals(0, l.getLogsLeft());
+
+		l.onStatement("sqlFilter", null, 5, 0, 0, 0);
+		assertEmpty();
+		assertEquals(0, l.getLogsLeft());
+
+		assertEquals(3, l.getLogsLimit());
+	}
+
 	@Test void testThreshold() throws UnsupportedEncodingException
 	{
+		@SuppressWarnings("deprecation")
 		final DatabaseLogListener l =
 				new DatabaseLogListener(40, null, print);
 		assertNotNull(l.getDate());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(40, l.getThreshold());
 		assertEquals(null, l.getSQL());
 		assertEquals("", out.toString("UTF-8"));
@@ -87,9 +139,12 @@ public class DatabaseLogListenerTest
 
 	@Test void testSQL() throws UnsupportedEncodingException
 	{
+		@SuppressWarnings("deprecation")
 		final DatabaseLogListener l =
 				new DatabaseLogListener(0, "match", print);
 		assertNotNull(l.getDate());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(0, l.getThreshold());
 		assertEquals("match", l.getSQL());
 		assertEquals("", out.toString("UTF-8"));
@@ -134,6 +189,7 @@ public class DatabaseLogListenerTest
 	}
 
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testThresholdNegative()
 	{
 		assertFails(
@@ -142,6 +198,7 @@ public class DatabaseLogListenerTest
 				"threshold must not be negative, but was -1");
 	}
 
+	@SuppressWarnings("deprecation") // OK testing deprecated api
 	@Test void testOutNull()
 	{
 		assertFails(
@@ -154,6 +211,8 @@ public class DatabaseLogListenerTest
 	{
 		final DatabaseLogListener l = new Builder(print).build();
 		assertNotNull(l.getDate());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLimit());
+		assertEquals(LOGS_LIMIT_DEFAULT, l.getLogsLeft());
 		assertEquals(0, l.getThreshold());
 		assertEquals(null, l.getSQL());
 		assertEquals("", out.toString("UTF-8"));
@@ -165,10 +224,13 @@ public class DatabaseLogListenerTest
 	@Test void testBuilderNonDefault() throws UnsupportedEncodingException
 	{
 		final DatabaseLogListener l = new Builder(print).
+				logsLimit(8765432).
 				durationThreshold(567).
 				sqlFilter("specialSql").
 				build();
 		assertNotNull(l.getDate());
+		assertEquals(8765432, l.getLogsLimit());
+		assertEquals(8765432, l.getLogsLeft());
 		assertEquals(567, l.getThreshold());
 		assertEquals("specialSql", l.getSQL());
 		assertEquals("", out.toString("UTF-8"));
@@ -183,6 +245,15 @@ public class DatabaseLogListenerTest
 				() -> new Builder(null),
 				NullPointerException.class,
 				"out");
+	}
+
+	@Test void testBuilderLogsLimitZero()
+	{
+		final Builder b = new Builder(print);
+		assertFails(
+				() -> b.logsLimit(0),
+				IllegalArgumentException.class,
+				"logsLimit must be greater zero, but was 0");
 	}
 
 	@Test void testBuilderDurationThresholdZero()
