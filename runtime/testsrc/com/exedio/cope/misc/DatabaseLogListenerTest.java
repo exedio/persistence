@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.misc.DatabaseLogListener.Builder;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -147,5 +148,67 @@ public class DatabaseLogListenerTest
 				() -> new DatabaseLogListener(0, null, null),
 				NullPointerException.class,
 				"out");
+	}
+
+	@Test void testBuilderDefault() throws UnsupportedEncodingException
+	{
+		final DatabaseLogListener l = new Builder(print).build();
+		assertNotNull(l.getDate());
+		assertEquals(0, l.getThreshold());
+		assertEquals(null, l.getSQL());
+		assertEquals("", out.toString("UTF-8"));
+
+		l.onStatement("sql", asList(), 1, 2, 3, 4);
+		assertIt("1|2|3|4|sql|[]");
+	}
+
+	@Test void testBuilderNonDefault() throws UnsupportedEncodingException
+	{
+		final DatabaseLogListener l = new Builder(print).
+				durationThreshold(567).
+				sqlFilter("specialSql").
+				build();
+		assertNotNull(l.getDate());
+		assertEquals(567, l.getThreshold());
+		assertEquals("specialSql", l.getSQL());
+		assertEquals("", out.toString("UTF-8"));
+
+		l.onStatement("specialSql", asList(), 1, 2, 3, 567);
+		assertIt("1|2|3|567|specialSql|[]");
+	}
+
+	@Test void testBuilderOutNull()
+	{
+		assertFails(
+				() -> new Builder(null),
+				NullPointerException.class,
+				"out");
+	}
+
+	@Test void testBuilderDurationThresholdZero()
+	{
+		final Builder b = new Builder(print);
+		assertFails(
+				() -> b.durationThreshold(0),
+				IllegalArgumentException.class,
+				"durationThreshold must be greater zero, but was 0");
+	}
+
+	@Test void testBuilderSqlFilterNull()
+	{
+		final Builder b = new Builder(print);
+		assertFails(
+				() -> b.sqlFilter(null),
+				NullPointerException.class,
+				"sqlFilter");
+	}
+
+	@Test void testBuilderSqlFilterEmpty()
+	{
+		final Builder b = new Builder(print);
+		assertFails(
+				() -> b.sqlFilter(""),
+				IllegalArgumentException.class,
+				"sqlFilter must not be empty");
 	}
 }

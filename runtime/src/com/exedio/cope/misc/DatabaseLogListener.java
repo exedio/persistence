@@ -18,6 +18,8 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.util.Check.requireGreaterZero;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
@@ -29,6 +31,35 @@ import java.util.Locale;
 
 public final class DatabaseLogListener implements DatabaseListener
 {
+	public static final class Builder
+	{
+		private final PrintStream out;
+		private int durationThreshold = 0;
+		private String sqlFilter = null;
+
+		public Builder(final PrintStream out)
+		{
+			this.out = requireNonNull(out, "out");
+		}
+
+		public Builder durationThreshold(final int durationThreshold)
+		{
+			this.durationThreshold = requireGreaterZero(durationThreshold, "durationThreshold");
+			return this;
+		}
+
+		public Builder sqlFilter(final String sqlFilter)
+		{
+			this.sqlFilter = requireNonEmpty(sqlFilter, "sqlFilter");
+			return this;
+		}
+
+		public DatabaseLogListener build()
+		{
+			return new DatabaseLogListener(durationThreshold, sqlFilter, out);
+		}
+	}
+
 	private final long date;
 	private final int threshold;
 	private final String sql;
