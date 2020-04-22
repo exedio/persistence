@@ -33,6 +33,7 @@ timestamps
 				def gitStatus = readFile('git-status.txt')
 				if(gitStatus!='?? git-status.txt\n')
 				{
+					echo 'FAILURE because fetching dependencies produces git diff, see git-status.txt'
 					archiveArtifacts 'git-status.txt'
 					currentBuild.result = 'FAILURE'
 				}
