@@ -60,7 +60,7 @@ timestamps
 					attachLog: true,
 					notifyEveryUnstableBuild: true])
 
-			echo("Delete working dir after " + currentBuild.result)
+			echo("Delete working dir after build")
 			deleteDir()
 		}
 	}}
