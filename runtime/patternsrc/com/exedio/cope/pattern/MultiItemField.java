@@ -220,7 +220,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	/**
 	 * @deprecated use {@link #create(Class)} and {@link #canBe(Class)} instead
 	 */
-	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
+	@SuppressWarnings({"unchecked","rawtypes","RedundantSuppression"}) // OK: generic array
 	@Deprecated
 	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,
@@ -233,7 +233,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	/**
 	 * @deprecated use {@link #create(Class)} and {@link #canBe(Class)} instead
 	 */
-	@SuppressWarnings({"unchecked","rawtypes"}) // OK: generic array
+	@SuppressWarnings({"unchecked","rawtypes","RedundantSuppression"}) // OK: generic array
 	@Deprecated
 	public static <E> MultiItemField<E> create(
 			final Class<E> valueClass,

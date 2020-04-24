@@ -11,8 +11,8 @@ timestamps
 			))
 	])
 
-	def idea = 'idea-2019.2.1'
-	def confighome = '.IdeaIC2019.2'
+	def idea = 'idea-2020.1'
+	def confighome = 'IdeaIC2020.1'
 
 	//noinspection GroovyAssignabilityCheck
 	lock('idea') { node('GitCloneExedio && ' + jdk + ' && ' + idea)
@@ -32,7 +32,7 @@ timestamps
 				sh "rm -rf " + env.HOME  + "/.Idea*"
 				sh "rm -rf " + env.HOME  + "/.config/JetBrains"
 				sh "ant/bin/ant -noinput -f conf/idea" +
-						' -Dconfig.home=' + env.HOME + '/' + confighome +
+						' -Dconfig.home=' + env.HOME + '/.config/JetBrains/' + confighome +
 						' -Djava.home=' + env.JAVA_HOME
 
 				sh "/" + idea + "/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"

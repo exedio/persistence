@@ -104,7 +104,11 @@ public final class SchemaView
 				bf.append(" FROM ").
 					append(table(type));
 
-				for(Type<?> superType = type.getSupertype(); superType!=null; superType=superType.getSupertype())
+				for(
+						//noinspection ConstantConditions OK: bug in idea
+						Type<?> superType = type.getSupertype();
+						superType!=null;
+						superType=superType.getSupertype())
 				{
 					bf.append(" JOIN ").
 						append(table(superType)).

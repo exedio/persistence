@@ -241,7 +241,6 @@ public class ColumnTest extends SchemaReadyTest
 			while(resultSet.next())
 				actual.add(resultSet.getString(1));
 			actual.sort(Comparator.nullsFirst(Comparator.naturalOrder()));
-			//noinspection MisorderedAssertEqualsArguments
 			assertEquals(expected, actual);
 		}
 	}

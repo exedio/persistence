@@ -840,7 +840,6 @@ public abstract class ClusterTest
 		cl.testSink = sink;
 		cl.handle(toPacket(buf));
 		cl.testSink = null;
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(list(), sink);
 	}
 

@@ -1205,7 +1205,6 @@ public final class Query<R> implements Serializable
 
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
-						@SuppressWarnings("ConstantConditions") // OK
 						final Object resultCell =
 							selectMarshallers[selectIndex].unmarshal(resultSet, columnIndex);
 						columnIndex += selectMarshallers[selectIndex].columns;

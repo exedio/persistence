@@ -3,12 +3,7 @@
 <project name="resetIdeaConfig" default="default" basedir=".">
 
 	<target name="default">
-		<copy todir="${config.home}/config/options" file="jdk.table.xml" overwrite="true">
-			<filterset>
-				<filter token="JAVA_HOME_1.8" value="${java.home}" />
-			</filterset>
-		</copy>
-		<copy todir="${config.home}/config/options" file="path.macros.xml" overwrite="true">
+		<copy todir="${config.home}/options" file="path.macros.xml" overwrite="true">
 			<filterset>
 				<filter token="JAVA_HOME_1.8" value="${java.home}" />
 			</filterset>

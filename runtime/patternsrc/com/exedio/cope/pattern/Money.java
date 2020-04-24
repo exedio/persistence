@@ -333,7 +333,7 @@ public final class Money<C extends Currency>
 
 	private static <C extends Currency> Money<C>[] wrap(final C currency, final Price[] value)
 	{
-		@SuppressWarnings({"unchecked","rawtypes"})
+		@SuppressWarnings({"unchecked","rawtypes","RedundantSuppression"})
 		final Money<C>[] result = new Money[value.length];
 		//noinspection Java8ArraySetAll OK: performance
 		for(int i = 0; i<result.length; i++)
@@ -343,7 +343,7 @@ public final class Money<C extends Currency>
 
 	public static <CURRENCY extends Currency> Money<CURRENCY>[] array(final int size)
 	{
-		@SuppressWarnings({"unchecked","rawtypes"})
+		@SuppressWarnings({"unchecked","rawtypes","RedundantSuppression"})
 		final Money<CURRENCY>[] result = new Money[size];
 		return result;
 	}

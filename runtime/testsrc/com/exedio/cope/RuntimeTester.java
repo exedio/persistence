@@ -368,7 +368,6 @@ final class RuntimeTester
 	{
 		final ArrayList<Field<?>> consumer = new ArrayList<>();
 		actual.acceptFieldsCovered(consumer::add);
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(expected, consumer);
 	}
 
@@ -378,7 +377,6 @@ final class RuntimeTester
 	{
 		final ArrayList<Field<?>> consumer = new ArrayList<>();
 		actual.acceptFieldsCovered(consumer::add);
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(expected, consumer);
 	}
 }

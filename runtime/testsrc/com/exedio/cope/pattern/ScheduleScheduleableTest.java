@@ -176,7 +176,6 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 		final ArrayList<ExpectedRun> actual = new ArrayList<>();
 		for(final Run run : actualList)
 			actual.add(new ExpectedRun(run));
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(expectedRuns, actual);
 	}
 

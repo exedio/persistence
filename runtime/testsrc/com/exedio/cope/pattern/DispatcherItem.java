@@ -99,7 +99,6 @@ public final class DispatcherItem extends Item
 
 	static void historyAssert(final String... expected)
 	{
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(Arrays.asList(expected), actualHistory);
 		actualHistory.clear();
 	}

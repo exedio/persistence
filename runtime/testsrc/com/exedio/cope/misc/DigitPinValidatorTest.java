@@ -135,7 +135,6 @@ public class DigitPinValidatorTest
 			assertEquals(pinLen, newPin.length());
 			actual.add(newPin);
 		}
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(expected, actual);
 	}
 

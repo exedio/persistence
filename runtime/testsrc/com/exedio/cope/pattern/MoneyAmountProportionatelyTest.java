@@ -138,7 +138,7 @@ public class MoneyAmountProportionatelyTest
 
 	private static Money<Cy>[] values(final double... values)
 	{
-		@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic arrays
+		@SuppressWarnings({"unchecked", "rawtypes", "RedundantSuppression"}) // OK: no generic arrays
 		final Money<Cy>[] result = new Money[values.length];
 		for(int i = 0; i<values.length; i++)
 			result[i] = valueOf(values[i]);
