@@ -27,8 +27,8 @@ import static com.exedio.cope.testmodel.StringItem.max4;
 import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
-import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
-import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.CharSet;
@@ -82,12 +82,15 @@ public class StringModelTest
 
 	@Test void testConditions()
 	{
-		assertEqualsStrict(any.equal("hallo"), any.equal("hallo"));
-		assertNotEqualsStrict(any.equal("hallo"), any.equal("bello"));
-		assertNotEqualsStrict(any.equal("hallo"), any.equal((String)null));
-		assertNotEqualsStrict(any.equal("hallo"), any.like("hallo"));
-		assertEqualsStrict(any.equal(mandatory), any.equal(mandatory));
-		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
+		assertEqualsAndHash(any.equal("hallo"), any.equal("hallo"));
+		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
+		assertNotEqualsAndHash(
+				any.equal("hallo"),
+				any.equal("bello"),
+				any.equal((String)null),
+				any.like("hallo"),
+				any.equal(mandatory),
+				any.equal(any));
 	}
 
 	@Test void testConditionsConvenience()

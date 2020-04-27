@@ -239,21 +239,6 @@ public final class Assert
 		assertEquals(expected, actual);
 	}
 
-	public static void assertEqualsStrict(final Object expected, final Object actual)
-	{
-		assertEquals(expected, actual);
-		assertEquals(actual, expected);
-		if(expected!=null)
-			assertEquals(expected.hashCode(), actual.hashCode());
-	}
-
-	public static void assertNotEqualsStrict(final Object expected, final Object actual)
-	{
-		assertTrue(!expected.equals(actual));
-		assertTrue(!actual.equals(expected));
-		assertTrue(expected.hashCode()!=actual.hashCode());
-	}
-
 	private static final String DATE_FORMAT_FULL = "yyyy-MM-dd HH:mm:ss.SSS";
 
 	public static void assertWithin(final Date expectedBefore, final Date expectedAfter, final Date actual)

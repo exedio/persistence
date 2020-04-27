@@ -31,7 +31,6 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -160,12 +159,14 @@ public class QueryTest extends TestWithEnvironment
 		assertEquals(6, r(1, 4).getTotal());
 		assertEquals(1, r(1, 4).getPageOffset());
 		assertEquals(4, r(1, 4).getPageLimitOrMinusOne());
-		assertEqualsResult(r(0, 3), r(0, 3));
-		assertEqualsResult(r(1, 3), r(1, 3));
-		assertNotEqualsResult(r(0, 3), r(1, 3));
-		assertNotEqualsResult(r(0, 3), r(1, 4));
-		assertNotEqualsResult(r(0, 3), r(2, 3));
-		assertNotEqualsResult(r(0, 3), r(3, 3));
+		assertEqualsAndHash(r(0, 3), r(0, 3));
+		assertEqualsAndHash(r(1, 3), r(1, 3));
+		assertNotEqualsAndHash(
+				r(0, 3),
+				r(1, 3),
+				r(1, 4),
+				r(2, 3),
+				r(3, 3));
 
 		{
 			final Query.Result<Day> r = new Query.Result<>(asList(d1), 0, 0);
@@ -266,20 +267,6 @@ public class QueryTest extends TestWithEnvironment
 		q.setOrderBy(TYPE.getThis(), true);
 		q.setPage(offset, limit);
 		return q.searchAndTotal();
-	}
-
-	private static void assertEqualsResult(final Query.Result<Day> expected, final Query.Result<Day> actual)
-	{
-		assertEquals(expected, actual);
-		assertEquals(actual, expected);
-		assertEquals(actual.hashCode(), expected.hashCode());
-	}
-
-	private static void assertNotEqualsResult(final Query.Result<Day> expected, final Query.Result<Day> actual)
-	{
-		assertFalse(expected.equals(actual));
-		assertFalse(actual.equals(expected));
-		assertFalse(actual.hashCode()==expected.hashCode());
 	}
 
 	@Test void testGroupBy()

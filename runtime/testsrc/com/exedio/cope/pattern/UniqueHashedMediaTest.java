@@ -27,8 +27,8 @@ import static com.exedio.cope.pattern.UniqueHashedMediaItem.value;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.w200;
 import static com.exedio.cope.pattern.UniqueHashedMediaItem.w300;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
-import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -155,7 +155,7 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		final UniqueHashedMediaItem mediaItem2 = getOrCreate(toValue(bytes8, "image/jpeg"));
 		assertEquals(mediaItem, mediaItem2);
 		final UniqueHashedMediaItem anotherItem = getOrCreate(toValue(bytes4, "image/jpeg"));
-		assertNotEqualsStrict(mediaItem, anotherItem);
+		assertNotEqualsAndHash(mediaItem, anotherItem);
 		try
 		{
 			getOrCreate(toValue(bytes4, "image/gif"));

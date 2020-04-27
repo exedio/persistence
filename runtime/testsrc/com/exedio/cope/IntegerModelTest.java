@@ -25,8 +25,8 @@ import static com.exedio.cope.IntegerItem.max4;
 import static com.exedio.cope.IntegerItem.min4;
 import static com.exedio.cope.IntegerItem.min4Max8;
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
-import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.lang.Integer.MAX_VALUE;
 import static java.lang.Integer.MIN_VALUE;
 import static org.junit.Assert.fail;
@@ -106,11 +106,14 @@ public class IntegerModelTest
 
 	@Test void testConditions()
 	{
-		assertEqualsStrict(any.equal(1), any.equal(1));
-		assertNotEqualsStrict(any.equal(1), any.equal(2));
-		assertNotEqualsStrict(any.equal(1), any.equal((Integer)null));
-		assertNotEqualsStrict(any.equal(1), any.greater(1));
-		assertEqualsStrict(any.equal(mandatory), any.equal(mandatory));
-		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
+		assertEqualsAndHash(any.equal(1), any.equal(1));
+		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
+		assertNotEqualsAndHash(
+				any.equal(1),
+				any.equal(2),
+				any.equal((Integer)null),
+				any.greater(1),
+				any.equal(mandatory),
+				any.equal(any));
 	}
 }

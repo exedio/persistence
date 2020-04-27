@@ -19,9 +19,9 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.Range.valueOf;
-import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
-import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
 import static com.exedio.cope.tojunit.Assert.reserialize;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -125,12 +125,19 @@ public class RangeTest
 
 	@Test void testEquals()
 	{
-		assertEqualsStrict(valueOf(1, 3), valueOf(1, 3));
-		assertEqualsStrict(valueOf(null, 3), valueOf(null, 3));
-		assertEqualsStrict(valueOf(1, null), valueOf(1, null));
-		assertEqualsStrict(valueOf((Integer)null, null), valueOf((Integer)null, null));
-		assertNotEqualsStrict(valueOf(1, 3), valueOf(2, 3));
-		assertNotEqualsStrict(valueOf(1, 3), valueOf(1, 4));
+		assertEqualsAndHash(valueOf(1, 3), valueOf(1, 3));
+		assertEqualsAndHash(valueOf(null, 3), valueOf(null, 3));
+		assertEqualsAndHash(valueOf(1, null), valueOf(1, null));
+		assertSame(valueOf((Integer)null, null), valueOf((Integer)null, null));
+		assertNotEqualsAndHash(
+				valueOf(1, 3),
+				valueOf(2, 3),
+				valueOf(1, 4),
+				valueOf(1, null),
+				valueOf(null, 3),
+				valueOf(null, null),
+				valueOf(7, 7),
+				valueOf(6, 6));
 		try
 		{
 			valueOf(3, 2);
@@ -141,8 +148,7 @@ public class RangeTest
 			assertEquals("from 3 greater than to 2", e.getMessage());
 		}
 
-		assertEqualsStrict(valueOf(5, 5), valueOf(5, 5));
-		assertNotEqualsStrict(valueOf(5, 5), valueOf(6, 6));
+		assertEqualsAndHash(valueOf(5, 5), valueOf(5, 5));
 
 		assertNotSame(valueOf(1, 3), valueOf(1, 3));
 		assertNotSame(valueOf(null, 3), valueOf(null, 3));

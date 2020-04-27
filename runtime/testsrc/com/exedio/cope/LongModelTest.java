@@ -25,8 +25,8 @@ import static com.exedio.cope.LongItem.max4;
 import static com.exedio.cope.LongItem.min4;
 import static com.exedio.cope.LongItem.min4Max8;
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static com.exedio.cope.tojunit.Assert.assertEqualsStrict;
-import static com.exedio.cope.tojunit.Assert.assertNotEqualsStrict;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
+import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static org.junit.Assert.fail;
@@ -106,11 +106,14 @@ public class LongModelTest
 
 	@Test void testConditions()
 	{
-		assertEqualsStrict(any.equal(1l), any.equal(1l));
-		assertNotEqualsStrict(any.equal(1l), any.equal(2l));
-		assertNotEqualsStrict(any.equal(1l), any.equal((Long)null));
-		assertNotEqualsStrict(any.equal(1l), any.greater(1l));
-		assertEqualsStrict(any.equal(mandatory), any.equal(mandatory));
-		assertNotEqualsStrict(any.equal(mandatory), any.equal(any));
+		assertEqualsAndHash(any.equal(1l), any.equal(1l));
+		assertEqualsAndHash(any.equal(mandatory), any.equal(mandatory));
+		assertNotEqualsAndHash(
+				any.equal(1l),
+				any.equal(2l),
+				any.equal((Long)null),
+				any.greater(1l),
+				any.equal(mandatory),
+				any.equal(any));
 	}
 }
