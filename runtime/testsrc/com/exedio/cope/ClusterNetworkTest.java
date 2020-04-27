@@ -45,9 +45,8 @@ public abstract class ClusterNetworkTest
 	{
 		final Properties p = new Properties();
 		p.setProperty("cluster.multicast", "false");
-		p.setProperty("cluster.sendAddress"  , "127.0.0.1");
+		p.setProperty("cluster.sendAddress"  , "127.0.0.1:" + PORTS.get(send));
 		p.setProperty("cluster.listenAddress", "127.0.0.1");
-		p.setProperty("cluster.sendDestinationPort", PORTS.get(send));
 		p.setProperty("cluster.listenPort",          PORTS.get(listen));
 		return getProperties(p, "Connect Properties Source (singlecast " + listen + "<-[" + send + "])");
 	}

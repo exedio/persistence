@@ -76,7 +76,6 @@ public class ClusterPropertiesTest
 		assertIt("sendSourcePort", 14445, fields);
 		assertIt("sendInterface", "DEFAULT", fields);
 		assertIt("sendAddress", ADDRESS, fields);
-		assertIt("sendDestinationPort", PORT, fields);
 		assertIt("sendBufferDefault", true, fields);
 		assertIt("sendBuffer", 50000, fields);
 		assertIt("sendTrafficDefault", true, fields);
@@ -119,7 +118,6 @@ public class ClusterPropertiesTest
 		assertIt("sendSourcePort", 14445, fields);
 		assertIt("sendInterface", "DEFAULT", fields);
 		assertIt("sendAddress", null, ADDRESS, fields);
-		assertIt("sendDestinationPort", PORT, fields);
 		assertIt("sendBufferDefault", true, fields);
 		assertIt("sendBuffer", 50000, fields);
 		assertIt("sendTrafficDefault", true, fields);
@@ -217,8 +215,8 @@ public class ClusterPropertiesTest
 				single("secret", 1234)
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.50"), p.sendAddress);
-		assertEquals(14446, p.sendDestinationPort);
+		assertEquals(InetAddress.getByName("224.0.0.50"), p.send.address);
+		assertEquals(14446, p.send.port);
 	}
 
 	@Test void testSendAddressEmpty()
@@ -241,20 +239,19 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.55")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.55"), p.sendAddress);
-		assertEquals(14446, p.sendDestinationPort);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.send.address);
+		assertEquals(14446, p.send.port);
 	}
 
 	@Test void testSendAddressSetWithPort() throws UnknownHostException
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("sendAddress", "224.0.0.55"),
-				single("sendDestinationPort", 14464)
+				single("sendAddress", "224.0.0.55:14464")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.55"), p.sendAddress);
-		assertEquals(14464, p.sendDestinationPort);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.send.address);
+		assertEquals(14464, p.send.port);
 	}
 
 	@Test void testSendAddressWrong()
@@ -276,14 +273,14 @@ public class ClusterPropertiesTest
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("sendDestinationPort", "")
+				single("sendAddress", "224.0.0.55:")
 		));
 		final IllegalPropertiesException e = assertFails(
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
-				"property sendDestinationPort in DESC " +
-				"must be an integer greater or equal 1, " +
-				"but was ''");
+				"property sendAddress in DESC " +
+				"must have an integer between 1 and 65535 as port, " +
+				"but was '' at position 10 in '224.0.0.55:'");
 		assertEquals(NumberFormatException.class, e.getCause().getClass());
 	}
 
@@ -291,14 +288,14 @@ public class ClusterPropertiesTest
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("sendDestinationPort", "zack")
+				single("sendAddress", "224.0.0.55:zack")
 		));
 		final IllegalPropertiesException e = assertFails(
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
-				"property sendDestinationPort in DESC " +
-				"must be an integer greater or equal 1, " +
-				"but was 'zack'");
+				"property sendAddress in DESC " +
+				"must have an integer between 1 and 65535 as port, " +
+				"but was 'zack' at position 10 in '224.0.0.55:zack'");
 		assertEquals(NumberFormatException.class, e.getCause().getClass());
 	}
 
@@ -306,50 +303,50 @@ public class ClusterPropertiesTest
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("sendDestinationPort", 0)
+				single("sendAddress", "224.0.0.50:0")
 		));
 		assertFails(
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
-				"property sendDestinationPort in DESC " +
-				"must be an integer greater or equal 1, " +
-				"but was 0");
+				"property sendAddress in DESC " +
+				"must have an integer between 1 and 65535 as port, " +
+				"but was 0 at position 10 in '224.0.0.50:0'");
 	}
 
 	@Test void testSendAddressPortMaximumExceeded()
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("sendDestinationPort", 65536)
+				single("sendAddress", "224.0.0.50:65536")
 		));
 		assertFails(
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
-				"property sendDestinationPort in DESC " +
-				"must be an integer between 1 and 65535, " +
-				"but was 65536");
+				"property sendAddress in DESC " +
+				"must have an integer between 1 and 65535 as port, " +
+				"but was 65536 at position 10 in '224.0.0.50:65536'");
 	}
 
 	@Test void testSendAddressPortMinimum() throws UnknownHostException
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("sendDestinationPort", 1)
+				single("sendAddress", "224.0.0.50:1")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.50"), p.sendAddress);
-		assertEquals(1, p.sendDestinationPort);
+		assertEquals(InetAddress.getByName("224.0.0.50"), p.send.address);
+		assertEquals(1, p.send.port);
 	}
 
 	@Test void testSendAddressPortMaximum() throws UnknownHostException
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
-				single("sendDestinationPort", 65535)
+				single("sendAddress", "224.0.0.50:65535")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.50"), p.sendAddress);
-		assertEquals(65535, p.sendDestinationPort);
+		assertEquals(InetAddress.getByName("224.0.0.50"), p.send.address);
+		assertEquals(65535, p.send.port);
 	}
 
 	@Test void testListenAddressEmpty()

@@ -53,8 +53,7 @@ final class ClusterProperties extends Properties
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
 	private final InetAddress sendInterface   = valAd("sendInterface");
-	final   InetAddress   sendAddress         = valAd("sendAddress",         multicast?MULTICAST_ADDRESS:null);
-	        final int     sendDestinationPort = value("sendDestinationPort", PORT, 1);
+	        final Send    send                = valSd("sendAddress",         multicast?MULTICAST_ADDRESS:null);
 	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
@@ -94,11 +93,6 @@ final class ClusterProperties extends Properties
 		if(logger.isInfoEnabled())
 			logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
-		if(sendDestinationPort<1 || sendDestinationPort>0xffff)
-			throw newException("sendDestinationPort",
-					"must be an integer between 1 and " + 0xffff + ", " +
-					"but was " + sendDestinationPort);
-
 		packetSize = packetSizeField & (~3);
 		{
 			final Random r = new Random(secret);
@@ -122,6 +116,58 @@ final class ClusterProperties extends Properties
 			return null;
 
 		return getInetAddressByName(key, value);
+	}
+
+	static final class Send
+	{
+		final InetAddress address;
+		final int port;
+
+		private Send(final InetAddress address, final int port)
+		{
+			this.address = address;
+			this.port = port;
+		}
+	}
+
+	private Send valSd(final String key, final String defaultValue)
+	{
+		final String value = value(key, defaultValue);
+		if(value.isEmpty())
+			throw newException(key, "must not be empty");
+
+		final String address;
+		final int port;
+		final int pos = value.indexOf(':');
+		if(pos<0)
+		{
+			address = value;
+			port = PORT;
+		}
+		else
+		{
+			address = value.substring(0, pos);
+			final String portString = value.substring(pos + 1);
+			try
+			{
+				port = Integer.parseInt(portString);
+			}
+			catch(final NumberFormatException e)
+			{
+				throw newException(key,
+						"must have an integer between 1 and " + 0xffff + " as port, " +
+						"but was '" + portString + "' " +
+						"at position " + pos + " in '" + value + '\'', e);
+			}
+		}
+
+		if(port<1 || port>0xffff)
+			throw newException(key,
+					"must have an integer between 1 and " + 0xffff + " as port, " +
+					"but was " + port + " " +
+					"at position " + pos + " in '" + value + '\'');
+
+		return new Send(getInetAddressByName(key, address), port);
 	}
 
 	private InetAddress getInetAddressByName(final String key, final String value)

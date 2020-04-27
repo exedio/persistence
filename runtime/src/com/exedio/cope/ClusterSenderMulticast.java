@@ -18,23 +18,21 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.ClusterProperties.Send;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
 import java.net.SocketException;
 
 final class ClusterSenderMulticast extends ClusterSender
 {
-	private final InetAddress address;
-	private final int port;
+	private final Send send;
 	private final DatagramSocket socket;
 
 	ClusterSenderMulticast(final ClusterProperties properties, final String modelName)
 	{
 		super(properties, modelName);
-		this.address = properties.sendAddress;
-		this.port = properties.sendDestinationPort;
+		this.send = properties.send;
 		this.socket = properties.newSendSocket();
 	}
 
@@ -48,7 +46,7 @@ final class ClusterSenderMulticast extends ClusterSender
 	void send(final int length, final byte[] buf) throws IOException
 	{
 		final DatagramPacket packet =
-			new DatagramPacket(buf, length, address, port);
+			new DatagramPacket(buf, length, send.address, send.port);
 		socket.send(packet);
 	}
 
