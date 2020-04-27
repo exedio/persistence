@@ -39,11 +39,12 @@ import org.junit.jupiter.api.Test;
 
 public class ClusterNetworkPing3Test extends ClusterNetworkTest
 {
+	private boolean fromMyself = false;
 	private double fromMyselfBeforeA;
 	private double fromMyselfBeforeB;
 	private double fromMyselfBeforeC;
 
-	@Test void test() throws InterruptedException
+	@Test void testMulticast() throws InterruptedException
 	{
 		assertFalse(modelA.isConnected());
 		assertFalse(modelB.isConnected());
@@ -57,6 +58,12 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertEquals("Connect Properties Source (multicast)", modelB.getConnectProperties().getSource());
 		assertEquals("Connect Properties Source (multicast)", modelC.getConnectProperties().getSource());
 
+		fromMyself = true;
+		test();
+	}
+
+	private void test() throws InterruptedException
+	{
 		assertTrue(modelA.isConnected());
 		assertTrue(modelB.isConnected());
 		assertTrue(modelC.isConnected());
@@ -173,7 +180,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		}
 	}
 
-	private static void assertIt(
+	private void assertIt(
 			final int fromMyself,
 			final double fromMyselfBefore,
 			final Model model,
@@ -182,8 +189,8 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertEquals(0, actual.getException());
 		assertEquals(0, actual.getMissingMagic());
 		assertEquals(0, actual.getWrongSecret());
-		assertEquals(fromMyself, actual.getFromMyself()     - fromMyselfBefore);
-		assertEquals(fromMyself, count("fromMyself", model) - fromMyselfBefore);
+		assertEquals(this.fromMyself ? fromMyself : 0, actual.getFromMyself()     - fromMyselfBefore);
+		assertEquals(this.fromMyself ? fromMyself : 0, count("fromMyself", model) - fromMyselfBefore);
 	}
 
 	private static Map<Integer,Node> getNodes(final ClusterListenerInfo i)
