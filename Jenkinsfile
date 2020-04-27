@@ -49,6 +49,7 @@ timestamps
 						' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
 						' -Druntime.test.ClusterNetworkTest.port.A=' + port(2) +
 						' -Druntime.test.ClusterNetworkTest.port.B=' + port(3) +
+						' -Druntime.test.ClusterNetworkTest.port.C=' + port(4) +
 						' -Dfindbugs.output=xml'
 
 				recordIssues(

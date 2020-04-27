@@ -215,8 +215,9 @@ public class ClusterPropertiesTest
 				single("secret", 1234)
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.50"), p.send.address);
-		assertEquals(14446, p.send.port);
+		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
+		assertEquals(14446, p.send()[0].port);
+		assertEquals(1, p.send().length);
 	}
 
 	@Test void testSendAddressEmpty()
@@ -232,6 +233,32 @@ public class ClusterPropertiesTest
 				"must not be empty");
 	}
 
+	@Test void testSendAddressTrimStart()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendAddress", " 224.0.0.55")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendAddress in DESC " +
+				"must be trimmed, but was ' 224.0.0.55'");
+	}
+
+	@Test void testSendAddressTrimEnd()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendAddress", "224.0.0.55 ")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendAddress in DESC " +
+				"must be trimmed, but was '224.0.0.55 '");
+	}
+
 	@Test void testSendAddressSet() throws UnknownHostException
 	{
 		final Source s = describe("DESC", cascade(
@@ -239,8 +266,9 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.55")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.55"), p.send.address);
-		assertEquals(14446, p.send.port);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
+		assertEquals(14446, p.send()[0].port);
+		assertEquals(1, p.send().length);
 	}
 
 	@Test void testSendAddressSetWithPort() throws UnknownHostException
@@ -250,8 +278,9 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.55:14464")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.55"), p.send.address);
-		assertEquals(14464, p.send.port);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
+		assertEquals(14464, p.send()[0].port);
+		assertEquals(1, p.send().length);
 	}
 
 	@Test void testSendAddressWrong()
@@ -334,8 +363,9 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.50:1")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.50"), p.send.address);
-		assertEquals(1, p.send.port);
+		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
+		assertEquals(1, p.send()[0].port);
+		assertEquals(1, p.send().length);
 	}
 
 	@Test void testSendAddressPortMaximum() throws UnknownHostException
@@ -345,8 +375,52 @@ public class ClusterPropertiesTest
 				single("sendAddress", "224.0.0.50:65535")
 		));
 		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.50"), p.send.address);
-		assertEquals(65535, p.send.port);
+		assertEquals(InetAddress.getByName("224.0.0.50"), p.send()[0].address);
+		assertEquals(65535, p.send()[0].port);
+		assertEquals(1, p.send().length);
+	}
+
+	@Test void testSendAddressMultiple() throws UnknownHostException
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("multicast", false),
+				single("sendAddress", "224.0.0.55 224.0.0.56:14464")
+		));
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
+		assertEquals(14446, p.send()[0].port);
+		assertEquals(InetAddress.getByName("224.0.0.56"), p.send()[1].address);
+		assertEquals(14464, p.send()[1].port);
+		assertEquals(2, p.send().length);
+	}
+
+	@Test void testSendAddressMultipleSpaces() throws UnknownHostException
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("multicast", false),
+				single("sendAddress", "224.0.0.55   224.0.0.56:14464")
+		));
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.send()[0].address);
+		assertEquals(14446, p.send()[0].port);
+		assertEquals(InetAddress.getByName("224.0.0.56"), p.send()[1].address);
+		assertEquals(14464, p.send()[1].port);
+		assertEquals(2, p.send().length);
+	}
+
+	@Test void testSendAddressMultipleMulticast()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendAddress", "224.0.0.55 224.0.0.56:14464")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendAddress in DESC must must contain exactly one address for multicast, " +
+				"but was [/224.0.0.55:14446, /224.0.0.56:14464]");
 	}
 
 	@Test void testListenAddressEmpty()

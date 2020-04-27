@@ -27,6 +27,7 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.EnumMap;
 import java.util.Properties;
+import java.util.StringJoiner;
 import org.junit.jupiter.api.AfterEach;
 
 public abstract class ClusterNetworkTest
@@ -41,14 +42,17 @@ public abstract class ClusterNetworkTest
 
 	static final ConnectProperties getPropertiesSinglecast(
 			final Port listen,
-			final Port send)
+			final Port... send)
 	{
+		final StringJoiner sendAddress = new StringJoiner(" ");
+		for(final Port s : send)
+			sendAddress.add("127.0.0.1:" + PORTS.get(s));
 		final Properties p = new Properties();
 		p.setProperty("cluster.multicast", "false");
-		p.setProperty("cluster.sendAddress"  , "127.0.0.1:" + PORTS.get(send));
+		p.setProperty("cluster.sendAddress"  , sendAddress.toString());
 		p.setProperty("cluster.listenAddress", "127.0.0.1");
 		p.setProperty("cluster.listenPort",          PORTS.get(listen));
-		return getProperties(p, "Connect Properties Source (singlecast " + listen + "<-[" + send + "])");
+		return getProperties(p, "Connect Properties Source (singlecast " + listen + "<-" + java.util.Arrays.toString(send) + ")");
 	}
 
 	private static final String MULTICAST_ADDRESS;
@@ -65,7 +69,8 @@ public abstract class ClusterNetworkTest
 	enum Port
 	{
 		A(14446),
-		B(14447);
+		B(14447),
+		C(14448);
 
 		final int defaultValue;
 

@@ -29,7 +29,11 @@ import java.net.InetAddress;
 import java.net.MulticastSocket;
 import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Random;
+import java.util.StringTokenizer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -53,7 +57,7 @@ final class ClusterProperties extends Properties
 	private final boolean sendSourcePortAuto  = value("sendSourcePortAuto" , true);
 	private final int     sendSourcePort      = value("sendSourcePort"     , 14445, 1);
 	private final InetAddress sendInterface   = valAd("sendInterface");
-	        final Send    send                = valSd("sendAddress",         multicast?MULTICAST_ADDRESS:null);
+	private final List<Send> send             = valSd("sendAddress",         multicast?MULTICAST_ADDRESS:null);
 	private final boolean sendBufferDefault   = value("sendBufferDefault"  , true);
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
@@ -93,6 +97,11 @@ final class ClusterProperties extends Properties
 		if(logger.isInfoEnabled())
 			logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
+		if(multicast && send.size()>1)
+			throw newException("sendAddress",
+					"must must contain exactly one address for multicast, " +
+					"but was " + send);
+
 		packetSize = packetSizeField & (~3);
 		{
 			final Random r = new Random(secret);
@@ -128,14 +137,29 @@ final class ClusterProperties extends Properties
 			this.address = address;
 			this.port = port;
 		}
+
+		@Override
+		public String toString()
+		{
+			return address.toString() + ':' + port;
+		}
 	}
 
-	private Send valSd(final String key, final String defaultValue)
+	private List<Send> valSd(final String key, final String defaultValue)
 	{
 		final String value = value(key, defaultValue);
-		if(value.isEmpty())
+		if(!value.trim().equals(value))
+			throw newException(key, "must be trimmed, but was '" + value + '\'');
+		final ArrayList<Send> result = new ArrayList<>();
+		for(final StringTokenizer tn = new StringTokenizer(value, " "); tn.hasMoreTokens(); )
+			result.add(valSdSingle(key, tn.nextToken()));
+		if(result.isEmpty())
 			throw newException(key, "must not be empty");
+		return Collections.unmodifiableList(result);
+	}
 
+	private Send valSdSingle(final String key, final String value)
+	{
 		final String address;
 		final int port;
 		final int pos = value.indexOf(':');
@@ -169,6 +193,13 @@ final class ClusterProperties extends Properties
 
 		return new Send(getInetAddressByName(key, address), port);
 	}
+
+	Send[] send()
+	{
+		return send.toArray(SEND_EMPTY);
+	}
+
+	private static final Send[] SEND_EMPTY = new Send[0];
 
 	private InetAddress getInetAddressByName(final String key, final String value)
 	{
