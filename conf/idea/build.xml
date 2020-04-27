@@ -3,7 +3,6 @@
 <project name="resetIdeaConfig" default="default" basedir=".">
 
 	<target name="default">
-		<delete dir="${config.home}" />
 		<copy todir="${config.home}/config/options" file="jdk.table.xml" overwrite="true">
 			<filterset>
 				<filter token="JAVA_HOME_1.8" value="${java.home}" />

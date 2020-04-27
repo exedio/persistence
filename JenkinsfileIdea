@@ -29,6 +29,8 @@ timestamps
 				env.JAVA_HOME = tool jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
+				sh "rm -rf " + env.HOME  + "/.Idea*"
+				sh "rm -rf " + env.HOME  + "/.config/JetBrains"
 				sh "ant/bin/ant -noinput -f conf/idea" +
 						' -Dconfig.home=' + env.HOME + '/' + confighome +
 						' -Djava.home=' + env.JAVA_HOME
