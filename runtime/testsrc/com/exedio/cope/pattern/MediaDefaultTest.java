@@ -173,7 +173,7 @@ public class MediaDefaultTest extends TestWithEnvironment
 				assertSame(file, e.getFeature());
 				assertEquals(item, e.getItem());
 				assertEquals("illegalContentType", e.getContentType());
-				assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.file, allowed is '*/*\' only.", e.getMessage());
+				assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.file, allowed is '*/*' only.", e.getMessage());
 				assertContent(bytes6, new Date(123456002), "file-major2/file-minor2", "");
 			}
 		}

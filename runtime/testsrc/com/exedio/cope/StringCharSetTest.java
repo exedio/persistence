@@ -102,7 +102,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		final StringCharSetItem cr    = any("cr", "ab\rcd");
 		final StringCharSetItem uuml  = any("uuml", "ab\u00fccd");
 		final StringCharSetItem del   = any("del", "\u007f");
-		final StringCharSetItem quote = any("quote", "\'");
+		final StringCharSetItem quote = any("quote", "'");
 		final StringCharSetItem brkts = any("brackets", "][");
 
 		final CharSet printable7bit  = new CharSet(' ', '~');
