@@ -86,7 +86,7 @@ public class HashConditionTest extends TestWithEnvironment
 
 		static Algorithm forCode(final String code)
 		{
-			for(final Algorithm a : Algorithm.values())
+			for(final Algorithm a : values())
 				if(a.code.equals(code))
 					return a;
 			throw new AssertionError();
