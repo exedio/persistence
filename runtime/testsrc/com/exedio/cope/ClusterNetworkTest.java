@@ -25,6 +25,7 @@ import static com.exedio.cope.util.Sources.view;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
+import java.util.EnumMap;
 import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 
@@ -38,27 +39,41 @@ public abstract class ClusterNetworkTest
 		return getProperties(p, "Connect Properties Source (multicast)");
 	}
 
-	static final ConnectProperties getPropertiesSinglecast(final boolean forward)
+	static final ConnectProperties getPropertiesSinglecast(
+			final Port listen,
+			final Port send)
 	{
 		final Properties p = new Properties();
 		p.setProperty("cluster.multicast", "false");
 		p.setProperty("cluster.sendAddress"  , "127.0.0.1");
 		p.setProperty("cluster.listenAddress", "127.0.0.1");
-		p.setProperty("cluster.sendDestinationPort", forward ? PORT_SEND : PORT_LISTEN);
-		p.setProperty("cluster.listenPort",          forward ? PORT_LISTEN : PORT_SEND);
-		return getProperties(p, "Connect Properties Source (singlecast " + (forward ? "forward" : "backward") + ")");
+		p.setProperty("cluster.sendDestinationPort", PORTS.get(send));
+		p.setProperty("cluster.listenPort",          PORTS.get(listen));
+		return getProperties(p, "Connect Properties Source (singlecast " + listen + "<-[" + send + "])");
 	}
 
 	private static final String MULTICAST_ADDRESS;
-	private static final String PORT_SEND;
-	private static final String PORT_LISTEN;
+	private static final EnumMap<Port, String> PORTS = new EnumMap<>(Port.class);
 	static
 	{
 		MULTICAST_ADDRESS = System.getProperty(ClusterNetworkTest.class.getName() + ".multicast", "224.0.0.41");
 		final String prefix = ClusterNetworkTest.class.getName() + ".port";
-		PORT_SEND   = System.getProperty(prefix + ".send",   "14446");
-		PORT_LISTEN = System.getProperty(prefix + ".listen", "14447");
-		System.out.println(ClusterNetworkTest.class.getName() + ' ' + MULTICAST_ADDRESS + ' ' + PORT_SEND + '>' + PORT_LISTEN);
+		for(final Port p : Port.values())
+			PORTS.put(p, System.getProperty(prefix + "." + p.name(), String.valueOf(p.defaultValue)));
+		System.out.println(ClusterNetworkTest.class.getName() + ' ' + MULTICAST_ADDRESS + ' ' + PORTS);
+	}
+
+	enum Port
+	{
+		A(14446),
+		B(14447);
+
+		final int defaultValue;
+
+		Port(final int defaultValue)
+		{
+			this.defaultValue = defaultValue;
+		}
 	}
 
 	private static ConnectProperties getProperties(final Properties properties, final String description)

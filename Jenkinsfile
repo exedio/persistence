@@ -47,8 +47,8 @@ timestamps
 						' -Dtomcat.port.shutdown=' + port(0) +
 						' -Dtomcat.port.http=' + port(1) +
 						' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
-						' -Druntime.test.ClusterNetworkTest.port.send=' + port(2) +
-						' -Druntime.test.ClusterNetworkTest.port.listen=' + port(3) +
+						' -Druntime.test.ClusterNetworkTest.port.A=' + port(2) +
+						' -Druntime.test.ClusterNetworkTest.port.B=' + port(3) +
 						' -Dfindbugs.output=xml'
 
 				recordIssues(

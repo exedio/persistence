@@ -58,11 +58,11 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertFalse(modelA.isConnected());
 		assertFalse(modelB.isConnected());
 
-		modelA.connect(getPropertiesSinglecast(true));
-		modelB.connect(getPropertiesSinglecast(false));
+		modelA.connect(getPropertiesSinglecast(Port.B, Port.A));
+		modelB.connect(getPropertiesSinglecast(Port.A, Port.B));
 
-		assertEquals("Connect Properties Source (singlecast forward)",  modelA.getConnectProperties().getSource());
-		assertEquals("Connect Properties Source (singlecast backward)", modelB.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (singlecast B<-[A])", modelA.getConnectProperties().getSource());
+		assertEquals("Connect Properties Source (singlecast A<-[B])", modelB.getConnectProperties().getSource());
 
 		test();
 	}

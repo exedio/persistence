@@ -431,8 +431,8 @@
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.multicast"   value="${runtime.test.ClusterNetworkTest.multicast}" />
-			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.send"   value="${runtime.test.ClusterNetworkTest.port.send}"   />
-			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.listen" value="${runtime.test.ClusterNetworkTest.port.listen}" />
+			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.A"      value="${runtime.test.ClusterNetworkTest.port.A}"    />
+			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.B"      value="${runtime.test.ClusterNetworkTest.port.B}"    />
 		</ljunit>
 	</target>
 
