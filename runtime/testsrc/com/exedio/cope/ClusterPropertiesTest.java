@@ -248,10 +248,12 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendAddress", "zack")
 		));
-		final RuntimeException e = assertFails(
+		final IllegalPropertiesException e = assertFails(
 				() -> ClusterProperties.factory().create(s),
-				RuntimeException.class,
-				"zack");
+				IllegalPropertiesException.class,
+				"property sendAddress in DESC " +
+				"must be a valid host name, " +
+				"but was 'zack'");
 		assertEquals(UnknownHostException.class, e.getCause().getClass());
 	}
 

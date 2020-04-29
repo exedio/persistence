@@ -106,15 +106,7 @@ final class ClusterProperties extends Properties
 
 	private InetAddress valAd(final String key, final String defaultValue)
 	{
-		final String field = value(key, defaultValue);
-		try
-		{
-			return InetAddress.getByName(field);
-		}
-		catch(final UnknownHostException e)
-		{
-			throw new RuntimeException(field, e);
-		}
+		return getInetAddressByName(key, value(key, defaultValue));
 	}
 
 	private InetAddress valAd(final String key)
@@ -124,13 +116,18 @@ final class ClusterProperties extends Properties
 		if(DEFAULT.equals(value))
 			return null;
 
+		return getInetAddressByName(key, value);
+	}
+
+	private InetAddress getInetAddressByName(final String key, final String value)
+	{
 		try
 		{
 			return InetAddress.getByName(value);
 		}
 		catch(final UnknownHostException e)
 		{
-			throw new RuntimeException(value, e);
+			throw newException(key, "must be a valid host name, but was '" + value + '\'', e);
 		}
 	}
 
