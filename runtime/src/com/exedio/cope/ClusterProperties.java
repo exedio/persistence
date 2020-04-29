@@ -121,6 +121,9 @@ final class ClusterProperties extends Properties
 
 	private InetAddress getInetAddressByName(final String key, final String value)
 	{
+		if(value.isEmpty())
+			throw newException(key, "must not be empty");
+
 		try
 		{
 			return InetAddress.getByName(value);

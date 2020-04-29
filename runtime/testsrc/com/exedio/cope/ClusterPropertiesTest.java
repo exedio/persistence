@@ -208,15 +208,17 @@ public class ClusterPropertiesTest
 		assertEquals(14446, p.sendDestinationPort);
 	}
 
-	@Test void testSendAddressEmpty() throws UnknownHostException
+	@Test void testSendAddressEmpty()
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
 				single("sendAddress", "")
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("localhost"), p.sendAddress);
-		assertEquals(14446, p.sendDestinationPort);
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendAddress in DESC " +
+				"must not be empty");
 	}
 
 	@Test void testSendAddressSet() throws UnknownHostException

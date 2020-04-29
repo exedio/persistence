@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: keys cluster.sendInterface, cluster.sendAddress,
+	cluster.listenAddress, and cluster.listenInterface are not allowed to be
+	empty anymore.
+	This breaks backwards API compatibility, check your deployed systems!
+	Up to now an empty value was equivalent to localhost.
 * Composite supports CheckConstraints.
 * Composite#set(SetValue...) added.
 * Query#setSearchSizeLimit triggers a SearchSizeLimitExceededException instead of
