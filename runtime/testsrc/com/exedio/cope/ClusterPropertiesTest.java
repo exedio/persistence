@@ -19,10 +19,10 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -162,19 +162,12 @@ public class ClusterPropertiesTest
 				single("listen.threads.initial", 5),
 				single("listen.threads.max", 4)
 		));
-		try
-		{
-			ClusterProperties.factory().create(s);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property listen.threads.initial in DESC " +
-					"must be less or equal max=4, " +
-					"but was 5",
-					e.getMessage());
-		}
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property listen.threads.initial in DESC " +
+				"must be less or equal max=4, " +
+				"but was 5");
 	}
 
 	@Test void testSecretZero()
@@ -182,18 +175,11 @@ public class ClusterPropertiesTest
 		final Source s = describe("DESC",
 				single("secret", 0)
 		);
-		try
-		{
-			ClusterProperties.factory().create(s);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property secret in DESC " +
-					"must not be zero",
-					e.getMessage());
-		}
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property secret in DESC " +
+				"must not be zero");
 	}
 
 	@Test void testNodeZero()
@@ -203,18 +189,11 @@ public class ClusterPropertiesTest
 				single("nodeAuto", false),
 				single("node", 0)
 		));
-		try
-		{
-			ClusterProperties.factory().create(s);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property node in DESC " +
-					"must not be zero",
-					e.getMessage());
-		}
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property node in DESC " +
+				"must not be zero");
 	}
 
 	@Test void testFailPrimaryKeyGeneratorMemory()
@@ -224,17 +203,10 @@ public class ClusterPropertiesTest
 				single("cluster", true),
 				single("cluster.secret", 1234)
 		));
-		try
-		{
-			ConnectProperties.create(s);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property cluster in DESC not supported together with schema.primaryKeyGenerator=memory",
-					e.getMessage());
-		}
+		assertFails(
+				() -> ConnectProperties.create(s),
+				IllegalPropertiesException.class,
+				"property cluster in DESC not supported together with schema.primaryKeyGenerator=memory");
 	}
 
 	@AfterEach final void tearDown()
