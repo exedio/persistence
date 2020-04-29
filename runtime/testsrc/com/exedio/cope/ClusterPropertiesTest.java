@@ -32,6 +32,8 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
+import java.net.InetAddress;
+import java.net.UnknownHostException;
 import java.util.Iterator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -194,6 +196,91 @@ public class ClusterPropertiesTest
 				IllegalPropertiesException.class,
 				"property node in DESC " +
 				"must not be zero");
+	}
+
+	@Test void testSendAddressDefault() throws UnknownHostException
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234)
+		));
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals(InetAddress.getByName("224.0.0.50"), p.sendAddress);
+		assertEquals(14446, p.sendDestinationPort);
+	}
+
+	@Test void testSendAddressEmpty() throws UnknownHostException
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendAddress", "")
+		));
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals(InetAddress.getByName("localhost"), p.sendAddress);
+		assertEquals(14446, p.sendDestinationPort);
+	}
+
+	@Test void testSendAddressSet() throws UnknownHostException
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendAddress", "224.0.0.55")
+		));
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.sendAddress);
+		assertEquals(14446, p.sendDestinationPort);
+	}
+
+	@Test void testSendAddressSetWithPort() throws UnknownHostException
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendAddress", "224.0.0.55"),
+				single("sendDestinationPort", 14464)
+		));
+		final ClusterProperties p = ClusterProperties.factory().create(s);
+		assertEquals(InetAddress.getByName("224.0.0.55"), p.sendAddress);
+		assertEquals(14464, p.sendDestinationPort);
+	}
+
+	@Test void testSendAddressWrong()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendAddress", "zack")
+		));
+		final RuntimeException e = assertFails(
+				() -> ClusterProperties.factory().create(s),
+				RuntimeException.class,
+				"zack");
+		assertEquals(UnknownHostException.class, e.getCause().getClass());
+	}
+
+	@Test void testSendAddressPortEmpty()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendDestinationPort", "")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendDestinationPort in DESC " +
+				"must be an integer greater or equal 1, " +
+				"but was ''");
+	}
+
+	@Test void testSendAddressPortNoInteger()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendDestinationPort", "zack")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendDestinationPort in DESC " +
+				"must be an integer greater or equal 1, " +
+				"but was 'zack'");
 	}
 
 	@Test void testFailPrimaryKeyGeneratorMemory()
