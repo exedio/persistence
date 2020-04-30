@@ -265,12 +265,13 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendDestinationPort", "")
 		));
-		assertFails(
+		final IllegalPropertiesException e = assertFails(
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
 				"property sendDestinationPort in DESC " +
 				"must be an integer greater or equal 1, " +
 				"but was ''");
+		assertEquals(NumberFormatException.class, e.getCause().getClass());
 	}
 
 	@Test void testSendAddressPortNoInteger()
@@ -279,12 +280,13 @@ public class ClusterPropertiesTest
 				single("secret", 1234),
 				single("sendDestinationPort", "zack")
 		));
-		assertFails(
+		final IllegalPropertiesException e = assertFails(
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
 				"property sendDestinationPort in DESC " +
 				"must be an integer greater or equal 1, " +
 				"but was 'zack'");
+		assertEquals(NumberFormatException.class, e.getCause().getClass());
 	}
 
 	@Test void testFailPrimaryKeyGeneratorMemory()
