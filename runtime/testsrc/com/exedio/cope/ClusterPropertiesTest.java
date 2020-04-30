@@ -303,15 +303,18 @@ public class ClusterPropertiesTest
 				"but was 0");
 	}
 
-	@Test void testSendAddressPortMaximumExceeded() throws UnknownHostException
+	@Test void testSendAddressPortMaximumExceeded()
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
 				single("sendDestinationPort", 65536)
 		));
-		final ClusterProperties p = ClusterProperties.factory().create(s);
-		assertEquals(InetAddress.getByName("224.0.0.50"), p.sendAddress);
-		assertEquals(65536, p.sendDestinationPort);
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendDestinationPort in DESC " +
+				"must be an integer between 1 and 65535, " +
+				"but was 65536");
 	}
 
 	@Test void testSendAddressPortMinimum() throws UnknownHostException

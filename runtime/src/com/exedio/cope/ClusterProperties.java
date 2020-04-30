@@ -94,6 +94,11 @@ final class ClusterProperties extends Properties
 		if(logger.isInfoEnabled())
 			logger.info("node id: {}", ClusterSenderInfo.toStringNodeID(node));
 
+		if(sendDestinationPort<1 || sendDestinationPort>0xffff)
+			throw newException("sendDestinationPort",
+					"must be an integer between 1 and " + 0xffff + ", " +
+					"but was " + sendDestinationPort);
+
 		packetSize = packetSizeField & (~3);
 		{
 			final Random r = new Random(secret);
