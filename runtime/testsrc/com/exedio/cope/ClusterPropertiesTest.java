@@ -198,6 +198,19 @@ public class ClusterPropertiesTest
 				"must not be zero");
 	}
 
+	@Test void testSendInterfaceEmpty()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("sendInterface", "")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property sendInterface in DESC " +
+				"must not be empty");
+	}
+
 	@Test void testSendAddressDefault() throws UnknownHostException
 	{
 		final Source s = describe("DESC", cascade(
@@ -337,6 +350,32 @@ public class ClusterPropertiesTest
 		final ClusterProperties p = ClusterProperties.factory().create(s);
 		assertEquals(InetAddress.getByName("224.0.0.50"), p.sendAddress);
 		assertEquals(65535, p.sendDestinationPort);
+	}
+
+	@Test void testListenAddressEmpty()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("listenAddress", "")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property listenAddress in DESC " +
+				"must not be empty");
+	}
+
+	@Test void testListenInterfaceEmpty()
+	{
+		final Source s = describe("DESC", cascade(
+				single("secret", 1234),
+				single("listenInterface", "")
+		));
+		assertFails(
+				() -> ClusterProperties.factory().create(s),
+				IllegalPropertiesException.class,
+				"property listenInterface in DESC " +
+				"must not be empty");
 	}
 
 	@Test void testFailPrimaryKeyGeneratorMemory()
