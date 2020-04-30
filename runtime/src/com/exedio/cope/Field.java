@@ -25,6 +25,7 @@ import com.exedio.cope.util.Cast;
 import java.util.Collection;
 import java.util.LinkedHashSet;
 import java.util.Set;
+import java.util.function.Consumer;
 
 /**
  * An {@code field} represents a persistently
@@ -179,6 +180,11 @@ public abstract class Field<E> extends Feature implements Settable<E>
 			StringLengthViolationException
 	{
 		// empty default implementation
+	}
+
+	public final void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		consumer.accept(this);
 	}
 
 	// second initialization phase ---------------------------------------------------

@@ -19,11 +19,13 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.InstanceOfRefItem.ref;
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -85,6 +87,12 @@ public class InstanceOfModelTest
 		assertEquals(list(codeUnq), b1.getUniqueConstraints());
 		assertEquals(list(codeUnq), b2.getUniqueConstraints());
 		assertEquals(list(codeUnq), c1.getUniqueConstraints());
+	}
+
+	@Test void testFieldsCovered()
+	{
+		assertFieldsCovered(asList(ref), ref.instanceOf(TYPE_B1));
+		assertFieldsCovered(asList(), TYPE_A.getThis().instanceOf(TYPE_B1));
 	}
 
 	@Test void testEqualsHashCode()

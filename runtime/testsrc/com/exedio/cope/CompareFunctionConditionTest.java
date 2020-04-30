@@ -36,6 +36,7 @@ import static com.exedio.cope.CompareFunctionConditionItem.longB;
 import static com.exedio.cope.CompareFunctionConditionItem.stringA;
 import static com.exedio.cope.CompareFunctionConditionItem.stringB;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
@@ -98,6 +99,15 @@ public class CompareFunctionConditionTest extends TestWithEnvironment
 				stringB.less(stringB),
 				stringA.lessOrEqual(stringB),
 				stringA.equal(stringB));
+	}
+
+	@Test void testFieldsCovered()
+	{
+		assertFieldsCovered(asList(stringA, stringB), stringA.equal(stringB));
+		assertFieldsCovered(asList(stringA, stringB), stringA.less(stringB));
+		assertFieldsCovered(asList(stringA, stringB), stringA.lessOrEqual(stringB));
+		assertFieldsCovered(asList(stringA, stringB), stringA.greater(stringB));
+		assertFieldsCovered(asList(stringA, stringB), stringA.greaterOrEqual(stringB));
 	}
 
 	@Test void testToString()

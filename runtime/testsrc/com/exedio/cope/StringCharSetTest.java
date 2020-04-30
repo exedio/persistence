@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.StringCharSetItem.TYPE;
 import static com.exedio.cope.StringCharSetItem.alpha;
@@ -92,6 +93,7 @@ public class StringCharSetTest extends TestWithEnvironment
 		assertEquals(
 				"StringCharSetItem.any conformsTo [A-Z]",
 				new CharSetCondition(any, new CharSet('A', 'Z')).toString());
+		assertFieldsCovered(asList(any), new CharSetCondition(any, new CharSet('A', 'Z')));
 
 		any("nullV", null);
 		final StringCharSetItem abc   = any("abc", "abcd");

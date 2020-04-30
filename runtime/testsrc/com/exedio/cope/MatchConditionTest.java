@@ -18,9 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -29,6 +31,11 @@ import org.junit.jupiter.api.Test;
 @SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class MatchConditionTest
 {
+	@Test void testFieldsCovered()
+	{
+		assertFieldsCovered(asList(FIELD1), new MatchCondition(FIELD1, "one"));
+		assertFieldsCovered(asList(FIELD2), new MatchCondition(FIELD2, "two"));
+	}
 	@Test void testEquals()
 	{
 		assertEqualsAndHash(

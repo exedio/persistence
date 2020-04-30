@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 public abstract class Condition implements Serializable
@@ -46,6 +47,8 @@ public abstract class Condition implements Serializable
 	abstract Trilean getTri(@Nonnull FieldValues item);
 
 	abstract void check(TC tc);
+
+	abstract void acceptFieldsCovered(Consumer<Field<?>> consumer);
 
 	abstract Condition copy(CopyMapper mapper);
 
@@ -107,6 +110,11 @@ public abstract class Condition implements Serializable
 		void check(final TC tc)
 		{
 			throw new RuntimeException(name);
+		}
+
+		@Override
+		void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+		{
 		}
 
 		@Override

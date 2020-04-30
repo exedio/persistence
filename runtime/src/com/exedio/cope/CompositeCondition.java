@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.function.Consumer;
 
 public final class CompositeCondition extends Condition
 {
@@ -109,6 +110,13 @@ public final class CompositeCondition extends Condition
 	{
 		for(final Condition condition : conditions)
 			condition.check(tc);
+	}
+
+	@Override
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		for(final Condition condition : conditions)
+			condition.acceptFieldsCovered(consumer);
 	}
 
 	@Override

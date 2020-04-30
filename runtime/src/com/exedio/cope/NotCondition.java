@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
+
 public final class NotCondition extends Condition
 {
 	private static final long serialVersionUID = 1l;
@@ -66,6 +68,12 @@ public final class NotCondition extends Condition
 	void check(final TC tc)
 	{
 		argument.check(tc);
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		argument.acceptFieldsCovered(consumer);
 	}
 
 	@Override

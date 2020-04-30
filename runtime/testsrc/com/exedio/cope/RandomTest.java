@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.TYPE;
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -69,6 +70,8 @@ public class RandomTest extends TestWithEnvironment
 
 	@Test void testModel()
 	{
+		// test acceptFieldsCovered
+		assertFieldsCovered(asList(), TYPE.random(5));
 		// test equals/hashCode
 		assertEqualsAndHash(TYPE.random(5), TYPE.random(5));
 		assertNotEqualsAndHash(

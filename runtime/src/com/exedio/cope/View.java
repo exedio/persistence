@@ -26,6 +26,7 @@ import java.lang.reflect.AnnotatedElement;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 /**
@@ -82,6 +83,13 @@ public abstract class View<E> extends Feature
 	{
 		for(final Function<?> source : sources)
 			source.check(tc, join);
+	}
+
+	@Override
+	public final void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		for(final Function<?> source : sources)
+			source.acceptFieldsCovered(consumer);
 	}
 
 	@Override

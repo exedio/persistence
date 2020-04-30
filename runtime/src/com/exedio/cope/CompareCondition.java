@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import java.util.Date;
+import java.util.function.Consumer;
 
 public final class CompareCondition<E> extends Condition
 {
@@ -149,6 +150,12 @@ public final class CompareCondition<E> extends Condition
 	void check(final TC tc)
 	{
 		Cope.check(left, tc, null);
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		left.acceptFieldsCovered(consumer);
 	}
 
 	@Override

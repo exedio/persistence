@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import java.util.function.Consumer;
+
 /**
  * Use only as select in query using groupBy
  * <p>
@@ -60,6 +62,11 @@ public final class Count implements Selectable<Integer>
 	{
 		// TODO
 		// probably: nothing to do here, since there are no sources
+	}
+
+	@Override
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
 	}
 
 	/**

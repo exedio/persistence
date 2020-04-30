@@ -20,7 +20,9 @@ package com.exedio.cope;
 
 import static com.exedio.cope.HashConditionTest.Algorithm;
 import static com.exedio.cope.HashConditionTest.MyItem.hash;
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static java.nio.charset.StandardCharsets.US_ASCII;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -33,6 +35,12 @@ import org.junit.jupiter.api.Test;
 
 public class HashConditionModelTest
 {
+	@Test void testFieldsCovered()
+	{
+		final DataField data = new DataField();
+		assertFieldsCovered(asList(hash, data), hash.hashMatchesIfSupported("ALGO", data));
+	}
+
 	@Test void identity()
 	{
 		final DataField data = new DataField();

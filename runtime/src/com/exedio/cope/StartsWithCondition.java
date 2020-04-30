@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.util.Hex;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
+import java.util.function.Consumer;
 
 public final class StartsWithCondition extends Condition
 {
@@ -71,6 +72,12 @@ public final class StartsWithCondition extends Condition
 	void check(final TC tc)
 	{
 		//Cope.check(field, tc, null); TODO
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		field.acceptFieldsCovered(consumer);
 	}
 
 	@Override

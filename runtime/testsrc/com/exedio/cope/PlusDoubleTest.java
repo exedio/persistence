@@ -37,11 +37,13 @@ import static com.exedio.cope.PlusDoubleItem.plusABaC;
 import static com.exedio.cope.PlusDoubleItem.plusAC;
 import static com.exedio.cope.PlusDoubleItem.plusBC;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -101,6 +103,11 @@ public class PlusDoubleTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(list(plusAB, numC), plusABaC.getSources());
 		assertEqualsUnmodifiable(list(numB), multiplyB9.getSources());
 		assertEqualsUnmodifiable(list(numB, numC), multiplyBC.getSources());
+
+		// acceptFieldsCovered
+		assertFieldsCovered(asList(numA), numA.plus(9.3));
+		assertFieldsCovered(asList(numA, numB), numA.plus(numB));
+		assertFieldsCovered(asList(numB), numB.multiply(9.3));
 
 		// test equals/hashCode
 		assertEqualsAndHash(plusA9, numA.plus(9.3));

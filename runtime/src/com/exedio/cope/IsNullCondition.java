@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
+
 public final class IsNullCondition<E> extends Condition
 {
 	private static final long serialVersionUID = 2l;
@@ -74,6 +76,12 @@ public final class IsNullCondition<E> extends Condition
 	void check(final TC tc)
 	{
 		Cope.check(function, tc, null);
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		function.acceptFieldsCovered(consumer);
 	}
 
 	@Override

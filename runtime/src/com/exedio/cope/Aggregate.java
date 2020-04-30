@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
+import java.util.function.Consumer;
 
 public abstract class Aggregate<E> implements Selectable<E>
 {
@@ -78,6 +79,12 @@ public abstract class Aggregate<E> implements Selectable<E>
 	public final void check(final TC tc, final Join join)
 	{
 		source.check(tc, join);
+	}
+
+	@Override
+	public final void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		source.acceptFieldsCovered(consumer);
 	}
 
 	/**

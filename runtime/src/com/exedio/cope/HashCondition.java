@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
 import javax.annotation.Nonnull;
 
 final class HashCondition extends Condition
@@ -70,6 +71,13 @@ final class HashCondition extends Condition
 	{
 		Cope.check(hash, tc, null);
 		// Cope.check(data, tc, null); TODO
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		hash.acceptFieldsCovered(consumer);
+		data.acceptFieldsCovered(consumer);
 	}
 
 	@Override

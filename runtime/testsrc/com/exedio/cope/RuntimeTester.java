@@ -35,6 +35,8 @@ import com.exedio.dsmf.Node;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.UniqueConstraint;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 final class RuntimeTester
 {
@@ -358,5 +360,25 @@ final class RuntimeTester
 		assertEquals(null, node.getError(), message);
 		assertEquals(Node.Color.OK, node.getParticularColor(), message);
 		assertEquals(Node.Color.OK, node.getCumulativeColor(), message);
+	}
+
+	static void assertFieldsCovered(
+			final List<Field<?>> expected,
+			final Selectable<?> actual)
+	{
+		final ArrayList<Field<?>> consumer = new ArrayList<>();
+		actual.acceptFieldsCovered(consumer::add);
+		//noinspection MisorderedAssertEqualsArguments
+		assertEquals(expected, consumer);
+	}
+
+	static void assertFieldsCovered(
+			final List<Field<?>> expected,
+			final Condition actual)
+	{
+		final ArrayList<Field<?>> consumer = new ArrayList<>();
+		actual.acceptFieldsCovered(consumer::add);
+		//noinspection MisorderedAssertEqualsArguments
+		assertEquals(expected, consumer);
 	}
 }

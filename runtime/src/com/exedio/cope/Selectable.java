@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import java.io.Serializable;
+import java.util.function.Consumer;
 
 public interface Selectable<E> extends Serializable
 {
@@ -38,6 +39,8 @@ public interface Selectable<E> extends Serializable
 	 */
 	@Deprecated // OK: for internal use within COPE only
 	void check(TC tc, Join join);
+
+	void acceptFieldsCovered(Consumer<Field<?>> consumer);
 
 	/**
 	 * @deprecated For internal use within COPE only.

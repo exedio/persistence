@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CastUtils.toIntCapped;
 
 import java.lang.reflect.AnnotatedElement;
+import java.util.function.Consumer;
 
 public final class This<E extends Item> extends Feature
 	implements ItemFunction<E>
@@ -62,6 +63,11 @@ public final class This<E extends Item> extends Feature
 	public void check(final TC tc, final Join join)
 	{
 		tc.check(this, join);
+	}
+
+	@Override
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
 	}
 
 	@Override

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.testmodel.StringItem.TYPE;
 import static com.exedio.cope.testmodel.StringItem.any;
 import static com.exedio.cope.testmodel.StringItem.exact6;
@@ -29,6 +30,7 @@ import static com.exedio.cope.testmodel.StringItem.min4Max8;
 import static com.exedio.cope.testmodel.StringItem.min4Upper;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.CharSet;
@@ -78,6 +80,12 @@ public class StringModelTest
 
 		assertEquals(TYPE, min4Upper.getType());
 		assertEquals("min4Upper", min4Upper.getName());
+	}
+
+	@Test void testFieldsCovered()
+	{
+		assertFieldsCovered(asList(any), any.like("a"));
+		assertFieldsCovered(asList(mandatory), mandatory.likeIgnoreCase("a"));
 	}
 
 	@Test void testConditions()

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.CharSet;
+import java.util.function.Consumer;
 
 public final class CharSetCondition extends Condition
 {
@@ -63,6 +64,12 @@ public final class CharSetCondition extends Condition
 	void check(final TC tc)
 	{
 		Cope.check(function, tc, null);
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		function.acceptFieldsCovered(consumer);
 	}
 
 	@Override

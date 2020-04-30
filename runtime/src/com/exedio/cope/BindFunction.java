@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
+
 public class BindFunction<E> implements Function<E>
 {
 	private static final long serialVersionUID = 1l;
@@ -64,6 +66,12 @@ public class BindFunction<E> implements Function<E>
 	public final void check(final TC tc, final Join join)
 	{
 		function.check(tc, this.join);
+	}
+
+	@Override
+	public final void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		function.acceptFieldsCovered(consumer);
 	}
 
 	/**

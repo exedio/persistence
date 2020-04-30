@@ -26,6 +26,7 @@ import static com.exedio.cope.Cope.and;
 import static com.exedio.cope.Cope.equal;
 import static com.exedio.cope.Cope.notEqual;
 import static com.exedio.cope.Cope.or;
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -128,6 +129,24 @@ public class CompositeConditionCopeTest
 		assertEquals(expected.toString(), actual.toString());
 		assertEquals(expected, actual);
 		assertNotSame(expected, actual);
+	}
+
+	@Test void testFieldsCovered()
+	{
+		final DoubleField f1 = new DoubleField();
+		final DoubleField f2 = new DoubleField();
+		final DoubleField f3 = new DoubleField();
+		final Condition c1 = f1.equal(1d);
+		final Condition c2 = f2.equal(2d);
+		final Condition c3 = f3.equal(3d);
+
+		assertFieldsCovered(Arrays.asList(f1, f2), newCompositeCondition(OR,  c1, c2));
+		assertFieldsCovered(Arrays.asList(f2, f3), newCompositeCondition(AND, c2, c3));
+		assertFieldsCovered(Arrays.asList(f2, f3, f1), newCompositeCondition(AND, c2, c3, c1));
+		assertFieldsCovered(Arrays.asList(f2, f3, f1), newCompositeCondition(AND, c2, c3, c1).not());
+		assertFieldsCovered(Arrays.asList(f1, f1, f1), newCompositeCondition(AND, c1, c1, c1));
+		assertFieldsCovered(Arrays.asList(), FALSE);
+		assertFieldsCovered(Arrays.asList(), TRUE);
 	}
 
 	private static void assertNullPointerException(final Condition[] conditions, final String expectedMessage)

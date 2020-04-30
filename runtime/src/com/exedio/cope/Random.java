@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
+
 public final class Random implements NumberFunction<Double>
 {
 	private static final long serialVersionUID = 1l;
@@ -91,6 +93,11 @@ public final class Random implements NumberFunction<Double>
 		final StringBuilder bf = new StringBuilder();
 		toString(bf, null);
 		return bf.toString();
+	}
+
+	@Override
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
 	}
 
 	@Override

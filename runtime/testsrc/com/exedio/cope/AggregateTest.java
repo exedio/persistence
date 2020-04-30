@@ -18,10 +18,12 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -39,6 +41,7 @@ class AggregateTest
 		assertSame(Integer.class, a.getValueClass());
 		assertSame(SimpleSelectType.INTEGER, a.getValueType());
 		assertSame(MyItem.TYPE, a.getType());
+		assertFieldsCovered(asList(MyItem.field), a);
 		assertEquals("min(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.min());
 
@@ -67,6 +70,7 @@ class AggregateTest
 		assertSame(Integer.class, a.getValueClass());
 		assertSame(SimpleSelectType.INTEGER, a.getValueType());
 		assertSame(MyItem.TYPE, a.getType());
+		assertFieldsCovered(asList(MyItem.field), a);
 		assertEquals("max(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.max());
 
@@ -88,6 +92,7 @@ class AggregateTest
 		assertSame(Integer.class, a.getValueClass());
 		assertSame(SimpleSelectType.INTEGER, a.getValueType());
 		assertSame(MyItem.TYPE, a.getType());
+		assertFieldsCovered(asList(MyItem.field), a);
 		assertEquals("sum(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.sum());
 
@@ -109,6 +114,7 @@ class AggregateTest
 		assertSame(Double.class, a.getValueClass());
 		assertSame(SimpleSelectType.DOUBLE, a.getValueType());
 		assertSame(MyItem.TYPE, a.getType());
+		assertFieldsCovered(asList(MyItem.field), a);
 		assertEquals("avg(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.average());
 
@@ -130,6 +136,7 @@ class AggregateTest
 		assertSame(Integer.class, a.getValueClass());
 		assertSame(SimpleSelectType.INTEGER, a.getValueType());
 		assertSame(MyItem.TYPE, a.getType());
+		assertFieldsCovered(asList(MyItem.field), a);
 		assertEquals("any(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.any());
 

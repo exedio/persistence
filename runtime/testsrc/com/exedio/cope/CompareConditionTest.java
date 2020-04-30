@@ -29,6 +29,7 @@ import static com.exedio.cope.CompareConditionItem.longx;
 import static com.exedio.cope.CompareConditionItem.otherString;
 import static com.exedio.cope.CompareConditionItem.string;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
+import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -86,6 +87,18 @@ public class CompareConditionTest extends TestWithEnvironment
 		item3.setItem(item3);
 		item4.setItem(item4);
 		item5.setItem(item5);
+	}
+
+	@Test void testFieldsCovered()
+	{
+		assertFieldsCovered(asList(string), string.isNull());
+		assertFieldsCovered(asList(string), string.isNotNull());
+		assertFieldsCovered(asList(string), string.equal("a"));
+		assertFieldsCovered(asList(string), string.notEqual("a"));
+		assertFieldsCovered(asList(string), string.less("a"));
+		assertFieldsCovered(asList(string), string.lessOrEqual("a"));
+		assertFieldsCovered(asList(string), string.greater("a"));
+		assertFieldsCovered(asList(string), string.greaterOrEqual("a"));
 	}
 
 	@Test void testEqualsHashCode()

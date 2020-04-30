@@ -23,6 +23,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.util.Arrays;
 import java.util.TreeSet;
+import java.util.function.Consumer;
 
 public final class InstanceOfCondition<E extends Item> extends Condition
 {
@@ -169,6 +170,12 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	void check(final TC tc)
 	{
 		Cope.check(function, tc, null);
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		function.acceptFieldsCovered(consumer);
 	}
 
 	@Override

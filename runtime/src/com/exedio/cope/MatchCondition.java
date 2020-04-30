@@ -20,6 +20,8 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
+
 /**
  * A condition matching a fulltext index. EXPERIMENTAL!!!
  *
@@ -73,6 +75,12 @@ public final class MatchCondition extends Condition
 	void check(final TC tc)
 	{
 		Cope.check(function, tc, null);
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		function.acceptFieldsCovered(consumer);
 	}
 
 	@Override

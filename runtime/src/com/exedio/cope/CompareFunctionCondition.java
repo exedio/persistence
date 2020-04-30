@@ -22,6 +22,8 @@ import static com.exedio.cope.CompareCondition.isComparableCheckEnabled;
 import static com.exedio.cope.CompareCondition.topItemClass;
 import static java.util.Objects.requireNonNull;
 
+import java.util.function.Consumer;
+
 public final class CompareFunctionCondition<E> extends Condition
 {
 	private static final long serialVersionUID = 1l;
@@ -91,6 +93,13 @@ public final class CompareFunctionCondition<E> extends Condition
 	{
 		Cope.check(left,  tc, null);
 		Cope.check(right, tc, null);
+	}
+
+	@Override
+	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	{
+		left .acceptFieldsCovered(consumer);
+		right.acceptFieldsCovered(consumer);
 	}
 
 	@Override
