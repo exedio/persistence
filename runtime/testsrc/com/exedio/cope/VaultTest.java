@@ -216,6 +216,7 @@ public class VaultTest
 		if(MODEL.isConnected())
 		{
 			MODEL.rollback();
+			MODEL.tearDownSchema();
 			MODEL.disconnect();
 		}
 	}

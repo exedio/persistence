@@ -157,6 +157,7 @@ public class VaultNotFoundTest
 	@AfterEach void tearDown()
 	{
 		MODEL.rollback();
+		MODEL.tearDownSchema();
 		MODEL.disconnect();
 	}
 }

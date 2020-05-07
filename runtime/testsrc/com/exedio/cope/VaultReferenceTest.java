@@ -278,6 +278,7 @@ public class VaultReferenceTest
 	@AfterEach void tearDown()
 	{
 		MODEL.rollback();
+		MODEL.tearDownSchema();
 		MODEL.disconnect();
 	}
 }

@@ -142,6 +142,7 @@ public class RevisionStatisticsTest
 	@AfterEach final void tearDown()
 	{
 		MODEL.rollbackIfNotCommitted();
+		MODEL.tearDownSchema();
 		MODEL.disconnect();
 	}
 
