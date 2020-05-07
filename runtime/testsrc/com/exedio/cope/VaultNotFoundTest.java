@@ -22,6 +22,7 @@ import static com.exedio.cope.VaultTest.HASH1;
 import static com.exedio.cope.VaultTest.HASH1A;
 import static com.exedio.cope.VaultTest.MODEL;
 import static com.exedio.cope.VaultTest.VALUE1;
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.fail;
@@ -149,8 +150,7 @@ public class VaultNotFoundTest
 				TestSources.minimal()
 		)));
 		service = (VaultMockService)MODEL.connect().vault;
-		MODEL.tearDownSchema();
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
 

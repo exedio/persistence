@@ -22,6 +22,7 @@ import static com.exedio.cope.VaultTest.HASH1;
 import static com.exedio.cope.VaultTest.HASH1A;
 import static com.exedio.cope.VaultTest.MODEL;
 import static com.exedio.cope.VaultTest.VALUE1;
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.Assert.fail;
@@ -270,8 +271,7 @@ public class VaultReferenceTest
 		this.service = (VaultReferenceService)MODEL.connect().vault;
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceService();
-		MODEL.tearDownSchema();
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
 

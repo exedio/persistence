@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -45,7 +46,7 @@ public class MediaRootUrlTest
 		MODEL.connect(properties);
 		assertSame(properties, MODEL.getConnectProperties());
 
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction(getClass().getName());
 
 		final AnItem i1 = new AnItem(Media.toValue(new byte[]{1,2,3}, "image/jpeg"));

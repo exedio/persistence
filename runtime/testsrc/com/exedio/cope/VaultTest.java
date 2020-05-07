@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -206,8 +207,7 @@ public class VaultTest
 				TestSources.minimal()
 		)));
 		service = (VaultMockService)MODEL.connect().vault;
-		MODEL.tearDownSchema();
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
 

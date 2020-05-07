@@ -20,11 +20,17 @@ package com.exedio.cope.tojunit;
 
 import static com.exedio.cope.util.Sources.checkKey;
 import static java.util.Objects.requireNonNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.Model;
+import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ProxyPropertiesSource;
 import com.exedio.cope.util.Sources;
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
@@ -36,6 +42,26 @@ public final class TestSources
 	public static Source minimal()
 	{
 		return Sources.load(new File("runtime/utiltest.properties"));
+	}
+
+	public static void setupSchemaMinimal(final Model model)
+	{
+		assertEquals(
+				"jdbc:hsqldb:mem:copeutiltest", // to be used just with utiltest.properties
+				model.getConnectProperties().getConnectionUrl());
+		try
+		{
+			try(Connection con = SchemaInfo.newConnection(model);
+				 Statement stmt = con.createStatement())
+			{
+				stmt.execute("DROP SCHEMA PUBLIC CASCADE");
+			}
+		}
+		catch(final SQLException e)
+		{
+			throw new RuntimeException(e);
+		}
+		model.createSchema();
 	}
 
 	public static Source single(final String key, final boolean value)

@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.exists;
 import static com.exedio.cope.SchemaInfo.search;
 import static com.exedio.cope.SchemaInfo.total;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -162,8 +163,7 @@ public class SchemaInfoQueryTest
 	@BeforeAll static void setUpClass()
 	{
 		model.connect(ConnectProperties.create(TestSources.minimal()));
-		model.tearDownSchema();
-		model.createSchema();
+		setupSchemaMinimal(model);
 	}
 
 	@AfterAll static void tearDownClass()

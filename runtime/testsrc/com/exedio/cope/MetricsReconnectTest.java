@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -41,7 +42,7 @@ public class MetricsReconnectTest
 		connect();
 		assertEquals(0, hits());
 		assertEquals(0, itemCache().getHits());
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 
 		MODEL.startTransaction(MetricsReconnectTest.class.getName());
 		final AnItem item = new AnItem();
@@ -107,7 +108,7 @@ public class MetricsReconnectTest
 		connect();
 		assertEquals(0, level());
 		assertEquals(0, itemCache().getLevel());
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 
 		MODEL.startTransaction(MetricsReconnectTest.class.getName());
 		final AnItem item1 = new AnItem();

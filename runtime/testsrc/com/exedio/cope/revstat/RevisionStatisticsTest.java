@@ -18,6 +18,7 @@
 
 package com.exedio.cope.revstat;
 
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -55,7 +56,7 @@ public class RevisionStatisticsTest
 		revisions.put(new Revisions(
 			new Revision(1, "comment1", "sql 1/0")
 		));
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 		revisions.assertEmpty();
 
 		MODEL.disconnect();

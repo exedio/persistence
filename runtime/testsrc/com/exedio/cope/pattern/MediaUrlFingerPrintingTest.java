@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static java.lang.Long.MAX_VALUE;
 import static java.lang.Long.MIN_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -137,7 +138,7 @@ public class MediaUrlFingerPrintingTest
 	@BeforeEach void setUp()
 	{
 		MODEL.connect(ConnectProperties.create(TestSources.minimal()));
-		MODEL.createSchema();
+		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction(getClass().getName());
 		item = new MyItem();
 		item.setFeatureContentType("what/ever");

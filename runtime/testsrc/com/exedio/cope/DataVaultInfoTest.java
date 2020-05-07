@@ -22,6 +22,7 @@ import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.tojunit.TestSources.minimal;
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -164,7 +165,7 @@ public class DataVaultInfoTest
 				single("dataField.vault.service", VaultMockService.class),
 				minimal()
 		)));
-		model.createSchema();
+		setupSchemaMinimal(model);
 		model.startTransaction("DataVaultInfoTest");
 		onSetup = MyItem.field.getVaultInfo();
 	}

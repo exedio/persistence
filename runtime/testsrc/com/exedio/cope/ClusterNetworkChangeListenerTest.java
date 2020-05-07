@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
+import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -52,7 +53,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		// when running this test alone, it fails on Windows if modelA is connected before modelB
 		modelB.connect(getPropertiesMulticast());
 		modelA.connect(getPropertiesMulticast());
-		modelA.createSchema();
+		setupSchemaMinimal(modelA);
 
 		assertEquals("Connect Properties Source (multicast)", modelA.getConnectProperties().getSource());
 		assertEquals("Connect Properties Source (multicast)", modelB.getConnectProperties().getSource());
@@ -64,7 +65,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 	{
 		modelA.connect(getPropertiesSinglecast(Port.B, Port.A));
 		modelB.connect(getPropertiesSinglecast(Port.A, Port.B));
-		modelA.createSchema();
+		setupSchemaMinimal(modelA);
 
 		assertEquals("Connect Properties Source (singlecast B<-[A])", modelA.getConnectProperties().getSource());
 		assertEquals("Connect Properties Source (singlecast A<-[B])", modelB.getConnectProperties().getSource());
