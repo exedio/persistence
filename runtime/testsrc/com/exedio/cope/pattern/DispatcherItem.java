@@ -56,7 +56,6 @@ public final class DispatcherItem extends Item
 
 	static final Dispatcher toTarget = Dispatcher.create(
 			DispatcherItem::dispatch,
-			null,
 			DispatcherItem::notifyFinalFailure);
 
 	Boolean getToTargetUnpendSuccess()

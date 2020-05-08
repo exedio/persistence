@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 /**
- * @deprecated implement {@link Dispatchable} instead and
- *             override {@link Dispatchable#isDeferred(Dispatcher)}
+ * @deprecated Not supported anymore.
+ * Throw a {@link DispatchDeferredException} from the dispatch method instead.
  */
 @Deprecated
 @SuppressWarnings({

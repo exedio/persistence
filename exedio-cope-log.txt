@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Dispatcher#create methods do not support parameter deferrer anymore. Accordingly
+	Dispatchable#isDeferred is removed. Throw a DispatchDeferredException
+	from the dispatch method instead.
+	This breaks backwards API compatibility, causes compiler error.
 * ConnectProperties: key cluster.sendDestinationPort merged into cluster.sendAddress.
 	If sendDestinationPort is at its default you don't have to do anything.
 

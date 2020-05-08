@@ -18,21 +18,25 @@
 
 package com.exedio.cope.pattern;
 
-import com.exedio.cope.instrument.WrapImplementsInterim;
-
-@FunctionalInterface
-@WrapImplementsInterim(addMethods=true)
-public interface Dispatchable
+/**
+ * Allows to defer dispatching an item even if it is pending.
+ * Just throw this exception from parameter {@code target} of
+ * {@link Dispatcher#create(Dispatcher.Target)}.
+ */
+public final class DispatchDeferredException extends Exception
 {
-	void dispatch(Dispatcher dispatcher) throws Exception;
-
 	/**
-	 * The default implementation does nothing.
-	 * @param dispatcher used by subclasses
-	 * @param cause used by subclasses
+	 * Creates a new {@code DispatchDeferredException} that causes
+	 * the current transactions to be committed.
 	 */
-	default void notifyFinalFailure(final Dispatcher dispatcher, final Exception cause)
+	public static DispatchDeferredException andCommit()
 	{
-		// empty default implementation
+		return new DispatchDeferredException();
 	}
+
+	private DispatchDeferredException()
+	{
+	}
+
+	private static final long serialVersionUID = 1l;
 }

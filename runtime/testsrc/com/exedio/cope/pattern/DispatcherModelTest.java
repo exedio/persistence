@@ -162,17 +162,10 @@ public class DispatcherModelTest
 		assertSame(Boolean.FALSE, create(i -> {}).defaultPendingTo(false).getPending().getDefaultConstant());
 	}
 
-	@Test void testCreateDeferrerNull()
-	{
-		final Dispatcher d =
-				create(i -> { throw new Exception(); }, null);
-		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
-	}
-
 	@Test void testCreateFinalFailureListenerNull()
 	{
 		final Dispatcher d =
-				create(i -> { throw new Exception(); }, null, null);
+				create(i -> { throw new Exception(); }, null);
 		assertEquals(true, d.supportsPurge()); // fixes idea inspection Method can be void
 	}
 
@@ -184,18 +177,10 @@ public class DispatcherModelTest
 				"target");
 	}
 
-	@Test void testCreateTargetNullDeferrer()
-	{
-		assertFails(
-				() -> create(null, null),
-				NullPointerException.class,
-				"target");
-	}
-
 	@Test void testCreateTargetNullFinalFailureListener()
 	{
 		assertFails(
-				() -> create(null, null, null),
+				() -> create(null, null),
 				NullPointerException.class,
 				"target");
 	}

@@ -59,7 +59,6 @@ public final class DispatcherWithoutRemainingItem extends Item
 	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
 	static final Dispatcher toTarget = Dispatcher.create(
 			DispatcherWithoutRemainingItem::dispatch,
-			null,
 			DispatcherWithoutRemainingItem::notifyFinalFailure).
 			withoutRemaining();
 

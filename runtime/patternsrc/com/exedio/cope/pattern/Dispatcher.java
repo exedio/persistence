@@ -67,7 +67,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.function.BiConsumer;
-import java.util.function.Predicate;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import org.slf4j.Logger;
@@ -144,7 +143,6 @@ public final class Dispatcher extends Pattern
 	private abstract static class Variant
 	{
 		abstract void dispatch(Dispatcher dispatcher, Item item) throws Exception;
-		abstract boolean isDeferred(Dispatcher dispatcher, Item item);
 		abstract void notifyFinalFailure(Dispatcher dispatcher, Item item, Exception cause);
 	}
 
@@ -157,16 +155,13 @@ public final class Dispatcher extends Pattern
 	private static final class TargetVariant extends Variant
 	{
 		private final Target<?> target;
-		private final Predicate<? extends Item> deferrer;
 		private final BiConsumer<? extends Item,Exception> onFinalFailure;
 
 		private TargetVariant(
 				final Target<?> target,
-				final Predicate<? extends Item> deferrer,
 				final BiConsumer<? extends Item,Exception> onFinalFailure)
 		{
 			this.target = requireNonNull(target, "target");
-			this.deferrer = deferrer;
 			this.onFinalFailure = onFinalFailure;
 		}
 
@@ -174,14 +169,6 @@ public final class Dispatcher extends Pattern
 		@Override void dispatch(final Dispatcher dispatcher, final Item item) throws Exception
 		{
 			((Target<Item>)target).dispatch(item);
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override boolean isDeferred(final Dispatcher dispatcher, final Item item)
-		{
-			return
-					deferrer!=null &&
-					((Predicate<Item>)deferrer).test(item);
 		}
 
 		@SuppressWarnings("unchecked")
@@ -197,11 +184,6 @@ public final class Dispatcher extends Pattern
 		@Override void dispatch(final Dispatcher dispatcher, final Item item) throws Exception
 		{
 			((Dispatchable)item).dispatch(dispatcher);
-		}
-
-		@Override boolean isDeferred(final Dispatcher dispatcher, final Item item)
-		{
-			return ((Dispatchable)item).isDeferred(dispatcher);
 		}
 
 		@Override void notifyFinalFailure(final Dispatcher dispatcher, final Item item, final Exception cause)
@@ -244,7 +226,7 @@ public final class Dispatcher extends Pattern
 	 *    }
 	 * }
 	 * </pre>
-	 * @deprecated Use {@link #create(Target,Predicate,BiConsumer)} instead as described.
+	 * @deprecated Use {@link #create(Target,BiConsumer)} instead as described.
 	 */
 	@Deprecated
 	public Dispatcher()
@@ -255,30 +237,16 @@ public final class Dispatcher extends Pattern
 	public static <I extends Item> Dispatcher create(
 			final Target<I> target)
 	{
-		return create(target, null, null);
+		return create(target, null);
 	}
 
-	/**
-	 * @param deferrer Allows to defer dispatching an item even if it is pending.
-	 */
 	public static <I extends Item> Dispatcher create(
 			final Target<I> target,
-			final Predicate<I> deferrer)
-	{
-		return create(target, deferrer, null);
-	}
-
-	/**
-	 * @param deferrer Allows to defer dispatching an item even if it is pending.
-	 */
-	public static <I extends Item> Dispatcher create(
-			final Target<I> target,
-			final Predicate<I> deferrer,
 			final BiConsumer<I,Exception> finalFailureListener)
 	{
 		return new Dispatcher(
 				new BooleanField().defaultTo(true), true, true,
-				new TargetVariant(target, deferrer, finalFailureListener));
+				new TargetVariant(target, finalFailureListener));
 	}
 
 	private Dispatcher(final BooleanField pending, final boolean supportPurge, final boolean supportRemaining, final Variant variant)
@@ -495,14 +463,6 @@ public final class Dispatcher extends Pattern
 					continue;
 				}
 
-				if(variant.isDeferred(this, item))
-				{
-					tx.commit();
-					if(logger.isDebugEnabled())
-						logger.debug("is deferred: {}", itemID);
-					continue;
-				}
-
 				final int limit = config.getFailureLimit();
 				if(logger.isDebugEnabled())
 					logger.debug("dispatching {}", itemID);
@@ -521,6 +481,12 @@ public final class Dispatcher extends Pattern
 
 					unpend(item, true, new Date(start));
 					logger.info("success for {}, took {}ms", itemID, elapsed);
+				}
+				catch(final DispatchDeferredException deferred)
+				{
+					tx.commit();
+					if(logger.isDebugEnabled())
+						logger.debug("is deferred: {}", itemID);
 				}
 				catch(final Exception failureCause)
 				{

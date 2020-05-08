@@ -61,8 +61,11 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		assertIt(0, 0, 0, item3);
 
 		dispatch();
+		log.assertDebug("dispatching " + item1);
 		log.assertDebug("is deferred: " + item1);
+		log.assertDebug("dispatching " + item2);
 		log.assertDebug("is deferred: " + item2);
+		log.assertDebug("dispatching " + item3);
 		log.assertDebug("is deferred: " + item3);
 		log.assertEmpty();
 		assertIt(1, 0, 0, item1);
@@ -73,18 +76,22 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		dispatch();
 		log.assertDebug("dispatching " + item1);
 		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
+		log.assertDebug("dispatching " + item2);
 		log.assertDebug("is deferred: " + item2);
+		log.assertDebug("dispatching " + item3);
 		log.assertDebug("is deferred: " + item3);
 		log.assertEmpty();
-		assertIt(2, 1, 1, item1);
+		assertIt(1, 1, 1, item1);
 		assertIt(2, 0, 0, item2);
 		assertIt(2, 0, 0, item3);
 
 		dispatch();
+		log.assertDebug("dispatching " + item2);
 		log.assertDebug("is deferred: " + item2);
+		log.assertDebug("dispatching " + item3);
 		log.assertDebug("is deferred: " + item3);
 		log.assertEmpty();
-		assertIt(2, 1, 1, item1);
+		assertIt(1, 1, 1, item1);
 		assertIt(3, 0, 0, item2);
 		assertIt(3, 0, 0, item3);
 
@@ -96,9 +103,9 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		log.assertDebug("dispatching " + item3);
 		log.assertInfo("success for " + item3 + ", took " + item3.lastElapsed() + "ms");
 		log.assertEmpty();
-		assertIt(2, 1, 1, item1);
-		assertIt(4, 1, 1, item2);
-		assertIt(4, 1, 1, item3);
+		assertIt(1, 1, 1, item1);
+		assertIt(3, 1, 1, item2);
+		assertIt(3, 1, 1, item3);
 	}
 
 	private static void assertIt(
@@ -126,24 +133,20 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
 		static final Dispatcher toTarget = Dispatcher.create(
 				AnItem::dispatch,
-				AnItem::isDeferred,
 				(i, cause) -> { throw new RuntimeException(cause); });
 		static final BooleanField deferred = new BooleanField().defaultTo(true);
 		static final IntegerField deferredCount = new IntegerField().defaultTo(0);
 		static final IntegerField dispatchCount = new IntegerField().defaultTo(0);
 
 		@WrapInterim(methodBody=false)
-		private boolean isDeferred()
+		private void dispatch() throws DispatchDeferredException
 		{
 			assertIt();
-			setDeferredCount(getDeferredCount()+1);
-			return getDeferred();
-		}
-
-		@WrapInterim(methodBody=false)
-		private void dispatch()
-		{
-			assertIt();
+			if(getDeferred())
+			{
+				setDeferredCount(getDeferredCount()+1);
+				throw DispatchDeferredException.andCommit();
+			}
 			setDispatchCount(getDispatchCount()+1);
 		}
 
