@@ -474,7 +474,6 @@ public abstract class MediaPath extends Pattern
 					"<head>\n" +
 						"<title>Not Found</title>\n" +
 						"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-						"<meta name=\"generator\" content=\"" + MediaServlet.class.getName() + "\">\n" +
 					"</head>\n" +
 					"<body>\n" +
 						"<h1>Not Found</h1>\n" +

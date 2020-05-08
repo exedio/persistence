@@ -220,7 +220,6 @@ public class MediaServlet extends HttpServlet
 						"<head>\n" +
 							"<title>Internal Server Error</title>\n" +
 							"<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">\n" +
-							"<meta name=\"generator\" content=\"" + MediaServlet.class.getName() + "\">\n" +
 						"</head>\n" +
 						"<body>\n" +
 							"<h1>Internal Server Error</h1>\n" +

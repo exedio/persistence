@@ -454,7 +454,6 @@ public class MediaServletTest
 			assertEquals("<head>", is.readLine());
 			assertEquals("<title>Not Found</title>", is.readLine());
 			assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
-			assertEquals("<meta name=\"generator\" content=\"com.exedio.cope.pattern.MediaServlet\">", is.readLine());
 			assertEquals("</head>", is.readLine());
 			assertEquals("<body>", is.readLine());
 			assertEquals("<h1>Not Found</h1>", is.readLine());
@@ -545,7 +544,6 @@ public class MediaServletTest
 			assertEquals("<head>", is.readLine());
 			assertEquals("<title>Internal Server Error</title>", is.readLine());
 			assertEquals("<meta http-equiv=\"content-type\" content=\"text/html;charset=us-ascii\">", is.readLine());
-			assertEquals("<meta name=\"generator\" content=\"com.exedio.cope.pattern.MediaServlet\">", is.readLine());
 			assertEquals("</head>", is.readLine());
 			assertEquals("<body>", is.readLine());
 			assertEquals("<h1>Internal Server Error</h1>", is.readLine());
