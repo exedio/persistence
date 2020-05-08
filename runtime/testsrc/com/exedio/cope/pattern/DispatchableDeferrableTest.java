@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -29,8 +30,10 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -43,27 +46,44 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
+	private final LogRule log = new LogRule(Dispatcher.class.getName() + '.' + AnItem.toTarget.getID());
+
 	@Test void test()
 	{
+		log.setLevelDebug();
+
 		final AnItem item1 = new AnItem();
 		final AnItem item2 = new AnItem();
 		final AnItem item3 = new AnItem();
+		log.assertEmpty();
 		assertIt(0, 0, 0, item1);
 		assertIt(0, 0, 0, item2);
 		assertIt(0, 0, 0, item3);
 
 		dispatch();
+		log.assertDebug("is deferred: " + item1);
+		log.assertDebug("is deferred: " + item2);
+		log.assertDebug("is deferred: " + item3);
+		log.assertEmpty();
 		assertIt(1, 0, 0, item1);
 		assertIt(1, 0, 0, item2);
 		assertIt(1, 0, 0, item3);
 
 		item1.setDeferred(false);
 		dispatch();
+		log.assertDebug("dispatching " + item1);
+		log.assertInfo("success for " + item1 + ", took " + item1.lastElapsed() + "ms");
+		log.assertDebug("is deferred: " + item2);
+		log.assertDebug("is deferred: " + item3);
+		log.assertEmpty();
 		assertIt(2, 1, 1, item1);
 		assertIt(2, 0, 0, item2);
 		assertIt(2, 0, 0, item3);
 
 		dispatch();
+		log.assertDebug("is deferred: " + item2);
+		log.assertDebug("is deferred: " + item3);
+		log.assertEmpty();
 		assertIt(2, 1, 1, item1);
 		assertIt(3, 0, 0, item2);
 		assertIt(3, 0, 0, item3);
@@ -71,6 +91,11 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		item2.setDeferred(false);
 		item3.setDeferred(false);
 		dispatch();
+		log.assertDebug("dispatching " + item2);
+		log.assertInfo("success for " + item2 + ", took " + item2.lastElapsed() + "ms");
+		log.assertDebug("dispatching " + item3);
+		log.assertInfo("success for " + item3 + ", took " + item3.lastElapsed() + "ms");
+		log.assertEmpty();
 		assertIt(2, 1, 1, item1);
 		assertIt(4, 1, 1, item2);
 		assertIt(4, 1, 1, item3);
@@ -82,9 +107,10 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 			final int runCount,
 			final AnItem item)
 	{
-		assertEquals(deferredCount, item.getDeferredCount(), "deferredCount");
-		assertEquals(dispatchCount, item.getDispatchCount(), "dispatchCount");
-		assertEquals(runCount, item.getToTargetRuns().size(), "runCount");
+		assertAll(
+				() -> assertEquals(deferredCount, item.getDeferredCount(), "deferredCount"),
+				() -> assertEquals(dispatchCount, item.getDispatchCount(), "dispatchCount"),
+				() -> assertEquals(runCount, item.getToTargetRuns().size(), "runCount"));
 	}
 
 	private void dispatch()
@@ -125,6 +151,12 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 		{
 			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());
+		}
+
+		long lastElapsed()
+		{
+			final List<Dispatcher.Run> runs = getToTargetRuns();
+			return runs.get(runs.size()-1).getElapsed();
 		}
 
 
