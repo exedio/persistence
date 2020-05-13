@@ -32,6 +32,7 @@ import com.exedio.cope.tojunit.MyTemporaryFolder;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Path;
 import javax.servlet.ServletOutputStream;
 import org.junit.jupiter.api.Test;
 
@@ -150,6 +151,30 @@ public class MediaUtilTest
 	{
 		final Response r = new Response("");
 		final File f = files.newFile(new byte[]{});
+		send("major/minor", f, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testPath() throws IOException
+	{
+		final Response r = new Response("414243");
+		final Path f = files.newPath(new byte[]{'A','B','C'});
+		send("major/minor", f, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testPathSingle() throws IOException
+	{
+		final Response r = new Response("73");
+		final Path f = files.newPath(new byte[]{'s'});
+		send("major/minor", f, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testPathEmpty() throws IOException
+	{
+		final Response r = new Response("");
+		final Path f = files.newPath(new byte[]{});
 		send("major/minor", f, r);
 		r.assertFinished(false);
 	}

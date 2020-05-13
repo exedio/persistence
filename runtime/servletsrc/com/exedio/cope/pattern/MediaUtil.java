@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletResponse;
 
@@ -111,6 +113,29 @@ public final class MediaUtil
 				out.write(b, 0, len);
 		}
 	}
+
+	public static void send(
+			final String contentType,
+			final Path body,
+			final HttpServletResponse response)
+		throws IOException
+	{
+		response.setContentType(contentType);
+
+		final long contentLength = Files.size(body);
+		if(contentLength<0)
+			throw new RuntimeException(String.valueOf(contentLength));
+		if(contentLength<=Integer.MAX_VALUE)
+			response.setContentLength((int)contentLength);
+		if(contentLength==0)
+			return;
+
+		try(ServletOutputStream out = response.getOutputStream())
+		{
+			Files.copy(body, out);
+		}
+	}
+
 
 	private MediaUtil()
 	{
