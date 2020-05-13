@@ -49,9 +49,12 @@ public class DateFieldWrongDefaultNowTest
 		assertEqualsUnmodifiable(asList(), AnItem.future.getSuspicions());
 
 		log.assertEmpty();
-		newType(AnItem.class);
+		final Type<?> type = newType(AnItem.class);
+		log.assertEmpty();
+
+		new Model(type);
 		log.assertError(
-				"Very probably you called \"DateField.defaultTo(new Date())\" on field AnItem.wrong. " +
+				"AnItem.wrong: Very probably you called \"DateField.defaultTo(new Date())\". " +
 				"This will not work as expected, use \"defaultToNow()\" instead.");
 		log.assertEmpty();
 

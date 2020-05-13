@@ -24,11 +24,14 @@ import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collection;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.ListIterator;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 final class Types
 {
@@ -434,6 +437,22 @@ final class Types
 		for(final Type<?> type : typesSorted)
 			for(final Feature feature : type.getDeclaredFeatures())
 				feature.afterModelCreated();
+
+		for(final Type<?> type : typesSorted)
+			for(final Feature feature : type.getDeclaredFeatures())
+			{
+				final Collection<String> suspicions = feature.getSuspicions();
+				if(suspicions.isEmpty())
+					continue;
+
+				final Logger logger = LoggerFactory.getLogger(feature.getClass());
+				if(!logger.isErrorEnabled())
+					continue;
+
+				final String featureID = feature.getID();
+				for(final String suspicion : feature.getSuspicions())
+					logger.error("{}: {}", featureID, suspicion);
+			}
 	}
 
 	void connect(final Database db)

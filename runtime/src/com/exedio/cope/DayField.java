@@ -25,20 +25,15 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.util.Day;
-import java.lang.reflect.AnnotatedElement;
 import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class DayField extends FunctionField<Day>
 {
-	private static final Logger logger = LoggerFactory.getLogger(DayField.class);
-
 	private static final long serialVersionUID = 1l;
 
 	public static Day getDefaultMinimum()
@@ -186,18 +181,6 @@ public final class DayField extends FunctionField<Day>
 	public SelectType<Day> getValueType()
 	{
 		return SimpleSelectType.DAY;
-	}
-
-	@Override
-	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
-	{
-		super.mount(type, name, annotationSource);
-
-		if(suspiciousForWrongDefaultNow() && logger.isErrorEnabled())
-			logger.error(
-					"Very probably you called \"DayField.defaultTo(new Day())\" on field {}. " +
-					"This will not work as expected, use \"defaultToNow()\" instead.",
-					getID());
 	}
 
 	@Override

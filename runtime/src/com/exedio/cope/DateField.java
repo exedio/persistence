@@ -28,7 +28,6 @@ import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Clock;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
-import java.lang.reflect.AnnotatedElement;
 import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.time.LocalDateTime;
@@ -42,13 +41,9 @@ import java.util.Locale;
 import java.util.Set;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 public final class DateField extends FunctionField<Date>
 {
-	private static final Logger logger = LoggerFactory.getLogger(DateField.class);
-
 	private static final long serialVersionUID = 1l;
 
 	public static Date getDefaultMinimum()
@@ -413,18 +408,6 @@ public final class DateField extends FunctionField<Date>
 		if(getPrecision().constrains())
 			result.add(DatePrecisionViolationException.class);
 		return result;
-	}
-
-	@Override
-	void mount(final Type<?> type, final String name, final AnnotatedElement annotationSource)
-	{
-		super.mount(type, name, annotationSource);
-
-		if(suspiciousForWrongDefaultNow() && logger.isErrorEnabled())
-			logger.error(
-					"Very probably you called \"DateField.defaultTo(new Date())\" on field {}. " +
-					"This will not work as expected, use \"defaultToNow()\" instead.",
-					getID());
 	}
 
 	@Override
