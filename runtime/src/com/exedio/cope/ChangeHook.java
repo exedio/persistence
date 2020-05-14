@@ -27,6 +27,21 @@ import javax.annotation.Nonnull;
  * when creating the model.
  * Registering hooks later is not supported.
  * <p>
+ * <b>Think twice before using ChangeHooks!</b>
+ * They are a poor  way for implementing constraints or defaults.
+ * For constraints you are better off with
+ * {@link CheckConstraint check constraints},
+ * {@link FunctionField#copyFrom(ItemField) copy constraints}, or
+ * simple constraints such as
+ * {@link IntegerField#min(int) ranges},
+ * {@link StringField#lengthRange(int, int) length ranges}, or
+ * {@link StringField#charSet(com.exedio.cope.util.CharSet) character sets}.
+ * For defaults use
+ * {@link FunctionField#defaultTo(Object) constants},
+ * {@link DateField#defaultToNow() now},
+ * {@link IntegerField#defaultToNext(int) sequence}, or
+ * {@link LongField#defaultToRandom(java.util.Random) random}.
+ * <p>
  * Methods of hooks are called synchronously when the change actually occurs,
  * by the thread that does the change.
  * If a method of a hook fails with an exception,
