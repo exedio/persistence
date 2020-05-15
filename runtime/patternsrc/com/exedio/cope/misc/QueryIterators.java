@@ -39,7 +39,15 @@ public final class QueryIterators
 			final Condition condition,
 			final int slice)
 	{
-		return iterateType(type, condition, false, slice);
+		return iterateType(type, condition, true, false, slice);
+	}
+
+	public static <E extends Item> Iterator<E> iterateTypeDescending(
+			final Type<E> type,
+			final Condition condition,
+			final int slice)
+	{
+		return iterateType(type, condition, false, false, slice);
 	}
 
 	/**
@@ -51,18 +59,32 @@ public final class QueryIterators
 			final Condition condition,
 			final int slice)
 	{
-		return iterateType(type, condition, true, slice);
+		return iterateType(type, condition, true, true, slice);
+	}
+
+	/**
+	 * Works as {@link #iterateTypeDescending(Type, Condition, int)}
+	 * but creates its own transaction whenever needed.
+	 */
+	public static <E extends Item> Iterator<E> iterateTypeDescendingTransactionally(
+			final Type<E> type,
+			final Condition condition,
+			final int slice)
+	{
+		return iterateType(type, condition, false, true, slice);
 	}
 
 	private static <E extends Item> Iterator<E> iterateType(
 			final Type<E> type,
 			final Condition condition,
+			final boolean ascending,
 			final boolean transactionally,
 			final int slice)
 	{
 		return new ByType<>(
 				requireNonNull(type, "type"),
 				condition,
+				ascending,
 				transactionally,
 				requireGreaterZero(slice, "slice"));
 	}
@@ -71,6 +93,7 @@ public final class QueryIterators
 	{
 		private final This<E> typeThis;
 		private final Condition condition;
+		private final boolean ascending;
 		private final boolean transactionally;
 		private final Query<E> query;
 
@@ -80,15 +103,17 @@ public final class QueryIterators
 		ByType(
 				final Type<E> type,
 				final Condition condition,
+				final boolean ascending,
 				final boolean transactionally,
 				final int slice)
 		{
 			this.typeThis = type.getThis();
 			this.condition = condition;
+			this.ascending = ascending;
 			this.transactionally = transactionally;
 
 			this.query  = type.newQuery(condition);
-			query.setOrderBy(typeThis, true);
+			query.setOrderBy(typeThis, ascending);
 			query.setPage(0, slice);
 			this.iterator = search();
 		}
@@ -111,7 +136,7 @@ public final class QueryIterators
 			{
 				if(limitExhausted)
 				{
-					final Condition c = typeThis.greater(result);
+					final Condition c = ascending ? typeThis.greater(result) : typeThis.less(result);
 					query.setCondition(condition!=null ? condition.and(c) : c);
 					this.iterator = search();
 				}

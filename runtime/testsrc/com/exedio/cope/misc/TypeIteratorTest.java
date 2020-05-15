@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
 import static com.exedio.cope.misc.QueryIterators.iterateType;
+import static com.exedio.cope.misc.QueryIterators.iterateTypeDescending;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
@@ -31,6 +32,7 @@ import com.exedio.cope.QueryInfo;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Transaction;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -85,12 +87,20 @@ public class TypeIteratorTest extends TestWithEnvironment
 			final Transaction tx = model.currentTransaction();
 			final String pre = "select this from QueryAggregatorItem ";
 			final String post = " order by this limit '3'";
+			final String postDesc = " order by this desc limit '3'";
 
 			tx.setQueryInfoEnabled(true);
 			assertEquals(list(), l(iterateType(TYPE, intx.less(0), 3)));
 			assertEquals(list(
 					pre + "where intx<'0'" + post),
 				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(list(), l(iterateTypeDescending(TYPE, intx.less(0), 3)));
+			assertEquals(list(
+					pre + "where intx<'0'" + postDesc),
+					toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
@@ -101,10 +111,24 @@ public class TypeIteratorTest extends TestWithEnvironment
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
+			assertEquals(asList(item0), l(iterateTypeDescending(TYPE, intx.less(1), 3)));
+			assertEquals(list(
+					pre + "where intx<'1'" + postDesc),
+					toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
 			assertEquals(asList(item0, item1), l(iterateType(TYPE, intx.less(2), 3)));
 			assertEquals(list(
 					pre + "where intx<'2'" + post),
 				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(asList(item1, item0), l(iterateTypeDescending(TYPE, intx.less(2), 3)));
+			assertEquals(list(
+					pre + "where intx<'2'" + postDesc),
+					toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
@@ -116,11 +140,27 @@ public class TypeIteratorTest extends TestWithEnvironment
 			tx.setQueryInfoEnabled(false);
 
 			tx.setQueryInfoEnabled(true);
+			assertEquals(asList(item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(3), 3)));
+			assertEquals(list(
+					pre + "where intx<'3'" + postDesc,
+					pre + "where (intx<'3' AND this<'" + item0 + "')" + postDesc),
+					toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
 			assertEquals(asList(item0, item1, item2, item3), l(iterateType(TYPE, intx.less(4), 3)));
 			assertEquals(list(
 					pre + "where intx<'4'" + post,
 					pre + "where (intx<'4' AND this>'" + item2 + "')" + post),
 				toString(tx.getQueryInfos()));
+			tx.setQueryInfoEnabled(false);
+
+			tx.setQueryInfoEnabled(true);
+			assertEquals(asList(item3, item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(4), 3)));
+			assertEquals(list(
+					pre + "where intx<'4'" + postDesc,
+					pre + "where (intx<'4' AND this<'" + item1 + "')" + postDesc),
+					toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 		}
 	}
@@ -133,6 +173,15 @@ public class TypeIteratorTest extends TestWithEnvironment
 		assertEquals(expected, l(iterateType(TYPE, c, 4)));
 		assertEquals(expected, l(iterateType(TYPE, c, 5)));
 		assertEquals(expected, l(iterateType(TYPE, c, 6)));
+
+		final List<QueryAggregatorItem> expectedDescending = new ArrayList<>(expected);
+		Collections.reverse(expectedDescending);
+		assertEquals(expectedDescending, l(iterateTypeDescending(TYPE, c, 1)));
+		assertEquals(expectedDescending, l(iterateTypeDescending(TYPE, c, 2)));
+		assertEquals(expectedDescending, l(iterateTypeDescending(TYPE, c, 3)));
+		assertEquals(expectedDescending, l(iterateTypeDescending(TYPE, c, 4)));
+		assertEquals(expectedDescending, l(iterateTypeDescending(TYPE, c, 5)));
+		assertEquals(expectedDescending, l(iterateTypeDescending(TYPE, c, 6)));
 	}
 
 	private static ArrayList<QueryAggregatorItem> l(final Iterator<QueryAggregatorItem> iterator)

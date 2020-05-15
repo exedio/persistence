@@ -20,6 +20,7 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryAggregatorItem.intx;
+import static com.exedio.cope.misc.QueryIterators.iterateTypeDescendingTransactionally;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
@@ -30,6 +31,7 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.TransactionTry;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.NoSuchElementException;
@@ -109,6 +111,15 @@ public class TypeIteratorTransactionallyTest extends TestWithEnvironment
 		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 4)));
 		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 5)));
 		assertEquals(expected, l(iterateTypeTransactionally(TYPE, c, 6)));
+
+		final List<QueryAggregatorItem> expectedDescending = new ArrayList<>(expected);
+		Collections.reverse(expectedDescending);
+		assertEquals(expectedDescending, l(iterateTypeDescendingTransactionally(TYPE, c, 1)));
+		assertEquals(expectedDescending, l(iterateTypeDescendingTransactionally(TYPE, c, 2)));
+		assertEquals(expectedDescending, l(iterateTypeDescendingTransactionally(TYPE, c, 3)));
+		assertEquals(expectedDescending, l(iterateTypeDescendingTransactionally(TYPE, c, 4)));
+		assertEquals(expectedDescending, l(iterateTypeDescendingTransactionally(TYPE, c, 5)));
+		assertEquals(expectedDescending, l(iterateTypeDescendingTransactionally(TYPE, c, 6)));
 	}
 
 	private static ArrayList<QueryAggregatorItem> l(final Iterator<QueryAggregatorItem> iterator)
