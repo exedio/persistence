@@ -125,6 +125,7 @@ public class InstanceOfModelTest
 	{
 		try
 		{
+			//noinspection rawtypes OK: otherwise "Overly strong type cast" complains
 			TYPE_A.getThis().instanceOf((Type[])null);
 			fail();
 		}

@@ -257,7 +257,7 @@ final class Marshallers
 
 	private <E> Marshaller<E> get(final Class<E> javaClass)
 	{
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked","rawtypes"})
 		final Marshaller<E> result = (Marshaller)marshallers.get(javaClass);
 		if(result==null)
 			throw new NullPointerException(javaClass.getName());

@@ -82,7 +82,7 @@ public class ConnectTest extends TestWithEnvironment
 	{
 		try
 		{
-			new Model((Type[])null);
+			new Model((Type<?>[])null);
 			fail();
 		}
 		catch(final NullPointerException e)

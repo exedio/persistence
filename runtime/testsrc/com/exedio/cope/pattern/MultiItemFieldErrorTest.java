@@ -110,7 +110,7 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@SuppressWarnings("unchecked")
+	@SuppressWarnings({"unchecked","rawtypes"})
 	@Test void testCreateNotAssignable()
 	{
 		final MultiItemField<MultiItemFieldValue> field = MultiItemField.create(MultiItemFieldValue.class);

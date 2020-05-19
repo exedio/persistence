@@ -80,14 +80,14 @@ public class ItemFieldValueTypeTest
 	{
 		assertSame(MyItem.TYPE, MyItem.field.getValueType(MODEL));
 		assertSame(MyItem.TYPE, MyItem.set.getParent().getValueType(MODEL));
-		assertSame(MyItem.TYPE, ((ItemField)MyItem.set.getElement()).getValueType(MODEL));
+		assertSame(MyItem.TYPE, ((ItemField<?>)MyItem.set.getElement()).getValueType(MODEL));
 		assertSame(MyItem.TYPE, MyItem.comp.of(MyComp.field).getValueType(MODEL));
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.field).getValueType(MODEL));
 		assertSame(MyItem.TYPE, MyItem.blok.of(MyBlok.set).getParent().getValueType(MODEL));
-		assertSame(MyItem.TYPE, ((ItemField)MyItem.blok.of(MyBlok.set).getElement()).getValueType(MODEL));
+		assertSame(MyItem.TYPE, ((ItemField<?>)MyItem.blok.of(MyBlok.set).getElement()).getValueType(MODEL));
 		assertSame(MyItem.TYPE, MyComp.field.getValueType(MODEL));
 		assertSame(MyItem.TYPE, MyBlok.field.getValueType(MODEL));
-		assertSame(MyItem.TYPE, ((ItemField)MyBlok.set.getElement()).getValueType(MODEL));
+		assertSame(MyItem.TYPE, ((ItemField<?>)MyBlok.set.getElement()).getValueType(MODEL));
 	}
 
 	@Test void testValueTypeModelNull()

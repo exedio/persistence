@@ -141,7 +141,7 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressWarnings("unchecked") // OK: testing unchecked usage of api
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: testing unchecked usage of api
 	@Test void testUnchecked()
 	{
 		try

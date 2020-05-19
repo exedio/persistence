@@ -312,7 +312,7 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 
 		synchronized(types)
 		{
-			@SuppressWarnings("unchecked")
+			@SuppressWarnings({"unchecked","rawtypes"})
 			CompositeType<T> result = (CompositeType)types.get(javaClass);
 			if(result==null)
 			{

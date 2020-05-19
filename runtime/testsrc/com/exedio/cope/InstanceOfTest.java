@@ -213,7 +213,7 @@ public class InstanceOfTest extends TestWithEnvironment
 	{
 		{
 			final Query<InstanceOfRefItem> q = InstanceOfRefItem.TYPE.newQuery();
-			q.join(InstanceOfAItem.TYPE, refb2.equal((This<InstanceOfB2Item>)(This)InstanceOfAItem.TYPE.getThis())); // TODO
+			q.join(InstanceOfAItem.TYPE, refb2.equal((Function<InstanceOfB2Item>)(This<?>)InstanceOfAItem.TYPE.getThis())); // TODO
 			assertContains(q.search());
 		}
 	}
@@ -243,7 +243,7 @@ public class InstanceOfTest extends TestWithEnvironment
 
 	@Test void testNotAssignableFromBrotherThis()
 	{
-		@SuppressWarnings("unchecked") // OK: test bad API usage
+		@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 		final Condition c = TYPE_B2.getThis().notInstanceOf((Type)TYPE_B1);
 		try
 		{
@@ -258,7 +258,7 @@ public class InstanceOfTest extends TestWithEnvironment
 
 	@Test void testNotAssignableFromBrotherRef()
 	{
-		@SuppressWarnings("unchecked") // OK: test bad API usage
+		@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 		final Condition c = refb2.notInstanceOf((Type)TYPE_B1);
 		try
 		{
@@ -273,7 +273,7 @@ public class InstanceOfTest extends TestWithEnvironment
 
 	@Test void testNotAssignableFromSuperThis()
 	{
-		@SuppressWarnings("unchecked") // OK: test bad API usage
+		@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 		final Condition c = TYPE_B1.getThis().notInstanceOf((Type)TYPE_A);
 		try
 		{

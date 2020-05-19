@@ -569,7 +569,7 @@ public class DoubleTest extends TestWithEnvironment
 		startTransaction();
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 	@Test void testUnchecked()
 	{
 		try

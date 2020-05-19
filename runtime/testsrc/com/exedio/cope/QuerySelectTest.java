@@ -41,7 +41,7 @@ public class QuerySelectTest
 		final Query<List<Object>> q = newQuery(new Function<?>[]{field1, field2}, TYPE, null);
 		try
 		{
-			q.setSelects((Selectable[])null);
+			q.setSelects((Selectable<?>[])null);
 			fail();
 		}
 		catch(final NullPointerException e)

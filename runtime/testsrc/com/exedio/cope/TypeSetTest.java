@@ -33,7 +33,7 @@ public class TypeSetTest
 
 		try
 		{
-			m.containsTypeSet((Type[])null);
+			m.containsTypeSet((Type<?>[])null);
 			fail();
 		}
 		catch(final NullPointerException e)

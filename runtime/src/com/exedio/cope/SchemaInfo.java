@@ -232,7 +232,7 @@ public final class SchemaInfo
 	 * Defaults to 10 * ( {@link Enum#ordinal()} + 1 ),
 	 * but can be overridden by {@link CopeSchemaValue}.
 	 */
-	@SuppressWarnings("unchecked") // I have no idea why I have to do this stuff
+	@SuppressWarnings({"unchecked","rawtypes"}) // I have no idea why I have to do this stuff
 	public static int getColumnValue(final Enum<?> value)
 	{
 		return getColumnValueInternal((Enum)value);

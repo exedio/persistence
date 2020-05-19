@@ -496,7 +496,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			}
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked","rawtypes"})
 		private List<Type<? extends C>> castTypeInstanceList(final List<Type<?>> l)
 		{
 			return (List)l;
@@ -508,7 +508,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return m;
 		}
 
-		@SuppressWarnings("unchecked")
+		@SuppressWarnings({"unchecked","rawtypes"})
 		private List<ItemField<C>> castDeclaredReferences(final List<ItemField<?>> l)
 		{
 			return (List)l;
@@ -787,7 +787,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(!isAssignableFrom(subtype))
 			throw new ClassCastException("expected a " + this + ", but was a " + subtype);
 
-		@SuppressWarnings("unchecked") // OK: checked at runtime
+		@SuppressWarnings({"unchecked","rawtypes"}) // OK: checked at runtime
 		final Type<T> result = (Type)subtype;
 		return result;
 	}

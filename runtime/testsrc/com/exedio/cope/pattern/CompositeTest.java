@@ -424,7 +424,7 @@ public class CompositeTest
 
 	private static final PriceField PRICE_FIELD = new PriceField();
 
-	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: testing bad api usage
 	@Test void testWrongValueTypeCreate()
 	{
 		assertFails(
@@ -442,7 +442,7 @@ public class CompositeTest
 				Value.booleanOptional + ".");
 	}
 
-	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: testing bad api usage
 	@Test void testWrongValueTypeSet()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);
@@ -454,7 +454,7 @@ public class CompositeTest
 				Value.booleanOptional + ".");
 	}
 
-	@SuppressWarnings("unchecked") // OK: testing bad api usage
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: testing bad api usage
 	@Test void testWrongValueTypeSetMulti()
 	{
 		final Value value = new Value("1234", 4, 5l, 6.6, false);

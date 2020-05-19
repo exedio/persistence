@@ -48,7 +48,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 	{
 		try
 		{
-			item.set((SetValue[])null);
+			item.set((SetValue<?>[])null);
 			fail();
 		}
 		catch(final NullPointerException e)

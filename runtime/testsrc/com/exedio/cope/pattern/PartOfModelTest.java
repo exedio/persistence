@@ -126,7 +126,7 @@ public class PartOfModelTest
 	@Test void testOrderNull()
 	{
 		assertFails(
-				() -> PartOf.create(null, (FunctionField)null),
+				() -> PartOf.create(null, (FunctionField<?>)null),
 				NullPointerException.class,
 				"order");
 	}

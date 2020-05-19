@@ -108,7 +108,7 @@ public final class JavaView extends Pattern
 			final Method getter;
 			try
 			{
-				getter = javaClass.getDeclaredMethod(getterName, (Class[])null);
+				getter = javaClass.getDeclaredMethod(getterName, (Class<?>[])null);
 			}
 			catch(final NoSuchMethodException e)
 			{
@@ -263,7 +263,7 @@ public final class JavaView extends Pattern
 
 	static java.lang.reflect.Type replacePrimitive(final java.lang.reflect.Type type)
 	{
-		return type instanceof Class<?> ? replacePrimitive((Class)type) : type;
+		return type instanceof Class<?> ? replacePrimitive((Class<?>)type) : type;
 	}
 
 	static Class<?> replacePrimitive(final Class<?> clazz)

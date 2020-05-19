@@ -76,7 +76,7 @@ public final class CompareCondition<E> extends Condition
 			return true;
 
 		if(rightValue instanceof Enum &&
-			left==((Enum)rightValue).getDeclaringClass())
+			left==((Enum<?>)rightValue).getDeclaringClass())
 			return true;
 
 		if(Item.class.isAssignableFrom(left) &&

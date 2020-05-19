@@ -230,7 +230,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(true, item.containsActiveLanguage(SUBCLASS));
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 	@Test void testUnchecked()
 	{
 		try

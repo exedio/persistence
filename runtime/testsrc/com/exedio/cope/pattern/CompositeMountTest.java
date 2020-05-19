@@ -306,7 +306,7 @@ public class CompositeMountTest
 	@Test void testNewValueNull()
 	{
 		final RuntimeException re = assertFails(
-				() -> type.newValue((SetValue[])null),
+				() -> type.newValue((SetValue<?>[])null),
 				RuntimeException.class,
 				"java.lang.reflect.InvocationTargetException");
 		final Throwable npe = re.getCause().getCause();

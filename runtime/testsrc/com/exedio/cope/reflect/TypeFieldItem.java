@@ -36,7 +36,7 @@ public final class TypeFieldItem extends Item
 	static final TypeField<TypeFieldSubItem> restricted = TypeField.create(TypeFieldSubItem.class).optional();
 
 
-	@SuppressWarnings({"unchecked", "UnusedReturnValue"}) // OK: test bad API usage
+	@SuppressWarnings({"unchecked","UnusedReturnValue","rawtypes"}) // OK: test bad API usage
 	static TypeFieldItem createRestrictedRaw(final Type<?> restricted)
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
@@ -47,7 +47,7 @@ public final class TypeFieldItem extends Item
 		});
 	}
 
-	@SuppressWarnings("unchecked") // OK: test bad API usage
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 	void setRestrictedRaw(final Type<?> restricted)
 	{
 		TypeFieldItem.restricted.set(this, (Type)restricted);

@@ -216,7 +216,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		item.setFail();
 		try
 		{
-			item.set((SetValue[])null);
+			item.set((SetValue<?>[])null);
 			fail();
 		}
 		catch(final NullPointerException e)
