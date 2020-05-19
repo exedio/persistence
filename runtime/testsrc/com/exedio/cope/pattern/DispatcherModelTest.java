@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.getMeters;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
 import static com.exedio.cope.pattern.Dispatcher.create;
@@ -320,5 +321,15 @@ public class DispatcherModelTest
 		assertEquals(-10, getColumnValue(Result.finalFailure ));
 		assertEquals(  0, getColumnValue(deprecatedFailure ));
 		assertEquals(  1, getColumnValue(Result.success ));
+	}
+
+	@Test void testMeters()
+	{
+		assertEquals(asList(
+				"dispatch result=failure",
+				"dispatch result=success",
+				"probe",
+				"purge"),
+				getMeters(toTarget));
 	}
 }

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.getMeters;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.TYPE;
 import static com.exedio.cope.pattern.DispatcherWithoutPurgeItem.body;
@@ -235,5 +236,14 @@ public class DispatcherWithoutPurgeModelTest
 					"by method withoutPurge()",
 					e.getMessage());
 		}
+	}
+
+	@Test void testMeters()
+	{
+		assertEquals(asList(
+				"dispatch result=failure",
+				"dispatch result=success",
+				"probe"), // no "purge"
+				getMeters(toTarget));
 	}
 }

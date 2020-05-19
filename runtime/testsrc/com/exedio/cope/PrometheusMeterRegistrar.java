@@ -28,10 +28,14 @@ import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
 import io.micrometer.core.instrument.Metrics;
+import io.micrometer.core.instrument.Tag;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.prometheus.PrometheusConfig;
 import io.micrometer.prometheus.PrometheusMeterRegistry;
 import io.prometheus.client.CollectorRegistry;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.TreeSet;
 
 public final class PrometheusMeterRegistrar
 {
@@ -122,8 +126,38 @@ public final class PrometheusMeterRegistrar
 
 	public static Tags tag(final Feature feature)
 	{
-		return Tags.of("feature", feature.getID());
+		return Tags.of(FEATURE, feature.getID());
 	}
+
+	public static List<String> getMeters(final Feature feature)
+	{
+		final String namePrefix = feature.getClass().getName() + ".";
+		final Tag featureTags = Tag.of(FEATURE, feature.getID());
+		final TreeSet<String> result = new TreeSet<>();
+		for(final Meter m : Metrics.globalRegistry.getMeters())
+		{
+			final Meter.Id id = m.getId();
+			final String name = id.getName();
+			if(name.startsWith(namePrefix))
+			{
+				final List<Tag> tags = id.getTags();
+				if(tags.contains(featureTags))
+				{
+					final StringBuilder bf =
+							new StringBuilder(name.substring(namePrefix.length()));
+					for(final Tag tag : tags)
+						if(!FEATURE.equals(tag.getKey()))
+							bf.append(' ').append(tag.getKey()).
+								append('=').append(tag.getValue());
+
+					result.add(bf.toString());
+				}
+			}
+		}
+		return new ArrayList<>(result);
+	}
+
+	private static final String FEATURE = "feature";
 
 
 	private PrometheusMeterRegistrar()
