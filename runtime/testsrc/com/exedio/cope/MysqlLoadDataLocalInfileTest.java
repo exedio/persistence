@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationTest.MODEL;
-import static java.nio.file.Files.setPosixFilePermissions;
+import static java.nio.file.Files.getFileAttributeView;
 import static java.nio.file.attribute.PosixFilePermission.GROUP_READ;
 import static java.nio.file.attribute.PosixFilePermission.GROUP_WRITE;
 import static java.nio.file.attribute.PosixFilePermission.OTHERS_READ;
@@ -37,6 +37,7 @@ import com.exedio.cope.tojunit.SI;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.file.Path;
+import java.nio.file.attribute.PosixFileAttributeView;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.sql.SQLSyntaxErrorException;
@@ -58,9 +59,12 @@ public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 	@Test void test() throws IOException
 	{
 		final Path file = files.newPath(new byte[]{'A','B'});
-		setPosixFilePermissions(file, EnumSet.of(
-				OWNER_READ,  GROUP_READ,  OTHERS_READ,
-				OWNER_WRITE, GROUP_WRITE, OTHERS_WRITE));
+		final PosixFileAttributeView posixView =
+				getFileAttributeView(file, PosixFileAttributeView.class);
+		if(posixView!=null)
+			posixView.setPermissions(EnumSet.of(
+					OWNER_READ,  GROUP_READ,  OTHERS_READ,
+					OWNER_WRITE, GROUP_WRITE, OTHERS_WRITE));
 		assumeTrue(mysql, "mysql");
 		final Class<? extends SQLException> expected =
 				mariaDriver

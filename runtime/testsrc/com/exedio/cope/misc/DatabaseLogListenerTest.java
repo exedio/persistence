@@ -198,18 +198,16 @@ public class DatabaseLogListenerTest
 	{
 		final String actual = out.toString("UTF-8");
 		out.reset();
-		//noinspection HardcodedLineSeparator
-		assertTrue(actual.endsWith("\n"));
+		assertTrue(actual.endsWith(lineSeparator()));
 		final int pos = actual.indexOf('|') + 1;
-		assertEquals(expected, actual.substring(pos, actual.length()-1));
+		assertEquals(expected, actual.substring(pos, actual.length()-lineSeparator().length()));
 	}
 
 	private void assertItStart(final String expected) throws UnsupportedEncodingException
 	{
 		final String actual = out.toString("UTF-8");
 		out.reset();
-		//noinspection HardcodedLineSeparator
-		assertTrue(actual.endsWith("\n"));
+		assertTrue(actual.endsWith(lineSeparator()));
 		final int pos = actual.indexOf('|') + 1;
 		assertTrue(actual.substring(pos, actual.length()-1).startsWith(expected), actual);
 	}
