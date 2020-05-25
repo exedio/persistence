@@ -243,8 +243,19 @@
 					</classpath>
 				</compile>
 				<copy todir="build/classes/runtime/dialects">
-					<fileset dir="build/classes/runtime/@{name}src" />
+					<fileset dir="build/classes/runtime/@{name}src">
+						<exclude name="META-INF/services/com.exedio.cope.DialectUrlMapper" />
+					</fileset>
 				</copy>
+			</body>
+		</foreachDialect>
+		<delete file="build/classes/runtime/dialects/META-INF/services/com.exedio.cope.DialectUrlMapper" />
+		<foreachDialect>
+			<body>
+				<echo message="Concatenating DialectUrlMapper for @{name}." />
+				<concat  destfile="build/classes/runtime/dialects/META-INF/services/com.exedio.cope.DialectUrlMapper" append="true">
+					<fileset file="build/classes/runtime/@{name}src/META-INF/services/com.exedio.cope.DialectUrlMapper" />
+				</concat>
 			</body>
 		</foreachDialect>
 	</target>
