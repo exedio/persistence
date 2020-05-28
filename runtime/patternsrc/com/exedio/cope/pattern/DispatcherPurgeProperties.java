@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.time.Duration.ZERO;
 import static java.time.Duration.ofDays;
-import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.FactoryProperties;
 import com.exedio.cope.util.Properties;
@@ -55,15 +55,6 @@ public final class DispatcherPurgeProperties extends FactoryProperties<Dispatche
 		{
 			this.retainSuccess      = requireNonNegative(retainSuccess,      "retainSuccess");
 			this.retainFinalFailure = requireNonNegative(retainFinalFailure, "retainFinalFailure");
-		}
-
-		// TODO remove when available in new version of copeutil
-		private static Duration requireNonNegative(final Duration value, final String name)
-		{
-			requireNonNull(value, name);
-			if(value.isNegative())
-				throw new IllegalArgumentException(name + " must not be negative, but was " + value);
-			return value;
 		}
 
 		/**
