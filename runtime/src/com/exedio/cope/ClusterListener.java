@@ -217,9 +217,9 @@ abstract class ClusterListener
 		private long  minRoundTripNanos = Long.MAX_VALUE;
 		private long  maxRoundTripDate  = Long.MIN_VALUE;
 		private long  maxRoundTripNanos = Long.MIN_VALUE;
-		private final SequenceChecker invalidateSeqCheck;
-		private final SequenceChecker       pingSeqCheck;
-		private final SequenceChecker       pongSeqCheck;
+		private final SeqCheck invalidateSeqCheck;
+		private final SeqCheck       pingSeqCheck;
+		private final SeqCheck       pongSeqCheck;
 
 		Node(
 				final int id,
@@ -237,30 +237,21 @@ abstract class ClusterListener
 					"address", Objects.toString(address),
 					"port", String.valueOf(port)));
 			this.roundTrip = metrics.timer("roundTrip", "The time needed by a round trip of a ping to / pong from this node.", Tags.empty());
-			this.invalidateSeqCheck = new SequenceChecker(seqCheckCapacity);
-			this.      pingSeqCheck = new SequenceChecker(seqCheckCapacity);
-			this.      pongSeqCheck = new SequenceChecker(seqCheckCapacity);
+			this.invalidateSeqCheck = new SeqCheck(seqCheckCapacity);
+			this.      pingSeqCheck = new SeqCheck(seqCheckCapacity);
+			this.      pongSeqCheck = new SeqCheck(seqCheckCapacity);
 			if(logger.isInfoEnabled())
 				logger.info("encountered new node {}", idString);
 		}
 
 		boolean invalidate(final int sequence)
 		{
-			return check(invalidateSeqCheck, sequence);
+			return invalidateSeqCheck.check(sequence);
 		}
 
 		boolean pingPong(final boolean ping, final int sequence)
 		{
-			return check((ping ? pingSeqCheck : pongSeqCheck), sequence);
-		}
-
-		private static boolean check(final SequenceChecker checker, final int sequence)
-		{
-			//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parametersare not supplied from outside this class
-			synchronized(checker)
-			{
-				return checker.check(sequence);
-			}
+			return (ping ? pingSeqCheck : pongSeqCheck).check(sequence);
 		}
 
 		void roundTrip(final long pingNanos)
@@ -305,9 +296,9 @@ abstract class ClusterListener
 					getInfo(lastRoundTripDate, lastRoundTripNanos),
 					getInfo( minRoundTripDate,  minRoundTripNanos),
 					getInfo( maxRoundTripDate,  maxRoundTripNanos),
-					getInfo(invalidateSeqCheck),
-					getInfo(pingSeqCheck),
-					getInfo(pongSeqCheck));
+					invalidateSeqCheck.getInfo(),
+					pingSeqCheck      .getInfo(),
+					pongSeqCheck      .getInfo());
 		}
 
 		private static ClusterListenerInfo.RoundTrip getInfo(final long date, final long nanos)
@@ -315,12 +306,30 @@ abstract class ClusterListener
 			return date!=Long.MIN_VALUE ? new ClusterListenerInfo.RoundTrip(date, nanos) : null;
 		}
 
-		private static SequenceChecker.Info getInfo(final SequenceChecker checker)
+		private static final class SeqCheck
 		{
-			//noinspection SynchronizationOnLocalVariableOrMethodParameter OK: parametersare not supplied from outside this class
-			synchronized(checker)
+			private final SequenceChecker backing;
+			private final Object lock = new Object();
+
+			SeqCheck(final int capacity)
 			{
-				return checker.getInfo();
+				backing = new SequenceChecker(capacity);
+			}
+
+			public boolean check(final int number)
+			{
+				synchronized(lock)
+				{
+					return backing.check(number);
+				}
+			}
+
+			public SequenceChecker.Info getInfo()
+			{
+				synchronized(lock)
+				{
+					return backing.getInfo();
+				}
 			}
 		}
 	}
