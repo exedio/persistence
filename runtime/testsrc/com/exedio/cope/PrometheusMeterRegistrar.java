@@ -109,8 +109,19 @@ public final class PrometheusMeterRegistrar
 				result = m;
 			}
 		}
-		assertNotNull(result, "not found: >" + name + "< " + tags);
+		if(result==null)
+			throw new NotFound("not found: >" + name + "< " + tags);
 		return result;
+	}
+
+	static final class NotFound extends IllegalArgumentException
+	{
+		NotFound(final String message)
+		{
+			super(message);
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 
 

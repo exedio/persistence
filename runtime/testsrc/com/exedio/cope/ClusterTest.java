@@ -66,6 +66,8 @@ public abstract class ClusterTest
 	private double missingMagicBefore;
 	private double wrongSecretBefore;
 	private double fromMyselfBefore;
+	private double pingInOrderBefore;
+	private double pongInOrderBefore;
 
 	@BeforeEach final void setUpClusterTest()
 	{
@@ -77,6 +79,8 @@ public abstract class ClusterTest
 		missingMagicBefore = count("missingMagic");
 		wrongSecretBefore = count("wrongSecret");
 		fromMyselfBefore = count("fromMyself");
+		pingInOrderBefore = countSequenceBefore("ping", "inOrder");
+		pongInOrderBefore = countSequenceBefore("pong", "inOrder");
 	}
 
 	@AfterEach final void tearDownClusterTest()
@@ -884,8 +888,8 @@ public abstract class ClusterTest
 					assertNotNull(infoNode.getFirstEncounter());
 					assertEquals(null, infoNode.getAddress());
 					assertEquals(967, infoNode.getPort());
-					assertEquals(node[1], infoNode.getPingInfo().getInOrder(), "ping");
-					assertEquals(node[2], infoNode.getPongInfo().getInOrder(), "pong");
+					assertEquals(node[1], infoNode.getPingInfo().getInOrder() - pingInOrderBefore, "ping");
+					assertEquals(node[2], infoNode.getPongInfo().getInOrder() - pongInOrderBefore, "pong");
 
 					assertEquals(0, infoNode.getPingInfo().getOutOfOrder());
 					assertEquals(0, infoNode.getPongInfo().getOutOfOrder());
@@ -896,6 +900,20 @@ public abstract class ClusterTest
 					assertEquals(0, infoNode.getPongInfo().getLost());
 					assertEquals(0, infoNode.getPingInfo().getLate());
 					assertEquals(0, infoNode.getPongInfo().getLate());
+
+					assertEquals(node[1], countSequence("ping", "inOrder") - pingInOrderBefore, "ping");
+					assertEquals(node[2], countSequence("pong", "inOrder") - pongInOrderBefore, "pong");
+					assertEquals(0, countSequence("ping", "early"));
+					assertEquals(0, countSequence("pong", "early"));
+					assertEquals(0, countSequence("ping", "outOfOrder"));
+					assertEquals(0, countSequence("pong", "outOfOrder"));
+					assertEquals(0, countSequence("ping", "duplicate"));
+					assertEquals(0, countSequence("pong", "duplicate"));
+					assertEquals(0, countSequence("ping", "late"));
+					assertEquals(0, countSequence("pong", "late"));
+					assertEquals(0, countSequence("ping", "lost"));
+					assertEquals(0, countSequence("pong", "lost"));
+
 					break nodes;
 				}
 			}
@@ -909,6 +927,35 @@ public abstract class ClusterTest
 		return ((Counter)PrometheusMeterRegistrar.meterCope(
 				Cluster.class, nameSuffix,
 				Tags.of("model", "MOCK_MODEL_NAME"))).count();
+	}
+
+	private static double countSequence(
+			final String kind,
+			final String result)
+	{
+		return ((Counter)PrometheusMeterRegistrar.meterCope(
+				Cluster.class, "sequence",
+				Tags.of(
+						"model", "MOCK_MODEL_NAME",
+						"id", "11224433",
+						"address", "null",
+						"port", "967",
+						"kind", kind,
+						"result", result))).count();
+	}
+
+	private static double countSequenceBefore(
+			final String kind,
+			final String result)
+	{
+		try
+		{
+			return countSequence(kind, result);
+		}
+		catch(final PrometheusMeterRegistrar.NotFound e)
+		{
+			return 0;
+		}
 	}
 
 	private static final byte b0 = 0;

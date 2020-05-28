@@ -22,24 +22,50 @@ import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.util.SequenceChecker;
 import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
+import java.net.Inet4Address;
+import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
+import java.util.Enumeration;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
 public class ClusterNetworkPingTest extends ClusterNetworkTest
 {
+	private String localhost;
 	private boolean fromMyself = false;
 	private double fromMyselfBeforeA;
 	private double fromMyselfBeforeB;
 
-	@Test void testMulticast() throws InterruptedException
+	@Test void testMulticast() throws InterruptedException, SocketException
 	{
+		for(final Enumeration<NetworkInterface> interfaceI = NetworkInterface.getNetworkInterfaces(); interfaceI.hasMoreElements(); )
+		{
+			final NetworkInterface networkInterface = interfaceI.nextElement();
+			if("lo".equals(networkInterface.getName()))
+				continue;
+
+			for(final Enumeration<InetAddress> addressI = networkInterface.getInetAddresses(); addressI.hasMoreElements(); )
+			{
+				final InetAddress address = addressI.nextElement();
+				if(!(address instanceof Inet4Address))
+					continue;
+				if(address.isLinkLocalAddress()) // network interface "idrac" on jenkins slave
+					continue;
+
+				localhost = address.toString();
+			}
+		}
 		assertFalse(modelA.isConnected());
 		assertFalse(modelB.isConnected());
 
@@ -56,6 +82,7 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 
 	@Test void testSinglecast() throws InterruptedException
 	{
+		localhost = "/127.0.0.1";
 		assertFalse(modelA.isConnected());
 		assertFalse(modelB.isConnected());
 
@@ -125,12 +152,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 			assertEquals(senderB.getLocalPort(), nodeA.getPort());
 			assertLastRoundTripSet(pingA, modelA, nodeA);
 			assertLastRoundTripSet(pingB, modelB, nodeB);
-			assertIt(pingB, nodeA.getPingInfo());
-			assertIt(pingA, nodeB.getPingInfo());
-			assertIt(pingA, nodeA.getPongInfo());
-			assertIt(pingB, nodeB.getPongInfo());
-			assertIt(0, nodeA.getInvalidateInfo());
-			assertIt(0, nodeB.getInvalidateInfo());
+			assertIt(pingB, modelB, modelA, nodeA.getPingInfo(), "ping");
+			assertIt(pingA, modelA, modelB, nodeB.getPingInfo(), "ping");
+			assertIt(pingA, modelB, modelA, nodeA.getPongInfo(), "pong");
+			assertIt(pingB, modelA, modelB, nodeB.getPongInfo(), "pong");
+			assertIt(0, modelB, modelA, nodeA.getInvalidateInfo(), "invalidate");
+			assertIt(0, modelA, modelB, nodeB.getInvalidateInfo(), "invalidate");
 		}
 		else
 		{
@@ -152,9 +179,12 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(this.fromMyself ? fromMyself : 0, count("fromMyself", model) - fromMyselfBefore);
 	}
 
-	private static void assertIt(
+	private void assertIt(
 			final int inOrder,
-			final SequenceChecker.Info actual)
+			final Model sendModel,
+			final Model listenModel,
+			final SequenceChecker.Info actual,
+			final String kind)
 	{
 		assertEquals(inOrder, actual.getInOrder());
 		assertEquals(0, actual.getOutOfOrder());
@@ -162,6 +192,14 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(0, actual.getLost());
 		assertEquals(0, actual.getLate());
 		assertEquals(0, actual.getPending());
+
+		assertEquals(inOrder, countSequence(sendModel, listenModel, kind, "inOrder"));
+		assertEquals(0,       countSequence(sendModel, listenModel, kind, "early"));
+		assertEquals(0,       countSequence(sendModel, listenModel, kind, "outOfOrder"));
+		assertEquals(0,       countSequence(sendModel, listenModel, kind, "duplicate"));
+		assertEquals(0,       countSequence(sendModel, listenModel, kind, "late"));
+		assertEquals(0,       countSequence(sendModel, listenModel, kind, "lost"));
+		assertEquals(0,       gaugeSequence(sendModel, listenModel, kind, "pending"));
 	}
 
 	static void assertLastRoundTripSet(
@@ -212,5 +250,43 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		return ((Counter)PrometheusMeterRegistrar.meterCope(
 				Cluster.class, nameSuffix,
 				Tags.of("model", model.toString()))).count();
+	}
+
+	private double countSequence(
+			final Model sendModel,
+			final Model listenModel,
+			final String kind,
+			final String result)
+	{
+		return ((Counter)meterSequence(sendModel, listenModel, kind, result)).count();
+	}
+
+	private double gaugeSequence(
+			final Model sendModel,
+			final Model listenModel,
+			final String kind,
+			final String result)
+	{
+		return ((Gauge)meterSequence(sendModel, listenModel, kind, result)).value();
+	}
+
+	private Meter meterSequence(
+			final Model sendModel,
+			final Model listenModel,
+			final String kind,
+			final String result)
+	{
+		assertNotSame(sendModel, listenModel);
+
+		final ClusterSenderInfo sendInfo = sendModel.getClusterSenderInfo();
+		return PrometheusMeterRegistrar.meterCope(
+				Cluster.class, "sequence",
+				Tags.of(
+						"model", listenModel.toString(),
+						"id", sendInfo.getNodeIDString(),
+						"address", localhost,
+						"port", "" + sendInfo.getLocalPort(),
+						"kind", kind,
+						"result", result));
 	}
 }

@@ -27,9 +27,12 @@ import static com.exedio.cope.ClusterUtil.MAGIC1;
 import static com.exedio.cope.ClusterUtil.MAGIC2;
 import static com.exedio.cope.ClusterUtil.MAGIC3;
 import static com.exedio.cope.ClusterUtil.pingString;
+import static com.exedio.cope.InfoRegistry.countInt;
 
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.SequenceChecker;
+import com.exedio.cope.util.SequenceChecker2;
+import com.exedio.cope.util.SequenceChecker2.Result;
 import gnu.trove.TIntObjectHashMap;
 import gnu.trove.TLongHashSet;
 import io.micrometer.core.instrument.Counter;
@@ -40,9 +43,11 @@ import java.net.InetAddress;
 import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.EnumMap;
 import java.util.Locale;
 import java.util.Objects;
 import java.util.concurrent.TimeUnit;
+import java.util.function.IntConsumer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -237,9 +242,9 @@ abstract class ClusterListener
 					"address", Objects.toString(address),
 					"port", String.valueOf(port)));
 			this.roundTrip = metrics.timer("roundTrip", "The time needed by a round trip of a ping to / pong from this node.", Tags.empty());
-			this.invalidateSeqCheck = new SeqCheck(seqCheckCapacity);
-			this.      pingSeqCheck = new SeqCheck(seqCheckCapacity);
-			this.      pongSeqCheck = new SeqCheck(seqCheckCapacity);
+			this.invalidateSeqCheck = new SeqCheck(seqCheckCapacity, metrics, "invalidate");
+			this.      pingSeqCheck = new SeqCheck(seqCheckCapacity, metrics, "ping");
+			this.      pongSeqCheck = new SeqCheck(seqCheckCapacity, metrics, "pong");
 			if(logger.isInfoEnabled())
 				logger.info("encountered new node {}", idString);
 		}
@@ -308,28 +313,49 @@ abstract class ClusterListener
 
 		private static final class SeqCheck
 		{
-			private final SequenceChecker backing;
+			private final SequenceChecker2 backing;
+
+			private final EnumMap<Result,Counter> counters = new EnumMap<>(Result.class);
+			private final Counter lost;
+			private final IntConsumer lostConsumer;
 			private final Object lock = new Object();
 
-			SeqCheck(final int capacity)
+			SeqCheck(final int capacity, final MetricsBuilder metrics, final String kind)
 			{
-				backing = new SequenceChecker(capacity);
+				backing = new SequenceChecker2(capacity);
+
+				final String NAME = "sequence";
+				final String DESC = "How sequence numbers did arrive";
+				final Tags kindTag = Tags.of("kind", kind);
+				final String RESULT = "result";
+				for(final Result r : Result.values())
+					counters.put(r,
+							metrics.counter(NAME, DESC, kindTag.and(RESULT, r.name())));
+				lost =   metrics.counter(NAME, DESC, kindTag.and(RESULT, "lost"));
+				lostConsumer = lost::increment;
+				metrics.gauge(backing, SequenceChecker2::getPending, NAME, DESC, kindTag.and(RESULT, "pending"));
 			}
 
 			public boolean check(final int number)
 			{
+				final Result result;
 				synchronized(lock)
 				{
-					return backing.check(number);
+					result = backing.check(number, lostConsumer);
 				}
+				counters.get(result).increment();
+				return result == Result.duplicate;
 			}
 
 			public SequenceChecker.Info getInfo()
 			{
-				synchronized(lock)
-				{
-					return backing.getInfo();
-				}
+				return new SequenceChecker.Info(
+						countInt(counters.get(Result.inOrder)),
+						countInt(counters.get(Result.outOfOrder)),
+						countInt(counters.get(Result.duplicate)),
+						countInt(lost),
+						countInt(counters.get(Result.late)),
+						backing.getPending());
 			}
 		}
 	}
