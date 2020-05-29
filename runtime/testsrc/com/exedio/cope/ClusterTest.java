@@ -873,6 +873,7 @@ public abstract class ClusterTest
 		assertUnmodifiable(listenerInfoNodes);
 		nodes: for(final long[] node : listenerNodes)
 		{
+			assertEquals(3, node.length);
 			final long id = node[0];
 			assertTrue(id>=Integer.MIN_VALUE, String.valueOf(id));
 			assertTrue(id<=Integer.MAX_VALUE, String.valueOf(id));
