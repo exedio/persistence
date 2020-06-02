@@ -512,8 +512,7 @@ public final class Price implements Serializable, Comparable<Price>
 
 	private static void checkRatePercent(final double rate)
 	{
-		if(rate<0)
-			throw new IllegalArgumentException("rate must not be negative, but was " + rate);
+		Check.requireNonNegative(rate, "rate");
 	}
 
 	/**
