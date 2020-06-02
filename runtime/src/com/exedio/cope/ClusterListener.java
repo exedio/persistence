@@ -53,7 +53,7 @@ abstract class ClusterListener
 	private final ClusterProperties properties;
 	private final int secret;
 	private final int localNode;
-	private final int sequenceCheckerCapacity;
+	private final int seqCheckCapacity;
 	private final int typeLength;
 	private final Tags tags;
 
@@ -65,7 +65,7 @@ abstract class ClusterListener
 		this.properties = properties;
 		this.secret = properties.secret;
 		this.localNode = properties.node;
-		this.sequenceCheckerCapacity = properties.listenSeqCheckCap;
+		this.seqCheckCapacity = properties.listenSeqCheckCap;
 		this.typeLength = typeLength;
 		this.tags = Tags.of("model", modelName);
 		final MetricsBuilder metrics = new MetricsBuilder(Cluster.class, tags);
@@ -217,15 +217,15 @@ abstract class ClusterListener
 		private long  minRoundTripNanos = Long.MAX_VALUE;
 		private long  maxRoundTripDate  = Long.MIN_VALUE;
 		private long  maxRoundTripNanos = Long.MIN_VALUE;
-		private final SequenceChecker invalidateSequenceChecker;
-		private final SequenceChecker pingSequenceChecker;
-		private final SequenceChecker pongSequenceChecker;
+		private final SequenceChecker invalidateSeqCheck;
+		private final SequenceChecker       pingSeqCheck;
+		private final SequenceChecker       pongSeqCheck;
 
 		Node(
 				final int id,
 				final DatagramPacket packet,
 				final Tags tags,
-				final int sequenceCheckerCapacity)
+				final int seqCheckCapacity)
 		{
 			this.id = id;
 			this.idString = toStringNodeID(id);
@@ -237,21 +237,21 @@ abstract class ClusterListener
 					"address", Objects.toString(address),
 					"port", String.valueOf(port)));
 			this.roundTrip = metrics.timer("roundTrip", "The time needed by a round trip of a ping to / pong from this node.", Tags.empty());
-			this.invalidateSequenceChecker = new SequenceChecker(sequenceCheckerCapacity);
-			this.pingSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
-			this.pongSequenceChecker       = new SequenceChecker(sequenceCheckerCapacity);
+			this.invalidateSeqCheck = new SequenceChecker(seqCheckCapacity);
+			this.      pingSeqCheck = new SequenceChecker(seqCheckCapacity);
+			this.      pongSeqCheck = new SequenceChecker(seqCheckCapacity);
 			if(logger.isInfoEnabled())
 				logger.info("encountered new node {}", idString);
 		}
 
 		boolean invalidate(final int sequence)
 		{
-			return check(invalidateSequenceChecker, sequence);
+			return check(invalidateSeqCheck, sequence);
 		}
 
 		boolean pingPong(final boolean ping, final int sequence)
 		{
-			return check((ping ? pingSequenceChecker : pongSequenceChecker), sequence);
+			return check((ping ? pingSeqCheck : pongSeqCheck), sequence);
 		}
 
 		private static boolean check(final SequenceChecker checker, final int sequence)
@@ -305,9 +305,9 @@ abstract class ClusterListener
 					getInfo(lastRoundTripDate, lastRoundTripNanos),
 					getInfo( minRoundTripDate,  minRoundTripNanos),
 					getInfo( maxRoundTripDate,  maxRoundTripNanos),
-					getInfo(invalidateSequenceChecker),
-					getInfo(pingSequenceChecker),
-					getInfo(pongSequenceChecker));
+					getInfo(invalidateSeqCheck),
+					getInfo(pingSeqCheck),
+					getInfo(pongSeqCheck));
 		}
 
 		private static ClusterListenerInfo.RoundTrip getInfo(final long date, final long nanos)
@@ -333,7 +333,7 @@ abstract class ClusterListener
 			if(result!=null)
 				return result;
 
-			nodes.put(id, result = new Node(id, packet, tags, sequenceCheckerCapacity));
+			nodes.put(id, result = new Node(id, packet, tags, seqCheckCapacity));
 			return result;
 		}
 	}
