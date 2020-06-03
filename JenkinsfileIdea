@@ -30,6 +30,7 @@ timestamps
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
 				sh "rm -rf " + env.HOME  + "/.Idea*"
+				sh "rm -rf " + env.HOME  + "/.cache/JetBrains"
 				sh "rm -rf " + env.HOME  + "/.config/JetBrains"
 				sh "ant/bin/ant -noinput -f conf/idea" +
 						' -Dconfig.home=' + env.HOME + '/.config/JetBrains/' + confighome +
