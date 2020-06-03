@@ -108,7 +108,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		assertEquals(null, runner.assertIt(true, false));
 
 		commit();
-		Thread.sleep(100);
+		Thread.sleep(1000);
 		assertEquals(Thread.State.TERMINATED, thread.getState(), NON_DETERMINISTIC_MESSAGE);
 		final Exception failure = runner.assertIt(true, true);
 		assertNotNull(failure);
