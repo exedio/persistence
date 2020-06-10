@@ -39,10 +39,12 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 	}
 
 	private boolean unq;
+	private String unqPrefix;
 
 	@BeforeEach final void setUp()
 	{
 		unq = model.connect().supportsUniqueViolation;
+		unqPrefix = (unq && mysql && model.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)) ? "Main." : "";
 	}
 
 	@Test void testCommit()
@@ -62,7 +64,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			if(unq)
 			{
 				assertEquals(
-						"Duplicate entry 'commit' for key 'Main_uniqueString_Unq'",
+						"Duplicate entry 'commit' for key '" + unqPrefix + "Main_uniqueString_Unq'",
 						dropMariaConnectionId(e.getCause().getMessage()));
 				assertTrue(e.getCause() instanceof SQLException);
 			}
@@ -98,7 +100,7 @@ public class DeleteAfterUniqueViolationTest extends TestWithEnvironment
 			if(unq)
 			{
 				assertEquals(
-						"Duplicate entry 'rollback' for key 'Main_uniqueString_Unq'",
+						"Duplicate entry 'rollback' for key '" + unqPrefix + "Main_uniqueString_Unq'",
 						dropMariaConnectionId(e.getCause().getMessage()));
 				assertTrue(e.getCause() instanceof SQLException);
 			}

@@ -139,10 +139,18 @@ public class StringCharSetTest extends TestWithEnvironment
 	{
 		final Table table = MODEL.getSchema().getTable(SchemaInfo.getTableName(TYPE));
 		if (mysql)
+		{
 			assertNotNull(table.getConstraint(charSetConstraintName(nonascii)));
+			if(MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
+				assertNotNull(table.getConstraint(charSetConstraintName(asciiplus)));
+			else
+				assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
+		}
 		else
+		{
 			assertEquals(null, table.getConstraint(charSetConstraintName(nonascii)));
-		assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
+			assertEquals(null, table.getConstraint(charSetConstraintName(asciiplus)));
+		}
 	}
 
 	@Test void testCheckLEmail() throws SQLException
@@ -203,7 +211,7 @@ public class StringCharSetTest extends TestWithEnvironment
 
 		if(mysql)
 		{
-			if(isSubsetOfAscii)
+			if(isSubsetOfAscii || MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
 			{
 				assertEquals(asList(result), TYPE.search(c, TYPE.getThis(), true));
 			}

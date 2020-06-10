@@ -29,16 +29,21 @@ import java.sql.ResultSet;
 final class MysqlSchemaDialect extends Dialect
 {
 	private final boolean datetime;
+	private final String foreignKeyRule;
 	final String sequenceColumnName;
 	private final String rowFormat;
 
 	MysqlSchemaDialect(
 			final boolean datetime,
+			final boolean mysql80,
 			final String sequenceColumnName,
 			final String rowFormat)
 	{
 		super(null);
 		this.datetime = datetime;
+		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
+		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
+		this.foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
 		this.sequenceColumnName = sequenceColumnName;
 		this.rowFormat = rowFormat;
 	}
@@ -176,9 +181,7 @@ final class MysqlSchemaDialect extends Dialect
 						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
 				"WHERE rc.CONSTRAINT_SCHEMA='" + catalog + "' " +
 						"AND rc.UNIQUE_CONSTRAINT_SCHEMA='" + catalog + '\'',
-				// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
-				// same as NO ACTION
-				"RESTRICT", "RESTRICT");
+				foreignKeyRule, foreignKeyRule);
 
 		final String PRIMARY_KEY = "PRIMARY KEY";
 		final String UNIQUE = "UNIQUE";

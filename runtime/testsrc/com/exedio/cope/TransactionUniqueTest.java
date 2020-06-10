@@ -118,8 +118,9 @@ public class TransactionUniqueTest extends TestWithEnvironment
 				if(MODEL.getConnectProperties().isSupportDisabledForUniqueViolation())
 				{
 					assertInsert(failure);
+					final String prefix = MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0) ? "MyItem." : "";
 					assertEquals(
-							"Duplicate entry 'collision' for key 'MyItem_field_Unq'",
+							"Duplicate entry 'collision' for key '" + prefix + "MyItem_field_Unq'",
 							dropMariaConnectionId(failure.getCause().getMessage()));
 				}
 				else

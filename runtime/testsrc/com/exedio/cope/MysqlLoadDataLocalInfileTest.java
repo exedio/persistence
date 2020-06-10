@@ -94,6 +94,8 @@ public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 		assertEquals(
 				mariaDriver
 				? "Usage of LOCAL INFILE is disabled. To use it enable it via the connection property allowLocalInfile=true"
+				: MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0)
+				? "Loading local data is disabled; this must be enabled on both the client and server sides"
 				: "The used command is not allowed with this MySQL version",
 				dropMariaConnectionId(actual.getMessage()));
 	}

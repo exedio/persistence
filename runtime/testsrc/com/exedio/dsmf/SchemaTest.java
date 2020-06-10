@@ -52,6 +52,7 @@ public abstract class SchemaTest
 		final String connectionUsername = value      ("connection.username", (String)null);
 		final String connectionPassword = valueHidden("connection.password", null);
 		final String mysqlRowFormat     = value      ("dialect.rowFormat", "NONE");
+		final boolean mysql80           = value      ("x-build.mysql80", false);
 		final String connectionPostgresqlSchema = value("dialect.connection.schema", connectionUsername);
 
 		Properties()
@@ -95,6 +96,7 @@ public abstract class SchemaTest
 			info.setProperty("allowLocalInfile", "false"); // MariaDB driver
 			dialect = newD("Mysql",
 					false, // TODO test true as well
+					config.mysql80,
 					"CopeSequenceAutoIncrementColumnForTest",
 					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
 			stringType = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";

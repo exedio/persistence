@@ -1,0 +1,217 @@
+
+timestamps
+{
+	def jdk = 'openjdk-8-deb9'
+	def isRelease = env.BRANCH_NAME.toString().equals("master")
+
+	properties([
+			buildDiscarder(logRotator(
+					numToKeepStr : isRelease ? '1000' : '30'
+			))
+	])
+
+	env.DATABASE_HOST = 'mysql80.ci.test'
+
+	//noinspection GroovyAssignabilityCheck
+	node('GitCloneExedio && ' + jdk + ' && ' + env.DATABASE_HOST)
+	{
+		try
+		{
+			abortable
+			{
+				echo("Delete working dir before build")
+				deleteDir()
+
+				def scmResult = checkout scm
+				computeGitTree(scmResult)
+
+				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss")
+				env.JAVA_HOME = tool jdk
+				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+				env.SCHEMA = "ci_${HOSTNAME}_${EXECUTOR_NUMBER}"
+
+				sh 'echo' +
+						' HOSTNAME -${HOSTNAME}-' +
+						' EXECUTOR_NUMBER -${EXECUTOR_NUMBER}-' +
+						' scmResult=' + scmResult +
+						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
+						' BRANCH_NAME -${BRANCH_NAME}-' +
+						' BUILD_NUMBER -${BUILD_NUMBER}-' +
+						' BUILD_ID -${BUILD_ID}-' +
+						' SCHEMA=' + env.SCHEMA
+
+				sh 'rm -f conf/environment/*.properties'
+
+				writeEnv(
+						'my80',
+						'mysql-connector-java',
+						''
+				)
+				writeEnv(
+						'my80-compress',
+						'mysql-connector-java',
+						'dialect.rowFormat=COMPRESSED\n'
+				)
+				writeEnv(
+						'my80-legacy',
+						'mysql-connector-java',
+						'disableSupport.nativeDate=true\n'
+				)
+				writeEnv(
+						'my80-nprep',
+						'mysql-connector-java',
+						'disableSupport.preparedStatements=true\n'
+				)
+				writeEnv(
+						'my80-nstmp',
+						'mysql-connector-java',
+						'cache.stamps=false\n'
+				)
+				writeEnv(
+						'my80-nstmp-sq',
+						'mysql-connector-java',
+						'cache.stamps=false\n' +
+						'dialect.fullSequenceColumnName=false\n' +
+						'schema.primaryKeyGenerator=sequence\n'
+				)
+				writeEnv(
+						'my80-sq',
+						'mysql-connector-java',
+						'schema.primaryKeyGenerator=sequence\n'
+				)
+				writeEnv(
+						'my80-sqb',
+						'mysql-connector-java',
+						'schema.primaryKeyGenerator=batchedSequence\n'
+				)
+				writeEnv(
+						'my80-unique',
+						'mysql-connector-java',
+						'disableSupport.uniqueViolation=true\n'
+				)
+				writeEnv(
+						'my80-z',
+						'mysql-connector-java',
+						'dialect.connection.compress=true\n' +
+						'schema.primaryKeyGenerator=sequence\n'
+				)
+				writeEnv(
+						'my80m',
+						'mariadb-java-client',
+						''
+				)
+				writeEnv(
+						'my80m-legacy',
+						'mariadb-java-client',
+						'disableSupport.nativeDate=true\n'
+				)
+				writeEnv(
+						'my80m-nprep',
+						'mariadb-java-client',
+						'disableSupport.preparedStatements=true\n'
+				)
+				writeEnv(
+						'my80m-nstmp',
+						'mariadb-java-client',
+						'cache.stamps=false\n'
+				)
+				writeEnv(
+						'my80m-nstmp-sq',
+						'mariadb-java-client',
+						'cache.stamps=false\n' +
+						'dialect.fullSequenceColumnName=false\n' +
+						'schema.primaryKeyGenerator=sequence\n'
+				)
+				writeEnv(
+						'my80m-sq',
+						'mariadb-java-client',
+						'schema.primaryKeyGenerator=sequence\n'
+				)
+				writeEnv(
+						'my80m-z',
+						'mariadb-java-client',
+						'dialect.connection.compress=true\n' +
+						'schema.primaryKeyGenerator=sequence\n'
+				)
+
+				sh 'ant/bin/ant -noinput' +
+						' -f macros/resetSchema.xml' +
+						' mysql' +
+						' -Dfile=conf/environment/my80.properties'
+
+				sh "ant/bin/ant -noinput clean testWithEnv" +
+						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
+						' -Dskip.instrument=true' + // already verified in Jenkinsfile
+						' -Ddisable-ansi-colors=true'
+			}
+		}
+		catch(Exception e)
+		{
+			//todo handle script returned exit code 143
+			throw e
+		}
+		finally
+		{
+			// because junit failure aborts ant
+			junit(
+					allowEmptyResults: false,
+					testResults: 'build/testresults/**/*.xml',
+			)
+			archiveArtifacts(
+					'build/testprotocol.*,' +
+					'build/classes/runtime/src/com/exedio/cope/testprotocol.properties,' +
+					'build/*.log,' +
+					'build/testtmpdir'
+			)
+			def to = emailextrecipients([culprits(), requestor()])
+			//TODO details
+			step([$class: 'Mailer',
+					recipients: to,
+					attachLog: true,
+					notifyEveryUnstableBuild: true])
+
+			echo("Delete working dir after build")
+			deleteDir()
+		}
+	}
+}
+
+def abortable(Closure body)
+{
+	try
+	{
+		body.call()
+	}
+	catch(hudson.AbortException e)
+	{
+		if(e.getMessage().contains("exit code 143"))
+			return
+		throw e
+	}
+}
+
+def computeGitTree(scmResult)
+{
+	sh "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //' > .git/jenkins-head-tree"
+	scmResult.GIT_TREE = readFile('.git/jenkins-head-tree').trim()
+}
+
+def writeEnv(name, driver, text)
+{
+	withCredentials([string(credentialsId: env.DATABASE_HOST, variable: 'PASSWORD')])
+	{
+		writeFile(
+			file: 'conf/environment/' + name + '.properties',
+			text:
+					'connection.url=jdbc:mysql://' + env.DATABASE_HOST + '/' + env.SCHEMA + '\n' +
+					'connection.username=' + env.SCHEMA + '_native_password\n' +
+					'connection.password=' + PASSWORD + '\n' +
+					'x-build.schemasavepoint=' +
+							/OK: SHOW MASTER STATUS Gtid=\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}:\\d+-\\d+ binlog.\\d{6}:\\d+ doDB=binlogtest/ + '\n' +
+					'x-build.dialect=mysql\n' +
+					'x-build.driver=' + driver + '.jar\n' +
+					'x-build.mysql80=true\n' +
+					text
+		)
+	}
+}
