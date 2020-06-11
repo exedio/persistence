@@ -30,9 +30,7 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
-import java.util.Collections;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
 public class SequenceTest extends TestWithEnvironment
@@ -116,12 +114,19 @@ public class SequenceTest extends TestWithEnvironment
 	@Test void testParallelSequenceAccess() throws InterruptedException
 	{
 		final Thread[] threads = new Thread[ 10 ];
-		final Set<Integer> fullIds = Collections.synchronizedSet( new HashSet<>() );
-		final Set<Integer> expected = new HashSet<>();
+		final HashMap<Integer,Integer> fullIds  = new HashMap<>();
+		final HashMap<Integer,Integer> expected = new HashMap<>();
 		for ( int i=0; i<threads.length; i++ )
 		{
-			expected.add( i );
-			threads[i] = new Thread(() -> fullIds.add(nextFull()));
+			expected.put( i, 1 );
+			threads[i] = new Thread(() ->
+			{
+				final int next = nextFull();
+				synchronized(fullIds)
+				{
+					fullIds.put(next, fullIds.getOrDefault(next, 0) + 1);
+				}
+			});
 		}
 		for ( final Thread t: threads )
 		{
