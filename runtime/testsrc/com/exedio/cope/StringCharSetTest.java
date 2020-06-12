@@ -27,6 +27,7 @@ import static com.exedio.cope.StringCharSetItem.asciiplus;
 import static com.exedio.cope.StringCharSetItem.email;
 import static com.exedio.cope.StringCharSetItem.nonascii;
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -39,6 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.Arrays;
 import java.util.HashSet;
 import org.junit.jupiter.api.Test;
 
@@ -118,11 +120,11 @@ public class StringCharSetTest extends TestWithEnvironment
 		final CharSet brackets = new CharSet('[', ']');
 
 		assertIt(printable7bit,   true,  abc, space,                              quote, brkts);
-		assertIt(printable16bit,  false, abc, space, uuml,                   del, quote, brkts);
-		assertIt(whiteSpace7bit,  true,  abc, space,            tab, nl, cr,      quote, brkts);
-		assertIt(whiteSpace16bit, false, abc, space, uuml,      tab, nl, cr, del, quote, brkts);
-		assertIt(control7bit,     true,  abc, space,       bsp, tab, nl, cr,      quote, brkts);
-		assertIt(control16bit,    false, abc, space, uuml, bsp, tab, nl, cr, del, quote, brkts);
+		assertIt(printable16bit,  false, abc, space,                   uuml, del, quote, brkts);
+		assertIt(whiteSpace7bit,  true,  abc, space,      tab, nl, cr,            quote, brkts);
+		assertIt(whiteSpace16bit, false, abc, space,      tab, nl, cr, uuml, del, quote, brkts);
+		assertIt(control7bit,     true,  abc, space, bsp, tab, nl, cr,            quote, brkts);
+		assertIt(control16bit,    false, abc, space, bsp, tab, nl, cr, uuml, del, quote, brkts);
 		assertIt(onlyDel,         true,                                      del);
 		assertIt(onlyQuote,       true,                                           quote);
 		assertIt(brackets,        true,                                                  brkts);
@@ -193,6 +195,7 @@ public class StringCharSetTest extends TestWithEnvironment
 	private void assertIt(final CharSet cs, final boolean isSubsetOfAscii, final StringCharSetItem... result)
 	{
 		assertEquals(isSubsetOfAscii, cs.isSubsetOfAscii(), "isSubsetOfAscii");
+		assertEquals(asList(result), Arrays.stream(result).sorted().collect(toList()));
 		final CharSetCondition c = new CharSetCondition(any, cs);
 		final HashSet<StringCharSetItem> resultSet = new HashSet<>(asList(result));
 		for(final StringCharSetItem i : TYPE.search(null, TYPE.getThis(), true))
