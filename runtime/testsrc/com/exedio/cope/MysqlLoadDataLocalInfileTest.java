@@ -28,7 +28,9 @@ import static java.nio.file.attribute.PosixFilePermission.OTHERS_WRITE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.ConnectionRule;
@@ -38,6 +40,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.SQLFeatureNotSupportedException;
 import java.sql.SQLSyntaxErrorException;
@@ -56,7 +59,7 @@ public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
 	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@Test void test() throws IOException
+	@Test void test() throws IOException, SQLException
 	{
 		final Path file = files.newPath(new byte[]{'A','B'});
 		final PosixFileAttributeView posixView =
@@ -65,7 +68,20 @@ public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 			posixView.setPermissions(EnumSet.of(
 					OWNER_READ,  GROUP_READ,  OTHERS_READ,
 					OWNER_WRITE, GROUP_WRITE, OTHERS_WRITE));
+
 		assumeTrue(mysql, "mysql");
+
+		// Checks whether server allows LOAD DATA LOCAL INFILE. Only then we can
+		// test, whether client side properties allowLocalInfile/allowLoadLocalInfile
+		// do actually prevent LOAD DATA LOCAL INFILE.
+		try(ResultSet rs = connection.executeQuery("SHOW VARIABLES LIKE 'local_infile'"))
+		{
+			assertTrue(rs.next());
+			assertEquals("local_infile", rs.getString(1));
+			assertEquals("ON", rs.getString(2));
+			assertFalse(rs.next());
+		}
+
 		final Class<? extends SQLException> expected =
 				mariaDriver
 				? SQLFeatureNotSupportedException.class
