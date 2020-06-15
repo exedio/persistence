@@ -192,33 +192,6 @@ public class ItemTest extends TestmodelTest
 		assertEquals(false, item2.getSomeNotNullBoolean());
 		assertEquals(item1, item2.getSomeNotNullItem());
 		assertEquals(AttributeItem.SomeEnum.enumValue3, item2.getSomeNotNullEnum());
-
-		try
-		{
-			item2.set(
-					AttributeItem.someNotNullString.map("someGenericString2"),
-					AttributeItem.someNotNullString.map("someGenericString2"));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("SetValues contain duplicate settable AttributeItem.someNotNullString", e.getMessage());
-		}
-		assertEquals("someGenericString", item2.getSomeNotNullString());
-
-		try
-		{
-			AttributeItem.TYPE.newItem(
-					AttributeItem.someNotNullString.map("someGenericString"),
-					AttributeItem.someNotNullString.map("someGenericString"));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("SetValues contain duplicate settable AttributeItem.someNotNullString", e.getMessage());
-		}
-		assertContains(item2, AttributeItem.TYPE.search());
-
 		assertDelete(item2);
 		assertDelete(item1);
 	}
