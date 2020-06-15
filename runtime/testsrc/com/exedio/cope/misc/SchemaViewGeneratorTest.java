@@ -89,6 +89,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
 		final EnvironmentInfo env = model.getEnvironmentInfo();
 		final boolean fracSec = env.isDatabaseVersionAtLeast(5, 6);
+		final String intType = mariaDriver&&env.isDatabaseVersionAtLeast(5, 7) ? "INTEGER" : "INT";
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
 			{
@@ -100,6 +101,12 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 						() -> assertEquals("plain",    md.getColumnName(4)),
 						() -> assertEquals("enum",     md.getColumnName(5)),
 						() -> assertEquals("date",     md.getColumnName(6)),
+						() -> assertEquals(intType,    md.getColumnTypeName(1), "this"),
+						() -> assertEquals(intType,    md.getColumnTypeName(2), "supPlain"),
+						() -> assertEquals("VARCHAR",  md.getColumnTypeName(3), "supEnum"),
+						() -> assertEquals(intType,    md.getColumnTypeName(4), "plain"),
+						() -> assertEquals("VARCHAR",  md.getColumnTypeName(5), "enum"),
+						() -> assertEquals("DATETIME", md.getColumnTypeName(6), "date"),
 						() -> assertEquals(6,          md.getColumnCount()));
 			}
 
