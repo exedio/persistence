@@ -21,6 +21,7 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.time.LocalDateTime.of;
 import static java.time.Month.DECEMBER;
+import static java.time.Month.MAY;
 import static java.time.Month.OCTOBER;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -73,6 +74,9 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		new MyItem(511, MyEnum.beta,  711, MyEnum.alpha, date(of(1959, OCTOBER,  4,  0, 43, 39, 123_000_000))); // Luna 3
 		new MyItem(522, MyEnum.delta, 722, MyEnum.delta, date(of(2018, DECEMBER, 7, 18, 23, 11, 123_000_000))); // Chang'e 4
 		new MyItem(null, null, null, null, null);
+		new MyItem(888, MyEnum.delta, 777, MyEnum.delta, date(of(2020, MAY, 8, 20, 23, 44, 120_000_000)));
+		new MyItem(888, MyEnum.delta, 777, MyEnum.delta, date(of(2020, MAY, 8, 21, 23, 44, 100_000_000)));
+		new MyItem(888, MyEnum.delta, 777, MyEnum.delta, date(of(2020, MAY, 8, 22, 23, 44, 0)));
 		model.commit();
 
 		final String SQL =
@@ -119,6 +123,16 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 					"2018-12-07 18:23:11" + (fracSec?(".123"+(mariaDriver?"":"000000")):""), rs);
 
 			assertResult("2", null, null, null, null, null, rs);
+
+			assertResult(
+					"3", "888", "delta", "777", "delta",
+					"2020-05-08 20:23:44" + (fracSec?(".12"+(mariaDriver?"":"0000000")):""), rs);
+			assertResult(
+					"4", "888", "delta", "777", "delta",
+					"2020-05-08 21:23:44" + (fracSec?(".1"+(mariaDriver?"":"00000000")):""), rs);
+			assertResult(
+					"5", "888", "delta", "777", "delta",
+					"2020-05-08 22:23:44" + (fracSec&&mariaDriver?".0":""), rs);
 
 			assertFalse(rs.next());
 		}
