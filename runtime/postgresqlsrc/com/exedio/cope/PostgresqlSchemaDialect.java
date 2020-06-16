@@ -100,7 +100,8 @@ final class PostgresqlSchemaDialect extends Dialect
 				"SELECT table_name " +
 				"FROM information_schema.tables " +
 				"WHERE table_catalog='" + catalog + "' AND table_schema='" + getSchema() + "' " +
-				"AND table_type='BASE TABLE'");
+				"AND table_type='BASE TABLE' " +
+				"ORDER BY table_name"); // make it deterministic for more than one unused table
 
 		querySQL(schema,
 				"SELECT " +

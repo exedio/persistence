@@ -106,7 +106,8 @@ final class OracleSchemaDialect extends Dialect
 	protected void verify(final Schema schema)
 	{
 		verifyTables(schema,
-				"SELECT TABLE_NAME FROM user_tables");
+				"SELECT TABLE_NAME FROM user_tables " +
+				"ORDER BY TABLE_NAME"); // make it deterministic for more than one unused table
 
 		verifyColumnsByMetaData(schema, null);
 

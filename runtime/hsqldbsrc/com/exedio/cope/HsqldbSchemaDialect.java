@@ -89,7 +89,8 @@ final class HsqldbSchemaDialect extends Dialect
 		verifyTables(schema,
 				"SELECT TABLE_NAME " +
 				"FROM INFORMATION_SCHEMA.TABLES " +
-				"WHERE TABLE_SCHEMA='PUBLIC' AND TABLE_TYPE='BASE TABLE'");
+				"WHERE TABLE_SCHEMA='PUBLIC' AND TABLE_TYPE='BASE TABLE' " +
+				"ORDER BY TABLE_NAME"); // make it deterministic for more than one unused table
 
 		verifyColumnsByMetaData(schema, "PUBLIC");
 

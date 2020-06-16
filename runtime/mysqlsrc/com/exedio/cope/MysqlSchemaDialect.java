@@ -78,7 +78,8 @@ final class MysqlSchemaDialect extends Dialect
 		querySQL(schema,
 				"SELECT TABLE_NAME, ENGINE " +
 				"FROM information_schema.TABLES " +
-				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE'",
+				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE' " +
+				"ORDER BY TABLE_NAME", // make it deterministic for more than one unused table
 		resultSet ->
 		{
 			while(resultSet.next())
