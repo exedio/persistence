@@ -92,7 +92,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		sv.create();
 		connection.execute("SET time_zone = '+00:00'"); // UTC needed for FROM_UNIXTIME
 		final EnvironmentInfo env = model.getEnvironmentInfo();
-		final boolean fracSec = env.isDatabaseVersionAtLeast(5, 6);
+		final boolean intSec = !env.isDatabaseVersionAtLeast(5, 6);
 		final String intType = mariaDriver&&env.isDatabaseVersionAtLeast(5, 7) ? "INTEGER" : "INT";
 		try(ResultSet rs = connection.executeQuery(SQL))
 		{
@@ -116,23 +116,23 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 			assertResult(
 					"0", "511", "beta", "711", "alpha",
-					"1959-10-04 00:43:39" + (fracSec?(".123"+(mariaDriver?"":"000000")):""), rs);
+					"1959-10-04 00:43:39" + (intSec ? "" : ".123"+(mariaDriver?"":"000000")), rs);
 
 			assertResult(
 					"1", "522", "delta", "722", "delta",
-					"2018-12-07 18:23:11" + (fracSec?(".123"+(mariaDriver?"":"000000")):""), rs);
+					"2018-12-07 18:23:11" + (intSec ? "" : ".123"+(mariaDriver?"":"000000")), rs);
 
 			assertResult("2", null, null, null, null, null, rs);
 
 			assertResult(
 					"3", "888", "delta", "777", "delta",
-					"2020-05-08 20:23:44" + (fracSec?(".12"+(mariaDriver?"":"0000000")):""), rs);
+					"2020-05-08 20:23:44" + (intSec ? "" : ".12"+(mariaDriver?"":"0000000")), rs);
 			assertResult(
 					"4", "888", "delta", "777", "delta",
-					"2020-05-08 21:23:44" + (fracSec?(".1"+(mariaDriver?"":"00000000")):""), rs);
+					"2020-05-08 21:23:44" + (intSec ? "" : ".1"+(mariaDriver?"":"00000000")), rs);
 			assertResult(
 					"5", "888", "delta", "777", "delta",
-					"2020-05-08 22:23:44" + (fracSec&&mariaDriver?".0":""), rs);
+					"2020-05-08 22:23:44" + (intSec || !mariaDriver ? "" : ".0"), rs);
 
 			assertFalse(rs.next());
 		}
