@@ -160,7 +160,7 @@ def writeEnv(name, text)
 					'connection.username=' + env.SCHEMA + '\n' +
 					'connection.password=' + PASSWORD + '\n' +
 					'x-build.schemasavepoint=' +
-							/FAILS: SHOW MASTER STATUS returns empty result\\p{Punct} probably because binlog is disabled/ + '\n' +
+							/FAILS: SHOW MASTER STATUS returns empty result, probably because binlog is disabled/ + '\n' +
 					'x-build.dialect=mysql\n' +
 					'x-build.driver=mysql-connector-java.jar\n' +
 					text

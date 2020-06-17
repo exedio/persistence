@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ConnectProperties.getDefaultPropertyFile;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
@@ -29,6 +30,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
+import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Sources;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -129,16 +132,10 @@ public class SupportsTest extends TestWithEnvironment
 		}
 	}
 
+
 	@Test void testSchemaSavepoint()
 	{
-		final String conf = System.getProperty(SupportsTest.class.getName() + ".testSchemaSavepoint");
-		final String expected;
-		if(conf.startsWith("${") && // not specified
-			conf.endsWith(".x-build.schemasavepoint}"))
-			expected = NOT_SUPPORTED;
-		else
-			expected = conf;
-
+		final String expected = new SchemaSavepointProperties().schemaSavepoint;
 		try
 		{
 			assertMatches(expected, "OK: " + model.getSchemaSavepoint());
@@ -163,6 +160,16 @@ public class SupportsTest extends TestWithEnvironment
 		assertNotNull(expected);
 		assertNotNull(actual);
 		assertTrue(actual.matches(expected), () -> "---" + expected + "---" + actual + "---");
+	}
+
+	private static final class SchemaSavepointProperties extends Properties
+	{
+		final String schemaSavepoint = value("x-build.schemasavepoint", NOT_SUPPORTED);
+
+		SchemaSavepointProperties()
+		{
+			super(Sources.load(getDefaultPropertyFile()));
+		}
 	}
 
 	private static final String NOT_SUPPORTED = "FAILS: not supported";

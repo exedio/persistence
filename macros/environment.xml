@@ -18,13 +18,9 @@
 							<echo level="info" message="Doing @{skipSwitch} for @{env}" />
 							<for param="env.driver" list="${@{env.file}.x-build.driver}"><!-- dummy loop for creating attribute -->
 								<sequential>
-									<for param="env.schemasavepoint" list="${@{env.file}.x-build.schemasavepoint}"><!-- dummy loop for creating attribute -->
+									<for param="env.dialect" list="${@{env.file}.x-build.dialect}"><!-- dummy loop for creating attribute -->
 										<sequential>
-											<for param="env.dialect" list="${@{env.file}.x-build.dialect}"><!-- dummy loop for creating attribute -->
-												<sequential>
-													<body />
-												</sequential>
-											</for>
+											<body />
 										</sequential>
 									</for>
 								</sequential>

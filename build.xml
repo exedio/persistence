@@ -487,7 +487,6 @@
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
-					<sysproperty key="com.exedio.cope.SupportsTest.testSchemaSavepoint" value="@{env.SchemaSavepoint}" />
 				</ljunit>
 			</body>
 		</foreachEnvironment>
