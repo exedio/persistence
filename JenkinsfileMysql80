@@ -204,7 +204,7 @@ def writeEnv(name, driver, text)
 			file: 'conf/environment/' + name + '.properties',
 			text:
 					'connection.url=jdbc:mysql://' + env.DATABASE_HOST + '/' + env.SCHEMA + '\n' +
-					'connection.username=' + env.SCHEMA + '_native_password\n' +
+					'connection.username=' + env.SCHEMA + (driver=='mariadb-java-client' ? '_native_password' : '') + '\n' +
 					'connection.password=' + PASSWORD + '\n' +
 					'x-build.schemasavepoint=' +
 							/OK: SHOW MASTER STATUS Gtid=\\p{XDigit}{8}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{4}-\\p{XDigit}{12}:\\d+-\\d+ binlog.\\d{6}:\\d+ doDB=binlogtest/ + '\n' +

@@ -19,6 +19,7 @@
 			<!-- otherwise connect fails if database does not yet exist -->
 			<connectionProperty name="createDatabaseIfNotExist" value="true" />
 			<!-- see MysqlDialect#completeConnectionInfo -->
+			<connectionProperty name="allowPublicKeyRetrieval" value="true" />
 			<connectionProperty name="sslMode" value="DISABLED" />
 			<connectionProperty name="serverTimezone" value="UTC" />
 			<connectionProperty name="allowLoadLocalInfile" value="false" /><!-- MySQL driver -->

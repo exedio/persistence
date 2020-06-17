@@ -54,6 +54,11 @@ import org.slf4j.LoggerFactory;
 @ServiceProperties(MysqlProperties.class)
 @DialectProbeInfo({
 
+		// Without allowPublicKeyRetrieval one gets a
+		// java.sql.SQLNonTransientConnectionException: Public Key Retrieval is not allowed
+		// on MySQL 8.0 with authentication via caching_sha2_password instead of mysql_native_password.
+		"allowPublicKeyRetrieval", "true",
+
 		// Without useSSL=false there is a warning on MySQL 5.7 after
 		// upgrading mysql-connector from 5.1.15 to 5.1.45:
 		// WARN: Establishing SSL connection without server's identity verification is not recommended.
