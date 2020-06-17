@@ -19,7 +19,7 @@
 			<!-- otherwise connect fails if database does not yet exist -->
 			<connectionProperty name="createDatabaseIfNotExist" value="true" />
 			<!-- see MysqlDialect#completeConnectionInfo -->
-			<connectionProperty name="useSSL" value="false" />
+			<connectionProperty name="sslMode" value="DISABLED" />
 			<connectionProperty name="serverTimezone" value="UTC" />
 			<connectionProperty name="allowLoadLocalInfile" value="false" /><!-- MySQL driver -->
 			<connectionProperty name="allowLocalInfile" value="false" /><!-- MariaDB driver -->

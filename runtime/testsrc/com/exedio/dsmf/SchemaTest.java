@@ -89,7 +89,7 @@ public abstract class SchemaTest
 		{
 			// see MysqlDialect#completeConnectionInfo
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
-			info.setProperty("useSSL", "false");
+			info.setProperty("sslMode", "DISABLED");
 			info.setProperty("serverTimezone", "UTC");
 			info.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
 			info.setProperty("allowLocalInfile", "false"); // MariaDB driver

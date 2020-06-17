@@ -62,7 +62,9 @@ import org.slf4j.LoggerFactory;
 		// applications not using SSL the verifyServerCertificate property is set to 'false'.
 		// You need either to explicitly disable SSL by setting useSSL=false, or set useSSL=true
 		// and provide truststore for server certificate verification.
-		"useSSL", "false",
+		// Later, useSSL has been converted into the more modern sslMode.
+		// https://dev.mysql.com/doc/connector-j/8.0/en/connector-j-reference-configuration-properties.html
+		"sslMode", "DISABLED",
 
 		// Without serverTimezone there is an error on MySQL 5.6 after
 		// upgrading mysql-connector from 5.1.45 to 8.0.13:
