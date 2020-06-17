@@ -110,8 +110,10 @@ public final class FieldValues
 
 		field.check(value, backingItem);
 
-		if(dirt.putIfAbsent(field, value)!=null)
+		if(dirt.containsKey(field))
 			throw new IllegalArgumentException("SetValues contain duplicate settable " + field);
+		if(dirt.putIfAbsent(field, value)!=null)
+			throw new RuntimeException(field.toString());
 	}
 
 	void checkNonDirtyMandatoryOnCreate()

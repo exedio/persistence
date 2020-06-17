@@ -47,13 +47,13 @@ public class SetValuesDuplicateTest extends TestWithEnvironment
 	}
 	@Test void testCreateNullSecond()
 	{
-		final AnItem i = new AnItem(NULL_SECOND); // TODO should fail
-		assertEquals("second", i.getField());
+		assertFailsDup(() -> new AnItem(NULL_SECOND));
+		assertEquals(asList(), AnItem.TYPE.search());
 	}
 	@Test void testCreateNullNull()
 	{
-		final AnItem i = new AnItem(NULL_NULL); // TODO should fail
-		assertEquals(null, i.getField());
+		assertFailsDup(() -> new AnItem(NULL_NULL));
+		assertEquals(asList(), AnItem.TYPE.search());
 	}
 
 	@Test void testSetFirstSecond()
@@ -77,14 +77,14 @@ public class SetValuesDuplicateTest extends TestWithEnvironment
 	@Test void testSetNullSecond()
 	{
 		final AnItem i = new AnItem();
-		i.set(NULL_SECOND); // TODO should fail
-		assertEquals("second", i.getField()); // TODO should be "initial"
+		assertFailsDup(() -> i.set(NULL_SECOND));
+		assertEquals("initial", i.getField());
 	}
 	@Test void testSetNullNull()
 	{
 		final AnItem i = new AnItem();
-		i.set(NULL_NULL); // TODO should fail
-		assertEquals(null, i.getField()); // TODO should be "initial"
+		assertFailsDup(() -> i.set(NULL_NULL));
+		assertEquals("initial", i.getField());
 	}
 
 	private static final SetValue<?>[] FIRST_SECOND = { AnItem.field.map("first"), AnItem.field.map("second")    };
