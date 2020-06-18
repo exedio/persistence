@@ -29,6 +29,7 @@ import java.sql.ResultSet;
 final class MysqlSchemaDialect extends Dialect
 {
 	private final boolean datetime;
+	private final boolean renameColumn;
 	private final String foreignKeyRule;
 	final String sequenceColumnName;
 	private final String rowFormat;
@@ -41,6 +42,7 @@ final class MysqlSchemaDialect extends Dialect
 	{
 		super(null);
 		this.datetime = datetime;
+		this.renameColumn = mysql80; // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		this.foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
@@ -269,7 +271,9 @@ final class MysqlSchemaDialect extends Dialect
 	@Override
 	public String renameColumn(final String tableName, final String oldColumnName, final String newColumnName, final String columnType)
 	{
-		// TODO use RENAME COLUMN in MySQL 8.0
+		if(renameColumn)
+			return super.renameColumn(tableName, oldColumnName, newColumnName, columnType);
+
 		return
 				"ALTER TABLE " + tableName +
 				" CHANGE " + oldColumnName + ' ' + newColumnName + ' ' + columnType;
