@@ -28,33 +28,33 @@ public class ICUTest
 {
 	@Test void testRanges()
 	{
-		assertIt("^[A-Z]*$", new CharSet('A', 'Z'));
-		assertIt("^[0-9A-Z]*$", new CharSet('0', '9', 'A', 'Z'));
+		assertIt("\\A[A-Z]*\\z", new CharSet('A', 'Z'));
+		assertIt("\\A[0-9A-Z]*\\z", new CharSet('0', '9', 'A', 'Z'));
 	}
 	@Test void testSingle()
 	{
-		assertIt("^[AE]*$", new CharSet('A', 'A', 'E', 'E'));
+		assertIt("\\A[AE]*\\z", new CharSet('A', 'A', 'E', 'E'));
 	}
 	@Test void testRangeSingleMixed()
 	{
-		assertIt("^[0-9A]*$", new CharSet('0', '9', 'A', 'A'));
+		assertIt("\\A[0-9A]*\\z", new CharSet('0', '9', 'A', 'A'));
 	}
 	@Test void testNonHex()
 	{
-		assertIt("^[ -!]*$", new CharSet(' ', '!'));
-		assertIt("^[z-~]*$", new CharSet('z', (char)126));
+		assertIt("\\A[ -!]*\\z", new CharSet(' ', '!'));
+		assertIt("\\A[z-~]*\\z", new CharSet('z', (char)126));
 	}
 	@Test void testHex()
 	{
 		//noinspection HardcodedLineSeparator OK: testing line separator characters
-		assertIt("^[\\u000a-\\u000d]*$", new CharSet('\n', '\r'));
-		assertIt("^[\\u00c4-\\u00d6]*$", new CharSet('\u00c4', '\u00d6'));
-		assertIt("^[\\u001f-\\u007f]*$", new CharSet((char)31, (char)127));
+		assertIt("\\A[\\u000a-\\u000d]*\\z", new CharSet('\n', '\r'));
+		assertIt("\\A[\\u00c4-\\u00d6]*\\z", new CharSet('\u00c4', '\u00d6'));
+		assertIt("\\A[\\u001f-\\u007f]*\\z", new CharSet((char)31, (char)127));
 	}
 	@Test void testQuoted()
 	{
-		assertIt("^[\\&-\\-\\[-\\]]*$", new CharSet('&', '-', '[', ']'));
-		assertIt("^[\\\\]*$", new CharSet('\\', '\\'));
+		assertIt("\\A[\\&-\\-\\[-\\]]*\\z", new CharSet('&', '-', '[', ']'));
+		assertIt("\\A[\\\\]*\\z", new CharSet('\\', '\\'));
 	}
 
 	private static void assertIt(final String expected, final CharSet actual)

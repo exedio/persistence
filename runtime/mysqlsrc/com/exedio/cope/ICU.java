@@ -29,7 +29,7 @@ final class ICU
 	static String getRegularExpression(final CharSet charSet)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append("^[");
+		bf.append("\\A[");
 
 		final char[] set = charSet.getCharacters();
 		for(int i = 0; i<set.length; i+=2)
@@ -49,7 +49,7 @@ final class ICU
 			}
 		}
 
-		bf.append("]*$");
+		bf.append("]*\\z");
 		return bf.toString();
 	}
 

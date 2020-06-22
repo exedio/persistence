@@ -169,14 +169,11 @@ public class SchemaTest extends TestWithEnvironment
 		}
 		assertEquals(string8, min4Max8Column.getType());
 
-		final String upperSQL =
-				mysql
-				? icu("(") + q(stringUpper6) + " REGEXP '^[A-Z]*$'" +
-					icu(
-							" AND NOT LOCATE(X'0A',"+q(stringUpper6)+")" +
-							" AND NOT LOCATE(X'0D',"+q(stringUpper6)+"))")
-				: "";
-		final String hexSQL   = mysql ? q(data)        +" REGEXP '^[0-9,a-f]*$'" : "";
+		final boolean icu = mysql && MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0);
+		final String regexpBegin = icu ? "\\A": "^";
+		final String regexpEnd   = icu ? "\\z": "$";
+		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"    +regexpEnd+"'" : "";
+		final String hexSQL   = mysql ? q(data)        +" REGEXP '"+regexpBegin+"[0-9,a-f]*"+regexpEnd+"'" : "";
 
 		assertCheckConstraint(table, "Main_stringMin4_MN", l(stringMin4)+">=4");
 		assertCheckConstraint(table, "Main_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
@@ -245,11 +242,6 @@ public class SchemaTest extends TestWithEnvironment
 			return model.connect().database.dialect.getBlobLength() + '(' + q(f) + ')';
 		else
 			return model.connect().database.dialect.getStringLength() + '(' + q(f) + ')';
-	}
-
-	private String icu(final String s)
-	{
-		return mysql && MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0) ? s : "";
 	}
 
 	protected final String hp(final String s)

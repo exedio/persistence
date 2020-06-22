@@ -39,7 +39,6 @@ import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.List;
 import java.util.Properties;
-import java.util.function.Consumer;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import org.slf4j.Logger;
@@ -494,22 +493,14 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getClause(final String column, final CharSet set)
 	{
-		if(regexpICU)
-		{
-			final StringBuilder bf = new StringBuilder();
-			appendICU(
-					() -> bf.append(column),
-					bf::append,
-					s -> bf.append(StringColumn.cacheToDatabaseStatic(s)),
-					set);
-			return bf.toString();
-		}
-
-		if(set.isSubsetOfAscii())
+		if(regexpICU || set.isSubsetOfAscii())
 		{
 			return
 					column + " REGEXP " +
-					StringColumn.cacheToDatabaseStatic(set.getRegularExpression());
+					StringColumn.cacheToDatabaseStatic(
+							regexpICU
+							? ICU.getRegularExpression(set)
+							: set.getRegularExpression());
 		}
 		else
 		{
@@ -534,17 +525,7 @@ final class MysqlDialect extends Dialect
 			final Join join,
 			final CharSet set)
 	{
-		if(regexpICU)
-		{
-			appendICU(
-					() -> statement.append(function, join),
-					statement::append,
-					statement::appendParameter,
-					set);
-			return;
-		}
-
-		if(!set.isSubsetOfAscii())
+		if(!regexpICU && !set.isSubsetOfAscii())
 			throw new UnsupportedQueryException(
 					"CharSetCondition not supported by " + getClass().getName() + " " +
 					"with non-ASCII CharSet: " + set);
@@ -552,48 +533,10 @@ final class MysqlDialect extends Dialect
 		statement.
 			append(function, join).
 			append(" REGEXP ").
-			appendParameter(set.getRegularExpression());
-	}
-
-	private static void appendICU(
-			final Runnable onColumn,
-			final Consumer<String> onText,
-			final Consumer<String> onParameter,
-			final CharSet set)
-	{
-		@SuppressWarnings("HardcodedLineSeparator") // OK: checking line separator characters
-		final boolean noNL = !set.contains('\n');
-		@SuppressWarnings("HardcodedLineSeparator") // OK: checking line separator characters
-		final boolean noCR = !set.contains('\r');
-
-		if(noNL||noCR)
-			onText.accept("(");
-
-		onColumn.run();
-		onText.accept(" REGEXP ");
-		onParameter.accept(ICU.getRegularExpression(set));
-
-		// ICU ignores line separator characters at the end of the input,
-		// therefore we do check for them separately.
-		if(noNL)
-			appendICULocate(onColumn, onText, "0A");
-		if(noCR)
-			appendICULocate(onColumn, onText, "0D");
-
-		if(noNL||noCR)
-			onText.accept(")");
-	}
-
-	private static void appendICULocate(
-			final Runnable onColumn,
-			final Consumer<String> onText,
-			final String character)
-	{
-		onText.accept(" AND NOT LOCATE(X'");
-		onText.accept(character);
-		onText.accept("',");
-		onColumn.run();
-		onText.accept(")");
+			appendParameter(
+					regexpICU
+					? ICU.getRegularExpression(set)
+					: set.getRegularExpression());
 	}
 
 	@Override
