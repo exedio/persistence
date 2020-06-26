@@ -212,8 +212,8 @@ public class StringCharSetTest extends TestWithEnvironment
 			{
 				assertFails(
 						() -> TYPE.search(c),
-						IllegalStateException.class,
-						"not supported: CharSetCondition on MySQL " +
+						UnsupportedQueryException.class,
+						"CharSetCondition not supported by com.exedio.cope.MysqlDialect " +
 						"with non-ASCII CharSet: " + cs);
 			}
 		}
@@ -277,8 +277,8 @@ public class StringCharSetTest extends TestWithEnvironment
 	{
 		assertFails(
 				() -> TYPE.search(condition),
-				RuntimeException.class,
-				"CharSetCondition not yet implemented");
+				UnsupportedQueryException.class,
+				"CharSetCondition not supported by " + MODEL.getConnectProperties().getDialect());
 	}
 
 	@Test void testSchema()

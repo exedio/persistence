@@ -526,7 +526,9 @@ final class MysqlDialect extends Dialect
 			final CharSet set)
 	{
 		if(!regexpICU && !set.isSubsetOfAscii())
-			throw new IllegalStateException("not supported: CharSetCondition on MySQL with non-ASCII CharSet: " + set);
+			throw new UnsupportedQueryException(
+					"CharSetCondition not supported by " + getClass().getName() + " " +
+					"with non-ASCII CharSet: " + set);
 
 		statement.
 			append(function, join).

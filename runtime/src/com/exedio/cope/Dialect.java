@@ -442,7 +442,8 @@ abstract class Dialect
 			final Join join,
 			final CharSet set)
 	{
-		throw new RuntimeException("CharSetCondition not yet implemented");
+		throw new UnsupportedQueryException(
+				"CharSetCondition not supported by " + getClass().getName());
 	}
 
 	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
