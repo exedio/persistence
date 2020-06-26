@@ -26,9 +26,9 @@ import static com.exedio.cope.StringCharSetItem.any;
 import static com.exedio.cope.StringCharSetItem.asciiplus;
 import static com.exedio.cope.StringCharSetItem.email;
 import static com.exedio.cope.StringCharSetItem.nonascii;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -65,21 +65,14 @@ public class StringCharSetTest extends TestWithEnvironment
 
 	@Test void testCheckFail()
 	{
-		try
-		{
-			alpha.check("abc1abc");
-			fail();
-		}
-		catch(final StringCharSetViolationException e)
-		{
-			assertEquals(alpha, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals(
-					"character set violation, " +
-					"'abc1abc' for " + alpha + ", " +
-					"contains forbidden character '1' (U+0031) on position 3.",
-					e.getMessage());
-		}
+		final StringCharSetViolationException e = assertFails(
+				() -> alpha.check("abc1abc"),
+				StringCharSetViolationException.class,
+				"character set violation, " +
+				"'abc1abc' for " + alpha + ", " +
+				"contains forbidden character '1' (U+0031) on position 3.");
+		assertEquals(alpha, e.getFeature());
+		assertEquals(null, e.getItem());
 	}
 
 	@Test void testCheckUnsupportedConstraints()
@@ -217,15 +210,11 @@ public class StringCharSetTest extends TestWithEnvironment
 			}
 			else
 			{
-				try
-				{
-					TYPE.search(c);
-					fail();
-				}
-				catch(final IllegalStateException e)
-				{
-					assertEquals("not supported: CharSetCondition on MySQL with non-ASCII CharSet: " + cs, e.getMessage());
-				}
+				assertFails(
+						() -> TYPE.search(c),
+						IllegalStateException.class,
+						"not supported: CharSetCondition on MySQL " +
+						"with non-ASCII CharSet: " + cs);
 			}
 		}
 		else
@@ -286,16 +275,10 @@ public class StringCharSetTest extends TestWithEnvironment
 
 	private static void assertNotYetImplemented(final Condition condition)
 	{
-		try
-		{
-			TYPE.search(condition);
-			fail();
-		}
-		catch(final RuntimeException e)
-		{
-			assertEquals("CharSetCondition not yet implemented", e.getMessage());
-			assertEquals(RuntimeException.class, e.getClass());
-		}
+		assertFails(
+				() -> TYPE.search(condition),
+				RuntimeException.class,
+				"CharSetCondition not yet implemented");
 	}
 
 	@Test void testSchema()
