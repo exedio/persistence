@@ -112,7 +112,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	private static Class<? extends Dialect> fromUrl(final String url)
 	{
 		final HashSet<Class<? extends Dialect>> result = new HashSet<>();
-		for(final DialectUrlMapper mapper : ServiceLoader.load(DialectUrlMapper.class))
+		for(final DialectUrlMapper mapper : dialectUrlMappers())
 		{
 			final Class<? extends Dialect> clazz = mapper.map(url);
 			if(clazz!=null)
@@ -123,6 +123,11 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 				(result.size()==1)
 				? result.iterator().next()
 				: null;
+	}
+
+	private static Iterable<DialectUrlMapper> dialectUrlMappers()
+	{
+		return ServiceLoader.load(DialectUrlMapper.class, DialectUrlMapper.class.getClassLoader());
 	}
 
 	{
@@ -150,7 +155,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	public static Iterable<?> getDialectUrlMappers()
 	{
-		return ServiceLoader.load(DialectUrlMapper.class);
+		return dialectUrlMappers();
 	}
 
 	public String getDialect()
