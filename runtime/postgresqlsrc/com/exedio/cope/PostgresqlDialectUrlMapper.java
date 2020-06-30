@@ -22,6 +22,6 @@ public final class PostgresqlDialectUrlMapper extends SimpleDialectUrlMapper
 {
 	public PostgresqlDialectUrlMapper()
 	{
-		super("jdbc:postgresql:", PostgresqlDialect.class);
+		super("postgresql", PostgresqlDialect.class);
 	}
 }

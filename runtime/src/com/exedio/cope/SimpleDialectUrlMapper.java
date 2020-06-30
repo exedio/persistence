@@ -27,10 +27,10 @@ abstract class SimpleDialectUrlMapper extends DialectUrlMapper
 	private final Class<? extends Dialect> dialectClass;
 
 	SimpleDialectUrlMapper(
-			final String urlPrefix,
+			final String subprotocol,
 			final Class<? extends Dialect> dialectClass)
 	{
-		this.urlPrefix = requireNonEmpty(urlPrefix, "urlPrefix");
+		this.urlPrefix = "jdbc:" + requireNonEmpty(subprotocol, "subprotocol") + ':';
 		this.dialectClass = requireNonNull(dialectClass, "dialectClass");
 	}
 

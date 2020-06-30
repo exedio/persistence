@@ -33,29 +33,30 @@ public class SimpleDialectUrlMapperTest
 {
 	@Test void testNormal()
 	{
-		final Mapper m = new Mapper("prefix", dialectClass);
-		assertSame(dialectClass, m.map("prefix"));
-		assertSame(dialectClass, m.map("prefixX"));
-		assertSame(null,         m.map("prefi"));
+		final Mapper m = new Mapper("proto", dialectClass);
+		assertSame(dialectClass, m.map("jdbc:proto:"));
+		assertSame(dialectClass, m.map("jdbc:proto:X"));
+		assertSame(null,         m.map("jdbc:proto"));
+		assertSame(null,         m.map("jdbc:prot:"));
 		assertSame(null,         m.map(""));
 		assertFails(
 				() -> m.map(null),
 				NullPointerException.class, null);
-		assertEquals("prefix* -> " + dialectClass.getName(), m.toString());
+		assertEquals("jdbc:proto:* -> " + dialectClass.getName(), m.toString());
 	}
 
 	@Test void testPrefixNull()
 	{
 		assertFails(
 				() -> new Mapper(null, null),
-				NullPointerException.class, "urlPrefix");
+				NullPointerException.class, "subprotocol");
 	}
 
 	@Test void testPrefixEmpty()
 	{
 		assertFails(
 				() -> new Mapper("", null),
-				IllegalArgumentException.class, "urlPrefix must not be empty");
+				IllegalArgumentException.class, "subprotocol must not be empty");
 	}
 
 	@Test void testDialectClassNull()

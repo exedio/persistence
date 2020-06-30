@@ -22,6 +22,6 @@ public final class OracleDialectUrlMapper extends SimpleDialectUrlMapper
 {
 	public OracleDialectUrlMapper()
 	{
-		super("jdbc:oracle:", OracleDialect.class);
+		super("oracle", OracleDialect.class);
 	}
 }

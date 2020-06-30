@@ -22,6 +22,6 @@ public final class HsqldbDialectUrlMapper extends SimpleDialectUrlMapper
 {
 	public HsqldbDialectUrlMapper()
 	{
-		super("jdbc:hsqldb:", HsqldbDialect.class);
+		super("hsqldb", HsqldbDialect.class);
 	}
 }
