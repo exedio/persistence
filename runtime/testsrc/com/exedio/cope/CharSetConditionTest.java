@@ -31,6 +31,7 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.CharSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -47,10 +48,12 @@ public class CharSetConditionTest extends TestWithEnvironment
 	@BeforeEach void beforeEach()
 	{
 		assumeTrue(MODEL.supportsEmptyStrings());
+		bmpOnly = mysql && !propertiesUtf8mb4();
 		new AnItem((String)null);
 		empty = new AnItem("");
 	}
 
+	private boolean bmpOnly;
 	private AnItem empty;
 
 
@@ -219,14 +222,17 @@ public class CharSetConditionTest extends TestWithEnvironment
 				new AnItem("ABC\u00C5XY Z");
 		final AnItem esh =
 				new AnItem("ABC\u0425XY Z");
-		// TODO test SMP such as emoji
+		final AnItem grinning =
+				bmpOnly ? null : new AnItem(BEYOND_BMP + "ABC" + grinningFace + "XY Z");
+		final AnItem unamused =
+				bmpOnly ? null : new AnItem(BEYOND_BMP + "ABC" + unamusedFace + "XY Z");
 
 		assertIt(ASC_NO_CONTROLS,             plain,     spc);
 		assertIt(ASC_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc);
 		assertIt(BMP_NO_CONTROLS,             plain,     spc, aring, esh);
 		assertIt(BMP_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc, aring, esh);
-		assertIt(AUP_NO_CONTROLS,             plain,     spc, aring, esh);
-		assertIt(AUP_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc, aring, esh);
+		assertIt(AUP_NO_CONTROLS,             plain,     spc, aring, esh, grinning, unamused);
+		assertIt(AUP_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc, aring, esh, grinning, unamused);
 	}
 
 	private static final char BEFORE_SURROGATES = (char) 0xD7FF;
@@ -254,11 +260,18 @@ public class CharSetConditionTest extends TestWithEnvironment
 	private static final CharSet AUP_NO_CONTROLS_PLUS_NL_TAB =
 			new CharSet('\t', '\n', '\r', '\r', ' ', END_UTF16);
 
+	private static final String grinningFace = "\ud83d\ude00"; // Unicode code point U+1F600
+	private static final String unamusedFace = "\ud83d\ude12"; // Unicode code point U+1F612
+	private static final String BEYOND_BMP = "BEYONDBMP";
+
 
 	private void assertIt(final CharSet charSet, final AnItem... expectedWithoutEmpty)
 	{
 		final ArrayList<AnItem> expected = new ArrayList<>(asList(expectedWithoutEmpty));
 		expected.add(0, empty);
+
+		if(bmpOnly)
+			expected.removeIf(Objects::isNull);
 
 		final List<AnItem> all = AnItem.TYPE.search(AnItem.field.isNotNull(), AnItem.TYPE.getThis(), true);
 		{
@@ -266,6 +279,11 @@ public class CharSetConditionTest extends TestWithEnvironment
 			actual.removeIf(item -> charSet.indexOfNotContains(item.getField()) >= 0);
 			assertEquals(expected, actual, "charSet");
 		}
+
+		// TODO the "if" below works around a bug in cope
+		if(charSet.contains('\uD800') && charSet.contains('\uDFFF') &&
+			mysql && MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
+			expected.removeIf(item -> item.getField().startsWith(BEYOND_BMP));
 
 		final CharSetCondition condition =
 				new CharSetCondition(AnItem.field, charSet);
