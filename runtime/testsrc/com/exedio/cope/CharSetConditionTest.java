@@ -102,19 +102,9 @@ public class CharSetConditionTest extends TestWithEnvironment
 		final AnItem endCRNL = new AnItem("ABCXYZ"+CRNL);
 		final AnItem empty = new AnItem("");
 
-		if(mysql && MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
-		{
-			// TODO else branch is correct
-			assertIt(ALPHA_UPPER,    plain, justNL, justCR,           justCRNL,                endNL, endCR,          endCRNL, empty);
-			assertIt(ALPHA_UPPER_NL, plain, justNL, justCR, justNLCR, justCRNL, startNL, inNL, endNL, endCR, endNLCR, endCRNL, empty);
-			assertIt(ALPHA_UPPER_CR, plain, justNL, justCR,           justCRNL, startCR, inCR, endNL, endCR,          endCRNL, empty);
-		}
-		else
-		{
-			assertIt(ALPHA_UPPER,    plain,                               empty);
-			assertIt(ALPHA_UPPER_NL, plain, justNL, startNL, inNL, endNL, empty);
-			assertIt(ALPHA_UPPER_CR, plain, justCR, startCR, inCR, endCR, empty);
-		}
+		assertIt(ALPHA_UPPER,    plain,                               empty);
+		assertIt(ALPHA_UPPER_NL, plain, justNL, startNL, inNL, endNL, empty);
+		assertIt(ALPHA_UPPER_CR, plain, justCR, startCR, inCR, endCR, empty);
 		assertIt(ALPHA_UPPER_NL_CR, plain,
 				justNL,  justCR,  justNLCR,  justCRNL,
 				startNL, startCR, startNLCR, startCRNL,
@@ -217,7 +207,6 @@ public class CharSetConditionTest extends TestWithEnvironment
 	private void assertIt(final CharSet charSet, final AnItem... expected)
 	{
 		final List<AnItem> all = AnItem.TYPE.search(AnItem.field.isNotNull(), AnItem.TYPE.getThis(), true);
-		if(!mysql || !MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
 		{
 			final ArrayList<AnItem> actual = new ArrayList<>(all);
 			actual.removeIf(item -> charSet.indexOfNotContains(item.getField()) >= 0);
