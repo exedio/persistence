@@ -19,7 +19,6 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaUtil.send;
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -151,7 +150,8 @@ public class MediaUtilTest
 	{
 		final Response r = new Response("");
 		final File f = files.newFile(new byte[]{});
-		assertFails(() -> send("major/minor", f, r), RuntimeException.class, "0");
+		send("major/minor", f, r);
+		r.assertFinished(false);
 	}
 
 
@@ -220,8 +220,13 @@ public class MediaUtilTest
 			assertTrue(setContentType);
 			assertTrue(setContentLength);
 			assertEquals(setCharacterEncoding, this.setCharacterEncoding);
-			assertNotNull(outputStream);
-			assertEquals(expectedHex, encodeLower(outputStream.toByteArray()));
+			if(expectedHex.isEmpty())
+				assertNull(outputStream);
+			else
+			{
+				assertNotNull(outputStream);
+				assertEquals(expectedHex, encodeLower(outputStream.toByteArray()));
+			}
 		}
 	}
 }

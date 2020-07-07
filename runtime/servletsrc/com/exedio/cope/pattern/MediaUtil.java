@@ -59,6 +59,8 @@ public final class MediaUtil
 	{
 		response.setContentType(contentType);
 		response.setContentLength(body.length);
+		if(body.length==0)
+			return;
 
 		try(ServletOutputStream out = response.getOutputStream())
 		{
@@ -73,7 +75,10 @@ public final class MediaUtil
 		throws IOException
 	{
 		response.setContentType(contentType);
-		response.setContentLength(body.size());
+		final int contentLength = body.size();
+		response.setContentLength(contentLength);
+		if(contentLength==0)
+			return;
 
 		try(ServletOutputStream out = response.getOutputStream())
 		{
@@ -90,10 +95,12 @@ public final class MediaUtil
 		response.setContentType(contentType);
 
 		final long contentLength = body.length();
-		if(contentLength<=0)
+		if(contentLength<0)
 			throw new RuntimeException(String.valueOf(contentLength));
 		if(contentLength<=Integer.MAX_VALUE)
 			response.setContentLength((int)contentLength);
+		if(contentLength==0)
+			return;
 
 		final byte[] b = new byte[DataField.min(8*1024, contentLength)];
 		try(
