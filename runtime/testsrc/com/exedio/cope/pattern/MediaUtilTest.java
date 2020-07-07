@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.MediaUtil.send;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -40,30 +41,90 @@ public class MediaUtilTest
 {
 	@Test void testString() throws IOException
 	{
-		final Response r = new Response();
+		final Response r = new Response("414243");
 		send("major/minor", US_ASCII, "ABC", r);
+		r.assertFinished(true);
+	}
+
+	@Test void testStringSingle() throws IOException
+	{
+		final Response r = new Response("73");
+		send("major/minor", US_ASCII, "s", r);
+		r.assertFinished(true);
+	}
+
+	@Test void testStringEmpty() throws IOException
+	{
+		final Response r = new Response("");
+		send("major/minor", US_ASCII, "", r);
 		r.assertFinished(true);
 	}
 
 	@Test void testStringCharsetName() throws IOException
 	{
-		final Response r = new Response();
+		final Response r = new Response("414243");
 		send("major/minor", "US-ASCII", "ABC", r);
+		r.assertFinished(true);
+	}
+
+	@Test void testStringCharsetNameSingle() throws IOException
+	{
+		final Response r = new Response("73");
+		send("major/minor", "US-ASCII", "s", r);
+		r.assertFinished(true);
+	}
+
+	@Test void testStringCharsetNameEmpty() throws IOException
+	{
+		final Response r = new Response("");
+		send("major/minor", "US-ASCII", "", r);
 		r.assertFinished(true);
 	}
 
 	@Test void testBytes() throws IOException
 	{
-		final Response r = new Response();
+		final Response r = new Response("414243");
 		send("major/minor", new byte[]{'A','B','C'}, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testBytesSingle() throws IOException
+	{
+		final Response r = new Response("73");
+		send("major/minor", new byte[]{'s'}, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testBytesEmpty() throws IOException
+	{
+		final Response r = new Response("");
+		send("major/minor", new byte[]{}, r);
 		r.assertFinished(false);
 	}
 
 	@Test void testByteArrayOutputStream() throws IOException
 	{
-		final Response r = new Response();
+		final Response r = new Response("414243");
 		final ByteArrayOutputStream s = new ByteArrayOutputStream();
 		s.write(new byte[]{'A','B','C'});
+		send("major/minor", s, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testByteArrayOutputStreamSingle() throws IOException
+	{
+		final Response r = new Response("73");
+		final ByteArrayOutputStream s = new ByteArrayOutputStream();
+		s.write(new byte[]{'s'});
+		send("major/minor", s, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testByteArrayOutputStreamEmpty() throws IOException
+	{
+		final Response r = new Response("");
+		final ByteArrayOutputStream s = new ByteArrayOutputStream();
+		s.write(new byte[]{});
 		send("major/minor", s, r);
 		r.assertFinished(false);
 	}
@@ -72,23 +133,40 @@ public class MediaUtilTest
 
 	@Test void testFile() throws IOException
 	{
-		final Response r = new Response();
+		final Response r = new Response("414243");
 		final File f = files.newFile(new byte[]{'A','B','C'});
 		send("major/minor", f, r);
 		r.assertFinished(false);
 	}
 
+	@Test void testFileSingle() throws IOException
+	{
+		final Response r = new Response("73");
+		final File f = files.newFile(new byte[]{'s'});
+		send("major/minor", f, r);
+		r.assertFinished(false);
+	}
+
+	@Test void testFileEmpty() throws IOException
+	{
+		final Response r = new Response("");
+		final File f = files.newFile(new byte[]{});
+		assertFails(() -> send("major/minor", f, r), RuntimeException.class, "0");
+	}
+
 
 	private static class Response extends AssertionFailedHttpServletResponse
 	{
+		private final String expectedHex;
 		boolean setContentType = false;
 		boolean setContentLength = false;
 		boolean setCharacterEncoding = false;
 		ByteArrayOutputStream outputStream = null;
 
-		Response()
+		Response(final String expectedHex)
 		{
-			// make package private
+			this.expectedHex = expectedHex;
+			assertTrue(expectedHex.length() % 2 == 0);
 		}
 
 		@Override
@@ -104,7 +182,7 @@ public class MediaUtilTest
 		{
 			assertFalse(setContentLength);
 			setContentLength = true;
-			assertEquals(3, len);
+			assertEquals(expectedHex.length()/2, len);
 		}
 
 		@Override
@@ -143,7 +221,7 @@ public class MediaUtilTest
 			assertTrue(setContentLength);
 			assertEquals(setCharacterEncoding, this.setCharacterEncoding);
 			assertNotNull(outputStream);
-			assertEquals("414243", encodeLower(outputStream.toByteArray()));
+			assertEquals(expectedHex, encodeLower(outputStream.toByteArray()));
 		}
 	}
 }
