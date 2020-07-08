@@ -48,7 +48,10 @@ public class CharSetConditionTest extends TestWithEnvironment
 	{
 		assumeTrue(MODEL.supportsEmptyStrings());
 		new AnItem((String)null);
+		empty = new AnItem("");
 	}
+
+	private AnItem empty;
 
 
 	@Test void testAlpha()
@@ -62,22 +65,18 @@ public class CharSetConditionTest extends TestWithEnvironment
 		final AnItem upperWithinLower = new AnItem("abcABCXYZxyz");
 		final AnItem lowerWithinUpper = new AnItem("ABCabcxyzXYZ");
 		new AnItem("ab\u00fccd");
-		final AnItem empty = new AnItem("");
 
-		assertIt(ALPHA_UPPER, upperOnly, upperSingleA, upperSingleZ, empty);
-		assertIt(ALPHA_LOWER, lowerOnly, lowerSingleA, lowerSingleZ, empty);
+		assertIt(ALPHA_UPPER, upperOnly, upperSingleA, upperSingleZ);
+		assertIt(ALPHA_LOWER, lowerOnly, lowerSingleA, lowerSingleZ);
 		assertIt(ALPHA,
 				upperOnly, lowerOnly, upperSingleA, lowerSingleA, upperSingleZ, lowerSingleZ,
-				upperWithinLower, lowerWithinUpper, empty);
+				upperWithinLower, lowerWithinUpper);
 		assertIt(ALPHA_UPPER_NL,
-				upperOnly, upperSingleA, upperSingleZ,
-				empty);
+				upperOnly, upperSingleA, upperSingleZ);
 		assertIt(ALPHA_UPPER_CR,
-				upperOnly, upperSingleA, upperSingleZ,
-				empty);
+				upperOnly, upperSingleA, upperSingleZ);
 		assertIt(ALPHA_UPPER_NL_CR,
-				upperOnly, upperSingleA, upperSingleZ,
-				empty);
+				upperOnly, upperSingleA, upperSingleZ);
 	}
 
 
@@ -100,17 +99,15 @@ public class CharSetConditionTest extends TestWithEnvironment
 		final AnItem endCR   = new AnItem("ABCXYZ"+CR);
 		final AnItem endNLCR = new AnItem("ABCXYZ"+NLCR);
 		final AnItem endCRNL = new AnItem("ABCXYZ"+CRNL);
-		final AnItem empty = new AnItem("");
 
-		assertIt(ALPHA_UPPER,    plain,                               empty);
-		assertIt(ALPHA_UPPER_NL, plain, justNL, startNL, inNL, endNL, empty);
-		assertIt(ALPHA_UPPER_CR, plain, justCR, startCR, inCR, endCR, empty);
+		assertIt(ALPHA_UPPER,    plain);
+		assertIt(ALPHA_UPPER_NL, plain, justNL, startNL, inNL, endNL);
+		assertIt(ALPHA_UPPER_CR, plain, justCR, startCR, inCR, endCR);
 		assertIt(ALPHA_UPPER_NL_CR, plain,
 				justNL,  justCR,  justNLCR,  justCRNL,
 				startNL, startCR, startNLCR, startCRNL,
 				inNL,    inCR,    inNLCR,    inCRNL,
-				endNL,   endCR,   endNLCR,   endCRNL,
-				empty);
+				endNL,   endCR,   endNLCR,   endCRNL);
 	}
 
 	private static final CharSet ALPHA_UPPER_NL    = new CharSet('\n', '\n',             'A', 'Z');
@@ -134,17 +131,15 @@ public class CharSetConditionTest extends TestWithEnvironment
 		final AnItem inSPC   = new AnItem("ABC"+SPC+"XYZ");
 		final AnItem endTAB   = new AnItem("ABCXYZ"+TAB);
 		final AnItem endSPC   = new AnItem("ABCXYZ"+SPC);
-		final AnItem empty = new AnItem("");
 
-		assertIt(ALPHA_UPPER,         plain,                                   empty);
-		assertIt(ALPHA_UPPER_TAB,     plain, justTAB, startTAB, inTAB, endTAB, empty);
-		assertIt(ALPHA_UPPER_SPC,     plain, justSPC, startSPC, inSPC, endSPC, empty);
+		assertIt(ALPHA_UPPER,         plain);
+		assertIt(ALPHA_UPPER_TAB,     plain, justTAB, startTAB, inTAB, endTAB);
+		assertIt(ALPHA_UPPER_SPC,     plain, justSPC, startSPC, inSPC, endSPC);
 		assertIt(ALPHA_UPPER_TAB_SPC, plain,
 				justTAB,  justSPC,
 				startTAB, startSPC,
 				inTAB,    inSPC,
-				endTAB,   endSPC,
-				empty);
+				endTAB,   endSPC);
 	}
 
 	private static final CharSet ALPHA_UPPER_TAB = new CharSet('\t', '\t', 'A', 'Z');
@@ -171,7 +166,6 @@ public class CharSetConditionTest extends TestWithEnvironment
 		new AnItem('\uD7FC');
 		new AnItem('\uFFFC'); // Specials
 		new AnItem('\uFFFE');
-		final AnItem empty = new AnItem("");
 
 		final CharSet cs = new CharSet(
 				'A', 'D',            // ASCII Uppercase Latin: A-D
@@ -181,7 +175,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 				'\uD7F8', '\uD7FB',  // Hangul Jamo Extended-B Jongseong: Cieuc-Ssangpieup - Phieuph-Thieuth
 				'\uFFFD', '\uFFFD'); // Specials: Replacement Character (black diamond with a white question mark)
 
-		assertIt(cs, start, end, empty);
+		assertIt(cs, start, end);
 	}
 
 
@@ -198,14 +192,13 @@ public class CharSetConditionTest extends TestWithEnvironment
 		final AnItem esh =
 				new AnItem("ABC\u0425XY Z");
 		// TODO test SMP such as emoji
-		final AnItem empty = new AnItem("");
 
-		assertIt(ASC_NO_CONTROLS,             plain,     spc,             empty);
-		assertIt(ASC_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc,             empty);
-		assertIt(BMP_NO_CONTROLS,             plain,     spc, aring, esh, empty);
-		assertIt(BMP_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc, aring, esh, empty);
-		assertIt(AUP_NO_CONTROLS,             plain,     spc, aring, esh, empty);
-		assertIt(AUP_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc, aring, esh, empty);
+		assertIt(ASC_NO_CONTROLS,             plain,     spc);
+		assertIt(ASC_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc);
+		assertIt(BMP_NO_CONTROLS,             plain,     spc, aring, esh);
+		assertIt(BMP_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc, aring, esh);
+		assertIt(AUP_NO_CONTROLS,             plain,     spc, aring, esh);
+		assertIt(AUP_NO_CONTROLS_PLUS_NL_TAB, plain, nl, spc, aring, esh);
 	}
 
 	private static final char BEFORE_SURROGATES = (char) 0xD7FF;
@@ -234,13 +227,16 @@ public class CharSetConditionTest extends TestWithEnvironment
 			new CharSet('\t', '\n', '\r', '\r', ' ', END_UTF16);
 
 
-	private void assertIt(final CharSet charSet, final AnItem... expected)
+	private void assertIt(final CharSet charSet, final AnItem... expectedWithoutEmpty)
 	{
+		final ArrayList<AnItem> expected = new ArrayList<>(asList(expectedWithoutEmpty));
+		expected.add(0, empty);
+
 		final List<AnItem> all = AnItem.TYPE.search(AnItem.field.isNotNull(), AnItem.TYPE.getThis(), true);
 		{
 			final ArrayList<AnItem> actual = new ArrayList<>(all);
 			actual.removeIf(item -> charSet.indexOfNotContains(item.getField()) >= 0);
-			assertEquals(asList(expected), actual, "charSet");
+			assertEquals(expected, actual, "charSet");
 		}
 
 		final CharSetCondition condition =
@@ -248,21 +244,21 @@ public class CharSetConditionTest extends TestWithEnvironment
 		assertIt(condition, charSet, expected);
 
 		final ArrayList<AnItem> expectedNot = new ArrayList<>(all);
-		expectedNot.removeAll(asList(expected));
-		assertIt(condition.not(), charSet, expectedNot.toArray(new AnItem[]{}));
+		expectedNot.removeAll(expected);
+		assertIt(condition.not(), charSet, expectedNot);
 	}
 
 	private void assertIt(
 			final Condition condition,
 			final CharSet charSet,
-			final AnItem... expected)
+			final ArrayList<AnItem> expected)
 	{
 		switch(dialect)
 		{
 			case mysql:
 				if(charSet.isSubsetOfAscii() || MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0))
 					assertEquals(
-							asList(expected),
+							expected,
 							AnItem.TYPE.search(condition, AnItem.TYPE.getThis(), true),
 							"search");
 				else
