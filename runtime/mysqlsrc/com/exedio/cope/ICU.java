@@ -63,7 +63,10 @@ final class ICU
 
 			default:
 				if(c<' ' || c>126)
-					bf.append("\\u").append(String.format("%1$04x", (int)c));
+				{
+					if(c>0xff) bf.append("\\u").append(String.format("%1$04x", (int)c));
+					else       bf.append("\\x").append(String.format("%1$02x", (int)c));
+				}
 				else
 					bf.append(c);
 		}
