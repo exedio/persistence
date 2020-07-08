@@ -155,6 +155,36 @@ public class CharSetConditionTest extends TestWithEnvironment
 	private static final String SPC   = " ";
 
 
+	@Test void testBasicPlane()
+	{
+		final AnItem start = new AnItem("A\u0391\u1200\u30A1\uD7F8\uFFFD");
+		final AnItem end   = new AnItem("D\u0394\u1203\u30A4\uD7FB\uFFFD");
+		new AnItem('@');      // ASCII Uppercase Latin
+		new AnItem('E');
+		new AnItem('\u0390'); // Greek
+		new AnItem('\u0395');
+		new AnItem('\u11FF'); // Ethiopic Syllable
+		new AnItem('\u1204');
+		new AnItem('\u30A0'); // Katakana Letter
+		new AnItem('\u30A5');
+		new AnItem('\uD7F7'); // Hangul Jamo Extended-B Jongseong
+		new AnItem('\uD7FC');
+		new AnItem('\uFFFC'); // Specials
+		new AnItem('\uFFFE');
+		final AnItem empty = new AnItem("");
+
+		final CharSet cs = new CharSet(
+				'A', 'D',            // ASCII Uppercase Latin: A-D
+				'\u0391', '\u0394',  // Greek: Alpha-Delta
+				'\u1200', '\u1203',  // Ethiopic Syllable: Ha-Haa
+				'\u30A1', '\u30A4',  // Katakana Letter: Small A - I
+				'\uD7F8', '\uD7FB',  // Hangul Jamo Extended-B Jongseong: Cieuc-Ssangpieup - Phieuph-Thieuth
+				'\uFFFD', '\uFFFD'); // Specials: Replacement Character (black diamond with a white question mark)
+
+		assertIt(cs, start, end, empty);
+	}
+
+
 	@Test void testPlanes()
 	{
 		final AnItem plain =
@@ -263,6 +293,11 @@ public class CharSetConditionTest extends TestWithEnvironment
 	{
 		@WrapperInitial
 		static final StringField field = new StringField().toFinal().optional().lengthMin(0);
+
+		AnItem(final char field)
+		{
+			this(String.valueOf(field));
+		}
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
