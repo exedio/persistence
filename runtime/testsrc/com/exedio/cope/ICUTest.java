@@ -46,10 +46,14 @@ public class ICUTest
 	}
 	@Test void testHex()
 	{
+		assertIt("\\A[\\u0000-\\u0001]*\\z", new CharSet('\0', (char)1));
 		//noinspection HardcodedLineSeparator OK: testing line separator characters
 		assertIt("\\A[\\u000a-\\u000d]*\\z", new CharSet('\n', '\r'));
 		assertIt("\\A[\\u00c4-\\u00d6]*\\z", new CharSet('\u00c4', '\u00d6'));
 		assertIt("\\A[\\u001f-\\u007f]*\\z", new CharSet((char)31, (char)127));
+		assertIt("\\A[\\u00ff-\\u0100]*\\z", new CharSet((char)255,    (char)256));
+		assertIt("\\A[\\u0fff-\\u1000]*\\z", new CharSet((char)0xfff,  (char)0x1000));
+		assertIt("\\A[\\ufffe-\\uffff]*\\z", new CharSet((char)0xfffe, (char)0xffff));
 	}
 	@Test void testQuoted()
 	{
