@@ -150,6 +150,34 @@ public class CharSetConditionTest extends TestWithEnvironment
 	private static final String SPC   = " ";
 
 
+	@Test void testEmail()
+	{
+		final AnItem in = new AnItem("!#$%&'*+-./0189=?@^_`abyz{|}~");
+		new AnItem(' '); // before !
+		new AnItem('"'); // after ! before #
+		new AnItem('('); // after '
+		new AnItem(')'); // before *
+		new AnItem(','); // after + before -
+		new AnItem(':'); // after 9
+		new AnItem('<'); // before =
+		new AnItem('>'); // after = before ?
+		new AnItem('A'); // after @
+		new AnItem(']'); // before ^
+		new AnItem('\u007F'); // after ~
+
+		final CharSet cs = new CharSet(
+				'!', '!', // x21
+				'#', '\'',// x23 to x27: # $ % & '
+				'*', '+', // x2A and x2B
+				'-', '9', // x2D to x39: - . / 0-9
+				'=', '=', // x3D
+				'?', '@', // x3F and x40
+				'^', '~');// x5E to x7E: ^ _ ` a-z { | } ~
+
+		assertIt(cs, in);
+	}
+
+
 	@Test void testBasicPlane()
 	{
 		final AnItem start = new AnItem("A\u0391\u1200\u30A1\uD7F8\uFFFD");
