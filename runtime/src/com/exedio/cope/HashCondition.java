@@ -74,7 +74,7 @@ final class HashCondition extends Condition
 	}
 
 	@Override
-	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
 	{
 		hash.acceptFieldsCovered(consumer);
 		data.acceptFieldsCovered(consumer);

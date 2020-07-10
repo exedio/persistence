@@ -48,7 +48,7 @@ public abstract class Condition implements Serializable
 
 	abstract void check(TC tc);
 
-	abstract void acceptFieldsCovered(Consumer<Field<?>> consumer);
+	public abstract void acceptFieldsCovered(Consumer<Field<?>> consumer);
 
 	abstract Condition copy(CopyMapper mapper);
 
@@ -113,7 +113,7 @@ public abstract class Condition implements Serializable
 		}
 
 		@Override
-		void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+		public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
 		{
 		}
 

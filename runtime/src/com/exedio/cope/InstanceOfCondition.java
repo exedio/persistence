@@ -173,7 +173,7 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
 	{
 		function.acceptFieldsCovered(consumer);
 	}

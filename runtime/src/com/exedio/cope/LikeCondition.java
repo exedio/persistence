@@ -71,7 +71,7 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
 	{
 		function.acceptFieldsCovered(consumer);
 	}

@@ -96,7 +96,7 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
-	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
 	{
 		left .acceptFieldsCovered(consumer);
 		right.acceptFieldsCovered(consumer);

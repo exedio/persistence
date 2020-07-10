@@ -79,7 +79,7 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
 	{
 		function.acceptFieldsCovered(consumer);
 	}

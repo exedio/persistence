@@ -75,7 +75,7 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+	public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
 	{
 		field.acceptFieldsCovered(consumer);
 	}
