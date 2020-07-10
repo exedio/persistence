@@ -18,12 +18,15 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Condition.FALSE;
+import static com.exedio.cope.Condition.TRUE;
 import static com.exedio.cope.Query.newQuery;
-import static com.exedio.cope.QuerySelectTest.AnItem.TYPE;
-import static com.exedio.cope.QuerySelectTest.AnItem.field1;
-import static com.exedio.cope.QuerySelectTest.AnItem.field2;
+import static com.exedio.cope.QueryModelTest.AnItem.TYPE;
+import static com.exedio.cope.QueryModelTest.AnItem.field1;
+import static com.exedio.cope.QueryModelTest.AnItem.field2;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,7 +37,7 @@ import com.exedio.cope.util.Day;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class QuerySelectTest
+public class QueryModelTest
 {
 	@Test void testSetSelectsCheck()
 	{
@@ -167,6 +170,48 @@ public class QuerySelectTest
 		assertEqualsUnmodifiable(asList(field1, field2), q.getSelects());
 	}
 
+	@Test void testSetCondition()
+	{
+		final Query<AnItem> q = TYPE.newQuery(null);
+		assertSame(null, q.getCondition());
+
+		q.setCondition(TRUE);
+		assertSame(null, q.getCondition());
+
+		final Condition c1 = field1.equal(new Day(2006, 2, 19));
+		q.setCondition(c1);
+		assertSame(c1, q.getCondition());
+
+		q.setCondition(FALSE);
+		assertSame(FALSE, q.getCondition());
+
+		q.setCondition(null);
+		assertSame(null, q.getCondition());
+
+		q.narrow(TRUE);
+		assertSame(null, q.getCondition());
+	}
+
+	@Test void testNarrow()
+	{
+		final Condition c1 = field1.equal(new Day(2006, 2, 19));
+		final Condition c2 = field2.equal(new Day(2006, 2, 20));
+		final Query<AnItem> q = TYPE.newQuery(null);
+		assertSame(null, q.getCondition());
+
+		q.narrow(c1);
+		assertSame(c1, q.getCondition());
+
+		q.narrow(c2);
+		assertEqualsAndHash(c1.and(c2), q.getCondition());
+
+		q.narrow(FALSE);
+		assertSame(FALSE, q.getCondition());
+
+		q.narrow(c1);
+		assertSame(FALSE, q.getCondition());
+	}
+
 	@Test void testSetHaving()
 	{
 		final Query<AnItem> q = TYPE.newQuery(null);
@@ -183,7 +228,7 @@ public class QuerySelectTest
 		assertSame(having2, q.getHaving());
 		assertEquals("select this from AnItem having field1='2010/12/5'", q.toString());
 
-		q.setHaving(Condition.TRUE);
+		q.setHaving(TRUE);
 		assertSame(null, q.getHaving());
 		assertEquals("select this from AnItem", q.toString());
 

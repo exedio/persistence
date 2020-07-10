@@ -76,8 +76,6 @@ public class QueryTest extends TestWithEnvironment
 
 	@Test void testLiterals()
 	{
-		final Condition c1 = mandatory.equal(d1);
-		final Condition c2 = mandatory.equal(d2);
 		{
 			final Query<?> q = TYPE.newQuery(TRUE);
 			assertSame(null, q.getCondition());
@@ -85,18 +83,6 @@ public class QueryTest extends TestWithEnvironment
 			model.currentTransaction().setQueryInfoEnabled(true);
 			assertContains(q.search());
 			assertTrue(model.currentTransaction().getQueryInfos().get(0).getText().startsWith("select "));
-
-			q.narrow(c1);
-			assertSame(c1, q.getCondition());
-
-			q.narrow(c2);
-			assertEqualsAndHash(c1.and(c2), q.getCondition());
-
-			q.narrow(FALSE);
-			assertSame(FALSE, q.getCondition());
-
-			q.narrow(c1);
-			assertSame(FALSE, q.getCondition());
 		}
 		{
 			final Query<?> q = TYPE.newQuery(FALSE);
@@ -116,21 +102,6 @@ public class QueryTest extends TestWithEnvironment
 			assertEquals(false, q.exists());
 			assertEquals("skipped search because condition==false", model.currentTransaction().getQueryInfos().get(0).getText());
 			model.currentTransaction().setQueryInfoEnabled(false);
-
-			q.setCondition(TRUE);
-			assertSame(null, q.getCondition());
-
-			q.setCondition(c1);
-			assertSame(c1, q.getCondition());
-
-			q.setCondition(FALSE);
-			assertSame(FALSE, q.getCondition());
-
-			q.setCondition(null);
-			assertSame(null, q.getCondition());
-
-			q.narrow(TRUE);
-			assertSame(null, q.getCondition());
 		}
 		assertSerializedSame(TRUE, 103);
 		assertSerializedSame(FALSE, 103);
