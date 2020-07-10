@@ -369,6 +369,12 @@ abstract class Dialect
 	}
 
 	/**
+	 * Same as {@link #appendPageClauseAfter(Statement, int, int)},
+	 * but called before the statement.
+	 */
+	void appendPageClauseBefore(final Statement bf, final int offset, final int limit) {}
+
+	/**
 	 * Appends a clause to the statement causing the database paging the query result.
 	 * This method is never called for {@code offset==0 &amp;&amp; limit=={@link Query#UNLIMITED}}.
 	 * NOTE: Don't forget the space before the keyword 'limit'!
@@ -378,12 +384,6 @@ abstract class Dialect
 	 * @param limit the number of rows to be returned
 	 *        or {@link Query#UNLIMITED} if all rows to be returned.
 	 *        Is always positive (greater zero).
-	 */
-	void appendPageClauseBefore(final Statement bf, final int offset, final int limit) {}
-
-	/**
-	 * Same as {@link #appendPageClauseBefore(Statement, int, int)}.
-	 * for the postfix.
 	 */
 	abstract void appendPageClauseAfter(Statement bf, int offset, int limit);
 
