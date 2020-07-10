@@ -23,7 +23,7 @@ timestamps
 
 				checkout scm
 
-				env.JAVA_HOME = tool jdk
+				env.JAVA_HOME = tool type: 'jdk', name: jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 
 				sh "ant/bin/ant -noinput -buildfile ivy"
