@@ -173,15 +173,19 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	// disableSupport
 
-	private final boolean disableEmptyStrings       = value("disableSupport.emptyStrings", false);
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
 	private final boolean disableNativeDate         = value("disableSupport.nativeDate", factory.disableNativeDate);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
 
+	/**
+	 * TODO oracle: deprecate
+	 * Not supported any longer.
+	 * Always returns false.
+	 */
 	public boolean isSupportDisabledForEmptyStrings()
 	{
-		return disableEmptyStrings;
+		return false;
 	}
 
 	public boolean isSupportDisabledForPreparedStatements()

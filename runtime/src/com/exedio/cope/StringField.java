@@ -217,12 +217,9 @@ public final class StringField extends FunctionField<String>
 	}
 
 
-	private boolean convertEmptyStrings = false;
-
 	@Override
 	Column createColumn(final Table table, final String name, final boolean optional)
 	{
-		this.convertEmptyStrings = !getType().getModel().supportsEmptyStrings();
 		return new StringColumn(table, name, optional, minimumLength, maximumLength, charSet, getAnnotation(MysqlExtendedVarchar.class));
 	}
 
@@ -235,17 +232,7 @@ public final class StringField extends FunctionField<String>
 	@Override
 	void set(final Row row, final String surface)
 	{
-		final String cell;
-		if(!convertEmptyStrings)
-			cell = surface;
-		else
-		{
-			if(surface!=null && surface.isEmpty())
-				cell = null;
-			else
-				cell = surface;
-		}
-		row.put(getColumn(), cell);
+		row.put(getColumn(), surface);
 	}
 
 	@Override
@@ -253,9 +240,6 @@ public final class StringField extends FunctionField<String>
 		throws
 			StringLengthViolationException, StringCharSetViolationException
 	{
-		if(convertEmptyStrings && value.isEmpty() && !optional)
-			throw MandatoryViolationException.create(this, exceptionItem);
-
 		final int length = value.length();
 		if(length<minimumLength||length>maximumLength)
 			throw new StringLengthViolationException(this, exceptionItem, value);

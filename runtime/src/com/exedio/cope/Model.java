@@ -346,21 +346,14 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * Returns, whether the database can store empty strings.
-	 * <p>
-	 * If true, an empty string can be stored into a {@link StringField}
-	 * like any other string via {@link FunctionField#set(Item,Object)}.
-	 * A subsequent retrieval of that string via {@link FunctionField#get(Item)}
-	 * returns an empty string.
-	 * If false, an empty string stored into a {@link StringField} is
-	 * converted to null, thus a subsequent retrieval of that string returns
-	 * null.
-	 * <p>
-	 * Up to now, only Oracle does not support empty strings.
+	 * TODO oracle: deprecate
+	 * Not supported any longer.
+	 * Always returns true.
 	 */
 	public boolean supportsEmptyStrings()
 	{
-		return connect().supportsEmptyStrings;
+		connect(); // fail if not connected
+		return true;
 	}
 
 	/**

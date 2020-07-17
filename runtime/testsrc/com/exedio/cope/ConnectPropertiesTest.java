@@ -96,7 +96,6 @@ public class ConnectPropertiesTest
 				"connection.isValidOnGetTimeout",
 				"dialect",
 				"dialect.approximate",
-				"disableSupport.emptyStrings",
 				"disableSupport.preparedStatements",
 				"disableSupport.nativeDate",
 				"disableSupport.uniqueViolation",

@@ -28,9 +28,6 @@ import javax.annotation.Nonnull;
  * This exception will be thrown by {@link Item#set(FunctionField,Object) Item.set}
  * and item constructors
  * if that field is {@link Field#isMandatory() mandatory}.
- * <p>
- * This exception is also thrown for empty strings if
- * {@link Model#supportsEmptyStrings()} is false.
  *
  * @author Ralf Wiebicke
  */

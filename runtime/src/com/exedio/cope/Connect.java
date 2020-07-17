@@ -45,7 +45,6 @@ final class Connect
 	final ConnectProperties properties;
 	final Dialect dialect;
 
-	final boolean supportsEmptyStrings;
 	final boolean supportsUTF8mb4;
 	final SortedSet<String> supportedDataHashAlgorithms;
 	final boolean supportsRandom;
@@ -82,7 +81,6 @@ final class Connect
 		this.revisions = RevisionsConnect.wrap(probe.environmentInfo, revisionsFactory);
 		this.dialect = properties.dialect.newInstance(probe);
 
-		supportsEmptyStrings = !properties.isSupportDisabledForEmptyStrings() && dialect.supportsEmptyStrings();
 		supportsUTF8mb4 = dialect.supportsUTF8mb4();
 		supportedDataHashAlgorithms = toUnmodifiableSortedSet(dialect.getBlobHashAlgorithms());
 		supportsRandom = dialect.supportsRandom();
