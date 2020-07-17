@@ -40,38 +40,6 @@
 		</sql>
 	</target>
 
-	<target name="oracle" depends="prepare">
-		<get
-				src="https://ivyartifacts.exedio.com/com.oracle/ojdbc6/11.2.0.4/ojdbc6-jar.jar"
-				dest="lib/ojdbc.jar"
-				maxtime="30" />
-		<!-- BEWARE: the slash in the SQL below actually triggers execution - do not remove -->
-		<sql
-				classpath="lib/${x-build.driver}"
-				driver="oracle.jdbc.OracleDriver"
-				url="${connection.url}"
-				userid="${connection.username}"
-				password="${connection.password}"
-				delimiter="/">
-<![CDATA[
-begin
-	for r in (select table_name from user_tables) loop
-		execute immediate 'drop table "'||r.table_name||'" cascade constraints purge';
-	end loop;
-end;
-/
-begin
-	for r in (select object_name, object_type from user_objects where object_type not in ('PACKAGE BODY', 'TYPE BODY')) loop
-		execute immediate 'drop '||r.object_type||' "'||r.object_name||'"';
-	end loop;
-end;
-/
-purge recyclebin
-/
-]]>
-		</sql>
-	</target>
-
 	<target name="postgresql" depends="prepare">
 		<sql
 				classpath="lib/${x-build.driver}"

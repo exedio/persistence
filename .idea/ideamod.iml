@@ -42,7 +42,6 @@
       <sourceFolder url="file://$MODULE_DIR$/runtime/servletsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/hsqldbsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/mysqlsrc" isTestSource="false" />
-      <sourceFolder url="file://$MODULE_DIR$/runtime/oraclesrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/runtime/postgresqlsrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/instrument/annosrc" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/instrument/src" isTestSource="false" />

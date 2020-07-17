@@ -726,7 +726,7 @@ public class StringTest extends TestWithEnvironment
 	// TODO should work without
 	private boolean searchEnabled(final StringField field)
 	{
-		return !oracle || field.getMaximumLength()<=com.exedio.cope.OracleDialect.VARCHAR_MAX_CHARS;
+		return !oracle || field.getMaximumLength()<=1333;
 	}
 
 	@Test void testSchema()

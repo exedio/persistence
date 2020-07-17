@@ -2,7 +2,6 @@
 TODO for cope runtime
 
 - search API
-	- oracle statistics
 	- allow accessing features of subtypes of bound types
 	- condition DataField.is[Not]Null
 		use this on Media for CheckConstraint

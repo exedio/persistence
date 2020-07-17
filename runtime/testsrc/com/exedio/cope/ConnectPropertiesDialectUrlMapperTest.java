@@ -118,11 +118,6 @@ public class ConnectPropertiesDialectUrlMapperTest
 		}
 		{
 			final Object dum = i.next();
-			assertEquals(OracleDialectUrlMapper.class, dum.getClass());
-			assertEquals("jdbc:oracle:* -> com.exedio.cope.OracleDialect", dum.toString());
-		}
-		{
-			final Object dum = i.next();
 			assertEquals(PostgresqlDialectUrlMapper.class, dum.getClass());
 			assertEquals("jdbc:postgresql:* -> com.exedio.cope.PostgresqlDialect", dum.toString());
 		}

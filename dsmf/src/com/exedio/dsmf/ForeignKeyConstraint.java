@@ -103,8 +103,6 @@ public final class ForeignKeyConstraint extends Constraint
 				append(quoteName(targetColumn)).
 				append(')');
 		}
-
-		dialect.appendForeignKeyCreateStatement(bf);
 	}
 
 	@Override

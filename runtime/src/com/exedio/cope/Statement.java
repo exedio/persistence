@@ -323,6 +323,7 @@ final class Statement
 		return this;
 	}
 
+	@SuppressWarnings("UnusedReturnValue") // OK: is always the last in chain
 	Statement appendParameter(final String value)
 	{
 		if(parameters==null)

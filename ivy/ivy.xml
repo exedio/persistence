@@ -23,14 +23,12 @@
 		<conf extends="runtime" name="hsqldb"     description="dialect for HSQLDB" />
 		<conf extends="runtime" name="mysql"      description="dialect for MySQL via MySQL Connector/J" />
 		<conf extends="runtime" name="mariadb"    description="dialect for MySQL via MariaDB Connector/J" />
-		<conf extends="runtime" name="oracle"     description="dialect for Oracle Database" />
 		<conf extends="runtime" name="postgresql" description="dialect for PostgreSQL" />
 	</configurations>
 	<publications defaultconf="SPECIFY_A_CONFIGURATION">
 		<artifact name="exedio-cope" conf="runtime" />
 		<artifact name="exedio-cope-hsqldb" conf="hsqldb" />
 		<artifact name="exedio-cope-mysql" conf="mysql,mariadb" />
-		<artifact name="exedio-cope-oracle" conf="oracle" />
 		<artifact name="exedio-cope-postgresql" conf="postgresql" />
 		<artifact name="exedio-cope" conf="sources" type="src" ext="zip" />
 		<artifact name="exedio-cope" conf="changelog" type="log" ext="txt" />
@@ -56,7 +54,6 @@
 			<exclude org="com.google.protobuf" module="protobuf-java" />
 		</dependency>
 		<dependency conf="mariadb->default" org="org.mariadb.jdbc" name="mariadb-java-client" rev="2.2.1" />
-		<dependency conf="oracle->default" org="com.oracle" name="ojdbc6" rev="11.2.0.4" />
 		<dependency conf="postgresql->default" org="org.postgresql" name="postgresql" rev="42.2.9" />
 
 		<!-- build dependencies -->

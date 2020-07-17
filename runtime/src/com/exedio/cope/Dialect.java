@@ -101,11 +101,6 @@ abstract class Dialect
 		// https://dev.mysql.com/doc/refman/5.6/en/identifiers.html
 		// MySQL does not support check constraints.
 
-		// Oracle maximum length is 30 on Release 11.2.0.1.0:
-		// https://docs.oracle.com/cd/B19306_01/server.102/b14200/sql_elements008.htm
-		// TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
-		// https://docs.oracle.com/database/122/SQLRF/Database-Object-Names-and-Qualifiers.htm#SQLRF51129
-
 		// PostgreSQL maximum length is 63:
 		// https://www.postgresql.org/docs/9.6/sql-syntax-lexical.html#SQL-SYNTAX-IDENTIFIERS
 
@@ -372,6 +367,7 @@ abstract class Dialect
 	 * Same as {@link #appendPageClauseAfter(Statement, int, int)},
 	 * but called before the statement.
 	 */
+	@SuppressWarnings("unused") // TODO oracle: remove
 	void appendPageClauseBefore(final Statement bf, final int offset, final int limit) {}
 
 	/**
@@ -449,7 +445,8 @@ abstract class Dialect
 	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
 	abstract void deleteSequence(
 			StringBuilder bf, String quotedName,
-			Sequence.Type type, long start);
+			@SuppressWarnings("unused") Sequence.Type type, // TODO oracle: remove
+			long start);
 	abstract Long    nextSequence(Executor executor, Connection connection, String quotedName);
 	abstract Long getNextSequence(Executor executor, Connection connection, String name);
 

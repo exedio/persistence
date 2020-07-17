@@ -86,7 +86,6 @@ timestamps
 						propertiesSeries: [
 							[ file: 'build/exedio-cope-hsqldb.jar-plot.properties',     label: 'exedio-cope-hsqldb.jar' ],
 							[ file: 'build/exedio-cope-mysql.jar-plot.properties',      label: 'exedio-cope-mysql.jar' ],
-							[ file: 'build/exedio-cope-oracle.jar-plot.properties',     label: 'exedio-cope-oracle.jar' ],
 							[ file: 'build/exedio-cope-postgresql.jar-plot.properties', label: 'exedio-cope-postgresql.jar' ],
 						],
 				)

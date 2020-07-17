@@ -3,7 +3,6 @@
 /runtime/servlettestweb/WEB-INF/lib/
 /tomcat/
 /ivy/artifacts/
-/lib/ojdbc6.jar
 /cope.properties
 /local.properties
 /.idea-output/

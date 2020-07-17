@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.HsqldbDialect.Approximate.oracle;
 import static com.exedio.cope.HsqldbSchemaDialect.BIGINT;
 import static com.exedio.cope.HsqldbSchemaDialect.BLOB;
 import static com.exedio.cope.HsqldbSchemaDialect.DATE;
@@ -39,7 +38,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.EnumMap;
 import java.util.List;
 
 @ServiceProperties(HsqldbDialect.Props.class)
@@ -69,8 +67,7 @@ final class HsqldbDialect extends Dialect
 		{
 			@Override boolean supportsCheckConstraints() { return false; }
 			@Override boolean supportsSchemaSavepoint() { return true; }
-		},
-		oracle;
+		};
 
 		boolean supportsCheckConstraints() { return true; }
 		boolean supportsNativeDate() { return true; }
@@ -90,22 +87,6 @@ final class HsqldbDialect extends Dialect
 		probe.environmentInfo.requireDatabaseVersionAtLeast("HSQL Database Engine", 2, 4);
 
 		this.approximate = props.approximate;
-	}
-
-	@Override
-	void setNameTrimmers(final EnumMap<TrimClass, Trimmer> trimmers)
-	{
-		super.setNameTrimmers(trimmers);
-
-		if(approximate==oracle) // TODO Oracle 12 Will increase to 128 on Release 12.2 or higher.
-		{
-			// copied code from OracleDialect
-			final Trimmer dataTrimmer = trimmers.get(TrimClass.Data);
-
-			for(final TrimClass c : TrimClass.values())
-				if(c!=TrimClass.Data)
-					trimmers.put(c, dataTrimmer);
-		}
 	}
 
 	/**
@@ -139,15 +120,6 @@ final class HsqldbDialect extends Dialect
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
 		return VARCHAR(maxChars);
-	}
-
-	@Override
-	boolean supportsEmptyStrings()
-	{
-		if(approximate==oracle)
-			return false; // copied code from OracleDialect
-
-		return super.supportsEmptyStrings();
 	}
 
 	@Override
