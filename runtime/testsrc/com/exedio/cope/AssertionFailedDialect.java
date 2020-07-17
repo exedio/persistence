@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.DateField.Precision;
-import com.exedio.dsmf.Sequence;
 import java.sql.Connection;
 import java.util.List;
 
@@ -103,7 +102,7 @@ class AssertionFailedDialect extends Dialect
 	@Override
 	void deleteSequence(
 			final StringBuilder bf, final String quotedName,
-			final Sequence.Type type, final long start)
+			final long start)
 	{
 		throw new AssertionError();
 	}

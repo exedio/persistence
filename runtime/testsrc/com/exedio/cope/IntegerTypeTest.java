@@ -192,7 +192,6 @@ public class IntegerTypeTest extends TestWithEnvironment
 
 			MODEL.connect().database.dialect.deleteSequence(bf,
 					quoteName(MODEL, sequenceName),
-					Sequence.Type.fromMaxValueLenient(type.getCreateLimit()),
 					sequenceValue);
 
 			try (

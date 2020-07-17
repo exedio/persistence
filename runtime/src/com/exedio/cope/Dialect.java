@@ -24,7 +24,6 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.JobContext;
-import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
@@ -445,7 +444,6 @@ abstract class Dialect
 	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
 	abstract void deleteSequence(
 			StringBuilder bf, String quotedName,
-			@SuppressWarnings("unused") Sequence.Type type, // TODO oracle: remove
 			long start);
 	abstract Long    nextSequence(Executor executor, Connection connection, String quotedName);
 	abstract Long getNextSequence(Executor executor, Connection connection, String name);

@@ -22,7 +22,6 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.ServiceProperties;
-import com.exedio.dsmf.Sequence;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
@@ -331,7 +330,7 @@ final class PostgresqlDialect extends Dialect
 	@Override
 	void deleteSequence(
 			final StringBuilder bf, final String quotedName,
-			final Sequence.Type type, final long start)
+			final long start)
 	{
 		bf.append("ALTER SEQUENCE ").
 			append(quotedName).
