@@ -49,7 +49,7 @@
 		<dependency org="com.exedio" name="copeservletutil" rev="71" conf="runtime->runtime; build->runtime,sources,changelog" />
 
 		<!-- dialects -->
-		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.4.0" />
+		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.5.1" />
 		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="8.0.21">
 			<exclude org="com.google.protobuf" module="protobuf-java" />
 		</dependency>

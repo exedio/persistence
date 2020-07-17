@@ -39,19 +39,19 @@ public class EnvironmentInfoConnectedTest
 		assertAll(
 				() -> assertEquals("PUBLIC", ei.getCatalog()),
 				() -> assertEquals("HSQL Database Engine", ei.getDatabaseProductName()),
-				() -> assertEquals("2.4.0", ei.getDatabaseProductVersion()),
+				() -> assertEquals("2.5.1", ei.getDatabaseProductVersion()),
 				() -> assertEquals(2, ei.getDatabaseMajorVersion()),
-				() -> assertEquals(4, ei.getDatabaseMinorVersion()),
-				() -> assertEquals("2.4.0", ei.getDatabaseVersionDescription()),
+				() -> assertEquals(5, ei.getDatabaseMinorVersion()),
+				() -> assertEquals("2.5.1", ei.getDatabaseVersionDescription()),
 				() -> assertEquals("HSQL Database Engine Driver", ei.getDriverName()),
-				() -> assertEquals("2.4.0", ei.getDriverVersion()),
+				() -> assertEquals("2.5.1", ei.getDriverVersion()),
 				() -> assertEquals(2, ei.getDriverMajorVersion()),
-				() -> assertEquals(4, ei.getDriverMinorVersion()),
-				() -> assertEquals("2.4.0", ei.getDriverVersionDescription()),
+				() -> assertEquals(5, ei.getDriverMinorVersion()),
+				() -> assertEquals("2.5.1", ei.getDriverVersionDescription()),
 				() -> assertEquals("org.hsqldb.jdbc.JDBCDriver", ei.getDriverClass()),
 				() -> assertEquals(
-						"HSQL Database Engine 2.4.0 " +
-						"HSQL Database Engine Driver 2.4.0 " +
+						"HSQL Database Engine 2.5.1 " +
+						"HSQL Database Engine Driver 2.5.1 " +
 						"org.hsqldb.jdbc.JDBCDriver " +
 						"PUBLIC",
 						ei.toString()));
