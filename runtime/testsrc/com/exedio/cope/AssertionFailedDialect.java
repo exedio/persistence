@@ -69,12 +69,6 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	@SuppressWarnings("unused") // TODO oracle: remove
-	void appendPageClauseBefore(final Statement bf, final int offset, final int limit)
-	{
-		throw new AssertionError();
-	}
-	@Override
 	void appendPageClauseAfter(final Statement bf, final int offset, final int limit)
 	{
 		throw new AssertionError();

@@ -363,13 +363,6 @@ abstract class Dialect
 	}
 
 	/**
-	 * Same as {@link #appendPageClauseAfter(Statement, int, int)},
-	 * but called before the statement.
-	 */
-	@SuppressWarnings("unused") // TODO oracle: remove
-	void appendPageClauseBefore(final Statement bf, final int offset, final int limit) {}
-
-	/**
 	 * Appends a clause to the statement causing the database paging the query result.
 	 * This method is never called for {@code offset==0 &amp;&amp; limit=={@link Query#UNLIMITED}}.
 	 * NOTE: Don't forget the space before the keyword 'limit'!

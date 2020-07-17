@@ -1017,9 +1017,6 @@ public final class Query<R> implements Serializable
 		executor.testListener().search(connection, this, mode);
 
 		final Dialect dialect = executor.dialect;
-		final int pageOffset = this.pageOffset;
-		final int pageLimit = this.pageLimit;
-		final boolean pageActive = pageOffset>0 || pageLimit!=UNLIMITED;
 		final boolean distinct = this.distinct;
 
 		final ArrayList<Join> joins = this.joins;
@@ -1035,9 +1032,6 @@ public final class Query<R> implements Serializable
 		{
 			bf.append("SELECT COUNT(*) FROM ( ");
 		}
-
-		if(mode.isSearch() && pageActive)
-			dialect.appendPageClauseBefore(bf, pageOffset, pageLimit);
 
 		bf.append("SELECT ");
 
@@ -1144,7 +1138,9 @@ public final class Query<R> implements Serializable
 				}
 			}
 
-			if(pageActive)
+			final int pageOffset = this.pageOffset;
+			final int pageLimit  = this.pageLimit;
+			if( pageOffset>0 || pageLimit!=UNLIMITED )
 				dialect.appendPageClauseAfter(bf, pageOffset, pageLimit);
 		}
 
