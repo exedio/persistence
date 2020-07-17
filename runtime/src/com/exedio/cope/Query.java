@@ -1021,8 +1021,6 @@ public final class Query<R> implements Serializable
 		final int pageLimit = this.pageLimit;
 		final boolean pageActive = pageOffset>0 || pageLimit!=UNLIMITED;
 		final boolean distinct = this.distinct;
-		if(pageOffset<0)
-			throw new RuntimeException();
 
 		final ArrayList<Join> joins = this.joins;
 		final Statement bf = executor.newStatement(this, sqlOnlyBuffer!=null);
