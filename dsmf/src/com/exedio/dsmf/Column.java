@@ -170,10 +170,8 @@ public final class Column extends Node
 	{
 		//System.out.println("createColumn:"+bf);
 		executeSQL(
-			dialect.createColumn(
-				quoteName(table.name),
-				quoteName(name),
-				getType()), listener);
+				"ALTER TABLE " + quoteName(table.name) +
+				" ADD COLUMN " + quoteName(name) + ' ' + getType(), listener);
 	}
 
 	public void renameTo(final String newName)

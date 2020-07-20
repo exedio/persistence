@@ -200,14 +200,13 @@ public class ReviseTest
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah" +
 			" blah blah blah blah blah blah blah blah blah blah blah blah blah blah blah blob";
 		final Dialect dialect = model7.connect().database.dialect;
-		final com.exedio.dsmf.Dialect dsmfDialect = dialect.dsmfDialect;
 		// BEWARE:
 		// Never do this in real projects,
 		// always use plain string literals
 		// containing the sql statement!
-		final String body70 = dsmfDialect.createColumn(SI.tab(ReviseItem2.TYPE), SI.col(ReviseItem2.field7 ), dialect.getStringType(100, null));
-		final String body60 = dsmfDialect.createColumn(SI.tab(ReviseItem2.TYPE), SI.col(ReviseItem2.field6 ), dialect.getStringType(100, null));
-		final String body61 = dsmfDialect.createColumn(SI.tab(ReviseItem2.TYPE), SI.col(ReviseItem2.field6b), dialect.getStringType(100, null));
+		final String body70 = "ALTER TABLE " + SI.tab(ReviseItem2.TYPE) + " ADD COLUMN " + SI.col(ReviseItem2.field7 ) + " " + dialect.getStringType(100, null);
+		final String body60 = "ALTER TABLE " + SI.tab(ReviseItem2.TYPE) + " ADD COLUMN " + SI.col(ReviseItem2.field6 ) + " " + dialect.getStringType(100, null);
+		final String body61 = "ALTER TABLE " + SI.tab(ReviseItem2.TYPE) + " ADD COLUMN " + SI.col(ReviseItem2.field6b) + " " + dialect.getStringType(100, null);
 		final Revisions revisions7 = new Revisions(
 				new Revision(7, "add column field7" + blah, body70),
 				new Revision(6, "add column field6",        body60, body61),

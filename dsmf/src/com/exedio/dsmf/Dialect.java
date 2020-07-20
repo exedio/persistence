@@ -562,13 +562,6 @@ public abstract class Dialect
 				" RENAME COLUMN " + oldColumnName + " TO " + newColumnName;
 	}
 
-	public String createColumn(final String tableName, final String columnName, final String columnType)
-	{
-		return
-				"ALTER TABLE " + tableName +
-				" ADD COLUMN " + columnName + ' ' + columnType;
-	}
-
 	public abstract String modifyColumn(String tableName, String columnName, String newColumnType);
 
 	private static void dropConstraint(final StringBuilder bf, final String tableName, final String constraintName)
