@@ -24,6 +24,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
 import java.text.NumberFormat;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Locale;
@@ -191,7 +192,7 @@ final class Marshallers
 			Day unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{
 				final String cell = row.getString(columnIndex);
-				return (cell!=null) ? dialect.unmarshalDay(cell) : null;
+				return (cell!=null) ? unmarshalDay(cell) : null;
 			}
 			@Override
 			String marshalLiteral(final Day value)
@@ -214,6 +215,11 @@ final class Marshallers
 	{
 		if(marshallers.putIfAbsent(selectType.javaClass, marshaller)!=null)
 			throw new RuntimeException(selectType.javaClass.getName());
+	}
+
+	static Day unmarshalDay(final String cell)
+	{
+		return Day.from(LocalDate.parse(cell));
 	}
 
 	Marshaller<?> get(final Selectable<?> select)

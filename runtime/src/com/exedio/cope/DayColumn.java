@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.Marshallers.unmarshalDay;
+
 import com.exedio.cope.util.Day;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,7 +72,7 @@ final class DayColumn extends Column
 	{
 		final String loadedDate = resultSet.getString(columnIndex);
 		//System.out.println("DayColumn.load "+columnIndex+" "+loadedDate);
-		row.put(this, (loadedDate!=null) ? getTransientNumber(table.database.dialect.unmarshalDay(loadedDate)) : null);
+		row.put(this, (loadedDate!=null) ? getTransientNumber(unmarshalDay(loadedDate)) : null);
 	}
 
 	@Override

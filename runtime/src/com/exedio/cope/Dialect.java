@@ -33,7 +33,6 @@ import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.NumberFormat;
-import java.time.LocalDate;
 import java.util.Date;
 import java.util.EnumMap;
 import java.util.List;
@@ -260,11 +259,6 @@ abstract class Dialect
 		@SuppressWarnings("deprecation")
 		final java.sql.Date result = new java.sql.Date(year, month, day);
 		return result;
-	}
-
-	Day unmarshalDay(final String cell)
-	{
-		return Day.from(LocalDate.parse(cell));
 	}
 
 	/**
