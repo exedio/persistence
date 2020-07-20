@@ -179,10 +179,11 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	private final boolean disableSemicolon          = value("disableSupport.semicolon", true); // TODO
 
 	/**
-	 * TODO oracle: deprecate
+	 * @deprecated
 	 * Not supported any longer.
 	 * Always returns false.
 	 */
+	@Deprecated
 	public boolean isSupportDisabledForEmptyStrings()
 	{
 		return false;

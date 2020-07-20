@@ -52,7 +52,6 @@ public class SupportsTest extends TestWithEnvironment
 		final ConnectProperties props = model.getConnectProperties();
 		final EnvironmentInfo env = model.getEnvironmentInfo();
 
-		boolean emptyStrings = true;
 		boolean utf8mb4 = true;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		boolean random = false;
@@ -63,7 +62,6 @@ public class SupportsTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb:
-				emptyStrings = !propertiesHsqldbOracle();
 				dataHashAlgorithms.clear(); // TODO support more
 				checkConstraints = !propertiesHsqldbMysql55() && !propertiesHsqldbMysql56();
 				nativeDate = !propertiesHsqldbMysql55();
@@ -76,7 +74,6 @@ public class SupportsTest extends TestWithEnvironment
 				uniqueViolation = true;
 				break;
 			case oracle:
-				emptyStrings = false;
 				dataHashAlgorithms.clear(); // TODO support more
 				break;
 			case postgresql:
@@ -87,7 +84,6 @@ public class SupportsTest extends TestWithEnvironment
 				fail(dialect.name());
 		}
 
-		assertEquals(emptyStrings && !props.isSupportDisabledForEmptyStrings(), model.supportsEmptyStrings());
 		assertEquals(utf8mb4, model.supportsUTF8mb4());
 		assertEquals(dataHashAlgorithms, new ArrayList<>(model.getSupportedDataHashAlgorithms()));
 		assertEquals(random, model.supportsRandom());

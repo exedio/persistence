@@ -346,10 +346,11 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * TODO oracle: deprecate
+	 * @deprecated
 	 * Not supported any longer.
 	 * Always returns true.
 	 */
+	@Deprecated
 	public boolean supportsEmptyStrings()
 	{
 		connect(); // fail if not connected

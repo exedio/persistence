@@ -24,7 +24,6 @@ import static com.exedio.cope.util.CharSet.ALPHA_LOWER;
 import static com.exedio.cope.util.CharSet.ALPHA_UPPER;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
@@ -47,7 +46,6 @@ public class CharSetConditionTest extends TestWithEnvironment
 
 	@BeforeEach void beforeEach()
 	{
-		assumeTrue(MODEL.supportsEmptyStrings());
 		bmpOnly = mysql && !propertiesUtf8mb4();
 		new AnItem((String)null);
 		empty = new AnItem("");

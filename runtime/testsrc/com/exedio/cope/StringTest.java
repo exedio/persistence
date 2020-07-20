@@ -36,7 +36,6 @@ import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.testmodel.StringItem;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
@@ -52,15 +51,11 @@ public class StringTest extends TestWithEnvironment
 		super(StringModelTest.MODEL);
 	}
 
-	boolean supports;
-	String emptyString;
 	StringItem item, item2;
 	int numberOfItems;
 
 	@BeforeEach final void setUp()
 	{
-		supports = model.supportsEmptyStrings();
-		emptyString = supports ? "" : null;
 		item = new StringItem("StringTest");
 		item2 = new StringItem("StringTest2");
 		numberOfItems = 2;
@@ -81,18 +76,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(null, e.getItem());
 			assertEquals("mandatory violation for " + mandatory, e.getMessage());
 		}
-		try
-		{
-			mandatory.check("");
-			assert supports;
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertTrue(!supports);
-			assertEquals(mandatory, e.getFeature());
-			assertEquals(null, e.getItem());
-			assertEquals("mandatory violation for " + mandatory, e.getMessage());
-		}
+		mandatory.check("");
 		try
 		{
 			min4.check("123");
@@ -130,9 +114,9 @@ public class StringTest extends TestWithEnvironment
 		{
 			final StringItem itemEmptyInit = new StringItem("", false);
 			numberOfItems++;
-			assertEquals(emptyString, itemEmptyInit.getAny());
+			assertEquals("", itemEmptyInit.getAny());
 			restartTransaction();
-			assertEquals(emptyString, itemEmptyInit.getAny());
+			assertEquals("", itemEmptyInit.getAny());
 		}
 
 		// mandatory
@@ -186,43 +170,13 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// mandatory and empty string
-		try
-		{
-			item.setMandatory("");
-			if(supports)
-				assertEquals("", item.getMandatory());
-			else
-				fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertTrue(!supports);
-			assertEquals(mandatory, e.getFeature());
-			assertEquals(mandatory, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals("mandatory violation on " + item + " for " + mandatory, e.getMessage());
-			assertEquals("someOtherString", item.getMandatory());
-		}
+		item.setMandatory("");
+		assertEquals("", item.getMandatory());
 
-		StringItem item3 = null;
 		assertEquals(numberOfItems, TYPE.search(null).size());
-		try
-		{
-			item3 = new StringItem("", 0.0);
-			numberOfItems++;
-			if(supports)
-				assertEquals("", item3.getMandatory());
-			else
-				fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertTrue(!supports);
-			assertEquals(mandatory, e.getFeature());
-			assertEquals(mandatory, e.getFeature());
-			assertEquals(item3, e.getItem());
-			assertEquals("mandatory violation for " + mandatory, e.getMessage());
-		}
+		final StringItem item3 = new StringItem("", 0.0);
+		numberOfItems++;
+		assertEquals("", item3.getMandatory());
 		assertEquals(numberOfItems, TYPE.search(null).size());
 
 		// min4
@@ -601,14 +555,14 @@ public class StringTest extends TestWithEnvironment
 
 		{
 			sa.set(item, "");
-			assertEquals(emptyString, sa.get(item));
+			assertEquals("", sa.get(item));
 			restartTransaction();
-			assertEquals(emptyString, sa.get(item));
-			assertEquals(list(item), type.search(sa.equal(emptyString)));
+			assertEquals("", sa.get(item));
+			assertEquals(list(item), type.search(sa.equal("")));
 			if(searchEnabled(sa))
 			{
 				assertEquals(list(), type.search(sa.equal("x")));
-				assertEquals(supports ? list(item) : list(), type.search(sa.equal("")));
+				assertEquals(list(item), type.search(sa.equal("")));
 			}
 		}
 
