@@ -156,8 +156,8 @@ final class BlobColumn extends Column
 		final Executor executor = tx.connect.executor;
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT ");
-		table.database.dialect.appendIsNullInSelect(bf, this);
-		bf.append(" FROM ").
+		bf.append(quotedID).
+			append(" IS NULL FROM ").
 			append(table.quotedID).
 			append(" WHERE ").
 			append(table.primaryKey.quotedID).

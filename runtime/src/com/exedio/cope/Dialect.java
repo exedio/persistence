@@ -193,14 +193,6 @@ abstract class Dialect
 		return false;
 	}
 
-	void  appendIsNullInSelect(
-			final Statement bf,
-			final BlobColumn column)
-	{
-		bf.append(column.quotedID).
-			append(" IS NULL");
-	}
-
 	abstract void addBlobInStatementText(StringBuilder statementText, byte[] parameter);
 
 	<E extends Number> void  appendIntegerDivision(
