@@ -36,7 +36,6 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	private final Driver driver;
 	private final Dialect dialect;
 	private final Properties info;
-	private final int transactionIsolation;
 	private final int isValidOnGetTimeout;
 
 	ConnectionFactory(
@@ -51,7 +50,6 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		info = properties.newInfo();
 		dialect.completeConnectionInfo(info);
 
-		this.transactionIsolation = dialect.getTransationIsolation();
 		this.isValidOnGetTimeout = properties.connection.isValidOnGetTimeout;
 	}
 
@@ -77,7 +75,7 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 		boolean mustClose = true;
 		try
 		{
-			result.setTransactionIsolation(transactionIsolation);
+			result.setTransactionIsolation(Connection.TRANSACTION_REPEATABLE_READ);
 			dialect.completeConnection(result);
 
 			mustClose = false;

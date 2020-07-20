@@ -111,11 +111,6 @@ abstract class Dialect
 		trimmers.put(TrimClass. PrimaryKeyCheckConstraint, constraintTrimmer);
 	}
 
-	int getTransationIsolation()
-	{
-		return Connection.TRANSACTION_REPEATABLE_READ;
-	}
-
 	static final String EXPLAIN_PLAN = "explain plan";
 
 	/**
