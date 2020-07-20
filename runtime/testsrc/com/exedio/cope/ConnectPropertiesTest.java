@@ -101,7 +101,6 @@ public class ConnectPropertiesTest
 				"disableSupport.preparedStatements",
 				"disableSupport.nativeDate",
 				"disableSupport.uniqueViolation",
-				"disableSupport.semicolon",
 				"fulltextIndex",
 				"deleteSchemaForTest",
 				"schema.primaryKeyGenerator",

@@ -34,7 +34,6 @@ timestamps
 				)
 				writeEnv(
 						'pg11-mysql',
-						'disableSupport.semicolon=true\n' +
 						'disableSupport.nativeDate=true\n'
 				)
 				writeEnv(

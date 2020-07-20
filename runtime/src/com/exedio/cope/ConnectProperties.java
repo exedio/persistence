@@ -174,7 +174,6 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	private final boolean disablePreparedStatements = value("disableSupport.preparedStatements", false);
 	private final boolean disableNativeDate         = value("disableSupport.nativeDate", factory.disableNativeDate);
 	private final boolean disableUniqueViolation    = value("disableSupport.uniqueViolation", false);
-	private final boolean disableSemicolon          = value("disableSupport.semicolon", false);
 
 	/**
 	 * @deprecated
@@ -202,9 +201,15 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 		return disableUniqueViolation;
 	}
 
+	/**
+	 * @deprecated
+	 * Not supported any longer.
+	 * Always returns false.
+	 */
+	@Deprecated
 	public boolean isSupportDisabledForSemicolon()
 	{
-		return disableSemicolon;
+		return false;
 	}
 
 

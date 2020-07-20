@@ -40,8 +40,6 @@ public class GraphTest
 			public Connection getConnection() { throw new RuntimeException(); }
 			@Override
 			public void putConnection(final Connection connection) { throw new RuntimeException(); }
-			@Override
-			public boolean isSemicolonEnabled() { throw new RuntimeException(); }
 		});
 	}
 
