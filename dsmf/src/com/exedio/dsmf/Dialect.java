@@ -62,11 +62,6 @@ public abstract class Dialect
 		return true;
 	}
 
-	public boolean supportsSemicolon()
-	{
-		return true;
-	}
-
 	protected String adjustExistingCheckConstraintCondition(final String s)
 	{
 		return s;

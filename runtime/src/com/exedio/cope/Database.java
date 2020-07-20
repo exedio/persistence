@@ -489,7 +489,7 @@ final class Database
 	Schema makeSchema()
 	{
 		final ConnectionPool connectionPool = this.connectionPool;
-		final boolean semicolonEnabled = !properties.isSupportDisabledForSemicolon() && dsmfDialect.supportsSemicolon();
+		final boolean semicolonEnabled = !properties.isSupportDisabledForSemicolon();
 		final Schema result = new Schema(dsmfDialect, new ConnectionProvider()
 		{
 			@Override
