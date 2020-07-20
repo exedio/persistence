@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.TimeZoneStrict;
@@ -204,9 +205,9 @@ public class ReviseTest
 		// Never do this in real projects,
 		// always use plain string literals
 		// containing the sql statement!
-		final String body70 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field7" ), dialect.getStringType(100, null));
-		final String body60 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field6" ), dialect.getStringType(100, null));
-		final String body61 = dsmfDialect.createColumn(dsmfDialect.quoteName(filterTableName("ReviseItem")), dsmfDialect.quoteName("field6b"), dialect.getStringType(100, null));
+		final String body70 = dsmfDialect.createColumn(SI.tab(ReviseItem2.TYPE), SI.col(ReviseItem2.field7 ), dialect.getStringType(100, null));
+		final String body60 = dsmfDialect.createColumn(SI.tab(ReviseItem2.TYPE), SI.col(ReviseItem2.field6 ), dialect.getStringType(100, null));
+		final String body61 = dsmfDialect.createColumn(SI.tab(ReviseItem2.TYPE), SI.col(ReviseItem2.field6b), dialect.getStringType(100, null));
 		final Revisions revisions7 = new Revisions(
 				new Revision(7, "add column field7" + blah, body70),
 				new Revision(6, "add column field6",        body60, body61),
