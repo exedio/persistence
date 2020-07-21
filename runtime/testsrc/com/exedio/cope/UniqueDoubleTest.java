@@ -42,7 +42,7 @@ public class UniqueDoubleTest extends TestWithEnvironment
 	@Test void test()
 	{
 		assertEquals(
-				oracle || propertiesHsqldbOracle() || (mysql && !propertiesLongConstraintNames())
+				mysql && !propertiesLongConstraintNames()
 				? "UniqueDoubleItem_cons_Unq"
 				: "UniqueDoubleItem_constraint_Unq",
 				getConstraintName(constraint));

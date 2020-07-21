@@ -73,7 +73,6 @@ public abstract class TestWithEnvironment
 	protected RuntimeTester.Dialect dialect = null;
 	protected boolean hsqldb;
 	protected boolean mysql;
-	protected boolean oracle;
 	protected boolean postgresql;
 	protected boolean cache;
 	protected boolean mariaDriver;
@@ -85,7 +84,6 @@ public abstract class TestWithEnvironment
 		dialect = tester.dialect;
 		hsqldb = tester.hsqldb;
 		mysql  = tester.mysql;
-		oracle  = tester.oracle;
 		postgresql = tester.postgresql;
 		cache = tester.cache;
 		mariaDriver = model.getEnvironmentInfo().getDriverName().startsWith("MariaDB");
@@ -281,11 +279,6 @@ public abstract class TestWithEnvironment
 	protected final boolean propertiesHsqldbMysql56()
 	{
 		return propertiesHsqldb("mysql56");
-	}
-
-	protected final boolean propertiesHsqldbOracle()
-	{
-		return propertiesHsqldb("oracle");
 	}
 
 	private boolean propertiesHsqldb(final String approximate)

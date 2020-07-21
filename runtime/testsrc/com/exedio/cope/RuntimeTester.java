@@ -51,7 +51,6 @@ final class RuntimeTester
 	{
 		hsqldb("TIMESTAMP(3) WITHOUT TIME ZONE"),
 		mysql("datetime(3)"),
-		oracle("TIMESTAMP(3)"),
 		postgresql("timestamp (3) without time zone");
 
 		final String dateTimestampType;
@@ -65,7 +64,6 @@ final class RuntimeTester
 	Dialect dialect = null;
 	boolean hsqldb;
 	boolean mysql;
-	boolean oracle;
 	boolean postgresql;
 	boolean cache;
 
@@ -79,7 +77,6 @@ final class RuntimeTester
 		{
 			case "com.exedio.cope.HsqldbDialect":     dialect = Dialect.hsqldb;     break;
 			case "com.exedio.cope.MysqlDialect":      dialect = Dialect.mysql;      break;
-			case "com.exedio.cope.OracleDialect":     dialect = Dialect.oracle;     break;
 			case "com.exedio.cope.PostgresqlDialect": dialect = Dialect.postgresql; break;
 			default:
 				fail(database);
@@ -88,7 +85,6 @@ final class RuntimeTester
 
 		hsqldb     = dialect==Dialect.hsqldb;
 		mysql      = dialect==Dialect.mysql;
-		oracle     = dialect==Dialect.oracle;
 		postgresql = dialect==Dialect.postgresql;
 		cache = model.getConnectProperties().getItemCacheLimit()>0;
 	}

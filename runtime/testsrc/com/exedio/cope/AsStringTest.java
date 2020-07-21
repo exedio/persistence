@@ -81,10 +81,9 @@ public class AsStringTest extends TestWithEnvironment
 					TYPE, null);
 			q.setOrderBy(TYPE.getThis(), true);
 			final String p = hsqldb ? "E0" : "";
-			final String z = oracle ? "" : "0";
 			final Iterator<List<Object>> i = q.search().iterator();
 			assertEquals(list( "13",  "15", postgresql?"2":("1.9"+p)), i.next());
-			assertEquals(list( "13",  "15", postgresql?"1":(z+".9"+p)), i.next());
+			assertEquals(list( "13",  "15", postgresql?"1":("0.9"+p)), i.next());
 			assertEquals(list( "23",  "25", hsqldb?"29.0E0":"29"), i.next());
 			assertEquals(list("-33", "-35", postgresql?"-4":("-3.9"+p)), i.next());
 			assertEquals(list(  "0",   "0", hsqldb?"0.0E0":"0"), i.next());

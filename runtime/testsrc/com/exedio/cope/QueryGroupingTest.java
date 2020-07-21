@@ -133,7 +133,6 @@ public class QueryGroupingTest extends TestWithEnvironment
 		assertEquals(true, query.exists());
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 	@Test void testUngroupedSelect()
 	{
 		new GroupItem(day1, 1);
@@ -173,12 +172,6 @@ public class QueryGroupingTest extends TestWithEnvironment
 				notAllowedTotal(query, message);
 				break;
 			}
-			case oracle:
-				notAllowed(query,
-						"ORA-00979: not a GROUP BY expression\n");
-				assertEquals(2, query.total());
-				assertEquals(true, query.exists());
-				break;
 			case postgresql:
 			{
 				final String message =

@@ -149,9 +149,6 @@ public class OverflowLongSumTest extends TestWithEnvironment
 						else
 							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Long";
 						break;
-					case oracle:
-						expectedArithmeticException = "Numeric Overflow";
-						break;
 					case postgresql:
 						expectedArithmeticException = "Bad value for type long : " + expected;
 						break;

@@ -34,7 +34,6 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Table;
 import java.util.Date;
-import java.util.Locale;
 import org.junit.jupiter.api.Test;
 
 public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
@@ -123,12 +122,6 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 									"table: " + tableName,
 									message);
 							break;
-						case oracle:
-							assertEquals(
-									"ORA-02290: " +
-									"check constraint (" + schema() + "." + constraintName + ") violated\n",
-									message);
-							break;
 						case postgresql:
 							assertTrue(
 									message.startsWith(
@@ -175,11 +168,6 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 			assertEquals(expected, constraint.checkL(), constraintName);
 		else
 			assertNull(constraint, constraintName);
-	}
-
-	private static String schema()
-	{
-		return modelB.getConnectProperties().getConnectionUsername().toUpperCase(Locale.ENGLISH);
 	}
 
 	@CopeName("ItemAB")

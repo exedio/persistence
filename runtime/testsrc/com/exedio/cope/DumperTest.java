@@ -60,7 +60,6 @@ public class DumperTest extends TestWithEnvironment
 		{
 			case hsqldb:     dataL =      "X'aabbcc'"; break;
 			case mysql:      dataL =      "x'aabbcc'"; break;
-			case oracle:     dataL =       "'aabbcc'"; break;
 			case postgresql: dataL = "E'\\\\xaabbcc'"; break;
 			default:
 				fail(dialect.toString());

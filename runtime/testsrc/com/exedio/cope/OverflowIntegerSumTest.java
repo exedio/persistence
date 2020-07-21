@@ -106,7 +106,6 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 					expectedObject = Long.valueOf(expected);
 					break;
 				case mysql:
-				case oracle:
 					expectedObject = BigDecimal.valueOf(expected);
 					break;
 				default:
@@ -141,9 +140,6 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 							expectedArithmeticException = "Out of range value for column 'SUM(`field`)' : value " + expected + " is not in class java.lang.Integer range";
 						else
 							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Integer";
-						break;
-					case oracle:
-						expectedArithmeticException = "Numeric Overflow";
 						break;
 					case postgresql:
 						expectedArithmeticException = "Bad value for type int : " + expected;

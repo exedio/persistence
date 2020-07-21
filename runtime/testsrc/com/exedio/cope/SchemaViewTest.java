@@ -63,7 +63,6 @@ public class SchemaViewTest extends TestWithEnvironment
 						" FROM "   + SI.tab(MyItem.TYPE)  + ")");
 				break;
 			case hsqldb:
-			case oracle:
 			case postgresql:
 				// TODO nothing so far
 				break;
@@ -84,7 +83,6 @@ public class SchemaViewTest extends TestWithEnvironment
 						"DROP VIEW IF EXISTS " + NAME);
 				break;
 			case hsqldb:
-			case oracle:
 			case postgresql:
 				// nothing so far
 				break;

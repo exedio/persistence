@@ -50,9 +50,6 @@ public final class StringItem extends Item
 	public static final StringField long1M = new StringField().optional().lengthRange(0, 1000*1000);
 	public static final StringField long40M = new StringField().optional().lengthRange(0, 40*1000*1000);
 
-	public static final StringField oracleNoCLOB = new StringField().optional().lengthRange(0, 4000/3);
-	public static final StringField oracleCLOB = new StringField().optional().lengthRange(0, (4000/3)+1);
-
 	public static final UppercaseView min4Upper = min4.toUpperCase();
 	public static final UppercaseView max4Upper = max4.toUpperCase();
 
@@ -374,52 +371,6 @@ public final class StringItem extends Item
 				com.exedio.cope.StringLengthViolationException
 	{
 		StringItem.long40M.set(this,long40M);
-	}
-
-	/**
-	 * Returns the value of {@link #oracleNoCLOB}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	public java.lang.String getOracleNoCLOB()
-	{
-		return StringItem.oracleNoCLOB.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #oracleNoCLOB}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	public void setOracleNoCLOB(@javax.annotation.Nullable final java.lang.String oracleNoCLOB)
-			throws
-				com.exedio.cope.StringLengthViolationException
-	{
-		StringItem.oracleNoCLOB.set(this,oracleNoCLOB);
-	}
-
-	/**
-	 * Returns the value of {@link #oracleCLOB}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	public java.lang.String getOracleCLOB()
-	{
-		return StringItem.oracleCLOB.get(this);
-	}
-
-	/**
-	 * Sets a new value for {@link #oracleCLOB}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	public void setOracleCLOB(@javax.annotation.Nullable final java.lang.String oracleCLOB)
-			throws
-				com.exedio.cope.StringLengthViolationException
-	{
-		StringItem.oracleCLOB.set(this,oracleCLOB);
 	}
 
 	/**

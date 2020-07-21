@@ -73,9 +73,6 @@ public class SupportsTest extends TestWithEnvironment
 				nativeDate = env.isDatabaseVersionAtLeast(5, 6);
 				uniqueViolation = true;
 				break;
-			case oracle:
-				dataHashAlgorithms.clear(); // TODO support more
-				break;
 			case postgresql:
 				if(model.getConnectProperties().getField("dialect.pgcryptoSchema").get().equals("<disabled>"))
 					dataHashAlgorithms.retainAll(asList("MD5"));

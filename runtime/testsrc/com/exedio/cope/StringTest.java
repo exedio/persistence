@@ -28,8 +28,6 @@ import static com.exedio.cope.testmodel.StringItem.mandatory;
 import static com.exedio.cope.testmodel.StringItem.max4;
 import static com.exedio.cope.testmodel.StringItem.min4;
 import static com.exedio.cope.testmodel.StringItem.min4Max8;
-import static com.exedio.cope.testmodel.StringItem.oracleCLOB;
-import static com.exedio.cope.testmodel.StringItem.oracleNoCLOB;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.nio.charset.StandardCharsets.UTF_8;
@@ -107,8 +105,6 @@ public class StringTest extends TestWithEnvironment
 		assertString(item, item2, any);
 		assertString(item, item2, long1K);
 		assertString(item, item2, long1M);
-		assertString(item, item2, oracleNoCLOB);
-		assertString(item, item2, oracleCLOB);
 		assertStringSet(item, max4, "\u20ac\u20ac\u20ac\u20ac"); // euro in utf8 has two bytes
 
 		{
@@ -522,7 +518,6 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(VALUE2_UPPER, saup.get(item2));
 		assertEquals(Integer.valueOf(VALUE2.length()), saln.get(item2));
 
-		if(searchEnabled(sa))
 		{
 			assertContains(item, type.search(sa.equal(VALUE)));
 			assertContains(item2, type.search(sa.notEqual(VALUE)));
@@ -559,7 +554,6 @@ public class StringTest extends TestWithEnvironment
 			restartTransaction();
 			assertEquals("", sa.get(item));
 			assertEquals(list(item), type.search(sa.equal("")));
-			if(searchEnabled(sa))
 			{
 				assertEquals(list(), type.search(sa.equal("x")));
 				assertEquals(list(item), type.search(sa.equal("")));
@@ -629,8 +623,7 @@ public class StringTest extends TestWithEnvironment
 		assertStringSet(item, sa, "-\\xaf- slash hex");
 		assertStringSet(item, sa, "-\\uafec- slash unicode");
 
-		// TODO use streams for oracle
-		assertStringSet(item, sa, makeString(Math.min(sa.getMaximumLength(), oracle ? (1300/*32766-1*/) : (4 * 1000 * 1000))));
+		assertStringSet(item, sa, makeString(Math.min(sa.getMaximumLength(), 4 * 1000 * 1000)));
 
 		sa.set(item, null);
 		assertEquals(null, sa.get(item));
@@ -654,7 +647,6 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(value, sa.get(item));
 		restartTransaction();
 		assertEquals(value, sa.get(item));
-		if(searchEnabled(sa))
 		{
 			assertEquals(list(item), type.search(sa.equal(value)));
 			assertEquals(list(), type.search(sa.equal(value+"x")));
@@ -675,12 +667,6 @@ public class StringTest extends TestWithEnvironment
 	protected static List<?> search(final FunctionField<?> selectAttribute, final Condition condition)
 	{
 		return new Query<>(selectAttribute, condition).search();
-	}
-
-	// TODO should work without
-	private boolean searchEnabled(final StringField field)
-	{
-		return !oracle || field.getMaximumLength()<=1333;
 	}
 
 	@Test void testSchema()

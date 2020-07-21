@@ -58,9 +58,6 @@ public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 				"ON DELETE Cascade",
 				"unexpected delete rule CASCADE");
 
-		if(oracle) // does not support update rules
-			return;
-
 		testRules(
 				"ON UPDATE set NULL",
 				"unexpected update rule SET NULL");

@@ -55,7 +55,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		item1 = new PlusIntegerItem(2, 4, 5);
 		item2 = new PlusIntegerItem(1, 4, 5);
 		item3 = new PlusIntegerItem(1, 4, 5);
-		NULLS_FIRST = (oracle||postgresql) ? " NULLS FIRST" : "";
+		NULLS_FIRST = postgresql ? " NULLS FIRST" : "";
 	}
 
 	@Test void noDistinctOrOrder()
@@ -161,9 +161,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 			case mysql:
 				assertContains(item2, item3, item1, query.search());
 				break;
-			case oracle:
-				assertContainsList(asList(item1, item2, item3), query.search());
-				break;
 			case postgresql:
 				notAllowed(query,
 						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
@@ -212,10 +209,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				break;
 			case mysql:
 				assertContains(item2, item3, item1, query.search());
-				break;
-			case oracle:
-				notAllowed(query,
-						"ORA-01791: not a SELECTed expression\n");
 				break;
 			case postgresql:
 				notAllowed(query,
@@ -273,10 +266,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				else
 					assertContains(item2, item3, item1, query.search());
 				break;
-			case oracle:
-				notAllowed(query,
-						"ORA-01791: not a SELECTed expression\n");
-				break;
 			case postgresql:
 				notAllowed(query,
 						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
@@ -328,10 +317,6 @@ public class DistinctOrderByTest extends TestWithEnvironment
 									msg.startsWith("execute command denied to user ") &&
 									msg.endsWith(" for routine '" + env.getCatalog() + ".ANY_VALUE'")
 							));
-				break;
-			case oracle:
-				notAllowed(query,
-						"ORA-00904: \"ANY_VALUE\": invalid identifier\n");
 				break;
 			case postgresql:
 				notAllowedStartsWith(query,

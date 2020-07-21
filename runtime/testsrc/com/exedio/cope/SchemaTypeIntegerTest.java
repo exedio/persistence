@@ -34,21 +34,6 @@ import static com.exedio.cope.SchemaTypeIntegerItem.byte4;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4l;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte4u;
 import static com.exedio.cope.SchemaTypeIntegerItem.byte8;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal1;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal11;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal11l;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal11u;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal1l;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal1u;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal2;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal2l;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal2u;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal3;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal3l;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal3u;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal4;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal4l;
-import static com.exedio.cope.SchemaTypeIntegerItem.decimal4u;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -93,8 +78,6 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 				type4 = "int";
 				type8 = "bigint";
 				break;
-			case oracle:
-				return; // tested in testTypeDecimal
 			case postgresql:
 				type1 = type2 = "smallint";
 				type3 = type4 = "integer";
@@ -117,52 +100,6 @@ public class SchemaTypeIntegerTest extends TestWithEnvironment
 		assertType(type8, byte4l);
 		assertType(type8, byte4u);
 		assertType(type8, byte8);
-	}
-
-	@Test void testTypeDecimal()
-	{
-		final String type1;
-		final String type2;
-		final String type3;
-		final String type4;
-		final String type5;
-		final String type11;
-		final String type12;
-		switch(dialect)
-		{
-			case oracle:
-				type1  = "NUMBER(1)";
-				type2  = "NUMBER(2)";
-				type3  = "NUMBER(3)";
-				type4  = "NUMBER(4)";
-				type5  = "NUMBER(5)";
-				type11 = "NUMBER(11)";
-				type12 = "NUMBER(12)";
-				break;
-			case hsqldb:
-			case mysql:
-			case postgresql:
-				return; // tested in testTypeByte
-			default:
-				throw new AssertionError(dialect.name());
-		}
-
-		assertType(type1, decimal1);
-		assertType(type2, decimal1l);
-		assertType(type2, decimal1u);
-		assertType(type2, decimal2);
-		assertType(type3, decimal2l);
-		assertType(type3, decimal2u);
-		assertType(type3, decimal3);
-		assertType(type4, decimal3l);
-		assertType(type4, decimal3u);
-		assertType(type4, decimal4);
-		assertType(type5, decimal4l);
-		assertType(type5, decimal4u);
-
-		assertType(type11, decimal11);
-		assertType(type12, decimal11l);
-		assertType(type12, decimal11u);
 	}
 
 	private void assertType(final String expected, final LongField field)

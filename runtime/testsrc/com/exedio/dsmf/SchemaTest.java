@@ -29,7 +29,6 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Locale;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -102,15 +101,6 @@ public abstract class SchemaTest
 			stringType = "varchar(8) CHARACTER SET utf8 COLLATE utf8_bin";
 			intType = "int";
 			intType2 = "bigint";
-			hsqldb = false;
-			postgresql = false;
-		}
-		else if(url.startsWith("jdbc:oracle:"))
-		{
-			dialect = newD("Oracle", username.toUpperCase(Locale.ENGLISH));
-			stringType = "VARCHAR2(8 BYTE)";
-			intType = "NUMBER(12)";
-			intType2 = "NUMBER(15)";
 			hsqldb = false;
 			postgresql = false;
 		}

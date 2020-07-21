@@ -185,7 +185,6 @@ public class MediaDefaultTest extends TestWithEnvironment
 		assertExtension("text/plain", ".txt");
 		assertExtension("text/css", ".css");
 		assertExtension("application/java-archive", ".jar");
-		if(!oracle)
 		{
 			clock.add(123456003);
 			item.setFile(stream(bytes0), "empty-major/empty-minor");

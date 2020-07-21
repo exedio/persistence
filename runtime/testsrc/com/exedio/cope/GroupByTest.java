@@ -121,12 +121,6 @@ public class GroupByTest extends TestWithEnvironment
 				notAllowedTotal(query, message);
 				break;
 			}
-			case oracle:
-				notAllowed(query,
-						"ORA-00979: not a GROUP BY expression\n");
-				assertEquals(4, query.total());
-				assertTrue(query.exists());
-				break;
 			case postgresql:
 			{
 				final String message =
@@ -179,10 +173,6 @@ public class GroupByTest extends TestWithEnvironment
 				else
 					assertContains("foo", "bar", "goo", "car", query.search());
 				break;
-			case oracle:
-				notAllowed(query,
-						"ORA-00979: not a GROUP BY expression\n");
-				break;
 			case postgresql:
 				notAllowed(query,
 						"ERROR: column \"" + table + "." + column + "\" must appear " +
@@ -223,10 +213,6 @@ public class GroupByTest extends TestWithEnvironment
 							"which is not in SELECT list; this is incompatible with DISTINCT");
 				else
 					assertContains("foo", "bar", "goo", "car", query.search());
-				break;
-			case oracle:
-				notAllowed(query,
-						"ORA-01791: not a SELECTed expression\n");
 				break;
 			case postgresql:
 				notAllowed(query,

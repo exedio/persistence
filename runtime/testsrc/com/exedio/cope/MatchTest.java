@@ -67,7 +67,7 @@ public class MatchTest extends TestWithEnvironment
 		)));
 		assertTrue(MODEL.getConnectProperties().getFulltextIndex(), "fulltextIndex");
 
-		//noinspection EnumSwitchStatementWhichMissesCases OK: prepares more branches
+		//noinspection EnumSwitchStatementWhichMissesCases,SwitchStatementWithTooFewBranches OK: prepares more branches
 		switch(dialect)
 		{
 			case mysql:
@@ -81,17 +81,6 @@ public class MatchTest extends TestWithEnvironment
 								"ON " + SI.tab(AnItem.TYPE) + " " +
 								"(" + SI.col(AnItem.text) + ")");
 					}
-				}
-				break;
-			case oracle:
-				try(Connection c = SchemaInfo.newConnection(MODEL);
-					 Statement s = c.createStatement())
-				{
-					s.execute(
-							"CREATE INDEX index_name " +
-							"ON " + SI.tab(AnItem.TYPE) + " " +
-							"(" + SI.col(AnItem.text) + ") " +
-							"indextype is CTXSYS.CONTEXT");
 				}
 				break;
 		}

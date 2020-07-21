@@ -106,37 +106,6 @@ public class QueryInfoTest extends TestWithEnvironment
 				assertEquals("explain plan", plan.getText());
 				break;
 			}
-			case oracle:
-			{
-				final QueryInfo planId = rootChilds.next();
-				assertTrue(planId.getText().startsWith("explain plan statement_id=cope"), planId.getText());
-				{
-					final Iterator<QueryInfo> planIdChilds = planId.getChilds().iterator();
-					{
-						final QueryInfo planSelect = planIdChilds.next();
-						assertTrue(planSelect.getText().startsWith("SELECT STATEMENT plan_id="), planSelect.getText());
-						{
-							final Iterator<QueryInfo> planSelectChilds = planSelect.getChilds().iterator();
-							{
-								final QueryInfo planTableAccess = planSelectChilds.next();
-								assertTrue(planTableAccess.getText().startsWith("TABLE ACCESS (BY INDEX ROWID) on Main[1]"), planTableAccess.getText());
-								{
-									final Iterator<QueryInfo> planTableAccessChilds = planTableAccess.getChilds().iterator();
-									{
-										final QueryInfo planUnique = planTableAccessChilds.next();
-										assertTrue(planUnique.getText().startsWith("INDEX (UNIQUE SCAN) on Main_uniqueString_Unq"), planUnique.getText());
-										assertEquals(list(), planUnique.getChilds());
-									}
-									assertTrue(!planTableAccessChilds.hasNext());
-								}
-							}
-							assertTrue(!planSelectChilds.hasNext());
-						}
-					}
-					assertTrue(!planIdChilds.hasNext());
-				}
-				break;
-			}
 			case hsqldb:
 			case postgresql:
 				assertFalse(rootChilds.hasNext());

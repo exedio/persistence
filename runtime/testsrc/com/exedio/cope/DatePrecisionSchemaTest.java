@@ -103,8 +103,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb    : // fall through
-			case mysql     : // fall through
-			case oracle    : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
+			case mysql     : return "EXTRACT(" + precision.sql() + " FROM " + SI.col(field) + ")";
 
 			case postgresql: return "\"date_part\"('" + precision.sql() + "', " + SI.col(field) + ")";
 
@@ -118,8 +117,7 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case hsqldb    : // fall through
-			case mysql     : // fall through
-			case oracle    : return "FLOOR(" + s + ")";
+			case mysql     : return "FLOOR(" + s + ")";
 
 			case postgresql: return "\"floor\"(" + s + ")";
 
@@ -136,7 +134,6 @@ public class DatePrecisionSchemaTest extends TestWithEnvironment
 			case hsqldb    : return "MOD(" + SI.col(field) + "," + divisor + ")=0";
 			case mysql     : return "(" + SI.col(field) + " MOD " + divisor + ")=0";
 			case postgresql: return "(" + SI.col(field) +  " % "  + divisor + ")=0";
-			case oracle: // TODO
 			default:
 				throw new RuntimeException("" + dialect);
 		}

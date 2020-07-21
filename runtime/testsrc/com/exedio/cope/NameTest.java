@@ -102,7 +102,7 @@ public class NameTest extends TestWithEnvironment
 		assertEquals("pointerLoooooooooooooName", getColumnName(NameLongItem_pointerLongName));
 		assertEquals("pointerLoooooooooNameType", getTypeColumnName(NameLongItem_pointerLongName));
 		assertEquals(
-				oracle || propertiesHsqldbOracle() || (mysql && !propertiesLongConstraintNames())
+				mysql && !propertiesLongConstraintNames()
 				? "NameLongItem_poiLooNam_Fk"
 				: "NameLongItem_pointerLooooooooooooooooooooooooooooooooName_Fk",
 				getForeignKeyConstraintName(NameLongItem_pointerLongName));

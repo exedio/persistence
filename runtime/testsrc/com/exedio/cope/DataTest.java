@@ -88,15 +88,9 @@ public class DataTest extends TestWithEnvironment
 	private void assertIt(final byte[] expectedData, final DataItem item)
 		throws MandatoryViolationException, IOException
 	{
-		assertIt(expectedData, item, oracle);
-	}
-
-	private void assertIt(final byte[] expectedData, final DataItem item, final boolean oracle)
-		throws MandatoryViolationException, IOException
-	{
 		final byte[] alreadyExists = {1,2,3,4,5,6,7,8,9,10};
 
-		if(expectedData!=null && !(oracle && expectedData.length==0))
+		if(expectedData!=null)
 		{
 			assertTrue(!item.isDataNull());
 			assertEquals(expectedData.length, item.getDataLength());

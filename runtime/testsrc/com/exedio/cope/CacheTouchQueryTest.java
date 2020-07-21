@@ -51,7 +51,6 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 	{
 		assertEquals(model.getConnectProperties().getQueryCacheLimit(), gauge("maximumSize"));
 		assumeTrue(cache, "cache");
-		int o = oracle ? 1 : 0; // oracle does not provide repeatable read
 		initCache();
 
 		assertCache(0, 0, 0, 0, 0, 0, 0);
@@ -84,7 +83,7 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 		final boolean st = model.getConnectProperties().cacheStamps;
 
 		final Query<String> query = new Query<>(name);
-		assertEquals(oracle?"itemName2":"itemName", query.searchSingleton());
+		assertEquals("itemName", query.searchSingleton());
 		assertCache(st?0:1, 0, 1, 0, 1, 1, 0);
 
 		model.commit();
@@ -94,12 +93,10 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 		model.startTransaction("CacheTouchTest failer");
 		assertCache(st?0:1, 0, 0, 0, 0, 0, 0);
 
-		if(st||oracle)
+		if(st)
 		{
-			if(st)
-				o = 0;
 			assertEquals("itemName2", query.searchSingleton());
-			assertCache(1, o, 1-o, 0, 0, 0, 0);
+			assertCache(1, 0, 1, 0, 0, 0, 0);
 		}
 		else
 		{

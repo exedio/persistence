@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.UniqueDoubleNullTest.MyItem.TYPE;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.instrument.WrapperInitial;
 import org.junit.jupiter.api.Test;
@@ -45,8 +44,6 @@ public class UniqueDoubleNullTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		assumeTrue(!oracle, "not oracle"); // Oracle violates SQL standard about this
-
 		assertEquals(asList(), TYPE.search(null, TYPE.getThis(), true));
 
 		final MyItem aN1 = new MyItem("a", null);

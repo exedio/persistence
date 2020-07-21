@@ -24,8 +24,6 @@ import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.RuntimeAssert.assertCondition;
 import static java.util.Arrays.asList;
 
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -66,9 +64,9 @@ public class StartsWithConditionTest extends TestWithEnvironment
 		if(!isSupported(data.startsWithIfSupported(bytes4).not()))
 			return;
 
-		assertCondition(reduce(item0, item6, item6x4), TYPE, data.startsWithIfSupported(bytes4  ).not(), data.startsWithIfSupported(bytes4  ));
-		assertCondition(reduce(item0, item4, item6x4), TYPE, data.startsWithIfSupported(bytes6  ).not(), data.startsWithIfSupported(bytes6  ));
-		assertCondition(reduce(item0, item4         ), TYPE, data.startsWithIfSupported(bytes6x4).not(), data.startsWithIfSupported(bytes6x4));
+		assertCondition(asList(item0, item6, item6x4), TYPE, data.startsWithIfSupported(bytes4  ).not(), data.startsWithIfSupported(bytes4  ));
+		assertCondition(asList(item0, item4, item6x4), TYPE, data.startsWithIfSupported(bytes6  ).not(), data.startsWithIfSupported(bytes6  ));
+		assertCondition(asList(item0, item4         ), TYPE, data.startsWithIfSupported(bytes6x4).not(), data.startsWithIfSupported(bytes6x4));
 	}
 
 
@@ -81,17 +79,6 @@ public class StartsWithConditionTest extends TestWithEnvironment
 				TYPE.newQuery(condition),
 				"DataField DataItem.data does not support startsWith as it has vault enabled");
 		return false;
-	}
-
-	private List<DataItem> reduce(final DataItem... list)
-	{
-		if(!oracle)
-			return asList(list);
-
-		// TODO make oracle look like other databases
-		final ArrayList<DataItem> result = new ArrayList<>(asList(list));
-		result.remove(item0);
-		return result;
 	}
 
 	private static final byte[] bytes0  = {};

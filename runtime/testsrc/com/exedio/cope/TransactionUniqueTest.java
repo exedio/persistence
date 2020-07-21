@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.TransactionUniqueTest.MyItem.TYPE;
 import static com.exedio.cope.instrument.Visibility.PRIVATE;
 import static java.util.Arrays.asList;
-import static java.util.Locale.ENGLISH;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -49,7 +48,6 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		{
 			case hsqldb:     testFails();  break;
 			case mysql:      testBlocks(); break;
-			case oracle:     testBlocks(); break;
 			case postgresql: testBlocks(); break;
 			default:
 				fail("" + dialect);
@@ -128,13 +126,6 @@ public class TransactionUniqueTest extends TestWithEnvironment
 					assertEquals("unique violation for MyItem.fieldImplicitUnique", failure.getMessage());
 					assertEquals(UniqueViolationException.class, failure.getClass());
 				}
-				break;
-			case oracle:
-				assertInsert(failure);
-				final String schema = MODEL.getConnectProperties().getConnectionUsername().toUpperCase(ENGLISH);
-				assertEquals(
-						"ORA-00001: unique constraint (" + schema + ".MyItem_field_Unq) violated\n",
-						failure.getCause().getMessage());
 				break;
 			case postgresql:
 				assertInsert(failure);

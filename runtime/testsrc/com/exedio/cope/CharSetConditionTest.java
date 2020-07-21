@@ -309,7 +309,6 @@ public class CharSetConditionTest extends TestWithEnvironment
 					assertNotSupported(condition, " with non-ASCII CharSet: " + charSet);
 				break;
 			case hsqldb:
-			case oracle:
 			case postgresql:
 				assertNotSupported(condition, "");
 				break;

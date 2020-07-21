@@ -104,7 +104,7 @@ public class UniqueTest extends TestWithEnvironment
 
 		// test persistence
 		assertEquals(
-				oracle || propertiesHsqldbOracle() || (mysql && !propertiesLongConstraintNames())
+				mysql && !propertiesLongConstraintNames()
 				? "UniquSingItem_uniStri_Unq"
 				: "UniqueSingleItem_uniqueString_Unq",
 				getConstraintName(uniqueString.getImplicitUniqueConstraint()));
