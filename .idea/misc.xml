@@ -8,7 +8,6 @@
     </list>
     <pattern value="com.exedio.cope.MysqlDialect" method="MysqlDialect" />
     <pattern value="com.exedio.cope.PostgresqlDialect" method="PostgresqlDialect" />
-    <pattern value="com.exedio.cope.OracleDialect" method="OracleDialect" />
     <pattern value="com.exedio.cope.HsqldbDialect" method="HsqldbDialect" />
     <pattern value="*" method="beforeNewCopeItem" />
     <pattern value="com.exedio.cope.instrument.AntTask" method="add*" />
