@@ -48,6 +48,7 @@ timestamps
 				)
 				writeEnv(
 						'pg96-mysql',
+						'disableSupport.semicolon=false\n' +
 						'disableSupport.nativeDate=true\n'
 				)
 				writeEnv(

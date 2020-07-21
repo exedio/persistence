@@ -48,6 +48,7 @@ timestamps
 				)
 				writeEnv(
 						'my56-legacy',
+						'disableSupport.semicolon=false\n' +
 						'dialect.fullSequenceColumnName=false\n' +
 						'dialect.longConstraintNames=false\n' +
 						'dialect.smallIntegerTypes=false\n' +
