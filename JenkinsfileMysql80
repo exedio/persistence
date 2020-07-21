@@ -55,7 +55,7 @@ timestamps
 				writeEnv(
 						'my80-legacy',
 						'mysql-connector-java',
-						'disableSupport.semicolon=false\n' +
+						'disableSupport.semicolon=true\n' +
 						'disableSupport.nativeDate=true\n'
 				)
 				writeEnv(
@@ -104,7 +104,7 @@ timestamps
 				writeEnv(
 						'my80m-legacy',
 						'mariadb-java-client',
-						'disableSupport.semicolon=false\n' +
+						'disableSupport.semicolon=true\n' +
 						'disableSupport.nativeDate=true\n'
 				)
 				writeEnv(
