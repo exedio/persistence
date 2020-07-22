@@ -1,7 +1,7 @@
 
 timestamps
 {
-	def jdk = 'openjdk-8-deb9'
+	def jdk = 'openjdk-8'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -11,11 +11,10 @@ timestamps
 			))
 	])
 
-	def idea = 'idea-2020.1'
-	def confighome = 'IdeaIC2020.1'
+	def idea = '2020.1'
 
 	//noinspection GroovyAssignabilityCheck
-	lock('idea') { node('GitCloneExedio && ' + jdk + ' && ' + idea)
+	node('GitCloneExedio && docker')
 	{
 		try
 		{
@@ -26,17 +25,18 @@ timestamps
 
 				checkout scm
 
-				env.JAVA_HOME = tool type: 'jdk', name: jdk
-				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-
-				sh "rm -rf " + env.HOME  + "/.Idea*"
-				sh "rm -rf " + env.HOME  + "/.cache/JetBrains"
-				sh "rm -rf " + env.HOME  + "/.config/JetBrains"
-				sh "ant/bin/ant -noinput -f conf/idea" +
-						' -Dconfig.home=' + env.HOME + '/.config/JetBrains/' + confighome +
-						' -Djava.home=' + env.JAVA_HOME
-
-				sh "/" + idea + "/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
+				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER;
+				docker.
+					build(
+						'exedio-jenkins:' + dockerName + '-' + new Date().format("yyyyMMdd"),
+						'--build-arg JDK=' + jdk + ' ' +
+						'--build-arg IDEA=' + idea + ' ' +
+						'conf/idea').
+					inside(
+						"--name '" + dockerName + "'")
+					{
+						sh "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
+					}
 				archiveArtifacts 'idea-inspection-output/**'
 				sh "rm idea-inspection-output/SpellCheckingInspection.xml"
 				recordIssues(
@@ -66,7 +66,7 @@ timestamps
 			echo("Delete working dir after build")
 			deleteDir()
 		}
-	}}
+	}
 }
 
 def abortable(Closure body)
