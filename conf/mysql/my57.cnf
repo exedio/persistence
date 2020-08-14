@@ -1,0 +1,20 @@
+[mysqld]
+
+# COPE must use InnoDB, COPE does not support any other engine.
+# It is recommended, that you disable all other engines, to avoid mistakes.
+# However, mysql will still need MyISAM, CSV, MRG_MYISAM, PERFORMANCE_SCHEMA and MEMORY for internal purposes of MySQL itself.
+archive=OFF
+federated=OFF
+blackhole=OFF
+
+# Maximum Value
+# https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet
+max_allowed_packet=64000000
+
+# Enables binlog
+# https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_log_bin
+server_id=99999
+log_bin=/var/log/mysql/mysql-bin.log
+binlog_do_db=binlogtest
+gtid_mode=ON
+enforce_gtid_consistency=ON

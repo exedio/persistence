@@ -406,6 +406,47 @@
 
 	<target name="runtime.test.readyToRun" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.feature.compile, runtime.test.compile" />
 
+	<target name="runtime.test.withEnv.setup.mysql" if="runtime.test.withEnv.setup.mysql.url">
+		<sql
+				classpath="lib/mysql-connector-java.jar"
+				driver="com.mysql.cj.jdbc.Driver"
+				url="${runtime.test.withEnv.setup.mysql.url}"
+				src="${runtime.test.withEnv.setup.mysql.sql}"
+				userid="root"
+				password="password-JUST-FOR-SETUP"
+		>
+			<!-- see MysqlDialect#completeConnectionInfo -->
+			<connectionProperty name="allowPublicKeyRetrieval" value="true" />
+			<connectionProperty name="useSSL" value="false" />
+			<connectionProperty name="serverTimezone" value="UTC" />
+			<connectionProperty name="allowLoadLocalInfile" value="false" /><!-- MySQL driver -->
+			<connectionProperty name="allowLocalInfile" value="false" /><!-- MariaDB driver -->
+		</sql>
+	</target>
+
+	<target name="runtime.test.withEnv.setup.postgresql" if="runtime.test.withEnv.setup.postgresql.url">
+		<sql
+				classpath="lib/postgresql-bundle.jar"
+				driver="org.postgresql.Driver"
+				url="${runtime.test.withEnv.setup.postgresql.url}"
+				src="conf/setup-postgresql-createDatabase.sql"
+				userid="postgres"
+				password="password-JUST-FOR-SETUP"
+				autocommit="true" />
+		<sql
+				classpath="lib/postgresql-bundle.jar"
+				driver="org.postgresql.Driver"
+				url="${runtime.test.withEnv.setup.postgresql.url}test_db_database"
+				src="conf/setup-postgresql-useDatabase.sql"
+				userid="postgres"
+				password="password-JUST-FOR-SETUP"
+				autocommit="true" />
+	</target>
+
+	<target
+			name="runtime.test.withEnv.setup"
+			depends="runtime.test.withEnv.setup.mysql,runtime.test.withEnv.setup.postgresql" />
+
 	<target name="runtime.test.withoutEnv" depends="runtime.test.readyToRun">
 		<ljunit scansrc="runtime/testsrc" testproperty="runtime.test.withoutEnv"
 				line="--exclude-tag TestWithEnvironment">
@@ -448,7 +489,7 @@
 		</ljunit>
 	</target>
 
-	<target name="runtime.test.withEnv" depends="runtime.test.readyToRun">
+	<target name="runtime.test.withEnv" depends="runtime.test.readyToRun, runtime.test.withEnv.setup">
 		<foreachEnvironment skipSwitch="runtime.test">
 			<body>
 				<ljunit scansrc="runtime/testsrc" testproperty="runtime.test.withEnv"
@@ -494,7 +535,7 @@
 
 	<target name="runtime.test" depends="runtime.test.withoutEnv, runtime.test.withEnv" />
 
-	<target name="runtime.test.protocol" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.test.compile">
+	<target name="runtime.test.protocol" depends="dsmf.compile, runtime.core.compile, runtime.dialect.compile, runtime.test.compile, runtime.test.withEnv.setup">
 		<delete file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
 		<foreachEnvironment skipSwitch="runtime.test.protocol">
 			<body>

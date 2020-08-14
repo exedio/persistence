@@ -1,7 +1,7 @@
 
 timestamps
 {
-	def jdk = 'openjdk-8-deb9'
+	def jdk = 'openjdk-8'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -10,10 +10,10 @@ timestamps
 			))
 	])
 
-	env.DATABASE_HOST = 'mysql56.ci.test'
+	def database = '5.6.33'
 
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && ' + jdk + ' && ' + env.DATABASE_HOST)
+	node('GitCloneExedio && docker')
 	{
 		try
 		{
@@ -23,10 +23,6 @@ timestamps
 				deleteDir()
 
 				def buildTag = makeBuildTag(checkout(scm))
-
-				env.JAVA_HOME = tool type: 'jdk', name: jdk
-				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-				env.SCHEMA = "ci_${HOSTNAME}_${EXECUTOR_NUMBER}"
 
 				sh 'rm -f conf/environment/*.properties'
 
@@ -77,15 +73,53 @@ timestamps
 						'disableSupport.uniqueViolation=true\n'
 				)
 
-				sh 'ant/bin/ant -noinput' +
-						' -f macros/resetSchema.xml' +
-						' mysql' +
-						' -Dfile=conf/environment/my56.properties'
+				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
+				def dockerDate = new Date().format("yyyyMMdd")
+				def mainImage = docker.build(
+						'exedio-jenkins:' + dockerName + '-' + dockerDate,
+						'--build-arg JDK=' + jdk + ' ' +
+						'conf/main')
+				def dbImage = docker.build(
+						'exedio-jenkins:' + dockerName + '-' + dockerDate + '-db',
+						'--build-arg VERSION=' + database + ' ' +
+						'--build-arg CONF=my56.cnf ' +
+						'conf/mysql')
 
-				sh "ant/bin/ant -noinput clean testWithEnv" +
-						' "-Dbuild.tag=' + buildTag + '"' +
-						' -Dskip.instrument=true' + // already verified in Jenkinsfile
-						' -Ddisable-ansi-colors=true'
+				def dbBridge = sh ( script:
+						"docker network create " +
+								dockerName + "-db " +
+								"--driver bridge " +
+								"--internal",
+						returnStdout: true).trim()
+				try
+				{
+					dbImage.withRun(
+							"--name '" + dockerName + "-db' " +
+							"--tmpfs /var/lib/mysql:rw " +
+							"--network " + dbBridge + " " +
+							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
+					{ c ->
+						mainImage.inside(
+								"--name '" + dockerName + "' " +
+								"--hostname mydockerhostname " +
+								"--network " + dbBridge + " " +
+								"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
+						{
+							sh "ant/bin/ant -noinput clean testWithEnv" +
+									' "-Dbuild.tag=' + buildTag + '"' +
+									' -Dskip.instrument=true' + // already verified in Jenkinsfile
+									' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://' + dockerName + '-db/' +
+									' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql55.sql' +
+									' -Ddisable-ansi-colors=true'
+						}
+						sh "docker logs " + c.id + " &> db.log"
+						archiveArtifacts 'db.log'
+					}
+				}
+				finally
+				{
+					sh "docker network rm " + dbBridge
+				}
 			}
 		}
 		catch(Exception e)
@@ -145,19 +179,16 @@ def makeBuildTag(scmResult)
 
 def writeEnv(name, text)
 {
-	withCredentials([string(credentialsId: env.DATABASE_HOST, variable: 'PASSWORD')])
-	{
-		writeFile(
+	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:mysql://' + env.DATABASE_HOST + '/' + env.SCHEMA + '\n' +
-					'connection.username=' + env.SCHEMA + '\n' +
-					'connection.password=' + PASSWORD + '\n' +
+					'connection.url=jdbc:mysql://' + env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER + '-db/test_db_schema\n' +
+					'connection.username=test_db_user\n' +
+					'connection.password=test_db_password\n' +
 					'x-build.schemasavepoint=' +
 							/OK: SHOW MASTER STATUS mysql-bin.\\d{6}:\\d+ doDB=binlogtest/ + '\n' +
 					'x-build.dialect=mysql\n' +
 					'x-build.driver=mysql-connector-java.jar\n' +
 					text
 		)
-	}
 }
