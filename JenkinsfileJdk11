@@ -1,7 +1,7 @@
 
 timestamps
 {
-	def jdk = 'openjdk-11-deb10'
+	def jdk = 'openjdk-11'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
@@ -12,7 +12,7 @@ timestamps
 	])
 
 	//noinspection GroovyAssignabilityCheck
-	node('GitCloneExedio && ' + jdk)
+	node('GitCloneExedio && docker')
 	{
 		try
 		{
@@ -23,22 +23,40 @@ timestamps
 
 				def buildTag = makeBuildTag(checkout(scm))
 
-				env.JAVA_HOME = tool type: 'jdk', name: jdk
-				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
+				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
+				def dockerDate = new Date().format("yyyyMMdd")
+				def mainImage = docker.build(
+						'exedio-jenkins:' + dockerName + '-' + dockerDate,
+						'--build-arg RELEASE=buster ' +
+						'--build-arg JDK=' + jdk + ' ' +
+						'--build-arg JAVAHOME=/usr/lib/jvm/java-11-openjdk-amd64 ' +
+						'conf/main')
 
-				sh "ant/bin/ant -noinput clean jenkins" +
-						' "-Dbuild.revision=${BUILD_NUMBER}"' +
-						' "-Dbuild.tag=' + buildTag + '"' +
-						' -Dbuild.status=' + (isRelease?'release':'integration') +
-						' -Dinstrument.verify=true' +
-						' -Ddisable-ansi-colors=true' +
-						' -Dtomcat.port.shutdown=' + port(0) +
-						' -Dtomcat.port.http=' + port(1) +
-						' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
-						' -Druntime.test.ClusterNetworkTest.port.A=' + port(2) +
-						' -Druntime.test.ClusterNetworkTest.port.B=' + port(3) +
-						' -Druntime.test.ClusterNetworkTest.port.C=' + port(4) +
-						' -Dfindbugs.output=xml'
+				def bridge = sh ( script:
+						"docker network create " +
+								dockerName + "-net " +
+								"--driver bridge " +
+								"--internal",
+						returnStdout: true).trim()
+				try
+				{
+					mainImage.inside(
+							"--name '" + dockerName + "' " +
+							"--network " + bridge)
+					{
+						sh "ant/bin/ant -noinput clean jenkins" +
+								' "-Dbuild.revision=${BUILD_NUMBER}"' +
+								' "-Dbuild.tag=' + buildTag + '"' +
+								' -Dbuild.status=' + (isRelease?'release':'integration') +
+								' -Dinstrument.verify=true' +
+								' -Ddisable-ansi-colors=true' +
+								' -Dfindbugs.output=xml'
+					}
+				}
+				finally
+				{
+					sh "docker network rm " + bridge
+				}
 
 				recordIssues(
 						enabledForFailure: true,
@@ -176,17 +194,4 @@ def makeBuildTag(scmResult)
 			new Date().format("yyyy-MM-dd") + ' ' +
 			scmResult.GIT_COMMIT + ' ' +
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
-}
-
-def port(int offset)
-{
-	return 28000 + 10*env.EXECUTOR_NUMBER.toInteger() + offset
-}
-
-def multicastAddress()
-{
-	// Multicast address for Local subnetwork (Not routable, 224.0.0.0 to 224.0.0.255).
-	// Not one of the "Notable addresses":
-	// https://en.wikipedia.org/wiki/Multicast_address
-	return "224.0.0." + (60 + env.EXECUTOR_NUMBER_HOST_OFFSET.toInteger() + env.EXECUTOR_NUMBER.toInteger())
 }

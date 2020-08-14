@@ -1,4 +1,5 @@
-FROM debian:stretch-20200607
+ARG RELEASE=stretch
+FROM debian:${RELEASE}-20200607
 
 ARG JDK
 RUN \
@@ -8,7 +9,8 @@ RUN \
 	rm -rf /var/lib/apt/lists/*
 
 # needed for path to tools.jar when compiling instrumentor
-ENV JAVA_HOME /usr/lib/jvm/java-8-openjdk-amd64
+ARG JAVAHOME=/usr/lib/jvm/java-8-openjdk-amd64
+ENV JAVA_HOME ${JAVAHOME}
 
 RUN \
 	mkdir /var/dependencies-cache && \
