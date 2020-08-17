@@ -729,6 +729,7 @@
 	</target>
 
 	<target name="instrument.core.compile" depends="runtime.core.compile, runtime.pattern.compile, instrument.anno.compile">
+		<echo taskname="JAVA_HOME" message="${env.JAVA_HOME}" unless:set="jdk9" />
 		<compile srcdir="instrument/src">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
