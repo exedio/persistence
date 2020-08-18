@@ -31,6 +31,7 @@ import static com.exedio.cope.pattern.ThumbnailItem.thumbLarge;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
+import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -47,7 +48,7 @@ import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Set;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -89,7 +90,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 	@Test void testThumbs() throws IOException
 	{
 		// test model
-		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
+		assertEqualsUnmodifiable(asList(new Feature[]{
 				TYPE.getThis(),
 				file,
 				file.getBody(),
@@ -239,6 +240,6 @@ public final class ThumbnailTest extends TestWithEnvironment
 		{
 			out.write(actualContent);
 		}
-		assertEquals(JPEG, Files.probeContentType(path));
+		assertEquals(new HashSet<>(asList(MediaType.forName(JPEG))), MediaType.forMagics(path));
 	}
 }
