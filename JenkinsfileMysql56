@@ -22,23 +22,11 @@ timestamps
 				echo("Delete working dir before build")
 				deleteDir()
 
-				def scmResult = checkout scm
-				computeGitTree(scmResult)
+				def buildTag = makeBuildTag(checkout(scm))
 
-				env.BUILD_TIMESTAMP = new Date().format("yyyy-MM-dd_HH-mm-ss")
 				env.JAVA_HOME = tool type: 'jdk', name: jdk
 				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
 				env.SCHEMA = "ci_${HOSTNAME}_${EXECUTOR_NUMBER}"
-
-				sh 'echo' +
-						' HOSTNAME -${HOSTNAME}-' +
-						' EXECUTOR_NUMBER -${EXECUTOR_NUMBER}-' +
-						' scmResult=' + scmResult +
-						' BUILD_TIMESTAMP -${BUILD_TIMESTAMP}-' +
-						' BRANCH_NAME -${BRANCH_NAME}-' +
-						' BUILD_NUMBER -${BUILD_NUMBER}-' +
-						' BUILD_ID -${BUILD_ID}-' +
-						' SCHEMA=' + env.SCHEMA
 
 				sh 'rm -f conf/environment/*.properties'
 
@@ -95,7 +83,7 @@ timestamps
 						' -Dfile=conf/environment/my56.properties'
 
 				sh "ant/bin/ant -noinput clean testWithEnv" +
-						' "-Dbuild.tag=git ${BRANCH_NAME} ' + scmResult.GIT_COMMIT + ' ' + scmResult.GIT_TREE + ' jenkins ${BUILD_NUMBER} ${BUILD_TIMESTAMP}"' +
+						' "-Dbuild.tag=' + buildTag + '"' +
 						' -Dskip.instrument=true' + // already verified in Jenkinsfile
 						' -Ddisable-ansi-colors=true'
 			}
@@ -145,10 +133,14 @@ def abortable(Closure body)
 	}
 }
 
-def computeGitTree(scmResult)
+def makeBuildTag(scmResult)
 {
-	sh "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //' > .git/jenkins-head-tree"
-	scmResult.GIT_TREE = readFile('.git/jenkins-head-tree').trim()
+	return 'build ' +
+			env.BRANCH_NAME + ' ' +
+			env.BUILD_NUMBER + ' ' +
+			new Date().format("yyyy-MM-dd") + ' ' +
+			scmResult.GIT_COMMIT + ' ' +
+			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
 }
 
 def writeEnv(name, text)
