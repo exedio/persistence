@@ -24,10 +24,10 @@ import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -40,7 +40,7 @@ final class ItemCache
 	private static final ItemCacheInfo[] EMPTY_ITEM_CACHE_INFO_ARRAY = new ItemCacheInfo[0];
 
 	private final LRUMap<Item,WrittenState> map;
-	private final LinkedHashMap<Long,Set<Item>> stampList;
+	private final ArrayDeque<Stamp> stampList;
 
 	private final TypeStats[] typeStats;
 
@@ -75,7 +75,7 @@ final class ItemCache
 				typeStats[eldest.getKey().type.cacheIdTransiently].replacements.increment());
 		if(properties.cacheStamps)
 		{
-			stampList=new LinkedHashMap<>();
+			stampList=new ArrayDeque<>();
 		}
 		else
 		{
@@ -85,7 +85,7 @@ final class ItemCache
 		final Metrics metrics = new Metrics(model);
 		metrics.gaugeD(c -> c.map.maxSize, "maximumSize", "The maximum number of entries in this cache, causing eviction if exceeded"); // name conforms to com.google.common.cache.CacheBuilder
 		metrics.gaugeM(c -> c.map,         "size",        "The exact number of entries in this cache"); // name conforms to CacheMeterBinder
-		metrics.gaugeM(c -> c.stampList,   "stamp.transactions", "Number of transactions in stamp list");
+		metrics.gaugeL(c -> c.stampList,   "stamp.transactions", "Number of transactions in stamp list");
 	}
 
 	private static final class Metrics
@@ -128,6 +128,26 @@ final class ItemCache
 					},
 					nameSuffix, description);
 		}
+
+		void gaugeL(
+				final Function<ItemCache, ArrayDeque<?>> f,
+				final String nameSuffix,
+				final String description)
+		{
+			back.gauge(model, m ->
+					{
+						final ItemCache cache = m.connect().itemCache;
+						final ArrayDeque<?> deque = f.apply(cache);
+						if(deque==null)
+							return 0.0;
+
+						synchronized(cache.map)
+						{
+							return deque.size();
+						}
+					},
+					nameSuffix, description);
+		}
 	}
 
 	private boolean stampsEnabled()
@@ -139,10 +159,10 @@ final class ItemCache
 	{
 		if (stampsEnabled())
 		{
-			for (final Map.Entry<Long, Set<Item>> entry: stampList.entrySet())
+			for (final Stamp entry: stampList)
 			{
-				if (entry.getKey()<connectionStamp) continue;
-				if (entry.getValue().contains(item)) return true;
+				if (entry.stamp<connectionStamp) continue;
+				if (entry.items.contains(item)) return true;
 			}
 		}
 		return false;
@@ -243,7 +263,7 @@ final class ItemCache
 					}
 				}
 			}
-			if (stampsEnabled) stampList.put(stamp, invalidated);
+			if (stampsEnabled) stampList.addLast(new Stamp(stamp, invalidated));
 		}
 	}
 
@@ -261,12 +281,12 @@ final class ItemCache
 		{
 			synchronized (map)
 			{
-				for (final Iterator<Map.Entry<Long, Set<Item>>> iter=stampList.entrySet().iterator(); iter.hasNext();)
+				for (final Iterator<Stamp> iter=stampList.iterator(); iter.hasNext();)
 				{
-					final Map.Entry<Long, Set<Item>> entry=iter.next();
-					if (entry.getKey()<untilStamp)
+					final Stamp entry=iter.next();
+					if (entry.stamp<untilStamp)
 					{
-						for (final Item item: entry.getValue())
+						for (final Item item: entry.items)
 						{
 							// non-cached items don't get stamped, so the typeStats entry can't be null
 							typeStats[item.type.cacheIdTransiently].stampsPurged.increment();
@@ -313,9 +333,9 @@ final class ItemCache
 			}
 			if (stampsEnabled())
 			{
-				for (final Set<Item> value: stampList.values())
+				for (final Stamp value: stampList)
 				{
-					for (final Item item: value)
+					for (final Item item: value.items)
 					{
 						stampsSizes[item.type.cacheIdTransiently]++;
 					}
@@ -399,6 +419,18 @@ final class ItemCache
 				stampsSizes[type.cacheIdTransiently],
 				count(stampsHit), count(stampsPurged)
 			);
+		}
+	}
+
+	private static final class Stamp
+	{
+		final long stamp;
+		final Set<Item> items;
+
+		private Stamp(final long stamp, final Set<Item> items)
+		{
+			this.stamp = stamp;
+			this.items = items;
 		}
 	}
 }
