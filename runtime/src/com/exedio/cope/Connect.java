@@ -111,8 +111,8 @@ final class Connect
 		}
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);
-		this.itemCache = new ItemCache(model, properties);
-		this.queryCache = new QueryCache(model, properties.getQueryCacheLimit(), properties.cacheStamps);
+		this.itemCache = new ItemCache(model, properties, cacheStamp);
+		this.queryCache = new QueryCache(model, properties.getQueryCacheLimit(), properties.cacheStamps, cacheStamp);
 
 		{
 			final ClusterProperties props = properties.cluster;
@@ -160,9 +160,8 @@ final class Connect
 			final TLongHashSet[] invalidations,
 			final TransactionInfo transactionInfo)
 	{
-		final long cacheStamp = this.cacheStamp.next();
-		itemCache.invalidate(invalidations, cacheStamp);
-		queryCache.invalidate(invalidations, cacheStamp);
+		itemCache.invalidate(invalidations);
+		queryCache.invalidate(invalidations);
 		if((transactionInfo instanceof TransactionInfoLocal) && cluster!=null)
 			cluster.sendInvalidate(invalidations);
 		changeListenerDispatcher.invalidate(invalidations, transactionInfo);

@@ -43,6 +43,7 @@ final class QueryCache
 	// TODO use guava ComputingMap
 	// https://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap<Key, Value> map;
+	private final CacheStamp cacheStamp;
 	private final ArrayDeque<Stamp> stampList;
 	private final Counter hits;
 	private final Counter misses;
@@ -52,7 +53,7 @@ final class QueryCache
 	private final Counter stampsHit;
 	private final Counter stampsPurged;
 
-	QueryCache(final Model model, final int limit, final boolean stamps)
+	QueryCache(final Model model, final int limit, final boolean stamps, final CacheStamp cacheStamp)
 	{
 		final Metrics metrics = new Metrics(model);
 		metrics.gaugeD(
@@ -69,6 +70,7 @@ final class QueryCache
 		stampsPurged    = metrics.counter("stamp.purge",    "How many stamps that were purged because there was no transaction older that the stamp");
 
 		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.increment()) : null;
+		this.cacheStamp = cacheStamp;
 		this.stampList = (stamps && map!=null) ? new ArrayDeque<>() : null;
 	}
 
@@ -213,10 +215,11 @@ final class QueryCache
 			final int[] queryTypes = query.getTypeCacheIds();
 			synchronized(map)
 			{
-				for(final Stamp entry: stampList)
+				for(final Iterator<Stamp> i = stampList.descendingIterator(); i.hasNext(); )
 				{
+					final Stamp entry = i.next();
 					if(entry.stamp<connectionStamp)
-						continue;
+						break;
 
 					final TIntArrayList value = entry.types;
 					for(final int queryType : queryTypes)
@@ -233,7 +236,7 @@ final class QueryCache
 		return map!=null;
 	}
 
-	void invalidate(final TLongHashSet[] invalidations, final long stamp)
+	void invalidate(final TLongHashSet[] invalidations)
 	{
 		if(map==null)
 			return;
@@ -268,7 +271,7 @@ final class QueryCache
 					}
 				}
 				if(stampsEnabled)
-					stampList.addLast(new Stamp(stamp, invalidatedTypesTransientlyList));
+					stampList.addLast(new Stamp(cacheStamp.next(), invalidatedTypesTransientlyList));
 			}
 			this.invalidations.increment(invalidationsCounter);
 		}

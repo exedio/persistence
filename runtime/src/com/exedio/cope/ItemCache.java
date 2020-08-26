@@ -40,11 +40,12 @@ final class ItemCache
 	private static final ItemCacheInfo[] EMPTY_ITEM_CACHE_INFO_ARRAY = new ItemCacheInfo[0];
 
 	private final LRUMap<Item,WrittenState> map;
+	private final CacheStamp cacheStamp;
 	private final ArrayDeque<Stamp> stampList;
 
 	private final TypeStats[] typeStats;
 
-	ItemCache(final Model model, final ConnectProperties properties)
+	ItemCache(final Model model, final ConnectProperties properties, final CacheStamp cacheStamp)
 	{
 		final int limit=properties.getItemCacheLimit();
 		final List<TypeStats> typesStatsList=new ArrayList<>();
@@ -73,6 +74,7 @@ final class ItemCache
 
 		map = new LRUMap<>(limit, eldest ->
 				typeStats[eldest.getKey().type.cacheIdTransiently].replacements.increment());
+		this.cacheStamp = cacheStamp;
 		if(properties.cacheStamps)
 		{
 			stampList=new ArrayDeque<>();
@@ -159,9 +161,10 @@ final class ItemCache
 	{
 		if (stampsEnabled())
 		{
-			for (final Stamp entry: stampList)
+			for (final Iterator<Stamp> i = stampList.descendingIterator(); i.hasNext(); )
 			{
-				if (entry.stamp<connectionStamp) continue;
+				final Stamp entry = i.next();
+				if (entry.stamp<connectionStamp) break;
 				if (entry.items.contains(item)) return true;
 			}
 		}
@@ -234,7 +237,7 @@ final class ItemCache
 		}
 	}
 
-	void invalidate(final TLongHashSet[] invalidations, final long stamp)
+	void invalidate(final TLongHashSet[] invalidations)
 	{
 		final boolean stampsEnabled = stampsEnabled();
 		final Set<Item> invalidated=stampsEnabled?new HashSet<>():null;
@@ -263,7 +266,7 @@ final class ItemCache
 					}
 				}
 			}
-			if (stampsEnabled) stampList.addLast(new Stamp(stamp, invalidated));
+			if (stampsEnabled) stampList.addLast(new Stamp(cacheStamp.next(), invalidated));
 		}
 	}
 
