@@ -28,10 +28,10 @@ import gnu.trove.TLongHashSet;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.nio.charset.Charset;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.atomic.AtomicLong;
@@ -43,7 +43,7 @@ final class QueryCache
 	// TODO use guava ComputingMap
 	// https://guava-libraries.googlecode.com/svn/tags/release09/javadoc/com/google/common/collect/MapMaker.html#makeComputingMap%28com.google.common.base.Function%29
 	private final LRUMap<Key, Value> map;
-	private final LinkedHashMap<Long,TIntArrayList> stampList;
+	private final ArrayDeque<Stamp> stampList;
 	private final Counter hits;
 	private final Counter misses;
 	private final Counter invalidations;
@@ -64,12 +64,12 @@ final class QueryCache
 		invalidations   = metrics.counter("invalidations",  "Invalidations in the query cache");
 		concurrentLoads = metrics.counter("concurrentLoad", "How often a query was loaded concurrently");
 		replacements    = metrics.counter("evictions",      "Evictions in the query cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
-		metrics.gaugeM(c -> c.stampList,  "stamp.transactions", "Number of transactions in stamp list");
+		metrics.gaugeL(c -> c.stampList,  "stamp.transactions", "Number of transactions in stamp list");
 		stampsHit       = metrics.counter("stamp.hit",      "How often a stamp prevented a query from being stored");
 		stampsPurged    = metrics.counter("stamp.purge",    "How many stamps that were purged because there was no transaction older that the stamp");
 
 		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.increment()) : null;
-		this.stampList = (stamps && map!=null) ? new LinkedHashMap<>() : null;
+		this.stampList = (stamps && map!=null) ? new ArrayDeque<>() : null;
 	}
 
 	private static final class Metrics
@@ -124,6 +124,26 @@ final class QueryCache
 						synchronized(cache.map)
 						{
 							return map.size();
+						}
+					},
+					nameSuffix, description);
+		}
+
+		void gaugeL(
+				final Function<QueryCache, ArrayDeque<?>> f,
+				final String nameSuffix,
+				final String description)
+		{
+			back.gauge(model, m ->
+					{
+						final QueryCache cache = m.connect().queryCache;
+						final ArrayDeque<?> deque = f.apply(cache);
+						if(deque==null)
+							return 0.0;
+
+						synchronized(cache.map)
+						{
+							return deque.size();
 						}
 					},
 					nameSuffix, description);
@@ -193,12 +213,12 @@ final class QueryCache
 			final int[] queryTypes = query.getTypeCacheIds();
 			synchronized(map)
 			{
-				for(final Map.Entry<Long, TIntArrayList> entry: stampList.entrySet())
+				for(final Stamp entry: stampList)
 				{
-					if(entry.getKey()<connectionStamp)
+					if(entry.stamp<connectionStamp)
 						continue;
 
-					final TIntArrayList value = entry.getValue();
+					final TIntArrayList value = entry.types;
 					for(final int queryType : queryTypes)
 						if(value.contains(queryType))
 							return true;
@@ -248,7 +268,7 @@ final class QueryCache
 					}
 				}
 				if(stampsEnabled)
-					stampList.put(stamp, invalidatedTypesTransientlyList);
+					stampList.addLast(new Stamp(stamp, invalidatedTypesTransientlyList));
 			}
 			this.invalidations.increment(invalidationsCounter);
 		}
@@ -273,11 +293,10 @@ final class QueryCache
 		long count = 0;
 		synchronized(map)
 		{
-			for(final Iterator<Map.Entry<Long, TIntArrayList>> iter =
-					stampList.entrySet().iterator(); iter.hasNext(); )
+			for(final Iterator<Stamp> iter = stampList.iterator(); iter.hasNext(); )
 			{
-				final Map.Entry<Long, TIntArrayList> entry = iter.next();
-				if(entry.getKey()<untilStamp)
+				final Stamp entry = iter.next();
+				if(entry.stamp<untilStamp)
 				{
 					iter.remove();
 					count++;
@@ -425,6 +444,18 @@ final class QueryCache
 			this.invalidationTypesTransiently = typeSet.toArray();
 
 			this.list = list;
+		}
+	}
+
+	private static final class Stamp
+	{
+		final long stamp;
+		final TIntArrayList types;
+
+		private Stamp(final long stamp, final TIntArrayList types)
+		{
+			this.stamp = stamp;
+			this.types = types;
 		}
 	}
 }
