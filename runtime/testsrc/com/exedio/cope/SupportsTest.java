@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.ConnectProperties.getDefaultPropertyFile;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.SchemaInfo.supportsUniqueViolation;
@@ -26,12 +25,9 @@ import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import com.exedio.cope.util.Properties;
-import com.exedio.cope.util.Sources;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -124,46 +120,4 @@ public class SupportsTest extends TestWithEnvironment
 			assertFalse(rs.next());
 		}
 	}
-
-
-	@Test void testSchemaSavepoint()
-	{
-		final String expected = new SchemaSavepointProperties().schemaSavepoint;
-		try
-		{
-			assertMatches(expected, "OK: " + model.getSchemaSavepoint());
-		}
-		catch(final SQLException e)
-		{
-			assertMatches(expected, "FAILS: " + e.getMessage());
-		}
-	}
-
-	private static void assertMatches(
-			final String expected,
-			final String actual)
-	{
-		if(!NOT_SUPPORTED.equals(expected) ||
-			!NOT_SUPPORTED.equals(actual))
-		{
-			System.out.println(SupportsTest.class.getName() + "#testSchemaSavepoint");
-			System.out.println("---" + expected + "---");
-			System.out.println("---" + actual   + "---");
-		}
-		assertNotNull(expected);
-		assertNotNull(actual);
-		assertTrue(actual.matches(expected), () -> "---" + expected + "---" + actual + "---");
-	}
-
-	private static final class SchemaSavepointProperties extends Properties
-	{
-		final String schemaSavepoint = value("x-build.schemasavepoint", NOT_SUPPORTED);
-
-		SchemaSavepointProperties()
-		{
-			super(Sources.load(getDefaultPropertyFile()));
-		}
-	}
-
-	private static final String NOT_SUPPORTED = "FAILS: not supported";
 }
