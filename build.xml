@@ -413,7 +413,7 @@
 				url="${runtime.test.withEnv.setup.mysql.url}"
 				src="${runtime.test.withEnv.setup.mysql.sql}"
 				userid="root"
-				password="password-JUST-FOR-SETUP"
+				password="${runtime.test.withEnv.setup.password}"
 		>
 			<!-- see MysqlDialect#completeConnectionInfo -->
 			<connectionProperty name="allowPublicKeyRetrieval" value="true" />
@@ -431,7 +431,7 @@
 				url="${runtime.test.withEnv.setup.postgresql.url}"
 				src="conf/setup-postgresql-createDatabase.sql"
 				userid="postgres"
-				password="password-JUST-FOR-SETUP"
+				password="${runtime.test.withEnv.setup.password}"
 				autocommit="true" />
 		<sql
 				classpath="lib/postgresql-bundle.jar"
@@ -439,7 +439,7 @@
 				url="${runtime.test.withEnv.setup.postgresql.url}test_db_database"
 				src="conf/setup-postgresql-useDatabase.sql"
 				userid="postgres"
-				password="password-JUST-FOR-SETUP"
+				password="${runtime.test.withEnv.setup.password}"
 				autocommit="true" />
 	</target>
 

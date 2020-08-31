@@ -22,30 +22,20 @@ addons:
 
 before_script:
   - mysql -e "SET GLOBAL max_allowed_packet=64000000;"
-  - mysql -e 'CREATE DATABASE cope_test_db;'
-  - >
-    mysql -u root --password= -e
-    "GRANT SELECT, INSERT, UPDATE, DELETE, CREATE, DROP, REFERENCES, INDEX, ALTER, CREATE VIEW
-    ON cope_test_db.* TO 'cope_test_user'@'localhost' IDENTIFIED BY 'pass';"
-  - >
-    mysql -u root --password= -e
-    "GRANT REPLICATION CLIENT ON *.* TO 'cope_test_user'@'localhost';"
-  - psql  -c 'CREATE DATABASE cope_test_db;' -U postgres
-  - psql  -c 'CREATE EXTENSION pgcrypto WITH SCHEMA "public";' -U postgres -d cope_test_db
   - >
     echo -e -n
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n
-    connection.username=cope_test_user\n
-    connection.password=pass\n
+    "connection.url=jdbc:mysql://localhost/test_db_schema\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
     x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
     x-build.driver=mysql-connector-java.jar\n"
     | tee conf/environment/my.properties
   - >
     echo -e -n
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n
-    connection.username=cope_test_user\n
-    connection.password=pass\n
+    "connection.url=jdbc:mysql://localhost/test_db_schema\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
     disableSupport.preparedStatements=true\n
     x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
@@ -53,9 +43,9 @@ before_script:
     | tee conf/environment/my-nprep.properties
   - >
     echo -e -n
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n
-    connection.username=cope_test_user\n
-    connection.password=pass\n
+    "connection.url=jdbc:mysql://localhost/test_db_schema\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
     schema.primaryKeyGenerator=sequence\n
     x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
@@ -63,9 +53,9 @@ before_script:
     | tee conf/environment/my-sq.properties
   - >
     echo -e -n
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n
-    connection.username=cope_test_user\n
-    connection.password=pass\n
+    "connection.url=jdbc:mysql://localhost/test_db_schema\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
     dialect.connection.compress=true\n
     schema.primaryKeyGenerator=sequence\n
     x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
@@ -74,9 +64,9 @@ before_script:
     | tee conf/environment/my-z.properties
   - >
     echo -e -n
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n
-    connection.username=cope_test_user\n
-    connection.password=pass\n
+    "connection.url=jdbc:mysql://localhost/test_db_schema\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
     schema.primaryKeyGenerator=sequence\n
     x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
     x-build.dialect=mysql\n
@@ -84,9 +74,9 @@ before_script:
     | tee conf/environment/mym.properties
   - >
     echo -e -n
-    "connection.url=jdbc:mysql://localhost/cope_test_db\n
-    connection.username=cope_test_user\n
-    connection.password=pass\n
+    "connection.url=jdbc:mysql://localhost/test_db_schema\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
     dialect.connection.compress=true\n
     schema.primaryKeyGenerator=sequence\n
     x-build.schemasavepoint=OK: SHOW MASTER STATUS Gtid=\\\\\p{XDigit}{8}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{4}-\\\\\p{XDigit}{12}:\\\\\d+-\\\\\d+ mysql-bin.\\\\\d{6}:\\\\\d+ doDB=binlogtest\n
@@ -95,29 +85,32 @@ before_script:
     | tee conf/environment/mym-z.properties
   - >
     echo -e -n
-    "connection.url=jdbc:postgresql://localhost/cope_test_db\n
-    connection.username=postgres\n
-    connection.password=\n
-    dialect.connection.schema=public\n
+    "connection.url=jdbc:postgresql://localhost/test_db_database\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
+    dialect.connection.schema=test_db_schema\n
+    dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
     x-build.dialect=postgresql\n
     x-build.driver=postgresql-bundle.jar\n"
     | tee conf/environment/pg.properties
   - >
     echo -e -n
-    "connection.url=jdbc:postgresql://localhost/cope_test_db\n
-    connection.username=postgres\n
-    connection.password=\n
-    dialect.connection.schema=public\n
+    "connection.url=jdbc:postgresql://localhost/test_db_database\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
+    dialect.connection.schema=test_db_schema\n
+    dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
     disableSupport.preparedStatements=true\n
     x-build.dialect=postgresql\n
     x-build.driver=postgresql-bundle.jar\n"
     | tee conf/environment/pg-nprep.properties
   - >
     echo -e -n
-    "connection.url=jdbc:postgresql://localhost/cope_test_db\n
-    connection.username=postgres\n
-    connection.password=\n
-    dialect.connection.schema=public\n
+    "connection.url=jdbc:postgresql://localhost/test_db_database\n
+    connection.username=test_db_user\n
+    connection.password=test_db_password\n
+    dialect.connection.schema=test_db_schema\n
+    dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
     schema.primaryKeyGenerator=sequence\n
     dialect.pgcryptoSchema=<disabled>\n
     x-build.dialect=postgresql\n
@@ -128,6 +121,10 @@ script:
   - >
     ant/bin/ant -noinput clean jenkins
     '-Dbuild.tag=git ${TRAVIS_BRANCH} ${TRAVIS_COMMIT} travis-ci ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JOB_NUMBER} ${TRAVIS_BUILD_ID} `date '+%G-%m-%d_%H:%M:%S'`'
+    '-Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://localhost/'
+    '-Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql'
+    '-Druntime.test.withEnv.setup.postgresql.url=jdbc:postgresql://localhost/'
+    '-Druntime.test.withEnv.setup.password='
   - mkdir build/travis
   - cp build/testprotocol.* build/travis
 
