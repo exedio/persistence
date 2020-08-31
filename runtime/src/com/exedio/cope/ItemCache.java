@@ -266,7 +266,12 @@ final class ItemCache
 					}
 				}
 			}
-			if (stampsEnabled) stampList.addLast(new Stamp(cacheStamp.next(), invalidated));
+			if(stampsEnabled)
+			{
+				final long stamp = cacheStamp.next();
+				assert stampList.peekLast()==null || stamp>stampList.peekLast().stamp;
+				stampList.addLast(new Stamp(stamp, invalidated));
+			}
 		}
 	}
 

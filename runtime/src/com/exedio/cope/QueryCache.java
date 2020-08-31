@@ -271,7 +271,11 @@ final class QueryCache
 					}
 				}
 				if(stampsEnabled)
-					stampList.addLast(new Stamp(cacheStamp.next(), invalidatedTypesTransientlyList));
+				{
+					final long stamp = cacheStamp.next();
+					assert stampList.peekLast()==null || stamp>stampList.peekLast().stamp;
+					stampList.addLast(new Stamp(stamp, invalidatedTypesTransientlyList));
+				}
 			}
 			this.invalidations.increment(invalidationsCounter);
 		}
