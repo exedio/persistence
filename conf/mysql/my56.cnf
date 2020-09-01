@@ -17,6 +17,11 @@ max_allowed_packet=64000000
 # https://dev.mysql.com/doc/refman/5.6/en/innodb-parameters.html#sysvar_innodb_log_file_size
 innodb_log_file_size=300000000
 
+# Current production systems still running MySQL 5.6 do disable innodb_file_per_table,
+# therefore we do disable it as well.
+# https://dev.mysql.com/doc/refman/5.6/en/innodb-parameters.html#sysvar_innodb_file_per_table
+innodb_file_per_table=OFF
+
 # Enables binlog
 # https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_log_bin
 log_bin=/var/log/mysql/mysql-bin.log
