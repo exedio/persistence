@@ -24,6 +24,7 @@ import com.exedio.cope.util.Properties.Field;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
@@ -37,6 +38,10 @@ public class ProtocolWriter extends TestWithEnvironment
 
 	@Test void testProtocol() throws IOException
 	{
+		final HashMap<String, String> def = new HashMap<>();
+		def.put("dialect.connection.schema", "test_db_schema");
+		def.put("dialect.pgcryptoSchema",    "test_db_pgcrypto_schema");
+
 		final String prefix = System.getProperty("com.exedio.cope.testprotocol.prefix");
 		assertNotNull(prefix);
 
@@ -52,9 +57,17 @@ public class ProtocolWriter extends TestWithEnvironment
 		for(final Field<?> field : p.getFields())
 		{
 			if(field.getDefaultValue()!=null
-				&& !field.hasHiddenValue()
-				&& field.isSpecified())
-				prefixed.setProperty(prefix+".cope."+field.getKey(), field.getValueString());
+				&& !field.hasHiddenValue())
+			{
+				final String key = field.getKey();
+				final String value = field.getValueString();
+				if(def.containsKey(key)
+					? def.get(key).equals(value)
+					: !field.isSpecified())
+					continue;
+
+				prefixed.setProperty(prefix+".cope."+key, value);
+			}
 		}
 		try(FileOutputStream out = new FileOutputStream(file, true))
 		{
