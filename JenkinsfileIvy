@@ -1,8 +1,9 @@
 
 timestamps
 {
-	def jdk = 'openjdk-8-deb9'
+	def jdk = 'openjdk-8'
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
+	def cache = 'dependencies-cache-' + env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/"))
 
 	properties([
 			buildDiscarder(logRotator(
@@ -12,7 +13,7 @@ timestamps
 	])
 
 	//noinspection GroovyAssignabilityCheck
-	lock('ivy-cache') { node('GitCloneExedio && ' + jdk)
+	lock(cache) { node('GitCloneExedio && docker')
 	{
 		try
 		{
@@ -23,10 +24,20 @@ timestamps
 
 				checkout scm
 
-				env.JAVA_HOME = tool type: 'jdk', name: jdk
-				env.PATH = "${env.JAVA_HOME}/bin:${env.PATH}"
-
-				sh "ant/bin/ant -noinput -buildfile ivy"
+				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
+				def dockerDate = new Date().format("yyyyMMdd")
+				def mainImage = docker.build(
+						'exedio-jenkins:' + dockerName + '-' + dockerDate,
+						'--build-arg JDK=' + jdk + ' ' +
+						'conf/main')
+				mainImage.inside(
+						"--name '" + dockerName + "' " +
+						"--mount type=volume,src=" + cache + ",target=/var/dependencies-cache")
+				{
+					sh "ant/bin/ant -noinput" +
+						" -buildfile ivy" +
+						" -Divy.user.home=/var/dependencies-cache"
+				}
 				archiveArtifacts 'ivy/artifacts/report/**'
 
 				sh "git status --porcelain --untracked-files=normal > git-status.txt"

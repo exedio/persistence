@@ -1,6 +1,7 @@
 <?xml version="1.0"?>
 <project
 		xmlns:ivy="antlib:org.apache.ivy.ant"
+		xmlns:if="ant:if"
 		name="ivy-common">
 
 	<echo taskname="which ant" message="${ant.version}" />
@@ -13,11 +14,19 @@
 			<url url="https://ivyartifacts.exedio.com/v2.5.0/ivy.jar" />
 			<url url="https://ivyartifacts.exedio.com/v2.5.0/ivysettings.xml" />
 		</get>
+		<copy
+				file="artifacts/ivysettings.xml"
+				tofile="artifacts/ivysettings-replaced.xml"
+				overwrite="true">
+			<filterset begintoken="${" endtoken="}">
+				<filter token="user.home" value="${ivy.user.home}" if:set="ivy.user.home" />
+			</filterset>
+		</copy>
 		<taskdef
 			resource="org/apache/ivy/ant/antlib.xml"
 			classpath="artifacts/ivy.jar"
 			uri="antlib:org.apache.ivy.ant" />
-		<ivy:settings file="artifacts/ivysettings.xml" />
+		<ivy:settings file="artifacts/ivysettings-replaced.xml" />
 	</target>
 
 	<target name="resolve" depends="prepare">
