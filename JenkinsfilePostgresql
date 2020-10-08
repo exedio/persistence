@@ -75,12 +75,20 @@ timestamps
 				{
 					dbImage.withRun(
 							"--name '" + dockerName + "-db' " +
+							"--cap-drop all " +
+							"--cap-add CHOWN " +
+							"--cap-add SETGID " +
+							"--cap-add SETUID " +
+							"--security-opt no-new-privileges " +
 							"--tmpfs /var/lib/postgresql/data:rw " +
 							"--network " + dbBridge + " " +
+							"--network-alias=test_db_host " +
 							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
 					{ c ->
 						mainImage.inside(
 								"--name '" + dockerName + "' " +
+								"--cap-drop all " +
+								"--security-opt no-new-privileges " +
 								"--hostname mydockerhostname " +
 								"--network " + dbBridge + " " +
 								"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
@@ -88,7 +96,7 @@ timestamps
 							sh "ant/bin/ant -noinput clean testWithEnv" +
 									' "-Dbuild.tag=' + buildTag + '"' +
 									' -Dskip.instrument=true' + // already verified in Jenkinsfile
-									' -Druntime.test.withEnv.setup.postgresql.url=jdbc:postgresql://' + dockerName + '-db/' +
+									' -Druntime.test.withEnv.setup.postgresql.url=jdbc:postgresql://test_db_host/' +
 									' -Ddisable-ansi-colors=true'
 						}
 						sh "docker logs " + c.id + " &> db.log"
@@ -161,7 +169,7 @@ def writeEnv(name, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:postgresql://' + env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER + '-db/test_db_database\n' +
+					'connection.url=jdbc:postgresql://test_db_host/test_db_database\n' +
 					'connection.username=test_db_user\n' +
 					'connection.password=test_db_password\n' +
 					'dialect.connection.schema=test_db_schema\n' +

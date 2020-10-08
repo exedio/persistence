@@ -34,6 +34,8 @@ timestamps
 						'conf/idea').
 					inside(
 						"--name '" + dockerName + "' " +
+						"--cap-drop all " +
+						"--security-opt no-new-privileges " +
 						"--network none")
 					{
 						sh "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"

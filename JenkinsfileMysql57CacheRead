@@ -69,12 +69,20 @@ timestamps
 				{
 					dbImage.withRun(
 							"--name '" + dockerName + "-db' " +
+							"--cap-drop all " +
+							"--cap-add CHOWN " +
+							"--cap-add SETGID " +
+							"--cap-add SETUID " +
+							"--security-opt no-new-privileges " +
 							"--tmpfs /var/lib/mysql:rw " +
 							"--network " + dbBridge + " " +
+							"--network-alias=test_db_host " +
 							"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
 					{ c ->
 						mainImage.inside(
 								"--name '" + dockerName + "' " +
+								"--cap-drop all " +
+								"--security-opt no-new-privileges " +
 								"--hostname mydockerhostname " +
 								"--network " + dbBridge + " " +
 								"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
@@ -83,7 +91,7 @@ timestamps
 									' "-Dbuild.tag=' + buildTag + '"' +
 									' -Dskip.instrument=true' + // already verified in Jenkinsfile
 									' -Druntime.test.withEnv=com.exedio.cope.CacheReadPoisoningBruteForceTest' +
-									' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://' + dockerName + '-db/' +
+									' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test_db_host/' +
 									' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql' +
 									' -Ddisable-ansi-colors=true'
 						}
@@ -157,7 +165,7 @@ def writeEnv(name, driver, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:mysql://' + env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER + '-db/test_db_schema\n' +
+					'connection.url=jdbc:mysql://test_db_host/test_db_schema\n' +
 					'connection.username=test_db_user\n' +
 					'connection.password=test_db_password\n' +
 					'x-build.dialect=mysql\n' +

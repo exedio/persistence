@@ -40,6 +40,8 @@ timestamps
 				{
 					mainImage.inside(
 							"--name '" + dockerName + "' " +
+							"--cap-drop all " +
+							"--security-opt no-new-privileges " +
 							"--network " + bridge)
 					{
 						sh "ant/bin/ant -noinput clean jenkins" +
