@@ -78,6 +78,11 @@ public interface StringFunction extends Function<String>
 		return new UppercaseView(this);
 	}
 
+	default LowercaseView toLowerCase()
+	{
+		return new LowercaseView(this);
+	}
+
 	default Condition equalIgnoreCase(final String value)
 	{
 		return UppercaseView.equalIgnoreCase(this, value);
