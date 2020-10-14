@@ -186,7 +186,7 @@ public class DumperItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
+	@javax.annotation.Nonnull
 	final byte[] getDataArray()
 	{
 		return DumperItem.data.getArray(this);

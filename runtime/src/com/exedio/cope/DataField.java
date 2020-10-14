@@ -196,8 +196,7 @@ public final class DataField extends Field<DataField.Value>
 	 * Returns the data of this persistent data field.
 	 * Returns null, if there is no data for this field.
 	 */
-	@Wrap(order=30, doc="Returns the value of the persistent field {0}.") // TODO better text
-	@Nullable
+	@Wrap(order=30, doc="Returns the value of the persistent field {0}.", nullability=NullableIfOptional.class) // TODO better text
 	public byte[] getArray(@Nonnull final Item item)
 	{
 		return store.load(model.currentTransaction(), item);

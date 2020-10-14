@@ -76,7 +76,7 @@ final class DataMandatoryItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
+	@javax.annotation.Nonnull
 	byte[] getDataArray()
 	{
 		return DataMandatoryItem.data.getArray(this);

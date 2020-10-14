@@ -219,7 +219,7 @@ public class DataVaultInfoTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nullable
+		@javax.annotation.Nonnull
 		final byte[] getFieldArray()
 		{
 			return MyItem.field.getArray(this);

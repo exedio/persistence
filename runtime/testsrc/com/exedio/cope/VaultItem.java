@@ -187,7 +187,7 @@ final class VaultItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getArray")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
+	@javax.annotation.Nonnull
 	private byte[] getFieldArray()
 	{
 		return VaultItem.field.getArray(this);
