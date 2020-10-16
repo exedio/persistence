@@ -73,39 +73,40 @@ public interface StringFunction extends Function<String>
 		return new LengthView(this);
 	}
 
+	@SuppressWarnings("deprecation") // OK: moved api
 	default UppercaseView toUpperCase()
 	{
 		return new UppercaseView(this);
 	}
 
-	default LowercaseView toLowerCase()
+	default CaseView toLowerCase()
 	{
-		return new LowercaseView(this);
+		return new CaseView(this, false);
 	}
 
 	default Condition equalIgnoreCase(final String value)
 	{
-		return UppercaseView.equalIgnoreCase(this, value);
+		return CaseView.equalIgnoreCase(this, value);
 	}
 
 	default LikeCondition likeIgnoreCase(final String value)
 	{
-		return UppercaseView.likeIgnoreCase(this, value);
+		return CaseView.likeIgnoreCase(this, value);
 	}
 
 	default LikeCondition startsWithIgnoreCase(final String value)
 	{
-		return UppercaseView.startsWithIgnoreCase(this, value);
+		return CaseView.startsWithIgnoreCase(this, value);
 	}
 
 	default LikeCondition endsWithIgnoreCase(final String value)
 	{
-		return UppercaseView.endsWithIgnoreCase(this, value);
+		return CaseView.endsWithIgnoreCase(this, value);
 	}
 
 	default LikeCondition containsIgnoreCase(final String value)
 	{
-		return UppercaseView.containsIgnoreCase(this, value);
+		return CaseView.containsIgnoreCase(this, value);
 	}
 
 	long serialVersionUID = 6196781661929849730L;

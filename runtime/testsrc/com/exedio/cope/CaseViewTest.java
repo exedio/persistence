@@ -25,9 +25,9 @@ import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-public class UppercaseViewTest extends TestWithEnvironment
+public class CaseViewTest extends TestWithEnvironment
 {
-	public UppercaseViewTest()
+	public CaseViewTest()
 	{
 		super(MODEL);
 	}
@@ -53,32 +53,41 @@ public class UppercaseViewTest extends TestWithEnvironment
 		final Query<List<Object>> query = Query.newQuery(
 				new Selectable<?>[]{
 						AnItem.field,
+						AnItem.field.toLowerCase(),
 						AnItem.field.toUpperCase()},
 				AnItem.TYPE, null);
 		query.setOrderByThis(true);
 		assertEquals(asList(
-				asList("lower", "LOWER"),
-				asList("UPPER", "UPPER"),
-				asList("Numbers1234567890", "NUMBERS1234567890"),
+				asList("lower", "lower", "LOWER"),
+				asList("UPPER", "upper", "UPPER"),
+				asList("Numbers1234567890", "numbers1234567890", "NUMBERS1234567890"),
 				asList(
 						"A \u00c4; O \u00d6; U \u00dc; " +
 						"a \u00e4; o \u00f6; u \u00fc; sz \u00df;",
+						"a \u00e4; o \u00f6; u \u00fc; " +
+						"a \u00e4; o \u00f6; u \u00fc; sz \u00df;",
 						"A \u00c4; O \u00d6; U \u00dc; " +
 						"A \u00c4; O \u00d6; U \u00dc; SZ "+(hsqldb?"SS":"\u00df") + ";"),
-				asList("Euro \u20ac;", "EURO \u20ac;"),
+				asList("Euro \u20ac;", "euro \u20ac;", "EURO \u20ac;"),
 				asList(
 						"Latin Letter A with Ring Above"+" Small \u00e5 Capital \u00c5; " +
 						"Latin Letter L with Acute"     +" Small \u013a Capital \u0139; " +
 						"Latin Letter C with Dot Above" +" Small \u010b Capital \u010a;",
+						"latin letter a with ring above"+" small \u00e5 capital \u00e5; " +
+						"latin letter l with acute"     +" small \u013a capital \u013a; " +
+						"latin letter c with dot above" +" small \u010b capital \u010b;",
 						"LATIN LETTER A WITH RING ABOVE"+" SMALL \u00c5 CAPITAL \u00c5; " +
 						"LATIN LETTER L WITH ACUTE"     +" SMALL \u0139 CAPITAL \u0139; " +
 						"LATIN LETTER C WITH DOT ABOVE" +" SMALL \u010a CAPITAL \u010a;"),
 				asList(
 						"Greek Letter Epsilon"          +" Small \u03b5 Capital \u0395;",
+						"greek letter epsilon"          +" small \u03b5 capital \u03b5;",
 						"GREEK LETTER EPSILON"          +" SMALL \u0395 CAPITAL \u0395;"),
 				asList(
 						"Cyrillic Letter Ha"            +" Small \u0445 Capital \u0425; " +
 						"Cyrillic Letter Ha with Stroke"+" Small \u04ff Capital \u04fe;",
+						"cyrillic letter ha"            +" small \u0445 capital \u0445; " +
+						"cyrillic letter ha with stroke"+" small \u04ff capital "+(mysql?"\u04fe":"\u04ff")+";",
 						"CYRILLIC LETTER HA"            +" SMALL \u0425 CAPITAL \u0425; " +
 						"CYRILLIC LETTER HA WITH STROKE"+" SMALL "+(mysql?"\u04ff":"\u04fe")+" CAPITAL \u04fe;")),
 				query.search());
