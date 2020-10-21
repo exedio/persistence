@@ -37,10 +37,10 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
-		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3772:3461);
+		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3743:3432);
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
-		assertEquals("plaintext", es.getPlainText());
+		assertEquals(null, es.getPlainText());
 		assertEquals(null, es.getItem());
 		assertEquals(null, es.getFeature());
 	}
@@ -54,10 +54,10 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
-		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3768:3457);
+		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3739:3428);
 		assertEquals(null, es.getMessageWithoutFeature());
 		assertEquals("null for null", es.getMessage());
-		assertEquals("plaintext", es.getPlainText());
+		assertEquals(null, es.getPlainText());
 		assertEquals(null, es.getItem());
 		assertEquals(null, es.getFeature());
 	}
@@ -71,7 +71,7 @@ public class InvalidPlainTextExceptionTest
 		assertEquals(null, e.getItem());
 		assertEquals(null, e.getFeature());
 
-		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3768:3457);
+		final InvalidPlainTextException es = reserialize(e, isAtLeastJava9?3750:3439);
 		assertEquals("message", es.getMessageWithoutFeature());
 		assertEquals("message for null", es.getMessage());
 		assertEquals(null, es.getPlainText());

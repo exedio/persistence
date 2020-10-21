@@ -476,7 +476,9 @@ public final class Hash extends Pattern implements HashInterface
 	public static final class InvalidPlainTextException extends ConstraintViolationException
 	{
 		private static final long serialVersionUID = 1l;
-		private final String plainText;
+		@SuppressWarnings("TransientFieldNotInitialized") // OK: is ok to be null after deserialization
+		@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
+		private final transient String plainText; // transient for not leaking plainText to serialized streams
 		private final boolean wasLimit;
 		private final String message;
 		private final Hash feature;
@@ -532,6 +534,10 @@ public final class Hash extends Pattern implements HashInterface
 			return message;
 		}
 
+		/**
+		 * Is null after deserialization.
+		 */
+		@Nullable
 		public String getPlainText()
 		{
 			return plainText;
