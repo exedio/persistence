@@ -52,6 +52,10 @@ timestamps
 								' -Dbuild.status=' + (isRelease?'release':'integration') +
 								' -Dinstrument.verify=true' +
 								' -Ddisable-ansi-colors=true' +
+								' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
+								' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
+								' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
+								' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
 								' -Dfindbugs.output=xml'
 					}
 				}
@@ -196,4 +200,17 @@ def makeBuildTag(scmResult)
 			new Date().format("yyyy-MM-dd") + ' ' +
 			scmResult.GIT_COMMIT + ' ' +
 			sh (script: "git cat-file -p " + scmResult.GIT_COMMIT + " | grep '^tree ' | sed -e 's/^tree //'", returnStdout: true).trim()
+}
+
+def port(int offset)
+{
+	return 28000 + 10*env.EXECUTOR_NUMBER.toInteger() + offset
+}
+
+def multicastAddress()
+{
+	// Multicast address for Local subnetwork (Not routable, 224.0.0.0 to 224.0.0.255).
+	// Not one of the "Notable addresses":
+	// https://en.wikipedia.org/wiki/Multicast_address
+	return "224.0.0." + (60 + env.EXECUTOR_NUMBER_HOST_OFFSET.toInteger() + env.EXECUTOR_NUMBER.toInteger())
 }
