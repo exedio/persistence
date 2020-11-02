@@ -91,7 +91,7 @@ before_script:
     dialect.connection.schema=test_db_schema\n
     dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
     x-build.dialect=postgresql\n
-    x-build.driver=postgresql-bundle.jar\n"
+    x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg.properties
   - >
     echo -e -n
@@ -102,7 +102,7 @@ before_script:
     dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
     disableSupport.preparedStatements=true\n
     x-build.dialect=postgresql\n
-    x-build.driver=postgresql-bundle.jar\n"
+    x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg-nprep.properties
   - >
     echo -e -n
@@ -114,7 +114,7 @@ before_script:
     schema.primaryKeyGenerator=sequence\n
     dialect.pgcryptoSchema=<disabled>\n
     x-build.dialect=postgresql\n
-    x-build.driver=postgresql-bundle.jar\n"
+    x-build.driver=postgresql.jar\n"
     | tee conf/environment/pg-sq.properties
 
 script:

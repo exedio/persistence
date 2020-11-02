@@ -175,7 +175,7 @@ def writeEnv(name, text)
 					'dialect.connection.schema=test_db_schema\n' +
 					'dialect.pgcryptoSchema=test_db_pgcrypto_schema\n' +
 					'x-build.dialect=postgresql\n' +
-					'x-build.driver=postgresql-bundle.jar\n' +
+					'x-build.driver=postgresql.jar\n' +
 					text
 		)
 }

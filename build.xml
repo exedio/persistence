@@ -426,7 +426,7 @@
 
 	<target name="runtime.test.withEnv.setup.postgresql" if="runtime.test.withEnv.setup.postgresql.url">
 		<sql
-				classpath="lib/postgresql-bundle.jar"
+				classpath="lib/postgresql.jar"
 				driver="org.postgresql.Driver"
 				url="${runtime.test.withEnv.setup.postgresql.url}"
 				src="conf/setup-postgresql-createDatabase.sql"
@@ -434,7 +434,7 @@
 				password="${runtime.test.withEnv.setup.password}"
 				autocommit="true" />
 		<sql
-				classpath="lib/postgresql-bundle.jar"
+				classpath="lib/postgresql.jar"
 				driver="org.postgresql.Driver"
 				url="${runtime.test.withEnv.setup.postgresql.url}test_db_database"
 				src="conf/setup-postgresql-useDatabase.sql"
