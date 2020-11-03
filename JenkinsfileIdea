@@ -12,6 +12,7 @@ timestamps
 	])
 
 	def idea = '2020.1'
+	def ideaSHA256 = 'fa301279ec1591ecad8758113ff22a64e82b11a583e7eae6fac0eb60ddc9f8e5'
 
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && docker')
@@ -31,6 +32,7 @@ timestamps
 						'exedio-jenkins:' + dockerName + '-' + new Date().format("yyyyMMdd"),
 						'--build-arg JDK=' + jdk + ' ' +
 						'--build-arg IDEA=' + idea + ' ' +
+						'--build-arg IDEA_SHA256=' + ideaSHA256 + ' ' +
 						'conf/idea').
 					inside(
 						"--name '" + dockerName + "' " +

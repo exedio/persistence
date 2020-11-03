@@ -1,10 +1,12 @@
 FROM alpine:20200626 AS idea-fetcher
 RUN apk --no-cache add curl
 ARG IDEA
+ARG IDEA_SHA256
 RUN \
 	curl \
 		--output /tmp/ideaIC.tar.gz \
-		https://ivyartifacts.exedio.com/idea/ideaIC-${IDEA}.tar.gz
+		https://ivyartifacts.exedio.com/idea/ideaIC-${IDEA}.tar.gz && \
+	(echo "${IDEA_SHA256}  /tmp/ideaIC.tar.gz" | sha256sum -c -)
 
 
 FROM debian:stretch-20200607
