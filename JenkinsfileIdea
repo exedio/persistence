@@ -26,6 +26,19 @@ timestamps
 
 				checkout scm
 
+				recordIssues(
+						enabledForFailure: true,
+						ignoreFailedBuilds: false,
+						qualityGates: [[threshold: 1, type: 'TOTAL_HIGH', unstable: true]],
+						tools: [
+								taskScanner(
+										excludePattern: 'JenkinsfileIdea,.git/**,lib/**,**/*.jar,**/*.zip,**/*.jpg,**/*.gif,**/*.png,**/*.tif,**/*.webp', // TODO do not exclude the whole JenkinsfileIdea, but just the FIXME line
+										highTags: 'FIXME', // causes build to become unstable
+										normalTags: 'TODO', // does not cause build to become unstable
+										ignoreCase: true),
+						],
+				)
+
 				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
 				docker.
 					build(
