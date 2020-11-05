@@ -36,11 +36,13 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
+import java.util.List;
+import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
 
 public class VaultPropertiesTest
 {
-	@Test void probe()
+	@Test void probe() throws Exception
 	{
 		final Source source =
 				describe("DESC", cascade(
@@ -48,7 +50,8 @@ public class VaultPropertiesTest
 						single("service.example", "probeExampleValue")
 				));
 		final VaultProperties props = factory.create(source);
-		assertEquals("VaultMockService:probeExampleValue", props.probe());
+		assertEquals("VaultMockService:probeExampleValue", probe(props));
+		assertEquals("VaultMockService:probeExampleValue", probeDeprecated(props));
 	}
 	@Test void probeFailGet()
 	{
@@ -59,7 +62,11 @@ public class VaultPropertiesTest
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
-				props::probe,
+				() -> probe(props),
+				IllegalStateException.class,
+				"deliberately fail in VaultMockService#get");
+		assertFails(
+				() -> probeDeprecated(props),
 				IllegalStateException.class,
 				"deliberately fail in VaultMockService#get");
 	}
@@ -72,9 +79,26 @@ public class VaultPropertiesTest
 				));
 		final VaultProperties props = factory.create(source);
 		assertFails(
-				props::probe,
+				() -> probe(props),
 				IllegalStateException.class,
 				"deliberately fail in VaultMockService#put");
+		assertFails(
+				() -> probeDeprecated(props),
+				IllegalStateException.class,
+				"deliberately fail in VaultMockService#put");
+	}
+	private static Object probe(final VaultProperties p) throws Exception
+	{
+		final List<? extends Callable<?>> probes = p.getProbes();
+		assertEquals(2, probes.size());
+		assertEquals("service.Mock", probes.get(1).toString());
+		final Callable<?> probe = probes.get(0);
+		assertEquals("probe", probe.toString());
+		return probe.call();
+	}
+	private static String probeDeprecated(final VaultProperties p)
+	{
+		return p.probe();
 	}
 
 
