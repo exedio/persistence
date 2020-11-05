@@ -42,4 +42,34 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 public @interface Vault
 {
+	/**
+	 * Specifying a value for the {@code @Vault} annotation allows
+	 * to store data into different vaults.
+	 * <p>
+	 * With just a single vault your {@link ConnectProperties connect properties}
+	 * may look like this:
+	 *
+	 * <pre>
+	 * dataField.vault=true
+	 * dataField.vault.service=com.exedio.cope.vault.VaultFileService
+	 * dataField.vault.service.root=/var/lib/cope-vault
+	 * </pre>
+	 *
+	 * If you replace a few {@code @Vault} annotations by {@code @Vault("other")},
+	 * you can store that data somewhere else:
+	 *
+	 * <pre>
+	 * dataField.vault=true
+	 * dataField.vault.services=default other
+	 * dataField.vault.service.default=com.exedio.cope.vault.VaultFileService
+	 * dataField.vault.service.default.root=/var/lib/cope-vault
+	 * dataField.vault.service.other=com.exedio.cope.vault.VaultFileService
+	 * dataField.vault.service.other.root=/var/lib/other-cope-vault
+	 * </pre>
+	 * <p>
+	 * Must not be empty, and must contain latin letters (A-Z,a-z), digits (0-9),
+	 * and dashes (-) only.
+	 */
+	String value() default DEFAULT;
+	String DEFAULT = "default";
 }

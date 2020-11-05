@@ -43,7 +43,7 @@ public class VaultFileServiceErrorTest
 		source.setProperty("service.temp", "t");
 
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
-		@SuppressWarnings("resource")
+		@SuppressWarnings({"resource", "deprecation"})
 		final VaultFileService service = (VaultFileService)properties.newService();
 
 		assertEquals(31, service.directoryLength);
@@ -62,8 +62,7 @@ public class VaultFileServiceErrorTest
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
 		try
 		{
-			//noinspection resource
-			properties.newService();
+			properties.newServices();
 			fail();
 		}
 		catch(final RuntimeException e2)

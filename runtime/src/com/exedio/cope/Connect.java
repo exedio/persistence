@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.MetricsBuilder.tag;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
+import static java.util.Collections.emptyMap;
 
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Pool;
@@ -57,7 +58,7 @@ final class Connect
 	final Marshallers marshallers;
 	final Executor executor;
 	final Database database;
-	final VaultService vault;
+	final Map<String, VaultService> vaults;
 	final CacheStamp cacheStamp;
 	final ItemCache itemCache;
 	final QueryCache queryCache;
@@ -107,7 +108,7 @@ final class Connect
 				revisions);
 		{
 			final VaultProperties props = properties.dataFieldVault;
-			this.vault = props!=null ? props.newService() : null;
+			this.vaults = props!=null ? props.newServices() : emptyMap();
 		}
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);
@@ -146,7 +147,9 @@ final class Connect
 
 		connectionPool.flush();
 
-		if(vault!=null)
+		final ArrayList<VaultService> reverseVaults = new ArrayList<>(vaults.values());
+		Collections.reverse(reverseVaults);
+		for(final VaultService vault : reverseVaults)
 			vault.close();
 
 		// let threads have some time to terminate,
@@ -202,7 +205,7 @@ final class Connect
 	{
 		dialect.purgeSchema(ctx, database, connectionPool);
 
-		if(vault!=null)
+		for(final VaultService vault : vaults.values())
 		{
 			if(ctx.supportsMessage())
 				ctx.setMessage("vault " + vault);

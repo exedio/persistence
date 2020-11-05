@@ -53,7 +53,9 @@ public class VaultReferenceServiceNestedTest
 						single("service.reference.example", "ref2Ex")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
+		@SuppressWarnings("deprecation") final VaultReferenceService
 		service = (VaultReferenceService)props.newService();
+		this.service = service;
 		serviceNested = (VaultReferenceService)service.getMainService();
 		ref2 = (VaultMockService)service.getReferenceService();
 		main = (VaultMockService)serviceNested.getMainService();

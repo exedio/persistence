@@ -48,7 +48,9 @@ public class VaultReferenceServiceTest
 						single("service.reference.example", "refrEx")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
+		@SuppressWarnings("deprecation") final VaultReferenceService
 		service = (VaultReferenceService)props.newService();
+		this.service = service;
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceService();
 	}

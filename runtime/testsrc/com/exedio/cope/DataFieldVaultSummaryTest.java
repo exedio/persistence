@@ -94,6 +94,7 @@ public class DataFieldVaultSummaryTest
 	{
 		return new DataFieldVaultInfo(
 				null,
+				null,
 				new Service(),
 				new ConstantCounter(getLength),
 				new ConstantCounter(getBytes),

@@ -777,7 +777,7 @@ public class ConnectPropertiesTest
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
-		assertIt("dataField.vault.probe", VAULT, String.class, probes.next());
+		assertIt("dataField.vault.default", VAULT, String.class, probes.next());
 		assertIt("dataField.vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
 		assertFalse(probes.hasNext());
 
@@ -791,7 +791,7 @@ public class ConnectPropertiesTest
 			"org.hsqldb.jdbc.JDBCDriver " +
 			"PUBLIC";
 
-	private static void assertIt(
+	static void assertIt(
 			final String expectedName,
 			final String expectedResultString,
 			final Class<?> expectedResultClass,
@@ -804,13 +804,13 @@ public class ConnectPropertiesTest
 	}
 
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	private static String probe(final ConnectProperties p)
+	static String probe(final ConnectProperties p)
 	{
 		return p.probe();
 	}
 
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
-	private static Callable<?> getProbeTest(final ConnectProperties p)
+	static Callable<?> getProbeTest(final ConnectProperties p)
 	{
 		return p.getProbeTest();
 	}

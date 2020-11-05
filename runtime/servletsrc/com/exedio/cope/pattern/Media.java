@@ -371,6 +371,11 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		return body.isAnnotatedVault();
 	}
 
+	public String getAnnotatedVaultValue()
+	{
+		return body.getAnnotatedVaultValue();
+	}
+
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{

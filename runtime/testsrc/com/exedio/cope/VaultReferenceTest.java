@@ -271,7 +271,7 @@ public class VaultReferenceTest
 				single("dataField.vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
-		this.service = (VaultReferenceService)MODEL.connect().vault;
+		this.service = (VaultReferenceService)VaultTest.singleton(MODEL.connect().vaults);
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceService();
 		setupSchemaMinimal(MODEL);

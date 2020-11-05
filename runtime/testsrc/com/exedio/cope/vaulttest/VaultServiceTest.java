@@ -87,7 +87,9 @@ public abstract class VaultServiceTest
 			source.setProperty("service." + key, sp.getProperty(key));
 
 		properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
+		@SuppressWarnings("deprecation") final VaultService
 		service = properties.newService();
+		this.service = service;
 	}
 
 	@AfterEach final void tearDownVaultServiceTest()

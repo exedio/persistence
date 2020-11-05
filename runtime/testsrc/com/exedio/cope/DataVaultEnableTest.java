@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.minimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -62,6 +63,17 @@ public class DataVaultEnableTest
 		assertEquals(true,  AnVault.vaultF.isAnnotatedVault());
 		assertEquals(true,  AnVault.vaultM.isAnnotatedVault());
 	}
+	@Test void testGetAnnotatedVaultValue()
+	{
+		assertEquals(null,               MyBlank.blankF.getAnnotatedVaultValue());
+		assertEquals(null,               MyBlank.blankM.getAnnotatedVaultValue());
+		assertEquals("MyBlank-vaultF-V", MyBlank.vaultF.getAnnotatedVaultValue());
+		assertEquals("MyBlank-vaultM-V", MyBlank.vaultM.getAnnotatedVaultValue());
+		assertEquals("AnVault-V",        AnVault.blankF.getAnnotatedVaultValue());
+		assertEquals("AnVault-V",        AnVault.blankM.getAnnotatedVaultValue());
+		assertEquals("AnVault-vaultF-V", AnVault.vaultF.getAnnotatedVaultValue());
+		assertEquals("AnVault-vaultM-V", AnVault.vaultM.getAnnotatedVaultValue());
+	}
 	@Test void testDisabled()
 	{
 		model.connect(ConnectProperties.create(minimal()));
@@ -78,48 +90,105 @@ public class DataVaultEnableTest
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("dataField.vault", true),
-				single("dataField.vault.service", VaultMockService.class),
-				single("dataField.vault.service.example", "main"),
+				single("dataField.vault.services", "default MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("dataField.vault.service.default",          VaultMockService.class),
+				single("dataField.vault.service.default.example",          "default-X"),
+				single("dataField.vault.service.MyBlank-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.MyBlank-vaultF-V.example", "MyBlank-vaultF-X"),
+				single("dataField.vault.service.MyBlank-vaultM-V", VaultMockService.class),
+				single("dataField.vault.service.MyBlank-vaultM-V.example", "MyBlank-vaultM-X"),
+				single("dataField.vault.service.AnVault-V",        VaultMockService.class),
+				single("dataField.vault.service.AnVault-V.example",        "AnVault-X"),
+				single("dataField.vault.service.AnVault-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.AnVault-vaultF-V.example", "AnVault-vaultF-X"),
+				single("dataField.vault.service.AnVault-vaultM-V", VaultMockService.class),
+				single("dataField.vault.service.AnVault-vaultM-V.example", "AnVault-vaultM-X"),
 				single("dataField.vault.isAppliedToAllFields", true),
 				minimal()
 		)));
-		assertIt(MyBlank.blankF, "VaultMockService:main");
-		assertIt(MyBlank.blankM, "VaultMockService:main");
-		assertIt(MyBlank.vaultF, "VaultMockService:main");
-		assertIt(MyBlank.vaultM, "VaultMockService:main");
-		assertIt(AnVault.blankF, "VaultMockService:main");
-		assertIt(AnVault.blankM, "VaultMockService:main");
-		assertIt(AnVault.vaultF, "VaultMockService:main");
-		assertIt(AnVault.vaultM, "VaultMockService:main");
+		assertIt(MyBlank.blankF, "VaultMockService:default-X");
+		assertIt(MyBlank.blankM, "VaultMockService:default-X");
+		assertIt(MyBlank.vaultF, "VaultMockService:MyBlank-vaultF-X");
+		assertIt(MyBlank.vaultM, "VaultMockService:MyBlank-vaultM-X");
+		assertIt(AnVault.blankF, "VaultMockService:AnVault-X");
+		assertIt(AnVault.blankM, "VaultMockService:AnVault-X");
+		assertIt(AnVault.vaultF, "VaultMockService:AnVault-vaultF-X");
+		assertIt(AnVault.vaultM, "VaultMockService:AnVault-vaultM-X");
 	}
 	@Test void testEnabled()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("dataField.vault", true),
-				single("dataField.vault.service", VaultMockService.class),
-				single("dataField.vault.service.example", "main"),
+				single("dataField.vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("dataField.vault.service.MyBlank-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.MyBlank-vaultF-V.example", "MyBlank-vaultF-X"),
+				single("dataField.vault.service.MyBlank-vaultM-V", VaultMockService.class),
+				single("dataField.vault.service.MyBlank-vaultM-V.example", "MyBlank-vaultM-X"),
+				single("dataField.vault.service.AnVault-V",        VaultMockService.class),
+				single("dataField.vault.service.AnVault-V.example",        "AnVault-X"),
+				single("dataField.vault.service.AnVault-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.AnVault-vaultF-V.example", "AnVault-vaultF-X"),
+				single("dataField.vault.service.AnVault-vaultM-V", VaultMockService.class),
+				single("dataField.vault.service.AnVault-vaultM-V.example", "AnVault-vaultM-X"),
 				minimal()
 		)));
 		assertIt(MyBlank.blankF);
 		assertIt(MyBlank.blankM);
-		assertIt(MyBlank.vaultF, "VaultMockService:main");
-		assertIt(MyBlank.vaultM, "VaultMockService:main");
-		assertIt(AnVault.blankF, "VaultMockService:main");
-		assertIt(AnVault.blankM, "VaultMockService:main");
-		assertIt(AnVault.vaultF, "VaultMockService:main");
-		assertIt(AnVault.vaultM, "VaultMockService:main");
+		assertIt(MyBlank.vaultF, "VaultMockService:MyBlank-vaultF-X");
+		assertIt(MyBlank.vaultM, "VaultMockService:MyBlank-vaultM-X");
+		assertIt(AnVault.blankF, "VaultMockService:AnVault-X");
+		assertIt(AnVault.blankM, "VaultMockService:AnVault-X");
+		assertIt(AnVault.vaultF, "VaultMockService:AnVault-vaultF-X");
+		assertIt(AnVault.vaultM, "VaultMockService:AnVault-vaultM-X");
+	}
+	@Test void testMissingServiceAny()
+	{
+		final ConnectProperties props = ConnectProperties.create(cascade(
+				single("dataField.vault", true),
+				single("dataField.vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V"),
+				single("dataField.vault.service.MyBlank-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.MyBlank-vaultM-V", VaultMockService.class),
+				single("dataField.vault.isAppliedToAllFields", true),
+				minimal()
+		));
+		assertFails(
+				() -> model.connect(props),
+				IllegalArgumentException.class,
+				"@Vault for [default, AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
+				"not supported by ConnectProperties.");
+	}
+	@Test void testMissingService()
+	{
+		final ConnectProperties props = ConnectProperties.create(cascade(
+				single("dataField.vault", true),
+				single("dataField.vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V"),
+				single("dataField.vault.service.MyBlank-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.MyBlank-vaultM-V", VaultMockService.class),
+				minimal()
+		));
+		assertFails(
+				() -> model.connect(props),
+				IllegalArgumentException.class,
+				"@Vault for [AnVault-V, AnVault-vaultF-V, AnVault-vaultM-V] " +
+				"not supported by ConnectProperties.");
 	}
 	@Test void testAlgorithm()
 	{
 		model.connect(ConnectProperties.create(cascade(
 				single("dataField.vault", true),
 				single("dataField.vault.algorithm", "MD5"),
-				single("dataField.vault.service", VaultMockService.class),
+				single("dataField.vault.services", "MyBlank-vaultF-V MyBlank-vaultM-V AnVault-V AnVault-vaultF-V AnVault-vaultM-V"),
+				single("dataField.vault.service.MyBlank-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.MyBlank-vaultM-V", VaultMockService.class),
+				single("dataField.vault.service.AnVault-V",        VaultMockService.class),
+				single("dataField.vault.service.AnVault-vaultF-V", VaultMockService.class),
+				single("dataField.vault.service.AnVault-vaultM-V", VaultMockService.class),
 				minimal()
 		)));
 		final DataFieldVaultInfo info = MyBlank.vaultF.getVaultInfo();
 		assertNotNull(info);
 		assertSame(MyBlank.vaultF, info.getField(), "field");
+		assertEquals("MyBlank-vaultF-V", info.getServiceKey(), "serviceKey");
 		assertEquals("VaultMockService:exampleDefault", info.getService(), "service");
 		assertEquals("VARCHAR(32) not null", type(MyBlank.vaultF));
 	}
@@ -179,14 +248,14 @@ public class DataVaultEnableTest
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField blankF = new DataField();
 
-		@Vault
+		@Vault("MyBlank-vaultF-V")
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField vaultF = new DataField();
 
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media blankM = new Media();
 
-		@Vault
+		@Vault("MyBlank-vaultM-V")
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media vaultM = new Media();
 
@@ -200,21 +269,21 @@ public class DataVaultEnableTest
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	@Vault
+	@Vault("AnVault-V")
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static class AnVault extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField blankF = new DataField();
 
-		@Vault
+		@Vault("AnVault-vaultF-V")
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField vaultF = new DataField();
 
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media blankM = new Media();
 
-		@Vault
+		@Vault("AnVault-vaultM-V")
 		@Wrapper(wrap="*", visibility=NONE)
 		static final Media vaultM = new Media();
 

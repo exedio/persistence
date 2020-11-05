@@ -18,10 +18,13 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -36,7 +39,9 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
 
@@ -93,9 +98,10 @@ public class VaultPropertiesTest
 		assertEquals(2, probes.size());
 		assertEquals("service.Mock", probes.get(1).toString());
 		final Callable<?> probe = probes.get(0);
-		assertEquals("probe", probe.toString());
+		assertEquals("default", probe.toString());
 		return probe.call();
 	}
+	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
 	private static String probeDeprecated(final VaultProperties p)
 	{
 		return p.probe();
@@ -116,6 +122,91 @@ public class VaultPropertiesTest
 	}
 
 
+	@Test void services()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("services", "alpha beta gamma"),
+						single("service.alpha", VaultMockService.class),
+						single("service.beta",  VaultMockService.class),
+						single("service.gamma", VaultMockService.class)
+				));
+		final VaultProperties p = factory.create(source);
+		assertEqualsUnmodifiable(
+				new HashSet<>(asList("alpha", "beta", "gamma")),
+				p.services.keySet());
+
+		final Map<String, VaultService> s = p.newServices();
+		assertEqualsUnmodifiable(new HashSet<>(asList("alpha", "beta", "gamma")), s.keySet());
+		assertUnmodifiable(s.values());
+		for(final VaultService vs : s.values())
+			assertEquals(VaultMockService.class, vs.getClass());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void serviceDeprecated()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("services", "alpha beta"),
+						single("service.alpha", VaultMockService.class),
+						single("service.beta",  VaultMockService.class)
+				));
+		final VaultProperties p = factory.create(source);
+		assertFails(
+				p::newService,
+				IllegalArgumentException.class,
+				"is not allowed for more than one service: [alpha, beta]");
+	}
+	@Test void servicesWithSpaces()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("services", "  alpha  beta  gamma  "),
+						single("service.alpha", VaultMockService.class),
+						single("service.beta",  VaultMockService.class),
+						single("service.gamma", VaultMockService.class)
+				));
+		final VaultProperties p = factory.create(source);
+		assertEqualsUnmodifiable(
+				new HashSet<>(asList("alpha", "beta", "gamma")),
+				p.services.keySet());
+	}
+	@Test void servicesEmpty()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("services", "")
+				));
+		assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property services in DESC must not be empty");
+	}
+	@Test void servicesCharSet()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("services", "alpha be.ta gamma")
+				));
+		assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property services in DESC " +
+				"must contain a space separates list of services " +
+				"containing just [---,0-9,A-Z,a-z], " +
+				"but service >be.ta< contained a forbidden character at position 2.");
+	}
+	@Test void servicesDuplicate()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("services", "a dup dup b")
+				));
+		assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property services in DESC must not contain duplicates");
+	}
 	@Test void servicePropertiesEmpty()
 	{
 		final Source source =
@@ -141,7 +232,7 @@ public class VaultPropertiesTest
 				));
 
 		final VaultProperties props = factory.create(source);
-		@SuppressWarnings("resource")
+		@SuppressWarnings({"resource", "deprecation"})
 		final ServicePropertiesMissing service = (ServicePropertiesMissing)props.newService();
 		assertSame(props, service.parameters.getVaultProperties());
 	}
@@ -154,7 +245,7 @@ public class VaultPropertiesTest
 						single("service.reference", ServicePropertiesMissing.class)
 				));
 		final VaultProperties props = factory.create(source);
-		@SuppressWarnings("resource")
+		@SuppressWarnings({"resource", "deprecation"})
 		final VaultReferenceService service = (VaultReferenceService)props.newService();
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();

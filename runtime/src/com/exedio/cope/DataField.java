@@ -27,6 +27,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
+import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
@@ -91,10 +92,43 @@ public final class DataField extends Field<DataField.Value>
 
 	public boolean isAnnotatedVault()
 	{
-		return
-				isAnnotationPresent(Vault.class) ||
-				getType().isAnnotationPresent(Vault.class);
+		return getAnnotatedVaultValue()!=null;
 	}
+
+	public String getAnnotatedVaultValue()
+	{
+		final Vault byFeature = getAnnotation(Vault.class);
+		if(byFeature!=null)
+			return checkVault(byFeature.value(), this);
+
+		final Type<?> type = getType();
+		final Vault byType = type.getAnnotation(Vault.class);
+		if(byType!=null)
+			return checkVault(byType.value(), type);
+
+		return null;
+	}
+
+	private static String checkVault(final String value, final Object origin)
+	{
+		if(value.isEmpty())
+			throw new IllegalArgumentException(
+					"@Vault at " + origin + " must not be empty");
+
+		final int pos = VAULT_CHAR_SET.indexOfNotContains(value);
+		if(pos>=0)
+			throw new IllegalArgumentException(
+					"@Vault at " + origin + " must contain just " + VAULT_CHAR_SET + ", " +
+					"but was >" + value + "< (position " + pos + ')');
+
+		return value;
+	}
+
+	/**
+	 * TODO redundant to {@link VaultProperties#VAULT_CHAR_SET}.
+	 */
+	@SuppressWarnings("JavadocReference")
+	private static final CharSet VAULT_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 
 	// second initialization phase ---------------------------------------------------
 

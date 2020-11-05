@@ -87,8 +87,7 @@ public abstract class TestWithEnvironment
 		postgresql = tester.postgresql;
 		cache = tester.cache;
 		mariaDriver = model.getEnvironmentInfo().getDriverName().startsWith("MariaDB");
-		final VaultService vault = model.connect().vault;
-		if(vault!=null)
+		for(final VaultService vault : model.connect().vaults.values())
 			((VaultMockService)vault).clear();
 	}
 

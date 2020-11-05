@@ -115,6 +115,7 @@ public class DataVaultInfoTest
 		final DataFieldVaultInfo actual = MyItem.field.getVaultInfo();
 		assertNotNull(actual);
 		assertSame(MyItem.field, actual.getField());
+		assertEquals(Vault.DEFAULT, actual.getServiceKey());
 		assertEquals("VaultMockService:exampleDefault", actual.getService());
 		assertEquals(getLength,    actual.getGetLengthCount()   -onSetup.getGetLengthCount(),    "getLength");
 		assertEquals(getBytes,     actual.getGetBytesCount()    -onSetup.getGetBytesCount(),     "getBytes");
@@ -151,7 +152,7 @@ public class DataVaultInfoTest
 		assertEquals(
 				((Counter)meterCope(
 						DataField.class, "vault." + nameSuffix,
-						tag(MyItem.field).and(tags))).count(),
+						tag(MyItem.field).and("service", "default").and(tags))).count(),
 				actual,
 				nameSuffix);
 	}

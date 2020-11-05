@@ -43,6 +43,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final StringColumn column;
 	private final MessageDigestFactory algorithm;
 	private final String hashForEmpty;
+	private final String serviceKey;
 	private final VaultService service;
 	private final Counter getLength, getBytes, getStream, putInitial, putRedundant;
 
@@ -62,9 +63,11 @@ final class DataFieldVaultStore extends DataFieldStore
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
 		this.hashForEmpty = properties.getAlgorithmDigestForEmptyByteSequence();
-		this.service = requireNonNull(connect.vault);
+		final String serviceKeyExplicit = field.getAnnotatedVaultValue();
+		this.serviceKey = serviceKeyExplicit!=null ? serviceKeyExplicit : Vault.DEFAULT;
+		this.service = requireNonNull(connect.vaults.get(serviceKey));
 
-		final Metrics metrics = new Metrics(field);
+		final Metrics metrics = new Metrics(field, serviceKey);
 		getLength = metrics.counter("getLength");
 		getBytes  = metrics.counter("get", "sink", "bytes");
 		getStream = metrics.counter("get", "sink", "stream");
@@ -76,9 +79,11 @@ final class DataFieldVaultStore extends DataFieldStore
 	{
 		final MetricsBuilder back;
 
-		Metrics(final DataField field)
+		Metrics(final DataField field, final String service)
 		{
-			this.back = new MetricsBuilder(DataField.class, Tags.of("feature", field.getID()));
+			this.back = new MetricsBuilder(DataField.class, Tags.of(
+					"feature", field.getID(),
+					"service", service));
 		}
 
 		Counter counter(
@@ -291,7 +296,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	DataFieldVaultInfo getVaultInfo()
 	{
 		return new DataFieldVaultInfo(
-				field, service,
+				field, serviceKey, service,
 				getLength, getBytes, getStream,
 				putInitial, putRedundant);
 	}

@@ -31,7 +31,8 @@ import javax.annotation.Nonnull;
  * <p>
  * It is highly recommended to override {@link Object#toString() toString} with a informative message
  * containing essential configuration of the service.
- * For instance, this message is included into the result of {@link VaultProperties#probe()}.
+ * For instance, this message is included into the result of probes returned by
+ * {@link VaultProperties#probeMore()}.
  * <p>
  * All methods are guaranteed not to be called for the empty byte sequence -
  * this special case must be handled by the caller.

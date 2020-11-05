@@ -108,7 +108,7 @@ public class ConnectTest extends TestWithEnvironment
 		model.commit();
 		final ConnectProperties p = model.getConnectProperties();
 		assertNotNull(p);
-		final VaultMockService vault = (VaultMockService)model.connect().vault;
+		final VaultMockService vault = (VaultMockService)VaultTest.singleton(model.connect().vaults);
 		if(vault!=null)
 			assertFalse(vault.isClosed());
 
@@ -165,7 +165,7 @@ public class ConnectTest extends TestWithEnvironment
 		if(vault!=null)
 		{
 			assertTrue(vault.isClosed());
-			final VaultMockService vaultNew = (VaultMockService)model.connect().vault;
+			final VaultMockService vaultNew = (VaultMockService)VaultTest.singleton(model.connect().vaults);
 			assertFalse(vaultNew.isClosed());
 			assertNotSame(vault, vaultNew);
 		}

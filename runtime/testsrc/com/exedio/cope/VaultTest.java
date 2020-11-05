@@ -22,13 +22,17 @@ import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.tojunit.TestSources;
+import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.Iterator;
+import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -206,7 +210,7 @@ public class VaultTest
 				single("dataField.vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
-		service = (VaultMockService)MODEL.connect().vault;
+		service = (VaultMockService)singleton(MODEL.connect().vaults);
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
@@ -219,5 +223,16 @@ public class VaultTest
 			MODEL.tearDownSchema();
 			MODEL.disconnect();
 		}
+	}
+
+	public static VaultService singleton(final Map<String, VaultService> services)
+	{
+		final Iterator<VaultService> i = services.values().iterator();
+		if(!i.hasNext())
+			return null;
+		final VaultService result = i.next();
+		assertNotNull(result);
+		assertFalse(i.hasNext());
+		return result;
 	}
 }

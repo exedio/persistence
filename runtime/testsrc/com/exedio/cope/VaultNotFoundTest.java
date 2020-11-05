@@ -149,7 +149,7 @@ public class VaultNotFoundTest
 				single("dataField.vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
-		service = (VaultMockService)MODEL.connect().vault;
+		service = (VaultMockService)VaultTest.singleton(MODEL.connect().vaults);
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
