@@ -18,10 +18,10 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -58,15 +58,10 @@ public class VaultPropertiesTest
 						single("service.fail.get", true)
 				));
 		final VaultProperties props = factory.create(source);
-		try
-		{
-			props.probe();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("deliberately fail in VaultMockService#get", e.getMessage());
-		}
+		assertFails(
+				props::probe,
+				IllegalStateException.class,
+				"deliberately fail in VaultMockService#get");
 	}
 	@Test void probeFailPut()
 	{
@@ -76,15 +71,10 @@ public class VaultPropertiesTest
 						single("service.fail.put", true)
 				));
 		final VaultProperties props = factory.create(source);
-		try
-		{
-			props.probe();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("deliberately fail in VaultMockService#put", e.getMessage());
-		}
+		assertFails(
+				props::probe,
+				IllegalStateException.class,
+				"deliberately fail in VaultMockService#put");
 	}
 
 
@@ -94,18 +84,11 @@ public class VaultPropertiesTest
 				describe("DESC", cascade(
 						single("algorithm", "NIXUS")
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property algorithm in DESC must specify a digest, but was 'NIXUS'",
-					e.getMessage());
-			assertTrue(e.getCause() instanceof IllegalAlgorithmException);
-		}
+		final Exception e = assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property algorithm in DESC must specify a digest, but was 'NIXUS'");
+		assertTrue(e.getCause() instanceof IllegalAlgorithmException);
 	}
 
 
@@ -115,21 +98,14 @@ public class VaultPropertiesTest
 				describe("DESC", cascade(
 						single("service", "")
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property service in DESC must name a class, but was ''",
-					e.getMessage());
-			final Throwable cause = e.getCause();
-			assertNotNull(cause);
-			assertTrue(cause instanceof ClassNotFoundException, cause.getClass().getName());
-			assertEquals("", cause.getMessage());
-		}
+		final Exception e = assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property service in DESC must name a class, but was ''");
+		final Throwable cause = e.getCause();
+		assertNotNull(cause);
+		assertTrue(cause instanceof ClassNotFoundException, cause.getClass().getName());
+		assertEquals("", cause.getMessage());
 	}
 
 
@@ -179,23 +155,16 @@ public class VaultPropertiesTest
 				describe("DESC", cascade(
 						single("service", ServicePropertiesNoConstructor.class)
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property service in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
-					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
-					"which must have a constructor with parameter " + Source.class.getName(),
-					e.getMessage());
-			final Throwable cause2 = e.getCause();
-			assertNotNull(cause2);
-			assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
-			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
-		}
+		final Exception e = assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property service in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
+				"which must have a constructor with parameter " + Source.class.getName());
+		final Throwable cause2 = e.getCause();
+		assertNotNull(cause2);
+		assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
+		assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 	}
 	@Test void servicePropertiesNoConstructorReference()
 	{
@@ -204,31 +173,24 @@ public class VaultPropertiesTest
 						single("service", VaultReferenceService.class),
 						single("service.main", ServicePropertiesNoConstructor.class)
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property service.main in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
-					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
-					"which must have a constructor with parameter " + Source.class.getName(),
-					e.getMessage());
-			final Throwable nested = e.getCause();
-			assertNotNull(nested);
-			assertTrue(nested instanceof IllegalPropertiesException, nested.getClass().getName());
-			assertEquals(
-					"property main in DESC (prefix service.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
-					"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
-					"which must have a constructor with parameter " + Source.class.getName(),
-					nested.getMessage());
-			final Throwable cause2 = nested.getCause();
-			assertNotNull(cause2);
-			assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
-			assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
-		}
+		final Exception e = assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property service.main in DESC names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
+				"which must have a constructor with parameter " + Source.class.getName());
+		final Throwable nested = e.getCause();
+		assertNotNull(nested);
+		assertTrue(nested instanceof IllegalPropertiesException, nested.getClass().getName());
+		assertEquals(
+				"property main in DESC (prefix service.) names a class " + ServicePropertiesNoConstructor.class.getName() + " " +
+				"annotated by @ServiceProperties(" + ServicePropertiesNoConstructorProps.class.getName() + "), " +
+				"which must have a constructor with parameter " + Source.class.getName(),
+				nested.getMessage());
+		final Throwable cause2 = nested.getCause();
+		assertNotNull(cause2);
+		assertTrue(cause2 instanceof NoSuchMethodException, cause2.getClass().getName());
+		assertEquals(ServicePropertiesNoConstructorProps.class.getName() + ".<init>(" + Source.class.getName() + ")", cause2.getMessage());
 	}
 	static class ServicePropertiesNoConstructorProps extends Properties
 	{
@@ -247,22 +209,15 @@ public class VaultPropertiesTest
 				describe("DESC", cascade(
 						single("service", ServicePropertiesFails.class)
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"property service in DESC invalid, see nested exception",
-					e.getMessage());
-			final Throwable cause = e.getCause();
-			assertNotNull(cause);
-			assertTrue(cause instanceof IllegalStateException, cause.getClass().getName());
-			assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
-			assertNull(cause.getCause());
-		}
+		final Exception e = assertFails(
+				() -> factory.create(source),
+				IllegalArgumentException.class,
+				"property service in DESC invalid, see nested exception");
+		final Throwable cause = e.getCause();
+		assertNotNull(cause);
+		assertTrue(cause instanceof IllegalStateException, cause.getClass().getName());
+		assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
+		assertNull(cause.getCause());
 	}
 	@Test void servicePropertiesFailsReference()
 	{
@@ -271,27 +226,20 @@ public class VaultPropertiesTest
 						single("service", VaultReferenceService.class),
 						single("service.main", ServicePropertiesFails.class)
 				));
-		try
-		{
-			factory.create(source);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"property service in DESC invalid, see nested exception",
-					e.getMessage());
-			final Throwable nested = e.getCause();
-			assertTrue(nested instanceof IllegalArgumentException, nested.getClass().getName());
-			assertEquals(
-					"property main in DESC (prefix service.) invalid, see nested exception",
-					nested.getMessage());
-			final Throwable cause = nested.getCause();
-			assertNotNull(cause);
-			assertTrue(cause instanceof IllegalStateException, cause.getClass().getName());
-			assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
-			assertNull(cause.getCause());
-		}
+		final Exception e = assertFails(
+				() -> factory.create(source),
+				IllegalArgumentException.class,
+				"property service in DESC invalid, see nested exception");
+		final Throwable nested = e.getCause();
+		assertTrue(nested instanceof IllegalArgumentException, nested.getClass().getName());
+		assertEquals(
+				"property main in DESC (prefix service.) invalid, see nested exception",
+				nested.getMessage());
+		final Throwable cause = nested.getCause();
+		assertNotNull(cause);
+		assertTrue(cause instanceof IllegalStateException, cause.getClass().getName());
+		assertEquals("exception from ServicePropertiesFailsProps", cause.getMessage());
+		assertNull(cause.getCause());
 	}
 	static class ServicePropertiesFailsProps extends Properties
 	{
