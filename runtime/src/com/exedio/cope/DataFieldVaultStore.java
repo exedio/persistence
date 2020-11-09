@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.DataField.Value;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Hex;
@@ -60,7 +62,7 @@ final class DataFieldVaultStore extends DataFieldStore
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
 		this.hashForEmpty = properties.getAlgorithmDigestForEmptyByteSequence();
-		this.service = connect.vault;
+		this.service = requireNonNull(connect.vault);
 
 		final Metrics metrics = new Metrics(field);
 		getLength = metrics.counter("getLength");
