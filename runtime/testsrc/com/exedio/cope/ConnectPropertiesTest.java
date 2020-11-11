@@ -758,11 +758,11 @@ public class ConnectPropertiesTest
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertIt("Connect", CONNECTION, EnvironmentInfo.class, probes.next());
+		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
 		assertFalse(probes.hasNext());
 
-		assertEquals(CONNECTION, probe(p));
-		assertIt("probe", CONNECTION, String.class, getProbeTest(p));
+		assertEquals(HSQLDB_PROBE, probe(p));
+		assertIt("probe", HSQLDB_PROBE, String.class, getProbeTest(p));
 	}
 
 	@Test void testProbeVault() throws Exception
@@ -776,16 +776,16 @@ public class ConnectPropertiesTest
 		final String VAULT = "VaultMockService:probeExampleValue";
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertIt("Connect", CONNECTION, EnvironmentInfo.class, probes.next());
+		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
 		assertIt("dataField.vault.probe", VAULT, String.class, probes.next());
 		assertIt("dataField.vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
 		assertFalse(probes.hasNext());
 
-		assertEquals(CONNECTION + " " + VAULT, probe(p));
-		assertIt("probe", CONNECTION + " " + VAULT, String.class, getProbeTest(p));
+		assertEquals(HSQLDB_PROBE + " " + VAULT, probe(p));
+		assertIt("probe", HSQLDB_PROBE + " " + VAULT, String.class, getProbeTest(p));
 	}
 
-	private static final String CONNECTION =
+	public static final String HSQLDB_PROBE =
 			"HSQL Database Engine 2.5.1 " +
 			"HSQL Database Engine Driver 2.5.1 " +
 			"org.hsqldb.jdbc.JDBCDriver " +

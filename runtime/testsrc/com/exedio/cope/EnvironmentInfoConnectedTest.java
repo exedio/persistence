@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.ConnectPropertiesTest.HSQLDB_PROBE;
 import static com.exedio.cope.PrometheusMeterRegistrar.meter;
 import static com.exedio.cope.SchemaTest.MODEL;
 import static java.time.format.DateTimeFormatter.ISO_INSTANT;
@@ -49,12 +50,7 @@ public class EnvironmentInfoConnectedTest
 				() -> assertEquals(5, ei.getDriverMinorVersion()),
 				() -> assertEquals("2.5.1", ei.getDriverVersionDescription()),
 				() -> assertEquals("org.hsqldb.jdbc.JDBCDriver", ei.getDriverClass()),
-				() -> assertEquals(
-						"HSQL Database Engine 2.5.1 " +
-						"HSQL Database Engine Driver 2.5.1 " +
-						"org.hsqldb.jdbc.JDBCDriver " +
-						"PUBLIC",
-						ei.toString()));
+				() -> assertEquals(HSQLDB_PROBE, ei.toString()));
 
 		final ConnectProperties props = MODEL.getConnectProperties();
 		assertEquals(1.0, ((Gauge)meter(Model.class, "connect", Tags.of(
