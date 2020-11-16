@@ -42,11 +42,11 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * @see VaultReferenceNoCopyTest
+ * @see VaultReferenceTest
  */
 @SuppressWarnings("HardcodedLineSeparator")
 @SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
-public class VaultReferenceTest
+public class VaultReferenceNoCopyTest
 {
 	@Test void connect()
 	{
@@ -123,8 +123,8 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1.length(), item.getFieldLength());
-		main.assertIt(HASH1, VALUE1, "getLength\nputFile com.exedio.cope.vault.VaultReferenceService\n");
-		refr.assertIt(HASH1, VALUE1, "getStream\n");
+		main.assertIt(               "getLength\n");
+		refr.assertIt(HASH1, VALUE1, "getLength\n");
 	}
 
 	@Test void referenceGetBytes()
@@ -139,7 +139,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldBytes());
-		main.assertIt(HASH1, VALUE1, "getBytes\nputBytes com.exedio.cope.vault.VaultReferenceService\n");
+		main.assertIt(               "getBytes\n");
 		refr.assertIt(HASH1, VALUE1, "getBytes\n");
 	}
 
@@ -155,7 +155,7 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "");
 
 		assertEquals(VALUE1, item.getFieldStream());
-		main.assertIt(HASH1, VALUE1, "getStream\nputFile com.exedio.cope.vault.VaultReferenceService\n");
+		main.assertIt(               "getStream\n");
 		refr.assertIt(HASH1, VALUE1, "getStream\n");
 	}
 
@@ -188,7 +188,7 @@ public class VaultReferenceTest
 			assertEquals("hash not found in vault: " + HASH1A, cause.getMessage());
 		}
 		main.assertIt("getLength\n");
-		refr.assertIt("getStream\n");
+		refr.assertIt("getLength\n");
 	}
 
 	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
@@ -268,6 +268,7 @@ public class VaultReferenceTest
 				single("dataField.vault.service.main.example", "mainExampleValue"),
 				single("dataField.vault.service.reference", VaultMockService.class),
 				single("dataField.vault.service.reference.example", "referenceExampleValue"),
+				single("dataField.vault.service.copyReferenceToMain", false),
 				single("dataField.vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));

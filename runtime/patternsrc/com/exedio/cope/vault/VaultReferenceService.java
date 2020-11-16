@@ -33,6 +33,7 @@ import java.nio.file.Path;
 public final class VaultReferenceService implements VaultService
 {
 	private final VaultService main, reference;
+	private final boolean copyReferenceToMain;
 
 	VaultReferenceService(
 			final VaultServiceParameters parameters,
@@ -40,6 +41,7 @@ public final class VaultReferenceService implements VaultService
 	{
 		main = properties.main.newService(parameters.getVaultProperties());
 		reference = properties.reference.newService(parameters.getVaultProperties());
+		copyReferenceToMain = properties.copyReferenceToMain;
 	}
 
 	@Override
@@ -76,6 +78,9 @@ public final class VaultReferenceService implements VaultService
 		}
 		catch(final VaultNotFoundException ignored)
 		{
+			if(!copyReferenceToMain)
+				return reference.getLength(hash);
+
 			try
 			{
 				final Path tmp = createTempFileFromReference(hash);
@@ -101,7 +106,8 @@ public final class VaultReferenceService implements VaultService
 		catch(final VaultNotFoundException ignored)
 		{
 			final byte[] result = reference.get(hash);
-			main.put(hash, result, PUT_INFO);
+			if(copyReferenceToMain)
+				main.put(hash, result, PUT_INFO);
 			return result;
 		}
 	}
@@ -115,6 +121,12 @@ public final class VaultReferenceService implements VaultService
 		}
 		catch(final VaultNotFoundException ignored)
 		{
+			if(!copyReferenceToMain)
+			{
+				reference.get(hash, sink);
+				return;
+			}
+
 			final Path temp = createTempFileFromReference(hash);
 			main.put(hash, temp, PUT_INFO);
 			try(InputStream in = Files.newInputStream(temp))
@@ -175,6 +187,7 @@ public final class VaultReferenceService implements VaultService
 	{
 		private final Service main = valueService("main", true);
 		private final Service reference = valueService("reference", false);
+		private final boolean copyReferenceToMain = value("copyReferenceToMain", true);
 
 		Props(final Source source)
 		{
