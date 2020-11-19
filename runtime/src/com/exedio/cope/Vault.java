@@ -50,21 +50,21 @@ public @interface Vault
 	 * may look like this:
 	 *
 	 * <pre>
-	 * dataField.vault=true
-	 * dataField.vault.service=com.exedio.cope.vault.VaultFileService
-	 * dataField.vault.service.root=/var/lib/cope-vault
+	 * vault=true
+	 * vault.service=com.exedio.cope.vault.VaultFileService
+	 * vault.service.root=/var/lib/cope-vault
 	 * </pre>
 	 *
 	 * If you replace a few {@code @Vault} annotations by {@code @Vault("other")},
 	 * you can store that data somewhere else:
 	 *
 	 * <pre>
-	 * dataField.vault=true
-	 * dataField.vault.services=default other
-	 * dataField.vault.service.default=com.exedio.cope.vault.VaultFileService
-	 * dataField.vault.service.default.root=/var/lib/cope-vault
-	 * dataField.vault.service.other=com.exedio.cope.vault.VaultFileService
-	 * dataField.vault.service.other.root=/var/lib/other-cope-vault
+	 * vault=true
+	 * vault.services=default other
+	 * vault.service.default=com.exedio.cope.vault.VaultFileService
+	 * vault.service.default.root=/var/lib/cope-vault
+	 * vault.service.other=com.exedio.cope.vault.VaultFileService
+	 * vault.service.other.root=/var/lib/other-cope-vault
 	 * </pre>
 	 * <p>
 	 * Must not be empty, and must contain latin letters (A-Z,a-z), digits (0-9),

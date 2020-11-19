@@ -339,7 +339,11 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	final int dataFieldBufferSizeDefault = value("dataField.bufferSizeDefault", 20*1024, 1);
 	final int dataFieldBufferSizeLimit   = value("dataField.bufferSizeLimit", 1024*1024, 1);
-	final VaultProperties dataFieldVault = value("dataField.vault", false, VaultProperties.factory());
+
+
+	// vault
+
+	final VaultProperties dataFieldVault = value((value("vault-short-key", false) ? "" : "dataField.") + "vault", false, VaultProperties.factory());
 
 	public VaultProperties getVaultProperties()
 	{

@@ -119,6 +119,7 @@ public class ConnectPropertiesTest
 				"cache.stamps",
 				"dataField.bufferSizeDefault",
 				"dataField.bufferSizeLimit",
+				"vault-short-key",
 				"dataField.vault",
 				"comparableCheck",
 				"changeListeners.queueCapacity",
