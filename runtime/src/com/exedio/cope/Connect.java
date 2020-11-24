@@ -107,7 +107,7 @@ final class Connect
 				transactions,
 				revisions);
 		{
-			final VaultProperties props = properties.dataFieldVault;
+			final VaultProperties props = properties.vault;
 			this.vaults = props!=null ? props.newServices() : emptyMap();
 		}
 

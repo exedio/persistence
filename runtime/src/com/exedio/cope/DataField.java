@@ -143,7 +143,7 @@ public final class DataField extends Field<DataField.Value>
 	{
 		this.model = getType().getModel();
 		final ConnectProperties properties = model.getConnectProperties();
-		final VaultProperties vaultProperties = properties.dataFieldVault;
+		final VaultProperties vaultProperties = properties.vault;
 		store = vaultProperties==null ||
 					!(
 						vaultProperties.isAppliedToAllFields() ||

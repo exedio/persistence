@@ -343,25 +343,25 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	// vault
 
-	final VaultProperties dataFieldVault = value((value("vault-short-key", true) ? "" : "dataField.") + "vault", false, VaultProperties.factory());
+	final VaultProperties vault = value((value("vault-short-key", true) ? "" : "dataField.") + "vault", false, VaultProperties.factory());
 
 	public VaultProperties getVaultProperties()
 	{
-		return dataFieldVault;
+		return vault;
 	}
 
 	@Nonnull
 	public VaultProperties getVaultPropertiesStrict()
 	{
-		if(dataFieldVault==null)
+		if(vault==null)
 			throw new IllegalArgumentException(
 					"vaults are disabled (vault=false) in " + getSource());
-		return dataFieldVault;
+		return vault;
 	}
 
 	public String getVaultAlgorithm()
 	{
-		return dataFieldVault!=null ? dataFieldVault.getAlgorithm() : null;
+		return vault!=null ? vault.getAlgorithm() : null;
 	}
 
 
@@ -604,7 +604,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		return
 				probeConnect() +
-				(dataFieldVault!=null ? ' ' + dataFieldVault.probe() : "");
+				(vault!=null ? ' ' + vault.probe() : "");
 	}
 
 	/**

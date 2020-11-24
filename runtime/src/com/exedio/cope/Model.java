@@ -152,8 +152,8 @@ public final class Model implements Serializable
 
 		requireNonNull(properties, "properties");
 
-		if(properties.dataFieldVault!=null)
-			properties.dataFieldVault.checkServices(this);
+		if(properties.vault!=null)
+			properties.vault.checkServices(this);
 
 		synchronized(connectLock)
 		{
