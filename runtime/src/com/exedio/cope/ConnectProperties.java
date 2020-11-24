@@ -355,7 +355,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 	{
 		if(dataFieldVault==null)
 			throw new IllegalArgumentException(
-					"vaults are disabled (dataField.vault=false) in " + getSource());
+					"vaults are disabled (vault=false) in " + getSource());
 		return dataFieldVault;
 	}
 

@@ -569,7 +569,7 @@ public class ConnectPropertiesTest
 		assertFails(
 				p::getVaultPropertiesStrict,
 				IllegalArgumentException.class,
-				"vaults are disabled (dataField.vault=false) in DESC");
+				"vaults are disabled (vault=false) in DESC");
 	}
 
 	@Test void testMediaRootUrlStandard()
