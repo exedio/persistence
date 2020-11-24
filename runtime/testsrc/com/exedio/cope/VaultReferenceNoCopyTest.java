@@ -262,14 +262,14 @@ public class VaultReferenceNoCopyTest
 	@BeforeEach void setUp()
 	{
 		MODEL.connect(ConnectProperties.create(cascade(
-				single("dataField.vault", true),
-				single("dataField.vault.service", VaultReferenceService.class),
-				single("dataField.vault.service.main", VaultMockService.class),
-				single("dataField.vault.service.main.example", "mainExampleValue"),
-				single("dataField.vault.service.reference", VaultMockService.class),
-				single("dataField.vault.service.reference.example", "referenceExampleValue"),
-				single("dataField.vault.service.copyReferenceToMain", false),
-				single("dataField.vault.isAppliedToAllFields", true),
+				single("vault", true),
+				single("vault.service", VaultReferenceService.class),
+				single("vault.service.main", VaultMockService.class),
+				single("vault.service.main.example", "mainExampleValue"),
+				single("vault.service.reference", VaultMockService.class),
+				single("vault.service.reference.example", "referenceExampleValue"),
+				single("vault.service.copyReferenceToMain", false),
+				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
 		this.service = (VaultReferenceService)VaultTest.singleton(MODEL.connect().vaults);

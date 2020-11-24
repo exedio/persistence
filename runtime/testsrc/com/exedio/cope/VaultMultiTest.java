@@ -70,17 +70,17 @@ public class VaultMultiTest
 	@BeforeEach void setUp()
 	{
 		MODEL.connect(ConnectProperties.create(cascade(
-				single("dataField.vault", true),
-				single("dataField.vault.services", "default alpha beta"),
-				single("dataField.vault.service.default", VaultMockService.class),
-				single("dataField.vault.service.default.example", "defaultEx"),
-				single("dataField.vault.service.default.probe.result", "probeResultDefault"),
-				single("dataField.vault.service.alpha", VaultMockService.class),
-				single("dataField.vault.service.alpha.example", "alphaEx"),
-				single("dataField.vault.service.alpha.probe.result", "probeResultAlpha"),
-				single("dataField.vault.service.beta", VaultMockService.class),
-				single("dataField.vault.service.beta.example", "betaEx"),
-				single("dataField.vault.service.beta.probe.result", "probeResultBeta"),
+				single("vault", true),
+				single("vault.services", "default alpha beta"),
+				single("vault.service.default", VaultMockService.class),
+				single("vault.service.default.example", "defaultEx"),
+				single("vault.service.default.probe.result", "probeResultDefault"),
+				single("vault.service.alpha", VaultMockService.class),
+				single("vault.service.alpha.example", "alphaEx"),
+				single("vault.service.alpha.probe.result", "probeResultAlpha"),
+				single("vault.service.beta", VaultMockService.class),
+				single("vault.service.beta.example", "betaEx"),
+				single("vault.service.beta.probe.result", "probeResultBeta"),
 				TestSources.minimal()
 		)));
 		final Map<String, VaultService> vaults = MODEL.connect().vaults;
@@ -113,12 +113,12 @@ public class VaultMultiTest
 		final ConnectProperties p = MODEL.getConnectProperties();
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
-		assertIt("dataField.vault.default", "VaultMockService:defaultEx",      String.class, probes.next());
-		assertIt("dataField.vault.alpha",   "VaultMockService:alphaEx",        String.class, probes.next());
-		assertIt("dataField.vault.beta",    "VaultMockService:betaEx",         String.class, probes.next());
-		assertIt("dataField.vault.service.default.Mock", "probeResultDefault", String.class, probes.next());
-		assertIt("dataField.vault.service.alpha.Mock",   "probeResultAlpha",   String.class, probes.next());
-		assertIt("dataField.vault.service.beta.Mock",    "probeResultBeta",    String.class, probes.next());
+		assertIt("vault.default", "VaultMockService:defaultEx",      String.class, probes.next());
+		assertIt("vault.alpha",   "VaultMockService:alphaEx",        String.class, probes.next());
+		assertIt("vault.beta",    "VaultMockService:betaEx",         String.class, probes.next());
+		assertIt("vault.service.default.Mock", "probeResultDefault", String.class, probes.next());
+		assertIt("vault.service.alpha.Mock",   "probeResultAlpha",   String.class, probes.next());
+		assertIt("vault.service.beta.Mock",    "probeResultBeta",    String.class, probes.next());
 		assertFalse(probes.hasNext());
 
 		assertEquals(HSQLDB_PROBE + " " + VAULT, probe(p));

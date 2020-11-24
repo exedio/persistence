@@ -162,8 +162,8 @@ public class DataVaultInfoTest
 	@BeforeEach final void setUp()
 	{
 		model.connect(ConnectProperties.create(cascade(
-				single("dataField.vault", true),
-				single("dataField.vault.service", VaultMockService.class),
+				single("vault", true),
+				single("vault.service", VaultMockService.class),
 				minimal()
 		)));
 		setupSchemaMinimal(model);

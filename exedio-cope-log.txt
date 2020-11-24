@@ -7,6 +7,15 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: key "dataField.vault" becomes "vault".
+	This applies to all sub-keys ("dataField.vault.*") as well.
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If "dataField.vault" is false (thus vaults are disabled) you don't
+	have to do anything.
+	Set property "vault-short-key=false" to switch back to legacy key
+	"dataField.vault". Then you don't have to change any other key.
+
 * CaseView added. Constructor of UppercaseView is now deprecated.
 * Fix nullability annotation of DataField#getArray.
 	Affects instrumented code.

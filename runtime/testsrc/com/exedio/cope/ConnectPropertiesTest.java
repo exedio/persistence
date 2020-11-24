@@ -64,11 +64,11 @@ public class ConnectPropertiesTest
 		notOnDefault.put("connection.password", "xxxpassword");
 		notOnDefault.put("dialect", HsqldbDialect.class);
 		notOnDefault.put("schema.primaryKeyGenerator", PrimaryKeyGenerator.sequence);
-		notOnDefault.put("dataField.vault", true);
-		notOnDefault.put("dataField.vault.service", VaultReferenceService.class);
-		notOnDefault.put("dataField.vault.service.main", VaultFileService.class);
-		notOnDefault.put("dataField.vault.service.main.root", Paths.get("vaultFileRoot"));
-		notOnDefault.put("dataField.vault.service.reference", VaultMockService.class);
+		notOnDefault.put("vault", true);
+		notOnDefault.put("vault.service", VaultReferenceService.class);
+		notOnDefault.put("vault.service.main", VaultFileService.class);
+		notOnDefault.put("vault.service.main.root", Paths.get("vaultFileRoot"));
+		notOnDefault.put("vault.service.reference", VaultMockService.class);
 		notOnDefault.put("cluster", true);
 		notOnDefault.put("cluster.secret", 1234);
 		final ConnectProperties p = ConnectProperties.create(loadProperties());
@@ -120,7 +120,7 @@ public class ConnectPropertiesTest
 				"dataField.bufferSizeDefault",
 				"dataField.bufferSizeLimit",
 				"vault-short-key",
-				"dataField.vault",
+				"vault",
 				"comparableCheck",
 				"changeListeners.queueCapacity",
 				"changeListeners.threads.initial",
@@ -534,8 +534,8 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(
 				cascade(
-						single("dataField.vault", true),
-						single("dataField.vault.service", VaultMockService.class),
+						single("vault", true),
+						single("vault.service", VaultMockService.class),
 						TestSources.minimal()
 				));
 		assertEquals("SHA-512", p.getVaultProperties().getAlgorithm());
@@ -547,9 +547,9 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(
 				cascade(
-						single("dataField.vault", true),
-						single("dataField.vault.service", VaultMockService.class),
-						single("dataField.vault.algorithm", "MD5"),
+						single("vault", true),
+						single("vault.service", VaultMockService.class),
+						single("vault.algorithm", "MD5"),
 						TestSources.minimal()
 				));
 		assertEquals("MD5", p.getVaultProperties().getAlgorithm());
@@ -561,7 +561,7 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(
 				describe("DESC", cascade(
-						single("dataField.vault", false),
+						single("vault", false),
 						TestSources.minimal()
 				)));
 		assertEquals(null, p.getVaultProperties());
@@ -769,17 +769,17 @@ public class ConnectPropertiesTest
 	@Test void testProbeVault() throws Exception
 	{
 		final ConnectProperties p = ConnectProperties.create(cascade(
-				single("dataField.vault", true),
-				single("dataField.vault.service", VaultMockService.class),
-				single("dataField.vault.service.example", "probeExampleValue"),
-				single("dataField.vault.service.probe.result", "probeMockResultOverride"),
+				single("vault", true),
+				single("vault.service", VaultMockService.class),
+				single("vault.service.example", "probeExampleValue"),
+				single("vault.service.probe.result", "probeMockResultOverride"),
 				TestSources.minimal()));
 		final String VAULT = "VaultMockService:probeExampleValue";
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
-		assertIt("dataField.vault.default", VAULT, String.class, probes.next());
-		assertIt("dataField.vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
+		assertIt("vault.default", VAULT, String.class, probes.next());
+		assertIt("vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
 		assertFalse(probes.hasNext());
 
 		assertEquals(HSQLDB_PROBE + " " + VAULT, probe(p));

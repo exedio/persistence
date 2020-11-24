@@ -143,10 +143,10 @@ public class VaultNotFoundTest
 	@BeforeEach void setUp()
 	{
 		MODEL.connect(ConnectProperties.create(cascade(
-				single("dataField.vault", true),
-				single("dataField.vault.service", VaultMockService.class),
-				single("dataField.vault.service.example", "mainExampleValue"),
-				single("dataField.vault.isAppliedToAllFields", true),
+				single("vault", true),
+				single("vault.service", VaultMockService.class),
+				single("vault.service.example", "mainExampleValue"),
+				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
 		service = (VaultMockService)VaultTest.singleton(MODEL.connect().vaults);
