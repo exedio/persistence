@@ -27,12 +27,16 @@ timestamps
 				checkout scm
 
 				recordIssues(
+						failOnError: true,
 						enabledForFailure: true,
 						ignoreFailedBuilds: false,
 						qualityGates: [[threshold: 1, type: 'TOTAL_HIGH', unstable: true]],
 						tools: [
 								taskScanner(
-										excludePattern: 'JenkinsfileIdea,.git/**,lib/**,**/*.jar,**/*.zip,**/*.jpg,**/*.gif,**/*.png,**/*.tif,**/*.webp,**/*.pdf,**/*.eot,**/*.ttf,**/*.woff,**/*.woff2,**/keystore', // TODO do not exclude the whole JenkinsfileIdea, but just the FIXME line
+										excludePattern:
+												'JenkinsfileIdea,' + // TODO do not exclude the whole JenkinsfileIdea, but just the FIXME line
+												'.git/**,lib/**,ant/**,' +
+												'**/*.jar,**/*.zip,**/*.tgz,**/*.jpg,**/*.gif,**/*.png,**/*.tif,**/*.webp,**/*.pdf,**/*.eot,**/*.ttf,**/*.woff,**/*.woff2,**/keystore', // binary file types
 										highTags: 'FIXME', // causes build to become unstable
 										normalTags: 'TODO', // does not cause build to become unstable
 										ignoreCase: true),
@@ -58,6 +62,7 @@ timestamps
 				archiveArtifacts 'idea-inspection-output/**'
 				sh "rm idea-inspection-output/SpellCheckingInspection.xml"
 				recordIssues(
+						failOnError: true,
 						enabledForFailure: true,
 						ignoreFailedBuilds: false,
 						qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]],
