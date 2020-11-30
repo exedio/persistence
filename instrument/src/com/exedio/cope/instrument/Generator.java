@@ -420,7 +420,7 @@ final class Generator
 					featureNameCamelCase};
 			{
 				final List<String> commentLines=new ArrayList<>();
-				collectCommentParagraph(commentLines, "", "", convertComment(wrapper.getCommentArray()), arguments);
+				collectCommentParagraph(commentLines, "", "", wrapper.getCommentArray(), arguments);
 
 				for(final WrapperX.Parameter parameter : parameters)
 				{
@@ -430,7 +430,7 @@ final class Generator
 								commentLines,
 								"@param " + format(parameter.name, arguments),
 								"       ",
-								convertComment(parameter.getComment()), arguments);
+								parameter.getComment(), arguments);
 					}
 					else
 					{
@@ -447,7 +447,7 @@ final class Generator
 									commentLines,
 									"@param " + format(parameterName, parameterArguments),
 									"       ",
-									convertComment(parameter.getComment()), parameterArguments);
+									parameter.getComment(), parameterArguments);
 						}
 					}
 				}
@@ -455,7 +455,7 @@ final class Generator
 						commentLines,
 						"@return",
 						"        ",
-						convertComment(wrapper.getReturnComment()), arguments);
+						wrapper.getReturnComment(), arguments);
 
 				for(final Map.Entry<Class<? extends Throwable>, String[]> e : throwsClause.entrySet())
 				{
@@ -463,7 +463,7 @@ final class Generator
 							commentLines,
 							"@throws " + e.getKey().getCanonicalName(),
 							"        ",
-							convertComment(e.getValue()), arguments);
+							e.getValue(), arguments);
 				}
 				writeComment(commentLines);
 				writeGeneratedAnnotation(
@@ -740,12 +740,6 @@ final class Generator
 			final String line = lines[i];
 			commentLines.add(line.isEmpty()?"":(prefixN+format(line, arguments)));
 		}
-	}
-
-	private static String[] convertComment(final String[] comment)
-	{
-		// TODO remove method
-		return comment;
 	}
 
 	private void writeSerialVersionUID(final LocalCopeType type)
