@@ -394,6 +394,9 @@
 				<wrapper>TypeParameterExtendsFinalClass</wrapper>
 				<wrapper>UnnecessarilyQualifiedStaticUsage</wrapper>
 			</suppressWarnings>
+			<ignore>
+				<fileset file="runtime/testsrc/com/exedio/cope/vaulttest/VaultServiceTest.java" />
+			</ignore>
 		</instrument>
 	</target>
 

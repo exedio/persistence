@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vaulttest;
 
-import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -29,8 +28,7 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.DataField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Type;
-import com.exedio.cope.instrument.WrapperIgnore;
-import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.MessageDigestUtil;
@@ -326,20 +324,15 @@ public abstract class VaultServiceTest
 		}
 	};
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	// BEWARE: do not use instrumentor for this item and do not use instrumentor
+	// annotations in this java file, because it is copied to other projects
+	// which may not have an instrumentor available.
 	private static final class InfoItem extends Item
 	{
-		@WrapperIgnore
 		static final DataField infoField = new DataField();
-
-		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
-
-		@com.exedio.cope.instrument.Generated
-		private static final com.exedio.cope.Type<InfoItem> TYPE = com.exedio.cope.TypesBound.newType(InfoItem.class);
-
-		@com.exedio.cope.instrument.Generated
-		private InfoItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+		private static final Type<InfoItem> TYPE = TypesBound.newType(InfoItem.class);
+		private InfoItem(final ActivationParameters ap){super(ap);}
 	}
 
 	public static final class AssertionErrorOutputStream extends ByteArrayOutputStream
