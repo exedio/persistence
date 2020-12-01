@@ -145,7 +145,7 @@ public final class AntTask extends Task
 
 	public void setPublicConstructorInAbstractClass(final boolean value)
 	{
-		params.publicConstructorInAbstractClass = value;
+		throwNoLongerSupported("publicConstructorInAbstractClass", false);
 	}
 
 	public void setPrivateMethodFinal(final boolean value)

@@ -134,7 +134,7 @@ abstract class CopeType<F extends CopeFeature>
 		return getOption().constructor().exists();
 	}
 
-	final int getInitialConstructorModifier(final boolean publicConstructorInAbstractClass)
+	final int getInitialConstructorModifier()
 	{
 		InternalVisibility result = getVisibility();
 		for(final CopeFeature initialFeature : getInitialFeatures())
@@ -144,9 +144,7 @@ abstract class CopeType<F extends CopeFeature>
 				result = initialFeatureVisibility;
 		}
 
-		if(!publicConstructorInAbstractClass &&
-			result==InternalVisibility.PUBLIC &&
-			Modifier.isAbstract(getModifier()))
+		if(result==InternalVisibility.PUBLIC && Modifier.isAbstract(getModifier()))
 			result = InternalVisibility.PROTECTED;
 
 		return getOption().constructor().getModifier(result.modifier);

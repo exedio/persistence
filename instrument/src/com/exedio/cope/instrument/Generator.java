@@ -69,7 +69,6 @@ final class Generator
 	private final boolean nullabilityAnnotations;
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
-	private final boolean publicConstructorInAbstractClass;
 	private final boolean privateMethodFinal;
 	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardClass;
@@ -89,7 +88,6 @@ final class Generator
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
-		this.publicConstructorInAbstractClass = params.publicConstructorInAbstractClass;
 		this.privateMethodFinal = params.privateMethodFinal;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.wildcardClass = params.wildcardClass;
@@ -248,7 +246,7 @@ final class Generator
 		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE, suppressWarningsConstructor);
 
 		writeIndent();
-		writeModifier(type.getInitialConstructorModifier(publicConstructorInAbstractClass));
+		writeModifier(type.getInitialConstructorModifier());
 		write(type.getName());
 		write('(');
 
