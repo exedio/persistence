@@ -175,7 +175,7 @@ public final class AntTask extends Task
 
 	public void setGenericConstructorOneline(final boolean value)
 	{
-		params.genericConstructorOneline = value;
+		throwNoLongerSupported("genericConstructorOneline", true);
 	}
 
 	public void setVerbose(final boolean value)

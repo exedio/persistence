@@ -70,7 +70,6 @@ final class Generator
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
-	private final boolean genericConstructorMultiline;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 	private final SortedSet<String> suppressWarningsConstructor;
@@ -86,7 +85,6 @@ final class Generator
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
-		this.genericConstructorMultiline = !params.genericConstructorOneline;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -324,25 +322,7 @@ final class Generator
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
 		write(type.getName());
-		write("(final " + SET_VALUE + "<?>... setValues)");
-		if(genericConstructorMultiline)
-		{
-			write(lineSeparator);
-			writeIndent();
-		}
-		write('{');
-		if(genericConstructorMultiline)
-		{
-			write(lineSeparator);
-			writeIndent(1);
-		}
-		write("super(setValues);");
-		if(genericConstructorMultiline)
-		{
-			write(lineSeparator);
-			writeIndent();
-		}
-		write('}');
+		write("(final " + SET_VALUE + "<?>... setValues){super(setValues);}");
 		write(lineSeparator);
 	}
 

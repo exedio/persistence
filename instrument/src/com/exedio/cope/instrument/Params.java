@@ -60,7 +60,6 @@ final class Params
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean directSetValueMap = false;
 	boolean finalMethodInFinalClass = true;
-	boolean genericConstructorOneline = true;
 	boolean verbose = false;
 	File buildDirectory = null;
 	private File timestampFile = null;
