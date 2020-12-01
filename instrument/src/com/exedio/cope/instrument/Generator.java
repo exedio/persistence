@@ -71,7 +71,6 @@ final class Generator
 	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardClass;
-	private final boolean wildcardClassFullyQualified;
 	private final boolean genericConstructorMultiline;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -89,7 +88,6 @@ final class Generator
 		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.wildcardClass = params.wildcardClass;
-		this.wildcardClassFullyQualified = params.wildcardClassFullyQualified;
 		this.genericConstructorMultiline = !params.genericConstructorOneline;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
@@ -831,7 +829,7 @@ final class Generator
 	private void writeClass(final CopeType<?> type)
 	{
 		final boolean wildcard = type.getTypeParameters()>0;
-		if(!wildcard || wildcardClassFullyQualified)
+		if(!wildcard)
 		{
 			write(type.getName());
 			write('.');

@@ -165,7 +165,7 @@ public final class AntTask extends Task
 
 	public void setWildcardClassFullyQualified(final boolean value)
 	{
-		params.wildcardClassFullyQualified = value;
+		throwNoLongerSupported("wildcardClassFullyQualified", false);
 	}
 
 	public void setConvertTT2Code(final boolean value)

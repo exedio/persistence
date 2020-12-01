@@ -61,7 +61,6 @@ final class Params
 	boolean directSetValueMap = false;
 	boolean finalMethodInFinalClass = true;
 	boolean wildcardClass = true;
-	boolean wildcardClassFullyQualified = false;
 	boolean genericConstructorOneline = true;
 	boolean verbose = false;
 	File buildDirectory = null;
