@@ -28,8 +28,6 @@ import java.util.List;
 
 final class Main
 {
-	static final String GENERATED_VALUE = "com.exedio.cope.instrument";
-
 	void run(final Params params) throws HumanReadableException, IOException
 	{
 		final List<File> files = params.getJavaSourceFilesExcludingIgnored();

@@ -125,7 +125,7 @@ public final class AntTask extends Task
 
 	public void setJavaxAnnotationGenerated(final boolean value)
 	{
-		params.javaxAnnotationGenerated = value;
+		throwNoLongerSupported("javaxAnnotationGenerated", false);
 	}
 
 	public void setNullabilityAnnotations(final boolean value)

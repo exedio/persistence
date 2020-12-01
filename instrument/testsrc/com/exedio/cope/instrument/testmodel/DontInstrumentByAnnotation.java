@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.CopeWarnings;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
-import javax.annotation.Generated;
 
 /**
  * This class tests that the {@link WrapperIgnore} annotation works.
@@ -35,17 +34,7 @@ class DontInstrumentByAnnotation extends Item
 
 	static final SimpleSettable makeInstrumentorFail = null;
 
-	@Generated("com.exedio.cope.instrument")
-	@SuppressWarnings(CopeWarnings.NON_GENERATED)
-	int generatedVariable;
-
 	@com.exedio.cope.instrument.Generated
 	@SuppressWarnings(CopeWarnings.NON_GENERATED)
 	int generatedVariableNew;
-
-	@Generated("other.than.com.exedio.cope.instrument")
-	void generatedMethod()
-	{
-		// empty
-	}
 }

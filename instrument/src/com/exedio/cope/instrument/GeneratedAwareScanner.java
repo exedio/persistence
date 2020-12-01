@@ -81,10 +81,7 @@ abstract class GeneratedAwareScanner extends TreePathScanner<Void,Void>
 
 	final boolean hasGeneratedAnnotation()
 	{
-		if(getAnnotation(Generated.class)!=null)
-			return true;
-
-		return GeneratedJavaxAccess.isPresent(context.getElement(getCurrentPath()));
+		return getAnnotation(Generated.class)!=null;
 	}
 
 	final <T extends Annotation> T getAnnotation(final Class<T> annotationType)

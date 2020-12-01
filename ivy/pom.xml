@@ -104,12 +104,6 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>com.exedio</groupId>
-      <artifactId>generated-annotation</artifactId>
-      <version>14</version>
-      <optional>true</optional>
-    </dependency>
-    <dependency>
       <groupId>org.apache.tomcat</groupId>
       <artifactId>tomcat</artifactId>
       <version>8.5.14</version>

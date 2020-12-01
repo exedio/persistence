@@ -59,7 +59,6 @@
 		</dependency>
 
 		<!-- build dependencies -->
-		<dependency org="com.exedio" name="generated-annotation" rev="14" conf="build->runtime,sources" /><!-- needed since jdk9 -->
 		<dependency org="org.apache.tomcat" name="tomcat" rev="8.5.14" conf="build->default">
 			<artifact name="tomcat" type="tar.gz" />
 		</dependency>

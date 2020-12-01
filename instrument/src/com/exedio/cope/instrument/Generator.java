@@ -65,7 +65,6 @@ final class Generator
 	private final JavaFile javaFile;
 	private final StringBuilder output;
 	private final String lineSeparator;
-	private final boolean javaxAnnotationGenerated;
 	private final boolean nullabilityAnnotations;
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
@@ -80,7 +79,6 @@ final class Generator
 		this.javaFile = javaFile;
 		this.output = output;
 		this.lineSeparator = System.lineSeparator();
-		this.javaxAnnotationGenerated = params.javaxAnnotationGenerated;
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
@@ -159,15 +157,7 @@ final class Generator
 			final SortedSet<String> suppressWarnings)
 	{
 		writeIndent();
-		if(javaxAnnotationGenerated)
-		{
-			writeAnnotation(GeneratedJavaxAccess.get());
-			write("(\"" + Main.GENERATED_VALUE + "\")");
-		}
-		else
-		{
-			writeAnnotation(Generated.class);
-		}
+		writeAnnotation(Generated.class);
 		if(typeContext.comments && extraCommentForAnnotations!=null)
 		{
 			write(" // ");

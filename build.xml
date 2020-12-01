@@ -782,7 +782,6 @@
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 			<compilerarg if:set="jdk9" value="--add-exports" />
@@ -842,7 +841,6 @@
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
@@ -872,7 +870,6 @@
 				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</classpath>
 			<ignore>
@@ -962,7 +959,6 @@
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/opentest4j.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -973,7 +969,6 @@
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 			</classpath>
 		</compile>
@@ -1086,7 +1081,6 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
 				<pathelement location="lib/findbugs-annotations.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</myClasspath>

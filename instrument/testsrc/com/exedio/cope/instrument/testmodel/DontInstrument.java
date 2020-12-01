@@ -22,7 +22,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.instrument.CopeWarnings;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
-import javax.annotation.Generated;
 
 /**
  * This class tests that the 'ignore' element at the 'instrument' ant task works.
@@ -36,10 +35,6 @@ class DontInstrument extends Item
 
 	@WrapInterim
 	static final long wouldNotCompileInInterimCode = serialVersionUID;
-
-	@Generated("com.exedio.cope.instrument")
-	@SuppressWarnings(CopeWarnings.NON_GENERATED)
-	int generatedVariable;
 
 	@com.exedio.cope.instrument.Generated
 	@SuppressWarnings(CopeWarnings.NON_GENERATED)
