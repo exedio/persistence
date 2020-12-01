@@ -896,12 +896,8 @@
 		<instrument
 				dir="instrument/testparamssrc"
 				verify="${instrument.verify}"
-				javaxAnnotationGenerated="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
-			<classpath>
-				<pathelement location="lib/generated-annotation.jar" if:set="jdk9" />
-			</classpath>
 			<suppressWarnings>
 				<constructor>constructor-first</constructor>
 				<constructor>constructor-second</constructor>
