@@ -69,7 +69,6 @@ final class Generator
 	private final boolean nullabilityAnnotations;
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
-	private final boolean privateMethodFinal;
 	private final boolean finalMethodInFinalClass;
 	private final boolean wildcardClass;
 	private final boolean wildcardClassFullyQualified;
@@ -88,7 +87,6 @@ final class Generator
 		this.nullabilityAnnotations = params.nullabilityAnnotations;
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
-		this.privateMethodFinal = params.privateMethodFinal;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.wildcardClass = params.wildcardClass;
 		this.wildcardClassFullyQualified = params.wildcardClassFullyQualified;
@@ -514,7 +512,7 @@ final class Generator
 					visibilityModifier |
 					(isStatic ? STATIC : 0) |
 					(option.asFinal()
-							&& (visibilityModifier!=PRIVATE||privateMethodFinal)
+							&& visibilityModifier!=PRIVATE
 							&& (!feature.parent.isFinal()||finalMethodInFinalClass) ? FINAL : 0));
 			write(ctx.write(methodReturnType, false));
 			if(useIs && option.booleanAsIs())

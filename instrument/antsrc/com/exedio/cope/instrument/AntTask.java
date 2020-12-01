@@ -150,7 +150,7 @@ public final class AntTask extends Task
 
 	public void setPrivateMethodFinal(final boolean value)
 	{
-		params.privateMethodFinal = value;
+		throwNoLongerSupported("privateMethodFinal", false);
 	}
 
 	public void setFinalMethodInFinalClass(final boolean value)

@@ -59,7 +59,6 @@ final class Params
 	boolean nullabilityAnnotations = false;
 	IntegerTypeSuffix serialVersionUIDSuffix = IntegerTypeSuffix.small;
 	boolean directSetValueMap = false;
-	boolean privateMethodFinal = false;
 	boolean finalMethodInFinalClass = true;
 	boolean wildcardClass = true;
 	boolean wildcardClassFullyQualified = false;
