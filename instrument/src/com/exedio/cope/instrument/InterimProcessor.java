@@ -373,7 +373,7 @@ final class InterimProcessor extends JavacProcessor
 					code = code.closeBlock();
 				}
 				final int typeParametersNumber = ct.getTypeParameters().size();
-				if (params.wildcardClass && typeParametersNumber>0 && wrapperType.wildcardClass()!=Visibility.NONE)
+				if (typeParametersNumber>0 && wrapperType.wildcardClass()!=Visibility.NONE)
 				{
 					final StringBuilder typeParameters = new StringBuilder("?");
 					for(int i = 1; i<typeParametersNumber; i++)

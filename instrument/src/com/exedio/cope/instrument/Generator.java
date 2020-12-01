@@ -70,7 +70,6 @@ final class Generator
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
-	private final boolean wildcardClass;
 	private final boolean genericConstructorMultiline;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
@@ -87,7 +86,6 @@ final class Generator
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
-		this.wildcardClass = params.wildcardClass;
 		this.genericConstructorMultiline = !params.genericConstructorOneline;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
@@ -760,7 +758,7 @@ final class Generator
 	 */
 	private void writeWildcardClass(final LocalCopeType type)
 	{
-		if(!wildcardClass || type.getTypeParameters()==0)
+		if(type.getTypeParameters()==0)
 			return;
 
 		final Visibility visibility = type.getOption().wildcardClass();
