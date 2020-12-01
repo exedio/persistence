@@ -40,4 +40,8 @@ class DontInstrument extends Item
 	@Generated("com.exedio.cope.instrument")
 	@SuppressWarnings(CopeWarnings.NON_GENERATED)
 	int generatedVariable;
+
+	@com.exedio.cope.instrument.Generated
+	@SuppressWarnings(CopeWarnings.NON_GENERATED)
+	int generatedVariableNew;
 }

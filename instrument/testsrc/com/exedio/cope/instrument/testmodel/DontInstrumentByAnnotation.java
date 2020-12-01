@@ -39,6 +39,10 @@ class DontInstrumentByAnnotation extends Item
 	@SuppressWarnings(CopeWarnings.NON_GENERATED)
 	int generatedVariable;
 
+	@com.exedio.cope.instrument.Generated
+	@SuppressWarnings(CopeWarnings.NON_GENERATED)
+	int generatedVariableNew;
+
 	@Generated("other.than.com.exedio.cope.instrument")
 	void generatedMethod()
 	{
