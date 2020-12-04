@@ -95,27 +95,27 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		assertIt(0, 0, 0);
 
 		modelA.pingClusterNetwork();
-		sleepLongerThan(50);
+		sleepLongerThan(500);
 		assertIt(1, 0, 0);
 
 		modelA.pingClusterNetwork();
-		sleepLongerThan(50);
+		sleepLongerThan(500);
 		assertIt(2, 0, 0);
 
 		modelB.pingClusterNetwork();
-		sleepLongerThan(50);
+		sleepLongerThan(500);
 		assertIt(2, 1, 0);
 
 		modelC.pingClusterNetwork();
-		sleepLongerThan(50);
+		sleepLongerThan(500);
 		assertIt(2, 1, 1);
 
 		modelA.pingClusterNetwork();
-		sleepLongerThan(50);
+		sleepLongerThan(500);
 		assertIt(3, 1, 1);
 
 		modelC.pingClusterNetwork();
-		sleepLongerThan(50);
+		sleepLongerThan(500);
 		assertIt(3, 1, 2);
 	}
 

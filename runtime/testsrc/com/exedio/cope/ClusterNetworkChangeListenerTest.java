@@ -86,7 +86,7 @@ public class ClusterNetworkChangeListenerTest extends ClusterNetworkTest
 		listenerA.assertEmpty();
 		listenerB.assertEmpty();
 		modelA.commit();
-		sleepLongerThan(50);
+		sleepLongerThan(500);
 		listenerA.assertLocal(asList(itemA), transactionA);
 		listenerB.assertRemote(asList("TypeB-0"));
 
