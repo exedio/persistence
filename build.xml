@@ -88,6 +88,7 @@
 				<arg line="--details ${test-details}" />
 				<arg line="--disable-ansi-colors" if:set="disable-ansi-colors" />
 				<implicit-element />
+				<arg line="--fail-if-no-tests" />
 				<arg line="--include-classname .{0,}" unless:set="@{testproperty}" /> <!-- regexp ".*" doesn't work on Windows -->
 				<arg line="--scan-class-path build/classes/@{scansrc}" unless:set="@{testproperty}" />
 				<arg line="@{line}" unless:set="@{testproperty}" />
