@@ -69,6 +69,12 @@ class AssertionFailedHttpServletResponse implements HttpServletResponse
 	}
 
 	@Override
+	public void setContentLengthLong(final long len)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
 	public void setContentType(final String type)
 	{
 		throw new AssertionError();

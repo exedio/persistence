@@ -20,12 +20,25 @@ package com.exedio.cope.pattern;
 
 import java.io.IOException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.WriteListener;
 
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 class AssertionFailedServletOutputStream extends ServletOutputStream
 {
 	@Override
 	public void write(final int b) throws IOException
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public boolean isReady()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public void setWriteListener(final WriteListener writeListener)
 	{
 		throw new AssertionError();
 	}
