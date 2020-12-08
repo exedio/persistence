@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Check.requireNonNegative;
+
 import com.exedio.cope.DataField;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -99,8 +101,7 @@ public final class MediaUtil
 		final long contentLength = body.length();
 		if(contentLength<0)
 			throw new RuntimeException(String.valueOf(contentLength));
-		if(contentLength<=Integer.MAX_VALUE)
-			response.setContentLength((int)contentLength);
+		setContentLengthLong(response, contentLength);
 		if(contentLength==0)
 			return;
 
@@ -125,8 +126,7 @@ public final class MediaUtil
 		final long contentLength = Files.size(body);
 		if(contentLength<0)
 			throw new RuntimeException(String.valueOf(contentLength));
-		if(contentLength<=Integer.MAX_VALUE)
-			response.setContentLength((int)contentLength);
+		setContentLengthLong(response, contentLength);
 		if(contentLength==0)
 			return;
 
@@ -134,6 +134,20 @@ public final class MediaUtil
 		{
 			Files.copy(body, out);
 		}
+	}
+
+	/**
+	 * TODO
+	 * To be replaced by {@code HttpServletResponse#setContentLengthLong(long)}
+	 * in javax.servlet#javax.servlet-api;3.1.0 (Apache Tomcat 8.0.x).
+	 */
+	public static void setContentLengthLong(
+			final HttpServletResponse response,
+			final long contentLength)
+	{
+		requireNonNegative(contentLength, "contentLength");
+
+		response.setHeader("Content-Length", Long.toString(contentLength));
 	}
 
 

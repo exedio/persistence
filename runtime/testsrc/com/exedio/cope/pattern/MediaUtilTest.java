@@ -219,6 +219,15 @@ public class MediaUtilTest
 		}
 
 		@Override
+		public void setHeader(final String name, final String value)
+		{
+			if("Content-Length".equals(name))
+				setContentLength(Integer.parseInt(value));
+			else
+				super.setHeader(name, value);
+		}
+
+		@Override
 		public ServletOutputStream getOutputStream()
 		{
 			assertNull(outputStream);
