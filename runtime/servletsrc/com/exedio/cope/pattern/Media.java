@@ -53,6 +53,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Date;
@@ -70,6 +71,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	private final boolean isfinal;
 	private final boolean optional;
 	private final DataField body;
+	final boolean isBodySmall;
 	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final ContentType<?> contentType;
 	private final DateField lastModified;
@@ -90,6 +92,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 				applyConstraints(new DataField(), isfinal, optional).lengthMax(bodyMaximumLength),
 				"body",
 				new MediaVaultAnnotationProxy(this));
+		this.isBodySmall = bodyMaximumLength<=DEFAULT_LENGTH;
 		this.contentType = contentType;
 		final FunctionField<?> contentTypeField = contentType.field;
 		if(contentTypeField!=null)
@@ -746,11 +749,25 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		if(contentType==null)
 			throw notFoundIsNull();
 
-		final byte[] body = getBody(item);
+		if(isBodySmall)
+		{
+			final byte[] body = getBody(item);
 
-		commit();
+			commit();
 
-		MediaUtil.send(contentType, body, response);
+			MediaUtil.send(contentType, body, response);
+		}
+		else
+		{
+			final Path body = Files.createTempFile(
+					Media.class.getName() + '#' + getID() + '#' + item.getCopeID(), "");
+			getBody(item, body);
+
+			commit();
+
+			MediaUtil.send(contentType, body, response);
+			Files.delete(body);
+		}
 	}
 
 	@Override

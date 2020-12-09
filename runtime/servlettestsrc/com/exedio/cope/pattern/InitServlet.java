@@ -58,6 +58,7 @@ public class InitServlet extends HttpServlet
 				final MediaServletItem text = new MediaServletItem();
 				assertID("MediaServletItem-0", text);
 				text.setContent(textValue, "text/plain", 0);
+				text.setContentLarge(textValue, "text/plain", 0);
 
 				final MediaServletItem empty = new MediaServletItem();
 				assertID("MediaServletItem-1", empty);

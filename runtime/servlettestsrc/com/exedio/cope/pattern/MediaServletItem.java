@@ -70,6 +70,26 @@ final class MediaServletItem extends Item
 			df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
 	}
 
+	/**
+	 * For testing {@code Media#doGetAndCommit} in large mode.
+	 * See MediaSmallBodyTest.
+	 */
+	@Wrapper(wrap="set", parameters={byte[].class,String.class}, internal=true)
+	@Wrapper(wrap=Wrapper.ALL_WRAPS, visibility=NONE)
+	static final Media contentLarge = new Media().optional().lengthMax(Media.DEFAULT_LENGTH+1);
+
+	void setContentLarge(final byte[] body, final String contentType, final int hour) throws ParseException
+	{
+		setContentLargeInternal(body, contentType);
+		setContentLargeLastModified(hour);
+	}
+
+	private void setContentLargeLastModified(final int hour) throws ParseException
+	{
+		contentLarge.getLastModified().set(this,
+				df().parse("2010-08-11 " + new DecimalFormat("00").format(hour) + ":23:55.555"));
+	}
+
 	void setNameServerLastModified(final int hour) throws ParseException
 	{
 		setNameServerLastModified(
@@ -315,6 +335,16 @@ final class MediaServletItem extends Item
 				java.io.IOException
 	{
 		MediaServletItem.content.set(this,body,contentType);
+	}
+
+	/**
+	 * Sets the content of media {@link #contentLarge}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	private void setContentLargeInternal(@javax.annotation.Nullable final byte[] body,@javax.annotation.Nullable final java.lang.String contentType)
+	{
+		MediaServletItem.contentLarge.set(this,body,contentType);
 	}
 
 	/**

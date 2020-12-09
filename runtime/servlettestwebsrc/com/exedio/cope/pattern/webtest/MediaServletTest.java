@@ -134,6 +134,9 @@ public class MediaServletTest
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/."        , itemTxtCatch);
 		assertMoved(prefix + "content/" + ITEM_TEXT_CATCH + "/"         , itemTxtCatch);
 
+		assertTxt     (prefix + "contentLarge/" + ITEM_TXT + ".txt", hour8(0));
+		assertNotFound(prefix + "contentLarge/" + ITEM_EMP + ".txt", IS_NULL);
+
 		assertNotFound(app + "media/MeDiaServletItem/content/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media/MediaServletItem/conTent/" + ITEM_TXT + "/", NO_SUCH_PATH);
 		assertNotFound(app + "media//content/" + ITEM_TXT + "/", NO_SUCH_PATH);
