@@ -20,6 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.CopeWarnings;
+import com.exedio.cope.instrument.Generated;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 
@@ -36,7 +37,7 @@ class DontInstrument extends Item
 	@WrapInterim
 	static final long wouldNotCompileInInterimCode = serialVersionUID;
 
-	@com.exedio.cope.instrument.Generated
+	@Generated
 	@SuppressWarnings(CopeWarnings.NON_GENERATED)
-	int generatedVariableNew;
+	int generatedVariable;
 }

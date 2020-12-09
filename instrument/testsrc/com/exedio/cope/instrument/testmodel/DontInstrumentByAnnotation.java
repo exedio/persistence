@@ -20,6 +20,7 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.CopeWarnings;
+import com.exedio.cope.instrument.Generated;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.testfeature.SimpleSettable;
 
@@ -34,7 +35,7 @@ class DontInstrumentByAnnotation extends Item
 
 	static final SimpleSettable makeInstrumentorFail = null;
 
-	@com.exedio.cope.instrument.Generated
+	@Generated
 	@SuppressWarnings(CopeWarnings.NON_GENERATED)
-	int generatedVariableNew;
+	int generatedVariable;
 }
