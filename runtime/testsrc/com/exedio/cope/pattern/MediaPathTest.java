@@ -840,18 +840,12 @@ public final class MediaPathTest extends TestWithEnvironment
 			final ByteArrayOutputStream myOut = new ByteArrayOutputStream();
 			out = myOut;
 
-			return new ServletOutputStream()
+			return new AssertionFailedServletOutputStream()
 			{
 				@Override
 				public void write(final byte[] b, final int off, final int len)
 				{
 					myOut.write(b, off, len);
-				}
-
-				@Override
-				public void write(final int b)
-				{
-					throw new RuntimeException();
 				}
 			};
 		}

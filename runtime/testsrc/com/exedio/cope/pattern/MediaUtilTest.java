@@ -233,18 +233,12 @@ public class MediaUtilTest
 			assertNull(outputStream);
 			outputStream = new ByteArrayOutputStream();
 
-			return new ServletOutputStream()
+			return new AssertionFailedServletOutputStream()
 			{
 				@Override
 				public void write(final byte[] b, final int off, final int len)
 				{
 					outputStream.write(b, off, len);
-				}
-
-				@Override
-				public void write(final int b)
-				{
-					throw new RuntimeException();
 				}
 			};
 		}

@@ -310,19 +310,13 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		@Override
 		public ServletOutputStream getOutputStream()
 		{
-			return new ServletOutputStream()
+			return new AssertionFailedServletOutputStream()
 			{
 				@Override
 				public void write(final byte[] b, final int off, final int len)
 				{
 					assertEquals(body, new String(b, off, len, UTF_8));
 					assertEquals(contentLength, len);
-				}
-
-				@Override
-				public void write(final int b)
-				{
-					throw new RuntimeException();
 				}
 			};
 		}
