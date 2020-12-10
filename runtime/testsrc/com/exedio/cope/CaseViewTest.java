@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
 import com.exedio.cope.instrument.WrapperType;
 import java.util.List;
@@ -37,7 +38,7 @@ public class CaseViewTest extends TestWithEnvironment
 		new AnItem("lower");
 		new AnItem("UPPER");
 		new AnItem("Numbers1234567890");
-		new AnItem(
+		final AnItem szItem = new AnItem(
 				"A \u00c4; O \u00d6; U \u00dc; " +
 				"a \u00e4; o \u00f6; u \u00fc; sz \u00df;");
 		new AnItem("Euro \u20ac;");
@@ -47,7 +48,7 @@ public class CaseViewTest extends TestWithEnvironment
 				"Latin Letter C with Dot Above" +" Small \u010b Capital \u010a;");
 		new AnItem(
 				"Greek Letter Epsilon"          +" Small \u03b5 Capital \u0395;");
-		new AnItem(
+		final AnItem cyrillicItem = new AnItem(
 				"Cyrillic Letter Ha"            +" Small \u0445 Capital \u0425; " +
 				"Cyrillic Letter Ha with Stroke"+" Small \u04ff Capital \u04fe;");
 		final Query<List<Object>> query = Query.newQuery(
@@ -91,6 +92,42 @@ public class CaseViewTest extends TestWithEnvironment
 						"CYRILLIC LETTER HA"            +" SMALL \u0425 CAPITAL \u0425; " +
 						"CYRILLIC LETTER HA WITH STROKE"+" SMALL "+(mysql?"\u04ff":"\u04fe")+" CAPITAL \u04fe;")),
 				query.search());
+
+		final Query<List<Object>> mapJavaQuery = Query.newQuery(
+				new Selectable<?>[]{
+						AnItem.TYPE.getThis(),
+						AnItem.field.toLowerCase(),
+						AnItem.field.toUpperCase()},
+				AnItem.TYPE, null);
+		mapJavaQuery.setOrderByThis(true);
+		for(final List<Object> l : mapJavaQuery.search())
+		{
+			final AnItem i = (AnItem)l.get(0);
+			String expectedLower = (String)l.get(1);
+			String expectedUpper = (String)l.get(2);
+
+			if(!hsqldb && i.equals(szItem))
+				expectedUpper = replace(expectedUpper, "\u00df", "SS");
+
+			if(mysql && i.equals(cyrillicItem))
+			{
+				expectedLower = replace(expectedLower, "\u04fe", "\u04ff");
+				expectedUpper = replace(expectedUpper, "\u04ff", "\u04fe");
+			}
+
+			assertEquals(expectedLower, i.getFieldLower(), "LOWER " + i.getCopeID());
+			assertEquals(expectedUpper, i.getFieldUpper(), "UPPER " + i.getCopeID());
+		}
+	}
+
+	private static String replace(
+			final String value,
+			final String target,
+			final String replacement)
+	{
+		final String result = value.replace(target, replacement);
+		assertNotEquals(value, result);
+		return result;
 	}
 
 	@WrapperType(indent=2, comments=false)
