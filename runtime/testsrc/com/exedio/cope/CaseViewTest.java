@@ -53,8 +53,8 @@ public class CaseViewTest extends TestWithEnvironment
 		final Query<List<Object>> query = Query.newQuery(
 				new Selectable<?>[]{
 						AnItem.field,
-						AnItem.field.toLowerCase(),
-						AnItem.field.toUpperCase()},
+						AnItem.fieldLower,
+						AnItem.fieldUpper},
 				AnItem.TYPE, null);
 		query.setOrderByThis(true);
 		assertEquals(asList(
@@ -97,6 +97,8 @@ public class CaseViewTest extends TestWithEnvironment
 	static final class AnItem extends Item
 	{
 		static final StringField field = new StringField().lengthMax(200);
+		static final CaseView fieldLower = field.toLowerCase();
+		static final CaseView fieldUpper = field.toUpperCase();
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
@@ -130,6 +132,20 @@ public class CaseViewTest extends TestWithEnvironment
 					com.exedio.cope.StringLengthViolationException
 		{
 			AnItem.field.set(this,field);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		java.lang.String getFieldLower()
+		{
+			return AnItem.fieldLower.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		java.lang.String getFieldUpper()
+		{
+			return AnItem.fieldUpper.get(this);
 		}
 
 		@com.exedio.cope.instrument.Generated
