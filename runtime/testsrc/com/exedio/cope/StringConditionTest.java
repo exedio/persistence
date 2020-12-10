@@ -54,6 +54,17 @@ public class StringConditionTest extends TestWithEnvironment
 		assertEquals(asList(), search(any.  containsIgnoreCase("lowerUPPEX" )));
 	}
 
+	@Test void testIgnoreCaseSZ()
+	{
+		final StringItem mixed = new StringItem("lower\u00dfUPPER", true);
+		final StringItem lower = new StringItem("lower\u00dfupper", true);
+		final StringItem upper = new StringItem("LOWER\u00dfUPPER", true);
+		new StringItem("lowerUPPER", true);
+		new StringItem(null, true);
+		assertEquals(hsqldb ? asList(mixed, lower, upper) : asList(), search(any.equalIgnoreCase("lower\u00dfUPPER")));
+		assertEquals(hsqldb ? asList(mixed, lower, upper) : asList(), search(any. likeIgnoreCase("lower\u00dfUPPER")));
+	}
+
 	private static List<StringItem> search(final Condition condition)
 	{
 		final Query<StringItem> q = TYPE.newQuery(condition);
