@@ -36,12 +36,10 @@ public class CaseView extends StringView
 
 	private String toCase(final String s)
 	{
-		return upper ? toUpperCase(s) : s.toLowerCase(Locale.ENGLISH); // TODO which locale ?
-	}
-
-	private static String toUpperCase(final String s)
-	{
-		return s.toUpperCase(Locale.ENGLISH); // TODO which locale ?
+		return
+				upper
+				? s.toUpperCase(Locale.ENGLISH)
+				: s.toLowerCase(Locale.ENGLISH); // TODO which locale ?
 	}
 
 	@Override
@@ -65,26 +63,36 @@ public class CaseView extends StringView
 
 	public static Condition equalIgnoreCase(final Function<String> function, final String value)
 	{
-		return new CaseView(function, true).equal(toUpperCase(value));
+		return normalizeCase(function).equal(normalizeCase(value));
 	}
 
 	public static LikeCondition likeIgnoreCase(final Function<String> function, final String value)
 	{
-		return new CaseView(function, true).like(toUpperCase(value));
+		return normalizeCase(function).like(normalizeCase(value));
 	}
 
 	public static LikeCondition startsWithIgnoreCase(final Function<String> function, final String value)
 	{
-		return LikeCondition.startsWith(new CaseView(function, true), toUpperCase(value));
+		return LikeCondition.startsWith(normalizeCase(function), normalizeCase(value));
 	}
 
 	public static LikeCondition endsWithIgnoreCase(final Function<String> function, final String value)
 	{
-		return LikeCondition.endsWith(new CaseView(function, true), toUpperCase(value));
+		return LikeCondition.endsWith(normalizeCase(function), normalizeCase(value));
 	}
 
 	public static LikeCondition containsIgnoreCase(final Function<String> function, final String value)
 	{
-		return LikeCondition.contains(new CaseView(function, true), toUpperCase(value));
+		return LikeCondition.contains(normalizeCase(function), normalizeCase(value));
+	}
+
+	private static StringFunction normalizeCase(final Function<String> function)
+	{
+		return new CaseView(function, true);
+	}
+
+	private static String normalizeCase(final String value)
+	{
+		return value.toUpperCase(Locale.ENGLISH); // TODO which locale ?
 	}
 }
