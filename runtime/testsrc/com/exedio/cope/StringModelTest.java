@@ -106,10 +106,10 @@ public class StringModelTest
 		assertEquals(any.startsWith("lowerUPPER"), any.like( "lowerUPPER%"));
 		assertEquals(any.  endsWith("lowerUPPER"), any.like("%lowerUPPER" ));
 		assertEquals(any.  contains("lowerUPPER"), any.like("%lowerUPPER%"));
-		assertEquals(any.     equalIgnoreCase("lowerUPPER" ), any.toUpperCase().equal( "LOWERUPPER" ));
-		assertEquals(any.      likeIgnoreCase("lowerUPPER%"), any.toUpperCase().like ( "LOWERUPPER%"));
-		assertEquals(any.startsWithIgnoreCase("lowerUPPER" ), any.toUpperCase().like ( "LOWERUPPER%"));
-		assertEquals(any.  endsWithIgnoreCase("lowerUPPER" ), any.toUpperCase().like ("%LOWERUPPER" ));
-		assertEquals(any.  containsIgnoreCase("lowerUPPER" ), any.toUpperCase().like ("%LOWERUPPER%"));
+		assertEquals(any.     equalIgnoreCase("lowerUPPER" ), any.toLowerCase().equal( "lowerupper" ));
+		assertEquals(any.      likeIgnoreCase("lowerUPPER%"), any.toLowerCase().like ( "lowerupper%"));
+		assertEquals(any.startsWithIgnoreCase("lowerUPPER" ), any.toLowerCase().like ( "lowerupper%"));
+		assertEquals(any.  endsWithIgnoreCase("lowerUPPER" ), any.toLowerCase().like ("%lowerupper" ));
+		assertEquals(any.  containsIgnoreCase("lowerUPPER" ), any.toLowerCase().like ("%lowerupper%"));
 	}
 }

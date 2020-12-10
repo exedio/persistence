@@ -88,11 +88,11 @@ public class CaseView extends StringView
 
 	private static StringFunction normalizeCase(final Function<String> function)
 	{
-		return new CaseView(function, true);
+		return new CaseView(function, false);
 	}
 
 	private static String normalizeCase(final String value)
 	{
-		return value.toUpperCase(Locale.ENGLISH); // TODO which locale ?
+		return value.toLowerCase(Locale.ENGLISH); // TODO which locale ?
 	}
 }
