@@ -17,7 +17,7 @@ The items are sorted inversely, i.e. latest items are on top
 	Set property "vault-short-key=false" to switch back to legacy key
 	"dataField.vault". Then you don't have to change any other key.
 
-* CaseView added. Constructor of UppercaseView is now deprecated.
+* StringFunction#toLowerCase() added.
 * Fix nullability annotation of DataField#getArray.
 	Affects instrumented code.
 * MediaUtil supports java.nio.file.Path.
