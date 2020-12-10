@@ -342,6 +342,7 @@ final class Generator
 		write(lineSeparator);
 	}
 
+	@SuppressWarnings({"ConstantConditions", "RedundantSuppression"}) // just happens sporadically
 	private void writeFeature(final LocalCopeFeature feature)
 	{
 		final Object instance = feature.getInstance();
