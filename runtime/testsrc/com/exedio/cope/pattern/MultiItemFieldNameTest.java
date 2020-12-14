@@ -52,17 +52,17 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 		final ItemField<Gamma> gamma = MyItem.field.of(Gamma.class);
 		final ItemField<Delta> delta = MyItem.field.of(Delta.class);
 		assertEquals("field-Alpha"    , alpha.getName());
-		assertEquals("field-Beta"     , beta .getName());
+		assertEquals("field-BetaName" , beta .getName());
 		assertEquals("field-Gamma"    , gamma.getName());
-		assertEquals("field-Delta"    , delta.getName());
+		assertEquals("field-DeltaName", delta.getName());
 		assertEquals("MyItem.field-Alpha"    , alpha.getID());
-		assertEquals("MyItem.field-Beta"     , beta .getID());
+		assertEquals("MyItem.field-BetaName" , beta .getID());
 		assertEquals("MyItem.field-Gamma"    , gamma.getID());
-		assertEquals("MyItem.field-Delta"    , delta.getID());
+		assertEquals("MyItem.field-DeltaName", delta.getID());
 		assertEquals("field_Alpha"      , getColumnName(alpha));
-		assertEquals("field_Beta"       , getColumnName(beta ));
-		assertEquals("field_Gamma"      , getColumnName(gamma));
-		assertEquals("field_Delta"      , getColumnName(delta));
+		assertEquals("field_BetaName"   , getColumnName(beta ));
+		assertEquals("field_GammaSchema", getColumnName(gamma));
+		assertEquals("field_DeltaSchema", getColumnName(delta));
 
 		assertTrue (alpha.isAnnotationPresent(Computed.class));
 		assertTrue (beta .isAnnotationPresent(Computed.class));

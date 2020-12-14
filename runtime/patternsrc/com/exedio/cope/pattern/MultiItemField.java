@@ -24,6 +24,7 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Cope;
+import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -38,6 +39,7 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Arrays;
+import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
@@ -94,8 +96,13 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		this.componentClasses = Arrays.copyOf(componentClasses);
 		for(final ItemField<?> component : components)
 		{
-			// TODO: simpleName might not be unique
-			addSourceFeature(component, component.getValueClass().getSimpleName());
+			// TODO: postfix might not be unique
+			final Class<? extends Item> componentClass = component.getValueClass();
+			final CopeSchemaName schemaName = componentClass.getAnnotation(CopeSchemaName.class);
+			addSourceFeature(
+					component,
+					CopeNameUtil.getAndFallbackToSimpleName(componentClass),
+					schemaName!=null ? CustomAnnotatedElement.create(schemaName) : null);
 		}
 	}
 
