@@ -352,7 +352,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 }
 
 	@WrapperType(constructor=NONE, indent=2)
-	static final class ASubItem extends AnItem
+	private static final class ASubItem extends AnItem
 	{
 
 
@@ -369,7 +369,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		 * The persistent type information for aSubItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class);
+		private static final com.exedio.cope.Type<ASubItem> TYPE = com.exedio.cope.TypesBound.newType(ASubItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

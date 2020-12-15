@@ -92,39 +92,39 @@ public class TypeSetTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Item1 extends Item
+	private static class Item1 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
+		private static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Item2 extends Item
+	private static class Item2 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
+		private static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class ItemX extends Item
+	private static class ItemX extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemX> TYPE = com.exedio.cope.TypesBound.newType(ItemX.class);
+		private static final com.exedio.cope.Type<ItemX> TYPE = com.exedio.cope.TypesBound.newType(ItemX.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemX(final com.exedio.cope.ActivationParameters ap){super(ap);}

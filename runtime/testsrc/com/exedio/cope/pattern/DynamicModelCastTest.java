@@ -93,7 +93,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 		ONE, TWO
 	}
 
-	static final class ModelItem extends Item
+	private static final class ModelItem extends Item
 	{
 		static final StringField name = new StringField().toFinal();
 
@@ -111,7 +111,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	ModelItem(
+	private ModelItem(
 				@javax.annotation.Nonnull final java.lang.String name)
 			throws
 				com.exedio.cope.MandatoryViolationException,
@@ -272,7 +272,7 @@ public class DynamicModelCastTest extends TestWithEnvironment
 	 * The persistent type information for modelItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ModelItem> TYPE = com.exedio.cope.TypesBound.newType(ModelItem.class);
+	private static final com.exedio.cope.Type<ModelItem> TYPE = com.exedio.cope.TypesBound.newType(ModelItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

@@ -145,7 +145,7 @@ public class HashConstraintTest
 
 
 	@WrapperType(indent=2)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		static final StringField hash = new StringField();
 		static final DataField data = new DataField();
@@ -163,7 +163,7 @@ public class HashConstraintTest
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		AnItem(
+		private AnItem(
 					@javax.annotation.Nonnull final java.lang.String hash,
 					@javax.annotation.Nonnull final com.exedio.cope.DataField.Value data)
 				throws
@@ -343,7 +343,7 @@ public class HashConstraintTest
 		 * The persistent type information for anItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

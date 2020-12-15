@@ -206,11 +206,11 @@ public class MetricsReconnectTest
 	static final Model MODEL = new Model(AnItem.TYPE);
 
 	@WrapperType(indent=2, comments=false)
-	static class AnItem extends Item
+	private static class AnItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		AnItem()
+		private AnItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -223,7 +223,7 @@ public class MetricsReconnectTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

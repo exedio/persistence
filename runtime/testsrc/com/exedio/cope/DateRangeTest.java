@@ -130,7 +130,7 @@ public class DateRangeTest extends TestWithEnvironment
 
 
 	@WrapperType(indent=2)
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		static final DateField field = new DateField().optional();
 
@@ -139,7 +139,7 @@ public class DateRangeTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		MyItem()
+		private MyItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -189,7 +189,7 @@ public class DateRangeTest extends TestWithEnvironment
 		 * The persistent type information for myItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

@@ -64,7 +64,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 		assertEquals(false, item.getField());
 	}
 
-	abstract static class Alpha extends Item
+	private abstract static class Alpha extends Item
 	{
 		static final BooleanField field = new BooleanField().defaultTo(false);
 
@@ -74,7 +74,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Alpha()
+	private Alpha()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -113,7 +113,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for alpha.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Alpha> TYPE = com.exedio.cope.TypesBound.newType(Alpha.class);
+	private static final com.exedio.cope.Type<Alpha> TYPE = com.exedio.cope.TypesBound.newType(Alpha.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -123,7 +123,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	protected Alpha(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	static class Beta extends Alpha
+	private static class Beta extends Alpha
 	{
 
 
@@ -132,7 +132,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Beta()
+	private Beta()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -151,7 +151,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for beta.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Beta> TYPE = com.exedio.cope.TypesBound.newType(Beta.class);
+	private static final com.exedio.cope.Type<Beta> TYPE = com.exedio.cope.TypesBound.newType(Beta.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -161,7 +161,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	protected Beta(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	static class Gamma extends Beta
+	private static class Gamma extends Beta
 	{
 
 
@@ -170,7 +170,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Gamma()
+	private Gamma()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -189,7 +189,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for gamma.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Gamma> TYPE = com.exedio.cope.TypesBound.newType(Gamma.class);
+	private static final com.exedio.cope.Type<Gamma> TYPE = com.exedio.cope.TypesBound.newType(Gamma.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

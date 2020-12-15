@@ -82,7 +82,7 @@ public class MediaRootUrlTest
 		MODEL.disconnect();
 	}
 
-	static class AnItem extends Item
+	private static class AnItem extends Item
 	{
 		@WrapperInitial
 		static final Media file = new Media().optional();
@@ -93,7 +93,7 @@ public class MediaRootUrlTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem(
+	private AnItem(
 				@javax.annotation.Nullable final com.exedio.cope.pattern.Media.Value file)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -293,7 +293,7 @@ public class MediaRootUrlTest
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

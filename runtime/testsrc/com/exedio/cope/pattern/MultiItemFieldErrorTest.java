@@ -217,7 +217,7 @@ public class MultiItemFieldErrorTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static final class AnotherItem1 extends com.exedio.cope.Item
+	private static final class AnotherItem1 extends com.exedio.cope.Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

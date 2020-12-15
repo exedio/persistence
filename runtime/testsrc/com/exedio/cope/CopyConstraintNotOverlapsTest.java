@@ -38,7 +38,7 @@ public class CopyConstraintNotOverlapsTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class Source extends Item
+	private static final class Source extends Item
 	{
 		@WrapperIgnore
 		static final ItemField<Target> target = ItemField.create(Target.class);
@@ -49,14 +49,14 @@ public class CopyConstraintNotOverlapsTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
+		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
 
 		@com.exedio.cope.instrument.Generated
 		private Source(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class Target extends Item
+	private static final class Target extends Item
 	{
 		@WrapperIgnore
 		static final IntegerField field = new IntegerField().toFinal();
@@ -65,7 +65,7 @@ public class CopyConstraintNotOverlapsTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
+		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
 
 		@com.exedio.cope.instrument.Generated
 		private Target(final com.exedio.cope.ActivationParameters ap){super(ap);}

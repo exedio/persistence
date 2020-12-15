@@ -239,7 +239,7 @@ public class MountTest
 
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static class MyItem extends Item
+	private static class MyItem extends Item
 	{
 		@WrapperIgnore
 		static final IntegerField field = new IntegerField();
@@ -255,7 +255,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -263,7 +263,7 @@ public class MountTest
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	@CopeName("ActualItem")
-	static class PureItem extends Item
+	private static class PureItem extends Item
 	{
 		@WrapperIgnore
 		static final IntegerField field = new IntegerField();
@@ -279,7 +279,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<PureItem> TYPE = com.exedio.cope.TypesBound.newType(PureItem.class);
+		private static final com.exedio.cope.Type<PureItem> TYPE = com.exedio.cope.TypesBound.newType(PureItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected PureItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -294,7 +294,7 @@ public class MountTest
 
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static final class MyComposite extends Composite
+	private static final class MyComposite extends Composite
 	{
 		@WrapperIgnore
 		static final IntegerField field = new IntegerField();
@@ -314,7 +314,7 @@ public class MountTest
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	@CopeName("ActualComposite")
-	static final class PureComposite extends Composite
+	private static final class PureComposite extends Composite
 	{
 		@WrapperIgnore
 		static final IntegerField field = new IntegerField();
@@ -334,7 +334,7 @@ public class MountTest
 
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static final class MyBlock extends Block
+	private static final class MyBlock extends Block
 	{
 		@WrapperIgnore
 		static final IntegerField field = new IntegerField();
@@ -347,7 +347,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
+		private static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
@@ -355,7 +355,7 @@ public class MountTest
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	@CopeName("ActualBlock")
-	static final class PureBlock extends Block
+	private static final class PureBlock extends Block
 	{
 		@WrapperIgnore
 		static final IntegerField field = new IntegerField();
@@ -368,7 +368,7 @@ public class MountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<PureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(PureBlock.class);
+		private static final com.exedio.cope.pattern.BlockType<PureBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(PureBlock.class);
 
 		@com.exedio.cope.instrument.Generated
 		private PureBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}

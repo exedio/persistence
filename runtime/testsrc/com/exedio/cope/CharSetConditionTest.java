@@ -328,7 +328,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@WrapperInitial
 		static final StringField field = new StringField().toFinal().optional().lengthMin(0);
@@ -340,7 +340,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		AnItem(
+		private AnItem(
 					@javax.annotation.Nullable final java.lang.String field)
 				throws
 					com.exedio.cope.StringLengthViolationException
@@ -365,7 +365,7 @@ public class CharSetConditionTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

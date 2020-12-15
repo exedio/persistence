@@ -188,7 +188,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 
 	@WrapperType(indent=2, comments=false)
-	static class MySuperItem extends Item
+	private static class MySuperItem extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final IntegerField supPlain = new IntegerField().toFinal().optional();
@@ -200,7 +200,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		MySuperItem(
+		private MySuperItem(
 					@javax.annotation.Nullable final java.lang.Integer supPlain,
 					@javax.annotation.Nullable final MyEnum supEnum)
 		{
@@ -217,14 +217,14 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MySuperItem> TYPE = com.exedio.cope.TypesBound.newType(MySuperItem.class);
+		private static final com.exedio.cope.Type<MySuperItem> TYPE = com.exedio.cope.TypesBound.newType(MySuperItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MySuperItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class MyItem extends MySuperItem
+	private static final class MyItem extends MySuperItem
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final IntegerField plain = new IntegerField().toFinal().optional();
@@ -239,7 +239,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		MyItem(
+		private MyItem(
 					@javax.annotation.Nullable final java.lang.Integer supPlain,
 					@javax.annotation.Nullable final com.exedio.cope.misc.SchemaViewGeneratorTest.MyEnum supEnum,
 					@javax.annotation.Nullable final java.lang.Integer plain,
@@ -262,7 +262,7 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

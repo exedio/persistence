@@ -127,13 +127,13 @@ public abstract class ClusterNetworkTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class TypeB extends Item
+	private static final class TypeB extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<TypeB> TYPE = com.exedio.cope.TypesBound.newType(TypeB.class);
+		private static final com.exedio.cope.Type<TypeB> TYPE = com.exedio.cope.TypesBound.newType(TypeB.class);
 
 		@com.exedio.cope.instrument.Generated
 		private TypeB(final com.exedio.cope.ActivationParameters ap){super(ap);}

@@ -140,7 +140,7 @@ public class NameLengthTest extends TestWithEnvironment
 		eins, zwei
 	}
 
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@CopeName("fieldLoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooong")
 		static final EnumField<AnEnum> fieldLong  = EnumField.create(AnEnum.class).toFinal().unique();
@@ -175,7 +175,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem(
+	private AnItem(
 				@javax.annotation.Nonnull final AnEnum fieldLong,
 				@javax.annotation.Nonnull final AnEnum fieldShort,
 				@javax.annotation.Nonnull final AnItem foreignLong,
@@ -347,7 +347,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -358,7 +358,7 @@ public class NameLengthTest extends TestWithEnvironment
 }
 
 	@CopeName("LoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooongItem")
-	static final class LongItem extends Item
+	private static final class LongItem extends Item
 	{
 
 
@@ -367,7 +367,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	LongItem()
+	private LongItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -386,7 +386,7 @@ public class NameLengthTest extends TestWithEnvironment
 	 * The persistent type information for longItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class);
+	private static final com.exedio.cope.Type<LongItem> TYPE = com.exedio.cope.TypesBound.newType(LongItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

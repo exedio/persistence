@@ -67,7 +67,7 @@ public class DateFieldWrongDefaultNowTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@WrapperIgnore
 		static final DateField wrong = new DateField().defaultTo(new Date());

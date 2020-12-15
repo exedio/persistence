@@ -44,7 +44,7 @@ public class JavaViewThrowsReflectionTest
 
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		static final JavaView view = new JavaView();
 
@@ -59,7 +59,7 @@ public class JavaViewThrowsReflectionTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

@@ -55,7 +55,7 @@ public class UrlFingerPrintingTypeTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AbsentItem extends Item
+	private static final class AbsentItem extends Item
 	{
 		@WrapperIgnore static final Media absent = new Media();
 		@UrlFingerPrinting
@@ -65,7 +65,7 @@ public class UrlFingerPrintingTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AbsentItem> TYPE = com.exedio.cope.TypesBound.newType(AbsentItem.class);
+		private static final com.exedio.cope.Type<AbsentItem> TYPE = com.exedio.cope.TypesBound.newType(AbsentItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AbsentItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -73,7 +73,7 @@ public class UrlFingerPrintingTypeTest
 
 	@UrlFingerPrinting
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class PresentItem extends Item
+	private static final class PresentItem extends Item
 	{
 		@WrapperIgnore static final Media absent = new Media();
 		@UrlFingerPrinting
@@ -83,7 +83,7 @@ public class UrlFingerPrintingTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<PresentItem> TYPE = com.exedio.cope.TypesBound.newType(PresentItem.class);
+		private static final com.exedio.cope.Type<PresentItem> TYPE = com.exedio.cope.TypesBound.newType(PresentItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private PresentItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

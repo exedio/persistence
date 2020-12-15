@@ -46,7 +46,7 @@ public class PartOfWrongTypeOrderTest
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class Container extends Item
+	private static class Container extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final IntegerField order = new IntegerField();
@@ -55,14 +55,14 @@ public class PartOfWrongTypeOrderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Part extends Item
+	private static class Part extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final ItemField<Container> container = ItemField.create(Container.class).toFinal().cascade();

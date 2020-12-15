@@ -68,7 +68,7 @@ public class DayFieldWrongDefaultNowTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@WrapperIgnore
 		static final DayField wrong = new DayField().defaultTo(new Day(TimeZone.getDefault()));

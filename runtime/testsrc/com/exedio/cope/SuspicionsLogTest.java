@@ -70,7 +70,7 @@ public class SuspicionsLogTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		static final AFeature none = new AFeature();
 		static final AFeature one = new AFeature("SuspicionOnly");

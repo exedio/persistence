@@ -143,7 +143,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		pattern.clearLogs();
 	}
 
-	static final class MyPattern extends Pattern implements CheckingSettable<String>
+	private static final class MyPattern extends Pattern implements CheckingSettable<String>
 	{
 		private final StringField source = new StringField().optional();
 		private final StringField source2 = new StringField().optional();
@@ -344,7 +344,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 	}
 
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static final class OtherItem extends Item
+	private static final class OtherItem extends Item
 	{
 		static final StringField field = new StringField();
 
@@ -373,7 +373,7 @@ public class CheckingSettableTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
+		private static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

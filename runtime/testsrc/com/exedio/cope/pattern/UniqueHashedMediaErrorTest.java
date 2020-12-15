@@ -121,7 +121,7 @@ public class UniqueHashedMediaErrorTest
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings({"AbstractClassNeverImplemented", "unused"}) // OK: test bad API usage
-	abstract static class AbstractItem extends Item
+	private abstract static class AbstractItem extends Item
 	{
 		@WrapperIgnore
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
@@ -153,7 +153,7 @@ public class UniqueHashedMediaErrorTest
 	@SuppressWarnings({
 			"unused", // OK: test bad API usage
 			"UnnecessarilyQualifiedStaticallyImportedElement"}) // OK: instrumented code
-	static final class NonCreateableFunctionFieldItem extends Item
+	private static final class NonCreateableFunctionFieldItem extends Item
 	{
 		@WrapperIgnore
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
@@ -164,7 +164,7 @@ public class UniqueHashedMediaErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<NonCreateableFunctionFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableFunctionFieldItem.class);
+		private static final com.exedio.cope.Type<NonCreateableFunctionFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableFunctionFieldItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private NonCreateableFunctionFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -190,7 +190,7 @@ public class UniqueHashedMediaErrorTest
 	@SuppressWarnings({
 			"unused", // OK: test bad API usage
 			"UnnecessarilyQualifiedStaticallyImportedElement"}) // OK: instrumented code
-	static final class NonCreateableDataFieldItem extends Item
+	private static final class NonCreateableDataFieldItem extends Item
 	{
 		@WrapperIgnore
 		static final UniqueHashedMedia value = new UniqueHashedMedia(new Media());
@@ -201,7 +201,7 @@ public class UniqueHashedMediaErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<NonCreateableDataFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableDataFieldItem.class);
+		private static final com.exedio.cope.Type<NonCreateableDataFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableDataFieldItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private NonCreateableDataFieldItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -215,7 +215,7 @@ public class UniqueHashedMediaErrorTest
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static final class CreateableItem extends Item
+	private static final class CreateableItem extends Item
 	{
 		@WrapperIgnore
 		@SuppressWarnings("unused")
@@ -234,7 +234,7 @@ public class UniqueHashedMediaErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<CreateableItem> TYPE = com.exedio.cope.TypesBound.newType(CreateableItem.class);
+		private static final com.exedio.cope.Type<CreateableItem> TYPE = com.exedio.cope.TypesBound.newType(CreateableItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private CreateableItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

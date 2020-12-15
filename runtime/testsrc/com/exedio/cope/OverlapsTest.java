@@ -64,7 +64,7 @@ public class OverlapsTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AnItem1 extends Item
+	private static final class AnItem1 extends Item
 	{
 		@WrapperIgnore static final BooleanField bool  = new BooleanField();
 		@WrapperIgnore static final IntegerField intF  = new IntegerField();
@@ -81,14 +81,14 @@ public class OverlapsTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItem1> TYPE = com.exedio.cope.TypesBound.newType(AnItem1.class);
+		private static final com.exedio.cope.Type<AnItem1> TYPE = com.exedio.cope.TypesBound.newType(AnItem1.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AnItem2 extends Item
+	private static final class AnItem2 extends Item
 	{
 		@WrapperIgnore static final BooleanField bool  = new BooleanField().toFinal().optional();
 		@WrapperIgnore static final IntegerField intF  = new IntegerField().toFinal().optional();
@@ -105,7 +105,7 @@ public class OverlapsTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItem2> TYPE = com.exedio.cope.TypesBound.newType(AnItem2.class);
+		private static final com.exedio.cope.Type<AnItem2> TYPE = com.exedio.cope.TypesBound.newType(AnItem2.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem2(final com.exedio.cope.ActivationParameters ap){super(ap);}

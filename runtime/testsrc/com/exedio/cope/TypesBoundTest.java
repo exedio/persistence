@@ -207,7 +207,7 @@ public class TypesBoundTest
 	}
 
 	@WrapperType(indent=2, comments=false, type=NONE, constructor=NONE, genericConstructor=NONE)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@WrapperIgnore
 		static final IntegerField intField = new IntegerField();

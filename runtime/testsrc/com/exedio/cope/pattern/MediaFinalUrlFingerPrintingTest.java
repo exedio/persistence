@@ -44,7 +44,7 @@ public class MediaFinalUrlFingerPrintingTest
 	}
 
 
-	static class AnItem extends Item
+	private static class AnItem extends Item
 	{
 		static final Media nonFinal = new Media();
 		static final Media isFinal = new Media().toFinal();
@@ -63,7 +63,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem(
+	private AnItem(
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value nonFinal,
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value isFinal,
 				@javax.annotation.Nonnull final com.exedio.cope.pattern.Media.Value nonFinalFinger,
@@ -644,7 +644,7 @@ public class MediaFinalUrlFingerPrintingTest
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

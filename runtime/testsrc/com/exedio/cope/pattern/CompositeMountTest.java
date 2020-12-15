@@ -316,7 +316,7 @@ public class CompositeMountTest
 
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static final class MyComposite extends Composite
+	private static final class MyComposite extends Composite
 	{
 		@Anno("stringAnno")
 		static final StringField string4 = new StringField().lengthMax(4);

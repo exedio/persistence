@@ -232,7 +232,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 	}
 
 	@WrapperType(comments=false, indent=2)
-	static class MapFieldCopyItem extends Item
+	private static class MapFieldCopyItem extends Item
 	{
 		static final StringField field = new StringField().toFinal();
 
@@ -258,7 +258,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		MapFieldCopyItem(
+		private MapFieldCopyItem(
 					@javax.annotation.Nonnull final java.lang.String field,
 					@javax.annotation.Nonnull final java.lang.String otherField)
 				throws
@@ -484,7 +484,7 @@ public class MapFieldCopyTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MapFieldCopyItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldCopyItem.class);
+		private static final com.exedio.cope.Type<MapFieldCopyItem> TYPE = com.exedio.cope.TypesBound.newType(MapFieldCopyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MapFieldCopyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

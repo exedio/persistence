@@ -51,7 +51,7 @@ public class ChangeHookDefaultBeforeTest extends ChangeHookAbstractTest
 	}
 
 	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		static final StringField field = new StringField().lengthMax(500);
 
@@ -84,7 +84,7 @@ public class ChangeHookDefaultBeforeTest extends ChangeHookAbstractTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		MyItem(
+		private MyItem(
 					@javax.annotation.Nonnull final java.lang.String field)
 				throws
 					com.exedio.cope.MandatoryViolationException,
@@ -120,7 +120,7 @@ public class ChangeHookDefaultBeforeTest extends ChangeHookAbstractTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

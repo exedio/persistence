@@ -184,14 +184,14 @@ public class DataVaultInfoTest
 	static final Model model = new Model(MyItem.TYPE);
 
 	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static class MyItem extends Item
+	private static class MyItem extends Item
 	{
 		@Vault
 		static final DataField field = new DataField();
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		MyItem(
+		private MyItem(
 					@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -305,7 +305,7 @@ public class DataVaultInfoTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

@@ -92,7 +92,7 @@ public class FunctionFieldTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static class SomeItem extends Item
+	private static class SomeItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

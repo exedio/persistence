@@ -45,7 +45,7 @@ public class UniqueDuplicateOutOfOrderTest
 	}
 
 	@com.exedio.cope.instrument.WrapperType(type=NONE, constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		static final StringField one = new StringField();
 		static final StringField two = new StringField();

@@ -62,7 +62,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	static final class ItemWithUniquePrice extends Item
+	private static final class ItemWithUniquePrice extends Item
 	{
 		public static final PriceField price = new PriceField();
 
@@ -80,7 +80,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		ItemWithUniquePrice(
+		private ItemWithUniquePrice(
 					@javax.annotation.Nonnull final com.exedio.cope.pattern.Price price,
 					@javax.annotation.Nonnull final java.lang.String other)
 				throws
@@ -186,7 +186,7 @@ public class ItemWithUniquePriceTest extends TestWithEnvironment
 		 * The persistent type information for itemWithUniquePrice.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<ItemWithUniquePrice> TYPE = com.exedio.cope.TypesBound.newType(ItemWithUniquePrice.class);
+		private static final com.exedio.cope.Type<ItemWithUniquePrice> TYPE = com.exedio.cope.TypesBound.newType(ItemWithUniquePrice.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

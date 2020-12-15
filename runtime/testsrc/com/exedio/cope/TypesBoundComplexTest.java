@@ -304,7 +304,7 @@ public class TypesBoundComplexTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class AnItem extends Item
+	private static class AnItem extends Item
 	{
 		@WrapperIgnore static final IntegerField intField = new IntegerField();
 		@WrapperIgnore static final BooleanField boolField = new BooleanField();
@@ -317,7 +317,7 @@ public class TypesBoundComplexTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AnotherItem extends AnItem
+	private static final class AnotherItem extends AnItem
 	{
 		@WrapperIgnore static final DoubleField doubleField = new DoubleField();
 		@WrapperIgnore static final ItemField<AnItem> itemField = ItemField.create(AnItem.class);

@@ -39,7 +39,7 @@ public class DispatcherMustImplementInterfaceTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		@WrapperIgnore
 		@SuppressWarnings({

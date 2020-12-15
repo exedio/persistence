@@ -65,11 +65,11 @@ public class RevisionStatisticsModelTest
 
 
 	@WrapperType(indent=2, comments=false)
-	static final class OtherItem extends Item
+	private static final class OtherItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		OtherItem()
+		private OtherItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -82,7 +82,7 @@ public class RevisionStatisticsModelTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
+		private static final com.exedio.cope.Type<OtherItem> TYPE = com.exedio.cope.TypesBound.newType(OtherItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private OtherItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

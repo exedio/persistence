@@ -39,7 +39,7 @@ public class BlockActivationConstructorTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class MyBlock extends Block
+	private static final class MyBlock extends Block
 	{
 		@WrapperIgnore
 		@SuppressWarnings("unused") // OK: Block must not be empty
@@ -49,7 +49,7 @@ public class BlockActivationConstructorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
+		private static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}

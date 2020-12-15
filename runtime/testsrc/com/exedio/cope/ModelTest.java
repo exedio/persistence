@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 public class ModelTest extends TestWithEnvironment
 {
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ModelTestItem extends Item
+	private static final class ModelTestItem extends Item
 	{
 		@WrapperIgnore
 		static final IntegerField next = new IntegerField().defaultToNext(5);
@@ -47,7 +47,7 @@ public class ModelTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ModelTestItem> TYPE = com.exedio.cope.TypesBound.newType(ModelTestItem.class);
+		private static final com.exedio.cope.Type<ModelTestItem> TYPE = com.exedio.cope.TypesBound.newType(ModelTestItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ModelTestItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

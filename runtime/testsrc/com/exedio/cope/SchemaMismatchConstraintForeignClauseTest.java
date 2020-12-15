@@ -64,7 +64,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 
 	@CopeName("ItemAB")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ItemA extends Item
+	private static final class ItemA extends Item
 	{
 		static final ItemField<TargetA> field = ItemField.create(TargetA.class).toFinal(); // avoid update counter
 
@@ -80,7 +80,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
+		private static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -88,7 +88,7 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 
 	@CopeName("ItemAB")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ItemB extends Item
+	private static final class ItemB extends Item
 	{
 		static final ItemField<TargetB> field = ItemField.create(TargetB.class).toFinal(); // avoid update counter
 
@@ -104,33 +104,33 @@ public class SchemaMismatchConstraintForeignClauseTest extends SchemaMismatchTes
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
+		private static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class TargetA extends Item
+	private static final class TargetA extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<TargetA> TYPE = com.exedio.cope.TypesBound.newType(TargetA.class);
+		private static final com.exedio.cope.Type<TargetA> TYPE = com.exedio.cope.TypesBound.newType(TargetA.class);
 
 		@com.exedio.cope.instrument.Generated
 		private TargetA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class TargetB extends Item
+	private static final class TargetB extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<TargetB> TYPE = com.exedio.cope.TypesBound.newType(TargetB.class);
+		private static final com.exedio.cope.Type<TargetB> TYPE = com.exedio.cope.TypesBound.newType(TargetB.class);
 
 		@com.exedio.cope.instrument.Generated
 		private TargetB(final com.exedio.cope.ActivationParameters ap){super(ap);}

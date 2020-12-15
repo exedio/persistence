@@ -81,7 +81,7 @@ public class SerializationCheckTest
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
-	static class ItemOk extends Item
+	private static class ItemOk extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final StringField f2 = new StringField();
@@ -95,7 +95,7 @@ public class SerializationCheckTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemOk> TYPE = com.exedio.cope.TypesBound.newType(ItemOk.class);
+		private static final com.exedio.cope.Type<ItemOk> TYPE = com.exedio.cope.TypesBound.newType(ItemOk.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected ItemOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -106,7 +106,7 @@ public class SerializationCheckTest
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
-	static final class PatternItem extends Item
+	private static final class PatternItem extends Item
 	{
 		static int staticField1;
 		transient int transientField1;
@@ -121,7 +121,7 @@ public class SerializationCheckTest
 		private PatternItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static class PatternFeature extends Pattern
+	private static class PatternFeature extends Pattern
 	{
 		@Override
 		protected void onMount()
@@ -135,7 +135,7 @@ public class SerializationCheckTest
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
 	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
-	static final class CompositeWrong extends Composite
+	private static final class CompositeWrong extends Composite
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final StringField f1 = new StringField();
@@ -156,7 +156,7 @@ public class SerializationCheckTest
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
 	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
-	static final class BlockWrong extends Block
+	private static final class BlockWrong extends Block
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final StringField f1 = new StringField();
@@ -171,7 +171,7 @@ public class SerializationCheckTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<BlockWrong> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWrong.class);
+		private static final com.exedio.cope.pattern.BlockType<BlockWrong> TYPE = com.exedio.cope.pattern.BlockType.newType(BlockWrong.class);
 
 		@com.exedio.cope.instrument.Generated
 		private BlockWrong(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
@@ -179,7 +179,7 @@ public class SerializationCheckTest
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
-	static class Item1 extends Item
+	private static class Item1 extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final StringField f1 = new StringField();
@@ -206,7 +206,7 @@ public class SerializationCheckTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
+		private static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -214,7 +214,7 @@ public class SerializationCheckTest
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
-	static class Item2 extends Item
+	private static class Item2 extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final StringField f2 = new StringField();
@@ -229,7 +229,7 @@ public class SerializationCheckTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
+		private static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item2(final com.exedio.cope.ActivationParameters ap){super(ap);}

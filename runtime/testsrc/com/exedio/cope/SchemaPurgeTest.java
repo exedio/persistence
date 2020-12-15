@@ -435,7 +435,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		}
 	}
 
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		static final IntegerField next = new IntegerField().defaultToNext(1000);
 		static final Sequence sequence = new Sequence(2000);
@@ -451,7 +451,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem()
+	private AnItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -501,7 +501,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

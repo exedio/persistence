@@ -128,7 +128,7 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 	private static final Day dayB   = new Day(2012, 11, 22);
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		static final StringField notNow = new StringField().defaultTo("notNow");
 		static final DateField date1 = new DateField().defaultToNow();
@@ -258,7 +258,7 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

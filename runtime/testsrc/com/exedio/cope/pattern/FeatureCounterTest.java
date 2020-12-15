@@ -115,7 +115,7 @@ public class FeatureCounterTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class MyItem extends Item
+	private static class MyItem extends Item
 	{
 		@WrapperIgnore
 		static final StringField myFeature = new StringField();
@@ -124,7 +124,7 @@ public class FeatureCounterTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

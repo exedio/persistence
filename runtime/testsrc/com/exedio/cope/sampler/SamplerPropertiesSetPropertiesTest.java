@@ -55,7 +55,7 @@ public class SamplerPropertiesSetPropertiesTest
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
@@ -64,7 +64,7 @@ public class SamplerPropertiesSetPropertiesTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

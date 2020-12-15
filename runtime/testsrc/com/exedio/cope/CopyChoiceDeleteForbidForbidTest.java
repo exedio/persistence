@@ -103,7 +103,7 @@ public class CopyChoiceDeleteForbidForbidTest extends TestWithEnvironment
 
 
 	@WrapperType(indent=2, comments=false)
-	static final class Container extends Item
+	private static final class Container extends Item
 	{
 		@Wrapper(wrap="get", visibility=Visibility.NONE)
 		static final ItemField<Part> choice = ItemField.create(Part.class, POLICY1).optional().choice("parent");
@@ -115,7 +115,7 @@ public class CopyChoiceDeleteForbidForbidTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Container()
+		private Container()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -135,14 +135,14 @@ public class CopyChoiceDeleteForbidForbidTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@com.exedio.cope.instrument.Generated
 		private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class Part extends Item
+	private static final class Part extends Item
 	{
 		@Wrapper(wrap="get", visibility=Visibility.NONE)
 		static final ItemField<Container> parent = ItemField.create(Container.class, POLICY2).toFinal();
@@ -154,7 +154,7 @@ public class CopyChoiceDeleteForbidForbidTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Part(
+		private Part(
 					@javax.annotation.Nonnull final Container parent)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -171,7 +171,7 @@ public class CopyChoiceDeleteForbidForbidTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
+		private static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
 
 		@com.exedio.cope.instrument.Generated
 		private Part(final com.exedio.cope.ActivationParameters ap){super(ap);}

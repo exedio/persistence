@@ -65,7 +65,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 
 	@CopeName("ItemAB")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ItemA extends Item
+	private static final class ItemA extends Item
 	{
 		static final IntegerField fieldA = new IntegerField().unique().toFinal(); // avoid update counter
 
@@ -98,7 +98,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
+		private static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -106,7 +106,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 
 	@CopeName("ItemAB")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ItemB extends Item
+	private static final class ItemB extends Item
 	{
 		static final IntegerField fieldB = new IntegerField().unique().toFinal(); // avoid update counter
 
@@ -139,7 +139,7 @@ public class SchemaMismatchConstraintUniqueNameSingleTest extends SchemaMismatch
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
+		private static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}

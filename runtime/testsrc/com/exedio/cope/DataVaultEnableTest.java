@@ -243,7 +243,7 @@ public class DataVaultEnableTest
 	static final Model model = new Model(MyBlank.TYPE, AnVault.TYPE);
 
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static class MyBlank extends Item
+	private static class MyBlank extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField blankF = new DataField();
@@ -263,7 +263,7 @@ public class DataVaultEnableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
+		private static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -271,7 +271,7 @@ public class DataVaultEnableTest
 
 	@Vault("AnVault-V")
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static class AnVault extends Item
+	private static class AnVault extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField blankF = new DataField();
@@ -291,7 +291,7 @@ public class DataVaultEnableTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnVault> TYPE = com.exedio.cope.TypesBound.newType(AnVault.class);
+		private static final com.exedio.cope.Type<AnVault> TYPE = com.exedio.cope.TypesBound.newType(AnVault.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnVault(final com.exedio.cope.ActivationParameters ap){super(ap);}

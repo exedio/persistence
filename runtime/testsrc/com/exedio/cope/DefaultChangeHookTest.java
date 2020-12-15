@@ -71,7 +71,7 @@ public class DefaultChangeHookTest
 		}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class BeforeNewNotStatic extends Item
+	private static class BeforeNewNotStatic extends Item
 	{
 		@SuppressWarnings("MethodMayBeStatic")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
@@ -84,7 +84,7 @@ public class DefaultChangeHookTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
+		private static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewNotStatic(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -112,7 +112,7 @@ public class DefaultChangeHookTest
 		}
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class BeforeNewWrongReturn extends Item
+	private static class BeforeNewWrongReturn extends Item
 	{
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
@@ -124,7 +124,7 @@ public class DefaultChangeHookTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
+		private static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewWrongReturn(final com.exedio.cope.ActivationParameters ap){super(ap);}

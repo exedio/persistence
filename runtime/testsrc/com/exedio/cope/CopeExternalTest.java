@@ -167,11 +167,11 @@ public class CopeExternalTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	@SuppressWarnings("deprecation")
 	@CopeCacheWeight(0)
-	static class WeightZeroItem extends Item
+	private static class WeightZeroItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		WeightZeroItem()
+		private WeightZeroItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -184,7 +184,7 @@ public class CopeExternalTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<WeightZeroItem> TYPE = com.exedio.cope.TypesBound.newType(WeightZeroItem.class);
+		private static final com.exedio.cope.Type<WeightZeroItem> TYPE = com.exedio.cope.TypesBound.newType(WeightZeroItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected WeightZeroItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

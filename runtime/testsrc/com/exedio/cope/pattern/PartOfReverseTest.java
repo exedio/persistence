@@ -60,59 +60,59 @@ public class PartOfReverseTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class SuperContainer extends Item
+	private static class SuperContainer extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class);
+		private static final com.exedio.cope.Type<SuperContainer> TYPE = com.exedio.cope.TypesBound.newType(SuperContainer.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected SuperContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Container extends SuperContainer
+	private static class Container extends SuperContainer
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class SubContainer extends Container
+	private static class SubContainer extends Container
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class);
+		private static final com.exedio.cope.Type<SubContainer> TYPE = com.exedio.cope.TypesBound.newType(SubContainer.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected SubContainer(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Order extends Item
+	private static class Order extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Order> TYPE = com.exedio.cope.TypesBound.newType(Order.class);
+		private static final com.exedio.cope.Type<Order> TYPE = com.exedio.cope.TypesBound.newType(Order.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Order(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Part extends Item
+	private static class Part extends Item
 	{
 		@WrapperIgnore
 		static final ItemField<Container> container = ItemField.create(Container.class);
@@ -130,7 +130,7 @@ public class PartOfReverseTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
+		private static final com.exedio.cope.Type<Part> TYPE = com.exedio.cope.TypesBound.newType(Part.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Part(final com.exedio.cope.ActivationParameters ap){super(ap);}

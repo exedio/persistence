@@ -93,7 +93,7 @@ public class MoneyFieldUtilTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class CurrencyItem extends Item
+	private static final class CurrencyItem extends Item
 	{
 		@WrapperIgnore
 		static final EnumField<CurrencyEnum> currency = EnumField.create(CurrencyEnum.class);
@@ -102,14 +102,14 @@ public class MoneyFieldUtilTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class);
+		private static final com.exedio.cope.Type<CurrencyItem> TYPE = com.exedio.cope.TypesBound.newType(CurrencyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private CurrencyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class FieldItem extends Item
+	private static final class FieldItem extends Item
 	{
 		@WrapperIgnore
 		@SuppressWarnings("unused")

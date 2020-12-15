@@ -56,7 +56,7 @@ public class DataVaultCharacterSetTest
 	}
 
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static class MyBlank extends Item
+	private static class MyBlank extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField blank = new DataField();
@@ -77,7 +77,7 @@ public class DataVaultCharacterSetTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
+		private static final com.exedio.cope.Type<MyBlank> TYPE = com.exedio.cope.TypesBound.newType(MyBlank.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBlank(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -85,7 +85,7 @@ public class DataVaultCharacterSetTest
 
 	@Vault("MyOk-V")
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static class MyOk extends Item
+	private static class MyOk extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField blank = new DataField();
@@ -102,7 +102,7 @@ public class DataVaultCharacterSetTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyOk> TYPE = com.exedio.cope.TypesBound.newType(MyOk.class);
+		private static final com.exedio.cope.Type<MyOk> TYPE = com.exedio.cope.TypesBound.newType(MyOk.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -110,7 +110,7 @@ public class DataVaultCharacterSetTest
 
 	@Vault("MyBroken.V")
 	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static class MyBroken extends Item
+	private static class MyBroken extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final DataField blank = new DataField();
@@ -127,7 +127,7 @@ public class DataVaultCharacterSetTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBroken.class);
+		private static final com.exedio.cope.Type<MyBroken> TYPE = com.exedio.cope.TypesBound.newType(MyBroken.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyBroken(final com.exedio.cope.ActivationParameters ap){super(ap);}

@@ -237,7 +237,7 @@ public class BlockMountTest
 
 
 	@WrapperType(indent=2, comments=false)
-	static final class MyBlock extends Block
+	private static final class MyBlock extends Block
 	{
 		@Anno("stringAnno")
 		@WrapperIgnore static final StringField string4 = new StringField().lengthMax(4);
@@ -248,7 +248,7 @@ public class BlockMountTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
+		private static final com.exedio.cope.pattern.BlockType<MyBlock> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlock.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyBlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}

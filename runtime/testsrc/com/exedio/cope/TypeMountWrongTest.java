@@ -128,20 +128,20 @@ public class TypeMountWrongTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Item1 extends Item
+	private static class Item1 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
+		private static final com.exedio.cope.Type<Item1> TYPE = com.exedio.cope.TypesBound.newType(Item1.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class Item2 extends Item
+	private static class Item2 extends Item
 	{
 		@WrapperIgnore
 		static final ItemField<Item1> f = ItemField.create(Item1.class);
@@ -150,7 +150,7 @@ public class TypeMountWrongTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
+		private static final com.exedio.cope.Type<Item2> TYPE = com.exedio.cope.TypesBound.newType(Item2.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Item2(final com.exedio.cope.ActivationParameters ap){super(ap);}

@@ -114,7 +114,7 @@ public class ItemFieldValueTypeTest
 
 
 	@WrapperType(constructor=Visibility.NONE, indent=2, comments=false)
-	static final class MyComp extends Composite
+	private static final class MyComp extends Composite
 	{
 		@WrapperIgnore
 		static final ItemField<MyItem> field = ItemField.create(MyItem.class);
@@ -127,7 +127,7 @@ public class ItemFieldValueTypeTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class MyBlok extends Block
+	private static final class MyBlok extends Block
 	{
 		@WrapperIgnore
 		static final ItemField<MyItem> field = ItemField.create(MyItem.class);
@@ -139,14 +139,14 @@ public class ItemFieldValueTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<MyBlok> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlok.class);
+		private static final com.exedio.cope.pattern.BlockType<MyBlok> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlok.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyBlok(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=Visibility.NONE, genericConstructor=Visibility.NONE, indent=2, comments=false)
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		@WrapperIgnore
 		static final ItemField<MyItem> field = ItemField.create(MyItem.class);
@@ -164,7 +164,7 @@ public class ItemFieldValueTypeTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

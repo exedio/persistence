@@ -52,7 +52,7 @@ public class MediaServletDefaultTest
 		assertEquals(Duration.ofSeconds(76), servlet.getMaximumAge(MaximumAgeItem.path, null));
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class MaximumAgeItem extends Item
+	private static final class MaximumAgeItem extends Item
 	{
 		@WrapperIgnore static final Media path = new Media();
 
@@ -60,7 +60,7 @@ public class MediaServletDefaultTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MaximumAgeItem> TYPE = com.exedio.cope.TypesBound.newType(MaximumAgeItem.class);
+		private static final com.exedio.cope.Type<MaximumAgeItem> TYPE = com.exedio.cope.TypesBound.newType(MaximumAgeItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MaximumAgeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -90,7 +90,7 @@ public class MediaServletDefaultTest
 		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secfin, null));
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class CacheControlPrivateItem extends Item
+	private static final class CacheControlPrivateItem extends Item
 	{
 		@WrapperIgnore static final Media simple = new Media();
 		@PreventUrlGuessing
@@ -104,7 +104,7 @@ public class MediaServletDefaultTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<CacheControlPrivateItem> TYPE = com.exedio.cope.TypesBound.newType(CacheControlPrivateItem.class);
+		private static final com.exedio.cope.Type<CacheControlPrivateItem> TYPE = com.exedio.cope.TypesBound.newType(CacheControlPrivateItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private CacheControlPrivateItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

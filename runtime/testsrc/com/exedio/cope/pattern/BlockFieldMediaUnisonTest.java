@@ -138,7 +138,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class ABlock extends Block
+	private static final class ABlock extends Block
 	{
 		static final Media uno = new Media().optional().contentTypes(MediaType.JPEG, MediaType.PNG);
 		static final Media duo = new Media().optional().contentTypes(MediaType.JPEG, MediaType.PNG);
@@ -410,14 +410,14 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
+		private static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	private static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final BlockField<ABlock> eins = BlockField.create(ABlock.TYPE);
 		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);
@@ -425,7 +425,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		AnItem()
+		private AnItem()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -454,7 +454,7 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

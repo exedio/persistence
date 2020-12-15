@@ -128,7 +128,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	}
 
 
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
 		static final Dispatcher toTarget = Dispatcher.create(
@@ -168,7 +168,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem()
+	private AnItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -366,7 +366,7 @@ public class DispatchableDeferrableTest extends TestWithEnvironment
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

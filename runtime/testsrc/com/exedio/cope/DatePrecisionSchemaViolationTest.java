@@ -172,7 +172,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 	@CopeName("ItemAB")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ItemA extends Item
+	private static final class ItemA extends Item
 	{
 		// toFinal to avoid update counter
 		static final DateField hours   = new DateField().toFinal().precisionHour  ();
@@ -207,7 +207,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
+		private static final com.exedio.cope.Type<ItemA> TYPE = com.exedio.cope.TypesBound.newType(ItemA.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -215,7 +215,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 	@CopeName("ItemAB")
 	@WrapperType(indent=2, comments=false)
-	static final class ItemB extends Item
+	private static final class ItemB extends Item
 	{
 		// toFinal to avoid update counter
 		static final DateField hours   = new DateField().toFinal();
@@ -224,7 +224,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		ItemB(
+		private ItemB(
 					@javax.annotation.Nonnull final java.util.Date hours,
 					@javax.annotation.Nonnull final java.util.Date minutes,
 					@javax.annotation.Nonnull final java.util.Date seconds)
@@ -269,7 +269,7 @@ public class DatePrecisionSchemaViolationTest extends SchemaMismatchTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
+		private static final com.exedio.cope.Type<ItemB> TYPE = com.exedio.cope.TypesBound.newType(ItemB.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ItemB(final com.exedio.cope.ActivationParameters ap){super(ap);}

@@ -98,7 +98,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static class NoActivationConstructor extends Item
+	private static class NoActivationConstructor extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -128,7 +128,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static class WrongActivationConstructor extends Item
+	private static class WrongActivationConstructor extends Item
 	{
 		WrongActivationConstructor(final ActivationParameters ap)
 		{
@@ -153,7 +153,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static class NullFeature extends Item
+	private static class NullFeature extends Item
 	{
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature nullFeature = null;
@@ -176,7 +176,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static class DuplicateFeature extends Item
+	private static class DuplicateFeature extends Item
 	{
 		static final Feature origin = new IntegerField();
 		@SuppressWarnings("unused") // OK: test bad API usage
@@ -221,7 +221,7 @@ public class TypesBoundErrorTest
 		}
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class NonResolvingItemField extends Item
+	private static class NonResolvingItemField extends Item
 	{
 		@WrapperIgnore
 		static final ItemField<NullFeature> itemField = ItemField.create(NullFeature.class);
@@ -252,7 +252,7 @@ public class TypesBoundErrorTest
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class BeforeNewNotStatic extends Item
+	private static class BeforeNewNotStatic extends Item
 	{
 		@SuppressWarnings("MethodMayBeStatic")
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
@@ -265,7 +265,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
+		private static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewNotStatic(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -290,7 +290,7 @@ public class TypesBoundErrorTest
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class BeforeNewWrongReturn extends Item
+	private static class BeforeNewWrongReturn extends Item
 	{
 		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
@@ -302,7 +302,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
+		private static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected BeforeNewWrongReturn(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -332,7 +332,7 @@ public class TypesBoundErrorTest
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class UniqueConstraintOnInheritedFeatureSuper extends Item
+	private static class UniqueConstraintOnInheritedFeatureSuper extends Item
 	{
 		@WrapperIgnore static final IntegerField superField=new IntegerField();
 
@@ -340,13 +340,13 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<UniqueConstraintOnInheritedFeatureSuper> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintOnInheritedFeatureSuper.class);
+		private static final com.exedio.cope.Type<UniqueConstraintOnInheritedFeatureSuper> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintOnInheritedFeatureSuper.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintOnInheritedFeatureSuper(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class UniqueConstraintOnInheritedFeatureSub extends UniqueConstraintOnInheritedFeatureSuper
+	private static class UniqueConstraintOnInheritedFeatureSub extends UniqueConstraintOnInheritedFeatureSuper
 	{
 		@WrapperIgnore private static final IntegerField subField=new IntegerField();
 

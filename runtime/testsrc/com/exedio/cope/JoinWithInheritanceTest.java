@@ -321,7 +321,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	abstract static class Article extends Item
+	private abstract static class Article extends Item
 	{
 
 
@@ -330,7 +330,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Article()
+	private Article()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -349,7 +349,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for article.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Article> TYPE = com.exedio.cope.TypesBound.newType(Article.class);
+	private static final com.exedio.cope.Type<Article> TYPE = com.exedio.cope.TypesBound.newType(Article.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -359,7 +359,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	protected Article(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	static class SpecificArticle extends Article
+	private static class SpecificArticle extends Article
 	{
 
 
@@ -368,7 +368,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	SpecificArticle()
+	private SpecificArticle()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -387,7 +387,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for specificArticle.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<SpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(SpecificArticle.class);
+	private static final com.exedio.cope.Type<SpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(SpecificArticle.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -397,7 +397,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	protected SpecificArticle(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }
 
-	static class ReallySpecificArticle extends SpecificArticle
+	private static class ReallySpecificArticle extends SpecificArticle
 	{
 
 
@@ -406,7 +406,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	ReallySpecificArticle()
+	private ReallySpecificArticle()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -425,7 +425,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	 * The persistent type information for reallySpecificArticle.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<ReallySpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(ReallySpecificArticle.class);
+	private static final com.exedio.cope.Type<ReallySpecificArticle> TYPE = com.exedio.cope.TypesBound.newType(ReallySpecificArticle.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

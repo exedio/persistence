@@ -51,59 +51,59 @@ public class OverlapsHierarchyTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class AnItemA extends Item
+	private static class AnItemA extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItemA> TYPE = com.exedio.cope.TypesBound.newType(AnItemA.class);
+		private static final com.exedio.cope.Type<AnItemA> TYPE = com.exedio.cope.TypesBound.newType(AnItemA.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemA(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class AnItemB1 extends AnItemA
+	private static class AnItemB1 extends AnItemA
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItemB1> TYPE = com.exedio.cope.TypesBound.newType(AnItemB1.class);
+		private static final com.exedio.cope.Type<AnItemB1> TYPE = com.exedio.cope.TypesBound.newType(AnItemB1.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemB1(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class AnItemB2 extends AnItemA
+	private static class AnItemB2 extends AnItemA
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItemB2> TYPE = com.exedio.cope.TypesBound.newType(AnItemB2.class);
+		private static final com.exedio.cope.Type<AnItemB2> TYPE = com.exedio.cope.TypesBound.newType(AnItemB2.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemB2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class AnItemC extends AnItemB1
+	private static class AnItemC extends AnItemB1
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItemC> TYPE = com.exedio.cope.TypesBound.newType(AnItemC.class);
+		private static final com.exedio.cope.Type<AnItemC> TYPE = com.exedio.cope.TypesBound.newType(AnItemC.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected AnItemC(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class RefItem extends Item
+	private static final class RefItem extends Item
 	{
 		@WrapperIgnore static final ItemField<AnItemA > fieldA  = ItemField.create(AnItemA .class);
 		@WrapperIgnore static final ItemField<AnItemB1> fieldB1 = ItemField.create(AnItemB1.class);
@@ -114,7 +114,7 @@ public class OverlapsHierarchyTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<RefItem> TYPE = com.exedio.cope.TypesBound.newType(RefItem.class);
+		private static final com.exedio.cope.Type<RefItem> TYPE = com.exedio.cope.TypesBound.newType(RefItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private RefItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

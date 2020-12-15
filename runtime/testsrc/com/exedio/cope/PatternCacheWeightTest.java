@@ -109,7 +109,7 @@ public class PatternCacheWeightTest
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final class MyPattern extends Pattern
+	private static final class MyPattern extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -126,7 +126,7 @@ public class PatternCacheWeightTest
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class AbsentType extends Item
+		private static final class AbsentType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;
@@ -138,7 +138,7 @@ public class PatternCacheWeightTest
 		@SuppressWarnings("deprecation")
 		@CopeCacheWeight(333)
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class Set333Type extends Item
+		private static final class Set333Type extends Item
 		{
 			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;

@@ -130,7 +130,7 @@ class RenamedSchemaPattern extends Pattern
 
 	@TestAnnotation("sourceType-TestAnnotation")
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class SourceType extends Item
+	private static final class SourceType extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

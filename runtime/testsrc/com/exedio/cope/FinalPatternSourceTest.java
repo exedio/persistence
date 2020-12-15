@@ -72,7 +72,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 	}
 
 
-	static final class MyPattern extends Pattern implements Settable<String>
+	private static final class MyPattern extends Pattern implements Settable<String>
 	{
 		private final StringField source = new StringField().toFinal().optional();
 

@@ -62,7 +62,7 @@ public class PartOfOrderReuseTest
 	}
 
 
-	static final class AContainer extends Item
+	private static final class AContainer extends Item
 	{
 
 
@@ -71,7 +71,7 @@ public class PartOfOrderReuseTest
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AContainer()
+	private AContainer()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -90,7 +90,7 @@ public class PartOfOrderReuseTest
 	 * The persistent type information for aContainer.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AContainer> TYPE = com.exedio.cope.TypesBound.newType(AContainer.class);
+	private static final com.exedio.cope.Type<AContainer> TYPE = com.exedio.cope.TypesBound.newType(AContainer.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

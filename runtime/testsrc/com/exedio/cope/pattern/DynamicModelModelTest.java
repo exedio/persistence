@@ -83,7 +83,7 @@ public class DynamicModelModelTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@WrapperIgnore
 		static final DynamicModel<String> explicitCapacities =
@@ -97,7 +97,7 @@ public class DynamicModelModelTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+		private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

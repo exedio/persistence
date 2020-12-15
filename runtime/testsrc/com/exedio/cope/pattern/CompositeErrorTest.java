@@ -72,7 +72,7 @@ public class CompositeErrorTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static class NonFinal extends Composite
+	private static class NonFinal extends Composite
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -100,7 +100,7 @@ public class CompositeErrorTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class NoConstructor extends Composite
+	private static final class NoConstructor extends Composite
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -124,7 +124,7 @@ public class CompositeErrorTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	static final class NoFields extends Composite
+	private static final class NoFields extends Composite
 	{
 		@com.exedio.cope.instrument.Generated
 		private NoFields(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
@@ -151,7 +151,7 @@ public class CompositeErrorTest
 	}
 
 	@WrapperIgnore // instrumentor fails on null field
-	static final class NullField extends Composite
+	private static final class NullField extends Composite
 	{
 		private static final long serialVersionUID = 1l;
 		private NullField(final SetValue<?>[] setValues) { super(setValues); }
@@ -179,7 +179,7 @@ public class CompositeErrorTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	static final class NotFunctionField extends Composite
+	private static final class NotFunctionField extends Composite
 	{
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final Feature notFunctionField = MapField.create(new StringField(), new StringField());
@@ -228,7 +228,7 @@ public class CompositeErrorTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	static final class FinalField extends Composite
+	private static final class FinalField extends Composite
 	{
 		@SuppressWarnings("unused") // OK: test bad API usage
 		@WrapperIgnore static final BooleanField finalField = new BooleanField().toFinal();
@@ -260,7 +260,7 @@ public class CompositeErrorTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
-	static final class NonConstantDefaultField extends Composite
+	private static final class NonConstantDefaultField extends Composite
 	{
 		@SuppressWarnings("unused") // OK: test bad API usage
 		@WrapperIgnore static final DateField defaultNowField = new DateField().defaultToNow();

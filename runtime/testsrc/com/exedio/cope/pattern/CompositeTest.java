@@ -47,7 +47,7 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
+@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class CompositeTest
 {
 	@Test void testCheck()
@@ -467,7 +467,7 @@ public class CompositeTest
 	}
 
 	@WrapperType(indent=2)
-	static final class Value extends Composite
+	private static final class Value extends Composite
 	{
 		static final StringField string4 = new StringField().lengthMax(4);
 		static final IntegerField intMax4 = new IntegerField().max(4);
@@ -511,7 +511,7 @@ public class CompositeTest
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Value(
+		private Value(
 					@javax.annotation.Nonnull final java.lang.String string4,
 					final int intMax4,
 					final long longField,
@@ -841,7 +841,7 @@ public class CompositeTest
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class ValueX extends Composite
+	private static final class ValueX extends Composite
 	{
 		static final  StringField  stringField = new  StringField();
 		static final IntegerField     intField = new IntegerField();
@@ -852,7 +852,7 @@ public class CompositeTest
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		ValueX(
+		private ValueX(
 					@javax.annotation.Nonnull final java.lang.String stringField,
 					final int intField,
 					final long longField,

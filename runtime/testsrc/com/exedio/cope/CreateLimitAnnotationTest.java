@@ -36,13 +36,13 @@ public class CreateLimitAnnotationTest
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class DefaultItem extends Item
+	private static class DefaultItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<DefaultItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultItem.class);
+		private static final com.exedio.cope.Type<DefaultItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected DefaultItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -57,13 +57,13 @@ public class CreateLimitAnnotationTest
 	@CopeCreateLimit(5)
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class OkItem extends Item
+	private static class OkItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<OkItem> TYPE = com.exedio.cope.TypesBound.newType(OkItem.class);
+		private static final com.exedio.cope.Type<OkItem> TYPE = com.exedio.cope.TypesBound.newType(OkItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected OkItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -78,13 +78,13 @@ public class CreateLimitAnnotationTest
 	@CopeCreateLimit(0)
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class MinimumItem extends Item
+	private static class MinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MinimumItem> TYPE = com.exedio.cope.TypesBound.newType(MinimumItem.class);
+		private static final com.exedio.cope.Type<MinimumItem> TYPE = com.exedio.cope.TypesBound.newType(MinimumItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MinimumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -109,13 +109,13 @@ public class CreateLimitAnnotationTest
 	@CopeCreateLimit(-1)
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class LessMinimumItem extends Item
+	private static class LessMinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<LessMinimumItem> TYPE = com.exedio.cope.TypesBound.newType(LessMinimumItem.class);
+		private static final com.exedio.cope.Type<LessMinimumItem> TYPE = com.exedio.cope.TypesBound.newType(LessMinimumItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected LessMinimumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -129,13 +129,13 @@ public class CreateLimitAnnotationTest
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
-	static class SubOkItem extends OkItem
+	private static class SubOkItem extends OkItem
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<SubOkItem> TYPE = com.exedio.cope.TypesBound.newType(SubOkItem.class);
+		private static final com.exedio.cope.Type<SubOkItem> TYPE = com.exedio.cope.TypesBound.newType(SubOkItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected SubOkItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
@@ -161,7 +161,7 @@ public class CreateLimitAnnotationTest
 
 	@CopeCreateLimit(5)
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class SubItem extends OkItem
+	private static class SubItem extends OkItem
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

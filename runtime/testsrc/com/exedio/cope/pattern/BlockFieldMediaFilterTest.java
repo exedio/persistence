@@ -101,7 +101,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 		assertLocator(null, b1b.getFilterLocator());
 	}
 
-	static final class ABlock extends Block
+	private static final class ABlock extends Block
 	{
 		@Wrapper(wrap="getURL", visibility=NONE)
 		static final Media source = new Media().optional().contentTypes(MediaType.JPEG, MediaType.PNG);
@@ -308,7 +308,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * The type information for aBlock.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
+	private static final com.exedio.cope.pattern.BlockType<ABlock> TYPE = com.exedio.cope.pattern.BlockType.newType(ABlock.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -318,7 +318,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	private ABlock(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 }
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	private static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
 		static final BlockField<ABlock> eins = BlockField.create(ABlock.TYPE);
 		static final BlockField<ABlock> zwei = BlockField.create(ABlock.TYPE);
@@ -329,7 +329,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem()
+	private AnItem()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -370,7 +370,7 @@ public class BlockFieldMediaFilterTest extends TestWithEnvironment
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

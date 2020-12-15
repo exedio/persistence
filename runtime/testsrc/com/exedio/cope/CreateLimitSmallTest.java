@@ -70,7 +70,7 @@ public class CreateLimitSmallTest extends TestWithEnvironment
 	}
 
 	@CopeCreateLimit(5)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		static final IntegerField number = new IntegerField();
 
@@ -80,7 +80,7 @@ public class CreateLimitSmallTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem(
+	private AnItem(
 				final int number)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -121,7 +121,7 @@ public class CreateLimitSmallTest extends TestWithEnvironment
 	 * The persistent type information for anItem.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+	private static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.

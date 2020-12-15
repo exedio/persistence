@@ -96,13 +96,13 @@ public class DeleteChangeHookNullifyCascadeTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class Container extends Item
+	private static final class Container extends Item
 	{
 		static final ItemField<Part> defaultPart = ItemField.create(Part.class).nullify();
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Container()
+		private Container()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -130,7 +130,7 @@ public class DeleteChangeHookNullifyCascadeTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@com.exedio.cope.instrument.Generated
 		private Container(final com.exedio.cope.ActivationParameters ap){super(ap);}

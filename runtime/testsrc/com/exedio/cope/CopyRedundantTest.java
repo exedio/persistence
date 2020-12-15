@@ -38,7 +38,7 @@ public class CopyRedundantTest
 	}
 
 	@WrapperType(type=NONE, indent=2)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		static final ItemField<AnItem> targetMan = ItemField.create(AnItem.class);
 		static final ItemField<AnItem> targetOpt = ItemField.create(AnItem.class).optional();
@@ -72,7 +72,7 @@ public class CopyRedundantTest
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		AnItem(
+		private AnItem(
 					@javax.annotation.Nonnull final AnItem targetMan,
 					@javax.annotation.Nonnull final java.lang.String copyNone,
 					@javax.annotation.Nonnull final java.lang.String copyOpt)

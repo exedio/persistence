@@ -358,39 +358,39 @@ public class ServletUtilTest
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ModelOk extends Item
+	private static final class ModelOk extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ModelOk> TYPE = com.exedio.cope.TypesBound.newType(ModelOk.class);
+		private static final com.exedio.cope.Type<ModelOk> TYPE = com.exedio.cope.TypesBound.newType(ModelOk.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ModelOk(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ModelOk2 extends Item
+	private static final class ModelOk2 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ModelOk2> TYPE = com.exedio.cope.TypesBound.newType(ModelOk2.class);
+		private static final com.exedio.cope.Type<ModelOk2> TYPE = com.exedio.cope.TypesBound.newType(ModelOk2.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ModelOk2(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class ModelContext extends Item
+	private static final class ModelContext extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<ModelContext> TYPE = com.exedio.cope.TypesBound.newType(ModelContext.class);
+		private static final com.exedio.cope.Type<ModelContext> TYPE = com.exedio.cope.TypesBound.newType(ModelContext.class);
 
 		@com.exedio.cope.instrument.Generated
 		private ModelContext(final com.exedio.cope.ActivationParameters ap){super(ap);}

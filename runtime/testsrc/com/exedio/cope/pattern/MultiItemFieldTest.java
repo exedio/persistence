@@ -435,7 +435,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	static final class AnCascadeItem extends Item
+	private static final class AnCascadeItem extends Item
 	{
 		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(MultiItemFieldValuex.class).
 				canBe(MultiItemFieldComponentxA.class).
@@ -449,7 +449,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		AnCascadeItem(
+		private AnCascadeItem(
 					@javax.annotation.Nonnull final MultiItemFieldValuex field)
 				throws
 					com.exedio.cope.MandatoryViolationException
@@ -495,7 +495,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		 * The persistent type information for anCascadeItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
+		private static final com.exedio.cope.Type<AnCascadeItem> TYPE = com.exedio.cope.TypesBound.newType(AnCascadeItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

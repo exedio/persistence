@@ -94,7 +94,7 @@ public class TypesBoundAnnotationTest
 	@CopeName("AnItemAnn")
 	@TestAnnotation("AnItemAnnVal")
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AnItem extends Item
+	private static final class AnItem extends Item
 	{
 		@CopeName("intFieldAnn")
 		@TestAnnotation("intFieldAnnVal")

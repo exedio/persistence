@@ -118,7 +118,7 @@ public class TypeCompareTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class AnItem extends Item
+	private static class AnItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -128,7 +128,7 @@ public class TypeCompareTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AnotherItem extends Item
+	private static final class AnotherItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -138,7 +138,7 @@ public class TypeCompareTest
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class AnotherModelItem extends Item
+	private static final class AnotherModelItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

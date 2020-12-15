@@ -79,7 +79,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		static final BooleanField booleanField = new BooleanField().unique();
 		static final IntegerField integerField = new IntegerField().unique();
@@ -96,7 +96,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		MyItem(
+		private MyItem(
 					final boolean booleanField,
 					final int integerField,
 					final long longField,
@@ -325,7 +325,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		 * The persistent type information for myItem.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

@@ -139,7 +139,7 @@ public class LocalizationKeysPatternTest
 	private static final String TEST2 = LocalizationKeysPatternTest.class.getSimpleName() + '.';
 
 
-	static final class MyPatt extends Pattern implements Copyable
+	private static final class MyPatt extends Pattern implements Copyable
 	{
 		final IntegerField sourceFeature = new IntegerField();
 		private Type<SourceItem> sourceType;
@@ -166,7 +166,7 @@ public class LocalizationKeysPatternTest
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class SourceItem extends Item
+		private static final class SourceItem extends Item
 		{
 			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;
@@ -185,7 +185,7 @@ public class LocalizationKeysPatternTest
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static final class MyComp extends Composite
+	private static final class MyComp extends Composite
 	{
 		@WrapperIgnore
 		static final IntegerField compField = new IntegerField();
@@ -203,7 +203,7 @@ public class LocalizationKeysPatternTest
 	private static final CompositeType<MyComp> MyComp_TYPE = MyItem.itemComp.getValueType();
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static final class MyBlok extends Block
+	private static final class MyBlok extends Block
 	{
 		@WrapperIgnore
 		static final IntegerField blokField = new IntegerField();
@@ -219,14 +219,14 @@ public class LocalizationKeysPatternTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<MyBlok> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlok.class);
+		private static final com.exedio.cope.pattern.BlockType<MyBlok> TYPE = com.exedio.cope.pattern.BlockType.newType(MyBlok.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyBlok(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class MyItem extends Item
+	private static class MyItem extends Item
 	{
 		static final MyPatt itemPatt = new MyPatt();
 		@CopeName("itemPattActual")
@@ -248,7 +248,7 @@ public class LocalizationKeysPatternTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

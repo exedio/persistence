@@ -162,7 +162,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 
 
 	@WrapperType(constructor=PRIVATE, indent=2)
-	static final class Source extends Item
+	private static final class Source extends Item
 	{
 		@WrapperInitial
 		static final ItemField<Target> target = ItemField.create(Target.class).optional();
@@ -278,7 +278,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * The persistent type information for source.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
+		private static final com.exedio.cope.Type<Source> TYPE = com.exedio.cope.TypesBound.newType(Source.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.
@@ -289,7 +289,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	static final class Target extends Item
+	private static final class Target extends Item
 	{
 		static final StringField field = new StringField().toFinal().optional();
 
@@ -300,7 +300,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Target(
+		private Target(
 					@javax.annotation.Nullable final java.lang.String field)
 				throws
 					com.exedio.cope.StringLengthViolationException
@@ -334,7 +334,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 		 * The persistent type information for target.
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-		static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
+		private static final com.exedio.cope.Type<Target> TYPE = com.exedio.cope.TypesBound.newType(Target.class);
 
 		/**
 		 * Activation constructor. Used for internal purposes only.

@@ -43,7 +43,7 @@ public class PartOfSuperContainerTest
 	}
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
-	static class Super extends Item
+	private static class Super extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final ItemField<Container> container = ItemField.create(Container.class).toFinal();
@@ -55,21 +55,21 @@ public class PartOfSuperContainerTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class);
+		private static final com.exedio.cope.Type<Super> TYPE = com.exedio.cope.TypesBound.newType(Super.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Super(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static class Sub extends Super
+	private static class Sub extends Super
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		static final IntegerField order = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Sub(
+		private Sub(
 					@javax.annotation.Nonnull final com.exedio.cope.pattern.PartOfSuperContainerTest.Container container,
 					final int order)
 				throws
@@ -88,18 +88,18 @@ public class PartOfSuperContainerTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class);
+		private static final com.exedio.cope.Type<Sub> TYPE = com.exedio.cope.TypesBound.newType(Sub.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Sub(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static class Container extends Item
+	private static class Container extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Container()
+		private Container()
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
 			});
@@ -112,7 +112,7 @@ public class PartOfSuperContainerTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
+		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected Container(final com.exedio.cope.ActivationParameters ap){super(ap);}

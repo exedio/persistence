@@ -122,7 +122,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static class UniqueConstraintItem extends Item
+	private static class UniqueConstraintItem extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
 		private static final StringField a = new StringField();
@@ -173,7 +173,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<UniqueConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintItem.class);
+		private static final com.exedio.cope.Type<UniqueConstraintItem> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		protected UniqueConstraintItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

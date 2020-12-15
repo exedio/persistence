@@ -96,7 +96,7 @@ public class PatternComputedTest
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final class MyPattern extends Pattern
+	private static final class MyPattern extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -132,7 +132,7 @@ public class PatternComputedTest
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class VirgnType extends Item
+		private static final class VirgnType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;
@@ -143,7 +143,7 @@ public class PatternComputedTest
 
 		@Computed
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class CompuType extends Item
+		private static final class CompuType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;

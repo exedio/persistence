@@ -67,7 +67,7 @@ public class BlockErrorTest
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static class NonFinal extends Block
+	private static class NonFinal extends Block
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -95,7 +95,7 @@ public class BlockErrorTest
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
-	static final class NoConstructor extends Block
+	private static final class NoConstructor extends Block
 	{
 		@WrapInterim
 		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
@@ -120,7 +120,7 @@ public class BlockErrorTest
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class NoFields extends Block
+	private static final class NoFields extends Block
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -144,7 +144,7 @@ public class BlockErrorTest
 	}
 
 	@WrapperIgnore // instrumentor fails on null field
-	static final class NullField extends Block
+	private static final class NullField extends Block
 	{
 		private static final long serialVersionUID = 1l;
 		private NullField(final BlockActivationParameters ap) { super(ap); }
@@ -171,7 +171,7 @@ public class BlockErrorTest
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
-	static final class NotCopyableField extends Block
+	private static final class NotCopyableField extends Block
 	{
 		@SuppressWarnings("unused") // OK: test bad API usage
 		static final NotCopyable notCopyableField = new NotCopyable();
@@ -183,7 +183,7 @@ public class BlockErrorTest
 		private NotCopyableField(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
 	}
 
-	static final class NotCopyable extends Pattern
+	private static final class NotCopyable extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 	}
@@ -241,7 +241,7 @@ public class BlockErrorTest
 
 	@WrapperType(indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: both in instrumented and non-instrumented code
-	static final class AlreadyBound extends Block
+	private static final class AlreadyBound extends Block
 	{
 		@SuppressWarnings("unused") // OK: Block must not be empty
 		@WrapperIgnore
@@ -251,7 +251,7 @@ public class BlockErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.pattern.BlockType<AlreadyBound> TYPE = com.exedio.cope.pattern.BlockType.newType(AlreadyBound.class);
+		private static final com.exedio.cope.pattern.BlockType<AlreadyBound> TYPE = com.exedio.cope.pattern.BlockType.newType(AlreadyBound.class);
 
 		@com.exedio.cope.instrument.Generated
 		private AlreadyBound(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}

@@ -81,7 +81,7 @@ public class CopeExternalPatternTest
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final class MyPattern extends Pattern
+	private static final class MyPattern extends Pattern
 	{
 		private static final long serialVersionUID = 1l;
 
@@ -98,7 +98,7 @@ public class CopeExternalPatternTest
 		}
 
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class AbsentType extends Item
+		private static final class AbsentType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;
@@ -109,7 +109,7 @@ public class CopeExternalPatternTest
 
 		@CopeExternal
 		@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=3, comments=false)
-		static final class PresentType extends Item
+		private static final class PresentType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
 			private static final long serialVersionUID = 1l;

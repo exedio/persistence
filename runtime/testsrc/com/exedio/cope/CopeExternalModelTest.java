@@ -59,7 +59,7 @@ public class CopeExternalModelTest
 
 
 	@WrapperType(indent=2, comments=false, type=NONE, genericConstructor=NONE, constructor=NONE)
-	static class InvalidCachedItem extends NoCacheItem
+	private static class InvalidCachedItem extends NoCacheItem
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -70,7 +70,7 @@ public class CopeExternalModelTest
 
 	@WrapperType(indent=2, comments=false, type=NONE, genericConstructor=NONE, constructor=NONE)
 	@CopeExternal
-	static class InvalidUncachedItem extends CachedItem
+	private static class InvalidUncachedItem extends CachedItem
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

@@ -76,7 +76,7 @@ public class JavaViewGenericsFunctionTest
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // OK: just tested for identity
-	static final class MyItem extends Item
+	private static final class MyItem extends Item
 	{
 		static final JavaView list = JavaView.createList(Double.class, MyItem::getList);
 		static final ArrayList<Double> listResult = new ArrayList<>();
@@ -104,7 +104,7 @@ public class JavaViewGenericsFunctionTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
-		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
 
 		@com.exedio.cope.instrument.Generated
 		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}

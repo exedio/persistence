@@ -107,7 +107,7 @@ final class TypeFutureInPatternsFeature extends Pattern
 
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	public static final class TypeItem extends Item
+	static final class TypeItem extends Item
 	{
 		public TypeFutureInPatternsFeature getPattern()
 		{

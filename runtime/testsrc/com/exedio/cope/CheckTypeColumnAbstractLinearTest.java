@@ -105,7 +105,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	}
 
 
-	abstract static class Type0A extends Item
+	private abstract static class Type0A extends Item
 	{
 
 	/**
@@ -113,7 +113,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Type0A()
+	private Type0A()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -132,7 +132,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type0A.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type0A> TYPE = com.exedio.cope.TypesBound.newType(Type0A.class);
+	private static final com.exedio.cope.Type<Type0A> TYPE = com.exedio.cope.TypesBound.newType(Type0A.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -143,7 +143,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 }
 
 
-	static final class Type01C extends Type0A
+	private static final class Type01C extends Type0A
 	{
 		static final IntegerField intField = new IntegerField();
 
@@ -153,7 +153,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Type01C(
+	private Type01C(
 				final int intField)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -194,7 +194,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type01C.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type01C> TYPE = com.exedio.cope.TypesBound.newType(Type01C.class);
+	private static final com.exedio.cope.Type<Type01C> TYPE = com.exedio.cope.TypesBound.newType(Type01C.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -205,7 +205,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 }
 
 
-	abstract static class Type02A extends Type0A
+	private abstract static class Type02A extends Type0A
 	{
 
 	/**
@@ -213,7 +213,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Type02A()
+	private Type02A()
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
 		});
@@ -232,7 +232,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type02A.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type02A> TYPE = com.exedio.cope.TypesBound.newType(Type02A.class);
+	private static final com.exedio.cope.Type<Type02A> TYPE = com.exedio.cope.TypesBound.newType(Type02A.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -243,7 +243,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 }
 
 
-	static final class Type021C extends Type02A
+	private static final class Type021C extends Type02A
 	{
 		static final IntegerField intField = new IntegerField();
 
@@ -253,7 +253,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	Type021C(
+	private Type021C(
 				final int intField)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
@@ -294,7 +294,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for type021C.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<Type021C> TYPE = com.exedio.cope.TypesBound.newType(Type021C.class);
+	private static final com.exedio.cope.Type<Type021C> TYPE = com.exedio.cope.TypesBound.newType(Type021C.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
@@ -305,7 +305,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 }
 
 
-	static final class TypeRef extends Item
+	private static final class TypeRef extends Item
 	{
 		static final ItemField<Type0A  > ref0A   = ItemField.create(Type0A  .class);
 		static final ItemField<Type01C > ref01C  = ItemField.create(Type01C .class).optional();
@@ -319,7 +319,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	TypeRef(
+	private TypeRef(
 				@javax.annotation.Nonnull final Type0A ref0A)
 			throws
 				com.exedio.cope.MandatoryViolationException
@@ -428,7 +428,7 @@ public class CheckTypeColumnAbstractLinearTest extends TestWithEnvironment
 	 * The persistent type information for typeRef.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<TypeRef> TYPE = com.exedio.cope.TypesBound.newType(TypeRef.class);
+	private static final com.exedio.cope.Type<TypeRef> TYPE = com.exedio.cope.TypesBound.newType(TypeRef.class);
 
 	/**
 	 * Activation constructor. Used for internal purposes only.
