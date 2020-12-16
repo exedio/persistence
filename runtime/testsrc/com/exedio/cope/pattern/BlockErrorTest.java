@@ -20,7 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.BlockType.newType;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.BooleanField;
@@ -35,35 +35,21 @@ import org.junit.jupiter.api.Test;
 
 public class BlockErrorTest
 {
-	@Test void testNull()
+	@Test void newTypeNull()
 	{
-		try
-		{
-			newType(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("javaClass", e.getMessage());
-		}
+		assertFails(
+				() -> newType(null),
+				NullPointerException.class,
+				"javaClass");
 	}
 
 
-	@Test void testNonFinal()
+	@Test void newTypeNonFinal()
 	{
-		try
-		{
-			newType(NonFinal.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"BlockField requires a final class: " +
-					NonFinal.class.getName(), e.getMessage(),
-					e.getMessage()
-			);
-		}
+		assertFails(
+				() -> newType(NonFinal.class),
+				IllegalArgumentException.class,
+				"BlockField requires a final class: " + NonFinal.class.getName());
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -77,21 +63,14 @@ public class BlockErrorTest
 	}
 
 
-	@Test void testNoConstructor()
+	@Test void newTypeNoConstructor()
 	{
-		try
-		{
-			newType(NoConstructor.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					NoConstructor.class.getName() +
-					" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")", e.getMessage(),
-					e.getMessage());
-			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
-		}
+		final Exception e = assertFails(
+				() -> newType(NoConstructor.class),
+				IllegalArgumentException.class,
+				NoConstructor.class.getName() +
+				" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")");
+		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
@@ -106,17 +85,12 @@ public class BlockErrorTest
 	}
 
 
-	@Test void testNoFields()
+	@Test void newTypeNoFields()
 	{
-		try
-		{
-			newType(NoFields.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("block has no templates: " + NoFields.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> newType(NoFields.class),
+				IllegalArgumentException.class,
+				"block has no templates: " + NoFields.class.getName());
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -130,17 +104,12 @@ public class BlockErrorTest
 	}
 
 
-	@Test void testNullField()
+	@Test void newTypeNullField()
 	{
-		try
-		{
-			newType(NullField.class);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(NullField.class.getName() + "#nullField", e.getMessage());
-		}
+		assertFails(
+				() -> newType(NullField.class),
+				NullPointerException.class,
+				NullField.class.getName() + "#nullField");
 	}
 
 	@WrapperIgnore // instrumentor fails on null field
@@ -153,21 +122,14 @@ public class BlockErrorTest
 	}
 
 
-	@Test void testNotCopyable()
+	@Test void newTypeNotCopyable()
 	{
-		try
-		{
-			newType(NotCopyableField.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					NotCopyableField.class.getName() +
-					"#notCopyableField must be an instance of " + Copyable.class +
-					", but was com.exedio.cope.pattern.BlockErrorTest$NotCopyable",
-					e.getMessage());
-		}
+		assertFails(
+				() -> newType(NotCopyableField.class),
+				IllegalArgumentException.class,
+				NotCopyableField.class.getName() +
+				"#notCopyableField must be an instance of " + Copyable.class +
+				", but was com.exedio.cope.pattern.BlockErrorTest$NotCopyable");
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -189,54 +151,35 @@ public class BlockErrorTest
 	}
 
 
-	@Test void testBlockItself()
+	@Test void newTypeBlockItself()
 	{
-		try
-		{
-			newType(Block.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"BlockField requires a subclass of " + Block.class.getName() +
-					" but not Block itself",
-					e.getMessage());
-		}
+		assertFails(
+				() -> newType(Block.class),
+				IllegalArgumentException.class,
+				"BlockField requires a subclass of " + Block.class.getName() +
+				" but not Block itself");
 	}
 
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
-	@Test void testNoBlock()
+	@Test void newTypeNoBlock()
 	{
-		try
-		{
-			newType((Class)BlockErrorTest.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"BlockField requires a subclass of " + Block.class.getName() + ": " +
-					BlockErrorTest.class.getName(),
-					e.getMessage());
-		}
+		assertFails(
+				() -> newType((Class)BlockErrorTest.class),
+				IllegalArgumentException.class,
+				"BlockField requires a subclass of " + Block.class.getName() + ": " +
+				BlockErrorTest.class.getName());
 	}
 
 
-	@Test void testAlreadyBound()
+	@Test void newTypeAlreadyBound()
 	{
 		final BlockType<AlreadyBound> TYPE = AlreadyBound.TYPE;
 		assertEquals(AlreadyBound.class.getName(), TYPE.toString());
-		try
-		{
-			newType(AlreadyBound.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("class is already bound to a type: " + AlreadyBound.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> newType(AlreadyBound.class),
+				IllegalArgumentException.class,
+				"class is already bound to a type: " + AlreadyBound.class.getName());
 	}
 
 	@WrapperType(indent=2, comments=false)

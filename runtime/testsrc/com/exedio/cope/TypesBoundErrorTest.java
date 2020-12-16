@@ -20,7 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.TypesBound.newType;
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -28,47 +28,33 @@ import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TypesBoundErrorTest
 {
 	@Test void classNull()
 	{
-		try
-		{
-			newType(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("javaClass", e.getMessage());
-		}
+		assertFails(
+				() -> newType(null),
+				NullPointerException.class,
+				"javaClass");
 	}
 
 
 	@Test void classItem()
 	{
-		try
-		{
-			newType(Item.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("Cannot make a type for " + Item.class + " itself, but only for subclasses.", e.getMessage());
-		}
+		assertFails(
+				() -> newType(Item.class),
+				IllegalArgumentException.class,
+				"Cannot make a type for " + Item.class + " itself, but only for subclasses.");
 	}
 
 
 	@Test void classNoItem()
 	{
-		try
-		{
-			newType(castItemClass(NoItem.class));
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(NoItem.class + " is not a subclass of Item", e.getMessage());
-		}
+		assertFails(
+				() -> newType(castItemClass(NoItem.class)),
+				IllegalArgumentException.class,
+				NoItem.class + " is not a subclass of Item");
 	}
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: test bad API usage
 	private static Class<Item> castItemClass(final Class c)
@@ -83,19 +69,12 @@ public class TypesBoundErrorTest
 
 	@Test void noActivationConstructor()
 	{
-		try
-		{
-			newType(NoActivationConstructor.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					NoActivationConstructor.class.getName() +
-					" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")", e.getMessage(),
-					e.getMessage());
-			assertEquals(NoSuchMethodException.class, e.getCause().getClass());
-		}
+		final Exception e = assertFails(
+				() -> newType(NoActivationConstructor.class),
+				IllegalArgumentException.class,
+				NoActivationConstructor.class.getName() +
+				" does not have an activation constructor NoActivationConstructor(" + ActivationParameters.class.getName() + ")");
+		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class NoActivationConstructor extends Item
@@ -108,24 +87,14 @@ public class TypesBoundErrorTest
 	@Test void wrongActivationConstructor()
 	{
 		final Type<WrongActivationConstructor> wrongActivationConstructor = newType(WrongActivationConstructor.class);
-		try
-		{
-			new Model(wrongActivationConstructor);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("WrongActivationConstructor/" + WrongActivationConstructor.class.getName(), e.getMessage());
-		}
-		try
-		{
-			newType(WrongActivationConstructor.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("class is already bound to a type: " + WrongActivationConstructor.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> new Model(wrongActivationConstructor),
+				IllegalArgumentException.class,
+				"WrongActivationConstructor/" + WrongActivationConstructor.class.getName());
+		assertFails(
+				() -> newType(WrongActivationConstructor.class),
+				IllegalArgumentException.class,
+				"class is already bound to a type: " + WrongActivationConstructor.class.getName());
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class WrongActivationConstructor extends Item
@@ -142,15 +111,10 @@ public class TypesBoundErrorTest
 
 	@Test void featureNull()
 	{
-		try
-		{
-			newType(NullFeature.class);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(NullFeature.class.getName() + "#nullFeature", e.getMessage());
-		}
+		assertFails(
+				() -> newType(NullFeature.class),
+				NullPointerException.class,
+				NullFeature.class.getName() + "#nullFeature");
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class NullFeature extends Item
@@ -165,15 +129,10 @@ public class TypesBoundErrorTest
 
 	@Test void featureDuplicate()
 	{
-		try
-		{
-			newType(DuplicateFeature.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(DuplicateFeature.class.getName() + "#duplicate is same as #origin", e.getMessage());
-		}
+		assertFails(
+				() -> newType(DuplicateFeature.class),
+				IllegalArgumentException.class,
+				DuplicateFeature.class.getName() + "#duplicate is same as #origin");
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static class DuplicateFeature extends Item
@@ -189,36 +148,19 @@ public class TypesBoundErrorTest
 
 	@Test void nonResolvingItemField()
 	{
-		try
-		{
-			NonResolvingItemField.itemField.getValueType();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
-		}
+		assertFails(
+				NonResolvingItemField.itemField::getValueType,
+				IllegalArgumentException.class,
+				"there is no type for class " + NullFeature.class.getName());
 		final Type<NonResolvingItemField> nonResolvingItemField = newType(NonResolvingItemField.class);
-		try
-		{
-			NonResolvingItemField.itemField.getValueType();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"item field " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model",
-					e.getMessage());
-		}
-		try
-		{
-			new Model(nonResolvingItemField);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("there is no type for class " + NullFeature.class.getName(), e.getMessage());
-		}
+		assertFails(
+				NonResolvingItemField.itemField::getValueType,
+				IllegalStateException.class,
+				"item field " + NonResolvingItemField.itemField + " (" + NullFeature.class.getName() + ") does not belong to any model");
+		assertFails(() ->
+				new Model(nonResolvingItemField),
+				IllegalArgumentException.class,
+				"there is no type for class " + NullFeature.class.getName());
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class NonResolvingItemField extends Item
@@ -236,19 +178,12 @@ public class TypesBoundErrorTest
 
 	@Test void beforeNewNotStatic()
 	{
-		try
-		{
-			new Model(BeforeNewNotStatic.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"method beforeNewCopeItem(SetValue[]) " +
-					"in class " + BeforeNewNotStatic.class.getName() +
-					" must be static",
-					e.getMessage());
-		}
+		assertFails(
+				() -> new Model(BeforeNewNotStatic.TYPE),
+				IllegalArgumentException.class,
+				"method beforeNewCopeItem(SetValue[]) " +
+				"in class " + BeforeNewNotStatic.class.getName() +
+				" must be static");
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
@@ -274,19 +209,13 @@ public class TypesBoundErrorTest
 
 	@Test void beforeNewWrongReturn()
 	{
-		try
-		{
-			new Model(BeforeNewWrongReturn.TYPE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-					"method beforeNewCopeItem(SetValue[]) " +
-					"in class " + BeforeNewWrongReturn.class.getName() +
-					" must return SetValue[], " +
-					"but returns java.lang.String", e.getMessage());
-		}
+		assertFails(
+				() -> new Model(BeforeNewWrongReturn.TYPE),
+				IllegalArgumentException.class,
+				"method beforeNewCopeItem(SetValue[]) " +
+				"in class " + BeforeNewWrongReturn.class.getName() +
+				" must return SetValue[], " +
+				"but returns java.lang.String");
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
@@ -317,18 +246,10 @@ public class TypesBoundErrorTest
 		@SuppressWarnings("unused")
 		final Type<?> ignored = UniqueConstraintOnInheritedFeatureSuper.TYPE;
 
-		try
-		{
-			newType(UniqueConstraintOnInheritedFeatureSub.class);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals(
-				"UniqueConstraint UniqueConstraintOnInheritedFeatureSub.superAndSub cannot include field UniqueConstraintOnInheritedFeatureSuper.superField",
-				e.getMessage()
-			);
-		}
+		assertFails(
+				() -> newType(UniqueConstraintOnInheritedFeatureSub.class),
+				IllegalArgumentException.class,
+				"UniqueConstraint UniqueConstraintOnInheritedFeatureSub.superAndSub cannot include field UniqueConstraintOnInheritedFeatureSuper.superField");
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code

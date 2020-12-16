@@ -38,7 +38,7 @@ import org.junit.jupiter.api.Test;
 
 public class CompositeErrorTest
 {
-	@Test void testNull()
+	@Test void createNull()
 	{
 		assertFails(() ->
 			create(null),
@@ -46,7 +46,7 @@ public class CompositeErrorTest
 			"javaClass");
 	}
 
-	@Test void testNullGet()
+	@Test void getNull()
 	{
 		assertFails(() ->
 			get(null),
@@ -55,7 +55,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testNonFinal()
+	@Test void createNonFinal()
 	{
 		assertFails(() ->
 			create(NonFinal.class),
@@ -63,7 +63,7 @@ public class CompositeErrorTest
 			"CompositeField requires a final class: " + NonFinal.class.getName());
 	}
 
-	@Test void testNonFinalGet()
+	@Test void getNonFinal()
 	{
 		assertFails(() ->
 			get(NonFinal.class),
@@ -79,7 +79,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testNoConstructor()
+	@Test void createNoConstructor()
 	{
 		final Throwable e = assertFails(() ->
 			create(NoConstructor.class),
@@ -89,7 +89,7 @@ public class CompositeErrorTest
 		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
 	}
 
-	@Test void testNoConstructorGet()
+	@Test void getNoConstructor()
 	{
 		final Throwable e = assertFails(() ->
 			get(NoConstructor.class),
@@ -107,7 +107,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testNoFields()
+	@Test void createNoFields()
 	{
 		assertFails(() ->
 			create(NoFields.class),
@@ -115,7 +115,7 @@ public class CompositeErrorTest
 			"composite has no templates: " + NoFields.class.getName());
 	}
 
-	@Test void testNoFieldsGet()
+	@Test void getNoFields()
 	{
 		assertFails(() ->
 			get(NoFields.class),
@@ -134,7 +134,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testNullField()
+	@Test void createNullField()
 	{
 		assertFails(() ->
 			create(NullField.class),
@@ -142,7 +142,7 @@ public class CompositeErrorTest
 			NullField.class.getName() + "#nullField");
 	}
 
-	@Test void testNullFieldGet()
+	@Test void getNullField()
 	{
 		assertFails(() ->
 			get(NullField.class),
@@ -160,7 +160,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testNotFunctionField()
+	@Test void createNotFunctionField()
 	{
 		assertFails(() ->
 			create(NotFunctionField.class),
@@ -169,7 +169,7 @@ public class CompositeErrorTest
 			FunctionField.class + " or " + CheckConstraint.class);
 	}
 
-	@Test void testNotFunctionFieldGet()
+	@Test void getNotFunctionField()
 	{
 		assertFails(() ->
 			get(NotFunctionField.class),
@@ -192,7 +192,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testCompositeItself()
+	@Test void createCompositeItself()
 	{
 		assertFails(() ->
 			create(Composite.class),
@@ -201,7 +201,7 @@ public class CompositeErrorTest
 			" but not Composite itself");
 	}
 
-	@Test void testCompositeItselfGet()
+	@Test void getCompositeItself()
 	{
 		assertFails(() ->
 			get(Composite.class),
@@ -211,7 +211,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testFinalField()
+	@Test void createFinalField()
 	{
 		assertFails(() ->
 			create(FinalField.class),
@@ -219,7 +219,7 @@ public class CompositeErrorTest
 			"final fields not supported: " + FinalField.class.getName() + "#finalField");
 	}
 
-	@Test void testFinalFieldGet()
+	@Test void getFinalField()
 	{
 		assertFails(() ->
 			get(FinalField.class),
@@ -241,7 +241,7 @@ public class CompositeErrorTest
 	}
 
 
-	@Test void testNonConstantDefaultField()
+	@Test void createNonConstantDefaultField()
 	{
 		assertFails(() ->
 			create(NonConstantDefaultField.class),
@@ -250,7 +250,7 @@ public class CompositeErrorTest
 			NonConstantDefaultField.class.getName() + "#defaultNowField");
 	}
 
-	@Test void testNonConstantDefaultFieldGet()
+	@Test void getNonConstantDefaultField()
 	{
 		assertFails(() ->
 			get(NonConstantDefaultField.class),
@@ -274,7 +274,7 @@ public class CompositeErrorTest
 
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
-	@Test void testNoComposite()
+	@Test void createNoComposite()
 	{
 		assertFails(() ->
 			create((Class)CompositeErrorTest.class),
@@ -284,7 +284,7 @@ public class CompositeErrorTest
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
-	@Test void testNoCompositeGet()
+	@Test void getNoComposite()
 	{
 		assertFails(() ->
 			get((Class)CompositeErrorTest.class),

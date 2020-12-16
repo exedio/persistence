@@ -21,8 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
@@ -116,34 +116,19 @@ public class BlockFieldStandardModelTest
 		assertSerializedSame(zwei, 387);
 		assertSerializedSame(ABlock.TYPE, 295);
 
-		try
-		{
-			eins.of(AnItem.code);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("AnItem.code is not a template of AnItem.eins", e.getMessage());
-		}
-		try
-		{
-			eins.getTemplate(AnItem.code);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("AnItem.code is not a component of AnItem.eins", e.getMessage());
-		}
+		assertFails(
+				() -> eins.of(AnItem.code),
+				IllegalArgumentException.class,
+				"AnItem.code is not a template of AnItem.eins");
+		assertFails(
+				() -> eins.getTemplate(AnItem.code),
+				IllegalArgumentException.class,
+				"AnItem.code is not a component of AnItem.eins");
 		final StringField zweiString = zwei.of(aString);
-		try
-		{
-			eins.getTemplate(zweiString);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("AnItem.zwei-aString is not a component of AnItem.eins", e.getMessage());
-		}
+		assertFails(
+				() -> eins.getTemplate(zweiString),
+				IllegalArgumentException.class,
+				"AnItem.zwei-aString is not a component of AnItem.eins");
 	}
 
 	@WrapperType(indent=2)
