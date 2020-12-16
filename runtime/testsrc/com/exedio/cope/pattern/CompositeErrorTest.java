@@ -20,6 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.pattern.CompositeField.create;
+import static com.exedio.cope.pattern.CompositeType.forClass;
+import static com.exedio.cope.pattern.CompositeType.forClassUnchecked;
 import static com.exedio.cope.pattern.CompositeType.get;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -34,10 +36,116 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class CompositeErrorTest
 {
+	@Test void asNull()
+	{
+		assertFails(
+				() -> Normal_TYPE.as(null),
+				NullPointerException.class,
+				"javaClass");
+	}
+
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
+	private static final class Normal extends Composite
+	{
+		@SuppressWarnings("unused") // OK: must not be empty
+		@WrapperIgnore static final BooleanField field = new BooleanField();
+
+		@com.exedio.cope.instrument.Generated
+		private Normal(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
+	private static final CompositeType<?> Normal_TYPE = create(Normal.class).getValueType();
+
+
+	@Test void asOther()
+	{
+		assertFails(
+				() -> Normal_TYPE.as(Other.class),
+				ClassCastException.class,
+				"expected " + Other.class.getName() + ", " +
+				"but was " + Normal.class.getName());
+	}
+
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
+	private static final class Other extends Composite
+	{
+		@SuppressWarnings("unused") // OK: must not be empty
+		@WrapperIgnore static final BooleanField field = new BooleanField();
+
+		@com.exedio.cope.instrument.Generated
+		private Other(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
+
+	@Test void asTopClass()
+	{
+		assertFails(
+				() -> Normal_TYPE.as(Composite.class),
+				ClassCastException.class,
+				"expected " + Composite.class.getName() + ", " +
+				"but was " + Normal.class.getName());
+	}
+
+
+	@Test void forClassUncheckedNull()
+	{
+		assertFails(
+				() -> forClassUnchecked(null),
+				NullPointerException.class,
+				"javaClass");
+	}
+
+	@Test void forClassNull()
+	{
+		assertFails(
+				() -> forClass(null),
+				NullPointerException.class,
+				"javaClass");
+	}
+
+
+	@Test void forClassUncheckedNotExists()
+	{
+		assertFails(
+				() -> forClassUnchecked(NotExists.class),
+				IllegalArgumentException.class,
+				"there is no type for class " + NotExists.class.getName());
+	}
+
+	@Test void forClassNotExists()
+	{
+		assertFails(
+				() -> forClass(NotExists.class),
+				IllegalArgumentException.class,
+				"there is no type for class " + NotExists.class.getName());
+	}
+
+	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
+	private static final class NotExists extends Composite
+	{
+		@SuppressWarnings("unused") // OK: test bad API usage
+		@WrapperIgnore static final BooleanField field = new BooleanField();
+
+		@com.exedio.cope.instrument.Generated
+		private NotExists(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+	}
+
+
 	@Test void createNull()
 	{
 		assertFails(() ->
@@ -61,6 +169,7 @@ public class CompositeErrorTest
 			create(NonFinal.class),
 			IllegalArgumentException.class,
 			"CompositeField requires a final class: " + NonFinal.class.getName());
+		assertNotExists(NonFinal.class);
 	}
 
 	@Test void getNonFinal()
@@ -69,6 +178,7 @@ public class CompositeErrorTest
 			get(NonFinal.class),
 			IllegalArgumentException.class,
 			"CompositeField requires a final class: " + NonFinal.class.getName());
+		assertNotExists(NonFinal.class);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
@@ -87,6 +197,7 @@ public class CompositeErrorTest
 			NoConstructor.class.getName() + " does not have a constructor NoConstructor(" +
 			SetValue.class.getName() + "[])");
 		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+		assertNotExists(NoConstructor.class);
 	}
 
 	@Test void getNoConstructor()
@@ -97,6 +208,7 @@ public class CompositeErrorTest
 			NoConstructor.class.getName() + " does not have a constructor NoConstructor(" +
 			SetValue.class.getName() + "[])");
 		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+		assertNotExists(NoConstructor.class);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -113,6 +225,7 @@ public class CompositeErrorTest
 			create(NoFields.class),
 			IllegalArgumentException.class,
 			"composite has no templates: " + NoFields.class.getName());
+		assertNotExists(NoFields.class);
 	}
 
 	@Test void getNoFields()
@@ -121,6 +234,7 @@ public class CompositeErrorTest
 			get(NoFields.class),
 			IllegalArgumentException.class,
 			"composite has no templates: " + NoFields.class.getName());
+		assertNotExists(NoFields.class);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
@@ -140,6 +254,7 @@ public class CompositeErrorTest
 			create(NullField.class),
 			NullPointerException.class,
 			NullField.class.getName() + "#nullField");
+		assertNotExists(NullField.class);
 	}
 
 	@Test void getNullField()
@@ -148,6 +263,7 @@ public class CompositeErrorTest
 			get(NullField.class),
 			NullPointerException.class,
 			NullField.class.getName() + "#nullField");
+		assertNotExists(NullField.class);
 	}
 
 	@WrapperIgnore // instrumentor fails on null field
@@ -167,6 +283,7 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			NotFunctionField.class.getName() + "#notFunctionField must be an instance of " +
 			FunctionField.class + " or " + CheckConstraint.class);
+		assertNotExists(NotFunctionField.class);
 	}
 
 	@Test void getNotFunctionField()
@@ -176,6 +293,7 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			NotFunctionField.class.getName() + "#notFunctionField must be an instance of " +
 			FunctionField.class + " or " + CheckConstraint.class);
+		assertNotExists(NotFunctionField.class);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
@@ -199,6 +317,7 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			"CompositeField requires a subclass of " + Composite.class.getName() +
 			" but not Composite itself");
+		assertNotExists(Composite.class);
 	}
 
 	@Test void getCompositeItself()
@@ -208,6 +327,7 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			"CompositeField requires a subclass of " + Composite.class.getName() +
 			" but not Composite itself");
+		assertNotExists(Composite.class);
 	}
 
 
@@ -217,6 +337,7 @@ public class CompositeErrorTest
 			create(FinalField.class),
 			IllegalArgumentException.class,
 			"final fields not supported: " + FinalField.class.getName() + "#finalField");
+		assertNotExists(FinalField.class);
 	}
 
 	@Test void getFinalField()
@@ -225,6 +346,7 @@ public class CompositeErrorTest
 			get(FinalField.class),
 			IllegalArgumentException.class,
 			"final fields not supported: " + FinalField.class.getName() + "#finalField");
+		assertNotExists(FinalField.class);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
@@ -248,6 +370,7 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			"fields with non-constant defaults are not supported: " +
 			NonConstantDefaultField.class.getName() + "#defaultNowField");
+		assertNotExists(NonConstantDefaultField.class);
 	}
 
 	@Test void getNonConstantDefaultField()
@@ -257,6 +380,7 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			"fields with non-constant defaults are not supported: " +
 			NonConstantDefaultField.class.getName() + "#defaultNowField");
+		assertNotExists(NonConstantDefaultField.class);
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, indent=2, comments=false)
@@ -281,6 +405,7 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			"CompositeField requires a subclass of " + Composite.class.getName() + ": " +
 			CompositeErrorTest.class.getName());
+		assertNotExists((Class)CompositeErrorTest.class);
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
@@ -291,5 +416,15 @@ public class CompositeErrorTest
 			IllegalArgumentException.class,
 			"CompositeField requires a subclass of " + Composite.class.getName() + ": " +
 			CompositeErrorTest.class.getName());
+		assertNotExists((Class)CompositeErrorTest.class);
+	}
+
+
+	private static void assertNotExists(final Class<? extends Composite> javaClass)
+	{
+		assertFails(
+				() -> forClassUnchecked(javaClass),
+				IllegalArgumentException.class,
+				"there is no type for class " + javaClass.getName());
 	}
 }

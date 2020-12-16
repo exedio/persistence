@@ -49,6 +49,10 @@ public class BlockFieldStandardModelTest
 
 	@Test void testIt()
 	{
+		assertSame(ABlock.TYPE, ABlock.TYPE.as(ABlock.class));
+		assertSame(ABlock.TYPE, BlockType.forClass(ABlock.class));
+		assertSame(ABlock.TYPE, BlockType.forClassUnchecked(ABlock.class));
+
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				AnItem.TYPE.getThis(),
 				AnItem.code,

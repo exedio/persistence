@@ -19,9 +19,12 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.pattern.BlockType.forClass;
+import static com.exedio.cope.pattern.BlockType.forClassUnchecked;
 import static com.exedio.cope.pattern.BlockType.newType;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Copyable;
@@ -33,8 +36,119 @@ import com.exedio.cope.instrument.WrapperType;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class BlockErrorTest
 {
+	@Test void asNull()
+	{
+		assertFails(
+				() -> Normal.TYPE.as(null),
+				NullPointerException.class,
+				"javaClass");
+	}
+
+	@WrapperType(indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: both in instrumented and non-instrumented code
+	private static final class Normal extends Block
+	{
+		@SuppressWarnings("unused") // OK: must not be empty
+		@WrapperIgnore static final BooleanField field = new BooleanField();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.pattern.BlockType<Normal> TYPE = com.exedio.cope.pattern.BlockType.newType(Normal.class);
+
+		@com.exedio.cope.instrument.Generated
+		private Normal(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+	}
+
+
+	@Test void asOther()
+	{
+		assertFails(
+				() -> Normal.TYPE.as(Other.class),
+				ClassCastException.class,
+				"expected " + Other.class.getName() + ", " +
+				"but was " + Normal.class.getName());
+	}
+
+	@WrapperType(indent=2, comments=false)
+	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: both in instrumented and non-instrumented code
+	private static final class Other extends Block
+	{
+		@SuppressWarnings("unused") // OK: must not be empty
+		@WrapperIgnore static final BooleanField field = new BooleanField();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.pattern.BlockType<Other> TYPE = com.exedio.cope.pattern.BlockType.newType(Other.class);
+
+		@com.exedio.cope.instrument.Generated
+		private Other(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+	}
+
+
+	@Test void asTopClass()
+	{
+		assertFails(
+				() -> Normal.TYPE.as(Block.class),
+				ClassCastException.class,
+				"expected " + Block.class.getName() + ", " +
+				"but was " + Normal.class.getName());
+	}
+
+
+	@Test void forClassUncheckedNull()
+	{
+		assertFails(
+				() -> forClassUnchecked(null),
+				NullPointerException.class,
+				"javaClass");
+	}
+
+	@Test void forClassNull()
+	{
+		assertFails(
+				() -> forClass(null),
+				NullPointerException.class,
+				"javaClass");
+	}
+
+
+	@Test void forClassUncheckedNotExists()
+	{
+		assertFails(
+				() -> forClassUnchecked(NotExists.class),
+				IllegalArgumentException.class,
+				"there is no type for class " + NotExists.class.getName());
+	}
+
+	@Test void forClassNotExists()
+	{
+		assertFails(
+				() -> forClass(NotExists.class),
+				IllegalArgumentException.class,
+				"there is no type for class " + NotExists.class.getName());
+	}
+
+	@WrapperType(type=NONE, indent=2, comments=false)
+	private static final class NotExists extends Block
+	{
+		@SuppressWarnings("unused") // OK: test bad API usage
+		@WrapperIgnore static final BooleanField field = new BooleanField();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private NotExists(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+	}
+
+
 	@Test void newTypeNull()
 	{
 		assertFails(
@@ -50,6 +164,7 @@ public class BlockErrorTest
 				() -> newType(NonFinal.class),
 				IllegalArgumentException.class,
 				"BlockField requires a final class: " + NonFinal.class.getName());
+		assertNotExists(NonFinal.class);
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -71,13 +186,13 @@ public class BlockErrorTest
 				NoConstructor.class.getName() +
 				" does not have a constructor NoConstructor(" + BlockActivationParameters.class.getName() + ")");
 		assertEquals(NoSuchMethodException.class, e.getCause().getClass());
+		assertNotExists(NoConstructor.class);
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
 	private static final class NoConstructor extends Block
 	{
 		@WrapInterim
-		@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 		private NoConstructor() { super(null); }
 
 		@com.exedio.cope.instrument.Generated
@@ -91,6 +206,7 @@ public class BlockErrorTest
 				() -> newType(NoFields.class),
 				IllegalArgumentException.class,
 				"block has no templates: " + NoFields.class.getName());
+		assertNotExists(NoFields.class);
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -110,6 +226,7 @@ public class BlockErrorTest
 				() -> newType(NullField.class),
 				NullPointerException.class,
 				NullField.class.getName() + "#nullField");
+		assertNotExists(NullField.class);
 	}
 
 	@WrapperIgnore // instrumentor fails on null field
@@ -130,6 +247,7 @@ public class BlockErrorTest
 				NotCopyableField.class.getName() +
 				"#notCopyableField must be an instance of " + Copyable.class +
 				", but was com.exedio.cope.pattern.BlockErrorTest$NotCopyable");
+		assertNotExists(NotCopyableField.class);
 	}
 
 	@WrapperType(type=NONE, genericConstructor=NONE, indent=2, comments=false)
@@ -158,6 +276,7 @@ public class BlockErrorTest
 				IllegalArgumentException.class,
 				"BlockField requires a subclass of " + Block.class.getName() +
 				" but not Block itself");
+		assertNotExists(Block.class);
 	}
 
 
@@ -169,6 +288,7 @@ public class BlockErrorTest
 				IllegalArgumentException.class,
 				"BlockField requires a subclass of " + Block.class.getName() + ": " +
 				BlockErrorTest.class.getName());
+		assertNotExists((Class)BlockErrorTest.class);
 	}
 
 
@@ -176,10 +296,12 @@ public class BlockErrorTest
 	{
 		final BlockType<AlreadyBound> TYPE = AlreadyBound.TYPE;
 		assertEquals(AlreadyBound.class.getName(), TYPE.toString());
+		assertSame(AlreadyBound.TYPE, forClassUnchecked(AlreadyBound.class));
 		assertFails(
 				() -> newType(AlreadyBound.class),
 				IllegalArgumentException.class,
 				"class is already bound to a type: " + AlreadyBound.class.getName());
+		assertSame(AlreadyBound.TYPE, forClassUnchecked(AlreadyBound.class));
 	}
 
 	@WrapperType(indent=2, comments=false)
@@ -198,5 +320,14 @@ public class BlockErrorTest
 
 		@com.exedio.cope.instrument.Generated
 		private AlreadyBound(final com.exedio.cope.pattern.BlockActivationParameters ap){super(ap);}
+	}
+
+
+	private static void assertNotExists(final Class<? extends Block> javaClass)
+	{
+		assertFails(
+				() -> forClassUnchecked(javaClass),
+				IllegalArgumentException.class,
+				"there is no type for class " + javaClass.getName());
 	}
 }

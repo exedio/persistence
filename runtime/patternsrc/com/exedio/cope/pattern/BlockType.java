@@ -20,11 +20,13 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BlockCompositeHelper.assertFinalSubClass;
 import static com.exedio.cope.pattern.BlockCompositeHelper.getConstructor;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Copyable;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
+import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.LocalizationKeys;
@@ -80,6 +82,23 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	public Class<T> getJavaClass()
 	{
 		return javaClass;
+	}
+
+	/**
+	 * @see Type#as(Class)
+	 * @see Class#asSubclass(Class)
+	 */
+	public <X extends Block> BlockType<X> as(final Class<X> javaClass)
+	{
+		requireNonNull(javaClass, "javaClass");
+		if(javaClass!=this.javaClass)
+			throw new ClassCastException(
+					"expected " + javaClass.getName() + ", " +
+					"but was " + this.javaClass.getName());
+
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final BlockType<X> result = (BlockType<X>)this;
+		return result;
 	}
 
 	Map<String,Feature> getTemplateMap()
@@ -220,6 +239,28 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	// static registry
 
 	private static final HashMap<Class<?>, BlockType<?>> types = new HashMap<>();
+
+	/**
+	 * @throws IllegalArgumentException if there is no type for the given java class.
+	 * @see TypesBound#forClass(Class)
+	 */
+	public static <T extends Block> BlockType<T> forClass(final Class<T> javaClass)
+	{
+		return forClassUnchecked(javaClass).as(javaClass);
+	}
+
+	/**
+	 * @throws IllegalArgumentException if there is no type for the given java class.
+	 * @see TypesBound#forClassUnchecked(Class)
+	 */
+	public static BlockType<?> forClassUnchecked(final Class<? extends Block> javaClass)
+	{
+		requireNonNull(javaClass, "javaClass");
+		final BlockType<?> result = types.get(javaClass);
+		if(result==null)
+			throw new IllegalArgumentException("there is no type for " + javaClass);
+		return result;
+	}
 
 	public static <T extends Block> BlockType<T> newType(final Class<T> javaClass)
 	{

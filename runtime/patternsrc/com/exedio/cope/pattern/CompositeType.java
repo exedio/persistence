@@ -27,6 +27,7 @@ import com.exedio.cope.ConstraintViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.SetValue;
+import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.LocalizationKeys;
@@ -117,6 +118,23 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	public Class<T> getJavaClass()
 	{
 		return javaClass;
+	}
+
+	/**
+	 * @see Type#as(Class)
+	 * @see Class#asSubclass(Class)
+	 */
+	public <X extends Composite> CompositeType<X> as(final Class<X> javaClass)
+	{
+		requireNonNull(javaClass, "javaClass");
+		if(javaClass!=this.javaClass)
+			throw new ClassCastException(
+					"expected " + javaClass.getName() + ", " +
+					"but was " + this.javaClass.getName());
+
+		@SuppressWarnings("unchecked") // OK: is checked on runtime
+		final CompositeType<X> result = (CompositeType<X>)this;
+		return result;
 	}
 
 	Object[] values(final SetValue<?>[] setValues, final Object[] valuesBefore)
@@ -310,6 +328,28 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 	// static registry
 
 	private static final HashMap<Class<?>, CompositeType<?>> types = new HashMap<>();
+
+	/**
+	 * @throws IllegalArgumentException if there is no type for the given java class.
+	 * @see TypesBound#forClass(Class)
+	 */
+	public static <T extends Composite> CompositeType<T> forClass(final Class<T> javaClass)
+	{
+		return forClassUnchecked(javaClass).as(javaClass);
+	}
+
+	/**
+	 * @throws IllegalArgumentException if there is no type for the given java class.
+	 * @see TypesBound#forClassUnchecked(Class)
+	 */
+	public static CompositeType<?> forClassUnchecked(final Class<? extends Composite> javaClass)
+	{
+		requireNonNull(javaClass, "javaClass");
+		final CompositeType<?> result = types.get(javaClass);
+		if(result==null)
+			throw new IllegalArgumentException("there is no type for " + javaClass);
+		return result;
+	}
 
 	public static <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
 	{

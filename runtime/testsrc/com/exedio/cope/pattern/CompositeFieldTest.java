@@ -87,6 +87,11 @@ public class CompositeFieldTest extends TestWithEnvironment
 	@Test void testIt()
 	{
 		// test model
+		final CompositeType<CompositeValue> compositeType = eins.getValueType();
+		assertSame(compositeType, compositeType.as(CompositeValue.class));
+		assertSame(compositeType, CompositeType.forClass(CompositeValue.class));
+		assertSame(compositeType, CompositeType.forClassUnchecked(CompositeValue.class));
+
 		assertEqualsUnmodifiable(Arrays.asList(new Feature[]{
 				CompositeItem.TYPE.getThis(),
 				CompositeItem.code,
