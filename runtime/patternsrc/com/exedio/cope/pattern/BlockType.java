@@ -48,7 +48,6 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 	private final Constructor<T> constructor;
 	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<>();
 	final List<? extends Feature> templateList;
-	final int componentSize;
 
 	private BlockType(final Class<T> javaClass)
 	{
@@ -69,8 +68,12 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 			//noinspection ThisEscapedInObjectConstruction
 			feature.mount(this, fieldName, fieldID, SerializedReflectionField.make(feature, field), field);
 		}
+
+		if(templates.isEmpty())
+			throw new IllegalArgumentException(
+					"block has no templates: " + javaClass.getName());
+
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
-		this.componentSize = templates.size();
 	}
 
 	@Override
@@ -226,9 +229,6 @@ public final class BlockType<T extends Block> implements TemplatedType<T>
 
 		final BlockType<T> result = new BlockType<>(javaClass);
 		types.put(javaClass, result);
-
-		if(result.componentSize==0)
-			throw new IllegalArgumentException("block has no templates: " + javaClass.getName());
 
 		return result;
 	}

@@ -102,6 +102,11 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 				templatesFeature.put(fieldName, feature);
 			}
 		}
+
+		if(templates.isEmpty())
+			throw new IllegalArgumentException(
+					"composite has no templates: " + javaClass.getName());
+
 		this.templateList = Collections.unmodifiableList(new ArrayList<>(templates.values()));
 		this.componentSize = templates.size();
 		this.templatesFeature = templatesFeature;
@@ -319,9 +324,6 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 				result = new CompositeType<>(javaClass);
 				types.put(javaClass, result);
 			}
-
-			if(result.componentSize==0)
-				throw new IllegalArgumentException("composite has no templates: " + javaClass.getName());
 
 			return result;
 		}
