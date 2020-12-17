@@ -351,7 +351,21 @@ public final class CompositeType<T extends Composite> implements TemplatedType<T
 		return result;
 	}
 
+	/**
+	 * @deprecated
+	 * This method should not be used anymore.
+	 * You may use {@link #forClass(Class)} if suitable.
+	 * Note, that in contrast to this method {@link #forClass(Class)}
+	 * does not create a new {@code CompositeType} for the given {@code javaClass}
+	 * if none exists already.
+	 */
+	@Deprecated
 	public static <T extends Composite> CompositeType<T> get(final Class<T> javaClass)
+	{
+		return newTypeOrExisting(javaClass);
+	}
+
+	static <T extends Composite> CompositeType<T> newTypeOrExisting(final Class<T> javaClass)
 	{
 		assertFinalSubClass(CompositeField.class, Composite.class, javaClass);
 

@@ -51,7 +51,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 
 	protected Composite(final SetValue<?>... setValues)
 	{
-		type = CompositeType.get(getClass());
+		type = CompositeType.newTypeOrExisting(getClass());
 		values = type.values(setValues, null);
 	}
 

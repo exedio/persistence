@@ -78,7 +78,7 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 		this.optional = optional;
 		this.valueClass = valueClass;
 
-		this.valueType = CompositeType.get(valueClass);
+		this.valueType = CompositeType.newTypeOrExisting(valueClass);
 		this.componentSize = valueType.componentSize;
 
 		final LinkedHashMap<FunctionField<?>, FunctionField<?>> templateToComponent = new LinkedHashMap<>();

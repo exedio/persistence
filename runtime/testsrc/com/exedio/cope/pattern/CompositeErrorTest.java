@@ -153,6 +153,7 @@ public class CompositeErrorTest
 			"javaClass");
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getNull()
 	{
 		assertFails(() ->
@@ -171,6 +172,7 @@ public class CompositeErrorTest
 		assertNotExists(NonFinal.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getNonFinal()
 	{
 		assertFails(() ->
@@ -199,6 +201,7 @@ public class CompositeErrorTest
 		assertNotExists(NoConstructor.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getNoConstructor()
 	{
 		final Throwable e = assertFails(() ->
@@ -227,6 +230,7 @@ public class CompositeErrorTest
 		assertNotExists(NoFields.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getNoFields()
 	{
 		assertFails(() ->
@@ -256,6 +260,7 @@ public class CompositeErrorTest
 		assertNotExists(NullField.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getNullField()
 	{
 		assertFails(() ->
@@ -285,6 +290,7 @@ public class CompositeErrorTest
 		assertNotExists(NotFunctionField.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getNotFunctionField()
 	{
 		assertFails(() ->
@@ -319,6 +325,7 @@ public class CompositeErrorTest
 		assertNotExists(Composite.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getCompositeItself()
 	{
 		assertFails(() ->
@@ -339,6 +346,7 @@ public class CompositeErrorTest
 		assertNotExists(FinalField.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getFinalField()
 	{
 		assertFails(() ->
@@ -372,6 +380,7 @@ public class CompositeErrorTest
 		assertNotExists(NonConstantDefaultField.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@Test void getNonConstantDefaultField()
 	{
 		assertFails(() ->
@@ -407,6 +416,7 @@ public class CompositeErrorTest
 		assertNotExists((Class)CompositeErrorTest.class);
 	}
 
+	@Deprecated // OK: testing deprecated API
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
 	@Test void getNoComposite()
 	{

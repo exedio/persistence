@@ -369,5 +369,5 @@ public class CompositeMountTest
 	/**
 	 * Needed to instantiate {@link CompositeType}.
 	 */
-	static final CompositeType<MyComposite> type = CompositeType.get(MyComposite.class);
+	static final CompositeType<MyComposite> type = CompositeType.newTypeOrExisting(MyComposite.class);
 }
