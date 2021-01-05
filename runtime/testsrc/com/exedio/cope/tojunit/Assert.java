@@ -82,9 +82,7 @@ public final class Assert
 			final Feature expectedFeature,
 			final Item expectedItem)
 	{
-		final T result = assertThrows(expectedType, executable);
-		assertSame(expectedType, result.getClass());
-		assertEquals(expectedMessage, result.getMessage());
+		final T result = assertFails(executable, expectedType, expectedMessage);
 		assertSame(expectedFeature, result.getFeature());
 		assertSame(expectedItem, result.getItem());
 		return result;
