@@ -54,6 +54,7 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringField;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
@@ -581,6 +582,18 @@ public class ListFieldTest extends TestWithEnvironment
 				"mandatory violation on " + item + " for ListFieldItem.strings",
 				strings, item);
 		assertEquals(asList("hallo", "bello"), item.getStrings());
+	}
+
+	@Test void testOtherViolation()
+	{
+		final StringLengthViolationException e = assertFails(
+				() -> item.setStrings(asList("one1", "two", "three3")),
+				StringLengthViolationException.class,
+				"length violation, 'two' is too short for ListFieldItem-strings.element, " +
+				"must be at least 4 characters, but was 3.",
+				strings.getElement());
+		assertEquals("two", e.getValue());
+		assertEquals(asList("one1"), item.getStrings()); // TODO should be empty
 	}
 
 	@Test void testSetCopyNull()

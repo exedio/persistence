@@ -29,16 +29,19 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertFailsAnyItem;
 import static com.exedio.cope.tojunit.Assert.map;
 import static java.lang.Integer.valueOf;
+import static java.util.Collections.singletonMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
+import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MapFieldItem.Language;
 import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -222,6 +225,40 @@ public class MapFieldTest extends TestWithEnvironment
 				"mandatory violation on MapFieldItem-name-0 for MapFieldItem-name.value",
 				name.getValue());
 		assertEquals(map(PL, "namePL"), item.getNameMap());
+	}
+
+	@Test void testMapSetKeyOtherViolation()
+	{
+		final LinkedHashMap<String, String> map = new LinkedHashMap<>();
+		final Map<String, String> mapU = Collections.unmodifiableMap(map);
+		map.put("one1",  "value1");
+		map.put("two",   "value2");
+		map.put("three", "value3");
+		final StringLengthViolationException e = assertFails(
+				() -> item.setStringMap(mapU),
+				StringLengthViolationException.class,
+				"length violation, 'two' is too short for MapFieldItem-string.key, " +
+				"must be at least 4 characters, but was 3.",
+				MapFieldItem.string.getKey());
+		assertEquals("two", e.getValue());
+		assertEquals(singletonMap("one1", "value1"), item.getStringMap()); // TODO should be empty
+	}
+
+	@Test void testMapSetValueOtherViolation()
+	{
+		final LinkedHashMap<String, String> map = new LinkedHashMap<>();
+		final Map<String, String> mapU = Collections.unmodifiableMap(map);
+		map.put("key1", "one1");
+		map.put("key2", "two");
+		map.put("key3", "three");
+		final StringLengthViolationException e = assertFails(
+				() -> item.setStringMap(mapU),
+				StringLengthViolationException.class,
+				"length violation, 'two' is too short for MapFieldItem-string.value, " +
+				"must be at least 4 characters, but was 3.",
+				MapFieldItem.string.getValue());
+		assertEquals("two", e.getValue());
+		assertEquals(singletonMap("key1", "one1"), item.getStringMap()); // TODO should be empty
 	}
 
 	@Test void testGetAndCast()

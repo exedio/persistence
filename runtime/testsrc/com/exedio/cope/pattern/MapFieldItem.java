@@ -34,7 +34,7 @@ public final class MapFieldItem extends Item
 
 	static final MapField<Language, Integer> nameLength = MapField.create(EnumField.create(Language.class).toFinal(), new IntegerField());
 
-	static final MapField<String, String> string = MapField.create(new StringField().toFinal().lengthRange(4, 8), new StringField());
+	static final MapField<String, String> string = MapField.create(new StringField().toFinal().lengthRange(4, 8), new StringField().lengthRange(4, 8));
 
 	static final MapField<String, Integer> integer = MapField.create(new StringField().toFinal().lengthRange(4, 8), new IntegerField());
 
