@@ -247,6 +247,12 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	{
 		MandatoryViolationException.requireNonNull(map, this, item);
 
+		for(final Map.Entry<? extends K,? extends V> e : map.entrySet())
+		{
+			key.check(e.getKey());
+			value.check(e.getValue());
+		}
+
 		final Mount mount = mount();
 		final HashMap<K,V> done = new HashMap<>();
 

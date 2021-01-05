@@ -246,7 +246,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 				MandatoryViolationException.class,
 				"mandatory violation for SetOrderedFieldItem-strings.element",
 				strings.getElement());
-		item.assertStrings("one1"); // TODO should be empty
+		item.assertStrings();
 	}
 
 	@Test void testOtherViolation()
@@ -258,7 +258,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 				"must be at least 4 characters, but was 3.",
 				strings.getElement());
 		assertEquals("two", e.getValue());
-		item.assertStrings("one1"); // TODO should be empty
+		item.assertStrings();
 	}
 
 	@Test void testDuplicates()

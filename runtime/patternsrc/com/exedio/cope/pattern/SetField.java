@@ -359,6 +359,8 @@ public final class SetField<E> extends Pattern implements Copyable
 
 		final Mount mount = mount();
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
+		for(final E e : toCreateSet)
+			element.check(e);
 		final ArrayList<PatternItem> toDeleteList = new ArrayList<>();
 
 		for(final PatternItem tupel : mount.relationType.search(Cope.equalAndCast(mount.parent, item)))
@@ -410,6 +412,8 @@ public final class SetField<E> extends Pattern implements Copyable
 
 		int order = 0;
 		final LinkedHashSet<? extends E> toCreateSet = new LinkedHashSet<>(value);
+		for(final E e : toCreateSet)
+			element.check(e);
 		for(final E element : toCreateSet)
 			mount.relationType.newItem(
 					Cope.mapAndCast(mount.parent, item),

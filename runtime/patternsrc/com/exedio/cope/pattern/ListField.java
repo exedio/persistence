@@ -290,6 +290,8 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 	public void set(@Nonnull final Item item, @Nonnull final Collection<? extends E> value)
 	{
 		MandatoryViolationException.requireNonNull(value, this, item);
+		for(final E e : value)
+			element.check(e);
 
 		final Mount mount = mount();
 		final Iterator<PatternItem> actual =

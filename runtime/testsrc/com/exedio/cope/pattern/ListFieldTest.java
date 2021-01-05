@@ -35,7 +35,6 @@ import static com.exedio.cope.pattern.ListFieldItem.value;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static com.exedio.cope.tojunit.Assert.assertFailsAnyItem;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
@@ -468,10 +467,10 @@ public class ListFieldTest extends TestWithEnvironment
 		assertContains(item, getDistinctParentsOfDates(date2));
 		assertEquals(2, datesType.newQuery(null).search().size());
 
-		assertFailsAnyItem(
+		assertFails(
 				() -> item.setDates(asList(date1, null, date2)),
 				MandatoryViolationException.class,
-				"mandatory violation on ListFieldItem-dates-1 for ListFieldItem-dates.element",
+				"mandatory violation for ListFieldItem-dates.element",
 				dates.getElement());
 		assertEqualsUnmodifiable(list(date1, date2), item.getDates());
 		assertContains(item, getDistinctParentsOfDates(date1));
@@ -593,7 +592,7 @@ public class ListFieldTest extends TestWithEnvironment
 				"must be at least 4 characters, but was 3.",
 				strings.getElement());
 		assertEquals("two", e.getValue());
-		assertEquals(asList("one1"), item.getStrings()); // TODO should be empty
+		assertEquals(asList(), item.getStrings());
 	}
 
 	@Test void testSetCopyNull()

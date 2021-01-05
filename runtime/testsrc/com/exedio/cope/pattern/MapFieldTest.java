@@ -26,10 +26,9 @@ import static com.exedio.cope.pattern.MapFieldItem.name;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static com.exedio.cope.tojunit.Assert.assertFailsAnyItem;
 import static com.exedio.cope.tojunit.Assert.map;
 import static java.lang.Integer.valueOf;
-import static java.util.Collections.singletonMap;
+import static java.util.Collections.emptyMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Join;
@@ -219,10 +218,10 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 
 		map.put(PL, null);
-		assertFailsAnyItem(
+		assertFails(
 				() -> item.setNameMap(mapU),
 				MandatoryViolationException.class,
-				"mandatory violation on MapFieldItem-name-0 for MapFieldItem-name.value",
+				"mandatory violation for MapFieldItem-name.value",
 				name.getValue());
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
@@ -241,7 +240,7 @@ public class MapFieldTest extends TestWithEnvironment
 				"must be at least 4 characters, but was 3.",
 				MapFieldItem.string.getKey());
 		assertEquals("two", e.getValue());
-		assertEquals(singletonMap("one1", "value1"), item.getStringMap()); // TODO should be empty
+		assertEquals(emptyMap(), item.getStringMap());
 	}
 
 	@Test void testMapSetValueOtherViolation()
@@ -258,7 +257,7 @@ public class MapFieldTest extends TestWithEnvironment
 				"must be at least 4 characters, but was 3.",
 				MapFieldItem.string.getValue());
 		assertEquals("two", e.getValue());
-		assertEquals(singletonMap("key1", "one1"), item.getStringMap()); // TODO should be empty
+		assertEquals(emptyMap(), item.getStringMap());
 	}
 
 	@Test void testGetAndCast()
