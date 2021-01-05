@@ -249,12 +249,10 @@ public class MapFieldTest extends TestWithEnvironment
 	@Test void testGetAndCast()
 	{
 		item.setName(DE, "NAMEde");
-		Object o = DE;
-		assertEquals("NAMEde", name.getAndCast(item, o));
-		o = "DE";
+		assertEquals("NAMEde", name.getAndCast(item, DE));
 		try
 		{
-			name.getAndCast(item, o);
+			name.getAndCast(item, "DE");
 			fail();
 		}
 		catch (final ClassCastException e)
@@ -274,26 +272,20 @@ public class MapFieldTest extends TestWithEnvironment
 
 	@Test void testSetAndCast()
 	{
-		Object key = DE;
-		Object value = "NAMEde";
-		name.setAndCast(item, key, value);
+		name.setAndCast(item, DE, "NAMEde");
 		assertEquals("NAMEde", item.getName(DE));
-		key = "DE";
-		value = "nameDE";
 		try
 		{
-			name.setAndCast(item, key, value);
+			name.setAndCast(item, "DE", "nameDE");
 			fail();
 		}
 		catch (final ClassCastException e)
 		{
 			assertEquals("Cannot cast " + String.class.getName() + " to " + Language.class.getName(), e.getMessage());
 		}
-		key = DE;
-		value = 1;
 		try
 		{
-			name.setAndCast(item, key, value);
+			name.setAndCast(item, DE, 1);
 			fail();
 		}
 		catch (final ClassCastException e)
@@ -301,17 +293,16 @@ public class MapFieldTest extends TestWithEnvironment
 			assertEquals("Cannot cast " + Integer.class.getName() + " to " + String.class.getName(), e.getMessage());
 			assertEquals("NAMEde", item.getName(DE));
 		}
-		value = "nameDE";
 		try
 		{
-			name.setAndCast(item, null, value);
+			name.setAndCast(item, null, "nameDE");
 			fail();
 		}
 		catch (final NullPointerException e)
 		{
 			assertEquals("key", e.getMessage());
 		}
-		name.setAndCast(item, key, null);
+		name.setAndCast(item, DE, null);
 		assertEquals(null, item.getName(DE));
 	}
 }
