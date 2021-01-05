@@ -88,6 +88,19 @@ public final class Assert
 		return result;
 	}
 
+	@SuppressWarnings("UnusedReturnValue") // OK: for later use
+	public static <T extends ConstraintViolationException> T assertFailsAnyItem(
+			final Executable executable,
+			final Class<T> expectedType,
+			final String expectedMessage,
+			final Feature expectedFeature)
+	{
+		final T result = assertFails(executable, expectedType, expectedMessage);
+		assertSame(expectedFeature, result.getFeature());
+		assertNotNull(result.getItem());
+		return result;
+	}
+
 	public static void assertContainsList(final List<?> expected, final Collection<?> actual)
 	{
 		if(expected==null && actual==null)

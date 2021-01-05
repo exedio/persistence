@@ -28,7 +28,6 @@ import static com.exedio.cope.pattern.SetFieldModelTest.stringsType;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -45,6 +44,7 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 public class SetFieldTest extends TestWithEnvironment
 {
 	public SetFieldTest()
@@ -67,7 +67,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("select element from SetFieldItem-dates"   + " where parent='" + item + "' order by element", item.getDatesQuery  ().toString());
 	}
 
-	@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testSet()
 	{
 		item.assertStrings();
@@ -254,30 +254,23 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test void testMandatoryViolation()
 	{
-		try
-		{
-			item.setStrings(asList("one1", null, "three3"));
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(strings.getElement(), e.getFeature());
-		}
+		assertFails(
+				() -> item.setStrings(asList("one1", null, "three3")),
+				MandatoryViolationException.class,
+				"mandatory violation for SetFieldItem-strings.element",
+				strings.getElement());
 		item.assertStrings("one1"); // TODO should be empty
 	}
 
 	@Test void testOtherViolation()
 	{
-		try
-		{
-			item.setStrings(asList("one1", "two", "three3"));
-			fail();
-		}
-		catch(final StringLengthViolationException e)
-		{
-			assertEquals(strings.getElement(), e.getFeature());
-			assertEquals("two", e.getValue());
-		}
+		final StringLengthViolationException e = assertFails(
+				() -> item.setStrings(asList("one1", "two", "three3")),
+				StringLengthViolationException.class,
+				"length violation, 'two' is too short for SetFieldItem-strings.element, " +
+				"must be at least 4 characters, but was 3.",
+				strings.getElement());
+		assertEquals("two", e.getValue());
 		item.assertStrings("one1"); // TODO should be empty
 	}
 
@@ -308,7 +301,7 @@ public class SetFieldTest extends TestWithEnvironment
 		item.assertStrings("1one", "2two", "3three", "4four");
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testMultipleItems()
 	{
 		final String rot = "1hellrot";
@@ -361,21 +354,16 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals(0, q.total());
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testListSetNull()
 	{
 		item.setStrings(asList("1hallo", "2bello"));
 
-		try
-		{
-			item.setStrings(null);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(strings, e.getFeature());
-			assertEquals(item, e.getItem());
-		}
+		assertFails(
+				() -> item.setStrings(null),
+				MandatoryViolationException.class,
+				"mandatory violation on " + item + " for SetFieldItem.strings",
+				strings, item);
 		item.assertStrings("1hallo", "2bello");
 	}
 }

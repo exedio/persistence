@@ -25,8 +25,8 @@ import static com.exedio.cope.pattern.SetOrderedFieldModelTest.MODEL;
 import static com.exedio.cope.pattern.SetOrderedFieldModelTest.stringsElement;
 import static com.exedio.cope.pattern.SetOrderedFieldModelTest.stringsType;
 import static com.exedio.cope.tojunit.Assert.assertContains;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -241,30 +241,23 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 
 	@Test void testMandatoryViolation()
 	{
-		try
-		{
-			item.setStrings(asList("one1", null, "three3"));
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(strings.getElement(), e.getFeature());
-		}
+		assertFails(
+				() -> item.setStrings(asList("one1", null, "three3")),
+				MandatoryViolationException.class,
+				"mandatory violation for SetOrderedFieldItem-strings.element",
+				strings.getElement());
 		item.assertStrings("one1"); // TODO should be empty
 	}
 
 	@Test void testOtherViolation()
 	{
-		try
-		{
-			item.setStrings(asList("one1", "two", "three3"));
-			fail();
-		}
-		catch(final StringLengthViolationException e)
-		{
-			assertEquals(strings.getElement(), e.getFeature());
-			assertEquals("two", e.getValue());
-		}
+		final StringLengthViolationException e = assertFails(
+				() -> item.setStrings(asList("one1", "two", "three3")),
+				StringLengthViolationException.class,
+				"length violation, 'two' is too short for SetOrderedFieldItem-strings.element, " +
+				"must be at least 4 characters, but was 3.",
+				strings.getElement());
+		assertEquals("two", e.getValue());
 		item.assertStrings("one1"); // TODO should be empty
 	}
 

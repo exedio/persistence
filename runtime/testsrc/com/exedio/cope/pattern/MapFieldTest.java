@@ -25,9 +25,10 @@ import static com.exedio.cope.pattern.MapFieldItem.TYPE;
 import static com.exedio.cope.pattern.MapFieldItem.name;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.Assert.assertFailsAnyItem;
 import static com.exedio.cope.tojunit.Assert.map;
 import static java.lang.Integer.valueOf;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Join;
@@ -45,6 +46,7 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings({
 		"MapReplaceableByEnumMap",
 		"AssertEqualsBetweenInconvertibleTypes"}) // bug in inspection
+@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 public class MapFieldTest extends TestWithEnvironment
 {
 	public MapFieldTest()
@@ -134,24 +136,14 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(map(EN, "nameEN"), item.getNameMap());
 		assertEqualsUnmodifiable(map(DE, 6), item.getNameLengthMap());
 
-		try
-		{
-			item.getName(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			item.setName(null, "hallo");
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
+		assertFails(
+				() -> item.getName(null),
+				NullPointerException.class,
+				"key");
+		assertFails(
+				() -> item.setName(null, "hallo"),
+				NullPointerException.class,
+				"key");
 	}
 
 	@Test void testMapSet()
@@ -182,7 +174,6 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(), item.getNameMap());
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test void testMapSetNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
@@ -191,16 +182,11 @@ public class MapFieldTest extends TestWithEnvironment
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 
-		try
-		{
-			item.setNameMap(null);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(name, e.getFeature());
-			assertEquals(item, e.getItem());
-		}
+		assertFails(
+				() -> item.setNameMap(null),
+				MandatoryViolationException.class,
+				"mandatory violation on MapFieldItem-0 for MapFieldItem.name",
+				name, item);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
@@ -213,15 +199,11 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 
 		map.put(null, "nameNull");
-		try
-		{
-			item.setNameMap(mapU);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(name.getKey(), e.getFeature());
-		}
+		assertFails(
+				() -> item.setNameMap(mapU),
+				MandatoryViolationException.class,
+				"mandatory violation for MapFieldItem-name.key",
+				name.getKey());
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
@@ -234,15 +216,11 @@ public class MapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 
 		map.put(PL, null);
-		try
-		{
-			item.setNameMap(mapU);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(name.getValue(), e.getFeature());
-		}
+		assertFailsAnyItem(
+				() -> item.setNameMap(mapU),
+				MandatoryViolationException.class,
+				"mandatory violation on MapFieldItem-name-0 for MapFieldItem-name.value",
+				name.getValue());
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
@@ -250,58 +228,33 @@ public class MapFieldTest extends TestWithEnvironment
 	{
 		item.setName(DE, "NAMEde");
 		assertEquals("NAMEde", name.getAndCast(item, DE));
-		try
-		{
-			name.getAndCast(item, "DE");
-			fail();
-		}
-		catch (final ClassCastException e)
-		{
-			assertEquals("Cannot cast " + String.class.getName() + " to " + Language.class.getName(), e.getMessage());
-		}
-		try
-		{
-			name.getAndCast(item, null);
-			fail();
-		}
-		catch (final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
+		assertFails(
+				() -> name.getAndCast(item, "DE"),
+				ClassCastException.class,
+				"Cannot cast " + String.class.getName() + " to " + Language.class.getName());
+		assertFails(
+				() -> name.getAndCast(item, null),
+				NullPointerException.class,
+				"key");
 	}
 
 	@Test void testSetAndCast()
 	{
 		name.setAndCast(item, DE, "NAMEde");
 		assertEquals("NAMEde", item.getName(DE));
-		try
-		{
-			name.setAndCast(item, "DE", "nameDE");
-			fail();
-		}
-		catch (final ClassCastException e)
-		{
-			assertEquals("Cannot cast " + String.class.getName() + " to " + Language.class.getName(), e.getMessage());
-		}
-		try
-		{
-			name.setAndCast(item, DE, 1);
-			fail();
-		}
-		catch (final ClassCastException e)
-		{
-			assertEquals("Cannot cast " + Integer.class.getName() + " to " + String.class.getName(), e.getMessage());
-			assertEquals("NAMEde", item.getName(DE));
-		}
-		try
-		{
-			name.setAndCast(item, null, "nameDE");
-			fail();
-		}
-		catch (final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
+		assertFails(
+				() -> name.setAndCast(item, "DE", "nameDE"),
+				ClassCastException.class,
+				"Cannot cast " + String.class.getName() + " to " + Language.class.getName());
+		assertFails(
+				() -> name.setAndCast(item, DE, 1),
+				ClassCastException.class,
+				"Cannot cast " + Integer.class.getName() + " to " + String.class.getName());
+		assertEquals("NAMEde", item.getName(DE));
+		assertFails(
+				() -> name.setAndCast(item, null, "nameDE"),
+				NullPointerException.class,
+				"key");
 		name.setAndCast(item, DE, null);
 		assertEquals(null, item.getName(DE));
 	}

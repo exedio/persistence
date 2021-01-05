@@ -35,11 +35,11 @@ import static com.exedio.cope.pattern.ListFieldItem.value;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.Assert.assertFailsAnyItem;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
 import static java.util.Collections.unmodifiableList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -65,6 +65,7 @@ import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 public class ListFieldTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
@@ -274,33 +275,18 @@ public class ListFieldTest extends TestWithEnvironment
 		assertSerializedSame(items  , 381);
 		assertSerializedSame(itemsSameValue, 390);
 
-		try
-		{
-			ListField.create(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("element", e.getMessage());
-		}
-		try
-		{
-			ListField.create(new StringField().toFinal());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must not be final", e.getMessage());
-		}
-		try
-		{
-			ListField.create(new StringField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must not be unique", e.getMessage());
-		}
+		assertFails(
+				() -> ListField.create(null),
+				NullPointerException.class,
+				"element");
+		assertFails(
+				() -> ListField.create(new StringField().toFinal()),
+				IllegalArgumentException.class,
+				"element must not be final");
+		assertFails(
+				() -> ListField.create(new StringField().unique()),
+				IllegalArgumentException.class,
+				"element must not be unique");
 
 		// test persistence
 		// test searching
@@ -316,24 +302,14 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(list(), q.search());
 
 		q.setCondition(dates.getElement().equal(new Date()));
-		try
-		{
-			q.search();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q, e.getMessage());
-		}
-		try
-		{
-			q.total();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("ListFieldItem-dates.element does not belong to a type of the query: " + q, e.getMessage());
-		}
+		assertFails(
+				q::search,
+				IllegalArgumentException.class,
+				"ListFieldItem-dates.element does not belong to a type of the query: " + q);
+		assertFails(
+				q::total,
+				IllegalArgumentException.class,
+				"ListFieldItem-dates.element does not belong to a type of the query: " + q);
 
 		// strings
 		assertEqualsUnmodifiable(list(), item.getStrings());
@@ -491,15 +467,11 @@ public class ListFieldTest extends TestWithEnvironment
 		assertContains(item, getDistinctParentsOfDates(date2));
 		assertEquals(2, datesType.newQuery(null).search().size());
 
-		try
-		{
-			item.setDates(asList(date1, null, date2));
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(dates.getElement(), e.getFeature());
-		}
+		assertFailsAnyItem(
+				() -> item.setDates(asList(date1, null, date2)),
+				MandatoryViolationException.class,
+				"mandatory violation on ListFieldItem-dates-1 for ListFieldItem-dates.element",
+				dates.getElement());
 		assertEqualsUnmodifiable(list(date1, date2), item.getDates());
 		assertContains(item, getDistinctParentsOfDates(date1));
 		assertContains(item, getDistinctParentsOfDates(date2));
@@ -517,60 +489,36 @@ public class ListFieldTest extends TestWithEnvironment
 		assertContains(item, getDistinctParentsOfItems(item));
 		assertEquals(1, itemsType.newQuery(null).search().size());
 
-		try
-		{
-			strings.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
-		try
-		{
-			dates.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
-		try
-		{
-			items.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
-		try
-		{
-			strings.getDistinctParents(Item.class, "hallo");
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
-		try
-		{
-			dates.getDistinctParents(Item.class, new Date());
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
-		try
-		{
-			items.getDistinctParents(Item.class, item);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + item.getClass().getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> strings.getParent(Item.class),
+				ClassCastException.class,
+				"parentClass requires " + item.getClass().getName() + ", " +
+				"but was " + Item.class.getName());
+		assertFails(
+				() -> dates.getParent(Item.class),
+				ClassCastException.class,
+				"parentClass requires " + item.getClass().getName() + ", " +
+				"but was " + Item.class.getName());
+		assertFails(
+				() -> items.getParent(Item.class),
+				ClassCastException.class,
+				"parentClass requires " + item.getClass().getName() + ", " +
+				"but was " + Item.class.getName());
+		assertFails(
+				() -> strings.getDistinctParents(Item.class, "hallo"),
+				ClassCastException.class,
+				"parentClass requires " + item.getClass().getName() + ", " +
+				"but was " + Item.class.getName());
+		assertFails(
+				() -> dates.getDistinctParents(Item.class, new Date()),
+				ClassCastException.class,
+				"parentClass requires " + item.getClass().getName() + ", " +
+				"but was " + Item.class.getName());
+		assertFails(
+				() -> items.getDistinctParents(Item.class, item),
+				ClassCastException.class,
+				"parentClass requires " + item.getClass().getName() + ", " +
+				"but was " + Item.class.getName());
 	}
 
 	@Test void testSetAndCast()
@@ -622,21 +570,16 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(asList("one1", "two2"), item.getStrings());
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
+	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));
 
-		try
-		{
-			item.setStrings(null);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(strings, e.getFeature());
-			assertEquals(item, e.getItem());
-		}
+		assertFails(
+				() -> item.setStrings(null),
+				MandatoryViolationException.class,
+				"mandatory violation on " + item + " for ListFieldItem.strings",
+				strings, item);
 		assertEquals(asList("hallo", "bello"), item.getStrings());
 	}
 
@@ -666,37 +609,22 @@ public class ListFieldTest extends TestWithEnvironment
 		{
 			final String invalidValue = invalid.getValue();
 			assertTrue(!Objects.equals(validValue, invalidValue));
-			try
-			{
-				valid1.setItemsSameValue(asList(invalid));
-				fail();
-			}
-			catch (final CopyViolationException e)
-			{
-				final String validString = validValue==null ? "null" : ("'"+validValue+"'");
-				final String invalidString = invalidValue==null ? "null" : ("'"+invalidValue+"'");
-				assertEquals(
+			assertFails(
+					() -> valid1.setItemsSameValue(asList(invalid)),
+					CopyViolationException.class,
 					"copy violation on ListFieldItem-itemsSameValue-0 for " + copyElement + ", " +
-						"expected " + invalidString + " from target " + invalid + ", but was " + validString,
-					e.getMessage()
-				);
-			}
+					"expected " + (invalidValue==null ? "null" : ("'" + invalidValue + "'")) + " " +
+					"from target " + invalid + ", " +
+					"but was " + (validValue==null ? "null" : ("'" + validValue + "'")));
 			assertEquals(singletonList(null), valid1.getItemsSameValue());
-			try
-			{
-				valid1.addToItemsSameValue(invalid);
-				fail();
-			}
-			catch (final CopyViolationException e)
-			{
-				final String validString = validValue==null ? "null" : ("'"+validValue+"'");
-				final String invalidString = invalidValue==null ? "null" : ("'"+invalidValue+"'");
-				assertEquals(
+			assertFails(
+					() -> valid1.addToItemsSameValue(invalid),
+					CopyViolationException.class,
 					"copy violation for " + copyParent + " and " + copyElement + ", " +
-						"expected " + validString + " from target " + valid1 + " but also " + invalidString + " from target " + invalid,
-					e.getMessage()
-				);
-			}
+					"expected " + (validValue==null ? "null" : ("'" + validValue + "'")) + " " +
+					"from target " + valid1 + " " +
+					"but also " + (invalidValue==null ? "null" : ("'" + invalidValue + "'")) + " " +
+					"from target " + invalid);
 			assertEquals(singletonList(null), valid1.getItemsSameValue());
 		}
 	}
