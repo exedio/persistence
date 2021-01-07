@@ -436,6 +436,7 @@ public final class Hash extends Pattern implements HashInterface
 		return storage.bind(join).isNotNull();
 	}
 
+	@Deprecated
 	@Override
 	public String newRandomPassword(final SecureRandom random)
 	{
@@ -451,7 +452,11 @@ public final class Hash extends Pattern implements HashInterface
 		/**
 		 * Creates a plain text variant to redeem an existing password (password forgotten).
 		 * The result MUST be valid according to {@link #validate(String, Item, Hash)}.
+		 * @deprecated
+		 * This method is needed to support the recently deprecated {@link PasswordRecovery#redeem(Item, long)} only.
+		 * Therefore it is deprecated as well.
 		 */
+		@Deprecated
 		protected abstract String newRandomPlainText(SecureRandom secureRandom);
 	}
 
@@ -465,6 +470,7 @@ public final class Hash extends Pattern implements HashInterface
 				throw new NullPointerException();
 		}
 
+		@Deprecated
 		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
 		{
 			return Long.toString(NonNegativeRandom.nextLong(secureRandom), 36);

@@ -132,6 +132,7 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 		targetHash.blind(actualPlainText);
 	}
 
+	@Deprecated
 	@Override
 	public String newRandomPassword(final SecureRandom random)
 	{

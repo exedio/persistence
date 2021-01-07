@@ -68,6 +68,7 @@ public final class DigitPinValidator extends Hash.PlainTextValidator
 		}
 	}
 
+	@Deprecated
 	@Override public String newRandomPlainText(final SecureRandom secureRandom)
 	{
 		final char[] result = new char[pinLen];

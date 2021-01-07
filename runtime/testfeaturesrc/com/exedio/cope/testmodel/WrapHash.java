@@ -82,6 +82,7 @@ public final class WrapHash
 		{
 			throw new IllegalStateException("validate");
 		}
+		@Deprecated
 		@Override protected String newRandomPlainText(final SecureRandom secureRandom)
 		{
 			throw new IllegalStateException("newRandomPlainText");

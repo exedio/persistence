@@ -34,5 +34,11 @@ public interface HashInterface extends Settable<String>
 
 	void blind(String actualPlainText);
 
+	/**
+	 * @deprecated
+	 * This method is needed to support the recently deprecated {@link PasswordRecovery#redeem(Item, long)} only.
+	 * Therefore it is deprecated as well.
+	 */
+	@Deprecated
 	String newRandomPassword(SecureRandom random);
 }

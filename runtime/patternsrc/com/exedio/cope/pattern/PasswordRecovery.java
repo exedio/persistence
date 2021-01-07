@@ -57,6 +57,7 @@ public final class PasswordRecovery extends Pattern
 
 	private static final long NOT_A_SECRET = 0l;
 
+	@Deprecated
 	private final HashInterface password;
 
 	ItemField<?> parent = null;
@@ -108,6 +109,12 @@ public final class PasswordRecovery extends Pattern
 		FeatureMeter.onMount(this, issueCounter, issueReuseCounter, redeemTimer, redeemFailCounter, setPasswordCounter);
 	}
 
+	/**
+	 * @deprecated
+	 * This method is needed to support the recently deprecated {@link PasswordRecovery#redeem(Item, long)} only.
+	 * Therefore it is deprecated as well.
+	 */
+	@Deprecated
 	public HashInterface getPassword()
 	{
 		return password;
@@ -214,7 +221,13 @@ public final class PasswordRecovery extends Pattern
 	/**
 	 * @param secret a secret for password recovery
 	 * @return a new password, if the secret was valid, otherwise null
+	 * @deprecated
+	 * This method has been deprecated because it is needed for single-step token redemption.
+	 * In that single step, both the token is redeemed and the password is set to a random value.
+	 * Which is generally a bad idea, because mail filters following links contained in the mail may set the new password.
+	 * Implement a two-step redemption using {@link #getValidToken(Item, long)} instead.
 	 */
+	@Deprecated
 	@Wrap(order=30, docReturn="a new password, if the secret was valid, otherwise null")
 	@Nullable
 	public String redeem(
@@ -361,6 +374,10 @@ public final class PasswordRecovery extends Pattern
 				t.deleteCopeItem();
 		}
 
+		/**
+		 * @deprecated for the same reason that lead to the deprecation of {@link PasswordRecovery#redeem(Item, long)}.
+		 */
+		@Deprecated
 		public String redeemAndSetNewPassword()
 		{
 			final Item parent = getParent();

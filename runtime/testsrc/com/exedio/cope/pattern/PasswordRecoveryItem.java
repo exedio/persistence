@@ -133,6 +133,7 @@ public final class PasswordRecoveryItem extends Item
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="redeem")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@java.lang.Deprecated
 	@javax.annotation.Nullable
 	java.lang.String redeemPasswordRecovery(final long secret)
 	{

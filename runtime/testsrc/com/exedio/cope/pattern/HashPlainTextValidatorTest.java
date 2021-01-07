@@ -52,6 +52,7 @@ public class HashPlainTextValidatorTest
 				throw new RuntimeException();
 			}
 			@Override
+			@Deprecated
 			protected String newRandomPlainText(final SecureRandom secureRandom)
 			{
 				throw new RuntimeException();
