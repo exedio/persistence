@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.HashTest.newRandomPassword;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.TYPE;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.migratePassword;
 import static com.exedio.cope.pattern.NestedHashMigrationItem.password;
@@ -91,7 +92,7 @@ public class NestedHashMigrationTest extends TestWithEnvironment
 
 		assertEquals(false, password.isNull(null));
 		//noinspection SerializableInnerClassWithNonSerializableOuterClass
-		assertEquals("21i3v9", password.newRandomPassword(new SecureRandom(){
+		assertEquals("21i3v9", newRandomPassword(password, new SecureRandom(){
 			private static final long serialVersionUID = 1l;
 			@Override public long nextLong() { return 123456789l; }}));
 	}

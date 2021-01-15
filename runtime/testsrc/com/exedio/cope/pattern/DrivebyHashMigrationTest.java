@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.TYPE;
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.password;
+import static com.exedio.cope.pattern.HashTest.newRandomPassword;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -78,7 +79,7 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 
 		assertEquals(false, password.isNull(null));
 		//noinspection SerializableInnerClassWithNonSerializableOuterClass
-		assertEquals("21i3v9", password.newRandomPassword(new SecureRandom(){
+		assertEquals("21i3v9", newRandomPassword(password, new SecureRandom(){
 			private static final long serialVersionUID = 1l;
 			@Override public long nextLong() { return 123456789l; }}));
 	}

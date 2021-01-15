@@ -18,6 +18,7 @@
 
 package com.exedio.cope.misc;
 
+import static com.exedio.cope.pattern.HashTest.newRandomPlainText;
 import static java.util.Arrays.asList;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -130,7 +131,7 @@ public class DigitPinValidatorTest
 		final DigitPinValidator pinValidator = new DigitPinValidator(pinLen);
 		for (int i=0; i<5; i++)
 		{
-			final String newPin = pinValidator.newRandomPlainText(random);
+			final String newPin = newRandomPlainText(pinValidator, random);
 			assertTrue(Integer.parseInt(newPin)>=0);
 			assertEquals(pinLen, newPin.length());
 			actual.add(newPin);

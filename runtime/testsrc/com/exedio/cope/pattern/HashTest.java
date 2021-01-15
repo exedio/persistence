@@ -401,7 +401,7 @@ public class HashTest extends TestWithEnvironment
 
 		try
 		{
-			withCorruptValidator.newRandomPassword(new SecureRandom());
+			newRandomPassword(withCorruptValidator, new SecureRandom());
 		}
 		catch (final IllegalStateException e)
 		{
@@ -543,7 +543,7 @@ public class HashTest extends TestWithEnvironment
 	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")
 	@Test void testValidatorNewRandomPassword()
 	{
-		assertEquals("012", with3PinValidator.newRandomPassword(new SecureRandom() {
+		assertEquals("012", newRandomPassword(with3PinValidator, new SecureRandom() {
 			private static final long serialVersionUID = 1l;
 			int seq=0;  // negative tested too!
 
@@ -553,5 +553,23 @@ public class HashTest extends TestWithEnvironment
 				return (seq++)%n;
 			}
 		}));
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	public static final HashInterface getPassword(final PasswordRecovery recovery)
+	{
+		return recovery.getPassword();
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	public static final String newRandomPassword(final HashInterface hash, final SecureRandom random)
+	{
+		return hash.newRandomPassword(random);
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	public static final String newRandomPlainText(final Hash.PlainTextValidator validator, final SecureRandom random)
+	{
+		return validator.newRandomPlainText(random);
 	}
 }

@@ -81,7 +81,7 @@ public class PasswordRecoveryModelTest
 		assertEquals(null, passwordRecovery.getSecret().getPattern());
 		assertEquals(null, passwordRecovery.getExpires().getPattern());
 
-		assertSame(password, passwordRecovery.getPassword());
+		assertSame(password, HashTest.getPassword(passwordRecovery));
 
 		assertFalse(password                       .isAnnotationPresent(Computed.class));
 		assertFalse(passwordRecovery               .isAnnotationPresent(Computed.class));

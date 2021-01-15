@@ -70,6 +70,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertNoUpdateCounterColumn(passwordRecovery.getTokenType());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testGetValidTokenAndRedeemWithNewPassword()
 	{
 		final Config config = new Config(ofMinutes(1), ofSeconds(10));
@@ -184,6 +185,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		setPasswordC.assertCount(0);
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testRedeem()
 	{
 		final Config config = new Config(ofMinutes(1), ofSeconds(10));
@@ -301,7 +303,9 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		assertEquals(list(token), passwordRecovery.getTokenType().search());
 
 		clock.add("2005-05-12 13:11:22.354"); // exactly after expiry
-		assertEquals(null, i.redeemPasswordRecovery(tokenSecret));
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
+		final String redeemed = i.redeemPasswordRecovery(tokenSecret);
+		assertEquals(null, redeemed);
 		clock.assertEmpty();
 		redeemFailC.assertCount(1);
 		assertTrue(i.checkPassword("oldpass"));
@@ -348,6 +352,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		clock.assertEmpty();
 		redeemC.assertCount(1);
 		clock.add("2005-05-12 13:12:22.353");  // exactly after expiry
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		final String newPassword = aToken.redeemAndSetNewPassword();
 		clock.assertEmpty();
 		setPasswordC.assertCount(1);
@@ -391,6 +396,7 @@ public class PasswordRecoveryTest extends TestWithEnvironment
 		}
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testRedeemWithNotASecret()
 	{
 		try
