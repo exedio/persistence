@@ -595,11 +595,22 @@ final class InterimProcessor extends JavacProcessor
 					part.continueLine(parameter.toString());
 				}
 				part.continueLine(")");
+				final boolean methodIsAbstract = mt.getModifiers().getFlags().contains(Modifier.ABSTRACT);
+				if (methodIsAbstract)
+					part.continueLine(";");
 				part.endLine();
 				if (isWrapInterimWithoutBody())
-					code.addLine("{ throw new java.lang.RuntimeException(\"@WrapInterim(methodBody=false)\"); }");
+				{
+					if (methodIsAbstract)
+						processingEnv.getMessager().printMessage(Diagnostic.Kind.ERROR, "abstract method must not be annotated with \"@WrapInterim(methodBody=false)\"", getElement(mt));
+					else
+						code.addLine("{ throw new java.lang.RuntimeException(\"@WrapInterim(methodBody=false)\"); }");
+				}
 				else
-					code.addLine(mt.getBody().toString());
+				{
+					if (!methodIsAbstract)
+						code.addLine(mt.getBody().toString());
+				}
 			}
 			else if (mt.getModifiers().getFlags().contains(Modifier.STATIC))
 			{
