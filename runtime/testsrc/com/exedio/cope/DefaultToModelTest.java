@@ -41,7 +41,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Day;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
@@ -49,7 +48,6 @@ public class DefaultToModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testIt()
 	{
 		assertEquals(list(

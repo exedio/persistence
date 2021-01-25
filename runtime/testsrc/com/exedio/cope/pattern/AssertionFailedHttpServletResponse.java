@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Collection;
@@ -27,7 +26,6 @@ import javax.servlet.ServletOutputStream;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 
-@SuppressFBWarnings("NM_CONFUSING")
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 class AssertionFailedHttpServletResponse implements HttpServletResponse
 {

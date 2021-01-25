@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.DispatcherPurgeProperties.Factory;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class DispatcherPurgePropertiesTest
@@ -82,7 +81,6 @@ public class DispatcherPurgePropertiesTest
 		assertEquals(ZERO, props.retainFinalFailure);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testNegativeSuccess()
 	{
 		final Factory factory = factory();
@@ -97,7 +95,6 @@ public class DispatcherPurgePropertiesTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testNegativeSuccessDuration()
 	{
 		final Factory factory = factory();
@@ -112,7 +109,6 @@ public class DispatcherPurgePropertiesTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testNegativeFailure()
 	{
 		final Factory factory = factory();
@@ -127,7 +123,6 @@ public class DispatcherPurgePropertiesTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testNegativeFailureDuration()
 	{
 		final Factory factory = factory();

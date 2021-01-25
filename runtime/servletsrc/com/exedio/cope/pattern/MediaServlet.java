@@ -29,7 +29,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ServletUtil;
 import com.exedio.cope.pattern.MediaPath.NotFound;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.time.Duration;
 import java.util.HashMap;
@@ -71,7 +70,6 @@ public class MediaServlet extends HttpServlet
 
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings({"SE_BAD_FIELD", "MSF_MUTABLE_SERVLET_FIELD", "MTIA_SUSPECT_SERVLET_INSTANCE_FIELD"})
 	private ConnectToken connectToken = null;
 	private final HashMap<String, MediaPath> pathes = new HashMap<>();
 	private final HashMap<String, MediaPath> pathesRedirectFrom = new HashMap<>();

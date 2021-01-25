@@ -38,7 +38,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldModelTest
@@ -131,7 +130,6 @@ public class EnumMapFieldModelTest
 	}
 
 	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"}) // OK: test bad API usage
 	@Test void testUnchecked()
 	{
 		try
@@ -178,7 +176,6 @@ public class EnumMapFieldModelTest
 		SUBCLASS
 		{
 			@SuppressWarnings("unused")
-			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
 			void zack()
 			{
 				// empty

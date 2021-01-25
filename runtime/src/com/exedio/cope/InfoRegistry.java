@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Metrics;
@@ -76,7 +75,6 @@ final class InfoRegistry
 		return Timer.builder(name);
 	}
 
-	@SuppressFBWarnings("FE_FLOATING_POINT_EQUALITY") // OK: tests backward conversion
 	static long count(final Counter counter)
 	{
 		final double d = counter.count();

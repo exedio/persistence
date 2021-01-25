@@ -35,7 +35,6 @@ import com.exedio.cope.Condition;
 import com.exedio.cope.DataField;
 import com.exedio.cope.DateField;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import org.junit.jupiter.api.BeforeEach;
@@ -55,7 +54,6 @@ public class MediaFixedTest extends TestWithEnvironment
 		item = new MediaItem("test media item");
 	}
 
-	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test void testIt() throws IOException
 	{
 		// test model

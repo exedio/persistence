@@ -31,10 +31,8 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PartOfModelTest
 {
 	static final Model MODEL = new Model(PartOfItem.TYPE, PartOfContainerItem.TYPE);

@@ -24,7 +24,6 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
@@ -205,7 +204,6 @@ public class CheckingSettableTest extends TestWithEnvironment
 			logs.clear();
 		}
 
-		@SuppressFBWarnings("SE_BAD_FIELD")
 		private final ArrayList<Log> logs = new ArrayList<>();
 
 
@@ -280,7 +278,6 @@ public class CheckingSettableTest extends TestWithEnvironment
 
 		@Override
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass") // OK: just for testing
-		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"}) // OK: just for testing
 		public boolean equals(final Object other)
 		{
 			final Log o = (Log)other;

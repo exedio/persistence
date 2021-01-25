@@ -39,7 +39,6 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class UniqueTest extends TestWithEnvironment
@@ -388,7 +387,6 @@ public class UniqueTest extends TestWithEnvironment
 		assertDelete(item);
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testItemWithSingleUniqueNotNull()
 	{
 		assertEquals(null, forUniqueNotNullString("uniqueString"));

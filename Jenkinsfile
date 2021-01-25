@@ -53,8 +53,7 @@ timestamps
 								' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
 								' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
 								' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
-								' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
-								' -Dfindbugs.output=xml'
+								' -Druntime.test.ClusterNetworkTest.port.C=' + port(2)
 					}
 				}
 				finally
@@ -69,7 +68,6 @@ timestamps
 						qualityGates: [[threshold: 1, type: 'TOTAL', unstable: true]],
 						tools: [
 							java(),
-							spotBugs(pattern: 'build/findbugs.xml', useRankAsPriority: true),
 						],
 				)
 				archiveArtifacts 'build/success/*'

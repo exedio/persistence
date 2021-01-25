@@ -21,7 +21,6 @@ package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.util.List;
@@ -47,7 +46,6 @@ final class Main
 		runJavac(params);
 	}
 
-	@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE") // OK: checks isDirectory before calling listFiles
 	private static boolean noFilesModifiedAfter(final Iterable<File> checkFiles, final File referenceFile, final boolean verbose)
 	{
 		if ( !referenceFile.exists() )

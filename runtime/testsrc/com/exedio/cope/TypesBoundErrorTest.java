@@ -25,10 +25,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class TypesBoundErrorTest
 {
 	@Test void classNull()
@@ -190,7 +188,6 @@ public class TypesBoundErrorTest
 	private static class BeforeNewNotStatic extends Item
 	{
 		@SuppressWarnings("MethodMayBeStatic")
-		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			throw new AssertionError();
@@ -221,7 +218,6 @@ public class TypesBoundErrorTest
 	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
 	private static class BeforeNewWrongReturn extends Item
 	{
-		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			throw new AssertionError();
@@ -238,7 +234,6 @@ public class TypesBoundErrorTest
 	}
 
 
-	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
 	@Test void uniqueConstraintOnInheritedFeature()
 	{
 		// initialize class, otherwise test fails if executed alone (without other tests in this test class):

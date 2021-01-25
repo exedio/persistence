@@ -32,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.SI;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -51,7 +50,6 @@ public class DumperTest extends TestWithEnvironment
 	private String dataL = null;
 
 	@SuppressWarnings({"AssignmentToStaticFieldFromInstanceMethod", "deprecation"})
-	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@BeforeEach final void setUp()
 	{
 		DumperItem.beforeNewCopeItemCount = 0;
@@ -108,7 +106,6 @@ public class DumperTest extends TestWithEnvironment
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testMandatory() throws IOException
 	{
 		try
@@ -126,7 +123,6 @@ public class DumperTest extends TestWithEnvironment
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testMandatoryData() throws IOException
 	{
 		try
@@ -144,7 +140,6 @@ public class DumperTest extends TestWithEnvironment
 		assertEquals(1, DumperItem.beforeNewCopeItemCount);
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testLength() throws IOException
 	{
 		try

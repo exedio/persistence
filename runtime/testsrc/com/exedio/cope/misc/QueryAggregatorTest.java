@@ -29,12 +29,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class QueryAggregatorTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);

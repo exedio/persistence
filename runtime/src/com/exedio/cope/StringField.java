@@ -22,7 +22,6 @@ import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.util.CharSet;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
@@ -43,7 +42,6 @@ public final class StringField extends FunctionField<String>
 
 	private final int minimumLength;
 	private final int maximumLength;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CharSet charSet;
 
 	private StringField(

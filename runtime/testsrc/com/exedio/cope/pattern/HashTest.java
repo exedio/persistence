@@ -46,7 +46,6 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Hash.InvalidPlainTextException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.util.Arrays;
 import org.junit.jupiter.api.BeforeEach;
@@ -351,7 +350,6 @@ public class HashTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testValidatorValidate()
 	{
 		// try null as validator

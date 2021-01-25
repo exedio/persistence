@@ -33,12 +33,10 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.Dispatcher.Config;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DispatcherNarrowTest extends TestWithEnvironment
 {
 	public DispatcherNarrowTest()

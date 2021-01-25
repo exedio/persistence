@@ -20,7 +20,6 @@ package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrap;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -136,7 +135,6 @@ public abstract class MediaImageioFilter extends MediaFilter
 		MediaUtil.send(outputContentType, body, response);
 	}
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	@Wrap(order=10, doc="Returns the body of {0}.", thrown=@Wrap.Thrown(IOException.class), nullability=NullableIfMediaPathOptional.class)
 	public final byte[] get(@Nonnull final Item item) throws IOException
 	{

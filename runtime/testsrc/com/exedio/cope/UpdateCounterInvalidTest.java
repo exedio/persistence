@@ -28,12 +28,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 public final class UpdateCounterInvalidTest extends TestWithEnvironment
 {
 	public UpdateCounterInvalidTest()

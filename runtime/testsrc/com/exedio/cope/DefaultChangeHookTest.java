@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class DefaultChangeHookTest
@@ -74,7 +73,6 @@ public class DefaultChangeHookTest
 	private static class BeforeNewNotStatic extends Item
 	{
 		@SuppressWarnings("MethodMayBeStatic")
-		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			throw new AssertionError();
@@ -114,7 +112,6 @@ public class DefaultChangeHookTest
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static class BeforeNewWrongReturn extends Item
 	{
-		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
 		{
 			throw new AssertionError();

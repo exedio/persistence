@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -66,7 +65,6 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 		assertIt(6l + MAX_VALUE);
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void assertIt(final long expected) throws SQLException
 	{
 		MODEL.commit();

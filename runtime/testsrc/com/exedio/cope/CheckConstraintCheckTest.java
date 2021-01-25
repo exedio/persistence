@@ -21,13 +21,11 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Collections.unmodifiableMap;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 public class CheckConstraintCheckTest
 {
 	@Test void testLess()

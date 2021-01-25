@@ -25,7 +25,6 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ListUtil;
 import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.util.CharSet;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
@@ -327,7 +326,6 @@ public abstract class Feature implements Serializable
 	/**
 	 * @see Model#getFeature(String)
 	 */
-	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public final String getID()
 	{
 		return mountType().id;

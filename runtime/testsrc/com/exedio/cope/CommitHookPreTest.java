@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.tojunit.TestSources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -194,7 +193,6 @@ public class CommitHookPreTest
 		assertEquals(0, model.currentTransaction().getPreCommitHookDuplicates());
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testNoTransaction()
 	{
 		try
@@ -252,7 +250,6 @@ public class CommitHookPreTest
 		}
 		@Override
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS","NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
 		public boolean equals(final Object o)
 		{
 			return identity.equals(((EqualHook)o).identity);

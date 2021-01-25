@@ -31,7 +31,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumMap;
 import org.junit.jupiter.api.Test;
 
@@ -65,7 +64,6 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 		assertEquals(true,  text.isInitial());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testSet()
 	{
 		final EnumMapFieldMandatoryItem item = new EnumMapFieldMandatoryItem(FULL);
@@ -129,7 +127,6 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testCreateNull()
 	{
 		try

@@ -36,7 +36,6 @@ import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.CharSet;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Table;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -175,7 +174,6 @@ public class StringCharSetTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING")
 	private static void setEmailBySql(final String value) throws SQLException
 	{
 		final String update = "UPDATE " + SI.tab(TYPE) + " SET " + SI.col(email) + " = ?";

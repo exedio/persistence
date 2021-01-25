@@ -21,7 +21,6 @@ package com.exedio.dsmf;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.dsmf.Dialect.ResultSetHandler;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import javax.annotation.Nonnull;
@@ -70,13 +69,11 @@ public abstract class Node
 		return dialect.quoteName(name);
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	final void querySQL(final String statement, final ResultSetHandler resultSetHandler)
 	{
 		dialect.querySQL(connectionProvider, statement, resultSetHandler);
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	final void executeSQL(final String statement, final StatementListener listener)
 	{
 		// NOTE:

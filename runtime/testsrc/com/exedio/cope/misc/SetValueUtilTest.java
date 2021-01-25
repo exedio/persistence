@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
 import com.exedio.cope.StringField;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -70,7 +69,6 @@ public class SetValueUtilTest
 		assertEquals(expectedValue,   getFirst       (setValues.toArray(a), settable));
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testGetFirstNullSetValues()
 	{
 		final StringField f = new StringField();
@@ -94,7 +92,6 @@ public class SetValueUtilTest
 		}
 	}
 
-	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE")
 	@Test void testGetFirstNullSettable()
 	{
 		// Needed because with just null I do get a compiler warning on JDK 1.8:

@@ -35,7 +35,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldTest extends TestWithEnvironment
@@ -115,7 +114,6 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getOptionalFieldB());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testCreateWithNullForMandatory()
 	{
 		try
@@ -129,7 +127,6 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testSetNullForMandatory()
 	{
 		final MultiItemFieldComponentxA expected = new MultiItemFieldComponentxA();

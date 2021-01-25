@@ -23,7 +23,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.Date;
@@ -36,7 +35,6 @@ public final class JavaView extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Variant variant;
 
 	private JavaView(final Variant variant)
@@ -96,7 +94,6 @@ public final class JavaView extends Pattern
 		final Class<?> valueType;
 		final java.lang.reflect.Type valueGenericType;
 
-		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Mount(final JavaView view)
 		{
 			this.view = view;

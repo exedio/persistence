@@ -26,7 +26,6 @@ import static org.junit.Assert.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
 import java.util.ArrayList;
@@ -41,7 +40,6 @@ public final class SchemaTypeStringField extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	final StringField sourceField;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Type<StringItem> sourceTypeIfMounted = null;
 
 	public SchemaTypeStringField(final int maximumLength)

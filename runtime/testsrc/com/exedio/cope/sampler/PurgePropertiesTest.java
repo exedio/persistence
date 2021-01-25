@@ -33,7 +33,6 @@ import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.util.TimeZoneStrict;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Collection;
@@ -49,7 +48,6 @@ public class PurgePropertiesTest extends ConnectedTest
 	private final AbsoluteMockClockStrategy clock = new AbsoluteMockClockStrategy();
 	private final ClockRule clockRule = new ClockRule();
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testPurge() throws ParseException
 	{
 		samplerModel.createSchema();
@@ -82,7 +80,6 @@ public class PurgePropertiesTest extends ConnectedTest
 				mc.getMessages());
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testPurgeMinimum() throws ParseException
 	{
 		samplerModel.createSchema();
@@ -115,7 +112,6 @@ public class PurgePropertiesTest extends ConnectedTest
 				mc.getMessages());
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testPurgeDisabled()
 	{
 		samplerModel.createSchema();
@@ -130,7 +126,6 @@ public class PurgePropertiesTest extends ConnectedTest
 		assertEquals("", mc.getMessages());
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testDefaults()
 	{
 		samplerModel.createSchema();

@@ -37,7 +37,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -68,7 +67,6 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 				item.getStringsQuery().toString());
 	}
 
-	@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION","NP_NULL_PARAM_DEREF_NONVIRTUAL"})
 	@Test void testSet()
 	{
 		item.assertStrings();
@@ -285,7 +283,6 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		item.assertStrings("4four", "3three", "1one", "2two");
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test void testMultipleItems()
 	{
 		final String rot = "1hellrot";

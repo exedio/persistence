@@ -28,10 +28,8 @@ import static com.exedio.cope.pattern.MoneyTest.Cy.usd;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 public class MoneyTest
 {
 	enum Cy implements Money.Currency

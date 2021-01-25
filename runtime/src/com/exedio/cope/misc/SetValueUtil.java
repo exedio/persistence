@@ -22,14 +22,12 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.SetValue;
 import com.exedio.cope.Settable;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 
 public final class SetValueUtil
 {
 	private static final SetValue<?>[] EMPTY_SET_VALUE_ARRAY = new SetValue<?>[0];
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public static SetValue<?>[] toArray(final List<SetValue<?>> list)
 	{
 		return

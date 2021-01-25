@@ -35,7 +35,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.Computed;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -56,14 +55,12 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 	private final Media raw;
 	private final String supportedContentType;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Charset charset;
 	private final String pasteStart;
 	private final String pasteStop;
 
 	final StringField pasteKey;
 	final Media pasteValue;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	public TextUrlFilter(

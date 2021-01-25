@@ -32,7 +32,6 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -133,7 +132,6 @@ public final class DataField extends Field<DataField.Value>
 	// second initialization phase ---------------------------------------------------
 
 	private Model model;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private DataFieldStore store;
 	private int bufferSizeDefault = -1;
 	private int bufferSizeLimit = -1;

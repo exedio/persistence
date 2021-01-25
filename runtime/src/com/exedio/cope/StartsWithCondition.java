@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Hex;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.function.Consumer;
 
@@ -37,7 +36,6 @@ public final class StartsWithCondition extends Condition
 	 * @deprecated Use {@link DataField#startsWithIfSupported(byte[])} instead.
 	 */
 	@Deprecated
-	@SuppressFBWarnings("EI_EXPOSE_REP2") // May expose internal representation by incorporating reference to mutable object
 	public StartsWithCondition(
 			final DataField field,
 			final byte[] value)

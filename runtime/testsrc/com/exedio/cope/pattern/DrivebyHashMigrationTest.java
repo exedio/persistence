@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
@@ -44,7 +43,6 @@ public class DrivebyHashMigrationTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	@SuppressFBWarnings({"NP_NONNULL_PARAM_VIOLATION", "NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 	@Test void testSetNull()
 	{
 		final DrivebyHashMigrationItem item = new DrivebyHashMigrationItem("111111", 1.1);

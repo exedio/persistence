@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.RevisionInfoRevise.Body;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashMap;
@@ -52,7 +51,6 @@ public class RevisionInfoTest
 		env.put("env3Key", "env3Value");
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testRevise()
 	{
 		final RevisionInfoRevise i =

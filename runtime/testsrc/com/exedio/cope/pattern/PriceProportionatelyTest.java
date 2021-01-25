@@ -26,14 +26,12 @@ import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.stream.Stream;
 import org.junit.jupiter.api.Test;
 
 /**
  * This test is equivalent to {@link MoneyAmountProportionatelyTest}.
  */
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PriceProportionatelyTest
 {
 	@Test void testEquals()

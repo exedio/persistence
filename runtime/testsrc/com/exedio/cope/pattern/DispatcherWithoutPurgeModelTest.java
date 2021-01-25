@@ -42,7 +42,6 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.AssertionErrorJobContext;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
@@ -57,7 +56,6 @@ public class DispatcherWithoutPurgeModelTest
 
 	private static final Type<?> runType = toTarget.getRunType();
 
-	@SuppressFBWarnings({"RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test void testModel()
 	{
 		assertEqualsUnmodifiable(list(

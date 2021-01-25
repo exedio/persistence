@@ -32,12 +32,10 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumSetFieldItem.Language;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.EnumSet;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class EnumSetFieldTest extends TestWithEnvironment
 {
 	public EnumSetFieldTest()
@@ -204,7 +202,6 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		assertEquals(EnumSet.of(DE, EN), item.getActiveLanguage());
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test void testSetSetNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));
@@ -301,7 +298,6 @@ public class EnumSetFieldTest extends TestWithEnvironment
 		SUBCLASS
 		{
 			@SuppressWarnings("unused")
-			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
 			void zack()
 			{
 				// empty

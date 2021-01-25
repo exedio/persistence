@@ -48,7 +48,6 @@ import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.Clock;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -72,7 +71,6 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 	private final boolean optional;
 	private final DataField body;
 	final boolean isBodySmall;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final ContentType<?> contentType;
 	private final DateField lastModified;
 	private final CheckConstraint unison;

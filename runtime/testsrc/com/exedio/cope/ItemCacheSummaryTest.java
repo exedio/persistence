@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 @Deprecated // OK: testing deprecated API
@@ -60,7 +59,6 @@ public class ItemCacheSummaryTest
 		assertEquals(324, ms.getStampsPurged());
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testNull()
 	{
 		try
@@ -74,7 +72,6 @@ public class ItemCacheSummaryTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testNullElement()
 	{
 		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 131, 141, 151);

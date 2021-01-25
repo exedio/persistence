@@ -35,7 +35,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
@@ -219,7 +218,6 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEquals(asList(), search(name.isNotEmpty()));
 	}
 
-	@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 	@Test void testMapSetNull()
 	{
 		try

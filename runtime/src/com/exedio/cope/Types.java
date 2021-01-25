@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.misc.ListUtil;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import java.util.ArrayList;
@@ -147,7 +146,6 @@ final class Types
 		assert this.concreteTypeCount==this.concreteTypes.size();
 	}
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	private static Type<?>[] unify(final TypeSet[] typeSets, final Type<?>[] typesWithoutSets)
 	{
 		if(typeSets==null && typesWithoutSets==null)

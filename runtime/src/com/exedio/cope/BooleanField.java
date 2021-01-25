@@ -21,7 +21,6 @@ package com.exedio.cope;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -113,7 +112,6 @@ public final class BooleanField extends FunctionField<Boolean>
 		return new IntegerColumn(table, name, optional, ALLOWED_VALUES);
 	}
 
-	@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 	@Override
 	Boolean get(final Row row)
 	{

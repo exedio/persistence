@@ -28,7 +28,6 @@ import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
@@ -155,7 +154,6 @@ final class DataFieldVaultStore extends DataFieldStore
 	}
 
 	@Override
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	byte[] load(final Transaction tx, final Item item)
 	{
 		final String hash = getHash(tx, item);

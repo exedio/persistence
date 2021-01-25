@@ -28,7 +28,6 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -120,7 +119,6 @@ public class QueryCacheTest extends TestWithEnvironment
 		model.setTestDatabaseListener(null);
 	}
 
-	@SuppressFBWarnings("ES_COMPARING_PARAMETER_STRING_WITH_EQ")
 	private static QueryCacheHistogram cqi(final String query, final int resultSize, final int hits)
 	{
 		final QueryCacheHistogram result = new QueryCacheHistogram(query, resultSize, hits);
@@ -152,7 +150,6 @@ public class QueryCacheTest extends TestWithEnvironment
 		}
 
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)
 		{

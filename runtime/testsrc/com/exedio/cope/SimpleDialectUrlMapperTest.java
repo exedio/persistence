@@ -22,13 +22,8 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({
-		"NP_NULL_PARAM_DEREF_NONVIRTUAL",
-		"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS",
-		"RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT"})
 public class SimpleDialectUrlMapperTest
 {
 	@Test void testNormal()

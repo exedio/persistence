@@ -31,11 +31,9 @@ import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.pattern.SetField;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("Convert2MethodRef")
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 public class ItemFieldValueTypeTest
 {
 	@Test void testModelTypes()

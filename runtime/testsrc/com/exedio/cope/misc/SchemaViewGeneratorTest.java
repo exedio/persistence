@@ -46,7 +46,6 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Node;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
@@ -68,7 +67,6 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 	private final ConnectionRule connection = new ConnectionRule(model);
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Test void testIt() throws SQLException
 	{
 		model.startTransaction(SchemaViewGeneratorTest.class.getName());

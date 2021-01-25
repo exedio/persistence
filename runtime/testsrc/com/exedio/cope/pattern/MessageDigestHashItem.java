@@ -23,7 +23,6 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.util.Hex;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.charset.StandardCharsets;
 
 public final class MessageDigestHashItem extends Item
@@ -51,7 +50,6 @@ public final class MessageDigestHashItem extends Item
 		set(passwordMandatory, password);
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private void set(final Hash hash, final String password)
 	{
 		@SuppressWarnings("deprecation")

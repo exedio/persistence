@@ -22,7 +22,6 @@ import static com.exedio.cope.ConnectProperties.getDefaultPropertyFile;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -60,7 +59,6 @@ public abstract class SchemaTest
 		}
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@BeforeEach final void setUpSchemaTest() throws SQLException, ReflectiveOperationException
 	{
 		final Properties config = new Properties();

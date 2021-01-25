@@ -40,7 +40,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.LinkedList;
@@ -119,7 +118,6 @@ public class DeleteTest extends TestWithEnvironment
 		assertAndResetBeforeDeleteCopeItemCalls("other", "item3", "item2", "itemb");
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testNullify()
 	{
 		assertSame(NULLIFY, selfNullify.getDeletePolicy());

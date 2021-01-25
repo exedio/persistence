@@ -23,13 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class ReserializeTest
 {
 	@SuppressWarnings("RedundantStringConstructorCall")
-	@SuppressFBWarnings({"DM_STRING_CTOR","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test void testIt()
 	{
 		final String[] original = {new String("hallo"), new String("hallo")};

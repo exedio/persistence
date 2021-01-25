@@ -28,7 +28,6 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -48,7 +47,6 @@ public class SchemaViewTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Test void testIt() throws SQLException
 	{
 		final Schema schema1 = MODEL.getVerifiedSchema();

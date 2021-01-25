@@ -35,10 +35,8 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class CompositeErrorTest
 {
 	@Test void asNull()

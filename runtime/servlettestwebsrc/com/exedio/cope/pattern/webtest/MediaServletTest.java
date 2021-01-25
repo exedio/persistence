@@ -31,7 +31,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.util.StrictFile;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
@@ -80,7 +79,6 @@ public class MediaServletTest
 
 	private String schemeAndHost;
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_BAD_PRACTICE")
 	@BeforeEach final void setUp()
 	{
 		schemeAndHost = "http://localhost:" + System.getProperty("tomcat.port.http");

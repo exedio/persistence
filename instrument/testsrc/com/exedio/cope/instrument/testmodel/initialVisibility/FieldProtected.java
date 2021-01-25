@@ -20,10 +20,8 @@ package com.exedio.cope.instrument.testmodel.initialVisibility;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.SettableFixed;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @SuppressWarnings("ProtectedMemberInFinalClass")
-@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 public final class FieldProtected extends Item
 {
 	protected static final SettableFixed field = new SettableFixed();

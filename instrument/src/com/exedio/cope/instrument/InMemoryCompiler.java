@@ -20,7 +20,6 @@ package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.OutputStreamWriter;
@@ -57,7 +56,6 @@ final class InMemoryCompiler
 	}
 
 	@SuppressWarnings("ClassLoaderInstantiation")
-	@SuppressFBWarnings("DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED")
 	ClassLoader compile(final JavaCompiler javaCompiler, final String classpath) throws CompileException
 	{
 		try
@@ -102,7 +100,6 @@ final class InMemoryCompiler
 	}
 
 	@SuppressWarnings("serial")
-	@SuppressFBWarnings("SE_BAD_FIELD") // doesn't get serialized
 	static class CompileException extends Exception
 	{
 		private final List<Diagnostic<? extends JavaFileObject>> diagnostics;
@@ -138,7 +135,6 @@ final class InMemoryCompiler
 			return content;
 		}
 
-		@SuppressFBWarnings("NP_NULL_ON_SOME_PATH_FROM_RETURN_VALUE")
 		void dump(final Path targetDirectory, final Charset charset) throws IOException
 		{
 			final Path absolute = targetDirectory.resolve(path);

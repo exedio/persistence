@@ -30,14 +30,12 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Long.valueOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class PlusLongOrderTest extends TestWithEnvironment
 {
 	public PlusLongOrderTest()

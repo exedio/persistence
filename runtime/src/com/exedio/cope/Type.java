@@ -33,7 +33,6 @@ import com.exedio.cope.ItemField.DeletePolicy;
 import com.exedio.cope.misc.LocalizationKeys;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.CharSet;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Tags;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
@@ -61,7 +60,6 @@ import java.util.TreeSet;
 public final class Type<T extends Item> implements SelectType<T>, Comparable<Type<?>>, AbstractType<T>
 {
 	private final Class<T> javaClass;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final AnnotatedElement annotationSource;
 	private final boolean bound;
 	private static final CharSet ID_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
@@ -72,7 +70,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	final boolean isAbstract;
 	final Type<? super T> supertype;
 	final Type<? super T> toptype;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final IdentityHashMap<Type<?>,Void> supertypes;
 
 	@SuppressWarnings("ThisEscapedInObjectConstruction")
@@ -82,31 +79,23 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	private final HashMap<String, Feature> featuresByNameDeclared;
 	private final HashMap<String, Feature> featuresByName;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<Field<?>> fields;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<UniqueConstraint> uniqueConstraints;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<CheckConstraint> checkConstraints;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureSubSet<CopyConstraint> copyConstraints;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Map<FunctionField<?>,List<CopyConstraint>> copyConstraintsByCopyField;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> activationConstructor;
 	final long createLimit;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final SequenceX primaryKeySequence;
 	private final boolean uniqueConstraintsProblem;
 
 	final boolean external;
 	final int expectedMaxRowSize;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<T> mountIfMounted = null;
 
 	/**
@@ -120,7 +109,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 */
 	int cacheIdTransiently = Integer.MIN_VALUE;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	Table table;
 
 	/**
@@ -520,7 +508,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return l;
 		}
 
-		@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 		int compareTo(final Mount<?> o)
 		{
 			if(model!=o.model)
@@ -1228,7 +1215,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	}
 
 	@Override
-	@SuppressFBWarnings("EQ_COMPARETO_USE_OBJECT_EQUALS") // Class defines compareTo(...) and uses Object.equals()
 	public int compareTo(final Type<?> o)
 	{
 		if(this==o)

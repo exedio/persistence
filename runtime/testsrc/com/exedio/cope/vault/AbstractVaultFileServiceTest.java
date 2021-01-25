@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.vaulttest.VaultServiceTest;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -35,7 +34,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
 
 @MainRule.Tag
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 {
 	@Override

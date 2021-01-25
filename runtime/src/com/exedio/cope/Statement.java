@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.misc.Arrays;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -441,7 +440,6 @@ final class Statement
 		}
 
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-		@SuppressFBWarnings({"BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS", "NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT"})
 		@Override
 		public boolean equals(final Object other)
 		{

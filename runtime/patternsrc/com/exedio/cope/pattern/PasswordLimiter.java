@@ -41,7 +41,6 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import java.util.Date;
 import javax.annotation.Nonnull;
@@ -57,7 +56,6 @@ public final class PasswordLimiter extends Pattern
 	private final int limit;
 
 	final DateField date = new DateField().toFinal();
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	public PasswordLimiter(
@@ -316,9 +314,7 @@ public final class PasswordLimiter extends Pattern
 		}
 	}
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureCounter denyCounter = counter("deny", "Checking a password was denied, because the limit of failed attempts was exceeded.", "verbose", "no");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureCounter denyVerboselyCounter = denyCounter.newValue("yes");
 
 	// ------------------- deprecated stuff -------------------

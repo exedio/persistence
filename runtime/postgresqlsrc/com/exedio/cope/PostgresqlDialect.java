@@ -22,7 +22,6 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.ServiceProperties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -66,7 +65,6 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void completeConnection(final Connection connection) throws SQLException
 	{
 		try(java.sql.Statement st = connection.createStatement())
@@ -391,7 +389,6 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	@Override
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
@@ -422,7 +419,6 @@ final class PostgresqlDialect extends Dialect
 			execute(connectionPool, bf.toString());
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final ConnectionPool connectionPool, final String sql)
 	{
 		final Connection connection = connectionPool.get(true);

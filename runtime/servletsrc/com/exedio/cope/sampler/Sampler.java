@@ -37,7 +37,6 @@ import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
 import io.micrometer.core.instrument.Timer;
@@ -217,7 +216,6 @@ public class Sampler
 		lastStep = null;
 	}
 
-	@SuppressFBWarnings("NP_LOAD_OF_KNOWN_NULL_VALUE")
 	int analyzeCount(final Type<?> type)
 	{
 		try(TransactionTry tx = samplerModel.startTransactionTry("sampler analyzeCount"))

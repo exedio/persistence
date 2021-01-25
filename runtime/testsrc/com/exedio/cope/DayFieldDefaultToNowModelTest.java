@@ -28,12 +28,10 @@ import static com.exedio.cope.util.TimeZoneStrict.getTimeZone;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Day;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.ZoneId;
 import java.util.TimeZone;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"RV_RETURN_VALUE_IGNORED_INFERRED","NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS"})
 public class DayFieldDefaultToNowModelTest
 {
 	public static final Model MODEL = new Model(TYPE);

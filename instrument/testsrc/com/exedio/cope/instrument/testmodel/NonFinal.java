@@ -21,7 +21,6 @@ package com.exedio.cope.instrument.testmodel;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testfeature.OptionFeature;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This class must get a protected
@@ -30,7 +29,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * and final methods (except when set to {@link Wrapper#asFinal() Wrapper.asFinal}=false,
  * since it is not final.
  */
-@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 public class NonFinal extends Item
 {
 	private   static final OptionFeature barePrivate   = new OptionFeature();

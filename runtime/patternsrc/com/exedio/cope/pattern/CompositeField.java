@@ -38,7 +38,6 @@ import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -58,7 +57,6 @@ public final class CompositeField<E extends Composite> extends Pattern implement
 	private final boolean optional;
 	private final Class<E> valueClass;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final CompositeType<E> valueType;
 	private final int componentSize;
 

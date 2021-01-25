@@ -33,7 +33,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
@@ -41,7 +40,6 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DataVaultInfoTest
 {
 	@Test void testGetLength()

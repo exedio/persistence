@@ -33,7 +33,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -971,7 +970,6 @@ public final class MediaPathTest extends TestWithEnvironment
 
 	private static final class MyMediaServlet extends MediaServlet
 	{
-		@SuppressFBWarnings("MSF_MUTABLE_SERVLET_FIELD")
 		boolean failOnException = true;
 
 		MyMediaServlet()

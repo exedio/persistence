@@ -31,14 +31,12 @@ import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DispatcherPurgeTest extends TestWithEnvironment
 {
 	public DispatcherPurgeTest()
@@ -215,7 +213,6 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		return purge(now, success, failure, null);
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private String purge(
 			final Long now, final Integer success, final Integer failure,
 			final Condition restriction)

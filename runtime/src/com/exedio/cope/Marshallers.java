@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.util.Day;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -56,7 +55,6 @@ final class Marshallers
 			}
 		});
 		put(SimpleSelectType.BOOLEAN, new Marshaller<Boolean>(1) {
-			@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL") // Method with Boolean return type returns explicit null
 			@Override
 			Boolean unmarshal(final ResultSet row, final int columnIndex) throws SQLException
 			{

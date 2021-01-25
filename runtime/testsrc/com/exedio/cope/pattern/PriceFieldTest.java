@@ -33,11 +33,9 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class PriceFieldTest extends TestWithEnvironment
 {
 	public PriceFieldTest()
@@ -52,7 +50,6 @@ public class PriceFieldTest extends TestWithEnvironment
 		item = new PriceFieldItem(storeOf(555), storeOf(7777));
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testIt()
 	{
 		assertEquals("finalPrice_int", SchemaInfo.getColumnName(finalPrice.getInt()));

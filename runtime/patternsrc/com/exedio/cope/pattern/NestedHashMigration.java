@@ -40,7 +40,6 @@ import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import com.exedio.cope.util.JobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.text.MessageFormat;
 import java.util.Set;
@@ -58,7 +57,6 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 
 	private final Hash legacyHash;
 	private final Hash targetHash;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final HashAlgorithm targetAlgorithm;
 
 	/**

@@ -27,14 +27,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.misc.DatabaseLogListener.Builder;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
 import java.io.UnsupportedEncodingException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"})
 public class DatabaseLogListenerTest
 {
 	@Test void test() throws UnsupportedEncodingException

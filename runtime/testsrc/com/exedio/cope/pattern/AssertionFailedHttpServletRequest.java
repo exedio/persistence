@@ -18,7 +18,6 @@
 
 package com.exedio.cope.pattern;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
@@ -40,7 +39,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.Part;
 
-@SuppressFBWarnings("NM_CONFUSING")
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
 class AssertionFailedHttpServletRequest implements HttpServletRequest
 {

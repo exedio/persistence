@@ -39,7 +39,6 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Map;
@@ -49,7 +48,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("HardcodedLineSeparator")
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class VaultMultiTest
 {
 	static final String HASH1 = "01ee706ed305c3fd0a5b1bdadadaa99424f67a73291419ac69729cc54ee55b9dd47b6743dbe88be50034bda145345adc7e2a339871aed2727e87e204560dd500";

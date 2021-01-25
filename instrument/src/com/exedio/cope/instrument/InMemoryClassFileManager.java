@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.OutputStream;
 import java.net.URI;
@@ -41,7 +40,6 @@ final class InMemoryClassFileManager extends ForwardingJavaFileManager<StandardJ
 	}
 
 	@SuppressWarnings("ClassLoaderInstantiation")
-	@SuppressFBWarnings("DP_CREATE_CLASSLOADER_INSIDE_DO_PRIVILEGED")
 	InMemoryClassLoader createInMemoryClassLoader(final ClassLoader parent)
 	{
 		final InMemoryClassLoader classLoader = new InMemoryClassLoader(parent);

@@ -24,13 +24,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.DateField.RoundingMode;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
 
 public class DatePrecisionDefaultToTest
 {
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testIllegalConstant()
 	{
 		final DateField f = new DateField().precisionMinute();
@@ -55,7 +53,6 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testDefaultToNowWithoutRounding1()
 	{
 		final DateField f = new DateField().precisionMinute();
@@ -73,7 +70,6 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testDefaultToNowWithoutRounding2()
 	{
 		final DateField f = new DateField().defaultToNow();
@@ -91,7 +87,6 @@ public class DatePrecisionDefaultToTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testDefaultToNowWithoutRounding3()
 	{
 		final DateField f = new DateField().precisionMinute().roundingMode(RoundingMode.PAST).defaultToNow();

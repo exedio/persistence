@@ -23,7 +23,6 @@ import static java.sql.Statement.NO_GENERATED_KEYS;
 import static java.sql.Statement.RETURN_GENERATED_KEYS;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -39,7 +38,6 @@ import org.junit.jupiter.api.Test;
  * There seems to be no such penalty.
  */
 @Disabled
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class AutoIncrementEvaluator extends RawDatabaseTest
 {
 	private static final int ITERATIONS = 100;

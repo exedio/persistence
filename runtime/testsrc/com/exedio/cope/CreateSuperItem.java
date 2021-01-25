@@ -23,14 +23,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 
 class CreateSuperItem extends Item
 {
 	static final StringField text = new StringField();
 
-	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		setValues[0] = text.map(value(setValues) + ".preCreateSuper");

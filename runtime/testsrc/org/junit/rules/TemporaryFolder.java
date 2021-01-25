@@ -25,7 +25,6 @@ package org.junit.rules;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.MainRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.FileVisitResult;
@@ -75,7 +74,6 @@ public class TemporaryFolder extends MainRule
 	}
 
 	@Override
-	@SuppressFBWarnings({"SIC_INNER_SHOULD_BE_STATIC_ANON","UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR"})
 	protected void after() throws IOException
 	{
 		Files.walkFileTree(root.toPath(), new SimpleFileVisitor<Path>()

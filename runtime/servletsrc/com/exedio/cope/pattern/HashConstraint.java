@@ -26,7 +26,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.StringField;
 import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.Vault;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
@@ -35,7 +34,6 @@ public final class HashConstraint extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	private final StringField hash;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Supplier<String> algorithm;
 	private final DataField data;
 

@@ -30,13 +30,11 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.Type;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AssertionErrorChangeHook;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class CascadeChangeHookSetValuesNullTest
 {
-	@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 	private ChangeHook hook;
 
 	@BeforeEach void before()

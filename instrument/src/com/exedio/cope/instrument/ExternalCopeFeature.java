@@ -18,7 +18,6 @@
 
 package com.exedio.cope.instrument;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 
 final class ExternalCopeFeature extends CopeFeature
@@ -51,7 +50,6 @@ final class ExternalCopeFeature extends CopeFeature
 	}
 
 	@Override
-	@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 	Object evaluate()
 	{
 		field.setAccessible(true);

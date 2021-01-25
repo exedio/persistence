@@ -31,7 +31,6 @@ import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.TextUrlFilter.Paste;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -101,7 +100,6 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testWrongContentType() throws IOException
 	{
 		final File file = file("TextUrlFilterZipTest-wrongContentType.zip");
@@ -132,7 +130,6 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void testLong() throws IOException
 	{
 		final File file = file("TextUrlFilterZipTest-long.zip");

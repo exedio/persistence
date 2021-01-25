@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.SI;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -306,7 +305,6 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 		assertEquals(0, InstanceOfRefItem.ref.checkTypeColumnL());
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	@Test void testWrongRef() throws SQLException
 	{
 		execute(
@@ -327,7 +325,6 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 	}
 
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private <T extends Item> void updateTypeColumn(
 			final Type<T> type,
 			final T item,
@@ -340,7 +337,6 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private <T extends Item> void deleteRow(
 			final Type<T> type,
 			final T item)
@@ -351,7 +347,6 @@ public class CheckTypeColumnTest extends TestWithEnvironment
 			"where " + SI.pk(type) + "=" + getPrimaryKeyColumnValueL(item));
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void execute(final String sql) throws SQLException
 	{
 		final String transactionName = model.currentTransaction().getName();

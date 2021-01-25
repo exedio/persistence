@@ -28,7 +28,6 @@ import com.exedio.cope.Field;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.Type;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -140,7 +139,6 @@ public final class SchemaView
 		}
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final Connection connection, final StringBuilder bf) throws SQLException
 	{
 		final String sql = bf.toString();

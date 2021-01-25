@@ -24,7 +24,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.ChangeHook;
 import com.exedio.cope.ChangeHook.Factory;
 import com.exedio.cope.Model;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javax.annotation.Nonnull;
 
 public final class ChangeHooks
@@ -58,7 +57,6 @@ public final class ChangeHooks
 		}
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF")
 	public static Factory cascade(Factory... hooks)
 	{
 		if(hooks!=null && hooks.length==0)
@@ -110,7 +108,6 @@ public final class ChangeHooks
 
 
 	@Nonnull
-	@SuppressFBWarnings("RCN_REDUNDANT_NULLCHECK_OF_NONNULL_VALUE") // OK: checking bad behaviour
 	public static ChangeHook create(
 			@Nonnull final Factory factory,
 			@Nonnull final Model model)

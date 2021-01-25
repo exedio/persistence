@@ -32,7 +32,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
@@ -148,7 +147,6 @@ public class CopySimpleModelTest
 		assertSerializedSame(selfTemplateCopyFromTarget   , 405);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testFailures()
 	{
 		final StringField copy = new StringField();

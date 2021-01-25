@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class EnumMapFieldFallbackModelTest
@@ -104,7 +103,6 @@ public class EnumMapFieldFallbackModelTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testFallbackToNull()
 	{
 		final EnumMapField<?,?> f = EnumMapField.create(AnEnum.class, new StringField());

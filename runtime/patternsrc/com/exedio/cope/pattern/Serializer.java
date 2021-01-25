@@ -35,7 +35,6 @@ import com.exedio.cope.misc.ComputedElement;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
@@ -166,7 +165,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		return new SetValue<?>[]{ source.map(serialize(value)) };
 	}
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	private byte[] serialize(final E value)
 	{
 		if(value==null)

@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static java.lang.System.lineSeparator;
 
 import com.exedio.cope.tojunit.MainRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Objects;
 import org.junit.jupiter.api.AfterEach;
@@ -30,7 +29,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 {
 	public CacheReadPoisoningBruteForceTest()
@@ -40,7 +38,6 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 	}
 
 	@SuppressWarnings("unused")
-	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	private final WithinPurgeStampsRule withinPurgeStamps = new WithinPurgeStampsRule(
 			CacheIsolationTest.MODEL,
 			Thread::yield);

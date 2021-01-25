@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -77,7 +76,6 @@ public class OverflowLongSumTest extends TestWithEnvironment
 		assertIt(BigDecimal.valueOf(expected1).add(BigDecimal.valueOf(expected2)));
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private void assertIt(final BigDecimal expected) throws SQLException
 	{
 		MODEL.commit();

@@ -29,7 +29,6 @@ import com.exedio.cope.util.Pool;
 import com.exedio.cope.util.Properties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Tags;
 import java.io.InvalidObjectException;
 import java.io.NotSerializableException;
@@ -58,33 +57,25 @@ public final class Model implements Serializable
 
 	private final String name;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Revisions.Factory revisions;
 	private final Object reviseLock = new Object();
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Types types;
 	private final Instant initializeDate = Instant.now();
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ChangeHook changeHook;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final ChangeListeners changeListeners = new ChangeListeners();
 
 	private final Object connectLock = new Object();
 	@SuppressWarnings("FieldAccessedSynchronizedAndUnsynchronized")
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Connect connectIfConnected;
 
 	private final AtomicLong nextTransactionId = new AtomicLong();
 	@SuppressWarnings("VolatileLongOrDoubleField")
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Transactions transactions = new Transactions();
 	@SuppressWarnings({"ThisEscapedInObjectConstruction", "resource"})
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionTry tx = new TransactionTry(this);
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 
 	public static ModelBuilder builder()
@@ -816,7 +807,6 @@ public final class Model implements Serializable
 	 * @deprecated for unit tests only
 	 */
 	@Deprecated
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	volatile Runnable withinPurgeStamps = null;
 
 	/**
@@ -1020,7 +1010,6 @@ public final class Model implements Serializable
 			return type.getName() + '#' + name;
 		}
 
-		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		Object resolveModel()
 		{
 			final java.lang.reflect.Field field;

@@ -54,7 +54,6 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ProxyJobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Timer;
 import java.time.Duration;
 import java.time.Instant;
@@ -125,7 +124,6 @@ public final class Schedule extends Pattern
 	}
 
 	private final ZoneId zoneId;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Variant variant;
 
 	private final BooleanField enabled = new BooleanField().defaultTo(true);
@@ -133,7 +131,6 @@ public final class Schedule extends Pattern
 
 	private static final Duration DELAY = Duration.ofMinutes(5);
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Runs runs = new Runs();
 
 	/**
@@ -636,7 +633,6 @@ public final class Schedule extends Pattern
 		}
 	}
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer runTimer = timer("run", "The schedule was run for an item");
 
 	// ------------------- deprecated stuff -------------------

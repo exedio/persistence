@@ -29,7 +29,6 @@ import com.exedio.cope.Pattern;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypeFuture;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.opentest4j.AssertionFailedError;
 
 final class TypeFutureInPatternsFeature extends Pattern
@@ -94,7 +93,6 @@ final class TypeFutureInPatternsFeature extends Pattern
 		return requireMounted(mountIfMounted);
 	}
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 

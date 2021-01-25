@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.tojunit.EqualsAssert;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.MessageDigest;
 import org.junit.jupiter.api.Test;
 
@@ -89,7 +88,6 @@ public class HashConditionModelTest
 			assertEquals("algorithm", e.getMessage());
 		}
 	}
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void algorithmEmpty()
 	{
 		try
@@ -102,7 +100,6 @@ public class HashConditionModelTest
 			assertEquals("algorithm must not be empty", e.getMessage());
 		}
 	}
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void algorithmEmptyNot()
 	{
 		try

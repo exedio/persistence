@@ -35,12 +35,10 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public final class MediaUrlTest extends TestWithEnvironment
 {
 	public MediaUrlTest()

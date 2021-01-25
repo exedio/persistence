@@ -34,7 +34,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.Color;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -55,7 +54,6 @@ public class ColorFieldModelTest
 	private static final IntegerField mandatoryAlphaRGB = mandatoryAlpha.getRGB();
 	private static final IntegerField finalColorRGB     = finalColor    .getRGB();
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testIt()
 	{
 		assertEquals(Arrays.asList(new Type<?>[]{

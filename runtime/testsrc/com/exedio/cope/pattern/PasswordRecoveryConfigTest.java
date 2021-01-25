@@ -24,11 +24,9 @@ import static java.time.Duration.ofNanos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.pattern.PasswordRecovery.Config;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.Duration;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PasswordRecoveryConfigTest
 {
 	@SuppressWarnings("deprecation") // OK: testing deprecated API

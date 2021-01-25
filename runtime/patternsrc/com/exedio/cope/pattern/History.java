@@ -39,7 +39,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.reflect.FeatureField;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Date;
@@ -51,9 +50,7 @@ public final class History extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private EventType eventTypeIfMounted = null;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private FeatureType featureTypeIfMounted = null;
 
 	@Override
@@ -170,7 +167,6 @@ public final class History extends Pattern
 	}
 
 
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
 	private final class EventType
 	{
 		final ItemField<?> parent;
@@ -278,7 +274,6 @@ public final class History extends Pattern
 	}
 
 
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
 	private final class FeatureType
 	{
 		final ItemField<Event> event;

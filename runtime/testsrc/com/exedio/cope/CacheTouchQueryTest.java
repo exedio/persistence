@@ -26,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import org.junit.jupiter.api.BeforeEach;
@@ -39,7 +38,6 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 		super(CacheIsolationTest.MODEL);
 	}
 
-	@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 	CacheIsolationItem item;
 
 	@BeforeEach final void setUp()

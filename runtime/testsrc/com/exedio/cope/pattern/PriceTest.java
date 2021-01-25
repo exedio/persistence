@@ -37,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.tojunit.Assert;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
@@ -51,7 +50,6 @@ import org.junit.jupiter.api.Test;
  * This test is equivalent to {@link MoneyAmountTest}.
  */
 @SuppressWarnings("Convert2MethodRef") // OK: easier to read
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class PriceTest
 {
 	private static final long MIN_STORE = Long.MIN_VALUE + 1;

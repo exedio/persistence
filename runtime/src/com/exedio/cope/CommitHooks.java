@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.LinkedHashMap;
 import javax.annotation.Nonnull;
 
@@ -68,9 +67,7 @@ final class CommitHooks
 	private static final class Content
 	{
 		private final LinkedHashMap<Runnable,Runnable> list = new LinkedHashMap<>();
-		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
 		volatile int count = 0;
-		@SuppressFBWarnings("VO_VOLATILE_INCREMENT") // OK: is never incremented concurrently, as this works on current transaction only
 		volatile int duplicates = 0;
 
 		Content(){} // just make package private

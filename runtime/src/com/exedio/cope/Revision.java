@@ -25,7 +25,6 @@ import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.lang.System.nanoTime;
 
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.text.MessageFormat;
@@ -89,7 +88,6 @@ public final class Revision
 		return String.valueOf('R') + number + ':' + comment;
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	RevisionInfoRevise execute(
 			final String savepoint,
 			final Date date,
@@ -121,7 +119,6 @@ public final class Revision
 		return new RevisionInfoRevise(number, savepoint, date, environment, comment, bodyInfo);
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static int executeUpdate(
 			final Connection connection,
 			final String sql)

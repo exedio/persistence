@@ -35,7 +35,6 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
@@ -45,7 +44,6 @@ import org.junit.jupiter.api.Test;
  * @see VaultReferenceNoCopyTest
  */
 @SuppressWarnings("HardcodedLineSeparator")
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class VaultReferenceTest
 {
 	@Test void connect()
@@ -159,7 +157,6 @@ public class VaultReferenceTest
 		refr.assertIt(HASH1, VALUE1, "getStream\n");
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
@@ -191,7 +188,6 @@ public class VaultReferenceTest
 		refr.assertIt("getStream\n");
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
@@ -223,7 +219,6 @@ public class VaultReferenceTest
 		refr.assertIt("getBytes\n");
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);

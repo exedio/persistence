@@ -22,7 +22,6 @@ import static java.lang.Math.toIntExact;
 
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @WrapFeature
 public final class Sequence extends Feature
@@ -31,7 +30,6 @@ public final class Sequence extends Feature
 
 	private final int start;
 	private final int end;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final SequenceX sequenceX;
 
 	public Sequence(final int start)

@@ -23,7 +23,6 @@ import static com.exedio.cope.misc.SetValueUtil.getFirst;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.pattern.ListField;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 
 final class BeforeSetItem extends Item
@@ -99,7 +98,6 @@ final class BeforeSetItem extends Item
 		},
 		returnNull
 		{
-			@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
 				return null;

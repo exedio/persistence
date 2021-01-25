@@ -23,7 +23,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CopeSchemaName;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class EnumAnnotatedElementTest
@@ -37,7 +36,6 @@ public class EnumAnnotatedElementTest
 		subclass
 		{
 			@SuppressWarnings("unused")
-			@SuppressFBWarnings("UMAC_UNCALLABLE_METHOD_OF_ANONYMOUS_CLASS")
 			String method() {return "string"; }
 		}
 	}

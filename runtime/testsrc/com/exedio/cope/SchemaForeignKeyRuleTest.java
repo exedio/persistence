@@ -35,11 +35,9 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Node.Color;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.SQLException;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 public class SchemaForeignKeyRuleTest extends TestWithEnvironment
 {
 	public SchemaForeignKeyRuleTest()

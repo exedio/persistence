@@ -24,7 +24,6 @@ import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.Day;
 import com.exedio.cope.util.JobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -312,7 +311,6 @@ abstract class Dialect
 	protected static final String HASH_SHA384 = "SHA-384";
 	protected static final String HASH_SHA512 = "SHA-512";
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS") // OK: is converted into empty set by calling code
 	String[] getBlobHashAlgorithms()
 	{
 		return null;

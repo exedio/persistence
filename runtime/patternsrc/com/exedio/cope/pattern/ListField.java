@@ -37,7 +37,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -50,7 +49,6 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 
 	private final IntegerField order;
 	private final FunctionField<E> element;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 	private final CopyFields copyWith;
 

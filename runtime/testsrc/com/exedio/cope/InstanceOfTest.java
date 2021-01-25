@@ -27,11 +27,9 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class InstanceOfTest extends TestWithEnvironment
 {
 	public InstanceOfTest()

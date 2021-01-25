@@ -35,7 +35,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
@@ -51,7 +50,6 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 	private final FunctionField<V> value;
 	private final CopyFields keyCopyWiths;
 	private final CopyFields valueCopyWiths;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 
 	private MapField(

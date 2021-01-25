@@ -22,7 +22,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
@@ -73,7 +72,6 @@ public abstract class MainRule
 		private ArrayList<MainRule> rules;
 
 		@Override
-		@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 		public void beforeEach(final ExtensionContext context) throws Exception
 		{
 			assertNull(rules);
@@ -104,7 +102,6 @@ public abstract class MainRule
 		}
 
 		@Override
-		@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 		public void afterEach(final ExtensionContext context) throws Exception
 		{
 			if(rules!=null)

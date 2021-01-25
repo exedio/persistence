@@ -19,7 +19,6 @@
 package com.exedio.cope;
 
 import com.exedio.cope.misc.EnumAnnotatedElement;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TIntObjectHashMap;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
@@ -37,7 +36,6 @@ final class EnumFieldType<E extends Enum<E>> implements SelectType<E>
 	final List<E> values;
 	private final TIntObjectHashMap<E> numbersToValues;
 	private final int[] ordinalsToNumbers;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final Marshaller<E> marshaller;
 
 	private EnumFieldType(final Class<E> valueClass, final E[] enumConstants)

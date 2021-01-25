@@ -22,13 +22,11 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Iterator;
 import org.junit.jupiter.api.Test;
 
 public class IterablesTest
 {
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testIt()
 	{
 		final Iterator<String> iterator = new Iterator<String>(){
@@ -40,7 +38,6 @@ public class IterablesTest
 			}
 
 			@Override
-			@SuppressFBWarnings("IT_NO_SUCH_ELEMENT")
 			public String next()
 			{
 				throw new AssertionError();

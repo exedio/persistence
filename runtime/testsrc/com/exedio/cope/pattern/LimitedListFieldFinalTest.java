@@ -31,7 +31,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -99,7 +98,6 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		assertEquals(asList(), item.getText());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testCreateNull()
 	{
 		try

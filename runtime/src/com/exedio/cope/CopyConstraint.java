@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.Serializable;
 import java.util.Objects;
 import javax.annotation.Nonnull;
@@ -231,7 +230,6 @@ public final class CopyConstraint extends Feature
 		private static final long serialVersionUID = -1l;
 	}
 
-	@SuppressFBWarnings("SE_INNER_CLASS")
 	private final class CopyChoice extends Copy
 	{
 		final String backPointerName;

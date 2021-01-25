@@ -26,10 +26,8 @@ import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
 import com.exedio.cope.util.AssertionErrorJobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class DeleteErrorTest
 {
 	@Test void testQueryNull()

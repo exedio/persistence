@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.function.Consumer;
@@ -31,7 +30,6 @@ final class LRUMap<K, V> extends LinkedHashMap<K, V>
 
 	final int maxSize;
 
-	@SuppressFBWarnings("SE_BAD_FIELD")
 	private final Consumer<Map.Entry<K, V>> onReplace;
 
 	LRUMap(final int maxSize, final Consumer<Map.Entry<K, V>> onReplace)

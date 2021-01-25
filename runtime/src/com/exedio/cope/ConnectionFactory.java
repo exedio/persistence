@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import com.exedio.cope.util.Pool;
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.Driver;
 import java.sql.SQLException;
@@ -91,7 +90,6 @@ final class ConnectionFactory implements Pool.Factory<Connection>
 	}
 
 	@Override
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public boolean isValidOnGet(final Connection e)
 	{
 		final boolean result;

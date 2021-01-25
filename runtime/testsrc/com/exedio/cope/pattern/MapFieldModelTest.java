@@ -38,7 +38,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.MapFieldItem.Language;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.Serializable;
 import org.junit.jupiter.api.Test;
 
@@ -128,7 +127,6 @@ public class MapFieldModelTest
 		assertSerializedSame(integer   , 386);
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testFailures()
 	{
 		try

@@ -22,7 +22,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.misc.MediaSummary;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class MediaSummaryTest
@@ -46,7 +45,6 @@ public class MediaSummaryTest
 		assertEquals(204, ms.getDelivered());
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testNull()
 	{
 		try
@@ -60,7 +58,6 @@ public class MediaSummaryTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testNullElement()
 	{
 		final MediaInfo i1 = new MediaInfo(null, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111);

@@ -27,7 +27,6 @@ import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperInitial;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -38,7 +37,6 @@ import java.text.SimpleDateFormat;
 import java.util.Locale;
 
 @SuppressWarnings("UnusedReturnValue")
-@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 final class MediaServletItem extends Item
 	implements MediaUrlCatchphraseProvider
 {

@@ -57,7 +57,6 @@ import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.Computed;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -65,7 +64,6 @@ import java.util.Objects;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL", "NP_NONNULL_PARAM_VIOLATION"})
 public class ListFieldTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(TYPE);
@@ -570,7 +568,6 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(asList("one1", "two2"), item.getStrings());
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testListSetNull()
 	{
 		item.setStrings(asList("hallo", "bello"));

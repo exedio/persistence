@@ -21,12 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
 
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @WrapperType(genericConstructor=PACKAGE)
 final class CreateItem extends CreateSuperItem
 {
-	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	@SuppressWarnings("MethodOverridesInaccessibleMethodOfSuper")
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{

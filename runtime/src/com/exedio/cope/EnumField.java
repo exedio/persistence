@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.util.List;
 
@@ -26,7 +25,6 @@ public final class EnumField<E extends Enum<E>> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	final EnumFieldType<E> valueType;
 
 	private EnumField(

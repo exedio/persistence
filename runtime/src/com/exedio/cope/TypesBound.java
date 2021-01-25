@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.misc.CopeNameUtil;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.util.Comparator;
@@ -115,7 +114,6 @@ public final class TypesBound
 		return o;
 	}
 
-	@SuppressFBWarnings("DP_DO_INSIDE_DO_PRIVILEGED")
 	public static SortedMap<Feature, Field> getFeatures(final Class<?> clazz)
 	{
 		// needed for not relying on order of result of Method#getDeclaredFields

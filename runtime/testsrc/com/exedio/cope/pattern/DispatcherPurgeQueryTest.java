@@ -29,7 +29,6 @@ import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Properties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -41,7 +40,6 @@ public class DispatcherPurgeQueryTest
 	private final ClockRule clockRule = new ClockRule();
 
 
-	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE")
 	@BeforeEach void setUp()
 	{
 		@SuppressWarnings("unused")
@@ -180,7 +178,6 @@ public class DispatcherPurgeQueryTest
 		return query(success, failure, Condition.TRUE);
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static String query(final Integer success, final Integer failure, final Condition restriction)
 	{
 		final Properties props = new Properties();

@@ -36,7 +36,6 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.tojunit.SI;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
@@ -47,7 +46,6 @@ import java.sql.SQLSyntaxErrorException;
 import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 public class MysqlLoadDataLocalInfileTest extends TestWithEnvironment
 {
 	public MysqlLoadDataLocalInfileTest()

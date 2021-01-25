@@ -202,7 +202,7 @@
 		<compile srcdir="dsmf/src">
 			<classpath>
 				<pathelement location="lib/slf4j-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -222,7 +222,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -239,7 +239,7 @@
 						<pathelement location="lib/exedio-cope-util.jar" />
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
-						<pathelement location="lib/findbugs-annotations.jar" />
+						<pathelement location="lib/jsr305.jar" />
 						<pathelement location="lib/@{jar}" />
 					</classpath>
 				</compile>
@@ -269,7 +269,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -286,7 +286,7 @@
 				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -343,7 +343,7 @@
 				<pathelement location="lib/opentest4j.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -369,7 +369,7 @@
 		<pathelement location="lib/simpleclient-bundle.jar" />
 		<pathelement location="lib/simpleclient_common-bundle.jar" />
 		<pathelement location="lib/exedio-cope-util.jar" />
-		<pathelement location="lib/findbugs-annotations.jar" />
+		<pathelement location="lib/jsr305.jar" />
 	</path>
 
 	<target
@@ -668,7 +668,7 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
@@ -708,7 +708,7 @@
 				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar"/>
+				<pathelement location="lib/jsr305.jar"/>
 			</classpath>
 		</compile>
 	</target>
@@ -757,7 +757,7 @@
 	<target name="instrument.anno.compile">
 		<compile srcdir="instrument/annosrc">
 			<classpath>
-				<pathelement location="lib/findbugs-annotations.jar"/>
+				<pathelement location="lib/jsr305.jar"/>
 			</classpath>
 		</compile>
 	</target>
@@ -783,7 +783,7 @@
 				<pathelement location="build/classes/runtime/patternsrc" /><!-- TODO stricter, is for Composite only -->
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 			<compilerarg if:set="jdk9" value="--add-exports" />
 			<compilerarg if:set="jdk9" value="jdk.compiler/com.sun.tools.javac.api=ALL-UNNAMED" />
@@ -794,7 +794,7 @@
 		<compile srcdir="instrument/antsrc" includeAntRuntime="true">
 			<classpath>
 				<pathelement location="build/classes/instrument/src" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -826,7 +826,7 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -842,7 +842,7 @@
 				<pathelement location="build/classes/instrument/antsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/trove4j.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
 			</classpath>
@@ -939,7 +939,7 @@
 				<pathelement location="build/classes/instrument/src" />
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -960,7 +960,7 @@
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/opentest4j.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -970,7 +970,7 @@
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -1082,7 +1082,7 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="lib/findbugs-annotations.jar" />
+				<pathelement location="lib/jsr305.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</myClasspath>
 		</api>
@@ -1126,53 +1126,7 @@
 						webtest" />
 
 
-	<target name="findbugs" depends="junit4, findbugs.taskdef, compile" unless="jdk9">
-		<findbugs
-					home="${basedir}/build/findbugs-home"
-					jvmargs="-Xmx512M"
-					failOnError="true"
-					output="${findbugs.output}"
-					outputFile="${basedir}/build/findbugs.${findbugs.output}"
-					excludeFilter="conf/findbugs-exclude.xml"
-					effort="max"
-					reportlevel="low">
-			<class location="${basedir}/build/classes/dsmf/src" />
-			<class location="${basedir}/build/classes/runtime/src" />
-			<class location="${basedir}/build/classes/runtime/dialects" />
-			<class location="${basedir}/build/classes/runtime/patternsrc" />
-			<class location="${basedir}/build/classes/runtime/servletsrc" />
-			<class location="${basedir}/build/classes/instrument/annosrc" />
-			<class location="${basedir}/build/classes/instrument/src" />
-			<class location="${basedir}/build/classes/instrument/antsrc" />
-			<class location="${basedir}/build/classes/instrument/completionsrc" />
-			<class location="${basedir}/build/classes/runtime/testsrc" />
-			<class location="${basedir}/build/classes/runtime/testfeaturesrc" />
-			<class location="${basedir}/build/classes/runtime/servlettestsrc" />
-			<class location="${basedir}/build/classes/runtime/servlettestwebsrc" />
-			<class location="${basedir}/build/classes/instrument/testfeaturesrc" />
-			<class location="${basedir}/build/classes/instrument/testlibsrc" />
-			<class location="${basedir}/build/classes/instrument/testsrc" />
-			<auxclasspath>
-				<pathelement location="${basedir}/lib/exedio-cope-util.jar" />
-				<pathelement location="${basedir}/lib/exedio-cope-servletutil.jar" />
-				<pathelement location="${basedir}/lib/trove4j.jar" />
-				<pathelement location="${basedir}/lib/javax.servlet-api.jar" />
-				<pathelement location="${basedir}/build/classes/junit4" />
-				<pathelement location="${basedir}/lib/junit-jupiter-api.jar" />
-				<pathelement location="${basedir}/lib/opentest4j.jar" />
-				<pathelement location="${basedir}/lib/slf4j-api.jar" />
-				<pathelement location="${basedir}/lib/slf4j-log4j12.jar" />
-				<pathelement location="${basedir}/lib/log4j-bundle.jar" />
-				<pathelement location="${basedir}/lib/micrometer-core.jar" />
-				<pathelement location="${basedir}/lib/micrometer-registry-prometheus.jar" />
-				<pathelement location="${basedir}/lib/simpleclient-bundle.jar" />
-				<pathelement location="${ant.core.lib}" />
-				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
-			</auxclasspath>
-		</findbugs>
-	</target>
-
-	<target name="all" depends="build, runtime.jar.src, api, findbugs" />
+	<target name="all" depends="build, runtime.jar.src, api" />
 
 	<target name="jenkins" depends="all">
 		<copy todir="${basedir}/build/success">

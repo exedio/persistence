@@ -21,7 +21,6 @@ package com.exedio.cope;
 import static com.exedio.cope.Intern.intern;
 import static com.exedio.dsmf.Dialect.NOT_NULL;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -112,7 +111,6 @@ abstract class Column
 	}
 
 	@Override
-	@SuppressFBWarnings("EQ_UNUSUAL")
 	public final boolean equals(final Object other)
 	{
 		throw new RuntimeException(toString()); // should not be used, maintained in IdentityHashMap

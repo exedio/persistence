@@ -28,12 +28,10 @@ import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR","IC_INIT_CIRCULARITY"})
 public class CopyChoiceDeleteForbidNullifyTest extends TestWithEnvironment
 {
 	@WrapInterim private static final DeletePolicy POLICY1 = DeletePolicy.FORBID;

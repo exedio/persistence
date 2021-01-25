@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import javax.annotation.Nonnull;
 
 /**
@@ -34,7 +33,6 @@ import javax.annotation.Nonnull;
  */
 public final class FinalViolationException extends ConstraintViolationException
 {
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public static <F extends Feature & Settable<?>> void check(
 			@Nonnull final F feature,
 			@Nonnull final Item item)

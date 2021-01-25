@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.util.Hex;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongHashSet;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
@@ -50,7 +49,6 @@ public abstract class ClusterTest
 	private static final int SECRET = 0x88776655;
 	private static final int PACKET_SIZE = 64;
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	private static ClusterProperties getProperties(final int node)
 	{
 		return

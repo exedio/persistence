@@ -25,12 +25,10 @@ import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Factory;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.nio.file.Paths;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public class VaultFileServiceErrorTest
 {
 	@Test void ok()

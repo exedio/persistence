@@ -33,7 +33,6 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -309,7 +308,6 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
@@ -331,7 +329,6 @@ final class HsqldbDialect extends Dialect
 			execute(connectionPool, bf.toString());
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final ConnectionPool connectionPool, final String sql)
 	{
 		final Connection connection = connectionPool.get(true);

@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.misc.DataFieldVaultSummary;
 import com.exedio.cope.tojunit.AssertionFailedErrorCounter;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class DataFieldVaultSummaryTest
@@ -44,7 +43,6 @@ public class DataFieldVaultSummaryTest
 		assertEquals(228, ms.getPutCount());
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testNull()
 	{
 		try
@@ -58,7 +56,6 @@ public class DataFieldVaultSummaryTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testNullElement()
 	{
 		final DataFieldVaultInfo i1 = newInfo(11, 21, 31, 41, 51);

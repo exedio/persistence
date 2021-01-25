@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.vault.VaultNotFoundException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.jupiter.api.Test;
 import org.opentest4j.AssertionFailedError;
@@ -54,7 +53,6 @@ public class VaultNotFoundExceptionTest
 		assertEquals(null, e.getCause());
 	}
 
-	@SuppressFBWarnings("ES_COMPARING_STRINGS_WITH_EQ")
 	@Test void testAnonymiseHash()
 	{
 		assertEquals("abcdefghijklmnopxx17", anonymiseHash("abcdefghijklmnopq"));
@@ -64,7 +62,6 @@ public class VaultNotFoundExceptionTest
 	}
 
 	@SuppressWarnings("ThrowableNotThrown")
-	@SuppressFBWarnings("RV_EXCEPTION_NOT_THROWN")
 	@Test void constructor1HashNull()
 	{
 		try
@@ -79,7 +76,6 @@ public class VaultNotFoundExceptionTest
 	}
 
 	@SuppressWarnings("ThrowableNotThrown")
-	@SuppressFBWarnings("RV_EXCEPTION_NOT_THROWN")
 	@Test void constructor2HashNull()
 	{
 		final IOException cause = new IOException();
@@ -102,7 +98,6 @@ public class VaultNotFoundExceptionTest
 	}
 
 	@SuppressWarnings("ThrowableNotThrown")
-	@SuppressFBWarnings("RV_EXCEPTION_NOT_THROWN")
 	@Test void constructor2BothNull()
 	{
 		try

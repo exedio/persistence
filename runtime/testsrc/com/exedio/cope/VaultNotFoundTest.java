@@ -32,14 +32,12 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vaultmock.VaultMockService;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @SuppressWarnings("HardcodedLineSeparator")
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class VaultNotFoundTest
 {
 	@Test void connect()
@@ -50,7 +48,6 @@ public class VaultNotFoundTest
 		assertEquals(true, service.writable);
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void notFoundGetLength()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
@@ -79,7 +76,6 @@ public class VaultNotFoundTest
 		service.assertIt("getLength\n");
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void notFoundGetBytes()
 	{
 		final VaultItem item = new VaultItem(VALUE1);
@@ -108,7 +104,6 @@ public class VaultNotFoundTest
 		service.assertIt("getBytes\n");
 	}
 
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 	@Test void notFoundGetStream() throws IOException
 	{
 		final VaultItem item = new VaultItem(VALUE1);

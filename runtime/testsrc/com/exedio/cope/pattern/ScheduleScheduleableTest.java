@@ -37,7 +37,6 @@ import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.ZoneId;
@@ -50,7 +49,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class ScheduleScheduleableTest extends TestWithEnvironment
 {
 	public ScheduleScheduleableTest()
@@ -210,7 +208,6 @@ public class ScheduleScheduleableTest extends TestWithEnvironment
 		}
 
 		@SuppressWarnings("EqualsWhichDoesntCheckParameterClass")
-		@SuppressFBWarnings({"NP_EQUALS_SHOULD_HANDLE_NULL_ARGUMENT", "BC_EQUALS_METHOD_SHOULD_WORK_FOR_ALL_OBJECTS"})
 		@Override
 		public boolean equals(final Object other)
 		{

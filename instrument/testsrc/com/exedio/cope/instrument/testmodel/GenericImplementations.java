@@ -20,11 +20,9 @@ package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.testfeature.GenericInterface;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.function.Supplier;
 
 @SuppressWarnings({"EmptyClass", "unused"})
-@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC")
 public class GenericImplementations
 {
 	@WrapInterim

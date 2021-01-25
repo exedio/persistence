@@ -42,7 +42,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.nio.file.Files;
@@ -71,7 +70,6 @@ public final class ThumbnailTest extends TestWithEnvironment
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
-	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 	@BeforeEach void setUp() throws IOException
 	{
 		jpg = new ThumbnailItem();
@@ -200,7 +198,6 @@ public final class ThumbnailTest extends TestWithEnvironment
 	}
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
-	@SuppressFBWarnings("OBL_UNSATISFIED_OBLIGATION")
 	@Test void testThumbsLarge() throws IOException
 	{
 		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-antialias.jpg"), JPEG);

@@ -42,7 +42,6 @@ import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Table;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.net.InetAddress;
 import java.net.UnknownHostException;
 import java.text.ParseException;
@@ -58,7 +57,6 @@ import org.junit.jupiter.api.Test;
 
 @TestWithEnvironment.Tag
 @MainRule.Tag
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class ReviseTest
 {
 	private static final TestRevisionsFactory revisionsFactory5 = new TestRevisionsFactory();

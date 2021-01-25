@@ -24,7 +24,6 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 public final class EqualsAssert
 {
@@ -65,7 +64,6 @@ public final class EqualsAssert
 	}
 
 	@SuppressWarnings({"EqualsWithItself", "ObjectEqualsNull"})
-	@SuppressFBWarnings({"EC_NULL_ARG","SA_LOCAL_SELF_COMPARISON"})
 	private static void assertEqualsSpecial(final Object object)
 	{
 		assertTrue (object.equals(object));

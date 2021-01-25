@@ -41,7 +41,6 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MoneyFieldItem.Currency;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class MoneyFieldTest extends TestWithEnvironment
@@ -293,7 +292,6 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(null, i.getSharOpt());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testSharedMandatorySingle()
 	{
 		final MoneyFieldItem i = sharMan(eur, valueOf(5.55, eur));
@@ -480,7 +478,6 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(null, i.getExclOpt());
 		assertEquals(null, i.getExclOptCurrency());
 	}
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testExclusiveMandatorySingle()
 	{
 		final MoneyFieldItem i = exclMan(valueOf(5.55, eur));

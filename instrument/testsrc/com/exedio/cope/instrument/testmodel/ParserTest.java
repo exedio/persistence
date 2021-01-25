@@ -19,13 +19,11 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.instrument.Parameter;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * This file is just for testing whether the parser can read this file without exception.
  */
 @SuppressWarnings({"AssignmentReplaceableWithOperatorAssignment", "UnusedAssignment", "unused"}) // OK: just for testing instrumentor
-@SuppressFBWarnings({"DLS_DEAD_LOCAL_STORE","UC_USELESS_VOID_METHOD"})
 class ParserTest
 {
 	void methodParamNone()

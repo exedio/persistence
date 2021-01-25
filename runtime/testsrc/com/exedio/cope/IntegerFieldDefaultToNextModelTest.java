@@ -28,10 +28,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class IntegerFieldDefaultToNextModelTest
 {
 	public static final Model MODEL = Model.builder().
@@ -39,7 +37,6 @@ public class IntegerFieldDefaultToNextModelTest
 			add(TYPE).
 			build();
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testModel()
 	{
 		assertEquals(list(

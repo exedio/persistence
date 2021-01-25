@@ -26,7 +26,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class MultiItemFieldErrorTest
@@ -144,7 +143,6 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testCreateCopyNullComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
@@ -161,7 +159,6 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testCreateCopyNoSuchComponent()
 	{
 		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).
@@ -183,7 +180,6 @@ public class MultiItemFieldErrorTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testCreateCopyNullCopy()
 	{
 		final MultiItemField<?> field = MultiItemField.create(MultiItemFieldValue.class).

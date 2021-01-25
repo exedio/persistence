@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class ConstraintTest extends SchemaReadyTest
@@ -57,7 +56,6 @@ public class ConstraintTest extends SchemaReadyTest
 	private static final String UNIQUE_DOUBLE_COLUMN2 = "uniqueDouble2";
 	private static final String UNIQUE_DOUBLE_NAME = "uniqueDoubleId";
 
-	@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 	private Table table;
 	private CheckConstraint nn;
 	private CheckConstraint ck;

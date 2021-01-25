@@ -33,7 +33,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.junit.AssertionErrorChangeHook;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class ChangeHooksTest
@@ -147,7 +146,6 @@ public class ChangeHooksTest
 				factoryToString("hook1"),
 				new Factory()
 				{
-					@SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION") // OK: testing bad behaviour
 					@Override public ChangeHook create(final Model model)
 					{
 						return null;

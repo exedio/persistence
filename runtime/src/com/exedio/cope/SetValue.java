@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Objects;
 
 public final class SetValue<E>
@@ -34,7 +33,6 @@ public final class SetValue<E>
 	 * you may want to use the convenience functions.
 	 * @see Settable#map(Object)
 	 */
-	@SuppressFBWarnings("BC_UNCONFIRMED_CAST")
 	public static <E, F extends Feature & Settable<E>> SetValue<E> map(final F settable, final E value)
 	{
 		return new SetValue<>(settable, value);

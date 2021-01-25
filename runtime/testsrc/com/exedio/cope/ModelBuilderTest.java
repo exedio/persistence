@@ -27,7 +27,6 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.misc.ChangeHooks;
 import com.exedio.cope.misc.ChangeHooksTest;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class ModelBuilderTest
@@ -199,7 +198,6 @@ public class ModelBuilderTest
 				add(ItemFail.TYPE).
 				changeHooks(new ChangeHook.Factory()
 				{
-					@SuppressFBWarnings("NP_NONNULL_RETURN_VIOLATION") // OK: testing bad behaviour
 					@Override public ChangeHook create(final Model model)
 					{
 						return null;
@@ -262,7 +260,6 @@ public class ModelBuilderTest
 		}
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testAlreadySetChangeHook()
 	{
 		final ModelBuilder m = Model.builder().changeHooks(ChangeHooks.EMPTY);
@@ -277,7 +274,6 @@ public class ModelBuilderTest
 		}
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testAlreadySetRevisions()
 	{
 		final ModelBuilder m = Model.builder().add((ctx) -> {throw new RuntimeException();});

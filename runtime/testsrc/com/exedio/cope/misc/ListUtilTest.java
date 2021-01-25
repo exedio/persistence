@@ -24,13 +24,11 @@ import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
 public class ListUtilTest
 {
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	@Test void testIt()
 	{
 		assertEqualsUnmodifiable(list(), trimUnmodifiable(l()));

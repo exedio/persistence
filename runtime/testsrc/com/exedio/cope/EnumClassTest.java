@@ -24,7 +24,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class EnumClassTest
@@ -96,7 +95,6 @@ public class EnumClassTest
 	}
 
 
-	@SuppressFBWarnings("NM_CONFUSING")
 	@Test void testSubclass()
 	{
 		final EnumField<Subclass> f = EnumField.create(Subclass.class);

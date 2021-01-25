@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class JavaViewReflectionPrivateTest
@@ -50,7 +49,6 @@ public class JavaViewReflectionPrivateTest
 		static final JavaView view = new JavaView();
 
 		@SuppressWarnings({"unused", "MethodMayBeStatic"}) // Used by JavaView
-		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD")
 		private String getView()
 		{
 			return "getter result";

@@ -26,12 +26,10 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public class JavaViewThrowsReflectionDeclaredTest
 {
 	@Test void test()

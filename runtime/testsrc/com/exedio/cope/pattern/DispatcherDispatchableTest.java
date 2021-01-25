@@ -47,7 +47,6 @@ import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.JobContexts;
 import com.exedio.cope.util.JobStop;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -59,7 +58,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class DispatcherDispatchableTest extends TestWithEnvironment
 {
 	private static final Dispatcher.Config config = new Dispatcher.Config(3, 2);

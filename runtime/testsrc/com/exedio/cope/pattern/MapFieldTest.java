@@ -37,7 +37,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MapFieldItem.Language;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -48,7 +47,6 @@ import org.junit.jupiter.api.Test;
 @SuppressWarnings({
 		"MapReplaceableByEnumMap",
 		"AssertEqualsBetweenInconvertibleTypes"}) // bug in inspection
-@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS", "NP_NONNULL_PARAM_VIOLATION"})
 public class MapFieldTest extends TestWithEnvironment
 {
 	public MapFieldTest()

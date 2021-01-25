@@ -30,7 +30,6 @@ import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.misc.CopeNameUtil;
 import com.exedio.cope.misc.LocalizationKeys;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.InvalidObjectException;
 import java.io.ObjectInputStream;
 import java.io.Serializable;
@@ -46,7 +45,6 @@ import java.util.Map;
 public final class BlockType<T extends Block> implements TemplatedType<T>
 {
 	final Class<T> javaClass;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Constructor<T> constructor;
 	private final LinkedHashMap<String, Feature> templates = new LinkedHashMap<>();
 	final List<? extends Feature> templateList;

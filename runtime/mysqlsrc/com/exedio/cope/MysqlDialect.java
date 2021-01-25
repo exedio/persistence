@@ -27,7 +27,6 @@ import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.dsmf.SQLRuntimeException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -219,7 +218,6 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void completeConnection(final Connection connection) throws SQLException
 	{
 		try(java.sql.Statement st = connection.createStatement())
@@ -644,7 +642,6 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
@@ -673,7 +670,6 @@ final class MysqlDialect extends Dialect
 			execute(connectionPool, bf.toString());
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final ConnectionPool connectionPool, final String sql)
 	{
 		Connection connection = null;
@@ -711,7 +707,6 @@ final class MysqlDialect extends Dialect
 		}
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	private static void execute(final Connection connection, final String sql) throws SQLException
 	{
 		try(java.sql.Statement sqlStatement = connection.createStatement())
@@ -780,7 +775,6 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	void purgeSchema(
 			final JobContext ctx,
 			final Database database,

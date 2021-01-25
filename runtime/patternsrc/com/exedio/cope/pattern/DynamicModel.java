@@ -39,7 +39,6 @@ import com.exedio.cope.UniqueConstraint;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.List;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -71,7 +70,6 @@ public final class DynamicModel<L> extends Pattern
 	private final DoubleField [] doubles;
 	private final ItemField<Enum<L>>[] enums;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount<L> mountIfMounted = null;
 
 	private DynamicModel(

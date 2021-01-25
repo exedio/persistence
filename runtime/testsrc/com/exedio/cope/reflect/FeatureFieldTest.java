@@ -37,7 +37,6 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class FeatureFieldTest extends TestWithEnvironment
@@ -85,7 +84,6 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertSame(null, item.getRestricted());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testMandatoryViolation()
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);

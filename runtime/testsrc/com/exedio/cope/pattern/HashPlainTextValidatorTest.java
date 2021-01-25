@@ -23,13 +23,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.Item;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import org.junit.jupiter.api.Test;
 
 public class HashPlainTextValidatorTest
 {
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testIt()
 	{
 		final Hash vanillaHash = new Hash(new MessageDigestAlgorithm("SHA-512", 0, 1));

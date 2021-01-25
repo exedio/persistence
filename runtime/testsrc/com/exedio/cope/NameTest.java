@@ -30,11 +30,9 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Schema;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class NameTest extends TestWithEnvironment
 {
 	public static final Model MODEL = new Model(

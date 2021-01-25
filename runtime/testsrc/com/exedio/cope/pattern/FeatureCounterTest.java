@@ -35,7 +35,6 @@ import com.exedio.cope.tojunit.AssertionFailedErrorCounter;
 import com.exedio.cope.tojunit.AssertionFailedErrorMeterRegistry;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.Metrics;
@@ -45,7 +44,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 @MainRule.Tag
-@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS","NP_NULL_PARAM_DEREF_NONVIRTUAL","RV_RETURN_VALUE_IGNORED_INFERRED"})
 public class FeatureCounterTest
 {
 	private final LogRule log = new LogRule(FeatureMeter.class);
@@ -133,14 +131,12 @@ public class FeatureCounterTest
 
 	private final MockMeterRegistry registry = new MockMeterRegistry();
 
-	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@BeforeEach void before()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
 		FeatureMeter.registry = registry;
 	}
 
-	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@AfterEach void after()
 	{
 		//noinspection AssignmentToStaticFieldFromInstanceMethod
@@ -264,7 +260,6 @@ public class FeatureCounterTest
 	}
 
 	@SuppressWarnings("AssignmentToStaticFieldFromInstanceMethod")
-	@SuppressFBWarnings("ST_WRITE_TO_STATIC_FROM_INSTANCE_METHOD")
 	@Test void testMountTwice()
 	{
 		final FeatureCounter meter = counter("myNameSuffix" + (testMountTwiceSuffix++), "myDescription");

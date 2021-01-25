@@ -24,7 +24,6 @@ import static java.util.Objects.requireNonNull;
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.util.Collections;
@@ -42,7 +41,6 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 	private final Media raw;
 	final TextUrlFilter delegate;
 	private final String supportedContentType;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Charset charset;
 	private final String pasteStart;
 	private final String pasteStop;

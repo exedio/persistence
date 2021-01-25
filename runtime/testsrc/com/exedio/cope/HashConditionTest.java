@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.Provider;
 import java.security.Security;
 import java.util.SortedSet;
@@ -93,7 +92,6 @@ public class HashConditionTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 	SortedSet<String> supported;
 	MyItem item;
 

@@ -37,14 +37,12 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 public class SetFieldTest extends TestWithEnvironment
 {
 	public SetFieldTest()
@@ -67,7 +65,6 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("select element from SetFieldItem-dates"   + " where parent='" + item + "' order by element", item.getDatesQuery  ().toString());
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testSet()
 	{
 		item.assertStrings();
@@ -301,7 +298,6 @@ public class SetFieldTest extends TestWithEnvironment
 		item.assertStrings("1one", "2two", "3three", "4four");
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 	@Test void testMultipleItems()
 	{
 		final String rot = "1hellrot";
@@ -354,7 +350,6 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals(0, q.total());
 	}
 
-	@SuppressFBWarnings("NP_NULL_PARAM_DEREF_ALL_TARGETS_DANGEROUS")
 	@Test void testListSetNull()
 	{
 		item.setStrings(asList("1hallo", "2bello"));

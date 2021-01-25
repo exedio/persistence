@@ -25,7 +25,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -41,7 +40,6 @@ public final class BlockField<E extends Block> extends Pattern implements Copyab
 
 	private final Class<E> valueClass;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final BlockType<E> valueType;
 	private final LinkedHashMap<Feature, Feature> templateToComponent;
 	private final HashMap<Feature, Feature> componentToTemplate;

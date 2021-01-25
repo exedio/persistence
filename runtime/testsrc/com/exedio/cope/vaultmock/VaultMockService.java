@@ -33,7 +33,6 @@ import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vault.VaultPutInfo;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vault.VaultServiceParameters;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
@@ -238,7 +237,6 @@ public final class VaultMockService implements VaultService
 			super(source);
 		}
 
-		@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // OK: @Probe
 		@Probe private String probeMock()
 		{
 			return probeResult;

@@ -34,7 +34,6 @@ import com.exedio.cope.LongRangeViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
@@ -149,7 +148,6 @@ public class PriceFieldModelTest
 		assertEquals(Long.MAX_VALUE, f.getInt().getMaximum());
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testMin()
 	{
 		final PriceField f = new PriceField().min(Price.storeOf(2000));
@@ -169,7 +167,6 @@ public class PriceFieldModelTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testMax()
 	{
 		final PriceField f = new PriceField().max(Price.storeOf(4000));
@@ -189,7 +186,6 @@ public class PriceFieldModelTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testRange()
 	{
 		final PriceField f = new PriceField().range(Price.storeOf(2000), Price.storeOf(4000));
@@ -227,7 +223,6 @@ public class PriceFieldModelTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testDefaultConstant()
 	{
 		final PriceField f = new PriceField();

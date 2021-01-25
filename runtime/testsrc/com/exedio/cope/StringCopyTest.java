@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class StringCopyTest
@@ -115,7 +114,6 @@ public class StringCopyTest
 		assertWrongLength(20, 10, "maximumLength must be greater or equal minimumLength, but was 10 and 20");
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	void assertWrongLength(final int minimumLength, final int maximumLength, final String message)
 	{
 		try

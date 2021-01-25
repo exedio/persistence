@@ -25,7 +25,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Random;
 import org.junit.jupiter.api.Test;
 
@@ -74,7 +73,6 @@ public class LongFieldRandomTest
 
 	private final RandomX r = new RandomX();
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testUnsupportedMin()
 	{
 		final LongField s = new LongField().min(1);
@@ -89,7 +87,6 @@ public class LongFieldRandomTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testUnsupportedMax()
 	{
 		final LongField s = new LongField().max(1);
@@ -104,7 +101,6 @@ public class LongFieldRandomTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testUnsupportedMinMax()
 	{
 		final LongField s = new LongField().defaultToRandom(r);

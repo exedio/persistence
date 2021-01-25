@@ -20,7 +20,6 @@ package com.exedio.dsmf;
 
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
@@ -447,7 +446,6 @@ public abstract class Dialect
 		void run(ResultSet resultSet) throws SQLException;
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	protected final void querySQL(
 			final Schema schema,
 			final String statement,
@@ -457,7 +455,6 @@ public abstract class Dialect
 	}
 
 	@SuppressWarnings("StringEquality")
-	@SuppressFBWarnings({"ES_COMPARING_PARAMETER_STRING_WITH_EQ", "SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"}) // Comparison of String parameter using == or !=
 	final void querySQL(
 			final ConnectionProvider connectionProvider,
 			final String statement,

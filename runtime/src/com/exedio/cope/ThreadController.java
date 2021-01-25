@@ -22,7 +22,6 @@ import static java.lang.Thread.MAX_PRIORITY;
 import static java.lang.Thread.MIN_PRIORITY;
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.Thread.State;
 import java.text.MessageFormat;
 import org.slf4j.Logger;
@@ -106,7 +105,6 @@ public final class ThreadController
 		thread.start();
 	}
 
-	@SuppressFBWarnings("NM_CONFUSING") // Confusing method names, the referenced methods have names that differ only by capitalization.
 	public long getId()
 	{
 		final Thread thread = this.thread;
@@ -125,7 +123,6 @@ public final class ThreadController
 		return thread!=null ? thread.getState() : null;
 	}
 
-	@SuppressFBWarnings("PZLA_PREFER_ZERO_LENGTH_ARRAYS")
 	public StackTraceElement[] getStackTrace()
 	{
 		final Thread thread = this.thread;

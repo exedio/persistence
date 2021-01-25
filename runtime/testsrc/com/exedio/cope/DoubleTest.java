@@ -39,7 +39,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -583,7 +582,6 @@ public class DoubleTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	void assertIllegalRange(final double minimum, final double maximum, final String message)
 	{
 		final DoubleField f = new DoubleField().optional();

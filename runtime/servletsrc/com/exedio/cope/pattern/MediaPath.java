@@ -36,7 +36,6 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -160,7 +159,6 @@ public abstract class MediaPath extends Pattern
 	 * Provides methods for retrieving different types of urls.
 	 * All methods of Locator do not require a connected model or a transaction to work.
 	 */
-	@SuppressFBWarnings("SE_INNER_CLASS") // OK: outer class is like a member field, see getFeature()
 	public final class Locator implements Serializable
 	{
 		private static final long serialVersionUID = 1l;

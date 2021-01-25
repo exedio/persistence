@@ -28,7 +28,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.CompareFunctionCondition.Operator;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
 public class IntegerFieldTest
@@ -233,7 +232,6 @@ public class IntegerFieldTest
 		assertIllegalRange(MAX_VALUE, MAX_VALUE, "maximum must be greater than minimum, but was " + MAX_VALUE + " and " + MAX_VALUE);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	private static void assertIllegalRange(final int minimum, final int maximum, final String message)
 	{
 		final IntegerField f = new IntegerField().optional();

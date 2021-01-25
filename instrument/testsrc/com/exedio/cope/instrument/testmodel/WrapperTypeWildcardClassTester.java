@@ -29,7 +29,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemWildcardCast;
 import com.exedio.cope.instrument.WrapInterim;
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 @SuppressWarnings({"EmptyClass", "unused"}) // OK: just for testing instrumentor
 public final class WrapperTypeWildcardClassTester
@@ -57,7 +56,6 @@ public final class WrapperTypeWildcardClassTester
 	@SuppressWarnings("ProtectedMemberInFinalClass")
 	@WrapperType(wildcardClass=DEFAULT,
 			constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2)
-	@SuppressFBWarnings("CI_CONFUSED_INHERITANCE")
 	protected static final class DefaultProtected<E> extends Item
 	{
 		@com.exedio.cope.instrument.Generated

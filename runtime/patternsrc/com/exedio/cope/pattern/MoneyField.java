@@ -37,7 +37,6 @@ import com.exedio.cope.misc.ReflectionTypes;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 import java.util.Set;
 import javax.annotation.Nonnull;
@@ -70,7 +69,6 @@ public final class MoneyField<C extends Money.Currency> extends Pattern implemen
 
 
 	private final PriceField amount;
-	@SuppressFBWarnings("SE_BAD_FIELD")
 	private final CurrencySource<C> currency;
 	private final boolean isfinal;
 	private final boolean mandatory;

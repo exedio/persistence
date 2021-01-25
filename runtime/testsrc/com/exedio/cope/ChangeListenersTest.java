@@ -27,7 +27,6 @@ import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Timer;
@@ -155,7 +154,6 @@ public class ChangeListenersTest
 		assertInfo(0, 0, 0);
 	}
 
-	@SuppressFBWarnings("DLS_DEAD_LOCAL_STORE_OF_NULL") // release to GC
 	@Test void testWeakness()
 	{
 		assertInfo(0, 0, 0);

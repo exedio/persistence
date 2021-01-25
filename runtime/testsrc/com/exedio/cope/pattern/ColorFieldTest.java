@@ -30,7 +30,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.TestWithEnvironment;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.awt.Color;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,7 +76,6 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(color, i.getMandatory());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testMandatoryViolation()
 	{
 		try
@@ -150,7 +148,6 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(color, i.getAlpha());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testMandatoryAlpha()
 	{
 		assertEquals(new Color(122, 133, 199, 253), i.getMandatoryAlpha());
@@ -271,7 +268,6 @@ public class ColorFieldTest extends TestWithEnvironment
 		assertEquals(null, i.getOptional());
 	}
 
-	@SuppressFBWarnings("NP_NONNULL_PARAM_VIOLATION")
 	@Test void testDefaultTo()
 	{
 		assertEquals(new Color(22, 33, 44), i.getDefaultTo());

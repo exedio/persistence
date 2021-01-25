@@ -40,7 +40,6 @@ import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Cast;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -58,7 +57,6 @@ public final class SetField<E> extends Pattern implements Copyable
 	private final boolean ordered;
 	private final IntegerField order;
 	private final FunctionField<E> element;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private Mount mountIfMounted = null;
 	private final CopyFields copyWith;
 

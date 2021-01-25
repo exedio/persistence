@@ -24,7 +24,6 @@ import static com.exedio.cope.TypesBound.future;
 import static com.exedio.cope.util.Check.requireNonEmpty;
 import static java.util.Objects.requireNonNull;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.Set;
@@ -35,7 +34,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 {
 	private static final long serialVersionUID = 1l;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final TypeFuture<E> valueTypeFuture;
 	private final DeletePolicy policy;
 	private final FunctionField<?>[] copyTo;
@@ -390,7 +388,6 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 
 	private boolean connected = false;
 	private Type<? extends E> onlyPossibleValueType = null;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private StringColumn typeColumn = null;
 
 	@Override

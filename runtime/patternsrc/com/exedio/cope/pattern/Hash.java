@@ -43,7 +43,6 @@ import com.exedio.cope.misc.NonNegativeRandom;
 import com.exedio.cope.misc.instrument.FinalSettableGetter;
 import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Timer;
 import java.nio.charset.Charset;
 import java.security.SecureRandom;
@@ -65,9 +64,7 @@ public final class Hash extends Pattern implements HashInterface
 	private final StringField storage;
 	private final boolean isfinal;
 	private final int plainTextLimit;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final HashAlgorithm algorithm;
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final PlainTextValidator validator;
 
 	public Hash(final StringField storage, final Algorithm algorithm, final Charset charset)
@@ -483,7 +480,6 @@ public final class Hash extends Pattern implements HashInterface
 	{
 		private static final long serialVersionUID = 1l;
 		@SuppressWarnings("TransientFieldNotInitialized") // OK: is ok to be null after deserialization
-		@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 		private final transient String plainText; // transient for not leaking plainText to serialized streams
 		private final boolean wasLimit;
 		private final String message;
@@ -560,11 +556,8 @@ public final class Hash extends Pattern implements HashInterface
 		}
 	}
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer hashTimer = timer("hash", "Creates a new hash from plain text.");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer checkTimerMatch = timer("check", "Checks a hash against plain text.", "result", "match");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer checkTimerMismatch = checkTimerMatch.newValue("mismatch");
 
 	// ------------------- deprecated stuff -------------------

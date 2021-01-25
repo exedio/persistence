@@ -29,7 +29,6 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.tojunit.ClockRule;
 import com.exedio.cope.tojunit.MainRule;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -50,7 +49,6 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 		clockRule.override(clock);
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testNext()
 	{
 		assertDefaultToNextSequenceName("DefaultToItem_next_Seq", next);

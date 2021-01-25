@@ -27,13 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.SI;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("UWF_FIELD_NOT_INITIALIZED_IN_CONSTRUCTOR")
 public class MatchTest extends TestWithEnvironment
 {
 	public MatchTest()
@@ -43,7 +41,6 @@ public class MatchTest extends TestWithEnvironment
 
 	AnItem item;
 
-	@SuppressFBWarnings({"SF_SWITCH_NO_DEFAULT","SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"})
 	@Test void test() throws SQLException
 	{
 		final ConnectProperties propsBefore = MODEL.getConnectProperties();

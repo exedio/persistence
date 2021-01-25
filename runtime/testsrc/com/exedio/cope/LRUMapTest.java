@@ -22,7 +22,6 @@ import static com.exedio.cope.misc.TimeUtil.toMillies;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import gnu.trove.TLongObjectHashMap;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -112,7 +111,6 @@ public class LRUMapTest
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 	private static void assertPerformance(final HashMap<Long, String> map)
 	{
 		System.out.print(' ' + map.getClass().getSimpleName() + ":");
@@ -143,7 +141,6 @@ public class LRUMapTest
 		System.out.print(" " + toMillies(end, start) + "ms");
 	}
 
-	@SuppressFBWarnings("DM_GC")
 	private static long mem()
 	{
 		System.gc();

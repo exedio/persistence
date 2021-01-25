@@ -22,10 +22,8 @@ import static com.exedio.cope.misc.SchemaViewGeneratorTest.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.Model.NotConnectedException;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class SchemaViewGeneratorDisconnectedTest
 {
 	@Test void testDisconnected()

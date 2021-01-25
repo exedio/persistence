@@ -33,14 +33,12 @@ import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.sql.Statement;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"SQL_PREPARED_STATEMENT_GENERATED_FROM_NONCONSTANT_STRING","SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE"})
 public class IntegerTypeTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(

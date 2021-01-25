@@ -20,7 +20,6 @@ package com.exedio.cope;
 
 import static org.junit.Assert.fail;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Arrays;
 
 public class DumperItem extends Item
@@ -31,7 +30,6 @@ public class DumperItem extends Item
 
 	static int beforeNewCopeItemCount = 0;
 
-	@SuppressFBWarnings("UPM_UNCALLED_PRIVATE_METHOD") // called by reflection
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
 		beforeNewCopeItemCount++;

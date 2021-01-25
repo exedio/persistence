@@ -37,7 +37,6 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.AttributeItem.SomeEnum;
 import com.exedio.cope.testmodel.EmptyItem;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -48,7 +47,6 @@ public class SelectTest extends TestmodelTest
 {
 	EmptyItem someItem, someItem2;
 	@SuppressWarnings("unused") // OK: items must exist in database
-	@SuppressFBWarnings("URF_UNREAD_FIELD")
 	AttributeItem item1, item2, item3, item4, item5, item;
 
 	private static AttributeItem newItem(

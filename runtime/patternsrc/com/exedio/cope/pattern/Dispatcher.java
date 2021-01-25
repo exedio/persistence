@@ -55,7 +55,6 @@ import com.exedio.cope.misc.Iterables;
 import com.exedio.cope.misc.SetValueUtil;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Timer;
 import java.io.ByteArrayOutputStream;
 import java.io.PrintStream;
@@ -138,7 +137,6 @@ public final class Dispatcher extends Pattern
 
 	private final boolean supportRemaining;
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final Variant variant;
 
 	private abstract static class Variant
@@ -210,7 +208,6 @@ public final class Dispatcher extends Pattern
 		}
 	};
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private RunType runTypeIfMounted = null;
 
 	private volatile boolean probeRequired = true;
@@ -459,7 +456,6 @@ public final class Dispatcher extends Pattern
 		}
 	}
 
-	@SuppressFBWarnings("REC_CATCH_EXCEPTION") // Exception is caught when Exception is not thrown
 	@Wrap(order=21, doc="Dispatch by {0}.")
 	public <P extends Item> void dispatch(
 			@Nonnull final Class<P> parentClass,
@@ -779,7 +775,6 @@ public final class Dispatcher extends Pattern
 	}
 
 
-	@SuppressFBWarnings("SIC_INNER_SHOULD_BE_STATIC_NEEDS_THIS")
 	private final class RunType
 	{
 		final ItemField<?> parent;
@@ -1028,16 +1023,10 @@ public final class Dispatcher extends Pattern
 		return getUnpendDate().less(new Date(now - duration.toMillis()));
 	}
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer sessionCreateTimer = timer("session", "A session for dispatching was created/closed.", "event", "create");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer sessionCloseTimer = sessionCreateTimer.newValue("close");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer succeedTimer = timer("dispatch", "An item was dispatched.", "result", "success");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer failTimer = succeedTimer.newValue("failure");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer probeTimer = timer("probe", "The dispatcher probe was run successfully.");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer purgeTimer = timer("purge", "Items were purged (Dispatcher#purge).");
 }

@@ -36,7 +36,6 @@ import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.util.JobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Timer;
 import java.sql.Connection;
@@ -52,7 +51,6 @@ final class SamplerPurge extends Item
 	private static final IntegerField rows     = new IntegerField().toFinal().min(0);
 	private static final LongField    elapsed  = new LongField   ().toFinal().min(0);
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	static void purge(
 			final Connection con,
 			final Type<?> type,

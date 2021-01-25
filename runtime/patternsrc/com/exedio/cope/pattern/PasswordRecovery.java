@@ -41,7 +41,6 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.Delete;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.security.SecureRandom;
 import java.time.Duration;
 import java.util.Date;
@@ -391,14 +390,9 @@ public final class PasswordRecovery extends Pattern
 		}
 	}
 
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureCounter issueCounter = counter("issue", "A token was issued.", "reuse", "no");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureCounter issueReuseCounter = issueCounter.newValue("yes");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureTimer redeemTimer = timer("redeem", "A token was redeemed the measured time before expiry.");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureCounter redeemFailCounter = counter("redeemFail", "An attempt to redeem a secret failed, because either there was no token with such a secret or that token was expired.");
-	@SuppressFBWarnings("SE_BAD_FIELD") // OK: writeReplace
 	private final FeatureCounter setPasswordCounter = counter("setPassword", "The password was set to a new value, because a token was redeemed.");
 }

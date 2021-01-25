@@ -23,7 +23,6 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -77,7 +76,6 @@ public final class ConnectionRule extends MainRule
 	}
 
 	@SuppressWarnings("UnusedReturnValue")
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public boolean execute(final String sql) throws SQLException
 	{
 		try(Statement statement = createStatement())
@@ -86,7 +84,6 @@ public final class ConnectionRule extends MainRule
 		}
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public int executeUpdate(final String sql) throws SQLException
 	{
 		try(Statement statement = createStatement())
@@ -95,7 +92,6 @@ public final class ConnectionRule extends MainRule
 		}
 	}
 
-	@SuppressFBWarnings("SQL_NONCONSTANT_STRING_PASSED_TO_EXECUTE")
 	public ResultSet executeQuery(final String sql) throws SQLException
 	{
 		final Statement statement = createStatement();

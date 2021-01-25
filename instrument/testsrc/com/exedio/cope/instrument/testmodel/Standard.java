@@ -38,7 +38,6 @@ import com.exedio.cope.instrument.WrapperInitial;
 import com.exedio.cope.instrument.testmodel.EnumContainer.Enum4;
 import com.exedio.cope.pattern.Hash;
 import com.exedio.cope.pattern.MessageDigestHash;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 
 /**
  * TODO: length constraint
@@ -48,7 +47,6 @@ import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
  * TODO: qualifiers
  */
 @SuppressWarnings({"ProtectedMemberInFinalClass", "UnusedReturnValue", "ClassInitializerMayBeStatic", "EmptyClassInitializer"})
-@SuppressFBWarnings({"CI_CONFUSED_INHERITANCE","UPM_UNCALLED_PRIVATE_METHOD","NP_NONNULL_PARAM_VIOLATION"})
 public final class Standard extends Item
 {
 	public static final StringField defaultString = new StringField().optional();

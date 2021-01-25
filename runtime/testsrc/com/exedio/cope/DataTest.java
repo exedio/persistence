@@ -33,7 +33,6 @@ import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.vaulttest.VaultServiceTest.AssertionErrorOutputStream;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -162,7 +161,6 @@ public class DataTest extends TestWithEnvironment
 		}
 	}
 
-	@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 	@Test void testData() throws MandatoryViolationException, IOException
 	{
 		assertIt(null);

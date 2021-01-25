@@ -23,10 +23,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.StringField;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_INFERRED")
 public class MediaContentTypeMaxLengthTest
 {
 	@Test void testDefault()

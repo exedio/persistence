@@ -47,12 +47,10 @@ import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.Dispatcher.Result;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.Sources;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.io.ByteArrayOutputStream;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("NP_NULL_PARAM_DEREF_NONVIRTUAL")
 public class DispatcherModelTest
 {
 	public static final Model MODEL = new Model(TYPE);
@@ -64,7 +62,6 @@ public class DispatcherModelTest
 
 	private static final Type<?> runType = toTarget.getRunType();
 
-	@SuppressFBWarnings({"RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN","ES_COMPARING_STRINGS_WITH_EQ"})
 	@Test void testModel()
 	{
 		assertEqualsUnmodifiable(list(
@@ -159,7 +156,6 @@ public class DispatcherModelTest
 		assertSerializedSame(toTarget, 391);
 	}
 
-	@SuppressFBWarnings("RC_REF_COMPARISON_BAD_PRACTICE_BOOLEAN")
 	@Test void testDefaultPendingTo()
 	{
 		assertSame(Boolean.FALSE, create(i -> {}).defaultPendingTo(false).getPending().getDefaultConstant());

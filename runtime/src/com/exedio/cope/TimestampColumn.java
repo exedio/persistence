@@ -23,7 +23,6 @@ import static com.exedio.cope.DateField.Precision.SECOND;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.util.TimeZoneStrict;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
@@ -62,7 +61,6 @@ final class TimestampColumn extends Column
 
 	@Override
 	@SuppressWarnings({"fallthrough", "RedundantSuppression"}) // RedundantSuppression needed because fallthrough is also obeyed by javac
-	@SuppressFBWarnings("SF_SWITCH_FALLTHROUGH")
 	void makeSchema(final com.exedio.dsmf.Column dsmf)
 	{
 		final Dialect dialect = table.database.dialect;

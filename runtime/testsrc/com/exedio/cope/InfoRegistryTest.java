@@ -24,12 +24,10 @@ import static io.micrometer.core.instrument.Metrics.timer;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Meter;
 import java.util.List;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings("RV_RETURN_VALUE_IGNORED_NO_SIDE_EFFECT")
 public class InfoRegistryTest
 {
 	@Test void testMinimum()

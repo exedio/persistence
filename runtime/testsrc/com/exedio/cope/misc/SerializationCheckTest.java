@@ -36,7 +36,6 @@ import com.exedio.cope.pattern.Block;
 import com.exedio.cope.pattern.BlockField;
 import com.exedio.cope.pattern.Composite;
 import com.exedio.cope.pattern.CompositeField;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.lang.reflect.Field;
 import org.junit.jupiter.api.Test;
 
@@ -134,7 +133,6 @@ public class SerializationCheckTest
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
-	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	private static final class CompositeWrong extends Composite
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -155,7 +153,6 @@ public class SerializationCheckTest
 
 	@WrapperType(constructor=NONE, indent=2, comments=false)
 	@SuppressWarnings("unused") // OK: found by reflection
-	@SuppressFBWarnings("SE_TRANSIENT_FIELD_NOT_RESTORED")
 	private static final class BlockWrong extends Block
 	{
 		@Wrapper(wrap="*", visibility=NONE)

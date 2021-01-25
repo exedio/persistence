@@ -30,7 +30,6 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceFactory;
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultProperties;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import io.micrometer.core.instrument.Tags;
 import java.io.File;
 import java.time.Duration;
@@ -41,7 +40,6 @@ import java.util.ServiceLoader;
 import java.util.concurrent.Callable;
 import javax.annotation.Nonnull;
 
-@SuppressFBWarnings("BC_UNCONFIRMED_CAST_OF_RETURN_VALUE")
 public final class ConnectProperties extends FactoryProperties<ConnectProperties.Factory>
 {
 	// connection

@@ -42,14 +42,12 @@ import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.EmptyJobContext;
 import com.exedio.cope.util.TimeZoneStrict;
-import edu.umd.cs.findbugs.annotations.SuppressFBWarnings;
 import java.time.ZoneId;
 import java.util.GregorianCalendar;
 import java.util.Locale;
 import java.util.TimeZone;
 import org.junit.jupiter.api.Test;
 
-@SuppressFBWarnings({"NP_NULL_PARAM_DEREF_NONVIRTUAL","NP_NONNULL_PARAM_VIOLATION"})
 public class ScheduleModelTest
 {
 	static final Model MODEL = new Model(TYPE);
