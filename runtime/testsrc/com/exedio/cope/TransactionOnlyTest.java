@@ -203,6 +203,17 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		model.startTransaction( "forTearDown" );
 	}
 
+	@Test void testRollbackIfNotCommitted()
+	{
+		assertEquals(true, model.hasCurrentTransaction());
+
+		model.rollbackIfNotCommitted();
+		assertEquals(false, model.hasCurrentTransaction());
+
+		model.rollbackIfNotCommitted();
+		assertEquals(false, model.hasCurrentTransaction());
+	}
+
 	private void assertCurrentTransaction( final Transaction tx )
 	{
 		assertEquals( tx!=null, model.hasCurrentTransaction() );
