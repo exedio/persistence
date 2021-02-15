@@ -214,6 +214,17 @@ public class TransactionOnlyTest extends TestWithEnvironment
 		assertEquals(false, model.hasCurrentTransaction());
 	}
 
+	@Test void testRollbackIfNotCommittedVerbosely()
+	{
+		assertEquals(true, model.hasCurrentTransaction());
+
+		assertEquals(true, model.rollbackIfNotCommittedVerbosely());
+		assertEquals(false, model.hasCurrentTransaction());
+
+		assertEquals(false, model.rollbackIfNotCommittedVerbosely());
+		assertEquals(false, model.hasCurrentTransaction());
+	}
+
 	private void assertCurrentTransaction( final Transaction tx )
 	{
 		assertEquals( tx!=null, model.hasCurrentTransaction() );

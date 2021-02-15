@@ -756,11 +756,30 @@ public final class Model implements Serializable
 		commitOrRollback(false, transactions.current());
 	}
 
+	/**
+	 * @see #rollbackIfNotCommittedVerbosely()
+	 */
 	public void rollbackIfNotCommitted()
 	{
 		final Transaction tx = transactions.currentIfBound();
 		if(tx!=null)
 			commitOrRollback(false, tx);
+	}
+
+	/**
+	 * @return {@code true} if a transaction was rolled back as a result of this call
+	 * @see #rollbackIfNotCommitted()
+	 */
+	public boolean rollbackIfNotCommittedVerbosely()
+	{
+		final Transaction tx = transactions.currentIfBound();
+		if(tx!=null)
+		{
+			commitOrRollback(false, tx);
+			return true;
+		}
+
+		return false;
 	}
 
 	public void commit()
