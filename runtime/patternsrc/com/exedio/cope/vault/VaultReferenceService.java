@@ -28,6 +28,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 @ServiceProperties(VaultReferenceService.Props.class)
 public final class VaultReferenceService implements VaultService
@@ -79,7 +81,11 @@ public final class VaultReferenceService implements VaultService
 		catch(final VaultNotFoundException ignored)
 		{
 			if(!copyReferenceToMain)
-				return reference.getLength(hash);
+			{
+				final long result = reference.getLength(hash);
+				logGetReference(hash);
+				return result;
+			}
 
 			try
 			{
@@ -106,6 +112,7 @@ public final class VaultReferenceService implements VaultService
 		catch(final VaultNotFoundException ignored)
 		{
 			final byte[] result = reference.get(hash);
+			logGetReference(hash);
 			if(copyReferenceToMain)
 				main.put(hash, result, PUT_INFO);
 			return result;
@@ -124,6 +131,7 @@ public final class VaultReferenceService implements VaultService
 			if(!copyReferenceToMain)
 			{
 				reference.get(hash, sink);
+				logGetReference(hash);
 				return;
 			}
 
@@ -150,11 +158,20 @@ public final class VaultReferenceService implements VaultService
 		{
 			reference.get(hash, s);
 		}
+		logGetReference(hash);
 
 		return result;
 	}
 
 	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString(VaultReferenceService.class.getName());
+
+	private static void logGetReference(final String hash)
+	{
+		if(logger.isDebugEnabled())
+			logger.debug("get from reference {}", anonymiseHash(hash));
+	}
+
+	private static final Logger logger = LoggerFactory.getLogger(VaultReferenceService.class);
 
 
 	@Override

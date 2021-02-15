@@ -31,6 +31,8 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import com.exedio.cope.tojunit.LogRule;
+import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultNotFoundException;
 import com.exedio.cope.vault.VaultReferenceService;
@@ -43,6 +45,7 @@ import org.junit.jupiter.api.Test;
 /**
  * @see VaultReferenceNoCopyTest
  */
+@MainRule.Tag
 @SuppressWarnings("HardcodedLineSeparator")
 public class VaultReferenceTest
 {
@@ -65,6 +68,8 @@ public class VaultReferenceTest
 
 		assertSame(main.vaultProperties, refr.vaultProperties);
 		assertNotSame(main.serviceProperties, refr.serviceProperties);
+
+		log.assertEmpty();
 	}
 
 	@Test void mainGetLength()
@@ -79,6 +84,8 @@ public class VaultReferenceTest
 		assertEquals(VALUE1.length(), item.getFieldLength());
 		main.assertIt(HASH1, VALUE1, "getLength\n");
 		refr.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
 	}
 
 	@Test void mainGetBytes()
@@ -93,6 +100,8 @@ public class VaultReferenceTest
 		assertEquals(VALUE1, item.getFieldBytes());
 		main.assertIt(HASH1, VALUE1, "getBytes\n");
 		refr.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
 	}
 
 	@Test void mainGetStream() throws IOException
@@ -107,6 +116,8 @@ public class VaultReferenceTest
 		assertEquals(VALUE1, item.getFieldStream());
 		main.assertIt(HASH1, VALUE1, "getStream\n");
 		refr.assertIt(HASH1, VALUE1, "");
+
+		log.assertEmpty();
 	}
 
 	@Test void referenceGetLength()
@@ -120,9 +131,13 @@ public class VaultReferenceTest
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
 
+		log.assertEmpty();
 		assertEquals(VALUE1.length(), item.getFieldLength());
+		log.assertDebug("get from reference " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getLength\nputFile com.exedio.cope.vault.VaultReferenceService\n");
 		refr.assertIt(HASH1, VALUE1, "getStream\n");
+
+		log.assertEmpty();
 	}
 
 	@Test void referenceGetBytes()
@@ -136,9 +151,13 @@ public class VaultReferenceTest
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
 
+		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldBytes());
+		log.assertDebug("get from reference " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getBytes\nputBytes com.exedio.cope.vault.VaultReferenceService\n");
 		refr.assertIt(HASH1, VALUE1, "getBytes\n");
+
+		log.assertEmpty();
 	}
 
 	@Test void referenceGetStream() throws IOException
@@ -152,9 +171,13 @@ public class VaultReferenceTest
 		main.assertIt("");
 		refr.assertIt(HASH1, VALUE1, "");
 
+		log.assertEmpty();
 		assertEquals(VALUE1, item.getFieldStream());
+		log.assertDebug("get from reference " + HASH1A);
 		main.assertIt(HASH1, VALUE1, "getStream\nputFile com.exedio.cope.vault.VaultReferenceService\n");
 		refr.assertIt(HASH1, VALUE1, "getStream\n");
+
+		log.assertEmpty();
 	}
 
 	@Test void notFoundGetLength()
@@ -186,6 +209,8 @@ public class VaultReferenceTest
 		}
 		main.assertIt("getLength\n");
 		refr.assertIt("getStream\n");
+
+		log.assertEmpty();
 	}
 
 	@Test void notFoundGetBytes()
@@ -217,6 +242,8 @@ public class VaultReferenceTest
 		}
 		main.assertIt("getBytes\n");
 		refr.assertIt("getBytes\n");
+
+		log.assertEmpty();
 	}
 
 	@Test void notFoundGetStream() throws IOException
@@ -248,14 +275,18 @@ public class VaultReferenceTest
 		}
 		main.assertIt("getStream\n");
 		refr.assertIt("getStream\n");
+
+		log.assertEmpty();
 	}
 
 
+	private final LogRule log = new LogRule(VaultReferenceService.class);
 	private VaultReferenceService service;
 	private VaultMockService main, refr;
 
 	@BeforeEach void setUp()
 	{
+		log.setLevelDebug();
 		MODEL.connect(ConnectProperties.create(cascade(
 				single("vault", true),
 				single("vault.service", VaultReferenceService.class),
