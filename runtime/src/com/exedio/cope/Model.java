@@ -758,8 +758,8 @@ public final class Model implements Serializable
 
 	public void rollbackIfNotCommitted()
 	{
-		final Transaction t = transactions.currentIfBound();
-		if( t!=null )
+		final Transaction tx = transactions.currentIfBound();
+		if(tx!=null)
 			rollback();
 	}
 
