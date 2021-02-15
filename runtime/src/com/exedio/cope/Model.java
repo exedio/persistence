@@ -753,25 +753,23 @@ public final class Model implements Serializable
 
 	public void rollback()
 	{
-		commitOrRollback(false);
+		commitOrRollback(false, transactions.current());
 	}
 
 	public void rollbackIfNotCommitted()
 	{
 		final Transaction tx = transactions.currentIfBound();
 		if(tx!=null)
-			rollback();
+			commitOrRollback(false, tx);
 	}
 
 	public void commit()
 	{
-		commitOrRollback(true);
+		commitOrRollback(true, transactions.current());
 	}
 
-	private void commitOrRollback(final boolean commit)
+	private void commitOrRollback(final boolean commit, final Transaction tx)
 	{
-		final Transaction tx = transactions.current();
-
 		// NOTE:
 		// Calling Pre-Commit Hooks must be the very first thing to do. Within the hook
 		// the transaction must be still available and usable. If one of the hooks
