@@ -45,6 +45,7 @@ public class VaultNotFoundTest
 		assertNotNull(service);
 		assertEquals("SHA-512", service.vaultProperties.getAlgorithm());
 		assertEquals("mainExampleValue", service.serviceProperties.example);
+		assertEquals("default", service.serviceKey);
 		assertEquals(true, service.writable);
 	}
 

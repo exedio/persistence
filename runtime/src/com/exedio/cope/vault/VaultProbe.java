@@ -49,7 +49,7 @@ final class VaultProbe implements Callable<String>
 	@Override
 	public String call()
 	{
-		try(VaultService s = service.newService(properties))
+		try(VaultService s = service.newService(properties, key))
 		{
 			return probe(s);
 		}

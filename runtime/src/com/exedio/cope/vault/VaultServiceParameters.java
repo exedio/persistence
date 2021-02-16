@@ -20,18 +20,22 @@ package com.exedio.cope.vault;
 
 import static java.util.Objects.requireNonNull;
 
+import com.exedio.cope.DataFieldVaultInfo;
 import javax.annotation.Nonnull;
 
 public final class VaultServiceParameters
 {
 	private final VaultProperties vaultProperties;
+	private final String serviceKey;
 	private final boolean writable;
 
 	VaultServiceParameters(
 			final VaultProperties vaultProperties,
+			final String serviceKey,
 			final boolean writable)
 	{
 		this.vaultProperties = requireNonNull(vaultProperties, "vaultProperties");
+		this.serviceKey = requireNonNull(serviceKey, "serviceKey");
 		this.writable = writable;
 	}
 
@@ -39,6 +43,18 @@ public final class VaultServiceParameters
 	public VaultProperties getVaultProperties()
 	{
 		return vaultProperties;
+	}
+
+	/**
+	 * Returns the service key this service is responsible for.
+	 * Intended for logging, metrics and similar purposes.
+	 * BEWARE:
+	 * Do NOT let your functionality depend on this key.
+	 * @see DataFieldVaultInfo#getServiceKey()
+	 */
+	public String getServiceKey()
+	{
+		return serviceKey;
 	}
 
 	/**

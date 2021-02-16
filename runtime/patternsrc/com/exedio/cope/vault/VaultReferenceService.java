@@ -41,8 +41,8 @@ public final class VaultReferenceService implements VaultService
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
-		main = properties.main.newService(parameters.getVaultProperties());
-		reference = properties.reference.newService(parameters.getVaultProperties());
+		main = properties.main.newService(parameters.getVaultProperties(), parameters.getServiceKey());
+		reference = properties.reference.newService(parameters.getVaultProperties(), parameters.getServiceKey());
 		copyReferenceToMain = properties.copyReferenceToMain;
 	}
 

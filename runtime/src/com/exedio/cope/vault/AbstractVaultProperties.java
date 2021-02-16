@@ -44,10 +44,10 @@ abstract class AbstractVaultProperties extends Properties
 			this.writable = writable;
 		}
 
-		VaultService newService(final VaultProperties vaultProperties)
+		VaultService newService(final VaultProperties vaultProperties, final String serviceKey)
 		{
 			return factory.newInstance(new VaultServiceParameters(
-					vaultProperties, writable));
+					vaultProperties, serviceKey, writable));
 		}
 
 		Class<? extends VaultService> getServiceClass()

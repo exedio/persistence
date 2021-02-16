@@ -154,7 +154,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		for(final Map.Entry<String, Service> e : services.entrySet())
 		{
 			//noinspection resource
-			result.put(e.getKey(), e.getValue().newService(this));
+			result.put(e.getKey(), e.getValue().newService(this, e.getKey()));
 		}
 		return Collections.unmodifiableMap(result);
 	}
