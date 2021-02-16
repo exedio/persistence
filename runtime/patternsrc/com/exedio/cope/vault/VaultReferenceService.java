@@ -34,6 +34,7 @@ import org.slf4j.LoggerFactory;
 @ServiceProperties(VaultReferenceService.Props.class)
 public final class VaultReferenceService implements VaultService
 {
+	private final String serviceKey;
 	private final VaultService main, reference;
 	private final boolean copyReferenceToMain;
 
@@ -41,8 +42,9 @@ public final class VaultReferenceService implements VaultService
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
-		main = properties.main.newService(parameters.getVaultProperties(), parameters.getServiceKey());
-		reference = properties.reference.newService(parameters.getVaultProperties(), parameters.getServiceKey());
+		serviceKey = parameters.getServiceKey();
+		main = properties.main.newService(parameters.getVaultProperties(), serviceKey);
+		reference = properties.reference.newService(parameters.getVaultProperties(), serviceKey);
 		copyReferenceToMain = properties.copyReferenceToMain;
 	}
 
@@ -165,10 +167,10 @@ public final class VaultReferenceService implements VaultService
 
 	private static final VaultPutInfo PUT_INFO = new VaultPutInfoString(VaultReferenceService.class.getName());
 
-	private static void logGetReference(final String hash)
+	private void logGetReference(final String hash)
 	{
 		if(logger.isDebugEnabled())
-			logger.debug("get from reference {}", anonymiseHash(hash));
+			logger.debug("get from reference in {}: {}", serviceKey, anonymiseHash(hash));
 	}
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultReferenceService.class);
