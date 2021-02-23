@@ -247,7 +247,7 @@ final class Connect
 		return Collections.unmodifiableList(result);
 	}
 
-	String getSchemaSavepoint() throws SQLException
+	String getSchemaSavepoint() throws SchemaSavepointNotAvailableException, SQLException
 	{
 		return dialect.getSchemaSavepoint(connectionPool);
 	}

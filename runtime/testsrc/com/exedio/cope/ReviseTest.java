@@ -79,7 +79,7 @@ public class ReviseTest
 		@Override
 		protected boolean filter(final String msg)
 		{
-			return !"savepoint".equals(msg);
+			return !"savepoint not supported".equals(msg);
 		}
 	};
 

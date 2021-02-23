@@ -60,7 +60,7 @@ public abstract class RevisionInfo
 	}
 
 	/**
-	 * @see Model#getSchemaSavepoint()
+	 * @see Model#getSchemaSavepointNew()
 	 */
 	public String getSavepoint()
 	{

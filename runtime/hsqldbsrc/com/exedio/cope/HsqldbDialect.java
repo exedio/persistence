@@ -355,7 +355,7 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SQLException
+	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SchemaSavepointNotAvailableException, SQLException
 	{
 		if(!approximate.supportsSchemaSavepoint())
 			return super.getSchemaSavepoint(connectionPool);

@@ -524,8 +524,34 @@ public final class Model implements Serializable
 	 * The meaning of the result heavily depends on the database.
 	 * Never returns null.
 	 * @throws SQLException if not supported by the database
+	 *         or any {@code SQLException} occurs while getting the save point
 	 */
 	public String getSchemaSavepoint() throws SQLException
+	{
+		try
+		{
+			return getSchemaSavepointNew();
+		}
+		catch(final SchemaSavepointNotAvailableException e)
+		{
+			final Throwable cause = e.getCause();
+			if(cause instanceof SQLException)
+				throw (SQLException)cause;
+			else
+				throw new SQLException(e.getMessage());
+		}
+	}
+
+	/**
+	 * Returns a string that may help you resetting the schema to the
+	 * current contents.
+	 * This may or may not be supported by the database.
+	 * The meaning of the result heavily depends on the database.
+	 * Never returns null.
+	 * @throws SchemaSavepointNotAvailableException if not supported by the database
+	 * @throws SQLException if any {@code SQLException} occurs while getting the save point
+	 */
+	public String getSchemaSavepointNew() throws SchemaSavepointNotAvailableException, SQLException
 	{
 		transactions.assertNoCurrentTransaction();
 

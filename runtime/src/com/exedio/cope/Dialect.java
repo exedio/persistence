@@ -432,8 +432,8 @@ abstract class Dialect
 	 * @param connectionPool used by subclasses
 	 * @return never returns null
 	 */
-	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SQLException
+	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SchemaSavepointNotAvailableException, SQLException
 	{
-		throw new SQLException("not supported");
+		throw new SchemaSavepointNotAvailableException("not supported");
 	}
 }

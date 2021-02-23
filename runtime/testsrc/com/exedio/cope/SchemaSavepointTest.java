@@ -41,7 +41,7 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		copeRule.omitTransaction();
 	}
 
-	@Test void test()
+	@Test void test() throws SQLException
 	{
 		if(mysql)
 		{
@@ -52,6 +52,11 @@ public class SchemaSavepointTest extends TestWithEnvironment
 					(model.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 6)?" ":"") +
 					"REPLICATION CLIENT privilege(s) for this operation",
 					this::dropMariaConnectionId);
+			assertFails(
+					model::getSchemaSavepointNew,
+					SchemaSavepointNotAvailableException.class,
+					"Access denied; you need the " +
+					"REPLICATION CLIENT privilege for this operation");
 			final Properties.Source props = model.getConnectProperties().getSourceObject();
 			model.disconnect();
 			final String USERNAME = "connection.username";
@@ -65,6 +70,14 @@ public class SchemaSavepointTest extends TestWithEnvironment
 			assertMatches(expected, "OK: " + model.getSchemaSavepoint());
 		}
 		catch(final SQLException e)
+		{
+			assertMatches(expected, "FAILS: " + e.getMessage());
+		}
+		try
+		{
+			assertMatches(expected, "OK: " + model.getSchemaSavepointNew());
+		}
+		catch(final SchemaSavepointNotAvailableException e)
 		{
 			assertMatches(expected, "FAILS: " + e.getMessage());
 		}

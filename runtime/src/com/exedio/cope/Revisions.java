@@ -277,6 +277,11 @@ public final class Revisions
 			logger.error("savepoint", e);
 			return "fails: " + e.getMessage();
 		}
+		catch(final SchemaSavepointNotAvailableException e)
+		{
+			logger.warn("savepoint {}", e.getMessage());
+			return "not available: " + e.getMessage();
+		}
 		logger.info("savepoint {}", result);
 		return result;
 	}

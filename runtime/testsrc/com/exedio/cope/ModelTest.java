@@ -176,6 +176,10 @@ public class ModelTest extends TestWithEnvironment
 				model::getSchemaSavepoint,
 				IllegalStateException.class,
 				expectedText);
+		assertFails(
+				model::getSchemaSavepointNew,
+				IllegalStateException.class,
+				expectedText);
 
 		model.rollback();
 		assertNotNull(model.getVerifiedSchema());

@@ -841,7 +841,7 @@ final class MysqlDialect extends Dialect
 	}
 
 	@Override
-	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SQLException
+	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SchemaSavepointNotAvailableException, SQLException
 	{
 		final Connection connection = connectionPool.get(true);
 		final String sql = "SHOW MASTER STATUS";
@@ -850,7 +850,7 @@ final class MysqlDialect extends Dialect
 			ResultSet rs = statement.executeQuery(sql))
 		{
 			if(!rs.next())
-				throw new SQLException(sql + " returns empty result, probably because binlog is disabled");
+				throw new SchemaSavepointNotAvailableException(sql + " returns empty result, probably because binlog is disabled");
 
 			final StringBuilder bf = new StringBuilder(sql);
 			boolean first = true;
@@ -885,6 +885,15 @@ final class MysqlDialect extends Dialect
 			while(rs.next());
 
 			return bf.toString();
+		}
+		catch(final SQLException e)
+		{
+			final String message = e.getMessage();
+			if(message.contains("REPLICATION CLIENT privilege"))
+				throw new SchemaSavepointNotAvailableException(
+						"Access denied; you need the REPLICATION CLIENT privilege for this operation", e);
+			else
+				throw e;
 		}
 		finally
 		{
