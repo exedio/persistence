@@ -19,24 +19,46 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ConnectProperties.getDefaultPropertyFile;
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
+import static com.exedio.cope.tojunit.TestSources.single;
+import static com.exedio.cope.util.Sources.cascade;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.sql.SQLException;
+import java.sql.SQLSyntaxErrorException;
 import org.junit.jupiter.api.Test;
 
 public class SchemaSavepointTest extends TestWithEnvironment
 {
 	public SchemaSavepointTest()
 	{
-		super(SchemaTest.MODEL);
+		super(MODEL);
 		copeRule.omitTransaction();
 	}
 
 	@Test void test()
 	{
+		if(mysql)
+		{
+			assertFails(
+					model::getSchemaSavepoint,
+					SQLSyntaxErrorException.class,
+					"Access denied; you need (at least one of) the SUPER," +
+					(model.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 6)?" ":"") +
+					"REPLICATION CLIENT privilege(s) for this operation",
+					this::dropMariaConnectionId);
+			final Properties.Source props = model.getConnectProperties().getSourceObject();
+			model.disconnect();
+			final String USERNAME = "connection.username";
+			model.connect(ConnectProperties.create(cascade(
+					single(USERNAME, props.get(USERNAME) + "_rc"),
+					props)));
+		}
 		final String expected = new Props().schemaSavepoint;
 		try
 		{
@@ -75,4 +97,20 @@ public class SchemaSavepointTest extends TestWithEnvironment
 	}
 
 	private static final String NOT_SUPPORTED = "FAILS: not supported";
+
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	private static final class MyItem extends Item
+	{
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		private static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	private static final Model MODEL = new Model(MyItem.TYPE);
 }

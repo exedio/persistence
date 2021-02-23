@@ -50,6 +50,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import org.junit.jupiter.api.function.Executable;
 
 public final class Assert
@@ -59,9 +60,18 @@ public final class Assert
 			final Class<T> expectedType,
 			final String expectedMessage)
 	{
+		return assertFails(executable, expectedType, expectedMessage, Function.identity());
+	}
+
+	public static <T extends Throwable> T assertFails(
+			final Executable executable,
+			final Class<T> expectedType,
+			final String expectedMessage,
+			final Function<String, String> actualMessageFilter)
+	{
 		final T result = assertThrows(expectedType, executable);
 		assertSame(expectedType, result.getClass());
-		assertEquals(expectedMessage, result.getMessage());
+		assertEquals(expectedMessage, actualMessageFilter.apply(result.getMessage()));
 		return result;
 	}
 
