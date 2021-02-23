@@ -525,7 +525,9 @@ public final class Model implements Serializable
 	 * Never returns null.
 	 * @throws SQLException if not supported by the database
 	 *         or any {@code SQLException} occurs while getting the save point
+	 * @deprecated Use {@link #getSchemaSavepointNew()} instead
 	 */
+	@Deprecated
 	public String getSchemaSavepoint() throws SQLException
 	{
 		try

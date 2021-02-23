@@ -46,7 +46,7 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		if(mysql)
 		{
 			assertFails(
-					model::getSchemaSavepoint,
+					() -> getSchemaSavepoint(model),
 					SQLSyntaxErrorException.class,
 					"Access denied; you need (at least one of) the SUPER," +
 					(model.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 6)?" ":"") +
@@ -67,7 +67,7 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		final String expected = new Props().schemaSavepoint;
 		try
 		{
-			assertMatches(expected, "OK: " + model.getSchemaSavepoint());
+			assertMatches(expected, "OK: " + getSchemaSavepoint(model));
 		}
 		catch(final SQLException e)
 		{
@@ -126,4 +126,10 @@ public class SchemaSavepointTest extends TestWithEnvironment
 	}
 
 	private static final Model MODEL = new Model(MyItem.TYPE);
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	static final String getSchemaSavepoint(final Model model) throws SQLException
+	{
+		return model.getSchemaSavepoint();
+	}
 }
