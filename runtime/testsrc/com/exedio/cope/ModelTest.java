@@ -19,8 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.Assert.fail;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -63,234 +62,120 @@ public class ModelTest extends TestWithEnvironment
 		super(model);
 	}
 
-	@Test void testIt() throws Exception
+	@Test void testIt()
 	{
 		final String expectedText = "must not be called within a transaction: tx:com.exedio.cope.ModelTest";
-		try
-		{
-			model.getVerifiedSchema();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::getVerifiedSchema,
+				IllegalStateException.class,
+				expectedText);
 
 		final Schema schema = model.getSchema();
-		try
-		{
-			schema.drop();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
-		try
-		{
-			schema.create();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				schema::drop,
+				IllegalStateException.class,
+				expectedText);
+	assertFails(
+			schema::create,
+			IllegalStateException.class,
+			expectedText);
 		final com.exedio.dsmf.Table table = schema.getTables().iterator().next();
-		try
-		{
-			table.drop();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
-		try
-		{
-			table.create();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				table::drop,
+				IllegalStateException.class,
+				expectedText);
+		assertFails(
+				table::create,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.deleteSchema();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::deleteSchema,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.deleteSchemaForTest();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::deleteSchemaForTest,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.createSchema();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::createSchema,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.dropSchema();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::dropSchema,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.tearDownSchema();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::tearDownSchema,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				() -> model.createSchemaConstraints(EnumSet.allOf(Constraint.Type.class)),
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				() -> model.dropSchemaConstraints(EnumSet.allOf(Constraint.Type.class)),
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.tearDownSchemaConstraints(EnumSet.allOf(Constraint.Type.class));
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				() -> model.tearDownSchemaConstraints(EnumSet.allOf(Constraint.Type.class)),
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.purgeSchema(new AssertionErrorJobContext());
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				() -> model.purgeSchema(new AssertionErrorJobContext()),
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.checkUnsupportedConstraints();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::checkUnsupportedConstraints,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.revise();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
-		try
-		{
-			model.reviseIfSupportedAndAutoEnabled();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
-		try
-		{
-			model.getRevisionLogs();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
-		try
-		{
-			model.getRevisionLogsAndMutex();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::revise,
+				IllegalStateException.class,
+				expectedText);
+		assertFails(
+				model::reviseIfSupportedAndAutoEnabled,
+				IllegalStateException.class,
+				expectedText);
+		assertFails(
+				model::getRevisionLogs,
+				IllegalStateException.class,
+				expectedText);
+		assertFails(
+				model::getRevisionLogsAndMutex,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			//noinspection resource
-			SchemaInfo.newConnection(model);
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		//noinspection resource
+		assertFails(
+				() -> SchemaInfo.newConnection(model),
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			ModelTestItem.TYPE.checkSequenceBehindPrimaryKey();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				ModelTestItem.TYPE::checkSequenceBehindPrimaryKey,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			ModelTestItem.next.checkSequenceBehindDefaultToNextX();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				ModelTestItem.next::checkSequenceBehindDefaultToNextX,
+				IllegalStateException.class,
+				expectedText);
 
-		try
-		{
-			model.getSchemaSavepoint();
-			fail();
-		}
-		catch (final IllegalStateException e)
-		{
-			assertEquals(expectedText, e.getMessage());
-		}
+		assertFails(
+				model::getSchemaSavepoint,
+				IllegalStateException.class,
+				expectedText);
 
 		model.rollback();
 		assertNotNull(model.getVerifiedSchema());
