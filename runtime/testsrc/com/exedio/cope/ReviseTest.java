@@ -79,7 +79,7 @@ public class ReviseTest
 		@Override
 		protected boolean filter(final String msg)
 		{
-			return !"savepoint not supported by dialect".equals(msg);
+			return !("savepoint not supported by " + props.getDialect()).equals(msg);
 		}
 	};
 

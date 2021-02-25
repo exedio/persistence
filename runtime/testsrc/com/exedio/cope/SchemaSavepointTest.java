@@ -31,6 +31,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 public class SchemaSavepointTest extends TestWithEnvironment
@@ -83,7 +84,7 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		}
 	}
 
-	private static void assertMatches(
+	private void assertMatches(
 			final String expected,
 			final String actual)
 	{
@@ -99,7 +100,7 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		assertTrue(actual.matches(expected), () -> "---" + expected + "---" + actual + "---");
 	}
 
-	private static final class Props extends Properties
+	private final class Props extends Properties
 	{
 		final String schemaSavepoint = value("x-build.schemasavepoint", NOT_SUPPORTED);
 
@@ -109,7 +110,12 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		}
 	}
 
-	private static final String NOT_SUPPORTED = "FAILS: not supported by dialect";
+	private String NOT_SUPPORTED;
+
+	@BeforeEach void setUp()
+	{
+		NOT_SUPPORTED = "FAILS: not supported by " + model.getConnectProperties().getDialect();
+	}
 
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)

@@ -434,6 +434,6 @@ abstract class Dialect
 	 */
 	String getSchemaSavepoint(final ConnectionPool connectionPool) throws SchemaSavepointNotAvailableException, SQLException
 	{
-		throw new SchemaSavepointNotAvailableException("not supported by dialect");
+		throw new SchemaSavepointNotAvailableException("not supported by " + getClass().getName());
 	}
 }
