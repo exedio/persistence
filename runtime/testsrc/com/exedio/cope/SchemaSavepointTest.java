@@ -109,7 +109,7 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		}
 	}
 
-	private static final String NOT_SUPPORTED = "FAILS: not supported";
+	private static final String NOT_SUPPORTED = "FAILS: not supported by dialect";
 
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
