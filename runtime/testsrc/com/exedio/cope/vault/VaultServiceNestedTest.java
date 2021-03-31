@@ -73,7 +73,7 @@ public class VaultServiceNestedTest
 	{
 		assertEquals(true,  writWrit.writable);
 		assertEquals(false, writRead.writable);
-		assertEquals(true,  readWrit.writable); // TODO this is a bug
+		assertEquals(false, readWrit.writable);
 		assertEquals(false, readRead.writable);
 	}
 

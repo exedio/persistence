@@ -70,6 +70,6 @@ public final class VaultServiceParameters
 
 	VaultServiceParameters withWritable(final boolean writable)
 	{
-		return new VaultServiceParameters(vaultProperties, serviceKey, writable);
+		return new VaultServiceParameters(vaultProperties, serviceKey, writable&&this.writable);
 	}
 }

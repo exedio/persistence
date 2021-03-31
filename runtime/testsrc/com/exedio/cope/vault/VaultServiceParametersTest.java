@@ -52,7 +52,7 @@ public class VaultServiceParametersTest
 
 		assertEquals(true,  ww.isWritable());
 		assertEquals(false, wr.isWritable());
-		assertEquals(true,  rw.isWritable()); // TODO this is a bug
+		assertEquals(false, rw.isWritable());
 		assertEquals(false, rr.isWritable());
 
 		assertNotSame(ww, w);
