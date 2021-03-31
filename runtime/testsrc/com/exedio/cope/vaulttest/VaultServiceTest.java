@@ -75,6 +75,14 @@ public abstract class VaultServiceTest
 	}
 
 	/**
+	 * Default implementation returns true.
+	 */
+	protected boolean isServiceWritable()
+	{
+		return true;
+	}
+
+	/**
 	 * Default implementation just returns parameter {@code service}.
 	 */
 	protected VaultService maskService(final VaultService service)
@@ -100,7 +108,7 @@ public abstract class VaultServiceTest
 		for(final String key : sp.stringPropertyNames())
 			source.setProperty("service." + key, sp.getProperty(key));
 
-		properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
+		properties = VaultProperties.factory(isServiceWritable()).create(Sources.view(source, "DESC"));
 		final VaultService service = properties.newServicesUnsanitized(DEFAULT).get(DEFAULT);
 		this.service = maskService(service);
 		this.servicePut = maskServicePut(service);
@@ -127,6 +135,11 @@ public abstract class VaultServiceTest
 	protected final VaultService getService()
 	{
 		return service;
+	}
+
+	protected final VaultService getServicePut()
+	{
+		return servicePut;
 	}
 
 
