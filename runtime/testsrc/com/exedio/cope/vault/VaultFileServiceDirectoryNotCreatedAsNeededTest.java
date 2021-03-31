@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.nio.file.Files.createDirectory;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
@@ -52,6 +53,7 @@ public class VaultFileServiceDirectoryNotCreatedAsNeededTest extends AbstractVau
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquals(3, service.directoryLength);
 		assertEquals(false, service.directoryCreate);
+		assertNotNull(service.tempDir);
 	}
 
 	@Test void directoryDoesNotExist() throws IOException
