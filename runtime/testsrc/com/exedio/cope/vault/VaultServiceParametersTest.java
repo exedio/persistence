@@ -55,9 +55,9 @@ public class VaultServiceParametersTest
 		assertEquals(false, rw.isWritable());
 		assertEquals(false, rr.isWritable());
 
-		assertNotSame(ww, w);
+		assertSame(ww, w);
 		assertNotSame(wr, w);
-		assertNotSame(rw, r);
-		assertNotSame(rr, r);
+		assertSame(rw, r);
+		assertSame(rr, r);
 	}
 }
