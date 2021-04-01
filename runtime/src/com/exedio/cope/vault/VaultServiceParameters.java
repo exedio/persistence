@@ -67,4 +67,9 @@ public final class VaultServiceParameters
 	{
 		return writable;
 	}
+
+	VaultServiceParameters withWritable(final boolean writable)
+	{
+		return new VaultServiceParameters(vaultProperties, serviceKey, writable);
+	}
 }

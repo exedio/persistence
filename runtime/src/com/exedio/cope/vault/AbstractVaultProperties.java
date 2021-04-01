@@ -50,6 +50,11 @@ abstract class AbstractVaultProperties extends Properties
 					vaultProperties, serviceKey, writable));
 		}
 
+		VaultService newService(final VaultServiceParameters parameters)
+		{
+			return factory.newInstance(parameters.withWritable(writable));
+		}
+
 		Class<? extends VaultService> getServiceClass()
 		{
 			return factory.getServiceClass();

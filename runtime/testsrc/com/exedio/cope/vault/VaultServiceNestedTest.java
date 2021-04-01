@@ -107,8 +107,8 @@ public class VaultServiceNestedTest
 
 		MyService(final VaultServiceParameters parameters, final Props properties)
 		{
-			writ = properties.writ.newService(parameters.getVaultProperties(), parameters.getServiceKey());
-			read = properties.read.newService(parameters.getVaultProperties(), parameters.getServiceKey());
+			writ = properties.writ.newService(parameters);
+			read = properties.read.newService(parameters);
 		}
 
 		@Override
