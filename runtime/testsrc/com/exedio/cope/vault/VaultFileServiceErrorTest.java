@@ -49,6 +49,7 @@ public class VaultFileServiceErrorTest
 				"services",
 				"service",
 				"service.root",
+				"service.writable",
 				"service.directory",
 				"service.directory.length",
 				"service.directory.createAsNeeded",
@@ -62,6 +63,36 @@ public class VaultFileServiceErrorTest
 		assertEquals(31, service.directoryLength);
 		assertEquals(true, service.directoryCreate);
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);
+	}
+
+	@Test void notWritable()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.writable", "false");
+
+		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
+		assertEquals(asList(
+				"algorithm",
+				"services",
+				"service",
+				"service.root",
+				"service.writable",
+				"service.directory",
+				"service.directory.length",
+				"isAppliedToAllFields"),
+				properties.getFields().stream().map(Field::getKey).collect(toList()));
+
+		final RuntimeException e2 = assertFails(
+				properties::newServices,
+				RuntimeException.class,
+				"com.exedio.cope.vault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.cope.vault.VaultFileService$Props)");
+		final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();
+		assertEquals(
+				"non-writable properties cannot be used in writable service",
+				e.getMessage());
 	}
 
 	@Test void directoryLengthTooLong()

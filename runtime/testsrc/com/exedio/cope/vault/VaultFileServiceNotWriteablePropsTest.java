@@ -18,32 +18,28 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
-import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.Sources;
 import com.exedio.cope.vault.VaultFileService.Props;
-import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Paths;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.function.Executable;
 
 /**
- * @see VaultFileServiceNotWriteablePropsTest
+ * @see VaultFileServiceNotWriteableTest
  */
-public class VaultFileServiceNotWriteableTest extends AbstractVaultFileServiceTest
+public class VaultFileServiceNotWriteablePropsTest extends AbstractVaultFileServiceTest
 {
 	@Override
 	protected VaultService maskService(final VaultService originalService)
 	{
 		final Props props = new Props(Sources.cascade(
-				single("root", getRoot())));
-		assertEquals(true, props.writable);
+				single("root", getRoot()),
+				single("writable", false)));
+		assertEquals(false, props.writable);
 		return new VaultFileService(
 				new VaultServiceParameters(VaultProperties.factory().create(Sources.cascade(
 						single("algorithm", ALGORITHM),
@@ -74,35 +70,7 @@ public class VaultFileServiceNotWriteableTest extends AbstractVaultFileServiceTe
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquals(3, service.directoryLength);
-		assertEquals(true, service.directoryCreate);
+		assertEquals(false, service.directoryCreate);
 		assertEquals(null, service.tempDir);
-	}
-
-	@Test void putFails()
-	{
-		final VaultFileService service = (VaultFileService)getService();
-		final String hash = hash("abcdef01234567");
-		assertTempNull(
-				() -> service.put(hash, new byte[]{1,2,3}, PUT_INFO));
-		assertTempNull(
-				() -> service.put(hash, new ByteArrayInputStream(new byte[]{1,2,3}), PUT_INFO));
-		assertTempNull(
-				() -> service.put(hash, Paths.get("putFails"), PUT_INFO));
-	}
-
-	private static void assertTempNull(final Executable executable)
-	{
-		final NullPointerException e = assertFails(
-				executable,
-				NullPointerException.class,
-				null);
-		final StackTraceElement steFiles = e.getStackTrace()[1];
-		assertAll(
-				() -> assertEquals("java.nio.file.Files", steFiles.getClassName()),
-				() -> assertEquals("createTempFile", steFiles.getMethodName()));
-		final StackTraceElement steService = e.getStackTrace()[2];
-		assertAll(
-				() -> assertEquals("com.exedio.cope.vault.VaultFileService", steService.getClassName()),
-				() -> assertEquals("createTempFile", steService.getMethodName()));
 	}
 }

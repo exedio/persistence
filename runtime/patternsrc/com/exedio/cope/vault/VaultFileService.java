@@ -228,21 +228,29 @@ public final class VaultFileService implements VaultService
 	static final class Props extends Properties
 	{
 		final Path root = valuePath("root");
-		final DirectoryProps directory = value("directory", true, DirectoryProps::new);
-		private final String temp = value("temp", ".tempVaultFileService");
+		final boolean writable = value("writable", true);
+		final DirectoryProps directory = value("directory", true, s -> new DirectoryProps(s, writable));
+		private final String temp = writable ? value("temp", ".tempVaultFileService") : null;
 
 		Props(final Source source)
 		{
 			super(source);
 
-			if(temp.isEmpty())
-				throw newException("temp", "must not be empty");
-			if(!temp.equals(temp.trim()))
-				throw newException("temp", "must be trimmed, but was >" + temp + '<');
+			if(temp!=null)
+			{
+				if(temp.isEmpty())
+					throw newException("temp", "must not be empty");
+				if(!temp.equals(temp.trim()))
+					throw newException("temp", "must be trimmed, but was >" + temp + '<');
+			}
 		}
 
 		Path tempDir()
 		{
+			if(temp==null)
+				throw new IllegalArgumentException(
+						"non-writable properties cannot be used in writable service");
+
 			return root.resolve(temp);
 		}
 
@@ -263,9 +271,17 @@ public final class VaultFileService implements VaultService
 		}
 
 		@Probe(name="temp.Exists")
-		private Path probeTempExists()
+		private Path probeTempExists() throws ProbeAbortedException
 		{
-			return probeDirectoryExists(tempDir());
+			return probeDirectoryExists(tempDirForProbe());
+		}
+
+		private Path tempDirForProbe() throws ProbeAbortedException
+		{
+			if(temp==null)
+				throw newProbeAbortedException("not writable");
+
+			return tempDir();
 		}
 
 		private static Path probeDirectoryExists(final Path directory)
@@ -283,10 +299,10 @@ public final class VaultFileService implements VaultService
 		}
 
 		@Probe(name="temp.Store")
-		private FileStore probeTempStore() throws IOException
+		private FileStore probeTempStore() throws ProbeAbortedException, IOException
 		{
+			final Path tempDir = tempDirForProbe();
 			final FileStore rootStore = Files.getFileStore(root);
-			final Path tempDir = tempDir();
 			final FileStore tempStore = Files.getFileStore(tempDir);
 			if(!rootStore.equals(tempStore))
 				throw new IllegalArgumentException( // TODO test
@@ -358,11 +374,13 @@ public final class VaultFileService implements VaultService
 		 * Specify, whether directories are created as needed on put operation.
 		 * May be set to {@code false} if all directories do exist already.
 		 */
-		final boolean createAsNeeded = value("createAsNeeded", true);
+		final boolean createAsNeeded;
 
-		DirectoryProps(final Source source)
+		DirectoryProps(final Source source, final boolean writable)
 		{
 			super(source);
+			//noinspection SimplifiableConditionalExpression
+			createAsNeeded = writable ? value("createAsNeeded", true) : false;
 		}
 	}
 

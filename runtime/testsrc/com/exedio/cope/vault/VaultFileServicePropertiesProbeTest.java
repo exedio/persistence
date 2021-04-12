@@ -75,7 +75,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		assertEquals(
-				asList("root", "directory", "directory.length", "directory.createAsNeeded", "temp"),
+				asList("root", "writable", "directory", "directory.length", "directory.createAsNeeded", "temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
@@ -131,6 +131,62 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(free, rootFree.call());
 		assertEquals(p.tempDir(), tempExists.call());
 		assertEquals(store, tempStore.call());
+	}
+
+	@Test void probeNotWritable() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("writable", false)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(
+				asList("root", "writable", "directory", "directory.length"),
+				p.getFields().stream().map(Field::getKey).collect(toList()));
+
+		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
+		assertEquals("directory.Exists", probes.next().toString());
+		final Callable<?> rootExists = probes.next();
+		final Callable<?> rootFree   = probes.next();
+		final Callable<?> tempExists = probes.next();
+		final Callable<?> tempStore  = probes.next();
+		assertFalse(probes.hasNext());
+
+		assertEquals("root.Exists", rootExists.toString());
+		assertEquals("root.Free",   rootFree  .toString());
+		assertEquals("temp.Exists", tempExists.toString());
+		assertEquals("temp.Store",  tempStore .toString());
+
+		assertFails(
+				rootExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + p.root.toAbsolutePath());
+		assertFails(
+				rootFree::call,
+				NoSuchFileException.class,
+				p.root.toAbsolutePath().toString());
+		assertFails(
+				tempExists::call,
+				ProbeAbortedException.class,
+				"not writable");
+		assertFails(
+				tempStore::call,
+				ProbeAbortedException.class,
+				"not writable");
+
+		createDirectory(p.root);
+		assertEquals(p.root, rootExists.call());
+		assertFails(
+				tempExists::call,
+				ProbeAbortedException.class,
+				"not writable");
+		assertFails(
+				tempStore::call,
+				ProbeAbortedException.class,
+				"not writable");
 	}
 
 	@Test void probeRootRegularFile() throws Exception
