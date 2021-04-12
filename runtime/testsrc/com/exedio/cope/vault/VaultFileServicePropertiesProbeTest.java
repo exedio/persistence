@@ -26,12 +26,14 @@ import static java.nio.file.Files.createDirectory;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.ProbeAbortedException;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.vault.VaultFileService.Props;
@@ -72,6 +74,10 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final Props p = new Props(source);
+		assertEquals(
+				asList("root", "directory", "directory.length", "directory.createAsNeeded", "temp"),
+				p.getFields().stream().map(Field::getKey).collect(toList()));
+
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		assertEquals("directory.Exists", probes.next().toString());
 		final Callable<?> rootExists = probes.next();

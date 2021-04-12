@@ -19,10 +19,13 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.util.Arrays.asList;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Factory;
+import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.Sources;
 import java.nio.file.Paths;
@@ -41,6 +44,18 @@ public class VaultFileServiceErrorTest
 		source.setProperty("service.temp", "t");
 
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
+		assertEquals(asList(
+				"algorithm",
+				"services",
+				"service",
+				"service.root",
+				"service.directory",
+				"service.directory.length",
+				"service.directory.createAsNeeded",
+				"service.temp",
+				"isAppliedToAllFields"),
+				properties.getFields().stream().map(Field::getKey).collect(toList()));
+
 		@SuppressWarnings({"resource", "deprecation"})
 		final VaultFileService service = (VaultFileService)properties.newService();
 
