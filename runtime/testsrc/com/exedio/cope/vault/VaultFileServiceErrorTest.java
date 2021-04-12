@@ -18,7 +18,7 @@
 
 package com.exedio.cope.vault;
 
-import static org.junit.Assert.fail;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.util.IllegalPropertiesException;
@@ -58,18 +58,14 @@ public class VaultFileServiceErrorTest
 		source.setProperty("service.directory.length", "32");
 
 		final VaultProperties properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
-		try
-		{
-			properties.newServices();
-			fail();
-		}
-		catch(final RuntimeException e2)
-		{
-			final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();
-			assertEquals(
-					"directory.length must be less the length of algorithm, but was 32>=32",
-					e.getMessage());
-		}
+		final RuntimeException e2 = assertFails(
+				properties::newServices,
+				RuntimeException.class,
+				"com.exedio.cope.vault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.cope.vault.VaultFileService$Props)");
+		final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();
+		assertEquals(
+				"directory.length must be less the length of algorithm, but was 32>=32",
+				e.getMessage());
 	}
 
 	@Test void tempEmpty()
@@ -82,17 +78,10 @@ public class VaultFileServiceErrorTest
 
 		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
-		try
-		{
-			factory.create(sourceView);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property service.temp in DESC must not be empty",
-					e.getMessage());
-		}
+		assertFails(
+				() -> factory.create(sourceView),
+				IllegalPropertiesException.class,
+				"property service.temp in DESC must not be empty");
 	}
 
 	@Test void tempTrim()
@@ -105,16 +94,9 @@ public class VaultFileServiceErrorTest
 
 		final Factory<VaultProperties> factory = VaultProperties.factory();
 		final Source sourceView = Sources.view(source, "DESC");
-		try
-		{
-			factory.create(sourceView);
-			fail();
-		}
-		catch(final IllegalPropertiesException e)
-		{
-			assertEquals(
-					"property service.temp in DESC must be trimmed, but was > x<",
-					e.getMessage());
-		}
+		assertFails(
+				() -> factory.create(sourceView),
+				IllegalPropertiesException.class,
+				"property service.temp in DESC must be trimmed, but was > x<");
 	}
 }
