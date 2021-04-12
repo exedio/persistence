@@ -60,8 +60,7 @@ public class VaultFileServiceErrorTest
 		@SuppressWarnings({"resource", "deprecation"})
 		final VaultFileService service = (VaultFileService)properties.newService();
 
-		assertEquals(31, service.directoryLength);
-		assertEquals(false, service.directoryPremised);
+		assertEquals("l=31", service.directory.toString());
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);
 	}
 

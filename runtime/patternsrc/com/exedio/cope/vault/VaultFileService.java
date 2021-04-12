@@ -33,9 +33,7 @@ import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
-import java.util.Arrays;
 import java.util.Iterator;
-import java.util.NoSuchElementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -43,8 +41,7 @@ import org.slf4j.LoggerFactory;
 public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
-	final int directoryLength;
-	final boolean directoryPremised;
+	final VaultDirectory directory;
 	final Path tempDir;
 
 	VaultFileService(
@@ -52,19 +49,8 @@ public final class VaultFileService implements VaultService
 			final Props properties)
 	{
 		this.rootDir = properties.root;
-		final DirectoryProps directory = properties.directory;
-		this.directoryLength = directory!=null ? directory.length : 0;
-		this.directoryPremised = directory!=null && directory.premised;
+		this.directory = VaultDirectory.instance(properties.directory, parameters);
 		this.tempDir = parameters.isWritable() ? properties.tempDir() : null;
-
-		{
-			final VaultProperties props = parameters.getVaultProperties();
-			final int algorithmLength = props.getAlgorithmLength();
-			if(directoryLength>=algorithmLength)
-				throw new IllegalArgumentException(
-						"directory.length must be less the length of algorithm " + props.getAlgorithm() + ", " +
-						"but was " + directoryLength + ">=" + algorithmLength);
-		}
 	}
 
 	// TODO implement purgeSchema, delete old files in tempDir if VaultServiceParameters#isWritable()==false
@@ -157,8 +143,9 @@ public final class VaultFileService implements VaultService
 
 		value.accept(temp);
 
-		if(!directoryPremised)
-			createDirectoryIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
+		final String dir = directory.directoryToBeCreated(hash);
+		if(dir!=null)
+			createDirectoryIfNotExists(rootDir.resolve(dir));
 
 		return moveIfDestDoesNotExist(temp, file);
 	}
@@ -203,12 +190,7 @@ public final class VaultFileService implements VaultService
 		if(hash.isEmpty())
 			throw new IllegalArgumentException();
 
-		if(directoryLength==0)
-			return rootDir.resolve(hash);
-
-		return rootDir.resolve(
-				hash.substring(0, directoryLength) + '/' +
-				hash.substring(directoryLength));
+		return rootDir.resolve(directory.path(hash));
 	}
 
 	private Path createTempFile(final String hash) throws IOException
@@ -232,7 +214,7 @@ public final class VaultFileService implements VaultService
 	{
 		final Path root = valuePath("root");
 		final boolean writable = value("writable", true);
-		final DirectoryProps directory = value("directory", true, s -> new DirectoryProps(s, writable));
+		final VaultDirectory.Properties directory = value("directory", true, s -> new VaultDirectory.Properties(s, writable));
 		private final String temp = writable ? value("temp", ".tempVaultFileService") : null;
 
 		Props(final Source source)
@@ -334,89 +316,6 @@ public final class VaultFileService implements VaultService
 			}
 
 			return ok;
-		}
-	}
-
-
-	static final class DirectoryProps extends Properties
-	{
-		/**
-		 * This field is similar to directive {@code CacheDirLength} of Apache mod_cache_disk,
-		 * however a value of {@code 2} in mod_cache_disk is equivalent to a value of {@code 3} here,
-		 * as mod_cache_disk uses Base64 for encoding hashes and we use hexadecimal representation.
-		 *
-		 * See https://httpd.apache.org/docs/2.4/mod/mod_cache_disk.html#cachedirlength
-		 */
-		final int length = value("length", 3, 1);
-
-		// TODO implement levels equivalent to CacheDirLevels, default to 1
-
-		/**
-		 * Specify, whether directories are created as needed on put operation.
-		 * This is the default.
-		 * May be set to {@code true} if all directories do exist already.
-		 */
-		final boolean premised;
-
-		DirectoryProps(final Source source, final boolean writable)
-		{
-			super(source);
-			//noinspection SimplifiableConditionalExpression
-			premised = writable ? value("premised", false) : false;
-		}
-
-		Iterator<String> iterator()
-		{
-			return new DirIter(length);
-		}
-	}
-
-	private static final class DirIter implements Iterator<String>
-	{
-		private char[] c;
-
-		DirIter(final int length)
-		{
-			c = new char[length];
-			Arrays.fill(c, '0');
-		}
-
-		@Override
-		public boolean hasNext()
-		{
-			return c!=null;
-		}
-
-		@Override
-		public String next()
-		{
-			if(c==null)
-				throw new NoSuchElementException();
-
-			final String result = new String(c);
-
-			inc_loop: for(int i = c.length-1; i>=0; i--)
-			{
-				switch(c[i])
-				{
-					//noinspection DefaultNotLastCaseInSwitch
-					default : c[i]++;     break inc_loop;
-					case '9': c[i] = 'a'; break inc_loop;
-					case 'f':
-						if(i>0)
-						{
-							c[i] = '0';
-							break;
-						}
-						else
-						{
-							c = null;
-							break inc_loop;
-						}
-				}
-			}
-
-			return result;
 		}
 	}
 

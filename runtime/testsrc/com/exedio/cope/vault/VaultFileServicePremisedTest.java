@@ -51,8 +51,7 @@ public class VaultFileServicePremisedTest extends AbstractVaultFileServiceTest
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertEquals(3, service.directoryLength);
-		assertEquals(true, service.directoryPremised);
+		assertEquals("l=3 premised", service.directory.toString());
 		assertNotNull(service.tempDir);
 	}
 

@@ -69,8 +69,7 @@ public class VaultFileServiceNotWriteablePropsTest extends AbstractVaultFileServ
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertEquals(3, service.directoryLength);
-		assertEquals(false, service.directoryPremised);
+		assertEquals("l=3", service.directory.toString());
 		assertEquals(null, service.tempDir);
 	}
 }

@@ -44,8 +44,7 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertEquals(0, service.directoryLength);
-		assertEquals(false, service.directoryPremised);
+		assertEquals("flat", service.directory.toString());
 		assertNotNull(service.tempDir);
 	}
 

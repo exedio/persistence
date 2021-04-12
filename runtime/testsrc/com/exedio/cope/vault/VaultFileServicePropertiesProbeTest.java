@@ -38,7 +38,6 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.ProbeAbortedException;
 import com.exedio.cope.util.Properties.Source;
-import com.exedio.cope.vault.VaultFileService.DirectoryProps;
 import com.exedio.cope.vault.VaultFileService.Props;
 import java.io.File;
 import java.io.IOException;
@@ -506,7 +505,7 @@ public class VaultFileServicePropertiesProbeTest
 
 	private static void iterate(final Properties.Source source, final List<String> expected)
 	{
-		final Iterator<String> iterator = new DirectoryProps(source, true).iterator();
+		final Iterator<String> iterator = new VaultDirectory.Properties(source, true).iterator();
 		final ArrayList<String> actual = new ArrayList<>();
 		iterator.forEachRemaining(actual::add);
 		assertEquals(expected, actual);
