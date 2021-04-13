@@ -26,6 +26,7 @@ import static java.nio.file.Files.createDirectory;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 import static java.util.Arrays.asList;
+import static java.util.Collections.unmodifiableList;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -430,7 +431,7 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "10");
 
 		for(final String s1 : asList("1","2","3","4","5","6","7","8","9","a","b","c","d","e"))
-			for(final String s2 : asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"))
+			for(final String s2 : HEX_DIGITS)
 				createDirectory(root.toPath().resolve(s1+s2));
 		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "f0");
 
@@ -462,11 +463,13 @@ public class VaultFileServicePropertiesProbeTest
 		createDirectory(root.toPath());
 		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "000");
 
-		final List<String> hexDigits = asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f");
-		for(final String s1 : hexDigits)
-			for(final String s2 : hexDigits)
-				for(final String s3 : hexDigits)
+		for(final String s1 : HEX_DIGITS)
+			for(final String s2 : HEX_DIGITS)
+				for(final String s3 : HEX_DIGITS)
 					createDirectory(root.toPath().resolve(s1+s2+s3));
 		assertEquals(4096, dirs.call());
 	}
+
+	private static final List<String> HEX_DIGITS = unmodifiableList(asList(
+			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"));
 }
