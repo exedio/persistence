@@ -56,10 +56,11 @@ public final class VaultFileService implements VaultService
 		this.tempDir = parameters.isWritable() ? properties.tempDir() : null;
 
 		{
-			final int algorithmLength = parameters.getVaultProperties().getAlgorithmLength();
+			final VaultProperties props = parameters.getVaultProperties();
+			final int algorithmLength = props.getAlgorithmLength();
 			if(directoryLength>=algorithmLength)
 				throw new IllegalArgumentException(
-						"directory.length must be less the length of algorithm, " +
+						"directory.length must be less the length of algorithm " + props.getAlgorithm() + ", " +
 						"but was " + directoryLength + ">=" + algorithmLength);
 		}
 	}

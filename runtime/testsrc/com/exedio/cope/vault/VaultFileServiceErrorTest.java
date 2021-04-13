@@ -110,7 +110,7 @@ public class VaultFileServiceErrorTest
 				"com.exedio.cope.vault.VaultFileService(com.exedio.cope.vault.VaultServiceParameters,com.exedio.cope.vault.VaultFileService$Props)");
 		final IllegalArgumentException e = (IllegalArgumentException)e2.getCause().getCause();
 		assertEquals(
-				"directory.length must be less the length of algorithm, but was 32>=32",
+				"directory.length must be less the length of algorithm MD5, but was 32>=32",
 				e.getMessage());
 	}
 
