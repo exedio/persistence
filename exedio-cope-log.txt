@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* VaultFileService properties: key directory.createAsNeeded changed to
+	directory.premised and *inverted its meaning*.
+
+	This breaks backwards API compatibility, check your deployed systems!
+	If this property is at its default (probably it is) you don't have to do anything.
+
 * EnumSingleton added.
 * Model#rollbackIfNotCommittedVerbosely() added.
 * [Composite|Block]Type#forClass[Unchecked] and #as(Class) added.

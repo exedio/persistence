@@ -75,11 +75,11 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		assertEquals(
-				asList("root", "writable", "directory", "directory.length", "directory.createAsNeeded", "temp"),
+				asList("root", "writable", "directory", "directory.length", "directory.premised", "temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertEquals("directory.Exists", probes.next().toString());
+		assertEquals("directory.Premised", probes.next().toString());
 		final Callable<?> rootExists = probes.next();
 		final Callable<?> rootFree   = probes.next();
 		final Callable<?> tempExists = probes.next();
@@ -148,7 +148,7 @@ public class VaultFileServicePropertiesProbeTest
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertEquals("directory.Exists", probes.next().toString());
+		assertEquals("directory.Premised", probes.next().toString());
 		final Callable<?> rootExists = probes.next();
 		final Callable<?> rootFree   = probes.next();
 		final Callable<?> tempExists = probes.next();
@@ -314,7 +314,7 @@ public class VaultFileServicePropertiesProbeTest
 				"does not support read only directories");
 	}
 
-	@Test void probeDirectoryExistsDisabled()
+	@Test void probePremisedDisabled()
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
@@ -326,7 +326,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Props p = new Props(source);
 		assertNull(p.directory);
 		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Exists".equals(c.toString())).
+				filter(c -> "directory.Premised".equals(c.toString())).
 				findFirst().
 				get();
 
@@ -336,7 +336,7 @@ public class VaultFileServicePropertiesProbeTest
 				"directories disabled");
 	}
 
-	@Test void probeDirectoryExistsCreateAsNeeded()
+	@Test void probePremisedNotPremised()
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
@@ -345,33 +345,33 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final Props p = new Props(source);
-		assertEquals(true, p.directory.createAsNeeded);
+		assertEquals(false, p.directory.premised);
 		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Exists".equals(c.toString())).
+				filter(c -> "directory.Premised".equals(c.toString())).
 				findFirst().
 				get();
 
 		assertFails(
 				dirs::call,
 				ProbeAbortedException.class,
-				"directories created as needed");
+				"directories not premised");
 	}
 
-	@Test void probeDirectoryExistsOne() throws Exception
+	@Test void probePremisedOne() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
 						single("root", root),
 						single("directory.length", 1),
-						single("directory.createAsNeeded", false)
+						single("directory.premised", true)
 				));
 
 		final Props p = new Props(source);
 		assertEquals(1, p.directory.length);
-		assertEquals(false, p.directory.createAsNeeded);
+		assertEquals(true, p.directory.premised);
 		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Exists".equals(c.toString())).
+				filter(c -> "directory.Premised".equals(c.toString())).
 				findFirst().
 				get();
 
@@ -395,21 +395,21 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(16, dirs.call());
 	}
 
-	@Test void probeDirectoryExistsTwo() throws Exception
+	@Test void probePremisedTwo() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
 						single("root", root),
 						single("directory.length", 2),
-						single("directory.createAsNeeded", false)
+						single("directory.premised", true)
 				));
 
 		final Props p = new Props(source);
 		assertEquals(2, p.directory.length);
-		assertEquals(false, p.directory.createAsNeeded);
+		assertEquals(true, p.directory.premised);
 		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Exists".equals(c.toString())).
+				filter(c -> "directory.Premised".equals(c.toString())).
 				findFirst().
 				get();
 
@@ -442,20 +442,20 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(256, dirs.call());
 	}
 
-	@Test void probeDirectoryExistsThree() throws Exception
+	@Test void probePremisedThree() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
 				describe("DESC", cascade(
 						single("root", root),
-						single("directory.createAsNeeded", false)
+						single("directory.premised", true)
 				));
 
 		final Props p = new Props(source);
 		assertEquals(3, p.directory.length);
-		assertEquals(false, p.directory.createAsNeeded);
+		assertEquals(true, p.directory.premised);
 		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Exists".equals(c.toString())).
+				filter(c -> "directory.Premised".equals(c.toString())).
 				findFirst().
 				get();
 

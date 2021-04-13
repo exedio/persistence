@@ -30,18 +30,18 @@ import java.util.Properties;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class VaultFileServiceDirectoryNotCreatedAsNeededTest extends AbstractVaultFileServiceTest
+public class VaultFileServicePremisedTest extends AbstractVaultFileServiceTest
 {
 	@Override
 	protected Properties getServiceProperties() throws IOException
 	{
 		final Properties result = super.getServiceProperties();
-		result.setProperty("directory.createAsNeeded", "false");
+		result.setProperty("directory.premised", "true");
 		return result;
 	}
 
 	@BeforeEach
-	final void setUpVaultFileServiceDirectoryNotCreatedAsNeededTest() throws IOException
+	final void setUpVaultFileServicePremisedTest() throws IOException
 	{
 		final Path root = getRoot().toPath();
 		createDirectory(root.resolve("bf6"));
@@ -52,7 +52,7 @@ public class VaultFileServiceDirectoryNotCreatedAsNeededTest extends AbstractVau
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquals(3, service.directoryLength);
-		assertEquals(false, service.directoryCreate);
+		assertEquals(true, service.directoryPremised);
 		assertNotNull(service.tempDir);
 	}
 

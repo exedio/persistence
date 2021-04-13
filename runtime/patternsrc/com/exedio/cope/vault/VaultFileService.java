@@ -42,7 +42,7 @@ public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
 	final int directoryLength;
-	final boolean directoryCreate;
+	final boolean directoryPremised;
 	final Path tempDir;
 
 	VaultFileService(
@@ -52,7 +52,7 @@ public final class VaultFileService implements VaultService
 		this.rootDir = properties.root;
 		final DirectoryProps directory = properties.directory;
 		this.directoryLength = directory!=null ? directory.length : 0;
-		this.directoryCreate = directory!=null && directory.createAsNeeded;
+		this.directoryPremised = directory!=null && directory.premised;
 		this.tempDir = parameters.isWritable() ? properties.tempDir() : null;
 
 		{
@@ -155,7 +155,7 @@ public final class VaultFileService implements VaultService
 
 		value.accept(temp);
 
-		if(directoryCreate)
+		if(!directoryPremised)
 			createDirectoryIfNotExists(rootDir.resolve(hash.substring(0, directoryLength)));
 
 		return moveIfDestDoesNotExist(temp, file);
@@ -313,13 +313,13 @@ public final class VaultFileService implements VaultService
 			return rootStore;
 		}
 
-		@Probe(name="directory.Exists")
-		private int probeDirectoryExists() throws ProbeAbortedException
+		@Probe(name="directory.Premised")
+		private int probeDirectoryPremised() throws ProbeAbortedException
 		{
 			if(directory==null)
 				throw newProbeAbortedException("directories disabled");
-			if(directory.createAsNeeded)
-				throw newProbeAbortedException("directories created as needed");
+			if(!directory.premised)
+				throw newProbeAbortedException("directories not premised");
 
 			final char[] c = new char[directory.length];
 			Arrays.fill(c, '0');
@@ -373,15 +373,16 @@ public final class VaultFileService implements VaultService
 
 		/**
 		 * Specify, whether directories are created as needed on put operation.
-		 * May be set to {@code false} if all directories do exist already.
+		 * This is the default.
+		 * May be set to {@code true} if all directories do exist already.
 		 */
-		final boolean createAsNeeded;
+		final boolean premised;
 
 		DirectoryProps(final Source source, final boolean writable)
 		{
 			super(source);
 			//noinspection SimplifiableConditionalExpression
-			createAsNeeded = writable ? value("createAsNeeded", true) : false;
+			premised = writable ? value("premised", false) : false;
 		}
 	}
 

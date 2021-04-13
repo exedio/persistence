@@ -52,7 +52,7 @@ public class VaultFileServiceErrorTest
 				"service.writable",
 				"service.directory",
 				"service.directory.length",
-				"service.directory.createAsNeeded",
+				"service.directory.premised",
 				"service.temp",
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
@@ -61,7 +61,7 @@ public class VaultFileServiceErrorTest
 		final VaultFileService service = (VaultFileService)properties.newService();
 
 		assertEquals(31, service.directoryLength);
-		assertEquals(true, service.directoryCreate);
+		assertEquals(false, service.directoryPremised);
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);
 	}
 
