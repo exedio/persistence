@@ -34,6 +34,8 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.util.Arrays;
+import java.util.Iterator;
+import java.util.NoSuchElementException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -321,37 +323,15 @@ public final class VaultFileService implements VaultService
 			if(!directory.premised)
 				throw newProbeAbortedException("directories not premised");
 
-			final char[] c = new char[directory.length];
-			Arrays.fill(c, '0');
 			int ok = 0;
-			dir_loop: do
+			for(final Iterator<String> i = directory.iterator(); i.hasNext(); )
 			{
-				final Path dir = root.resolve(new String(c));
+				final Path dir = root.resolve(i.next());
 				if(Files.isDirectory(dir))
 					ok++;
 				else
 					throw new IllegalStateException(dir.toString());
-
-				inc_loop: for(int i = c.length-1; i>=0; i--)
-				{
-					switch(c[i])
-					{
-						//noinspection DefaultNotLastCaseInSwitch
-						default : c[i]++;     break inc_loop;
-						case '9': c[i] = 'a'; break inc_loop;
-						case 'f':
-							if(i>0)
-							{
-								c[i] = '0';
-								break;
-							}
-							else
-								break dir_loop;
-
-					}
-				}
 			}
-			while(true);
 
 			return ok;
 		}
@@ -383,6 +363,60 @@ public final class VaultFileService implements VaultService
 			super(source);
 			//noinspection SimplifiableConditionalExpression
 			premised = writable ? value("premised", false) : false;
+		}
+
+		Iterator<String> iterator()
+		{
+			return new DirIter(length);
+		}
+	}
+
+	private static final class DirIter implements Iterator<String>
+	{
+		private char[] c;
+
+		DirIter(final int length)
+		{
+			c = new char[length];
+			Arrays.fill(c, '0');
+		}
+
+		@Override
+		public boolean hasNext()
+		{
+			return c!=null;
+		}
+
+		@Override
+		public String next()
+		{
+			if(c==null)
+				throw new NoSuchElementException();
+
+			final String result = new String(c);
+
+			inc_loop: for(int i = c.length-1; i>=0; i--)
+			{
+				switch(c[i])
+				{
+					//noinspection DefaultNotLastCaseInSwitch
+					default : c[i]++;     break inc_loop;
+					case '9': c[i] = 'a'; break inc_loop;
+					case 'f':
+						if(i>0)
+						{
+							c[i] = '0';
+							break;
+						}
+						else
+						{
+							c = null;
+							break inc_loop;
+						}
+				}
+			}
+
+			return result;
 		}
 	}
 

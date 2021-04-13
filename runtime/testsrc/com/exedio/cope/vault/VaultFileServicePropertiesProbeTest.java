@@ -34,9 +34,11 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.ProbeAbortedException;
 import com.exedio.cope.util.Properties.Source;
+import com.exedio.cope.vault.VaultFileService.DirectoryProps;
 import com.exedio.cope.vault.VaultFileService.Props;
 import java.io.File;
 import java.io.IOException;
@@ -45,9 +47,11 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
+import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -468,6 +472,49 @@ public class VaultFileServicePropertiesProbeTest
 				for(final String s3 : HEX_DIGITS)
 					createDirectory(root.toPath().resolve(s1+s2+s3));
 		assertEquals(4096, dirs.call());
+	}
+
+	@Test void iterateOne()
+	{
+		iterate(
+				cascade(single("length", 1)),
+				HEX_DIGITS);
+	}
+
+	@Test void iterateTwo()
+	{
+		final ArrayList<String> expected = new ArrayList<>();
+		for(final String s1 : HEX_DIGITS)
+			for(final String s2 : HEX_DIGITS)
+				expected.add(s1+s2);
+		iterate(
+				cascade(single("length", 2)),
+				expected);
+	}
+
+	@Test void iterateThree()
+	{
+		final ArrayList<String> expected = new ArrayList<>();
+		for(final String s1 : HEX_DIGITS)
+			for(final String s2 : HEX_DIGITS)
+				for(final String s3 : HEX_DIGITS)
+					expected.add(s1+s2+s3);
+		iterate(
+				cascade(single("length", 3)),
+				expected);
+	}
+
+	private static void iterate(final Properties.Source source, final List<String> expected)
+	{
+		final Iterator<String> iterator = new DirectoryProps(source, true).iterator();
+		final ArrayList<String> actual = new ArrayList<>();
+		iterator.forEachRemaining(actual::add);
+		assertEquals(expected, actual);
+		assertEquals(false, iterator.hasNext());
+		assertFails(
+				iterator::next,
+				NoSuchElementException.class,
+				null);
 	}
 
 	private static final List<String> HEX_DIGITS = unmodifiableList(asList(
