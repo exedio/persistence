@@ -31,7 +31,7 @@ import java.nio.file.NoSuchFileException;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
-public class VaultFileServiceTest extends AbstractVaultFileServiceTest
+public class VaultFileServiceFlatTest extends AbstractVaultFileServiceTest
 {
 	@Override
 	protected Properties getServiceProperties() throws IOException
