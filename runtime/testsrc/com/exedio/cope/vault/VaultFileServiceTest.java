@@ -29,7 +29,7 @@ import java.io.File;
 import java.nio.file.NoSuchFileException;
 import org.junit.jupiter.api.Test;
 
-public class VaultFileServiceDirectoryTest extends AbstractVaultFileServiceTest
+public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 {
 	@Test void serviceProperties()
 	{
