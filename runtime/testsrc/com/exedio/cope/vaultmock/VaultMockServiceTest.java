@@ -50,4 +50,10 @@ public class VaultMockServiceTest extends VaultServiceTest
 		assertEquals("default", service.serviceKey);
 		assertEquals(true, service.writable);
 	}
+
+	@Override
+	@Test protected void probeGenuineServiceKey() throws Exception
+	{
+		assertEquals("mock:default(myKey)", getService().probeGenuineServiceKey("myKey"));
+	}
 }

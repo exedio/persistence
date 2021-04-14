@@ -222,6 +222,19 @@ public final class VaultMockService implements VaultService
 	}
 
 	@Override
+	public String probeGenuineServiceKey(final String serviceKey) throws Exception
+	{
+		final String matcher = serviceProperties.getGenuineServiceKey;
+		final String result = matcher.equals(serviceKey) ? matcher : (matcher + "(" + serviceKey + ")");
+		if(matcher.contains("ABORT"))
+			throw VaultService.newProbeAborter(result);
+		if(matcher.contains("FAIL"))
+			throw new IllegalStateException(result);
+		else
+			return "mock:" + result;
+	}
+
+	@Override
 	public String toString()
 	{
 		return getClass().getSimpleName() + ':' + serviceProperties.example;
@@ -234,6 +247,7 @@ public final class VaultMockService implements VaultService
 		final boolean failGet = value("fail.get", false);
 		final boolean failPut = value("fail.put", false);
 		final String probeResult = value("probe.result", "probeMockResult");
+		final String getGenuineServiceKey = value("genuineServiceKey", "default");
 
 		Props(final Source source)
 		{

@@ -37,6 +37,7 @@ import com.exedio.cope.junit.AssertionErrorVaultService;
 import com.exedio.cope.util.IllegalAlgorithmException;
 import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties;
+import com.exedio.cope.util.Properties.ProbeAbortedException;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
@@ -60,7 +61,7 @@ public class VaultPropertiesTest
 				));
 		final VaultProperties props = factory.create(source);
 		assertEquals("VaultMockService:probeExampleValue", probe(props));
-		assertEquals("VaultMockService:probeExampleValue", probeDeprecated(props));
+		assertEquals("[VaultMockService:probeExampleValue, mock:default]", probeDeprecated(props));
 	}
 	@Test void probeFailGet()
 	{
@@ -99,8 +100,9 @@ public class VaultPropertiesTest
 	private static Object probe(final VaultProperties p) throws Exception
 	{
 		final List<? extends Callable<?>> probes = p.getProbes();
-		assertEquals(2, probes.size());
-		assertEquals("service.Mock", probes.get(1).toString());
+		assertEquals(3, probes.size());
+		assertEquals("default.genuineServiceKey", probes.get(1).toString());
+		assertEquals("service.Mock", probes.get(2).toString());
 		final Callable<?> probe = probes.get(0);
 		assertEquals("default", probe.toString());
 		return probe.call();
@@ -109,6 +111,60 @@ public class VaultPropertiesTest
 	private static String probeDeprecated(final VaultProperties p)
 	{
 		return p.probe();
+	}
+
+
+	@Test void probeGenuineServiceKey() throws Exception
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("service", VaultMockService.class),
+						single("service.genuineServiceKey", "default")
+				));
+		final VaultProperties props = factory.create(source);
+		assertEquals("mock:default", probeGenuineServiceKey(props));
+		assertEquals("VaultMockService:exampleDefault", probe(props));
+		assertEquals("[VaultMockService:exampleDefault, mock:default]", probeDeprecated(props));
+	}
+	@Test void probeGenuineServiceKeyAbort() throws Exception
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("service", VaultMockService.class),
+						single("service.genuineServiceKey", "ABORT in test")
+				));
+		final VaultProperties props = factory.create(source);
+		assertFails(
+				() -> probeGenuineServiceKey(props),
+				ProbeAbortedException.class,
+				"ABORT in test(default)");
+		assertEquals("VaultMockService:exampleDefault", probe(props));
+		assertEquals("VaultMockService:exampleDefault", probeDeprecated(props));
+	}
+	@Test void probeGenuineServiceKeyFail() throws Exception
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("service", VaultMockService.class),
+						single("service.genuineServiceKey", "FAIL in test")
+				));
+		final VaultProperties props = factory.create(source);
+		assertFails(
+				() -> probeGenuineServiceKey(props),
+				IllegalStateException.class,
+				"FAIL in test(default)");
+		assertEquals("VaultMockService:exampleDefault", probe(props));
+		assertFails(() -> probeDeprecated(props), IllegalStateException.class, "FAIL in test(default)");
+	}
+	private static Object probeGenuineServiceKey(final VaultProperties p) throws Exception
+	{
+		final List<? extends Callable<?>> probes = p.getProbes();
+		assertEquals(3, probes.size());
+		assertEquals("default", probes.get(0).toString());
+		assertEquals("service.Mock", probes.get(2).toString());
+		final Callable<?> probe = probes.get(1);
+		assertEquals("default.genuineServiceKey", probe.toString());
+		return probe.call();
 	}
 
 

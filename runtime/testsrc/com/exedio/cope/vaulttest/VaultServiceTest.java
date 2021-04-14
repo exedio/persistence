@@ -400,4 +400,14 @@ public abstract class VaultServiceTest
 	{
 		return Hex.decodeLower(hex);
 	}
+
+
+	@Test protected void probeGenuineServiceKey() throws Exception
+	{
+		final Exception e = assertThrows(
+				Exception.class,
+				() -> servicePut.probeGenuineServiceKey(null));
+		assertEquals("com.exedio.cope.vault.VaultProperties$GenuineServiceKeyProbeNotSupported", e.getClass().getName());
+		assertEquals("not supported by " + servicePut.getClass().getName(), e.getMessage());
+	}
 }

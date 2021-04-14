@@ -77,9 +77,11 @@ public class VaultMultiTest
 				single("vault.service.alpha", VaultMockService.class),
 				single("vault.service.alpha.example", "alphaEx"),
 				single("vault.service.alpha.probe.result", "probeResultAlpha"),
+				single("vault.service.alpha.genuineServiceKey", "alpha"),
 				single("vault.service.beta", VaultMockService.class),
 				single("vault.service.beta.example", "betaEx"),
 				single("vault.service.beta.probe.result", "probeResultBeta"),
+				single("vault.service.beta.genuineServiceKey", "beta"),
 				TestSources.minimal()
 		)));
 		final Map<String, VaultService> vaults = unsanitize(MODEL.connect().vaults);
@@ -111,13 +113,19 @@ public class VaultMultiTest
 
 	@Test void testProbe() throws Exception
 	{
-		final String VAULT = "[VaultMockService:defaultEx, VaultMockService:alphaEx, VaultMockService:betaEx]";
+		final String VAULT = "[" +
+				"VaultMockService:defaultEx"+", mock:default, " +
+				"VaultMockService:alphaEx"  +", mock:alpha, "   +
+				"VaultMockService:betaEx"   +", mock:beta]";
 		final ConnectProperties p = MODEL.getConnectProperties();
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
 		assertIt("vault.default", "VaultMockService:defaultEx",      String.class, probes.next());
+		assertIt("vault.default.genuineServiceKey", "mock:default",  String.class, probes.next());
 		assertIt("vault.alpha",   "VaultMockService:alphaEx",        String.class, probes.next());
+		assertIt("vault.alpha.genuineServiceKey",   "mock:alpha",    String.class, probes.next());
 		assertIt("vault.beta",    "VaultMockService:betaEx",         String.class, probes.next());
+		assertIt("vault.beta.genuineServiceKey",    "mock:beta",     String.class, probes.next());
 		assertIt("vault.service.default.Mock", "probeResultDefault", String.class, probes.next());
 		assertIt("vault.service.alpha.Mock",   "probeResultAlpha",   String.class, probes.next());
 		assertIt("vault.service.beta.Mock",    "probeResultBeta",    String.class, probes.next());

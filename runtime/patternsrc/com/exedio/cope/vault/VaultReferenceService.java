@@ -196,6 +196,23 @@ public final class VaultReferenceService implements VaultService
 
 
 	@Override
+	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+	{
+		final Object result = main.probeGenuineServiceKey(serviceKey);
+		REFERENCE(serviceKey);
+		return result;
+	}
+	/**
+	 * This method has the sole purpose to appear in stack traces
+	 * showing that any exception was caused by the reference service.
+	 */
+	private void REFERENCE(final String serviceKey) throws Exception
+	{
+		reference.probeGenuineServiceKey(serviceKey);
+	}
+
+
+	@Override
 	public String toString()
 	{
 		return main + " (reference " + reference + ')';

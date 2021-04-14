@@ -99,6 +99,11 @@ public class VaultMockServicePutTest extends VaultServiceTest
 		{
 			service.close();
 		}
+		@Override
+		public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+		{
+			return service.probeGenuineServiceKey(serviceKey);
+		}
 	}
 
 	@Override
@@ -173,5 +178,11 @@ public class VaultMockServicePutTest extends VaultServiceTest
 		assertEquals("exampleValue", service.serviceProperties.example);
 		assertEquals("default", service.serviceKey);
 		assertEquals(true, service.writable);
+	}
+
+	@Override
+	@Test protected void probeGenuineServiceKey() throws Exception
+	{
+		assertEquals("mock:default(myKey)", getService().probeGenuineServiceKey("myKey"));
 	}
 }

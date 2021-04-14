@@ -162,4 +162,53 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	{
 		void execute(String parameter) throws Throwable;
 	}
+
+
+	@Override
+	@Test protected final void probeGenuineServiceKey() throws Exception
+	{
+		final Path keyDir = getRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyPath = keyDir.resolve("myKey");
+		assertProbeGenuineServiceKeyFails("does not exist");
+
+		Files.createDirectory(keyDir);
+		assertProbeGenuineServiceKeyFails("does not exist");
+
+		Files.write(keyPath, new byte[]{});
+		assertEquals(keyPath, getService().probeGenuineServiceKey("myKey"));
+	}
+	@Test protected final void probeGenuineServiceKeyNonEmpty() throws Exception
+	{
+		final Path keyDir = getRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyPath = keyDir.resolve("myKey");
+		assertProbeGenuineServiceKeyFails("does not exist");
+
+		Files.createDirectory(keyDir);
+		assertProbeGenuineServiceKeyFails("does not exist");
+
+		Files.write(keyPath, new byte[]{1});
+		assertProbeGenuineServiceKeyFails("is not empty, but has size 1");
+
+		Files.write(keyPath, new byte[]{1,2,3,4,5,6,7,8,9,10,11,12,13});
+		assertProbeGenuineServiceKeyFails("is not empty, but has size 13");
+	}
+	@Test final void probeGenuineServiceKeyDirectory() throws Exception
+	{
+		final Path keyDir = getRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyPath = keyDir.resolve("myKey");
+		assertProbeGenuineServiceKeyFails("does not exist");
+
+		Files.createDirectory(keyDir);
+		assertProbeGenuineServiceKeyFails("does not exist");
+
+		Files.createDirectory(keyPath);
+		assertProbeGenuineServiceKeyFails("is not a regular file");
+	}
+	private void assertProbeGenuineServiceKeyFails(final String reason)
+	{
+		assertFails(
+				() -> getService().probeGenuineServiceKey("myKey"),
+				IllegalStateException.class,
+				reason + ": " + getRoot() + "/VaultGenuineServiceKey/myKey");
+	}
 }

@@ -32,6 +32,14 @@ public class VaultTestServiceTest extends VaultServiceTest
 		return VaultTestService.class;
 	}
 
+	@Override
+	@SuppressWarnings("RedundantMethodOverride") // OK: makes sure that no other test than testing super class is put here
+	@Test protected void probeGenuineServiceKey() throws Exception
+	{
+		// must test VaultServiceTest#probeGenuineServiceKey as well, so leave this method as it is
+		super.probeGenuineServiceKey();
+	}
+
 	@Test void testToString()
 	{
 		assertEquals("VaultTestService", getService().toString());

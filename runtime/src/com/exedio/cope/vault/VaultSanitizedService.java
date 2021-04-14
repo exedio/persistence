@@ -18,7 +18,9 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
+import static com.exedio.cope.vault.VaultProperties.VAULT_CHAR_SET;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.CharSet;
@@ -164,6 +166,21 @@ final class VaultSanitizedService implements VaultService
 	private boolean isEmptyHash(@Nonnull final String hash)
 	{
 		return hash.equals(hashEmpty);
+	}
+
+	@Override
+	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+	{
+		requireNonEmpty(serviceKey, "serviceKey");
+		final int forbiddenCharPosition = VAULT_CHAR_SET.indexOfNotContains(serviceKey);
+		if(forbiddenCharPosition>=0)
+			throw new IllegalArgumentException(
+					"serviceKey must contain just " + VAULT_CHAR_SET + ", " +
+					"but was >" + serviceKey + "< containing a forbidden character " +
+					"at position " + forbiddenCharPosition);
+		requireNonClosed();
+
+		return service.probeGenuineServiceKey(serviceKey);
 	}
 
 	private void requireNonClosed()

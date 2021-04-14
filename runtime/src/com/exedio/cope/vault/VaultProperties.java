@@ -108,7 +108,7 @@ public final class VaultProperties extends AbstractVaultProperties
 	 * TODO redundant to {@link DataField#VAULT_CHAR_SET}.
 	 */
 	@SuppressWarnings("JavadocReference")
-	private static final CharSet VAULT_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
+	static final CharSet VAULT_CHAR_SET = new CharSet('-', '-', '0', '9', 'A', 'Z', 'a', 'z');
 
 	public void checkServices(final Model model)
 	{
@@ -223,10 +223,13 @@ public final class VaultProperties extends AbstractVaultProperties
 		final ArrayList<String> result = new ArrayList<>();
 		for(final Callable<?> probe : probeMore())
 		{
-			final Object probeResult;
+			Object probeResult = null;
 			try
 			{
 				probeResult = probe.call();
+			}
+			catch(final ProbeAbortedException ignored)
+			{
 			}
 			catch(final RuntimeException e)
 			{
@@ -236,7 +239,8 @@ public final class VaultProperties extends AbstractVaultProperties
 			{
 				throw new RuntimeException(probe.toString(), e);
 			}
-			result.add(probeResult.toString());
+			if(probeResult!=null)
+				result.add(probeResult.toString());
 		}
 		return result.size()==1 ? result.get(0) : result.toString();
 	}
@@ -244,10 +248,55 @@ public final class VaultProperties extends AbstractVaultProperties
 	@Override
 	public List<? extends Callable<?>> probeMore()
 	{
-		final ArrayList<Callable<String>> result = new ArrayList<>();
+		final ArrayList<Callable<?>> result = new ArrayList<>();
 		for(final Map.Entry<String, Service> e : services.entrySet())
+		{
 			result.add(new VaultProbe(this, e));
+			result.add(new GenuineServiceKeyProbe(e));
+		}
 		return result;
+	}
+
+	final class GenuineServiceKeyProbe implements Callable<Object>
+	{
+		private final String key;
+		private final AbstractVaultProperties.Service service;
+
+		GenuineServiceKeyProbe(
+				final Map.Entry<String, AbstractVaultProperties.Service> e)
+		{
+			this.key = e.getKey();
+			this.service = e.getValue();
+		}
+
+		@Override
+		public Object call() throws Exception
+		{
+			try(VaultService s = service.newService(VaultProperties.this, key))
+			{
+				return s.probeGenuineServiceKey(key);
+			}
+			catch(final GenuineServiceKeyProbeNotSupported e)
+			{
+				throw newProbeAbortedException(e.getMessage());
+			}
+		}
+
+		@Override
+		public String toString()
+		{
+			return key + ".genuineServiceKey";
+		}
+	}
+
+	static final class GenuineServiceKeyProbeNotSupported extends Exception
+	{
+		GenuineServiceKeyProbeNotSupported(final String message)
+		{
+			super(message);
+		}
+
+		private static final long serialVersionUID = 1l;
 	}
 
 

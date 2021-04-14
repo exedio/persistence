@@ -779,11 +779,12 @@ public class ConnectPropertiesTest
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
 		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
 		assertIt("vault.default", VAULT, String.class, probes.next());
+		assertIt("vault.default.genuineServiceKey", "mock:default", String.class, probes.next());
 		assertIt("vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
 		assertFalse(probes.hasNext());
 
-		assertEquals(HSQLDB_PROBE + " " + VAULT, probe(p));
-		assertIt("probe", HSQLDB_PROBE + " " + VAULT, String.class, getProbeTest(p));
+		assertEquals(HSQLDB_PROBE + " [" + VAULT + ", mock:default]", probe(p));
+		assertIt("probe", HSQLDB_PROBE + " [" + VAULT + ", mock:default]", String.class, getProbeTest(p));
 	}
 
 	public static final String HSQLDB_PROBE =

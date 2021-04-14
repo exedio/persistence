@@ -96,4 +96,24 @@ public interface VaultService extends AutoCloseable
 	 * If the implementation does not have this information available, simply return {@code true}.
 	 */
 	boolean put(@Nonnull String hash, @Nonnull Path value, @Nonnull VaultPutInfo info) throws IOException;
+
+
+	/**
+	 * Default implementation aborts the probe.
+	 */
+	default Object probeGenuineServiceKey(@Nonnull final String serviceKey) throws Exception
+	{
+		throw newProbeAborter("not supported by " + getClass().getName());
+	}
+
+	static Exception newProbeAborter(@Nonnull final String message)
+	{
+		return new VaultProperties.GenuineServiceKeyProbeNotSupported(message);
+	}
+
+	/**
+	 * A string constant to be used in conjunction with {@link #probeGenuineServiceKey(String)}.
+	 * Could be used as file name, table name or url segment.
+	 */
+	String VAULT_GENUINE_SERVICE_KEY = "VaultGenuineServiceKey";
 }

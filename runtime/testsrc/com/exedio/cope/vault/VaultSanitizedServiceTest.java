@@ -300,6 +300,16 @@ public class VaultSanitizedServiceTest
 				"closed");
 		m.assertIt("");
 	}
+	@Test void probeGenuineServiceKeyClosed()
+	{
+		s.close();
+		m.assertIt("close\n");
+		assertFails(
+				() -> s.probeGenuineServiceKey("myKey"),
+				IllegalStateException.class,
+				"closed");
+		m.assertIt("");
+	}
 
 	@Test void purgeSchema()
 	{
@@ -351,6 +361,36 @@ public class VaultSanitizedServiceTest
 		Files.write(path, value);
 		s.put(hash(value), path, PUT_INFO);
 		m.assertIt("5289df737df57326fcdd22597afb1fac", "010203", "putFile VaultServiceTest#PUT_INFO\n");
+	}
+	@Test void probeGenuineServiceKey() throws Exception
+	{
+		assertEquals("mock:default(myKey)", s.probeGenuineServiceKey("myKey"));
+		m.assertIt("");
+	}
+	@Test void probeGenuineServiceKeyNull()
+	{
+		assertFails(
+				() -> s.probeGenuineServiceKey(null),
+				NullPointerException.class,
+				"serviceKey");
+		m.assertIt("");
+	}
+	@Test void probeGenuineServiceKeyEmpty()
+	{
+		assertFails(
+				() -> s.probeGenuineServiceKey(""),
+				IllegalArgumentException.class,
+				"serviceKey must not be empty");
+		m.assertIt("");
+	}
+	@Test void probeGenuineServiceKeyCharSet()
+	{
+		assertFails(
+				() -> s.probeGenuineServiceKey("01234/6789"),
+				IllegalArgumentException.class,
+				"serviceKey must contain just [---,0-9,A-Z,a-z], " +
+				"but was >01234/6789< containing a forbidden character at position 5");
+		m.assertIt("");
 	}
 
 	private static final Properties.Factory<VaultProperties> factory = VaultProperties.factory();

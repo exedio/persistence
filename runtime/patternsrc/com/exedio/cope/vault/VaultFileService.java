@@ -198,6 +198,29 @@ public final class VaultFileService implements VaultService
 		throw new RuntimeException("" + rootDir.toAbsolutePath() + ':' + anonymiseHash(hash), exception);
 	}
 
+
+	@Override
+	// Method signature shall NOT narrow down specification from VaultService to
+	//   Path probeGenuineServiceKey(String serviceKey) throws IOException
+	// so we are free to change signature in the future without breaking API compatibility.
+	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
+	{
+		final Path file = rootDir.resolve(VAULT_GENUINE_SERVICE_KEY).resolve(serviceKey);
+		final Path fileAbsolute = file.toAbsolutePath();
+
+		if(!Files.isRegularFile(file))
+			throw new IllegalStateException(
+					(Files.exists(file) ? "is not a regular file" : "does not exist") + ": " + fileAbsolute);
+
+		final long size = Files.size(file);
+		if(size!=0) // file must not have any content, because it is likely exposed to public
+			throw new IllegalStateException(
+					"is not empty, but has size " + size + ": " + fileAbsolute);
+
+		return fileAbsolute;
+	}
+
+
 	@Override
 	public String toString()
 	{
