@@ -35,8 +35,8 @@ public class VaultDirectoryTest
 				null,
 				SERVICE_PARAMETERS);
 
-		assertEquals(null, vd.directoryToBeCreated("0123456"));
 		assertEquals("0123456", vd.path("0123456"));
+		assertEquals(null, vd.directoryToBeCreated("0123456"));
 		assertEquals("flat", vd.toString());
 	}
 
@@ -46,8 +46,8 @@ public class VaultDirectoryTest
 				new Properties(cascade(single("length", 1)), true),
 				SERVICE_PARAMETERS);
 
-		assertEquals("0", vd.directoryToBeCreated("0123456"));
 		assertEquals("0/123456", vd.path("0123456"));
+		assertEquals("0", vd.directoryToBeCreated("0123456"));
 		assertEquals("l=1", vd.toString());
 	}
 
@@ -57,8 +57,8 @@ public class VaultDirectoryTest
 				new Properties(cascade(single("length", 2)), true),
 				SERVICE_PARAMETERS);
 
-		assertEquals("01", vd.directoryToBeCreated("0123456"));
 		assertEquals("01/23456", vd.path("0123456"));
+		assertEquals("01", vd.directoryToBeCreated("0123456"));
 		assertEquals("l=2", vd.toString());
 	}
 
@@ -68,8 +68,8 @@ public class VaultDirectoryTest
 				new Properties(cascade(single("length", 3)), true),
 				SERVICE_PARAMETERS);
 
-		assertEquals("012", vd.directoryToBeCreated("0123456"));
 		assertEquals("012/3456", vd.path("0123456"));
+		assertEquals("012", vd.directoryToBeCreated("0123456"));
 		assertEquals("l=3", vd.toString());
 	}
 
@@ -79,8 +79,8 @@ public class VaultDirectoryTest
 				new Properties(cascade(single("length", 31)), true),
 				SERVICE_PARAMETERS);
 
-		assertEquals("0123456789abcdef0123456789abcde", vd.directoryToBeCreated("0123456789abcdef0123456789abcdef"));
 		assertEquals("0123456789abcdef0123456789abcde/f", vd.path("0123456789abcdef0123456789abcdef"));
+		assertEquals("0123456789abcdef0123456789abcde", vd.directoryToBeCreated("0123456789abcdef0123456789abcdef"));
 		assertEquals("l=31", vd.toString());
 	}
 
@@ -100,8 +100,8 @@ public class VaultDirectoryTest
 				new Properties(cascade(single("premised", true)), true),
 				SERVICE_PARAMETERS);
 
-		assertEquals(null, vd.directoryToBeCreated("0123456"));
 		assertEquals("012/3456", vd.path("0123456"));
+		assertEquals(null, vd.directoryToBeCreated("0123456"));
 		assertEquals("l=3 premised", vd.toString());
 	}
 
