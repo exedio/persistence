@@ -94,6 +94,17 @@ public class VaultDirectoryTest
 				"directory.length must be less the length of algorithm MD5, but was 32>=32");
 	}
 
+	@Test void premised()
+	{
+		final VaultDirectory vd = VaultDirectory.instance(
+				new Properties(cascade(single("premised", true)), true),
+				SERVICE_PARAMETERS);
+
+		assertEquals(null, vd.directoryToBeCreated("0123456"));
+		assertEquals("012/3456", vd.path("0123456"));
+		assertEquals("l=3 premised", vd.toString());
+	}
+
 	private static final VaultServiceParameters SERVICE_PARAMETERS =
 			new VaultServiceParameters(
 					VaultProperties.factory().create(cascade(
