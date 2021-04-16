@@ -159,8 +159,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		listener.verifyExpectations();
 		model.leaveTransaction();
 		final Transaction txSearch = model.startTransaction("search");
-		// TODO:
-		// model.getDatabase().expectNoCall();
+		// TODO: model.getDatabase().expectNoCall();
 		listener.expectSearch( txSearch, CacheIsolationItem.TYPE );
 		assertContains( item, CacheIsolationItem.TYPE.search(CacheIsolationItem.name.equal("blub")) );
 		listener.verifyExpectations();

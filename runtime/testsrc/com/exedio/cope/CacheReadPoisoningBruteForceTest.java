@@ -108,8 +108,6 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 					int i;
 					for(i = 0; i<20_000_000 && proceed; i++)
 					{
-						//if(i%100==0 || i<20) System.out.println("CacheBadReadTest read " + i);
-						//Thread.yield();
 						model.startTransaction("CacheBadReadTest  read " + i);
 						final String name = item.getName();
 						if(!name.startsWith("itemName"))
@@ -127,7 +125,6 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 				{
 					model.rollbackIfNotCommitted();
 				}
-				//System.out.println("CacheBadReadTest read fertig " + i);
 			}
 		});
 
@@ -140,8 +137,6 @@ public class CacheReadPoisoningBruteForceTest extends TestWithEnvironment
 			{
 				for(; i<20_000; i++)
 				{
-					//if(i%100==0 || i<20) System.out.println("CacheBadReadTest write " + i);
-					//Thread.yield();
 					model.startTransaction("CacheBadReadTest write " + i);
 					item.setName("itemName" + i);
 					model.commit();

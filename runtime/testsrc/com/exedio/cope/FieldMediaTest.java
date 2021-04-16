@@ -54,8 +54,6 @@ public class FieldMediaTest extends FieldTest
 			"AttributeItem/someData/";
 		final String expectedURL =
 			prefix + item.getCopeID();
-		//System.out.println(expectedURL);
-		//System.out.println(item.getSomeDataURL());
 		assertLocator(expectedURL, item.getSomeDataLocator());
 		assertData(bytes, item.getSomeDataBody());
 		assertEquals("some-mime-major/some-mime-minor", item.getSomeDataContentType());
@@ -102,8 +100,6 @@ public class FieldMediaTest extends FieldTest
 		}
 		final String prefix = "AttributeItem/someData/";
 		final String expectedURL = prefix + item.getCopeID() + (url!=null ? ('.' + url) : "");
-		//System.out.println(expectedURL);
-		//System.out.println(item.getSomeDataURL());
 		assertLocator(expectedURL, item.getSomeDataLocator());
 		assertData(data, item.getSomeDataBody());
 		assertEquals(contentType, item.getSomeDataContentType());

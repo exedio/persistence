@@ -465,9 +465,7 @@ public class StringTest extends TestWithEnvironment
 	static final String makeString(final int length)
 	{
 		final int segmentLength = length/20 + 1;
-		//System.err.println("---------------------"+length+"--start");
 		final char[] buf = new char[length];
-		//System.err.println("---------------------"+length+"--allocated");
 
 		char val = 'A';
 		for(int i = 0; i<length; i+=segmentLength)
@@ -476,12 +474,7 @@ public class StringTest extends TestWithEnvironment
 		final String lengthString = String.valueOf(length) + ':';
 		System.arraycopy(lengthString.toCharArray(), 0, buf, 0, Math.min(lengthString.length(), length));
 
-		//System.err.println("---------------------"+length+"--copied");
-		@SuppressWarnings("UnnecessaryLocalVariable")
-		final String result = new String(buf);
-		//System.err.println("---------------------"+length+"--stringed");
-		//System.err.println("---------------------"+length+"--end--"+result.substring(0, 80));
-		return result;
+		return new String(buf);
 	}
 
 	@SuppressWarnings("HardcodedLineSeparator")
