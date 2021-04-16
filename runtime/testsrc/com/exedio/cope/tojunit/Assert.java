@@ -194,12 +194,12 @@ public final class Assert
 
 	public static Map<Object, Object> map()
 	{
-		return Collections.unmodifiableMap(Collections.emptyMap());
+		return Collections.emptyMap();
 	}
 
 	public static Map<Object, Object> map(final Object key1, final Object value1)
 	{
-		return Collections.unmodifiableMap(Collections.singletonMap(key1, value1));
+		return Collections.singletonMap(key1, value1);
 	}
 
 	public static Map<Object, Object> map(final Object key1, final Object value1, final Object key2, final Object value2)
