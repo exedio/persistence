@@ -23,8 +23,8 @@ import static com.exedio.cope.instrument.Visibility.PRIVATE;
 import static com.exedio.cope.pattern.Money.valueOf;
 import static com.exedio.cope.pattern.MoneyCopyTest.Currency.euro;
 import static com.exedio.cope.pattern.MoneyCopyTest.Currency.pounds;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;

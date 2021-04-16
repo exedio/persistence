@@ -27,8 +27,8 @@ import static com.exedio.cope.UniqueDoubleItem.integer;
 import static com.exedio.cope.UniqueDoubleItem.string;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 

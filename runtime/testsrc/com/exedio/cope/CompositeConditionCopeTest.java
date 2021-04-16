@@ -27,10 +27,10 @@ import static com.exedio.cope.Cope.equal;
 import static com.exedio.cope.Cope.notEqual;
 import static com.exedio.cope.Cope.or;
 import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CompositeCondition.Operator;
 import java.util.Arrays;

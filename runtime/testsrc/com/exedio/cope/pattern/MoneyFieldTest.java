@@ -33,9 +33,9 @@ import static com.exedio.cope.pattern.MoneyFieldItem.fixeEnu;
 import static com.exedio.cope.pattern.MoneyFieldItem.fixeOpt;
 import static com.exedio.cope.pattern.MoneyFieldItem.sharMan;
 import static com.exedio.cope.pattern.MoneyFieldItem.sharOpt;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;

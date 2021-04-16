@@ -21,8 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.Price.valueOf;
 import static com.exedio.cope.pattern.SettableMandatoryPriceTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.SettableMandatoryPriceTest.AnItem.mandatory;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;

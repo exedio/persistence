@@ -22,9 +22,9 @@ import static com.exedio.cope.CommitHookPostTest.FAIL;
 import static com.exedio.cope.CommitHookPostTest.assertNoTransaction;
 import static com.exedio.cope.CommitHookPostTest.assertTransaction;
 import static com.exedio.cope.CommitHookPostTest.model;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.TestSources;
 import org.junit.jupiter.api.AfterEach;

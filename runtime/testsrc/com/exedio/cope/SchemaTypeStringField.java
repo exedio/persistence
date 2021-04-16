@@ -22,7 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.fail;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.SQLRuntimeException;

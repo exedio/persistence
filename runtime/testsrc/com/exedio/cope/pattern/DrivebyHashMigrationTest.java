@@ -21,12 +21,12 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.TYPE;
 import static com.exedio.cope.pattern.DrivebyHashMigrationItem.password;
 import static com.exedio.cope.pattern.HashTest.newRandomPassword;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;

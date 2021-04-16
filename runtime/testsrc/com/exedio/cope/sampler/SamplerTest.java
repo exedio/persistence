@@ -19,8 +19,8 @@
 package com.exedio.cope.sampler;
 
 import static com.exedio.cope.sampler.Stuff.sampler;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CopeExternal;
 import com.exedio.cope.Type;

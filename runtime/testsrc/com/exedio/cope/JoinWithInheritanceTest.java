@@ -21,8 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.JoinWithInheritanceTest.Container.articles;
 import static com.exedio.cope.JoinWithInheritanceTest.Container.specificArticles;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.pattern.ListField;
 import org.junit.jupiter.api.Test;

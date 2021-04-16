@@ -26,9 +26,9 @@ import static com.exedio.cope.pattern.ImporterItem.description;
 import static com.exedio.cope.pattern.ImporterItem.description2;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;

@@ -24,8 +24,8 @@ import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
 import static com.exedio.cope.pattern.EnumMapFieldMandatoryItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldMandatoryItem.text;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;

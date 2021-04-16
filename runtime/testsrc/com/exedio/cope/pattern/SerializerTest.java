@@ -26,12 +26,12 @@ import static com.exedio.cope.pattern.SerializerItem.map;
 import static com.exedio.cope.pattern.SerializerItem.mapWildcard;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static java.lang.Integer.valueOf;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;

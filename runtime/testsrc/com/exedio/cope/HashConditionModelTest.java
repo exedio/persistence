@@ -23,8 +23,8 @@ import static com.exedio.cope.HashConditionTest.MyItem.hash;
 import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.EqualsAssert;
 import com.exedio.cope.util.Hex;

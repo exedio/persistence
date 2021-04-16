@@ -187,15 +187,6 @@
 		</copy>
 	</target>
 
-	<target name="junit4">
-		<compile srcdir="junit4">
-			<classpath>
-				<pathelement location="lib/junit-jupiter-api.jar" />
-				<pathelement location="lib/apiguardian-api.jar" />
-			</classpath>
-		</compile>
-	</target>
-
 	<!-- dsmf -->
 
 	<target name="dsmf.compile">
@@ -330,14 +321,13 @@
 	</target>
 
 	<target name="runtime.test.feature.compile"
-			depends="junit4, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.anno.compile">
+			depends="runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testfeaturesrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
 				<pathelement location="build/classes/runtime/patternsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="build/classes/instrument/annosrc" />
-				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/junit-platform-commons.jar" />
 				<pathelement location="lib/opentest4j.jar" />
@@ -358,7 +348,6 @@
 		<pathelement location="build/classes/instrument/annosrc" />
 		<pathelement location="lib/trove4j.jar" />
 		<pathelement location="lib/javax.servlet-api.jar" />
-		<pathelement location="build/classes/junit4" />
 		<pathelement location="lib/junit-jupiter-api.jar" />
 		<pathelement location="lib/apiguardian-api.jar" />
 		<pathelement location="lib/opentest4j.jar" />
@@ -403,7 +392,7 @@
 	</target>
 
 	<target name="runtime.test.compile"
-			depends="junit4, runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.feature.compile, instrument.anno.compile">
+			depends="runtime.test.instrument, dsmf.compile, runtime.core.compile, runtime.pattern.compile, runtime.servlet.compile, runtime.test.feature.compile, instrument.anno.compile">
 		<compile srcdir="runtime/testsrc">
 			<classpath refid="runtime.test.path"/>
 		</compile>
@@ -468,7 +457,6 @@
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/hsqldb.jar" />
-				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/junit-jupiter-engine.jar" />
 				<pathelement location="lib/junit-platform-console.jar" />
@@ -512,7 +500,6 @@
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/javax.servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
-						<pathelement location="build/classes/junit4" />
 						<pathelement location="lib/junit-jupiter-api.jar" />
 						<pathelement location="lib/junit-jupiter-engine.jar" />
 						<pathelement location="lib/junit-platform-console.jar" />
@@ -559,7 +546,6 @@
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/javax.servlet-api.jar" />
 						<pathelement location="lib/@{env.driver}" />
-						<pathelement location="build/classes/junit4" />
 						<pathelement location="lib/junit-jupiter-api.jar" />
 						<pathelement location="lib/junit-jupiter-engine.jar" />
 						<pathelement location="lib/junit-platform-console.jar" />
@@ -701,11 +687,10 @@
 				file="runtime/servlet-context.xml" />
 	</target>
 
-	<target name="runtime.servlet.webtest.compile" depends="junit4">
+	<target name="runtime.servlet.webtest.compile">
 		<compile srcdir="runtime/servlettestwebsrc">
 			<classpath>
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/jsr305.jar"/>
@@ -714,7 +699,7 @@
 	</target>
 
 	<target name="runtime.servlet.webtest"
-				depends="junit4, catalina,
+				depends="catalina,
 							runtime.servlet.test.tomcat,
 							runtime.servlet.webtest.compile">
 		<runInTomcat name="runtime.servlet.webtest">
@@ -723,7 +708,6 @@
 					<classpath>
 						<pathelement location="build/classes/runtime/servlettestwebsrc" />
 						<pathelement location="lib/exedio-cope-util.jar" />
-						<pathelement location="build/classes/junit4" />
 						<pathelement location="lib/junit-jupiter-api.jar" />
 						<pathelement location="lib/junit-jupiter-engine.jar" />
 						<pathelement location="lib/junit-platform-console.jar" />
@@ -850,7 +834,7 @@
 		<mkdir dir="build/timestamps"/>
 	</target>
 
-	<target name="instrument.test.instrument" depends="junit4, instrument.test.srcinstrument,instrument.test.libinstrument"/>
+	<target name="instrument.test.instrument" depends="instrument.test.srcinstrument,instrument.test.libinstrument"/>
 
 	<target name="instrument.test.srcinstrument" depends="instrument.taskdef,instrument.test.libcompile,instrument.testfeature.compile" unless="skip.instrument">
 		<instrument
@@ -868,7 +852,6 @@
 				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="build/classes/runtime/servletsrc" />
 				<pathelement location="lib/javax.servlet-api.jar" /><!-- required to instrument Media features-->
-				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
@@ -904,7 +887,7 @@
 		</instrument>
 	</target>
 
-	<target name="instrument.test.libinstrument" depends="junit4, instrument.taskdef, instrument.testfeature.compile" unless="skip.instrument">
+	<target name="instrument.test.libinstrument" depends="instrument.taskdef, instrument.testfeature.compile" unless="skip.instrument">
 		<instrument
 				dir="instrument/testlibsrc"
 				verify="${instrument.verify}"
@@ -916,7 +899,6 @@
 			<resources refid="instrument.resources" />
 			<classpath>
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
-				<pathelement location="build/classes/junit4" />
 			</classpath>
 			<suppressWarnings>
 				<constructor>RedundantSuppression</constructor>
@@ -944,7 +926,7 @@
 		</compile>
 	</target>
 
-	<target name="instrument.test.compile" depends="junit4, instrument.test.libcompile, instrument.testfeature.compile, instrument.test.srcinstrument">
+	<target name="instrument.test.compile" depends="instrument.test.libcompile, instrument.testfeature.compile, instrument.test.srcinstrument">
 		<compile srcdir="instrument/testsrc">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
@@ -956,7 +938,6 @@
 				<pathelement location="build/classes/instrument/testfeaturesrc" />
 				<pathelement location="build/classes/instrument/testlibsrc" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/opentest4j.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
@@ -965,7 +946,7 @@
 		</compile>
 	</target>
 
-	<target name="instrument.testparams.compile" depends="junit4,instrument.test.paramssrcinstrument">
+	<target name="instrument.testparams.compile" depends="instrument.test.paramssrcinstrument">
 		<compile srcdir="instrument/testparamssrc">
 			<classpath>
 				<pathelement location="build/classes/runtime/src" />
@@ -976,7 +957,7 @@
 	</target>
 
 	<target name="instrument.test"
-				depends="junit4, runtime.compile, instrument.compile, instrument.test.compile, instrument.testparams.compile">
+				depends="runtime.compile, instrument.compile, instrument.test.compile, instrument.testparams.compile">
 		<ljunit scansrc="instrument/testsrc" testproperty="instrument.test">
 			<classpath>
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
@@ -994,7 +975,6 @@
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
-				<pathelement location="build/classes/junit4" />
 				<pathelement location="lib/junit-jupiter-api.jar" />
 				<pathelement location="lib/junit-jupiter-engine.jar" />
 				<pathelement location="lib/junit-platform-console.jar" />

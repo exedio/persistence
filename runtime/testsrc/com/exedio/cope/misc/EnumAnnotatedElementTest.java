@@ -19,8 +19,8 @@
 package com.exedio.cope.misc;
 
 import static com.exedio.cope.misc.EnumAnnotatedElement.get;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CopeSchemaName;
 import org.junit.jupiter.api.Test;

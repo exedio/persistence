@@ -23,8 +23,8 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.lang.Integer.toHexString;
 import static java.lang.System.identityHashCode;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CacheIsolationTest;
 import com.exedio.cope.Item;

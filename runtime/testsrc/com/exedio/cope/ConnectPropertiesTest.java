@@ -27,11 +27,11 @@ import static com.exedio.cope.util.Sources.cascade;
 import static java.time.Duration.ofNanos;
 import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.ConnectProperties.Factory;
 import com.exedio.cope.tojunit.TestSources;

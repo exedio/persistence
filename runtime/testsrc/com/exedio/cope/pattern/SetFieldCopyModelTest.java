@@ -21,9 +21,9 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
 import static java.util.Collections.emptyList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyMapper;

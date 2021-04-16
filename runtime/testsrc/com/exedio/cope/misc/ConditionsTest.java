@@ -26,8 +26,8 @@ import static com.exedio.cope.misc.ConditionsTest.AnItem.name1;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name2;
 import static com.exedio.cope.misc.ConditionsTest.AnItem.name3;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.StringField;

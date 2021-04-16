@@ -23,11 +23,11 @@ import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
 import static com.exedio.cope.SchemaInfo.supportsNativeDate;
 import static com.exedio.cope.instrument.Visibility.NONE;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.dsmf.Constraint;

@@ -20,9 +20,9 @@ package com.exedio.cope.misc;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.misc.ModelByString.get;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;

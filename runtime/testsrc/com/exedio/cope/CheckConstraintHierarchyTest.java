@@ -22,9 +22,9 @@ import static com.exedio.cope.CheckConstraintHierarchyItemBottom.bottom;
 import static com.exedio.cope.CheckConstraintHierarchyItemBottom.cross;
 import static com.exedio.cope.CheckConstraintHierarchyItemBottom.up;
 import static com.exedio.cope.CheckConstraintHierarchyItemTop.top;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 

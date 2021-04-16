@@ -52,9 +52,9 @@ import static com.exedio.cope.SchemaItem.stringOpt;
 import static com.exedio.cope.SchemaItem.stringUpper6;
 import static com.exedio.cope.SchemaItem.uniqueString;
 import static com.exedio.dsmf.Node.Color.OK;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.SI;
 import com.exedio.dsmf.Column;

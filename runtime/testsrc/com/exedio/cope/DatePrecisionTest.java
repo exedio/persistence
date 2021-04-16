@@ -22,8 +22,8 @@ import static com.exedio.cope.DatePrecisionConditionTest.date;
 import static com.exedio.cope.DatePrecisionItem.TYPE;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.DateField.Precision;
 import com.exedio.cope.DateField.RoundingMode;

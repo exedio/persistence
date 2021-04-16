@@ -25,8 +25,8 @@ import static com.exedio.cope.HardJoinB1Item.b1;
 import static com.exedio.cope.HardJoinB2Item.b2;
 import static com.exedio.cope.HardJoinB3Item.b3;
 import static com.exedio.cope.tojunit.Assert.list;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;

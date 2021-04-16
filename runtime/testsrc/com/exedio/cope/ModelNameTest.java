@@ -21,8 +21,8 @@ package com.exedio.cope;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.lang.Integer.toHexString;
 import static java.lang.System.identityHashCode;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;

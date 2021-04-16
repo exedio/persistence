@@ -28,8 +28,8 @@ import static com.exedio.cope.SchemaInfo.getTypeColumnName;
 import static com.exedio.cope.SchemaInfo.getUpdateCounterColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 

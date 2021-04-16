@@ -29,10 +29,10 @@ import static com.exedio.cope.pattern.MessageDigestHashItem.passwordLatin;
 import static com.exedio.cope.pattern.MessageDigestHashItem.passwordMandatory;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;

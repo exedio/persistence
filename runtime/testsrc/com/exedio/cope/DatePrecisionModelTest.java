@@ -23,8 +23,8 @@ import static com.exedio.cope.DatePrecisionItem.hours;
 import static com.exedio.cope.DatePrecisionItem.millis;
 import static com.exedio.cope.DatePrecisionItem.minutes;
 import static com.exedio.cope.DatePrecisionItem.seconds;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.DateField.Precision;
 import java.util.Date;

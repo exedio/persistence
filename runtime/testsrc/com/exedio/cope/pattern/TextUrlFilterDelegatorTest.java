@@ -24,10 +24,10 @@ import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig2;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;

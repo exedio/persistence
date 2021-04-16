@@ -26,9 +26,9 @@ import static com.exedio.cope.SequenceItem.limited;
 import static com.exedio.cope.SequenceItem.nextFull;
 import static com.exedio.cope.SequenceItem.nextLimited;
 import static com.exedio.cope.SequenceModelTest.MODEL;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;

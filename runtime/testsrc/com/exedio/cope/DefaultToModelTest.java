@@ -37,8 +37,8 @@ import static com.exedio.cope.DefaultToItem.integerNone;
 import static com.exedio.cope.DefaultToItem.longRandom;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Boolean.TRUE;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.util.Day;
 import java.util.Date;

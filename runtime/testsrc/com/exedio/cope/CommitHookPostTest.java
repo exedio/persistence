@@ -20,17 +20,17 @@ package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import java.util.ArrayList;
-import org.junit.Assert;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -318,7 +318,7 @@ public class CommitHookPostTest
 		protected AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final Runnable FAIL = Assert::fail;
+	static final Runnable FAIL = Assertions::fail;
 
 	static void assertNoTransaction()
 	{

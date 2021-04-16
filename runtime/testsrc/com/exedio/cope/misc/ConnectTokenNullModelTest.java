@@ -24,8 +24,8 @@ import static com.exedio.cope.misc.ConnectToken.issue;
 import static com.exedio.cope.misc.ConnectToken.issueIfConnected;
 import static com.exedio.cope.misc.ConnectToken.removePropertiesVoid;
 import static com.exedio.cope.misc.ConnectToken.setProperties;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.ConnectProperties;
 import java.util.function.Supplier;

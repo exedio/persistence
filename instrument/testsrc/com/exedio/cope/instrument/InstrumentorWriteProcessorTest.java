@@ -20,8 +20,8 @@ package com.exedio.cope.instrument;
 
 import static java.util.Arrays.asList;
 import static java.util.Collections.singleton;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.instrument.testfeature.WrapDeprecationFeature;

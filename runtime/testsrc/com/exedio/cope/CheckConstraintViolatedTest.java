@@ -23,8 +23,8 @@ import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.alpha;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.alphaLessBeta;
 import static com.exedio.cope.CheckConstraintViolatedTest.AnItem.beta;
 import static com.exedio.cope.SchemaInfo.supportsCheckConstraints;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;

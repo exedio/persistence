@@ -23,8 +23,8 @@ import static java.time.Duration.ZERO;
 import static java.time.Duration.ofDays;
 import static java.time.Duration.ofHours;
 import static java.time.Duration.ofNanos;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.pattern.DispatcherPurgeProperties.Factory;
 import com.exedio.cope.util.Sources;

@@ -21,8 +21,8 @@ package com.exedio.cope.misc;
 import static com.exedio.cope.misc.QueryAggregatorItem.TYPE;
 import static com.exedio.cope.misc.QueryIterators.iterateStableQuery;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;

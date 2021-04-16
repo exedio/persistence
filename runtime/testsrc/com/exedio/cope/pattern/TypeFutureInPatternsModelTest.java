@@ -24,8 +24,8 @@ import static com.exedio.cope.pattern.TypeFutureInPatternsItem.TYPE;
 import static com.exedio.cope.pattern.TypeFutureInPatternsItem.feature;
 import static com.exedio.cope.pattern.TypeFutureInPatternsItem.feature2;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.ItemField;

@@ -21,8 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.LimitedListFieldFinalTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldFinalTest.AnItem.text;
 import static java.util.Arrays.asList;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;

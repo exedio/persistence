@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnValueL;
 import static com.exedio.cope.SchemaInfo.getTypeColumnValue;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.MainRule;

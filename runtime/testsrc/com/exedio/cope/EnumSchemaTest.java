@@ -20,8 +20,8 @@ package com.exedio.cope;
 
 import static com.exedio.cope.EnumFieldType.roundUpTo10;
 import static com.exedio.cope.SchemaInfo.getColumnValue;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;

@@ -21,8 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaCatchPhraseItem.TYPE;
 import static com.exedio.cope.pattern.MediaCatchPhraseSuperItem.feature;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;

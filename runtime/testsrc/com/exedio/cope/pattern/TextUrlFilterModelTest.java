@@ -19,8 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.StringField;
 import org.junit.jupiter.api.Test;

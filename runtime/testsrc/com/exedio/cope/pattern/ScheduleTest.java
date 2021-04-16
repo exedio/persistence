@@ -27,11 +27,11 @@ import static com.exedio.cope.pattern.ScheduleItem.assertLogs;
 import static com.exedio.cope.pattern.ScheduleItem.report;
 import static com.exedio.cope.pattern.ScheduleItem.reportRunParent;
 import static java.util.Objects.requireNonNull;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;

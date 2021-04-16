@@ -23,9 +23,9 @@ import static com.exedio.cope.SequenceItem.full;
 import static com.exedio.cope.SequenceItem.limited;
 import static com.exedio.cope.tojunit.Assert.list;
 import static java.lang.Integer.MAX_VALUE;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 

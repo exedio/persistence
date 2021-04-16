@@ -23,9 +23,9 @@ import static com.exedio.cope.pattern.Price.MIN_VALUE;
 import static com.exedio.cope.pattern.Price.storeOf;
 import static com.exedio.cope.pattern.PriceFieldItem.bigPrice;
 import static com.exedio.cope.pattern.PriceFieldItem.finalPrice;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.LongRangeViolationException;

@@ -25,9 +25,9 @@ import static com.exedio.cope.VaultTest.VALUE1;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultNotFoundException;

@@ -20,8 +20,8 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.ABlock.less;
 import static com.exedio.cope.pattern.BlockFieldCheckModelTest.AnItem.eins;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.TestWithEnvironment;

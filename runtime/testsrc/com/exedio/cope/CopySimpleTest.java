@@ -25,9 +25,9 @@ import static com.exedio.cope.CopySimpleSource.TYPE;
 import static com.exedio.cope.CopySimpleSource.assertBeforeNewCopeItem;
 import static com.exedio.cope.CopySimpleSource.assertBeforeSetCopeItem;
 import static com.exedio.cope.tojunit.Assert.assertContains;
-import static org.junit.Assert.fail;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
+import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
