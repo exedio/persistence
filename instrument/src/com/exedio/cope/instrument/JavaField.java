@@ -288,6 +288,7 @@ final class JavaField
 	{
 		try
 		{
+			//noinspection ResultOfMethodCallIgnored TODO include result into RuntimeException thrown below
 			wrapper.parameters();
 			throw new RuntimeException("expected MirroredTypesException");
 		}
