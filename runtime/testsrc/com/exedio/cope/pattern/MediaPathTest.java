@@ -824,6 +824,7 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		String outString()
 		{
+			//noinspection StringOperationCanBeSimplified OK: ByteArrayOutputStream#tostring does not work with Charset but just with String
 			return
 					out!=null
 					? new String(out.toByteArray(), StandardCharsets.US_ASCII)
