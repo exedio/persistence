@@ -1,4 +1,4 @@
-FROM alpine:20200626 AS idea-fetcher
+FROM alpine:20201218 AS idea-fetcher
 RUN apk --no-cache add curl
 ARG IDEA
 ARG IDEA_SHA256
@@ -9,7 +9,7 @@ RUN \
 	(echo "${IDEA_SHA256}  /tmp/ideaIC.tar.gz" | sha256sum -c -)
 
 
-FROM debian:stretch-20200607
+FROM debian:stretch-20210111
 
 ARG JDK
 RUN \

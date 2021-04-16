@@ -11,8 +11,8 @@ timestamps
 			))
 	])
 
-	def idea = '2020.1'
-	def ideaSHA256 = 'fa301279ec1591ecad8758113ff22a64e82b11a583e7eae6fac0eb60ddc9f8e5'
+	def idea = '2020.3.1'
+	def ideaSHA256 = '06abca33b240b24f447dada437f5ce7387b47644c76378230254d6163882a42a'
 
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && docker')
