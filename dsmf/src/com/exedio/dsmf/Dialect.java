@@ -465,6 +465,7 @@ public abstract class Dialect
 			connection = connectionProvider.getConnection();
 			//System.err.println(statement);
 
+			//noinspection StringEquality OK: This is the weird contract of GET_COLUMNS
 			if(GET_COLUMNS==statement)
 			{
 				try(ResultSet resultSet = connection.getMetaData().
