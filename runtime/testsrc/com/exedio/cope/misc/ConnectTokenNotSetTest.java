@@ -64,6 +64,7 @@ public class ConnectTokenNotSetTest
 
 		try
 		{
+			//noinspection resource
 			issue(model, "tokenNameIssue");
 			fail();
 		}
@@ -75,6 +76,7 @@ public class ConnectTokenNotSetTest
 
 		try
 		{
+			//noinspection resource
 			issueIfConnected(model, "tokenNameIssueIfConnected");
 			fail();
 		}

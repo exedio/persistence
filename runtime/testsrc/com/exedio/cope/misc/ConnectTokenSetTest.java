@@ -160,6 +160,7 @@ public class ConnectTokenSetTest
 		assertEquals(1, supplied.get());
 		try
 		{
+			//noinspection resource
 			issue(model, "tokenName");
 			fail();
 		}
@@ -201,6 +202,7 @@ public class ConnectTokenSetTest
 
 		try
 		{
+			//noinspection resource
 			issue(model, "tokenName");
 			fail();
 		}

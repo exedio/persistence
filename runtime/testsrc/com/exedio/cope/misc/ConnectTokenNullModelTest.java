@@ -94,6 +94,7 @@ public class ConnectTokenNullModelTest
 	{
 		try
 		{
+			//noinspection resource
 			issue(null, "tokenNameNullModel");
 			fail();
 		}
@@ -104,6 +105,7 @@ public class ConnectTokenNullModelTest
 
 		try
 		{
+			//noinspection resource
 			issueIfConnected(null, "tokenNameNullModelConditionally");
 			fail();
 		}

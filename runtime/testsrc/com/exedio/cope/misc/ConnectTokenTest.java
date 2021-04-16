@@ -279,6 +279,7 @@ public class ConnectTokenTest
 	{
 		assertNotConnected();
 
+		//noinspection resource
 		final ConnectToken token = issue(model, "tokenName");
 		assertTrue(model.isConnected());
 		assertFalse(token.isReturned());
@@ -300,6 +301,7 @@ public class ConnectTokenTest
 	{
 		assertNotConnected();
 
+		//noinspection resource
 		final ConnectToken token = issue(model, "tokenName");
 		token.returnStrictly();
 		assertFalse(model.isConnected());
@@ -324,6 +326,7 @@ public class ConnectTokenTest
 	{
 		assertNotConnected();
 
+		//noinspection resource
 		final ConnectToken token = issue(model, "tokenName");
 		token.returnStrictly();
 		assertFalse(model.isConnected());
