@@ -261,11 +261,13 @@ final class QueryCache
 					query: for(final int queryTypeTransiently : value.invalidationTypesTransiently)
 					{
 						for(final int invalidatedTypeTransiently : invalidatedTypesTransiently)
-						if(queryTypeTransiently==invalidatedTypeTransiently)
 						{
-							values.remove();
-							invalidationsCounter++;
-							break query;
+							if(queryTypeTransiently==invalidatedTypeTransiently)
+							{
+								values.remove();
+								invalidationsCounter++;
+								break query;
+							}
 						}
 					}
 				}
