@@ -153,7 +153,6 @@ public final class VaultProperties extends AbstractVaultProperties
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final Map.Entry<String, Service> e : services.entrySet())
 		{
-			//noinspection resource
 			result.put(e.getKey(), e.getValue().newService(this, e.getKey()));
 		}
 		return Collections.unmodifiableMap(result);

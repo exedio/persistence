@@ -164,7 +164,6 @@ public class CascadeChangeHookTest
 
 	protected static void assertEvents(final String... logs)
 	{
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(Arrays.asList(logs), events);
 		events.clear();
 	}

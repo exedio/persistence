@@ -477,7 +477,6 @@ public class StringTest extends TestWithEnvironment
 		return new String(buf);
 	}
 
-	@SuppressWarnings("HardcodedLineSeparator")
 	void assertString(final Item item, final Item item2, final StringField sa)
 	{
 		final Type<?> type = item.getCopeType();

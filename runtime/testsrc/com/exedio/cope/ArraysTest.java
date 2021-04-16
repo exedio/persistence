@@ -81,7 +81,6 @@ public class ArraysTest
 	{
 		try
 		{
-			//noinspection ResultOfMethodCallIgnored
 			Arrays.toString(null, 0);
 			fail();
 		}

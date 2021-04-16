@@ -41,7 +41,6 @@ public final class DispatcherSessionItem extends Item
 	static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);
 
 	@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
-	@SuppressWarnings("resource")
 	static final Dispatcher toTarget = Dispatcher.createWithSession(
 			Session::new,
 			DispatcherSessionItem::dispatch);
@@ -78,7 +77,6 @@ public final class DispatcherSessionItem extends Item
 	{
 		for(final Session session : sessions)
 			assertTrue(session.closed);
-		//noinspection MisorderedAssertEqualsArguments
 		assertEquals(expectedSize, sessions.size());
 	}
 
@@ -86,7 +84,6 @@ public final class DispatcherSessionItem extends Item
 	private void dispatch(final Session session) throws IOException
 	{
 		assertFalse(session.closed);
-		//noinspection MisorderedAssertEqualsArguments
 		assertSame(session, sessions.get(sessions.size()-1));
 		assertTrue(MODEL.hasCurrentTransaction());
 		assertEquals(toTarget.getID() + " dispatch " + getCopeID(), MODEL.currentTransaction().getName());

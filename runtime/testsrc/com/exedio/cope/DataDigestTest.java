@@ -74,7 +74,6 @@ public class DataDigestTest
 		assertUpdate(hash, input.getBytes(UTF_8));
 	}
 
-	@SuppressWarnings("MisorderedAssertEqualsArguments") // OK: bug in idea
 	private void assertUpdate(final String hash, final byte[] input) throws IOException
 	{
 		messageDigest.reset();

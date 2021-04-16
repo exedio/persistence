@@ -372,7 +372,6 @@ public class MediaServletTest
 
 		if ( expectNotModified )
 		{
-			//noinspection resource
 			assertEquals( -1, conn.getInputStream().read() );
 		}
 		else
