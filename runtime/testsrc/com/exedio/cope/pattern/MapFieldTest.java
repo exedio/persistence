@@ -44,9 +44,7 @@ import java.util.Map;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings({
-		"MapReplaceableByEnumMap",
-		"AssertEqualsBetweenInconvertibleTypes"}) // bug in inspection
+@SuppressWarnings("MapReplaceableByEnumMap")
 public class MapFieldTest extends TestWithEnvironment
 {
 	public MapFieldTest()

@@ -74,7 +74,7 @@ public final class Model implements Serializable
 	private volatile long lastTransactionStartDate = Long.MIN_VALUE;
 
 	final Transactions transactions = new Transactions();
-	@SuppressWarnings({"ThisEscapedInObjectConstruction", "resource"})
+	@SuppressWarnings("ThisEscapedInObjectConstruction")
 	private final TransactionTry tx = new TransactionTry(this);
 	private final TransactionCounter transactionCounter = new TransactionCounter();
 

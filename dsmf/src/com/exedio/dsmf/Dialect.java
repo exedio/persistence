@@ -454,7 +454,6 @@ public abstract class Dialect
 		querySQL(schema.connectionProvider, statement, resultSetHandler);
 	}
 
-	@SuppressWarnings("StringEquality")
 	final void querySQL(
 			final ConnectionProvider connectionProvider,
 			final String statement,
@@ -463,10 +462,10 @@ public abstract class Dialect
 		Connection connection = null;
 		try
 		{
-			//noinspection resource OK: have to use putConnection
 			connection = connectionProvider.getConnection();
 			//System.err.println(statement);
 
+			//noinspection StringEquality OK: This is the weird contract of GET_COLUMNS
 			if(GET_COLUMNS==statement)
 			{
 				try(ResultSet resultSet = connection.getMetaData().

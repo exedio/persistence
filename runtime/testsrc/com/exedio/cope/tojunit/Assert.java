@@ -106,6 +106,7 @@ public final class Assert
 		assertNotNull(expected, "expected null, but was " + actual);
 		assertNotNull(actual, "expected " + expected + ", but was null");
 
+		//noinspection SuspiciousMethodCalls OK: just for testing
 		if(expected.size()!=actual.size() ||
 			!expected.containsAll(actual) ||
 			!actual.containsAll(expected))

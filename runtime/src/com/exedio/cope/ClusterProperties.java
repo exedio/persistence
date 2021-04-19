@@ -282,7 +282,6 @@ final class ClusterProperties extends Properties
 			}
 			else
 			{
-				//noinspection resource,IOResourceOpenedButNotSafelyClosed,SocketOpenedButNotSafelyClosed // OK: is closed outside this factory method
 				result = new DatagramSocket(port);
 			}
 			// TODO close socket if code below fails

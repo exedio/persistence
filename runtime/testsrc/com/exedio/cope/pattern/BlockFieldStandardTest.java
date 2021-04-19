@@ -37,7 +37,6 @@ import com.exedio.cope.pattern.BlockFieldStandardModelTest.AnItem;
 import java.awt.Color;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("AssertEqualsBetweenInconvertibleTypes") // bug in inspection
 public class BlockFieldStandardTest extends TestWithEnvironment
 {
 	public BlockFieldStandardTest()

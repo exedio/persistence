@@ -59,17 +59,14 @@ public final class MinusView<E extends Number> extends NumberView<E>
 
 		if(valueClass==Integer.class)
 		{
-			//noinspection RedundantCast OK: clarifies code
 			return (E)Integer.valueOf((Integer)minuend - (Integer)subtrahend);
 		}
 		else if(valueClass==Long.class)
 		{
-			//noinspection RedundantCast OK: clarifies code
 			return (E)Long.valueOf((Long)minuend - (Long)subtrahend);
 		}
 		else if(valueClass==Double.class)
 		{
-			//noinspection RedundantCast OK: clarifies code
 			return (E)Double.valueOf((Double)minuend - (Double)subtrahend);
 		}
 		else

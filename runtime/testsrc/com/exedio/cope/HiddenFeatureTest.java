@@ -44,6 +44,7 @@ public class HiddenFeatureTest extends TestWithEnvironment
 
 		// test model
 		assertNotSame(HiddenFeatureSuperItem.hiddenSame,  HiddenFeatureSubItem.hiddenSame);
+		//noinspection AssertBetweenInconvertibleTypes
 		assertNotSame(HiddenFeatureSuperItem.hiddenOther, HiddenFeatureSubItem.hiddenOther);
 
 		assertEquals(list(spt, HiddenFeatureSuperItem.nonHiddenSuper, HiddenFeatureSuperItem.hiddenSame, HiddenFeatureSuperItem.hiddenOther), HiddenFeatureSuperItem.TYPE.getDeclaredFeatures());

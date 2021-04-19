@@ -85,7 +85,6 @@ public abstract class Node
 		Connection connection = null;
 		try
 		{
-			//noinspection resource OK: have to use putConnection
 			connection = connectionProvider.getConnection();
 			//System.out.println(statement);
 			try(java.sql.Statement sqlStatement = connection.createStatement())

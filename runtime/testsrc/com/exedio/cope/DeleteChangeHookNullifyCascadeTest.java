@@ -80,7 +80,6 @@ public class DeleteChangeHookNullifyCascadeTest extends TestWithEnvironment
 
 	private static void assertHistory(final String history)
 	{
-		//noinspection MisorderedAssertEqualsArguments OK: bug in idea
 		assertEquals(history, HISTORY.toString());
 		HISTORY.setLength(0);
 	}

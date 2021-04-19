@@ -79,7 +79,6 @@ public class MediaServlet extends HttpServlet
 	{
 		super.init();
 
-		//noinspection resource OK: closed in destroy
 		connectToken = ServletUtil.getConnectedModel(this).returnOnFailureOf(connectToken ->
 		{
 			initPathes(connectToken.getModel()); // TODO do this before connect

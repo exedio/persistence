@@ -69,7 +69,7 @@ public class DispatcherSessionCloseFailsTest
 		static final IntegerField dispatchCountCommitted = new IntegerField().defaultTo(0).min(0);
 
 		@Wrapper(wrap="dispatch", parameters={Config.class, Runnable.class, JobContext.class}, visibility=NONE)
-		@SuppressWarnings({"Convert2Lambda", "resource"})
+		@SuppressWarnings("Convert2Lambda")
 		static final Dispatcher toTarget = Dispatcher.createWithSession(
 				() -> new AutoCloseable()
 				{
