@@ -28,6 +28,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
@@ -274,24 +275,25 @@ public class ChangeListenerTest extends TestWithEnvironment
 	private void assertInfo(final int size, final int removed, final int success, final int failed)
 	{
 		final ChangeListenerInfo info = model.getChangeListenersInfo();
-		assertEquals(size,    info.getSize());
-		assertEquals(0,       info.getCleared());
-		assertEquals(removed, info.getRemoved());
-		assertEquals(failed,  info.getFailed ());
-		assertEquals(size,    gauge("size"));
-		assertEquals(0,       count("remove", "cause", "reference"));
-		assertEquals(removed, count("remove", "cause", "remove"));
-		assertEquals(success, timer("dispatch", "result", "success"));
-		assertEquals(failed,  timer("dispatch", "result", "failure"));
-
 		final ChangeListenerDispatcherInfo dispatcherInfo = model.getChangeListenerDispatcherInfo();
-		assertEquals(0, dispatcherInfo.getOverflow ());
-		assertEquals(0, dispatcherInfo.getException());
-		assertEquals(0, dispatcherInfo.getPending  ());
-		assertEquals(0, count("overflow"));
-		assertEquals(0, count("dispatchEventFail"));
-		assertEquals(0, gauge("pending"));
-		assertEquals(model.getConnectProperties().changeListenersQueueCapacity, gauge("capacity"));
+		assertAll(
+				() -> assertEquals(size,    info.getSize(),    "size"),
+				() -> assertEquals(0,       info.getCleared(), "cleared"),
+				() -> assertEquals(removed, info.getRemoved(), "removed"),
+				() -> assertEquals(failed,  info.getFailed (), "failed" ),
+				() -> assertEquals(size,    gauge("size"), "size"),
+				() -> assertEquals(0,       count("remove", "cause", "reference"), "cleared"),
+				() -> assertEquals(removed, count("remove", "cause", "remove"),    "removed"),
+				() -> assertEquals(success, timer("dispatch", "result", "success"), "success"),
+				() -> assertEquals(failed,  timer("dispatch", "result", "failure"), "failed" ),
+
+				() -> assertEquals(0, dispatcherInfo.getOverflow (), "overflow" ),
+				() -> assertEquals(0, dispatcherInfo.getException(), "exception"),
+				() -> assertEquals(0, dispatcherInfo.getPending  (), "pending"  ),
+				() -> assertEquals(0, count("overflow"),          "overflow" ),
+				() -> assertEquals(0, count("dispatchEventFail"), "exception"),
+				() -> assertEquals(0, gauge("pending"),           "pending"  ),
+				() -> assertEquals(model.getConnectProperties().changeListenersQueueCapacity, gauge("capacity"), "capacity"));
 	}
 
 	private double count(final String nameSuffix)
