@@ -30,6 +30,7 @@ import static java.time.temporal.ChronoUnit.DAYS;
 import static java.time.temporal.ChronoUnit.HOURS;
 import static java.time.temporal.ChronoUnit.MONTHS;
 import static java.time.temporal.ChronoUnit.WEEKS;
+import static java.util.Locale.ENGLISH;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ActivationParameters;
@@ -412,8 +413,9 @@ public final class Schedule extends Pattern
 			final int total = dates.size() - 1;
 			if(total>interval.limit)
 				throw new RuntimeException(
-						"schedule aborting because suspicious amount of work to do: " +
-						getID() + ',' + item.getCopeID() + ',' + total + ',' + interval + ',' + interval.limit);
+						"schedule aborting because " + total + ' ' + interval.name().toLowerCase(ENGLISH) + " " +
+						"pending runs do exceed the limit of " + interval.limit + " " +
+						"on " + item.getCopeID() + " for " + getID());
 
 			final Iterator<Instant> i = dates.iterator();
 			Instant from = i.next();
