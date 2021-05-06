@@ -298,24 +298,46 @@ public final class VaultFileService implements VaultService
 		}
 
 		@Probe(name="directory.Premised")
-		private int probeDirectoryPremised() throws ProbeAbortedException
+		private Object probeDirectoryPremised() throws ProbeAbortedException
 		{
 			if(directory==null)
 				throw newProbeAbortedException("directories disabled");
-			if(!directory.premised)
-				throw newProbeAbortedException("directories not premised");
 
+			int missingTotal = 0;
+			final int MISSING_LIMIT = 15;
+			final StringBuilder missing = new StringBuilder();
 			int ok = 0;
 			for(final Iterator<String> i = directory.iterator(); i.hasNext(); )
 			{
-				final Path dir = root.resolve(i.next());
-				if(Files.isDirectory(dir))
+				final String dirName = i.next();
+				if(Files.isDirectory(root.resolve(dirName)))
 					ok++;
 				else
-					throw new IllegalStateException(dir.toString());
-			}
+				{
+					if((missingTotal++)<MISSING_LIMIT)
+					{
+						if(missingTotal==1)
+							missing.append("missing ");
+						else
+							missing.append(',');
 
-			return ok;
+						missing.append(dirName);
+					}
+				}
+			}
+			if(missingTotal==0)
+				return ok;
+
+			if(missingTotal>MISSING_LIMIT)
+				missing.
+						append("... (total ").
+						append(missingTotal).
+						append(')');
+
+			if(directory.premised)
+				throw new IllegalStateException(missing.toString());
+			else
+				return missing.toString();
 		}
 	}
 

@@ -340,7 +340,7 @@ public class VaultFileServicePropertiesProbeTest
 				"directories disabled");
 	}
 
-	@Test void probePremisedNotPremised()
+	@Test void probePremisedNotPremised() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
 		final Source source =
@@ -355,10 +355,9 @@ public class VaultFileServicePropertiesProbeTest
 				findFirst().
 				get();
 
-		assertFails(
-				dirs::call,
-				ProbeAbortedException.class,
-				"directories not premised");
+		assertEquals(
+				"missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)",
+				dirs.call());
 	}
 
 	@Test void probePremisedOne() throws Exception
@@ -379,21 +378,21 @@ public class VaultFileServicePropertiesProbeTest
 				findFirst().
 				get();
 
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0");
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0");
+		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
+		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
 
 		createDirectory(root.toPath());
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0");
+		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
 
 		createDirectory(root.toPath().resolve("0"));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "1");
+		assertFails(dirs::call, IllegalStateException.class, "missing 1,2,3,4,5,6,7,8,9,a,b,c,d,e,f");
 
 		createDirectory(root.toPath().resolve("1"));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "2");
+		assertFails(dirs::call, IllegalStateException.class, "missing 2,3,4,5,6,7,8,9,a,b,c,d,e,f");
 
 		for(final String s : asList("2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			createDirectory(root.toPath().resolve(s));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "f");
+		assertFails(dirs::call, IllegalStateException.class, "missing f");
 
 		createDirectory(root.toPath().resolve("f"));
 		assertEquals(16, dirs.call());
@@ -418,29 +417,29 @@ public class VaultFileServicePropertiesProbeTest
 				get();
 
 		createDirectory(root.toPath());
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "00");
+		assertFails(dirs::call, IllegalStateException.class, "missing 00,01,02,03,04,05,06,07,08,09,0a,0b,0c,0d,0e... (total 256)");
 
 		createDirectory(root.toPath().resolve("00"));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "01");
+		assertFails(dirs::call, IllegalStateException.class, "missing 01,02,03,04,05,06,07,08,09,0a,0b,0c,0d,0e,0f... (total 255)");
 
 		createDirectory(root.toPath().resolve("01"));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "02");
+		assertFails(dirs::call, IllegalStateException.class, "missing 02,03,04,05,06,07,08,09,0a,0b,0c,0d,0e,0f,10... (total 254)");
 
 		for(final String s : asList("2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			createDirectory(root.toPath().resolve("0"+s));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "0f");
+		assertFails(dirs::call, IllegalStateException.class, "missing 0f,10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d... (total 241)");
 
 		createDirectory(root.toPath().resolve("0f"));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "10");
+		assertFails(dirs::call, IllegalStateException.class, "missing 10,11,12,13,14,15,16,17,18,19,1a,1b,1c,1d,1e... (total 240)");
 
 		for(final String s1 : asList("1","2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			for(final String s2 : HEX_DIGITS)
 				createDirectory(root.toPath().resolve(s1+s2));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "f0");
+		assertFails(dirs::call, IllegalStateException.class, "missing f0,f1,f2,f3,f4,f5,f6,f7,f8,f9,fa,fb,fc,fd,fe... (total 16)");
 
 		for(final String s : asList("0","1","2","3","4","5","6","7","8","9","a","b","c","d","e"))
 			createDirectory(root.toPath().resolve("f"+s));
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "ff");
+		assertFails(dirs::call, IllegalStateException.class, "missing ff");
 
 		createDirectory(root.toPath().resolve("ff"));
 		assertEquals(256, dirs.call());
@@ -464,7 +463,7 @@ public class VaultFileServicePropertiesProbeTest
 				get();
 
 		createDirectory(root.toPath());
-		assertFails(dirs::call, IllegalStateException.class, root + File.separator + "000");
+		assertFails(dirs::call, IllegalStateException.class, "missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)");
 
 		for(final String s1 : HEX_DIGITS)
 			for(final String s2 : HEX_DIGITS)
