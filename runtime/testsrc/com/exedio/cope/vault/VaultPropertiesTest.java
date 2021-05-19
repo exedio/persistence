@@ -39,6 +39,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ServiceProperties;
 import com.exedio.cope.vaultmock.VaultMockService;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
@@ -129,18 +130,27 @@ public class VaultPropertiesTest
 						single("services", "alpha beta gamma"),
 						single("service.alpha", VaultMockService.class),
 						single("service.beta",  VaultMockService.class),
-						single("service.gamma", VaultMockService.class)
+						single("service.gamma", VaultMockService.class),
+						single("service.alpha.example", "alphaEx"),
+						single("service.beta.example" , "betaEx" ),
+						single("service.gamma.example", "gammaEx")
 				));
 		final VaultProperties p = factory.create(source);
 		assertEqualsUnmodifiable(
 				new HashSet<>(asList("alpha", "beta", "gamma")),
 				p.services.keySet());
 
-		final Map<String, VaultService> s = p.newServices();
-		assertEqualsUnmodifiable(new HashSet<>(asList("alpha", "beta", "gamma")), s.keySet());
-		assertUnmodifiable(s.values());
-		for(final VaultService vs : s.values())
-			assertEquals(VaultMockService.class, vs.getClass());
+		assertServices(p.newServices(), "alpha", "beta", "gamma");
+	}
+	private static void assertServices(final Map<String, VaultService> s, final String... expectedKeys)
+	{
+		assertUnmodifiable(s);
+		assertEquals(asList(expectedKeys), new ArrayList<>(s.keySet()));
+		for(final Map.Entry<String, VaultService> e : s.entrySet())
+		{
+			assertEquals(VaultMockService.class, e.getValue().getClass(), e.getKey());
+			assertEquals(e.getKey() + "Ex", ((VaultMockService)e.getValue()).serviceProperties.example, e.getKey());
+		}
 	}
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void serviceDeprecated()

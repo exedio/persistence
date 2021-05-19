@@ -234,9 +234,14 @@ public final class Assert
 
 	public static void assertEqualsUnmodifiable(final Map<?,?> expected, final Map<?,?> actual)
 	{
-		final String name = actual.getClass().getName();
-		assertTrue(UNMODIFIABLE_MAPS.contains(name), name);
+		assertUnmodifiable(actual);
 		assertEquals(expected, actual);
+	}
+
+	public static void assertUnmodifiable(final Map<?,?> m)
+	{
+		final String name = m.getClass().getName();
+		assertTrue(UNMODIFIABLE_MAPS.contains(name), name);
 	}
 
 	private static final HashSet<String> UNMODIFIABLE_MAPS = new HashSet<>(Arrays.asList(
