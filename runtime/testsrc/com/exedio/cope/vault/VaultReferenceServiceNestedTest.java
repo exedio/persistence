@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -51,8 +52,7 @@ public class VaultReferenceServiceNestedTest
 						single("service.reference.example", "ref2Ex")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
-		@SuppressWarnings("deprecation") final VaultReferenceService
-		service = (VaultReferenceService)props.newService();
+		final VaultReferenceService service = (VaultReferenceService)props.newServices(DEFAULT).get(DEFAULT);
 		this.service = service;
 		serviceNested = (VaultReferenceService)service.getMainService();
 		ref2 = (VaultMockService)service.getReferenceService();

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vaulttest;
 
+import static com.exedio.cope.Vault.DEFAULT;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
@@ -100,8 +101,7 @@ public abstract class VaultServiceTest
 			source.setProperty("service." + key, sp.getProperty(key));
 
 		properties = VaultProperties.factory().create(Sources.view(source, "DESC"));
-		@SuppressWarnings("deprecation") final VaultService
-		service = properties.newService();
+		final VaultService service = properties.newServices(DEFAULT).get(DEFAULT);
 		this.service = maskService(service);
 		this.servicePut = maskServicePut(service);
 	}

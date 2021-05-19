@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
@@ -290,8 +291,7 @@ public class VaultPropertiesTest
 				));
 
 		final VaultProperties props = factory.create(source);
-		@SuppressWarnings({"resource", "deprecation"})
-		final ServicePropertiesMissing service = (ServicePropertiesMissing)props.newService();
+		final ServicePropertiesMissing service = (ServicePropertiesMissing)props.newServices(DEFAULT).get(DEFAULT);
 		assertSame(props, service.parameters.getVaultProperties());
 	}
 	@Test void servicePropertiesMissingReference()
@@ -303,8 +303,7 @@ public class VaultPropertiesTest
 						single("service.reference", ServicePropertiesMissing.class)
 				));
 		final VaultProperties props = factory.create(source);
-		@SuppressWarnings({"resource", "deprecation"})
-		final VaultReferenceService service = (VaultReferenceService)props.newService();
+		final VaultReferenceService service = (VaultReferenceService)props.newServices(DEFAULT).get(DEFAULT);
 		final ServicePropertiesMissing main = (ServicePropertiesMissing)service.getMainService();
 		final ServicePropertiesMissing ref  = (ServicePropertiesMissing)service.getReferenceService();
 		assertSame(props, main.parameters.getVaultProperties());

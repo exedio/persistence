@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -57,8 +58,7 @@ public class VaultServiceNestedTest
 						single("service.read.read.example", "readReadEx")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
-		@SuppressWarnings("deprecation") final MyService
-		service = (MyService)props.newService();
+		final MyService service = (MyService)props.newServices(DEFAULT).get(DEFAULT);
 		this.service = service;
 		writ = (MyService)service.writ;
 		read = (MyService)service.read;

@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static java.util.stream.Collectors.toList;
@@ -57,8 +58,7 @@ public class VaultFileServiceErrorTest
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
 
-		@SuppressWarnings({"resource", "deprecation"})
-		final VaultFileService service = (VaultFileService)properties.newService();
+		final VaultFileService service = (VaultFileService)properties.newServices(DEFAULT).get(DEFAULT);
 
 		assertEquals("l=31", service.directory.toString());
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);

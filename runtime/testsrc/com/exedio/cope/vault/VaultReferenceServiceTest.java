@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
@@ -46,8 +47,7 @@ public class VaultReferenceServiceTest
 						single("service.reference.example", "refrEx")
 				));
 		final VaultProperties props = VaultProperties.factory().create(source);
-		@SuppressWarnings("deprecation") final VaultReferenceService
-		service = (VaultReferenceService)props.newService();
+		final VaultReferenceService service = (VaultReferenceService)props.newServices(DEFAULT).get(DEFAULT);
 		this.service = service;
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceService();
