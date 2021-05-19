@@ -142,6 +142,24 @@ public class VaultPropertiesTest
 
 		assertServices(p.newServices(), "alpha", "beta", "gamma");
 	}
+	@Test void serviceDeprecated()
+	{
+		final Source source =
+				describe("DESC", cascade(
+						single("services", "only"),
+						single("service.only", VaultMockService.class),
+						single("service.only.example", "onlyEx")
+				));
+		final VaultProperties p = factory.create(source);
+		@SuppressWarnings({
+				"resource",
+				"deprecation"}) // OK: testing deprecated API
+		final VaultService service = p.newService();
+		assertEquals(VaultMockService.class, service.getClass());
+		assertEquals("onlyEx", ((VaultMockService)service).serviceProperties.example);
+
+		assertServices(p.newServices(), "only");
+	}
 	private static void assertServices(final Map<String, VaultService> s, final String... expectedKeys)
 	{
 		assertUnmodifiable(s);
@@ -153,7 +171,7 @@ public class VaultPropertiesTest
 		}
 	}
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
-	@Test void serviceDeprecated()
+	@Test void serviceDeprecatedNotAllowed()
 	{
 		final Source source =
 				describe("DESC", cascade(
