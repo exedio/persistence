@@ -19,6 +19,7 @@
 package com.exedio.cope.vault;
 
 import static java.util.Collections.singletonList;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataField;
 import com.exedio.cope.Model;
@@ -28,6 +29,7 @@ import com.exedio.cope.util.CharSet;
 import com.exedio.cope.util.MessageDigestFactory;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
 import java.util.LinkedHashSet;
@@ -132,7 +134,7 @@ public final class VaultProperties extends AbstractVaultProperties
 	}
 
 	/**
-	 * @deprecated Use {@link #newServices()} instead.
+	 * @deprecated Use {@link #newServices(String[])} or {@link #newServices()} instead.
 	 * @throws IllegalArgumentException if there is more than one service
 	 */
 	@Deprecated
@@ -146,6 +148,37 @@ public final class VaultProperties extends AbstractVaultProperties
 			throw new RuntimeException();
 
 		return result.values().iterator().next();
+	}
+
+	public Map<String, VaultService> newServices(final String... keys)
+	{
+		requireNonNull(keys, "keys");
+		int keyIndex = 0;
+		final HashMap<String, Integer> keysSeen = new HashMap<>();
+		for(final String key : keys)
+		{
+			if(key==null)
+				throw new NullPointerException("keys[" + keyIndex + ']');
+
+			final Integer collision = keysSeen.put(key, keyIndex);
+			if(collision!=null)
+				throw new IllegalArgumentException(
+						"keys[" + keyIndex + "] is a duplicate of index " + collision + ": >" + key + '<');
+
+			if(!services.containsKey(key))
+				throw new IllegalArgumentException(
+						"keys[" + keyIndex + "] must be one of " + services.keySet() + ", " +
+						"but was >" + key + '<');
+
+			keyIndex++;
+		}
+
+		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
+		for(final String key : keys)
+		{
+			result.put(key, services.get(key).newService(this, key));
+		}
+		return Collections.unmodifiableMap(result);
 	}
 
 	public Map<String, VaultService> newServices()

@@ -140,6 +140,34 @@ public class VaultPropertiesTest
 				new HashSet<>(asList("alpha", "beta", "gamma")),
 				p.services.keySet());
 
+		assertServices(p.newServices("alpha", "beta", "gamma"), "alpha", "beta", "gamma");
+		assertServices(p.newServices("alpha", "gamma", "beta"), "alpha", "gamma", "beta");
+		assertServices(p.newServices("alpha", "gamma"), "alpha", "gamma");
+		assertServices(p.newServices("beta"), "beta");
+		assertServices(p.newServices(new String[]{}));
+		assertFails(
+				() -> p.newServices("alpha", "beta", "gamma", "delta"),
+				IllegalArgumentException.class,
+				"keys[3] must be one of [alpha, beta, gamma], but was >delta<");
+		assertFails(
+				() -> p.newServices("x"),
+				IllegalArgumentException.class,
+				"keys[0] must be one of [alpha, beta, gamma], but was >x<");
+		assertFails(
+				() -> p.newServices(""),
+				IllegalArgumentException.class,
+				"keys[0] must be one of [alpha, beta, gamma], but was ><");
+		assertFails(
+				() -> p.newServices("alpha", null),
+				NullPointerException.class, "keys[1]");
+		assertFails(
+				() -> p.newServices((String[])null),
+				NullPointerException.class, "keys");
+		assertFails(
+				() -> p.newServices("alpha", "beta", "alpha"),
+				IllegalArgumentException.class,
+				"keys[2] is a duplicate of index 0: >alpha<");
+
 		assertServices(p.newServices(), "alpha", "beta", "gamma");
 	}
 	@Test void serviceDeprecated()
@@ -158,6 +186,8 @@ public class VaultPropertiesTest
 		assertEquals(VaultMockService.class, service.getClass());
 		assertEquals("onlyEx", ((VaultMockService)service).serviceProperties.example);
 
+		assertServices(p.newServices("only"), "only");
+		assertServices(p.newServices(new String[]{}));
 		assertServices(p.newServices(), "only");
 	}
 	private static void assertServices(final Map<String, VaultService> s, final String... expectedKeys)
