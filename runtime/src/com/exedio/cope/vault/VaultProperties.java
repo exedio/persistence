@@ -223,9 +223,10 @@ public final class VaultProperties extends AbstractVaultProperties
 		final ArrayList<String> result = new ArrayList<>();
 		for(final Callable<?> probe : probeMore())
 		{
+			final Object probeResult;
 			try
 			{
-				result.add(probe.call().toString());
+				probeResult = probe.call();
 			}
 			catch(final RuntimeException e)
 			{
@@ -235,6 +236,7 @@ public final class VaultProperties extends AbstractVaultProperties
 			{
 				throw new RuntimeException(probe.toString(), e);
 			}
+			result.add(probeResult.toString());
 		}
 		return result.size()==1 ? result.get(0) : result.toString();
 	}
