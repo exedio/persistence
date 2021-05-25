@@ -185,11 +185,6 @@ public final class VaultFileService implements VaultService
 
 	private Path file(final String hash)
 	{
-		if(hash==null)
-			throw new NullPointerException();
-		if(hash.isEmpty())
-			throw new IllegalArgumentException();
-
 		return rootDir.resolve(directory.path(hash));
 	}
 

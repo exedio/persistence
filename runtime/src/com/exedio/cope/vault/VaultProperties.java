@@ -152,6 +152,16 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	public Map<String, VaultService> newServices(final String... keys)
 	{
+		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
+		for(final Map.Entry<String, VaultService> e : newServicesUnsanitized(keys).entrySet())
+		{
+			result.put(e.getKey(), sanitize(e.getValue()));
+		}
+		return Collections.unmodifiableMap(result);
+	}
+
+	public Map<String, VaultService> newServicesUnsanitized(final String... keys)
+	{
 		requireNonNull(keys, "keys");
 		int keyIndex = 0;
 		final HashMap<String, Integer> keysSeen = new HashMap<>();
@@ -186,9 +196,14 @@ public final class VaultProperties extends AbstractVaultProperties
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final Map.Entry<String, Service> e : services.entrySet())
 		{
-			result.put(e.getKey(), e.getValue().newService(this, e.getKey()));
+			result.put(e.getKey(), sanitize(e.getValue().newService(this, e.getKey())));
 		}
 		return Collections.unmodifiableMap(result);
+	}
+
+	VaultService sanitize(final VaultService service)
+	{
+		return new VaultSanitizedService(service, this);
 	}
 
 

@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.vault.VaultPropertiesTest.unsanitize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -87,7 +88,7 @@ public abstract class TestWithEnvironment
 		postgresql = tester.postgresql;
 		cache = tester.cache;
 		mariaDriver = model.getEnvironmentInfo().getDriverName().startsWith("MariaDB");
-		for(final VaultService vault : model.connect().vaults.values())
+		for(final VaultService vault : unsanitize(model.connect().vaults).values())
 			((VaultMockService)vault).clear();
 	}
 

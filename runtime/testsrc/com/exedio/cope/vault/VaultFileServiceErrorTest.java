@@ -58,7 +58,7 @@ public class VaultFileServiceErrorTest
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
 
-		final VaultFileService service = (VaultFileService)properties.newServices(DEFAULT).get(DEFAULT);
+		final VaultFileService service = (VaultFileService)properties.newServicesUnsanitized(DEFAULT).get(DEFAULT);
 
 		assertEquals("l=31", service.directory.toString());
 		assertEquals(Paths.get("rootDir/t"), service.tempDir);
