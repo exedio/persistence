@@ -269,7 +269,7 @@ public class VaultReferenceNoCopyTest
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
-		this.service = (VaultReferenceService)VaultTest.singleton(MODEL.connect().vaults);
+		this.service = (VaultReferenceService)VaultTest.vaultService(MODEL);
 		main = (VaultMockService)service.getMainService();
 		refr = (VaultMockService)service.getReferenceService();
 		setupSchemaMinimal(MODEL);

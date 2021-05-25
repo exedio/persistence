@@ -31,7 +31,6 @@ import com.exedio.cope.vaultmock.VaultMockService;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.Iterator;
-import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -209,7 +208,7 @@ public class VaultTest
 				single("vault.isAppliedToAllFields", true),
 				TestSources.minimal()
 		)));
-		service = (VaultMockService)singleton(MODEL.connect().vaults);
+		service = (VaultMockService)vaultService(MODEL);
 		setupSchemaMinimal(MODEL);
 		MODEL.startTransaction("VaultTest");
 	}
@@ -224,9 +223,9 @@ public class VaultTest
 		}
 	}
 
-	public static VaultService singleton(final Map<String, VaultService> services)
+	public static VaultService vaultService(final Model model)
 	{
-		final Iterator<VaultService> i = services.values().iterator();
+		final Iterator<VaultService> i = model.connect().vaults.values().iterator();
 		if(!i.hasNext())
 			return null;
 		final VaultService result = i.next();

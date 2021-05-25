@@ -76,7 +76,7 @@ public class SchemaPurgeTest extends TestWithEnvironment
 		nextSeq = getDefaultToNextSequenceName(AnItem.next);
 		typeSeq = getSequenceName(AnItem.sequence);
 		vault = MODEL.getConnectProperties().getVaultProperties()!=null;
-		vaultService = (VaultMockService)VaultTest.singleton(MODEL.connect().vaults);
+		vaultService = (VaultMockService)VaultTest.vaultService(MODEL);
 	}
 
 	@Test void testPurge() throws SQLException
