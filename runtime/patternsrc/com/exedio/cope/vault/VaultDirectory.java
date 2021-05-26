@@ -18,6 +18,8 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
+
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
@@ -35,7 +37,28 @@ abstract class VaultDirectory
 		return new PropertiesImpl(properties);
 	}
 
-	abstract String path(String hash);
+	final String path(final String hash)
+	{
+		// mitigate Directory traversal attack
+		// https://en.wikipedia.org/wiki/Directory_traversal_attack
+		checkHash(hash, '.');
+		checkHash(hash, '/');
+		checkHash(hash, '\\');
+
+		return pathSanitized(hash);
+	}
+
+	private static void checkHash(final String hash, final char ch)
+	{
+		final int pos = hash.indexOf(ch);
+		if(pos>=0)
+			throw new IllegalArgumentException(
+					"illegal character >" + ch + "< at position " + pos + " " +
+					"is likely a directory traversal attack " +
+					"in >" + anonymiseHash(hash) + '<');
+	}
+
+	abstract String pathSanitized(String hash);
 
 	// TODO change result type to List<String> to support more than one level in the future
 	abstract String directoryToBeCreated(String hash);
@@ -44,7 +67,7 @@ abstract class VaultDirectory
 	private static final VaultDirectory FLAT = new VaultDirectory()
 	{
 		@Override
-		String path(final String hash)
+		String pathSanitized(final String hash)
 		{
 			return hash;
 		}
@@ -71,7 +94,7 @@ abstract class VaultDirectory
 			this.premised = properties.premised;
 		}
 		@Override
-		String path(final String hash)
+		String pathSanitized(final String hash)
 		{
 			return
 					hash.substring(0, length) + '/' +

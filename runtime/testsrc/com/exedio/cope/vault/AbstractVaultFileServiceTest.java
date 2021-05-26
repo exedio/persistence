@@ -18,16 +18,21 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.vaulttest.VaultServiceTest;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Properties;
 import java.util.TreeSet;
 import org.junit.jupiter.api.BeforeEach;
@@ -80,5 +85,81 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertEquals(
 				new TreeSet<>(asList(content)),
 				new TreeSet<>(asList(actual)));
+	}
+
+	@Test final void directoryTraversalGetLength()
+	{
+		assertDirectoryTraversal(
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().getLength(h));
+		assertDirectoryTraversal(
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().getLength(h));
+		assertDirectoryTraversal(
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().getLength(h));
+	}
+	@Test final void directoryTraversalGetBytes()
+	{
+		assertDirectoryTraversal(
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().get(h));
+		assertDirectoryTraversal(
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().get(h));
+		assertDirectoryTraversal(
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().get(h));
+	}
+	@Test final void directoryTraversalGetStream()
+	{
+		final OutputStream sink = new AssertionErrorOutputStream();
+		assertDirectoryTraversal(
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().get(h, sink));
+		assertDirectoryTraversal(
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().get(h, sink));
+		assertDirectoryTraversal(
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().get(h, sink));
+	}
+	@Test final void directoryTraversalPutBytes()
+	{
+		final byte[] value = {};
+		assertDirectoryTraversal(
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+		assertDirectoryTraversal(
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+		assertDirectoryTraversal(
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+	}
+	@Test final void directoryTraversalPutStream()
+	{
+		final InputStream value = new ByteArrayInputStream(new byte[]{});
+		assertDirectoryTraversal(
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+		assertDirectoryTraversal(
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+		assertDirectoryTraversal(
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+	}
+	@Test final void directoryTraversalPutPath()
+	{
+		final Path value = Paths.get("AbstractVaultFileServiceTest");
+		assertDirectoryTraversal(
+				"012.456789abcdef0", '.', "012.456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+		assertDirectoryTraversal(
+				"012/456789abcdef0", '/', "012/456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+		assertDirectoryTraversal(
+				"012\\456789abcdef0", '\\', "012\\456789abcdefxx17", h -> getService().put(h, value, PUT_INFO));
+	}
+	private static void assertDirectoryTraversal(
+			final String hash,
+			final char ch,
+			final String hashInMessage,
+			final ExecutableStringFunction executable)
+	{
+		assertFails(
+				() -> executable.execute(hash),
+				IllegalArgumentException.class,
+				"illegal character >" + ch + "< at position 3 " +
+				"is likely a directory traversal attack in >" + hashInMessage + "<");
+	}
+	@FunctionalInterface
+	interface ExecutableStringFunction
+	{
+		void execute(String parameter) throws Throwable;
 	}
 }
