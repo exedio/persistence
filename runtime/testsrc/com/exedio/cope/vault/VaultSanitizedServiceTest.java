@@ -24,6 +24,7 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static java.util.Arrays.asList;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
@@ -114,17 +115,6 @@ public class VaultSanitizedServiceTest
 			m.assertIt("");
 		}
 	}
-	@Test void hashEmpty()
-	{
-		for(final Executable executable : hashMethods(emptyHash))
-		{
-			assertFails(
-					executable,
-					IllegalArgumentException.class,
-					"hash of empty byte sequence");
-			m.assertIt("");
-		}
-	}
 	private List<Executable> hashMethods(final String hash)
 	{
 		return asList(
@@ -134,6 +124,42 @@ public class VaultSanitizedServiceTest
 				() -> s.put(hash, (byte[])     null, null),
 				() -> s.put(hash, (InputStream)null, null),
 				() -> s.put(hash, (Path)       null, null));
+	}
+
+	@Test void getLengthEmpty() throws VaultNotFoundException
+	{
+		assertEquals(0, s.getLength(emptyHash));
+		m.assertIt("");
+	}
+	@Test void getBytesEmpty() throws VaultNotFoundException
+	{
+		assertArrayEquals(new byte[]{}, s.get(emptyHash));
+		m.assertIt("");
+	}
+	@Test void getStreamEmpty() throws VaultNotFoundException, IOException
+	{
+		final OutputStream sink = new AssertionErrorOutputStream();
+		s.get(emptyHash, sink);
+		m.assertIt("");
+	}
+	@Test void putBytesEmpty()
+	{
+		final byte[] value = {};
+		assertEquals(false, s.put(emptyHash, value, PUT_INFO));
+		m.assertIt("");
+	}
+	@Test void putStreamEmpty() throws IOException
+	{
+		final byte[] value = {};
+		assertEquals(false, s.put(emptyHash, new ByteArrayInputStream(value), PUT_INFO));
+		m.assertIt("");
+	}
+	@Test void putPathEmpty() throws IOException
+	{
+		final byte[] value = {};
+		final Path path = files.newPath(value);
+		assertEquals(false, s.put(emptyHash, path, PUT_INFO));
+		m.assertIt("");
 	}
 
 	@Test void getSinkNull()

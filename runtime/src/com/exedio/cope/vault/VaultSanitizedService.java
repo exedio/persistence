@@ -70,6 +70,9 @@ final class VaultSanitizedService implements VaultService
 		requireHash(hash);
 		requireNonClosed();
 
+		if(isEmptyHash(hash))
+			return 0;
+
 		return service.getLength(hash);
 	}
 
@@ -79,8 +82,13 @@ final class VaultSanitizedService implements VaultService
 		requireHash(hash);
 		requireNonClosed();
 
+		if(isEmptyHash(hash))
+			return EMPTY_BYTES;
+
 		return service.get(hash);
 	}
+
+	private static final byte[] EMPTY_BYTES = {};
 
 	@Override
 	public void get(final String hash, final OutputStream sink) throws VaultNotFoundException, IOException
@@ -88,6 +96,9 @@ final class VaultSanitizedService implements VaultService
 		requireHash(hash);
 		requireNonNull(sink, "sink");
 		requireNonClosed();
+
+		if(isEmptyHash(hash))
+			return;
 
 		service.get(hash, sink);
 	}
@@ -100,6 +111,9 @@ final class VaultSanitizedService implements VaultService
 		requireNonNull(info, "info");
 		requireNonClosed();
 
+		if(isEmptyHash(hash))
+			return false;
+
 		return service.put(hash, value, info);
 	}
 
@@ -111,6 +125,9 @@ final class VaultSanitizedService implements VaultService
 		requireNonNull(info, "info");
 		requireNonClosed();
 
+		if(isEmptyHash(hash))
+			return false;
+
 		return service.put(hash, value, info);
 	}
 
@@ -121,6 +138,9 @@ final class VaultSanitizedService implements VaultService
 		requireNonNull(value, "value");
 		requireNonNull(info, "info");
 		requireNonClosed();
+
+		if(isEmptyHash(hash))
+			return false;
 
 		return service.put(hash, value, info);
 	}
@@ -139,10 +159,11 @@ final class VaultSanitizedService implements VaultService
 			throw new IllegalArgumentException(
 					"hash >" + anonymiseHash(hash) + "< contains illegal character >" + hash.charAt(charSetViolation) + "< " +
 					"at position " + charSetViolation);
+	}
 
-		if(hash.equals(hashEmpty))
-			throw new IllegalArgumentException(
-					"hash of empty byte sequence");
+	private boolean isEmptyHash(@Nonnull final String hash)
+	{
+		return hash.equals(hashEmpty);
 	}
 
 	private void requireNonClosed()

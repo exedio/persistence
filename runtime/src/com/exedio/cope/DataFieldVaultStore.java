@@ -41,7 +41,6 @@ final class DataFieldVaultStore extends DataFieldStore
 {
 	private final StringColumn column;
 	private final MessageDigestFactory algorithm;
-	private final String hashForEmpty;
 	private final String serviceKey;
 	private final VaultService service;
 	private final Counter getLength, getBytes, getStream, putInitial, putRedundant;
@@ -61,7 +60,6 @@ final class DataFieldVaultStore extends DataFieldStore
 				CharSet.HEX_LOWER,
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
-		this.hashForEmpty = properties.getAlgorithmDigestForEmptyByteSequence();
 		final String serviceKeyExplicit = field.getAnnotatedVaultValue();
 		this.serviceKey = serviceKeyExplicit!=null ? serviceKeyExplicit : Vault.DEFAULT;
 		this.service = requireNonNull(connect.vaults.get(serviceKey));
@@ -139,9 +137,6 @@ final class DataFieldVaultStore extends DataFieldStore
 		if(hash==null)
 			return -1;
 
-		if(hashForEmpty.equals(hash))
-			return 0;
-
 		getLength.increment();
 		try
 		{
@@ -160,9 +155,6 @@ final class DataFieldVaultStore extends DataFieldStore
 		if(hash==null)
 			return null;
 
-		if(hashForEmpty.equals(hash))
-			return EMPTY_BYTES;
-
 		getBytes.increment();
 		try
 		{
@@ -174,16 +166,11 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 	}
 
-	private static final byte[] EMPTY_BYTES = {};
-
 	@Override
 	void load(final Transaction tx, final Item item, final OutputStream sink)
 	{
 		final String hash = getHash(tx, item);
 		if(hash==null)
-			return;
-
-		if(hashForEmpty.equals(hash))
 			return;
 
 		getStream.increment();
@@ -248,9 +235,6 @@ final class DataFieldVaultStore extends DataFieldStore
 
 		final String hash = Hex.encodeLower(messageDigest.digest());
 		entityPutter.accept(hash);
-
-		if(hashForEmpty.equals(hash))
-			return;
 
 		final VaultPutInfo info = new VaultPutInfo()
 		{
