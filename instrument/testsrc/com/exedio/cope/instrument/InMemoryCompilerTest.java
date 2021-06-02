@@ -60,10 +60,10 @@ public class InMemoryCompilerTest
 	{
 		final InMemoryCompiler compilerA = new InMemoryCompiler();
 		compilerA.addJavaFile(Paths.get("HelloWorld.java"), "public class HelloWorld { public static String message() { return \"Hello World A\"; } }");
-		final ClassLoader clA = compilerA.compile(JavacRunner.getJavaCompiler(), "");
+		final ClassLoader clA = compilerA.compile(JavacRunner.getJavaCompiler(new Params()), "");
 		final InMemoryCompiler compilerB = new InMemoryCompiler();
 		compilerB.addJavaFile(Paths.get("HelloWorld.java"), "public class HelloWorld { public static String message() { return \"Hello World B\"; } }");
-		final ClassLoader clB = compilerB.compile(JavacRunner.getJavaCompiler(), "");
+		final ClassLoader clB = compilerB.compile(JavacRunner.getJavaCompiler(new Params()), "");
 		assertEquals("Hello World A", invokeStatic(clA, "HelloWorld", "message"));
 		assertEquals("Hello World B", invokeStatic(clB, "HelloWorld", "message"));
 	}
@@ -84,7 +84,7 @@ public class InMemoryCompilerTest
 				"String message() { return \"from second\"; } "+
 			"}"
 		);
-		final ClassLoader cl = compiler.compile(JavacRunner.getJavaCompiler(), "");
+		final ClassLoader cl = compiler.compile(JavacRunner.getJavaCompiler(new Params()), "");
 		assertEquals("from second", invokeStatic(cl, "FirstClass", "message"));
 	}
 
@@ -98,7 +98,7 @@ public class InMemoryCompilerTest
 				"public static String message() { return "+getClass().getName()+".calledFromInMemory(); } "+
 			"}"
 		);
-		final ClassLoader cl = compiler.compile(JavacRunner.getJavaCompiler(), "build/classes/instrument/testsrc");
+		final ClassLoader cl = compiler.compile(JavacRunner.getJavaCompiler(new Params()), "build/classes/instrument/testsrc");
 		assertEquals("from parent", invokeStatic(cl, "FirstClass", "message"));
 	}
 
@@ -114,9 +114,10 @@ public class InMemoryCompilerTest
 	{
 		final InMemoryCompiler compiler = new InMemoryCompiler();
 		compiler.addJavaFile(Paths.get("HelloWorld.java"), "clazz HelloWorld { }");
+		final Params params = new Params();
 		try
 		{
-			compiler.compile(JavacRunner.getJavaCompiler(), "");
+			compiler.compile(JavacRunner.getJavaCompiler(params), "");
 			fail();
 		}
 		catch (final InMemoryCompiler.CompileException e)
@@ -140,7 +141,7 @@ public class InMemoryCompilerTest
 		{
 			assertEquals("there already is a java file for HelloWorld.java; cope instrumentor does not support two top-level classes in one source file", e.getMessage());
 		}
-		assertEquals(1, invoke(compiler.compile(JavacRunner.getJavaCompiler(), ""), "HelloWorld", "version"));
+		assertEquals(1, invoke(compiler.compile(JavacRunner.getJavaCompiler(new Params()), ""), "HelloWorld", "version"));
 	}
 
 	@Test
@@ -157,6 +158,6 @@ public class InMemoryCompilerTest
 		{
 			assertEquals("path contains redundant elements", e.getMessage());
 		}
-		assertEquals(1, invoke(compiler.compile(JavacRunner.getJavaCompiler(), ""), "HelloWorld", "version"));
+		assertEquals(1, invoke(compiler.compile(JavacRunner.getJavaCompiler(new Params()), ""), "HelloWorld", "version"));
 	}
 }

@@ -34,6 +34,17 @@ import java.util.regex.Pattern;
 
 final class Params
 {
+	final String javaVersion = System.getProperty("java.version");
+	boolean toolProvider =
+			javaVersion.startsWith("11.") ||
+			javaVersion.startsWith("12.") ||
+			javaVersion.startsWith("13.") ||
+			javaVersion.startsWith("14.") ||
+			javaVersion.startsWith("15.") ||
+			javaVersion.startsWith("16.") ||
+			javaVersion.startsWith("17.") ||
+			javaVersion.startsWith("18.") ||
+			javaVersion.startsWith("19.");
 	List<File> sourceDirectories;
 	/** in {@link #sourceDirectories}, the files to look at for understanding source code, but not instrument */
 	List<File> ignoreFiles;
