@@ -5,6 +5,7 @@ timestamps
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
+			gitLabConnection(env.GITLAB_CONNECTION),
 			buildDiscarder(logRotator(
 					numToKeepStr : isRelease ? '1000' : '30'
 			))
@@ -23,6 +24,7 @@ timestamps
 				deleteDir()
 
 				def buildTag = makeBuildTag(checkout(scm))
+				updateGitlabCommitStatus name: 'Mysql57', state: 'running'
 
 				sh 'rm -f conf/environment/*.properties'
 
@@ -202,6 +204,7 @@ timestamps
 					attachLog: true,
 					notifyEveryUnstableBuild: true])
 
+			updateGitlabCommitStatus name: 'Mysql57', state: currentBuild.resultIsBetterOrEqualTo("SUCCESS") ? "success" : "failed" // https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit
 			echo("Delete working dir after build")
 			deleteDir()
 		}

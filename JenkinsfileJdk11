@@ -5,6 +5,7 @@ timestamps
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
+			gitLabConnection(env.GITLAB_CONNECTION),
 			buildDiscarder(logRotator(
 					numToKeepStr         : isRelease ? '1000' : '30',
 					artifactNumToKeepStr : isRelease ?  '100' :  '2'
@@ -22,6 +23,7 @@ timestamps
 				deleteDir()
 
 				def buildTag = makeBuildTag(checkout(scm))
+				updateGitlabCommitStatus name: 'Jdk11', state: 'running'
 
 				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
 				def dockerDate = new Date().format("yyyyMMdd")
@@ -172,6 +174,7 @@ timestamps
 					attachLog: true,
 					notifyEveryUnstableBuild: true])
 
+			updateGitlabCommitStatus name: 'Jdk11', state: currentBuild.resultIsBetterOrEqualTo("SUCCESS") ? "success" : "failed" // https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit
 			echo("Delete working dir after build")
 			deleteDir()
 		}

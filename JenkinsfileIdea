@@ -5,6 +5,7 @@ timestamps
 	def isRelease = env.BRANCH_NAME.toString().equals("master")
 
 	properties([
+			gitLabConnection(env.GITLAB_CONNECTION),
 			buildDiscarder(logRotator(
 					numToKeepStr         : isRelease ? '1000' : '30',
 					artifactNumToKeepStr : isRelease ?  '100' :  '2'
@@ -25,6 +26,7 @@ timestamps
 				deleteDir()
 
 				checkout scm
+				updateGitlabCommitStatus name: 'Idea', state: 'running'
 
 				recordIssues(
 						failOnError: true,
@@ -88,6 +90,7 @@ timestamps
 					attachLog: true,
 					notifyEveryUnstableBuild: true])
 
+			updateGitlabCommitStatus name: 'Idea', state: currentBuild.resultIsBetterOrEqualTo("SUCCESS") ? "success" : "failed" // https://docs.gitlab.com/ee/api/commits.html#post-the-build-status-to-a-commit
 			echo("Delete working dir after build")
 			deleteDir()
 		}
