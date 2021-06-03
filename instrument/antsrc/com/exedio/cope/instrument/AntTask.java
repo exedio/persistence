@@ -35,6 +35,12 @@ import org.apache.tools.ant.types.Path;
 public final class AntTask extends Task
 {
 	private final Params params = new Params();
+
+	public void setToolProvider(final boolean value)
+	{
+		params.toolProvider = value;
+	}
+
 	private Ignore ignore;
 
 	public void setDir(final Path path)

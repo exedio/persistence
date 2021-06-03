@@ -154,7 +154,7 @@ final class InterimProcessor extends JavacProcessor
 		try
 		{
 			this.interimClassLoader = compiler.compile(
-				JavacRunner.getJavaCompiler(),
+				JavacRunner.getJavaCompiler(params),
 				JavacRunner.combineClasspath(JavacRunner.getCurrentClasspath(), JavacRunner.toClasspathString(params.classpath))
 			);
 			if (params.verbose)
