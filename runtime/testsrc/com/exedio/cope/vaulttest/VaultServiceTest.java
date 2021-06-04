@@ -406,7 +406,7 @@ public abstract class VaultServiceTest
 	{
 		final Exception e = assertThrows(
 				Exception.class,
-				() -> servicePut.probeGenuineServiceKey(null));
+				() -> servicePut.probeGenuineServiceKey("myKey"));
 		assertEquals("com.exedio.cope.vault.VaultProperties$GenuineServiceKeyProbeNotSupported", e.getClass().getName());
 		assertEquals("not supported by " + servicePut.getClass().getName(), e.getMessage());
 	}
