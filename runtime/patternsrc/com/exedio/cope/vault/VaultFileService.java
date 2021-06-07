@@ -33,6 +33,7 @@ import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
+import java.nio.file.attribute.BasicFileAttributes;
 import java.util.Iterator;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -206,13 +207,15 @@ public final class VaultFileService implements VaultService
 	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
 	{
 		final Path file = rootDir.resolve(VAULT_GENUINE_SERVICE_KEY).resolve(serviceKey);
+		final BasicFileAttributes attributes =
+				Files.readAttributes(file, BasicFileAttributes.class); // throw NoSuchFileException is file does not exist
 		final Path fileAbsolute = file.toAbsolutePath();
 
-		if(!Files.isRegularFile(file))
+		if(!attributes.isRegularFile())
 			throw new IllegalStateException(
-					(Files.exists(file) ? "is not a regular file" : "does not exist") + ": " + fileAbsolute);
+					"is not a regular file: " + fileAbsolute);
 
-		final long size = Files.size(file);
+		final long size = attributes.size();
 		if(size!=0) // file must not have any content, because it is likely exposed to public
 			throw new IllegalStateException(
 					"is not empty, but has size " + size + ": " + fileAbsolute);
