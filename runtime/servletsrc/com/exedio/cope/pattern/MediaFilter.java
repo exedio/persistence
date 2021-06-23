@@ -21,9 +21,13 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
+import com.exedio.cope.Feature;
 import com.exedio.cope.Item;
 import com.exedio.cope.Join;
+import com.exedio.cope.Type;
 import com.exedio.cope.instrument.Wrap;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -126,5 +130,21 @@ public abstract class MediaFilter extends MediaPath
 	public final Condition isNotNull(final Join join)
 	{
 		return source.isNotNull(join); // TODO check for getSupportedSourceContentTypes
+	}
+
+
+	public static final List<MediaFilter> forSource(final Media source)
+	{
+		final ArrayList<MediaFilter> result = new ArrayList<>();
+		for(final Type<?> type : source.getType().getSubtypesTransitively())
+			for(final Feature feature : type.getDeclaredFeatures())
+				if(feature instanceof MediaFilter)
+				{
+					final MediaFilter filter = (MediaFilter)feature;
+					if(filter.source==source)
+						result.add(filter);
+				}
+
+		return Collections.unmodifiableList(result);
 	}
 }
