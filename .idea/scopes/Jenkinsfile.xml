@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="Jenkinsfile" pattern="file:Jenkinsfile" />
+</component>

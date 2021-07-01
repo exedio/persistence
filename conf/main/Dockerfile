@@ -12,9 +12,11 @@ RUN \
 ARG JAVAHOME=/usr/lib/jvm/java-8-openjdk-amd64
 ENV JAVA_HOME ${JAVAHOME}
 
+# TODO drop default once there is no JenkinsfileXxx anymore
+ARG JENKINS_OWNER=1001:1001
 RUN \
-	mkdir /var/dependencies-cache && \
-	chown 1001:1001 /var/dependencies-cache
+	mkdir /var/jenkins-build-survivor && \
+	chown ${JENKINS_OWNER} /var/jenkins-build-survivor
 
 LABEL purpose=jenkins
 LABEL jdk=${JDK}
