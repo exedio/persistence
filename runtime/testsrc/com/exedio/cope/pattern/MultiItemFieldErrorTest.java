@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -210,6 +211,27 @@ public class MultiItemFieldErrorTest
 		{
 			assertEquals("is not a subclass of " + Item.class.getName() + ": " + NonItemMultiItemFieldValue.class.getName(), e.getMessage());
 		}
+	}
+
+	@Test void testNullifyNotFinal()
+	{
+		final MultiItemField<?> finalField = MultiItemField.create(MultiItemFieldValuex.class).toFinal();
+		assertFails(
+				finalField::nullify,
+				IllegalArgumentException.class,
+				"final multi-item field cannot have delete policy nullify"
+		);
+		final MultiItemField<?> nullifyField = MultiItemField.create(MultiItemFieldValuex.class).nullify();
+		assertFails(
+				nullifyField::toFinal,
+				IllegalArgumentException.class,
+				"final multi-item field cannot have delete policy nullify"
+		);
+	}
+
+	@Test void testNullifyIsOptional()
+	{
+		assertEquals(false, MultiItemField.create(MultiItemFieldValuex.class).nullify().isMandatory());
 	}
 
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
