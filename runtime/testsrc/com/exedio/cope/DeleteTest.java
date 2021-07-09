@@ -144,9 +144,20 @@ public class DeleteTest extends TestWithEnvironment
 			assertEquals("policy", e.getMessage());
 		}
 		assertEquals(false, ItemField.create(DeleteItem.class).nullify().isMandatory());
+		final ItemField<DeleteItem> nullifyField = ItemField.create(DeleteItem.class).nullify();
 		try
 		{
-			ItemField.create(DeleteItem.class).nullify().toFinal();
+			nullifyField.toFinal();
+			fail();
+		}
+		catch(final IllegalArgumentException e)
+		{
+			assertEquals("final item field cannot have delete policy nullify", e.getMessage());
+		}
+		final ItemField<DeleteItem> finalField = ItemField.create(DeleteItem.class).toFinal();
+		try
+		{
+			finalField.nullify();
 			fail();
 		}
 		catch(final IllegalArgumentException e)
