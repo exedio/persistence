@@ -89,6 +89,13 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 		this.optional = optional;
 		this.unique = unique;
 		this.policy = requireNonNull(policy, "policy");
+		if(policy==DeletePolicy.NULLIFY)
+		{
+			if(isFinal)
+				throw new IllegalArgumentException("final multi-item field cannot have delete policy nullify");
+			if(!optional)
+				throw new IllegalArgumentException("mandatory multi-item field cannot have delete policy nullify");
+		}
 		this.copyToMap = requireNonNull(copyToMap);
 		this.valueClass = requireNonNull(valueClass, "valueClass");
 		this.components = createComponents(isFinal, unique, policy, this.copyToMap, valueClass, componentClasses);
@@ -149,7 +156,9 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 				case CASCADE:
 					component = component.cascade();
 					break;
-				case NULLIFY: // not yet implemented
+				case NULLIFY:
+					component = component.nullify();
+					break;
 				default:
 					throw new RuntimeException();
 			}
@@ -517,6 +526,14 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	public MultiItemField<E> cascade()
 	{
 		return new MultiItemField<>(isFinal, optional, unique, DeletePolicy.CASCADE, copyToMap, valueClass, componentClasses);
+	}
+
+	/**
+	 * Additionally makes the field {@link #optional() optional}.
+	 */
+	public MultiItemField<E> nullify()
+	{
+		return new MultiItemField<>(isFinal, true, unique, DeletePolicy.NULLIFY, copyToMap, valueClass, componentClasses);
 	}
 
 	public MultiItemField<E> copyTo(

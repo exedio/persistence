@@ -41,6 +41,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 {
 	static final Model MODEL = new Model(MultiItemFieldItem.TYPE,
 			AnCascadeItem.TYPE,
+			AnNullifyItem.TYPE,
 			MultiItemFieldComponentxA.TYPE,
 			MultiItemFieldComponentxB.TYPE,
 			MultiItemFieldComponentxC.TYPE);
@@ -411,6 +412,16 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		}
 	}
 
+	@Test void testNullify()
+	{
+		final MultiItemFieldComponentxA a = new MultiItemFieldComponentxA();
+		final AnNullifyItem nullify = new AnNullifyItem();
+		nullify.setField(a);
+		a.deleteCopeItem();
+		assertEquals(true, nullify.existsCopeItem());
+		assertEquals(null, nullify.getField());
+	}
+
 	@Test void testMap()
 	{
 		final MultiItemFieldComponentxA a = new MultiItemFieldComponentxA();
@@ -500,5 +511,68 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated
 		private AnCascadeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(indent=2)
+	private static final class AnNullifyItem extends Item
+	{
+		static final MultiItemField<MultiItemFieldValuex> field = MultiItemField.create(MultiItemFieldValuex.class).
+				canBe(MultiItemFieldComponentxA.class).
+				canBe(MultiItemFieldComponentxB.class).
+				nullify();
+
+		/**
+		 * Creates a new AnNullifyItem with all the fields initially needed.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
+		private AnNullifyItem()
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+			});
+		}
+
+		/**
+		 * Creates a new AnNullifyItem and sets the given fields initially.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
+		private AnNullifyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		/**
+		 * Returns the value of {@link #field}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		MultiItemFieldValuex getField()
+		{
+			return AnNullifyItem.field.get(this);
+		}
+
+		/**
+		 * Sets a new value for {@link #field}.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setField(@javax.annotation.Nullable final MultiItemFieldValuex field)
+		{
+			AnNullifyItem.field.set(this,field);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		/**
+		 * The persistent type information for anNullifyItem.
+		 */
+		@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
+		private static final com.exedio.cope.Type<AnNullifyItem> TYPE = com.exedio.cope.TypesBound.newType(AnNullifyItem.class);
+
+		/**
+		 * Activation constructor. Used for internal purposes only.
+		 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
+		 */
+		@com.exedio.cope.instrument.Generated
+		private AnNullifyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
