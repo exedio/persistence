@@ -12,7 +12,7 @@ properties([
 		gitLabConnection(env.GITLAB_CONNECTION),
 		buildDiscarder(logRotator(
 				numToKeepStr         : isRelease ? '1000' : '30',
-				artifactNumToKeepStr : isRelease ?  '100' :  '2'
+				artifactNumToKeepStr : isRelease ?   '20' :  '2'
 		))
 ])
 
@@ -86,7 +86,8 @@ try
 					'tomcat/logs/*,' +
 					'build/testtmpdir'
 			)
-			archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
+			if(isRelease || env.BRANCH_NAME.contains("archiveSuccessArtifacts"))
+				archiveArtifacts fingerprint: true, artifacts: 'build/success/*'
 			plot(
 					csvFileName: 'plots.csv',
 					exclZero: false,
