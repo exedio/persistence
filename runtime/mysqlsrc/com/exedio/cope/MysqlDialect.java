@@ -88,6 +88,7 @@ final class MysqlDialect extends Dialect
 
 	private final String timeZoneStatement;
 	private final boolean connectionCompress;
+	private final boolean setStrictMode;
 	private final boolean utf8mb4;
 
 	/**
@@ -122,8 +123,11 @@ final class MysqlDialect extends Dialect
 		final EnvironmentInfo env = probe.environmentInfo;
 		env.requireDatabaseVersionAtLeast("MySQL", 5, 5);
 
+		final boolean mysql8 = env.isDatabaseVersionAtLeast(8, 0);
+
 		this.timeZoneStatement = properties.timeZoneStatement();
 		this.connectionCompress = properties.connectionCompress;
+		this.setStrictMode = !mysql8;
 		this.utf8mb4 = properties.utf8mb4;
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
 		final String mb4 = utf8mb4 ? "mb4" : "";
@@ -150,7 +154,6 @@ final class MysqlDialect extends Dialect
 		supportsNativeDate = supportsFulltextIndex = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 
-		final boolean mysql8 = env.isDatabaseVersionAtLeast(8, 0);
 		// Starting with MySQL 8.0.4 regular expression support uses a library called
 		// "International Components for Unicode (ICU)"
 		// https://dev.mysql.com/doc/refman/8.0/en/regexp.html
@@ -179,13 +182,19 @@ final class MysqlDialect extends Dialect
 		info.setProperty("useUnicode", "true");
 		info.setProperty("characterEncoding", CHARSET);
 		info.setProperty("characterSetResults", CHARSET);
-		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "',innodb_strict_mode=1");
+		// Setting innodb_strict_mode causes failure starting with MySQL 8.0.26:
+		//    Access denied; you need (at least one of) the SYSTEM_VARIABLES_ADMIN or
+		//    SESSION_VARIABLES_ADMIN privilege(s) for this operation
+		// https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-26.html#mysqld-8-0-26-server-admin
+		info.setProperty("sessionVariables", "sql_mode='" + SQL_MODE + "'" + (setStrictMode?(","+STRICT_MODE+"=1"):""));
 		info.setProperty("useLocalSessionState", TRUE);
 		info.setProperty("allowMultiQueries", TRUE); // needed for deleteSchema
 		if(connectionCompress)
 			info.setProperty("useCompression", TRUE);
 		//info.setProperty("profileSQL", TRUE);
 	}
+
+	private static final String STRICT_MODE = "innodb_strict_mode";
 
 	@Override
 	@SuppressWarnings("HardcodedLineSeparator") // OK unix newline in sql
@@ -222,6 +231,20 @@ final class MysqlDialect extends Dialect
 	{
 		try(java.sql.Statement st = connection.createStatement())
 		{
+			if(!setStrictMode)
+			{
+				try(ResultSet rs = st.executeQuery(
+						"SHOW VARIABLES WHERE `Variable_name`='" + STRICT_MODE + "'"))
+				{
+					if(!rs.next())
+						throw new IllegalStateException("variable " + STRICT_MODE + " not found");
+
+					final String value = rs.getString(2);
+					if(!"ON".equals(value))
+						throw new IllegalStateException("variable " + STRICT_MODE + " must be ON, but was >" + value + '<');
+				}
+			}
+
 			if(timeZoneStatement!=null)
 				st.execute(timeZoneStatement);
 
