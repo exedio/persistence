@@ -25,4 +25,9 @@ innodb_file_per_table=OFF
 # Enables binlog
 # https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_log_bin
 log_bin=/var/log/mysql/mysql-bin.log
+# log_slave_updates is needed for gtid_mode, otherwise startup fails with error message:
+# --gtid-mode=ON or UPGRADE_STEP_1 or UPGRADE_STEP_2 requires --log-bin and --log-slave-updates
+log_slave_updates=ON
 binlog_do_db=binlogtest
+gtid_mode=ON
+enforce_gtid_consistency=ON
