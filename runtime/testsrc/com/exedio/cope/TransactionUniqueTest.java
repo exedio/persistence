@@ -154,6 +154,7 @@ public class TransactionUniqueTest extends TestWithEnvironment
 		@Override public void run()
 		{
 			startTransaction();
+			//noinspection CatchMayIgnoreException OK: failure is asserted outside this method
 			try
 			{
 				beforeCreate = true;
