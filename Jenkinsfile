@@ -200,7 +200,6 @@ try
 					shSilent "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
 				}
 			archiveArtifacts 'idea-inspection-output/**'
-			shSilent "rm idea-inspection-output/SpellCheckingInspection.xml"
 			// replace project dir to prevent UnsupportedOperationException - will not be exposed in artifacts
 			shSilent "find idea-inspection-output -name '*.xml' | xargs --no-run-if-empty sed --in-place -- 's=\\\$PROJECT_DIR\\\$="+env.WORKSPACE+"=g'"
 			recordIssues(
