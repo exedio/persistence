@@ -173,7 +173,6 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 		final ByteArrayOutputStream bos = new ByteArrayOutputStream();
 		try(ObjectOutputStream oos = new ObjectOutputStream(bos))
 		{
-			//noinspection NonSerializableObjectPassedToObjectStream OK: cannot make E extends Serializable, because this does not work for collections
 			oos.writeObject(value);
 		}
 		catch(final IOException e)

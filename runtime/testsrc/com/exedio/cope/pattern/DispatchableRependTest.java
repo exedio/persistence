@@ -156,7 +156,6 @@ public class DispatchableRependTest extends TestWithEnvironment
 			{
 				throw new RuntimeException(e);
 			}
-			//noinspection StringOperationCanBeSimplified OK: ByteArrayOutputStream#tostring does not work with Charset but just with String
 			bf.append(new String(baos.toByteArray(), US_ASCII));
 			bf.append("-----------");
 			for(final Dispatcher.Run run : getToTargetRuns())
