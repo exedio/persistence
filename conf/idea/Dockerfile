@@ -27,20 +27,13 @@ RUN \
 		--strip-components=1 && \
 	rm /tmp/ideaIC.tar.gz
 
-COPY idea.properties /tmp
+# keeping idea files  out of workspace, where they are scanned by idea inspections
+COPY idea64.vmoptions /tmp
 RUN \
-	cat /tmp/idea.properties >> /opt/idea/bin/idea.properties
-
-RUN \
-	mkdir --mode=777 /tmp/idea && \
-	mkdir --mode=777 /tmp/idea/config && \
-	mkdir --mode=777 /tmp/idea/config/options
-COPY path.macros.xml /tmp/idea/config/options
-RUN chmod a=rw /tmp/idea/config/options/path.macros.xml
+	cat /tmp/idea64.vmoptions >> /opt/idea/bin/idea64.vmoptions
 
 ARG IDEA
 LABEL purpose=jenkins-idea
 LABEL jdk=${JDK}
 LABEL idea=${IDEA}
 LABEL idea.properties=yes
-LABEL idea.tools.jar=yes

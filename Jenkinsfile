@@ -2,8 +2,8 @@
 
 def projectName = env.JOB_NAME.substring(0, env.JOB_NAME.indexOf("/")) // depends on name and location of multibranch pipeline in jenkins
 def jdk = 'openjdk-8'
-def idea = '2020.3.1'
-def ideaSHA256 = '06abca33b240b24f447dada437f5ce7387b47644c76378230254d6163882a42a'
+def idea = '2021.2'
+def ideaSHA256 = '7c27799861fb1ba0d43a3565a1ec2be789e1871191be709f0e79f1e17d3571fe'
 def isRelease = env.BRANCH_NAME=="master"
 def dockerNamePrefix = env.JOB_NAME.replace("/", "-").replace(" ", "_") + "-" + env.BUILD_NUMBER
 def dockerDate = new Date().format("yyyyMMdd")
@@ -183,6 +183,8 @@ try
 					],
 			)
 
+			shSilent "source conf/replaceToolJar"
+
 			def dockerName = dockerNamePrefix + "-Idea"
 			docker.
 				build(
@@ -200,6 +202,7 @@ try
 					shSilent "/opt/idea/bin/inspect.sh " + env.WORKSPACE + " 'Project Default' idea-inspection-output"
 				}
 			archiveArtifacts 'idea-inspection-output/**'
+			shSilent "rm idea-inspection-output/GrazieInspection.xml" // grammar and style; settings/exclusions are stored in IDE and not in project
 			// replace project dir to prevent UnsupportedOperationException - will not be exposed in artifacts
 			shSilent "find idea-inspection-output -name '*.xml' | xargs --no-run-if-empty sed --in-place -- 's=\\\$PROJECT_DIR\\\$="+env.WORKSPACE+"=g'"
 			recordIssues(
