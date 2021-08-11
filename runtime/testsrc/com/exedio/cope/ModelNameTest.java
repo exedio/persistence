@@ -109,6 +109,7 @@ public class ModelNameTest
 
 	@Test void testNull()
 	{
+		//noinspection WriteOnlyObject OK: tested for throwing exception
 		final ModelBuilder b = Model.builder();
 		try
 		{
@@ -123,6 +124,7 @@ public class ModelNameTest
 
 	@Test void testEmpty()
 	{
+		//noinspection WriteOnlyObject OK: tested for throwing exception
 		final ModelBuilder b = Model.builder();
 		try
 		{

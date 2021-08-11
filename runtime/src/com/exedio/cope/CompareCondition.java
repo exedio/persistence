@@ -29,7 +29,6 @@ public final class CompareCondition<E> extends Condition
 
 	private final CompareFunctionCondition.Operator operator;
 	private final Selectable<E> left;
-	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
 	private final E right;
 
 	/**

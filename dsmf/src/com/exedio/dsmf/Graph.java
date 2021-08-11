@@ -96,7 +96,13 @@ final class Graph
 						{
 							nodesOrdered.add(node);
 							node.markAsDone();
-							allEdgesRest.removeAll(node.getEdges());
+
+							// Do not use allEdgesRest.removeAll(node.getEdges()) as it can be slow when node.getEdges().size()
+							// is greater than or equal to allEdgesRest.size(). In this case, node.getEdges().contains()
+							// is called for each element in "allEdgesRest", which will perform a linear search.
+							// Found by idea inspection Call to 'set.removeAll(list)' may work slowly.
+							node.getEdges().forEach(allEdgesRest::remove);
+
 							wasPossible = true;
 							iterator.remove();
 						}

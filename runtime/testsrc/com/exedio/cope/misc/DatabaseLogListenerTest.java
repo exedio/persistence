@@ -296,6 +296,7 @@ public class DatabaseLogListenerTest
 
 	@Test void testBuilderLogsLimitZero()
 	{
+		//noinspection WriteOnlyObject OK: tested for throwing exception
 		final Builder b = new Builder(print);
 		assertFails(
 				() -> b.logsLimit(0),
@@ -305,6 +306,7 @@ public class DatabaseLogListenerTest
 
 	@Test void testBuilderDurationThresholdZero()
 	{
+		//noinspection WriteOnlyObject OK: tested for throwing exception
 		final Builder b = new Builder(print);
 		assertFails(
 				() -> b.durationThreshold(0),
@@ -314,6 +316,7 @@ public class DatabaseLogListenerTest
 
 	@Test void testBuilderSqlFilterNull()
 	{
+		//noinspection WriteOnlyObject OK: tested for throwing exception
 		final Builder b = new Builder(print);
 		assertFails(
 				() -> b.sqlFilter(null),
@@ -323,6 +326,7 @@ public class DatabaseLogListenerTest
 
 	@Test void testBuilderSqlFilterEmpty()
 	{
+		//noinspection WriteOnlyObject OK: tested for throwing exception
 		final Builder b = new Builder(print);
 		assertFails(
 				() -> b.sqlFilter(""),

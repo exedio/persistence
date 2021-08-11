@@ -1199,6 +1199,7 @@ public final class Query<R> implements Serializable
 
 					for(int selectIndex = 0; selectIndex<selects.length; selectIndex++)
 					{
+						//noinspection ConstantConditions OK: selectMarshallers cannot be null when mode.isSearch()==true
 						final Object resultCell =
 							selectMarshallers[selectIndex].unmarshal(resultSet, columnIndex);
 						columnIndex += selectMarshallers[selectIndex].columns;

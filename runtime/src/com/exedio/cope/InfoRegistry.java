@@ -37,6 +37,7 @@ final class InfoRegistry
 			ChangeListener.class.getName() + '.',
 			DataField.class.getName() + '.'};
 
+	@SuppressWarnings("MethodOnlyUsedFromInnerClass") // OK: bug in idea, used from class itself as well
 	private static boolean isAccepted(final String name)
 	{
 		for(final String s : ACCEPTED)

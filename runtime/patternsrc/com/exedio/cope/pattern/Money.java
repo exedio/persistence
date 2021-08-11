@@ -65,7 +65,6 @@ public final class Money<C extends Currency>
 
 	private static final long serialVersionUID = 1l;
 	private final Price amount;
-	@SuppressWarnings("NonSerializableFieldInSerializableClass") // OK: container is serializable if part is serializable
 	private final C currency;
 
 	private Money(final Price amount, final C currency)
