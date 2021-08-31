@@ -119,7 +119,7 @@ final class MysqlDialect extends Dialect
 						properties.rowFormat.sql()));
 
 		final EnvironmentInfo env = probe.environmentInfo;
-		env.requireDatabaseVersionAtLeast("MySQL", 5, 5);
+		env.requireDatabaseVersionAtLeast("MySQL", 5, 6);
 
 		final boolean mysql8 = env.isDatabaseVersionAtLeast(8, 0);
 
