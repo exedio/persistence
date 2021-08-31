@@ -102,7 +102,6 @@ final class MysqlDialect extends Dialect
 	private final boolean shortConstraintNames;
 	private final boolean supportsAnyValue;
 	private final boolean supportsNativeDate;
-	private final boolean supportsFulltextIndex;
 	private final int purgeSequenceLimit;
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
@@ -146,7 +145,7 @@ final class MysqlDialect extends Dialect
 					env.getDatabaseVersionDescription());
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
-		supportsNativeDate = supportsFulltextIndex = env.isDatabaseVersionAtLeast(5, 6);
+		supportsNativeDate = env.isDatabaseVersionAtLeast(5, 6);
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 
 		// Starting with MySQL 8.0.4 regular expression support uses a library called
@@ -470,12 +469,6 @@ final class MysqlDialect extends Dialect
 	@Override
 	void appendMatchClauseFullTextIndex(final Statement bf, final StringFunction function, final String value)
 	{
-		if(!supportsFulltextIndex)
-		{
-			appendMatchClauseByLike(bf, function, value);
-			return;
-		}
-
 		bf.append("(MATCH(").
 			append(function).
 			append(")AGAINST(").
