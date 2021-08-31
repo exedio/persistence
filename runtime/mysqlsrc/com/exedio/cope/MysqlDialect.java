@@ -103,7 +103,6 @@ final class MysqlDialect extends Dialect
 	private final boolean supportsAnyValue;
 	private final boolean supportsNativeDate;
 	private final boolean supportsFulltextIndex;
-	private final boolean supportsGtid;
 	private final int purgeSequenceLimit;
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
@@ -147,7 +146,7 @@ final class MysqlDialect extends Dialect
 					env.getDatabaseVersionDescription());
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
-		supportsNativeDate = supportsFulltextIndex = supportsGtid = env.isDatabaseVersionAtLeast(5, 6);
+		supportsNativeDate = supportsFulltextIndex = env.isDatabaseVersionAtLeast(5, 6);
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 
 		// Starting with MySQL 8.0.4 regular expression support uses a library called
@@ -869,7 +868,6 @@ final class MysqlDialect extends Dialect
 				else
 					bf.append(" newLine");
 
-				if(supportsGtid)
 				{
 					// https://dev.mysql.com/doc/refman/5.7/en/replication-gtids.html
 					final String s = rs.getString("Executed_Gtid_Set");
