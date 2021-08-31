@@ -114,7 +114,6 @@ final class MysqlDialect extends Dialect
 	{
 		super(
 				new MysqlSchemaDialect(
-						probe.environmentInfo.isDatabaseVersionAtLeast(5, 6), // supportsNativeDate
 						probe.environmentInfo.isDatabaseVersionAtLeast(8, 0), // foreignKeyRule
 						properties.rowFormat.sql()));
 
