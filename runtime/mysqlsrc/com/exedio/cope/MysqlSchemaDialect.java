@@ -30,19 +30,16 @@ import java.sql.ResultSet;
 
 final class MysqlSchemaDialect extends Dialect
 {
-	private final boolean datetime;
 	private final boolean renameColumn;
 	private final String infoSchemaJoin;
 	private final String foreignKeyRule;
 	private final String rowFormat;
 
 	MysqlSchemaDialect(
-			final boolean datetime,
 			final boolean mysql80,
 			final String rowFormat)
 	{
 		super(null);
-		this.datetime = datetime;
 		this.renameColumn = mysql80; // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html
 		this.infoSchemaJoin = mysql80 ? "" : "LEFT "; // workaround bug that appeared in 8.0.21: https://bugs.mysql.com/bug.php?id=100339
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
@@ -111,7 +108,7 @@ final class MysqlSchemaDialect extends Dialect
 						"c.IS_NULLABLE," + // 3
 						"c.DATA_TYPE," + // 4
 						"c.CHARACTER_MAXIMUM_LENGTH," + // 5
-						(datetime?"c.DATETIME_PRECISION,":"") + // 6
+						"c.DATETIME_PRECISION," + // 6
 						"c.CHARACTER_SET_NAME," + // 7
 						"c.COLLATION_NAME," + // 8
 						"c.COLUMN_KEY " + // 9
@@ -124,7 +121,6 @@ final class MysqlSchemaDialect extends Dialect
 				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
-			final int datetimeOffset = datetime ? 0 : 1;
 			while(resultSet.next())
 			{
 				final String tableName = resultSet.getString(1);
@@ -143,25 +139,24 @@ final class MysqlSchemaDialect extends Dialect
 				if("varchar".equals(dataType))
 					type.append('(').append(resultSet.getInt(5)).append(')');
 
-				if(datetime)
 				{
 					final int datetimePrecision = resultSet.getInt(6);
 					if(!resultSet.wasNull())
 						type.append('(').append(datetimePrecision).append(')');
 				}
 				{
-					final String characterSet = resultSet.getString(7-datetimeOffset);
+					final String characterSet = resultSet.getString(7);
 					if(characterSet!=null)
 						type.append(" CHARACTER SET ").append(characterSet);
 				}
 				{
-					final String collation = resultSet.getString(8-datetimeOffset);
+					final String collation = resultSet.getString(8);
 					if(collation!=null)
 						type.append(" COLLATE ").append(collation);
 				}
 
 				if(!getBooleanStrict(resultSet, 3, "YES", "NO") &&
-						!"PRI".equals(resultSet.getString(9-datetimeOffset)))
+						!"PRI".equals(resultSet.getString(9)))
 					type.append(NOT_NULL);
 
 				final Table table = getTableStrict(schema, resultSet, 1);

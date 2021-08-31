@@ -92,7 +92,6 @@ public abstract class SchemaTest
 			info.setProperty("allowLoadLocalInfile", "false"); // MySQL driver
 			info.setProperty("allowLocalInfile", "false"); // MariaDB driver
 			dialect = newD("Mysql",
-					false, // TODO test true as well
 					config.mysql80,
 					"NONE".equals(mysqlRowFormat) ? null : mysqlRowFormat);
 			stringType = "varchar(8) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin";
