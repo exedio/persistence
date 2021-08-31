@@ -306,11 +306,6 @@ public abstract class TestWithEnvironment
 		return propertiesBoolean("dialect.longConstraintNames");
 	}
 
-	protected final boolean propertiesFullSequenceColumnName()
-	{
-		return propertiesBoolean("dialect.fullSequenceColumnName");
-	}
-
 	private boolean propertiesBoolean(final String key)
 	{
 		final Properties.Field<?> field = model.getConnectProperties().getField(key);

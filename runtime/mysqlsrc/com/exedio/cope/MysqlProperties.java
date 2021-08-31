@@ -46,7 +46,6 @@ final class MysqlProperties extends Properties
 	final boolean utf8mb4 = value("utf8mb4", true);
 	final boolean smallIntegerTypes = value("smallIntegerTypes", true);
 	final boolean longConstraintNames = value("longConstraintNames", true);
-	final boolean fullSequenceColumnName = value("fullSequenceColumnName", true);
 	final MysqlRowFormat rowFormat = value("rowFormat", MysqlRowFormat.NONE);
 
 	final boolean avoidTruncate = value("avoidTruncate", false);

@@ -35,7 +35,6 @@ timestamps
 				writeEnv(
 						'my55-legacy',
 						'disableSupport.semicolon=true\n' +
-						'dialect.fullSequenceColumnName=false\n' +
 						'dialect.longConstraintNames=false\n' +
 						'dialect.smallIntegerTypes=false\n' +
 						'dialect.utf8mb4=false\n'
@@ -46,7 +45,6 @@ timestamps
 				)
 				writeEnv(
 						'my55-nprep-legacy',
-						'dialect.fullSequenceColumnName=false\n' +
 						'dialect.longConstraintNames=false\n' +
 						'dialect.smallIntegerTypes=false\n' +
 						'dialect.utf8mb4=false\n' +
