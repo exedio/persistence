@@ -205,6 +205,12 @@ public class MediaUtilTest
 		@Override
 		public void setContentLength(final int len)
 		{
+			setContentLengthLong(len);
+		}
+
+		@Override
+		public void setContentLengthLong(final long len)
+		{
 			assertFalse(setContentLength);
 			setContentLength = true;
 			assertEquals(expectedHex.length()/2, len);

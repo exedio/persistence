@@ -30,6 +30,7 @@ import javax.servlet.AsyncContext;
 import javax.servlet.DispatcherType;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletContext;
+import javax.servlet.ServletException;
 import javax.servlet.ServletInputStream;
 import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
@@ -37,6 +38,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpUpgradeHandler;
 import javax.servlet.http.Part;
 
 @SuppressWarnings("RedundantThrows") // RedundantThrows: allow subclasses to throw exceptions
@@ -69,6 +71,12 @@ class AssertionFailedHttpServletRequest implements HttpServletRequest
 
 	@Override
 	public int getContentLength()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public long getContentLengthLong()
 	{
 		throw new AssertionError();
 	}
@@ -347,6 +355,12 @@ class AssertionFailedHttpServletRequest implements HttpServletRequest
 	}
 
 	@Override
+	public String changeSessionId()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
 	public boolean isRequestedSessionIdValid()
 	{
 		throw new AssertionError();
@@ -397,6 +411,12 @@ class AssertionFailedHttpServletRequest implements HttpServletRequest
 
 	@Override
 	public Part getPart(final String name)
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public <T extends HttpUpgradeHandler> T upgrade(final Class<T> handlerClass) throws IOException, ServletException
 	{
 		throw new AssertionError();
 	}

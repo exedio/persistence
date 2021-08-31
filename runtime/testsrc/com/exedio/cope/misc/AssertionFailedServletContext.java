@@ -197,6 +197,12 @@ public class AssertionFailedServletContext implements ServletContext
 	}
 
 	@Override
+	public String getVirtualServerName()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
 	public ClassLoader getClassLoader()
 	{
 		throw new AssertionError();
