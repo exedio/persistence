@@ -11,7 +11,7 @@ timestamps
 			))
 	])
 
-	def database = '9.6.19'
+	def database = '11.7'
 
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && docker')
@@ -29,29 +29,29 @@ timestamps
 				sh 'rm -f conf/environment/*.properties'
 
 				writeEnv(
-						'pg96',
+						'pg11',
 						''
 				)
 				writeEnv(
-						'pg96-mysql',
+						'pg11-mysql',
 						'disableSupport.semicolon=true\n' +
 						'disableSupport.nativeDate=true\n'
 				)
 				writeEnv(
-						'pg96-nprep',
+						'pg11-nprep',
 						'disableSupport.preparedStatements=true\n'
 				)
 				writeEnv(
-						'pg96-nstmp',
+						'pg11-nstmp',
 						'cache.stamps=false\n'
 				)
 				writeEnv(
-						'pg96-public',
+						'pg11-public',
 						'dialect.connection.schema=public\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(
-						'pg96-sq',
+						'pg11-sq',
 						'schema.primaryKeyGenerator=sequence\n' +
 						'dialect.pgcryptoSchema=<disabled>\n'
 				)
