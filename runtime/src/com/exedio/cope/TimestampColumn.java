@@ -47,7 +47,6 @@ final class TimestampColumn extends Column
 			final Precision precision)
 	{
 		super(table, id, false, false, optional);
-		assert table.database.dialect.getDateTimestampType()!=null;
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.precision = precision;

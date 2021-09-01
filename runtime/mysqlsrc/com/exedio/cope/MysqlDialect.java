@@ -101,7 +101,6 @@ final class MysqlDialect extends Dialect
 	private final boolean smallIntegerTypes;
 	private final boolean shortConstraintNames;
 	private final boolean supportsAnyValue;
-	private final boolean supportsNativeDate;
 	private final int purgeSequenceLimit;
 	private final boolean regexpICU;
 	private final Pattern extractUniqueViolationMessagePattern;
@@ -145,7 +144,6 @@ final class MysqlDialect extends Dialect
 					env.getDatabaseVersionDescription());
 
 		supportsAnyValue = env.isDatabaseVersionAtLeast(5, 7);
-		supportsNativeDate = env.isDatabaseVersionAtLeast(5, 6);
 		purgeSequenceLimit = properties.purgeSequenceLimit;
 
 		// Starting with MySQL 8.0.4 regular expression support uses a library called
@@ -345,10 +343,7 @@ final class MysqlDialect extends Dialect
 		// cannot use timestamp as it supports year 1970-2038 only
 		// https://dev.mysql.com/doc/refman/5.6/en/datetime.html
 		// https://dev.mysql.com/doc/refman/5.6/en/fractional-seconds.html
-		return
-				supportsNativeDate
-				? "datetime(3)" // 3 digits fractional seconds
-				: null;
+		return "datetime(3)"; // 3 digits fractional seconds
 	}
 
 	@Override

@@ -60,7 +60,6 @@ public class SupportsTest extends TestWithEnvironment
 			case hsqldb:
 				dataHashAlgorithms.clear(); // TODO support more
 				checkConstraints = !propertiesHsqldbMysql55() && !propertiesHsqldbMysql56();
-				nativeDate = !propertiesHsqldbMysql55();
 				break;
 			case mysql:
 				utf8mb4 = propertiesUtf8mb4();

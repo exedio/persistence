@@ -58,7 +58,6 @@ final class HsqldbDialect extends Dialect
 		mysql55
 		{
 			@Override boolean supportsCheckConstraints() { return false; }
-			@Override boolean supportsNativeDate() { return false; }
 		},
 		@SuppressWarnings("unused")
 		mysql56
@@ -68,7 +67,6 @@ final class HsqldbDialect extends Dialect
 		};
 
 		boolean supportsCheckConstraints() { return true; }
-		boolean supportsNativeDate() { return true; }
 		boolean supportsSchemaSavepoint() { return false; }
 	}
 
@@ -135,9 +133,6 @@ final class HsqldbDialect extends Dialect
 	@Override
 	String getDateTimestampType()
 	{
-		if(!approximate.supportsNativeDate())
-			return null;
-
 		return TIMESTAMP_3;
 	}
 
