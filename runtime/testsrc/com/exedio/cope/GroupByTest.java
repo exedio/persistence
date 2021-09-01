@@ -167,11 +167,9 @@ public class GroupByTest extends TestWithEnvironment
 							"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
 							"which is not functionally dependent on columns in GROUP BY clause; " +
 							"this is incompatible with sql_mode=only_full_group_by");
-				else if(env.isDatabaseVersionAtLeast(5, 6))
+				else
 					notAllowed(query,
 							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
-				else
-					assertContains("foo", "bar", "goo", "car", query.search());
 				break;
 			case postgresql:
 				notAllowed(query,

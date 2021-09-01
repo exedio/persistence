@@ -46,13 +46,11 @@ public class SupportsTest extends TestWithEnvironment
 	@Test void testSupports()
 	{
 		final ConnectProperties props = model.getConnectProperties();
-		final EnvironmentInfo env = model.getEnvironmentInfo();
 
 		boolean utf8mb4 = true;
 		final ArrayList<String> dataHashAlgorithms = new ArrayList<>(asList("MD5", "SHA", "SHA-224", "SHA-256", "SHA-384", "SHA-512"));
 		boolean random = false;
 		boolean checkConstraints = true;
-		boolean nativeDate = true;
 		boolean uniqueViolation = false;
 
 		switch(dialect)
@@ -65,7 +63,6 @@ public class SupportsTest extends TestWithEnvironment
 				utf8mb4 = propertiesUtf8mb4();
 				random = true;
 				checkConstraints = false;
-				nativeDate = env.isDatabaseVersionAtLeast(5, 6);
 				uniqueViolation = true;
 				break;
 			case postgresql:
@@ -82,7 +79,7 @@ public class SupportsTest extends TestWithEnvironment
 
 		// SchemaInfo
 		assertEquals(checkConstraints, supportsCheckConstraints(model));
-		assertEquals(nativeDate      && !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
+		assertEquals(                   !props.isSupportDisabledForNativeDate(),      supportsNativeDate     (model));
 		assertEquals(uniqueViolation && !props.isSupportDisabledForUniqueViolation(), supportsUniqueViolation(model));
 	}
 
