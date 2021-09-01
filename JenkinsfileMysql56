@@ -117,7 +117,7 @@ timestamps
 									' "-Dbuild.tag=' + buildTag + '"' +
 									' -Dskip.instrument=true' + // already verified in Jenkinsfile
 									' -Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://test_db_host/' +
-									' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql55.sql' +
+									' -Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql56.sql' +
 									' -Ddisable-ansi-colors=true'
 						}
 						sh "docker logs " + c.id + " &> db.log"
