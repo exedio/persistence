@@ -37,6 +37,7 @@ import java.util.EnumMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Properties;
+import javax.annotation.Nonnull;
 
 /**
  * Adapts COPE to different RDBMS.
@@ -255,10 +256,8 @@ abstract class Dialect
 	/**
 	 * Returns a column type suitable for storing timestamps
 	 * with milliseconds resolution.
-	 * This method may return null,
-	 * if the database does not support such a column type.
-	 * The framework will then fall back to store the number of milliseconds.
 	 */
+	@Nonnull
 	abstract String getDateTimestampType();
 
 	/**

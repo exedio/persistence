@@ -87,7 +87,7 @@ final class Connect
 		supportsRandom = dialect.supportsRandom();
 		// SchemaInfo
 		supportsCheckConstraints = dialect.dsmfDialect.supportsCheckConstraints();
-		supportsNativeDate = !properties.isSupportDisabledForNativeDate() && (dialect.getDateTimestampType()!=null);
+		supportsNativeDate = !properties.isSupportDisabledForNativeDate();
 		supportsUniqueViolation = !properties.isSupportDisabledForUniqueViolation() && dialect.supportsUniqueViolation();
 
 		this.connectionFactory = new ConnectionFactory(properties, probe.environmentInfo.sqlDriver, dialect);
