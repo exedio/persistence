@@ -11,7 +11,7 @@ timestamps
 			))
 	])
 
-	def database = '11.7'
+	def database = '11.12'
 
 	//noinspection GroovyAssignabilityCheck
 	node('GitCloneExedio && docker')
