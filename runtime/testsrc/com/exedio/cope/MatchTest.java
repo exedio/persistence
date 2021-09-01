@@ -68,16 +68,13 @@ public class MatchTest extends TestWithEnvironment
 		switch(dialect)
 		{
 			case mysql:
-				if(MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 6))
+				try(Connection c = SchemaInfo.newConnection(MODEL);
+					 Statement s = c.createStatement())
 				{
-					try(Connection c = SchemaInfo.newConnection(MODEL);
-						 Statement s = c.createStatement())
-					{
-						s.execute(
-								"CREATE FULLTEXT INDEX index_name " +
-								"ON " + SI.tab(AnItem.TYPE) + " " +
-								"(" + SI.col(AnItem.text) + ")");
-					}
+					s.execute(
+							"CREATE FULLTEXT INDEX index_name " +
+							"ON " + SI.tab(AnItem.TYPE) + " " +
+							"(" + SI.col(AnItem.text) + ")");
 				}
 				break;
 		}
