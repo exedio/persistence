@@ -16,9 +16,6 @@ before_install:
     | sudo tee /etc/mysql/conf.d/cope.cnf
   - sudo service mysql start
 
-addons:
-  postgresql: "9.6"
-
 before_script:
   - mysql -e "SET GLOBAL max_allowed_packet=64000000;"
   - >
@@ -82,39 +79,6 @@ before_script:
     x-build.dialect=mysql\n
     x-build.driver=mariadb-java-client.jar\n"
     | tee conf/environment/mym-z.properties
-  - >
-    echo -e -n
-    "connection.url=jdbc:postgresql://localhost/test_db_database\n
-    connection.username=test_db_user\n
-    connection.password=test_db_password\n
-    dialect.connection.schema=test_db_schema\n
-    dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
-    x-build.dialect=postgresql\n
-    x-build.driver=postgresql.jar\n"
-    | tee conf/environment/pg.properties
-  - >
-    echo -e -n
-    "connection.url=jdbc:postgresql://localhost/test_db_database\n
-    connection.username=test_db_user\n
-    connection.password=test_db_password\n
-    dialect.connection.schema=test_db_schema\n
-    dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
-    disableSupport.preparedStatements=true\n
-    x-build.dialect=postgresql\n
-    x-build.driver=postgresql.jar\n"
-    | tee conf/environment/pg-nprep.properties
-  - >
-    echo -e -n
-    "connection.url=jdbc:postgresql://localhost/test_db_database\n
-    connection.username=test_db_user\n
-    connection.password=test_db_password\n
-    dialect.connection.schema=test_db_schema\n
-    dialect.pgcryptoSchema=test_db_pgcrypto_schema\n
-    schema.primaryKeyGenerator=sequence\n
-    dialect.pgcryptoSchema=<disabled>\n
-    x-build.dialect=postgresql\n
-    x-build.driver=postgresql.jar\n"
-    | tee conf/environment/pg-sq.properties
 
 script:
   - >
@@ -122,7 +86,6 @@ script:
     '-Dbuild.tag=git ${TRAVIS_BRANCH} ${TRAVIS_COMMIT} travis-ci ${TRAVIS_BUILD_NUMBER} ${TRAVIS_JOB_NUMBER} ${TRAVIS_BUILD_ID} `date '+%G-%m-%d_%H:%M:%S'`'
     '-Druntime.test.withEnv.setup.mysql.url=jdbc:mysql://localhost/'
     '-Druntime.test.withEnv.setup.mysql.sql=conf/setup-mysql57.sql'
-    '-Druntime.test.withEnv.setup.postgresql.url=jdbc:postgresql://localhost/'
     '-Druntime.test.withEnv.setup.password='
   - mkdir build/travis
   - cp build/testprotocol.* build/travis
