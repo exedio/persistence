@@ -100,6 +100,11 @@ public class VaultMultiTest
 		assertEquals(Vault.DEFAULT, serviceDefault.serviceKey);
 		assertEquals("alpha",       serviceAlpha  .serviceKey);
 		assertEquals("beta",        serviceBeta   .serviceKey);
+		assertEquals(null,                         AnItem.none   .getVaultServiceKey());
+		assertEquals(Vault.DEFAULT,                AnItem.defaulT.getVaultServiceKey());
+		assertEquals("alpha",                      AnItem.alpha  .getVaultServiceKey());
+		assertEquals("beta",                       AnItem.beta1  .getVaultServiceKey());
+		assertEquals("beta",                       AnItem.beta2  .getVaultServiceKey());
 		assertEquals(null,                         AnItem.none   .getVaultInfo());
 		assertEquals(Vault.DEFAULT,                AnItem.defaulT.getVaultInfo().getServiceKey());
 		assertEquals("alpha",                      AnItem.alpha  .getVaultInfo().getServiceKey());

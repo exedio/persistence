@@ -275,6 +275,12 @@ final class DataFieldVaultStore extends DataFieldStore
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
 
 	@Override
+	String getVaultServiceKey()
+	{
+		return serviceKey;
+	}
+
+	@Override
 	DataFieldVaultInfo getVaultInfo()
 	{
 		return new DataFieldVaultInfo(

@@ -38,6 +38,11 @@ abstract class DataFieldStore
 	abstract void load(Transaction tx, Item item, OutputStream sink);
 	abstract void put(Entity entity, Value value, Item exceptionItem);
 
+	String getVaultServiceKey()
+	{
+		return null;
+	}
+
 	DataFieldVaultInfo getVaultInfo()
 	{
 		return null;
