@@ -31,6 +31,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
+import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaulttest.VaultServiceTest.AssertionErrorOutputStream;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
 import java.io.File;
@@ -39,6 +40,8 @@ import java.io.InputStream;
 import java.net.URISyntaxException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
@@ -79,16 +82,19 @@ public class DataTest extends TestWithEnvironment
 		dataBig = null;
 	}
 
-	private void assertIt(final byte[] expectedData) throws MandatoryViolationException, IOException
+	private void assertIt(final byte[] expectedData) throws MandatoryViolationException, IOException, NoSuchAlgorithmException
 	{
 		assertIt(expectedData, item);
 	}
 
 	private void assertIt(final byte[] expectedData, final DataItem item)
-		throws MandatoryViolationException, IOException
+			throws MandatoryViolationException, IOException, NoSuchAlgorithmException
 	{
 		final byte[] alreadyExists = {1,2,3,4,5,6,7,8,9,10};
 
+		final boolean vault =
+				model.getConnectProperties().vault!=null &&
+				model.getConnectProperties().vault.isAppliedToAllFields();
 		if(expectedData!=null)
 		{
 			assertTrue(!item.isDataNull());
@@ -124,6 +130,16 @@ public class DataTest extends TestWithEnvironment
 				assertTrue(temp.exists());
 				assertEqualContent(expectedData, temp);
 			}
+
+			if(vault)
+				assertEquals(
+						Hex.encodeLower(MessageDigest.getInstance("SHA-512").digest(expectedData)),
+						data.getVaultHash(item));
+			else
+				assertFails(
+						() -> data.getVaultHash(item),
+						IllegalArgumentException.class,
+						"vault disabled for DataItem.data");
 		}
 		else
 		{
@@ -158,10 +174,18 @@ public class DataTest extends TestWithEnvironment
 				assertTrue(temp.exists()); // TODO maybe file should be deleted when field is null?
 				assertEqualContent(alreadyExists, temp);
 			}
+
+			if(vault)
+				assertEquals(null, data.getVaultHash(item));
+			else
+				assertFails(
+						() -> data.getVaultHash(item),
+						IllegalArgumentException.class,
+						"vault disabled for DataItem.data");
 		}
 	}
 
-	@Test void testData() throws MandatoryViolationException, IOException
+	@Test void testData() throws MandatoryViolationException, IOException, NoSuchAlgorithmException
 	{
 		assertIt(null);
 

@@ -37,6 +37,7 @@ abstract class DataFieldStore
 	abstract long loadLength(Transaction tx, Item item);
 	abstract byte[] load(Transaction tx, Item item);
 	abstract void load(Transaction tx, Item item, OutputStream sink);
+	abstract String getHash(Transaction tx, Item item);
 	abstract void put(Entity entity, Value value, Item exceptionItem);
 
 	String getVaultServiceKey()

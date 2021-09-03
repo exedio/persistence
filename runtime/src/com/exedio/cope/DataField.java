@@ -241,6 +241,14 @@ public final class DataField extends Field<DataField.Value>
 	}
 
 	/**
+	 * @throws IllegalArgumentException if vault is not enabled for this field
+	 */
+	public String getVaultHash(@Nonnull final Item item)
+	{
+		return store.getHash(model.currentTransaction(), item);
+	}
+
+	/**
 	 * Reads data for this persistent data field
 	 * and writes it into the given stream.
 	 * Does nothing, if there is no data for this field.

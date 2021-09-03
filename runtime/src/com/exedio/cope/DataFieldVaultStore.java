@@ -201,7 +201,8 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 	}
 
-	private String getHash(final Transaction tx, final Item item)
+	@Override
+	String getHash(final Transaction tx, final Item item)
 	{
 		return tx.getEntity(item, true).get(column);
 	}

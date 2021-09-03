@@ -79,6 +79,12 @@ final class DataFieldBlobStore extends DataFieldStore
 	}
 
 	@Override
+	String getHash(final Transaction tx, final Item item)
+	{
+		throw new IllegalArgumentException("vault disabled for " + field);
+	}
+
+	@Override
 	void put(final Entity entity, final Value value, final Item exceptionItem)
 	{
 		// deliberately empty
