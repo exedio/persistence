@@ -110,6 +110,8 @@ public class DataVaultInfoTest
 			final int putInitial,
 			final int putRedundant)
 	{
+		assertEquals(Vault.DEFAULT, MyItem.field.getVaultServiceKey());
+
 		final DataFieldVaultInfo actual = MyItem.field.getVaultInfo();
 		assertNotNull(actual);
 		assertSame(MyItem.field, actual.getField());
@@ -134,6 +136,9 @@ public class DataVaultInfoTest
 	{
 		tearDown();
 
+		assertThrows(
+				Model.NotConnectedException.class,
+				MyItem.field::getVaultServiceKey);
 		assertThrows(
 				Model.NotConnectedException.class,
 				MyItem.field::getVaultInfo);

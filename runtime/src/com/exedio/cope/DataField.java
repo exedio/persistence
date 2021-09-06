@@ -907,6 +907,20 @@ public final class DataField extends Field<DataField.Value>
 		}
 	}
 
+	/**
+	 * @return null if vault is not enabled for this field
+	 */
+	public String getVaultServiceKey()
+	{
+		final DataFieldStore store = this.store;
+		if(store==null)
+			throw new Model.NotConnectedException(getType().getModel());
+		return store.getVaultServiceKey();
+	}
+
+	/**
+	 * @return null if vault is not enabled for this field
+	 */
 	public DataFieldVaultInfo getVaultInfo()
 	{
 		final DataFieldStore store = this.store;
