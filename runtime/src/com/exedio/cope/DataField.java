@@ -912,10 +912,7 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public String getVaultServiceKey()
 	{
-		final DataFieldStore store = this.store;
-		if(store==null)
-			throw new Model.NotConnectedException(getType().getModel());
-		return store.getVaultServiceKey();
+		return store().getVaultServiceKey();
 	}
 
 	/**
@@ -923,10 +920,15 @@ public final class DataField extends Field<DataField.Value>
 	 */
 	public DataFieldVaultInfo getVaultInfo()
 	{
+		return store().getVaultInfo();
+	}
+
+	private DataFieldStore store()
+	{
 		final DataFieldStore store = this.store;
 		if(store==null)
 			throw new Model.NotConnectedException(getType().getModel());
-		return store.getVaultInfo();
+		return store;
 	}
 
 	/**
