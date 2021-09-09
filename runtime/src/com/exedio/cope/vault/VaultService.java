@@ -29,7 +29,7 @@ import javax.annotation.Nonnull;
  * Implementations of VaultService must conform to the requirements set by
  * {@link com.exedio.cope.util.Properties#valueService(String, Class, Class) Properties.valueService}.
  * <p>
- * It is highly recommended to override {@link Object#toString() toString} with a informative message
+ * It is highly recommended overriding {@link Object#toString() toString} with a informative message
  * containing essential configuration of the service.
  * For instance, this message is included into the result of probes returned by
  * {@link VaultProperties#probeMore()}.
@@ -65,7 +65,7 @@ public interface VaultService extends AutoCloseable
 	 * <p>
 	 * If this method throws a {@link VaultNotFoundException},
 	 * it MUST not have modified {@code sink} in any way.
-	 * In particular it must not have written any byte to {@code sink}.
+	 * In particular, it must not have written any byte to {@code sink}.
 	 */
 	void get(@Nonnull String hash, @Nonnull OutputStream sink) throws VaultNotFoundException, IOException;
 
