@@ -40,6 +40,7 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
 import java.time.Duration;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.atomic.AtomicLong;
@@ -422,7 +423,6 @@ public abstract class MediaPath extends Pattern
 	private final ErrorLog    noSuchItem = new ErrorLog();
 	private final AtomicLong  moved = new AtomicLong();
 	private final ErrorLog    isNull = new ErrorLog();
-	private final ErrorLog    notComputable = new ErrorLog();
 	private final AtomicLong  notModified = new AtomicLong();
 	private final AtomicLong  delivered = new AtomicLong();
 
@@ -535,7 +535,7 @@ public abstract class MediaPath extends Pattern
 
 	protected final NotFound notFoundNotComputable()
 	{
-		return new NotFound("not computable", notComputable);
+		return notFoundIsNull();
 	}
 
 	public static final int getNoSuchPath()
@@ -555,7 +555,6 @@ public abstract class MediaPath extends Pattern
 				toIntMetrics(noSuchItem.get()),
 				toIntMetrics(moved.get()),
 				toIntMetrics(isNull.get()),
-				toIntMetrics(notComputable.get()),
 				toIntMetrics(notModified.get()),
 				toIntMetrics(delivered.get()));
 	}
@@ -612,9 +611,10 @@ public abstract class MediaPath extends Pattern
 		return isNull.getLogs();
 	}
 
+	@SuppressWarnings("MethodMayBeStatic") // OK: maintains backwards compatibility
 	public final List<MediaRequestLog> getNotComputableLogs()
 	{
-		return notComputable.getLogs();
+		return Collections.emptyList();
 	}
 
 

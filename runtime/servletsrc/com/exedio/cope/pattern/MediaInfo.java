@@ -30,7 +30,6 @@ public final class MediaInfo
 	private final int noSuchItem;
 	private final int moved;
 	private final int isNull;
-	private final int notComputable;
 	private final int notModified;
 	private final int delivered;
 
@@ -44,7 +43,6 @@ public final class MediaInfo
 			final int noSuchItem,
 			final int moved,
 			final int isNull,
-			final int notComputable,
 			final int notModified,
 			final int delivered)
 	{
@@ -57,7 +55,6 @@ public final class MediaInfo
 		this.noSuchItem = noSuchItem;
 		this.moved = moved;
 		this.isNull = isNull;
-		this.notComputable = notComputable;
 		this.notModified = notModified;
 		this.delivered = delivered;
 	}
@@ -109,7 +106,7 @@ public final class MediaInfo
 
 	public int getNotComputable()
 	{
-		return notComputable;
+		return 0;
 	}
 
 	public int getNotModified()
