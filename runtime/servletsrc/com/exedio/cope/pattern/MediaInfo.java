@@ -104,6 +104,13 @@ public final class MediaInfo
 		return isNull;
 	}
 
+	/**
+	 * @deprecated
+	 * This event is no longer counted separately.
+	 * Any occurrences are included in {@link #getIsNull()}.
+	 * This method always returns zero.
+	 */
+	@Deprecated
 	public int getNotComputable()
 	{
 		return 0;

@@ -533,6 +533,12 @@ public abstract class MediaPath extends Pattern
 		return new NotFound("is null late", isNull);
 	}
 
+	/**
+	 * @deprecated
+	 * This event is no longer counted separately.
+	 * Use {@link #notFoundIsNull()} instead.
+	 */
+	@Deprecated
 	protected final NotFound notFoundNotComputable()
 	{
 		return notFoundIsNull();
@@ -611,6 +617,13 @@ public abstract class MediaPath extends Pattern
 		return isNull.getLogs();
 	}
 
+	/**
+	 * @deprecated
+	 * This event is no longer recorded separately.
+	 * Any events are included in {@link #getIsNullLogs()}.
+	 * This method always returns an empty list.
+	 */
+	@Deprecated
 	@SuppressWarnings("MethodMayBeStatic") // OK: maintains backwards compatibility
 	public final List<MediaRequestLog> getNotComputableLogs()
 	{

@@ -93,7 +93,7 @@ final class SamplerMedia extends Item
 			maD(noSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
 			maD(moved,          from.getMoved         (), to.getMoved         ()),
 			maD(isNull,         from.getIsNull        (), to.getIsNull        ()),
-			maD(notComputable,  from.getNotComputable (), to.getNotComputable ()),
+			notComputable.map(0),
 			maD(notModified,    from.getNotModified   (), to.getNotModified   ()),
 			maD(delivered,      from.getDelivered     (), to.getDelivered     ()));
 

@@ -154,7 +154,7 @@ public class TextUrlFilterDelegator extends MediaFilter implements TextUrlFilter
 		if(sourceContentType==null)
 			throw notFoundIsNull();
 		if(!supportedContentType.equals(sourceContentType) )
-			throw notFoundNotComputable();
+			throw notFoundIsNull();
 	}
 
 	private int substitutePastes(

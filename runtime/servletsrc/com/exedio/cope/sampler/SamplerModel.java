@@ -218,7 +218,7 @@ final class SamplerModel extends Item
 			maD(mediasNoSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
 			maD(mediasMoved,          from.getMoved         (), to.getMoved         ()),
 			maD(mediasIsNull,         from.getIsNull        (), to.getIsNull        ()),
-			maD(mediasNotComputable,  from.getNotComputable (), to.getNotComputable ()),
+			mediasNotComputable.map(0),
 			maD(mediasNotModified,    from.getNotModified   (), to.getNotModified   ()),
 			maD(mediasDelivered,      from.getDelivered     (), to.getDelivered     ()));
 	}

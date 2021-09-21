@@ -100,9 +100,6 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		item.setNormalResult(Result.notFoundIsNull);
 		assertNotFound(pathInfo, "is null late");
-
-		item.setNormalResult(Result.notFoundNotComputable);
-		assertNotFound(pathInfo, "is null late");
 	}
 
 	@Test void testNotFoundContentTypeNull() throws ServletException, IOException
@@ -120,9 +117,6 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound(pathInfo, "is null");
 
 		item.setNormalResult(Result.notFoundIsNull);
-		assertNotFound(pathInfo, "is null");
-
-		item.setNormalResult(Result.notFoundNotComputable);
 		assertNotFound(pathInfo, "is null");
 	}
 
@@ -490,33 +484,33 @@ public final class MediaPathTest extends TestWithEnvironment
 	@Test void testInfoNoSuchPath() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/zack/x", "no such path");
-		assertInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		assertInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testInfoNotAnItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/x", "not an item");
-		assertInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
+		assertInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testInfoNoSuchItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/MediaPathItem-9999.jpg", "no such item");
-		assertInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+		assertInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
 	}
 
 	@Test void testInfoMoved() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		assertRedirect("/MediaPathItem/normal/" + id, prefix + "/MediaPathItem/normal/" + id + ".jpg");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 	}
 
 	@Test void testInfoIsNull() throws ServletException, IOException
 	{
 		item.setNormalResult(Result.notFoundIsNull);
 		assertNotFound("/MediaPathItem/normal/" + id, "is null");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 	}
 
 	@Test void testInfoIsNullLate() throws ServletException, IOException
@@ -524,15 +518,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		item.setNormalContentType("major/minor");
 		item.setNormalResult(Result.notFoundIsNull);
 		assertNotFound("/MediaPathItem/normal/" + id, "is null late");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
-	}
-
-	@Test void testInfoNotComputable() throws ServletException, IOException
-	{
-		item.setNormalContentType("major/minor");
-		item.setNormalResult(Result.notFoundNotComputable);
-		assertNotFound("/MediaPathItem/normal/" + id, "is null late");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 	}
 
 	// TODO testInfoNotModified
@@ -541,7 +527,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		item.setNormalContentType("major/minor");
 		assertOk("/MediaPathItem/normal/" + id);
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 	}
 
 	private void assertInfo(
@@ -554,7 +540,6 @@ public final class MediaPathTest extends TestWithEnvironment
 			final int noSuchItem,
 			final int moved,
 			final int isNull,
-			final int notComputable,
 			final int notModified,
 			final int delivered)
 	{
@@ -569,7 +554,6 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertEquals(noSuchItem,     i.getNoSuchItem()     - normalInfo.getNoSuchItem(),     "noSuchItem");
 		assertEquals(moved,          i.getMoved()          - normalInfo.getMoved(),          "moved");
 		assertEquals(isNull,         i.getIsNull()         - normalInfo.getIsNull(),         "isNull");
-		assertEquals(notComputable,  i.getNotComputable()  - normalInfo.getNotComputable(),  "notComputable");
 		assertEquals(notModified,    i.getNotModified()    - normalInfo.getNotModified(),    "notModified");
 		assertEquals(delivered,      i.getDelivered()      - normalInfo.getDelivered(),      "delivered");
 
@@ -580,7 +564,6 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertIt(i.getNotAnItem(),      MediaPathItem.normal.getNotAnItemLogs());
 		assertIt(i.getNoSuchItem(),     MediaPathItem.normal.getNoSuchItemLogs());
 		assertIt(i.getIsNull(),         MediaPathItem.normal.getIsNullLogs());
-		assertIt(i.getNotComputable(),  MediaPathItem.normal.getNotComputableLogs());
 	}
 
 	private static void assertIt(final int expected, final List<MediaRequestLog> actual)
