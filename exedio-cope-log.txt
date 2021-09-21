@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* MediaServlet customization methods do take Locator parameter instead of MediaPath and Item.
+	This breaks backwards API compatibility. It causes compiler errors,
+	if you have your @Override annotations in place.
 * MediaServlet#doFlushBufferOnNotModified changes its default implementation
 	from "true" to "false". This will break conditional requests on Tomcat earlier
 	than version 8.5.14. In this case, override this method to return "true" again.

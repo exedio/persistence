@@ -29,6 +29,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.instrument.WrapperIgnore;
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.pattern.MediaPath.Locator;
 import com.exedio.cope.tojunit.TestSources;
 import java.time.Duration;
 import org.junit.jupiter.api.AfterEach;
@@ -41,15 +42,16 @@ public class MediaServletDefaultTest
 
 	@Test void testMaximumAge()
 	{
+		final Locator locator = MaximumAgeItem.path.newLocator();
 		assertFails(
-				() -> servlet.getMaximumAge(MaximumAgeItem.path, null),
+				() -> servlet.getMaximumAge(locator),
 				Model.NotConnectedException.class,
 				"model not connected, use Model#connect for " + MaximumAgeItemModel);
 		MaximumAgeItemModel.connect(ConnectProperties.create(cascade(
 				TestSources.minimal(),
 				single("media.offsetExpires", "PT76.543S")
 		)));
-		assertEquals(Duration.ofSeconds(76), servlet.getMaximumAge(MaximumAgeItem.path, null));
+		assertEquals(Duration.ofSeconds(76), servlet.getMaximumAge(locator));
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class MaximumAgeItem extends Item
@@ -75,19 +77,19 @@ public class MediaServletDefaultTest
 
 	@Test void testCacheControlPrivateSimple()
 	{
-		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.simple, null));
+		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.simple.newLocator()));
 	}
 	@Test void testCacheControlPrivateSecret()
 	{
-		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secret, null));
+		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secret.newLocator()));
 	}
 	@Test void testCacheControlPrivateFinger()
 	{
-		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.finger, null));
+		assertEquals(false, servlet.isCacheControlPrivate(CacheControlPrivateItem.finger.newLocator()));
 	}
 	@Test void testCacheControlPrivateSecretFinger()
 	{
-		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secfin, null));
+		assertEquals(true,  servlet.isCacheControlPrivate(CacheControlPrivateItem.secfin.newLocator()));
 	}
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class CacheControlPrivateItem extends Item
@@ -113,10 +115,10 @@ public class MediaServletDefaultTest
 
 	@Test void testAccessControlAllowOriginWildcard()
 	{
-		assertEquals(false, servlet.isAccessControlAllowOriginWildcard(null, null));
+		assertEquals(false, servlet.isAccessControlAllowOriginWildcard(null));
 	}
 	@Test void testFlushBufferOnNotModified()
 	{
-		assertEquals(false, servlet.doFlushBufferOnNotModified(null, null));
+		assertEquals(false, servlet.doFlushBufferOnNotModified(null));
 	}
 }

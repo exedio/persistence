@@ -1002,47 +1002,44 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		@Override
 		protected Duration getMaximumAge(
-				final MediaPath path,
-				final Item item)
+				final MediaPath.Locator locator)
 		{
 			return
-					assertConfigMethod(path, item).
+					assertConfigMethod(locator).
 							getCacheControlMaximumAge();
 		}
 
 		@Override
 		protected boolean isCacheControlPrivate(
-				final MediaPath path,
-				final Item item)
+				final MediaPath.Locator locator)
 		{
 			return
-					assertConfigMethod(path, item).
+					assertConfigMethod(locator).
 							getCacheControlPrivate();
 		}
 
 		@Override
 		protected boolean isAccessControlAllowOriginWildcard(
-				final MediaPath path,
-				final Item item)
+				final MediaPath.Locator locator)
 		{
 			return
-					assertConfigMethod(path, item).
+					assertConfigMethod(locator).
 							getAccessControlAllowOriginWildcard();
 		}
 
 		@Override
 		protected boolean doFlushBufferOnNotModified(
-				final MediaPath path,
-				final Item item)
+				final MediaPath.Locator locator)
 		{
-			assertConfigMethod(path, item);
+			assertConfigMethod(locator);
 			return true;
 		}
 
 		private static MediaPathItem assertConfigMethod(
-				final MediaPath path,
-				final Item item)
+				final MediaPath.Locator locator)
 		{
+			final MediaPath path = locator.getFeature();
+			final Item item = locator.getItem();
 			assertTrue(MODEL.hasCurrentTransaction());
 			assertEquals(MediaPathItem.TYPE, path.getType());
 			assertNotNull(item);
