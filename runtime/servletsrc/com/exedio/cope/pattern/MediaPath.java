@@ -511,9 +511,26 @@ public abstract class MediaPath extends Pattern
 		return new NotFound("no such item", noSuchItem);
 	}
 
-	protected final NotFound notFoundIsNull()
+	private NotFound notFoundIsNullEarly()
 	{
 		return new NotFound("is null", isNull);
+	}
+
+	/**
+	 * The result of this method should be thrown by
+	 * {@link #doGetAndCommit(HttpServletRequest, HttpServletResponse, Item)}
+	 * if and only if {@link #getContentType(Item)} would have returned {@code null}
+	 * for the same parameter {@code item}.
+	 * This case should happen only when
+	 * <ul>
+	 * <li>a rare race condition occurs or
+	 * <li>{@code doGetAndCommit} and {@code getContentType} are implemented
+	 *     inconsistently.
+	 * </ul>
+	 */
+	protected final NotFound notFoundIsNull()
+	{
+		return new NotFound("is null late", isNull);
 	}
 
 	protected final NotFound notFoundNotComputable()
@@ -697,6 +714,8 @@ public abstract class MediaPath extends Pattern
 						return;
 					}
 				}
+				else
+					throw notFoundIsNullEarly();
 			}
 
 			if(servlet.isAccessControlAllowOriginWildcard(this, item))
@@ -725,6 +744,24 @@ public abstract class MediaPath extends Pattern
 	 * not return {@code null} for any item. */
 	public abstract boolean isMandatory();
 
+	/**
+	 * You must implement this method consistently with
+	 * {@link #doGetAndCommit(HttpServletRequest, HttpServletResponse, Item)}.
+	 * That means:
+	 * <ul>
+	 * <li>If and only if this method returns null
+	 *     for any given {@code item},
+	 *     {@code doGetAndCommit} for the same {@code item}
+	 *     should throw a {@link #notFoundIsNull()}.
+	 * <li>If and only if this method returns a non-null result {@code C}
+	 *     for any given {@code item},
+	 *     {@code doGetAndCommit} for the same {@code item}
+	 *     should put a 200-OK into its {@code response} parameter
+	 *     with the {@code Content-Type} header set to {@code C}.
+	 * </ul>
+	 * This method must not return null at all, if
+	 * {@link #isMandatory()} returns {@code true}.
+	 */
 	@Wrap(order=30, doc=Wrap.MEDIA_CONTENT_TYPE, hide=ContentTypeGetter.class, nullability=NullableIfMediaPathOptional.class)
 	public abstract String getContentType(@Nonnull Item item);
 
@@ -868,6 +905,9 @@ public abstract class MediaPath extends Pattern
 	}
 
 	/**
+	 * You must implement this method consistently with
+	 * {@link #getContentType(Item)}. Refer to that method for details.
+	 * <p>
 	 * The implementor MUST {@link #commit() commit} the transaction,
 	 * if the method completes normally (without exception).
 	 * Otherwise the implementor may or may not commit the transaction.
