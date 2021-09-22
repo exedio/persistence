@@ -67,7 +67,7 @@
 		<dependency org="org.junit.platform" name="junit-platform-console" rev="1.3.1" conf="build->default" />
 		<dependency org="org.apiguardian"    name="apiguardian-api"        rev="1.0.0" conf="build->default" />
 		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="build->default" />
-		<dependency org="com.exedio" name="copeconsole" rev="7003" conf="build->runtime,changelog">
+		<dependency org="com.exedio" name="copeconsole" rev="7051" conf="build->runtime,changelog">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
 		</dependency>
 	</dependencies>

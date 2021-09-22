@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Drop unused columns from Schema view ignores nonrequired tables
+* HTTP header security:
+	Content-Security-Policy, Referrer-Policy, X-Content-Type-Options, X-Frame-Options, X-XSS-Protection
+	set in response.
 * now shows concurrent loads for query cache, available since COPE 9221
 * now compatible with COPE version that has default implementations for interface methods (>=8904..8919)
 * requires JDK 1.8.0_60
