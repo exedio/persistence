@@ -315,7 +315,7 @@ public class MediaServlet extends HttpServlet
 			final MediaPath path,
 			final Item item)
 	{
-		return true;
+		return false;
 	}
 
 	protected void onException(
