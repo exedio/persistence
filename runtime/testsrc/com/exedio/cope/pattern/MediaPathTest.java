@@ -519,6 +519,14 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 	}
 
+	@Test void testInfoIsNullLate() throws ServletException, IOException
+	{
+		item.setNormalContentType("major/minor");
+		item.setNormalResult(Result.notFoundIsNull);
+		assertNotFound("/MediaPathItem/normal/" + id, "is null late");
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+	}
+
 	@Test void testInfoNotComputable() throws ServletException, IOException
 	{
 		item.setNormalContentType("major/minor");
