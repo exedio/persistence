@@ -345,6 +345,14 @@ public abstract class MediaPath extends Pattern
 	}
 
 	/**
+	 * For junit tests only
+	 */
+	Locator newLocator()
+	{
+		return new Locator(null, new Date(5555), null, null);
+	}
+
+	/**
 	 * Returns a URL the content of this media path is available under,
 	 * if a {@link MediaServlet} is properly installed.
 	 * Returns null, if there is no such content.
@@ -704,8 +712,9 @@ public abstract class MediaPath extends Pattern
 		try(TransactionTry tx = model.startTransactionTry("MediaPath#doGet " + pathInfo))
 		{
 			final Item item = tx.getItem(id);
+			final Locator locator;
 			{
-				final Locator locator = getLocator(item);
+				locator = getLocator(item);
 				if(locator!=null)
 				{
 					final StringBuilder expectedPathInfo = new StringBuilder();
@@ -731,10 +740,10 @@ public abstract class MediaPath extends Pattern
 					throw notFoundIsNullEarly();
 			}
 
-			if(servlet.isAccessControlAllowOriginWildcard(this, item))
+			if(servlet.isAccessControlAllowOriginWildcard(locator))
 				response.setHeader("Access-Control-Allow-Origin", "*");
 
-			doGetAndCommitWithCache(servlet, request, response, item);
+			doGetAndCommitWithCache(servlet, request, response, locator);
 
 			if(tx.hasCurrentTransaction())
 				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
@@ -784,15 +793,15 @@ public abstract class MediaPath extends Pattern
 			final MediaServlet servlet,
 			final HttpServletRequest request,
 			final HttpServletResponse response,
-			final Item item)
+			final Locator locator)
 		throws IOException, NotFound
 	{
-		final Date lastModifiedRaw = getLastModified(item);
+		final Date lastModifiedRaw = getLastModified(locator.item);
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(servlet, response, item, null);
-			deliver(request, response, item);
+			setCacheControl(servlet, response, locator, null);
+			deliver(request, response, locator);
 			return;
 		}
 
@@ -814,16 +823,16 @@ public abstract class MediaPath extends Pattern
 		}
 		else
 		{
-			cacheControlMaxAge = servlet.getMaximumAge(this, item);
+			cacheControlMaxAge = servlet.getMaximumAge(locator);
 		}
 
-		setCacheControl(servlet, response, item, cacheControlMaxAge);
+		setCacheControl(servlet, response, locator, cacheControlMaxAge);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
 		{
 			final boolean flush =
-					servlet.doFlushBufferOnNotModified(this, item);
+					servlet.doFlushBufferOnNotModified(locator);
 
 			commit();
 
@@ -836,7 +845,7 @@ public abstract class MediaPath extends Pattern
 		}
 		else
 		{
-			deliver(request, response, item);
+			deliver(request, response, locator);
 		}
 	}
 
@@ -858,7 +867,7 @@ public abstract class MediaPath extends Pattern
 	private void setCacheControl(
 			final MediaServlet servlet,
 			final HttpServletResponse response,
-			final Item item,
+			final Locator locator,
 			final Duration maxAge)
 	{
 		// RFC 2616
@@ -873,7 +882,7 @@ public abstract class MediaPath extends Pattern
 
 		final StringBuilder bf = new StringBuilder();
 
-		if(servlet.isCacheControlPrivate(this, item))
+		if(servlet.isCacheControlPrivate(locator))
 			bf.append("private");
 
 		if(maxAge!=null)
@@ -892,10 +901,10 @@ public abstract class MediaPath extends Pattern
 	private void deliver(
 			final HttpServletRequest request,
 			final HttpServletResponse response,
-			final Item item)
+			final Locator locator)
 		throws IOException, NotFound
 	{
-		doGetAndCommit(request, response, item);
+		doGetAndCommit(request, response, locator.item);
 		delivered.incrementAndGet();
 	}
 

@@ -23,11 +23,11 @@ import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 
 import com.exedio.cope.Feature;
-import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
 import com.exedio.cope.misc.ServletUtil;
+import com.exedio.cope.pattern.MediaPath.Locator;
 import com.exedio.cope.pattern.MediaPath.NotFound;
 import java.io.IOException;
 import java.time.Duration;
@@ -247,14 +247,12 @@ public class MediaServlet extends HttpServlet
 	 * RFC 2616 Section 14.9.3 Modifications of the Basic Expiration Mechanism,
 	 * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist .
 	 *
-	 * @param path the media path of the current request
-	 * @param item the item of the current request
+	 * @param locator the locator of the current request
 	 */
 	protected Duration getMaximumAge(
-			final MediaPath path,
-			final Item item)
+			final Locator locator)
 	{
-		return path.getType().getModel().getConnectProperties().getMediaServletMaximumAge();
+		return locator.getFeature().getType().getModel().getConnectProperties().getMediaServletMaximumAge();
 	}
 
 	/**
@@ -272,14 +270,12 @@ public class MediaServlet extends HttpServlet
 	 * https://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate , and
 	 * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist .
 	 *
-	 * @param path the media path of the current request
-	 * @param item the item of the current request
+	 * @param locator the locator of the current request
 	 */
 	protected boolean isCacheControlPrivate(
-			final MediaPath path,
-			final Item item)
+			final Locator locator)
 	{
-		return path.isUrlGuessingPrevented();
+		return locator.getFeature().isUrlGuessingPrevented();
 	}
 
 	/**
@@ -288,12 +284,10 @@ public class MediaServlet extends HttpServlet
 	 * to the response.
 	 * This is typically needed for fonts served from a different domain.
 	 * The default implementation returns false.
-	 * @param path the media path of the current request
-	 * @param item the item of the current request
+	 * @param locator the locator of the current request
 	 */
 	protected boolean isAccessControlAllowOriginWildcard(
-			final MediaPath path,
-			final Item item)
+			final Locator locator)
 	{
 		return false;
 	}
@@ -308,12 +302,10 @@ public class MediaServlet extends HttpServlet
 	 * a {@code Content-Length} header to the response.
 	 * Of course, this is a hot fix. Remove it, if you find a better solution
 	 * to avoid the {@code Content-Length} header.
-	 * @param path the media path of the current request
-	 * @param item the item of the current request
+	 * @param locator the locator of the current request
 	 */
 	protected boolean doFlushBufferOnNotModified(
-			final MediaPath path,
-			final Item item)
+			final Locator locator)
 	{
 		return false;
 	}

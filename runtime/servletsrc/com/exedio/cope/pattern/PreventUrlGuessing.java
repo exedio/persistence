@@ -38,7 +38,7 @@ import java.lang.annotation.Target;
  * it is automatically applied to all features of that type.
  * <p>
  * Additionally controls default implementation of
- * {@link MediaServlet#isCacheControlPrivate(MediaPath, com.exedio.cope.Item) MediaServlet.isCacheControlPrivate}.
+ * {@link MediaServlet#isCacheControlPrivate(MediaPath.Locator) MediaServlet.isCacheControlPrivate}.
  *
  * @see MediaPath#isUrlGuessingPrevented()
  */
