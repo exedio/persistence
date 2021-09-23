@@ -79,7 +79,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 		catch(final NotFound e)
 		{
-			assertEquals("is null", e.getMessage());
+			assertEquals("is null late", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
 	}
@@ -236,7 +236,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 		catch(final NotFound e)
 		{
-			assertEquals("is null", e.getMessage());
+			assertEquals("is null late", e.getMessage());
 		}
 	}
 

@@ -56,7 +56,6 @@ public class MediaServletTest
 	private static final String NOT_AN_ITEM    = "not an item";
 	private static final String NO_SUCH_ITEM   = "no such item";
 	private static final String IS_NULL        = "is null";
-	private static final String NOT_COMPUTABLE = "not computable";
 
 	private static final String ITEM_TXT = "MediaServletItem-0";
 	private static final String ITEM_EMP = "MediaServletItem-1";
@@ -206,14 +205,14 @@ public class MediaServletTest
 		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG + "."   , prefix + "content/"  + ITEM_JPG + "."   );
 		assertMoved(app + "media/MediaServletItem/contentAlt1/" + ITEM_JPG         , prefix + "content/"  + ITEM_JPG         );
 
-		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
+		assertNotFound(prefix + "thumbnail/" + ITEM_TXT, IS_NULL); // once was not computable
 		assertNotFound(prefix + "thumbnail/" + ITEM_EMP, IS_NULL);
 		assertBin(prefix + "thumbnail/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2));
 		assertBin(prefix + "thumbnail/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3));
 		assertBin(prefix + "thumbnail/" + ITEM_GIF + ".jpg", "image/jpeg", hour8(8));
 
-		assertNotFound(prefix + "html/" + ITEM_TXT, NOT_COMPUTABLE, hour8(0));
-		assertNotFound(prefix + "html/" + ITEM_PNG, NOT_COMPUTABLE, hour8(2));
+		assertNotFound(prefix + "html/" + ITEM_TXT, IS_NULL); // once was not computable
+		assertNotFound(prefix + "html/" + ITEM_PNG, IS_NULL); // once was not computable
 		assertNotFound(prefix + "html/" + ITEM_EMP, IS_NULL);
 		assertBin  (prefix + "content/" + ITEM_TEXT_FILTER + ".html", "text/html", hour8(13));
 		assertBin  (prefix + "html/"    + ITEM_TEXT_FILTER + ".html", "text/html;charset=UTF-8", hour8(13));
