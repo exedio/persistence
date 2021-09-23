@@ -28,8 +28,8 @@ public class MediaSummaryTest
 {
 	@Test void testIt()
 	{
-		final MediaInfo i1 = new MediaInfo(null, 11, 21, 111, 31, 41, 51, 61, 71, 81, 91, 101);
-		final MediaInfo i2 = new MediaInfo(null, 13, 23, 113, 33, 43, 53, 63, 73, 83, 93, 103);
+		final MediaInfo i1 = new MediaInfo(null, 11, 21, 111, 31, 41, 51, 61, 71, 91, 101);
+		final MediaInfo i2 = new MediaInfo(null, 13, 23, 113, 33, 43, 53, 63, 73, 93, 103);
 
 		final MediaSummary ms = new MediaSummary(new MediaInfo[]{i1, i2});
 		assertEquals( 24, ms.getRedirectFrom());
@@ -40,7 +40,7 @@ public class MediaSummaryTest
 		assertEquals(104, ms.getNoSuchItem());
 		assertEquals(124, ms.getMoved());
 		assertEquals(144, ms.getIsNull());
-		assertEquals(164, ms.getNotComputable());
+		assertEquals(0,   ms.getNotComputable());
 		assertEquals(184, ms.getNotModified());
 		assertEquals(204, ms.getDelivered());
 	}
@@ -60,7 +60,7 @@ public class MediaSummaryTest
 
 	@Test void testNullElement()
 	{
-		final MediaInfo i1 = new MediaInfo(null, 11, 21, 31, 41, 51, 61, 71, 81, 91, 101, 111);
+		final MediaInfo i1 = new MediaInfo(null, 11, 21, 31, 41, 51, 61, 71, 91, 101, 111);
 		try
 		{
 			new MediaSummary(new MediaInfo[]{i1, null});

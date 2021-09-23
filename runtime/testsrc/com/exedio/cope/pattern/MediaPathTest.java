@@ -102,7 +102,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound(pathInfo, "is null late");
 
 		item.setNormalResult(Result.notFoundNotComputable);
-		assertNotFound(pathInfo, "not computable");
+		assertNotFound(pathInfo, "is null late");
 	}
 
 	@Test void testNotFoundContentTypeNull() throws ServletException, IOException
@@ -531,8 +531,8 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		item.setNormalContentType("major/minor");
 		item.setNormalResult(Result.notFoundNotComputable);
-		assertNotFound("/MediaPathItem/normal/" + id, "not computable");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+		assertNotFound("/MediaPathItem/normal/" + id, "is null late");
+		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 	}
 
 	// TODO testInfoNotModified
