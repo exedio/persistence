@@ -1021,7 +1021,7 @@ public final class MediaPathTest extends TestWithEnvironment
 				final Item item)
 		{
 			assertConfigMethod(path, item);
-			return super.doFlushBufferOnNotModified(path, item);
+			return true;
 		}
 
 		private static MediaPathItem assertConfigMethod(

@@ -117,6 +117,6 @@ public class MediaServletDefaultTest
 	}
 	@Test void testFlushBufferOnNotModified()
 	{
-		assertEquals(true, servlet.doFlushBufferOnNotModified(null, null));
+		assertEquals(false, servlet.doFlushBufferOnNotModified(null, null));
 	}
 }
