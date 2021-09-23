@@ -39,7 +39,7 @@ public final class MediaPathFeature extends MediaPath
 
 	enum Result
 	{
-		notFoundIsNull, notFoundNotComputable, IOException, RuntimeException
+		notFoundIsNull, IOException, RuntimeException
 	}
 
 	private final StringField contentType = new StringField().optional();
@@ -109,7 +109,6 @@ public final class MediaPathFeature extends MediaPath
 			switch(failure)
 			{
 				case notFoundIsNull:        throw notFoundIsNull();
-				case notFoundNotComputable: throw notFoundNotComputable();
 				case IOException:           throw new IOException("test IOException");
 				case RuntimeException:      throw new RuntimeException("test RuntimeException");
 				default:

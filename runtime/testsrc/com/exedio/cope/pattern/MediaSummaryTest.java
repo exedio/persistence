@@ -40,7 +40,6 @@ public class MediaSummaryTest
 		assertEquals(104, ms.getNoSuchItem());
 		assertEquals(124, ms.getMoved());
 		assertEquals(144, ms.getIsNull());
-		assertEquals(0,   ms.getNotComputable());
 		assertEquals(184, ms.getNotModified());
 		assertEquals(204, ms.getDelivered());
 	}
@@ -83,7 +82,6 @@ public class MediaSummaryTest
 		assertEquals(0, ms.getNoSuchItem());
 		assertEquals(0, ms.getMoved());
 		assertEquals(0, ms.getIsNull());
-		assertEquals(0, ms.getNotComputable());
 		assertEquals(0, ms.getNotModified());
 		assertEquals(0, ms.getDelivered());
 	}

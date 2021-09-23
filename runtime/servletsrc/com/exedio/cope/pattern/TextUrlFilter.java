@@ -279,7 +279,7 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 		if(sourceContentType==null)
 			throw notFoundIsNull();
 		if(!supportedContentType.equals(sourceContentType) )
-			throw notFoundNotComputable();
+			throw notFoundIsNull();
 	}
 
 	private int substitutePastes(

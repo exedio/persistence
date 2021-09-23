@@ -128,7 +128,7 @@ public abstract class MediaImageioFilter extends MediaFilter
 			throw notFoundIsNull();
 		final ImageReaderSpi spi = imageReaderSpi.get(contentType);
 		if(spi==null)
-			throw notFoundNotComputable();
+			throw notFoundIsNull();
 
 		final ByteArrayOutputStream body = execute(item, spi, true);
 
