@@ -105,6 +105,27 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertNotFound(pathInfo, "not computable");
 	}
 
+	@Test void testNotFoundContentTypeNull() throws ServletException, IOException
+	{
+		assertNotFound("zack", "no such path");
+		assertNotFound("zack/zick", "no such path");
+		assertNotFound("/MediaPathItem/normal", "no such path");
+		assertNotFound("/MediaPathItem/normal/", "not an item");
+		assertNotFound("/MediaPathItem/normal/x", "not an item");
+		assertNotFound("/MediaPathItem/normal/x.jpg", "not an item");
+		assertNotFound("/MediaPathItem/normal/MediaPathItem-x.jpg", "not an item");
+		assertNotFound("/MediaPathItem/normal/MediaPathItem-9999.jpg", "no such item");
+
+		final String pathInfo = "/MediaPathItem/normal/" + id;
+		assertOk(pathInfo);
+
+		item.setNormalResult(Result.notFoundIsNull);
+		assertNotFound(pathInfo, "is null");
+
+		item.setNormalResult(Result.notFoundNotComputable);
+		assertNotFound(pathInfo, "not computable");
+	}
+
 	@Test void testException() throws ServletException, IOException
 	{
 		final String pathInfo = "/MediaPathItem/normal/" + id;
