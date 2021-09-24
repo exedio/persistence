@@ -37,39 +37,39 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 
 	@Test void testSchema()
 	{
-		assertEquals(true,  VeilI.veilF.sourceFeature.isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, VeilI.veilF.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
-		assertEquals(true,  VeilI.veilF.getSourceType().isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, VeilI.veilF.getSourceType().isAnnotationPresent(TestAnnotation2.class));
-		assertEquals(true,  VeilI.veilF.getSourceTypePostfix().isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, VeilI.veilF.getSourceTypePostfix().isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  VeilI.veilF.srcF.isAnnotationPresent(TestAnnotation .class));
+		assertEquals(false, VeilI.veilF.srcF.isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  VeilI.veilF.srcT    ().isAnnotationPresent(TestAnnotation .class));
+		assertEquals(false, VeilI.veilF.srcT    ().isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  VeilI.veilF.srcTtail().isAnnotationPresent(TestAnnotation .class));
+		assertEquals(false, VeilI.veilF.srcTtail().isAnnotationPresent(TestAnnotation2.class));
 
-		assertEquals("sourceFeature-TestAnnotation", VeilI.veilF.sourceFeature.getAnnotation(TestAnnotation.class).value());
-		assertEquals("sourceType-TestAnnotation"   , VeilI.veilF.getSourceType().getAnnotation(TestAnnotation.class).value());
-		assertEquals("sourceType-TestAnnotation"   , VeilI.veilF.getSourceTypePostfix().getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, VeilI.veilF.sourceFeature.getAnnotation(TestAnnotation2.class));
-		assertEquals(null, VeilI.veilF.getSourceType().getAnnotation(TestAnnotation2.class));
-		assertEquals(null, VeilI.veilF.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
+		assertEquals("srcF-TestAnnotation", VeilI.veilF.srcF.getAnnotation(TestAnnotation.class).value());
+		assertEquals("srcT-TestAnnotation", VeilI.veilF.srcT    ().getAnnotation(TestAnnotation.class).value());
+		assertEquals("srcT-TestAnnotation", VeilI.veilF.srcTtail().getAnnotation(TestAnnotation.class).value());
+		assertEquals(null, VeilI.veilF.srcF.getAnnotation(TestAnnotation2.class));
+		assertEquals(null, VeilI.veilF.srcT    ().getAnnotation(TestAnnotation2.class));
+		assertEquals(null, VeilI.veilF.srcTtail().getAnnotation(TestAnnotation2.class));
 	}
 
 	@Test void testSchemaAnnotations()
 	{
 		assertEquals("CoatI", schemaName(VeilI.TYPE));
-		assertEquals(null, schemaName(BareI.TYPE));
-		assertEquals("coatF-sourceFeature", schemaName(VeilI.veilF.sourceFeature));
-		assertEquals(null, schemaName(VeilI.bareF.sourceFeature));
-		assertEquals("coatF-sourceFeature", schemaName(BareI.veilF.sourceFeature));
-		assertEquals(null, schemaName(BareI.bareF.sourceFeature));
-		assertEquals("CoatI-coatF", schemaName(VeilI.veilF.getSourceType()));
-		assertEquals("CoatI-coatF-tail", schemaName(VeilI.veilF.getSourceTypePostfix()));
-		assertEquals("CoatI-bareF", schemaName(VeilI.bareF.getSourceType()));
-		assertEquals("CoatI-bareF-tail", schemaName(VeilI.bareF.getSourceTypePostfix()));
-		assertEquals("BareI-coatF", schemaName(BareI.veilF.getSourceType()));
-		assertEquals("BareI-coatF-tail", schemaName(BareI.veilF.getSourceTypePostfix()));
-		assertEquals(null, schemaName(BareI.bareF.getSourceType()));
-		assertEquals(null, schemaName(BareI.bareF.getSourceTypePostfix()));
-		assertEquals(null, schemaName(VeilI.veilF.sourceTypeField));
-		assertEquals(null, schemaName(VeilI.veilF.sourceTypePostfixField));
+		assertEquals(null,    schemaName(BareI.TYPE));
+		assertEquals("coatF-srcF", schemaName(VeilI.veilF.srcF));
+		assertEquals(null,         schemaName(VeilI.bareF.srcF));
+		assertEquals("coatF-srcF", schemaName(BareI.veilF.srcF));
+		assertEquals(null,         schemaName(BareI.bareF.srcF));
+		assertEquals("CoatI-coatF",      schemaName(VeilI.veilF.srcT    ()));
+		assertEquals("CoatI-coatF-tail", schemaName(VeilI.veilF.srcTtail()));
+		assertEquals("CoatI-bareF",      schemaName(VeilI.bareF.srcT    ()));
+		assertEquals("CoatI-bareF-tail", schemaName(VeilI.bareF.srcTtail()));
+		assertEquals("BareI-coatF",      schemaName(BareI.veilF.srcT    ()));
+		assertEquals("BareI-coatF-tail", schemaName(BareI.veilF.srcTtail()));
+		assertEquals(null, schemaName(BareI.bareF.srcT    ()));
+		assertEquals(null, schemaName(BareI.bareF.srcTtail()));
+		assertEquals(null, schemaName(VeilI.veilF.srcTField));
+		assertEquals(null, schemaName(VeilI.veilF.srcTtailField));
 	}
 	private static String schemaName(final Type<?> type)
 	{
@@ -90,28 +90,28 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals(filterTableName("BareI"), getTableName(BareI.TYPE));
 		assertPrimaryKeySequenceName("CoatI_this_Seq", VeilI.TYPE);
 		assertPrimaryKeySequenceName("BareI_this_Seq", BareI.TYPE);
-		assertEquals("coatF_sourceFeature", getColumnName(VeilI.veilF.sourceFeature));
-		assertEquals("bareF_sourceFeature", getColumnName(VeilI.bareF.sourceFeature));
-		assertEquals("coatF_sourceFeature", getColumnName(BareI.veilF.sourceFeature));
-		assertEquals("bareF_sourceFeature", getColumnName(BareI.bareF.sourceFeature));
-		assertEquals(filterTableName("CoatI_coatF"), getTableName(VeilI.veilF.getSourceType()));
-		assertEquals(filterTableName("CoatI_coatF_tail"), getTableName(VeilI.veilF.getSourceTypePostfix()));
-		assertEquals(filterTableName("CoatI_bareF"), getTableName(VeilI.bareF.getSourceType()));
-		assertEquals(filterTableName("CoatI_bareF_tail"), getTableName(VeilI.bareF.getSourceTypePostfix()));
-		assertEquals(filterTableName("BareI_coatF"), getTableName(BareI.veilF.getSourceType()));
-		assertEquals(filterTableName("BareI_coatF_tail"), getTableName(BareI.veilF.getSourceTypePostfix()));
-		assertEquals(filterTableName("BareI_bareF"), getTableName(BareI.bareF.getSourceType()));
-		assertEquals(filterTableName("BareI_bareF_tail"), getTableName(BareI.bareF.getSourceTypePostfix()));
-		assertPrimaryKeySequenceName("CoatI_coatF_this_Seq", VeilI.veilF.getSourceType());
-		assertPrimaryKeySequenceName("CoatI_coatF_tail_this_Seq", "CoatI_coatF_tail_thi_Seq6", VeilI.veilF.getSourceTypePostfix());
-		assertPrimaryKeySequenceName("CoatI_bareF_this_Seq", VeilI.bareF.getSourceType());
-		assertPrimaryKeySequenceName("CoatI_bareF_tail_this_Seq", "CoatI_bareF_tail_thi_Seq6", VeilI.bareF.getSourceTypePostfix());
-		assertPrimaryKeySequenceName("BareI_coatF_this_Seq", BareI.veilF.getSourceType());
-		assertPrimaryKeySequenceName("BareI_coatF_tail_this_Seq", "BareI_coatF_tail_thi_Seq6", BareI.veilF.getSourceTypePostfix());
-		assertPrimaryKeySequenceName("BareI_bareF_this_Seq", BareI.bareF.getSourceType());
-		assertPrimaryKeySequenceName("BareI_bareF_tail_this_Seq", "BareI_bareF_tail_thi_Seq6", BareI.bareF.getSourceTypePostfix());
-		assertEquals("field", getColumnName(VeilI.veilF.sourceTypeField));
-		assertEquals("field", getColumnName(VeilI.veilF.sourceTypePostfixField));
+		assertEquals("coatF_srcF", getColumnName(VeilI.veilF.srcF));
+		assertEquals("bareF_srcF", getColumnName(VeilI.bareF.srcF));
+		assertEquals("coatF_srcF", getColumnName(BareI.veilF.srcF));
+		assertEquals("bareF_srcF", getColumnName(BareI.bareF.srcF));
+		assertEquals(filterTableName("CoatI_coatF"),      getTableName(VeilI.veilF.srcT    ()));
+		assertEquals(filterTableName("CoatI_coatF_tail"), getTableName(VeilI.veilF.srcTtail()));
+		assertEquals(filterTableName("CoatI_bareF"),      getTableName(VeilI.bareF.srcT    ()));
+		assertEquals(filterTableName("CoatI_bareF_tail"), getTableName(VeilI.bareF.srcTtail()));
+		assertEquals(filterTableName("BareI_coatF"),      getTableName(BareI.veilF.srcT    ()));
+		assertEquals(filterTableName("BareI_coatF_tail"), getTableName(BareI.veilF.srcTtail()));
+		assertEquals(filterTableName("BareI_bareF"),      getTableName(BareI.bareF.srcT    ()));
+		assertEquals(filterTableName("BareI_bareF_tail"), getTableName(BareI.bareF.srcTtail()));
+		assertPrimaryKeySequenceName("CoatI_coatF_this_Seq", VeilI.veilF.srcT());
+		assertPrimaryKeySequenceName("CoatI_coatF_tail_this_Seq", "CoatI_coatF_tail_thi_Seq6", VeilI.veilF.srcTtail());
+		assertPrimaryKeySequenceName("CoatI_bareF_this_Seq", VeilI.bareF.srcT());
+		assertPrimaryKeySequenceName("CoatI_bareF_tail_this_Seq", "CoatI_bareF_tail_thi_Seq6", VeilI.bareF.srcTtail());
+		assertPrimaryKeySequenceName("BareI_coatF_this_Seq", BareI.veilF.srcT());
+		assertPrimaryKeySequenceName("BareI_coatF_tail_this_Seq", "BareI_coatF_tail_thi_Seq6", BareI.veilF.srcTtail());
+		assertPrimaryKeySequenceName("BareI_bareF_this_Seq", BareI.bareF.srcT());
+		assertPrimaryKeySequenceName("BareI_bareF_tail_this_Seq", "BareI_bareF_tail_thi_Seq6", BareI.bareF.srcTtail());
+		assertEquals("field", getColumnName(VeilI.veilF.srcTField));
+		assertEquals("field", getColumnName(VeilI.veilF.srcTtailField));
 	}
 
 	@CopeSchemaName("CoatI")

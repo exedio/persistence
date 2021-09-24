@@ -28,18 +28,18 @@ class RenamedSchemaPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	final IntegerField sourceFeature;
+	final IntegerField srcF;
 
-	final StringField sourceTypeField = new StringField();
-	private Type<?> sourceType = null;
+	final StringField srcTField = new StringField();
+	private Type<?> srcT = null;
 
-	final StringField sourceTypePostfixField = new StringField();
-	private Type<?> sourceTypePostfix = null;
+	final StringField srcTtailField = new StringField();
+	private Type<?> srcTtail = null;
 
 	RenamedSchemaPattern()
 	{
-		this.sourceFeature = addSourceFeature(
-				new IntegerField(), "sourceFeature", new AnnotationSource("sourceFeature"));
+		this.srcF = addSourceFeature(
+				new IntegerField(), "srcF", new AnnotationSource("srcF"));
 	}
 
 	private static final class AnnotationSource implements AnnotatedElement
@@ -104,31 +104,31 @@ class RenamedSchemaPattern extends Pattern
 		super.onMount();
 
 		final Features features = new Features();
-		features.put("field", sourceTypeField);
-		this.sourceType = newSourceType(SourceType.class, features);
+		features.put("field", srcTField);
+		this.srcT = newSourceType(SourceType.class, features);
 
 		features.clear();
-		features.put("field", sourceTypePostfixField);
-		this.sourceTypePostfix = newSourceType(SourceType.class, features, "tail");
+		features.put("field", srcTtailField);
+		this.srcTtail = newSourceType(SourceType.class, features, "tail");
 	}
 
-	Type<?> getSourceType()
+	Type<?> srcT()
 	{
-		if(sourceType==null)
+		if(srcT == null)
 			throw new IllegalStateException();
 
-		return sourceType;
+		return srcT;
 	}
 
-	Type<?> getSourceTypePostfix()
+	Type<?> srcTtail()
 	{
-		if(sourceTypePostfix==null)
+		if(srcTtail == null)
 			throw new IllegalStateException();
 
-		return sourceTypePostfix;
+		return srcTtail;
 	}
 
-	@TestAnnotation("sourceType-TestAnnotation")
+	@TestAnnotation("srcT-TestAnnotation")
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class SourceType extends Item
 	{
