@@ -57,19 +57,27 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals("CoatI", schemaName(VeilI.TYPE));
 		assertEquals(null,    schemaName(BareI.TYPE));
 		assertEquals("coatF-srcF", schemaName(VeilI.veilF.srcF));
+		assertEquals(     "-srcF", schemaName(VeilI.emptF.srcF)); // TODO
 		assertEquals(null,         schemaName(VeilI.bareF.srcF));
 		assertEquals("coatF-srcF", schemaName(BareI.veilF.srcF));
+		assertEquals(     "-srcF", schemaName(BareI.emptF.srcF)); // TODO
 		assertEquals(null,         schemaName(BareI.bareF.srcF));
 		assertEquals("CoatI-coatF",      schemaName(VeilI.veilF.srcT    ()));
 		assertEquals("CoatI-coatF-tail", schemaName(VeilI.veilF.srcTtail()));
+		assertEquals("CoatI-",           schemaName(VeilI.emptF.srcT    ())); // TODO
+		assertEquals("CoatI--tail",      schemaName(VeilI.emptF.srcTtail())); // TODO
 		assertEquals("CoatI-bareF",      schemaName(VeilI.bareF.srcT    ()));
 		assertEquals("CoatI-bareF-tail", schemaName(VeilI.bareF.srcTtail()));
 		assertEquals("BareI-coatF",      schemaName(BareI.veilF.srcT    ()));
 		assertEquals("BareI-coatF-tail", schemaName(BareI.veilF.srcTtail()));
+		assertEquals("BareI-",           schemaName(BareI.emptF.srcT    ())); // TODO
+		assertEquals("BareI--tail",      schemaName(BareI.emptF.srcTtail())); // TODO
 		assertEquals(null, schemaName(BareI.bareF.srcT    ()));
 		assertEquals(null, schemaName(BareI.bareF.srcTtail()));
 		assertEquals(null, schemaName(VeilI.veilF.srcTField));
 		assertEquals(null, schemaName(VeilI.veilF.srcTtailField));
+		assertEquals(null, schemaName(VeilI.emptF.srcTField));
+		assertEquals(null, schemaName(VeilI.emptF.srcTtailField));
 	}
 	private static String schemaName(final Type<?> type)
 	{
@@ -91,27 +99,39 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertPrimaryKeySequenceName("CoatI_this_Seq", VeilI.TYPE);
 		assertPrimaryKeySequenceName("BareI_this_Seq", BareI.TYPE);
 		assertEquals("coatF_srcF", getColumnName(VeilI.veilF.srcF));
+		assertEquals(     "-srcF", getColumnName(VeilI.emptF.srcF)); // TODO
 		assertEquals("bareF_srcF", getColumnName(VeilI.bareF.srcF));
 		assertEquals("coatF_srcF", getColumnName(BareI.veilF.srcF));
+		assertEquals(     "-srcF", getColumnName(BareI.emptF.srcF)); // TODO
 		assertEquals("bareF_srcF", getColumnName(BareI.bareF.srcF));
 		assertEquals(filterTableName("CoatI_coatF"),      getTableName(VeilI.veilF.srcT    ()));
 		assertEquals(filterTableName("CoatI_coatF_tail"), getTableName(VeilI.veilF.srcTtail()));
+		assertEquals(filterTableName("CoatI_"),           getTableName(VeilI.emptF.srcT    ())); // TODO
+		assertEquals(filterTableName("CoatI__tail"),      getTableName(VeilI.emptF.srcTtail())); // TODO
 		assertEquals(filterTableName("CoatI_bareF"),      getTableName(VeilI.bareF.srcT    ()));
 		assertEquals(filterTableName("CoatI_bareF_tail"), getTableName(VeilI.bareF.srcTtail()));
 		assertEquals(filterTableName("BareI_coatF"),      getTableName(BareI.veilF.srcT    ()));
 		assertEquals(filterTableName("BareI_coatF_tail"), getTableName(BareI.veilF.srcTtail()));
+		assertEquals(filterTableName("BareI_"),           getTableName(BareI.emptF.srcT    ())); // TODO
+		assertEquals(filterTableName("BareI__tail"),      getTableName(BareI.emptF.srcTtail())); // TODO
 		assertEquals(filterTableName("BareI_bareF"),      getTableName(BareI.bareF.srcT    ()));
 		assertEquals(filterTableName("BareI_bareF_tail"), getTableName(BareI.bareF.srcTtail()));
 		assertPrimaryKeySequenceName("CoatI_coatF_this_Seq", VeilI.veilF.srcT());
 		assertPrimaryKeySequenceName("CoatI_coatF_tail_this_Seq", "CoatI_coatF_tail_thi_Seq6", VeilI.veilF.srcTtail());
+		assertPrimaryKeySequenceName("CoatI__this_Seq",      VeilI.emptF.srcT()); // TODO
+		assertPrimaryKeySequenceName("CoatI__tail_this_Seq",      "CoatI__tail_this_Seq6", VeilI.emptF.srcTtail()); // TODO
 		assertPrimaryKeySequenceName("CoatI_bareF_this_Seq", VeilI.bareF.srcT());
 		assertPrimaryKeySequenceName("CoatI_bareF_tail_this_Seq", "CoatI_bareF_tail_thi_Seq6", VeilI.bareF.srcTtail());
 		assertPrimaryKeySequenceName("BareI_coatF_this_Seq", BareI.veilF.srcT());
 		assertPrimaryKeySequenceName("BareI_coatF_tail_this_Seq", "BareI_coatF_tail_thi_Seq6", BareI.veilF.srcTtail());
+		assertPrimaryKeySequenceName("BareI__this_Seq",      BareI.emptF.srcT()); // TODO
+		assertPrimaryKeySequenceName("BareI__tail_this_Seq",      "BareI__tail_this_Seq6", BareI.emptF.srcTtail()); // TODO
 		assertPrimaryKeySequenceName("BareI_bareF_this_Seq", BareI.bareF.srcT());
 		assertPrimaryKeySequenceName("BareI_bareF_tail_this_Seq", "BareI_bareF_tail_thi_Seq6", BareI.bareF.srcTtail());
 		assertEquals("field", getColumnName(VeilI.veilF.srcTField));
 		assertEquals("field", getColumnName(VeilI.veilF.srcTtailField));
+		assertEquals("field", getColumnName(VeilI.emptF.srcTField));
+		assertEquals("field", getColumnName(VeilI.emptF.srcTtailField));
 	}
 
 	@CopeSchemaName("CoatI")
@@ -120,6 +140,9 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 	{
 		@CopeSchemaName("coatF")
 		static final RenamedSchemaPattern veilF = new RenamedSchemaPattern();
+
+		@CopeSchemaName("")
+		static final RenamedSchemaPattern emptF = new RenamedSchemaPattern();
 
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
 
@@ -138,6 +161,9 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 	{
 		@CopeSchemaName("coatF")
 		static final RenamedSchemaPattern veilF = new RenamedSchemaPattern();
+
+		@CopeSchemaName("")
+		static final RenamedSchemaPattern emptF = new RenamedSchemaPattern();
 
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
 
