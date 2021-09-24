@@ -50,7 +50,10 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals(null, PatternItem.pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
 		assertEquals(null, PatternItem.pattern.getSourceType().getAnnotation(TestAnnotation2.class));
 		assertEquals(null, PatternItem.pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
+	}
 
+	@Test void testSchemaAnnotations()
+	{
 		assertEquals("ZackItem", schemaName(PatternItem.TYPE));
 		assertEquals(null, schemaName(RawItem.TYPE));
 		assertEquals("zack-sourceFeature", schemaName(PatternItem.pattern.sourceFeature));
@@ -67,7 +70,10 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals(null, schemaName(RawItem.raw.getSourceTypePostfix()));
 		assertEquals(null, schemaName(PatternItem.pattern.sourceTypeField));
 		assertEquals(null, schemaName(PatternItem.pattern.sourceTypePostfixField));
+	}
 
+	@Test void testSchemaNames()
+	{
 		assertEquals(filterTableName("ZackItem"), getTableName(PatternItem.TYPE));
 		assertEquals(filterTableName("RawItem"), getTableName(RawItem.TYPE));
 		assertPrimaryKeySequenceName("ZackItem_this_Seq", PatternItem.TYPE);
