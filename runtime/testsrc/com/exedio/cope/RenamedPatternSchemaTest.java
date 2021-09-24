@@ -18,9 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.RenamedPatternSchemaItem.TYPE;
-import static com.exedio.cope.RenamedPatternSchemaItem.pattern;
-import static com.exedio.cope.RenamedPatternSchemaItem.raw;
 import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -31,7 +28,7 @@ import org.junit.jupiter.api.Test;
 
 public class RenamedPatternSchemaTest extends TestWithEnvironment
 {
-	private static final Model MODEL = new Model(TYPE, RawItem.TYPE);
+	private static final Model MODEL = new Model(PatternItem.TYPE, RawItem.TYPE);
 
 	public RenamedPatternSchemaTest()
 	{
@@ -40,63 +37,63 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 
 	@Test void testSchema()
 	{
-		assertEquals(true,  pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
-		assertEquals(true,  pattern.getSourceType().isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, pattern.getSourceType().isAnnotationPresent(TestAnnotation2.class));
-		assertEquals(true,  pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation.class));
-		assertEquals(false, pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  PatternItem.pattern.sourceFeature.isAnnotationPresent(TestAnnotation.class));
+		assertEquals(false, PatternItem.pattern.sourceFeature.isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  PatternItem.pattern.getSourceType().isAnnotationPresent(TestAnnotation.class));
+		assertEquals(false, PatternItem.pattern.getSourceType().isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  PatternItem.pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation.class));
+		assertEquals(false, PatternItem.pattern.getSourceTypePostfix().isAnnotationPresent(TestAnnotation2.class));
 
-		assertEquals("sourceFeature-TestAnnotation", pattern.sourceFeature.getAnnotation(TestAnnotation.class).value());
-		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceType().getAnnotation(TestAnnotation.class).value());
-		assertEquals("sourceType-TestAnnotation"   , pattern.getSourceTypePostfix().getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
-		assertEquals(null, pattern.getSourceType().getAnnotation(TestAnnotation2.class));
-		assertEquals(null, pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
+		assertEquals("sourceFeature-TestAnnotation", PatternItem.pattern.sourceFeature.getAnnotation(TestAnnotation.class).value());
+		assertEquals("sourceType-TestAnnotation"   , PatternItem.pattern.getSourceType().getAnnotation(TestAnnotation.class).value());
+		assertEquals("sourceType-TestAnnotation"   , PatternItem.pattern.getSourceTypePostfix().getAnnotation(TestAnnotation.class).value());
+		assertEquals(null, PatternItem.pattern.sourceFeature.getAnnotation(TestAnnotation2.class));
+		assertEquals(null, PatternItem.pattern.getSourceType().getAnnotation(TestAnnotation2.class));
+		assertEquals(null, PatternItem.pattern.getSourceTypePostfix().getAnnotation(TestAnnotation2.class));
 
-		assertEquals("ZackItem", schemaName(TYPE));
+		assertEquals("ZackItem", schemaName(PatternItem.TYPE));
 		assertEquals(null, schemaName(RawItem.TYPE));
-		assertEquals("zack-sourceFeature", schemaName(pattern.sourceFeature));
-		assertEquals(null, schemaName(raw.sourceFeature));
+		assertEquals("zack-sourceFeature", schemaName(PatternItem.pattern.sourceFeature));
+		assertEquals(null, schemaName(PatternItem.raw.sourceFeature));
 		assertEquals("zack-sourceFeature", schemaName(RawItem.pattern.sourceFeature));
 		assertEquals(null, schemaName(RawItem.raw.sourceFeature));
-		assertEquals("ZackItem-zack", schemaName(pattern.getSourceType()));
-		assertEquals("ZackItem-zack-tail", schemaName(pattern.getSourceTypePostfix()));
-		assertEquals("ZackItem-raw", schemaName(raw.getSourceType()));
-		assertEquals("ZackItem-raw-tail", schemaName(raw.getSourceTypePostfix()));
+		assertEquals("ZackItem-zack", schemaName(PatternItem.pattern.getSourceType()));
+		assertEquals("ZackItem-zack-tail", schemaName(PatternItem.pattern.getSourceTypePostfix()));
+		assertEquals("ZackItem-raw", schemaName(PatternItem.raw.getSourceType()));
+		assertEquals("ZackItem-raw-tail", schemaName(PatternItem.raw.getSourceTypePostfix()));
 		assertEquals("RawItem-zack", schemaName(RawItem.pattern.getSourceType()));
 		assertEquals("RawItem-zack-tail", schemaName(RawItem.pattern.getSourceTypePostfix()));
 		assertEquals(null, schemaName(RawItem.raw.getSourceType()));
 		assertEquals(null, schemaName(RawItem.raw.getSourceTypePostfix()));
-		assertEquals(null, schemaName(pattern.sourceTypeField));
-		assertEquals(null, schemaName(pattern.sourceTypePostfixField));
+		assertEquals(null, schemaName(PatternItem.pattern.sourceTypeField));
+		assertEquals(null, schemaName(PatternItem.pattern.sourceTypePostfixField));
 
-		assertEquals(filterTableName("ZackItem"), getTableName(TYPE));
+		assertEquals(filterTableName("ZackItem"), getTableName(PatternItem.TYPE));
 		assertEquals(filterTableName("RawItem"), getTableName(RawItem.TYPE));
-		assertPrimaryKeySequenceName("ZackItem_this_Seq", TYPE);
+		assertPrimaryKeySequenceName("ZackItem_this_Seq", PatternItem.TYPE);
 		assertPrimaryKeySequenceName("RawItem_this_Seq", RawItem.TYPE);
-		assertEquals("zack_sourceFeature", getColumnName(pattern.sourceFeature));
-		assertEquals("raw_sourceFeature", getColumnName(raw.sourceFeature));
+		assertEquals("zack_sourceFeature", getColumnName(PatternItem.pattern.sourceFeature));
+		assertEquals("raw_sourceFeature", getColumnName(PatternItem.raw.sourceFeature));
 		assertEquals("zack_sourceFeature", getColumnName(RawItem.pattern.sourceFeature));
 		assertEquals("raw_sourceFeature", getColumnName(RawItem.raw.sourceFeature));
-		assertEquals(filterTableName("ZackItem_zack"), getTableName(pattern.getSourceType()));
-		assertEquals(filterTableName("ZackItem_zack_tail"), getTableName(pattern.getSourceTypePostfix()));
-		assertEquals(filterTableName("ZackItem_raw"), getTableName(raw.getSourceType()));
-		assertEquals(filterTableName("ZackItem_raw_tail"), getTableName(raw.getSourceTypePostfix()));
+		assertEquals(filterTableName("ZackItem_zack"), getTableName(PatternItem.pattern.getSourceType()));
+		assertEquals(filterTableName("ZackItem_zack_tail"), getTableName(PatternItem.pattern.getSourceTypePostfix()));
+		assertEquals(filterTableName("ZackItem_raw"), getTableName(PatternItem.raw.getSourceType()));
+		assertEquals(filterTableName("ZackItem_raw_tail"), getTableName(PatternItem.raw.getSourceTypePostfix()));
 		assertEquals(filterTableName("RawItem_zack"), getTableName(RawItem.pattern.getSourceType()));
 		assertEquals(filterTableName("RawItem_zack_tail"), getTableName(RawItem.pattern.getSourceTypePostfix()));
 		assertEquals(filterTableName("RawItem_raw"), getTableName(RawItem.raw.getSourceType()));
 		assertEquals(filterTableName("RawItem_raw_tail"), getTableName(RawItem.raw.getSourceTypePostfix()));
-		assertPrimaryKeySequenceName("ZackItem_zack_this_Seq", pattern.getSourceType());
-		assertPrimaryKeySequenceName("ZackItem_zack_tai_thi_Seq", "ZackItem_zac_tai_thi_Seq6", pattern.getSourceTypePostfix());
-		assertPrimaryKeySequenceName("ZackItem_raw_this_Seq", raw.getSourceType());
-		assertPrimaryKeySequenceName("ZackItem_raw_tail_thi_Seq", "ZackItem_raw_tai_thi_Seq6", raw.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("ZackItem_zack_this_Seq", PatternItem.pattern.getSourceType());
+		assertPrimaryKeySequenceName("ZackItem_zack_tai_thi_Seq", "ZackItem_zac_tai_thi_Seq6", PatternItem.pattern.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("ZackItem_raw_this_Seq", PatternItem.raw.getSourceType());
+		assertPrimaryKeySequenceName("ZackItem_raw_tail_thi_Seq", "ZackItem_raw_tai_thi_Seq6", PatternItem.raw.getSourceTypePostfix());
 		assertPrimaryKeySequenceName("RawItem_zack_this_Seq", RawItem.pattern.getSourceType());
 		assertPrimaryKeySequenceName("RawItem_zack_tail_thi_Seq", "RawItem_zack_tai_thi_Seq6", RawItem.pattern.getSourceTypePostfix());
 		assertPrimaryKeySequenceName("RawItem_raw_this_Seq", RawItem.raw.getSourceType());
 		assertPrimaryKeySequenceName("RawItem_raw_tail_this_Seq", "RawItem_raw_tail_thi_Seq6", RawItem.raw.getSourceTypePostfix());
-		assertEquals("field", getColumnName(pattern.sourceTypeField));
-		assertEquals("field", getColumnName(pattern.sourceTypePostfixField));
+		assertEquals("field", getColumnName(PatternItem.pattern.sourceTypeField));
+		assertEquals("field", getColumnName(PatternItem.pattern.sourceTypePostfixField));
 	}
 
 	private static String schemaName(final Type<?> type)
@@ -111,6 +108,25 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		final CopeSchemaName ann = feature.getAnnotation(CopeSchemaName.class);
 		assertEquals(ann!=null, feature.isAnnotationPresent(CopeSchemaName.class));
 		return ann!=null ? ann.value() : null;
+	}
+
+	@CopeSchemaName("ZackItem")
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class PatternItem extends Item
+	{
+		@CopeSchemaName("zack")
+		static final RenamedSchemaPattern pattern = new RenamedSchemaPattern();
+
+		static final RenamedSchemaPattern raw = new RenamedSchemaPattern();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<PatternItem> TYPE = com.exedio.cope.TypesBound.newType(PatternItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private PatternItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
