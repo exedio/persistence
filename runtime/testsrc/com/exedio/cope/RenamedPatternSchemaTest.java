@@ -54,18 +54,18 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 
 	@Test void testSchemaAnnotations()
 	{
-		assertEquals("ZackItem", schemaName(VeilI.TYPE));
+		assertEquals("CoatI", schemaName(VeilI.TYPE));
 		assertEquals(null, schemaName(BareI.TYPE));
-		assertEquals("zack-sourceFeature", schemaName(VeilI.veilF.sourceFeature));
+		assertEquals("coatF-sourceFeature", schemaName(VeilI.veilF.sourceFeature));
 		assertEquals(null, schemaName(VeilI.bareF.sourceFeature));
-		assertEquals("zack-sourceFeature", schemaName(BareI.veilF.sourceFeature));
+		assertEquals("coatF-sourceFeature", schemaName(BareI.veilF.sourceFeature));
 		assertEquals(null, schemaName(BareI.bareF.sourceFeature));
-		assertEquals("ZackItem-zack", schemaName(VeilI.veilF.getSourceType()));
-		assertEquals("ZackItem-zack-tail", schemaName(VeilI.veilF.getSourceTypePostfix()));
-		assertEquals("ZackItem-bareF", schemaName(VeilI.bareF.getSourceType()));
-		assertEquals("ZackItem-bareF-tail", schemaName(VeilI.bareF.getSourceTypePostfix()));
-		assertEquals("BareI-zack", schemaName(BareI.veilF.getSourceType()));
-		assertEquals("BareI-zack-tail", schemaName(BareI.veilF.getSourceTypePostfix()));
+		assertEquals("CoatI-coatF", schemaName(VeilI.veilF.getSourceType()));
+		assertEquals("CoatI-coatF-tail", schemaName(VeilI.veilF.getSourceTypePostfix()));
+		assertEquals("CoatI-bareF", schemaName(VeilI.bareF.getSourceType()));
+		assertEquals("CoatI-bareF-tail", schemaName(VeilI.bareF.getSourceTypePostfix()));
+		assertEquals("BareI-coatF", schemaName(BareI.veilF.getSourceType()));
+		assertEquals("BareI-coatF-tail", schemaName(BareI.veilF.getSourceTypePostfix()));
 		assertEquals(null, schemaName(BareI.bareF.getSourceType()));
 		assertEquals(null, schemaName(BareI.bareF.getSourceTypePostfix()));
 		assertEquals(null, schemaName(VeilI.veilF.sourceTypeField));
@@ -86,39 +86,39 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 
 	@Test void testSchemaNames()
 	{
-		assertEquals(filterTableName("ZackItem"), getTableName(VeilI.TYPE));
+		assertEquals(filterTableName("CoatI"), getTableName(VeilI.TYPE));
 		assertEquals(filterTableName("BareI"), getTableName(BareI.TYPE));
-		assertPrimaryKeySequenceName("ZackItem_this_Seq", VeilI.TYPE);
+		assertPrimaryKeySequenceName("CoatI_this_Seq", VeilI.TYPE);
 		assertPrimaryKeySequenceName("BareI_this_Seq", BareI.TYPE);
-		assertEquals("zack_sourceFeature", getColumnName(VeilI.veilF.sourceFeature));
+		assertEquals("coatF_sourceFeature", getColumnName(VeilI.veilF.sourceFeature));
 		assertEquals("bareF_sourceFeature", getColumnName(VeilI.bareF.sourceFeature));
-		assertEquals("zack_sourceFeature", getColumnName(BareI.veilF.sourceFeature));
+		assertEquals("coatF_sourceFeature", getColumnName(BareI.veilF.sourceFeature));
 		assertEquals("bareF_sourceFeature", getColumnName(BareI.bareF.sourceFeature));
-		assertEquals(filterTableName("ZackItem_zack"), getTableName(VeilI.veilF.getSourceType()));
-		assertEquals(filterTableName("ZackItem_zack_tail"), getTableName(VeilI.veilF.getSourceTypePostfix()));
-		assertEquals(filterTableName("ZackItem_bareF"), getTableName(VeilI.bareF.getSourceType()));
-		assertEquals(filterTableName("ZackItem_bareF_tail"), getTableName(VeilI.bareF.getSourceTypePostfix()));
-		assertEquals(filterTableName("BareI_zack"), getTableName(BareI.veilF.getSourceType()));
-		assertEquals(filterTableName("BareI_zack_tail"), getTableName(BareI.veilF.getSourceTypePostfix()));
+		assertEquals(filterTableName("CoatI_coatF"), getTableName(VeilI.veilF.getSourceType()));
+		assertEquals(filterTableName("CoatI_coatF_tail"), getTableName(VeilI.veilF.getSourceTypePostfix()));
+		assertEquals(filterTableName("CoatI_bareF"), getTableName(VeilI.bareF.getSourceType()));
+		assertEquals(filterTableName("CoatI_bareF_tail"), getTableName(VeilI.bareF.getSourceTypePostfix()));
+		assertEquals(filterTableName("BareI_coatF"), getTableName(BareI.veilF.getSourceType()));
+		assertEquals(filterTableName("BareI_coatF_tail"), getTableName(BareI.veilF.getSourceTypePostfix()));
 		assertEquals(filterTableName("BareI_bareF"), getTableName(BareI.bareF.getSourceType()));
 		assertEquals(filterTableName("BareI_bareF_tail"), getTableName(BareI.bareF.getSourceTypePostfix()));
-		assertPrimaryKeySequenceName("ZackItem_zack_this_Seq", VeilI.veilF.getSourceType());
-		assertPrimaryKeySequenceName("ZackItem_zack_tai_thi_Seq", "ZackItem_zac_tai_thi_Seq6", VeilI.veilF.getSourceTypePostfix());
-		assertPrimaryKeySequenceName("ZackItem_bareF_this_Seq", VeilI.bareF.getSourceType());
-		assertPrimaryKeySequenceName("ZackItem_barF_tai_thi_Seq", "ZackItem_barF_tai_th_Seq6", VeilI.bareF.getSourceTypePostfix());
-		assertPrimaryKeySequenceName("BareI_zack_this_Seq", BareI.veilF.getSourceType());
-		assertPrimaryKeySequenceName("BareI_zack_tail_this_Seq", "BareI_zack_tail_this_Seq6", BareI.veilF.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("CoatI_coatF_this_Seq", VeilI.veilF.getSourceType());
+		assertPrimaryKeySequenceName("CoatI_coatF_tail_this_Seq", "CoatI_coatF_tail_thi_Seq6", VeilI.veilF.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("CoatI_bareF_this_Seq", VeilI.bareF.getSourceType());
+		assertPrimaryKeySequenceName("CoatI_bareF_tail_this_Seq", "CoatI_bareF_tail_thi_Seq6", VeilI.bareF.getSourceTypePostfix());
+		assertPrimaryKeySequenceName("BareI_coatF_this_Seq", BareI.veilF.getSourceType());
+		assertPrimaryKeySequenceName("BareI_coatF_tail_this_Seq", "BareI_coatF_tail_thi_Seq6", BareI.veilF.getSourceTypePostfix());
 		assertPrimaryKeySequenceName("BareI_bareF_this_Seq", BareI.bareF.getSourceType());
 		assertPrimaryKeySequenceName("BareI_bareF_tail_this_Seq", "BareI_bareF_tail_thi_Seq6", BareI.bareF.getSourceTypePostfix());
 		assertEquals("field", getColumnName(VeilI.veilF.sourceTypeField));
 		assertEquals("field", getColumnName(VeilI.veilF.sourceTypePostfixField));
 	}
 
-	@CopeSchemaName("ZackItem")
+	@CopeSchemaName("CoatI")
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class VeilI extends Item
 	{
-		@CopeSchemaName("zack")
+		@CopeSchemaName("coatF")
 		static final RenamedSchemaPattern veilF = new RenamedSchemaPattern();
 
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
@@ -136,7 +136,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class BareI extends Item
 	{
-		@CopeSchemaName("zack")
+		@CopeSchemaName("coatF")
 		static final RenamedSchemaPattern veilF = new RenamedSchemaPattern();
 
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
