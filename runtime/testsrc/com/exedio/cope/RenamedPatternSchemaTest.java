@@ -71,6 +71,18 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals(null, schemaName(PatternItem.pattern.sourceTypeField));
 		assertEquals(null, schemaName(PatternItem.pattern.sourceTypePostfixField));
 	}
+	private static String schemaName(final Type<?> type)
+	{
+		final CopeSchemaName ann = type.getAnnotation(CopeSchemaName.class);
+		assertEquals(ann!=null, type.isAnnotationPresent(CopeSchemaName.class));
+		return ann!=null ? ann.value() : null;
+	}
+	private static String schemaName(final Field<?> feature)
+	{
+		final CopeSchemaName ann = feature.getAnnotation(CopeSchemaName.class);
+		assertEquals(ann!=null, feature.isAnnotationPresent(CopeSchemaName.class));
+		return ann!=null ? ann.value() : null;
+	}
 
 	@Test void testSchemaNames()
 	{
@@ -100,20 +112,6 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertPrimaryKeySequenceName("RawItem_raw_tail_this_Seq", "RawItem_raw_tail_thi_Seq6", RawItem.raw.getSourceTypePostfix());
 		assertEquals("field", getColumnName(PatternItem.pattern.sourceTypeField));
 		assertEquals("field", getColumnName(PatternItem.pattern.sourceTypePostfixField));
-	}
-
-	private static String schemaName(final Type<?> type)
-	{
-		final CopeSchemaName ann = type.getAnnotation(CopeSchemaName.class);
-		assertEquals(ann!=null, type.isAnnotationPresent(CopeSchemaName.class));
-		return ann!=null ? ann.value() : null;
-	}
-
-	private static String schemaName(final Field<?> feature)
-	{
-		final CopeSchemaName ann = feature.getAnnotation(CopeSchemaName.class);
-		assertEquals(ann!=null, feature.isAnnotationPresent(CopeSchemaName.class));
-		return ann!=null ? ann.value() : null;
 	}
 
 	@CopeSchemaName("ZackItem")
