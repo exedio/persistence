@@ -740,8 +740,7 @@ public abstract class MediaPath extends Pattern
 					throw notFoundIsNullEarly();
 			}
 
-			if(servlet.isAccessControlAllowOriginWildcard(locator))
-				response.setHeader("Access-Control-Allow-Origin", "*");
+			servlet.filterResponse(locator, new MediaResponse(response));
 
 			doGetAndCommitWithCache(servlet, request, response, locator);
 

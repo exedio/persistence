@@ -22,6 +22,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.ConnectProperties;
@@ -32,6 +33,7 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.pattern.MediaPath.Locator;
 import com.exedio.cope.tojunit.TestSources;
 import java.time.Duration;
+import java.util.ArrayList;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 
@@ -110,6 +112,35 @@ public class MediaServletDefaultTest
 
 		@com.exedio.cope.instrument.Generated
 		private CacheControlPrivateItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+
+	@Test void testAddHeaders()
+	{
+		servlet.filterResponse(null, null);
+	}
+	@Test void testAddHeadersAccessControlAllowOriginWildcard()
+	{
+		final MediaServlet servlet = new AccessControlAllowOriginWildcardMediaServlet();
+		final ArrayList<String> headers = new ArrayList<>();
+		servlet.filterResponse(null, new MediaResponse(new AssertionFailedHttpServletResponse()
+		{
+			@Override public void addHeader(final String name, final String value)
+			{
+				headers.add(name);
+				headers.add(value);
+			}
+		}));
+		assertEquals(asList("Access-Control-Allow-Origin", "*"), headers);
+	}
+	private static final class AccessControlAllowOriginWildcardMediaServlet extends MediaServlet
+	{
+		@Override
+		protected boolean isAccessControlAllowOriginWildcard(final Locator locator)
+		{
+			return true;
+		}
+		private static final long serialVersionUID = 1l;
 	}
 
 

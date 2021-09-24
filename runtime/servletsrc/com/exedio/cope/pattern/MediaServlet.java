@@ -279,11 +279,29 @@ public class MediaServlet extends HttpServlet
 	}
 
 	/**
+	 * The default implementation implements the functionality of
+	 * {@link #isAccessControlAllowOriginWildcard(Locator)}.
+	 * @param locator the locator of the current request
+	 */
+	protected void filterResponse(
+			final Locator locator,
+			final MediaResponse response)
+	{
+		if(isAccessControlAllowOriginWildcard(locator))
+			response.addHeader("Access-Control-Allow-Origin", "*");
+	}
+
+	/**
 	 * Let this method return true, if you want to add a header
 	 * {@code Access-Control-Allow-Origin: *}
 	 * to the response.
 	 * This is typically needed for fonts served from a different domain.
 	 * The default implementation returns false.
+	 * <p>
+	 * <b>Note:</b>
+	 * This works only, if the default implementation of
+	 * {@link #filterResponse(Locator, MediaResponse)} is executed for
+	 * this request.
 	 * @param locator the locator of the current request
 	 */
 	protected boolean isAccessControlAllowOriginWildcard(

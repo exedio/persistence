@@ -21,6 +21,8 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.pattern.MediaPath.getNoSuchPath;
 import static com.exedio.cope.pattern.MediaPath.getNoSuchPathLogs;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
+import static java.util.Arrays.asList;
+import static java.util.Collections.emptyList;
 import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static org.junit.jupiter.api.Assertions.assertAll;
@@ -38,7 +40,9 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.Iterator;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
@@ -468,6 +472,28 @@ public final class MediaPathTest extends TestWithEnvironment
 		service(new Request(ok)).assertOkAndCacheControl("private");
 	}
 
+	@Test void testHeaders() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		service(new Request(ok)).assertOk();
+
+		item.setHeaders(asList("One", "OneValue"));
+		service(new Request(ok)).assertOkAndHeaders("One", "OneValue");
+	}
+
+	@Test void testHeadersMultiple() throws ServletException, IOException
+	{
+		item.setNormalContentType("image/jpeg");
+		final String ok = "/MediaPathItem/normal/" + id + ".jpg";
+		assertEquals(ok, "/" + item.getNormalLocator().getPath());
+		service(new Request(ok)).assertOk();
+
+		item.setHeaders(asList("One", "OneValueA", "One", "OneValueB", "Two", "TwoValue"));
+		service(new Request(ok)).assertOkAndHeaders("One", "OneValueA", "One", "OneValueB", "Two", "TwoValue");
+	}
+
 	@Test void testAccessControlAllowOriginWildcard() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
@@ -476,7 +502,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		service(new Request(ok)).assertOk();
 
 		item.setAccessControlAllowOriginWildcard(true);
-		service(new Request(ok)).assertOkAndAccessControlAllowOrigin("*");
+		service(new Request(ok)).assertOkAndHeaders("Access-Control-Allow-Origin", "*");
 	}
 
 	// TODO testInfo with others
@@ -726,7 +752,7 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		private String location;
 		private String cacheControl;
-		private String accessControlAllowOrigin;
+		private final ArrayList<String> headers = new ArrayList<>();
 
 		@Override
 		public void setHeader(final String name, final String value)
@@ -745,15 +771,19 @@ public final class MediaPathTest extends TestWithEnvironment
 				assertNull(out);
 				this.cacheControl = value;
 			}
-			else if("Access-Control-Allow-Origin".equals(name))
-			{
-				assertNotNull(value);
-				assertEquals(null, this.accessControlAllowOrigin);
-				assertNull(out);
-				this.accessControlAllowOrigin = value;
-			}
 			else
 				super.setHeader(name, value);
+		}
+
+		@Override
+		public void addHeader(final String name, final String value)
+		{
+			assertNotNull(name);
+			assertNotNull(value);
+			assertNull(out);
+
+			headers.add(name);
+			headers.add(value);
 		}
 
 
@@ -887,7 +917,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals(null,              this.cacheControl,             "cacheControl"),
-					() -> assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin"),
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
 					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
 		}
 
@@ -902,7 +932,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals("max-age=456",     this.cacheControl,             "cacheControl"),
-					() -> assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin"),
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
 					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
 		}
 
@@ -917,7 +947,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals(null,              this.outString(),              "content"),
 					() -> assertEquals(Integer.MIN_VALUE, this.contentLength,            "contentLength"),
 					() -> assertEquals("max-age=456",     this.cacheControl,             "cacheControl"),
-					() -> assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin"),
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
 					() -> assertEquals(1,                 this.flushBufferCount,         "flushBuffer"));
 		}
 
@@ -931,11 +961,11 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals(value,             this.cacheControl,             "cacheControl"),
-					() -> assertEquals(null,              this.accessControlAllowOrigin, "accessControlAllowOrigin"),
+					() -> assertEquals(emptyList(),       this.headers,                  "headers"),
 					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
 		}
 
-		void assertOkAndAccessControlAllowOrigin(final String value)
+		void assertOkAndHeaders(final String... headers)
 		{
 			assertAll(
 					() -> assertEquals(null,              this.location,                 "location"),
@@ -946,7 +976,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals("responseBody",    this.outString(),              "content"),
 					() -> assertEquals(10011,             this.contentLength,            "contentLength"),
 					() -> assertEquals(null,              this.cacheControl,             "cacheControl"),
-					() -> assertEquals(value,             this.accessControlAllowOrigin, "accessControlAllowOrigin"),
+					() -> assertEquals(asList(headers),   this.headers,                  "headers"),
 					() -> assertEquals(0,                 this.flushBufferCount,         "flushBuffer"));
 		}
 
@@ -965,7 +995,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals(content,          this.outString(),              "content"),
 					() -> assertEquals(content.length(), this.contentLength,            "contentLength"),
 					() -> assertEquals(null,             this.cacheControl,             "cacheControl"),
-					() -> assertEquals(null,             this.accessControlAllowOrigin, "accessControlAllowOrigin"),
+					() -> assertEquals(emptyList(),      this.headers,                  "headers"),
 					() -> assertEquals(0,                this.flushBufferCount,         "flushBuffer"));
 		}
 
@@ -980,7 +1010,7 @@ public final class MediaPathTest extends TestWithEnvironment
 					() -> assertEquals(null,                 this.outString(),              "content"),
 					() -> assertEquals(Integer.MIN_VALUE,    this.contentLength,            "contentLength"),
 					() -> assertEquals(null,                 this.cacheControl,             "cacheControl"),
-					() -> assertEquals(null,                 this.accessControlAllowOrigin, "accessControlAllowOrigin"),
+					() -> assertEquals(emptyList(),          this.headers,                  "headers"),
 					() -> assertEquals(0,                    this.flushBufferCount,         "flushBuffer"));
 		}
 
@@ -1016,6 +1046,21 @@ public final class MediaPathTest extends TestWithEnvironment
 			return
 					assertConfigMethod(locator).
 							getCacheControlPrivate();
+		}
+
+		@Override
+		protected void filterResponse(
+				final MediaPath.Locator locator,
+				final MediaResponse response)
+		{
+			super.filterResponse(locator, response);
+
+			for(final Iterator<String> i =
+				 assertConfigMethod(locator).getHeaders().iterator();
+				 i.hasNext(); )
+			{
+				response.addHeader(i.next(), i.next());
+			}
 		}
 
 		@Override

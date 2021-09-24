@@ -49,6 +49,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 
 	static final BooleanField cacheControlPrivate = new BooleanField().defaultTo(false);
 
+	static final ListField<String> headers = ListField.create(new StringField());
+
 	static final BooleanField accessControlAllowOriginWildcard = new BooleanField().defaultTo(false);
 
 
@@ -162,6 +164,89 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	void setCacheControlPrivate(final boolean cacheControlPrivate)
 	{
 		MediaPathItem.cacheControlPrivate.set(this,cacheControlPrivate);
+	}
+
+	/**
+	 * Returns the value of {@link #headers}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	java.util.List<String> getHeaders()
+	{
+		return MediaPathItem.headers.get(this);
+	}
+
+	/**
+	 * Returns a query for the value of {@link #headers}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getQuery")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	com.exedio.cope.Query<String> getHeadersQuery()
+	{
+		return MediaPathItem.headers.getQuery(this);
+	}
+
+	/**
+	 * Returns the items, for which field list {@link #headers} contains the given element.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getDistinctParentsOf")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static java.util.List<MediaPathItem> getDistinctParentsOfHeaders(final String element)
+	{
+		return MediaPathItem.headers.getDistinctParents(MediaPathItem.class,element);
+	}
+
+	/**
+	 * Adds a new value for {@link #headers}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="addTo")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void addToHeaders(@javax.annotation.Nonnull final String headers)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.StringLengthViolationException,
+				java.lang.ClassCastException
+	{
+		MediaPathItem.headers.add(this,headers);
+	}
+
+	/**
+	 * Removes all occurrences of {@code element} from {@link #headers}.
+	 * @return {@code true} if the field set changed as a result of the call.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="removeAllFrom")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	boolean removeAllFromHeaders(@javax.annotation.Nonnull final String headers)
+	{
+		return MediaPathItem.headers.removeAll(this,headers);
+	}
+
+	/**
+	 * Sets a new value for {@link #headers}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setHeaders(@javax.annotation.Nonnull final java.util.Collection<? extends String> headers)
+			throws
+				com.exedio.cope.MandatoryViolationException,
+				com.exedio.cope.StringLengthViolationException,
+				java.lang.ClassCastException
+	{
+		MediaPathItem.headers.set(this,headers);
+	}
+
+	/**
+	 * Returns the parent field of the type of {@link #headers}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="Parent")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	static com.exedio.cope.ItemField<MediaPathItem> headersParent()
+	{
+		return MediaPathItem.headers.getParent(MediaPathItem.class);
 	}
 
 	/**
