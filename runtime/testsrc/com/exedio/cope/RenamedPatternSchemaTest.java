@@ -63,16 +63,16 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals("coatF-coatSF", schemaName(VeilI.veilF.veilSF));
 		assertEquals("coatF",        schemaName(VeilI.veilF.emptSF));
 		assertEquals("coatF-bareSF", schemaName(VeilI.veilF.bareSF));
-		assertEquals(     "-coatSF", schemaName(VeilI.emptF.veilSF)); // TODO
-		assertEquals(     "-bareSF", schemaName(VeilI.emptF.bareSF)); // TODO
+		assertEquals(      "coatSF", schemaName(VeilI.emptF.veilSF));
+		assertEquals(      "bareSF", schemaName(VeilI.emptF.bareSF));
 		assertEquals("bareF-coatSF", schemaName(VeilI.bareF.veilSF));
 		assertEquals("bareF",        schemaName(VeilI.bareF.emptSF));
 		assertEquals(null,           schemaName(VeilI.bareF.bareSF));
 		assertEquals("coatF-coatSF", schemaName(BareI.veilF.veilSF));
 		assertEquals("coatF",        schemaName(BareI.veilF.emptSF));
 		assertEquals("coatF-bareSF", schemaName(BareI.veilF.bareSF));
-		assertEquals(     "-coatSF", schemaName(BareI.emptF.veilSF)); // TODO
-		assertEquals(     "-bareSF", schemaName(BareI.emptF.bareSF)); // TODO
+		assertEquals(      "coatSF", schemaName(BareI.emptF.veilSF));
+		assertEquals(      "bareSF", schemaName(BareI.emptF.bareSF));
 		assertEquals("bareF-coatSF", schemaName(BareI.bareF.veilSF));
 		assertEquals("bareF",        schemaName(BareI.bareF.emptSF));
 		assertEquals(null,           schemaName(BareI.bareF.bareSF));
@@ -118,16 +118,16 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals("coatF_coatSF", getColumnName(VeilI.veilF.veilSF));
 		assertEquals("coatF",        getColumnName(VeilI.veilF.emptSF));
 		assertEquals("coatF_bareSF", getColumnName(VeilI.veilF.bareSF));
-		assertEquals(     "-coatSF", getColumnName(VeilI.emptF.veilSF)); // TODO
-		assertEquals(     "-bareSF", getColumnName(VeilI.emptF.bareSF)); // TODO
+		assertEquals(      "coatSF", getColumnName(VeilI.emptF.veilSF));
+		assertEquals(      "bareSF", getColumnName(VeilI.emptF.bareSF));
 		assertEquals("bareF_coatSF", getColumnName(VeilI.bareF.veilSF));
 		assertEquals("bareF",        getColumnName(VeilI.bareF.emptSF));
 		assertEquals("bareF_bareSF", getColumnName(VeilI.bareF.bareSF));
 		assertEquals("coatF_coatSF", getColumnName(BareI.veilF.veilSF));
 		assertEquals("coatF",        getColumnName(BareI.veilF.emptSF));
 		assertEquals("coatF_bareSF", getColumnName(BareI.veilF.bareSF));
-		assertEquals(     "-coatSF", getColumnName(BareI.emptF.veilSF)); // TODO
-		assertEquals(     "-bareSF", getColumnName(BareI.emptF.bareSF)); // TODO
+		assertEquals(      "coatSF", getColumnName(BareI.emptF.veilSF));
+		assertEquals(      "bareSF", getColumnName(BareI.emptF.bareSF));
 		assertEquals("bareF_coatSF", getColumnName(BareI.bareF.veilSF));
 		assertEquals("bareF",        getColumnName(BareI.bareF.emptSF));
 		assertEquals("bareF_bareSF", getColumnName(BareI.bareF.bareSF));
