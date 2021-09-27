@@ -22,6 +22,7 @@ import static com.exedio.cope.SchemaInfo.getColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
@@ -54,13 +55,26 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 
 	@Test void testSchemaAnnotations()
 	{
+		assertNull(VeilI.emptF.emptSF);
+		assertNull(BareI.emptF.emptSF);
+
 		assertEquals("CoatI", schemaName(VeilI.TYPE));
 		assertEquals(null,    schemaName(BareI.TYPE));
+		assertEquals("coatF-coatSF", schemaName(VeilI.veilF.veilSF));
+		assertEquals("coatF",        schemaName(VeilI.veilF.emptSF));
 		assertEquals("coatF-bareSF", schemaName(VeilI.veilF.bareSF));
+		assertEquals(     "-coatSF", schemaName(VeilI.emptF.veilSF)); // TODO
 		assertEquals(     "-bareSF", schemaName(VeilI.emptF.bareSF)); // TODO
+		assertEquals("bareF-coatSF", schemaName(VeilI.bareF.veilSF));
+		assertEquals("bareF",        schemaName(VeilI.bareF.emptSF));
 		assertEquals(null,           schemaName(VeilI.bareF.bareSF));
+		assertEquals("coatF-coatSF", schemaName(BareI.veilF.veilSF));
+		assertEquals("coatF",        schemaName(BareI.veilF.emptSF));
 		assertEquals("coatF-bareSF", schemaName(BareI.veilF.bareSF));
+		assertEquals(     "-coatSF", schemaName(BareI.emptF.veilSF)); // TODO
 		assertEquals(     "-bareSF", schemaName(BareI.emptF.bareSF)); // TODO
+		assertEquals("bareF-coatSF", schemaName(BareI.bareF.veilSF));
+		assertEquals("bareF",        schemaName(BareI.bareF.emptSF));
 		assertEquals(null,           schemaName(BareI.bareF.bareSF));
 		assertEquals("CoatI-coatF",      schemaName(VeilI.veilF.srcT    ()));
 		assertEquals("CoatI-coatF-tail", schemaName(VeilI.veilF.srcTtail()));
@@ -94,15 +108,28 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 
 	@Test void testSchemaNames()
 	{
+		assertNull(VeilI.emptF.emptSF);
+		assertNull(BareI.emptF.emptSF);
+
 		assertEquals(filterTableName("CoatI"), getTableName(VeilI.TYPE));
 		assertEquals(filterTableName("BareI"), getTableName(BareI.TYPE));
 		assertPrimaryKeySequenceName("CoatI_this_Seq", VeilI.TYPE);
 		assertPrimaryKeySequenceName("BareI_this_Seq", BareI.TYPE);
+		assertEquals("coatF_coatSF", getColumnName(VeilI.veilF.veilSF));
+		assertEquals("coatF",        getColumnName(VeilI.veilF.emptSF));
 		assertEquals("coatF_bareSF", getColumnName(VeilI.veilF.bareSF));
+		assertEquals(     "-coatSF", getColumnName(VeilI.emptF.veilSF)); // TODO
 		assertEquals(     "-bareSF", getColumnName(VeilI.emptF.bareSF)); // TODO
+		assertEquals("bareF_coatSF", getColumnName(VeilI.bareF.veilSF));
+		assertEquals("bareF",        getColumnName(VeilI.bareF.emptSF));
 		assertEquals("bareF_bareSF", getColumnName(VeilI.bareF.bareSF));
+		assertEquals("coatF_coatSF", getColumnName(BareI.veilF.veilSF));
+		assertEquals("coatF",        getColumnName(BareI.veilF.emptSF));
 		assertEquals("coatF_bareSF", getColumnName(BareI.veilF.bareSF));
+		assertEquals(     "-coatSF", getColumnName(BareI.emptF.veilSF)); // TODO
 		assertEquals(     "-bareSF", getColumnName(BareI.emptF.bareSF)); // TODO
+		assertEquals("bareF_coatSF", getColumnName(BareI.bareF.veilSF));
+		assertEquals("bareF",        getColumnName(BareI.bareF.emptSF));
 		assertEquals("bareF_bareSF", getColumnName(BareI.bareF.bareSF));
 		assertEquals(filterTableName("CoatI_coatF"),      getTableName(VeilI.veilF.srcT    ()));
 		assertEquals(filterTableName("CoatI_coatF_tail"), getTableName(VeilI.veilF.srcTtail()));
@@ -142,7 +169,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		static final RenamedSchemaPattern veilF = new RenamedSchemaPattern();
 
 		@CopeSchemaName("")
-		static final RenamedSchemaPattern emptF = new RenamedSchemaPattern();
+		static final RenamedSchemaPattern emptF = new RenamedSchemaPattern(false);
 
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
 
@@ -163,7 +190,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		static final RenamedSchemaPattern veilF = new RenamedSchemaPattern();
 
 		@CopeSchemaName("")
-		static final RenamedSchemaPattern emptF = new RenamedSchemaPattern();
+		static final RenamedSchemaPattern emptF = new RenamedSchemaPattern(false);
 
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
 
