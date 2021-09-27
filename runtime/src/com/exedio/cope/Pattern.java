@@ -161,10 +161,18 @@ public abstract class Pattern extends Feature
 				{
 					final String v = sourceAnn.value();
 					if(!v.isEmpty())
-						bf.append('-').append(v);
+					{
+						if(bf.length()>0)
+							bf.append('-');
+						bf.append(v);
+					}
 				}
 				else
-					bf.append('-').append(postfix);
+				{
+					if(bf.length()>0)
+						bf.append('-');
+					bf.append(postfix);
+				}
 
 				return annotationClass.cast(CopeSchemaNameElement.get(bf.toString()));
 			}
