@@ -28,7 +28,7 @@ class RenamedSchemaPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
-	final IntegerField srcF;
+	final IntegerField bareSF;
 
 	final StringField srcTField = new StringField();
 	private Type<?> srcT = null;
@@ -38,8 +38,8 @@ class RenamedSchemaPattern extends Pattern
 
 	RenamedSchemaPattern()
 	{
-		this.srcF = addSourceFeature(
-				new IntegerField(), "srcF", new AnnotationSource("srcF"));
+		this.bareSF = addSourceFeature(
+				new IntegerField(), "bareSF", new AnnotationSource("bareSF"));
 	}
 
 	private static final class AnnotationSource implements AnnotatedElement
