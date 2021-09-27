@@ -37,17 +37,17 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 
 	@Test void testSchema()
 	{
-		assertEquals(true,  VeilI.veilF.srcF.isAnnotationPresent(TestAnnotation .class));
-		assertEquals(false, VeilI.veilF.srcF.isAnnotationPresent(TestAnnotation2.class));
+		assertEquals(true,  VeilI.veilF.bareSF.isAnnotationPresent(TestAnnotation .class));
+		assertEquals(false, VeilI.veilF.bareSF.isAnnotationPresent(TestAnnotation2.class));
 		assertEquals(true,  VeilI.veilF.srcT    ().isAnnotationPresent(TestAnnotation .class));
 		assertEquals(false, VeilI.veilF.srcT    ().isAnnotationPresent(TestAnnotation2.class));
 		assertEquals(true,  VeilI.veilF.srcTtail().isAnnotationPresent(TestAnnotation .class));
 		assertEquals(false, VeilI.veilF.srcTtail().isAnnotationPresent(TestAnnotation2.class));
 
-		assertEquals("srcF-TestAnnotation", VeilI.veilF.srcF.getAnnotation(TestAnnotation.class).value());
+		assertEquals("bareSF-TestAnnotation", VeilI.veilF.bareSF.getAnnotation(TestAnnotation.class).value());
 		assertEquals("srcT-TestAnnotation", VeilI.veilF.srcT    ().getAnnotation(TestAnnotation.class).value());
 		assertEquals("srcT-TestAnnotation", VeilI.veilF.srcTtail().getAnnotation(TestAnnotation.class).value());
-		assertEquals(null, VeilI.veilF.srcF.getAnnotation(TestAnnotation2.class));
+		assertEquals(null, VeilI.veilF.bareSF.getAnnotation(TestAnnotation2.class));
 		assertEquals(null, VeilI.veilF.srcT    ().getAnnotation(TestAnnotation2.class));
 		assertEquals(null, VeilI.veilF.srcTtail().getAnnotation(TestAnnotation2.class));
 	}
@@ -56,12 +56,12 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 	{
 		assertEquals("CoatI", schemaName(VeilI.TYPE));
 		assertEquals(null,    schemaName(BareI.TYPE));
-		assertEquals("coatF-srcF", schemaName(VeilI.veilF.srcF));
-		assertEquals(     "-srcF", schemaName(VeilI.emptF.srcF)); // TODO
-		assertEquals(null,         schemaName(VeilI.bareF.srcF));
-		assertEquals("coatF-srcF", schemaName(BareI.veilF.srcF));
-		assertEquals(     "-srcF", schemaName(BareI.emptF.srcF)); // TODO
-		assertEquals(null,         schemaName(BareI.bareF.srcF));
+		assertEquals("coatF-bareSF", schemaName(VeilI.veilF.bareSF));
+		assertEquals(     "-bareSF", schemaName(VeilI.emptF.bareSF)); // TODO
+		assertEquals(null,           schemaName(VeilI.bareF.bareSF));
+		assertEquals("coatF-bareSF", schemaName(BareI.veilF.bareSF));
+		assertEquals(     "-bareSF", schemaName(BareI.emptF.bareSF)); // TODO
+		assertEquals(null,           schemaName(BareI.bareF.bareSF));
 		assertEquals("CoatI-coatF",      schemaName(VeilI.veilF.srcT    ()));
 		assertEquals("CoatI-coatF-tail", schemaName(VeilI.veilF.srcTtail()));
 		assertEquals("CoatI-",           schemaName(VeilI.emptF.srcT    ())); // TODO
@@ -98,12 +98,12 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		assertEquals(filterTableName("BareI"), getTableName(BareI.TYPE));
 		assertPrimaryKeySequenceName("CoatI_this_Seq", VeilI.TYPE);
 		assertPrimaryKeySequenceName("BareI_this_Seq", BareI.TYPE);
-		assertEquals("coatF_srcF", getColumnName(VeilI.veilF.srcF));
-		assertEquals(     "-srcF", getColumnName(VeilI.emptF.srcF)); // TODO
-		assertEquals("bareF_srcF", getColumnName(VeilI.bareF.srcF));
-		assertEquals("coatF_srcF", getColumnName(BareI.veilF.srcF));
-		assertEquals(     "-srcF", getColumnName(BareI.emptF.srcF)); // TODO
-		assertEquals("bareF_srcF", getColumnName(BareI.bareF.srcF));
+		assertEquals("coatF_bareSF", getColumnName(VeilI.veilF.bareSF));
+		assertEquals(     "-bareSF", getColumnName(VeilI.emptF.bareSF)); // TODO
+		assertEquals("bareF_bareSF", getColumnName(VeilI.bareF.bareSF));
+		assertEquals("coatF_bareSF", getColumnName(BareI.veilF.bareSF));
+		assertEquals(     "-bareSF", getColumnName(BareI.emptF.bareSF)); // TODO
+		assertEquals("bareF_bareSF", getColumnName(BareI.bareF.bareSF));
 		assertEquals(filterTableName("CoatI_coatF"),      getTableName(VeilI.veilF.srcT    ()));
 		assertEquals(filterTableName("CoatI_coatF_tail"), getTableName(VeilI.veilF.srcTtail()));
 		assertEquals(filterTableName("CoatI_"),           getTableName(VeilI.emptF.srcT    ())); // TODO
