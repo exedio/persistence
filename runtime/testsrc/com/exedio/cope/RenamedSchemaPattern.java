@@ -21,13 +21,18 @@ package com.exedio.cope;
 import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.instrument.WrapperType;
+import com.exedio.cope.misc.Arrays;
+import com.exedio.cope.misc.CopeSchemaNameElement;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.util.HashMap;
 
 class RenamedSchemaPattern extends Pattern
 {
 	private static final long serialVersionUID = 1l;
 
+	final IntegerField veilSF;
+	final IntegerField emptSF;
 	final IntegerField bareSF;
 
 	final StringField srcTField = new StringField();
@@ -38,6 +43,18 @@ class RenamedSchemaPattern extends Pattern
 
 	RenamedSchemaPattern()
 	{
+		this(true);
+	}
+
+	RenamedSchemaPattern(
+			// prevents java.lang.IllegalArgumentException: longString must not be empty
+			// at com.exedio.cope.Trimmer.trimString
+			final boolean addSourceFeatureWithEmptySchemaName)
+	{
+		this.veilSF = addSourceFeature(
+				new IntegerField(), "veilSF", CustomAnnotatedElement.create(CopeSchemaNameElement.get("coatSF")));
+		this.emptSF = addSourceFeatureWithEmptySchemaName ? addSourceFeature(
+				new IntegerField(), "emptSF", CustomAnnotatedElement.create(CopeSchemaNameElement.getEmpty())) : null;
 		this.bareSF = addSourceFeature(
 				new IntegerField(), "bareSF", new AnnotationSource("bareSF"));
 	}
@@ -137,5 +154,75 @@ class RenamedSchemaPattern extends Pattern
 
 		@com.exedio.cope.instrument.Generated
 		private SourceType(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+
+	static final class CustomAnnotatedElement
+	{
+		static AnnotatedElement create(final Annotation... annotations)
+		{
+			if(annotations==null)
+				throw new NullPointerException("annotations");
+			if(annotations.length==0)
+				throw new IllegalArgumentException("annotations must not be empty");
+			final HashMap<Class<?>, Annotation> annotationMap = new HashMap<>();
+			for(int i = 0; i<annotations.length; i++)
+			{
+				final Annotation a = annotations[i];
+				if(a==null)
+					throw new NullPointerException("annotations" + '[' + i + ']');
+				if(annotationMap.putIfAbsent(a.annotationType(), a)!=null)
+					throw new IllegalArgumentException("duplicate " + a.annotationType());
+			}
+
+			return new AnnotationSource(Arrays.copyOf(annotations), annotationMap);
+		}
+
+		private static final class AnnotationSource implements AnnotatedElement
+		{
+			private final Annotation[] annotations;
+			private final HashMap<Class<?>, Annotation> annotationMap;
+
+			AnnotationSource(final Annotation[] annotations, final HashMap<Class<?>, Annotation> annotationMap)
+			{
+				this.annotations = annotations;
+				this.annotationMap = annotationMap;
+			}
+
+			@Override
+			public boolean isAnnotationPresent(final Class<? extends Annotation> annotationClass)
+			{
+				return annotationMap.containsKey(annotationClass);
+			}
+
+			@Override
+			public <T extends Annotation> T getAnnotation(final Class<T> annotationClass)
+			{
+				return annotationClass.cast(annotationMap.get(annotationClass));
+			}
+
+			@Override
+			public Annotation[] getAnnotations()
+			{
+				return Arrays.copyOf(annotations);
+			}
+
+			@Override
+			public Annotation[] getDeclaredAnnotations()
+			{
+				return Arrays.copyOf(annotations);
+			}
+
+			@Override
+			public String toString()
+			{
+				return java.util.Arrays.toString(annotations);
+			}
+		}
+
+		private CustomAnnotatedElement()
+		{
+			// prevent instantiation
+		}
 	}
 }
