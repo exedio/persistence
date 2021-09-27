@@ -373,10 +373,13 @@ public abstract class Feature implements Serializable
 	{
 		final CopeSchemaName annotation =
 			getAnnotation(CopeSchemaName.class);
-		return
-			annotation!=null
-			? annotation.value()
-			: getName();
+		if(annotation==null)
+			return getName();
+
+		final String result = annotation.value();
+		if(result.isEmpty())
+			throw new IllegalArgumentException("@CopeSchemaName(\"\") for " + getID());
+		return result;
 	}
 
 	public Collection<String> getSuspicions()
