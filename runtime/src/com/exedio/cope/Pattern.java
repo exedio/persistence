@@ -150,31 +150,22 @@ public abstract class Pattern extends Feature
 				if(patternAnn==null && sourceAnn==null)
 					return null;
 
-				final StringBuilder bf = new StringBuilder();
+				final String patternName = patternAnn!=null ? patternAnn.value() : Pattern.this.getName();
+				final String sourceName  = sourceAnn !=null ? sourceAnn .value() : postfix;
 
-				bf.append(
-					patternAnn!=null
-					? patternAnn.value()
-					: Pattern.this.getName());
-
-				if(sourceAnn!=null)
-				{
-					final String v = sourceAnn.value();
-					if(!v.isEmpty())
-					{
-						if(bf.length()>0)
-							bf.append('-');
-						bf.append(v);
-					}
-				}
+				final String result;
+				if(patternName.isEmpty())
+					if(sourceName.isEmpty())
+						result = "";
+					else
+						result = sourceName;
 				else
-				{
-					if(bf.length()>0)
-						bf.append('-');
-					bf.append(postfix);
-				}
+					if(sourceName.isEmpty())
+						result = patternName;
+					else
+						result = patternName + '-' + sourceName;
 
-				return annotationClass.cast(CopeSchemaNameElement.get(bf.toString()));
+				return annotationClass.cast(CopeSchemaNameElement.get(result));
 			}
 			else if(Computed.class==annotationClass)
 			{
