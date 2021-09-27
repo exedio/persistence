@@ -35,7 +35,7 @@ public class RenamedPatternSchemaDoubleEmptyTest
 		assertFails(
 				() -> MODEL.connect(props),
 				IllegalArgumentException.class,
-				"longString must not be empty");
+				"@CopeSchemaName(\"\") for MyItem.feature-emptSF");
 	}
 
 	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
