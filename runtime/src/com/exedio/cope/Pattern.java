@@ -354,8 +354,11 @@ public abstract class Pattern extends Feature
 	{
 		final StringBuilder bf = new StringBuilder(type);
 
-		bf.append('-').
-			append(name);
+		if(!name.isEmpty())
+			bf.append('-').
+				append(name);
+		else if(postfix==null)
+			bf.append("-default"); // avoids id collision with parent type
 
 		if(postfix!=null)
 			bf.append('-').
