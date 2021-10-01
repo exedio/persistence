@@ -164,4 +164,27 @@ public class TransactionSlicerTest extends TestWithEnvironment
 		assertFalse(t3.isClosed());
 		assertEquals("slice2", t3.getName());
 	}
+
+	@Test void testQueryCacheDisabled()
+	{
+		assertEquals(false, model.currentTransaction().isQueryCacheDisabled());
+
+		final TransactionSlicer ts = new TransactionSlicer(model, 1);
+		assertEquals(false, model.currentTransaction().isQueryCacheDisabled());
+
+		assertEquals(true, ts.commitAndStartPossibly());
+		assertEquals(false, model.currentTransaction().isQueryCacheDisabled());
+
+		model.currentTransaction().setQueryCacheDisabled(true);
+		assertEquals(true, model.currentTransaction().isQueryCacheDisabled());
+
+		assertEquals(true, ts.commitAndStartPossibly());
+		assertEquals(true, model.currentTransaction().isQueryCacheDisabled());
+
+		model.currentTransaction().setQueryCacheDisabled(false);
+		assertEquals(false, model.currentTransaction().isQueryCacheDisabled());
+
+		assertEquals(true, ts.commitAndStartPossibly());
+		assertEquals(false, model.currentTransaction().isQueryCacheDisabled());
+	}
 }
