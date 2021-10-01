@@ -470,7 +470,7 @@ public final class Query<R> implements Serializable
 	 * <p>
 	 * Method {@link #search()} will fail with an {@link SearchSizeLimitExceededException}
 	 * as soon as the size of the result set exceeds the search size limit.
-	 * Method {@link #total()} is not affected by this limit.
+	 * Methods {@link #total()} and {@link #exists()} are not affected by this limit.
 	 * <p>
 	 * Setting the search size limit does not guarantee,
 	 * that {@link #search()} actually fails when exceeding the limit.
@@ -520,7 +520,7 @@ public final class Query<R> implements Serializable
 	 * Results of method {@link #search()} will not be considered for inclusion
 	 * into query cache as soon as the size of the result set exceeds the
 	 * search size cache limit.
-	 * Method {@link #total()} is not affected by this limit.
+	 * Methods {@link #total()} and {@link #exists()} are not affected by this limit.
 	 * <p>
 	 * Setting the search size cache limit does not guarantee,
 	 * that {@link #search()} is not satisfied from the cache.
