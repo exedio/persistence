@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="ClassWithSemicolon" pattern="file:instrument/testsrc/com/exedio/cope/instrument/testmodel/ClassWithSemicolon.java" />
+</component>
