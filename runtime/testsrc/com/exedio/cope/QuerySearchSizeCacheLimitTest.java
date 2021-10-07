@@ -61,38 +61,38 @@ public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
 	{
 		q.setSearchSizeCacheLimit(5);
 		assertEquals(5, q.getSearchSizeCacheLimit());
-		assertEquals(asList(), modelHistogram());
+		assertEquals(asList(), modelHist());
 		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
-		assertEquals(asListCE(queryHistogram(0)), modelHistogram());
+		assertEquals(asListCE(searchHist(0)), modelHist());
 
 		q.setSearchSizeCacheLimit(4);
 		assertEquals(4, q.getSearchSizeCacheLimit());
-		assertEquals(asListCE(queryHistogram(0)), modelHistogram());
+		assertEquals(asListCE(searchHist(0)), modelHist());
 		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
-		assertEquals(asListCE(queryHistogram(1)), modelHistogram());
+		assertEquals(asListCE(searchHist(1)), modelHist());
 	}
 
 	@Test void testExceed()
 	{
 		q.setSearchSizeCacheLimit(4);
 		assertEquals(4, q.getSearchSizeCacheLimit());
-		assertEquals(asList(), modelHistogram());
+		assertEquals(asList(), modelHist());
 		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
-		assertEquals(asList(), modelHistogram());
+		assertEquals(asList(), modelHist());
 
 		q.setSearchSizeCacheLimit(5);
 		assertEquals(5, q.getSearchSizeCacheLimit());
-		assertEquals(asList(), modelHistogram());
+		assertEquals(asList(), modelHist());
 		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
-		assertEquals(asListCE(queryHistogram(0)), modelHistogram());
+		assertEquals(asListCE(searchHist(0)), modelHist());
 	}
 
-	private static QueryCacheHistogram queryHistogram(final int hits)
+	private static QueryCacheHistogram searchHist(final int hits)
 	{
 		return new QueryCacheHistogram("select this from DayItem", 5, hits);
 	}
 
-	private List<QueryCacheHistogram> modelHistogram()
+	private List<QueryCacheHistogram> modelHist()
 	{
 		return asList(model.getQueryCacheHistogram());
 	}
