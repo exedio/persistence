@@ -529,6 +529,7 @@ public final class Query<R> implements Serializable
 	 * {@link ConnectProperties#getQueryCacheSizeLimit()}.
 	 *
 	 * @see #getSearchSizeCacheLimit()
+	 * @see Transaction#setQueryCacheDisabled(boolean) 
 	 */
 	public void setSearchSizeCacheLimit(final int searchSizeCacheLimit)
 	{

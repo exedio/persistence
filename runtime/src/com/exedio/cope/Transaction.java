@@ -51,6 +51,7 @@ public final class Transaction
 	private TLongHashSet[] invalidations = null;
 	private volatile int invalidationSize = 0;
 	private Thread boundThread = null;
+	boolean queryCacheDisabled = false;
 	ArrayList<QueryInfo> queryInfos = null;
 	private Connection connection = null;
 	private ConnectionPool connectionPool = null;
@@ -482,6 +483,33 @@ public final class Transaction
 	public Thread getBoundThread()
 	{
 		return boundThread;
+	}
+
+	/**
+	 * Sets the flag {@code queryCacheDisabled} of this transaction.
+	 * <p>
+	 * As long as this flag is true,
+	 * results of queries issued from this transaction
+	 * (by calling
+	 * {@link Query#search()}, {@link Query#total()}, and {@link Query#exists()})
+	 * will not be considered for inclusion into query cache.
+	 * <p>
+	 * That does not mean, that queries are not satisfied from the cache.
+	 * 
+	 * @see #isQueryCacheDisabled() 
+	 * @see Query#setSearchSizeCacheLimit(int)
+	 */
+	public void setQueryCacheDisabled(final boolean queryCacheDisabled)
+	{
+		this.queryCacheDisabled = queryCacheDisabled;
+	}
+
+	/**
+	 * @see #setQueryCacheDisabled(boolean) 
+	 */
+	public boolean isQueryCacheDisabled()
+	{
+		return queryCacheDisabled;
 	}
 
 	public void setQueryInfoEnabled(final boolean enabled)

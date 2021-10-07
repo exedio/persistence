@@ -172,8 +172,9 @@ final class QueryCache
 			final ArrayList<Object> resultList =
 				query.searchUncached(transaction, mode);
 
-			if(!mode.isSearch() ||
-				resultList.size()<=query.getSearchSizeCacheLimit())
+			if(!transaction.queryCacheDisabled && (
+					!mode.isSearch() ||
+					resultList.size()<=query.getSearchSizeCacheLimit()))
 			{
 				if(isStamped(query, transaction.getCacheStamp()))
 				{

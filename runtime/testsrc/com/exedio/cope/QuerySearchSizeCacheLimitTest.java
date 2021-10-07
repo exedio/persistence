@@ -103,6 +103,56 @@ public class QuerySearchSizeCacheLimitTest extends TestWithEnvironment
 		assertEquals(asListCE(existsHist(1), totalHist(1), searchHist(0)), modelHist());
 	}
 
+	@Test void testTransactionDisabledGet()
+	{
+		final Transaction tx = model.currentTransaction();
+		assertEquals(false, tx.isQueryCacheDisabled());
+
+		assertEquals(asList(), modelHist());
+		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
+		assertEquals(asListCE(searchHist(0)), modelHist());
+		assertEquals(5, q.total());
+		assertEquals(asListCE(totalHist(0), searchHist(0)), modelHist());
+		assertEquals(true, q.exists());
+		assertEquals(asListCE(existsHist(0), totalHist(0), searchHist(0)), modelHist());
+
+		tx.setQueryCacheDisabled(true);
+		assertEquals(true, tx.isQueryCacheDisabled());
+		assertEquals(asListCE(existsHist(0), totalHist(0), searchHist(0)), modelHist());
+		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
+		assertEquals(asListCE(searchHist(1), existsHist(0), totalHist(0)), modelHist());
+		assertEquals(5, q.total());
+		assertEquals(asListCE(totalHist(1), searchHist(1), existsHist(0)), modelHist());
+		assertEquals(true, q.exists());
+		assertEquals(asListCE(existsHist(1), totalHist(1), searchHist(1)), modelHist());
+	}
+
+	@Test void testTransactionDisabledPut()
+	{
+		final Transaction tx = model.currentTransaction();
+		assertEquals(false, tx.isQueryCacheDisabled());
+
+		tx.setQueryCacheDisabled(true);
+		assertEquals(true, tx.isQueryCacheDisabled());
+		assertEquals(asList(), modelHist());
+		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
+		assertEquals(asList(), modelHist());
+		assertEquals(5, q.total());
+		assertEquals(asList(), modelHist());
+		assertEquals(true, q.exists());
+		assertEquals(asList(), modelHist());
+
+		tx.setQueryCacheDisabled(false);
+		assertEquals(false, tx.isQueryCacheDisabled());
+		assertEquals(asList(), modelHist());
+		assertEqualsUnmodifiable(asList(i1, i2, i3, i4, i5), q.search());
+		assertEquals(asListCE(searchHist(0)), modelHist());
+		assertEquals(5, q.total());
+		assertEquals(asListCE(totalHist(0), searchHist(0)), modelHist());
+		assertEquals(true, q.exists());
+		assertEquals(asListCE(existsHist(0), totalHist(0), searchHist(0)), modelHist());
+	}
+
 	private static QueryCacheHistogram searchHist(final int hits)
 	{
 		return new QueryCacheHistogram("select this from DayItem", 5, hits);

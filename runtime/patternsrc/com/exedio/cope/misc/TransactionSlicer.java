@@ -54,10 +54,14 @@ public final class TransactionSlicer
 		model.commit();
 		bitsLeft = bitesPerSlice;
 		sliceCount++;
+		final boolean isQueryCacheDisabled =
+				transaction.isQueryCacheDisabled();
 		transaction = model.startTransaction(
 				transactionName!=null
 				? (transactionName+" slice"+sliceCount)
 				: ("slice"+sliceCount));
+		if(isQueryCacheDisabled)
+			transaction.setQueryCacheDisabled(true);
 		return true;
 	}
 
