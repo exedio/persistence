@@ -315,11 +315,17 @@ public final class Dispatcher extends Pattern
 	}
 
 	/**
+	 * <b>The method is just for maintaining database schema compatibility!<br>
+	 * Do not use for new Dispatchers!</b>
+	 * <p>
+	 * If you want to disable purge methods use
+	 * {@code @Wrapper(wrap="purge", visibility=Visibility.NONE)} instead.
+	 * <p>
 	 * Disables {@link #purge(DispatcherPurgeProperties, JobContext)} functionality.
 	 * Avoids additional columns in database needed for purge functionality.
 	 * Additionally disables resetting failureLimit on unpend.
 	 */
-	public Dispatcher withoutPurge()
+	public Dispatcher withoutPurgeLEGACY()
 	{
 		return new Dispatcher(pending.copy(), false, supportRemaining, variant);
 	}
@@ -330,10 +336,13 @@ public final class Dispatcher extends Pattern
 	}
 
 	/**
+	 * <b>The method is just for maintaining database schema compatibility!<br>
+	 * Do not use for new Dispatchers!</b>
+	 * <p>
 	 * Disables {@link Run#getRemaining()} and {@link Run#getLimit()} fields.
 	 * Avoids additional columns in database.
 	 */
-	public Dispatcher withoutRemaining()
+	public Dispatcher withoutRemainingLEGACY()
 	{
 		return new Dispatcher(pending.copy(), supportsPurge(), false, variant);
 	}
@@ -940,7 +949,7 @@ public final class Dispatcher extends Pattern
 
 
 	/**
-	 * @throws IllegalArgumentException if purge is disabled by {@link #withoutPurge()}.
+	 * @throws IllegalArgumentException if purge is disabled by {@link #withoutPurgeLEGACY()}.
 	 */
 	@Wrap(order=100, hide=SupportsPurgeGetter.class)
 	public void purge(
@@ -953,7 +962,7 @@ public final class Dispatcher extends Pattern
 	}
 
 	/**
-	 * @throws IllegalArgumentException if purge is disabled by {@link #withoutPurge()}.
+	 * @throws IllegalArgumentException if purge is disabled by {@link #withoutPurgeLEGACY()}.
 	 */
 	@Wrap(order=110, hide=SupportsPurgeGetter.class)
 	public void purge(
@@ -1029,4 +1038,24 @@ public final class Dispatcher extends Pattern
 	private final FeatureTimer failTimer = succeedTimer.newValue("failure");
 	private final FeatureTimer probeTimer = timer("probe", "The dispatcher probe was run successfully.");
 	private final FeatureTimer purgeTimer = timer("purge", "Items were purged (Dispatcher#purge).");
+
+	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @deprecated renamed to {@link #withoutPurgeLEGACY()}
+	 */
+	@Deprecated
+	public Dispatcher withoutPurge()
+	{
+		return withoutPurgeLEGACY();
+	}
+
+	/**
+	 * @deprecated renamed to {@link #withoutRemainingLEGACY()}
+	 */
+	@Deprecated
+	public Dispatcher withoutRemaining()
+	{
+		return withoutRemainingLEGACY();
+	}
 }

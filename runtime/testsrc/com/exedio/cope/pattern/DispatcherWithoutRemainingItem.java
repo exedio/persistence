@@ -60,7 +60,7 @@ public final class DispatcherWithoutRemainingItem extends Item
 	static final Dispatcher toTarget = Dispatcher.create(
 			DispatcherWithoutRemainingItem::dispatch,
 			DispatcherWithoutRemainingItem::notifyFinalFailure).
-			withoutRemaining();
+			withoutRemainingLEGACY();
 
 	@WrapInterim(methodBody=false)
 	private void dispatch() throws IOException, InterruptedException

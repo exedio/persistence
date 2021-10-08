@@ -60,7 +60,7 @@ public final class DispatcherWithoutPurgeItem extends Item
 	static final Dispatcher toTarget = Dispatcher.create(
 			DispatcherWithoutPurgeItem::dispatch,
 			DispatcherWithoutPurgeItem::notifyFinalFailure).
-			withoutPurge();
+			withoutPurgeLEGACY();
 
 	@WrapInterim(methodBody=false)
 	private void dispatch() throws IOException, InterruptedException
@@ -102,7 +102,7 @@ public final class DispatcherWithoutPurgeItem extends Item
 	}
 
 	/**
-	 * Is not instrumented, because of purge is disabled by {@link Dispatcher#withoutPurge()}.
+	 * Is not instrumented, because of purge is disabled by {@link Dispatcher#withoutPurgeLEGACY()}.
 	 */
 	static void purgeToTarget(final DispatcherPurgeProperties properties, final JobContext ctx)
 	{
