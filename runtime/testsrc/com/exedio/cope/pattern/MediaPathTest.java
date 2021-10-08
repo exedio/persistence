@@ -68,8 +68,8 @@ public final class MediaPathTest extends TestWithEnvironment
 	private MediaPathItem item;
 	private String id;
 	private MyMediaServlet servlet;
-	private int noSuchPathOnSetup;
-	private MediaInfo normalInfo = null;
+	private int noSuchPathBefore;
+	private MediaInfo normalBefore = null;
 
 	@BeforeEach void setUp()
 	{
@@ -78,8 +78,8 @@ public final class MediaPathTest extends TestWithEnvironment
 		servlet = new MyMediaServlet();
 		servlet.initPathes(MODEL);
 		servlet.initConnected(MODEL);
-		noSuchPathOnSetup = getNoSuchPath();
-		normalInfo = MediaPathItem.normal.getInfo();
+		noSuchPathBefore = getNoSuchPath();
+		normalBefore = MediaPathItem.normal.getInfo();
 	}
 
 	@AfterEach void tearDown()
@@ -510,33 +510,33 @@ public final class MediaPathTest extends TestWithEnvironment
 	@Test void testInfoNoSuchPath() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/zack/x", "no such path");
-		assertInfo(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+		assertInfo(1, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testInfoNotAnItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/x", "not an item");
-		assertInfo(0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testInfoNoSuchItem() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/normal/MediaPathItem-9999.jpg", "no such item");
-		assertInfo(0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0);
 	}
 
 	@Test void testInfoMoved() throws ServletException, IOException
 	{
 		item.setNormalContentType("image/jpeg");
 		assertRedirect("/MediaPathItem/normal/" + id, prefix + "/MediaPathItem/normal/" + id + ".jpg");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0);
 	}
 
 	@Test void testInfoIsNull() throws ServletException, IOException
 	{
 		item.setNormalResult(Result.notFoundIsNull);
 		assertNotFound("/MediaPathItem/normal/" + id, "is null");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 	}
 
 	@Test void testInfoIsNullLate() throws ServletException, IOException
@@ -544,7 +544,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		item.setNormalContentType("major/minor");
 		item.setNormalResult(Result.notFoundIsNull);
 		assertNotFound("/MediaPathItem/normal/" + id, "is null late");
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0);
 	}
 
 	// TODO testInfoNotModified
@@ -553,11 +553,13 @@ public final class MediaPathTest extends TestWithEnvironment
 	{
 		item.setNormalContentType("major/minor");
 		assertOk("/MediaPathItem/normal/" + id);
-		assertInfo(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 	}
 
 	private void assertInfo(
 			final int noSuchPath,
+			final MediaPathFeature feature,
+			final MediaInfo before,
 			final int redirectFrom,
 			final int exception,
 			final int invalidSpecial,
@@ -569,27 +571,27 @@ public final class MediaPathTest extends TestWithEnvironment
 			final int notModified,
 			final int delivered)
 	{
-		final MediaInfo i = MediaPathItem.normal.getInfo();
+		final MediaInfo i = feature.getInfo();
 
-		assertEquals(noSuchPath,     getNoSuchPath()       - noSuchPathOnSetup,              "noSuchPath");
-		assertEquals(redirectFrom,   i.getRedirectFrom()   - normalInfo.getRedirectFrom(),   "redirectFrom");
-		assertEquals(exception,      i.getException()      - normalInfo.getException(),      "exception");
-		assertEquals(invalidSpecial, i.getInvalidSpecial() - normalInfo.getInvalidSpecial(), "invalidSpecial");
-		assertEquals(guessedUrl,     i.getGuessedUrl()     - normalInfo.getGuessedUrl(),     "guessedUrl");
-		assertEquals(notAnItem,      i.getNotAnItem()      - normalInfo.getNotAnItem(),      "notAnItem");
-		assertEquals(noSuchItem,     i.getNoSuchItem()     - normalInfo.getNoSuchItem(),     "noSuchItem");
-		assertEquals(moved,          i.getMoved()          - normalInfo.getMoved(),          "moved");
-		assertEquals(isNull,         i.getIsNull()         - normalInfo.getIsNull(),         "isNull");
-		assertEquals(notModified,    i.getNotModified()    - normalInfo.getNotModified(),    "notModified");
-		assertEquals(delivered,      i.getDelivered()      - normalInfo.getDelivered(),      "delivered");
+		assertEquals(noSuchPath,     getNoSuchPath()       - noSuchPathBefore,           "noSuchPath");
+		assertEquals(redirectFrom,   i.getRedirectFrom()   - before.getRedirectFrom(),   "redirectFrom");
+		assertEquals(exception,      i.getException()      - before.getException(),      "exception");
+		assertEquals(invalidSpecial, i.getInvalidSpecial() - before.getInvalidSpecial(), "invalidSpecial");
+		assertEquals(guessedUrl,     i.getGuessedUrl()     - before.getGuessedUrl(),     "guessedUrl");
+		assertEquals(notAnItem,      i.getNotAnItem()      - before.getNotAnItem(),      "notAnItem");
+		assertEquals(noSuchItem,     i.getNoSuchItem()     - before.getNoSuchItem(),     "noSuchItem");
+		assertEquals(moved,          i.getMoved()          - before.getMoved(),          "moved");
+		assertEquals(isNull,         i.getIsNull()         - before.getIsNull(),         "isNull");
+		assertEquals(notModified,    i.getNotModified()    - before.getNotModified(),    "notModified");
+		assertEquals(delivered,      i.getDelivered()      - before.getDelivered(),      "delivered");
 
 		assertIt(getNoSuchPath(),       getNoSuchPathLogs());
-		assertIt(i.getException(),      MediaPathItem.normal.getExceptionLogs());
-		assertIt(i.getInvalidSpecial(), MediaPathItem.normal.getInvalidSpecialLogs());
-		assertIt(i.getGuessedUrl(),     MediaPathItem.normal.getGuessedUrlLogs());
-		assertIt(i.getNotAnItem(),      MediaPathItem.normal.getNotAnItemLogs());
-		assertIt(i.getNoSuchItem(),     MediaPathItem.normal.getNoSuchItemLogs());
-		assertIt(i.getIsNull(),         MediaPathItem.normal.getIsNullLogs());
+		assertIt(i.getException(),      feature.getExceptionLogs());
+		assertIt(i.getInvalidSpecial(), feature.getInvalidSpecialLogs());
+		assertIt(i.getGuessedUrl(),     feature.getGuessedUrlLogs());
+		assertIt(i.getNotAnItem(),      feature.getNotAnItemLogs());
+		assertIt(i.getNoSuchItem(),     feature.getNoSuchItemLogs());
+		assertIt(i.getIsNull(),         feature.getIsNullLogs());
 	}
 
 	private static void assertIt(final int expected, final List<MediaRequestLog> actual)
