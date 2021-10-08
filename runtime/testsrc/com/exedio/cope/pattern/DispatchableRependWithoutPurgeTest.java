@@ -115,7 +115,7 @@ public class DispatchableRependWithoutPurgeTest extends TestWithEnvironment
 	private static final class AnItem extends Item
 	{
 		@Wrapper(wrap="dispatch", parameters={Dispatcher.Config.class, Runnable.class, JobContext.class}, visibility=Visibility.NONE)
-		static final Dispatcher toTarget = Dispatcher.create(AnItem::dispatch).withoutPurge();
+		static final Dispatcher toTarget = Dispatcher.create(AnItem::dispatch).withoutPurgeLEGACY();
 		static final BooleanField dispatchFails = new BooleanField().defaultTo(false);
 		static final IntegerField dispatchCount = new IntegerField().defaultTo(0);
 
