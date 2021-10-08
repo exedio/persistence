@@ -70,6 +70,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	private MyMediaServlet servlet;
 	private int noSuchPathBefore;
 	private MediaInfo normalBefore = null;
+	private MediaInfo guessBefore  = null;
 
 	@BeforeEach void setUp()
 	{
@@ -80,6 +81,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		servlet.initConnected(MODEL);
 		noSuchPathBefore = getNoSuchPath();
 		normalBefore = MediaPathItem.normal.getInfo();
+		guessBefore  = MediaPathItem.guess .getInfo();
 	}
 
 	@AfterEach void tearDown()
@@ -505,12 +507,38 @@ public final class MediaPathTest extends TestWithEnvironment
 		service(new Request(ok)).assertOkAndHeaders("Access-Control-Allow-Origin", "*");
 	}
 
-	// TODO testInfo with others
-
 	@Test void testInfoNoSuchPath() throws ServletException, IOException
 	{
 		assertNotFound("/MediaPathItem/zack/x", "no such path");
 		assertInfo(1, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test void testInfoRedirectFrom() throws ServletException, IOException
+	{
+		item.setNormalContentType("major/minor");
+		assertRedirect("/MediaPathItem/normalRedirect1/" + id, prefix + "/MediaPathItem/normal/" + id);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test void testInfoException() throws ServletException, IOException
+	{
+		item.setNormalContentType("major/minor");
+		item.setNormalResult(Result.RuntimeException);
+		servlet.failOnException = false;
+		assertError("/MediaPathItem/normal/" + id);
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test void testInfoInvalidSpecial() throws ServletException, IOException
+	{
+		assertNotFound("/MediaPathItem/normal/.x", "invalid special");
+		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0);
+	}
+
+	@Test void testInfoGuessedUrl() throws ServletException, IOException
+	{
+		assertNotFound("/MediaPathItem/guess/x", "guessed url");
+		assertInfo(0, MediaPathItem.guess, guessBefore, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0);
 	}
 
 	@Test void testInfoNotAnItem() throws ServletException, IOException
