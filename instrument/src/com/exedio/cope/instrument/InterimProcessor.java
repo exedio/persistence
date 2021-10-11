@@ -271,7 +271,8 @@ final class InterimProcessor extends JavacProcessor
 				for(final Tree typeDecl : cut.getTypeDecls())
 				{
 					final TypeElement typeElement = (TypeElement) docTrees.getElement(docTrees.getPath(cut, typeDecl));
-					requireNonNull(typeElement);
+					if(typeElement==null)
+						continue; // happens, if there is semicolon after a top-level class, see ClassWithSemicolon
 					classNames.add(typeElement.getQualifiedName());
 				}
 
