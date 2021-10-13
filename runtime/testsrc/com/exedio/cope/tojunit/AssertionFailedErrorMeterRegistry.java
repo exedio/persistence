@@ -53,6 +53,7 @@ public class AssertionFailedErrorMeterRegistry extends MeterRegistry
 		throw new AssertionFailedError();
 	}
 	@Override
+	@SuppressWarnings("deprecation")
 	protected LongTaskTimer newLongTaskTimer(final Meter.Id id)
 	{
 		throw new AssertionFailedError();
