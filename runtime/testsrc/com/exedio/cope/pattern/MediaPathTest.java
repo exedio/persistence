@@ -70,6 +70,7 @@ public final class MediaPathTest extends TestWithEnvironment
 	private MyMediaServlet servlet;
 	private int noSuchPathBefore;
 	private MediaInfo normalBefore = null;
+	private MediaInfo mandatBefore = null;
 	private MediaInfo guessBefore  = null;
 
 	@BeforeEach void setUp()
@@ -81,6 +82,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		servlet.initConnected(MODEL);
 		noSuchPathBefore = getNoSuchPath();
 		normalBefore = MediaPathItem.normal.getInfo();
+		mandatBefore = MediaPathItem.mandat.getInfo();
 		guessBefore  = MediaPathItem.guess .getInfo();
 	}
 
@@ -582,6 +584,13 @@ public final class MediaPathTest extends TestWithEnvironment
 		item.setNormalContentType("major/minor");
 		assertOk("/MediaPathItem/normal/" + id);
 		assertInfo(0, MediaPathItem.normal, normalBefore, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
+	}
+
+	@Test void testInfoDeliveredMandatory() throws ServletException, IOException
+	{
+		item.setMandatContentType("major/minor");
+		assertOk("/MediaPathItem/mandat/" + id);
+		assertInfo(0, MediaPathItem.mandat, mandatBefore, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1);
 	}
 
 	private void assertInfo(

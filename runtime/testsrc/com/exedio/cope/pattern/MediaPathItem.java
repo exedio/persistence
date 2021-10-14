@@ -60,6 +60,10 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 
 
 	@Wrapper(wrap="getURL", visibility=NONE)
+	static final MediaPathFeature mandat = new MediaPathFeature().mandatory();
+
+
+	@Wrapper(wrap="getURL", visibility=NONE)
 	@RedirectFrom({"fingerRedirect1", "fingerRedirect2"})
 	@UrlFingerPrinting
 	static final MediaPathFeature finger = new MediaPathFeature();
@@ -310,6 +314,49 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	void setNormalResult(final com.exedio.cope.pattern.MediaPathFeature.Result normal)
 	{
 		MediaPathItem.normal.setResult(this,normal);
+	}
+
+	/**
+	 * Returns a Locator the content of {@link #mandat} is available under.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getLocator")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	com.exedio.cope.pattern.MediaPath.Locator getMandatLocator()
+	{
+		return MediaPathItem.mandat.getLocator(this);
+	}
+
+	/**
+	 * Returns the content type of the media {@link #mandat}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nonnull
+	java.lang.String getMandatContentType()
+	{
+		return MediaPathItem.mandat.getContentType(this);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setContentType")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setMandatContentType(final java.lang.String mandat)
+	{
+		MediaPathItem.mandat.setContentType(this,mandat);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setLastModified")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setMandatLastModified(final java.util.Date mandat)
+	{
+		MediaPathItem.mandat.setLastModified(this,mandat);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setResult")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setMandatResult(final com.exedio.cope.pattern.MediaPathFeature.Result mandat)
+	{
+		MediaPathItem.mandat.setResult(this,mandat);
 	}
 
 	/**

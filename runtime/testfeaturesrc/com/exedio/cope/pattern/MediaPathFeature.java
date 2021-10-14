@@ -42,15 +42,27 @@ public final class MediaPathFeature extends MediaPath
 		notFoundIsNull, IOException, RuntimeException
 	}
 
+	private final boolean mandatory;
 	private final StringField contentType = new StringField().optional();
 	private final DateField lastModified = new DateField().optional();
 	private final EnumField<Result> result = EnumField.create(Result.class).optional();
 
 	public MediaPathFeature()
 	{
+		this(false);
+	}
+
+	private MediaPathFeature(final boolean mandatory)
+	{
+		this.mandatory = mandatory;
 		addSourceFeature(result, "result");
 		addSourceFeature(contentType, "contentType");
 		addSourceFeature(lastModified, "lastModified");
+	}
+
+	public MediaPathFeature mandatory()
+	{
+		return new MediaPathFeature(true);
 	}
 
 	@Wrap(order=10)
@@ -81,7 +93,7 @@ public final class MediaPathFeature extends MediaPath
 	@Override
 	public boolean isMandatory()
 	{
-		return false;
+		return mandatory;
 	}
 
 	@Override
