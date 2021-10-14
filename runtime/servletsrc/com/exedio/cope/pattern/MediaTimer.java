@@ -93,9 +93,9 @@ final class MediaTimer extends MediaMeter<Timer>
 		sample.stop(meter);
 	}
 
-	long get()
+	int get()
 	{
-		return meter.count();
+		return toIntMetrics(meter.count());
 	}
 
 	private final class LogMeter extends MediaMeter<?>.LogMeter implements Timer
