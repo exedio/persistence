@@ -24,6 +24,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.pattern.MediaPath;
 import io.micrometer.core.instrument.Clock;
 import io.micrometer.core.instrument.Meter;
 import io.micrometer.core.instrument.MeterRegistry;
@@ -69,7 +70,7 @@ public final class PrometheusMeterRegistrar
 				nameClass, nameSuffix, tags);
 	}
 
-	static Meter meterCope(
+	public static Meter meterCope(
 			final Class<?> nameClass,
 			final String nameSuffix,
 			final Tags tags)
@@ -81,7 +82,8 @@ public final class PrometheusMeterRegistrar
 				ChangeListener.class,
 				Cluster.class,
 				ItemCache.class,
-				QueryCache.class
+				QueryCache.class,
+				MediaPath.class
 				).contains(nameClass), nameClass.getName());
 		return meter(
 				InfoRegistry.REGISTRY,
@@ -114,7 +116,7 @@ public final class PrometheusMeterRegistrar
 		return result;
 	}
 
-	static final class NotFound extends IllegalArgumentException
+	public static final class NotFound extends IllegalArgumentException
 	{
 		NotFound(final String message)
 		{

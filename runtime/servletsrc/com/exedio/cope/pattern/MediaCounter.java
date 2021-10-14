@@ -26,29 +26,29 @@ import io.micrometer.core.instrument.Metrics;
 import io.micrometer.core.instrument.Tags;
 
 /**
- * @see MediaCounter
+ * @see FeatureCounter
  */
-final class FeatureCounter extends FeatureMeter<Counter>
+final class MediaCounter extends MediaMeter<Counter>
 {
-	static FeatureCounter counter(
+	static MediaCounter counter(
 			final String nameSuffix,
 			final String description)
 	{
-		return new FeatureCounter(nameSuffix, description, null, null);
+		return new MediaCounter(nameSuffix, description, null, null);
 	}
 
-	static FeatureCounter counter(
+	static MediaCounter counter(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
 	{
-		return new FeatureCounter(
+		return new MediaCounter(
 				nameSuffix, description,
 				requireNonEmpty(key, "key"),
 				requireNonEmpty(value, "value"));
 	}
 
-	private FeatureCounter(
+	private MediaCounter(
 			final String nameSuffix,
 			final String description,
 			final String key, final String value)
@@ -59,15 +59,15 @@ final class FeatureCounter extends FeatureMeter<Counter>
 	@Override
 	LogMeter newLogMeter()
 	{
-		return new LogMeter(Metrics.counter(FeatureCounter.class.getName()));
+		return new LogMeter(Metrics.counter(MediaCounter.class.getName()));
 	}
 
 	@Override
-	FeatureCounter newValue(final String value)
+	MediaCounter newValue(final String value)
 	{
 		onNewValue(value);
 
-		return new FeatureCounter(nameSuffix, description, key, value);
+		return new MediaCounter(nameSuffix, description, key, value);
 	}
 
 	@Override
@@ -84,7 +84,17 @@ final class FeatureCounter extends FeatureMeter<Counter>
 		meter.increment();
 	}
 
-	private final class LogMeter extends FeatureMeter<?>.LogMeter implements Counter
+	long get()
+	{
+		final double d = meter.count();
+		final long l = Math.round(d);
+		//noinspection FloatingPointEquality OK: tests backward conversion
+		if(l!=d)
+			throw new IllegalStateException(nameSuffix + '/' + d);
+		return l;
+	}
+
+	private final class LogMeter extends MediaMeter<?>.LogMeter implements Counter
 	{
 		private final Counter back;
 
@@ -103,7 +113,11 @@ final class FeatureCounter extends FeatureMeter<Counter>
 		@Override
 		public double count()
 		{
-			throw new NoSuchMethodError();
+			// Needed because some counters are never mounted for certain MediaPath:
+			// - redirectFrom if there are no @RedirectFrom
+			// - preventUrlGuessing if there ist no @PreventUrlGuessing
+			// - isNull if the MediaPath is mandatory
+			return 0;
 		}
 	}
 }

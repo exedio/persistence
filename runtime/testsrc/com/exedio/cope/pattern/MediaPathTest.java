@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.pattern.MediaPath.getNoSuchPath;
 import static com.exedio.cope.pattern.MediaPath.getNoSuchPathLogs;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
@@ -30,12 +32,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.PrometheusMeterRegistrar;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MediaPathFeature.Result;
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
@@ -629,6 +636,57 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertIt(i.getNotAnItem(),      feature.getNotAnItemLogs());
 		assertIt(i.getNoSuchItem(),     feature.getNoSuchItemLogs());
 		assertIt(i.getIsNull(),         feature.getIsNullLogs());
+
+		assertEquals(getNoSuchPath(),       count(         "notFound",    Tags.of("cause", "noSuchPath", "feature", "NONE"), true));
+		assertEquals(i.getRedirectFrom(),   count(feature, "moved",       Tags.of("cause", "RedirectFrom"), feature.isAnnotationPresent(RedirectFrom.class)));
+		assertEquals(i.getException(),      count(feature, "failure",     Tags.empty()));
+		assertEquals(i.getInvalidSpecial(), count(feature, "notFound",    Tags.of("cause", "invalidSpecial")));
+		assertEquals(i.getGuessedUrl(),     count(feature, "notFound",    Tags.of("cause", "PreventUrlGuessing"), feature.isUrlGuessingPrevented()));
+		assertEquals(i.getNotAnItem(),      count(feature, "notFound",    Tags.of("cause", "notAnItem")));
+		assertEquals(i.getNoSuchItem(),     count(feature, "notFound",    Tags.of("cause", "noSuchItem")));
+		assertEquals(i.getMoved(),          count(feature, "moved",       Tags.of("cause", "canonize")));
+		assertEquals(i.getIsNull(),         count(feature, "notFound",    Tags.of("cause", "isNull"), !feature.isMandatory()));
+		assertEquals(i.getNotModified(),    count(feature, "notModified", Tags.empty()));
+		assertEquals(i.getDelivered(),      timer(feature, "ok"));
+	}
+
+	private static double count(
+			final MediaPathFeature feature, final String nameSuffix,
+			final Tags tags)
+	{
+		return count(feature, nameSuffix, tags, true);
+	}
+
+	private static double count(
+			final MediaPathFeature feature, final String nameSuffix,
+			final Tags tags,
+			final boolean present)
+	{
+		return count(nameSuffix, tags.and(tag(feature)), present);
+	}
+
+	private static double count(
+			final String nameSuffix,
+			final Tags tags,
+			final boolean present)
+	{
+		if(present)
+		{
+			return ((Counter)meterCope(MediaPath.class, nameSuffix, tags)).count();
+		}
+		else
+		{
+			assertThrows(
+					PrometheusMeterRegistrar.NotFound.class,
+					() -> meterCope(MediaPath.class, nameSuffix, tags));
+			return 0;
+		}
+	}
+
+	private static double timer(
+			final MediaPathFeature feature, final String nameSuffix)
+	{
+		return ((Timer)meterCope(MediaPath.class, nameSuffix, tag(feature))).count();
 	}
 
 	private static void assertIt(final int expected, final List<MediaRequestLog> actual)

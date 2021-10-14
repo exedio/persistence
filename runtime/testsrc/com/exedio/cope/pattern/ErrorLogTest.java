@@ -18,11 +18,16 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.pattern.MediaCounter.counter;
 import static com.exedio.cope.tojunit.Assert.assertWithin;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.exedio.cope.Item;
+import com.exedio.cope.instrument.WrapperIgnore;
+import com.exedio.cope.instrument.WrapperType;
 import java.io.IOException;
 import java.util.Date;
 import org.junit.jupiter.api.Test;
@@ -31,7 +36,8 @@ public class ErrorLogTest
 {
 	@Test void testValues()
 	{
-		final ErrorLog l = new ErrorLog(3);
+		final ErrorLog l = new ErrorLog(3, counter("s", "d"));
+		l.onMount(MyItem.values);
 		l.count(new Request(0), null);
 
 		assertEquals(1, l.get());
@@ -48,7 +54,8 @@ public class ErrorLogTest
 
 	@Test void testSecure()
 	{
-		final ErrorLog l = new ErrorLog(3);
+		final ErrorLog l = new ErrorLog(3, counter("s", "d"));
+		l.onMount(MyItem.secure);
 		l.count(new Request(0, true), null);
 
 		assertEquals(1, l.get());
@@ -59,7 +66,8 @@ public class ErrorLogTest
 
 	@Test void testOverflow()
 	{
-		final ErrorLog l = new ErrorLog(3);
+		final ErrorLog l = new ErrorLog(3, counter("testOverflow", "d"));
+		l.onMount(MyItem.overflow);
 		assertEquals(0, l.get());
 		assertEquals(list(), l.getLogs());
 
@@ -96,7 +104,7 @@ public class ErrorLogTest
 
 	@Test void testDate()
 	{
-		final ErrorLog l = new ErrorLog(3);
+		final ErrorLog l = new ErrorLog(3, counter("s", "d"));
 
 		final Date before = new Date();
 		l.count(new Request(0), null);
@@ -112,7 +120,7 @@ public class ErrorLogTest
 		final IOException e0 = new IOException();
 		final NullPointerException e1 = new NullPointerException();
 
-		final ErrorLog l = new ErrorLog(10);
+		final ErrorLog l = new ErrorLog(10, counter("s", "d"));
 		l.count(new Request(0), e0);
 		l.count(new Request(1), e1);
 		l.count(new Request(2), null);
@@ -179,6 +187,23 @@ public class ErrorLogTest
 
 			throw new AssertionError();
 		}
+	}
+
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
+	static final class MyItem extends Item
+	{
+		@WrapperIgnore static final Media values   = new Media();
+		@WrapperIgnore static final Media secure   = new Media();
+		@WrapperIgnore static final Media overflow = new Media();
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<MyItem> TYPE = com.exedio.cope.TypesBound.newType(MyItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private MyItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 }
 

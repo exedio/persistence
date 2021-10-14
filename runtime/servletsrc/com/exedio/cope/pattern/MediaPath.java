@@ -18,11 +18,15 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.MediaCounter.counter;
+import static com.exedio.cope.pattern.MediaTimer.timer;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static java.util.Objects.requireNonNull;
+import static javax.servlet.http.HttpServletResponse.SC_INTERNAL_SERVER_ERROR;
 import static javax.servlet.http.HttpServletResponse.SC_MOVED_PERMANENTLY;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_FOUND;
 import static javax.servlet.http.HttpServletResponse.SC_NOT_MODIFIED;
+import static javax.servlet.http.HttpServletResponse.SC_OK;
 
 import com.exedio.cope.Condition;
 import com.exedio.cope.ConnectProperties;
@@ -36,6 +40,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.MessageDigestUtil;
+import io.micrometer.core.instrument.Timer;
 import java.io.IOException;
 import java.io.Serializable;
 import java.lang.annotation.Annotation;
@@ -43,7 +48,6 @@ import java.time.Duration;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicLong;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -118,6 +122,7 @@ public abstract class MediaPath extends Pattern
 	{
 		super.onMount();
 		this.mountIfMounted = new Mount(this);
+		onMountMeters();
 	}
 
 	private Mount mountPath()
@@ -422,21 +427,42 @@ public abstract class MediaPath extends Pattern
 	}
 
 
-	private static final ErrorLog noSuchPath = new ErrorLog();
-	private final AtomicLong  redirectFrom = new AtomicLong();
-	private final ErrorLog    exception = new ErrorLog();
-	private final ErrorLog    invalidSpecial = new ErrorLog();
-	private final ErrorLog    guessedUrl = new ErrorLog();
-	private final ErrorLog    notAnItem = new ErrorLog();
-	private final ErrorLog    noSuchItem = new ErrorLog();
-	private final AtomicLong  moved = new AtomicLong();
-	private final ErrorLog    isNull = new ErrorLog();
-	private final AtomicLong  notModified = new AtomicLong();
-	private final AtomicLong  delivered = new AtomicLong();
+	private static final ErrorLog noSuchPath  = new ErrorLog(counter("notFound", "Not Found (" + SC_NOT_FOUND + ')', "cause", "noSuchPath"));
+	private final MediaCounter redirectFrom   = counter("moved", "Moved (" + SC_MOVED_PERMANENTLY + ')', "cause", "RedirectFrom");
+	private final ErrorLog     exception      = new ErrorLog(counter("failure", "An exception occurred while processing the request (" + SC_INTERNAL_SERVER_ERROR + ")"));
+	private final ErrorLog     invalidSpecial = noSuchPath.newValue("invalidSpecial");
+	private final ErrorLog     guessedUrl     = noSuchPath.newValue("PreventUrlGuessing");
+	private final ErrorLog     notAnItem      = noSuchPath.newValue("notAnItem");
+	private final ErrorLog     noSuchItem     = noSuchPath.newValue("noSuchItem");
+	private final MediaCounter moved          = redirectFrom.newValue("canonize");
+	private final ErrorLog     isNull         = noSuchPath.newValue("isNull");
+	private final MediaCounter notModified    = counter("notModified", "Not Modified (" + SC_NOT_MODIFIED + ") response with empty body. Happens if Last-Modified did not change since last request.");
+	private final MediaTimer   delivered      = timer("ok", "Responded successfully (" + SC_OK + ")");
+
+	static
+	{
+		noSuchPath.onMount(null);
+	}
+	private void onMountMeters()
+	{
+		if(isAnnotationPresent(RedirectFrom.class))
+			redirectFrom.onMount(this);
+		exception      .onMount(this);
+		invalidSpecial .onMount(this);
+		if(mountPath().preventUrlGuessing)
+			guessedUrl  .onMount(this);
+		notAnItem      .onMount(this);
+		noSuchItem     .onMount(this);
+		moved          .onMount(this);
+		if(!isMandatory())
+			isNull      .onMount(this);
+		notModified    .onMount(this);
+		delivered      .onMount(this);
+	}
 
 	final void incRedirectFrom()
 	{
-		redirectFrom.incrementAndGet();
+		redirectFrom.increment();
 	}
 
 	final void countException(
@@ -587,7 +613,7 @@ public abstract class MediaPath extends Pattern
 	 */
 	public final void incrementDelivered()
 	{
-		delivered.incrementAndGet();
+		delivered.stop(Timer.start());
 	}
 
 	public static final List<MediaRequestLog> getNoSuchPathLogs()
@@ -732,7 +758,7 @@ public abstract class MediaPath extends Pattern
 
 						response.setStatus(SC_MOVED_PERMANENTLY);
 						response.setHeader("Location", location.toString());
-						moved.incrementAndGet();
+						moved.increment();
 						return;
 					}
 				}
@@ -840,7 +866,7 @@ public abstract class MediaPath extends Pattern
 			if(flush)
 				response.flushBuffer();
 
-			notModified.incrementAndGet();
+			notModified.increment();
 		}
 		else
 		{
@@ -903,8 +929,9 @@ public abstract class MediaPath extends Pattern
 			final Locator locator)
 		throws IOException, NotFound
 	{
+		final Timer.Sample start = Timer.start();
 		doGetAndCommit(request, response, locator.item);
-		delivered.incrementAndGet();
+		delivered.stop(start);
 	}
 
 	/**
