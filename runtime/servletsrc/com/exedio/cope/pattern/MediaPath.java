@@ -580,32 +580,23 @@ public abstract class MediaPath extends Pattern
 
 	public static final int getNoSuchPath()
 	{
-		return toIntMetrics(noSuchPath.get());
+		return noSuchPath.get();
 	}
 
 	public final MediaInfo getInfo()
 	{
 		return new MediaInfo(
 				this,
-				toIntMetrics(redirectFrom.get()),
-				toIntMetrics(exception.get()),
-				toIntMetrics(invalidSpecial.get()),
-				toIntMetrics(guessedUrl.get()),
-				toIntMetrics(notAnItem.get()),
-				toIntMetrics(noSuchItem.get()),
-				toIntMetrics(moved.get()),
-				toIntMetrics(isNull.get()),
-				toIntMetrics(notModified.get()),
-				toIntMetrics(delivered.get()));
-	}
-
-	private static int toIntMetrics(final long l)
-	{
-		if(l>Integer.MAX_VALUE)
-			return Integer.MAX_VALUE;
-		if(l<Integer.MIN_VALUE)
-			return Integer.MIN_VALUE;
-		return (int)l;
+				redirectFrom.get(),
+				exception.get(),
+				invalidSpecial.get(),
+				guessedUrl.get(),
+				notAnItem.get(),
+				noSuchItem.get(),
+				moved.get(),
+				isNull.get(),
+				notModified.get(),
+				delivered.get());
 	}
 
 	/**

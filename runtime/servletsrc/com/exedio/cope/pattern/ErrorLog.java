@@ -69,7 +69,7 @@ final class ErrorLog
 		}
 	}
 
-	long get()
+	int get()
 	{
 		return value.get();
 	}

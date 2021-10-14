@@ -84,14 +84,14 @@ final class MediaCounter extends MediaMeter<Counter>
 		meter.increment();
 	}
 
-	long get()
+	int get()
 	{
 		final double d = meter.count();
 		final long l = Math.round(d);
 		//noinspection FloatingPointEquality OK: tests backward conversion
 		if(l!=d)
 			throw new IllegalStateException(nameSuffix + '/' + d);
-		return l;
+		return toIntMetrics(l);
 	}
 
 	private final class LogMeter extends MediaMeter<?>.LogMeter implements Counter

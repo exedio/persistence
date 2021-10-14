@@ -115,5 +115,14 @@ abstract class MediaMeter<M extends Meter>
 		}
 	}
 
+	protected static int toIntMetrics(final long l)
+	{
+		if(l>Integer.MAX_VALUE)
+			return Integer.MAX_VALUE;
+		if(l<Integer.MIN_VALUE)
+			return Integer.MIN_VALUE;
+		return (int)l;
+	}
+
 	private static final Logger logger = LoggerFactory.getLogger(MediaMeter.class);
 }
