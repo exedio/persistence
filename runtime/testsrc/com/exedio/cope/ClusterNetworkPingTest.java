@@ -193,13 +193,13 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 		assertEquals(0, actual.getLate());
 		assertEquals(0, actual.getPending());
 
-		assertEquals(inOrder, countSequence(sendModel, listenModel, kind, "inOrder"));
-		assertEquals(0,       countSequence(sendModel, listenModel, kind, "early"));
-		assertEquals(0,       countSequence(sendModel, listenModel, kind, "outOfOrder"));
-		assertEquals(0,       countSequence(sendModel, listenModel, kind, "duplicate"));
-		assertEquals(0,       countSequence(sendModel, listenModel, kind, "late"));
-		assertEquals(0,       countSequence(sendModel, listenModel, kind, "lost"));
-		assertEquals(0,       gaugeSequence(sendModel, listenModel, kind, "pending"));
+		assertEquals(inOrder, countSequence("sequence", sendModel, listenModel, kind, "inOrder"));
+		assertEquals(0,       countSequence("sequence", sendModel, listenModel, kind, "early"));
+		assertEquals(0,       countSequence("sequence", sendModel, listenModel, kind, "outOfOrder"));
+		assertEquals(0,       countSequence("sequence", sendModel, listenModel, kind, "duplicate"));
+		assertEquals(0,       countSequence("sequence", sendModel, listenModel, kind, "late"));
+		assertEquals(0,       countSequence("sequence", sendModel, listenModel, kind, "lost"));
+		assertEquals(0,       gaugeSequence("pending",  sendModel, listenModel, kind));
 	}
 
 	static void assertLastRoundTripSet(
@@ -253,40 +253,41 @@ public class ClusterNetworkPingTest extends ClusterNetworkTest
 	}
 
 	private double countSequence(
+			final String nameSuffix,
 			final Model sendModel,
 			final Model listenModel,
 			final String kind,
 			final String result)
 	{
-		return ((Counter)meterSequence(sendModel, listenModel, kind, result)).count();
+		return ((Counter)meterSequence(nameSuffix, sendModel, listenModel, kind, Tags.of("result", result))).count();
 	}
 
 	private double gaugeSequence(
+			final String nameSuffix,
 			final Model sendModel,
 			final Model listenModel,
-			final String kind,
-			final String result)
+			final String kind)
 	{
-		return ((Gauge)meterSequence(sendModel, listenModel, kind, result)).value();
+		return ((Gauge)meterSequence(nameSuffix, sendModel, listenModel, kind, Tags.empty())).value();
 	}
 
 	private Meter meterSequence(
+			final String nameSuffix,
 			final Model sendModel,
 			final Model listenModel,
 			final String kind,
-			final String result)
+			final Tags tags)
 	{
 		assertNotSame(sendModel, listenModel);
 
 		final ClusterSenderInfo sendInfo = sendModel.getClusterSenderInfo();
 		return PrometheusMeterRegistrar.meterCope(
-				Cluster.class, "sequence",
-				Tags.of(
+				Cluster.class, nameSuffix,
+				tags.and(
 						"model", listenModel.toString(),
 						"id", sendInfo.getNodeIDString(),
 						"address", localhost,
 						"port", "" + sendInfo.getLocalPort(),
-						"kind", kind,
-						"result", result));
+						"kind", kind));
 	}
 }

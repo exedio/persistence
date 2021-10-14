@@ -333,7 +333,7 @@ abstract class ClusterListener
 							metrics.counter(NAME, DESC, kindTag.and(RESULT, r.name())));
 				lost =   metrics.counter(NAME, DESC, kindTag.and(RESULT, "lost"));
 				lostConsumer = lost::increment;
-				metrics.gauge(backing, SequenceChecker2::getPending, NAME, DESC, kindTag.and(RESULT, "pending"));
+				metrics.gauge(backing, SequenceChecker2::getPending, "pending", "How many sequence number are due yet", kindTag); // Must not have nameSuffix "sequence", otherwise it fails in micrometer 1.7.4: "Collector already registered that provides name"
 			}
 
 			public boolean check(final int number)
