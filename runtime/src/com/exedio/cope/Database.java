@@ -72,13 +72,15 @@ final class Database
 		//System.out.println("using database "+getClass());
 	}
 
-	SequenceImpl newSequenceImpl(final Sequence.Type type, final long start, final IntegerColumn column)
+	SequenceImpl newSequenceImpl(
+			final Sequence.Type type, final long start, final IntegerColumn column)
 	{
 		return
 			properties.primaryKeyGenerator.newSequenceImpl(column, type, start, connectionPool, this);
 	}
 
-	SequenceImpl newSequenceImplCluster(final Sequence.Type type, final long start, final String name)
+	SequenceImpl newSequenceImplCluster(
+			final Sequence.Type type, final long start, final String name)
 	{
 		return
 			new SequenceImplSequence(name, type, start, properties, connectionPool, executor, dsmfDialect);
