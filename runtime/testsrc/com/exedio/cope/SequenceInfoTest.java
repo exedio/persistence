@@ -18,11 +18,18 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PrimaryKeyGenerator.batchedSequence;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceInfoTest.AnItem.TYPE;
 import static com.exedio.cope.SequenceInfoTest.AnItem.next;
+import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.lang.Integer.MAX_VALUE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.micrometer.core.instrument.Tags;
+import io.micrometer.core.instrument.Timer;
 import org.junit.jupiter.api.Test;
 
 public class SequenceInfoTest extends TestWithEnvironment
@@ -49,18 +56,35 @@ public class SequenceInfoTest extends TestWithEnvironment
 
 		assertInfo(TYPE, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, next.getDefaultToNextInfoX());
+		assertTimer(0);
 
 		newItem("first", 5);
 		assertInfo(TYPE, 1, 0, 0, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, next.getDefaultToNextInfoX());
+		assertTimer(1);
 
 		newItem("second");
 		assertInfo(TYPE, 2, 0, 1, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 1, 0, 0, next.getDefaultToNextInfoX());
+		assertTimer(2);
 
 		newItem("third");
 		assertInfo(TYPE, 3, 0, 2, TYPE.getPrimaryKeyInfo());
 		assertInfo(next, 2, 0, 1, next.getDefaultToNextInfoX());
+		assertTimer(3);
+	}
+
+	private static void assertTimer(final long expected)
+	{
+		final Tags tags = tag(TYPE.getThis()).and(tag(MODEL));
+		final PrimaryKeyGenerator pgen = MODEL.getConnectProperties().primaryKeyGenerator;
+		if(pgen.persistent)
+			assertEquals(Math.min((pgen==batchedSequence)?1:MAX_VALUE, expected), ((Timer)meter(Sequence.class, "fetch", tags)).count());
+		else
+			assertFails(
+					() -> meter(Sequence.class, "fetch", tags),
+					PrometheusMeterRegistrar.NotFound.class,
+					"not found: >com.exedio.cope.Sequence.fetch< [tag(feature=AnItem.this),tag(model=com.exedio.cope.SequenceInfoTest)]");
 	}
 
 	private static void newItem(

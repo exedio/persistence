@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.SchemaInfo.getSequenceName;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.SequenceItem.TYPE;
@@ -30,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import io.micrometer.core.instrument.Timer;
 import java.util.HashMap;
 import org.junit.jupiter.api.Test;
 
@@ -49,21 +52,31 @@ public class SequenceTest extends TestWithEnvironment
 		assertEquals(filterTableName("SequenceItem_full"   ), getSequenceName(full));
 		assertEquals(filterTableName("SequenceItem_limited"), getSequenceName(limited));
 
+		assertTimer(0, full);
+		assertTimer(0, limited);
 
 		// full
 		assertInfo(full, full.getInfo());
 
 		assertEquals(0, nextFull());
 		assertInfo(full, 1, 0, 0, full.getInfo());
+		assertTimer(1, full);
+		assertTimer(0, limited);
 
 		assertEquals(1, nextFull());
 		assertInfo(full, 2, 0, 1, full.getInfo());
+		assertTimer(2, full);
+		assertTimer(0, limited);
 
 		assertEquals(2, nextFull());
 		assertInfo(full, 3, 0, 2, full.getInfo());
+		assertTimer(3, full);
+		assertTimer(0, limited);
 
 		assertEquals(3, nextFull());
 		assertInfo(full, 4, 0, 3, full.getInfo());
+		assertTimer(4, full);
+		assertTimer(0, limited);
 
 
 		// limited
@@ -71,18 +84,28 @@ public class SequenceTest extends TestWithEnvironment
 
 		assertEquals(5, nextLimited());
 		assertInfo(limited, 1, 5, 5, limited.getInfo());
+		assertTimer(4, full);
+		assertTimer(1, limited);
 
 		assertEquals(6, nextLimited());
 		assertInfo(limited, 2, 5, 6, limited.getInfo());
+		assertTimer(4, full);
+		assertTimer(2, limited);
 
 		assertEquals(7, nextLimited());
 		assertInfo(limited, 3, 5, 7, limited.getInfo());
+		assertTimer(4, full);
+		assertTimer(3, limited);
 
 		assertEquals(8, nextLimited());
 		assertInfo(limited, 4, 5, 8, limited.getInfo());
+		assertTimer(4, full);
+		assertTimer(4, limited);
 
 		assertEquals(9, nextLimited());
 		assertInfo(limited, 5, 5, 9, limited.getInfo());
+		assertTimer(4, full);
+		assertTimer(5, limited);
 
 		try
 		{
@@ -94,6 +117,8 @@ public class SequenceTest extends TestWithEnvironment
 			assertEquals("sequence overflow to 10 in SequenceItem.limited limited to 5,9", e.getMessage());
 		}
 		assertInfo(limited, 5, 5, 9, limited.getInfo());
+		assertTimer(4, full);
+		assertTimer(6, limited);
 
 		try
 		{
@@ -105,10 +130,23 @@ public class SequenceTest extends TestWithEnvironment
 			assertEquals("sequence overflow to 11 in SequenceItem.limited limited to 5,9", e.getMessage());  // TODO should not increase further
 		}
 		assertInfo(limited, 5, 5, 9, limited.getInfo());
+		assertTimer(4, full);
+		assertTimer(7, limited);
 
 
 		// Model#getSequenceInfo()
 		assertInfo(MODEL.getSequenceInfo(), TYPE.getThis(), full, limited);
+	}
+
+	private static void assertTimer(
+			final long expected,
+			final Sequence feature)
+	{
+		assertEquals(
+				expected,
+				((Timer)meter(Sequence.class, "fetch",
+						tag(feature).and(
+						tag(feature.getType().getModel())))).count());
 	}
 
 	@Test void testParallelSequenceAccess() throws InterruptedException

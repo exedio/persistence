@@ -557,6 +557,7 @@
 						<pathelement location="lib/slf4j-log4j12.jar" />
 						<pathelement location="lib/log4j-bundle.jar" />
 						<pathelement location="lib/micrometer-core.jar" />
+						<pathelement location="lib/LatencyUtils.jar" />
 						<pathelement location="lib/micrometer-registry-prometheus.jar" />
 						<pathelement location="lib/simpleclient-bundle.jar" />
 						<pathelement location="lib/simpleclient_common-bundle.jar" />
