@@ -167,6 +167,11 @@ public final class DataField extends Field<DataField.Value>
 		return store.blobColumnIfSupported(capability);
 	}
 
+	void appendHashExpression(final Statement bf, final String algorithm)
+	{
+		store.appendHashExpression(bf, algorithm);
+	}
+
 	void put(final Entity entity, final Value value, final Item exceptionItem) // just for DataVault
 	{
 		store.put(entity, value, exceptionItem);

@@ -41,6 +41,7 @@ final class DataFieldVaultStore extends DataFieldStore
 {
 	private final StringColumn column;
 	private final MessageDigestFactory algorithm;
+	private final String algorithmName;
 	private final String serviceKey;
 	private final VaultService service;
 	private final Counter getLength, getBytes, getStream, putInitial, putRedundant;
@@ -60,6 +61,7 @@ final class DataFieldVaultStore extends DataFieldStore
 				CharSet.HEX_LOWER,
 				mysqlExtendedVarchar);
 		this.algorithm = properties.getAlgorithmFactory();
+		this.algorithmName = algorithm.getAlgorithm();
 		final String serviceKeyExplicit = field.getAnnotatedVaultValue();
 		this.serviceKey = serviceKeyExplicit!=null ? serviceKeyExplicit : Vault.DEFAULT;
 		this.service = requireNonNull(connect.vaults.get(serviceKey));
@@ -121,6 +123,17 @@ final class DataFieldVaultStore extends DataFieldStore
 	{
 		throw new UnsupportedQueryException(
 				"DataField " + field + " does not support " + capability + " as it has vault enabled");
+	}
+
+	@Override
+	void appendHashExpression(final Statement bf, final String algorithm)
+	{
+		if(!algorithm.equals(algorithmName))
+			throw new UnsupportedQueryException(
+					"DataField " + field + " supports hashMatches with algorithm >" + algorithmName + "< only, " +
+					"but not >" + algorithm + "< as it has vault enabled");
+
+		bf.append(column);
 	}
 
 

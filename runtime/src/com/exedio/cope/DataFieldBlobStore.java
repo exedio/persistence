@@ -49,6 +49,12 @@ final class DataFieldBlobStore extends DataFieldStore
 	}
 
 	@Override
+	void appendHashExpression(final Statement bf, final String algorithm)
+	{
+		bf.dialect.appendBlobHash(bf, column, null, algorithm);
+	}
+
+	@Override
 	boolean isNull(final Transaction tx, final Item item)
 	{
 		return column.isNull(tx, item);

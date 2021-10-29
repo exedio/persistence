@@ -32,6 +32,7 @@ abstract class DataFieldStore
 
 	abstract Column column();
 	abstract BlobColumn blobColumnIfSupported(String capability);
+	abstract void appendHashExpression(Statement bf, String algorithm);
 	abstract boolean isNull(Transaction tx, Item item);
 	abstract long loadLength(Transaction tx, Item item);
 	abstract byte[] load(Transaction tx, Item item);

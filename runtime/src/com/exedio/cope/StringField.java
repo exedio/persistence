@@ -22,6 +22,7 @@ import static com.exedio.cope.util.Check.requireGreaterZero;
 import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.util.CharSet;
+import com.exedio.cope.vault.VaultProperties;
 import java.util.Set;
 import javax.annotation.Nonnull;
 
@@ -186,10 +187,14 @@ public final class StringField extends FunctionField<String>
 	}
 
 	/**
-	 * The result may cause an {@link UnsupportedQueryException} when used,
-	 * if the field is stored in a {@link Vault vault},
-	 * or the {@code algorithm} is not supported by the database.
-	 * @param algorithm see {@link Model#getSupportedDataHashAlgorithms()}
+	 * The result causes an {@link UnsupportedQueryException} when used,
+	 * <ul>
+	 * <li>if {@code data} is stored in a {@link Vault vault} and
+	 *     {@code algorithm} does not match {@link VaultProperties#getAlgorithm()}
+	 *     or
+	 * <li>if {@code data} is <em>not</em> stored in a vault and
+	 *     {@code algorithm} is not contained in {@link Model#getSupportedDataHashAlgorithms()}
+	 * </ul>
 	 * @see #hashDoesNotMatchIfSupported(String, DataField)
 	 */
 	@Nonnull
@@ -201,9 +206,14 @@ public final class StringField extends FunctionField<String>
 	}
 
 	/**
-	 * The result may cause an {@link UnsupportedQueryException} when used,
-	 * if the field is stored in a {@link Vault vault},
-	 * or the {@code algorithm} is not supported by the database.
+	 * The result causes an {@link UnsupportedQueryException} when used,
+	 * <ul>
+	 * <li>if {@code data} is stored in a {@link Vault vault} and
+	 *     {@code algorithm} does not match {@link VaultProperties#getAlgorithm()}
+	 *     or
+	 * <li>if {@code data} is <em>not</em> stored in a vault and
+	 *     {@code algorithm} is not contained in {@link Model#getSupportedDataHashAlgorithms()}
+	 * </ul>
 	 * @see #hashMatchesIfSupported(String, DataField)
 	 */
 	@Nonnull
