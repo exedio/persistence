@@ -26,6 +26,11 @@
 			resource="net/sf/antcontrib/antcontrib.properties"
 			classpath="lib/ant-contrib.jar"
 			onerror="failall" />
+	<taskdef
+			name="for"
+			classname="net.sf.antcontrib.logic.ForTask"
+			classpath="lib/ant-contrib.jar"
+			onerror="failall" />
 
 	<macrodef name="ljarn">
 		<attribute name="jarfile" />
