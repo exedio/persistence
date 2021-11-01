@@ -2,9 +2,8 @@
 <project name="ivy" default="copy">
 	<import file="common.xml" />
 	<target name="copy" depends="resolve">
+
 		<delete dir="../lib">
-			<include name="*" />
-			<exclude name="ant-contrib.jar" />
 		</delete>
 		<copy overwrite="true" todir="../lib">
 			<firstmatchmapper>
@@ -17,5 +16,6 @@
 			<fileset dir="artifacts/lib">
 			</fileset>
 		</copy>
+
 	</target>
 </project>
