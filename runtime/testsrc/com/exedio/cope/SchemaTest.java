@@ -171,8 +171,8 @@ public class SchemaTest extends TestWithEnvironment
 		final boolean icu = mysql && MODEL.getEnvironmentInfo().isDatabaseVersionAtLeast(8, 0);
 		final String regexpBegin = icu ? "\\A": "^";
 		final String regexpEnd   = icu ? "\\z": "$";
-		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"    +regexpEnd+"'" : "";
-		final String hexSQL   = mysql ? q(data)        +" REGEXP '"+regexpBegin+"[0-9,a-f]*"+regexpEnd+"'" : "";
+		final String upperSQL = mysql ? q(stringUpper6)+" REGEXP '"+regexpBegin+"[A-Z]*"   +regexpEnd+"'" : "";
+		final String hexSQL   = mysql ? q(data)        +" REGEXP '"+regexpBegin+"[0-9a-f]*"+regexpEnd+"'" : "";
 
 		assertCheckConstraint(table, "Main_stringMin4_MN", l(stringMin4)+">=4");
 		assertCheckConstraint(table, "Main_stringMin4_MX", l(stringMin4)+"<="+StringField.DEFAULT_MAXIMUM_LENGTH);
