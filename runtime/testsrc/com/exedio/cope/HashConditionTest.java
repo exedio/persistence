@@ -23,6 +23,7 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
+import static java.util.Collections.emptySortedSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -97,13 +98,16 @@ public class HashConditionTest extends TestWithEnvironment
 
 	@BeforeEach final void setUp()
 	{
-		supported = model.getSupportedDataHashAlgorithms();
+		supported =
+				MyItem.data.getVaultInfo()==null
+				? model.getSupportedDataHashAlgorithms()
+				: emptySortedSet();
 		item = new MyItem();
 	}
 
-	@Test void test()
+	@Test void testSupported()
 	{
-		assertUnmodifiable(supported);
+		assertUnmodifiable(model.getSupportedDataHashAlgorithms());
 
 		for(final String algorithm : supported)
 		{
@@ -111,8 +115,6 @@ public class HashConditionTest extends TestWithEnvironment
 			assertEquals(algorithm, algorithm.trim(), algorithm);
 
 			final Algorithm a = Algorithm.forCode(algorithm);
-			if(!isSupported(MyItem.hash.hashMatchesIfSupported(algorithm, MyItem.data)))
-				continue;
 
 			item.setData(null);
 			assertIt(false, false, null, a);
@@ -146,15 +148,13 @@ public class HashConditionTest extends TestWithEnvironment
 		final Condition negative = MyItem.hash.hashDoesNotMatchIfSupported("NIXUS", MyItem.data);
 		assertEquals(  "MyItem.hash=NIXUS(MyItem.data)",  positive.toString());
 		assertEquals("!(MyItem.hash=NIXUS(MyItem.data))", negative.toString());
-		if(!isSupported(MyItem.hash.hashMatchesIfSupported("NIXUS", MyItem.data)))
-			return;
 
 		assertNotSupported(
 				MyItem.TYPE.newQuery(positive),
-				"hash >NIXUS< not supported");
+				message("NIXUS"));
 		assertNotSupported(
 				MyItem.TYPE.newQuery(negative),
-				"hash >NIXUS< not supported");
+				message("NIXUS"));
 	}
 
 	@Test void testUnsupportedStandard()
@@ -175,8 +175,6 @@ public class HashConditionTest extends TestWithEnvironment
 				final Condition condition = MyItem.hash.hashMatchesIfSupported(algorithm, MyItem.data);
 				assertEquals("MyItem.hash=" + algorithm + "(MyItem.data)", condition.toString(), p);
 
-				if(!isSupported(condition))
-					continue;
 				try
 				{
 					MyItem.TYPE.search(condition);
@@ -184,22 +182,19 @@ public class HashConditionTest extends TestWithEnvironment
 				}
 				catch(final UnsupportedQueryException e)
 				{
-					assertEquals("hash >" + algorithm + "< not supported", e.getMessage(), p);
+					assertEquals(message(algorithm), e.getMessage(), p);
 				}
 			}
 		}
 	}
 
 
-	private static boolean isSupported(final Condition condition)
+	private static String message(final String algorithm)
 	{
-		if(MyItem.data.getVaultInfo()==null)
-			return true;
-
-		assertNotSupported(
-				MyItem.TYPE.newQuery(condition),
-				"DataField MyItem.data does not support hashMatches as it has vault enabled");
-		return false;
+		return
+				MyItem.data.getVaultInfo()==null
+				? "hash >" + algorithm + "< not supported"
+				: "DataField MyItem.data does not support hashMatches as it has vault enabled";
 	}
 
 	private void assertIt(
