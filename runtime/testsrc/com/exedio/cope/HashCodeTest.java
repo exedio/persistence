@@ -23,6 +23,7 @@ import static java.util.Arrays.stream;
 import static java.util.Collections.emptySet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import java.security.Provider.Service;
 import java.security.Security;
 import java.util.TreeSet;
 import org.junit.jupiter.api.Test;
@@ -45,7 +46,8 @@ public class HashCodeTest
 		stream(Security.getProviders()).
 				flatMap(provider -> provider.getServices().stream()).
 				filter(service -> "MessageDigest".equals(service.getType())).
-				forEach(service -> codes.remove(service.getAlgorithm()));
+				map(Service::getAlgorithm).
+				forEach(codes::remove);
 
 		assertEquals(emptySet(), codes);
 	}
