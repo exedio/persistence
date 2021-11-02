@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.DataModelTest.assertNotSupported;
 import static com.exedio.cope.instrument.Visibility.PACKAGE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
@@ -149,24 +150,14 @@ public class HashConditionTest extends TestWithEnvironment
 		if(!isSupported(MyItem.hash.hashMatchesIfSupported("NIXUS", MyItem.data)))
 			return;
 
-		try
-		{
-			MyItem.TYPE.search(positive);
-			fail();
-		}
-		catch(final UnsupportedQueryException e)
-		{
-			assertEquals("hash >NIXUS< not supported", e.getMessage());
-		}
-		try
-		{
-			MyItem.TYPE.search(negative);
-			fail();
-		}
-		catch(final UnsupportedQueryException e)
-		{
-			assertEquals("hash >NIXUS< not supported", e.getMessage());
-		}
+		assertFails(
+				() -> MyItem.TYPE.search(positive),
+				UnsupportedQueryException.class,
+				"hash >NIXUS< not supported");
+		assertFails(
+				() -> MyItem.TYPE.search(negative),
+				UnsupportedQueryException.class,
+				"hash >NIXUS< not supported");
 	}
 
 	@Test void testUnsupportedStandard()

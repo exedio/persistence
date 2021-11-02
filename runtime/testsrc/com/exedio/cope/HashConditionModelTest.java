@@ -21,10 +21,10 @@ package com.exedio.cope;
 import static com.exedio.cope.HashConditionTest.Algorithm;
 import static com.exedio.cope.HashConditionTest.MyItem.hash;
 import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.EqualsAssert;
 import com.exedio.cope.util.Hex;
@@ -66,75 +66,45 @@ public class HashConditionModelTest
 	}
 	@Test void algorithmNull()
 	{
-		try
-		{
-			hash.hashMatchesIfSupported(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("algorithm", e.getMessage());
-		}
+		assertFails(
+				() -> hash.hashMatchesIfSupported(null, null),
+				NullPointerException.class,
+				"algorithm");
 	}
 	@Test void algorithmNullNot()
 	{
-		try
-		{
-			hash.hashDoesNotMatchIfSupported(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("algorithm", e.getMessage());
-		}
+		assertFails(
+				() -> hash.hashDoesNotMatchIfSupported(null, null),
+				NullPointerException.class,
+				"algorithm");
 	}
 	@Test void algorithmEmpty()
 	{
-		try
-		{
-			hash.hashMatchesIfSupported("", null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("algorithm must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> hash.hashMatchesIfSupported("", null),
+				IllegalArgumentException.class,
+				"algorithm must not be empty");
 	}
 	@Test void algorithmEmptyNot()
 	{
-		try
-		{
-			hash.hashDoesNotMatchIfSupported("", null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("algorithm must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> hash.hashDoesNotMatchIfSupported("", null),
+				IllegalArgumentException.class,
+				"algorithm must not be empty");
 	}
 	@Test void dataNull()
 	{
-		try
-		{
-			hash.hashMatchesIfSupported("ALGO", null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("data", e.getMessage());
-		}
+		assertFails(
+				() -> hash.hashMatchesIfSupported("ALGO", null),
+				NullPointerException.class,
+				"data");
 	}
 	@Test void dataNullNot()
 	{
-		try
-		{
-			hash.hashDoesNotMatchIfSupported("ALGO", null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("data", e.getMessage());
-		}
+		assertFails(
+				() -> hash.hashDoesNotMatchIfSupported("ALGO", null),
+				NullPointerException.class,
+				"data");
 	}
 	@Test void algorithmConsistentWithMessageDigest()
 	{
