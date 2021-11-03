@@ -50,9 +50,9 @@ public class UniqueHashedMediaVaultTest
 		final Media blob  = BlobItem .f.getMedia();
 		final Media vault = VaultItem.f.getMedia();
 		assertEquals(null,      blob .getAnnotation(Vault.class));
-		assertEquals(null,      vault.getAnnotation(Vault.class)); // TODO
+		assertEquals("vaultsk", vault.getAnnotation(Vault.class).value());
 		assertEquals(false,     blob .isAnnotationPresent(Vault.class));
-		assertEquals(false,     vault.isAnnotationPresent(Vault.class));
+		assertEquals(true,      vault.isAnnotationPresent(Vault.class));
 	}
 
 	@Test void testDataFieldAnnotation()
@@ -60,9 +60,9 @@ public class UniqueHashedMediaVaultTest
 		final DataField blob  = BlobItem .f.getMedia().getBody();
 		final DataField vault = VaultItem.f.getMedia().getBody();
 		assertEquals(null,      blob .getAnnotation(Vault.class));
-		assertEquals(null,      vault.getAnnotation(Vault.class)); // TODO
+		assertEquals("vaultsk", vault.getAnnotation(Vault.class).value());
 		assertEquals(false,     blob .isAnnotationPresent(Vault.class));
-		assertEquals(false,     vault.isAnnotationPresent(Vault.class)); // TODO
+		assertEquals(true,      vault.isAnnotationPresent(Vault.class));
 	}
 
 	@Test void testDataFieldAnnotationGetter()
@@ -70,9 +70,9 @@ public class UniqueHashedMediaVaultTest
 		final DataField blob  = BlobItem .f.getMedia().getBody();
 		final DataField vault = VaultItem.f.getMedia().getBody();
 		assertEquals(null,      blob .getAnnotatedVaultValue());
-		assertEquals(null,      vault.getAnnotatedVaultValue()); // TODO
+		assertEquals("vaultsk", vault.getAnnotatedVaultValue());
 		assertEquals(false,     blob .isAnnotatedVault());
-		assertEquals(false,     vault.isAnnotatedVault()); // TODO
+		assertEquals(true,      vault.isAnnotatedVault());
 	}
 
 	@Test void testDataFieldServiceKey()
@@ -89,7 +89,7 @@ public class UniqueHashedMediaVaultTest
 		try
 		{
 			assertEquals(null,      blob .getVaultServiceKey());
-			assertEquals(null,      vault.getVaultServiceKey()); // TODO
+			assertEquals("vaultsk", vault.getVaultServiceKey());
 		}
 		finally
 		{

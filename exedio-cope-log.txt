@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* UniqueHashedMedia promotes @Vault to Media.
+	May affect database schema.
 * Transaction#[is|set]QueryCacheDisabled added.
 * @CopeSchemaName("") fixed for sourceTypes of Patterns.
 	Affects database schema.
