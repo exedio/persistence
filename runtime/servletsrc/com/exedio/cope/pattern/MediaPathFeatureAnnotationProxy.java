@@ -46,7 +46,7 @@ final class MediaPathFeatureAnnotationProxy implements AnnotatedElement
 
 		//noinspection SimplifiableConditionalExpression
 		return
-			(Vault.class==annotationClass || PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
+			isToBePromoted(annotationClass)
 			? source.isAnnotationPresent(annotationClass)
 			: false;
 	}
@@ -58,10 +58,24 @@ final class MediaPathFeatureAnnotationProxy implements AnnotatedElement
 			return annotationClass.cast(ComputedElement.get().getAnnotation(Computed.class));
 
 		return
-			(Vault.class==annotationClass || PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
+			isToBePromoted(annotationClass)
 			? source.getAnnotation(annotationClass)
 			: null;
 	}
+
+	private static boolean isToBePromoted(final Class<?> annotationClass)
+	{
+		for(final Class<?> c : classesToBePromoted)
+			if(c==annotationClass)
+				return true;
+		return false;
+	}
+
+	private static final Class<?>[] classesToBePromoted = {
+			Vault.class,
+			PreventUrlGuessing.class,
+			UrlFingerPrinting.class,
+	};
 
 	@Override
 	public Annotation[] getAnnotations()
