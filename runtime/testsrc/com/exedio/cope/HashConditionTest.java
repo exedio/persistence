@@ -23,7 +23,6 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static java.nio.charset.StandardCharsets.US_ASCII;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptySortedSet;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -34,6 +33,7 @@ import com.exedio.cope.instrument.WrapperType;
 import java.security.Provider;
 import java.security.Security;
 import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.annotation.Nullable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -101,7 +101,7 @@ public class HashConditionTest extends TestWithEnvironment
 		supported =
 				MyItem.data.getVaultInfo()==null
 				? model.getSupportedDataHashAlgorithms()
-				: emptySortedSet();
+				: new TreeSet<>(asList(model.getConnectProperties().vault.getAlgorithm()));
 		item = new MyItem();
 	}
 
@@ -194,7 +194,8 @@ public class HashConditionTest extends TestWithEnvironment
 		return
 				MyItem.data.getVaultInfo()==null
 				? "hash >" + algorithm + "< not supported"
-				: "DataField MyItem.data does not support hashMatches as it has vault enabled";
+				: "DataField MyItem.data supports hashMatches with algorithm >" + MODEL.getConnectProperties().vault.getAlgorithm() + "< only, " +
+				  "but not >" + algorithm + "< as it has vault enabled";
 	}
 
 	private void assertIt(

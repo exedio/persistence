@@ -43,7 +43,6 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
-import com.exedio.cope.UnsupportedQueryException;
 import com.exedio.cope.misc.Computed;
 import java.io.IOException;
 import java.util.Date;
@@ -175,11 +174,15 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 
 	@Test void testHashMatches()
 	{
-		assumeTrue(
-				model.getSupportedDataHashAlgorithms().contains(value.getMessageDigestAlgorithm()),
-				model.getSupportedDataHashAlgorithms() + " contains " + value.getMessageDigestAlgorithm()
-		);
-		assumeNoVault();
+		if(value.getMedia().getBody().getVaultInfo()==null)
+			assumeTrue(
+					model.getSupportedDataHashAlgorithms().contains(value.getMessageDigestAlgorithm()),
+					model.getSupportedDataHashAlgorithms() + " contains " + value.getMessageDigestAlgorithm()
+			);
+		else
+			assertEquals(
+					model.getConnectProperties().getVaultProperties().getAlgorithm(),
+					value.getMessageDigestAlgorithm());
 
 		final UniqueHashedMediaItem item1 = new UniqueHashedMediaItem(toValue(bytes4, "image/jpeg"));
 		final UniqueHashedMediaItem item2 = new UniqueHashedMediaItem(toValue(bytes6, "image/jpeg"));
@@ -193,25 +196,6 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 
 		assertSearch(asList(item1, item2), value.hashMatchesIfSupported());
 		assertSearch(asList(itemX), value.hashDoesNotMatchIfSupported());
-	}
-
-	private static void assumeNoVault()
-	{
-		if(value.getMedia().getBody().getVaultInfo()==null)
-			return;
-
-		try
-		{
-			TYPE.search(value.hashMatchesIfSupported());
-			fail();
-		}
-		catch(final UnsupportedQueryException e)
-		{
-			assertEquals(
-					"DataField UniqueHashedMediaItem.value-media-body does not support hashMatches as it has vault enabled",
-					e.getMessage());
-			assumeTrue(false, "no vault");
-		}
 	}
 
 	private static void assertSearch(final List<UniqueHashedMediaItem> expected, final Condition condition)
