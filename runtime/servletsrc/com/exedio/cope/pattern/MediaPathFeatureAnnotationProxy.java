@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Pattern;
+import com.exedio.cope.Vault;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.misc.ComputedElement;
 import java.lang.annotation.Annotation;
@@ -45,7 +46,7 @@ final class MediaPathFeatureAnnotationProxy implements AnnotatedElement
 
 		//noinspection SimplifiableConditionalExpression
 		return
-			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
+			(Vault.class==annotationClass || PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 			? source.isAnnotationPresent(annotationClass)
 			: false;
 	}
@@ -57,7 +58,7 @@ final class MediaPathFeatureAnnotationProxy implements AnnotatedElement
 			return annotationClass.cast(ComputedElement.get().getAnnotation(Computed.class));
 
 		return
-			(PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
+			(Vault.class==annotationClass || PreventUrlGuessing.class==annotationClass || UrlFingerPrinting.class==annotationClass)
 			? source.getAnnotation(annotationClass)
 			: null;
 	}
