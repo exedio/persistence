@@ -180,7 +180,7 @@ public class HashConditionTest extends TestWithEnvironment
 				try
 				{
 					MyItem.TYPE.search(condition);
-					fail(p);
+					fail(p+'/'+algorithm);
 				}
 				catch(final UnsupportedQueryException e)
 				{
