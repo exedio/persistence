@@ -63,6 +63,7 @@ timestamps
 				writeEnv(
 						'my80-sq',
 						'mysql-connector-java',
+						'dialect.connection.compress=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(
@@ -76,9 +77,11 @@ timestamps
 						'disableSupport.uniqueViolation=true\n'
 				)
 				writeEnv(
-						'my80-z',
+						'my80-vault',
 						'mysql-connector-java',
-						'dialect.connection.compress=true\n' +
+						'vault=true\n' +
+						'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+						'vault.isAppliedToAllFields=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(
@@ -111,12 +114,15 @@ timestamps
 				writeEnv(
 						'my80m-sq',
 						'mariadb-java-client',
+						'dialect.connection.compress=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 				writeEnv(
-						'my80m-z',
+						'my80m-vault',
 						'mariadb-java-client',
-						'dialect.connection.compress=true\n' +
+						'vault=true\n' +
+						'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+						'vault.isAppliedToAllFields=true\n' +
 						'schema.primaryKeyGenerator=sequence\n'
 				)
 
