@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Add nullability annotations to EnumSingleton.
+	Affects instrumented code.
 * UniqueHashedMedia promotes @Vault to Media.
 	May affect database schema.
 * Transaction#[is|set]QueryCacheDisabled added.
