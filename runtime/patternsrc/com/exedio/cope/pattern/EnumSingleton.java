@@ -30,6 +30,7 @@ import com.exedio.cope.instrument.Wrap;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.CopeSchemaNameElement;
 import java.util.Set;
+import javax.annotation.Nonnull;
 
 @WrapFeature
 public final class EnumSingleton<E extends Enum<E>> extends Pattern implements Settable<E>
@@ -84,6 +85,7 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 	}
 
 	@Wrap(order=10, doc=Wrap.GET_DOC)
+	@Nonnull
 	public E get(final Item item)
 	{
 		return once.get(item);
@@ -94,7 +96,10 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 			doc="Gets the instance of {2} for the given value.",
 			docReturn="never returns null.",
 			thrown=@Wrap.Thrown(value=IllegalArgumentException.class, doc="if no such instance exists"))
-	public <P extends Item> P instance(final Class<P> typeClass, final E value)
+	@Nonnull
+	public <P extends Item> P instance(
+			@Nonnull final Class<P> typeClass,
+			@Nonnull final E value)
 	{
 		requireNonNull(value, "value");
 

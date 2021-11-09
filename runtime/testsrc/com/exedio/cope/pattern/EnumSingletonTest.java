@@ -121,6 +121,7 @@ public class EnumSingletonTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
 		final OneDigitPrime getPrime()
 		{
 			return MyItem.prime.get(this);
@@ -133,7 +134,8 @@ public class EnumSingletonTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="instance")
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		static final MyItem instance(final OneDigitPrime prime)
+		@javax.annotation.Nonnull
+		static final MyItem instance(@javax.annotation.Nonnull final OneDigitPrime prime)
 				throws
 					java.lang.IllegalArgumentException
 		{
