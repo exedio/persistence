@@ -23,7 +23,6 @@ import static java.lang.reflect.Modifier.PRIVATE;
 import static java.lang.reflect.Modifier.STATIC;
 import static java.text.MessageFormat.format;
 import static java.util.Arrays.asList;
-import static java.util.Collections.emptySortedSet;
 import static java.util.Collections.singletonList;
 
 import com.exedio.cope.BooleanField;
@@ -153,8 +152,7 @@ final class Generator
 	}
 
 	private void writeGeneratedAnnotation(
-			final String extraCommentForAnnotations,
-			final SortedSet<String> suppressWarnings)
+			final String extraCommentForAnnotations)
 	{
 		writeIndent();
 		writeAnnotation(Generated.class);
@@ -164,7 +162,11 @@ final class Generator
 			write(extraCommentForAnnotations);
 		}
 		write(lineSeparator);
+	}
 
+	private void writeSuppressWarnings(
+			final SortedSet<String> suppressWarnings)
+	{
 		if(!suppressWarnings.isEmpty())
 		{
 			writeIndent();
@@ -225,7 +227,8 @@ final class Generator
 			commentLines.add("@throws " + constructorException.getCanonicalName() + ' ' + format(pattern, fields.toString()));
 		}
 		writeComment(commentLines);
-		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE, suppressWarningsConstructor);
+		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE);
+		writeSuppressWarnings(suppressWarningsConstructor);
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
@@ -307,7 +310,7 @@ final class Generator
 			return;
 
 		writeComment(singletonList(format(CONSTRUCTOR_GENERIC, type.getName())));
-		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE, emptySortedSet());
+		writeGeneratedAnnotation(CONSTRUCTOR_GENERIC_CUSTOMIZE);
 
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
@@ -331,7 +334,7 @@ final class Generator
 					"Activation constructor. Used for internal purposes only.",
 					"@see " + type.kind.top + '#' + type.kind.topSimple + '(' + activation + ')')
 		);
-		writeGeneratedAnnotation(null, emptySortedSet());
+		writeGeneratedAnnotation(null);
 
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getSubtypeModifier()));
@@ -431,9 +434,9 @@ final class Generator
 				writeComment(commentLines);
 				writeGeneratedAnnotation(
 					modifierTag!=null
-					?  hintCustomize(Wrapper.class, "wrap", "\"" + modifierTag + "\"")
-					: null,
-					suppressWarningsWrapper);
+					? hintCustomize(Wrapper.class, "wrap", "\"" + modifierTag + "\"")
+					: null);
+				writeSuppressWarnings(suppressWarningsWrapper);
 			}
 
 			if(wrapper.isMethodDeprecated() || feature.isDeprecated())
@@ -708,7 +711,7 @@ final class Generator
 	private void writeSerialVersionUID(final LocalCopeType type)
 	{
 		write(lineSeparator);
-		writeGeneratedAnnotation(null, emptySortedSet());
+		writeGeneratedAnnotation(null);
 
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
@@ -739,7 +742,7 @@ final class Generator
 		writeComment(singletonList(
 				format("Use {0}.classWildcard.value instead of {0}.class to avoid rawtypes warnings.", type.getName())
 		));
-		writeGeneratedAnnotation(WILDCARD_CUSTOMIZE, emptySortedSet());
+		writeGeneratedAnnotation(WILDCARD_CUSTOMIZE);
 		writeIndent();
 		final int modifier = visibility.getModifier(type.getModifier());
 		writeModifier(modifier | (STATIC | FINAL));
@@ -768,7 +771,7 @@ final class Generator
 			return;
 
 		writeComment(singletonList(format(kind.typeDoc, lowerCamelCase(type.getName()))));
-		writeGeneratedAnnotation(TYPE_CUSTOMIZE, emptySortedSet());
+		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write(kind.typeField);
