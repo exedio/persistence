@@ -79,6 +79,12 @@ public @interface Wrapper
 	boolean override() default false;
 
 	/**
+	 * Annotates the generated wrapper method with @{@link SuppressWarnings},
+	 * additionally to global parameters of the instrumentor.
+	 */
+	String[] suppressWarnings() default {};
+
+	/**
 	 * Adds the given texts as annotations to the generated wrapper method. Values must start with "{@literal @}".
 	 */
 	String[] annotate() default {};
