@@ -70,8 +70,8 @@ final class Generator
 	private final boolean finalMethodInFinalClass;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
-	private final SortedSet<String> suppressWarningsConstructor;
-	private final SortedSet<String> suppressWarningsWrapper;
+	private final Params.Suppressor suppressWarningsConstructor;
+	private final Params.Suppressor suppressWarningsWrapper;
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params, final Set<Method> generateDeprecateds, final Set<Method> disabledWraps)
 	{
@@ -86,8 +86,8 @@ final class Generator
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.disabledWraps = disabledWraps;
-		this.suppressWarningsConstructor = params.suppressWarningsConstructor.get();
-		this.suppressWarningsWrapper     = params.suppressWarningsWrapper    .get();
+		this.suppressWarningsConstructor = params.suppressWarningsConstructor;
+		this.suppressWarningsWrapper     = params.suppressWarningsWrapper;
 	}
 
 	private static String toCamelCase(final String name)
@@ -165,18 +165,19 @@ final class Generator
 	}
 
 	private void writeSuppressWarnings(
-			final SortedSet<String> suppressWarnings)
+			final Params.Suppressor suppressWarnings)
 	{
-		if(!suppressWarnings.isEmpty())
+		final SortedSet<String> set = suppressWarnings.get();
+		if(!set.isEmpty())
 		{
 			writeIndent();
 			writeAnnotation(SuppressWarnings.class);
 			write('(');
-			final boolean multi = suppressWarnings.size()>1;
+			final boolean multi = set.size()>1;
 			if(multi)
 				write('{');
 			final CharSeparator comma = new CharSeparator(',');
-			for(final String w : suppressWarnings)
+			for(final String w : set)
 			{
 				comma.appendTo(output);
 				write('"');
