@@ -94,7 +94,7 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 	{
 		clock.assertEmpty();
 		final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
-				next.map(7001)
+				SetValue.map(next, 7001)
 		);
 		clock.assertEmpty();
 
@@ -109,7 +109,7 @@ public class IntegerFieldDefaultToNextTest extends TestWithEnvironment
 	{
 		clock.assertEmpty();
 		final IntegerFieldDefaultToNextItem item = new IntegerFieldDefaultToNextItem(
-				next.map(null)
+				SetValue.map(next, null)
 		);
 		clock.assertEmpty();
 

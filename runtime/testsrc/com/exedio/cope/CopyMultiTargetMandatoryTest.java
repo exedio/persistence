@@ -67,9 +67,9 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		try
 		{
 			new Source(
-				Source.targetA.map(new Target(1)),
-				Source.targetB.map(new Target(2)),
-				Source.copy.map(null)
+				SetValue.map(Source.targetA, new Target(1)),
+				SetValue.map(Source.targetB, new Target(2)),
+				SetValue.map(Source.copy, null)
 			);
 			fail();
 		}
@@ -81,9 +81,9 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		try
 		{
 			new Source(
-				Source.targetA.map(targetOne),
-				Source.targetB.map(new Target(2)),
-				Source.copy.map(3)
+				SetValue.map(Source.targetA, targetOne),
+				SetValue.map(Source.targetB, new Target(2)),
+				SetValue.map(Source.copy, 3)
 			);
 			fail();
 		}
@@ -153,8 +153,8 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		final Source source = new Source(new Target(0), new Target(0));
 		assertEquals(0, source.getCopy());
 		source.set(
-			Source.targetA.map(new Target(1)),
-			Source.targetB.map(new Target(1))
+			SetValue.map(Source.targetA, new Target(1)),
+			SetValue.map(Source.targetB, new Target(1))
 		);
 		assertEquals(1, source.getCopy());
 	}
@@ -169,8 +169,8 @@ public class CopyMultiTargetMandatoryTest extends TestWithEnvironment
 		try
 		{
 			source.set(
-				Source.targetA.map(t0b),
-				Source.targetB.map(t1)
+				SetValue.map(Source.targetA, t0b),
+				SetValue.map(Source.targetB, t1)
 			);
 			fail();
 		}

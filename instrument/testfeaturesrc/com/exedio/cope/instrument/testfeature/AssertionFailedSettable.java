@@ -29,6 +29,7 @@ import java.util.Set;
 public class AssertionFailedSettable<E> extends Feature implements Settable<E>
 {
 	@Override
+	@SuppressWarnings({"deprecation","unused"}) // OK: testing deprecated API
 	public SetValue<E> map(final E value)
 	{
 		throw new AssertionError(Objects.toString(value));

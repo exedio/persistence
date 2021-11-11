@@ -40,15 +40,15 @@ public final class CheckConstraintItem extends CheckConstraintSuperItem
 	void setAlphaBeta(final Integer alpha, final Integer beta)
 	{
 		set(
-			CheckConstraintItem.alpha.map(alpha),
-			CheckConstraintItem.beta.map(beta));
+			SetValue.map(CheckConstraintItem.alpha, alpha),
+			SetValue.map(CheckConstraintItem.beta, beta));
 	}
 
 	void setBetaGamma(final Integer beta, final Integer gamma)
 	{
 		set(
-			CheckConstraintItem.beta.map(beta),
-			CheckConstraintItem.gamma.map(gamma));
+			SetValue.map(CheckConstraintItem.beta, beta),
+			SetValue.map(CheckConstraintItem.gamma, gamma));
 	}
 
 	/**

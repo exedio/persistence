@@ -23,6 +23,7 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperType;
 import java.util.Date;
@@ -53,10 +54,10 @@ public final class LimitedListFieldItem extends Item
 	LimitedListFieldItem(final int initialNum1, final int initialNum2, final int initialNum3)
 	{
 		super(
-			nums.getLengthIfExists().map(3),
-			num1.map(initialNum1),
-			num2.map(initialNum2),
-			num3.map(initialNum3));
+			SetValue.map(nums.getLengthIfExists(), 3),
+			SetValue.map(num1, initialNum1),
+			SetValue.map(num2, initialNum2),
+			SetValue.map(num3, initialNum3));
 	}
 
 	Date getDate0()

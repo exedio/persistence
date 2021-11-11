@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import java.nio.charset.StandardCharsets;
 
 final class DrivebyHashMigrationItem extends Item
@@ -34,8 +35,8 @@ final class DrivebyHashMigrationItem extends Item
 			final double dummy)
 	{
 		this(
-			DrivebyHashMigrationItem.password.getLegacyHash().map(password),
-			DrivebyHashMigrationItem.password.getTargetHash().map(null));
+			SetValue.map(DrivebyHashMigrationItem.password.getLegacyHash(), password),
+			SetValue.map(DrivebyHashMigrationItem.password.getTargetHash(), null));
 	}
 
 	/**

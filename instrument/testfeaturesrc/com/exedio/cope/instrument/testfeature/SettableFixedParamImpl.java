@@ -48,6 +48,7 @@ public class SettableFixedParamImpl extends Feature implements SettableFixedPara
 
 
 	@Override
+	@SuppressWarnings({"deprecation","unused"}) // OK: testing deprecated API
 	public SetValue<AtomicReference<AtomicBoolean>> map(final AtomicReference<AtomicBoolean> value)
 	{
 		throw new AssertionError();

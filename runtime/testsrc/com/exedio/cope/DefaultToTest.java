@@ -69,7 +69,7 @@ public class DefaultToTest extends TestWithEnvironment
 		{
 			clock.assertEmpty();
 			final DefaultToItem item = new DefaultToItem(
-					booleanNone.map(false)
+					SetValue.map(booleanNone, false)
 			);
 			clock.assertEmpty();
 
@@ -91,7 +91,7 @@ public class DefaultToTest extends TestWithEnvironment
 		{
 			clock.assertEmpty();
 			final DefaultToItem item = new DefaultToItem(
-					booleanNone.map(false)
+					SetValue.map(booleanNone, false)
 			);
 			clock.assertEmpty();
 
@@ -112,19 +112,19 @@ public class DefaultToTest extends TestWithEnvironment
 		{
 			clock.assertEmpty();
 			final DefaultToItem item = new DefaultToItem(
-					booleanTrue.map(false),
-					booleanNone.map(true),
-					integerFive.map(6),
-					integerFifty.map(51),
-					dateEight.map(date(9)),
-					dateEighty.map(date(81)),
-					dateNone.map(date(503)),
-					dayEight.map(day(1609, 9, 9)),
-					dayNone.map(day(2010, 1, 15)),
-					longRandom.map(Long.valueOf(37)),
-					enumOne.map(THREE),
-					enumTwo.map(ONE),
-					enumNone.map(TWO)
+					SetValue.map(booleanTrue, false),
+					SetValue.map(booleanNone, true),
+					SetValue.map(integerFive, 6),
+					SetValue.map(integerFifty, 51),
+					SetValue.map(dateEight, date(9)),
+					SetValue.map(dateEighty, date(81)),
+					SetValue.map(dateNone, date(503)),
+					SetValue.map(dayEight, day(1609, 9, 9)),
+					SetValue.map(dayNone, day(2010, 1, 15)),
+					SetValue.map(longRandom, Long.valueOf(37)),
+					SetValue.map(enumOne, THREE),
+					SetValue.map(enumTwo, ONE),
+					SetValue.map(enumNone, TWO)
 			);
 			clock.assertEmpty();
 
@@ -146,16 +146,16 @@ public class DefaultToTest extends TestWithEnvironment
 		{
 			clock.assertEmpty();
 			final DefaultToItem item = new DefaultToItem(
-					booleanTrue.map(null),
-					booleanNone.map(true),
-					integerFifty.map(null),
-					dateEighty.map(null),
-					dateNone.map(null),
-					dayNone.map(null),
-					longRandom.map(null),
-					enumOne.map(TWO),
-					enumTwo.map(null),
-					enumNone.map(null)
+					SetValue.map(booleanTrue, null),
+					SetValue.map(booleanNone, true),
+					SetValue.map(integerFifty, null),
+					SetValue.map(dateEighty, null),
+					SetValue.map(dateNone, null),
+					SetValue.map(dayNone, null),
+					SetValue.map(longRandom, null),
+					SetValue.map(enumOne, TWO),
+					SetValue.map(enumTwo, null),
+					SetValue.map(enumNone, null)
 			);
 			clock.assertEmpty();
 

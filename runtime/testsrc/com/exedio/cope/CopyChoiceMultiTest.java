@@ -292,12 +292,12 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 
 		private Container(final PartA choice)
 		{
-			this(choiceA.map(choice));
+			this(SetValue.map(choiceA, choice));
 		}
 
 		private Container(final PartB choice)
 		{
-			this(choiceB.map(choice));
+			this(SetValue.map(choiceB, choice));
 		}
 
 		@com.exedio.cope.instrument.Generated

@@ -37,6 +37,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SchemaInfo;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import java.util.Arrays;
@@ -151,8 +152,8 @@ public class SerializerTest extends TestWithEnvironment
 		assertNotSame(map1, item.getMap());
 
 		item.set(
-				integer.map(22),
-				map.map(map2)
+				SetValue.map(integer, 22),
+				SetValue.map(map, map2)
 		);
 		assertEquals(valueOf(22), item.getInteger());
 		assertEquals(map2, item.getMap());
@@ -167,9 +168,9 @@ public class SerializerTest extends TestWithEnvironment
 		assertNull(item.getMap());
 
 		final SerializerItem item2 = new SerializerItem(
-				integer.map(33),
-				map.map(map1),
-				mandatoryString.map("")
+				SetValue.map(integer, 33),
+				SetValue.map(map, map1),
+				SetValue.map(mandatoryString, "")
 		);
 		assertEquals(valueOf(33), item2.getInteger());
 		assertEquals(map1, item2.getMap());
@@ -177,9 +178,9 @@ public class SerializerTest extends TestWithEnvironment
 		assertEquals("", item2.getMandatoryString());
 
 		final SerializerItem item3 = TYPE.newItem(
-				integer.map(44),
-				map.map(map2),
-				mandatoryString.map("x")
+				SetValue.map(integer, 44),
+				SetValue.map(map, map2),
+				SetValue.map(mandatoryString, "x")
 		);
 		assertEquals(valueOf(44), item3.getInteger());
 		assertEquals(map2, item3.getMap());

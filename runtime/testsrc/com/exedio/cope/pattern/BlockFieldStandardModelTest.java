@@ -32,6 +32,7 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -680,15 +681,15 @@ public class BlockFieldStandardModelTest
 		{
 			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(
-				AnItem.code.map(code),
-				AnItem.eins.of(aString).map(code + '-' + n + 'A'),
-				AnItem.eins.of(anInt).map(n),
-				AnItem.eins.of(anEnum).map(ABlock.AnEnum.facet1),
-				AnItem.eins.of(aColor).map(new Color(10, 20, 30)),
-				AnItem.zwei.of(aString).map(code + '-' + n + 'B'),
-				AnItem.zwei.of(anInt).map(n + 10),
-				AnItem.zwei.of(anEnum).map(ABlock.AnEnum.facet2),
-				AnItem.zwei.of(aColor).map(new Color(110, 120, 130)));
+				SetValue.map(AnItem.code, code),
+				SetValue.map(AnItem.eins.of(aString), code + '-' + n + 'A'),
+				SetValue.map(AnItem.eins.of(anInt), n),
+				SetValue.map(AnItem.eins.of(anEnum), ABlock.AnEnum.facet1),
+				SetValue.map(AnItem.eins.of(aColor), new Color(10, 20, 30)),
+				SetValue.map(AnItem.zwei.of(aString), code + '-' + n + 'B'),
+				SetValue.map(AnItem.zwei.of(anInt), n + 10),
+				SetValue.map(AnItem.zwei.of(anEnum), ABlock.AnEnum.facet2),
+				SetValue.map(AnItem.zwei.of(aColor), new Color(110, 120, 130)));
 		}
 
 

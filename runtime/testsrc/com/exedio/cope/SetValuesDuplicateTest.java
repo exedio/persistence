@@ -87,11 +87,11 @@ public class SetValuesDuplicateTest extends TestWithEnvironment
 		assertEquals("initial", i.getField());
 	}
 
-	private static final SetValue<?>[] FIRST_SECOND = { AnItem.field.map("first"), AnItem.field.map("second")    };
-	private static final SetValue<?>[] SAME_SAME    = { AnItem.field.map("same"),  AnItem.field.map("same")      };
-	private static final SetValue<?>[] FIRST_NULL   = { AnItem.field.map("first"), AnItem.field.mapNull()        };
-	private static final SetValue<?>[] NULL_SECOND  = { AnItem.field.mapNull(),    AnItem.field.map("second")    };
-	private static final SetValue<?>[] NULL_NULL    = { AnItem.field.mapNull(),    AnItem.field.mapNull()        };
+	private static final SetValue<?>[] FIRST_SECOND = { SetValue.map(AnItem.field, "first"), SetValue.map(AnItem.field, "second") };
+	private static final SetValue<?>[] SAME_SAME    = { SetValue.map(AnItem.field, "same"),  SetValue.map(AnItem.field, "same")   };
+	private static final SetValue<?>[] FIRST_NULL   = { SetValue.map(AnItem.field, "first"), AnItem.field.mapNull()               };
+	private static final SetValue<?>[] NULL_SECOND  = { AnItem.field.mapNull(),              SetValue.map(AnItem.field, "second") };
+	private static final SetValue<?>[] NULL_NULL    = { AnItem.field.mapNull(),              AnItem.field.mapNull()               };
 
 	private static void assertFailsDup(final Executable executable)
 	{

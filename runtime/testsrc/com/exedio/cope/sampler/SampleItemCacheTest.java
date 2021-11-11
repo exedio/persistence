@@ -26,6 +26,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.exedio.cope.SetValue;
 import org.junit.jupiter.api.Test;
 
 public class SampleItemCacheTest extends ConnectedTest
@@ -93,7 +94,7 @@ public class SampleItemCacheTest extends ConnectedTest
 	private static void touch()
 	{
 		MODEL.startTransaction("HistoryTest2");
-		SampledModelItem2.TYPE.newItem(SampledModelItem2.code.map("zack"));
+		SampledModelItem2.TYPE.newItem(SetValue.map(SampledModelItem2.code, "zack"));
 		MODEL.commit();
 	}
 

@@ -179,13 +179,13 @@ public class ItemTest extends TestmodelTest
 	{
 		final EmptyItem item1 = TYPE.newItem();
 		final AttributeItem item2 = AttributeItem.TYPE.newItem(
-			AttributeItem.someNotNullString.map("someGenericString"),
-			AttributeItem.someNotNullInteger.map(50),
-			AttributeItem.someNotNullLong.map(60l),
-			AttributeItem.someNotNullDouble.map(20.2),
-			AttributeItem.someNotNullBoolean.map(false),
-			AttributeItem.someNotNullItem.map(item1),
-			AttributeItem.someNotNullEnum.map(AttributeItem.SomeEnum.enumValue3));
+			SetValue.map(AttributeItem.someNotNullString, "someGenericString"),
+			SetValue.map(AttributeItem.someNotNullInteger, 50),
+			SetValue.map(AttributeItem.someNotNullLong, 60l),
+			SetValue.map(AttributeItem.someNotNullDouble, 20.2),
+			SetValue.map(AttributeItem.someNotNullBoolean, false),
+			SetValue.map(AttributeItem.someNotNullItem, item1),
+			SetValue.map(AttributeItem.someNotNullEnum, AttributeItem.SomeEnum.enumValue3));
 
 		assertEquals("someGenericString", item2.getSomeNotNullString());
 		assertEquals(50, item2.getSomeNotNullInteger());

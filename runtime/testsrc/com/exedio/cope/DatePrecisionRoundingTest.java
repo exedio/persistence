@@ -286,7 +286,7 @@ public class DatePrecisionRoundingTest
 		final Date past   = date(9, 15, 44,  0,  0);
 		final Date future = date(9, 15, 45,  0,  0);
 
-		assertMap(f, value , f.map(value));
+		assertMap(f, value , SetValue.map(f, value));
 		assertMap(f, past  , f.mapRounded(value, RoundingMode.PAST  ));
 		assertMap(f, future, f.mapRounded(value, RoundingMode.FUTURE));
 		try
@@ -304,12 +304,12 @@ public class DatePrecisionRoundingTest
 			assertEquals(future, e.getValueAllowedInFuture());
 		}
 
-		assertMap(f, null, f.map(null));
+		assertMap(f, null, SetValue.map(f, null));
 		assertMap(f, null, f.mapRounded(null, RoundingMode.PAST  ));
 		assertMap(f, null, f.mapRounded(null, RoundingMode.FUTURE));
 		assertMap(f, null, f.mapRounded(null, RoundingMode.UNNECESSARY));
 
-		assertMap(f, past, f.map(past));
+		assertMap(f, past, SetValue.map(f, past));
 		assertMap(f, past, f.mapRounded(past, RoundingMode.PAST  ));
 		assertMap(f, past, f.mapRounded(past, RoundingMode.FUTURE));
 		assertMap(f, past, f.mapRounded(past, RoundingMode.UNNECESSARY));

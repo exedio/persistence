@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.junit.AbsoluteMockClockStrategy;
 import com.exedio.cope.pattern.Schedule.Interval;
@@ -76,13 +77,13 @@ public class ScheduleTest extends TestWithEnvironment
 		disabledItem.setReportEnabled(false);
 		final ScheduleItem recentItem = new ScheduleItem();
 		final Run recentRun = report.getRunType().newItem(
-				reportRunParent().map(recentItem),
-				report.getRunInterval().map(DAILY),
-				report.getRunFrom ().map(date("2014-11-29 00:00")),
-				report.getRunUntil().map(date("2014-11-30 00:00")),
-				report.getRunRun  ().map(date("2014-11-30 00:00")),
-				report.getRunProgress().map(0),
-				report.getRunElapsed().map(5000l));
+				SetValue.map(reportRunParent(), recentItem),
+				SetValue.map(report.getRunInterval(), DAILY),
+				SetValue.map(report.getRunFrom (), date("2014-11-29 00:00")),
+				SetValue.map(report.getRunUntil(), date("2014-11-30 00:00")),
+				SetValue.map(report.getRunRun  (), date("2014-11-30 00:00")),
+				SetValue.map(report.getRunProgress(), 0),
+				SetValue.map(report.getRunElapsed(), 5000l));
 		clockRule.override(clock);
 		expectedRuns = new ArrayList<>();
 		expectedRuns.add(new ExpectedRun(recentRun));

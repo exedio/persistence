@@ -27,15 +27,15 @@ public final class UniqueSingleItem extends Item
 	public UniqueSingleItem(final String uniqueString)
 	{
 		this(
-			UniqueSingleItem.uniqueString.map(uniqueString)
+			SetValue.map(UniqueSingleItem.uniqueString, uniqueString)
 		);
 	}
 
 	public UniqueSingleItem(final String uniqueString, final String otherString)
 	{
 		this(
-			UniqueSingleItem.uniqueString.map(uniqueString),
-			UniqueSingleItem.otherString.map(otherString)
+			SetValue.map(UniqueSingleItem.uniqueString, uniqueString),
+			SetValue.map(UniqueSingleItem.otherString, otherString)
 		);
 	}
 

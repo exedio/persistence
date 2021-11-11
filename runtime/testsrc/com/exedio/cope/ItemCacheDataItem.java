@@ -47,7 +47,7 @@ final class ItemCacheDataItem extends Item
 
 	void setBothMulti(final String string, final String data)
 	{
-		set(ItemCacheDataItem.string.map(string), ItemCacheDataItem.data.map(decodeLower(data)));
+		set(SetValue.map(ItemCacheDataItem.string, string), ItemCacheDataItem.data.map(decodeLower(data)));
 	}
 
 

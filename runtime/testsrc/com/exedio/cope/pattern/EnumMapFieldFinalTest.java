@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import java.util.EnumMap;
@@ -101,7 +102,7 @@ public class EnumMapFieldFinalTest extends TestWithEnvironment
 
 		try
 		{
-			item.set(text.map(FULL));
+			item.set(SetValue.map(text, FULL));
 			fail();
 		}
 		catch(final FinalViolationException e)

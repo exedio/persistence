@@ -30,6 +30,7 @@ import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.CheckViolationException;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
@@ -148,8 +149,8 @@ public class CompositeCheckConstraintTest
 	{
 		final MyComposite c = new MyComposite(1, 2);
 		c.set(
-				MyComposite.alpha.map(3),
-				MyComposite.gamma.map(4));
+				SetValue.map(MyComposite.alpha, 3),
+				SetValue.map(MyComposite.gamma, 4));
 		assertEquals(3, c.getAlpha());
 		assertEquals(4, c.getGamma());
 	}
@@ -159,8 +160,8 @@ public class CompositeCheckConstraintTest
 		final MyComposite c = new MyComposite(1, 2);
 		assertFails(
 				() -> c.set(
-						MyComposite.alpha.map(3),
-						MyComposite.gamma.map(3)),
+						SetValue.map(MyComposite.alpha, 3),
+						SetValue.map(MyComposite.gamma, 3)),
 				CheckViolationException.class,
 				"check violation for " + MyComposite.check,
 				MyComposite.check);

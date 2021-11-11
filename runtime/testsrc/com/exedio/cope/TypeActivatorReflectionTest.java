@@ -49,12 +49,12 @@ public class TypeActivatorReflectionTest extends TestWithEnvironment
 	@Test void testIt()
 	{
 		final MyItem item = new MyItem(
-				MyItem.block.of(MyBlock.field).map("fieldValue"));
+				SetValue.map(MyItem.block.of(MyBlock.field), "fieldValue"));
 		assertEquals(MyItem.TYPE, item.getCopeType());
 		assertEquals("fieldValue", item.block().getField());
 
 		final MyPattern.SourceType patternItem =
-				MyItem.pattern.sourceType.newItem(MyItem.pattern.sourceTypeField.map("sourceFieldValue"));
+				MyItem.pattern.sourceType.newItem(SetValue.map(MyItem.pattern.sourceTypeField, "sourceFieldValue"));
 		assertEquals("sourceFieldValue", MyItem.pattern.sourceTypeField.get(patternItem));
 	}
 

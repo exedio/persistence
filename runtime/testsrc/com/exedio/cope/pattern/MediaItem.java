@@ -21,6 +21,7 @@ package com.exedio.cope.pattern;
 import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperIgnore;
@@ -48,14 +49,14 @@ public final class MediaItem extends Item
 	MediaItem(final String name)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaItem.name.map(name),
+			SetValue.map(MediaItem.name, name),
 		});
 	}
 
 	MediaItem(final Media.Value file)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			MediaItem.file.map(file),
+			SetValue.map(MediaItem.file, file),
 		});
 	}
 

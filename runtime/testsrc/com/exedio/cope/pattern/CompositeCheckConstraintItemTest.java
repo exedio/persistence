@@ -26,6 +26,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.CheckViolationException;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.CompositeCheckConstraintFieldTest.MyItem;
 import com.exedio.cope.pattern.CompositeCheckConstraintTest.MyComposite;
@@ -61,7 +62,7 @@ public class CompositeCheckConstraintItemTest extends TestWithEnvironment
 		assertEquals(new MyComposite(8, null), i.getField());
 
 		assertFails(
-				() -> i.set(fieldAlpha.map(5), fieldGamma.map(5)),
+				() -> i.set(SetValue.map(fieldAlpha, 5), SetValue.map(fieldGamma, 5)),
 				CheckViolationException.class,
 				"check violation on " + i + " for " + fieldCheck,
 				fieldCheck, i);

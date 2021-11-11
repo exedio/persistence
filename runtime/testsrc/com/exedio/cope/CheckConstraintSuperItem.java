@@ -37,15 +37,15 @@ public class CheckConstraintSuperItem extends Item
 	void setEinsZwei(final Integer eins, final Integer zwei)
 	{
 		set(
-			CheckConstraintSuperItem.eins.map(eins),
-			CheckConstraintSuperItem.zwei.map(zwei));
+			SetValue.map(CheckConstraintSuperItem.eins, eins),
+			SetValue.map(CheckConstraintSuperItem.zwei, zwei));
 	}
 
 	void setZweiDrei(final Integer zwei, final Integer drei)
 	{
 		set(
-			CheckConstraintSuperItem.zwei.map(zwei),
-			CheckConstraintSuperItem.drei.map(drei));
+			SetValue.map(CheckConstraintSuperItem.zwei, zwei),
+			SetValue.map(CheckConstraintSuperItem.drei, drei));
 	}
 
 

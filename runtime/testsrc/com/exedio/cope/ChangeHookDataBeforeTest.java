@@ -224,7 +224,7 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 
 		void setFieldMulti(final Value field)
 		{
-			set(MyItem.field.map(field));
+			set(SetValue.map(MyItem.field, field));
 		}
 
 		MyItem()
@@ -234,12 +234,12 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 
 		MyItem(final Value field)
 		{
-			this(MyItem.field.map(field));
+			this(SetValue.map(MyItem.field, field));
 		}
 
 		MyItem(final String other)
 		{
-			this(MyItem.other.map(other));
+			this(SetValue.map(MyItem.other, other));
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -345,13 +345,13 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 				{
 					value = decode(s.value);
 					if(!value.contains("(DROP)"))
-						result.add(field.map(encode(value + " / Hook#" + operation)));
+						result.add(SetValue.map(field, encode(value + " / Hook#" + operation)));
 				}
 				else if(settable==other)
 				{
 					value = (String)s.value;
 					if(!value.contains("(DROP)"))
-						result.add(other.map(value + " / Hook#" + operation));
+						result.add(SetValue.map(other, value + " / Hook#" + operation));
 				}
 				else
 				{
@@ -360,9 +360,9 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 
 				bf.append(value);
 				if(value.contains("(FIELD)"))
-					result.add(field.map(encode("(FIELD" + operation + ")")));
+					result.add(SetValue.map(field, encode("(FIELD" + operation + ")")));
 				if(value.contains("(OTHER)"))
-					result.add(other.map("(OTHER" + operation + ")"));
+					result.add(SetValue.map(other, "(OTHER" + operation + ")"));
 			}
 			bf.append(")");
 			addEvent(bf.toString());

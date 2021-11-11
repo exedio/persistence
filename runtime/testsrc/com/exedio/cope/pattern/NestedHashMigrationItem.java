@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import java.nio.charset.StandardCharsets;
 import java.security.SecureRandom;
 
@@ -35,8 +36,8 @@ final class NestedHashMigrationItem extends Item
 			final double dummy)
 	{
 		this(
-			NestedHashMigrationItem.password.getLegacyHash().map(password),
-			NestedHashMigrationItem.password.getTargetHash().map(null));
+			SetValue.map(NestedHashMigrationItem.password.getLegacyHash(), password),
+			SetValue.map(NestedHashMigrationItem.password.getTargetHash(), null));
 	}
 
 	/**

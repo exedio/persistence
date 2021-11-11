@@ -178,7 +178,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 
 		value.add(EN);
 		value.remove(PL);
-		initialItem.set(activeLanguage.map(value));
+		initialItem.set(SetValue.map(activeLanguage, value));
 		assertEquals(false, initialItem.containsActiveLanguage(DE));
 		assertEquals(true,  initialItem.containsActiveLanguage(EN));
 		assertEquals(false, initialItem.containsActiveLanguage(PL));
@@ -187,7 +187,7 @@ public class EnumSetFieldTest extends TestWithEnvironment
 	@Test void testSetSettableNull()
 	{
 		item.setActiveLanguage(EnumSet.of(DE, EN));
-		final SetValue<EnumSet<Language>> map = activeLanguage.map(null);
+		final SetValue<EnumSet<Language>> map = SetValue.map(activeLanguage, null);
 
 		try
 		{

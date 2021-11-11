@@ -37,7 +37,7 @@ public final class IntegerItem extends Item
 	IntegerItem(final Integer mandatory) throws StringLengthViolationException, MandatoryViolationException
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-			IntegerItem.mandatory.map(mandatory),
+			SetValue.map(IntegerItem.mandatory, mandatory),
 		});
 	}
 
@@ -45,8 +45,8 @@ public final class IntegerItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		this(new com.exedio.cope.SetValue<?>[]{
-			IntegerItem.mandatory.map(7777777),
-			IntegerItem.max4.map(max4),
+			SetValue.map(IntegerItem.mandatory, 7777777),
+			SetValue.map(IntegerItem.max4, max4),
 		});
 	}
 

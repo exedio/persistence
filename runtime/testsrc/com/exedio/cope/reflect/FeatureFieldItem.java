@@ -51,9 +51,9 @@ public final class FeatureFieldItem extends Item
 	{
 		//noinspection UnnecessarilyQualifiedStaticUsage
 		return new FeatureFieldItem(new SetValue<?>[]{
-			FeatureFieldItem.standard.map(string1),
-			FeatureFieldItem.isFinal.map(string2),
-			((FeatureField<Feature>)(FeatureField)FeatureFieldItem.restricted).map(restricted),
+			SetValue.map(FeatureFieldItem.standard, string1),
+			SetValue.map(FeatureFieldItem.isFinal, string2),
+			SetValue.map((FeatureField<Feature>)(FeatureField)FeatureFieldItem.restricted, restricted),
 		});
 	}
 

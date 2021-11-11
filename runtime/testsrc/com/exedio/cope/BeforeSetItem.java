@@ -33,16 +33,16 @@ final class BeforeSetItem extends Item
 	void setFields(final int value1, final int value2)
 	{
 		set(
-				field1.map(value1),
-				field2.map(value2));
+				SetValue.map(field1, value1),
+				SetValue.map(field2, value2));
 	}
 
 	void setFieldsAndAction(final int value1, final int value2, final Action actionValue)
 	{
 		set(
-				field1.map(value1),
-				field2.map(value2),
-				action.map(actionValue));
+				SetValue.map(field1, value1),
+				SetValue.map(field2, value2),
+				SetValue.map(action, actionValue));
 	}
 
 	enum Action
@@ -65,14 +65,14 @@ final class BeforeSetItem extends Item
 		{
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
-				return add(setValues, field1.map(99));
+				return add(setValues, SetValue.map(field1, 99));
 			}
 		},
 		addField1ConstraintViolation
 		{
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
-				return add(setValues, field1.map(-1));
+				return add(setValues, SetValue.map(field1, -1));
 			}
 		},
 		replaceField1
@@ -82,7 +82,7 @@ final class BeforeSetItem extends Item
 				for(int i = 0; i<setValues.length; i++)
 				{
 					if(setValues[i].settable==field1)
-						setValues[i] = field1.map(99);
+						setValues[i] = SetValue.map(field1, 99);
 				}
 				return setValues;
 			}
@@ -91,8 +91,8 @@ final class BeforeSetItem extends Item
 		{
 			@Override SetValue<?>[] execute(SetValue<?>[] setValues)
 			{
-				setValues = add(setValues, field1.map(99));
-				setValues = add(setValues, field1.map(99));
+				setValues = add(setValues, SetValue.map(field1, 99));
+				setValues = add(setValues, SetValue.map(field1, 99));
 				return setValues;
 			}
 		},

@@ -51,7 +51,7 @@ public class UniqueManyTest extends TestWithEnvironment
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
 		for(int index = 1; index<=maximum; index++)
-			sv.add(field(index).map("value" + index));
+			sv.add(SetValue.map(field(index), "value" + index));
 
 		final MyItem i = new MyItem(sv.toArray(new SetValue<?>[sv.size()]));
 		for(int index = 1; index<=maximum; index++)

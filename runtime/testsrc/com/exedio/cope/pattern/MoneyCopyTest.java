@@ -30,6 +30,7 @@ import com.exedio.cope.EnumField;
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperInitial;
@@ -186,9 +187,9 @@ public class MoneyCopyTest extends TestWithEnvironment
 				final Money<Currency> shared)
 		{
 			return new Source(
-					Source.target.map(target),
-					Source.fixed.map(fixed),
-					Source.shared.map(shared));
+					SetValue.map(Source.target, target),
+					SetValue.map(Source.fixed, fixed),
+					SetValue.map(Source.shared, shared));
 		}
 
 		static Source create(
@@ -197,9 +198,9 @@ public class MoneyCopyTest extends TestWithEnvironment
 				final Money<Currency> shared)
 		{
 			return new Source(
-					Source.currency.map(currency),
-					Source.fixed.map(fixed),
-					Source.shared.map(shared));
+					SetValue.map(Source.currency, currency),
+					SetValue.map(Source.fixed, fixed),
+					SetValue.map(Source.shared, shared));
 		}
 
 		void setShared(
@@ -207,8 +208,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 				final Money<Currency> shared)
 		{
 			set(
-					Source.target.map(target),
-					Source.shared.map(shared));
+					SetValue.map(Source.target, target),
+					SetValue.map(Source.shared, shared));
 		}
 
 		void setShared(
@@ -216,8 +217,8 @@ public class MoneyCopyTest extends TestWithEnvironment
 				final Money<Currency> shared)
 		{
 			set(
-					Source.currency.map(currency),
-					Source.shared.map(shared));
+					SetValue.map(Source.currency, currency),
+					SetValue.map(Source.shared, shared));
 		}
 
 		void setShared(
@@ -226,9 +227,9 @@ public class MoneyCopyTest extends TestWithEnvironment
 				final Money<Currency> shared)
 		{
 			set(
-					Source.target.map(target),
-					Source.currency.map(currency),
-					Source.shared.map(shared));
+					SetValue.map(Source.target, target),
+					SetValue.map(Source.currency, currency),
+					SetValue.map(Source.shared, shared));
 		}
 
 

@@ -41,7 +41,7 @@ public class SettableMandatorySyntheticTest extends TestWithEnvironment
 
 	@Test void test()
 	{
-		final SetValue<?> setValue = mandatory.map(null);
+		final SetValue<?> setValue = SetValue.map(mandatory, null);
 
 		try
 		{

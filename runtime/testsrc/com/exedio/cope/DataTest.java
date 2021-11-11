@@ -312,7 +312,7 @@ public class DataTest extends TestWithEnvironment
 		item.set(
 				data.map(bytes8),
 				data10.map(bytes10),
-				DataItem.name.map("eins")
+				SetValue.map(DataItem.name, "eins")
 		);
 		assertData(bytes8, item.getDataArray());
 		assertData(bytes10, item.getData10Array());
@@ -404,7 +404,7 @@ public class DataTest extends TestWithEnvironment
 		{
 			final ZipEntry entry = file.getEntry("bytes4.dat");
 			final DataField.Value value = DataField.toValue(file, entry);
-			final DataItem item2 = new DataItem(data.map(value));
+			final DataItem item2 = new DataItem(SetValue.map(data, value));
 			assertData(bytes4, item2.getDataArray());
 		}
 	}

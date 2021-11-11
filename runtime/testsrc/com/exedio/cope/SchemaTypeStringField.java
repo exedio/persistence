@@ -79,7 +79,7 @@ public final class SchemaTypeStringField extends Pattern
 
 	StringItem add(final String element)
 	{
-		return sourceType().newItem(sourceField.map(element));
+		return sourceType().newItem(SetValue.map(sourceField, element));
 	}
 
 	StringItem add(final String element, final boolean mb4)

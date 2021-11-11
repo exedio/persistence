@@ -64,10 +64,10 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 	{
 		clock.assertEmpty();
 		final MyItem item = new MyItem(
-				MyItem.date1.map(new Date(millisA)),
-				MyItem.date2.map(new Date(millisB)),
-				MyItem.day1.map(dayA),
-				MyItem.day2.map(dayB)
+				SetValue.map(MyItem.date1, new Date(millisA)),
+				SetValue.map(MyItem.date2, new Date(millisB)),
+				SetValue.map(MyItem.day1, dayA),
+				SetValue.map(MyItem.day2, dayB)
 		);
 		clock.assertEmpty();
 
@@ -81,8 +81,8 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 	{
 		clock.add(millisNow);
 		final MyItem item = new MyItem(
-				MyItem.date2.map(new Date(millisA)),
-				MyItem.day2.map(dayB)
+				SetValue.map(MyItem.date2, new Date(millisA)),
+				SetValue.map(MyItem.day2, dayB)
 		);
 		clock.assertEmpty();
 
@@ -95,8 +95,8 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 	{
 		clock.add(millisNow);
 		final MyItem item = new MyItem(
-				MyItem.day1.map(dayA),
-				MyItem.day2.map(dayB)
+				SetValue.map(MyItem.day1, dayA),
+				SetValue.map(MyItem.day2, dayB)
 		);
 		clock.assertEmpty();
 
@@ -109,8 +109,8 @@ public class DefaultToNowClockTest extends TestWithEnvironment
 	{
 		clock.add(millisNow);
 		final MyItem item = new MyItem(
-				MyItem.date1.map(new Date(millisA)),
-				MyItem.date2.map(new Date(millisB))
+				SetValue.map(MyItem.date1, new Date(millisA)),
+				SetValue.map(MyItem.date2, new Date(millisB))
 		);
 		clock.assertEmpty();
 

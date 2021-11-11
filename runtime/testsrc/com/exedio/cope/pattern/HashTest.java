@@ -178,7 +178,7 @@ public class HashTest extends TestWithEnvironment
 		assertFalse(item.isInternalNull());
 
 		hashT.assertCount(0);
-		item.set(internal.map("03affe08"));
+		item.set(SetValue.map(internal, "03affe08"));
 		hashT.assertCount(1);
 		assertEquals("[03affe08]", internal.getStorage().get(item));
 		assertFalse(item.checkInternal(null));
@@ -193,7 +193,7 @@ public class HashTest extends TestWithEnvironment
 		assertFalse(item.isInternalNull());
 
 		hashT.assertCount(0);
-		final HashItem item2 = new HashItem(internal.map("03affe09"));
+		final HashItem item2 = new HashItem(SetValue.map(internal, "03affe09"));
 		hashT.assertCount(1);
 		assertEquals("[03affe09]", internal.getStorage().get(item2));
 		assertFalse(item2.checkInternal(null));
@@ -201,7 +201,7 @@ public class HashTest extends TestWithEnvironment
 		assertTrue(item2.checkInternal("03affe09"));
 		assertFalse(item2.isInternalNull());
 
-		final HashItem item3 = TYPE.newItem(internal.map("03affe10"));
+		final HashItem item3 = TYPE.newItem(SetValue.map(internal, "03affe10"));
 		assertEquals("[03affe10]", internal.getStorage().get(item3));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
@@ -231,7 +231,7 @@ public class HashTest extends TestWithEnvironment
 				"wrap");
 		assertEquals(null, internal.getStorage().get(item));
 
-		final SetValue<String> sv = internal.map(RETURN_NULL);
+		final SetValue<String> sv = SetValue.map(internal, RETURN_NULL);
 		assertFails(
 				() -> item.set(sv),
 				NullPointerException.class,
@@ -495,7 +495,7 @@ public class HashTest extends TestWithEnvironment
 		}
 		try
 		{
-			TYPE.newItem(withCorruptValidator.map("03affe10"));
+			TYPE.newItem(SetValue.map(withCorruptValidator, "03affe10"));
 			fail();
 		}
 		catch (final IllegalStateException ise)
@@ -519,7 +519,7 @@ public class HashTest extends TestWithEnvironment
 		}
 		try
 		{
-			TYPE.newItem(with3PinValidator.map("99x"));
+			TYPE.newItem(SetValue.map(with3PinValidator, "99x"));
 			fail();
 		}
 		catch (final Hash.InvalidPlainTextException e)
@@ -533,7 +533,7 @@ public class HashTest extends TestWithEnvironment
 
 		// test with validator that accepts the given pin string
 		with3PinValidator.checkPlainText("978");
-		final SetValue<?> setValue = with3PinValidator.map("978");
+		final SetValue<?> setValue = SetValue.map(with3PinValidator, "978");
 		final HashItem anItem = TYPE.newItem(setValue);
 		assertEquals("[978]", with3PinValidator.getStorage().get(anItem));
 	}

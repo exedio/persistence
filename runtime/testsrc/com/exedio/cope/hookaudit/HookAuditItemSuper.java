@@ -21,6 +21,7 @@ package com.exedio.cope.hookaudit;
 import static com.exedio.cope.instrument.Visibility.NONE;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperType;
 
@@ -32,7 +33,7 @@ class HookAuditItemSuper extends Item
 
 	static final HookAuditItemSuper newWithSuperField(final String superField)
 	{
-		return new HookAuditItemSuper(HookAuditItemSuper.superField.map(superField));
+		return new HookAuditItemSuper(SetValue.map(HookAuditItemSuper.superField, superField));
 	}
 
 	/**

@@ -150,8 +150,8 @@ public class SequenceCheckIntegerTest extends TestWithEnvironment
 				final int next)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.next.map(next),
-				AnItem.field.map(field),
+				SetValue.map(AnItem.next, next),
+				SetValue.map(AnItem.field, field),
 			});
 		}
 

@@ -58,7 +58,7 @@ public abstract class ChangeHookAbstractTest extends TestWithEnvironment
 			assertSame(this.type, type);
 			final String value = value(sv);
 			addEvent("Hook#beforeNew(" + value + ")");
-			sv[0] = field.map(value + " / Hook#beforeNew");
+			sv[0] = SetValue.map(field, value + " / Hook#beforeNew");
 			return sv;
 		}
 
@@ -71,7 +71,7 @@ public abstract class ChangeHookAbstractTest extends TestWithEnvironment
 		{
 			final String value = value(sv);
 			addEvent("Hook#beforeSet(" + item + "," + value + ")");
-			sv[0] = field.map(value + " / Hook#beforeSet");
+			sv[0] = SetValue.map(field, value + " / Hook#beforeSet");
 			return sv;
 		}
 

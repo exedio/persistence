@@ -180,8 +180,8 @@ public class LongTest extends TestWithEnvironment
 		try
 		{
 			TYPE.newItem(
-					mandatory.map(1234567l),
-					max4.map(5l)
+					SetValue.map(mandatory, 1234567l),
+					SetValue.map(max4, 5l)
 			);
 			fail();
 		}

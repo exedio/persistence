@@ -63,7 +63,7 @@ public class CascadeChangeHookTest
 
 	@Test void testBeforeNew()
 	{
-		hook.beforeNew(MyItem.TYPE, new SetValue<?>[]{MyItem.field.map("origin")});
+		hook.beforeNew(MyItem.TYPE, new SetValue<?>[]{SetValue.map(MyItem.field, "origin")});
 		assertEvents("beforeNew1(origin)", "beforeNew2(origin / beforeNew1)");
 	}
 
@@ -75,7 +75,7 @@ public class CascadeChangeHookTest
 
 	@Test void testBeforeSet()
 	{
-		hook.beforeSet(item, new SetValue<?>[]{MyItem.field.map("origin")});
+		hook.beforeSet(item, new SetValue<?>[]{SetValue.map(MyItem.field, "origin")});
 		assertEvents("beforeSet1(MyItem-55,origin)", "beforeSet2(MyItem-55,origin / beforeSet1)");
 	}
 
@@ -119,7 +119,7 @@ public class CascadeChangeHookTest
 			assertSame(MyItem.TYPE, type);
 			final String value = value(sv);
 			addEvent("beforeNew" + id + "(" + value + ")");
-			sv[0] = MyItem.field.map(value + " / beforeNew" + id);
+			sv[0] = SetValue.map(MyItem.field, value + " / beforeNew" + id);
 			return sv;
 		}
 
@@ -132,7 +132,7 @@ public class CascadeChangeHookTest
 		{
 			final String value = value(sv);
 			addEvent("beforeSet" + id + "(" + item + "," + value + ")");
-			sv[0] = MyItem.field.map(value + " / beforeSet" + id);
+			sv[0] = SetValue.map(MyItem.field, value + " / beforeSet" + id);
 			return sv;
 		}
 

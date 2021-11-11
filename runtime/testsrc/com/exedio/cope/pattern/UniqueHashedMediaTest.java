@@ -41,6 +41,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.UniqueViolationException;
 import com.exedio.cope.misc.Computed;
@@ -191,8 +192,8 @@ public class UniqueHashedMediaTest extends TestWithEnvironment
 		assertSearch(asList(), value.hashDoesNotMatchIfSupported());
 
 		final UniqueHashedMediaItem itemX = new UniqueHashedMediaItem(
-				value.getMedia().map(toValue(bytes6, "image/jpeg")),
-				value.getHash() .map(brokenDigestHex));
+				SetValue.map(value.getMedia(), toValue(bytes6, "image/jpeg")),
+				SetValue.map(value.getHash(), brokenDigestHex));
 
 		assertSearch(asList(item1, item2), value.hashMatchesIfSupported());
 		assertSearch(asList(itemX), value.hashDoesNotMatchIfSupported());

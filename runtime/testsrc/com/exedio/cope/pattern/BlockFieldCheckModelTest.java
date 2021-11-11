@@ -39,6 +39,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import java.util.Arrays;
 import org.junit.jupiter.api.Test;
@@ -195,11 +196,11 @@ public class BlockFieldCheckModelTest
 		{
 			//noinspection UnnecessarilyQualifiedStaticUsage
 			this(
-				AnItem.code.map(code),
-				AnItem.eins.of(alpha).map(einsAlpha),
-				AnItem.eins.of(beta ).map(einsBeta ),
-				AnItem.zwei.of(alpha).map(zweiAlpha),
-				AnItem.zwei.of(beta ).map(zweiBeta ));
+				SetValue.map(AnItem.code, code),
+				SetValue.map(AnItem.eins.of(alpha), einsAlpha),
+				SetValue.map(AnItem.eins.of(beta ), einsBeta ),
+				SetValue.map(AnItem.zwei.of(alpha), zweiAlpha),
+				SetValue.map(AnItem.zwei.of(beta ), zweiBeta ));
 		}
 
 

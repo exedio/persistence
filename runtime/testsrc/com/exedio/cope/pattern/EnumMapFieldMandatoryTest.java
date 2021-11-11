@@ -29,6 +29,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import java.util.EnumMap;
@@ -86,7 +87,7 @@ public class EnumMapFieldMandatoryTest extends TestWithEnvironment
 
 		try
 		{
-			item.set(text.map(EMPTY));
+			item.set(SetValue.map(text, EMPTY));
 			fail();
 		}
 		catch(final MandatoryViolationException e)

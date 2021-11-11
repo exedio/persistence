@@ -20,7 +20,10 @@ package com.exedio.cope.instrument.parameters;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperType;
 
+@WrapperType(
+		constructorSuppressWarnings="deprecation") // OK: testing deprecated API
 @SuppressWarnings({"FinalMethodInFinalClass", "UnnecessarilyQualifiedStaticUsage"})
 final class SuppressWarningsItem extends Item
 {
@@ -33,7 +36,7 @@ final class SuppressWarningsItem extends Item
 	 * @throws com.exedio.cope.StringLengthViolationException if field violates its length constraint.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"constructor-first","constructor-second"})
+	@java.lang.SuppressWarnings({"constructor-first","constructor-second","deprecation"})
 	SuppressWarningsItem(
 				@javax.annotation.Nonnull final java.lang.String field)
 			throws

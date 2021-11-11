@@ -36,9 +36,9 @@ public final class DivideIntegerItem extends Item
 	public DivideIntegerItem(final int initialNumA, final int initialNumB, final int initialNumC)
 	{
 		super(new SetValue<?>[]{
-			numA.map(initialNumA),
-			numB.map(initialNumB),
-			numC.map(initialNumC),
+			SetValue.map(numA, initialNumA),
+			SetValue.map(numB, initialNumB),
+			SetValue.map(numC, initialNumC),
 		});
 	}
 

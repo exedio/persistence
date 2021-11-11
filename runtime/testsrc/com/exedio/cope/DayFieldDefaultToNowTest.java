@@ -74,9 +74,9 @@ public class DayFieldDefaultToNowTest extends TestWithEnvironment
 	{
 		clock.assertEmpty();
 		final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-				mandatory.map(value1),
-				optional.map(value2),
-				none.map(value3)
+				SetValue.map(mandatory, value1),
+				SetValue.map(optional, value2),
+				SetValue.map(none, value3)
 		);
 		clock.assertEmpty();
 
@@ -88,8 +88,8 @@ public class DayFieldDefaultToNowTest extends TestWithEnvironment
 	{
 		clock.add(value3.getTimeInMillisFrom(getTimeZone("Europe/Berlin")));
 		final DayFieldDefaultToNowItem item = new DayFieldDefaultToNowItem(
-				optional.map(null),
-				none.map(null)
+				SetValue.map(optional, null),
+				SetValue.map(none, null)
 		);
 		clock.assertEmpty();
 

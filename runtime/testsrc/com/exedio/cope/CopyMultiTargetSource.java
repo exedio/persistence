@@ -34,8 +34,8 @@ final class CopyMultiTargetSource extends Item
 			final CopyMultiTargetB targetB)
 	{
 		return new CopyMultiTargetSource(
-				CopyMultiTargetSource.targetA.map(targetA),
-				CopyMultiTargetSource.targetB.map(targetB)
+				SetValue.map(CopyMultiTargetSource.targetA, targetA),
+				SetValue.map(CopyMultiTargetSource.targetB, targetB)
 		);
 	}
 
@@ -43,7 +43,7 @@ final class CopyMultiTargetSource extends Item
 			final CopyMultiTargetA targetA)
 	{
 		return new CopyMultiTargetSource(
-				CopyMultiTargetSource.targetA.map(targetA)
+				SetValue.map(CopyMultiTargetSource.targetA, targetA)
 		);
 	}
 
@@ -51,7 +51,7 @@ final class CopyMultiTargetSource extends Item
 			final CopyMultiTargetB targetB)
 	{
 		return new CopyMultiTargetSource(
-				CopyMultiTargetSource.targetB.map(targetB)
+				SetValue.map(CopyMultiTargetSource.targetB, targetB)
 		);
 	}
 
@@ -65,8 +65,8 @@ final class CopyMultiTargetSource extends Item
 			final CopyMultiTargetB targetB)
 	{
 		set(
-				CopyMultiTargetSource.targetA.map(targetA),
-				CopyMultiTargetSource.targetB.map(targetB));
+				SetValue.map(CopyMultiTargetSource.targetA, targetA),
+				SetValue.map(CopyMultiTargetSource.targetB, targetB));
 	}
 
 	void setTargetABandCopy(
@@ -75,9 +75,9 @@ final class CopyMultiTargetSource extends Item
 			final String copy)
 	{
 		set(
-				CopyMultiTargetSource.targetA.map(targetA),
-				CopyMultiTargetSource.targetB.map(targetB),
-				CopyMultiTargetSource.copy.map(copy));
+				SetValue.map(CopyMultiTargetSource.targetA, targetA),
+				SetValue.map(CopyMultiTargetSource.targetB, targetB),
+				SetValue.map(CopyMultiTargetSource.copy, copy));
 	}
 
 	void setTargetAandCopy(
@@ -85,8 +85,8 @@ final class CopyMultiTargetSource extends Item
 			final String copy)
 	{
 		set(
-				CopyMultiTargetSource.targetA.map(targetA),
-				CopyMultiTargetSource.copy.map(copy));
+				SetValue.map(CopyMultiTargetSource.targetA, targetA),
+				SetValue.map(CopyMultiTargetSource.copy, copy));
 	}
 
 	void setTargetBandCopy(
@@ -94,8 +94,8 @@ final class CopyMultiTargetSource extends Item
 			final String copy)
 	{
 		set(
-				CopyMultiTargetSource.targetB.map(targetB),
-				CopyMultiTargetSource.copy.map(copy));
+				SetValue.map(CopyMultiTargetSource.targetB, targetB),
+				SetValue.map(CopyMultiTargetSource.copy, copy));
 	}
 
 

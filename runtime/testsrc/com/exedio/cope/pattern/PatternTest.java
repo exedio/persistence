@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
 import org.junit.jupiter.api.Test;
@@ -207,8 +208,8 @@ public class PatternTest extends TestWithEnvironment
 		try
 		{
 			superType.newItem(
-					PatternTestItem.testPattern.superTypeString.map("string1"),
-					PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)));
+					SetValue.map(PatternTestItem.testPattern.superTypeString, "string1"),
+					SetValue.map(PatternTestItem.testPattern.superTypeBoolean, Boolean.valueOf(true)));
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -217,9 +218,9 @@ public class PatternTest extends TestWithEnvironment
 		}
 
 		final Item item = subType.newItem(
-				PatternTestItem.testPattern.superTypeString.map("string1"),
-				PatternTestItem.testPattern.superTypeBoolean.map(Boolean.valueOf(true)),
-				PatternTestItem.testPattern.subTypeInteger.map(1));
+				SetValue.map(PatternTestItem.testPattern.superTypeString, "string1"),
+				SetValue.map(PatternTestItem.testPattern.superTypeBoolean, Boolean.valueOf(true)),
+				SetValue.map(PatternTestItem.testPattern.subTypeInteger, 1));
 
 		//casting
 		assertSame(item, superType.cast(item));

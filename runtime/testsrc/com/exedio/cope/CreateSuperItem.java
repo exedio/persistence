@@ -31,7 +31,7 @@ class CreateSuperItem extends Item
 
 	private static SetValue<?>[] beforeNewCopeItem(final SetValue<?>[] setValues)
 	{
-		setValues[0] = text.map(value(setValues) + ".preCreateSuper");
+		setValues[0] = SetValue.map(text, value(setValues) + ".preCreateSuper");
 		return setValues;
 	}
 

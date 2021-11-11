@@ -79,7 +79,7 @@ public class UniqueDoubleTest extends TestWithEnvironment
 		assertEquals(b1, forConstraint("b", 1));
 		try
 		{
-			TYPE.newItem(string.map("b"), integer.map(1));
+			TYPE.newItem(SetValue.map(string, "b"), SetValue.map(integer, 1));
 			fail();
 		}
 		catch(final UniqueViolationException e)
@@ -107,7 +107,7 @@ public class UniqueDoubleTest extends TestWithEnvironment
 
 		try
 		{
-			b2.set(integer.map(1));
+			b2.set(SetValue.map(integer, 1));
 			fail();
 		}
 		catch(final UniqueViolationException e)

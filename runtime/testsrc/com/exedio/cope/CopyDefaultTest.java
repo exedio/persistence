@@ -178,14 +178,14 @@ public class CopyDefaultTest extends TestWithEnvironment
 		static Source create(final Target target)
 		{
 			return new Source(new SetValue<?>[]{
-				Source.target.map(target),
+				SetValue.map(Source.target, target),
 			});
 		}
 
 		static Source create(final String field)
 		{
 			return new Source(new SetValue<?>[]{
-				Source.field.map(field),
+				SetValue.map(Source.field, field),
 			});
 		}
 
@@ -197,8 +197,8 @@ public class CopyDefaultTest extends TestWithEnvironment
 		void setTargetAndField(final Target target, final String field)
 		{
 			set(
-				Source.target.map(target),
-				Source.field.map(field));
+				SetValue.map(Source.target, target),
+				SetValue.map(Source.field, field));
 		}
 
 		/**

@@ -89,9 +89,9 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 				final int sum)
 		{
 			set(
-					AnItem.one.map(one),
-					AnItem.two.map(two),
-					AnItem.sum.map(sum)
+					SetValue.map(AnItem.one, one),
+					SetValue.map(AnItem.two, two),
+					SetValue.map(AnItem.sum, sum)
 			);
 		}
 

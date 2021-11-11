@@ -170,7 +170,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 
 		private Container(final Part choice)
 		{
-			this(Container.choice.map(choice));
+			this(SetValue.map(Container.choice, choice));
 		}
 
 		@com.exedio.cope.instrument.Generated

@@ -48,6 +48,7 @@ import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.Query;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.pattern.CompositeValue.AnEnum;
@@ -304,10 +305,10 @@ public class CompositeFieldTest extends TestWithEnvironment
 
 		{
 			final CompositeValue v = second.newValue(
-					aString.map("firstString1"),
-					anInt.map(1),
-					anEnum.map(AnEnum.facet1),
-					anItem.map(target1));
+					SetValue.map(aString, "firstString1"),
+					SetValue.map(anInt, 1),
+					SetValue.map(anEnum, AnEnum.facet1),
+					SetValue.map(anItem, target1));
 			assertEquals("firstString1", v.getAString());
 			assertEquals(1,              v.getAnInt());
 			assertEquals(AnEnum.facet1,  v.getAnEnum());
@@ -324,7 +325,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 			}
 			try
 			{
-				second.newValue(aString.map(null));
+				second.newValue(SetValue.map(aString, null));
 				fail();
 			}
 			catch(final MandatoryViolationException e)
@@ -333,7 +334,7 @@ public class CompositeFieldTest extends TestWithEnvironment
 			}
 			try
 			{
-				second.newValue(CompositeItem.code.map("firstString1"));
+				second.newValue(SetValue.map(CompositeItem.code, "firstString1"));
 				fail();
 			}
 			catch(final IllegalArgumentException e)

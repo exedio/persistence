@@ -46,8 +46,8 @@ final class CopyMultiCopySource extends Item
 			final String copyB)
 	{
 		return new CopyMultiCopySource(
-				CopyMultiCopySource.copyA.map(copyA),
-				CopyMultiCopySource.copyB.map(copyB)
+				SetValue.map(CopyMultiCopySource.copyA, copyA),
+				SetValue.map(CopyMultiCopySource.copyB, copyB)
 		);
 	}
 
@@ -56,8 +56,8 @@ final class CopyMultiCopySource extends Item
 			final CopyMultiCopyTarget target)
 	{
 		return new CopyMultiCopySource(
-				CopyMultiCopySource.copyB.map(copyB),
-				CopyMultiCopySource.target.map(target)
+				SetValue.map(CopyMultiCopySource.copyB, copyB),
+				SetValue.map(CopyMultiCopySource.target, target)
 		);
 	}
 
@@ -66,8 +66,8 @@ final class CopyMultiCopySource extends Item
 			final CopyMultiCopyTarget target)
 	{
 		return new CopyMultiCopySource(
-				CopyMultiCopySource.copyA.map(copyA),
-				CopyMultiCopySource.target.map(target)
+				SetValue.map(CopyMultiCopySource.copyA, copyA),
+				SetValue.map(CopyMultiCopySource.target, target)
 		);
 	}
 
@@ -75,7 +75,7 @@ final class CopyMultiCopySource extends Item
 			final CopyMultiCopyTarget target)
 	{
 		return new CopyMultiCopySource(
-				CopyMultiCopySource.target.map(target)
+				SetValue.map(CopyMultiCopySource.target, target)
 		);
 	}
 
@@ -84,8 +84,8 @@ final class CopyMultiCopySource extends Item
 			final CopyMultiCopyTarget target)
 	{
 		set(
-				CopyMultiCopySource.copyA.map(copyA),
-				CopyMultiCopySource.target.map(target));
+				SetValue.map(CopyMultiCopySource.copyA, copyA),
+				SetValue.map(CopyMultiCopySource.target, target));
 	}
 
 	void setCopyB(
@@ -93,8 +93,8 @@ final class CopyMultiCopySource extends Item
 			final CopyMultiCopyTarget target)
 	{
 		set(
-				CopyMultiCopySource.copyB.map(copyB),
-				CopyMultiCopySource.target.map(target));
+				SetValue.map(CopyMultiCopySource.copyB, copyB),
+				SetValue.map(CopyMultiCopySource.target, target));
 	}
 
 	void setCopyAB(
@@ -102,8 +102,8 @@ final class CopyMultiCopySource extends Item
 			final String copyB)
 	{
 		set(
-				CopyMultiCopySource.copyA.map(copyA),
-				CopyMultiCopySource.copyB.map(copyB));
+				SetValue.map(CopyMultiCopySource.copyA, copyA),
+				SetValue.map(CopyMultiCopySource.copyB, copyB));
 	}
 
 	void setCopyAB(
@@ -112,9 +112,9 @@ final class CopyMultiCopySource extends Item
 			final CopyMultiCopyTarget target)
 	{
 		set(
-				CopyMultiCopySource.copyA.map(copyA),
-				CopyMultiCopySource.copyB.map(copyB),
-				CopyMultiCopySource.target.map(target));
+				SetValue.map(CopyMultiCopySource.copyA, copyA),
+				SetValue.map(CopyMultiCopySource.copyB, copyB),
+				SetValue.map(CopyMultiCopySource.target, target));
 	}
 
 

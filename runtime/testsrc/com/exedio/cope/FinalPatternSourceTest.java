@@ -38,12 +38,12 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 
 	@Test void testViaPattern()
 	{
-		final MyItem item = new MyItem(pattern.map("createValue"));
+		final MyItem item = new MyItem(SetValue.map(pattern, "createValue"));
 		assertEquals("createValue", pattern.source.get(item));
 
 		try
 		{
-			item.set(pattern.map("setValue"));
+			item.set(SetValue.map(pattern, "setValue"));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -56,12 +56,12 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 
 	@Test void testBypassingPattern()
 	{
-		final MyItem item = new MyItem(pattern.map("createValue"));
+		final MyItem item = new MyItem(SetValue.map(pattern, "createValue"));
 		assertEquals("createValue", pattern.source.get(item));
 
 		try
 		{
-			item.set(pattern.source.map("setValue"));
+			item.set(SetValue.map(pattern.source, "setValue"));
 			fail();
 		}
 		catch(final FinalViolationException e)
@@ -85,7 +85,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 		@Override
 		public SetValue<?>[] execute(final String value, final Item exceptionItem)
 		{
-			return new SetValue<?>[]{source.map(value)};
+			return new SetValue<?>[]{SetValue.map(source, value)};
 		}
 
 		@Override

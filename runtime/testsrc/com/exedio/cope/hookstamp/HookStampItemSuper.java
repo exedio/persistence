@@ -19,6 +19,7 @@
 package com.exedio.cope.hookstamp;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
 class HookStampItemSuper extends Item
@@ -28,7 +29,7 @@ class HookStampItemSuper extends Item
 
 	static final HookStampItemSuper newWithSuperField(final String superField)
 	{
-		return new HookStampItemSuper(HookStampItemSuper.superField.map(superField));
+		return new HookStampItemSuper(SetValue.map(HookStampItemSuper.superField, superField));
 	}
 
 	/**

@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 
 final class CompositeDefaultItem extends Item
 {
@@ -27,7 +28,7 @@ final class CompositeDefaultItem extends Item
 	CompositeDefaultItem(final CompositeDefaultValue field)
 	{
 		this(new com.exedio.cope.SetValue<?>[]{
-				CompositeDefaultItem.field.map(field),
+				SetValue.map(CompositeDefaultItem.field, field),
 		});
 	}
 

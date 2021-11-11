@@ -73,9 +73,9 @@ public class DateFieldDefaultToNowTest extends TestWithEnvironment
 	{
 		clock.assertEmpty();
 		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-				mandatory.map(value1),
-				optional.map(value2),
-				none.map(value3)
+				SetValue.map(mandatory, value1),
+				SetValue.map(optional, value2),
+				SetValue.map(none, value3)
 		);
 		clock.assertEmpty();
 
@@ -87,8 +87,8 @@ public class DateFieldDefaultToNowTest extends TestWithEnvironment
 	{
 		clock.add(value3);
 		final DateFieldDefaultToNowItem item = new DateFieldDefaultToNowItem(
-				optional.map(null),
-				none.map(null)
+				SetValue.map(optional, null),
+				SetValue.map(none, null)
 		);
 		clock.assertEmpty();
 

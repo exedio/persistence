@@ -122,7 +122,7 @@ final class CopySimpleSource extends Item
 	static CopySimpleSource omitCopy(final CopySimpleTarget targetItem)
 	{
 		return new CopySimpleSource(
-			CopySimpleSource.targetItem.map(targetItem)
+			SetValue.map(CopySimpleSource.targetItem, targetItem)
 		);
 	}
 
@@ -131,8 +131,8 @@ final class CopySimpleSource extends Item
 			final CopyValue templateItem)
 	{
 		return new CopySimpleSource(
-			CopySimpleSource.templateString.map(templateString),
-			CopySimpleSource.templateItem.map(templateItem)
+			SetValue.map(CopySimpleSource.templateString, templateString),
+			SetValue.map(CopySimpleSource.templateItem, templateItem)
 		);
 	}
 
@@ -146,8 +146,8 @@ final class CopySimpleSource extends Item
 			final CopySimpleTarget targetItem)
 	{
 		set(
-				CopySimpleSource.templateString.map(templateString),
-				CopySimpleSource.targetItem.map(targetItem));
+				SetValue.map(CopySimpleSource.templateString, templateString),
+				SetValue.map(CopySimpleSource.targetItem, targetItem));
 	}
 
 	/**
