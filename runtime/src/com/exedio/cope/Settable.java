@@ -23,9 +23,9 @@ import java.util.Set;
 public interface Settable<E>
 {
 	/**
-	  * All implementations of this method should return
-	  * {@code {@link SetValue#map(Feature, Object) SetValue.map(this,value)}}.
-	  */
+	 * All implementations of this method should return
+	 * {@code {@link SetValue#map(Feature, Object) SetValue.map(this,value)}}.
+	 */
 	default SetValue<E> map(final E value)
 	{
 		return new SetValue<>(this, value);
