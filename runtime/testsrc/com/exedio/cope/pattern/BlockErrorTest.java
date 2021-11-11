@@ -45,8 +45,8 @@ public class BlockErrorTest
 				"javaClass");
 	}
 
-	@WrapperType(indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: both in instrumented and non-instrumented code
+	@WrapperType(indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static final class Normal extends Block
 	{
 		@SuppressWarnings("unused") // OK: must not be empty
@@ -56,6 +56,7 @@ public class BlockErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.pattern.BlockType<Normal> TYPE = com.exedio.cope.pattern.BlockType.newType(Normal.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -72,8 +73,8 @@ public class BlockErrorTest
 				"but was " + Normal.class.getName());
 	}
 
-	@WrapperType(indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: both in instrumented and non-instrumented code
+	@WrapperType(indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static final class Other extends Block
 	{
 		@SuppressWarnings("unused") // OK: must not be empty
@@ -83,6 +84,7 @@ public class BlockErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.pattern.BlockType<Other> TYPE = com.exedio.cope.pattern.BlockType.newType(Other.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -302,8 +304,8 @@ public class BlockErrorTest
 		assertSame(AlreadyBound.TYPE, forClassUnchecked(AlreadyBound.class));
 	}
 
-	@WrapperType(indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: both in instrumented and non-instrumented code
+	@WrapperType(indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static final class AlreadyBound extends Block
 	{
 		@SuppressWarnings("unused") // OK: Block must not be empty
@@ -314,6 +316,7 @@ public class BlockErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.pattern.BlockType<AlreadyBound> TYPE = com.exedio.cope.pattern.BlockType.newType(AlreadyBound.class);
 
 		@com.exedio.cope.instrument.Generated

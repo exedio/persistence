@@ -183,8 +183,8 @@ public class TypesBoundErrorTest
 				"in class " + BeforeNewNotStatic.class.getName() +
 				" must be static");
 	}
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class BeforeNewNotStatic extends Item
 	{
 		@SuppressWarnings("MethodMayBeStatic")
@@ -197,6 +197,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<BeforeNewNotStatic> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewNotStatic.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -214,8 +215,8 @@ public class TypesBoundErrorTest
 				" must return SetValue[], " +
 				"but returns java.lang.String");
 	}
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class BeforeNewWrongReturn extends Item
 	{
 		private static String beforeNewCopeItem(final SetValue<?>[] setValues)
@@ -227,6 +228,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<BeforeNewWrongReturn> TYPE = com.exedio.cope.TypesBound.newType(BeforeNewWrongReturn.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -246,8 +248,8 @@ public class TypesBoundErrorTest
 				IllegalArgumentException.class,
 				"UniqueConstraint UniqueConstraintOnInheritedFeatureSub.superAndSub cannot include field UniqueConstraintOnInheritedFeatureSuper.superField");
 	}
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class UniqueConstraintOnInheritedFeatureSuper extends Item
 	{
 		@WrapperIgnore static final IntegerField superField=new IntegerField();
@@ -256,6 +258,7 @@ public class TypesBoundErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<UniqueConstraintOnInheritedFeatureSuper> TYPE = com.exedio.cope.TypesBound.newType(UniqueConstraintOnInheritedFeatureSuper.class);
 
 		@com.exedio.cope.instrument.Generated

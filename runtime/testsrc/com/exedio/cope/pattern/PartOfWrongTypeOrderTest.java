@@ -44,8 +44,8 @@ public class PartOfWrongTypeOrderTest
 				"must be declared on the same type or super type");
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class Container extends Item
 	{
 		@Wrapper(wrap="*", visibility=NONE)
@@ -55,6 +55,7 @@ public class PartOfWrongTypeOrderTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<Container> TYPE = com.exedio.cope.TypesBound.newType(Container.class);
 
 		@com.exedio.cope.instrument.Generated
