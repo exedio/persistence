@@ -113,12 +113,6 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 	}
 
 	@Override
-	public SetValue<E> map(final E value)
-	{
-		return SetValue.map(this, value);
-	}
-
-	@Override
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue<?>[] {
