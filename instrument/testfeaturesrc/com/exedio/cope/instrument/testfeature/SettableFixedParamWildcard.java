@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ReflectionTypes;
 import java.lang.reflect.Type;
@@ -29,7 +26,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicReference;
 
 @WrapFeature
-public class SettableFixedParamWildcard implements Settable<AtomicReference<?>>
+public class SettableFixedParamWildcard extends AssertionFailedSettable<AtomicReference<?>>
 {
 	@Override
 	public boolean isInitial()
@@ -41,27 +38,6 @@ public class SettableFixedParamWildcard implements Settable<AtomicReference<?>>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return Collections.emptySet();
-	}
-
-
-
-
-	@Override
-	public SetValue<AtomicReference<?>> map(final AtomicReference<?> value)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public SetValue<?>[] execute(final AtomicReference<?> value, final Item exceptionItem)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public boolean isFinal()
-	{
-		throw new AssertionError();
 	}
 
 	@Override

@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.Type;
 import java.util.Collections;
@@ -28,7 +25,7 @@ import java.util.Set;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 @WrapFeature
-public class SettableFixed implements Settable<AtomicBoolean>
+public class SettableFixed extends AssertionFailedSettable<AtomicBoolean>
 {
 	@Override
 	public boolean isInitial()
@@ -40,27 +37,6 @@ public class SettableFixed implements Settable<AtomicBoolean>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return Collections.emptySet();
-	}
-
-
-
-
-	@Override
-	public SetValue<AtomicBoolean> map(final AtomicBoolean value)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public SetValue<?>[] execute(final AtomicBoolean value, final Item exceptionItem)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public boolean isFinal()
-	{
-		throw new AssertionError();
 	}
 
 	@Override

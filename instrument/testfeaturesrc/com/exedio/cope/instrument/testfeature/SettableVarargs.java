@@ -18,16 +18,13 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.WrapFeature;
 import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.Set;
 
 @WrapFeature
-public class SettableVarargs<E> implements Settable<E>
+public class SettableVarargs<E> extends AssertionFailedSettable<E>
 {
 	final Class<E> type;
 
@@ -46,27 +43,6 @@ public class SettableVarargs<E> implements Settable<E>
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return Collections.emptySet();
-	}
-
-
-
-
-	@Override
-	public SetValue<E> map(final E value)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public SetValue<?>[] execute(final E value, final Item exceptionItem)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public boolean isFinal()
-	{
-		throw new AssertionError();
 	}
 
 	@Override
