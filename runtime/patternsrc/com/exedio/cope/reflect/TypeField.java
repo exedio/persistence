@@ -233,7 +233,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 	@Override
 	public SetValue<?>[] execute(final Type<? extends E> value, final Item exceptionItem)
 	{
-		return new SetValue<?>[]{ idField.map(executeValue(value, exceptionItem)) };
+		return new SetValue<?>[]{ SetValue.map(idField, executeValue(value, exceptionItem)) };
 	}
 
 	private String executeValue(final Type<? extends E> value, final Item exceptionItem)

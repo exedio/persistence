@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.SetValue.map;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Cope;
@@ -216,8 +217,8 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 			if(value!=null)
 				mount.relationType.newItem(
 						Cope.mapAndCast(mount.parent, item),
-						this.key.map(key),
-						this.value.map(value)
+						map(this.key, key),
+						map(this.value, value)
 				);
 		}
 		else
@@ -272,8 +273,8 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 			if(!done.containsKey(key))
 				mount.relationType.newItem(
 						Cope.mapAndCast(mount.parent, item),
-						this.key.map(key),
-						this.value.map(entry.getValue()));
+						map(this.key, key),
+						map(this.value, entry.getValue()));
 		}
 	}
 

@@ -21,6 +21,7 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.quoteName;
 import static com.exedio.cope.SchemaInfo.search;
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.misc.MicrometerUtil.toMillies;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 
@@ -106,10 +107,10 @@ final class SamplerPurge extends Item
 			final long elapsed)
 	{
 		super(
-			SamplerPurge.type   .map(type.getID()),
-			SamplerPurge.limit  .map(limit),
-			SamplerPurge.rows   .map(rows),
-			SamplerPurge.elapsed.map(elapsed));
+			map(SamplerPurge.type   , type.getID()),
+			map(SamplerPurge.limit  , limit),
+			map(SamplerPurge.rows   , rows),
+			map(SamplerPurge.elapsed, elapsed));
 	}
 
 	String getType()

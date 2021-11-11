@@ -206,7 +206,7 @@ public final class ColorField extends Pattern implements Settable<Color>, Copyab
 	@Override
 	public SetValue<?>[] execute(final Color value, final Item exceptionItem)
 	{
-		return new SetValue<?>[]{ rgb.map(rgb(value, exceptionItem)) };
+		return new SetValue<?>[]{ SetValue.map(rgb, rgb(value, exceptionItem)) };
 	}
 
 	private Integer rgb(final Color value, final Item exceptionItem)

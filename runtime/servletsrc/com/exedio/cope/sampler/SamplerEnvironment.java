@@ -18,6 +18,7 @@
 
 package com.exedio.cope.sampler;
 
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.sampler.Util.maC;
 
 import com.exedio.cope.ActivationParameters;
@@ -54,8 +55,8 @@ final class SamplerEnvironment extends Item
 			return;
 
 		final ArrayList<SetValue<?>> sv = new ArrayList<>();
-		sv.add(SamplerEnvironment.connectDate.map(connectDate));
-		sv.add(initializeDate.map(model.getInitializeDate()));
+		sv.add(map(SamplerEnvironment.connectDate, connectDate));
+		sv.add(map(initializeDate, model.getInitializeDate()));
 		addHostname(sv);
 		addConnection(sv, model);
 		addEnvironmentInfo(sv, model);
@@ -77,7 +78,7 @@ final class SamplerEnvironment extends Item
 	{
 		try
 		{
-			sv.add(hostname.map(InetAddress.getLocalHost().getHostName()));
+			sv.add(map(hostname, InetAddress.getLocalHost().getHostName()));
 		}
 		catch(final UnknownHostException ignored)
 		{
@@ -87,7 +88,7 @@ final class SamplerEnvironment extends Item
 
 	private static void addHostname(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
 	{
-		sv.add(hostname.map(getS(environment, "hostname")));
+		sv.add(map(hostname, getS(environment, "hostname")));
 	}
 
 
@@ -97,14 +98,14 @@ final class SamplerEnvironment extends Item
 	private static void addConnection(final ArrayList<SetValue<?>> sv, final Model model)
 	{
 		final ConnectProperties p = model.getConnectProperties();
-		sv.add(connectionUrl     .map(p.getConnectionUrl     ()));
-		sv.add(connectionUsername.map(p.getConnectionUsername()));
+		sv.add(map(connectionUrl     , p.getConnectionUrl     ()));
+		sv.add(map(connectionUsername, p.getConnectionUsername()));
 	}
 
 	private static void addConnection(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
 	{
-		sv.add(connectionUrl     .map(getS(environment, "connection.url",  "jdbc.url" )));
-		sv.add(connectionUsername.map(getS(environment, "connection.user", "jdbc.user")));
+		sv.add(map(connectionUrl     , getS(environment, "connection.url",  "jdbc.url" )));
+		sv.add(map(connectionUsername, getS(environment, "connection.user", "jdbc.user")));
 	}
 
 
@@ -120,26 +121,26 @@ final class SamplerEnvironment extends Item
 	private static void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Model model)
 	{
 		final EnvironmentInfo i = model.getEnvironmentInfo();
-		sv.add(databaseProductName   .map(i.getDatabaseProductName   ()));
-		sv.add(databaseProductVersion.map(i.getDatabaseProductVersion()));
-		sv.add(databaseVersionMajor  .map(i.getDatabaseMajorVersion  ()));
-		sv.add(databaseVersionMinor  .map(i.getDatabaseMinorVersion  ()));
-		sv.add(driverName            .map(i.getDriverName            ()));
-		sv.add(driverVersion         .map(i.getDriverVersion         ()));
-		sv.add(driverVersionMajor    .map(i.getDriverMajorVersion    ()));
-		sv.add(driverVersionMinor    .map(i.getDriverMinorVersion    ()));
+		sv.add(map(databaseProductName   , i.getDatabaseProductName   ()));
+		sv.add(map(databaseProductVersion, i.getDatabaseProductVersion()));
+		sv.add(map(databaseVersionMajor  , i.getDatabaseMajorVersion  ()));
+		sv.add(map(databaseVersionMinor  , i.getDatabaseMinorVersion  ()));
+		sv.add(map(driverName            , i.getDriverName            ()));
+		sv.add(map(driverVersion         , i.getDriverVersion         ()));
+		sv.add(map(driverVersionMajor    , i.getDriverMajorVersion    ()));
+		sv.add(map(driverVersionMinor    , i.getDriverMinorVersion    ()));
 	}
 
 	private static void addEnvironmentInfo(final ArrayList<SetValue<?>> sv, final Map<String, String> environment)
 	{
-		sv.add(databaseProductName   .map(getS(environment, "database.name")));
-		sv.add(databaseProductVersion.map(getS(environment, "database.version")));
-		sv.add(databaseVersionMajor  .map(getI(environment, "database.version.major")));
-		sv.add(databaseVersionMinor  .map(getI(environment, "database.version.minor")));
-		sv.add(driverName            .map(getS(environment, "driver.name")));
-		sv.add(driverVersion         .map(getS(environment, "driver.version")));
-		sv.add(driverVersionMajor    .map(getI(environment, "driver.version.major")));
-		sv.add(driverVersionMinor    .map(getI(environment, "driver.version.minor")));
+		sv.add(map(databaseProductName   , getS(environment, "database.name")));
+		sv.add(map(databaseProductVersion, getS(environment, "database.version")));
+		sv.add(map(databaseVersionMajor  , getI(environment, "database.version.major")));
+		sv.add(map(databaseVersionMinor  , getI(environment, "database.version.minor")));
+		sv.add(map(driverName            , getS(environment, "driver.name")));
+		sv.add(map(driverVersion         , getS(environment, "driver.version")));
+		sv.add(map(driverVersionMajor    , getI(environment, "driver.version.major")));
+		sv.add(map(driverVersionMinor    , getI(environment, "driver.version.minor")));
 	}
 
 
@@ -195,8 +196,8 @@ final class SamplerEnvironment extends Item
 			final Map<String, String> environment = info.getEnvironment();
 
 			final ArrayList<SetValue<?>> sv = new ArrayList<>();
-			sv.add(connectDate.map(date));
-			sv.add(initializeDate.map(date));
+			sv.add(map(connectDate, date));
+			sv.add(map(initializeDate, date));
 			addHostname(sv, environment);
 			addConnection(sv, environment);
 			addEnvironmentInfo(sv, environment);

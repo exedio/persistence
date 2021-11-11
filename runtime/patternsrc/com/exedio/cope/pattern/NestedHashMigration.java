@@ -147,8 +147,8 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 			throw MandatoryViolationException.create(this, item);
 
 		item.set(
-				legacyHash.map(null),
-				targetHash.map(plainText));
+				SetValue.map(legacyHash, null),
+				SetValue.map(targetHash, plainText));
 	}
 
 	@Wrap(order=60,
@@ -179,8 +179,8 @@ public final class NestedHashMigration extends Pattern implements HashInterface
 				}
 
 				item.set(
-						legacyHash.map(null),
-						targetHash.getStorage().map(targetAlgorithm.hash(legacyHashValue)));
+						SetValue.map(legacyHash, null),
+						SetValue.map(targetHash.getStorage(), targetAlgorithm.hash(legacyHashValue)));
 
 				tx.commit();
 			}

@@ -116,7 +116,7 @@ public final class EnumSingleton<E extends Enum<E>> extends Pattern implements S
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
 		return new SetValue<?>[] {
-			once.map(value)
+			SetValue.map(once, value)
 		};
 	}
 }

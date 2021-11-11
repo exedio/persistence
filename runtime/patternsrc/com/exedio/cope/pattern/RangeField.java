@@ -103,8 +103,8 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 
 		//noinspection unchecked
 		item.set(
-				from.map(value.getFrom()),
-				to  .map(value.getTo  ()));
+				SetValue.map(from, value.getFrom()),
+				SetValue.map(to,   value.getTo  ()));
 	}
 
 	@Wrap(order=30, nullability=NullableIfOptional.class)
@@ -167,8 +167,8 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	public SetValue<?>[] execute(final Range<E> value, final Item exceptionItem)
 	{
 		return new SetValue<?>[]{
-				from.map(value.getFrom()),
-				to  .map(value.getTo  ())};
+				SetValue.map(from, value.getFrom()),
+				SetValue.map(to,   value.getTo  ())};
 	}
 
 	@Override

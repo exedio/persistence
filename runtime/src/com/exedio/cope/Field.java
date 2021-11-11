@@ -128,7 +128,7 @@ public abstract class Field<E> extends Feature implements Settable<E>
 	@Override
 	public final SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		return new SetValue<?>[]{ map(value) };
+		return new SetValue<?>[]{ SetValue.map(this, value) };
 	}
 
 	/**

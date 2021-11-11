@@ -353,7 +353,7 @@ public final class Hash extends Pattern implements HashInterface
 	public SetValue<?>[] execute(final String value, final Item exceptionItem) throws InvalidPlainTextException
 	{
 		final String hash = hash(value, exceptionItem);
-		return new SetValue<?>[]{ storage.map(hash) };
+		return new SetValue<?>[]{ SetValue.map(storage, hash) };
 	}
 
 	@Override

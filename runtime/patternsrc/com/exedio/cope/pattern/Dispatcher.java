@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.ItemField.DeletePolicy.CASCADE;
+import static com.exedio.cope.SetValue.map;
 import static com.exedio.cope.misc.QueryIterators.iterateTypeTransactionally;
 import static com.exedio.cope.pattern.FeatureTimer.timer;
 import static com.exedio.cope.util.Check.requireGreaterZero;
@@ -91,8 +92,8 @@ public final class Dispatcher extends Pattern
 		Unpend(final boolean success, final Date date)
 		{
 			super(
-				Unpend.success.map(success),
-				Unpend.date.map(date));
+				map(Unpend.success, success),
+				map(Unpend.date, date));
 		}
 		private Unpend(final SetValue<?>... setValues) { super(setValues); }
 		private static final long serialVersionUID = 1l;
@@ -635,9 +636,9 @@ public final class Dispatcher extends Pattern
 	private void unpend(final Item item, final boolean success, final Date date)
 	{
 		final ArrayList<SetValue<?>> sv = new ArrayList<>(3);
-		sv.add(pending.map(false));
+		sv.add(map(pending, false));
 		if(supportsPurge())
-			sv.add(unpend.map(new Unpend(success, date)));
+			sv.add(map(unpend, new Unpend(success, date)));
 
 		// A separate transaction for unpend helps to avoid TemporaryTransactionException
 		// if there are two Dispatchers on the same type dispatching the same item at
@@ -838,15 +839,15 @@ public final class Dispatcher extends Pattern
 				final byte[] failure)
 		{
 			SetValue<?>[] setValues = {
-					this.parent.as(parentClass).map(parent),
-					this.date.map(date),
-					this.elapsed.map(elapsed),
-					this.result.map(result),
+					map(this.parent.as(parentClass), parent),
+					map(this.date, date),
+					map(this.elapsed, elapsed),
+					map(this.result, result),
 					this.failure.map(failure)};
 			if(supportRemaining)
 			{
-				setValues = SetValueUtil.add(setValues, this.remaining.map(remaining));
-				setValues = SetValueUtil.add(setValues, this.limit.map(limit));
+				setValues = SetValueUtil.add(setValues, map(this.remaining, remaining));
+				setValues = SetValueUtil.add(setValues, map(this.limit, limit));
 			}
 			type.newItem(setValues);
 		}

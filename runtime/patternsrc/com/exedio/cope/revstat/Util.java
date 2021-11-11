@@ -18,6 +18,8 @@
 
 package com.exedio.cope.revstat;
 
+import static com.exedio.cope.SetValue.map;
+
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 
@@ -25,7 +27,7 @@ final class Util
 {
 	static SetValue<String> cutAndMap(final StringField f, final String s)
 	{
-		return f.map(shortify(f, s));
+		return map(f, shortify(f, s));
 	}
 
 	private static String shortify(final StringField f, final String s)

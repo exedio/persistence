@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.SetValue.map;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -289,7 +290,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 	 */
 	public final <E> void set(final FunctionField<E> field, final E value)
 	{
-		set(field.map(value));
+		set(map(field, value));
 	}
 
 	/**

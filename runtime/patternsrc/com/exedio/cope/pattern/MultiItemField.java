@@ -286,7 +286,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 	@Wrap(order=20, doc=Wrap.SET_DOC, hide=FinalSettableGetter.class, thrownGetter=InitialExceptionsSettableGetter.class)
 	public void set(final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
-		item.set(map(value));
+		item.set(SetValue.map(this, value));
 	}
 
 	/**

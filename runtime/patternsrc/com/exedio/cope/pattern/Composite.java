@@ -95,7 +95,7 @@ public abstract class Composite implements Serializable, TemplatedValue
 
 	public final <X> void set(final FunctionField<X> member, final X value)
 	{
-		set(member.map(value));
+		set(SetValue.map(member, value));
 	}
 
 	public final void set(final SetValue<?>... setValues)
