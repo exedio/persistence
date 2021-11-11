@@ -71,6 +71,7 @@ final class Generator
 	private final boolean finalMethodInFinalClass;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
+	private final Params.Suppressor suppressWarningsType;
 	private final Params.Suppressor suppressWarningsConstructor;
 	private final Params.Suppressor suppressWarningsWrapper;
 
@@ -87,6 +88,7 @@ final class Generator
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.disabledWraps = disabledWraps;
+		this.suppressWarningsType        = params.suppressWarningsType;
 		this.suppressWarningsConstructor = params.suppressWarningsConstructor;
 		this.suppressWarningsWrapper     = params.suppressWarningsWrapper;
 	}
@@ -777,12 +779,14 @@ final class Generator
 		if(kind.typeField==null)
 			return;
 
-		final Visibility visibility = type.getOption().type();
+		final WrapperType option = type.getOption();
+		final Visibility visibility = option.type();
 		if(!visibility.exists())
 			return;
 
 		writeComment(singletonList(format(kind.typeDoc, lowerCamelCase(type.getName()))));
 		writeGeneratedAnnotation(TYPE_CUSTOMIZE);
+		writeSuppressWarnings(suppressWarningsType, option.typeSuppressWarnings());
 		writeIndent();
 		writeModifier(visibility.getModifier(type.getModifier()) | (STATIC|FINAL));
 		write(kind.typeField);

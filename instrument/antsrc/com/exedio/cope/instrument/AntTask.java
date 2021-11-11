@@ -375,6 +375,11 @@ public final class AntTask extends Task
 
 	public final class Suppressors
 	{
+		public Suppressor createType()
+		{
+			return new Suppressor(params.suppressWarningsType);
+		}
+
 		public Suppressor createConstructor()
 		{
 			return new Suppressor(params.suppressWarningsConstructor);
