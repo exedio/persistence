@@ -110,45 +110,45 @@ final class Generator
 
 	private void writeThrowsClause(final Collection<Class<? extends Throwable>> exceptions)
 	{
-		if(!exceptions.isEmpty())
+		if(exceptions.isEmpty())
+			return;
+
+		writeIndent(2);
+		write("throws");
+		final CharSeparator comma = new CharSeparator(',');
+		for(final Class<? extends Throwable> e : exceptions)
 		{
-			writeIndent(2);
-			write("throws");
-			final CharSeparator comma = new CharSeparator(',');
-			for(final Class<? extends Throwable> e : exceptions)
-			{
-				comma.appendTo(output);
-				write(lineSeparator);
-				writeIndent(3);
-				write(e.getCanonicalName());
-			}
+			comma.appendTo(output);
 			write(lineSeparator);
+			writeIndent(3);
+			write(e.getCanonicalName());
 		}
+		write(lineSeparator);
 	}
 
 	private void writeComment(final List<String> commentLines)
 	{
 		write(lineSeparator);
-		if(typeContext.comments && !commentLines.isEmpty())
+		if(!typeContext.comments || commentLines.isEmpty())
+			return;
+
+		writeIndent();
+		write("/**");
+		write(lineSeparator);
+
+		for (final String commentLine: commentLines)
 		{
 			writeIndent();
-			write("/**");
-			write(lineSeparator);
+			write(" *");
+			if (!commentLine.isEmpty())
+				write(' ');
 
-			for (final String commentLine: commentLines)
-			{
-				writeIndent();
-				write(" *");
-				if (!commentLine.isEmpty())
-					write(' ');
-
-				write(commentLine);
-				write(lineSeparator);
-			}
-			writeIndent();
-			write(" */");
+			write(commentLine);
 			write(lineSeparator);
 		}
+		writeIndent();
+		write(" */");
+		write(lineSeparator);
 	}
 
 	private void writeGeneratedAnnotation(
@@ -168,27 +168,27 @@ final class Generator
 			final Params.Suppressor suppressWarnings)
 	{
 		final SortedSet<String> set = suppressWarnings.get();
-		if(!set.isEmpty())
+		if(set.isEmpty())
+			return;
+
+		writeIndent();
+		writeAnnotation(SuppressWarnings.class);
+		write('(');
+		final boolean multi = set.size()>1;
+		if(multi)
+			write('{');
+		final CharSeparator comma = new CharSeparator(',');
+		for(final String w : set)
 		{
-			writeIndent();
-			writeAnnotation(SuppressWarnings.class);
-			write('(');
-			final boolean multi = set.size()>1;
-			if(multi)
-				write('{');
-			final CharSeparator comma = new CharSeparator(',');
-			for(final String w : set)
-			{
-				comma.appendTo(output);
-				write('"');
-				write(w);
-				write('"');
-			}
-			if(multi)
-				write('}');
-			write(')');
-			write(lineSeparator);
+			comma.appendTo(output);
+			write('"');
+			write(w);
+			write('"');
 		}
+		if(multi)
+			write('}');
+		write(')');
+		write(lineSeparator);
 	}
 
 	private void writeInitialConstructor(final LocalCopeType type)
@@ -638,18 +638,18 @@ final class Generator
 
 	private void writeParameterNullability(final WrapperX.Parameter parameter)
 	{
-		if ( nullabilityAnnotations )
+		if(!nullabilityAnnotations)
+			return;
+
+		if(parameter.isNonnull())
 		{
-			if ( parameter.isNonnull() )
-			{
-				writeAnnotation(Nonnull.class);
-				write(' ');
-			}
-			if ( parameter.isNullable() )
-			{
-				writeAnnotation(Nullable.class);
-				write(' ');
-			}
+			writeAnnotation(Nonnull.class);
+			write(' ');
+		}
+		if(parameter.isNullable())
+		{
+			writeAnnotation(Nullable.class);
+			write(' ');
 		}
 	}
 
@@ -790,13 +790,13 @@ final class Generator
 	private void writeWildcard(final LocalCopeType type)
 	{
 		final int typeParameters = type.getTypeParameters();
-		if(typeParameters>0)
-		{
-			write("<?");
-			for(int i = 1; i<typeParameters; i++)
-				write(",?");
-			write('>');
-		}
+		if(typeParameters==0)
+			return;
+
+		write("<?");
+		for(int i = 1; i<typeParameters; i++)
+			write(",?");
+		write('>');
 	}
 
 	private void writeClass(final CopeType<?> type)
@@ -866,11 +866,11 @@ final class Generator
 	private void writeModifier(final int modifier)
 	{
 		final String modifierString = Modifier.toString(modifier);
-		if(!modifierString.isEmpty())
-		{
-			write(modifierString);
-			write(' ');
-		}
+		if(modifierString.isEmpty())
+			return;
+
+		write(modifierString);
+		write(' ');
 	}
 
 	private static boolean isKeyword(final String s)
