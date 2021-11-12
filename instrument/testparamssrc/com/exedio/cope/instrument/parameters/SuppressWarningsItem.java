@@ -76,7 +76,7 @@ final class SuppressWarningsItem extends Item
 	}
 
 	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1;
 
 	/**
 	 * The persistent type information for suppressWarningsItem.

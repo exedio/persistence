@@ -850,7 +850,6 @@
 				verify="${instrument.verify}"
 				charset="ascii"
 				maxwarns="20000"
-				serialVersionUIDSuffix="small"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
@@ -885,6 +884,7 @@
 		<instrument
 				dir="instrument/testparamssrc"
 				verify="${instrument.verify}"
+				serialVersionUIDSuffix="none"
 				directSetValueMap="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
@@ -902,7 +902,7 @@
 				verify="${instrument.verify}"
 				charset="ascii"
 				maxwarns="20000"
-				serialVersionUIDSuffix="small"
+				serialVersionUIDSuffix="capital"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />

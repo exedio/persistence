@@ -46,7 +46,7 @@ public abstract class ExternalParentWithAbstractMethod extends Item
 	protected ExternalParentWithAbstractMethod(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 2l;
+	private static final long serialVersionUID = 2L;
 
 	/**
 	 * The persistent type information for externalParentWithAbstractMethod.
