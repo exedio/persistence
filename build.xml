@@ -885,6 +885,7 @@
 		<instrument
 				dir="instrument/testparamssrc"
 				verify="${instrument.verify}"
+				directSetValueMap="true"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<suppressWarnings>
