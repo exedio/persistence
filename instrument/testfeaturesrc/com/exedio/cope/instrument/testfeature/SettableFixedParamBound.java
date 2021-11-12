@@ -18,9 +18,6 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.Item;
-import com.exedio.cope.SetValue;
-import com.exedio.cope.Settable;
 import com.exedio.cope.instrument.WrapFeature;
 import com.exedio.cope.misc.ReflectionTypes;
 import java.lang.reflect.Type;
@@ -30,7 +27,7 @@ import java.util.concurrent.atomic.AtomicLong;
 import java.util.concurrent.atomic.AtomicReference;
 
 @WrapFeature
-public class SettableFixedParamBound implements Settable<AtomicReference<? extends AtomicLong>>
+public class SettableFixedParamBound extends AssertionFailedSettable<AtomicReference<? extends AtomicLong>>
 {
 	@Override
 	public boolean isInitial()
@@ -42,27 +39,6 @@ public class SettableFixedParamBound implements Settable<AtomicReference<? exten
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
 		return Collections.emptySet();
-	}
-
-
-
-
-	@Override
-	public SetValue<AtomicReference<? extends AtomicLong>> map(final AtomicReference<? extends AtomicLong> value)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public SetValue<?>[] execute(final AtomicReference<? extends AtomicLong> value, final Item exceptionItem)
-	{
-		throw new AssertionError();
-	}
-
-	@Override
-	public boolean isFinal()
-	{
-		throw new AssertionError();
 	}
 
 	@Override

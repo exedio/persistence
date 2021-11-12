@@ -18,50 +18,54 @@
 
 package com.exedio.cope.instrument.testfeature;
 
-import com.exedio.cope.instrument.Wrap;
-import com.exedio.cope.instrument.WrapFeature;
+import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
+import com.exedio.cope.Settable;
 import java.lang.reflect.Type;
-import java.util.Collections;
+import java.util.Objects;
 import java.util.Set;
 
-@WrapFeature
-public class SettableOpen<Z> extends AssertionFailedSettable<Z>
+public class AssertionFailedSettable<E> implements Settable<E>
 {
-	private final Type type;
-
-	public SettableOpen(final Type type)
-	{
-		this.type = type;
-	}
-
-	@Wrap(order=10)
-	public Z method(@SuppressWarnings("unused") final Z z)
-	{
-		return null;
-	}
-
-
 	@Override
-	public boolean isInitial()
+	public SetValue<E> map(final E value)
 	{
-		return true;
+		throw new AssertionError(Objects.toString(value));
 	}
 
 	@Override
-	public Set<Class<? extends Throwable>> getInitialExceptions()
+	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		return Collections.emptySet();
+		throw new AssertionError(Objects.toString(value));
+	}
+
+	@Override
+	public boolean isFinal()
+	{
+		throw new AssertionError();
 	}
 
 	@Override
 	public boolean isMandatory()
 	{
-		return true;
+		throw new AssertionError();
 	}
 
 	@Override
 	public Type getInitialType()
 	{
-		return type;
+		throw new AssertionError();
+	}
+
+	@Override
+	public boolean isInitial()
+	{
+		throw new AssertionError();
+	}
+
+	@Override
+	public Set<Class<? extends Throwable>> getInitialExceptions()
+	{
+		throw new AssertionError();
 	}
 }
