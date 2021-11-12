@@ -55,7 +55,7 @@ public class LibSuperItem extends Item
 	}
 
 	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The persistent type information for libSuperItem.

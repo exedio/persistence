@@ -124,7 +124,7 @@ public abstract class LibItem<T> extends LibSuperItem
 	}
 
 	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 2l;
+	private static final long serialVersionUID = 2L;
 
 	/**
 	 * Use LibItem.classWildcard.value instead of LibItem.class to avoid rawtypes warnings.

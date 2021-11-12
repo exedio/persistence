@@ -43,7 +43,7 @@ public class VarargsLib extends Item
 	protected VarargsLib(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 1L;
 
 	/**
 	 * The persistent type information for varargsLib.
