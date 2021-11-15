@@ -205,6 +205,7 @@ final class Params
 		}
 	}
 
+	final Suppressor suppressWarningsType = new Suppressor();
 	final Suppressor suppressWarningsConstructor = new Suppressor();
 	final Suppressor suppressWarningsWrapper = new Suppressor();
 }

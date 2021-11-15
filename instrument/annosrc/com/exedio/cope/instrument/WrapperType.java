@@ -46,6 +46,12 @@ public @interface WrapperType
 	Visibility type() default Visibility.DEFAULT;
 
 	/**
+	 * Annotates the TYPE constant with @{@link SuppressWarnings},
+	 * additionally to global parameters of the instrumentor.
+	 */
+	String[] typeSuppressWarnings() default {};
+
+	/**
 	 * Overrides the visibility of the generated <em>initial</em> constructor.
 	 * <p>
 	 * The <em>initial</em> constructor takes arguments for each <em>initial</em> feature.

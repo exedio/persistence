@@ -27,6 +27,7 @@ final class AnnotationHelper
 		@Override public Class<? extends Annotation> annotationType() { throw new RuntimeException(); }
 		@Override public Visibility wildcardClass() { return Visibility.DEFAULT; }
 		@Override public Visibility type() { return Visibility.DEFAULT; }
+		@Override public String[]   typeSuppressWarnings() { return new String[0]; }
 		@Override public Visibility constructor() { return Visibility.DEFAULT; }
 		@Override public String[]   constructorSuppressWarnings() { return new String[0]; }
 		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }

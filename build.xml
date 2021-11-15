@@ -889,6 +889,7 @@
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<suppressWarnings>
+				<type>type-single</type>
 				<constructor>constructor-first</constructor>
 				<constructor>constructor-second</constructor>
 				<wrapper>wrapper-single</wrapper>
