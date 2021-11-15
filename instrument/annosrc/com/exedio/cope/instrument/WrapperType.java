@@ -61,6 +61,12 @@ public @interface WrapperType
 	Visibility constructor() default Visibility.DEFAULT;
 
 	/**
+	 * Annotates the <em>initial</em> constructor with @{@link SuppressWarnings},
+	 * additionally to global parameters of the instrumentor.
+	 */
+	String[] constructorSuppressWarnings() default {};
+
+	/**
 	 * Overrides the visibility of the generated generic constructor,
 	 * that calls {@link com.exedio.cope.Item#Item(com.exedio.cope.SetValue...)}.
 	 * The visibility {@link Visibility#DEFAULT defaults} to

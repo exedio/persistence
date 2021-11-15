@@ -40,6 +40,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -165,9 +166,18 @@ final class Generator
 	}
 
 	private void writeSuppressWarnings(
-			final Params.Suppressor suppressWarnings)
+			final Params.Suppressor byParams,
+			final String[] byAnnotation)
 	{
-		final SortedSet<String> set = suppressWarnings.get();
+		final SortedSet<String> byParamsSet = byParams.get();
+		final SortedSet<String> set;
+		if(byAnnotation.length==0)
+			set = byParamsSet;
+		else
+		{
+			set = new TreeSet<>(byParamsSet);
+			set.addAll(asList(byAnnotation));
+		}
 		if(set.isEmpty())
 			return;
 
@@ -229,7 +239,7 @@ final class Generator
 		}
 		writeComment(commentLines);
 		writeGeneratedAnnotation(CONSTRUCTOR_INITIAL_CUSTOMIZE);
-		writeSuppressWarnings(suppressWarningsConstructor);
+		writeSuppressWarnings(suppressWarningsConstructor, type.getOption().constructorSuppressWarnings());
 
 		writeIndent();
 		writeModifier(type.getInitialConstructorModifier());
@@ -437,7 +447,7 @@ final class Generator
 					modifierTag!=null
 					? hintCustomize(Wrapper.class, "wrap", "\"" + modifierTag + "\"")
 					: null);
-				writeSuppressWarnings(suppressWarningsWrapper);
+				writeSuppressWarnings(suppressWarningsWrapper, option.suppressWarnings());
 			}
 
 			if(wrapper.isMethodDeprecated() || feature.isDeprecated())

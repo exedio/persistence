@@ -95,6 +95,7 @@ final class LocalCopeFeature extends CopeFeature
 		@Override public boolean booleanAsIs() { return false; }
 		@Override public boolean asFinal() { return true; }
 		@Override public boolean override() { return false; }
+		@Override public String[] suppressWarnings() { return EMPTY_STRING_ARRAY; }
 		@Override public String[] annotate() { return EMPTY_STRING_ARRAY; }
 	};
 

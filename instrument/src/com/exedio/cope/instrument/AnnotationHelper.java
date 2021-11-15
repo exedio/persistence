@@ -28,6 +28,7 @@ final class AnnotationHelper
 		@Override public Visibility wildcardClass() { return Visibility.DEFAULT; }
 		@Override public Visibility type() { return Visibility.DEFAULT; }
 		@Override public Visibility constructor() { return Visibility.DEFAULT; }
+		@Override public String[]   constructorSuppressWarnings() { return new String[0]; }
 		@Override public Visibility genericConstructor() { return Visibility.DEFAULT; }
 		@Override public Visibility activationConstructor() { return Visibility.DEFAULT; }
 		@Override public int indent() { return 1; }
