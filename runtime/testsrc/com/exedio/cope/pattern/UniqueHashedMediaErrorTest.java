@@ -149,10 +149,9 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings({
-			"unused", // OK: test bad API usage
-			"UnnecessarilyQualifiedStaticallyImportedElement"}) // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
+	@SuppressWarnings("unused") // OK: test bad API usage
 	private static final class NonCreateableFunctionFieldItem extends Item
 	{
 		@WrapperIgnore
@@ -164,6 +163,7 @@ public class UniqueHashedMediaErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<NonCreateableFunctionFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableFunctionFieldItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -186,10 +186,9 @@ public class UniqueHashedMediaErrorTest
 					e.getMessage());
 		}
 	}
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings({
-			"unused", // OK: test bad API usage
-			"UnnecessarilyQualifiedStaticallyImportedElement"}) // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
+	@SuppressWarnings("unused") // OK: test bad API usage
 	private static final class NonCreateableDataFieldItem extends Item
 	{
 		@WrapperIgnore
@@ -201,6 +200,7 @@ public class UniqueHashedMediaErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<NonCreateableDataFieldItem> TYPE = com.exedio.cope.TypesBound.newType(NonCreateableDataFieldItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -213,8 +213,8 @@ public class UniqueHashedMediaErrorTest
 		// test, that is does not throw an exception
 		new Model(CreateableItem.TYPE);
 	}
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static final class CreateableItem extends Item
 	{
 		@WrapperIgnore
@@ -234,6 +234,7 @@ public class UniqueHashedMediaErrorTest
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<CreateableItem> TYPE = com.exedio.cope.TypesBound.newType(CreateableItem.class);
 
 		@com.exedio.cope.instrument.Generated

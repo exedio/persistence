@@ -34,14 +34,15 @@ public class CreateLimitAnnotationTest
 		assertEquals(Integer.MAX_VALUE, DefaultItem.TYPE.getCreateLimit());
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class DefaultItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<DefaultItem> TYPE = com.exedio.cope.TypesBound.newType(DefaultItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -55,14 +56,15 @@ public class CreateLimitAnnotationTest
 	}
 
 	@CopeCreateLimit(5)
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class OkItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<OkItem> TYPE = com.exedio.cope.TypesBound.newType(OkItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -76,14 +78,15 @@ public class CreateLimitAnnotationTest
 	}
 
 	@CopeCreateLimit(0)
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class MinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<MinimumItem> TYPE = com.exedio.cope.TypesBound.newType(MinimumItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -107,14 +110,15 @@ public class CreateLimitAnnotationTest
 	}
 
 	@CopeCreateLimit(-1)
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class LessMinimumItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<LessMinimumItem> TYPE = com.exedio.cope.TypesBound.newType(LessMinimumItem.class);
 
 		@com.exedio.cope.instrument.Generated
@@ -127,14 +131,15 @@ public class CreateLimitAnnotationTest
 		assertEquals(5, SubOkItem.TYPE.getCreateLimit());
 	}
 
-	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
-	@SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement") // OK: instrumented code
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false,
+			typeSuppressWarnings="UnnecessarilyQualifiedStaticallyImportedElement")
 	private static class SubOkItem extends OkItem
 	{
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings("UnnecessarilyQualifiedStaticallyImportedElement")
 		private static final com.exedio.cope.Type<SubOkItem> TYPE = com.exedio.cope.TypesBound.newType(SubOkItem.class);
 
 		@com.exedio.cope.instrument.Generated
