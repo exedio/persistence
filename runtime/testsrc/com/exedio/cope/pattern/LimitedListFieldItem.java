@@ -38,10 +38,12 @@ public final class LimitedListFieldItem extends Item
 
 	static final IntegerField num3 = new IntegerField().optional();
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static final LimitedListField<Integer> nums = LimitedListField.create(num1, num2, num3);
 
 	// implicit external source
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static final LimitedListField<Date> dates = LimitedListField.create(new DateField().optional(), new DateField().optional());
 
 	// internal source

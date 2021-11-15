@@ -71,7 +71,7 @@ public final class Serializer<E> extends Pattern implements Settable<E>
 	}
 
 	/**
-	 * @deprecated Do not use this method anymore.
+	 * @deprecated external sources are discouraged and will be removed in the future
 	 */
 	@Deprecated
 	public static <E> Serializer<E> create(final Class<E> valueClass, final DataField source)

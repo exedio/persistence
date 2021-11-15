@@ -67,11 +67,19 @@ public final class Hash extends Pattern implements HashInterface
 	private final HashAlgorithm algorithm;
 	private final PlainTextValidator validator;
 
+	/**
+	 * @deprecated external sources are discouraged and will be removed in the future
+	 */
+	@Deprecated
 	public Hash(final StringField storage, final Algorithm algorithm, final Charset charset)
 	{
 		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, charset), DEFAULT_VALIDATOR);
 	}
 
+	/**
+	 * @deprecated external sources are discouraged and will be removed in the future
+	 */
+	@Deprecated
 	public Hash(final StringField storage, final Algorithm algorithm)
 	{
 		this(storage, DEFAULT_PLAINTEXT_LIMIT, wrap(algorithm, UTF_8), DEFAULT_VALIDATOR);
@@ -92,6 +100,10 @@ public final class Hash extends Pattern implements HashInterface
 		this(newStorage(algorithm), DEFAULT_PLAINTEXT_LIMIT, algorithm, DEFAULT_VALIDATOR);
 	}
 
+	/**
+	 * @deprecated external sources are discouraged and will be removed in the future
+	 */
+	@Deprecated
 	public Hash(final StringField storage, final HashAlgorithm algorithm)
 	{
 		this(storage, DEFAULT_PLAINTEXT_LIMIT, algorithm, DEFAULT_VALIDATOR);

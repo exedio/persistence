@@ -30,8 +30,10 @@ import com.exedio.cope.testmodel.WrapHash;
 public final class HashItem extends Item
 {
 	static final StringField explicitExternalWrap = new StringField().optional();
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static final Hash explicitExternal = new Hash(explicitExternalWrap, WrapHash.ALGORITHM);
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	static final Hash implicitExternal = new Hash(new StringField().optional(), WrapHash.ALGORITHM);
 
 	static final Hash internal = new Hash(WrapHash.ALGORITHM).optional();
