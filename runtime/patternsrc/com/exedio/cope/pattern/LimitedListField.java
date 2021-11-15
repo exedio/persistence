@@ -110,11 +110,19 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		this(template2Sources(template, maximumSize));
 	}
 
+	/**
+	 * @deprecated external sources are discouraged and will be removed in the future
+	 */
+	@Deprecated
 	public static <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
 		return new LimitedListField<>(source1, source2);
 	}
 
+	/**
+	 * @deprecated external sources are discouraged and will be removed in the future
+	 */
+	@Deprecated
 	public static <E> LimitedListField<E> create(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
 		return new LimitedListField<>(source1, source2, source3);
