@@ -239,13 +239,13 @@ public class LimitedListFieldModelTest
 		assertEquals(null, sources.get(1).getDefaultConstant());
 		assertEquals(
 				"(" +
-				"("+f.getLength()+">'0' OR "+sources.get(0)+" is null) AND " +
-				"("+f.getLength()+">'1' OR "+sources.get(1)+" is null))",
+				"(("+f.getLength()+">'0' AND "+sources.get(0)+" is not null) OR ("+f.getLength()+"<='0' AND "+sources.get(0)+" is null)) AND " +
+				"(("+f.getLength()+">'1' AND "+sources.get(1)+" is not null) OR ("+f.getLength()+"<='1' AND "+sources.get(1)+" is null)))",
 				f.getUnison().getCondition().toString());
 		assertEquals(2, f.getMaximumSize());
 		assertEquals(false, f.isFinal());
 		assertEquals(true, f.isMandatory());
-		assertEquals(true, f.isInitial());
+		assertEquals(false, f.isInitial());
 	}
 
 	private static DateField assertDate(final Iterator<?> i, final int num)
