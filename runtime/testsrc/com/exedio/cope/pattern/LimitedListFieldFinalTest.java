@@ -37,14 +37,6 @@ import org.junit.jupiter.api.Test;
 
 public class LimitedListFieldFinalTest extends TestWithEnvironment
 {
-	private static final Model MODEL = new Model(TYPE);
-
-	public LimitedListFieldFinalTest()
-	{
-		super(MODEL);
-	}
-
-
 	@Test void testModel()
 	{
 		final List<FunctionField<String>> textSources = text.getListSources();
@@ -57,9 +49,9 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		assertEquals(true, textSources.get(0).isFinal());
 		assertEquals(true, textSources.get(1).isFinal());
 		assertEquals(true, textSources.get(2).isFinal());
-		assertEquals(true,  text.isFinal());
-		assertEquals(true,  text.isMandatory());
-		assertEquals(true,  text.isInitial());
+		assertEquals(true, text.isFinal());
+		assertEquals(true, text.isMandatory());
+		assertEquals(true, text.isInitial());
 	}
 
 	@Test void testEmpty()
@@ -150,5 +142,12 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 
 		@com.exedio.cope.instrument.Generated
 		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	private static final Model MODEL = new Model(TYPE);
+
+	public LimitedListFieldFinalTest()
+	{
+		super(MODEL);
 	}
 }
