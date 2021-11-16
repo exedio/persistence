@@ -19,7 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.LimitedListFieldFinalTest.AnItem.TYPE;
-import static com.exedio.cope.pattern.LimitedListFieldFinalTest.AnItem.text;
+import static com.exedio.cope.pattern.LimitedListFieldFinalTest.AnItem.field;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -39,43 +39,43 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 {
 	@Test void testModel()
 	{
-		final List<FunctionField<String>> textSources = text.getListSources();
-		assertEquals(3, textSources.size());
-		assertEquals(Integer.valueOf(0), text.getLength().getDefaultConstant());
-		assertEquals(null, textSources.get(0).getDefaultConstant());
-		assertEquals(null, textSources.get(1).getDefaultConstant());
-		assertEquals(null, textSources.get(2).getDefaultConstant());
-		assertEquals(true, text.getLength().isFinal());
-		assertEquals(true, textSources.get(0).isFinal());
-		assertEquals(true, textSources.get(1).isFinal());
-		assertEquals(true, textSources.get(2).isFinal());
-		assertEquals(true, text.isFinal());
-		assertEquals(true, text.isMandatory());
-		assertEquals(true, text.isInitial());
+		final List<FunctionField<String>> sources = field.getListSources();
+		assertEquals(3, sources.size());
+		assertEquals(Integer.valueOf(0), field.getLength().getDefaultConstant());
+		assertEquals(null, sources.get(0).getDefaultConstant());
+		assertEquals(null, sources.get(1).getDefaultConstant());
+		assertEquals(null, sources.get(2).getDefaultConstant());
+		assertEquals(true, field.getLength().isFinal());
+		assertEquals(true, sources.get(0).isFinal());
+		assertEquals(true, sources.get(1).isFinal());
+		assertEquals(true, sources.get(2).isFinal());
+		assertEquals(true, field.isFinal());
+		assertEquals(true, field.isMandatory());
+		assertEquals(true, field.isInitial());
 	}
 
 	@Test void testEmpty()
 	{
 		final AnItem item = new AnItem(asList());
-		assertEquals(asList(), item.getText());
+		assertEquals(asList(), item.getField());
 
 		assertFails(
-				() -> item.setText(asList("zack")),
+				() -> item.setField(asList("zack")),
 				FinalViolationException.class,
-				"final violation on " + item + " for " + text);
-		assertEquals(asList(), item.getText());
+				"final violation on " + item + " for " + field);
+		assertEquals(asList(), item.getField());
 
 		assertFails(
-				() -> item.set(text.map(asList("zack"))),
+				() -> item.set(field.map(asList("zack"))),
 				FinalViolationException.class,
-				"final violation on " + item + " for " + text);
-		assertEquals(asList(), item.getText());
+				"final violation on " + item + " for " + field);
+		assertEquals(asList(), item.getField());
 	}
 
 	@Test void testCreateWithoutMapping()
 	{
 		final AnItem item = new AnItem();
-		assertEquals(asList(), item.getText());
+		assertEquals(asList(), item.getField());
 	}
 
 	@Test void testCreateNull()
@@ -83,13 +83,13 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		assertFails(
 				() -> new AnItem((Collection<String>)null),
 				MandatoryViolationException.class,
-				"mandatory violation for " + text);
+				"mandatory violation for " + field);
 	}
 
 	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
 	{
-		static final LimitedListField<String> text =
+		static final LimitedListField<String> field =
 				LimitedListField.create(new StringField().toFinal().optional(), 3);
 
 		AnItem()
@@ -102,12 +102,12 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		AnItem(
-					@javax.annotation.Nonnull final java.util.Collection<String> text)
+					@javax.annotation.Nonnull final java.util.Collection<String> field)
 				throws
 					com.exedio.cope.StringLengthViolationException
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				AnItem.text.map(text),
+				AnItem.field.map(field),
 			});
 		}
 
@@ -117,21 +117,21 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		@javax.annotation.Nonnull
-		java.util.List<String> getText()
+		java.util.List<String> getField()
 		{
-			return AnItem.text.get(this);
+			return AnItem.field.get(this);
 		}
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		void setText(@javax.annotation.Nonnull final java.util.Collection<? extends String> text)
+		void setField(@javax.annotation.Nonnull final java.util.Collection<? extends String> field)
 				throws
 					com.exedio.cope.FinalViolationException,
 					com.exedio.cope.StringLengthViolationException,
 					java.lang.ClassCastException,
 					com.exedio.cope.pattern.ListSizeViolationException
 		{
-			AnItem.text.set(this,text);
+			AnItem.field.set(this,field);
 		}
 
 		@com.exedio.cope.instrument.Generated
