@@ -20,9 +20,9 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.LimitedListFieldFinalTest.AnItem.TYPE;
 import static com.exedio.cope.pattern.LimitedListFieldFinalTest.AnItem.text;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
@@ -67,28 +67,16 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		final AnItem item = new AnItem(asList());
 		assertEquals(asList(), item.getText());
 
-		try
-		{
-			item.setText(asList("zack"));
-			fail();
-		}
-		catch(final FinalViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(text, e.getFeature());
-		}
+		assertFails(
+				() -> item.setText(asList("zack")),
+				FinalViolationException.class,
+				"final violation on " + item + " for " + text);
 		assertEquals(asList(), item.getText());
 
-		try
-		{
-			item.set(text.map(asList("zack")));
-			fail();
-		}
-		catch(final FinalViolationException e)
-		{
-			assertEquals(item, e.getItem());
-			assertEquals(text, e.getFeature());
-		}
+		assertFails(
+				() -> item.set(text.map(asList("zack"))),
+				FinalViolationException.class,
+				"final violation on " + item + " for " + text);
 		assertEquals(asList(), item.getText());
 	}
 
@@ -100,16 +88,10 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 
 	@Test void testCreateNull()
 	{
-		try
-		{
-			new AnItem((Collection<String>)null);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(null, e.getItem());
-			assertEquals(text, e.getFeature());
-		}
+		assertFails(
+				() -> new AnItem((Collection<String>)null),
+				MandatoryViolationException.class,
+				"mandatory violation for " + text);
 	}
 
 	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
