@@ -42,6 +42,8 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		final List<FunctionField<String>> sources = field.getListSources();
 		assertEquals(3, sources.size());
 		assertEquals(Integer.valueOf(0), field.getLength().getDefaultConstant());
+		assertEquals(0, field.getLength().getMinimum());
+		assertEquals(3, field.getLength().getMaximum());
 		assertEquals(null, sources.get(0).getDefaultConstant());
 		assertEquals(null, sources.get(1).getDefaultConstant());
 		assertEquals(null, sources.get(2).getDefaultConstant());
@@ -49,6 +51,17 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 		assertEquals(true, sources.get(0).isFinal());
 		assertEquals(true, sources.get(1).isFinal());
 		assertEquals(true, sources.get(2).isFinal());
+		assertEquals(true, field.getLength().isMandatory());
+		assertEquals(false, sources.get(0).isMandatory());
+		assertEquals(false, sources.get(1).isMandatory());
+		assertEquals(false, sources.get(2).isMandatory());
+		assertEquals(
+				"(" +
+				"(AnItem.field-Len>'0' OR AnItem.field-0 is null) AND " +
+				"(AnItem.field-Len>'1' OR AnItem.field-1 is null) AND " +
+				"(AnItem.field-Len>'2' OR AnItem.field-2 is null))",
+				field.getUnison().getCondition().toString());
+		assertEquals(3, field.getMaximumSize());
 		assertEquals(true, field.isFinal());
 		assertEquals(true, field.isMandatory());
 		assertEquals(true, field.isInitial());
@@ -58,6 +71,10 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList());
 		assertEquals(asList(), item.getField());
+		assertEquals(0,    field.getLength().getMandatory(item));
+		assertEquals(null, field.getListSources().get(0).get(item));
+		assertEquals(null, field.getListSources().get(1).get(item));
+		assertEquals(null, field.getListSources().get(2).get(item));
 
 		assertFails(
 				() -> item.setField(asList("zack")),
@@ -76,6 +93,30 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem();
 		assertEquals(asList(), item.getField());
+		assertEquals(0,    field.getLength().getMandatory(item));
+		assertEquals(null, field.getListSources().get(0).get(item));
+		assertEquals(null, field.getListSources().get(1).get(item));
+		assertEquals(null, field.getListSources().get(2).get(item));
+	}
+
+	@Test void testCreateNormal()
+	{
+		final AnItem item = new AnItem(asList("one", "two"));
+		assertEquals(asList("one", "two"), item.getField());
+		assertEquals(2,     field.getLength().getMandatory(item));
+		assertEquals("one", field.getListSources().get(0).get(item));
+		assertEquals("two", field.getListSources().get(1).get(item));
+		assertEquals(null,  field.getListSources().get(2).get(item));
+	}
+
+	@Test void testCreateMax()
+	{
+		final AnItem item = new AnItem(asList("one", "two", "thr"));
+		assertEquals(asList("one", "two", "thr"), item.getField());
+		assertEquals(3,     field.getLength().getMandatory(item));
+		assertEquals("one", field.getListSources().get(0).get(item));
+		assertEquals("two", field.getListSources().get(1).get(item));
+		assertEquals("thr", field.getListSources().get(2).get(item));
 	}
 
 	@Test void testCreateNull()
