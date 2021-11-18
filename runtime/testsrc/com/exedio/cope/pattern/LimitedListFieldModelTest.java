@@ -223,7 +223,7 @@ public class LimitedListFieldModelTest
 		assertFails(
 				() -> LimitedListField.create(new StringField(), 1),
 				IllegalArgumentException.class,
-				"maximumSize must be greater 1, but was 1");
+				"maximumSize must be at least 2, but was 1");
 	}
 
 	@Test void testMinimal()
