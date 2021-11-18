@@ -226,6 +226,27 @@ public class LimitedListFieldModelTest
 				"maximumSize must be greater 1, but was 1");
 	}
 
+	@Test void testMinimal()
+	{
+		final LimitedListField<String> f = LimitedListField.create(new StringField(), 2);
+		final List<FunctionField<String>> sources = f.getListSources();
+		assertEquals(2, sources.size());
+		assertEquals(Integer.valueOf(0), f.getLength().getDefaultConstant());
+		assertEquals(0, f.getLength().getMinimum());
+		assertEquals(2, f.getLength().getMaximum());
+		assertEquals(null, sources.get(0).getDefaultConstant());
+		assertEquals(null, sources.get(1).getDefaultConstant());
+		assertEquals(
+				"(" +
+				"("+f.getLength()+">'0' OR "+sources.get(0)+" is null) AND " +
+				"("+f.getLength()+">'1' OR "+sources.get(1)+" is null))",
+				f.getUnison().getCondition().toString());
+		assertEquals(2, f.getMaximumSize());
+		assertEquals(false, f.isFinal());
+		assertEquals(true, f.isMandatory());
+		assertEquals(true, f.isInitial());
+	}
+
 	private static DateField assertDate(final Iterator<?> i, final int num)
 	{
 		final DateField date = (DateField)i.next();
