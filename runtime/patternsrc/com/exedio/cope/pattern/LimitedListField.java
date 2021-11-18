@@ -233,8 +233,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		if(value==null)
 			throw MandatoryViolationException.create(this, exceptionItem);
-		if(value.size()>sources.length)
-			throw new ListSizeViolationException(this, exceptionItem, value.size(), sources.length);
+		final int valueSize = value.size();
+		if(valueSize>sources.length)
+			throw new ListSizeViolationException(this, exceptionItem, valueSize, sources.length);
 	}
 
 	@Wrap(order=20,
