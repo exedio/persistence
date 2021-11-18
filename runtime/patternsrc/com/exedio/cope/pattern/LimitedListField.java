@@ -18,6 +18,8 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Check.requireAtLeast;
+
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
 import com.exedio.cope.Cope;
@@ -141,8 +143,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
 	{
-		if(maximumSize<=1)
-			throw new IllegalArgumentException("maximumSize must be greater 1, but was " + maximumSize);
+		requireAtLeast(maximumSize, "maximumSize", 2);
 
 		final FunctionField<Y>[] result = cast(new FunctionField<?>[maximumSize]);
 
