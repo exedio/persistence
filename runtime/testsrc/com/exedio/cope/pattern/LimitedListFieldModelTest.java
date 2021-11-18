@@ -117,6 +117,9 @@ public class LimitedListFieldModelTest
 		assertEquals(true,  nums.isMandatory());
 		assertContains(nums.getInitialExceptions());
 
+		assertEquals(0, nums   .getMinimumSize());
+		assertEquals(0, dates  .getMinimumSize());
+		assertEquals(0, strings.getMinimumSize());
 		assertEquals(3, nums   .getMaximumSize());
 		assertEquals(2, dates  .getMaximumSize());
 		assertEquals(4, strings.getMaximumSize());
@@ -222,9 +225,39 @@ public class LimitedListFieldModelTest
 				4);
 		final StringField template = new StringField();
 		assertFails(
+				() -> LimitedListField.create(template, -1, 55),
+				IllegalArgumentException.class,
+				"minimumSize must not be negative, but was -1");
+		assertFails(
 				() -> LimitedListField.create(template, 1),
 				IllegalArgumentException.class,
 				"maximumSize must be at least 2, but was 1");
+		assertFails(
+				() -> LimitedListField.create(template, 0, 1),
+				IllegalArgumentException.class,
+				"maximumSize must be at least 2, but was 1");
+		assertFails(
+				() -> LimitedListField.create(template, 1, 1),
+				IllegalArgumentException.class,
+				"maximumSize must be at least 2, but was 1");
+		assertFails(
+				() -> LimitedListField.create(template, 2, 1),
+				IllegalArgumentException.class,
+				"maximumSize must be at least 2, but was 1");
+		assertFails(
+				() -> LimitedListField.create(template, 3, 2),
+				IllegalArgumentException.class,
+				"maximumSize must be at least 3, but was 2");
+		assertFails(
+				() -> LimitedListField.create(template, 4, 3),
+				IllegalArgumentException.class,
+				"maximumSize must be at least 4, but was 3");
+		// LimitedListField with exact size is not yet implemented.
+		// In that case there will be no length field.
+		assertFails(
+				() -> LimitedListField.create(template, 4, 4),
+				IllegalArgumentException.class,
+				"maximum must be greater than minimum, but was 4 and 4"); // exception comes from IntegerField
 	}
 
 	@Test void testMinimal()
@@ -242,6 +275,7 @@ public class LimitedListFieldModelTest
 				"(("+f.getLength()+">'0' AND "+sources.get(0)+" is not null) OR ("+f.getLength()+"<='0' AND "+sources.get(0)+" is null)) AND " +
 				"(("+f.getLength()+">'1' AND "+sources.get(1)+" is not null) OR ("+f.getLength()+"<='1' AND "+sources.get(1)+" is null)))",
 				f.getUnison().getCondition().toString());
+		assertEquals(0, f.getMinimumSize());
 		assertEquals(2, f.getMaximumSize());
 		assertEquals(false, f.isFinal());
 		assertEquals(true, f.isMandatory());

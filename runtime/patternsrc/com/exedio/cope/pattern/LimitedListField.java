@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Check.requireAtLeast;
+import static com.exedio.cope.util.Check.requireNonNegative;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
@@ -50,6 +51,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 {
 	private static final long serialVersionUID = 1l;
 
+	private final int minimumSize;
 	private final IntegerField length;
 	private final FunctionField<E>[] sources;
 	private final boolean initial;
@@ -58,10 +60,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private LimitedListField(
 			final boolean templateIsMandatory,
+			final int minimumSize,
 			final FunctionField<E>[] sources)
 	{
+		this.minimumSize = minimumSize;
 		{
-			boolean initial = false;
+			boolean initial = minimumSize>0;
 			boolean isFinal = false;
 			for(final FunctionField<E> source : sources)
 			{
@@ -73,8 +77,8 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		}
 
 		this.length = addSourceFeature(
-				applyConstraints(
-						new IntegerField().range(0, sources.length).defaultTo(0),
+				modify(
+						new IntegerField().range(minimumSize, sources.length),
 						isFinal),
 				"Len", ComputedElement.get());
 
@@ -84,39 +88,41 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		for(final FunctionField<E> source : sources)
 			addSourceFeature(source, String.valueOf(i++), ComputedElement.get());
 
-		final Condition[] unisonConditions = new Condition[sources.length];
-		for(int a = 0; a<sources.length; a++)
+		final ArrayList<Condition> unisonConditions = new ArrayList<>(sources.length);
+		for(int a = minimumSize; a<sources.length; a++)
 		{
 			final FunctionField<E> s = sources[a];
-			unisonConditions[a] = templateIsMandatory
+			unisonConditions.add(templateIsMandatory
 					? length.greater(a).and(s.isNotNull()).or(length.lessOrEqual(a).and(s.isNull()))
-					: length.greater(a).or(s.isNull());
+					: length.greater(a).or(s.isNull()));
 		}
 		this.unison = addSourceFeature(new CheckConstraint(Cope.and(unisonConditions)), "unison");
 	}
 
-	private static IntegerField applyConstraints(
+	private static IntegerField modify(
 			IntegerField field,
 			final boolean isfinal)
 	{
 		if(isfinal)
 			field = field.toFinal();
+		if(field.getMinimum()==0)
+			field = field.defaultTo(0);
 		return field;
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(false, cast(new FunctionField<?>[]{source1, source2}));
+		this(false, 0, cast(new FunctionField<?>[]{source1, source2}));
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(false, cast(new FunctionField<?>[]{source1, source2, source3}));
+		this(false, 0, cast(new FunctionField<?>[]{source1, source2, source3}));
 	}
 
-	private LimitedListField(final FunctionField<E> template, final int maximumSize)
+	private LimitedListField(final FunctionField<E> template, final int minimumSize, final int maximumSize)
 	{
-		this(template.isMandatory(), template2Sources(template, maximumSize));
+		this(template.isMandatory(), minimumSize, template2Sources(template, minimumSize, maximumSize));
 	}
 
 	/**
@@ -137,9 +143,14 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return new LimitedListField<>(source1, source2, source3);
 	}
 
+	public static <E> LimitedListField<E> create(final FunctionField<E> template, final int minimumSize, final int maximumSize)
+	{
+		return new LimitedListField<>(template, minimumSize, maximumSize);
+	}
+
 	public static <E> LimitedListField<E> create(final FunctionField<E> template, final int maximumSize)
 	{
-		return new LimitedListField<>(template, maximumSize);
+		return create(template, 0, maximumSize);
 	}
 
 	@SuppressWarnings({"unchecked", "rawtypes"}) // OK: no generic array creation
@@ -148,14 +159,18 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return o;
 	}
 
-	private static <Y> FunctionField<Y>[] template2Sources(final FunctionField<Y> template, final int maximumSize)
+	private static <Y> FunctionField<Y>[] template2Sources(
+			final FunctionField<Y> template,
+			final int minimumSize,
+			final int maximumSize)
 	{
-		requireAtLeast(maximumSize, "maximumSize", 2);
+		requireNonNegative(minimumSize, "minimumSize");
+		requireAtLeast(maximumSize, "maximumSize", Math.max(2, minimumSize));
 
 		final FunctionField<Y>[] result = cast(new FunctionField<?>[maximumSize]);
 
 		for(int i = 0; i<maximumSize; i++)
-			result[i] = template.optional();
+			result[i] = i<minimumSize ? template.copy() : template.optional();
 
 		return result;
 	}
@@ -180,6 +195,11 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	public FunctionField<E> getElement()
 	{
 		return sources[0];
+	}
+
+	public int getMinimumSize()
+	{
+		return minimumSize;
 	}
 
 	@Override
@@ -241,8 +261,10 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		if(value==null)
 			throw MandatoryViolationException.create(this, exceptionItem);
 		final int valueSize = value.size();
+		if(valueSize<minimumSize)
+			throw new ListSizeViolationException(this, exceptionItem, true,  valueSize, minimumSize);
 		if(valueSize>sources.length)
-			throw new ListSizeViolationException(this, exceptionItem, valueSize, sources.length);
+			throw new ListSizeViolationException(this, exceptionItem, false, valueSize, sources.length);
 	}
 
 	@Wrap(order=20,
