@@ -220,8 +220,9 @@ public class LimitedListFieldModelTest
 		assertThrowsArrayIndexOutOfBoundsException(
 				() -> strings.notEqual(asList("one", "two", "three", "four", "five")),
 				4);
+		final StringField template = new StringField();
 		assertFails(
-				() -> LimitedListField.create(new StringField(), 1),
+				() -> LimitedListField.create(template, 1),
 				IllegalArgumentException.class,
 				"maximumSize must be at least 2, but was 1");
 	}
