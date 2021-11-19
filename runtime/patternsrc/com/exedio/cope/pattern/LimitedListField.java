@@ -197,6 +197,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		return sources[0];
 	}
 
+	@Override
 	public int getMinimumSize()
 	{
 		return minimumSize;

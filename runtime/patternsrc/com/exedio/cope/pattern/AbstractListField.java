@@ -31,6 +31,11 @@ public abstract class AbstractListField<E> extends Pattern
 
 	public abstract FunctionField<E> getElement();
 
+	public int getMinimumSize()
+	{
+		return 0;
+	}
+
 	public int getMaximumSize()
 	{
 		return Integer.MAX_VALUE;
