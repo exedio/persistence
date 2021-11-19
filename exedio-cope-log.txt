@@ -7,6 +7,12 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* LimitedListField#create(FunctionField template, int maximumSize) makes
+	list source fields optional. This allows LimitedListField to store lists
+	shorter than maximumSize if template is mandatory.
+	Affects database schema if and only if template is mandatory.
+	If your template is currently optional, you probably want to change it to mandatory.
+	Otherwise, you continue to allow the list to contain null as an element.
 * Add nullability annotations to EnumSingleton.
 	Affects instrumented code.
 * UniqueHashedMedia promotes @Vault to Media.

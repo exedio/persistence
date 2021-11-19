@@ -56,7 +56,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	private final boolean isFinal;
 	private final CheckConstraint unison;
 
-	private LimitedListField(final FunctionField<E>[] sources)
+	private LimitedListField(
+			final boolean templateIsMandatory,
+			final FunctionField<E>[] sources)
 	{
 		{
 			boolean initial = false;
@@ -84,7 +86,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		final Condition[] unisonConditions = new Condition[sources.length];
 		for(int a = 0; a<sources.length; a++)
-			unisonConditions[a] = length.greater(a).or(sources[a].isNull());
+			unisonConditions[a] = templateIsMandatory
+					? length.greater(a).and(sources[a].isNotNull()).or(length.lessOrEqual(a).and(sources[a].isNull()))
+					: length.greater(a).or(sources[a].isNull());
 		this.unison = addSourceFeature(new CheckConstraint(Cope.and(unisonConditions)), "unison");
 	}
 
@@ -99,17 +103,17 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2)
 	{
-		this(cast(new FunctionField<?>[]{source1, source2}));
+		this(false, cast(new FunctionField<?>[]{source1, source2}));
 	}
 
 	private LimitedListField(final FunctionField<E> source1, final FunctionField<E> source2, final FunctionField<E> source3)
 	{
-		this(cast(new FunctionField<?>[]{source1, source2, source3}));
+		this(false, cast(new FunctionField<?>[]{source1, source2, source3}));
 	}
 
 	private LimitedListField(final FunctionField<E> template, final int maximumSize)
 	{
-		this(template2Sources(template, maximumSize));
+		this(template.isMandatory(), template2Sources(template, maximumSize));
 	}
 
 	/**
@@ -148,7 +152,7 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 		final FunctionField<Y>[] result = cast(new FunctionField<?>[maximumSize]);
 
 		for(int i = 0; i<maximumSize; i++)
-			result[i] = template.copy();
+			result[i] = template.optional();
 
 		return result;
 	}
