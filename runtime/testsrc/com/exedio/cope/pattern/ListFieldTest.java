@@ -260,6 +260,9 @@ public class ListFieldTest extends TestWithEnvironment
 		assertTrue(!TYPE.isAssignableFrom(stringsType));
 		assertTrue(!stringsType.isAssignableFrom(TYPE));
 
+		assertEquals(0, strings.getMinimumSize());
+		assertEquals(0, dates  .getMinimumSize());
+		assertEquals(0, items  .getMinimumSize());
 		assertEquals(Integer.MAX_VALUE, strings.getMaximumSize());
 		assertEquals(Integer.MAX_VALUE, dates  .getMaximumSize());
 		assertEquals(Integer.MAX_VALUE, items  .getMaximumSize());
