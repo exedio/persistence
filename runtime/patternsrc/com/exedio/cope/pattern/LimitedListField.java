@@ -86,9 +86,12 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		final Condition[] unisonConditions = new Condition[sources.length];
 		for(int a = 0; a<sources.length; a++)
+		{
+			final FunctionField<E> s = sources[a];
 			unisonConditions[a] = templateIsMandatory
-					? length.greater(a).and(sources[a].isNotNull()).or(length.lessOrEqual(a).and(sources[a].isNull()))
-					: length.greater(a).or(sources[a].isNull());
+					? length.greater(a).and(s.isNotNull()).or(length.lessOrEqual(a).and(s.isNull()))
+					: length.greater(a).or(s.isNull());
+		}
 		this.unison = addSourceFeature(new CheckConstraint(Cope.and(unisonConditions)), "unison");
 	}
 
