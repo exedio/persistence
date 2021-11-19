@@ -38,6 +38,7 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	private static final long serialVersionUID = 1l;
 
 	private final AbstractListField<?> feature;
+	private final boolean tooShort;
 	private final int size;
 	private final int border;
 
@@ -50,11 +51,13 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	ListSizeViolationException(
 			final AbstractListField<?> feature,
 			final Item item,
+			final boolean tooShort,
 			final int size,
 			final int border)
 	{
 		super(item, null);
 		this.feature = feature;
+		this.tooShort = tooShort;
 		this.size = size;
 		this.border = border;
 	}
@@ -81,9 +84,9 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 	{
 		return
 			"size violation" + getItemPhrase() +
-			", value is too long" +
+			", value is too " + (tooShort?"short":"long") +
 			(withFeature ? (" for "+ feature) : "") +
-			", must be at most" +
+			", must be at " + (tooShort?"least":"most") +
 			' ' + border + " elements, " +
 			"but was " + size + '.';
 	}

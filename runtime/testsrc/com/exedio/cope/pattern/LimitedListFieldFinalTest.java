@@ -61,6 +61,7 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 				"(AnItem.field-Len>'1' OR AnItem.field-1 is null) AND " +
 				"(AnItem.field-Len>'2' OR AnItem.field-2 is null))",
 				field.getUnison().getCondition().toString());
+		assertEquals(0, field.getMinimumSize());
 		assertEquals(3, field.getMaximumSize());
 		assertEquals(true, field.isFinal());
 		assertEquals(true, field.isMandatory());
