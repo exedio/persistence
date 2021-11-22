@@ -38,7 +38,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 {
 	@Test void testModel()
 	{
-		final IntegerField length = field.getLength();
+		final IntegerField length = field.getLengthIfExists();
 		final List<FunctionField<String>> sources = field.getListSources();
 		assertEquals(4, sources.size());
 		assertEquals(null, length.getDefaultConstant());
@@ -101,7 +101,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList("one", "two"));
 		assertEquals(asList("one", "two"), item.getField());
-		assertEquals(2,     field.getLength().getMandatory(item));
+		assertEquals(2,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals(null,  field.getListSources().get(2).get(item));
@@ -112,7 +112,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList(null, null));
 		assertEquals(asList(null, null), item.getField());
-		assertEquals(2,    field.getLength().getMandatory(item));
+		assertEquals(2,    field.getLengthIfExists().getMandatory(item));
 		assertEquals(null, field.getListSources().get(0).get(item));
 		assertEquals(null, field.getListSources().get(1).get(item));
 		assertEquals(null, field.getListSources().get(2).get(item));
@@ -123,7 +123,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList("one", "two", "thr", "fou"));
 		assertEquals(asList("one", "two", "thr", "fou"), item.getField());
-		assertEquals(4,     field.getLength().getMandatory(item));
+		assertEquals(4,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals("thr", field.getListSources().get(2).get(item));
@@ -131,7 +131,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 
 		item.setField(asList("one", "two"));
 		assertEquals(asList("one", "two"), item.getField());
-		assertEquals(2,     field.getLength().getMandatory(item));
+		assertEquals(2,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals(null,  field.getListSources().get(2).get(item));
@@ -142,7 +142,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList(null, null, null, null));
 		assertEquals(asList(null, null, null, null), item.getField());
-		assertEquals(4,    field.getLength().getMandatory(item));
+		assertEquals(4,    field.getLengthIfExists().getMandatory(item));
 		assertEquals(null, field.getListSources().get(0).get(item));
 		assertEquals(null, field.getListSources().get(1).get(item));
 		assertEquals(null, field.getListSources().get(2).get(item));
@@ -150,7 +150,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 
 		item.setField(asList(null, null));
 		assertEquals(asList(null, null), item.getField());
-		assertEquals(2,    field.getLength().getMandatory(item));
+		assertEquals(2,    field.getLengthIfExists().getMandatory(item));
 		assertEquals(null, field.getListSources().get(0).get(item));
 		assertEquals(null, field.getListSources().get(1).get(item));
 		assertEquals(null, field.getListSources().get(2).get(item));

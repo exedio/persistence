@@ -39,7 +39,7 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 {
 	@Test void testModel()
 	{
-		final IntegerField length = field.getLength();
+		final IntegerField length = field.getLengthIfExists();
 		final List<FunctionField<String>> sources = field.getListSources();
 		assertEquals(3, sources.size());
 		assertEquals(Integer.valueOf(0), length.getDefaultConstant());
@@ -73,21 +73,21 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList());
 		assertEquals(asList(), item.getField());
-		assertEquals(0,    field.getLength().getMandatory(item));
+		assertEquals(0,    field.getLengthIfExists().getMandatory(item));
 		assertEquals(null, field.getListSources().get(0).get(item));
 		assertEquals(null, field.getListSources().get(1).get(item));
 		assertEquals(null, field.getListSources().get(2).get(item));
 
 		item.setField(asList("one", "two"));
 		assertEquals(asList("one", "two"), item.getField());
-		assertEquals(2,     field.getLength().getMandatory(item));
+		assertEquals(2,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals(null,  field.getListSources().get(2).get(item));
 
 		item.set(field.map(asList("one", "two", "thr")));
 		assertEquals(asList("one", "two", "thr"), item.getField());
-		assertEquals(3,     field.getLength().getMandatory(item));
+		assertEquals(3,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals("thr", field.getListSources().get(2).get(item));
@@ -97,7 +97,7 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem();
 		assertEquals(asList(), item.getField());
-		assertEquals(0,    field.getLength().getMandatory(item));
+		assertEquals(0,    field.getLengthIfExists().getMandatory(item));
 		assertEquals(null, field.getListSources().get(0).get(item));
 		assertEquals(null, field.getListSources().get(1).get(item));
 		assertEquals(null, field.getListSources().get(2).get(item));
@@ -107,7 +107,7 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList("one", "two"));
 		assertEquals(asList("one", "two"), item.getField());
-		assertEquals(2,     field.getLength().getMandatory(item));
+		assertEquals(2,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals(null,  field.getListSources().get(2).get(item));
@@ -117,14 +117,14 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 	{
 		final AnItem item = new AnItem(asList("one", "two", "thr"));
 		assertEquals(asList("one", "two", "thr"), item.getField());
-		assertEquals(3,     field.getLength().getMandatory(item));
+		assertEquals(3,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals("thr", field.getListSources().get(2).get(item));
 
 		item.setField(asList("one", "two"));
 		assertEquals(asList("one", "two"), item.getField());
-		assertEquals(2,     field.getLength().getMandatory(item));
+		assertEquals(2,     field.getLengthIfExists().getMandatory(item));
 		assertEquals("one", field.getListSources().get(0).get(item));
 		assertEquals("two", field.getListSources().get(1).get(item));
 		assertEquals(null,  field.getListSources().get(2).get(item));
