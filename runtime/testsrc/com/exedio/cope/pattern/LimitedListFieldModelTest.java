@@ -262,16 +262,17 @@ public class LimitedListFieldModelTest
 	{
 		final LimitedListField<String> f = LimitedListField.create(new StringField(), 2);
 		final List<FunctionField<String>> sources = f.getListSources();
+		final IntegerField length = f.getLength();
 		assertEquals(2, sources.size());
-		assertEquals(Integer.valueOf(0), f.getLength().getDefaultConstant());
-		assertEquals(0, f.getLength().getMinimum());
-		assertEquals(2, f.getLength().getMaximum());
+		assertEquals(Integer.valueOf(0), length.getDefaultConstant());
+		assertEquals(0, length.getMinimum());
+		assertEquals(2, length.getMaximum());
 		assertEquals(null, sources.get(0).getDefaultConstant());
 		assertEquals(null, sources.get(1).getDefaultConstant());
 		assertEquals(
 				"(" +
-				"(("+f.getLength()+">'0' AND "+sources.get(0)+" is not null) OR ("+f.getLength()+"<='0' AND "+sources.get(0)+" is null)) AND " +
-				"(("+f.getLength()+">'1' AND "+sources.get(1)+" is not null) OR ("+f.getLength()+"<='1' AND "+sources.get(1)+" is null)))",
+				"(("+length+">'0' AND "+sources.get(0)+" is not null) OR ("+length+"<='0' AND "+sources.get(0)+" is null)) AND " +
+				"(("+length+">'1' AND "+sources.get(1)+" is not null) OR ("+length+"<='1' AND "+sources.get(1)+" is null)))",
 				f.getUnison().getCondition().toString());
 		assertEquals(0, f.getMinimumSize());
 		assertEquals(2, f.getMaximumSize());

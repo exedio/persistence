@@ -25,6 +25,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
@@ -38,19 +39,20 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 {
 	@Test void testModel()
 	{
+		final IntegerField length = field.getLength();
 		final List<FunctionField<String>> sources = field.getListSources();
 		assertEquals(3, sources.size());
-		assertEquals(Integer.valueOf(0), field.getLength().getDefaultConstant());
-		assertEquals(0, field.getLength().getMinimum());
-		assertEquals(3, field.getLength().getMaximum());
+		assertEquals(Integer.valueOf(0), length.getDefaultConstant());
+		assertEquals(0, length.getMinimum());
+		assertEquals(3, length.getMaximum());
 		assertEquals(null, sources.get(0).getDefaultConstant());
 		assertEquals(null, sources.get(1).getDefaultConstant());
 		assertEquals(null, sources.get(2).getDefaultConstant());
-		assertEquals(false, field.getLength().isFinal());
+		assertEquals(false, length.isFinal());
 		assertEquals(false, sources.get(0).isFinal());
 		assertEquals(false, sources.get(1).isFinal());
 		assertEquals(false, sources.get(2).isFinal());
-		assertEquals(true, field.getLength().isMandatory());
+		assertEquals(true, length.isMandatory());
 		assertEquals(false, sources.get(0).isMandatory());
 		assertEquals(false, sources.get(1).isMandatory());
 		assertEquals(false, sources.get(2).isMandatory());
