@@ -70,9 +70,9 @@ public class LimitedListFieldModelTest
 
 	@Test void testIt()
 	{
-		final IntegerField numsL = nums.getLength();
-		final IntegerField datesL = dates.getLength();
-		final IntegerField stringsL = strings.getLength();
+		final IntegerField numsL = nums.getLengthIfExists();
+		final IntegerField datesL = dates.getLengthIfExists();
+		final IntegerField stringsL = strings.getLengthIfExists();
 		final CheckConstraint numsU = nums.getUnison();
 		final CheckConstraint datesU = dates.getUnison();
 		final CheckConstraint stringsU = strings.getUnison();
@@ -262,7 +262,7 @@ public class LimitedListFieldModelTest
 	{
 		final LimitedListField<String> f = LimitedListField.create(new StringField(), 2);
 		final List<FunctionField<String>> sources = f.getListSources();
-		final IntegerField length = f.getLength();
+		final IntegerField length = f.getLengthIfExists();
 		assertEquals(2, sources.size());
 		assertEquals(Integer.valueOf(0), length.getDefaultConstant());
 		assertEquals(0, length.getMinimum());
