@@ -393,4 +393,64 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		return Cope.or(conditions);
 	}
+
+	public Condition lengthEqual(final int value)
+	{
+		return length.equal(value);
+	}
+
+	public Condition lengthNotEqual(final int value)
+	{
+		return length.notEqual(value);
+	}
+
+	public Condition lengthLess(final int value)
+	{
+		return length.less(value);
+	}
+
+	public Condition lengthLessOrEqual(final int value)
+	{
+		return length.lessOrEqual(value);
+	}
+
+	public Condition lengthGreater(final int value)
+	{
+		return length.greater(value);
+	}
+
+	public Condition lengthGreaterOrEqual(final int value)
+	{
+		return length.greaterOrEqual(value);
+	}
+
+	public Condition lengthEqual(final Join join, final int value)
+	{
+		return bind(length, join).equal(value);
+	}
+
+	public Condition lengthNotEqual(final Join join, final int value)
+	{
+		return bind(length, join).notEqual(value);
+	}
+
+	public Condition lengthLess(final Join join, final int value)
+	{
+		return bind(length, join).less(value);
+	}
+
+	public Condition lengthLessOrEqual(final Join join, final int value)
+	{
+		return bind(length, join).lessOrEqual(value);
+	}
+
+	public Condition lengthGreater(final Join join, final int value)
+	{
+		return bind(length, join).greater(value);
+	}
+
+	public Condition lengthGreaterOrEqual(final Join join, final int value)
+	{
+		return bind(length, join).greaterOrEqual(value);
+	}
 }
