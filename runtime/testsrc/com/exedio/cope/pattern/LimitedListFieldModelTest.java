@@ -252,12 +252,10 @@ public class LimitedListFieldModelTest
 				() -> LimitedListField.create(template, 4, 3),
 				IllegalArgumentException.class,
 				"maximumSize must be at least 4, but was 3");
-		// LimitedListField with exact size is not yet implemented.
-		// In that case there will be no length field.
 		assertFails(
 				() -> LimitedListField.create(template, 4, 4),
 				IllegalArgumentException.class,
-				"maximum must be greater than minimum, but was 4 and 4"); // exception comes from IntegerField
+				"minimumSize==maximumSize==4 not yet supported");
 	}
 
 	@Test void testMinimal()
