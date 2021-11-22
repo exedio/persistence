@@ -166,6 +166,9 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		requireNonNegative(minimumSize, "minimumSize");
 		requireAtLeast(maximumSize, "maximumSize", Math.max(2, minimumSize));
+		// TODO support exact length. Then there will be no length field.
+		if(minimumSize==maximumSize)
+			throw new IllegalArgumentException("minimumSize==maximumSize==" + minimumSize + " not yet supported");
 
 		final FunctionField<Y>[] result = cast(new FunctionField<?>[maximumSize]);
 
