@@ -33,7 +33,7 @@ import java.lang.annotation.Target;
  *    <li>maintain schema compatibility to
  *        former versions of the application or
  *        to a legacy application.
- * 	<li>specify names in traditional uppercase plural.
+ *    <li>specify names in traditional uppercase plural.
  *    <li>resolve name conflicts caused by trimming names
  *        to the maximum length allowed by the database.
  * </ul>
