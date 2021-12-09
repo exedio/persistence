@@ -55,7 +55,8 @@ public class LimitedListFieldModelTest
 {
 	public static final Model MODEL = new Model(
 		TYPE,
-		LimitedListFieldItemFieldItem.TYPE
+		LimitedListFieldItemFieldItem.TYPE,
+		ItemWithSimpleFields.TYPE
 	);
 
 	static

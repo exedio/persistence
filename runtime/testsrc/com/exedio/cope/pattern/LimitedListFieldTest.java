@@ -34,14 +34,17 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.Condition;
 import com.exedio.cope.Join;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
+import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Date;
+import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -71,7 +74,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(nums.contains(i1)));
 		assertContains(item, TYPE.search(nums.contains(i2)));
 		assertContains(item, TYPE.search(nums.contains(i3)));
-		assertContains(TYPE.search(nums.contains(null)));
+		assertContains(TYPE.search(nums.contains((Integer)null)));
 
 		item.setNums(asList(i3, i2, i1));
 		assertEqualsUnmodifiable(list(i3, i2, i1), item.getNums());
@@ -115,7 +118,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(TYPE.search(nums.contains(i1)));
 		assertContains(TYPE.search(nums.contains(i2)));
 		assertContains(TYPE.search(nums.contains(i3)));
-		assertContains(item, TYPE.search(nums.contains(null)));
+		assertContains(item, TYPE.search(nums.contains((Integer)null)));
 
 		item.setNums(asList(i1, i2, i3));
 		assertEqualsUnmodifiable(list(i1, i2, i3), item.getNums());
@@ -160,7 +163,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(strings.notEqual(asList("bello", "hallo"))));
 		assertContains(item, TYPE.search(strings.contains("hallo")));
 		assertContains(item, TYPE.search(strings.contains("bello")));
-		assertContains(item, TYPE.search(strings.contains(null)));
+		assertContains(item, TYPE.search(strings.contains((String)null)));
 		assertContains(TYPE.search(strings.contains("zollo")));
 		assertContains(item, TYPE.search(strings.lengthEqual(      2)));
 		assertContains(item, TYPE.search(strings.lengthEqual(null, 2)));
@@ -302,7 +305,18 @@ public class LimitedListFieldTest extends TestWithEnvironment
 			strings.contains(j, "a").toString());
 
 		assertEquals("("+f+"0 is null OR "+f+"1 is null OR "+f+"2 is null OR "+f+"3 is null)",
-			strings.contains(j, null).toString());
+			strings.contains(j, (String)null).toString());
+	}
+
+	@Test void testContainsFunctionInJoin()
+	{
+		final Query<LimitedListFieldItemFieldItem> q = LimitedListFieldItemFieldItem.TYPE.newQuery();
+		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
+		q.join(ItemWithSimpleFields.TYPE);
+
+		final String f = "l1.LimitedListFieldItem.strings-";
+		assertEquals("("+f+"0=ItemWithSimpleFields.string OR "+f+"1=ItemWithSimpleFields.string OR "+f+"2=ItemWithSimpleFields.string OR "+f+"3=ItemWithSimpleFields.string)",
+				strings.contains(j, ItemWithSimpleFields.string).toString());
 	}
 
 	@Test void testContainsAny()
@@ -357,5 +371,20 @@ public class LimitedListFieldTest extends TestWithEnvironment
 
 		assertEquals("("+f+"0 is not null OR "+f+"1 is not null OR "+f+"2 is not null OR "+f+"3 is not null)",
 				strings.notEqual(j, Collections.emptyList()).toString());
+	}
+
+	@Test void containsFunction()
+	{
+		final ItemWithSimpleFields simple2 = new ItemWithSimpleFields();
+		simple2.setNum(2);
+		final ItemWithSimpleFields simple4 = new ItemWithSimpleFields();
+		simple4.setNum(4);
+
+		final Query<List<Object>> query = Query.newQuery(new Selectable<?>[]{TYPE.getThis(), ItemWithSimpleFields.TYPE.getThis()}, TYPE, Condition.TRUE);
+		query.join(ItemWithSimpleFields.TYPE, nums.contains(ItemWithSimpleFields.num));
+		assertEquals(
+				asList(asList(item, simple2)),
+				query.search()
+		);
 	}
 }

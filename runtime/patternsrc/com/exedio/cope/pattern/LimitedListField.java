@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.util.Check.requireAtLeast;
 import static com.exedio.cope.util.Check.requireNonNegative;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
@@ -391,6 +392,21 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 
 		for(int i = 0; i<sources.length; i++)
 			conditions[i] = bind(sources[i], join).equal(value);
+
+		return Cope.or(conditions);
+	}
+
+	public Condition contains(@Nonnull final Function<? extends E> value)
+	{
+		return contains(null, value);
+	}
+
+	public Condition contains(final Join join, @Nonnull final Function<? extends E> value)
+	{
+		final Condition[] conditions = new Condition[sources.length];
+
+		for(int i = 0; i<sources.length; i++)
+			conditions[i] = bind(sources[i], join).equal(requireNonNull(value, "value"));
 
 		return Cope.or(conditions);
 	}
