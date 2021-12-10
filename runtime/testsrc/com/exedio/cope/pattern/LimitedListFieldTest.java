@@ -213,6 +213,8 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item3.getString2());
 		assertEquals(null, item3.getString3());
 		assertEquals(4, item3.getStringLength());
+		assertContains(item3, TYPE.search(strings.contains("fetz1")));
+		assertContains(item, item3, TYPE.search(strings.contains((String)null)));
 	}
 
 	@Test void testNull()
