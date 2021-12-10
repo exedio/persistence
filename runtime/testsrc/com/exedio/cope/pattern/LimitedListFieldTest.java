@@ -118,7 +118,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(TYPE.search(nums.contains(i1)));
 		assertContains(TYPE.search(nums.contains(i2)));
 		assertContains(TYPE.search(nums.contains(i3)));
-		assertContains(item, TYPE.search(nums.contains((Integer)null)));
+		assertContains(TYPE.search(nums.contains((Integer)null)));
 
 		item.setNums(asList(i1, i2, i3));
 		assertEqualsUnmodifiable(list(i1, i2, i3), item.getNums());
@@ -163,7 +163,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(strings.notEqual(asList("bello", "hallo"))));
 		assertContains(item, TYPE.search(strings.contains("hallo")));
 		assertContains(item, TYPE.search(strings.contains("bello")));
-		assertContains(item, TYPE.search(strings.contains((String)null)));
+		assertContains(TYPE.search(strings.contains((String)null)));
 		assertContains(TYPE.search(strings.contains("zollo")));
 		assertContains(item, TYPE.search(strings.lengthEqual(      2)));
 		assertContains(item, TYPE.search(strings.lengthEqual(null, 2)));
@@ -214,7 +214,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item3.getString3());
 		assertEquals(4, item3.getStringLength());
 		assertContains(item3, TYPE.search(strings.contains("fetz1")));
-		assertContains(item, item3, TYPE.search(strings.contains((String)null)));
+		assertContains(item3, TYPE.search(strings.contains((String)null)));
 	}
 
 	@Test void testNull()
@@ -306,7 +306,12 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
 			strings.contains(j, "a").toString());
 
-		assertEquals("("+f+"0 is null OR "+f+"1 is null OR "+f+"2 is null OR "+f+"3 is null)",
+		final String l = "l1.LimitedListFieldItem.strings-Len";
+		assertEquals("(" +
+				"("+f+"0 is null AND "+l+">'0') OR " +
+				"("+f+"1 is null AND "+l+">'1') OR " +
+				"("+f+"2 is null AND "+l+">'2') OR " +
+				"("+f+"3 is null AND "+l+">'3'))",
 			strings.contains(j, (String)null).toString());
 	}
 

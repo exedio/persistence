@@ -320,11 +320,12 @@ public class LimitedListFieldModelTest
 				s.get(2) + "='hallo' OR " +
 				s.get(3) + "='hallo')",
 				strings.contains("hallo").toString());
+		final IntegerField l = strings.getLengthIfExists();
 		assertEquals("(" +
-				s.get(0) + " is null OR " +
-				s.get(1) + " is null OR " +
-				s.get(2) + " is null OR " +
-				s.get(3) + " is null)",
+				"("+s.get(0) + " is null AND "+l+">'0') OR " +
+				"("+s.get(1) + " is null AND "+l+">'1') OR " +
+				"("+s.get(2) + " is null AND "+l+">'2') OR " +
+				"("+s.get(3) + " is null AND "+l+">'3'))",
 				strings.contains((String)null).toString());
 	}
 }

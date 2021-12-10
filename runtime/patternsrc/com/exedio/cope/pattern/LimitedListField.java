@@ -390,8 +390,13 @@ public final class LimitedListField<E> extends AbstractListField<E> implements S
 	{
 		final Condition[] conditions = new Condition[sources.length];
 
+		final Function<Integer> l = value==null ? bind(length, join) : null;
 		for(int i = 0; i<sources.length; i++)
+		{
 			conditions[i] = bind(sources[i], join).equal(value);
+			if(value==null)
+				conditions[i] = conditions[i].and(l.greater(i));
+		}
 
 		return Cope.or(conditions);
 	}
