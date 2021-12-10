@@ -310,4 +310,21 @@ public class LimitedListFieldModelTest
 		assertEquals("java.util.Collection<java.util.Date>"   , dates  .getInitialType().toString());
 		assertEquals("java.util.Collection<java.lang.String>" , strings.getInitialType().toString());
 	}
+
+	@Test void testContains()
+	{
+		final List<FunctionField<String>> s = strings.getListSources();
+		assertEquals("(" +
+				s.get(0) + "='hallo' OR " +
+				s.get(1) + "='hallo' OR " +
+				s.get(2) + "='hallo' OR " +
+				s.get(3) + "='hallo')",
+				strings.contains("hallo").toString());
+		assertEquals("(" +
+				s.get(0) + " is null OR " +
+				s.get(1) + " is null OR " +
+				s.get(2) + " is null OR " +
+				s.get(3) + " is null)",
+				strings.contains((String)null).toString());
+	}
 }
