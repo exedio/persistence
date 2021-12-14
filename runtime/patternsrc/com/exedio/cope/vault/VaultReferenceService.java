@@ -91,10 +91,10 @@ public final class VaultReferenceService implements VaultService
 
 			try
 			{
-				final Path tmp = createTempFileFromReference(hash);
-				final long result = Files.size(tmp);
-				main.put(hash, tmp, PUT_INFO);
-				delete(tmp);
+				final Path temp = createTempFileFromReference(hash);
+				final long result = Files.size(temp);
+				main.put(hash, temp, PUT_INFO);
+				delete(temp);
 				return result;
 			}
 			catch(final IOException er)
