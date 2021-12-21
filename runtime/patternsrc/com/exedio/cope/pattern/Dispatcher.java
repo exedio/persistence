@@ -589,10 +589,8 @@ public final class Dispatcher extends Pattern
 					tx.commit();
 
 					if(isFinal)
-						unpend(item, false, new Date(start));
-
-					if(isFinal)
 					{
+						unpend(item, false, new Date(start));
 						if(logger.isErrorEnabled())
 							//noinspection StringConcatenationArgumentToLogCall
 							logger.error(
