@@ -91,7 +91,7 @@ public class CopyChoiceDeleteNullifyCascadeTest extends TestWithEnvironment
 	private static final class Container extends Item
 	{
 		@Wrapper(wrap="get", visibility=Visibility.NONE)
-		static final ItemField<Part> choice = ItemField.create(Part.class, POLICY1).optional().choice("parent");
+		static final ItemField<Part> choice = ItemField.create(Part.class, POLICY1).optional().choice(() -> Part.parent);
 
 		static List<List<Object>> search()
 		{

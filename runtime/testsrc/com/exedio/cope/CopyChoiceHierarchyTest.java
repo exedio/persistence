@@ -158,7 +158,7 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	static final class Container extends Item
 	{
-		static final ItemField<Part> choice = ItemField.create(Part.class).optional().choice("parent");
+		static final ItemField<Part> choice = ItemField.create(Part.class).optional().choice(() -> SuperPart.parent);
 
 		private Container(final Part choice)
 		{

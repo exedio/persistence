@@ -42,7 +42,7 @@ public class CopyConstraintNotOverlapsChoiceTest
 	{
 		@WrapperIgnore
 		@SuppressWarnings("unused") // OK: test bad API usage
-		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice("field");
+		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice(() -> Target.field);
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;

@@ -64,7 +64,7 @@ public final class CopyConstraint extends Feature
 	 * A choice constraint is a special copy constraint.
 	 * It constrains {@link #getTarget() target} values to items,
 	 * that do point back to the source of {@code target}.
-	 * Such constraints are created by {@link ItemField#choice(String)}.
+	 * Such constraints are created by {@link ItemField#choice(java.util.function.Supplier)}.
 	 */
 	public boolean isChoice()
 	{
@@ -89,7 +89,7 @@ public final class CopyConstraint extends Feature
 	 * if it is not a {@link CopyConstraint#isChoice() choice constraint}.
 	 *
 	 * @see #getCopyFunction()
-	 * @throws IllegalArgumentException if this is a {@link ItemField#choice(String) choice constraint}
+	 * @throws IllegalArgumentException if this is a {@link ItemField#choice(java.util.function.Supplier) choice constraint}
 	 */
 	@Nonnull
 	public FunctionField<?> getCopyField()
