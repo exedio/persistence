@@ -28,6 +28,8 @@ import java.lang.reflect.AnnotatedElement;
 import java.sql.Connection;
 import java.util.Set;
 import java.util.SortedSet;
+import java.util.function.BiFunction;
+import java.util.function.Supplier;
 
 public final class ItemField<E extends Item> extends FunctionField<E>
 	implements ItemFunction<E>
@@ -38,7 +40,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	private final DeletePolicy policy;
 	private final FunctionField<?>[] copyTo;
 	private final CopyConstraint[] implicitCopyConstraintsTo;
-	private final String choiceBackPointer;
+	private final BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer;
 	private final CopyConstraint choice;
 
 	private ItemField(
@@ -48,7 +50,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 			final boolean unique,
 			final ItemField<?>[] copyFrom,
 			final FunctionField<?>[] copyTo,
-			final String choiceBackPointer,
+			final BiFunction<Type<?>, CopyConstraint, Feature> choiceBackPointer,
 			final TypeFuture<E> valueTypeFuture,
 			final DeletePolicy policy)
 	{
@@ -182,6 +184,23 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 * The field pointing back becomes the {@link CopyConstraint#getTemplate() template},
 	 * and {@link Type#getThis()} of the type of this ItemField becomes the {@link CopyConstraint#getCopyFunction() copy}.
 	 *
+	 * @param backPointer a supplier of the field pointing back; at {@code E}, this has to be an
+	 *        {@code ItemField} where the {@link #getValueType() value type} overlaps with this
+	 *        item field's {@link #getType()}
+	 */
+	public ItemField<E> choice(final Supplier<ItemField<?>> backPointer)
+	{
+		requireNonNull(backPointer, "backPointer");
+		return choice((type,constraint) -> backPointer.get());
+	}
+
+	/**
+	 * Causes this ItemField to create a {@link CopyConstraint#isChoice() choice constraint}.
+	 * <p>
+	 * This ItemField becomes the {@link CopyConstraint#getTarget() target} of the copy constraint.
+	 * The field pointing back becomes the {@link CopyConstraint#getTemplate() template},
+	 * and {@link Type#getThis()} of the type of this ItemField becomes the {@link CopyConstraint#getCopyFunction() copy}.
+	 *
 	 * @param backPointerName the name of the field pointing back; at {@code E}, this has to be the name of an
 	 *        {@code ItemField} where the {@link #getValueType() value type} overlaps with this
 	 *        item field's {@link #getType()}
@@ -189,10 +208,15 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	public ItemField<E> choice(final String backPointerName)
 	{
 		requireNonEmpty(backPointerName, "backPointerName");
+		return choice(CopyConstraint.resolveTemplateByName(backPointerName));
+	}
+
+	private ItemField<E> choice(final BiFunction<Type<?>, CopyConstraint, Feature> backPointer)
+	{
 		if(choiceBackPointer!=null)
 			throw new IllegalArgumentException("choice already set");
 
-		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, backPointerName, valueTypeFuture, policy);
+		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, backPointer, valueTypeFuture, policy);
 	}
 
 	@Override
