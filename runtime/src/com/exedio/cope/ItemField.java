@@ -318,7 +318,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 				constraint.mount(type, constraint.getCopyField().getName() + "CopyFrom" + name, null);
 
 		if(choice!=null)
-			choice.mount(type, name + "Choice" + choiceBackPointerName, null);
+			choice.mount(type, name + "Choice", null);
 	}
 
 	private Type<E> valueType = null;

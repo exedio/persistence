@@ -36,7 +36,7 @@ public class CopyChoiceSimpleModelTest
 
 		assertSame(Container.choice, constraint.getTarget());
 		assertEquals(true, constraint.isChoice());
-		assertFails(constraint::getCopyField, IllegalArgumentException.class, "Container.choiceChoiceparent is choice");
+		assertFails(constraint::getCopyField, IllegalArgumentException.class, "Container.choiceChoice is choice");
 		assertSame(Container.TYPE.getThis(), constraint.getCopyFunction());
 		assertSame(Part.parent, constraint.getTemplate());
 
@@ -48,8 +48,8 @@ public class CopyChoiceSimpleModelTest
 		assertSame(null, Part.parent.getChoice());
 
 		assertSame(Container.TYPE, constraint.getType());
-		assertEquals("choiceChoiceparent", constraint.getName());
-		assertEquals("Container.choiceChoiceparent", constraint.getID());
+		assertEquals("choiceChoice", constraint.getName());
+		assertEquals("Container.choiceChoice", constraint.getID());
 	}
 
 	@Deprecated // OK: testing deprecated API
@@ -57,7 +57,7 @@ public class CopyChoiceSimpleModelTest
 	{
 		final CopyConstraint constraint = Container.choice.getChoice();
 
-		assertFails(constraint::getCopy, IllegalArgumentException.class, "Container.choiceChoiceparent is choice");
+		assertFails(constraint::getCopy, IllegalArgumentException.class, "Container.choiceChoice is choice");
 	}
 
 	@SuppressWarnings("unused") // makes sure model is loaded

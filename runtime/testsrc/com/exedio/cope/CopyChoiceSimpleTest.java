@@ -73,7 +73,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		assertFails(
 				() -> c1.setChoice(p),
 				"copy violation on " + c1 + " " +
-				"for Container.choiceChoiceparent, " +
+				"for Container.choiceChoice, " +
 				"expected '" + c2 + "' from target " + p + ", " +
 				"but was '" + c1 + "'",
 				c1, c2, c1, p);
@@ -93,7 +93,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		assertFails(
 				() -> c.setChoice(p),
 				"copy violation on " + c + " " +
-				"for Container.choiceChoiceparent, " +
+				"for Container.choiceChoice, " +
 				"expected null from target " + p + ", " +
 				"but was '" + c + "'",
 				c, null, c, p);
@@ -111,7 +111,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceChoiceparent, " +
+				"copy violation for Container.choiceChoice, " +
 				"expected '" + c1 + "' from target " + p + ", " +
 				"but was newly created instance of type Container",
 				null, c1, null, p);
@@ -125,7 +125,7 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		assertEquals(null, p.getParent());
 		assertFails(
 				() -> new Container(p),
-				"copy violation for Container.choiceChoiceparent, " +
+				"copy violation for Container.choiceChoice, " +
 				"expected null from target " + p + ", " +
 				"but was newly created instance of type Container",
 				null, null, null, p);
