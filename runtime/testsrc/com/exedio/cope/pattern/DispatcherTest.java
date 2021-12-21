@@ -262,6 +262,37 @@ public class DispatcherTest extends TestWithEnvironment
 		assertPending(item4, failure(d[3]));
 	}
 
+	@Test void testImmediateFailure()
+	{
+		item2.deleteCopeItem();
+		item3.deleteCopeItem();
+		item4.deleteCopeItem();
+
+		assertPending(item1);
+		DispatcherItem.logs.get(item1).fail = true;
+		DispatcherItem.logs.get(item1).failImmediately = true;
+
+		final Date[] d1 = dispatch();
+		historyAssert(
+				"ctx stop", "ctx defer", "clock", "dispatch " + item1, "notifyFinalFailure " + item1, "ctx progress");
+		log.assertDebug("dispatching " + item1);
+		log.assertError("final failure for " + item1 + ", took " + item1.lastElapsed() + "ms, @" + DispatcherImmediateFinalFailure.class.getSimpleName() + " thrown");
+		log.assertEmpty();
+		succeedT.assertCount(0);
+		failT.   assertCount(1);
+		assertFailed(item1, immediateFinalFailure(d1[0]));
+
+		dispatch();
+		historyAssert();
+		log.assertEmpty();
+		succeedT.assertCount(0);
+		failT.   assertCount(0);
+		assertFailed(item1, immediateFinalFailure(d1[0]));
+
+		probeT.assertCount(0);
+		purgeT.assertCount(0);
+	}
+
 	private Date[] dispatch()
 	{
 		return dispatch(new JC(Integer.MAX_VALUE));
@@ -423,7 +454,7 @@ public class DispatcherTest extends TestWithEnvironment
 			else
 			{
 				expectedFailures.add(actual);
-				assertTrue(actual.getFailure().startsWith(IOException.class.getName()+": "+item.getBody()), actual.getFailure());
+				assertTrue(actual.getFailure().startsWith((expected.result==Result.immediateFinalFailure?DispatcherItem.ImmediateException.class:IOException.class).getName()+": "+item.getBody()), actual.getFailure());
 			}
 		}
 		assertEquals(expectedFailures, item.getToTargetFailures());
@@ -449,6 +480,11 @@ public class DispatcherTest extends TestWithEnvironment
 	private static ExpectedRun finalFailure(final Date date)
 	{
 		return new ExpectedRun(date, 0, Result.finalFailure, false);
+	}
+
+	private static ExpectedRun immediateFinalFailure(final Date date)
+	{
+		return new ExpectedRun(date, 0, Result.immediateFinalFailure, false);
 	}
 
 	private static final class ExpectedRun

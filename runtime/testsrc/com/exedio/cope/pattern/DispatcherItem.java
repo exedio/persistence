@@ -44,6 +44,7 @@ public final class DispatcherItem extends Item
 	static class Log
 	{
 		boolean fail;
+		boolean failImmediately;
 		int dispatchCount = 0;
 		final ArrayList<Long> dispatchRunElapsed = new ArrayList<>();
 		int notifyFinalFailureCount = 0;
@@ -87,7 +88,20 @@ public final class DispatcherItem extends Item
 		Thread.sleep(5);
 		log.dispatchRunElapsed.add(toMillies(nanoTime(), start));
 		if(log.fail)
-			throw new IOException(getBody());
+			throw log.failImmediately
+			? new ImmediateException(getBody())
+			: new IOException(getBody());
+	}
+
+	@DispatcherImmediateFinalFailure
+	final class ImmediateException extends IOException
+	{
+		ImmediateException(final String message)
+		{
+			super(message);
+		}
+
+		private static final long serialVersionUID = -1L;
 	}
 
 	private static final ArrayList<String> actualHistory = new ArrayList<>();
@@ -112,7 +126,7 @@ public final class DispatcherItem extends Item
 	private void notifyFinalFailure(final Exception cause)
 	{
 		assertTrue(!MODEL.hasCurrentTransaction());
-		assertEquals(IOException.class, cause.getClass());
+		assertEquals(logs.get(this).failImmediately?ImmediateException.class:IOException.class, cause.getClass());
 		historyAdd("notifyFinalFailure " + getCopeID());
 		logs.get(this).notifyFinalFailureCount++;
 	}

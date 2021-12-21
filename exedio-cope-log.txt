@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* @DispatcherImmediateFinalFailure added.
+	Dispatcher.Result enum gets new facet immediateFinalFailure with schema value -5.
+	This affects database schema in check constraints of Dispatcher.Run.
 * Choice Constraints do change their names: Customer.defaultAddressChoicecustomer
 	becomes Customer.defaultAddressChoice.
 * Added Contract annotations
