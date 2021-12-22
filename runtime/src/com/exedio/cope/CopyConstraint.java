@@ -41,15 +41,15 @@ public final class CopyConstraint extends Feature
 	}
 
 
-	static CopyConstraint choice(final ItemField<?> target, final String backPointerName)
+	static CopyConstraint choice(final ItemField<?> target, final String backPointer)
 	{
-		return new CopyConstraint(target, backPointerName);
+		return new CopyConstraint(target, backPointer);
 	}
 
-	private CopyConstraint(final ItemField<?> target, final String backPointerName)
+	private CopyConstraint(final ItemField<?> target, final String backPointer)
 	{
 		this.target = target;
-		this.copy = new CopyChoice(backPointerName);
+		this.copy = new CopyChoice(backPointer);
 	}
 
 
@@ -232,16 +232,16 @@ public final class CopyConstraint extends Feature
 
 	private final class CopyChoice extends Copy
 	{
-		final String backPointerName;
+		final String backPointer;
 
-		private CopyChoice(final String backPointerName)
+		private CopyChoice(final String backPointer)
 		{
-			this.backPointerName = backPointerName;
+			this.backPointer = backPointer;
 		}
 
 		@Override String getTemplateName()
 		{
-			return backPointerName;
+			return backPointer;
 		}
 		@Override boolean overlaps(final FunctionField<?> template)
 		{
