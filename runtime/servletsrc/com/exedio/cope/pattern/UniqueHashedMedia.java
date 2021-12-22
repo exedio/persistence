@@ -57,6 +57,7 @@ import java.util.List;
 import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.Contract;
 
 /**
  * Pattern which wraps a {@link Media} and applies a hash string. This allows
@@ -273,6 +274,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 			doc = "Returns a {2} containing given media value or creates a new one.",
 			thrown = @Wrap.Thrown(value = IOException.class, doc = "if reading '{@code value}' throws an IOException."))
 	@Nullable
+	@Contract("_, null -> null; _, !null -> !null")
 	public <P extends Item> P getOrCreate(
 			@Nonnull final Class<P> typeClass,
 			@Nullable @Parameter(doc = Wrap.FOR_PARAM) final Value value)
