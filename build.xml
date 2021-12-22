@@ -219,6 +219,7 @@
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -236,6 +237,7 @@
 						<pathelement location="lib/trove4j.jar" />
 						<pathelement location="lib/slf4j-api.jar" />
 						<pathelement location="lib/jsr305.jar" />
+						<pathelement location="lib/annotations.jar" />
 						<pathelement location="lib/@{jar}" />
 					</classpath>
 				</compile>
@@ -266,6 +268,7 @@
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -283,6 +286,7 @@
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -339,6 +343,7 @@
 				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -364,6 +369,7 @@
 		<pathelement location="lib/simpleclient_common-bundle.jar" />
 		<pathelement location="lib/exedio-cope-util.jar" />
 		<pathelement location="lib/jsr305.jar" />
+		<pathelement location="lib/annotations.jar" />
 	</path>
 
 	<target
@@ -661,6 +667,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 		<copy todir="runtime/servlettestweb/WEB-INF/classes">
@@ -818,6 +825,7 @@
 				<pathelement location="lib/exedio-cope-util.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -952,6 +960,7 @@
 				<pathelement location="lib/opentest4j.jar" />
 				<pathelement location="lib/apiguardian-api.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 			</classpath>
 		</compile>
 	</target>
@@ -1073,6 +1082,7 @@
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/jsr305.jar" />
+				<pathelement location="lib/annotations.jar" />
 				<pathelement location="${env.JAVA_HOME}/lib/tools.jar" unless:set="jdk9" />
 			</myClasspath>
 		</api>
