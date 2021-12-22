@@ -28,9 +28,9 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
 
 /**
- * @see CopyChoiceHierarchyTest
+ * @see CopyChoiceSimpleTest
  */
-public class CopyChoiceSimpleTest extends TestWithEnvironment
+public class CopyChoiceHierarchyTest extends TestWithEnvironment
 {
 	@Test void testOk()
 	{
@@ -202,30 +202,56 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2, comments=false)
-	static final class Part extends Item
+	abstract static class SuperPart extends Item
 	{
 		static final ItemField<Container> parent = ItemField.create(Container.class).toFinal().optional();
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-		Part(
+		SuperPart(
 					@javax.annotation.Nullable final Container parent)
 		{
 			this(new com.exedio.cope.SetValue<?>[]{
-				Part.parent.map(parent),
+				SuperPart.parent.map(parent),
+			});
+		}
+
+		@com.exedio.cope.instrument.Generated
+		protected SuperPart(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		final Container getParent()
+		{
+			return SuperPart.parent.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 2l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<SuperPart> TYPE = com.exedio.cope.TypesBound.newType(SuperPart.class);
+
+		@com.exedio.cope.instrument.Generated
+		protected SuperPart(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	}
+
+	@WrapperType(indent=2, comments=false)
+	static final class Part extends SuperPart
+	{
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
+		Part(
+					@javax.annotation.Nullable final com.exedio.cope.CopyChoiceHierarchyTest.Container parent)
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+				com.exedio.cope.CopyChoiceHierarchyTest.SuperPart.parent.map(parent),
 			});
 		}
 
 		@com.exedio.cope.instrument.Generated
 		private Part(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nullable
-		Container getParent()
-		{
-			return Part.parent.get(this);
-		}
 
 		@com.exedio.cope.instrument.Generated
 		private static final long serialVersionUID = 1l;
@@ -237,9 +263,9 @@ public class CopyChoiceSimpleTest extends TestWithEnvironment
 		private Part(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
 
-	static final Model MODEL = new Model(Container.TYPE, Part.TYPE);
+	static final Model MODEL = new Model(Container.TYPE, SuperPart.TYPE, Part.TYPE);
 
-	public CopyChoiceSimpleTest()
+	public CopyChoiceHierarchyTest()
 	{
 		super(MODEL);
 	}
