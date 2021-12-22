@@ -48,7 +48,7 @@ public class CopyChoiceFailureTest
 		assertFails(
 				() -> target.choice("two"),
 				IllegalArgumentException.class,
-				"choice already set: one");
+				"choice already set");
 	}
 
 	@Test void testFinal()
