@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* hsqldb 2.7.1 required.
+	Fixes CVE-2022-41853, you may want to remove your dependency check suppression.
 * JDK 11 required.
 * Class-Path removed from jar manifest:
 	- exedio-cope.jar drops "Class-Path: trove4j.jar exedio-cope-util.jar"

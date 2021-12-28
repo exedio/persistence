@@ -792,8 +792,8 @@ public class ConnectPropertiesTest
 	}
 
 	public static final String HSQLDB_PROBE =
-			"HSQL Database Engine 2.5.1 " +
-			"HSQL Database Engine Driver 2.5.1 " +
+			"HSQL Database Engine 2.7.1 " +
+			"HSQL Database Engine Driver 2.7.1 " +
 			"org.hsqldb.jdbc.JDBCDriver " +
 			"PUBLIC";
 

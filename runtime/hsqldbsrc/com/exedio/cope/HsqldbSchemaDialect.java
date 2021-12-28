@@ -130,9 +130,9 @@ final class HsqldbSchemaDialect extends Dialect
 					final StringBuilder clause = new StringBuilder();
 					querySQL(schema,
 							//language=SQL
-							"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_" +
+							"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME='" +
 							constraintName +
-							"_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION",
+							"' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION",
 					resultSetUnique ->
 					{
 						boolean first = true;
