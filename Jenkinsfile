@@ -7,6 +7,7 @@ def ideaSHA256 = '7c27799861fb1ba0d43a3565a1ec2be789e1871191be709f0e79f1e17d3571
 def isRelease = env.BRANCH_NAME=="master"
 def dockerNamePrefix = env.JOB_NAME.replace("/", "-").replace(" ", "_") + "-" + env.BUILD_NUMBER
 def dockerDate = new Date().format("yyyyMMdd")
+def ant = 'ant/bin/ant -noinput'
 
 properties([
 		gitLabConnection(env.GITLAB_CONNECTION),
@@ -47,7 +48,7 @@ try
 						"--security-opt no-new-privileges " +
 						"--network " + bridge)
 				{
-					shSilent "ant/bin/ant -noinput clean jenkins" +
+					shSilent ant + " clean jenkins" +
 							' "-Dbuild.revision=${BUILD_NUMBER}"' +
 							' "-Dbuild.tag=' + buildTag + '"' +
 							' -Dbuild.status=' + (isRelease?'release':'integration') +
@@ -234,7 +235,7 @@ try
 					"--security-opt no-new-privileges " +
 					"--mount type=volume,src=" + cache + ",target=/var/jenkins-build-survivor")
 			{
-				shSilent "ant/bin/ant -noinput" +
+				shSilent ant +
 					" -buildfile ivy" +
 					" -Divy.user.home=/var/jenkins-build-survivor"
 			}
