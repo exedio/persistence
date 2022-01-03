@@ -47,6 +47,7 @@ import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import org.jetbrains.annotations.Contract;
 
 public final class DataField extends Field<DataField.Value>
 {
@@ -410,6 +411,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Returns null, if {@code array} is null.
 	 */
+	@Contract("null -> null; !null -> !null")
 	public static Value toValue(final byte[] array)
 	{
 		return array!=null ? new ArrayValue(array) : null;
@@ -418,6 +420,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Returns null, if {@code stream} is null.
 	 */
+	@Contract("null -> null; !null -> !null")
 	public static Value toValue(final InputStream stream)
 	{
 		return stream!=null ? new StreamValue(stream) : null;
@@ -426,6 +429,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Returns null, if {@code file} is null.
 	 */
+	@Contract("null -> null; !null -> !null")
 	public static Value toValue(final Path path)
 	{
 		return path!=null ? new PathValue(path) : null;
@@ -434,6 +438,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Returns null, if {@code file} is null.
 	 */
+	@Contract("null -> null; !null -> !null")
 	public static Value toValue(final File file)
 	{
 		return file!=null ? new PathValue(file.toPath()) : null;
@@ -442,6 +447,7 @@ public final class DataField extends Field<DataField.Value>
 	/**
 	 * Returns null, if {@code file} is null.
 	 */
+	@Contract("null, null -> null; !null, !null -> !null; null, !null -> fail; !null, null -> fail")
 	public static Value toValue(final ZipFile file, final ZipEntry entry)
 	{
 		if(file!=null)
