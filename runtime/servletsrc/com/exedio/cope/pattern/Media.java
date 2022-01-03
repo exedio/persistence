@@ -62,6 +62,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.jetbrains.annotations.Contract;
 
 public final class Media extends MediaPath implements Settable<Media.Value>, Copyable
 {
@@ -651,6 +652,7 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		item.set(execute(toValue(body, contentType), item));
 	}
 
+	@Contract("null, null -> null; !null, !null -> !null; null, !null -> fail; !null, null -> fail")
 	public static Value toValue(final DataField.Value body, final String contentType)
 	{
 		if(body!=null)
@@ -669,21 +671,25 @@ public final class Media extends MediaPath implements Settable<Media.Value>, Cop
 		}
 	}
 
+	@Contract("null, null -> null; !null, !null -> !null; null, !null -> fail; !null, null -> fail")
 	public static Value toValue(final byte[] body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);
 	}
 
+	@Contract("null, null -> null; !null, !null -> !null; null, !null -> fail; !null, null -> fail")
 	public static Value toValue(final InputStream body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);
 	}
 
+	@Contract("null, null -> null; !null, !null -> !null; null, !null -> fail; !null, null -> fail")
 	public static Value toValue(final Path body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);
 	}
 
+	@Contract("null, null -> null; !null, !null -> !null; null, !null -> fail; !null, null -> fail")
 	public static Value toValue(final File body, final String contentType)
 	{
 		return toValue(DataField.toValue(body), contentType);

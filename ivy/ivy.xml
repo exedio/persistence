@@ -15,6 +15,7 @@
 		<conf name="runtime" />
 		<conf name="sources" />
 		<conf name="changelog" />
+		<conf name="idea" />
 		<conf name="completion" description="For fetching exedio-cope-instrument-completion.jar" />
 		<conf name="instrument" extends="runtime" />
 		<conf name="build" extends="runtime" visibility="private" />
@@ -57,6 +58,9 @@
 		<dependency conf="postgresql->default" org="org.postgresql" name="postgresql" rev="42.2.18">
 			<exclude org="org.checkerframework" module="checker-qual" />
 		</dependency>
+
+		<!-- idea -->
+		<dependency org="org.jetbrains" name="annotations" rev="22.0.0" conf="idea->default; build->sources"/>
 
 		<!-- build dependencies -->
 		<dependency org="ant-contrib" name="ant-contrib" rev="1.0b3" conf="build->default">
