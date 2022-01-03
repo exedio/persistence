@@ -22,6 +22,7 @@ import static java.util.Objects.requireNonNull;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.function.BiFunction;
 import javax.annotation.Nonnull;
 
 public final class CopyConstraint extends Feature
@@ -41,12 +42,12 @@ public final class CopyConstraint extends Feature
 	}
 
 
-	static CopyConstraint choice(final ItemField<?> target, final String backPointer)
+	static CopyConstraint choice(final ItemField<?> target, final BiFunction<Type<?>, CopyConstraint, Feature> backPointer)
 	{
 		return new CopyConstraint(target, backPointer);
 	}
 
-	private CopyConstraint(final ItemField<?> target, final String backPointer)
+	private CopyConstraint(final ItemField<?> target, final BiFunction<Type<?>, CopyConstraint, Feature> backPointer)
 	{
 		this.target = target;
 		this.copy = new CopyChoice(backPointer);
@@ -116,11 +117,12 @@ public final class CopyConstraint extends Feature
 		if(templateIfSet!=null)
 			throw new RuntimeException(toString());
 
-		final Feature feature = target.getValueType().getFeature(copy.getTemplateName());
+		final Type<?> targetValueType = target.getValueType();
+		final Feature feature = copy.getTemplate().apply(targetValueType, this);
 		if(feature==null)
 			throw new IllegalArgumentException(
 					"insufficient template for CopyConstraint " + this + ": " +
-					"not found");
+					"supplier returns null");
 		if(!(feature instanceof FunctionField<?>))
 			throw new ClassCastException(
 					"insufficient template for CopyConstraint " + this + ": " +
@@ -130,6 +132,11 @@ public final class CopyConstraint extends Feature
 			throw new IllegalArgumentException(
 					"insufficient template for CopyConstraint " + this + ": " +
 					result + " is not final");
+		if(!result.getType().isAssignableFrom(targetValueType))
+			throw new IllegalArgumentException(
+					"insufficient template for CopyConstraint " + this + ": " +
+					result + " must belong to type " + targetValueType + ", " +
+					"but belongs to type " + result.getType());
 		if(!copy.overlaps(result))
 			throw new IllegalArgumentException(
 					"insufficient template for CopyConstraint " + this + ": " +
@@ -137,6 +144,19 @@ public final class CopyConstraint extends Feature
 					copy   + "'s " + copy  .getValueClass().getName());
 
 		templateIfSet = result;
+	}
+
+	static BiFunction<Type<?>, CopyConstraint, Feature> resolveTemplateByName(final String name)
+	{
+		return (type,constraint) ->
+		{
+			final Feature feature = type.getFeature(name);
+			if(feature==null)
+				throw new IllegalArgumentException(
+						"insufficient template for CopyConstraint " + constraint + ": " +
+						"not found");
+			return feature;
+		};
 	}
 
 	public FunctionField<?> getTemplate()
@@ -177,7 +197,7 @@ public final class CopyConstraint extends Feature
 
 	private abstract static class Copy implements Serializable
 	{
-		abstract String getTemplateName();
+		abstract BiFunction<Type<?>, CopyConstraint, Feature> getTemplate();
 		abstract boolean overlaps(FunctionField<?> template);
 		abstract Class<?> getValueClass();
 		@Nonnull abstract Function<?> getFunction();
@@ -196,9 +216,9 @@ public final class CopyConstraint extends Feature
 			this.field = field;
 		}
 
-		@Override String getTemplateName()
+		@Override BiFunction<Type<?>, CopyConstraint, Feature> getTemplate()
 		{
-			return field.getName();
+			return resolveTemplateByName(field.getName());
 		}
 		@Override boolean overlaps(final FunctionField<?> template)
 		{
@@ -232,14 +252,14 @@ public final class CopyConstraint extends Feature
 
 	private final class CopyChoice extends Copy
 	{
-		final String backPointer;
+		final BiFunction<Type<?>, CopyConstraint, Feature> backPointer;
 
-		private CopyChoice(final String backPointer)
+		private CopyChoice(final BiFunction<Type<?>, CopyConstraint, Feature> backPointer)
 		{
 			this.backPointer = backPointer;
 		}
 
-		@Override String getTemplateName()
+		@Override BiFunction<Type<?>, CopyConstraint, Feature> getTemplate()
 		{
 			return backPointer;
 		}

@@ -21,15 +21,24 @@ package com.exedio.cope;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 
 import com.exedio.cope.CopyChoiceSimpleTest.Container;
+import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
 public class CopyChoiceFailureTest
 {
+	@Test void testBackPointerNull()
+	{
+		final ItemField<?> target = ItemField.create(Container.class);
+		assertFails(
+				() -> target.choice((Supplier<ItemField<?>>)null),
+				NullPointerException.class, "backPointer");
+	}
+
 	@Test void testBackPointerNameNull()
 	{
 		final ItemField<?> target = ItemField.create(Container.class);
 		assertFails(
-				() -> target.choice(null),
+				() -> target.choice((String)null),
 				NullPointerException.class, "backPointerName");
 	}
 
