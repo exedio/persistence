@@ -190,7 +190,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	{
 		requireNonEmpty(backPointerName, "backPointerName");
 		if(choiceBackPointerName!=null)
-			throw new IllegalArgumentException("choice already set: " + choiceBackPointerName);
+			throw new IllegalArgumentException("choice already set");
 
 		return new ItemField<>(isfinal, optional, valueClass, unique, copyFrom, copyTo, backPointerName, valueTypeFuture, policy);
 	}
