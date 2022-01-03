@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Added Contract annotations
+	To get rid of compiler warnings for missing annotation classes, add dependency on cope configuration "idea" to your
+	compile classpath (not runtime classpath).
 * LimitedListField#create(FunctionField template, int maximumSize) makes
 	list source fields optional. This allows LimitedListField to store lists
 	shorter than maximumSize if template is mandatory.
