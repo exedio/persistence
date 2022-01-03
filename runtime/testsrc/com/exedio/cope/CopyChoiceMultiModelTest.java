@@ -40,8 +40,8 @@ public class CopyChoiceMultiModelTest
 		assertSame(Container.choiceB, constraintB.getTarget());
 		assertEquals(true, constraintA.isChoice());
 		assertEquals(true, constraintB.isChoice());
-		assertFails(constraintA::getCopyField, IllegalArgumentException.class, "Container.choiceAChoiceparent is choice");
-		assertFails(constraintB::getCopyField, IllegalArgumentException.class, "Container.choiceBChoiceparent is choice");
+		assertFails(constraintA::getCopyField, IllegalArgumentException.class, "Container.choiceAChoice is choice");
+		assertFails(constraintB::getCopyField, IllegalArgumentException.class, "Container.choiceBChoice is choice");
 		assertSame(Container.TYPE.getThis(), constraintA.getCopyFunction());
 		assertSame(Container.TYPE.getThis(), constraintB.getCopyFunction());
 		assertSame(PartA.parent, constraintA.getTemplate());
@@ -59,10 +59,10 @@ public class CopyChoiceMultiModelTest
 
 		assertSame(Container.TYPE, constraintA.getType());
 		assertSame(Container.TYPE, constraintB.getType());
-		assertEquals("choiceAChoiceparent", constraintA.getName());
-		assertEquals("choiceBChoiceparent", constraintB.getName());
-		assertEquals("Container.choiceAChoiceparent", constraintA.getID());
-		assertEquals("Container.choiceBChoiceparent", constraintB.getID());
+		assertEquals("choiceAChoice", constraintA.getName());
+		assertEquals("choiceBChoice", constraintB.getName());
+		assertEquals("Container.choiceAChoice", constraintA.getID());
+		assertEquals("Container.choiceBChoice", constraintB.getID());
 	}
 
 	@Deprecated // OK: testing deprecated API
@@ -71,8 +71,8 @@ public class CopyChoiceMultiModelTest
 		final CopyConstraint constraintA = Container.choiceA.getChoice();
 		final CopyConstraint constraintB = Container.choiceB.getChoice();
 
-		assertFails(constraintA::getCopy, IllegalArgumentException.class, "Container.choiceAChoiceparent is choice");
-		assertFails(constraintB::getCopy, IllegalArgumentException.class, "Container.choiceBChoiceparent is choice");
+		assertFails(constraintA::getCopy, IllegalArgumentException.class, "Container.choiceAChoice is choice");
+		assertFails(constraintB::getCopy, IllegalArgumentException.class, "Container.choiceBChoice is choice");
 	}
 
 	@SuppressWarnings("unused") // makes sure model is loaded
