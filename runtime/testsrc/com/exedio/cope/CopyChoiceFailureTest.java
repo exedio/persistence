@@ -23,6 +23,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import com.exedio.cope.CopyChoiceSimpleTest.Container;
 import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class CopyChoiceFailureTest
 {
@@ -34,6 +35,7 @@ public class CopyChoiceFailureTest
 				NullPointerException.class, "backPointer");
 	}
 
+	@SuppressWarnings("deprecation") // OK: tests deprecated API
 	@Test void testBackPointerNameNull()
 	{
 		final ItemField<?> target = ItemField.create(Container.class);
@@ -42,6 +44,7 @@ public class CopyChoiceFailureTest
 				NullPointerException.class, "backPointerName");
 	}
 
+	@SuppressWarnings("deprecation") // OK: tests deprecated API
 	@Test void testBackPointerNameEmpty()
 	{
 		final ItemField<?> target = ItemField.create(Container.class);
@@ -53,9 +56,9 @@ public class CopyChoiceFailureTest
 
 	@Test void testTwice()
 	{
-		final ItemField<?> target = ItemField.create(Container.class).optional().choice("one");
+		final ItemField<?> target = ItemField.create(Container.class).optional().choice(BACK_POINTER_FAILS);
 		assertFails(
-				() -> target.choice("two"),
+				() -> target.choice(BACK_POINTER_FAILS),
 				IllegalArgumentException.class,
 				"choice already set");
 	}
@@ -64,7 +67,7 @@ public class CopyChoiceFailureTest
 	{
 		final ItemField<?> target = ItemField.create(Container.class).toFinal();
 		assertFails(
-				() -> target.choice("one"),
+				() -> target.choice(BACK_POINTER_FAILS),
 				IllegalArgumentException.class,
 				"final item field cannot have choice constraint");
 	}
@@ -73,8 +76,10 @@ public class CopyChoiceFailureTest
 	{
 		final ItemField<?> target = ItemField.create(Container.class);
 		assertFails(
-				() -> target.choice("one"),
+				() -> target.choice(BACK_POINTER_FAILS),
 				IllegalArgumentException.class,
 				"mandatory item field cannot have choice constraint");
 	}
+
+	private static final Supplier<ItemField<?>> BACK_POINTER_FAILS = () -> { throw new AssertionFailedError(); };
 }

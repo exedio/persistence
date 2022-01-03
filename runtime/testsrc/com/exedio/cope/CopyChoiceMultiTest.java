@@ -287,8 +287,8 @@ public class CopyChoiceMultiTest extends TestWithEnvironment
 	@WrapperType(indent=2, comments=false)
 	static final class Container extends Item
 	{
-		static final ItemField<PartA> choiceA = ItemField.create(PartA.class).optional().choice("parent");
-		static final ItemField<PartB> choiceB = ItemField.create(PartB.class).optional().choice("parent");
+		static final ItemField<PartA> choiceA = ItemField.create(PartA.class).optional().choice(() -> PartA.parent);
+		static final ItemField<PartB> choiceB = ItemField.create(PartB.class).optional().choice(() -> PartB.parent);
 
 		private Container(final PartA choice)
 		{

@@ -204,7 +204,9 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 	 * @param backPointerName the name of the field pointing back; at {@code E}, this has to be the name of an
 	 *        {@code ItemField} where the {@link #getValueType() value type} overlaps with this
 	 *        item field's {@link #getType()}
+	 * @deprecated Use {@link #choice(Supplier)} instead
 	 */
+	@Deprecated
 	public ItemField<E> choice(final String backPointerName)
 	{
 		requireNonEmpty(backPointerName, "backPointerName");

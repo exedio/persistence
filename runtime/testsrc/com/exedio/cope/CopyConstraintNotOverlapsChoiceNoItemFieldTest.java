@@ -41,7 +41,9 @@ public class CopyConstraintNotOverlapsChoiceNoItemFieldTest
 	private static final class Source extends Item
 	{
 		@WrapperIgnore
-		@SuppressWarnings("unused") // OK: test bad API usage
+		@SuppressWarnings({
+				"unused", // OK: test bad API usage
+				"deprecation"}) // OK: tests deprecated API - new API cannot run into this problem
 		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice("field");
 
 		@com.exedio.cope.instrument.Generated
