@@ -125,7 +125,7 @@
 								failonerror="true"
 								output="build/@{name}-catalina-start.log">
 							<arg value="run" />
-							<env key="CATALINA_OPTS" value="-enableassertions -XX:MaxPermSize=150M" />
+							<env key="CATALINA_OPTS" value="-enableassertions" />
 						</exec>
 					</forget>
 					<echo message="tomcat (@{name}): waiting to be ready ..." />
