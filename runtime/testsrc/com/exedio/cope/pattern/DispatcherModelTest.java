@@ -327,6 +327,7 @@ public class DispatcherModelTest
 
 		assertEquals(false, Result.transientFailure.isSuccess());
 		assertEquals(false, Result.finalFailure.isSuccess());
+		assertEquals(false, Result.immediateFinalFailure.isSuccess());
 		assertEquals(false, failure.isSuccess());
 		assertEquals(true, Result.success.isSuccess());
 	}
@@ -336,10 +337,11 @@ public class DispatcherModelTest
 		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		final Result deprecatedFailure = Result.failure;
 		assertEquals(
-				asList(Result.transientFailure, Result.finalFailure, deprecatedFailure, Result.success),
+				asList(Result.transientFailure, Result.finalFailure, Result.immediateFinalFailure, deprecatedFailure, Result.success),
 				asList(Dispatcher.Result.values()));
 		assertEquals(-20, getColumnValue(Result.transientFailure ));
 		assertEquals(-10, getColumnValue(Result.finalFailure ));
+		assertEquals( -5, getColumnValue(Result.immediateFinalFailure ));
 		assertEquals(  0, getColumnValue(deprecatedFailure ));
 		assertEquals(  1, getColumnValue(Result.success ));
 	}

@@ -108,9 +108,17 @@ public final class Dispatcher extends Pattern
 		transientFailure,
 
 		/**
-		 * A failure that causes {@link Dispatcher#isPending(Item) pending} to be set to false.
+		 * A failure that causes {@link Dispatcher#isPending(Item) pending} to be set to false
+		 * because {@link Config#getFailureLimit()} was exhausted.
 		 */
 		finalFailure,
+
+		/**
+		 * A failure that causes {@link Dispatcher#isPending(Item) pending} to be set to false
+		 * because the failure exception was annotated with {@link DispatcherImmediateFinalFailure}.
+		 */
+		@CopeSchemaValue(-5)
+		immediateFinalFailure,
 
 		/**
 		 * @deprecated
@@ -568,6 +576,15 @@ public final class Dispatcher extends Pattern
 
 					final boolean isFinal;
 					final int remaining;
+					final Result result;
+					if(failureCause.getClass().
+							isAnnotationPresent(DispatcherImmediateFinalFailure.class))
+					{
+						isFinal = true;
+						remaining = 0;
+						result = Result.immediateFinalFailure;
+					}
+					else
 					{
 						final Query<Run> query = runType.type.newQuery(runParent.equal(item));
 						if(supportsPurge())
@@ -580,12 +597,13 @@ public final class Dispatcher extends Pattern
 						final int total = query.total();
 						isFinal = total >= limit - 1;
 						remaining = isFinal ? 0 : (limit - 1 - total);
+						result = Result.failure(isFinal);
 					}
 
 					runType.newItem(
 							parentClass, item, new Date(start), elapsed,
 							remaining, limit,
-							Result.failure(isFinal), failureCauseStackTrace.toByteArray());
+							result, failureCauseStackTrace.toByteArray());
 					tx.commit();
 
 					if(isFinal)
@@ -596,7 +614,9 @@ public final class Dispatcher extends Pattern
 							logger.error(
 									"final failure for " + itemID + ", " +
 									"took " + elapsed + "ms, " +
-									limit + " runs exhausted",
+									(result==Result.immediateFinalFailure
+											? "@DispatcherImmediateFinalFailure thrown"
+											: limit + " runs exhausted"),
 									failureCause);
 						variant.notifyFinalFailure(this, item, failureCause);
 					}
