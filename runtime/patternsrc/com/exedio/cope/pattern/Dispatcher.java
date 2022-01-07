@@ -136,11 +136,6 @@ public final class Dispatcher extends Pattern
 		{
 			return this==success;
 		}
-
-		static Result failure(final boolean isFinal)
-		{
-			return isFinal ? finalFailure : transientFailure;
-		}
 	}
 
 	private final boolean supportRemaining;
@@ -597,7 +592,7 @@ public final class Dispatcher extends Pattern
 						final int total = query.total();
 						isFinal = total >= limit - 1;
 						remaining = isFinal ? 0 : (limit - 1 - total);
-						result = Result.failure(isFinal);
+						result = isFinal ? Result.finalFailure : Result.transientFailure;
 					}
 
 					runType.newItem(
