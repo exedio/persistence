@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterUtil.nextNode;
 import static com.exedio.cope.ClusterUtil.pingString;
 import static java.lang.Integer.MIN_VALUE;
+import static java.net.StandardSocketOptions.IP_MULTICAST_LOOP;
 import static java.util.Collections.list;
 
 import com.exedio.cope.util.Properties;
@@ -307,13 +308,13 @@ final class ClusterProperties extends Properties
 				if(!listenLoopback)
 				{
 					// BEWARE:
-					// The setLoopbackMode below does not work. Although getLoopbackMode reflects the change made,
+					// The setOption(IP_MULTICAST_LOOP) below does not work. Although getOption reflects the change made,
 					// the sender socket still receives datagrams sent by itself. I have no idea why.
 					// https://tldp.org/HOWTO/Multicast-HOWTO-6.html
-					// Moving setLoopbackMode behind joinGroup did not help.
-					// Calling setLoopbackMode(false) did not help.
-					resultMulti.setLoopbackMode(true); // BEWARE of the negation introduced by MulticastSocket#getLoopbackMode()
-					if(!resultMulti.getLoopbackMode())
+					// Moving setOption behind joinGroup did not help.
+					// Calling setOption(IP_MULTICAST_LOOP, false) did not help.
+					resultMulti.setOption(IP_MULTICAST_LOOP, true); // BEWARE of the negation introduced by IP_MULTICAST_LOOP
+					if(!resultMulti.getOption(IP_MULTICAST_LOOP))
 						logger.error("disabling loopbackMode was ignored by MulticastSocket");
 				}
 				resultMulti.joinGroup(listenAddress, listenInterface);

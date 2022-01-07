@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.net.StandardSocketOptions.IP_MULTICAST_LOOP;
+
 import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.net.DatagramPacket;
@@ -60,11 +62,11 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		{
 			this.loopback =
 					socket instanceof MulticastSocket
-					? !((MulticastSocket)socket).getLoopbackMode() // BEWARE of the negation introduced by MulticastSocket#getLoopbackMode()
+					? !socket.getOption(IP_MULTICAST_LOOP) // BEWARE of the negation introduced by IP_MULTICAST_LOOP
 					: null;
 			this.receiveBufferSize = socket.getReceiveBufferSize();
 		}
-		catch(final SocketException e)
+		catch(final IOException e)
 		{
 			throw new RuntimeException(e);
 		}
