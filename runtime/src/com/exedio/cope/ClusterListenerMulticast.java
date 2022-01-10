@@ -22,8 +22,9 @@ import com.exedio.cope.util.Hex;
 import java.io.IOException;
 import java.net.DatagramPacket;
 import java.net.DatagramSocket;
-import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -35,7 +36,8 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 	private static final Logger logger = LoggerFactory.getLogger(ClusterListenerMulticast.class);
 
 	private final int packetSize;
-	private final InetAddress address;
+	private final InetSocketAddress address;
+	private final NetworkInterface networkInterface;
 	private final DatagramSocket socket;
 	private final int receiveBufferSize;
 
@@ -51,6 +53,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		super(properties, modelName, sender, typeLength, connect);
 		this.packetSize = properties.packetSize;
 		this.address = properties.listenAddress;
+		this.networkInterface = properties.listenInterface;
 		this.socket = properties.newListenSocket();
 		try
 		{
@@ -149,7 +152,7 @@ final class ClusterListenerMulticast extends ClusterListenerModel implements Run
 		{
 			try
 			{
-				((MulticastSocket)socket).leaveGroup(address);
+				((MulticastSocket)socket).leaveGroup(address, networkInterface);
 			}
 			catch(final IOException e)
 			{

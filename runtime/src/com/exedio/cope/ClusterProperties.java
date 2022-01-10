@@ -21,12 +21,15 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterUtil.nextNode;
 import static com.exedio.cope.ClusterUtil.pingString;
 import static java.lang.Integer.MIN_VALUE;
+import static java.util.Collections.list;
 
 import com.exedio.cope.util.Properties;
 import java.io.IOException;
 import java.net.DatagramSocket;
 import java.net.InetAddress;
+import java.net.InetSocketAddress;
 import java.net.MulticastSocket;
+import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.net.UnknownHostException;
 import java.util.ArrayList;
@@ -34,6 +37,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 import java.util.StringTokenizer;
+import java.util.stream.Collectors;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -62,9 +66,9 @@ final class ClusterProperties extends Properties
 	private final int     sendBuffer          = value("sendBuffer"         , 50000, 1);
 	private final boolean sendTrafficDefault  = value("sendTrafficDefault" , true);
 	private final int     sendTraffic         = value("sendTraffic"        , 0, 0);
-	final   InetAddress   listenAddress       = multicast ? valAd("listenAddress", MULTICAST_ADDRESS) : null;
+	final InetSocketAddress listenAddress     = multicast ? new InetSocketAddress(valAd("listenAddress", MULTICAST_ADDRESS), 0)  : null;
 	private final int     listenPort          = value("listenPort",          PORT, 1);
-	private final InetAddress listenInterface = multicast ? valAd("listenInterface") : null;
+	final NetworkInterface listenInterface    = multicast ? valNI("listenInterface") : null;
 	@SuppressWarnings("SimplifiableConditionalExpression")
 	private final boolean listenDisableLoopbk = multicast ? value("listenDisableLoopback", false) : false;
 	private final boolean listenBufferDefault = value("listenBufferDefault", true);
@@ -110,6 +114,33 @@ final class ClusterProperties extends Properties
 				pingPayload[pos] = (byte)(r.nextInt()>>8);
 			this.pingPayload = pingPayload;
 		}
+	}
+
+	private NetworkInterface valNI(final String key)
+	{
+		final String DEFAULT = "DEFAULT";
+		final String value = value(key, DEFAULT);
+		if(DEFAULT.equals(value))
+			return null;
+
+		final NetworkInterface result;
+		try
+		{
+			result = NetworkInterface.getByName(value);
+			if(result==null)
+				throw newException(key,
+						"must be " + DEFAULT + " or one of the network interfaces: (" +
+						list(NetworkInterface.getNetworkInterfaces()).stream().
+								map(NetworkInterface::getName).
+								collect(Collectors.joining(", ")) + "), " +
+								"but was '" + value + '\'');
+		}
+		catch(final SocketException e)
+		{
+			throw newException(key, "failed '" + value + "' ", e);
+		}
+
+		return result;
 	}
 
 	private InetAddress valAd(final String key, final String defaultValue)
@@ -273,11 +304,9 @@ final class ClusterProperties extends Properties
 				@SuppressWarnings({"resource", "IOResourceOpenedButNotSafelyClosed", "SocketOpenedButNotSafelyClosed"}) // OK: is closed outside this factory method
 				final MulticastSocket resultMulti = new MulticastSocket(port);
 				// TODO close socket if code below fails
-				if(listenInterface!=null)
-					resultMulti.setInterface(listenInterface);
 				if(listenDisableLoopbk)
 					resultMulti.setLoopbackMode(true);
-				resultMulti.joinGroup(listenAddress);
+				resultMulti.joinGroup(listenAddress, listenInterface);
 				result = resultMulti;
 			}
 			else

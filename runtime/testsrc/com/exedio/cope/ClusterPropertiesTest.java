@@ -33,7 +33,10 @@ import com.exedio.cope.util.IllegalPropertiesException;
 import com.exedio.cope.util.Properties.Field;
 import com.exedio.cope.util.Properties.Source;
 import java.net.InetAddress;
+import java.net.NetworkInterface;
+import java.net.SocketException;
 import java.net.UnknownHostException;
+import java.util.Enumeration;
 import java.util.Iterator;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
@@ -436,17 +439,26 @@ public class ClusterPropertiesTest
 				"must not be empty");
 	}
 
-	@Test void testListenInterfaceEmpty()
+	@Test void testListenInterfaceEmpty() throws SocketException
 	{
 		final Source s = describe("DESC", cascade(
 				single("secret", 1234),
 				single("listenInterface", "")
 		));
+
+		final StringBuilder interfaces = new StringBuilder();
+		for(final Enumeration<NetworkInterface> e = NetworkInterface.getNetworkInterfaces(); e.hasMoreElements(); )
+			interfaces.
+					append(interfaces.length()>0?", ":"(").
+					append(e.nextElement().getName());
+		interfaces.append(")");
+
 		assertFails(
 				() -> ClusterProperties.factory().create(s),
 				IllegalPropertiesException.class,
 				"property listenInterface in DESC " +
-				"must not be empty");
+				"must be DEFAULT or one of the network interfaces: " + interfaces + ", " +
+				"but was ''");
 	}
 
 	@Test void testFailPrimaryKeyGeneratorMemory()
