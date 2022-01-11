@@ -20,8 +20,10 @@ properties([
 tryCompleted = false
 try
 {
-	parallel "Main": { // trailing brace suppresses Syntax error in idea
+	def parallelBranches = [:]
 
+	parallelBranches["Main"] =
+	{
 		//noinspection GroovyAssignabilityCheck
 		nodeCheckoutAndDelete
 		{
@@ -162,9 +164,10 @@ try
 					]],
 			)
 		}
-	},
-	"Idea": { // trailing brace suppresses Syntax error in idea
+	}
 
+	parallelBranches["Idea"] =
+	{
 		//noinspection GroovyAssignabilityCheck
 		nodeCheckoutAndDelete
 		{
@@ -216,9 +219,10 @@ try
 					],
 			)
 		}
-	},
-	"Ivy": { // trailing brace suppresses Syntax error in idea
+	}
 
+	parallelBranches["Ivy"] =
+	{
 		def cache = 'jenkins-build-survivor-' + projectName + "-Ivy"
 		//noinspection GroovyAssignabilityCheck
 		lockNodeCheckoutAndDelete(cache)
@@ -244,12 +248,13 @@ try
 			def gitStatus = sh (script: "git status --porcelain --untracked-files=normal", returnStdout: true).trim()
 			if(gitStatus!='')
 			{
-				echo 'FAILURE because fetching dependencies produces git diff'
-				echo gitStatus
-				currentBuild.result = 'FAILURE'
+				error 'FAILURE because fetching dependencies produces git diff:\n' + gitStatus
 			}
 		}
 	}
+
+	parallel parallelBranches
+
 	tryCompleted = true
 }
 finally
