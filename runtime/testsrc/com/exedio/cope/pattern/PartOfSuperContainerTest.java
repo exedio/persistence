@@ -101,8 +101,7 @@ public class PartOfSuperContainerTest
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private Container()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated

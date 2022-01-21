@@ -46,8 +46,7 @@ class SubOfExternalItemWithAbstractMethod extends ExternalItemWithAbstractMethod
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SubOfExternalItemWithAbstractMethod()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

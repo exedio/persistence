@@ -384,7 +384,6 @@
 				verify="${instrument.verify}"
 				finalMethodInFinalClass="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
-				useConstantForEmptySetValuesArray="false"
 				buildDirectory="build/instrument/runtime.test">
 			<resources refid="instrument.resources" />
 			<classpath refid="runtime.test.path"/>
@@ -640,7 +639,6 @@
 				dir="runtime/servlettestsrc"
 				verify="${instrument.verify}"
 				finalMethodInFinalClass="false"
-				useConstantForEmptySetValuesArray="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<classpath>
 				<pathelement location="build/classes/runtime/servletsrc" />
@@ -861,7 +859,6 @@
 				charset="ascii"
 				maxwarns="20000"
 				finalMethodInFinalClass="false"
-				useConstantForEmptySetValuesArray="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}"
 				timestampFile="build/timestamps/instrument.testsrc.timestamp">
 			<resources refid="instrument.resources" />
@@ -917,7 +914,6 @@
 				maxwarns="20000"
 				serialVersionUIDSuffix="capital"
 				finalMethodInFinalClass="false"
-				useConstantForEmptySetValuesArray="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<classpath>

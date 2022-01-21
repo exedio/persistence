@@ -212,8 +212,7 @@ public class MetricsReconnectTest
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private AnItem()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated

@@ -109,8 +109,7 @@ public abstract class ClusterNetworkTest
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		TypeA()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated

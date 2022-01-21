@@ -26,8 +26,7 @@ class SuppressWarningsItem extends Item
 	@java.lang.SuppressWarnings({"JustOneConstructor","RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	SuppressWarningsItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

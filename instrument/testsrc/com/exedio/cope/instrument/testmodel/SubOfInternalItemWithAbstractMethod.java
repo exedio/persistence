@@ -35,8 +35,7 @@ public class SubOfInternalItemWithAbstractMethod extends InternalItemWithAbstrac
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public SubOfInternalItemWithAbstractMethod()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

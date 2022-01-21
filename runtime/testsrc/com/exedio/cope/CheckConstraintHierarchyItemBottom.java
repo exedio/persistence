@@ -39,8 +39,7 @@ public final class CheckConstraintHierarchyItemBottom extends CheckConstraintHie
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public CheckConstraintHierarchyItemBottom()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**
