@@ -7,6 +7,13 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Use SetValue.EMPTY_ARRAY when generating code.
+	Consider removing "<suppressWarnings><constructor>ZeroLengthArrayAllocation</constructor></<suppressWarnings>"
+	from your build.xml.
+	Affects instrumented code.
+	Use this parameter:
+		<instrument useConstantForEmptySetValuesArray="false" ...
+	to enable previous behaviour.
 * @DispatcherImmediateFinalFailure added.
 	Dispatcher.Result enum gets new facet immediateFinalFailure with schema value -5.
 	This affects database schema in check constraints of Dispatcher.Run.

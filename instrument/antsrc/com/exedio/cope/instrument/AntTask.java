@@ -163,6 +163,11 @@ public final class AntTask extends Task
 		params.finalMethodInFinalClass = value;
 	}
 
+	public void setUseConstantForEmptySetValuesArray(final boolean value)
+	{
+		params.useConstantForEmptySetValuesArray = value;
+	}
+
 	public void setWildcardClass(final boolean value)
 	{
 		throwNoLongerSupported("wildcardClass", true);
