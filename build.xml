@@ -1029,7 +1029,8 @@
 			  instrument.compile,
 			  instrument.test.libcompile,
 			  instrument.testfeature.compile,
-			  instrument.test.compile" />
+			  instrument.test.compile,
+			  instrument.testparams.compile" />
 
 	<target name="jar" depends="runtime.jar, instrument.anno.jar, instrument.jar, instrument.completion.jar" />
 
