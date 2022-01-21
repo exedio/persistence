@@ -26,13 +26,11 @@ import java.util.List;
 
 public final class SetValueUtil
 {
-	private static final SetValue<?>[] EMPTY_SET_VALUE_ARRAY = new SetValue<?>[0];
-
 	public static SetValue<?>[] toArray(final List<SetValue<?>> list)
 	{
 		return
 			list!=null
-			? list.toArray(list.toArray(EMPTY_SET_VALUE_ARRAY))
+			? list.toArray(list.toArray(SetValue.EMPTY_ARRAY))
 			: null;
 	}
 

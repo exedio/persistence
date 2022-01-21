@@ -135,7 +135,7 @@ public class LimitedListFieldMandatoryMinLengthTest extends TestWithEnvironment
 
 		AnItem()
 		{
-			this(new SetValue<?>[]{});
+			this(SetValue.EMPTY_ARRAY);
 		}
 
 

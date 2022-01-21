@@ -107,7 +107,7 @@ final class BeforeSetItem extends Item
 		{
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
-				return new SetValue<?>[]{};
+				return SetValue.EMPTY_ARRAY;
 			}
 		};
 

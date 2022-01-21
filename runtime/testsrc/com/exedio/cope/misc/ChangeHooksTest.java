@@ -46,7 +46,7 @@ public class ChangeHooksTest
 	@Test void testEmpty()
 	{
 		final ChangeHook h = EMPTY.create(MODEL);
-		final SetValue<?>[] sv = new SetValue<?>[]{};
+		final SetValue<?>[] sv = SetValue.EMPTY_ARRAY;
 		assertSame(sv, h.beforeNew(null, sv));
 		h.afterNew(null);
 		assertSame(sv, h.beforeSet(null, sv));

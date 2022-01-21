@@ -229,7 +229,7 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 
 		MyItem()
 		{
-			this(new SetValue<?>[0]);
+			this(SetValue.EMPTY_ARRAY);
 		}
 
 		MyItem(final Value field)
@@ -366,7 +366,7 @@ public class ChangeHookDataBeforeTest extends TestWithEnvironment
 			}
 			bf.append(")");
 			addEvent(bf.toString());
-			return result.toArray(new SetValue<?>[0]);
+			return result.toArray(SetValue.EMPTY_ARRAY);
 		}
 
 		@Override public void afterNew    (final Item item) {}

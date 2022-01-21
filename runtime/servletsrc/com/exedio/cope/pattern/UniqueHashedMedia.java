@@ -68,7 +68,6 @@ import org.jetbrains.annotations.Contract;
 public final class UniqueHashedMedia extends Pattern implements Settable<Value>, Copyable
 {
 	private static final long serialVersionUID = 1l;
-	private static final SetValue<?>[] EMPTY_SET_VALUE_ARRAY = new SetValue<?>[0];
 
 	private final Media media;
 	private final StringField hash;
@@ -361,7 +360,7 @@ public final class UniqueHashedMedia extends Pattern implements Settable<Value>,
 		}
 		final List<SetValue<?>> setValues = new ArrayList<>(Arrays.asList(this.media.execute(media, exceptionItem)));
 		setValues.add(this.hash.map(hash));
-		return setValues.toArray(EMPTY_SET_VALUE_ARRAY);
+		return setValues.toArray(SetValue.EMPTY_ARRAY);
 	}
 
 

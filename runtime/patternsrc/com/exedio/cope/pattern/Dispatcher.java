@@ -78,7 +78,6 @@ public final class Dispatcher extends Pattern
 	private static final long serialVersionUID = 1l;
 
 	static final Charset ENCODING = StandardCharsets.UTF_8;
-	private static final SetValue<?>[] EMPTY_SET_VALUE_ARRAY = new SetValue<?>[0];
 
 	private final BooleanField pending;
 	private final BooleanField noPurge;
@@ -645,7 +644,7 @@ public final class Dispatcher extends Pattern
 		// the same time.
 		try(TransactionTry tx = getType().getModel().startTransactionTry(getID() + " unpend " + item.getCopeID()))
 		{
-			item.set(sv.toArray(EMPTY_SET_VALUE_ARRAY));
+			item.set(sv.toArray(SetValue.EMPTY_ARRAY));
 			tx.commit();
 		}
 	}

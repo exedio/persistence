@@ -49,7 +49,7 @@ final class CopySelfSource extends Item
 
 	static CopySelfSource omitAll()
 	{
-		return new CopySelfSource(new SetValue<?>[]{});
+		return new CopySelfSource(SetValue.EMPTY_ARRAY);
 	}
 
 	/**

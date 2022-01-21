@@ -65,7 +65,7 @@ public class DataRestartTest extends TestWithEnvironment
 
 	@Test void testCommitMultiEmpty()
 	{
-		item.set(new SetValue<?>[0]);
+		item.set(SetValue.EMPTY_ARRAY);
 		assertEquals(null, item.getString());
 		assertEquals(null, item.getData());
 
@@ -137,7 +137,7 @@ public class DataRestartTest extends TestWithEnvironment
 
 	@Test void testRollbackMultiEmpty()
 	{
-		item.set(new SetValue<?>[0]);
+		item.set(SetValue.EMPTY_ARRAY);
 		assertEquals(null, item.getString());
 		assertEquals(null, item.getData());
 

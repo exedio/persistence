@@ -138,8 +138,7 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 
 		AnItem()
 		{
-			this(new SetValue<?>[]{
-			});
+			this(SetValue.EMPTY_ARRAY);
 		}
 
 

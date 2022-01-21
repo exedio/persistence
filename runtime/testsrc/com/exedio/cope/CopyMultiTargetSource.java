@@ -57,7 +57,7 @@ final class CopyMultiTargetSource extends Item
 
 	static CopyMultiTargetSource omitCopy()
 	{
-		return new CopyMultiTargetSource(new SetValue<?>[]{});
+		return new CopyMultiTargetSource(SetValue.EMPTY_ARRAY);
 	}
 
 	void setTargetAB(
