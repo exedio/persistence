@@ -19,6 +19,7 @@
 package com.exedio.cope.pattern;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapperInitial;
 
 public final class EnumSetFieldItem extends Item
@@ -41,8 +42,7 @@ public final class EnumSetFieldItem extends Item
 
 	public EnumSetFieldItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(SetValue.EMPTY_ARRAY);
 	}
 
 	/**

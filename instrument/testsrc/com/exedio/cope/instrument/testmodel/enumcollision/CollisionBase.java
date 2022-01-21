@@ -48,8 +48,7 @@ final class CollisionBase extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CollisionBase()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

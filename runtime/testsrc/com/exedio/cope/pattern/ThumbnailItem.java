@@ -48,8 +48,7 @@ public final class ThumbnailItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public ThumbnailItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

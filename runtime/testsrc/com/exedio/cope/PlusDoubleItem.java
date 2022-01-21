@@ -59,8 +59,7 @@ public final class PlusDoubleItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public PlusDoubleItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

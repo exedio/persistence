@@ -29,8 +29,7 @@ public class MultiItemFieldComponentB extends Item implements MultiItemFieldValu
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	public MultiItemFieldComponentB()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

@@ -95,7 +95,7 @@ public class LongTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new LongItem(new SetValue<?>[]{});
+			new LongItem(SetValue.EMPTY_ARRAY);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

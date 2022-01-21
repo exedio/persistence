@@ -107,7 +107,7 @@ final class BeforeSetItem extends Item
 		{
 			@Override SetValue<?>[] execute(final SetValue<?>[] setValues)
 			{
-				return new SetValue<?>[]{};
+				return SetValue.EMPTY_ARRAY;
 			}
 		};
 
@@ -145,8 +145,7 @@ final class BeforeSetItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	BeforeSetItem()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

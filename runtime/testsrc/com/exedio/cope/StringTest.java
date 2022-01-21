@@ -151,7 +151,7 @@ public class StringTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new StringItem(new SetValue<?>[]{});
+			new StringItem(SetValue.EMPTY_ARRAY);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

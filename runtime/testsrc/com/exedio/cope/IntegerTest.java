@@ -95,7 +95,7 @@ public class IntegerTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new IntegerItem(new SetValue<?>[]{});
+			new IntegerItem(SetValue.EMPTY_ARRAY);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

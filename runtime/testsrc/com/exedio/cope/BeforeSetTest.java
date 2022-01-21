@@ -261,7 +261,7 @@ public class BeforeSetTest extends TestWithEnvironment
 		assertEquals(asList(), item.getCalls());
 
 		item.setFail();
-		item.set(new SetValue<?>[]{});
+		item.set(SetValue.EMPTY_ARRAY);
 		assertEquals(11, item.getField1());
 		assertEquals(21, item.getField2());
 		assertEquals(null, item.getAction());

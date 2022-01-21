@@ -172,7 +172,7 @@ public class CopyDefaultTest extends TestWithEnvironment
 
 		static Source create()
 		{
-			return new Source(new SetValue<?>[]{});
+			return new Source(SetValue.EMPTY_ARRAY);
 		}
 
 		static Source create(final Target target)

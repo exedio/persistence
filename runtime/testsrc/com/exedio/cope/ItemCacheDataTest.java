@@ -100,7 +100,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(NONE, NONE);
 
-		item.set(new SetValue<?>[0]);
+		item.set(SetValue.EMPTY_ARRAY);
 		assertUpdateCount(NONE, NONE);
 
 		model.commit();
@@ -208,7 +208,7 @@ public class ItemCacheDataTest extends TestWithEnvironment
 		restartTransaction();
 		assertUpdateCount(NONE, NONE);
 
-		item.set(new SetValue<?>[0]);
+		item.set(SetValue.EMPTY_ARRAY);
 		assertUpdateCount(NONE, NONE);
 
 		model.rollback();

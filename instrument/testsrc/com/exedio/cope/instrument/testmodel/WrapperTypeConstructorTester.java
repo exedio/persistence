@@ -45,8 +45,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		public DefaultPublic()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -66,8 +65,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected DefaultPublicAbstract()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -88,8 +86,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected DefaultProtected()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -109,8 +106,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected DefaultProtectedAbstract()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -130,8 +126,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		DefaultPackage()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -151,8 +146,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private DefaultPrivate()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -173,8 +167,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private DefaultPrivateAbstract()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -196,8 +189,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		public SetPublic()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -218,8 +210,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		public SetPublicAbstract()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -240,8 +231,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		protected SetProtected()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -261,8 +251,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		SetPackage()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated
@@ -282,8 +271,7 @@ public final class WrapperTypeConstructorTester
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		private SetPrivate()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated

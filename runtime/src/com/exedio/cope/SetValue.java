@@ -24,6 +24,8 @@ import java.util.Objects;
 
 public final class SetValue<E>
 {
+	public static final SetValue<?>[] EMPTY_ARRAY = new SetValue<?>[0];
+
 	public final Settable<E> settable;
 	public final E value;
 

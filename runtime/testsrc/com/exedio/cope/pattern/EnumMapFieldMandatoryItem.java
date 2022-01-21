@@ -37,8 +37,7 @@ public final class EnumMapFieldMandatoryItem extends Item
 
 	EnumMapFieldMandatoryItem()
 	{
-		this(new SetValue<?>[]{
-		});
+		this(SetValue.EMPTY_ARRAY);
 	}
 
 	/**

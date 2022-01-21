@@ -138,7 +138,7 @@ final class CopySimpleSource extends Item
 
 	static CopySimpleSource omitAll()
 	{
-		return new CopySimpleSource(new SetValue<?>[]{});
+		return new CopySimpleSource(SetValue.EMPTY_ARRAY);
 	}
 
 	void setTemplateStringAndTargetItem(

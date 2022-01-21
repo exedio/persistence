@@ -62,7 +62,7 @@ public class SetValueUtilTest
 			final List<SetValue<?>> setValues,
 			final Settable<E> settable)
 	{
-		final SetValue<?>[] a = new SetValue<?>[]{};
+		final SetValue<?>[] a = SetValue.EMPTY_ARRAY;
 		assertSame  (expectedMapping, getFirstMapping(setValues, settable));
 		assertEquals(expectedValue,   getFirst       (setValues, settable));
 		assertSame  (expectedMapping, getFirstMapping(setValues.toArray(a), settable));
@@ -99,8 +99,8 @@ public class SetValueUtilTest
 		final Settable<Object> nullSettable = null;
 
 		// TODO should rather throw an exception
-		assertEquals(null, getFirst(new SetValue<?>[]{}, nullSettable));
-		assertEquals(null, getFirst(asList(new SetValue<?>[]{}), nullSettable));
+		assertEquals(null, getFirst(SetValue.EMPTY_ARRAY, nullSettable));
+		assertEquals(null, getFirst(asList(SetValue.EMPTY_ARRAY), nullSettable));
 	}
 
 	@Test void testAdd()
@@ -109,7 +109,7 @@ public class SetValueUtilTest
 		final SetValue<?> m2 = new StringField().map("v2");
 		final SetValue<?> mX = new StringField().map("vX");
 
-		assertEquals(asList(mX        ), asList(add(new SetValue<?>[]{      }, mX)));
+		assertEquals(asList(mX        ), asList(add(SetValue.EMPTY_ARRAY,      mX)));
 		assertEquals(asList(m1,     mX), asList(add(new SetValue<?>[]{m1    }, mX)));
 		assertEquals(asList(m1, m2, mX), asList(add(new SetValue<?>[]{m1, m2}, mX)));
 	}
@@ -132,7 +132,7 @@ public class SetValueUtilTest
 	{
 		try
 		{
-			add(new SetValue<?>[]{}, null);
+			add(SetValue.EMPTY_ARRAY, null);
 			fail();
 		}
 		catch(final NullPointerException e)

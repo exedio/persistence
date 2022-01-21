@@ -29,8 +29,7 @@ class CheckConstraintConditionItemSub extends CheckConstraintConditionItemTarget
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	CheckConstraintConditionItemSub()
 	{
-		this(new com.exedio.cope.SetValue<?>[]{
-		});
+		this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 	}
 
 	/**

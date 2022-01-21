@@ -138,7 +138,7 @@ public class DataMandatoryTest extends TestWithEnvironment
 
 		try
 		{
-			new DataMandatoryItem(new SetValue<?>[0]);
+			new DataMandatoryItem(SetValue.EMPTY_ARRAY);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

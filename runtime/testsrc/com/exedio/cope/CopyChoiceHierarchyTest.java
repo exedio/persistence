@@ -169,8 +169,7 @@ public class CopyChoiceHierarchyTest extends TestWithEnvironment
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 		Container()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(com.exedio.cope.SetValue.EMPTY_ARRAY);
 		}
 
 		@com.exedio.cope.instrument.Generated

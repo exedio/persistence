@@ -894,6 +894,7 @@
 				verify="${instrument.verify}"
 				serialVersionUIDSuffix="none"
 				directSetValueMap="true"
+				useConstantForEmptySetValuesArray="false"
 				nullabilityAnnotations="${instrument.nullabilityAnnotations}">
 			<resources refid="instrument.resources" />
 			<suppressWarnings>

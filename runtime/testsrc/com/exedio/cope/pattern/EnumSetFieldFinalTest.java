@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.BooleanField;
 import com.exedio.cope.Model;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.instrument.WrapperInitial;
 import org.junit.jupiter.api.Test;
 
@@ -83,8 +84,7 @@ public class EnumSetFieldFinalTest
 
 		AnItem()
 		{
-			this(new com.exedio.cope.SetValue<?>[]{
-			});
+			this(SetValue.EMPTY_ARRAY);
 		}
 
 	/**

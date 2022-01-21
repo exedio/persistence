@@ -50,7 +50,7 @@ public class CascadeChangeHookSetValuesNullTest
 	{
 		try
 		{
-			hook.beforeNew(null, new SetValue<?>[]{});
+			hook.beforeNew(null, SetValue.EMPTY_ARRAY);
 			fail();
 		}
 		catch(final NullPointerException e)
@@ -63,7 +63,7 @@ public class CascadeChangeHookSetValuesNullTest
 	{
 		try
 		{
-			hook.beforeSet(null, new SetValue<?>[]{});
+			hook.beforeSet(null, SetValue.EMPTY_ARRAY);
 			fail();
 		}
 		catch(final NullPointerException e)

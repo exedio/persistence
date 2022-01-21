@@ -342,7 +342,7 @@ public class DoubleTest extends TestWithEnvironment
 		assertEquals(numberOfItems, TYPE.search(null).size());
 		try
 		{
-			new DoubleItem(new SetValue<?>[]{});
+			new DoubleItem(SetValue.EMPTY_ARRAY);
 			fail();
 		}
 		catch(final MandatoryViolationException e)

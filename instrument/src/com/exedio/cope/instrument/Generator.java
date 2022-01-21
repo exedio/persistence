@@ -69,6 +69,7 @@ final class Generator
 	private final String serialVersionUIDSuffix;
 	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
+	private final boolean useConstantForEmptySetValuesArray;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 	private final Params.Suppressor suppressWarningsType;
@@ -84,6 +85,7 @@ final class Generator
 		this.serialVersionUIDSuffix = params.serialVersionUIDSuffix.code;
 		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
+		this.useConstantForEmptySetValuesArray = params.useConstantForEmptySetValuesArray;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -283,30 +285,37 @@ final class Generator
 		write('{');
 		write(lineSeparator);
 		writeIndent(1);
-		write("this(new " + SET_VALUE + "<?>[]{");
-		write(lineSeparator);
-		for(final CopeFeature feature : initialFeatures)
+		if (useConstantForEmptySetValuesArray && initialFeatures.isEmpty())
 		{
-			writeIndent(2);
-			if(directSetValueMap)
-				write(SET_VALUE + ".map(");
-			final CopeType<?> parent = feature.parent;
-			if(parent==type)
-				write(type.getName());
-			else
-				write(parent.getCanonicalName());
-			write('.');
-			write(feature.getName());
-			if(directSetValueMap)
-				write(',');
-			else
-				write(".map(");
-			write(feature.getName());
-			write("),");
-			write(lineSeparator);
+			write("this(" + SET_VALUE + ".EMPTY_ARRAY);");
 		}
-		writeIndent(1);
-		write("});");
+		else
+		{
+			write("this(new " + SET_VALUE + "<?>[]{");
+			write(lineSeparator);
+			for(final CopeFeature feature : initialFeatures)
+			{
+				writeIndent(2);
+				if(directSetValueMap)
+					write(SET_VALUE + ".map(");
+				final CopeType<?> parent = feature.parent;
+				if(parent == type)
+					write(type.getName());
+				else
+					write(parent.getCanonicalName());
+				write('.');
+				write(feature.getName());
+				if(directSetValueMap)
+					write(',');
+				else
+					write(".map(");
+				write(feature.getName());
+				write("),");
+				write(lineSeparator);
+			}
+			writeIndent(1);
+			write("});");
+		}
 		write(lineSeparator);
 		writeIndent();
 		write('}');
