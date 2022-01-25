@@ -36,14 +36,11 @@ try
 					'--build-arg JDK=' + jdk + ' ' +
 					'--build-arg JENKINS_OWNER=' + env.JENKINS_OWNER + ' ' +
 					'conf/main')
-			def bridge = sh ( script:
-					"docker network create " +
-							dockerName + "-net " +
-							"--driver bridge " +
-							"--internal",
-					returnStdout: true).trim()
-			try
+
+			withBridge(dockerName + "-net")
 			{
+				bridge ->
+
 				mainImage.inside(
 						"--name '" + dockerName + "' " +
 						"--cap-drop all " +
@@ -61,10 +58,6 @@ try
 							' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
 							' -Druntime.test.ClusterNetworkTest.port.C=' + port(2)
 				}
-			}
-			finally
-			{
-				sh "docker network rm " + bridge
 			}
 
 			recordIssues(
@@ -298,6 +291,24 @@ def nodeCheckoutAndDelete(Closure body)
 		{
 			deleteDir()
 		}
+	}
+}
+
+def withBridge(name, Closure body)
+{
+	def bridge = sh ( script:
+			"docker network create " +
+					name + " " +
+					"--driver bridge " +
+					"--internal",
+			returnStdout: true).trim()
+	try
+	{
+		body.call(bridge)
+	}
+	finally
+	{
+		sh "docker network rm " + bridge
 	}
 }
 
