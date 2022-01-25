@@ -71,7 +71,7 @@
 
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.7.1" />
-		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="8.0.29">
+		<dependency conf="mysql->default" org="com.mysql" name="mysql-connector-j" rev="8.2.0">
 			<exclude org="com.google.protobuf" module="protobuf-java" />
 		</dependency>
 		<dependency conf="mariadb->default" org="org.mariadb.jdbc" name="mariadb-java-client" rev="3.0.7" />
