@@ -152,6 +152,42 @@ final class MysqlDialect extends Dialect
 		regexpICU = mysql8;
 
 		extractUniqueViolationMessagePattern = EXTRACT_UNIQUE_VIOLATION_MESSAGE_PATTERN(mysql8);
+		assertDriverVersion(env);
+	}
+
+	static void assertDriverVersion(final EnvironmentInfo env)
+	{
+		if("MariaDB connector/J".equals(env.getDriverName()))
+			return;
+
+		final String PREFIX = "driver version must be between 8.0.21 and 8.0.27, but was ";
+		if(!env.isDriverVersionAtLeast(8, 0) ||
+			env.isDriverVersionAtLeast(8, 1))
+			throw new IllegalArgumentException(
+					PREFIX + "forbidden minor level: " + env.getDriverVersionDescription());
+
+		final String dv = env.getDriverVersion();
+		final Matcher matcher = Pattern.
+				compile("^mysql-connector-java-8\\.0\\.([0-9]*) \\(Revision: [0-9a-f]*\\)$").
+				matcher(dv);
+		if(!matcher.matches())
+			throw new IllegalArgumentException(
+					PREFIX + "illegal pattern: " + dv);
+
+		final String patchLevelString = matcher.group(1);
+		final int patchLevel;
+		try
+		{
+			patchLevel = Integer.parseInt(patchLevelString);
+		}
+		catch(final NumberFormatException e)
+		{
+			throw new IllegalArgumentException(
+					PREFIX + "illegal integer: " + patchLevelString, e);
+		}
+		if( patchLevel<21 || patchLevel>27 )
+			throw new IllegalArgumentException(
+					PREFIX + "forbidden patch level " + patchLevel + " in version: " + dv);
 	}
 
 	static final String sequenceColumnName = "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN";
