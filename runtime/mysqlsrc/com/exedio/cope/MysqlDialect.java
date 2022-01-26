@@ -561,10 +561,15 @@ final class MysqlDialect extends Dialect
 		statement.
 			append(function, join).
 			append(" REGEXP ").
+			// CAST is needed because beginning with MySQL 8.0.22 this expression fails with:
+			// Character set 'utf8mb4_bin' cannot be used in conjunction with 'binary' in call to regexp_like.
+			// More info here: https://bugs.mysql.com/bug.php?id=104387
+			append(regexpICU?"CAST(":"").
 			appendParameter(
 					regexpICU
 					? ICU.getRegularExpression(set)
-					: set.getRegularExpression());
+					: set.getRegularExpression()).
+			append(regexpICU?" AS CHAR)":"");
 	}
 
 	@Override
