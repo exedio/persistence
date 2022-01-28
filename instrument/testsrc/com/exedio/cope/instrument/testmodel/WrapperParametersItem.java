@@ -39,6 +39,7 @@ class WrapperParametersItem extends Item
 	@Wrapper(wrap="param", parameters=Item[][].class, internal=true, visibility=PROTECTED)
 	@Wrapper(wrap="param", parameters=float.class, internal=true, visibility=PUBLIC)
 	@Wrapper(wrap="param", parameters=double.class, internal=true, visibility=PROTECTED)
+	@Wrapper(wrap="param", parameters={Item.class,short.class}, internal=true, visibility=PUBLIC)
 	static final WrapperParametersFeature feature = new WrapperParametersFeature();
 
 	@Wrapper(wrap="method",       parameters=Number.class, visibility=PUBLIC)
@@ -127,6 +128,13 @@ class WrapperParametersItem extends Item
 	protected static final void paramFeatureInternal(final double feature)
 	{
 		WrapperParametersItem.feature.param(WrapperParametersItem.class,feature);
+	}
+
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="param")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	public static final void paramFeatureInternal(final WrapperParametersItem parentItem,final short feature)
+	{
+		WrapperParametersItem.feature.param(WrapperParametersItem.class,parentItem,feature);
 	}
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="method")

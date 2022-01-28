@@ -19,6 +19,7 @@
 package com.exedio.cope.instrument.testfeature;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.Parameter;
 import com.exedio.cope.instrument.Wrap;
 
 @com.exedio.cope.instrument.WrapFeature
@@ -93,6 +94,15 @@ public class WrapperParametersFeature
 	public <P extends Item> void param(
 			@SuppressWarnings("unused") final Class<P> parent,
 			@SuppressWarnings("unused") final double arg)
+	{
+		throw new RuntimeException();
+	}
+
+	@Wrap(order=520)
+	public <P extends Item> void param(
+			@SuppressWarnings("unused") final Class<P> parent,
+			@SuppressWarnings("unused") @Parameter("parentItem") final P parentItem,
+			@SuppressWarnings("unused") final short arg)
 	{
 		throw new RuntimeException();
 	}
