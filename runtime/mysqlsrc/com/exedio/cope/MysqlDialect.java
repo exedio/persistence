@@ -157,7 +157,7 @@ final class MysqlDialect extends Dialect
 
 	static void assertDriverVersion(final EnvironmentInfo env)
 	{
-		if("MariaDB connector/J".equals(env.getDriverName()))
+		if("MariaDB Connector/J".equals(env.getDriverName()))
 			return;
 
 		final String PREFIX = "driver version must be between 8.0.21 and 8.0.27, but was ";
