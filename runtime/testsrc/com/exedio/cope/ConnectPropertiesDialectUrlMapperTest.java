@@ -114,7 +114,7 @@ public class ConnectPropertiesDialectUrlMapperTest
 		{
 			final Object dum = i.next();
 			assertEquals(MysqlDialectUrlMapper.class, dum.getClass());
-			assertEquals("jdbc:mysql:* -> com.exedio.cope.MysqlDialect", dum.toString());
+			assertEquals("jdbc:[mysql|mariadb]:* -> com.exedio.cope.MysqlDialect", dum.toString());
 		}
 		{
 			final Object dum = i.next();

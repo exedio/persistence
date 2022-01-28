@@ -18,31 +18,39 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.util.Check.requireNonEmpty;
+import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static java.util.Objects.requireNonNull;
 
 abstract class SimpleDialectUrlMapper extends DialectUrlMapper
 {
-	private final String urlPrefix;
+	private final String[] subprotocols;
 	private final Class<? extends Dialect> dialectClass;
 
 	SimpleDialectUrlMapper(
-			final String subprotocol,
+			final String[] subprotocols,
 			final Class<? extends Dialect> dialectClass)
 	{
-		this.urlPrefix = "jdbc:" + requireNonEmpty(subprotocol, "subprotocol") + ':';
+		this.subprotocols = requireNonEmptyAndCopy(subprotocols, "subprotocols");
 		this.dialectClass = requireNonNull(dialectClass, "dialectClass");
 	}
 
 	@Override
 	final Class<? extends Dialect> map(final String url)
 	{
-		return url.startsWith(urlPrefix) ? dialectClass : null;
+		for(final String subprotocol : subprotocols)
+			if(url.startsWith("jdbc:" + subprotocol + ':'))
+				return dialectClass;
+		return null;
 	}
 
 	@Override
 	public final String toString()
 	{
-		return urlPrefix + "* -> " + dialectClass.getName();
+		return
+				"jdbc:" + (
+						(subprotocols.length==1)
+						? subprotocols[0]
+						: "[" + String.join("|", subprotocols) + "]") +
+				":* -> " + dialectClass.getName();
 	}
 }

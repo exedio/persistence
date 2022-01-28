@@ -26,9 +26,9 @@ import org.junit.jupiter.api.Test;
 
 public class SimpleDialectUrlMapperTest
 {
-	@Test void testNormal()
+	@Test void testSingle()
 	{
-		final Mapper m = new Mapper("proto", dialectClass);
+		final Mapper m = new Mapper(new String[]{"proto"}, dialectClass);
 		assertSame(dialectClass, m.map("jdbc:proto:"));
 		assertSame(dialectClass, m.map("jdbc:proto:X"));
 		assertSame(null,         m.map("jdbc:proto"));
@@ -40,24 +40,44 @@ public class SimpleDialectUrlMapperTest
 		assertEquals("jdbc:proto:* -> " + dialectClass.getName(), m.toString());
 	}
 
-	@Test void testPrefixNull()
+	@Test void testMultiple()
+	{
+		final Mapper m = new Mapper(new String[]{"proto1","proto2"}, dialectClass);
+		assertSame(dialectClass, m.map("jdbc:proto1:"));
+		assertSame(dialectClass, m.map("jdbc:proto2:"));
+		assertSame(null,         m.map("jdbc:proto:"));
+		assertSame(null,         m.map(""));
+		assertFails(
+				() -> m.map(null),
+				NullPointerException.class, null);
+		assertEquals("jdbc:[proto1|proto2]:* -> " + dialectClass.getName(), m.toString());
+	}
+
+	@Test void testPrefixNullArray()
 	{
 		assertFails(
 				() -> new Mapper(null, null),
-				NullPointerException.class, "subprotocol");
+				NullPointerException.class, "subprotocols");
+	}
+
+	@Test void testPrefixNull()
+	{
+		assertFails(
+				() -> new Mapper(new String[]{null}, null),
+				NullPointerException.class, "subprotocols[0]");
 	}
 
 	@Test void testPrefixEmpty()
 	{
 		assertFails(
-				() -> new Mapper("", null),
-				IllegalArgumentException.class, "subprotocol must not be empty");
+				() -> new Mapper(new String[]{""}, null),
+				IllegalArgumentException.class, "subprotocols[0] must not be empty");
 	}
 
 	@Test void testDialectClassNull()
 	{
 		assertFails(
-				() -> new Mapper("prefix", null),
+				() -> new Mapper(new String[]{"prefix"}, null),
 				NullPointerException.class, "dialectClass");
 	}
 
@@ -67,7 +87,7 @@ public class SimpleDialectUrlMapperTest
 	private static final class Mapper extends SimpleDialectUrlMapper
 	{
 		Mapper(
-				final String urlPrefix,
+				final String[] urlPrefix,
 				final Class<? extends Dialect> dialectClass)
 		{
 			super(urlPrefix, dialectClass);

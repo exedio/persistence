@@ -83,7 +83,7 @@ public abstract class SchemaTest
 			hsqldb = true;
 			postgresql = false;
 		}
-		else if(url.startsWith("jdbc:mysql:"))
+		else if(url.startsWith("jdbc:mysql:")||url.startsWith("jdbc:mariadb:"))
 		{
 			// see MysqlDialect#completeConnectionInfo
 			info.setProperty("allowMultiQueries", "true"); // needed for creating Sequence
