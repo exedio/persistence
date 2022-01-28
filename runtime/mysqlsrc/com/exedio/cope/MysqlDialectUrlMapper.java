@@ -22,6 +22,6 @@ public final class MysqlDialectUrlMapper extends SimpleDialectUrlMapper
 {
 	public MysqlDialectUrlMapper()
 	{
-		super("mysql", MysqlDialect.class);
+		super(new String[]{"mysql","mariadb"}, MysqlDialect.class);
 	}
 }

@@ -168,7 +168,7 @@ def writeEnv(name, driver, text)
 	writeFile(
 			file: 'conf/environment/' + name + '.properties',
 			text:
-					'connection.url=jdbc:mysql://test_db_host/test_db_schema\n' +
+					'connection.url=jdbc:' + (driver=='mariadb-java-client' ? 'mariadb' : 'mysql') + '://test_db_host/test_db_schema\n' +
 					'connection.username=test_db_user\n' +
 					'connection.password=test_db_password\n' +
 					'x-build.dialect=mysql\n' +
