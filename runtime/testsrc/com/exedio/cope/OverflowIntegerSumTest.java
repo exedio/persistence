@@ -85,8 +85,8 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 			{
 				try
 				{
-					rs.getInt(1);
-					fail();
+					final int illegalResult = rs.getInt(1);
+					fail("illegal result " + illegalResult + " for expected " + expected);
 				}
 				catch(final SQLException ignored)
 				{
@@ -122,8 +122,8 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 		{
 			try
 			{
-				query.searchSingleton();
-				fail();
+				final Integer illegalResult = query.searchSingleton();
+				fail("illegal result " + illegalResult + " for expected " + expected);
 			}
 			catch(final SQLRuntimeException e)
 			{

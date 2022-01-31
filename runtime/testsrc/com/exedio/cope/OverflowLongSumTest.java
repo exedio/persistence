@@ -108,8 +108,8 @@ public class OverflowLongSumTest extends TestWithEnvironment
 			{
 				try
 				{
-					rs.getLong(1);
-					fail();
+					final long illegalResult = rs.getLong(1);
+					fail("illegal result " + illegalResult + " for expected " + expected);
 				}
 				catch(final SQLException ignored)
 				{
@@ -130,8 +130,8 @@ public class OverflowLongSumTest extends TestWithEnvironment
 		{
 			try
 			{
-				query.searchSingleton();
-				fail();
+				final Long illegalResult = query.searchSingleton();
+				fail("illegal result " + illegalResult + " for expected " + expected);
 			}
 			catch(final SQLRuntimeException e)
 			{
