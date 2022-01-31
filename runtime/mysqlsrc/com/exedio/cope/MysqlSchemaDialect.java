@@ -31,7 +31,6 @@ import java.sql.ResultSet;
 final class MysqlSchemaDialect extends Dialect
 {
 	private final boolean renameColumn;
-	private final String infoSchemaJoin;
 	private final String foreignKeyRule;
 	private final String rowFormat;
 
@@ -41,7 +40,6 @@ final class MysqlSchemaDialect extends Dialect
 	{
 		super(null);
 		this.renameColumn = mysql80; // supported since MySQL 8.0.3: https://dev.mysql.com/doc/relnotes/mysql/8.0/en/news-8-0-3.html
-		this.infoSchemaJoin = mysql80 ? "" : "LEFT "; // workaround bug that appeared in 8.0.21: https://bugs.mysql.com/bug.php?id=100339
 		// https://dev.mysql.com/doc/refman/5.7/en/create-table-foreign-keys.html#foreign-keys-referential-actions
 		// RESTRICT and NO ACTION are the same, but are reported differently when omitting the ON DELETE / ON UPDATE clauses
 		this.foreignKeyRule = mysql80 ? "NO ACTION" : "RESTRICT";
@@ -174,7 +172,7 @@ final class MysqlSchemaDialect extends Dialect
 						"rc.DELETE_RULE, " + // 6
 						"rc.UPDATE_RULE " + // 7
 				"FROM information_schema.REFERENTIAL_CONSTRAINTS rc " +
-				infoSchemaJoin + "JOIN information_schema.KEY_COLUMN_USAGE kcu " +
+				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
 						"ON rc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
 				"WHERE rc.CONSTRAINT_SCHEMA='" + catalog + "' " +
@@ -190,7 +188,7 @@ final class MysqlSchemaDialect extends Dialect
 						"tc.CONSTRAINT_TYPE," + // 3
 						"kcu.COLUMN_NAME " + // 4
 				"FROM information_schema.TABLE_CONSTRAINTS tc " +
-				infoSchemaJoin + "JOIN information_schema.KEY_COLUMN_USAGE kcu " +
+				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
 						"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 						"AND tc.TABLE_NAME=kcu.TABLE_NAME " +
 						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
