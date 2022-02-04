@@ -31,6 +31,7 @@ import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.Sources;
 import java.sql.SQLException;
 import java.sql.SQLSyntaxErrorException;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -41,6 +42,8 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		super(MODEL);
 		copeRule.omitTransaction();
 	}
+
+	private ConnectProperties previousConnectProperties;
 
 	@Test void test() throws SQLException
 	{
@@ -57,12 +60,14 @@ public class SchemaSavepointTest extends TestWithEnvironment
 					SchemaSavepointNotAvailableException.class,
 					"Access denied; you need the " +
 					"REPLICATION CLIENT privilege for this operation");
-			final Properties.Source props = model.getConnectProperties().getSourceObject();
+			final ConnectProperties cprops = model.getConnectProperties();
+			final Properties.Source props = cprops.getSourceObject();
 			model.disconnect();
 			final String USERNAME = "connection.username";
 			model.connect(ConnectProperties.create(cascade(
 					single(USERNAME, props.get(USERNAME) + "_rc"),
 					props)));
+			previousConnectProperties = cprops;
 		}
 		final String expected = new Props().schemaSavepoint;
 		try
@@ -80,6 +85,17 @@ public class SchemaSavepointTest extends TestWithEnvironment
 		catch(final SchemaSavepointNotAvailableException e)
 		{
 			assertMatches(expected, "FAILS: " + e.getMessage());
+		}
+	}
+
+	@AfterEach void tearDown()
+	{
+		if(previousConnectProperties!=null)
+		{
+			model.rollbackIfNotCommitted();
+			model.disconnect();
+			model.connect(previousConnectProperties);
+			previousConnectProperties = null;
 		}
 	}
 
