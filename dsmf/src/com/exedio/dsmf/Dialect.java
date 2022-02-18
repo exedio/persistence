@@ -504,7 +504,7 @@ public abstract class Dialect
 		}
 	}
 
-	protected static final String getCatalog(final Schema schema)
+	protected static final String getCatalogLiteral(final Schema schema)
 	{
 		final ConnectionProvider connectionProvider = schema.connectionProvider;
 		try
@@ -512,7 +512,7 @@ public abstract class Dialect
 			final Connection connection = connectionProvider.getConnection();
 			try
 			{
-				return connection.getCatalog();
+				return '\'' + connection.getCatalog() + '\'';
 			}
 			finally
 			{

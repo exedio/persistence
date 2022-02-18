@@ -76,12 +76,12 @@ final class MysqlSchemaDialect extends Dialect
 	@Override
 	protected void verify(final Schema schema)
 	{
-		final String catalog = getCatalog(schema);
+		final String catalog = getCatalogLiteral(schema);
 
 		querySQL(schema,
 				"SELECT TABLE_NAME, ENGINE " +
 				"FROM information_schema.TABLES " +
-				"WHERE TABLE_SCHEMA='" + catalog + "' AND TABLE_TYPE='BASE TABLE' " +
+				"WHERE TABLE_SCHEMA=" + catalog + " AND TABLE_TYPE='BASE TABLE' " +
 				"ORDER BY TABLE_NAME", // make it deterministic for more than one unused table
 		resultSet ->
 		{
@@ -114,7 +114,7 @@ final class MysqlSchemaDialect extends Dialect
 				"JOIN information_schema.TABLES t " +
 					"ON c.TABLE_SCHEMA=t.TABLE_SCHEMA " +
 					"AND c.TABLE_NAME=t.TABLE_NAME " +
-				"WHERE c.TABLE_SCHEMA='" + catalog + "' " +
+				"WHERE c.TABLE_SCHEMA=" + catalog + " " +
 				"AND t.TABLE_TYPE='BASE TABLE' " +
 				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
 		resultSet ->
@@ -174,9 +174,9 @@ final class MysqlSchemaDialect extends Dialect
 				"FROM information_schema.REFERENTIAL_CONSTRAINTS rc " +
 				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
 						"ON rc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
-						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
-				"WHERE rc.CONSTRAINT_SCHEMA='" + catalog + "' " +
-						"AND rc.UNIQUE_CONSTRAINT_SCHEMA='" + catalog + '\'',
+						"AND kcu.CONSTRAINT_SCHEMA=" + catalog + " " +
+				"WHERE rc.CONSTRAINT_SCHEMA=" + catalog + " " +
+						"AND rc.UNIQUE_CONSTRAINT_SCHEMA=" + catalog,
 				foreignKeyRule, foreignKeyRule);
 
 		final String PRIMARY_KEY = "PRIMARY KEY";
@@ -191,9 +191,9 @@ final class MysqlSchemaDialect extends Dialect
 				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
 						"ON tc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
 						"AND tc.TABLE_NAME=kcu.TABLE_NAME " +
-						"AND kcu.CONSTRAINT_SCHEMA='" + catalog + "' " +
-				"WHERE tc.CONSTRAINT_SCHEMA='" + catalog + "' " +
-						"AND tc.TABLE_SCHEMA='" + catalog + "' " +
+						"AND kcu.CONSTRAINT_SCHEMA=" + catalog + " " +
+				"WHERE tc.CONSTRAINT_SCHEMA=" + catalog + " " +
+						"AND tc.TABLE_SCHEMA=" + catalog + " " +
 						"AND tc.CONSTRAINT_TYPE IN ('" + PRIMARY_KEY + "','" + UNIQUE + "') " +
 				"ORDER BY tc.TABLE_NAME,tc.CONSTRAINT_NAME,kcu.ORDINAL_POSITION ",
 		resultSet ->
