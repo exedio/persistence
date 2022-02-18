@@ -570,6 +570,7 @@ final class Database
 		dialect.deleteSchema(
 				Collections.unmodifiableList(tables),
 				Collections.unmodifiableList(sequences),
+				forTest,
 				connectionPool);
 
 		for(final Table table : tables)

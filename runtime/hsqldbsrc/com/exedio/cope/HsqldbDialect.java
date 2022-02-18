@@ -302,6 +302,7 @@ final class HsqldbDialect extends Dialect
 	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
+			final boolean forTest,
 			final ConnectionPool connectionPool)
 	{
 		final StringBuilder bf = new StringBuilder();

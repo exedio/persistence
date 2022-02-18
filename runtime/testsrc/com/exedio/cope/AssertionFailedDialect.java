@@ -89,7 +89,7 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	void deleteSchema(final List<Table> tables, final List<SequenceX> sequences, final ConnectionPool connectionPool)
+	void deleteSchema(final List<Table> tables, final List<SequenceX> sequences, final boolean forTest, final ConnectionPool connectionPool)
 	{
 		throw new AssertionError();
 	}
