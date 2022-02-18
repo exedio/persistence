@@ -130,8 +130,7 @@ public abstract class Dialect
 						resultSet.getString(5));// targetColumn
 
 				verifyForeignKeyConstraintRule(constraint, "delete", deleteRule, resultSet, 6);
-				if(updateRule!=null)
-					verifyForeignKeyConstraintRule(constraint, "update", updateRule, resultSet, 7);
+				verifyForeignKeyConstraintRule(constraint, "update", updateRule, resultSet, 7);
 			}
 		});
 	}
