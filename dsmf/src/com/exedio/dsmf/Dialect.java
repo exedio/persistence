@@ -140,7 +140,13 @@ public abstract class Dialect
 			final String expected, final ResultSet resultSet, final int columnIndex)
 	throws SQLException
 	{
-		final String actual = resultSet.getString(columnIndex);
+		verifyForeignKeyConstraintRule(constraint, name, expected, resultSet.getString(columnIndex));
+	}
+
+	protected static void verifyForeignKeyConstraintRule(
+			final ForeignKeyConstraint constraint, final String name,
+			final String expected, final String actual)
+	{
 		if(!expected.equals(actual))
 			notifyAdditionalError(constraint, "unexpected " + name + " rule " + actual);
 	}
@@ -227,7 +233,7 @@ public abstract class Dialect
 			result.notifyExists();
 	}
 
-	static final ForeignKeyConstraint notifyExistentForeignKey(
+	protected static final ForeignKeyConstraint notifyExistentForeignKey(
 			final Table table,
 			final String constraintName,
 			final String foreignKeyColumn,

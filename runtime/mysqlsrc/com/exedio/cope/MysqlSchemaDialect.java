@@ -19,14 +19,18 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MysqlDialect.sequenceColumnName;
+import static java.util.Objects.requireNonNull;
 
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Dialect;
+import com.exedio.dsmf.ForeignKeyConstraint;
 import com.exedio.dsmf.PrimaryKeyConstraint;
 import com.exedio.dsmf.Schema;
 import com.exedio.dsmf.Sequence;
 import com.exedio.dsmf.Table;
 import java.sql.ResultSet;
+import java.util.HashMap;
+import java.util.Map;
 
 final class MysqlSchemaDialect extends Dialect
 {
@@ -169,23 +173,77 @@ final class MysqlSchemaDialect extends Dialect
 			}
 		});
 
-		verifyForeignKeyConstraints(schema,
-				//language=SQL
-				"SELECT " +
-						"rc.CONSTRAINT_NAME, " + // 1
-						"rc.TABLE_NAME, " + // 2
-						"kcu.COLUMN_NAME, " + // 3
-						"rc.REFERENCED_TABLE_NAME, " + // 4
-						"kcu.REFERENCED_COLUMN_NAME, " + // 5
-						"rc.DELETE_RULE, " + // 6
-						"rc.UPDATE_RULE " + // 7
-				"FROM information_schema.REFERENTIAL_CONSTRAINTS rc " +
-				"LEFT JOIN information_schema.KEY_COLUMN_USAGE kcu " +
-						"ON rc.CONSTRAINT_NAME=kcu.CONSTRAINT_NAME " +
-						"AND kcu.CONSTRAINT_SCHEMA=" + catalog + " " +
-				"WHERE rc.CONSTRAINT_SCHEMA=" + catalog + " " +
-						"AND rc.UNIQUE_CONSTRAINT_SCHEMA=" + catalog,
-				foreignKeyRule, foreignKeyRule);
+		{
+			// Querying REFERENTIAL_CONSTRAINTS and KEY_COLUMN_USAGE separately is faster
+			// than a database join between both tables.
+			// For an example schema with 532 foreign key constraints query times did improve
+			// as listed below:
+			//   MySQL 5.7.27: 0,4sec -> 0,09sec
+			//   MySQL 8.0.27: 8sec   -> 0,02sec
+			final HashMap<String, ForeignKeyConstraintCollector> fkCollectors = new HashMap<>();
+			querySQL(schema,
+					//language=SQL
+					"SELECT " +
+							"CONSTRAINT_NAME, " + // 1
+							"TABLE_NAME, " + // 2
+							"REFERENCED_TABLE_NAME, " + // 3
+							"DELETE_RULE, " + // 4
+							"UPDATE_RULE " + // 5
+					"FROM information_schema.REFERENTIAL_CONSTRAINTS " +
+					"WHERE CONSTRAINT_SCHEMA=" + catalog + " " +
+							"AND UNIQUE_CONSTRAINT_SCHEMA=" + catalog,
+			resultSet ->
+			{
+				while(resultSet.next())
+				{
+					final String constraintName = resultSet.getString(1);
+					final ForeignKeyConstraintCollector collector = new ForeignKeyConstraintCollector(
+							getTableStrict(schema, resultSet, 2),
+							resultSet.getString(3),
+							resultSet.getString(4),
+							resultSet.getString(5));
+					final ForeignKeyConstraintCollector collision =
+							fkCollectors.putIfAbsent(constraintName, collector);
+					if(collision!=null)
+						throw new RuntimeException(constraintName + '|' + collector + '|' + collision);
+				}
+			});
+			querySQL(schema,
+					//language=SQL
+					"SELECT " +
+							"CONSTRAINT_NAME, " + // 1
+							"COLUMN_NAME, " + // 2
+							"REFERENCED_COLUMN_NAME " + // 3
+					"FROM information_schema.KEY_COLUMN_USAGE " +
+					"WHERE CONSTRAINT_SCHEMA=" + catalog + " " +
+							"AND REFERENCED_COLUMN_NAME IS NOT NULL",
+			resultSet ->
+			{
+				while(resultSet.next())
+				{
+					final String constraintName = resultSet.getString(1);
+					final ForeignKeyConstraintCollector collector =
+							requireNonNull(fkCollectors.get(constraintName), constraintName);
+					collector.setKeyColumnUsage(
+							resultSet.getString(2),
+							resultSet.getString(3));
+				}
+			});
+			for(final Map.Entry<String, ForeignKeyConstraintCollector> e : fkCollectors.entrySet())
+			{
+				final String constraintName = e.getKey();
+				final ForeignKeyConstraintCollector collector = e.getValue();
+				final ForeignKeyConstraint constraint = notifyExistentForeignKey(
+						collector.table,
+						constraintName,
+						collector.columnName(), // foreignKeyColumn
+						collector.referencedTableName, // targetTable
+						collector.referencedColumnName());// targetColumn
+
+				verifyForeignKeyConstraintRule(constraint, "delete", foreignKeyRule, collector.deleteRule);
+				verifyForeignKeyConstraintRule(constraint, "update", foreignKeyRule, collector.updateRule);
+			}
+		}
 
 		final String PRIMARY_KEY = "PRIMARY KEY";
 		final String UNIQUE = "UNIQUE";
