@@ -37,9 +37,9 @@ public abstract class Dialect
 		this.schema = schema;
 	}
 
-	protected final String getSchema()
+	protected final String getSchemaLiteral()
 	{
-		return requireNonNull(schema);
+		return '\'' + requireNonNull(schema) + '\'';
 	}
 
 	/**

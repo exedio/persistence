@@ -95,11 +95,12 @@ final class PostgresqlSchemaDialect extends Dialect
 	protected void verify(final Schema schema)
 	{
 		final String catalog = getCatalogLiteral(schema);
+		final String schemaL = getSchemaLiteral();
 
 		verifyTables(schema,
 				"SELECT table_name " +
 				"FROM information_schema.tables " +
-				"WHERE table_catalog=" + catalog + " AND table_schema='" + getSchema() + "' " +
+				"WHERE table_catalog=" + catalog + " AND table_schema=" + schemaL + " " +
 				"AND table_type='BASE TABLE' " +
 				"ORDER BY table_name"); // make it deterministic for more than one unused table
 
@@ -112,7 +113,7 @@ final class PostgresqlSchemaDialect extends Dialect
 						"character_maximum_length, " + // 5
 						"datetime_precision " + // 6
 				"FROM information_schema.columns " +
-				"WHERE table_catalog=" + catalog + " AND table_schema='" + getSchema() + "' " +
+				"WHERE table_catalog=" + catalog + " AND table_schema=" + schemaL + " " +
 				"ORDER BY ordinal_position", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
@@ -186,10 +187,10 @@ final class PostgresqlSchemaDialect extends Dialect
 				"JOIN information_schema.key_column_usage cu " +
 				"ON tc.constraint_name=cu.constraint_name AND tc.table_name=cu.table_name " +
 				"WHERE tc.constraint_type='UNIQUE' " +
-				"AND tc.constraint_catalog=" + catalog + " AND tc.constraint_schema='" + getSchema() + "' " +
-				"AND tc.table_catalog="      + catalog + " AND tc.table_schema='"      + getSchema() + "' " +
-				"AND cu.constraint_catalog=" + catalog + " AND cu.constraint_schema='" + getSchema() + "' " +
-				"AND cu.table_catalog="      + catalog + " AND cu.table_schema='"      + getSchema() + "' " +
+				"AND tc.constraint_catalog=" + catalog + " AND tc.constraint_schema=" + schemaL + " " +
+				"AND tc.table_catalog="      + catalog + " AND tc.table_schema="      + schemaL + " " +
+				"AND cu.constraint_catalog=" + catalog + " AND cu.constraint_schema=" + schemaL + " " +
+				"AND cu.table_catalog="      + catalog + " AND cu.table_schema="      + schemaL + " " +
 				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position");
 
 		verifyForeignKeyConstraints(schema,
@@ -204,18 +205,18 @@ final class PostgresqlSchemaDialect extends Dialect
 				"FROM information_schema.referential_constraints rc " +
 				"JOIN information_schema.key_column_usage src ON rc.constraint_name=src.constraint_name " +
 				"JOIN information_schema.key_column_usage tgt ON rc.unique_constraint_name=tgt.constraint_name " +
-				"WHERE rc.constraint_catalog=" + catalog + " AND  rc.constraint_schema='" + getSchema() + "' " +
-				"AND  src.constraint_catalog=" + catalog + " AND src.constraint_schema='" + getSchema() + "' " +
-				"AND  src.table_catalog="      + catalog + " AND src.table_schema='"      + getSchema() + "' " +
-				"AND  tgt.constraint_catalog=" + catalog + " AND tgt.constraint_schema='" + getSchema() + "' " +
-				"AND  tgt.table_catalog="      + catalog + " AND tgt.table_schema='"      + getSchema() + '\'',
+				"WHERE rc.constraint_catalog=" + catalog + " AND  rc.constraint_schema=" + schemaL + " " +
+				"AND  src.constraint_catalog=" + catalog + " AND src.constraint_schema=" + schemaL + " " +
+				"AND  src.table_catalog="      + catalog + " AND src.table_schema="      + schemaL + " " +
+				"AND  tgt.constraint_catalog=" + catalog + " AND tgt.constraint_schema=" + schemaL + " " +
+				"AND  tgt.table_catalog="      + catalog + " AND tgt.table_schema="      + schemaL,
 				// https://www.postgresql.org/docs/9.6/sql-createtable.html
 				"NO ACTION", "NO ACTION");
 
 		verifySequences(schema,
 				"SELECT sequence_name, maximum_value, start_value " +
 				"FROM information_schema.sequences " +
-				"WHERE sequence_catalog=" + catalog + " AND sequence_schema='" + getSchema() + '\'');
+				"WHERE sequence_catalog=" + catalog + " AND sequence_schema=" + schemaL);
 	}
 
 	@Override
