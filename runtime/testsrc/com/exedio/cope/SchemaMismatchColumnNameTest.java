@@ -73,10 +73,10 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			final Constraint pkPk, checkPkMin, checkPkMax;
 			assertIt(null, OK, OK, PrimaryKey, pkPk = table.getConstraint("ItemAB_PK"));
 			assertIt(
-					supported ? null : "not supported",
+					supported ? null : "unsupported",
 					OK, OK, Check, checkPkMin = table.getConstraint("ItemAB_this_MN"));
 			assertIt(
-					supported ? null : "not supported",
+					supported ? null : "unsupported",
 					OK, OK, Check, checkPkMax = table.getConstraint("ItemAB_this_MX"));
 
 			final Constraint checkA = table.getConstraint(nameCkEnum(ItemA.fieldA));
@@ -90,7 +90,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			else
 			{
 				assertNull(checkA);
-				assertIt("not supported",  OK, OK, Check, checkB);
+				assertIt("unsupported",  OK, OK, Check, checkB);
 			}
 
 			assertTrue(pkPk    instanceof com.exedio.dsmf.PrimaryKeyConstraint);

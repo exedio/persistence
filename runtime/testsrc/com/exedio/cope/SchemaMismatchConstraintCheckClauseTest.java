@@ -73,7 +73,7 @@ public class SchemaMismatchConstraintCheckClauseTest extends SchemaMismatchTest
 		}
 		else
 		{
-			assertIt("not supported", OK, OK, Check, check);
+			assertIt("unsupported", OK, OK, Check, check);
 			// test propagation to cumulativeColor
 			assertIt(null, OK, OK, table.getColumn(name(ItemA.field)));
 		}

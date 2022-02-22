@@ -261,7 +261,7 @@ final class RuntimeTester
 		assertEquals(type, constraint.getClass(), name);
 		assertEquals(condition, constraint.getRequiredCondition(), name);
 		assertEquals(expectedSupported, constraint.isSupported());
-		assertEquals(expectedSupported ? null : "not supported", constraint.getError(), name);
+		assertEquals(expectedSupported ? null : "unsupported", constraint.getError(), name);
 		assertEquals(Node.Color.OK, constraint.getParticularColor(), name);
 		return type.cast(constraint);
 	}
@@ -332,7 +332,7 @@ final class RuntimeTester
 				if(constraint instanceof com.exedio.dsmf.CheckConstraint &&
 					!SchemaInfo.supportsCheckConstraints(model))
 				{
-					assertEquals("not supported", constraint.getError(), message);
+					assertEquals("unsupported", constraint.getError(), message);
 					assertEquals(Node.Color.OK, constraint.getParticularColor(), message);
 					assertEquals(Node.Color.OK, constraint.getCumulativeColor(), message);
 				}
