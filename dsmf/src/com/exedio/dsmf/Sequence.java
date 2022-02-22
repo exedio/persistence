@@ -94,7 +94,7 @@ public final class Sequence extends Node
 			return Result.missing;
 
 		if(!required())
-			return Result.notUsedWarning;
+			return Result.unusedWarning;
 
 		if(type.mismatches())
 			return Result.error(

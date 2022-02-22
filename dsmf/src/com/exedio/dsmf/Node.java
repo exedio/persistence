@@ -231,8 +231,8 @@ public abstract class Node
 		static final Result ok = new Result(null, Color.OK);
 		static final Result missing = new Result("missing", Color.ERROR);
 		static final Result notSupported = new Result("not supported", Color.OK);
-		static final Result notUsedWarning = new Result("unused", Color.WARNING);
-		static final Result notUsedError = new Result("unused", Color.ERROR);
+		static final Result unusedWarning = new Result("unused", Color.WARNING);
+		static final Result unusedError = new Result("unused", Color.ERROR);
 
 		static Result error(final String error)
 		{

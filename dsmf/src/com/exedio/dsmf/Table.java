@@ -163,7 +163,7 @@ public final class Table extends Node
 			return Result.missing;
 
 		if(!required())
-			return Result.notUsedWarning;
+			return Result.unusedWarning;
 
 		return Result.ok;
 	}

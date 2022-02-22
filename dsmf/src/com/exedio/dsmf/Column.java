@@ -123,7 +123,7 @@ public final class Column extends Node
 			return Result.missing;
 
 		if(!required())
-			return Result.notUsedWarning;
+			return Result.unusedWarning;
 
 		if(type.mismatches())
 			return Result.error(
