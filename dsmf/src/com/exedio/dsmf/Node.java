@@ -230,7 +230,7 @@ public abstract class Node
 
 		static final Result ok = new Result(null, Color.OK);
 		static final Result missing = new Result("missing", Color.ERROR);
-		static final Result notSupported = new Result("not supported", Color.OK);
+		static final Result notSupported = new Result("unsupported", Color.OK);
 		static final Result unusedWarning = new Result("unused", Color.WARNING);
 		static final Result unusedError = new Result("unused", Color.ERROR);
 
