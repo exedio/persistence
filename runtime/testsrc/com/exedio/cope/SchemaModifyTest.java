@@ -109,7 +109,7 @@ public class SchemaModifyTest extends TestWithEnvironment
 				final Column columnX = table.getColumn(COLUMN1X);
 				assertEquals(false, columnX.required());
 				assertEquals(true, columnX.exists());
-				assertEquals("not used", columnX.getError());
+				assertEquals("unused", columnX.getError());
 				assertEquals(WARNING, columnX.getParticularColor());
 				assertEquals(column1Type, columnX.getType());
 
@@ -204,13 +204,13 @@ public class SchemaModifyTest extends TestWithEnvironment
 				assertNotNull(tableX);
 				assertEquals(false, tableX.required());
 				assertEquals(true, tableX.exists());
-				assertEquals("not used", tableX.getError());
+				assertEquals("unused", tableX.getError());
 				assertEquals(WARNING, tableX.getParticularColor());
 
 				final Column column = tableX.getColumn(COLUMN1);
 				assertEquals(false, column.required());
 				assertEquals(true, column.exists());
-				assertEquals("not used", column.getError());
+				assertEquals("unused", column.getError());
 				assertEquals(WARNING, column.getParticularColor());
 				assertEquals(column1Type, column.getType());
 

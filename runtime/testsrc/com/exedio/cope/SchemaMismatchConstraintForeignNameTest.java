@@ -53,7 +53,7 @@ public class SchemaMismatchConstraintForeignNameTest extends SchemaMismatchTest
 		assertIt(null, OK, ERROR, table);
 
 		final Constraint fkA, fkB;
-		assertIt("not used", ERROR, ERROR, ForeignKey, fkA = table.getConstraint(nameFk(ItemA.fieldA)));
+		assertIt("unused",   ERROR, ERROR, ForeignKey, fkA = table.getConstraint(nameFk(ItemA.fieldA)));
 		assertIt("missing",  ERROR, ERROR, ForeignKey, fkB = table.getConstraint(nameFk(ItemB.fieldB)));
 
 		assertTrue(fkA instanceof com.exedio.dsmf.ForeignKeyConstraint);

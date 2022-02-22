@@ -52,7 +52,7 @@ public class SchemaMismatchConstraintUniqueNameTest extends SchemaMismatchTest
 		assertIt(null, OK, ERROR, table);
 
 		final Constraint uniqueA, uniqueB;
-		assertIt("not used", ERROR, ERROR, Unique, uniqueA = table.getConstraint(name(ItemA.uniqueA)));
+		assertIt("unused",   ERROR, ERROR, Unique, uniqueA = table.getConstraint(name(ItemA.uniqueA)));
 		assertIt("missing",  ERROR, ERROR, Unique, uniqueB = table.getConstraint(name(ItemB.uniqueB)));
 
 		assertTrue(uniqueA instanceof com.exedio.dsmf.UniqueConstraint);
