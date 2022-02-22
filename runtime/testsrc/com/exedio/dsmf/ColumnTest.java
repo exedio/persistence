@@ -100,7 +100,7 @@ public class ColumnTest extends SchemaReadyTest
 				final Column columnX = table.getColumn(COLUMN1X);
 				assertEquals(false, columnX.required());
 				assertEquals(true, columnX.exists());
-				assertEquals("not used", columnX.getError());
+				assertEquals("unused", columnX.getError());
 				assertEquals(WARNING, columnX.getParticularColor());
 				assertEquals(intType, columnX.getType());
 				assertNotSame(column, columnX);

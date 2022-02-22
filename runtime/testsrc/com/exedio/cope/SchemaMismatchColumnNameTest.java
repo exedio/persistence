@@ -61,7 +61,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 		final Column pk, fieldA, fieldB;
 		{
 			assertIt(null, OK, OK, pk = table.getColumn(name(ItemA.TYPE.getThis())));
-			assertIt("not used", WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
+			assertIt("unused",   WARNING, WARNING, fieldA = table.getColumn(name(ItemA.fieldA)));
 			assertIt("missing",  ERROR,   ERROR,   fieldB = table.getColumn(name(ItemB.fieldB)));
 
 			assertEqualsUnmodifiable(asList(pk, fieldB, fieldA), table.getColumns());
@@ -83,7 +83,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			final Constraint checkB = table.getConstraint(nameCkEnum(ItemB.fieldB));
 			if(supported)
 			{
-				assertIt("not used", ERROR, ERROR, Check, checkA);
+				assertIt("unused",   ERROR, ERROR, Check, checkA);
 				assertIt("missing",  ERROR, ERROR, Check, checkB);
 				assertTrue(checkA  instanceof com.exedio.dsmf.CheckConstraint);
 			}

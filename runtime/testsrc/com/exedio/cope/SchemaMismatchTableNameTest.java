@@ -55,9 +55,9 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 		final Table tableA = schema.getTable(name(ItemA.TYPE));
 		{
 			final Column pkA, fdA;
-			assertIt("not used", WARNING, WARNING, tableA);
-			assertIt("not used", WARNING, WARNING, pkA = tableA.getColumn(name(ItemA.TYPE.getThis())));
-			assertIt("not used", WARNING, WARNING, fdA = tableA.getColumn(name(ItemA.field)));
+			assertIt("unused", WARNING, WARNING, tableA);
+			assertIt("unused", WARNING, WARNING, pkA = tableA.getColumn(name(ItemA.TYPE.getThis())));
+			assertIt("unused", WARNING, WARNING, fdA = tableA.getColumn(name(ItemA.field)));
 			assertEqualsUnmodifiable(asList(pkA, fdA), tableA.getColumns());
 		}
 		final Table tableB = schema.getTable(name(ItemB.TYPE));
@@ -79,7 +79,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			}
 			else
 			{
-				assertIt("not used", WARNING, WARNING, PrimaryKey, pkA);
+				assertIt("unused", WARNING, WARNING, PrimaryKey, pkA);
 				assertTrue(pkA instanceof com.exedio.dsmf.PrimaryKeyConstraint);
 				assertSame(null, pkA.getColumn()); // TODO should be pkAcolumn
 			}
@@ -95,7 +95,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 				final Table seqA;
 				final Sequence seqB;
 				assertEquals(null, schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
-				assertIt("not used", WARNING, WARNING, seqA = schema.getTable   (nameSeq(ItemA.TYPE.getThis())));
+				assertIt("unused",   WARNING, WARNING, seqA = schema.getTable   (nameSeq(ItemA.TYPE.getThis())));
 				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
 
 				assertEqualsUnmodifiable(asList(tableB, tableA, seqA), schema.getTables());
@@ -104,7 +104,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 			else
 			{
 				final Sequence seqA, seqB;
-				assertIt("not used", WARNING, WARNING, seqA = schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
+				assertIt("unused",   WARNING, WARNING, seqA = schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
 				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
 
 				assertEqualsUnmodifiable(asList(tableB, tableA), schema.getTables());
