@@ -111,11 +111,16 @@ final class MysqlSchemaDialect extends Dialect
 						"c.COLLATION_NAME," + // 8
 						"c.COLUMN_KEY " + // 9
 				"FROM information_schema.COLUMNS c " +
-				"JOIN information_schema.TABLES t " +
-					"ON c.TABLE_SCHEMA=t.TABLE_SCHEMA " +
-					"AND c.TABLE_NAME=t.TABLE_NAME " +
 				"WHERE c.TABLE_SCHEMA=" + catalog + " " +
-				"AND t.TABLE_TYPE='BASE TABLE' " +
+				"AND c.TABLE_NAME IN " +
+				"(" +
+						// On MySQL 5.7 subquery is twice as fast as a join.
+						// On MySQL 8 there is no difference between subquery and join.
+						"SELECT t.TABLE_NAME " +
+						"FROM information_schema.TABLES t " +
+						"WHERE t.TABLE_SCHEMA=" + catalog + " " +
+						"AND t.TABLE_TYPE='BASE TABLE'" + // excludes views (CREATE VIEW) from result
+				") " +
 				"ORDER BY c.ORDINAL_POSITION", // make it deterministic for multiple unused columns in one table
 		resultSet ->
 		{
