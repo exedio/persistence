@@ -122,7 +122,7 @@ public abstract class Constraint extends Node
 		if(!exists())
 			return isSupported()
 				? Result.missing
-				: Result.notSupported;
+				: Result.unsupported;
 
 		if(!required())
 			return table.required()
