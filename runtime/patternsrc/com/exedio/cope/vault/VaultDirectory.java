@@ -19,10 +19,16 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.Arrays;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
+import java.util.Set;
 
 abstract class VaultDirectory
 {
@@ -116,7 +122,7 @@ abstract class VaultDirectory
 	}
 
 
-	static class Properties extends com.exedio.cope.util.Properties
+	static class Properties extends PosixProperties
 	{
 		/**
 		 * This field is similar to directive {@code CacheDirLength} of Apache mod_cache_disk,
@@ -147,11 +153,14 @@ abstract class VaultDirectory
 		 */
 		final boolean premised;
 
+		final Set<PosixFilePermission> posixPermissions;
+
 		Properties(final Source source, final boolean writable)
 		{
 			super(source);
 			//noinspection SimplifiableConditionalExpression
 			premised = writable ? value("premised", false) : false;
+			posixPermissions = writable&&!premised ? value("posixPermissions", EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE)) : null;
 		}
 
 		Iterator<String> iterator()

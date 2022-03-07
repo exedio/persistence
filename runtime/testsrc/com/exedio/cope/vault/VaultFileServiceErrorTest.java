@@ -51,9 +51,11 @@ public class VaultFileServiceErrorTest
 				"service",
 				"service.root",
 				"service.writable",
+				"service.posixPermissions",
 				"service.directory",
 				"service.directory.length",
 				"service.directory.premised",
+				"service.directory.posixPermissions",
 				"service.temp",
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
@@ -92,6 +94,42 @@ public class VaultFileServiceErrorTest
 		assertEquals(
 				"non-writable properties cannot be used in writable service",
 				e.getMessage());
+	}
+
+	@Test void posixBroken()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.posixPermissions", "zack");
+
+		final Factory<VaultProperties> factory = VaultProperties.factory();
+		final Source sourceView = Sources.view(source, "DESC");
+		assertFails(
+				() -> factory.create(sourceView),
+				IllegalPropertiesException.class,
+				"property service.posixPermissions in DESC " +
+				"must be posix file permissions according to PosixFilePermissions.fromString, " +
+				"but was 'zack'");
+	}
+
+	@Test void posixDirectoryBroken()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.directory.posixPermissions", "zack");
+
+		final Factory<VaultProperties> factory = VaultProperties.factory();
+		final Source sourceView = Sources.view(source, "DESC");
+		assertFails(
+				() -> factory.create(sourceView),
+				IllegalPropertiesException.class,
+				"property service.directory.posixPermissions in DESC " +
+				"must be posix file permissions according to PosixFilePermissions.fromString, " +
+				"but was 'zack'");
 	}
 
 	@Test void directoryLengthTooLong()
