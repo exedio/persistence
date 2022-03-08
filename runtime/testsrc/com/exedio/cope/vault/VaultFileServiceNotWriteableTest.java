@@ -73,7 +73,9 @@ public class VaultFileServiceNotWriteableTest extends AbstractVaultFileServiceTe
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
+		assertEquals(null, service.fileAttributes);
 		assertEquals("l=3", service.directory.toString());
+		assertEquals(null, service.directoryAttributes);
 		assertEquals(null, service.tempDir);
 	}
 

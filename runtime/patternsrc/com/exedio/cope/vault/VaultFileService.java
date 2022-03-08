@@ -22,8 +22,9 @@ import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 
-import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceProperties;
 import java.io.IOException;
 import java.io.InputStream;
@@ -34,7 +35,12 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
+import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFilePermission;
+import java.nio.file.attribute.PosixFilePermissions;
+import java.util.EnumSet;
 import java.util.Iterator;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -42,7 +48,9 @@ import org.slf4j.LoggerFactory;
 public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
+	final FileAttribute<?>[] fileAttributes;
 	final VaultDirectory directory;
+	final FileAttribute<?>[] directoryAttributes;
 	final Path tempDir;
 
 	VaultFileService(
@@ -50,8 +58,22 @@ public final class VaultFileService implements VaultService
 			final Props properties)
 	{
 		this.rootDir = properties.root;
+		this.fileAttributes = parameters.isWritable() ? asFileAttributes(properties.filePosixPermissions) : null;
 		this.directory = VaultDirectory.instance(properties.directory, parameters);
+		this.directoryAttributes = properties.directory!=null&&parameters.isWritable() ? asFileAttributes(properties.directory.posixPermissions) : null;
 		this.tempDir = parameters.isWritable() ? properties.tempDir() : null;
+	}
+
+	@SuppressWarnings("ZeroLengthArrayAllocation") // OK: just for Windows
+	private static FileAttribute<?>[] asFileAttributes(final Set<PosixFilePermission> posixFilePermissions)
+	{
+		if(posixFilePermissions==null)
+			return null;
+
+		return
+				System.getProperty("os.name").toLowerCase().contains("windows")
+				? new FileAttribute<?>[] { }
+				: new FileAttribute<?>[] { PosixFilePermissions.asFileAttribute(posixFilePermissions) };
 	}
 
 	// TODO implement purgeSchema, delete old files in tempDir if VaultServiceParameters#isWritable()==false
@@ -151,11 +173,11 @@ public final class VaultFileService implements VaultService
 		return moveIfDestDoesNotExist(temp, file);
 	}
 
-	private static void createDirectoryIfNotExists(final Path file) throws IOException
+	private void createDirectoryIfNotExists(final Path file) throws IOException
 	{
 		try
 		{
-			Files.createDirectory(file);
+			Files.createDirectory(file, directoryAttributes);
 		}
 		catch(final FileAlreadyExistsException ignored)
 		{
@@ -191,7 +213,7 @@ public final class VaultFileService implements VaultService
 
 	private Path createTempFile(final String hash) throws IOException
 	{
-		return Files.createTempFile(tempDir, anonymiseHash(hash), ".tmp");
+		return Files.createTempFile(tempDir, anonymiseHash(hash), ".tmp", fileAttributes);
 	}
 
 	private RuntimeException wrap(final String hash, final IOException exception)
@@ -231,10 +253,11 @@ public final class VaultFileService implements VaultService
 	}
 
 
-	static final class Props extends Properties
+	static final class Props extends PosixProperties
 	{
 		final Path root = valuePath("root");
 		final boolean writable = value("writable", true);
+		final Set<PosixFilePermission> filePosixPermissions = writable ? value("posixPermissions", EnumSet.of(OWNER_READ, OWNER_WRITE)) : null;
 		final VaultDirectory.Properties directory = value("directory", true, s -> new VaultDirectory.Properties(s, writable));
 		private final String temp = writable ? value("temp", ".tempVaultFileService") : null;
 

@@ -18,24 +18,34 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.nio.file.attribute.PosixFilePermission.GROUP_READ;
+import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
+import static java.nio.file.attribute.PosixFilePermission.OTHERS_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.NoSuchFileException;
 import java.util.EnumSet;
+import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
-public class VaultFileServiceTest extends AbstractVaultFileServiceTest
+public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServiceTest
 {
+	@Override
+	protected Properties getServiceProperties() throws IOException
+	{
+		final Properties result = super.getServiceProperties();
+		result.setProperty("posixPermissions", "rw-r-----");
+		result.setProperty("directory.posixPermissions", "rwx---r-x");
+		return result;
+	}
+
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
@@ -69,8 +79,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), d);
+		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
+		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -78,8 +88,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), d);
+		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
+		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -87,26 +97,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), d);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), f);
-	}
-
-	@Test void notFoundAnonymous()
-	{
-		final VaultFileService service = (VaultFileService)getService();
-		final VaultNotFoundException notFound = assertFails(
-				() -> service.getLength("abcdefghijklmnopq"),
-				VaultNotFoundException.class,
-				"hash not found in vault: abcdefghijklmnopxx17");
-		assertEquals("abcdefghijklmnopq", notFound.getHashComplete());
-		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
-
-		final Throwable cause = notFound.getCause();
-		assertEquals(
-				NoSuchFileException.class.getName() + ": " + getRoot() + File.separator + "abc" + File.separator + "defghijklmnopxx17",
-				cause.getMessage());
-		assertEquals(VaultNotFoundException.class.getName() + "$Anonymous", cause.getClass().getName());
-		assertNull(cause.getCause());
+		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
+		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
+		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), f);
 	}
 }
