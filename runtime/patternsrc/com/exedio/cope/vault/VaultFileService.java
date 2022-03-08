@@ -57,11 +57,12 @@ public final class VaultFileService implements VaultService
 			final VaultServiceParameters parameters,
 			final Props properties)
 	{
+		final boolean writable = parameters.isWritable();
 		this.rootDir = properties.root;
-		this.fileAttributes = parameters.isWritable() ? asFileAttributes(properties.filePosixPermissions) : null;
+		this.fileAttributes = writable ? asFileAttributes(properties.filePosixPermissions) : null;
 		this.directory = VaultDirectory.instance(properties.directory, parameters);
-		this.directoryAttributes = properties.directory!=null&&parameters.isWritable() ? asFileAttributes(properties.directory.posixPermissions) : null;
-		this.tempDir = parameters.isWritable() ? properties.tempDir() : null;
+		this.directoryAttributes = properties.directory!=null&&writable ? asFileAttributes(properties.directory.posixPermissions) : null;
+		this.tempDir = writable ? properties.tempDir() : null;
 	}
 
 	@SuppressWarnings("ZeroLengthArrayAllocation") // OK: just for Windows
