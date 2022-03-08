@@ -41,6 +41,7 @@ import java.nio.file.attribute.PosixFilePermissions;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -48,9 +49,9 @@ import org.slf4j.LoggerFactory;
 public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
-	final FileAttribute<?>[] fileAttributes;
+	private final FileAttribute<?>[] fileAttributes;
 	final VaultDirectory directory;
-	final FileAttribute<?>[] directoryAttributes;
+	private final FileAttribute<?>[] directoryAttributes;
 	final Path tempDir;
 
 	VaultFileService(
@@ -384,6 +385,21 @@ public final class VaultFileService implements VaultService
 			else
 				return missing.toString();
 		}
+	}
+
+
+	// the methods below are just for junit tests
+	Stream<FileAttribute<?>> fileAttributes()
+	{
+		return attributes(fileAttributes);
+	}
+	Stream<FileAttribute<?>> directoryAttributes()
+	{
+		return attributes(directoryAttributes);
+	}
+	private static Stream<FileAttribute<?>> attributes(final FileAttribute<?>[] attributes)
+	{
+		return attributes!=null ? Stream.of(attributes) : null;
 	}
 
 
