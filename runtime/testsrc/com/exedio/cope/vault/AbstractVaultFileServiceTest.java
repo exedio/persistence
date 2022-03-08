@@ -210,13 +210,13 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertFails(
 				() -> getService().probeGenuineServiceKey("myKey"),
 				IllegalStateException.class,
-				reason + ": " + getRoot() + "/VaultGenuineServiceKey/myKey");
+				reason + ": " + getRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
 	}
 	private void assertProbeGenuineServiceKeyFails()
 	{
 		assertFails(
 				() -> getService().probeGenuineServiceKey("myKey"),
 				NoSuchFileException.class,
-				getRoot() + "/VaultGenuineServiceKey/myKey");
+				getRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
 	}
 }
