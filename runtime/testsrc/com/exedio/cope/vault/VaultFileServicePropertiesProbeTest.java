@@ -78,8 +78,15 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final Props p = new Props(source);
-		assertEquals(
-				asList("root", "writable", "posixPermissions", "directory", "directory.length", "directory.premised", "directory.posixPermissions", "temp"),
+		assertEquals(asList(
+				"root",
+				"writable",
+				"posixPermissions",
+				"directory",
+				"directory.length",
+				"directory.premised",
+				"directory.posixPermissions",
+				"temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 
 		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
