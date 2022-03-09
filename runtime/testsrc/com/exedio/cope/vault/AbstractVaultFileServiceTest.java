@@ -22,6 +22,7 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.vaulttest.VaultServiceTest;
@@ -95,6 +96,11 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		assertEquals(
 				new TreeSet<>(asList(content)),
 				new TreeSet<>(asList(actual)));
+	}
+
+	protected final void assumePosixPermissions()
+	{
+		assumeTrue(posixAvailable);
 	}
 
 	protected final void assertPosixPermissions(

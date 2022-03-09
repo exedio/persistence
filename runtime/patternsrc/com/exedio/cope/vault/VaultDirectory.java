@@ -153,7 +153,28 @@ abstract class VaultDirectory
 		 */
 		final boolean premised;
 
+		/**
+		 * New directories added to the vault will be created with the permissions
+		 * specified by this property.
+		 * <p>
+		 * Note, that actual results are affected by {@code umask},
+		 * see https://en.wikipedia.org/wiki/Umask#Mask_effect .
+		 */
 		final Set<PosixFilePermission> posixPermissions;
+
+		/**
+		 * If set, new directories added to the vault will be {@code chmod}ed
+		 * to the permissions specified by this property immediately after
+		 * creation.
+		 * <p>
+		 * In contrast to {@link #posixPermissions} permissions set here
+		 * are not affected by {@code umask}.
+		 * <p>
+		 * If this property is not set, permissions won't be changed at all
+		 * after creation of the directory and effects of {@link #posixPermissions}
+		 * are not overwritten.
+		 */
+		final Set<PosixFilePermission> posixPermissionsAfterwards;
 
 		Properties(final Source source, final boolean writable)
 		{
@@ -161,6 +182,7 @@ abstract class VaultDirectory
 			//noinspection SimplifiableConditionalExpression
 			premised = writable ? value("premised", false) : false;
 			posixPermissions = writable&&!premised ? value("posixPermissions", EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE)) : null;
+			posixPermissionsAfterwards = writable&&!premised ? value("posixPermissionsAfterwards", (Set<PosixFilePermission>)null) : null;
 		}
 
 		Iterator<String> iterator()

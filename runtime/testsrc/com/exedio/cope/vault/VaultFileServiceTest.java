@@ -40,8 +40,10 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE]", service.fileAttributes());
+		assertEquals(null, service.filePermissionsAfterwards);
 		assertEquals("l=3", service.directory.toString());
 		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE]", service.directoryAttributes());
+		assertEquals(null, service.directoryPermissionsAfterwards);
 		assertNotNull(service.tempDir);
 	}
 
