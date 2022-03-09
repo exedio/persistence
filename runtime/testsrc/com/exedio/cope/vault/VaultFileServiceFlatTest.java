@@ -44,9 +44,9 @@ public class VaultFileServiceFlatTest extends AbstractVaultFileServiceTest
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertNotNull(service.fileAttributes);
+		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE]", service.fileAttributes());
 		assertEquals("flat", service.directory.toString());
-		assertEquals(null, service.directoryAttributes);
+		assertEquaFA(null, service.directoryAttributes());
 		assertNotNull(service.tempDir);
 	}
 

@@ -49,9 +49,9 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertNotNull(service.fileAttributes);
+		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, GROUP_READ]", service.fileAttributes());
 		assertEquals("l=3", service.directory.toString());
-		assertNotNull(service.directoryAttributes);
+		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE]", service.directoryAttributes());
 		assertNotNull(service.tempDir);
 	}
 

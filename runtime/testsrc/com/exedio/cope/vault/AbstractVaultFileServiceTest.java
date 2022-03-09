@@ -34,11 +34,15 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.attribute.FileAttribute;
 import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.EnumSet;
 import java.util.Properties;
+import java.util.Set;
 import java.util.TreeSet;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
@@ -103,6 +107,31 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 					expected,
 					Files.getFileAttributeView(actual.toPath(), PosixFileAttributeView.class).
 							readAttributes().permissions());
+	}
+
+	protected final void assertEquaFA(
+			final String expected,
+			final Stream<FileAttribute<?>> actual)
+	{
+		assertEquals(
+				(!posixAvailable&&expected!=null) ? "" : expected,
+				actual!=null
+				? actual.
+						map(fa -> fa.name() + "->" + normalize(fa.value())).
+						collect(Collectors.joining(","))
+				: null
+		);
+	}
+
+	private static Object normalize(final Object o)
+	{
+		if(o instanceof Set) // implementation detail of PosixFilePermissions#asFileAttribute
+		{
+			//noinspection OverlyStrongTypeCast
+			return new TreeSet<>((Set<?>)o);
+		}
+		else
+			return o;
 	}
 
 	@Test final void directoryTraversalGetLength()
