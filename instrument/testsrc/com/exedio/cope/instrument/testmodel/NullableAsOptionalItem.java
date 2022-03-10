@@ -1,14 +1,18 @@
 package com.exedio.cope.instrument.testmodel;
 
 import com.exedio.cope.Item;
+import com.exedio.cope.instrument.NullableAsOptional;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.testfeature.NullabilityFeature;
 
 class NullableAsOptionalItem extends Item
 {
 	static final NullabilityFeature wrapDefault = new NullabilityFeature(true);
 
+	@Wrapper(wrap="*", nullableAsOptional=NullableAsOptional.YES)
 	static final NullabilityFeature wrapped = new NullabilityFeature(true);
 
+	@Wrapper(wrap="*", nullableAsOptional=NullableAsOptional.NO)
 	static final NullabilityFeature notWrapped = new NullabilityFeature(true);
 
 	/**
@@ -74,10 +78,10 @@ class NullableAsOptionalItem extends Item
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	static final java.lang.Object allWrappedCanReturnNull()
+	@javax.annotation.Nonnull
+	static final java.util.Optional<java.lang.Object> allWrappedCanReturnNull()
 	{
-		return NullableAsOptionalItem.wrapped.allCanReturnNull();
+		return java.util.Optional.ofNullable(NullableAsOptionalItem.wrapped.allCanReturnNull());
 	}
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCannotReturnNull")
@@ -90,10 +94,10 @@ class NullableAsOptionalItem extends Item
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="onlyOptionalsCanReturnNull")
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nullable
-	static final java.lang.Object onlyWrappedOptionalsCanReturnNull()
+	@javax.annotation.Nonnull
+	static final java.util.Optional<java.lang.Object> onlyWrappedOptionalsCanReturnNull()
 	{
-		return NullableAsOptionalItem.wrapped.onlyOptionalsCanReturnNull();
+		return java.util.Optional.ofNullable(NullableAsOptionalItem.wrapped.onlyOptionalsCanReturnNull());
 	}
 
 	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="allCanTakeNull")
