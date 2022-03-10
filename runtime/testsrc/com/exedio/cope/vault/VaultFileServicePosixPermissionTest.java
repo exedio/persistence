@@ -41,7 +41,7 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 	protected Properties getServiceProperties() throws IOException
 	{
 		final Properties result = super.getServiceProperties();
-		result.setProperty("posixPermissions", "rw-r-----");
+		result.setProperty(          "posixPermissions", "rw-r-----");
 		result.setProperty("directory.posixPermissions", "rwx---r-x");
 		return result;
 	}
