@@ -88,4 +88,9 @@ public @interface Wrapper
 	 * Adds the given texts as annotations to the generated wrapper method. Values must start with "{@literal @}".
 	 */
 	String[] annotate() default {};
+
+	/**
+	 * If generated wrapper methods can return null, controls whether the result is wrapped into a {@link java.util.Optional}.
+	 */
+	NullableAsOptional nullableAsOptional() default NullableAsOptional.DEFAULT;
 }

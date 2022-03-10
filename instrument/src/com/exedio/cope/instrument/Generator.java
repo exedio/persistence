@@ -38,6 +38,7 @@ import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
@@ -48,6 +49,8 @@ final class Generator
 {
 	private static final String CLASS     = Class   .class.getName();
 	private static final String SET_VALUE = SetValue.class.getName();
+	private static final String OPTIONAL  = Optional.class.getName();
+
 
 	private static final String CONSTRUCTOR_INITIAL = "Creates a new {0} with all the fields initially needed.";
 	private static final String CONSTRUCTOR_INITIAL_PARAMETER = "the initial value for field {0}.";
@@ -400,6 +403,7 @@ final class Generator
 			final boolean override = option.override();
 			final String[] customAnnotations = option.annotate();
 			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
+			final boolean wrapResultInOptional = wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
 
 			final Object[] arguments = new String[]{
 					feature.getJavadocReference(),
@@ -472,7 +476,7 @@ final class Generator
 					writeEmptyAnnotationOnSeparateLine(Nonnull.class);
 					break;
 				case NULLABLE:
-					writeEmptyAnnotationOnSeparateLine(Nullable.class);
+					writeEmptyAnnotationOnSeparateLine(wrapResultInOptional ? Nonnull.class : Nullable.class );
 					break;
 				case DEFAULT:
 					// nothing to do
@@ -506,7 +510,11 @@ final class Generator
 					(option.asFinal()
 							&& visibilityModifier!=PRIVATE
 							&& (!feature.parent.isFinal()||finalMethodInFinalClass) ? FINAL : 0));
+			if (wrapResultInOptional)
+				write(OPTIONAL+"<");
 			write(ctx.write(methodReturnType, false));
+			if (wrapResultInOptional)
+				write(">");
 			if(useIs && option.booleanAsIs())
 			{
 				write(" is");
@@ -582,6 +590,8 @@ final class Generator
 			writeIndent(1);
 			if(!methodReturnType.equals(void.class))
 				write("return ");
+			if (wrapResultInOptional)
+				write(OPTIONAL+".ofNullable(");
 		//noinspection IfStatementWithIdenticalBranches keep opening and closing parenthesis together
 		if(kind.revertFeatureBody)
 		{
@@ -643,6 +653,8 @@ final class Generator
 			}
 			write(')');
 		}
+			if (wrapResultInOptional)
+				write(")");
 			write(';');
 			write(lineSeparator);
 			writeIndent();
