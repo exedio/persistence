@@ -36,6 +36,7 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.EnumSet;
@@ -50,8 +51,10 @@ public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
 	private final FileAttribute<?>[] fileAttributes;
+	final Set<PosixFilePermission> filePermissionsAfterwards;
 	final VaultDirectory directory;
 	private final FileAttribute<?>[] directoryAttributes;
+	final Set<PosixFilePermission> directoryPermissionsAfterwards;
 	final Path tempDir;
 
 	VaultFileService(
@@ -61,8 +64,10 @@ public final class VaultFileService implements VaultService
 		final boolean writable = parameters.isWritable();
 		this.rootDir = properties.root;
 		this.fileAttributes = writable ? asFileAttributes(properties.filePosixPermissions) : null;
+		this.filePermissionsAfterwards = writable ? properties.filePosixPermissionsAfterwards : null;
 		this.directory = VaultDirectory.instance(properties.directory, parameters);
 		this.directoryAttributes = properties.directory!=null&&writable ? asFileAttributes(properties.directory.posixPermissions) : null;
+		this.directoryPermissionsAfterwards = properties.directory!=null&&writable ? properties.directory.posixPermissionsAfterwards : null;
 		this.tempDir = writable ? properties.tempDir() : null;
 	}
 
@@ -168,6 +173,8 @@ public final class VaultFileService implements VaultService
 
 		value.accept(temp);
 
+		setPermissions(temp, filePermissionsAfterwards);
+
 		final String dir = directory.directoryToBeCreated(hash);
 		if(dir!=null)
 			createDirectoryIfNotExists(rootDir.resolve(dir));
@@ -183,8 +190,19 @@ public final class VaultFileService implements VaultService
 		}
 		catch(final FileAlreadyExistsException ignored)
 		{
-			// ok
+			return; // ok
 		}
+		setPermissions(file, directoryPermissionsAfterwards);
+	}
+
+	private static void setPermissions(
+			final Path file,
+			final Set<PosixFilePermission> permissions)
+			throws IOException
+	{
+		if(permissions!=null)
+			Files.getFileAttributeView(file, PosixFileAttributeView.class).
+					setPermissions(permissions);
 	}
 
 	private static boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
@@ -259,7 +277,32 @@ public final class VaultFileService implements VaultService
 	{
 		final Path root = valuePath("root");
 		final boolean writable = value("writable", true);
+
+		/**
+		 * New files added to the vault will be created with the permissions
+		 * specified by this property.
+		 * <p>
+		 * Note, that actual results are affected by {@code umask},
+		 * see https://en.wikipedia.org/wiki/Umask#Mask_effect .
+		 */
 		final Set<PosixFilePermission> filePosixPermissions = writable ? value("posixPermissions", EnumSet.of(OWNER_READ, OWNER_WRITE)) : null;
+
+		/**
+		 * If set, new files added to the vault will be {@code chmod}ed
+		 * to the permissions specified by this property immediately after
+		 * creation.
+		 * <p>
+		 * In contrast to {@link #filePosixPermissions} permissions set here
+		 * <ul>
+		 * <li>are not affected by {@code umask} and
+		 * <li>may strip the {@link PosixFilePermission#OWNER_WRITE user=write} permission from files.
+		 * </ul>
+		 * If this property is not set, permissions won't be changed at all
+		 * after creation of the file and effects of {@link #filePosixPermissions}
+		 * are not overwritten.
+		 */
+		final Set<PosixFilePermission> filePosixPermissionsAfterwards = writable ? value("posixPermissionsAfterwards", (Set<PosixFilePermission>)null) : null;
+
 		final VaultDirectory.Properties directory = value("directory", true, s -> new VaultDirectory.Properties(s, writable));
 		private final String temp = writable ? value("temp", ".tempVaultFileService") : null;
 

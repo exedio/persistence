@@ -82,10 +82,12 @@ public class VaultFileServicePropertiesProbeTest
 				"root",
 				"writable",
 				"posixPermissions",
+				"posixPermissionsAfterwards",
 				"directory",
 				"directory.length",
 				"directory.premised",
 				"directory.posixPermissions",
+				"directory.posixPermissionsAfterwards",
 				"temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 

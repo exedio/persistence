@@ -52,8 +52,10 @@ public class VaultFileServicePremisedTest extends AbstractVaultFileServiceTest
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE]", service.fileAttributes());
+		assertEquals(null, service.filePermissionsAfterwards);
 		assertEquals("l=3 premised", service.directory.toString());
 		assertEquaFA(null, service.directoryAttributes());
+		assertEquals(null, service.directoryPermissionsAfterwards);
 		assertNotNull(service.tempDir);
 	}
 

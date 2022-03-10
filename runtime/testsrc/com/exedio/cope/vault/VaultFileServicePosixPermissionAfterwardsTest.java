@@ -18,9 +18,9 @@
 
 package com.exedio.cope.vault;
 
-import static java.nio.file.attribute.PosixFilePermission.GROUP_READ;
-import static java.nio.file.attribute.PosixFilePermission.OTHERS_EXECUTE;
-import static java.nio.file.attribute.PosixFilePermission.OTHERS_READ;
+import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static java.nio.file.attribute.PosixFilePermission.GROUP_EXECUTE;
+import static java.nio.file.attribute.PosixFilePermission.GROUP_WRITE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
@@ -31,29 +31,46 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.attribute.PosixFileAttributeView;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.EnumSet;
 import java.util.Properties;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServiceTest
+public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVaultFileServiceTest
 {
+	private EnumSet<PosixFilePermission> filePerms;
+	private EnumSet<PosixFilePermission> dirPerms;
+
 	@Override
 	protected Properties getServiceProperties() throws IOException
 	{
+		filePerms = EnumSet.allOf(PosixFilePermission.class);
+		dirPerms  = EnumSet.allOf(PosixFilePermission.class);
+		filePerms.remove(GROUP_WRITE);
+		dirPerms .remove(GROUP_EXECUTE);
 		final Properties result = super.getServiceProperties();
-		result.setProperty("posixPermissions", "rw-r-----");
-		result.setProperty("directory.posixPermissions", "rwx---r-x");
+		result.setProperty(          "posixPermissionsAfterwards", "rwxr-xrwx");
+		result.setProperty("directory.posixPermissionsAfterwards", "rwxrw-rwx");
 		return result;
+	}
+
+	@BeforeEach
+	void assumePosixPermissionsBeforeEach()
+	{
+		assumePosixPermissions();
 	}
 
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
-		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, GROUP_READ]", service.fileAttributes());
-		assertEquals(null, service.filePermissionsAfterwards);
+		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE]", service.fileAttributes());
+		assertEqualsUnmodifiable(filePerms, service.filePermissionsAfterwards);
 		assertEquals("l=3", service.directory.toString());
-		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE]", service.directoryAttributes());
-		assertEquals(null, service.directoryPermissionsAfterwards);
+		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE]", service.directoryAttributes());
+		assertEqualsUnmodifiable(dirPerms, service.directoryPermissionsAfterwards);
 		assertNotNull(service.tempDir);
 	}
 
@@ -81,8 +98,8 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -90,8 +107,12 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
+
+		// test that directory.posixPermissionsAfterwards is not applied to already existing directories
+		final EnumSet<PosixFilePermission> reducedPerms = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE);
+		Files.getFileAttributeView(abc.toPath(), PosixFileAttributeView.class).setPermissions(reducedPerms);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -99,8 +120,8 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), f);
+		assertPosixPermissions(reducedPerms, abc);
+		assertPosixPermissions(filePerms, d);
+		assertPosixPermissions(filePerms, f);
 	}
 }
