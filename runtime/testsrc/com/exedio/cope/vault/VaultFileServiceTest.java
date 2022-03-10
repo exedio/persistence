@@ -45,9 +45,11 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE]", service.fileAttributes());
 		assertEquals(null, service.filePermissionsAfterwards);
+		assertEquals("", service.fileGroup);
 		assertEquals("l=3", service.directory.toString());
 		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE]", service.directoryAttributes());
 		assertEquals(null, service.directoryPermissionsAfterwards);
+		assertEquals("", service.directoryGroup);
 		assertNotNull(service.tempDir);
 	}
 
@@ -75,8 +77,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosix(dirPerms, abc);
-		assertPosix(filePerms, d);
+		assertPosix(dirPerms, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -84,8 +86,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosix(dirPerms, abc);
-		assertPosix(filePerms, d);
+		assertPosix(dirPerms, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -93,9 +95,9 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosix(dirPerms, abc);
-		assertPosix(filePerms, d);
-		assertPosix(filePerms, f);
+		assertPosix(dirPerms, rootGroup(), abc);
+		assertPosix(filePerms, rootGroup(), d);
+		assertPosix(filePerms, rootGroup(), f);
 	}
 
 	@Test void notFoundAnonymous()

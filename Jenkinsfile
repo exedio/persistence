@@ -43,6 +43,8 @@ try
 
 				mainImage.inside(
 						"--name '" + dockerName + "' " +
+						"--group-add copevaultfilesv1 " + // VaultFileServicePosixGroupTest#testGroupFile
+						"--group-add copevaultfilesv2 " + // VaultFileServicePosixGroupTest#testGroupDirectory
 						"--cap-drop all " +
 						"--security-opt no-new-privileges " +
 						"--network " + bridge)

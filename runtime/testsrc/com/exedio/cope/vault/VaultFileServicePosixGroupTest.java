@@ -18,7 +18,6 @@
 
 package com.exedio.cope.vault;
 
-import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
@@ -40,18 +39,29 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 /**
- * Tests that vault files can be actually read-only.
+ * If you want to run this test on a linux work station you have to prepare your system
+ * before:
+ * <pre>
+ * sudo addgroup copevaultfilesv1
+ * sudo addgroup copevaultfilesv2
+ * sudo usermod --append --groups copevaultfilesv1,copevaultfilesv2 &lt;user name&gt;
+ * </pre>
+ * and do a logout/login for changes to take effect.
  */
-public class VaultFileServicePosixPermissionMinimalTest extends AbstractVaultFileServiceTest
+public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 {
-	private static final EnumSet<PosixFilePermission> filePerms = EnumSet.of(OWNER_READ);
+	private static final EnumSet<PosixFilePermission> filePerms = EnumSet.of(OWNER_READ, OWNER_WRITE);
 	private static final EnumSet<PosixFilePermission> dirPerms  = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE);
+
+	static final String testGroupFile      = "copevaultfilesv1";
+	static final String testGroupDirectory = "copevaultfilesv2";
 
 	@Override
 	protected Properties getServiceProperties() throws IOException
 	{
 		final Properties result = super.getServiceProperties();
-		result.setProperty("posixPermissionsAfterwards", "r--------");
+		result.setProperty(          "posixGroup", testGroupFile);
+		result.setProperty("directory.posixGroup", testGroupDirectory);
 		return result;
 	}
 
@@ -65,10 +75,12 @@ public class VaultFileServicePosixPermissionMinimalTest extends AbstractVaultFil
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE]", service.fileAttributes());
-		assertEqualsUnmodifiable(filePerms, service.filePermissionsAfterwards);
+		assertEquals(null, service.filePermissionsAfterwards);
+		assertEquals(testGroupFile, service.fileGroup);
 		assertEquals("l=3", service.directory.toString());
 		assertEquaFA("posix:permissions->[OWNER_READ, OWNER_WRITE, OWNER_EXECUTE]", service.directoryAttributes());
 		assertEquals(null, service.directoryPermissionsAfterwards);
+		assertEquals(testGroupDirectory, service.directoryGroup);
 		assertNotNull(service.tempDir);
 	}
 
@@ -96,8 +108,8 @@ public class VaultFileServicePosixPermissionMinimalTest extends AbstractVaultFil
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosix(dirPerms, rootGroup(), abc);
-		assertPosix(filePerms, rootGroup(), d);
+		assertPosix(dirPerms, testGroupDirectory, abc);
+		assertPosix(filePerms, testGroupFile, d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -105,8 +117,8 @@ public class VaultFileServicePosixPermissionMinimalTest extends AbstractVaultFil
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosix(dirPerms, rootGroup(), abc);
-		assertPosix(filePerms, rootGroup(), d);
+		assertPosix(dirPerms, testGroupDirectory, abc);
+		assertPosix(filePerms, testGroupFile, d);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -114,9 +126,9 @@ public class VaultFileServicePosixPermissionMinimalTest extends AbstractVaultFil
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosix(dirPerms, rootGroup(), abc);
-		assertPosix(filePerms, rootGroup(), d);
-		assertPosix(filePerms, rootGroup(), f);
+		assertPosix(dirPerms, testGroupDirectory, abc);
+		assertPosix(filePerms, testGroupFile, d);
+		assertPosix(filePerms, testGroupFile, f);
 	}
 
 	@Test void putByStream() throws IOException
@@ -130,12 +142,12 @@ public class VaultFileServicePosixPermissionMinimalTest extends AbstractVaultFil
 		assertTrue(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, rootGroup(), valueFile);
+		assertPosix(filePerms, testGroupFile, valueFile);
 
 		assertFalse(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, rootGroup(), valueFile);
+		assertPosix(filePerms, testGroupFile, valueFile);
 	}
 
 	@Test void putByPath() throws IOException
@@ -150,11 +162,11 @@ public class VaultFileServicePosixPermissionMinimalTest extends AbstractVaultFil
 		assertTrue(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, rootGroup(), valueFile);
+		assertPosix(filePerms, testGroupFile, valueFile);
 
 		assertFalse(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosix(filePerms, rootGroup(), valueFile);
+		assertPosix(filePerms, testGroupFile, valueFile);
 	}
 }

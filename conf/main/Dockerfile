@@ -18,5 +18,9 @@ RUN \
 	mkdir /var/jenkins-build-survivor && \
 	chown ${JENKINS_OWNER} /var/jenkins-build-survivor
 
+# VaultFileServicePosixGroupTest requires these groups
+RUN addgroup copevaultfilesv1
+RUN addgroup copevaultfilesv2
+
 LABEL purpose=jenkins
 LABEL jdk=${JDK}

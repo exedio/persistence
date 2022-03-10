@@ -104,16 +104,32 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	}
 
 	protected final void assertPosix(
-			final EnumSet<PosixFilePermission> expected,
+			final EnumSet<PosixFilePermission> expectedPermissions,
+			final String expectedGroup,
 			final File actual)
 			throws IOException
 	{
 		if(posixAvailable)
+		{
 			assertEquals(
-					expected,
+					expectedPermissions,
 					EnumSet.copyOf( // normalizes order of set, makes failure message much more readable
 							Files.getFileAttributeView(actual.toPath(), PosixFileAttributeView.class).
 									readAttributes().permissions()));
+			assertEquals(
+					expectedGroup,
+					Files.getFileAttributeView(actual.toPath(), PosixFileAttributeView.class).
+							readAttributes().group().getName());
+		}
+	}
+
+	protected final String rootGroup() throws IOException
+	{
+		return
+				Files.getFileAttributeView(root.toPath(), PosixFileAttributeView.class).
+						readAttributes().
+						group().
+						getName();
 	}
 
 	protected final void assertEquaFA(
