@@ -28,6 +28,8 @@ import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
+import java.util.function.BiFunction;
+import java.util.function.Function;
 
 public final class Money<C extends Currency>
 	implements Serializable, Comparable<Money<C>>
@@ -365,6 +367,26 @@ public final class Money<C extends Currency>
 		return getAmount(currency).doubleValue();
 	}
 
+	public Money<C> computeDouble(final DoubleToDoubleFunction f)
+	{
+		return wrap(Price.valueOf( f.applyAsDouble(amount.doubleValue()) ));
+	}
+
+	public Money<C> computeDouble(final DoubleToDoubleFunction f, final RoundingMode roundingMode)
+	{
+		return wrap(Price.valueOf( f.applyAsDouble(amount.doubleValue()), roundingMode ));
+	}
+
+	public Money<C> computeDouble(final Money<C> other, final DoubleToDoubleBiFunction f)
+	{
+		return wrap(Price.valueOf( f.applyAsDouble(amount.doubleValue(), unwrap(other).doubleValue()) ), other);
+	}
+
+	public Money<C> computeDouble(final Money<C> other, final DoubleToDoubleBiFunction f, final RoundingMode roundingMode)
+	{
+		return wrap(Price.valueOf( f.applyAsDouble(amount.doubleValue(), unwrap(other).doubleValue()), roundingMode ), other);
+	}
+
 
 	// conversion BigDecimal
 
@@ -376,6 +398,16 @@ public final class Money<C extends Currency>
 	public BigDecimal bigAmount(final C currency)
 	{
 		return getAmount(currency).bigValue();
+	}
+
+	public Money<C> computeBig(final Function<BigDecimal, BigDecimal> f)
+	{
+		return wrap(Price.valueOf( f.apply(amount.bigValue()) ));
+	}
+
+	public Money<C> computeBig(final Money<C> other, final BiFunction<BigDecimal, BigDecimal, BigDecimal> f)
+	{
+		return wrap(Price.valueOf( f.apply(amount.bigValue(), unwrap(other).bigValue()) ), other);
 	}
 
 
