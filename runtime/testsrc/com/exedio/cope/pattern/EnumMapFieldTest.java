@@ -35,7 +35,8 @@ import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Query;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.EnumMapFieldItem.Language;
-import java.util.Collections;
+import com.exedio.cope.tojunit.Assert;
+import com.exedio.cope.tojunit.SensitiveMap;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -179,7 +180,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 	@Test void testMapSet()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		final Map<Language, String> mapU = Assert.sensitive(map, m -> new SensitiveButContainsKeyMap<>(m, Language.class, String.class));
 		assertEqualsUnmodifiable(map(), item.getNameMap());
 		assertEquals(asList(item, itemX), search(name.isEmpty()));
 		assertEquals(asList(), search(name.isNotEmpty()));
@@ -233,7 +234,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 	@Test void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		final Map<Language, String> mapU = Assert.sensitive(map, m -> new SensitiveButContainsKeyMap<>(m, Language.class, String.class));
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
@@ -252,10 +253,26 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEquals(map(PL, "namePL"), item.getNameMap());
 	}
 
+	static final class SensitiveButContainsKeyMap<K,V> extends SensitiveMap<K,V>
+	{
+		SensitiveButContainsKeyMap(
+				final Map<K, V> b,
+				final Class<K> keyClass,
+				final Class<V> valueClass)
+		{
+			super(b, keyClass, valueClass);
+		}
+		@Override
+		public boolean containsKey(final Object key)
+		{
+			return backing.containsKey(key);
+		}
+	}
+
 	@Test void testMapSetValueNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		final Map<Language, String> mapU = Assert.sensitive(map, m -> new SensitiveButContainsKeyMap<>(m, Language.class, String.class));
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());

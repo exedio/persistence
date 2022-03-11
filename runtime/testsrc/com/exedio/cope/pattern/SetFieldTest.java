@@ -27,7 +27,7 @@ import static com.exedio.cope.pattern.SetFieldModelTest.stringsElement;
 import static com.exedio.cope.pattern.SetFieldModelTest.stringsType;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static java.util.Arrays.asList;
+import static com.exedio.cope.tojunit.Assert.listOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -70,7 +70,7 @@ public class SetFieldTest extends TestWithEnvironment
 		item.assertStrings();
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
-		item.setStrings(asList("1hallo", "2bello"));
+		item.setStrings(listOf("1hallo", "2bello", String.class));
 		item.assertStrings("1hallo", "2bello");
 		assertContains(item, getParentsOfStrings("1hallo"));
 		assertContains(item, getParentsOfStrings("2bello"));
@@ -87,7 +87,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("1hallo", r0.get(stringsElement));
 		assertEquals("2bello", r1.get(stringsElement));
 
-		item.setStrings(asList("2bello", "3knollo"));
+		item.setStrings(listOf("2bello", "3knollo", String.class));
 		item.assertStrings("2bello", "3knollo");
 		assertContains(getParentsOfStrings("1hallo"));
 		assertContains(item, getParentsOfStrings("2bello"));
@@ -102,7 +102,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("3knollo", r0.get(stringsElement));
 		assertEquals("2bello", r1.get(stringsElement));
 
-		item.setStrings(asList("3knollo"));
+		item.setStrings(listOf("3knollo", String.class));
 		item.assertStrings("3knollo");
 		assertContains(getParentsOfStrings("1hallo"));
 		assertContains(getParentsOfStrings("2bello"));
@@ -116,7 +116,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("3knollo", r0.get(stringsElement));
 		assertFalse(r1.existsCopeItem());
 
-		item.setStrings(asList("zack1", "zack2", "zack3"));
+		item.setStrings(listOf("zack1", "zack2", "zack3", String.class));
 		item.assertStrings("zack1", "zack2", "zack3");
 		final Item r1x;
 		final Item r2;
@@ -132,7 +132,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("zack2", r1x.get(stringsElement));
 		assertEquals("zack3", r2.get(stringsElement));
 
-		item.setStrings(asList("null1", "null2", "null3", "null4"));
+		item.setStrings(listOf("null1", "null2", "null3", "null4", String.class));
 		item.assertStrings("null1", "null2", "null3", "null4");
 		assertContains(item, getParentsOfStrings("null1"));
 		assertContains(getParentsOfStrings(null));
@@ -152,7 +152,7 @@ public class SetFieldTest extends TestWithEnvironment
 		assertEquals("null3", r2.get(stringsElement));
 		assertEquals("null4", r3.get(stringsElement));
 
-		item.setStrings(asList());
+		item.setStrings(listOf(String.class));
 		item.assertStrings();
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());
@@ -163,10 +163,10 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test void testSetAndCast()
 	{
-		strings.setAndCast(item, asList("1hallo", "2bello"));
+		strings.setAndCast(item, listOf("1hallo", "2bello", String.class));
 		item.assertStrings("1hallo", "2bello");
 
-		final List<Integer> integers = asList(1, 2);
+		final List<Integer> integers = listOf(1, 2, Integer.class);
 		assertFails(
 				() -> strings.setAndCast(item, integers),
 				ClassCastException.class,
@@ -244,7 +244,7 @@ public class SetFieldTest extends TestWithEnvironment
 
 		final Date date1 = new Date(918756915152l);
 		final Date date2 = new Date(918756915153l);
-		item.setDates(asList(date1, date2));
+		item.setDates(listOf(date1, date2, Date.class));
 		item.assertDates(date1, date2);
 		assertEquals(2, datesType.newQuery(null).search().size());
 	}
@@ -252,7 +252,7 @@ public class SetFieldTest extends TestWithEnvironment
 	@Test void testMandatoryViolation()
 	{
 		assertFails(
-				() -> item.setStrings(asList("one1", null, "three3")),
+				() -> item.setStrings(listOf("one1", null, "three3", String.class)),
 				MandatoryViolationException.class,
 				"mandatory violation for SetFieldItem-strings.element",
 				strings.getElement());
@@ -262,7 +262,7 @@ public class SetFieldTest extends TestWithEnvironment
 	@Test void testOtherViolation()
 	{
 		final StringLengthViolationException e = assertFails(
-				() -> item.setStrings(asList("one1", "two", "three3")),
+				() -> item.setStrings(listOf("one1", "two", "three3", String.class)),
 				StringLengthViolationException.class,
 				"length violation, 'two' is too short for SetFieldItem-strings.element, " +
 				"must be at least 4 characters, but was 3.",
@@ -273,7 +273,7 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test void testDuplicates()
 	{
-		item.setStrings(asList("1one", "2dupl", "2dupl", "3two"));
+		item.setStrings(listOf("1one", "2dupl", "2dupl", "3two", String.class));
 		item.assertStrings("1one", "2dupl", "3two");
 
 		item.addToStrings("2dupl");
@@ -282,7 +282,7 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test void testOrder()
 	{
-		item.setStrings(asList("4four", "1one", "2two"));
+		item.setStrings(listOf("4four", "1one", "2two", String.class));
 		item.assertStrings("1one", "2two", "4four");
 
 		item.addToStrings("3three");
@@ -291,10 +291,10 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test void testReorder()
 	{
-		item.setStrings(asList("4four", "1one", "3three", "2two"));
+		item.setStrings(listOf("4four", "1one", "3three", "2two", String.class));
 		item.assertStrings("1one", "2two", "3three", "4four");
 
-		item.setStrings(asList("4four", "3three", "1one", "2two"));
+		item.setStrings(listOf("4four", "3three", "1one", "2two", String.class));
 		item.assertStrings("1one", "2two", "3three", "4four");
 	}
 
@@ -304,9 +304,9 @@ public class SetFieldTest extends TestWithEnvironment
 		final String blau = "2blau";
 		final String gelb = "3gelb";
 
-		item.setStrings(asList(rot, blau));
+		item.setStrings(listOf(rot, blau, String.class));
 		item.assertStrings(rot, blau);
-		otherItem.setStrings(asList(rot));
+		otherItem.setStrings(listOf(rot, String.class));
 		otherItem.assertStrings(rot);
 
 		assertContains(item, otherItem, getParentsOfStrings(rot));
@@ -314,9 +314,9 @@ public class SetFieldTest extends TestWithEnvironment
 		assertContains(getParentsOfStrings(gelb));
 		assertContains(getParentsOfStrings(null));
 
-		item.setStrings(asList(rot, gelb, blau));
+		item.setStrings(listOf(rot, gelb, blau, String.class));
 		item.assertStrings(rot, blau, gelb);
-		otherItem.setStrings(asList(gelb));
+		otherItem.setStrings(listOf(gelb, String.class));
 		otherItem.assertStrings(gelb);
 
 		assertContains(item, getParentsOfStrings(rot));
@@ -352,7 +352,7 @@ public class SetFieldTest extends TestWithEnvironment
 
 	@Test void testListSetNull()
 	{
-		item.setStrings(asList("1hallo", "2bello"));
+		item.setStrings(listOf("1hallo", "2bello", String.class));
 
 		assertFails(
 				() -> item.setStrings(null),

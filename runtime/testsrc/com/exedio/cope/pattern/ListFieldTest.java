@@ -36,9 +36,9 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
+import static com.exedio.cope.tojunit.Assert.listOf;
 import static java.util.Arrays.asList;
 import static java.util.Collections.singletonList;
-import static java.util.Collections.unmodifiableList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -319,7 +319,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertContains(getDistinctParentsOfStrings("bello"));
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
-		item.setStrings(unmodifiableList(asList("hallo", "bello")));
+		item.setStrings(listOf("hallo", "bello", String.class));
 		assertEqualsUnmodifiable(list("hallo", "bello"), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("hallo"));
@@ -338,7 +338,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(0, r0.get(stringsOrder).intValue());
 		assertEquals(1, r1.get(stringsOrder).intValue());
 
-		item.setStrings(unmodifiableList(asList("zack1", "zack2", "zack3")));
+		item.setStrings(listOf("zack1", "zack2", "zack3", String.class));
 		assertEqualsUnmodifiable(list("zack1", "zack2", "zack3"), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("zack1"));
@@ -360,7 +360,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(1, r1.get(stringsOrder).intValue());
 		assertEquals(2, r2.get(stringsOrder).intValue());
 
-		item.setStrings(unmodifiableList(asList("null1", null, "null3", "null4")));
+		item.setStrings(listOf("null1", null, "null3", "null4", String.class));
 		assertEqualsUnmodifiable(list("null1", null, "null3", "null4"), item.getStrings());
 		assertContains(item, getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("null1"));
@@ -385,7 +385,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(2, r2.get(stringsOrder).intValue());
 		assertEquals(3, r3.get(stringsOrder).intValue());
 
-		item.setStrings(unmodifiableList(asList("dup1", "dup2", "dup1")));
+		item.setStrings(listOf("dup1", "dup2", "dup1", String.class));
 		assertEqualsUnmodifiable(list("dup1", "dup2", "dup1"), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(item, getDistinctParentsOfStrings("dup1"));
@@ -431,7 +431,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertEquals(3, r4.get(stringsOrder).intValue());
 		assertFalse(r3.existsCopeItem());
 
-		item.setStrings(unmodifiableList(asList()));
+		item.setStrings(listOf(String.class));
 		assertEqualsUnmodifiable(list(), item.getStrings());
 		assertContains(getDistinctParentsOfStrings(null));
 		assertContains(getDistinctParentsOfStrings("null1"));
@@ -484,7 +484,7 @@ public class ListFieldTest extends TestWithEnvironment
 		assertContains(getDistinctParentsOfItems(item));
 		assertEquals(0, itemsType.newQuery(null).search().size());
 
-		item.setItems(asList(item));
+		item.setItems(listOf(item, ListFieldItem.class));
 		assertEqualsUnmodifiable(list(item), item.getItems());
 		assertContains(getDistinctParentsOfItems(null));
 		assertContains(item, getDistinctParentsOfItems(item));

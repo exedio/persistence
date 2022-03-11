@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.ClusterNetworkPingTest.assertLastRoundTripSet;
 import static com.exedio.cope.ClusterNetworkPingTest.count;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.sensitive;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
@@ -31,7 +32,6 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.ClusterListenerInfo.Node;
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.util.SequenceChecker;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 import org.junit.jupiter.api.AfterEach;
@@ -215,7 +215,7 @@ public class ClusterNetworkPing3Test extends ClusterNetworkTest
 		final HashMap<Integer,Node> result = new HashMap<>();
 		for(final Node n : i.getNodes())
 			assertNull(result.put(n.getID(), n));
-		return Collections.unmodifiableMap(result);
+		return sensitive(result, Integer.class, Node.class);
 	}
 
 	private static void assertIt(

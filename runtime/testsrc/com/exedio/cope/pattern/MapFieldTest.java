@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.map;
+import static com.exedio.cope.tojunit.Assert.sensitive;
 import static java.lang.Integer.valueOf;
 import static java.util.Collections.emptyMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +38,6 @@ import com.exedio.cope.Query;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.pattern.MapFieldItem.Language;
-import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
@@ -147,7 +147,7 @@ public class MapFieldTest extends TestWithEnvironment
 	@Test void testMapSet()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
 		assertEquals(map(), item.getNameMap());
 
 		item.setNameMap(mapU);
@@ -175,7 +175,7 @@ public class MapFieldTest extends TestWithEnvironment
 	@Test void testMapSetNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
@@ -191,7 +191,7 @@ public class MapFieldTest extends TestWithEnvironment
 	@Test void testMapSetKeyNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
@@ -208,7 +208,7 @@ public class MapFieldTest extends TestWithEnvironment
 	@Test void testMapSetValueNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Collections.unmodifiableMap(map);
+		final Map<Language, String> mapU = sensitive(map, Language.class, String.class);
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());
@@ -225,7 +225,7 @@ public class MapFieldTest extends TestWithEnvironment
 	@Test void testMapSetKeyOtherViolation()
 	{
 		final LinkedHashMap<String, String> map = new LinkedHashMap<>();
-		final Map<String, String> mapU = Collections.unmodifiableMap(map);
+		final Map<String, String> mapU = sensitive(map, String.class, String.class);
 		map.put("one1",  "value1");
 		map.put("two",   "value2");
 		map.put("three", "value3");
@@ -242,7 +242,7 @@ public class MapFieldTest extends TestWithEnvironment
 	@Test void testMapSetValueOtherViolation()
 	{
 		final LinkedHashMap<String, String> map = new LinkedHashMap<>();
-		final Map<String, String> mapU = Collections.unmodifiableMap(map);
+		final Map<String, String> mapU = sensitive(map, String.class, String.class);
 		map.put("key1", "one1");
 		map.put("key2", "two");
 		map.put("key3", "three");
