@@ -78,7 +78,7 @@ public final class Money<C extends Currency>
 		return getAmount(currency).store();
 	}
 
-	public long amountStoreIntExact(final C currency)
+	public int amountStoreIntExact(final C currency)
 	{
 		return getAmount(currency).storeIntExact();
 	}
