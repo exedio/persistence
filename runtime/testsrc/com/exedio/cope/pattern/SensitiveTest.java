@@ -35,21 +35,26 @@ public class SensitiveTest
 	{
 		final EnumMap<State, String> map = new EnumMap<>(State.class);
 		assertEquals(false, map.containsKey(null));
+		assertEquals(false, EnumMapField.containsKeyNull(map));
 
 		map.put(State.RUNNABLE, "runnable");
 		assertEquals(false, map.containsKey(null));
+		assertEquals(false, EnumMapField.containsKeyNull(map));
 	}
 	@Test void hashMap()
 	{
 		@SuppressWarnings("MapReplaceableByEnumMap") // OK: this is what needs to be tested
 		final HashMap<State, String> map = new HashMap<>();
 		assertEquals(false, map.containsKey(null));
+		assertEquals(false, EnumMapField.containsKeyNull(map));
 
 		map.put(State.RUNNABLE, "runnable");
 		assertEquals(false, map.containsKey(null));
+		assertEquals(false, EnumMapField.containsKeyNull(map));
 
 		map.put(null, "valueForNull");
 		assertEquals(true, map.containsKey(null));
+		assertEquals(true, EnumMapField.containsKeyNull(map));
 	}
 	@Test void butContainsKeyMap()
 	{
@@ -58,12 +63,34 @@ public class SensitiveTest
 		@SuppressWarnings("MapReplaceableByEnumMap") // OK: this is what needs to be tested
 		final Map<State, String> map = new EnumMapFieldTest.SensitiveButContainsKeyMap<>(mapBack, State.class, String.class);
 		assertEquals(false, map.containsKey(null));
+		assertEquals(false, EnumMapField.containsKeyNull(map));
 
 		map.put(State.RUNNABLE, "runnable");
 		assertEquals(false, map.containsKey(null));
+		assertEquals(false, EnumMapField.containsKeyNull(map));
 
 		mapBack.put(null, "valueForNull");
 		assertEquals(true, map.containsKey(null));
+		assertEquals(true, EnumMapField.containsKeyNull(map));
+
+		assertFails(() -> map.put(null, "valueForNull"), AssertionFailedError.class, "null forbidden in key");
+	}
+	@Test void butContainsKeyNullPointerExceptionMap()
+	{
+		@SuppressWarnings("MapReplaceableByEnumMap") // OK: this is what needs to be tested
+		final Map<State, String> mapBack = new HashMap<>();
+		@SuppressWarnings("MapReplaceableByEnumMap") // OK: this is what needs to be tested
+		final Map<State, String> map = new EnumMapFieldTest.SensitiveButContainsKeyNullPointerExceptionMap<>(mapBack, State.class, String.class);
+		assertFails(() -> map.containsKey(null), NullPointerException.class, "SensitiveButContainsKeyNullPointerExceptionMap");
+		assertEquals(false, EnumMapField.containsKeyNull(map));
+
+		map.put(State.RUNNABLE, "runnable");
+		assertFails(() -> map.containsKey(null), NullPointerException.class, "SensitiveButContainsKeyNullPointerExceptionMap");
+		assertEquals(false, EnumMapField.containsKeyNull(map));
+
+		mapBack.put(null, "valueForNull");
+		assertFails(() -> map.containsKey(null), NullPointerException.class, "SensitiveButContainsKeyNullPointerExceptionMap");
+		assertEquals(false, EnumMapField.containsKeyNull(map)); // is a bit weird, but that's the way NonNullCollections do work
 
 		assertFails(() -> map.put(null, "valueForNull"), AssertionFailedError.class, "null forbidden in key");
 	}
@@ -74,14 +101,17 @@ public class SensitiveTest
 		@SuppressWarnings("MapReplaceableByEnumMap") // OK: this is what needs to be tested
 		final Map<State, String> map = new SensitiveMap<>(mapBack, State.class, String.class);
 		assertFails(() -> map.containsKey(null), AssertionFailedError.class, "null forbidden in key");
+		assertFails(() -> EnumMapField.containsKeyNull(map), AssertionFailedError.class, "null forbidden in key");
 
 		map.put(State.RUNNABLE, "runnable");
 		assertFails(() -> map.containsKey(null), AssertionFailedError.class, "null forbidden in key");
+		assertFails(() -> EnumMapField.containsKeyNull(map), AssertionFailedError.class, "null forbidden in key");
 		//noinspection SuspiciousMethodCalls
 		assertFails(() -> map.containsKey(1), AssertionFailedError.class, "class forbidden in key: java.lang.Integer");
 
 		mapBack.put(null, "valueForNull");
 		assertFails(() -> map.containsKey(null), AssertionFailedError.class, "null forbidden in key");
+		assertFails(() -> EnumMapField.containsKeyNull(map), AssertionFailedError.class, "null forbidden in key");
 
 		assertFails(() -> map.put(null, "valueForNull"), AssertionFailedError.class, "null forbidden in key");
 		//noinspection SuspiciousMethodCalls
