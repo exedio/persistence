@@ -2,6 +2,8 @@ package com.exedio.cope;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.instrument.NullableAsOptional;
+import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
 
@@ -18,11 +20,11 @@ final class NullableAsOptionalTest extends TestWithEnvironment
 	void value()
 	{
 		final TestItem i = new TestItem();
-		assertEquals(false, i.getText()!=null);
+		assertEquals(false, i.getText().isPresent());
 
 		i.setText("?");
-		assertEquals(true, i.getText()!=null);
-		assertEquals("?", i.getText());
+		assertEquals(true, i.getText().isPresent());
+		assertEquals("?", i.getText().get());
 	}
 
 	@Test
@@ -32,17 +34,19 @@ final class NullableAsOptionalTest extends TestWithEnvironment
 		final TestItem b = new TestItem();
 		a.setReference(b);
 		a.setText("a");
-		assertEquals(false, a.getReference()!=null && a.getReference().getText()!=null);
+		assertEquals(false, a.getReference().flatMap(TestItem::getText).isPresent());
 		b.setText("b");
-		assertEquals("b", a.getReference().getText());
-		assertEquals(false, b.getReference()!=null && b.getReference().getText()!=null);
+		assertEquals("b", a.getReference().flatMap(TestItem::getText).get());
+		assertEquals(false, b.getReference().flatMap(TestItem::getText).isPresent());
 	}
 
 	@WrapperType(indent=2)
 	static class TestItem extends Item
 	{
+		@Wrapper(wrap="*", nullableAsOptional=NullableAsOptional.YES)
 		static final ItemField<TestItem> reference = ItemField.create(TestItem.class).optional();
 
+		@Wrapper(wrap="*", nullableAsOptional=NullableAsOptional.YES)
 		static final StringField text = new StringField().optional();
 
 		/**
@@ -66,10 +70,10 @@ final class NullableAsOptionalTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nullable
-		final TestItem getReference()
+		@javax.annotation.Nonnull
+		final java.util.Optional<TestItem> getReference()
 		{
-			return TestItem.reference.get(this);
+			return java.util.Optional.ofNullable(TestItem.reference.get(this));
 		}
 
 		/**
@@ -87,10 +91,10 @@ final class NullableAsOptionalTest extends TestWithEnvironment
 		 */
 		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		@javax.annotation.Nullable
-		final java.lang.String getText()
+		@javax.annotation.Nonnull
+		final java.util.Optional<java.lang.String> getText()
 		{
-			return TestItem.text.get(this);
+			return java.util.Optional.ofNullable(TestItem.text.get(this));
 		}
 
 		/**
