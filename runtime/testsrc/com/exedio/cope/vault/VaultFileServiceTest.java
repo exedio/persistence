@@ -31,11 +31,15 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
 
 public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 {
+	private static final EnumSet<PosixFilePermission> filePerms = EnumSet.of(OWNER_READ, OWNER_WRITE);
+	private static final EnumSet<PosixFilePermission> dirPerms  = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE);
+
 	@Test void serviceProperties()
 	{
 		final VaultFileService service = (VaultFileService)getService();
@@ -71,8 +75,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), d);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -80,8 +84,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), d);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -89,9 +93,9 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), d);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE), f);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
+		assertPosixPermissions(filePerms, f);
 	}
 
 	@Test void notFoundAnonymous()
