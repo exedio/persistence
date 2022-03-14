@@ -22,15 +22,21 @@ import static com.exedio.cope.tojunit.Assert.assertContainsList;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.assertUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.reserialize;
+import static java.util.stream.Collectors.toMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.util.Properties;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.Callable;
+import org.opentest4j.AssertionFailedError;
 
 public final class RuntimeAssert
 {
@@ -164,5 +170,15 @@ public final class RuntimeAssert
 	public static void assertSerializedSame(final Serializable value, final int expectedSize)
 	{
 		assertSame(value, reserialize(value, expectedSize));
+	}
+
+
+	public static Map<String, Callable<?>> probes(final Properties p)
+	{
+		return p.getProbes().stream().collect(toMap(
+				Object::toString,
+				x -> x,
+				(x,y) -> { throw new AssertionFailedError(x.toString()); },
+				LinkedHashMap::new));
 	}
 }

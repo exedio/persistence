@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.Vault.DEFAULT;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -26,6 +27,7 @@ import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNotSame;
@@ -45,7 +47,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.LinkedHashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.Test;
@@ -99,12 +100,13 @@ public class VaultPropertiesTest
 	}
 	private static Object probe(final VaultProperties p) throws Exception
 	{
-		final List<? extends Callable<?>> probes = p.getProbes();
-		assertEquals(3, probes.size());
-		assertEquals("default.genuineServiceKey", probes.get(1).toString());
-		assertEquals("service.Mock", probes.get(2).toString());
-		final Callable<?> probe = probes.get(0);
-		assertEquals("default", probe.toString());
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList(
+				"default",
+				"default.genuineServiceKey",
+				"service.Mock"),
+				new ArrayList<>(probes.keySet()));
+		final Callable<?> probe = requireNonNull(probes.get("default"));
 		return probe.call();
 	}
 	@SuppressWarnings("deprecation") // OK, wrapping deprecated API
@@ -158,12 +160,13 @@ public class VaultPropertiesTest
 	}
 	private static Object probeGenuineServiceKey(final VaultProperties p) throws Exception
 	{
-		final List<? extends Callable<?>> probes = p.getProbes();
-		assertEquals(3, probes.size());
-		assertEquals("default", probes.get(0).toString());
-		assertEquals("service.Mock", probes.get(2).toString());
-		final Callable<?> probe = probes.get(1);
-		assertEquals("default.genuineServiceKey", probe.toString());
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList(
+				"default",
+				"default.genuineServiceKey",
+				"service.Mock"),
+				new ArrayList<>(probes.keySet()));
+		final Callable<?> probe = probes.get("default.genuineServiceKey");
 		return probe.call();
 	}
 

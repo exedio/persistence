@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
@@ -27,9 +28,9 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
 import static java.util.Arrays.asList;
 import static java.util.Collections.unmodifiableList;
+import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
@@ -50,13 +51,13 @@ import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.rules.TemporaryFolder;
 
-@SuppressWarnings("OptionalGetWithoutIsPresent")
 @MainRule.Tag
 public class VaultFileServicePropertiesProbeTest
 {
@@ -91,18 +92,19 @@ public class VaultFileServicePropertiesProbeTest
 				"temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertEquals("directory.Premised", probes.next().toString());
-		final Callable<?> rootExists = probes.next();
-		final Callable<?> rootFree   = probes.next();
-		final Callable<?> tempExists = probes.next();
-		final Callable<?> tempStore  = probes.next();
-		assertFalse(probes.hasNext());
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList(
+				"directory.Premised",
+				"root.Exists",
+				"root.Free",
+				"temp.Exists",
+				"temp.Store"),
+				new ArrayList<>(probes.keySet()));
 
-		assertEquals("root.Exists", rootExists.toString());
-		assertEquals("root.Free",   rootFree  .toString());
-		assertEquals("temp.Exists", tempExists.toString());
-		assertEquals("temp.Store",  tempStore .toString());
+		final Callable<?> rootExists = probes.get("root.Exists");
+		final Callable<?> rootFree   = probes.get("root.Free");
+		final Callable<?> tempExists = probes.get("temp.Exists");
+		final Callable<?> tempStore  = probes.get("temp.Store");
 
 		assertFails(
 				rootExists::call,
@@ -160,18 +162,18 @@ public class VaultFileServicePropertiesProbeTest
 				asList("root", "writable", "directory", "directory.length"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertEquals("directory.Premised", probes.next().toString());
-		final Callable<?> rootExists = probes.next();
-		final Callable<?> rootFree   = probes.next();
-		final Callable<?> tempExists = probes.next();
-		final Callable<?> tempStore  = probes.next();
-		assertFalse(probes.hasNext());
-
-		assertEquals("root.Exists", rootExists.toString());
-		assertEquals("root.Free",   rootFree  .toString());
-		assertEquals("temp.Exists", tempExists.toString());
-		assertEquals("temp.Store",  tempStore .toString());
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList(
+				"directory.Premised",
+				"root.Exists",
+				"root.Free",
+				"temp.Exists",
+				"temp.Store"),
+				new ArrayList<>(probes.keySet()));
+		final Callable<?> rootExists = probes.get("root.Exists");
+		final Callable<?> rootFree   = probes.get("root.Free");
+		final Callable<?> tempExists = probes.get("temp.Exists");
+		final Callable<?> tempStore  = probes.get("temp.Store");
 
 		assertFails(
 				rootExists::call,
@@ -211,11 +213,7 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final Props p = new Props(source);
-		final Callable<?> rootExists = p.getProbes().stream().
-				filter(c -> "root.Exists".equals(c.toString())).
-				findFirst().
-				get();
-
+		final Callable<?> rootExists = requireNonNull(probes(p).get("root.Exists"));
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
@@ -237,11 +235,7 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final Props p = new Props(source);
-		final Callable<?> rootExists = p.getProbes().stream().
-				filter(c -> "root.Exists".equals(c.toString())).
-				findFirst().
-				get();
-
+		final Callable<?> rootExists = requireNonNull(probes(p).get("root.Exists"));
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
@@ -264,11 +258,7 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final Props p = new Props(source);
-		final Callable<?> tempExists = p.getProbes().stream().
-				filter(c -> "temp.Exists".equals(c.toString())).
-				findFirst().
-				get();
-
+		final Callable<?> tempExists = requireNonNull(probes(p).get("temp.Exists"));
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
@@ -296,11 +286,7 @@ public class VaultFileServicePropertiesProbeTest
 				));
 
 		final Props p = new Props(source);
-		final Callable<?> tempExists = p.getProbes().stream().
-				filter(c -> "temp.Exists".equals(c.toString())).
-				findFirst().
-				get();
-
+		final Callable<?> tempExists = requireNonNull(probes(p).get("temp.Exists"));
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
@@ -338,11 +324,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		assertNull(p.directory);
-		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Premised".equals(c.toString())).
-				findFirst().
-				get();
-
+		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
 		assertFails(
 				dirs::call,
 				ProbeAbortedException.class,
@@ -359,11 +341,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		assertEquals(false, p.directory.premised);
-		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Premised".equals(c.toString())).
-				findFirst().
-				get();
-
+		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
 		assertEquals(
 				"missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)",
 				dirs.call());
@@ -382,11 +360,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Props p = new Props(source);
 		assertEquals(1, p.directory.length);
 		assertEquals(true, p.directory.premised);
-		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Premised".equals(c.toString())).
-				findFirst().
-				get();
-
+		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
 		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
 		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
 
@@ -420,10 +394,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Props p = new Props(source);
 		assertEquals(2, p.directory.length);
 		assertEquals(true, p.directory.premised);
-		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Premised".equals(c.toString())).
-				findFirst().
-				get();
+		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
 
 		createDirectory(root.toPath());
 		assertFails(dirs::call, IllegalStateException.class, "missing 00,01,02,03,04,05,06,07,08,09,0a,0b,0c,0d,0e... (total 256)");
@@ -466,10 +437,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Props p = new Props(source);
 		assertEquals(3, p.directory.length);
 		assertEquals(true, p.directory.premised);
-		final Callable<?> dirs = p.getProbes().stream().
-				filter(c -> "directory.Premised".equals(c.toString())).
-				findFirst().
-				get();
+		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
 
 		createDirectory(root.toPath());
 		assertFails(dirs::call, IllegalStateException.class, "missing 000,001,002,003,004,005,006,007,008,009,00a,00b,00c,00d,00e... (total 4096)");
