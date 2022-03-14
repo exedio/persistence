@@ -31,12 +31,16 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.attribute.PosixFilePermission;
 import java.util.EnumSet;
 import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
 public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServiceTest
 {
+	private static final EnumSet<PosixFilePermission> filePerms = EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ);
+	private static final EnumSet<PosixFilePermission> dirPerms  = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE);
+
 	@Override
 	protected Properties getServiceProperties() throws IOException
 	{
@@ -81,8 +85,8 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -90,8 +94,8 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -99,8 +103,8 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE, OTHERS_READ, OTHERS_EXECUTE), abc);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), d);
-		assertPosixPermissions(EnumSet.of(OWNER_READ, OWNER_WRITE, GROUP_READ), f);
+		assertPosixPermissions(dirPerms, abc);
+		assertPosixPermissions(filePerms, d);
+		assertPosixPermissions(filePerms, f);
 	}
 }
