@@ -272,8 +272,8 @@ public class MediaServletTest
 		// finger
 
 		final int ALMOST_ONE_YEAR = 31363200;
-		assertBin  (prefix + "finger/.fjeCiepS/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2), "max-age="+ALMOST_ONE_YEAR);
-		assertBin  (prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3), "max-age="+ALMOST_ONE_YEAR);
+		assertBin  (prefix + "finger/.fjeCiepS/" + ITEM_PNG + ".jpg", "image/jpeg", hour8(2), "max-age="+ALMOST_ONE_YEAR+",immutable");
+		assertBin  (prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg", "image/jpeg", hour8(3), "max-age="+ALMOST_ONE_YEAR+",immutable");
 		assertMoved(prefix + "finger/.fjYxVepS/" + ITEM_JPG + ".jpg",
 						prefix + "finger/.fjYxvepS/" + ITEM_JPG + ".jpg");
 		assertMoved(prefix + "finger/"           + ITEM_JPG + ".jpg",
@@ -284,7 +284,7 @@ public class MediaServletTest
 		final String TOKEN_FINGER;
 		//TOKEN_FINGER = "6e436f1b4c764ac049ad";
 		TOKEN_FINGER = "MediaServletItem.tokenedFinger-" + ITEM_JPG;
-		assertBin     (prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG +      ".jpg", "image/jpeg", hour8(3), "private,max-age="+ALMOST_ONE_YEAR);
+		assertBin     (prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG +      ".jpg", "image/jpeg", hour8(3), "private,max-age="+ALMOST_ONE_YEAR+",immutable");
 		assertMoved   (prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG + "/name.jpg", prefix + "tokenedFinger/.fjYxvepS/.t" + TOKEN_FINGER + "/" + ITEM_JPG + ".jpg");
 		assertNotFound(prefix + "tokenedFinger/.fjYxvepS/.tx/" + ITEM_JPG +      ".jpg", GUESSED_URL);
 		assertNotFound(prefix + "tokenedFinger/.fjYxvepS/.tx/" + ITEM_JPG + "/name.jpg", GUESSED_URL);
