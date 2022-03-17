@@ -821,7 +821,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	/**
 	 * Returns the list of persistent fields declared by the this type.
 	 * This excludes inherited fields.
-	 * The elements in the list returned are ordered by their occurance in the source code.
+	 * The elements in the list returned are ordered by their occurrence in the source code.
 	 * This method returns an empty list if the type declares no fields.
 	 * <p>
 	 * If you want to get all persistent fields of this type,
@@ -842,7 +842,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 	 * This includes inherited fields.
 	 * The elements in the list returned are ordered by their type,
 	 * with types higher in type hierarchy coming first,
-	 * and within each type by their occurance in the source code.
+	 * and within each type by their occurrence in the source code.
 	 * This method returns an empty list if the type has no accessible fields.
 	 * <p>
 	 * If you want to get persistent fields declared by this type only,
