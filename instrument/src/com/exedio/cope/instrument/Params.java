@@ -29,6 +29,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.Function;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -75,6 +76,7 @@ final class Params
 	private File timestampFile = null;
 	final List<File> classpath = new ArrayList<>();
 	final List<File> resources = new ArrayList<>();
+	private Function<File,Boolean> fileFilter = f->true;
 
 	List<File> getSourceDirectories()
 	{
@@ -100,8 +102,17 @@ final class Params
 		return result;
 	}
 
-	private static void collectFiles(final List<File> collectInto, final File fileOrDir)
+	void setFileFilter(final Function<File, Boolean> fileFilter)
 	{
+		this.fileFilter = fileFilter;
+	}
+
+	private void collectFiles(final List<File> collectInto, final File fileOrDir)
+	{
+		if (!fileFilter.apply(fileOrDir))
+		{
+			return;
+		}
 		if (!fileOrDir.exists())
 		{
 			throw new RuntimeException(fileOrDir.getAbsolutePath()+" does not exist");
