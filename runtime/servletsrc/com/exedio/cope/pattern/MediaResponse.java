@@ -36,6 +36,7 @@ public final class MediaResponse
 		this.response = response;
 	}
 
+
 	/**
 	 * @see HttpServletResponse#addHeader(String, String)
 	 */
@@ -94,4 +95,32 @@ public final class MediaResponse
 			// set by Tomcat
 			"Date"
 	).map(s -> s.toLowerCase(ENGLISH)).collect(Collectors.toSet());
+
+
+	private boolean cacheControlNoTransform = false;
+
+	/**
+	 * A {@code no-transform} directive is added to the
+	 * {@code Cache-Control} header of the response
+	 * iff this method is called.
+	 * Subsequent calls to this method are ignored.
+	 * <p>
+	 * See
+	 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
+	 */
+	public void addCacheControlNoTransform()
+	{
+		cacheControlNoTransform = true;
+	}
+
+	void addToCacheControl(final StringBuilder bf)
+	{
+		if(cacheControlNoTransform)
+		{
+			if(bf.length()!=0)
+				bf.append(',');
+
+			bf.append("no-transform");
+		}
+	}
 }

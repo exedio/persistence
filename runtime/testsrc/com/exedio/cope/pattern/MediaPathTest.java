@@ -481,6 +481,12 @@ public final class MediaPathTest extends TestWithEnvironment
 
 		item.setCacheControlPrivate(true);
 		service(new Request(ok)).assertOkAndCacheControl("private");
+
+		item.setCacheControlNoTransform(true);
+		service(new Request(ok)).assertOkAndCacheControl("private,no-transform");
+
+		item.setCacheControlPrivate(false);
+		service(new Request(ok)).assertOkAndCacheControl("no-transform");
 	}
 
 	@Test void testHeaders() throws ServletException, IOException
@@ -1152,12 +1158,15 @@ public final class MediaPathTest extends TestWithEnvironment
 		{
 			super.filterResponse(locator, response);
 
+			final MediaPathItem item = assertConfigMethod(locator);
 			for(final Iterator<String> i =
-				 assertConfigMethod(locator).getHeaders().iterator();
+				 item.getHeaders().iterator();
 				 i.hasNext(); )
 			{
 				response.addHeader(i.next(), i.next());
 			}
+			if(item.getCacheControlNoTransform())
+				response.addCacheControlNoTransform();
 		}
 
 		@Override
