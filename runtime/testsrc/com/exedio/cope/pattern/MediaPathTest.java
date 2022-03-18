@@ -289,7 +289,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		final int ALMOST_ONE_YEAR = 31363200;
 		final String ok = "/MediaPathItem/finger/.fIkl3T/" + id + "/phrase.jpg";
 		assertEquals(ok, "/" + item.getFingerLocator().getPath());
-		service(new Request(ok)).assertLastModified(333339000l).assertOkAndCacheControl("max-age="+ALMOST_ONE_YEAR);
+		service(new Request(ok)).assertLastModified(333339000l).assertOkAndCacheControl("max-age="+ALMOST_ONE_YEAR+",immutable");
 
 		assertRedirect("/MediaPathItem/finger/" + id,                      prefix + ok);
 		assertRedirect("/MediaPathItem/finger/" + id + "/otherPhrase",     prefix + ok);
@@ -413,7 +413,7 @@ public final class MediaPathTest extends TestWithEnvironment
 		assertEquals(ok, "/" + item.getFingerGuessLocator().getPath());
 		service(new Request(ok)).
 				assertLastModified(333339000l).
-				assertOkAndCacheControl("max-age="+ALMOST_ONE_YEAR);
+				assertOkAndCacheControl("max-age="+ALMOST_ONE_YEAR+",immutable");
 
 		assertNotFound("/MediaPathItem/fingerGuess/.fIkl3T/.tzack/" + id + ".jpg", "guessed url");
 		assertNotFound("/MediaPathItem/fingerGuess/.fIkl3T/.t/"     + id + ".jpg", "guessed url");

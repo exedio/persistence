@@ -816,7 +816,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(servlet, response, locator, null);
+			setCacheControl(servlet, response, locator, null, false);
 			deliver(request, response, locator);
 			return;
 		}
@@ -828,6 +828,7 @@ public abstract class MediaPath extends Pattern
 		response.setDateHeader("Last-Modified", lastModified);
 
 		final Duration cacheControlMaxAge;
+		final boolean cacheControlImmutable;
 		if(isUrlFingerPrinted())
 		{
 			// RFC 2616:
@@ -836,13 +837,15 @@ public abstract class MediaPath extends Pattern
 			// sent. HTTP/1.1 servers SHOULD NOT send Expires dates more than one
 			// year in the future.
 			cacheControlMaxAge = Duration.ofDays(363);
+			cacheControlImmutable = true;
 		}
 		else
 		{
 			cacheControlMaxAge = servlet.getMaximumAge(locator);
+			cacheControlImmutable = false;
 		}
 
-		setCacheControl(servlet, response, locator, cacheControlMaxAge);
+		setCacheControl(servlet, response, locator, cacheControlMaxAge, cacheControlImmutable);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
@@ -884,7 +887,8 @@ public abstract class MediaPath extends Pattern
 			final MediaServlet servlet,
 			final HttpServletResponse response,
 			final Locator locator,
-			final Duration maxAge)
+			final Duration maxAge,
+			final boolean immutable)
 	{
 		// RFC 2616
 		// 4.2 Message Headers
@@ -895,6 +899,8 @@ public abstract class MediaPath extends Pattern
 		// "field-name: field-value" pair, without changing the semantics of the
 		// message, by appending each subsequent field-value to the first, each
 		// separated by a comma.
+
+		// https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
 
 		final StringBuilder bf = new StringBuilder();
 
@@ -908,6 +914,14 @@ public abstract class MediaPath extends Pattern
 
 			bf.append("max-age=").
 				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
+		}
+
+		if(immutable)
+		{
+			if(bf.length()!=0)
+				bf.append(',');
+
+			bf.append("immutable");
 		}
 
 		if(bf.length()!=0)
