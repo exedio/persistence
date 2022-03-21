@@ -98,6 +98,7 @@ final class PostgresqlSchemaDialect extends Dialect
 		final String schemaL = getSchemaLiteral();
 
 		verifyTables(schema,
+				//language=SQL
 				"SELECT table_name " +
 				"FROM information_schema.tables " +
 				"WHERE table_catalog=" + catalog + " AND table_schema=" + schemaL + " " +
@@ -105,6 +106,7 @@ final class PostgresqlSchemaDialect extends Dialect
 				"ORDER BY table_name"); // make it deterministic for more than one unused table
 
 		querySQL(schema,
+				//language=SQL
 				"SELECT " +
 						"table_name, " + // 1
 						"column_name, " + // 2
@@ -151,6 +153,7 @@ final class PostgresqlSchemaDialect extends Dialect
 		});
 
 		querySQL(schema,
+				//language=SQL
 				"SELECT " +
 						"ut.relname," + // 1
 						"uc.conname," + // 2
@@ -182,6 +185,7 @@ final class PostgresqlSchemaDialect extends Dialect
 		});
 
 		verifyUniqueConstraints(schema,
+				//language=SQL
 				"SELECT tc.table_name, tc.constraint_name, cu.column_name " +
 				"FROM information_schema.table_constraints tc " +
 				"JOIN information_schema.key_column_usage cu " +
@@ -194,6 +198,7 @@ final class PostgresqlSchemaDialect extends Dialect
 				"ORDER BY tc.table_name, tc.constraint_name, cu.ordinal_position");
 
 		verifyForeignKeyConstraints(schema,
+				//language=SQL
 				"SELECT " +
 						"rc.constraint_name, " + // 1
 						"src.table_name, " + // 2
@@ -214,6 +219,7 @@ final class PostgresqlSchemaDialect extends Dialect
 				"NO ACTION", "NO ACTION");
 
 		verifySequences(schema,
+				//language=SQL
 				"SELECT sequence_name, maximum_value, start_value " +
 				"FROM information_schema.sequences " +
 				"WHERE sequence_catalog=" + catalog + " AND sequence_schema=" + schemaL);

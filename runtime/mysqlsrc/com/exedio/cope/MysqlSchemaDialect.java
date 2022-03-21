@@ -79,6 +79,7 @@ final class MysqlSchemaDialect extends Dialect
 		final String catalog = getCatalogLiteral(schema);
 
 		querySQL(schema,
+				//language=SQL
 				"SELECT TABLE_NAME, ENGINE " +
 				"FROM information_schema.TABLES " +
 				"WHERE TABLE_SCHEMA=" + catalog + " AND TABLE_TYPE='BASE TABLE' " +
@@ -100,6 +101,7 @@ final class MysqlSchemaDialect extends Dialect
 		});
 
 		querySQL(schema,
+				//language=SQL
 				"SELECT " +
 						"c.TABLE_NAME," + // 1
 						"c.COLUMN_NAME," + // 2
@@ -168,6 +170,7 @@ final class MysqlSchemaDialect extends Dialect
 		});
 
 		verifyForeignKeyConstraints(schema,
+				//language=SQL
 				"SELECT " +
 						"rc.CONSTRAINT_NAME, " + // 1
 						"rc.TABLE_NAME, " + // 2
@@ -187,6 +190,7 @@ final class MysqlSchemaDialect extends Dialect
 		final String PRIMARY_KEY = "PRIMARY KEY";
 		final String UNIQUE = "UNIQUE";
 		querySQL(schema,
+				//language=SQL
 				"SELECT " +
 						"tc.CONSTRAINT_NAME," + // 1
 						"tc.TABLE_NAME," + // 2

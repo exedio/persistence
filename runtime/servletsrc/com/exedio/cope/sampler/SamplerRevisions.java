@@ -38,11 +38,13 @@ final class SamplerRevisions implements Revisions.Factory
 	{
 		return new Revisions(
 			new Revision(18, "drop columns for non-LRU ItemCache, rename invalidateLast to stamps",
+				//language=SQL
 				"ALTER TABLE `DiffModel` " +
 					"DROP COLUMN `itemCacheReplacementRuns`," +
 					"CHANGE `itemCacheInvalidaLastSize` `itemCacheStampsSize` "  +"int not null," +
 					"CHANGE `itemCacheInvalidaLastHits` `itemCacheStampsHits` "  +"int not null," +
 					"CHANGE `itemCacheInvaliLastPurged` `itemCacheStampsPurged` "+"int not null",
+				//language=SQL
 				"ALTER TABLE `DiffItemCache` " +
 					"DROP COLUMN `limit`, " +
 					"DROP COLUMN `replacementRuns`, " +
@@ -55,17 +57,20 @@ final class SamplerRevisions implements Revisions.Factory
 					"CHANGE `invalidateLastPurged` "+"`stampsPurged` "+"int not null"
 			),
 			new Revision(17, "add QueryCacheStamps",
+				//language=SQL
 				"ALTER TABLE `DiffModel` " +
 					"ADD COLUMN `queryCacheStampsSize` "  +"int not null AFTER `queryCacheConcurrentLoads`, " +
 					"ADD COLUMN `queryCacheStampsHits` "  +"int not null AFTER `queryCacheStampsSize`, " +
 					"ADD COLUMN `queryCacheStampsPurged` "+"int not null AFTER `queryCacheStampsHits`"
 			),
 			new Revision(16, "add SamplerTransaction invalidationSize",
+				//language=SQL
 				"ALTER TABLE `DiffTransaction` " +
 					"ADD COLUMN `invalidationSize` int not null " +
 						"AFTER `thread_stackTrace`"
 			),
 			new Revision(15, "add SamplerTransaction commit-hooks",
+				//language=SQL
 				"ALTER TABLE `DiffTransaction` " +
 					"ADD COLUMN `preCommitHookCount` int not null, " +
 					"ADD COLUMN `preCommitHookDuplicates` int not null, " +
@@ -73,15 +78,18 @@ final class SamplerRevisions implements Revisions.Factory
 					"ADD COLUMN `postCommitHookDuplicates` int not null"
 			),
 			new Revision(14, "add SamplerModel#itemCacheLimit, #itemCacheLevel",
+				//language=SQL
 				"ALTER TABLE `DiffModel` " +
 					"ADD COLUMN `itemCacheLimit` int not null, " +
 					"ADD COLUMN `itemCacheLevel` int not null"
 			),
 			new Revision(13, "add SamplerModel#queryCacheConcurrentLoads",
+				//language=SQL
 				"ALTER TABLE `DiffModel` " +
 					"ADD COLUMN `queryCacheConcurrentLoads` int not null"
 			),
 			new Revision(12, "add SamplerEnvironment#buildTag",
+				//language=SQL
 				"ALTER TABLE `SamplerEnvironment` " +
 					"ADD COLUMN `buildTag` text CHARACTER SET utf8 COLLATE utf8_bin"
 			)

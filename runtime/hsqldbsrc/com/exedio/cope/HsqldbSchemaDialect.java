@@ -87,6 +87,7 @@ final class HsqldbSchemaDialect extends Dialect
 	protected void verify(final Schema schema)
 	{
 		verifyTables(schema,
+				//language=SQL
 				"SELECT TABLE_NAME " +
 				"FROM INFORMATION_SCHEMA.TABLES " +
 				"WHERE TABLE_SCHEMA='PUBLIC' AND TABLE_TYPE='BASE TABLE' " +
@@ -95,6 +96,7 @@ final class HsqldbSchemaDialect extends Dialect
 		verifyColumnsByMetaData(schema, "PUBLIC");
 
 		querySQL(schema,
+				//language=SQL
 				"SELECT " +
 						"tc.CONSTRAINT_NAME, " + // 1
 						"tc.CONSTRAINT_TYPE, " + // 2
@@ -127,6 +129,7 @@ final class HsqldbSchemaDialect extends Dialect
 				{
 					final StringBuilder clause = new StringBuilder();
 					querySQL(schema,
+							//language=SQL
 							"SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.SYSTEM_INDEXINFO WHERE INDEX_NAME LIKE 'SYS_IDX_" +
 							constraintName +
 							"_%' AND NON_UNIQUE=false ORDER BY ORDINAL_POSITION",
@@ -154,6 +157,7 @@ final class HsqldbSchemaDialect extends Dialect
 		});
 
 		verifyForeignKeyConstraints(schema,
+				//language=SQL
 				"SELECT " +
 						"tc.CONSTRAINT_NAME, " + // 1
 						"tc.TABLE_NAME, " + // 2
@@ -175,6 +179,7 @@ final class HsqldbSchemaDialect extends Dialect
 				"NO ACTION", "NO ACTION");
 
 		verifySequences(schema,
+				//language=SQL
 				"SELECT SEQUENCE_NAME, MAXIMUM_VALUE, START_WITH " +
 				"FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES " +
 				"WHERE SEQUENCE_SCHEMA='PUBLIC'");
