@@ -1156,6 +1156,27 @@
 
 	<target name="publishlocally" depends="jar, runtime.jar.src">
 		<ant dir="ivy" target="publishlocally" />
+		<if>
+			<isset property="gradle.offline.repo.path" />
+			<then>
+				<fail message="gradle.offline.repo.path does not point to an existing directory: ${gradle.offline.repo.path}">
+					<condition>
+						<not>
+							<available file="${gradle.offline.repo.path}" type="dir"/>
+						</not>
+					</condition>
+				</fail>
+				<echo>publishing version 999999999 to ${gradle.offline.repo.path}</echo>
+				<property name="repo.dir" value="${gradle.offline.repo.path}/com/exedio/cope/999999999" />
+				<mkdir dir="${repo.dir}" />
+				<copy tofile="${repo.dir}/exedio-cope-999999999.jar" file="build/exedio-cope.jar" />
+				<copy tofile="${repo.dir}/exedio-cope-hsqldb-999999999.jar" file="build/exedio-cope-hsqldb.jar" />
+				<copy tofile="${repo.dir}/exedio-cope-mysql-999999999.jar" file="build/exedio-cope-mysql.jar" />
+				<copy tofile="${repo.dir}/exedio-cope-instrument-999999999.jar" file="build/exedio-cope-instrument.jar" />
+				<copy tofile="${repo.dir}/exedio-cope-instrument-annotations-999999999.jar" file="build/exedio-cope-instrument-annotations.jar" />
+				<copy tofile="${repo.dir}/ivy-999999999.xml" file="build/ivy.xml" />
+			</then>
+		</if>
 	</target>
 
 	<target name="licenseheaders" description="Updates the license headers in the source files.">
