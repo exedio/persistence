@@ -182,13 +182,25 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 		return Collections.unmodifiableMap(result);
 	}
 
+	static boolean containsKeyNull(@Nonnull final Map<?,?> map)
+	{
+		try
+		{
+			return map.containsKey(null);
+		}
+		catch(final NullPointerException e)
+		{
+			return false; // because map does not support null
+		}
+	}
+
 	@Override
 	@Wrap(order=120, hide=FinalSettableGetter.class)
 	public void setMap(@Nonnull final Item item, @Nonnull final Map<? extends K,? extends V> map)
 	{
 		FinalViolationException.check(this, item);
 		MandatoryViolationException.requireNonNull(map, this, item);
-		if(map.containsKey(null))
+		if(containsKeyNull(map))
 			throw MandatoryViolationException.create(this, item);
 
 		final K[] enums = keyClass.getEnumConstants();

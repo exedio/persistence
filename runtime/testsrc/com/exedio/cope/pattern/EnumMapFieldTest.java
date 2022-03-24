@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.map;
 import static java.lang.Integer.valueOf;
 import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
@@ -180,7 +181,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 	@Test void testMapSet()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Assert.sensitive(map, m -> new SensitiveButContainsKeyMap<>(m, Language.class, String.class));
+		final Map<Language, String> mapU = Assert.sensitive(map, m -> new SensitiveButContainsKeyNullPointerExceptionMap<>(m, Language.class, String.class));
 		assertEqualsUnmodifiable(map(), item.getNameMap());
 		assertEquals(asList(item, itemX), search(name.isEmpty()));
 		assertEquals(asList(), search(name.isNotEmpty()));
@@ -215,6 +216,22 @@ public class EnumMapFieldTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(map(), item.getNameMap());
 		assertEquals(asList(item, itemX), search(name.isEmpty()));
 		assertEquals(asList(), search(name.isNotEmpty()));
+	}
+
+	static final class SensitiveButContainsKeyNullPointerExceptionMap<K,V> extends SensitiveMap<K,V>
+	{
+		SensitiveButContainsKeyNullPointerExceptionMap(
+				final Map<K, V> b,
+				final Class<K> keyClass,
+				final Class<V> valueClass)
+		{
+			super(b, keyClass, valueClass);
+		}
+		@Override
+		public boolean containsKey(final Object key)
+		{
+			return backing.containsKey(requireNonNull(key, "SensitiveButContainsKeyNullPointerExceptionMap"));
+		}
 	}
 
 	@Test void testMapSetNull()
@@ -272,7 +289,7 @@ public class EnumMapFieldTest extends TestWithEnvironment
 	@Test void testMapSetValueNull()
 	{
 		final HashMap<Language, String> map = new HashMap<>();
-		final Map<Language, String> mapU = Assert.sensitive(map, m -> new SensitiveButContainsKeyMap<>(m, Language.class, String.class));
+		final Map<Language, String> mapU = Assert.sensitive(map, m -> new SensitiveButContainsKeyNullPointerExceptionMap<>(m, Language.class, String.class));
 		map.put(PL, "namePL");
 		item.setNameMap(mapU);
 		assertEquals(map(PL, "namePL"), item.getNameMap());

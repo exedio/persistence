@@ -7,6 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* EnumMapField#setMap supports maps created by Map.of available in JDK 11.
 * Instrumentor supports wrapping nullable results into java.util.Optional (see Wrapper#nullableAsOptional)
 * VaultFileService sets posix permissions for vault directories to rwx------.
 	Check your deployed systems, whether this is what you want!
