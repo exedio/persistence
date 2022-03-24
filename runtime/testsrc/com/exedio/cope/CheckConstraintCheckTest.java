@@ -19,7 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static java.util.Collections.unmodifiableMap;
+import static com.exedio.cope.tojunit.Assert.sensitive;
 
 import java.util.Collections;
 import java.util.HashMap;
@@ -71,7 +71,9 @@ public class CheckConstraintCheckTest
 		final HashMap<FunctionField<?>, Object> values = new HashMap<>();
 		values.put(f1, v1);
 		values.put(f2, v2);
-		return unmodifiableMap(values);
+		@SuppressWarnings("unchecked")
+		final Class<FunctionField<?>> functionFieldClass = (Class<FunctionField<?>>)(Class<?>)FunctionField.class;
+		return sensitive(values, functionFieldClass, Object.class);
 	}
 
 

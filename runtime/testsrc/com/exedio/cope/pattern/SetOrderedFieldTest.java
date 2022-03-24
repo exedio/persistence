@@ -26,7 +26,7 @@ import static com.exedio.cope.pattern.SetOrderedFieldModelTest.stringsElement;
 import static com.exedio.cope.pattern.SetOrderedFieldModelTest.stringsType;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static java.util.Arrays.asList;
+import static com.exedio.cope.tojunit.Assert.listOf;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -72,7 +72,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		item.assertStrings();
 		assertEquals(0, stringsType.newQuery(null).search().size());
 
-		item.setStrings(asList("1hallo", "2bello"));
+		item.setStrings(listOf("1hallo", "2bello", String.class));
 		item.assertStrings("1hallo", "2bello");
 		assertContains(item, getParentsOfStrings("1hallo"));
 		assertContains(item, getParentsOfStrings("2bello"));
@@ -89,7 +89,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertEquals("1hallo", r0.get(stringsElement));
 		assertEquals("2bello", r1.get(stringsElement));
 
-		item.setStrings(asList("2bello", "3knollo"));
+		item.setStrings(listOf("2bello", "3knollo", String.class));
 		item.assertStrings("2bello", "3knollo");
 		assertContains(getParentsOfStrings("1hallo"));
 		assertContains(item, getParentsOfStrings("2bello"));
@@ -108,7 +108,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());
 
-		item.setStrings(asList("3knollo"));
+		item.setStrings(listOf("3knollo", String.class));
 		item.assertStrings("3knollo");
 		assertContains(getParentsOfStrings("1hallo"));
 		assertContains(getParentsOfStrings("2bello"));
@@ -124,7 +124,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertFalse(r2.existsCopeItem());
 		assertFalse(r3.existsCopeItem());
 
-		item.setStrings(asList("zack1", "zack2", "zack3"));
+		item.setStrings(listOf("zack1", "zack2", "zack3", String.class));
 		item.assertStrings("zack1", "zack2", "zack3");
 		final Item r5;
 		final Item r6;
@@ -141,7 +141,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertEquals("zack2", r6.get(stringsElement));
 		assertEquals("zack3", r7.get(stringsElement));
 
-		item.setStrings(asList("null1", "null2", "null3", "null4"));
+		item.setStrings(listOf("null1", "null2", "null3", "null4", String.class));
 		item.assertStrings("null1", "null2", "null3", "null4");
 		assertContains(item, getParentsOfStrings("null1"));
 		assertContains(getParentsOfStrings(null));
@@ -166,7 +166,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertFalse(r6.existsCopeItem());
 		assertFalse(r7.existsCopeItem());
 
-		item.setStrings(asList());
+		item.setStrings(listOf(String.class));
 		item.assertStrings();
 		assertFalse(r8.existsCopeItem());
 		assertFalse(r9.existsCopeItem());
@@ -240,7 +240,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 	@Test void testMandatoryViolation()
 	{
 		assertFails(
-				() -> item.setStrings(asList("one1", null, "three3")),
+				() -> item.setStrings(listOf("one1", null, "three3", String.class)),
 				MandatoryViolationException.class,
 				"mandatory violation for SetOrderedFieldItem-strings.element",
 				strings.getElement());
@@ -250,7 +250,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 	@Test void testOtherViolation()
 	{
 		final StringLengthViolationException e = assertFails(
-				() -> item.setStrings(asList("one1", "two", "three3")),
+				() -> item.setStrings(listOf("one1", "two", "three3", String.class)),
 				StringLengthViolationException.class,
 				"length violation, 'two' is too short for SetOrderedFieldItem-strings.element, " +
 				"must be at least 4 characters, but was 3.",
@@ -261,13 +261,13 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 
 	@Test void testDuplicates()
 	{
-		item.setStrings(asList("1one", "2dupl", "2dupl", "3two"));
+		item.setStrings(listOf("1one", "2dupl", "2dupl", "3two", String.class));
 		item.assertStrings("1one", "2dupl", "3two");
 	}
 
 	@Test void testOrder()
 	{
-		item.setStrings(asList("4four", "1one", "2two"));
+		item.setStrings(listOf("4four", "1one", "2two", String.class));
 		item.assertStrings("4four", "1one", "2two");
 
 		item.addToStrings("3three");
@@ -276,10 +276,10 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 
 	@Test void testReorder()
 	{
-		item.setStrings(asList("4four", "1one", "3three", "2two"));
+		item.setStrings(listOf("4four", "1one", "3three", "2two", String.class));
 		item.assertStrings("4four", "1one", "3three", "2two");
 
-		item.setStrings(asList("4four", "3three", "1one", "2two"));
+		item.setStrings(listOf("4four", "3three", "1one", "2two", String.class));
 		item.assertStrings("4four", "3three", "1one", "2two");
 	}
 
@@ -289,9 +289,9 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		final String blau = "2blau";
 		final String gelb = "3gelb";
 
-		item.setStrings(asList(rot, blau));
+		item.setStrings(listOf(rot, blau, String.class));
 		item.assertStrings(rot, blau);
-		otherItem.setStrings(asList(rot));
+		otherItem.setStrings(listOf(rot, String.class));
 		otherItem.assertStrings(rot);
 
 		assertContains(item, otherItem, getParentsOfStrings(rot));
@@ -299,9 +299,9 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 		assertContains(getParentsOfStrings(gelb));
 		assertContains(getParentsOfStrings(null));
 
-		item.setStrings(asList(rot, gelb, blau));
+		item.setStrings(listOf(rot, gelb, blau, String.class));
 		item.assertStrings(rot, gelb, blau);
-		otherItem.setStrings(asList(gelb));
+		otherItem.setStrings(listOf(gelb, String.class));
 		otherItem.assertStrings(gelb);
 
 		assertContains(item, getParentsOfStrings(rot));

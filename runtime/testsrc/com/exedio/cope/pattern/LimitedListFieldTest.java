@@ -28,8 +28,8 @@ import static com.exedio.cope.pattern.LimitedListFieldItemFieldItem.limitedListF
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
+import static com.exedio.cope.tojunit.Assert.listOf;
 import static java.util.Arrays.asList;
-import static java.util.Collections.unmodifiableList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -76,13 +76,13 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(nums.contains(i3)));
 		assertContains(TYPE.search(nums.contains((Integer)null)));
 
-		item.setNums(asList(i3, i2, i1));
+		item.setNums(listOf(i3, i2, i1, Integer.class));
 		assertEqualsUnmodifiable(list(i3, i2, i1), item.getNums());
 		assertEquals(i3, item.getNum1());
 		assertEquals(i2, item.getNum2());
 		assertEquals(i1, item.getNum3());
 
-		item.setNums(asList(i2, i1));
+		item.setNums(listOf(i2, i1, Integer.class));
 		assertEqualsUnmodifiable(list(i2, i1), item.getNums());
 		assertEquals(i2, item.getNum1());
 		assertEquals(i1, item.getNum2());
@@ -90,7 +90,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 
 		try
 		{
-			item.setNums(asList(i2, i1, i3, i1));
+			item.setNums(listOf(i2, i1, i3, i1, Integer.class));
 			fail();
 		}
 		catch(final ListSizeViolationException e)
@@ -107,7 +107,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(i1, item.getNum2());
 		assertEquals(null, item.getNum3());
 
-		item.setNums(asList());
+		item.setNums(listOf(Integer.class));
 		assertEquals(null, item.getNum1());
 		assertEquals(null, item.getNum2());
 		assertEquals(null, item.getNum3());
@@ -120,16 +120,16 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertContains(TYPE.search(nums.contains(i3)));
 		assertContains(TYPE.search(nums.contains((Integer)null)));
 
-		item.setNums(asList(i1, i2, i3));
+		item.setNums(listOf(i1, i2, i3, Integer.class));
 		assertEqualsUnmodifiable(list(i1, i2, i3), item.getNums());
 
-		item.setNums(asList(null, i2, i3));
+		item.setNums(listOf(null, i2, i3, Integer.class));
 		assertEqualsUnmodifiable(list(null, i2, i3), item.getNums());
 
-		item.setNums(asList(i1, null, i3));
+		item.setNums(listOf(i1, null, i3, Integer.class));
 		assertEqualsUnmodifiable(list(i1, null, i3), item.getNums());
 
-		item.setNums(asList(null, null, null));
+		item.setNums(listOf(null, null, null, Integer.class));
 		assertEqualsUnmodifiable(list(null, null, null), item.getNums());
 	}
 
@@ -145,7 +145,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 
 	@Test void testString()
 	{
-		item.setStrings(unmodifiableList(asList("hallo", "bello")));
+		item.setStrings(listOf("hallo", "bello", String.class));
 		assertEqualsUnmodifiable(list("hallo", "bello"), item.getStrings());
 		assertEquals("hallo", item.getString0());
 		assertEquals("bello", item.getString1());
@@ -221,7 +221,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	{
 		assertEqualsUnmodifiable(list(), item.getStrings());
 
-		item.setStrings(unmodifiableList(asList("a", "b", null)));
+		item.setStrings(listOf("a", "b", null, String.class));
 		assertEqualsUnmodifiable(list("a", "b", null), item.getStrings());
 		assertEquals("a", item.getString0());
 		assertEquals("b", item.getString1());
@@ -229,7 +229,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(unmodifiableList(asList("a", null, "c")));
+		item.setStrings(listOf("a", null, "c", String.class));
 		assertEqualsUnmodifiable(list("a", null, "c"), item.getStrings());
 		assertEquals("a", item.getString0());
 		assertEquals(null, item.getString1());
@@ -237,7 +237,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(unmodifiableList(asList(null, "b", "c")));
+		item.setStrings(listOf(null, "b", "c", String.class));
 		assertEqualsUnmodifiable(list(null, "b", "c"), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals("b", item.getString1());
@@ -245,7 +245,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(unmodifiableList(asList(null, "b", null)));
+		item.setStrings(listOf(null, "b", null, String.class));
 		assertEqualsUnmodifiable(list(null, "b", null), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals("b", item.getString1());
@@ -253,7 +253,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getString3());
 		assertEquals(3, item.getStringLength());
 
-		item.setStrings(unmodifiableList(asList(null, null, null)));
+		item.setStrings(listOf(null, null, null, String.class));
 		assertEqualsUnmodifiable(list(null, null, null), item.getStrings());
 		assertEquals(null, item.getString0());
 		assertEquals(null, item.getString1());

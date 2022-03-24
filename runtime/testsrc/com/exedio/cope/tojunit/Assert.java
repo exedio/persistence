@@ -98,6 +98,51 @@ public final class Assert
 		return result;
 	}
 
+	public static <E> List<E> listOf(final Class<E> elementClass)
+	{
+		return listOf(Arrays.asList(), elementClass);
+	}
+
+	public static <E> List<E> listOf(final E e1, final Class<E> elementClass)
+	{
+		return listOf(Arrays.asList(e1), elementClass);
+	}
+
+	public static <E> List<E> listOf(final E e1, final E e2, final Class<E> elementClass)
+	{
+		return listOf(Arrays.asList(e1, e2), elementClass);
+	}
+
+	public static <E> List<E> listOf(final E e1, final E e2, final E e3, final Class<E> elementClass)
+	{
+		return listOf(Arrays.asList(e1, e2, e3), elementClass);
+	}
+
+	public static <E> List<E> listOf(final E e1, final E e2, final E e3, final E e4, final Class<E> elementClass)
+	{
+		return listOf(Arrays.asList(e1, e2, e3, e4), elementClass);
+	}
+
+	private static <E> List<E> listOf(final List<E> l, final Class<E> elementClass)
+	{
+		return Collections.unmodifiableList(new SensitiveList<>(l, elementClass));
+	}
+
+	public static <K,V> Map<K, V> sensitive(
+			final Map<K,V> map,
+			final Class<K> keyClass,
+			final Class<V> valueClass)
+	{
+		return sensitive(map, m -> new SensitiveMap<>(m, keyClass, valueClass));
+	}
+
+	public static <K,V> Map<K,V> sensitive(
+			final Map<K,V> map,
+			final Function<Map<K,V>, SensitiveMap<K,V>> subClass)
+	{
+		return Collections.unmodifiableMap(subClass.apply(map));
+	}
+
 	public static void assertContainsList(final List<?> expected, final Collection<?> actual)
 	{
 		if(expected==null && actual==null)
