@@ -1002,6 +1002,7 @@
 				<pathelement location="lib/junit-platform-engine.jar" />
 				<pathelement location="lib/junit-platform-commons.jar" />
 				<pathelement location="lib/opentest4j.jar" />
+				<pathelement location="lib/jsr305.jar" />
 			</classpath>
 		</ljunit>
 	</target>
