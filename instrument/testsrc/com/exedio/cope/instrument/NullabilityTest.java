@@ -18,12 +18,9 @@ class NullabilityTest
 					assertEquals("NullabilityItem", nullabilityItem.getName());
 					final LocalCopeFeature optional = nullabilityItem.getFeatures().get(0);
 					assertEquals("optional", optional.getName());
-					final WrapperX allCanReturnNull = optional.getWrappers(true).get(0);
+					final WrapperX allCanReturnNull = optional.getWrappers().get(0);
 					assertEquals("allCanReturnNull", allCanReturnNull.name);
 					assertEquals(Nullability.NULLABLE, allCanReturnNull.getMethodNullability());
-					final WrapperX allCanReturnNullUnnullable = optional.getWrappers(false).get(0);
-					assertEquals("allCanReturnNull", allCanReturnNullUnnullable.name);
-					assertEquals(Nullability.DEFAULT, allCanReturnNullUnnullable.getMethodNullability()); // not good: nullability info depends on generator setting
 				}
 		);
 	}

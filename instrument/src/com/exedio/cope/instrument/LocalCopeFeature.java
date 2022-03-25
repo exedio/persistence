@@ -125,23 +125,21 @@ final class LocalCopeFeature extends CopeFeature
 		return javaField.applyTypeShortcuts(type);
 	}
 
-	List<WrapperX> getWrappers(final boolean nullabilityAnnotations)
+	List<WrapperX> getWrappers()
 	{
 		final Object feature = getInstance();
 		if (feature==null) throw new RuntimeException("instance==null for "+this);
-		return getWrappers(nullabilityAnnotations, feature.getClass(), feature);
+		return getWrappers(feature.getClass(), feature);
 	}
 
-	private static List<WrapperX> getWrappers(final boolean nullabilityAnnotations,
-															final Class<?> clazz,
+	private static List<WrapperX> getWrappers(final Class<?> clazz,
 															final Object feature)
 	{
 		return WrapperByAnnotations.make(
 				clazz,
 				feature,
 				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
-						? getWrappers(nullabilityAnnotations, clazz.getSuperclass(), feature)
-						: Collections.emptyList(),
-				nullabilityAnnotations);
+						? getWrappers(clazz.getSuperclass(), feature)
+						: Collections.emptyList());
 	}
 }

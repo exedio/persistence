@@ -40,10 +40,9 @@ final class WrapperByAnnotations
 	static List<WrapperX> make(
 			final Class<?> clazz,
 			final Object feature,
-			final List<WrapperX> superResult,
-			final boolean enableNullability)
+			final List<WrapperX> superResult)
 	{
-		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature, enableNullability);
+		final WrapperByAnnotations factory = new WrapperByAnnotations(clazz, feature);
 		final ArrayList<WrapperX> result = new ArrayList<>(superResult);
 		factory.makeAll(result);
 		return Collections.unmodifiableList(result);
@@ -52,13 +51,11 @@ final class WrapperByAnnotations
 
 	private final Class<?> clazz;
 	private final Object feature;
-	private final boolean enableNullability;
 
-	private WrapperByAnnotations(final Class<?> clazz, final Object instance, final boolean enableNullability)
+	private WrapperByAnnotations(final Class<?> clazz, final Object instance)
 	{
 		this.clazz = clazz;
 		this.feature = instance;
-		this.enableNullability = enableNullability;
 	}
 
 	private void makeAll(final List<WrapperX> list)
@@ -139,24 +136,17 @@ final class WrapperByAnnotations
 
 	private Nullability getNullability(final Annotation[] annotations, final Class<? extends NullabilityGetter<?>> nullabilityClass)
 	{
-		if (enableNullability)
+		if (NullabilityGetterDefault.class.equals(nullabilityClass))
 		{
-			if (NullabilityGetterDefault.class.equals(nullabilityClass))
-			{
-				return Nullability.fromAnnotations(annotations);
-			}
-			else
-			{
-				@SuppressWarnings("rawtypes")
-				final NullabilityGetter source = instantiate(nullabilityClass);
-				@SuppressWarnings("unchecked")
-				final Nullability result = source.getNullability(feature);
-				return result;
-			}
+			return Nullability.fromAnnotations(annotations);
 		}
 		else
 		{
-			return Nullability.DEFAULT;
+			@SuppressWarnings("rawtypes")
+			final NullabilityGetter source = instantiate(nullabilityClass);
+			@SuppressWarnings("unchecked")
+			final Nullability result = source.getNullability(feature);
+			return result;
 		}
 	}
 

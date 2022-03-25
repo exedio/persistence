@@ -373,7 +373,7 @@ final class Generator
 	private void writeFeature(final LocalCopeFeature feature)
 	{
 		final Kind kind = feature.parent.kind;
-		for(final WrapperX wrapper : feature.getWrappers(nullabilityAnnotations))
+		for(final WrapperX wrapper : feature.getWrappers())
 		{
 			if (wrapper.isMethodDeprecated() && !generateDeprecateds.contains(wrapper.method))
 				continue;
@@ -400,7 +400,7 @@ final class Generator
 			final boolean override = option.override();
 			final String[] customAnnotations = option.annotate();
 			final boolean useIs = feature.getInstance() instanceof BooleanField && methodName.startsWith("get");
-			final boolean wrapResultInOptional = wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
+			final boolean wrapResultInOptional = nullabilityAnnotations && wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
 
 			final Object[] arguments = new String[]{
 					feature.getJavadocReference(),
@@ -467,19 +467,22 @@ final class Generator
 				writeEmptyAnnotationOnSeparateLine(Deprecated.class);
 			}
 
-			switch(wrapper.getMethodNullability())
+			if (nullabilityAnnotations)
 			{
-				case NONNULL:
-					writeEmptyAnnotationOnSeparateLine(Nonnull.class);
-					break;
-				case NULLABLE:
-					writeEmptyAnnotationOnSeparateLine(wrapResultInOptional ? Nonnull.class : Nullable.class );
-					break;
-				case DEFAULT:
-					// nothing to do
-					break;
-				default:
-					throw new RuntimeException("invalid case");
+				switch(wrapper.getMethodNullability())
+				{
+					case NONNULL:
+						writeEmptyAnnotationOnSeparateLine(Nonnull.class);
+						break;
+					case NULLABLE:
+						writeEmptyAnnotationOnSeparateLine(wrapResultInOptional ? Nonnull.class : Nullable.class);
+						break;
+					case DEFAULT:
+						// nothing to do
+						break;
+					default:
+						throw new RuntimeException("invalid case");
+				}
 			}
 
 			if(override)
