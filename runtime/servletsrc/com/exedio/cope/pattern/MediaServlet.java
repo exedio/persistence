@@ -231,11 +231,11 @@ public class MediaServlet extends HttpServlet
 
 
 	/**
-	 * Let this method return the maximum age, that will be put into header
-	 * {@code Cache-Control: max-age=<seconds>}
-	 * of the response.
-	 * If method returns null, no maximum age is sent.
-	 * Negative values are treated like zero.
+	 * A {@code max-age} directive is added to the
+	 * {@code Cache-Control} header of the response
+	 * iff this method does not return {@code null}.
+	 * If this method returns {@code null}, no {@code max-age} directive is added.
+	 * Negative values are treated like {@link Duration#ZERO zero}.
 	 * Fractional seconds are ignored.
 	 * This method is not called for @{@link UrlFingerPrinting} pathes -
 	 * such pathes do send a maximum age of 363 days.
@@ -256,9 +256,9 @@ public class MediaServlet extends HttpServlet
 	}
 
 	/**
-	 * Let this method return true, if you want to add a header
-	 * {@code Cache-Control: private}
-	 * to the response.
+	 * A {@code private} directive is added to the
+	 * {@code Cache-Control} header of the response
+	 * iff this method returns true.
 	 * This forbids shared caches, such as company proxies to cache
 	 * such urls.
 	 * <p>
@@ -267,6 +267,7 @@ public class MediaServlet extends HttpServlet
 	 * <p>
 	 * See
 	 * RFC 2616 Section 14.9.1 What is Cacheable,
+	 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control ,
 	 * https://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate , and
 	 * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist .
 	 *
