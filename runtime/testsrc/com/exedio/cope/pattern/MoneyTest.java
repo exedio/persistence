@@ -25,10 +25,12 @@ import static com.exedio.cope.pattern.Money.storeOf;
 import static com.exedio.cope.pattern.Money.zero;
 import static com.exedio.cope.pattern.MoneyTest.Cy.eur;
 import static com.exedio.cope.pattern.MoneyTest.Cy.usd;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class MoneyTest
 {
@@ -92,6 +94,33 @@ public class MoneyTest
 		assertSame(a, z.add(a));
 		assertSame(z, z.add(z));
 		assertEquals(storeOf(2, eur), a.add(a));
+	}
+
+	@Test void testCurrencyMismatch()
+	{
+		final Money<Cy> a = storeOf(222, eur);
+		final Money<Cy> b = storeOf(333, usd);
+		assertCurrencyMismatch(() -> a.amountStore(usd));
+		assertCurrencyMismatch(() -> a.amountStoreIntExact(usd));
+		assertCurrencyMismatch(() -> a.compareTo(b));
+		assertCurrencyMismatch(() -> a.lessThan(b));
+		assertCurrencyMismatch(() -> a.greaterThan(b));
+		assertCurrencyMismatch(() -> a.lessThanOrEqual(b));
+		assertCurrencyMismatch(() -> a.greaterThanOrEqual(b));
+		assertCurrencyMismatch(() -> a.add(b));
+		assertCurrencyMismatch(() -> a.subtract(b));
+		assertCurrencyMismatch(() -> a.min(b));
+		assertCurrencyMismatch(() -> a.max(b));
+		assertCurrencyMismatch(() -> a.doubleAmount(usd));
+		assertCurrencyMismatch(() -> a.bigAmount(usd));
+		assertCurrencyMismatch(() -> a.getAmount(usd));
+	}
+	private static void assertCurrencyMismatch(final Executable executable)
+	{
+		assertFails(
+				executable,
+				IllegalArgumentException.class,
+				"currency mismatch 2.22eur/usd");
 	}
 
 	@Test void testArray()
