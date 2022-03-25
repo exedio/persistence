@@ -20,6 +20,8 @@ package com.exedio.cope.instrument;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Type;
+import java.util.Collections;
+import java.util.List;
 
 final class LocalCopeFeature extends CopeFeature
 {
@@ -121,5 +123,25 @@ final class LocalCopeFeature extends CopeFeature
 	String applyTypeShortcuts(final String type)
 	{
 		return javaField.applyTypeShortcuts(type);
+	}
+
+	List<WrapperX> getWrappers(final boolean nullabilityAnnotations)
+	{
+		final Object feature = getInstance();
+		if (feature==null) throw new RuntimeException("instance==null for "+this);
+		return getWrappers(nullabilityAnnotations, feature.getClass(), feature);
+	}
+
+	private static List<WrapperX> getWrappers(final boolean nullabilityAnnotations,
+															final Class<?> clazz,
+															final Object feature)
+	{
+		return WrapperByAnnotations.make(
+				clazz,
+				feature,
+				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
+						? getWrappers(nullabilityAnnotations, clazz.getSuperclass(), feature)
+						: Collections.emptyList(),
+				nullabilityAnnotations);
 	}
 }

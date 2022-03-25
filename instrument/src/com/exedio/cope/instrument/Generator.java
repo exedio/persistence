@@ -34,7 +34,6 @@ import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -373,10 +372,8 @@ final class Generator
 	@SuppressWarnings({"ConstantConditions", "RedundantSuppression"}) // just happens sporadically
 	private void writeFeature(final LocalCopeFeature feature)
 	{
-		final Object instance = feature.getInstance();
-		if (instance==null) throw new RuntimeException("instance==null for "+feature);
 		final Kind kind = feature.parent.kind;
-		for(final WrapperX wrapper : getWrappers(instance))
+		for(final WrapperX wrapper : feature.getWrappers(nullabilityAnnotations))
 		{
 			if (wrapper.isMethodDeprecated() && !generateDeprecateds.contains(wrapper.method))
 				continue;
@@ -402,7 +399,7 @@ final class Generator
 			final boolean internal = option.internal();
 			final boolean override = option.override();
 			final String[] customAnnotations = option.annotate();
-			final boolean useIs = instance instanceof BooleanField && methodName.startsWith("get");
+			final boolean useIs = feature.getInstance() instanceof BooleanField && methodName.startsWith("get");
 			final boolean wrapResultInOptional = wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
 
 			final Object[] arguments = new String[]{
@@ -691,22 +688,6 @@ final class Generator
 		writeIndent();
 		writeAnnotation(annotationClass);
 		write(lineSeparator);
-	}
-
-	private List<WrapperX> getWrappers(final Object feature)
-	{
-		return getWrappers(feature.getClass(), feature);
-	}
-
-	private List<WrapperX> getWrappers(final Class<?> clazz, final Object feature)
-	{
-		return WrapperByAnnotations.make(
-				clazz,
-				feature,
-				clazz.getSuperclass().isAnnotationPresent(WrapFeature.class)
-				? getWrappers(clazz.getSuperclass(), feature)
-				: Collections.emptyList(),
-				nullabilityAnnotations);
 	}
 
 	private void writeName(final String methodName, final String featureName)
