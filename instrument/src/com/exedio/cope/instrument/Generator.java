@@ -400,7 +400,7 @@ final class Generator
 			final boolean override = option.override();
 			final String[] customAnnotations = option.annotate();
 			final boolean useIs = feature.getInstance() instanceof BooleanField && methodName.startsWith("get");
-			final boolean wrapResultInOptional = nullabilityAnnotations && wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
+			final boolean wrapResultInOptional = wrapper.getMethodNullability()==Nullability.NULLABLE && option.nullableAsOptional()==NullableAsOptional.YES;
 
 			final Object[] arguments = new String[]{
 					feature.getJavadocReference(),
