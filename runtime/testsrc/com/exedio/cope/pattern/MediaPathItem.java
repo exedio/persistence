@@ -49,6 +49,8 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 
 	static final BooleanField cacheControlPrivate = new BooleanField().defaultTo(false);
 
+	static final BooleanField cacheControlNoTransform = new BooleanField().defaultTo(false);
+
 	static final ListField<String> headers = ListField.create(new StringField());
 
 	static final BooleanField accessControlAllowOriginWildcard = new BooleanField().defaultTo(false);
@@ -167,6 +169,26 @@ public final class MediaPathItem extends Item implements MediaUrlCatchphraseProv
 	void setCacheControlPrivate(final boolean cacheControlPrivate)
 	{
 		MediaPathItem.cacheControlPrivate.set(this,cacheControlPrivate);
+	}
+
+	/**
+	 * Returns the value of {@link #cacheControlNoTransform}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	boolean getCacheControlNoTransform()
+	{
+		return MediaPathItem.cacheControlNoTransform.getMandatory(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #cacheControlNoTransform}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setCacheControlNoTransform(final boolean cacheControlNoTransform)
+	{
+		MediaPathItem.cacheControlNoTransform.set(this,cacheControlNoTransform);
 	}
 
 	/**

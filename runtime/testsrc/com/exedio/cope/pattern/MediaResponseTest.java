@@ -111,4 +111,33 @@ public class MediaResponseTest
 				"name is forbidden, was >CONTENT-TYPE<");
 		assertEquals(asList(), headers);
 	}
+
+	@Test void testCacheControlNoTransformOff()
+	{
+		assertCacheControl("", "prefix");
+	}
+	@Test void testCacheControlNoTransformOn()
+	{
+		response.addCacheControlNoTransform();
+		assertCacheControl("no-transform", "prefix,no-transform");
+	}
+	@Test void testCacheControlNoTransformOnTwice()
+	{
+		response.addCacheControlNoTransform();
+		response.addCacheControlNoTransform();
+		assertCacheControl("no-transform", "prefix,no-transform");
+	}
+	private void assertCacheControl(final String expected, final String expectedTrailing)
+	{
+		{
+			final StringBuilder bf = new StringBuilder();
+			response.addToCacheControl(bf);
+			assertEquals(expected, bf.toString());
+		}
+		{
+			final StringBuilder bf = new StringBuilder("prefix");
+			response.addToCacheControl(bf);
+			assertEquals(expectedTrailing, bf.toString(), "with prefix");
+		}
+	}
 }

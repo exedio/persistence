@@ -123,15 +123,19 @@ public class MediaServletDefaultTest
 	{
 		final MediaServlet servlet = new AccessControlAllowOriginWildcardMediaServlet();
 		final ArrayList<String> headers = new ArrayList<>();
-		servlet.filterResponse(null, new MediaResponse(new AssertionFailedHttpServletResponse()
+		final MediaResponse response = new MediaResponse(new AssertionFailedHttpServletResponse()
 		{
 			@Override public void addHeader(final String name, final String value)
 			{
 				headers.add(name);
 				headers.add(value);
 			}
-		}));
+		});
+		servlet.filterResponse(null, response);
 		assertEquals(asList("Access-Control-Allow-Origin", "*"), headers);
+		final StringBuilder cacheControl = new StringBuilder();
+		response.addToCacheControl(cacheControl);
+		assertEquals("", cacheControl.toString());
 	}
 	private static final class AccessControlAllowOriginWildcardMediaServlet extends MediaServlet
 	{

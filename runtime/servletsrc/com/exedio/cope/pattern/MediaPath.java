@@ -757,9 +757,10 @@ public abstract class MediaPath extends Pattern
 					throw notFoundIsNullEarly();
 			}
 
-			servlet.filterResponse(locator, new MediaResponse(response));
+			final MediaResponse mediaResponse = new MediaResponse(response);
+			servlet.filterResponse(locator, mediaResponse);
 
-			doGetAndCommitWithCache(servlet, request, response, locator);
+			doGetAndCommitWithCache(servlet, request, response, mediaResponse, locator);
 
 			if(tx.hasCurrentTransaction())
 				throw new RuntimeException("doGetAndCommit did not commit: " + pathInfo);
@@ -809,6 +810,7 @@ public abstract class MediaPath extends Pattern
 			final MediaServlet servlet,
 			final HttpServletRequest request,
 			final HttpServletResponse response,
+			final MediaResponse mediaResponse,
 			final Locator locator)
 		throws IOException, NotFound
 	{
@@ -816,7 +818,7 @@ public abstract class MediaPath extends Pattern
 		// if there is no LastModified, then there is no caching
 		if(lastModifiedRaw==null)
 		{
-			setCacheControl(servlet, response, locator, null, false);
+			setCacheControl(servlet, response, mediaResponse, locator, null, false);
 			deliver(request, response, locator);
 			return;
 		}
@@ -845,7 +847,7 @@ public abstract class MediaPath extends Pattern
 			cacheControlImmutable = false;
 		}
 
-		setCacheControl(servlet, response, locator, cacheControlMaxAge, cacheControlImmutable);
+		setCacheControl(servlet, response, mediaResponse, locator, cacheControlMaxAge, cacheControlImmutable);
 
 		final long ifModifiedSince = request.getDateHeader("If-Modified-Since");
 		if(ifModifiedSince>=0 && ifModifiedSince>=lastModified)
@@ -886,6 +888,7 @@ public abstract class MediaPath extends Pattern
 	private void setCacheControl(
 			final MediaServlet servlet,
 			final HttpServletResponse response,
+			final MediaResponse mediaResponse,
 			final Locator locator,
 			final Duration maxAge,
 			final boolean immutable)
@@ -915,6 +918,8 @@ public abstract class MediaPath extends Pattern
 			bf.append("max-age=").
 				append(maxAge.isNegative() ? 0 : maxAge.getSeconds());
 		}
+
+		mediaResponse.addToCacheControl(bf);
 
 		if(immutable)
 		{
