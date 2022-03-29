@@ -65,7 +65,7 @@ public class ModelTest extends TestWithEnvironment
 
 	@Test void testIt()
 	{
-		final String expectedText = "must not be called within a transaction: tx:com.exedio.cope.ModelTest";
+		final String expectedText = "must not be called within a transaction: tx:com.exedio.cope.ModelTest for model " + model;
 		assertFails(
 				model::getVerifiedSchema,
 				IllegalStateException.class,

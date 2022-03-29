@@ -197,7 +197,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 			}
 			catch(final IllegalStateException e)
 			{
-				assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
+				assertEquals("there is no cope transaction bound to this thread for model " + MODEL + ", see Model#startTransaction", e.getMessage());
 			}
 
 			this.event = event;

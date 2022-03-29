@@ -57,7 +57,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 					"but there is already a transaction " + model.currentTransaction().getID() +
 					":tx:com.exedio.cope.TransactionOnlyTest " +
 					"started on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(tx.getStartDate()) +
-					" bound to current thread",
+					" bound to current thread for model " + model,
 					e.getMessage());
 		}
 		assertEquals( tx, model.currentTransaction() );
@@ -73,7 +73,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 					"but there is already a transaction " + model.currentTransaction().getID() +
 					":tx:com.exedio.cope.TransactionOnlyTest " +
 					"started on " + new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS z (Z)", Locale.ENGLISH).format(tx.getStartDate()) +
-					" bound to current thread",
+					" bound to current thread for model " + model,
 					e.getMessage());
 		}
 		assertEquals(tx, model.currentTransaction());
@@ -237,7 +237,7 @@ public class TransactionOnlyTest extends TestWithEnvironment
 			}
 			catch(final IllegalStateException e)
 			{
-				assertEquals( "there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage() );
+				assertEquals( "there is no cope transaction bound to this thread for model " + model + ", see Model#startTransaction", e.getMessage() );
 			}
 		}
 		else

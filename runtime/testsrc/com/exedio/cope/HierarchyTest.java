@@ -461,7 +461,7 @@ public class HierarchyTest extends TestWithEnvironment
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: tx:com.exedio.cope.HierarchyTest", e.getMessage());
+			assertEquals("must not be called within a transaction: tx:com.exedio.cope.HierarchyTest for model " + model, e.getMessage());
 		}
 		assertTrue(firstA.existsCopeItem());
 		assertTrue(firstB.existsCopeItem());
@@ -518,7 +518,7 @@ public class HierarchyTest extends TestWithEnvironment
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("must not be called within a transaction: tx:com.exedio.cope.HierarchyTest", e.getMessage());
+			assertEquals("must not be called within a transaction: tx:com.exedio.cope.HierarchyTest for model " + model, e.getMessage());
 		}
 		assertTrue(firstA.existsCopeItem());
 		assertTrue(firstB.existsCopeItem());
