@@ -176,7 +176,25 @@ public final class VaultFileService implements VaultService
 	@Override
 	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
-		return put(hash, (out) -> Files.copy(value, out, REPLACE_EXISTING));
+		// TODO use native copy procedure
+		return put(hash, (out) ->
+		{
+			// The following copy loop is almost equivalent to
+			//    Files.copy(value, out, REPLACE_EXISTING);
+			// But it does not delete the temporary file "out" before writing to it,
+			// because that drops the posixPermissions applied to the temporary file
+			// at creation time.
+			try(InputStream i = Files.newInputStream(value);
+				 OutputStream s = Files.newOutputStream(out, TRUNCATE_EXISTING))
+			{
+				final byte[] buffer = new byte[8192];
+				int bytesRead;
+				while((bytesRead = i.read(buffer)) > 0)
+				{
+					s.write(buffer, 0, bytesRead);
+				}
+			}
+		});
 	}
 
 	private boolean put(final String hash, final Consumer value) throws IOException
