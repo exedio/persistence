@@ -29,9 +29,12 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.EnumSet;
@@ -123,5 +126,44 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 		assertPosixPermissions(reducedPerms, abc);
 		assertPosixPermissions(filePerms, d);
 		assertPosixPermissions(filePerms, f);
+	}
+
+	@Test void putByStream() throws IOException
+	{
+		final VaultFileService service = (VaultFileService)getService();
+		final File abc = new File(getRoot(), "abc");
+		final InputStream value = new ByteArrayInputStream(new byte[]{1,2,3});
+		final File valueFile = new File(abc, "def");
+		assertFalse(valueFile.isFile());
+
+		assertTrue(service.put("abcdef", value, PUT_INFO));
+		assertContains(abc, valueFile);
+		assertTrue(valueFile.isFile());
+		assertPosixPermissions(filePerms, valueFile);
+
+		assertFalse(service.put("abcdef", value, PUT_INFO));
+		assertContains(abc, valueFile);
+		assertTrue(valueFile.isFile());
+		assertPosixPermissions(filePerms, valueFile);
+	}
+
+	@Test void putByPath() throws IOException
+	{
+		final VaultFileService service = (VaultFileService)getService();
+		final File abc = new File(getRoot(), "abc");
+		final Path value = files.newFile().toPath();
+		Files.write(value, new byte[]{1,2,3});
+		final File valueFile = new File(abc, "def");
+		assertFalse(valueFile.isFile());
+
+		assertTrue(service.put("abcdef", value, PUT_INFO));
+		assertContains(abc, valueFile);
+		assertTrue(valueFile.isFile());
+		assertPosixPermissions(filePerms, valueFile);
+
+		assertFalse(service.put("abcdef", value, PUT_INFO));
+		assertContains(abc, valueFile);
+		assertTrue(valueFile.isFile());
+		assertPosixPermissions(filePerms, valueFile);
 	}
 }

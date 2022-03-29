@@ -60,7 +60,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	private File root;
 	private boolean posixAvailable;
 
-	private final TemporaryFolder files = new TemporaryFolder();
+	protected final TemporaryFolder files = new TemporaryFolder();
 
 	@Override
 	protected Properties getServiceProperties() throws IOException
