@@ -19,21 +19,9 @@
 package com.exedio.cope.instrument;
 
 import java.lang.reflect.Modifier;
-import java.util.HashMap;
 
 final class LocalCopeType extends CopeType<LocalCopeFeature>
 {
-	private static final HashMap<JavaClass, LocalCopeType> copeTypeByJavaClass = new HashMap<>();
-
-	static LocalCopeType getCopeType(final JavaClass javaClass)
-	{
-		@SuppressWarnings("UnnecessaryLocalVariable")
-		final LocalCopeType result = copeTypeByJavaClass.get(javaClass);
-		//System.out.println("getCopeClass "+javaClass.getFullName()+" "+(result==null?"NULL":result.getName()));
-		return result;
-	}
-
-
 	final JavaClass javaClass;
 	private final String name;
 	private final WrapperType option;
@@ -46,12 +34,6 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 		this.javaClass=javaClass;
 		this.name = javaClass.name;
 		this.option = AnnotationHelper.getOrDefault(javaClass.typeOption);
-		//noinspection ThisEscapedInObjectConstruction
-		copeTypeByJavaClass.put(javaClass, this);
-
-		//noinspection ThisEscapedInObjectConstruction
-		javaClass.file.repository.add(this);
-
 		registerFeatures();
 	}
 

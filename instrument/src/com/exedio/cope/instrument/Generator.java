@@ -855,7 +855,7 @@ final class Generator
 		int previousClassEndPosition = 0;
 		for(final JavaClass javaClass : javaFile.getClasses())
 		{
-			final LocalCopeType type = LocalCopeType.getCopeType(javaClass);
+			final LocalCopeType type = javaFile.repository.getCopeType(javaClass);
 			final int classEndPosition = javaClass.getClassEndPositionInSourceWithoutGeneratedFragments();
 			if(type!=null)
 			{
