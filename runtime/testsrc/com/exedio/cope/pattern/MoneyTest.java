@@ -29,8 +29,11 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.function.Executable;
+import org.opentest4j.AssertionFailedError;
 
 public class MoneyTest
 {
@@ -114,6 +117,9 @@ public class MoneyTest
 		assertCurrencyMismatch(() -> a.doubleAmount(usd));
 		assertCurrencyMismatch(() -> a.bigAmount(usd));
 		assertCurrencyMismatch(() -> a.getAmount(usd));
+		assertCurrencyMismatch(() -> a.computeDouble(b, (x,y) -> { throw new AssertionFailedError(); }));
+		assertCurrencyMismatch(() -> a.computeDouble(b, (x,y) -> { throw new AssertionFailedError(); }, RoundingMode.UNNECESSARY));
+		assertCurrencyMismatch(() -> a.computeBig   (b, (x,y) -> { throw new AssertionFailedError(); }));
 	}
 	private static void assertCurrencyMismatch(final Executable executable)
 	{
@@ -142,5 +148,58 @@ public class MoneyTest
 		assertThrowsNegativeArraySizeException(
 				() -> array(-1),
 				-1);
+	}
+
+	@Test void testComputeDouble()
+	{
+		final Money<Cy> a = storeOf(222, eur);
+		final Money<Cy> b = storeOf(333, eur);
+		final Money<Cy> c = storeOf(888, eur);
+		assertEquals(c, a.computeDouble(x ->
+		{
+			assertEquals(2.22, x);
+			return 8.88;
+		}));
+		assertEquals(c, a.computeDouble(x ->
+		{
+			assertEquals(2.22, x);
+			return 8.88;
+		}, RoundingMode.UNNECESSARY));
+		assertEquals(c, a.computeDouble(b, (x,y) ->
+		{
+			assertEquals(2.22, x);
+			assertEquals(3.33, y);
+			return 8.88;
+		}));
+		assertEquals(c, a.computeDouble(b, (x,y) ->
+		{
+			assertEquals(2.22, x);
+			assertEquals(3.33, y);
+			return 8.88;
+		}, RoundingMode.UNNECESSARY));
+	}
+
+	@Test void testComputeBigDecimal()
+	{
+		final Money<Cy> a = storeOf(222, eur);
+		final Money<Cy> b = storeOf(333, eur);
+		final Money<Cy> c = storeOf(888, eur);
+		assertEquals(c, a.computeBig(x ->
+		{
+			assertEquals(BigDecimal.valueOf(222, 2), x);
+			return BigDecimal.valueOf(888, 2);
+		}));
+		assertEquals(c, a.computeBig(b, (x,y) ->
+		{
+			assertEquals(BigDecimal.valueOf(222, 2), x);
+			assertEquals(BigDecimal.valueOf(333, 2), y);
+			return BigDecimal.valueOf(888, 2);
+		}));
+		assertFails(
+				() -> a.computeBig(x -> null),
+				NullPointerException.class, null);
+		assertFails(
+				() -> a.computeBig(b, (x,y) -> null),
+				NullPointerException.class, null);
 	}
 }
