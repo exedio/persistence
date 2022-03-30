@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.ConnectProperties.factory;
+import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.erase;
@@ -28,7 +29,7 @@ import static java.time.Duration.ofNanos;
 import static java.time.Duration.ofSeconds;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.fail;
@@ -44,8 +45,9 @@ import com.exedio.cope.vault.VaultReferenceService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.lang.reflect.InvocationTargetException;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Map;
 import java.util.concurrent.Callable;
 import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
@@ -758,9 +760,9 @@ public class ConnectPropertiesTest
 	{
 		final ConnectProperties p = ConnectProperties.create(TestSources.minimal());
 
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
-		assertFalse(probes.hasNext());
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList("Connect"), new ArrayList<>(probes.keySet()));
+		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
 
 		assertEquals(HSQLDB_PROBE, probe(p));
 		assertIt("probe", HSQLDB_PROBE, String.class, getProbeTest(p));
@@ -776,12 +778,17 @@ public class ConnectPropertiesTest
 				TestSources.minimal()));
 		final String VAULT = "VaultMockService:probeExampleValue";
 
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
-		assertIt("vault.default", VAULT, String.class, probes.next());
-		assertIt("vault.default.genuineServiceKey", "mock:default", String.class, probes.next());
-		assertIt("vault.service.Mock", "probeMockResultOverride", String.class, probes.next());
-		assertFalse(probes.hasNext());
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList(
+				"Connect",
+				"vault.default",
+				"vault.default.genuineServiceKey",
+				"vault.service.Mock"),
+				new ArrayList<>(probes.keySet()));
+		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
+		assertIt("vault.default", VAULT, String.class, probes);
+		assertIt("vault.default.genuineServiceKey", "mock:default", String.class, probes);
+		assertIt("vault.service.Mock", "probeMockResultOverride", String.class, probes);
 
 		assertEquals(HSQLDB_PROBE + " [" + VAULT + ", mock:default]", probe(p));
 		assertIt("probe", HSQLDB_PROBE + " [" + VAULT + ", mock:default]", String.class, getProbeTest(p));
@@ -792,6 +799,17 @@ public class ConnectPropertiesTest
 			"HSQL Database Engine Driver 2.5.1 " +
 			"org.hsqldb.jdbc.JDBCDriver " +
 			"PUBLIC";
+
+	static void assertIt(
+			final String expectedName,
+			final String expectedResultString,
+			final Class<?> expectedResultClass,
+			final Map<String,Callable<?>> probes) throws Exception
+	{
+		final Callable<?> actual = probes.get(expectedName);
+		assertNotNull(actual, expectedName);
+		assertIt(expectedName, expectedResultString, expectedResultClass, actual);
+	}
 
 	static void assertIt(
 			final String expectedName,

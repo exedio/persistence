@@ -23,6 +23,7 @@ import static com.exedio.cope.ConnectPropertiesTest.assertIt;
 import static com.exedio.cope.ConnectPropertiesTest.getProbeTest;
 import static com.exedio.cope.ConnectPropertiesTest.probe;
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
@@ -33,7 +34,6 @@ import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.vault.VaultPropertiesTest.unsanitize;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import com.exedio.cope.instrument.Wrapper;
 import com.exedio.cope.instrument.WrapperType;
@@ -41,7 +41,6 @@ import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.concurrent.Callable;
 import org.junit.jupiter.api.AfterEach;
@@ -123,18 +122,29 @@ public class VaultMultiTest
 				"VaultMockService:alphaEx"  +", mock:alpha, "   +
 				"VaultMockService:betaEx"   +", mock:beta]";
 		final ConnectProperties p = MODEL.getConnectProperties();
-		final Iterator<? extends Callable<?>> probes = p.getProbes().iterator();
-		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes.next());
-		assertIt("vault.default", "VaultMockService:defaultEx",      String.class, probes.next());
-		assertIt("vault.default.genuineServiceKey", "mock:default",  String.class, probes.next());
-		assertIt("vault.alpha",   "VaultMockService:alphaEx",        String.class, probes.next());
-		assertIt("vault.alpha.genuineServiceKey",   "mock:alpha",    String.class, probes.next());
-		assertIt("vault.beta",    "VaultMockService:betaEx",         String.class, probes.next());
-		assertIt("vault.beta.genuineServiceKey",    "mock:beta",     String.class, probes.next());
-		assertIt("vault.service.default.Mock", "probeResultDefault", String.class, probes.next());
-		assertIt("vault.service.alpha.Mock",   "probeResultAlpha",   String.class, probes.next());
-		assertIt("vault.service.beta.Mock",    "probeResultBeta",    String.class, probes.next());
-		assertFalse(probes.hasNext());
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList(
+				"Connect",
+				"vault.default",
+				"vault.default.genuineServiceKey",
+				"vault.alpha",
+				"vault.alpha.genuineServiceKey",
+				"vault.beta",
+				"vault.beta.genuineServiceKey",
+				"vault.service.default.Mock",
+				"vault.service.alpha.Mock",
+				"vault.service.beta.Mock"),
+				new ArrayList<>(probes.keySet()));
+		assertIt("Connect", HSQLDB_PROBE, EnvironmentInfo.class, probes);
+		assertIt("vault.default", "VaultMockService:defaultEx",      String.class, probes);
+		assertIt("vault.default.genuineServiceKey", "mock:default",  String.class, probes);
+		assertIt("vault.alpha",   "VaultMockService:alphaEx",        String.class, probes);
+		assertIt("vault.alpha.genuineServiceKey",   "mock:alpha",    String.class, probes);
+		assertIt("vault.beta",    "VaultMockService:betaEx",         String.class, probes);
+		assertIt("vault.beta.genuineServiceKey",    "mock:beta",     String.class, probes);
+		assertIt("vault.service.default.Mock", "probeResultDefault", String.class, probes);
+		assertIt("vault.service.alpha.Mock",   "probeResultAlpha",   String.class, probes);
+		assertIt("vault.service.beta.Mock",    "probeResultBeta",    String.class, probes);
 
 		assertEquals(HSQLDB_PROBE + " " + VAULT, probe(p));
 		assertIt("probe", HSQLDB_PROBE + " " + VAULT, String.class, getProbeTest(p));
