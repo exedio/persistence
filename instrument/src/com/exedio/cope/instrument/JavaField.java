@@ -323,7 +323,7 @@ final class JavaField
 
 	Object evaluate()
 	{
-		assert !file.repository.isBuildStage();
+		file.repository.assertNotBuildStage();
 
 		if (wrapperIgnore!=null)
 			throw new RuntimeException("evaluate ignored");

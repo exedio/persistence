@@ -31,7 +31,7 @@ final class JavaRepository
 		GENERATE
 	}
 
-	Stage stage = Stage.BUILD;
+	private Stage stage = Stage.BUILD;
 
 	private final ArrayList<JavaFile> files = new ArrayList<>();
 	private final HashMap<String, JavaClass> javaClassByCanonicalName = new HashMap<>();
@@ -62,33 +62,54 @@ final class JavaRepository
 			ct.endBuildStage();
 	}
 
-	boolean isBuildStage()
+	void assertBuildStage()
 	{
-		return stage==Stage.BUILD;
+		assertStage(Stage.BUILD);
 	}
 
-	boolean isGenerateStage()
+	void assertNotBuildStage()
 	{
-		return stage==Stage.GENERATE;
+		assertStage(Stage.BETWEEN, Stage.GENERATE);
+	}
+
+	void assertNotGenerateStage()
+	{
+		assertStage(Stage.BUILD, Stage.BETWEEN);
+	}
+
+	void assertGenerateStage()
+	{
+		assertStage(Stage.GENERATE);
+	}
+
+	private void assertStage(final Stage expected)
+	{
+		if (stage!=expected)
+			throw new RuntimeException("expected stage "+expected+" but was "+stage);
+	}
+
+	private void assertStage(final Stage expectedA, final Stage expectedB)
+	{
+		if (stage!=expectedA && stage!=expectedB)
+			throw new RuntimeException("expected stage "+expectedA+" or "+expectedB+" but was "+stage);
 	}
 
 	void add(final JavaFile file)
 	{
-		assert stage==Stage.BUILD;
+		assertBuildStage();
 		files.add(file);
 	}
 
 	@SuppressWarnings("AssignmentOrReturnOfFieldWithMutableType") // method is not public
 	List<JavaFile> getFiles()
 	{
-		assert stage==Stage.GENERATE;
+		assertGenerateStage();
 		return files;
 	}
 
 	void add(final JavaClass javaClass)
 	{
-		assert stage==Stage.BUILD;
-
+		assertBuildStage();
 		if(javaClassByCanonicalName.put(javaClass.getCanonicalName(), javaClass)!=null)
 			throw new RuntimeException(javaClass.getCanonicalName());
 	}
@@ -100,7 +121,7 @@ final class JavaRepository
 
 	void add(final LocalCopeType copeType)
 	{
-		assert stage==Stage.BETWEEN;
+		assertStage(Stage.BETWEEN);
 
 		if(copeTypeByJavaClass.putIfAbsent(copeType.javaClass, copeType)!=null)
 			throw new RuntimeException(copeType.javaClass.getFullName());
@@ -109,7 +130,7 @@ final class JavaRepository
 
 	LocalCopeType getCopeType(final String className)
 	{
-		assert stage==Stage.BETWEEN || stage==Stage.GENERATE;
+		assertNotBuildStage();
 
 		final JavaClass javaClass = getJavaClass(className);
 		if(javaClass==null)

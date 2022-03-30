@@ -67,8 +67,7 @@ final class JavaClass extends JavaFeature
 
 	void add(final JavaField javaField)
 	{
-		assert file.repository.isBuildStage();
-
+		file.repository.assertBuildStage();
 		if(fields.putIfAbsent(javaField.name, javaField)!=null)
 			throw new RuntimeException(name+'/'+javaField.name);
 		fieldList.add(javaField);
@@ -76,8 +75,7 @@ final class JavaClass extends JavaFeature
 
 	List<JavaField> getFields()
 	{
-		assert !file.repository.isBuildStage();
-
+		file.repository.assertNotBuildStage();
 		return Collections.unmodifiableList(fieldList);
 	}
 
