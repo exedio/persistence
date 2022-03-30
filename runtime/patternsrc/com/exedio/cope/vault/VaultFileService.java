@@ -50,6 +50,7 @@ import org.slf4j.LoggerFactory;
 public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
+	private final Set<PosixFilePermission> filePermissions;
 	private final FileAttribute<?>[] fileAttributes;
 	final Set<PosixFilePermission> filePermissionsAfterwards;
 	final VaultDirectory directory;
@@ -63,6 +64,7 @@ public final class VaultFileService implements VaultService
 	{
 		final boolean writable = parameters.isWritable();
 		this.rootDir = properties.root;
+		this.filePermissions = writable ? properties.filePosixPermissions : null;
 		this.fileAttributes = writable ? asFileAttributes(properties.filePosixPermissions) : null;
 		this.filePermissionsAfterwards = writable ? properties.filePosixPermissionsAfterwards : null;
 		this.directory = VaultDirectory.instance(properties.directory, parameters);
@@ -176,7 +178,16 @@ public final class VaultFileService implements VaultService
 	@Override
 	public boolean put(final String hash, final Path value, final VaultPutInfo info) throws IOException
 	{
-		return put(hash, (out) -> Files.copy(value, out, REPLACE_EXISTING));
+		return put(hash, (out) ->
+		{
+			Files.copy(value, out, REPLACE_EXISTING);
+
+			// Permissions must be set afterwards, because REPLACE_EXISTING deletes
+			// the temporary file "out" before writing to it, which drops the
+			// posixPermissions applied to the temporary file at creation time.
+			if(filePermissionsAfterwards==null) // setting filePermissions can be omitted when filePermissionsAfterwards would obliterate it
+				setPermissions(out, filePermissions);
+		});
 	}
 
 	private boolean put(final String hash, final Consumer value) throws IOException
