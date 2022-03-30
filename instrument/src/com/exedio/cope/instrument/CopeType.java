@@ -82,7 +82,8 @@ abstract class CopeType<F extends CopeFeature>
 
 		features.add(feature);
 		final Object collision = featureMap.put(feature.getName(), feature);
-		assert collision==null : feature.getName();
+		if (collision!=null)
+			throw new RuntimeException(feature.getName());
 	}
 
 	final CopeFeature getFeatureByInstance(final Object instance)

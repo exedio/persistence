@@ -27,6 +27,7 @@ import java.lang.reflect.ParameterizedType;
 import java.lang.reflect.Type;
 import java.lang.reflect.TypeVariable;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -173,9 +174,12 @@ final class WrapperByAnnotations
 			if(t instanceof ParameterizedType)
 			{
 				final ParameterizedType pt = (ParameterizedType)t;
-				assert pt.getRawType()==Class.class : pt.getRawType(); // because parameterTypes[0]==Class.class
-				assert pt.getOwnerType()==null : pt.getOwnerType(); // because Class is not an inner class
-				assert pt.getActualTypeArguments().length==1 : pt.getActualTypeArguments(); // because Class has one generic parameter
+				if (pt.getRawType()!=Class.class)
+					throw new RuntimeException(String.valueOf(pt.getRawType())); // because parameterTypes[0]==Class.class
+				if (pt.getOwnerType()!=null)
+					throw new RuntimeException(pt.getOwnerType().toString()); // because Class is not an inner class
+				if (pt.getActualTypeArguments().length!=1)
+					throw new RuntimeException(Arrays.toString(pt.getActualTypeArguments())); // because Class has one generic parameter
 
 				final Type argument = pt.getActualTypeArguments()[0];
 				if(argument instanceof TypeVariable<?>)

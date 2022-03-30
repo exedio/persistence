@@ -19,6 +19,8 @@
 
 package com.exedio.cope.instrument;
 
+import static java.util.Objects.requireNonNull;
+
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
 import java.lang.reflect.Type;
@@ -28,7 +30,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 import java.util.TreeSet;
 import javax.annotation.Nullable;
@@ -227,7 +228,7 @@ final class JavaField
 
 		private WrapperTarget(final JavaField outer, final Wrapper wrapper)
 		{
-			this.wrap = Objects.requireNonNull(wrapper.wrap());
+			this.wrap = requireNonNull(wrapper.wrap());
 			this.parameters = outer.isParametersDefault(wrapper) ? null : outer.parameters(wrapper);
 		}
 
@@ -332,7 +333,7 @@ final class JavaField
 		{
 			if ( getInitializer()==null ) throw new RuntimeException("getInitializer() null");
 			rtvalue = getValueFromInterimClassLoader(); // parent.evaluate(getInitializer());
-			assert rtvalue!=null : getInitializer()+'/'+parent+'/'+name;
+			requireNonNull(rtvalue, ()->getInitializer()+'/'+parent+'/'+name);
 			parent.registerInstance(this, rtvalue);
 		}
 

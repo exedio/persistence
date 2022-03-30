@@ -131,11 +131,14 @@ final class Context
 		for(final Class<?> clazz : classes)
 		{
 			final ParameterizedType superType = (ParameterizedType)clazz.getGenericSuperclass();
-			assert superType.getRawType()==clazz.getSuperclass() : superType.getRawType().toString()+'/'+clazz.getSuperclass();
-			assert superType.getOwnerType()==null : superType.getOwnerType();
+			if (superType.getRawType()!=clazz.getSuperclass())
+				throw new RuntimeException(superType.getRawType().toString()+'/'+clazz.getSuperclass());
+			if (superType.getOwnerType()!=null)
+				throw new RuntimeException(superType.getOwnerType().toString());
 
 			final Type[] superTypeArguments = superType.getActualTypeArguments();
-			assert superTypeArguments.length==clazz.getSuperclass().getTypeParameters().length;
+			if (superTypeArguments.length!=clazz.getSuperclass().getTypeParameters().length)
+				throw new RuntimeException();
 
 			final Type superTypeArgument = superTypeArguments[parameterPosition];
 			if(superTypeArgument instanceof Class<?>)
@@ -174,7 +177,8 @@ final class Context
 		final Type[] upper = t.getUpperBounds();
 		if(upper.length==1)
 		{
-			assert t.getLowerBounds().length==0 : Arrays.asList(t.getLowerBounds()).toString();
+			if (t.getLowerBounds().length!=0)
+				throw new RuntimeException(Arrays.toString(t.getLowerBounds()));
 
 			if(Object.class.equals(upper[0]))
 				return "?";
@@ -185,7 +189,8 @@ final class Context
 		final Type[] lower = t.getLowerBounds();
 		if(lower.length==1)
 		{
-			assert upper.length==0 : Arrays.asList(upper).toString();
+			if (upper.length!=0)
+				throw new RuntimeException(Arrays.toString(upper));
 			return "? super " + write(lower[0], varArgs);
 		}
 
