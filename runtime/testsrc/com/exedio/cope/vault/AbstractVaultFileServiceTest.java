@@ -111,8 +111,9 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		if(posixAvailable)
 			assertEquals(
 					expected,
-					Files.getFileAttributeView(actual.toPath(), PosixFileAttributeView.class).
-							readAttributes().permissions());
+					EnumSet.copyOf( // normalizes order of set, makes failure message much more readable
+							Files.getFileAttributeView(actual.toPath(), PosixFileAttributeView.class).
+									readAttributes().permissions()));
 	}
 
 	protected final void assertEquaFA(
