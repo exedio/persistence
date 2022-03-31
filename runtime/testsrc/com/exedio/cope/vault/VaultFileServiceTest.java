@@ -75,8 +75,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -84,8 +84,8 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -93,9 +93,9 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
-		assertPosixPermissions(filePerms, f);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
+		assertPosix(filePerms, f);
 	}
 
 	@Test void notFoundAnonymous()

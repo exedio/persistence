@@ -98,12 +98,12 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 				new TreeSet<>(asList(actual)));
 	}
 
-	protected final void assumePosixPermissions()
+	protected final void assumePosix()
 	{
 		assumeTrue(posixAvailable);
 	}
 
-	protected final void assertPosixPermissions(
+	protected final void assertPosix(
 			final EnumSet<PosixFilePermission> expected,
 			final File actual)
 			throws IOException

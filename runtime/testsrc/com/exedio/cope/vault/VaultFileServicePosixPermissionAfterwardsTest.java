@@ -61,9 +61,9 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 	}
 
 	@BeforeEach
-	void assumePosixPermissionsBeforeEach()
+	void assumePosixBeforeEach()
 	{
-		assumePosixPermissions();
+		assumePosix();
 	}
 
 	@Test void serviceProperties()
@@ -101,8 +101,8 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -110,8 +110,8 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
 
 		// test that directory.posixPermissionsAfterwards is not applied to already existing directories
 		final EnumSet<PosixFilePermission> reducedPerms = EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE);
@@ -123,9 +123,9 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosixPermissions(reducedPerms, abc);
-		assertPosixPermissions(filePerms, d);
-		assertPosixPermissions(filePerms, f);
+		assertPosix(reducedPerms, abc);
+		assertPosix(filePerms, d);
+		assertPosix(filePerms, f);
 	}
 
 	@Test void putByStream() throws IOException
@@ -139,12 +139,12 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 		assertTrue(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 
 		assertFalse(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 	}
 
 	@Test void putByPath() throws IOException
@@ -159,11 +159,11 @@ public class VaultFileServicePosixPermissionAfterwardsTest extends AbstractVault
 		assertTrue(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 
 		assertFalse(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 	}
 }
