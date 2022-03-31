@@ -122,14 +122,14 @@ final class JavaFile
 
 	void add(final JavaClass javaClass)
 	{
-		assert repository.isBuildStage();
+		repository.assertBuildStage();
 		classes.add(javaClass);
 		repository.add(javaClass);
 	}
 
 	List<JavaClass> getClasses()
 	{
-		assert !repository.isBuildStage();
+		repository.assertNotBuildStage();
 		return Collections.unmodifiableList(classes);
 	}
 

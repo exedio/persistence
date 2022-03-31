@@ -859,7 +859,8 @@ final class Generator
 			final int classEndPosition = javaClass.getClassEndPositionInSourceWithoutGeneratedFragments();
 			if(type!=null)
 			{
-				assert previousClassEndPosition<=classEndPosition;
+				if (!(previousClassEndPosition<=classEndPosition))
+					throw new RuntimeException(previousClassEndPosition+" / "+classEndPosition);
 				if(previousClassEndPosition<classEndPosition)
 					output.append(buffer, previousClassEndPosition, classEndPosition);
 

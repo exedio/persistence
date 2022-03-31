@@ -92,8 +92,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 
 	void endBuildStage()
 	{
-		assert !javaClass.file.repository.isBuildStage();
-		assert javaClass.file.repository.isGenerateStage();
+		javaClass.file.repository.assertGenerateStage();
 
 		final Class<?> externalType = javaClass.file.findTypeExternally(javaClass.fullyQualifiedSuperclass);
 		if(externalType==kind.topClass)
@@ -114,7 +113,7 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	@Override
 	CopeType<?> getSuperclass()
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		javaClass.file.repository.assertNotBuildStage();
 
 		return supertype;
 	}
@@ -140,13 +139,13 @@ final class LocalCopeType extends CopeType<LocalCopeFeature>
 	@Override
 	void assertNotBuildStage()
 	{
-		assert !javaClass.file.repository.isBuildStage();
+		javaClass.file.repository.assertNotBuildStage();
 	}
 
 	@Override
 	void assertNotGenerateStage()
 	{
-		assert !javaClass.file.repository.isGenerateStage();
+		javaClass.file.repository.assertNotGenerateStage();
 	}
 
 	@Override
