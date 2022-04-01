@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* EnumMapField obeys defaults of value.
+	This breaks backwards API compatibility:
+	EnumMapField#create no longer drops default (defaultTo, defaultToNow,
+	defaultToNext etc.) of parameter value.
 * Money#compute[Double|Big] added.
 	Allows arbitrary computations on amount written more concisely:
 		radicand.computeDouble(Math::sqrt)
