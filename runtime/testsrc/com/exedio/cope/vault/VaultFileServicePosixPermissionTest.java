@@ -89,8 +89,8 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
 
 		assertFalse(service.put("abcd", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -98,8 +98,8 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d);
 		assertTrue(d.isFile());
 		assertFalse(f.exists());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
 
 		assertTrue(service.put("abcf", value, PUT_INFO));
 		assertContains(root, temp, abc);
@@ -107,9 +107,9 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertContains(abc, d, f);
 		assertTrue(d.isFile());
 		assertTrue(f.isFile());
-		assertPosixPermissions(dirPerms, abc);
-		assertPosixPermissions(filePerms, d);
-		assertPosixPermissions(filePerms, f);
+		assertPosix(dirPerms, abc);
+		assertPosix(filePerms, d);
+		assertPosix(filePerms, f);
 	}
 
 	@Test void putByStream() throws IOException
@@ -123,12 +123,12 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertTrue(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 
 		assertFalse(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 	}
 
 	@Test void putByPath() throws IOException
@@ -143,11 +143,11 @@ public class VaultFileServicePosixPermissionTest extends AbstractVaultFileServic
 		assertTrue(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 
 		assertFalse(service.put("abcdef", value, PUT_INFO));
 		assertContains(abc, valueFile);
 		assertTrue(valueFile.isFile());
-		assertPosixPermissions(filePerms, valueFile);
+		assertPosix(filePerms, valueFile);
 	}
 }
