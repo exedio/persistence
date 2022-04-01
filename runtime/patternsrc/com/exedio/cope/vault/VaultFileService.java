@@ -396,10 +396,7 @@ public final class VaultFileService implements VaultService
 		@Probe(name="directory.group")
 		private GroupPrincipal probeDirectoryGroup() throws ProbeAbortedException, IOException
 		{
-			if(directory==null)
-				throw newProbeAbortedException("directories disabled");
-
-			return probeGroup(directory.posixGroup);
+			return probeGroup(directoryForProbe().posixGroup);
 		}
 
 		private GroupPrincipal probeGroup(final String group) throws ProbeAbortedException, IOException
@@ -457,14 +454,11 @@ public final class VaultFileService implements VaultService
 		@Probe(name="directory.Premised")
 		private Object probeDirectoryPremised() throws ProbeAbortedException
 		{
-			if(directory==null)
-				throw newProbeAbortedException("directories disabled");
-
 			int missingTotal = 0;
 			final int MISSING_LIMIT = 15;
 			final StringBuilder missing = new StringBuilder();
 			int ok = 0;
-			for(final Iterator<String> i = directory.iterator(); i.hasNext(); )
+			for(final Iterator<String> i = directoryForProbe().iterator(); i.hasNext(); )
 			{
 				final String dirName = i.next();
 				if(Files.isDirectory(root.resolve(dirName)))
@@ -495,6 +489,14 @@ public final class VaultFileService implements VaultService
 				throw new IllegalStateException(missing.toString());
 			else
 				return missing.toString();
+		}
+
+		private VaultDirectory.Properties directoryForProbe() throws ProbeAbortedException
+		{
+			if(directory==null)
+				throw newProbeAbortedException("directories disabled");
+
+			return directory;
 		}
 	}
 
