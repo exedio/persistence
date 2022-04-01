@@ -129,7 +129,9 @@ final class JavacRunner
 	{
 		if(cl instanceof URLClassLoader)
 		{
-			// this works for Gradle
+			// this works for Gradle with JDK 1.8 and 11, and unit tests with JDK <= 1.8
+			// (unit tests would also work with System.getProperty("java.class.path") - so this if-branch is
+			// required only for Gradle)
 			final URLClassLoader urlClassLoader = (URLClassLoader) cl;
 			final StringBuilder result = new StringBuilder();
 			for(int i = 0; i < urlClassLoader.getURLs().length; i++)
@@ -149,9 +151,15 @@ final class JavacRunner
 			final Pattern pattern = Pattern.compile("AntClassLoader\\[(.*)]");
 			final String classLoaderString = cl.toString();
 			final Matcher matcher = pattern.matcher(classLoaderString);
-			if(! matcher.matches())
-				throw new RuntimeException("failed to construct file-based classpath from class loader; see Main.java getJavacClasspath(); class loader: " + classLoaderString);
-			return matcher.group(1);
+			if(matcher.matches())
+			{
+				return matcher.group(1);
+			}
+			else
+			{
+				// this works for unit tests
+				return System.getProperty("java.class.path");
+			}
 		}
 	}
 }

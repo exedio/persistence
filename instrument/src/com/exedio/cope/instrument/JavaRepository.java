@@ -18,9 +18,13 @@
 
 package com.exedio.cope.instrument;
 
+import static java.util.Objects.requireNonNull;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 final class JavaRepository
 {
@@ -51,8 +55,7 @@ final class JavaRepository
 
 			if(javaClass.kind!=null)
 			{
-				//noinspection ResultOfObjectAllocationIgnored OK: constructor registers at parent
-				new LocalCopeType(javaClass, javaClass.kind);
+				add( new LocalCopeType(javaClass, javaClass.kind) );
 			}
 		}
 
@@ -119,7 +122,7 @@ final class JavaRepository
 		return javaClassByCanonicalName.get(name);
 	}
 
-	void add(final LocalCopeType copeType)
+	private void add(final LocalCopeType copeType)
 	{
 		assertStage(Stage.BETWEEN);
 
@@ -128,18 +131,23 @@ final class JavaRepository
 		//System.out.println("--------- put cope type: "+name);
 	}
 
+	@Nonnull
 	LocalCopeType getCopeType(final String className)
 	{
+		final JavaClass javaClass = requireNonNull(
+				getJavaClass(className), className
+		);
+		final LocalCopeType copeType = getCopeType(javaClass);
+		return requireNonNull(copeType, javaClass::toString);
+	}
+
+	/**
+	 * @return null for JavaClasses where the class doesn't have a super-class annotated with {@link WrapType}
+	 */
+	@Nullable
+	LocalCopeType getCopeType(final JavaClass javaClass)
+	{
 		assertNotBuildStage();
-
-		final JavaClass javaClass = getJavaClass(className);
-		if(javaClass==null)
-			throw new RuntimeException("no java class for "+className);
-
-		final LocalCopeType result = copeTypeByJavaClass.get(javaClass);
-		if(result==null)
-			throw new RuntimeException("no cope type for "+className);
-
-		return result;
+		return copeTypeByJavaClass.get(javaClass);
 	}
 }

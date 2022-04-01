@@ -45,7 +45,7 @@ final class InstrumentorWriteProcessor extends JavacProcessor
 			{
 				for(final JavaClass javaClass : javaFile.getClasses())
 				{
-					final LocalCopeType type = LocalCopeType.getCopeType(javaClass);
+					final LocalCopeType type = repository.getCopeType(javaClass);
 					if(type != null)
 					{
 						if(! type.isInterface())
