@@ -36,9 +36,12 @@ import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.attribute.BasicFileAttributes;
 import java.nio.file.attribute.FileAttribute;
+import java.nio.file.attribute.GroupPrincipal;
 import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
+import java.nio.file.attribute.UserPrincipalLookupService;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
@@ -53,9 +56,11 @@ public final class VaultFileService implements VaultService
 	private final Set<PosixFilePermission> filePermissions;
 	private final FileAttribute<?>[] fileAttributes;
 	final Set<PosixFilePermission> filePermissionsAfterwards;
+	final String fileGroup;
 	final VaultDirectory directory;
 	private final FileAttribute<?>[] directoryAttributes;
 	final Set<PosixFilePermission> directoryPermissionsAfterwards;
+	final String directoryGroup;
 	final Path tempDir;
 
 	VaultFileService(
@@ -67,9 +72,11 @@ public final class VaultFileService implements VaultService
 		this.filePermissions = writable ? properties.filePosixPermissions : null;
 		this.fileAttributes = writable ? asFileAttributes(properties.filePosixPermissions) : null;
 		this.filePermissionsAfterwards = writable ? properties.filePosixPermissionsAfterwards : null;
+		this.fileGroup = writable ? properties.filePosixGroup : null;
 		this.directory = VaultDirectory.instance(properties.directory, parameters);
 		this.directoryAttributes = properties.directory!=null&&writable ? asFileAttributes(properties.directory.posixPermissions) : null;
 		this.directoryPermissionsAfterwards = properties.directory!=null&&writable ? properties.directory.posixPermissionsAfterwards : null;
+		this.directoryGroup = properties.directory!=null&&writable ? properties.directory.posixGroup : null;
 		this.tempDir = writable ? properties.tempDir() : null;
 	}
 
@@ -186,7 +193,7 @@ public final class VaultFileService implements VaultService
 			// the temporary file "out" before writing to it, which drops the
 			// posixPermissions applied to the temporary file at creation time.
 			if(filePermissionsAfterwards==null) // setting filePermissions can be omitted when filePermissionsAfterwards would obliterate it
-				setPermissions(out, filePermissions);
+				setPermissions(out, filePermissions, "");
 		});
 	}
 
@@ -200,7 +207,7 @@ public final class VaultFileService implements VaultService
 
 		value.accept(temp);
 
-		setPermissions(temp, filePermissionsAfterwards);
+		setPermissions(temp, filePermissionsAfterwards, fileGroup);
 
 		final String dir = directory.directoryToBeCreated(hash);
 		if(dir!=null)
@@ -219,17 +226,24 @@ public final class VaultFileService implements VaultService
 		{
 			return; // ok
 		}
-		setPermissions(file, directoryPermissionsAfterwards);
+		setPermissions(file, directoryPermissionsAfterwards, directoryGroup);
 	}
 
 	private static void setPermissions(
 			final Path file,
-			final Set<PosixFilePermission> permissions)
+			final Set<PosixFilePermission> permissions,
+			final String group)
 			throws IOException
 	{
-		if(permissions!=null)
-			Files.getFileAttributeView(file, PosixFileAttributeView.class).
-					setPermissions(permissions);
+		if(permissions!=null || !group.isEmpty())
+		{
+			final PosixFileAttributeView posixView =
+					Files.getFileAttributeView(file, PosixFileAttributeView.class);
+			if(permissions!=null)
+				posixView.setPermissions(permissions);
+			if(!group.isEmpty())
+				posixView.setGroup(lookupGroup(file, group));
+		}
 	}
 
 	private static boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
@@ -330,6 +344,8 @@ public final class VaultFileService implements VaultService
 		 */
 		final Set<PosixFilePermission> filePosixPermissionsAfterwards = writable ? value("posixPermissionsAfterwards", (Set<PosixFilePermission>)null) : null;
 
+		final String filePosixGroup = writable ? value("posixGroup", "") : null;
+
 		final VaultDirectory.Properties directory = value("directory", true, s -> new VaultDirectory.Properties(s, writable));
 		private final String temp = writable ? value("temp", ".tempVaultFileService") : null;
 
@@ -369,6 +385,31 @@ public final class VaultFileService implements VaultService
 			return
 					(store.getUsableSpace()*100/total) + "% of " +
 					(total/(1024*1024*1024)) + "GiB";
+		}
+
+		@Probe(name="group")
+		private GroupPrincipal probeGroup() throws ProbeAbortedException, IOException
+		{
+			return probeGroup(filePosixGroup);
+		}
+
+		@Probe(name="directory.group")
+		private GroupPrincipal probeDirectoryGroup() throws ProbeAbortedException, IOException
+		{
+			if(directory==null)
+				throw newProbeAbortedException("directories disabled");
+
+			return probeGroup(directory.posixGroup);
+		}
+
+		private GroupPrincipal probeGroup(final String group) throws ProbeAbortedException, IOException
+		{
+			if(group==null)
+				throw newProbeAbortedException("not writable");
+			if(group.isEmpty())
+				throw newProbeAbortedException("group disabled");
+
+			return lookupGroup(root, group);
 		}
 
 		@Probe(name="temp.Exists")
@@ -454,6 +495,23 @@ public final class VaultFileService implements VaultService
 				throw new IllegalStateException(missing.toString());
 			else
 				return missing.toString();
+		}
+	}
+
+	static GroupPrincipal lookupGroup(final Path path, final String name) throws IOException
+	{
+		final UserPrincipalLookupService service =
+				path.getFileSystem().getUserPrincipalLookupService();
+		try
+		{
+			return service.lookupPrincipalByGroupName(name);
+		}
+		catch(final UserPrincipalNotFoundException e)
+		{
+			// Puts group name into exception message. Otherwise, the exception
+			// stacktrace gives no hint about the name of the group that was
+			// looked up.
+			throw new RuntimeException(e.getName(), e);
 		}
 	}
 

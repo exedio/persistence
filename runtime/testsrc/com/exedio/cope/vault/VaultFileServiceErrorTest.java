@@ -53,11 +53,13 @@ public class VaultFileServiceErrorTest
 				"service.writable",
 				"service.posixPermissions",
 				"service.posixPermissionsAfterwards",
+				"service.posixGroup",
 				"service.directory",
 				"service.directory.length",
 				"service.directory.premised",
 				"service.directory.posixPermissions",
 				"service.directory.posixPermissionsAfterwards",
+				"service.directory.posixGroup",
 				"service.temp",
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));

@@ -176,6 +176,8 @@ abstract class VaultDirectory
 		 */
 		final Set<PosixFilePermission> posixPermissionsAfterwards;
 
+		final String posixGroup;
+
 		Properties(final Source source, final boolean writable)
 		{
 			super(source);
@@ -183,6 +185,7 @@ abstract class VaultDirectory
 			premised = writable ? value("premised", false) : false;
 			posixPermissions = writable&&!premised ? value("posixPermissions", EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE)) : null;
 			posixPermissionsAfterwards = writable&&!premised ? value("posixPermissionsAfterwards", (Set<PosixFilePermission>)null) : null;
+			posixGroup = writable&&!premised ? value("posixGroup", "") : null;
 		}
 
 		Iterator<String> iterator()

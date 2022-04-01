@@ -23,6 +23,8 @@ import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static com.exedio.cope.vault.VaultFileServicePosixGroupTest.testGroupDirectory;
+import static com.exedio.cope.vault.VaultFileServicePosixGroupTest.testGroupFile;
 import static java.nio.file.Files.createDirectory;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermissions.asFileAttribute;
@@ -32,6 +34,7 @@ import static java.util.Objects.requireNonNull;
 import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.tojunit.MainRule;
@@ -47,6 +50,7 @@ import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
 import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
+import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.Iterator;
@@ -84,28 +88,42 @@ public class VaultFileServicePropertiesProbeTest
 				"writable",
 				"posixPermissions",
 				"posixPermissionsAfterwards",
+				"posixGroup",
 				"directory",
 				"directory.length",
 				"directory.premised",
 				"directory.posixPermissions",
 				"directory.posixPermissionsAfterwards",
+				"directory.posixGroup",
 				"temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
 				"directory.Premised",
+				"directory.group",
+				"group",
 				"root.Exists",
 				"root.Free",
 				"temp.Exists",
 				"temp.Store"),
 				new ArrayList<>(probes.keySet()));
 
+		final Callable<?> groupd     = probes.get("directory.group");
+		final Callable<?> groupf     = probes.get("group");
 		final Callable<?> rootExists = probes.get("root.Exists");
 		final Callable<?> rootFree   = probes.get("root.Free");
 		final Callable<?> tempExists = probes.get("temp.Exists");
 		final Callable<?> tempStore  = probes.get("temp.Store");
 
+		assertFails(
+				groupd::call,
+				ProbeAbortedException.class,
+				"group disabled");
+		assertFails(
+				groupf::call,
+				ProbeAbortedException.class,
+				"group disabled");
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
@@ -165,16 +183,28 @@ public class VaultFileServicePropertiesProbeTest
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
 				"directory.Premised",
+				"directory.group",
+				"group",
 				"root.Exists",
 				"root.Free",
 				"temp.Exists",
 				"temp.Store"),
 				new ArrayList<>(probes.keySet()));
+		final Callable<?> groupd     = probes.get("directory.group");
+		final Callable<?> groupf     = probes.get("group");
 		final Callable<?> rootExists = probes.get("root.Exists");
 		final Callable<?> rootFree   = probes.get("root.Free");
 		final Callable<?> tempExists = probes.get("temp.Exists");
 		final Callable<?> tempStore  = probes.get("temp.Store");
 
+		assertFails(
+				groupd::call,
+				ProbeAbortedException.class,
+				"not writable");
+		assertFails(
+				groupf::call,
+				ProbeAbortedException.class,
+				"not writable");
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
@@ -494,4 +524,60 @@ public class VaultFileServicePropertiesProbeTest
 
 	private static final List<String> HEX_DIGITS = unmodifiableList(asList(
 			"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "a", "b", "c", "d", "e", "f"));
+
+
+	@Test void probeGroups() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		assumePosix(root);
+
+		final Source source =
+				describe("DESC", cascade(
+						single("directory.posixGroup", testGroupDirectory),
+						single("posixGroup",           testGroupFile),
+						single("root", root)
+				));
+
+		final Props p = new Props(source);
+		final Map<String,Callable<?>> probes = probes(p);
+		final Callable<?> groupd = probes.get("directory.group");
+		final Callable<?> groupf = probes.get("group");
+
+		assertEquals(testGroupDirectory, groupd.call().toString());
+		assertEquals(testGroupFile,      groupf.call().toString());
+	}
+
+	@Test void probeGroupsDoNotExist()
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		assumePosix(root);
+
+		final Source source =
+				describe("DESC", cascade(
+						single("directory.posixGroup", "groupnotexistsdir"),
+						single("posixGroup",           "groupnotexistsfile"),
+						single("root", root)
+				));
+
+		final Props p = new Props(source);
+		final Map<String,Callable<?>> probes = probes(p);
+		final Callable<?> groupd = probes.get("directory.group");
+		final Callable<?> groupf = probes.get("group");
+
+		final RuntimeException ed = assertFails(
+				groupd::call,
+				RuntimeException.class,
+				"groupnotexistsdir");
+		final RuntimeException ef = assertFails(
+				groupf::call,
+				RuntimeException.class,
+				"groupnotexistsfile");
+		assertTrue(ed.getCause() instanceof UserPrincipalNotFoundException, ed.getCause().getClass().getName());
+		assertTrue(ef.getCause() instanceof UserPrincipalNotFoundException, ef.getCause().getClass().getName());
+	}
+
+	private static void assumePosix(final File file)
+	{
+		assumeTrue(Files.getFileAttributeView(file.toPath(), PosixFileAttributeView.class)!=null);
+	}
 }
