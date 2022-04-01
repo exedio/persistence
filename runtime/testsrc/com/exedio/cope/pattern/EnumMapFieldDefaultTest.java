@@ -18,16 +18,22 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.pattern.EnumMapField.create;
 import static com.exedio.cope.pattern.EnumMapFieldDefaultItem.TYPE;
 import static com.exedio.cope.pattern.EnumMapFieldDefaultItem.text;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.DE;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.EN;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.PL;
 import static com.exedio.cope.pattern.EnumMapFieldItem.Language.SUBCLASS;
+import static java.util.Objects.requireNonNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import com.exedio.cope.FunctionField;
+import com.exedio.cope.IntegerField;
 import com.exedio.cope.Model;
+import com.exedio.cope.pattern.EnumMapFieldItem.Language;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.function.Executable;
 
 public class EnumMapFieldDefaultTest
 {
@@ -44,5 +50,135 @@ public class EnumMapFieldDefaultTest
 		assertEquals(false, text.isFinal());
 		assertEquals(true,  text.isMandatory());
 		assertEquals(false, text.isInitial());
+	}
+
+	@Test void testTemplateWithoutDefault() throws Throwable
+	{
+		final EnumMapField<Language, Integer> f00 =
+				create(Language.class, new IntegerField());
+		final Executable f00a = () ->
+		{
+			assertEquals(null, d(f00.getValueTemplate()));
+			assertEquals(null, d(f00.getField(DE)));
+			assertEquals(null, d(f00.getField(EN)));
+			assertEquals(null, d(f00.getField(PL)));
+		};
+		f00a.execute();
+
+		final EnumMapField<Language, Integer> fDE =
+				f00.defaultTo(DE, 66);
+		final Executable fDEa = () ->
+		{
+			assertEquals(null, d(fDE.getValueTemplate()));
+			assertEquals(66,   d(fDE.getField(DE)));
+			assertEquals(null, d(fDE.getField(EN)));
+			assertEquals(null, d(fDE.getField(PL)));
+		};
+		f00a.execute();
+		fDEa.execute();
+
+		final EnumMapField<Language, Integer> fEN =
+				fDE.defaultTo(EN, 77);
+		final Executable fENa = () ->
+		{
+			assertEquals(null, d(fEN.getValueTemplate()));
+			assertEquals(66,   d(fEN.getField(DE)));
+			assertEquals(77,   d(fEN.getField(EN)));
+			assertEquals(null, d(fEN.getField(PL)));
+		};
+		f00a.execute();
+		fDEa.execute();
+		fENa.execute();
+	}
+
+	@Test void testTemplateWithDefaultConstant() throws Throwable
+	{
+		final EnumMapField<Language, Integer> f00 =
+				create(Language.class, new IntegerField().defaultTo(50));
+		final Executable f00a = () ->
+		{
+			assertEquals(50,   d(f00.getValueTemplate()));
+			assertEquals(null, d(f00.getField(DE)));
+			assertEquals(null, d(f00.getField(EN)));
+			assertEquals(null, d(f00.getField(PL)));
+		};
+		f00a.execute();
+
+		final EnumMapField<Language, Integer> fDE =
+				f00.defaultTo(DE, 66);
+		final Executable fDEa = () ->
+		{
+			assertEquals(50,   d(fDE.getValueTemplate()));
+			assertEquals(66,   d(fDE.getField(DE)));
+			assertEquals(null, d(fDE.getField(EN)));
+			assertEquals(null, d(fDE.getField(PL)));
+		};
+		f00a.execute();
+		fDEa.execute();
+
+		final EnumMapField<Language, Integer> fEN =
+				fDE.defaultTo(EN, 77);
+		final Executable fENa = () ->
+		{
+			assertEquals(50,   d(fEN.getValueTemplate()));
+			assertEquals(66,   d(fEN.getField(DE)));
+			assertEquals(77,   d(fEN.getField(EN)));
+			assertEquals(null, d(fEN.getField(PL)));
+		};
+		f00a.execute();
+		fDEa.execute();
+		fENa.execute();
+	}
+
+	@Test void testTemplateWithDefaultSpecial() throws Throwable
+	{
+		final EnumMapField<Language, Integer> f00 =
+				create(Language.class, new IntegerField().defaultToNext(5));
+		final Executable f00a = () ->
+		{
+			assertEquals("n5", d(f00.getValueTemplate()));
+			assertEquals(null, d(f00.getField(DE)));
+			assertEquals(null, d(f00.getField(EN)));
+			assertEquals(null, d(f00.getField(PL)));
+		};
+		f00a.execute();
+
+		final EnumMapField<Language, Integer> fDE =
+				f00.defaultTo(DE, 66);
+		final Executable fDEa = () ->
+		{
+			assertEquals("n5", d(fDE.getValueTemplate()));
+			assertEquals(66,   d(fDE.getField(DE)));
+			assertEquals(null, d(fDE.getField(EN)));
+			assertEquals(null, d(fDE.getField(PL)));
+		};
+		f00a.execute();
+		fDEa.execute();
+
+		final EnumMapField<Language, Integer> fEN =
+				fDE.defaultTo(EN, 77);
+		final Executable fENa = () ->
+		{
+			assertEquals("n5", d(fEN.getValueTemplate()));
+			assertEquals(66,   d(fEN.getField(DE)));
+			assertEquals(77,   d(fEN.getField(EN)));
+			assertEquals(null, d(fEN.getField(PL)));
+		};
+		f00a.execute();
+		fDEa.execute();
+		fENa.execute();
+	}
+
+	private static Object d(final FunctionField<Integer> f)
+	{
+		final IntegerField fi = (IntegerField)f;
+
+		if(!f.hasDefault())
+			return null;
+
+		if(fi.isDefaultNext())
+			return "n" + fi.getDefaultNextStartX();
+
+		return requireNonNull(f.getDefaultConstant());
 	}
 }
