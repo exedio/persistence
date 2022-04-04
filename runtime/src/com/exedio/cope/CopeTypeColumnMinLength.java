@@ -31,7 +31,7 @@ import java.lang.annotation.Target;
  * possible value in the type column. This annotation overrides this
  * for a longer length.
  *
- * Setting this length may help you avoiding schema changes.
+ * Setting this length may help you to avoid schema changes.
  *
  * @see SchemaInfo#getTypeColumnValue(Type)
  */
