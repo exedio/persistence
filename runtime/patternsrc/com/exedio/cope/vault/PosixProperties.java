@@ -30,7 +30,7 @@ abstract class PosixProperties extends Properties
 	{
 		final String DEFAULT = "";
 		final String value = value(key, defaultValue!=null ? PosixFilePermissions.toString(defaultValue) : DEFAULT);
-		if(DEFAULT.equals(value))
+		if(defaultValue==null && DEFAULT.equals(value))
 			return null;
 
 		final Set<PosixFilePermission> result;
