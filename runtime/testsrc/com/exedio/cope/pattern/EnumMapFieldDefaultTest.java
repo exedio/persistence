@@ -98,9 +98,9 @@ public class EnumMapFieldDefaultTest
 		final Executable f00a = () ->
 		{
 			assertEquals(50,   d(f00.getValueTemplate()));
-			assertEquals(null, d(f00.getField(DE)));
-			assertEquals(null, d(f00.getField(EN)));
-			assertEquals(null, d(f00.getField(PL)));
+			assertEquals(50,   d(f00.getField(DE)));
+			assertEquals(50,   d(f00.getField(EN)));
+			assertEquals(50,   d(f00.getField(PL)));
 		};
 		f00a.execute();
 
@@ -110,8 +110,8 @@ public class EnumMapFieldDefaultTest
 		{
 			assertEquals(50,   d(fDE.getValueTemplate()));
 			assertEquals(66,   d(fDE.getField(DE)));
-			assertEquals(null, d(fDE.getField(EN)));
-			assertEquals(null, d(fDE.getField(PL)));
+			assertEquals(50,   d(fDE.getField(EN)));
+			assertEquals(50,   d(fDE.getField(PL)));
 		};
 		f00a.execute();
 		fDEa.execute();
@@ -123,7 +123,7 @@ public class EnumMapFieldDefaultTest
 			assertEquals(50,   d(fEN.getValueTemplate()));
 			assertEquals(66,   d(fEN.getField(DE)));
 			assertEquals(77,   d(fEN.getField(EN)));
-			assertEquals(null, d(fEN.getField(PL)));
+			assertEquals(50,   d(fEN.getField(PL)));
 		};
 		f00a.execute();
 		fDEa.execute();
@@ -137,9 +137,9 @@ public class EnumMapFieldDefaultTest
 		final Executable f00a = () ->
 		{
 			assertEquals("n5", d(f00.getValueTemplate()));
-			assertEquals(null, d(f00.getField(DE)));
-			assertEquals(null, d(f00.getField(EN)));
-			assertEquals(null, d(f00.getField(PL)));
+			assertEquals("n5", d(f00.getField(DE)));
+			assertEquals("n5", d(f00.getField(EN)));
+			assertEquals("n5", d(f00.getField(PL)));
 		};
 		f00a.execute();
 
@@ -149,8 +149,8 @@ public class EnumMapFieldDefaultTest
 		{
 			assertEquals("n5", d(fDE.getValueTemplate()));
 			assertEquals(66,   d(fDE.getField(DE)));
-			assertEquals(null, d(fDE.getField(EN)));
-			assertEquals(null, d(fDE.getField(PL)));
+			assertEquals("n5", d(fDE.getField(EN)));
+			assertEquals("n5", d(fDE.getField(PL)));
 		};
 		f00a.execute();
 		fDEa.execute();
@@ -162,7 +162,7 @@ public class EnumMapFieldDefaultTest
 			assertEquals("n5", d(fEN.getValueTemplate()));
 			assertEquals(66,   d(fEN.getField(DE)));
 			assertEquals(77,   d(fEN.getField(EN)));
-			assertEquals(null, d(fEN.getField(PL)));
+			assertEquals("n5", d(fEN.getField(PL)));
 		};
 		f00a.execute();
 		fDEa.execute();

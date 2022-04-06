@@ -74,7 +74,9 @@ public final class EnumMapField<K extends Enum<K>,V> extends Pattern implements 
 
 		for(final K key : keyClass.getEnumConstants())
 		{
-			FunctionField<V> value = valueTemplate.defaultTo(defaultConstant.get(key));
+			FunctionField<V> value = valueTemplate.copy();
+			if(defaultConstant.containsKey(key))
+				value = value.defaultTo(defaultConstant.get(key));
 			if(fallback!=null && key!=fallback && value.isMandatory())
 				value = value.optional();
 			addSourceFeature(value, name(key), EnumAnnotatedElement.get(key));
