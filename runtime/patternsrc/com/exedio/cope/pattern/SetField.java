@@ -72,6 +72,8 @@ public final class SetField<E> extends Pattern implements Copyable
 			throw new IllegalArgumentException("element must not be final");
 		if(!element.isMandatory())
 			throw new IllegalArgumentException("element must be mandatory");
+		if(element.hasDefault())
+			throw new IllegalArgumentException("element must not have any default");
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
 		this.copyWith = copyWith;

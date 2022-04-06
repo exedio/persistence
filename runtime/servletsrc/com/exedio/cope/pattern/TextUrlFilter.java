@@ -85,6 +85,8 @@ public class TextUrlFilter extends MediaFilter implements TextUrlFilterCheckable
 
 		if(!pasteKey.isMandatory())
 			throw new IllegalArgumentException("pasteKey must be mandatory");
+		if(pasteKey.hasDefault())
+			throw new IllegalArgumentException("pasteKey must not have any default");
 		if(pasteKey.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("pasteKey must not be unique");
 

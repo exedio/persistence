@@ -58,6 +58,8 @@ public final class ListField<E> extends AbstractListField<E> implements Copyable
 		this.element = requireNonNull(element, "element");
 		if(element.isFinal())
 			throw new IllegalArgumentException("element must not be final");
+		if(element.hasDefault())
+			throw new IllegalArgumentException("element must not have any default");
 		if(element.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("element must not be unique");
 		this.copyWith = copyWith;

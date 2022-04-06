@@ -67,6 +67,8 @@ public final class MapField<K,V> extends Pattern implements MapFieldInterface<K,
 		requireNonNull(field, name);
 		if(!field.isMandatory())
 			throw new IllegalArgumentException(name + " must be mandatory");
+		if(field.hasDefault())
+			throw new IllegalArgumentException(name + " must not have any default");
 		if(field.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException(name + " must not be unique");
 		return field;
