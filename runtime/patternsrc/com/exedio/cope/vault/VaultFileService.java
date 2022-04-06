@@ -42,7 +42,6 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
-import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.Set;
 import java.util.stream.Stream;
@@ -326,7 +325,7 @@ public final class VaultFileService implements VaultService
 		 * Note, that actual results are affected by {@code umask},
 		 * see https://en.wikipedia.org/wiki/Umask#Mask_effect .
 		 */
-		final Set<PosixFilePermission> filePosixPermissions = writable ? value("posixPermissions", EnumSet.of(OWNER_READ, OWNER_WRITE)) : null;
+		final Set<PosixFilePermission> filePosixPermissions = writable ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE) : null;
 
 		/**
 		 * If set, new files added to the vault will be {@code chmod}ed
@@ -342,7 +341,7 @@ public final class VaultFileService implements VaultService
 		 * after creation of the file and effects of {@link #filePosixPermissions}
 		 * are not overwritten.
 		 */
-		final Set<PosixFilePermission> filePosixPermissionsAfterwards = writable ? value("posixPermissionsAfterwards", (Set<PosixFilePermission>)null) : null;
+		final Set<PosixFilePermission> filePosixPermissionsAfterwards = writable ? valuePP("posixPermissionsAfterwards") : null;
 
 		final String filePosixGroup = writable ? value("posixGroup", "") : null;
 

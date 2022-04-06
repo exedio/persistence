@@ -18,21 +18,44 @@
 
 package com.exedio.cope.vault;
 
+import static java.util.Arrays.asList;
+import static java.util.Objects.requireNonNull;
+
 import com.exedio.cope.util.Properties;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Set;
 
 abstract class PosixProperties extends Properties
 {
-	Set<PosixFilePermission> value(final String key, final Set<PosixFilePermission> defaultValue)
+	Set<PosixFilePermission> valuePP(final String key)
 	{
 		final String DEFAULT = "";
-		final String value = value(key, defaultValue!=null ? PosixFilePermissions.toString(defaultValue) : DEFAULT);
-		if(defaultValue==null && DEFAULT.equals(value))
+		final String value = value(key, DEFAULT);
+		if(DEFAULT.equals(value))
 			return null;
 
+		return valuePP(key, value);
+	}
+
+	/**
+	 * TODO
+	 * <ul>
+	 * <li>Does not work for empty {@code defaultValue}, see {@link EnumSet#copyOf(java.util.Collection)}.
+	 * <li>{@code defaultValue} accepts duplicates
+	 * </ul>
+	 */
+	Set<PosixFilePermission> valuePP(final String key, final PosixFilePermission... defaultValue)
+	{
+		final String value = value(key, PosixFilePermissions.toString(EnumSet.copyOf(asList(requireNonNull(defaultValue)))));
+
+		return valuePP(key, value);
+	}
+
+	private Set<PosixFilePermission> valuePP(final String key, final String value)
+	{
 		final Set<PosixFilePermission> result;
 		try
 		{

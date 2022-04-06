@@ -25,7 +25,6 @@ import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 
 import java.nio.file.attribute.PosixFilePermission;
 import java.util.Arrays;
-import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -183,8 +182,8 @@ abstract class VaultDirectory
 			super(source);
 			//noinspection SimplifiableConditionalExpression
 			premised = writable ? value("premised", false) : false;
-			posixPermissions = writable&&!premised ? value("posixPermissions", EnumSet.of(OWNER_READ, OWNER_WRITE, OWNER_EXECUTE)) : null;
-			posixPermissionsAfterwards = writable&&!premised ? value("posixPermissionsAfterwards", (Set<PosixFilePermission>)null) : null;
+			posixPermissions = writable&&!premised ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) : null;
+			posixPermissionsAfterwards = writable&&!premised ? valuePP("posixPermissionsAfterwards") : null;
 			posixGroup = writable&&!premised ? value("posixGroup", "") : null;
 		}
 
