@@ -85,6 +85,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Props p = new Props(source);
 		assertEquals(asList(
 				"root",
+				"content",
 				"writable",
 				"posixPermissions",
 				"posixPermissionsAfterwards",
@@ -98,10 +99,12 @@ public class VaultFileServicePropertiesProbeTest
 				"temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 		assertEquals(root.toPath(), p.root);
+		assertEquals(root.toPath(), p.content);
 		assertEquals(temp.toPath(), p.tempDir());
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
+				"content.Exists",
 				"directory.Premised",
 				"directory.group",
 				"group",
@@ -115,6 +118,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Callable<?> groupf     = probes.get("group");
 		final Callable<?> rootExists = probes.get("root.Exists");
 		final Callable<?> rootFree   = probes.get("root.Free");
+		final Callable<?> contExists = probes.get("content.Exists");
 		final Callable<?> tempExists = probes.get("temp.Exists");
 		final Callable<?> tempStore  = probes.get("temp.Store");
 
@@ -134,6 +138,10 @@ public class VaultFileServicePropertiesProbeTest
 				rootFree::call,
 				NoSuchFileException.class,
 				root.toString());
+		assertFails(
+				contExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + root);
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
@@ -151,6 +159,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		assertEquals(root.toPath(), rootExists.call());
 		assertEquals(free, rootFree.call());
+		assertEquals(root.toPath(), contExists.call());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
@@ -164,6 +173,121 @@ public class VaultFileServicePropertiesProbeTest
 
 		assertEquals(root.toPath(), rootExists.call());
 		assertEquals(free, rootFree.call());
+		assertEquals(root.toPath(), contExists.call());
+		assertEquals(temp.toPath(), tempExists.call());
+		assertEquals(store, tempStore.call());
+	}
+
+	@Test void probeContent() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final File cont = new File(root, "mycontentdir");
+		final File temp = new File(root, ".tempVaultFileService");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("content", "mycontentdir")
+				));
+
+		final Props p = new Props(source);
+		assertEquals(asList(
+						"root",
+						"content",
+						"writable",
+						"posixPermissions",
+						"posixPermissionsAfterwards",
+						"posixGroup",
+						"directory",
+						"directory.length",
+						"directory.premised",
+						"directory.posixPermissions",
+						"directory.posixPermissionsAfterwards",
+						"directory.posixGroup",
+						"temp"),
+				p.getFields().stream().map(Field::getKey).collect(toList()));
+		assertEquals(root.toPath(), p.root);
+		assertEquals(cont.toPath(), p.content);
+		assertEquals(temp.toPath(), p.tempDir());
+
+		final Map<String,Callable<?>> probes = probes(p);
+		assertEquals(asList(
+						"content.Exists",
+						"directory.Premised",
+						"directory.group",
+						"group",
+						"root.Exists",
+						"root.Free",
+						"temp.Exists",
+						"temp.Store"),
+				new ArrayList<>(probes.keySet()));
+
+		final Callable<?> rootExists = probes.get("root.Exists");
+		final Callable<?> rootFree   = probes.get("root.Free");
+		final Callable<?> contExists = probes.get("content.Exists");
+		final Callable<?> tempExists = probes.get("temp.Exists");
+		final Callable<?> tempStore  = probes.get("temp.Store");
+
+		assertFails(
+				rootExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + root);
+		assertFails(
+				rootFree::call,
+				NoSuchFileException.class,
+				root.toString());
+		assertFails(
+				contExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + cont);
+		assertFails(
+				tempExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + temp);
+		assertFails(
+				tempStore::call,
+				NoSuchFileException.class,
+				cont.toString());
+
+		createDirectory(root.toPath());
+		final FileStore store = Files.getFileStore(root.toPath());
+		final String free =
+				(store.getUsableSpace()*100/store.getTotalSpace()) + "% of " +
+				(store.getTotalSpace()/(1024*1024*1024)) + "GiB";
+
+		assertEquals(root.toPath(), rootExists.call());
+		assertEquals(free, rootFree.call());
+		assertFails(
+				contExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + cont);
+		assertFails(
+				tempExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + temp);
+		assertFails(
+				tempStore::call,
+				NoSuchFileException.class,
+				cont.toString());
+
+		createDirectory(cont.toPath());
+
+		assertEquals(root.toPath(), rootExists.call());
+		assertEquals(free, rootFree.call());
+		assertEquals(cont.toPath(), contExists.call());
+		assertFails(
+				tempExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + temp);
+		assertFails(
+				tempStore::call,
+				NoSuchFileException.class,
+				temp.toString());
+
+		createDirectory(temp.toPath());
+
+		assertEquals(root.toPath(), rootExists.call());
+		assertEquals(free, rootFree.call());
+		assertEquals(cont.toPath(), contExists.call());
 		assertEquals(temp.toPath(), tempExists.call());
 		assertEquals(store, tempStore.call());
 	}
@@ -179,7 +303,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		assertEquals(
-				asList("root", "writable", "directory", "directory.length"),
+				asList("root", "content", "writable", "directory", "directory.length"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
 		assertEquals(root.toPath(), p.root);
 		assertFails(
@@ -189,6 +313,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
+				"content.Exists",
 				"directory.Premised",
 				"directory.group",
 				"group",
@@ -201,6 +326,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Callable<?> groupf     = probes.get("group");
 		final Callable<?> rootExists = probes.get("root.Exists");
 		final Callable<?> rootFree   = probes.get("root.Free");
+		final Callable<?> contExists = probes.get("content.Exists");
 		final Callable<?> tempExists = probes.get("temp.Exists");
 		final Callable<?> tempStore  = probes.get("temp.Store");
 
@@ -221,6 +347,10 @@ public class VaultFileServicePropertiesProbeTest
 				NoSuchFileException.class,
 				root.toString());
 		assertFails(
+				contExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + root);
+		assertFails(
 				tempExists::call,
 				ProbeAbortedException.class,
 				"not writable");
@@ -231,6 +361,7 @@ public class VaultFileServicePropertiesProbeTest
 
 		createDirectory(root.toPath());
 		assertEquals(root.toPath(), rootExists.call());
+		assertEquals(root.toPath(), contExists.call());
 		assertFails(
 				tempExists::call,
 				ProbeAbortedException.class,
@@ -251,14 +382,23 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		final Callable<?> rootExists = requireNonNull(probes(p).get("root.Exists"));
+		final Callable<?> contExists = requireNonNull(probes(p).get("content.Exists"));
 		assertFails(
 				rootExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + root);
+		assertFails(
+				contExists::call,
 				IllegalArgumentException.class,
 				"does not exist: " + root);
 
 		Files.createFile(root.toPath());
 		assertFails(
 				rootExists::call,
+				IllegalArgumentException.class,
+				"is not a directory: " + root);
+		assertFails(
+				contExists::call,
 				IllegalArgumentException.class,
 				"is not a directory: " + root);
 	}
@@ -273,8 +413,13 @@ public class VaultFileServicePropertiesProbeTest
 
 		final Props p = new Props(source);
 		final Callable<?> rootExists = requireNonNull(probes(p).get("root.Exists"));
+		final Callable<?> contExists = requireNonNull(probes(p).get("content.Exists"));
 		assertFails(
 				rootExists::call,
+				IllegalArgumentException.class,
+				"does not exist: " + root);
+		assertFails(
+				contExists::call,
 				IllegalArgumentException.class,
 				"does not exist: " + root);
 
@@ -282,6 +427,10 @@ public class VaultFileServicePropertiesProbeTest
 		createDirectory(root.toPath(), asFileAttribute(EnumSet.of(OWNER_READ)));
 		assertFails(
 				rootExists::call,
+				IllegalArgumentException.class,
+				"is not writable: " + root);
+		assertFails(
+				contExists::call,
 				IllegalArgumentException.class,
 				"is not writable: " + root);
 	}
@@ -417,6 +566,45 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(dirs::call, IllegalStateException.class, "missing f");
 
 		createDirectory(root.toPath().resolve("f"));
+		assertEquals(16, dirs.call());
+	}
+
+	@Test void probePremisedOneContent() throws Exception
+	{
+		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final File cont = new File(root, "mycontentdir");
+		final Source source =
+				describe("DESC", cascade(
+						single("root", root),
+						single("content", "mycontentdir"),
+						single("directory.length", 1),
+						single("directory.premised", true)
+				));
+
+		final Props p = new Props(source);
+		assertEquals(1, p.directory.length);
+		assertEquals(true, p.directory.premised);
+		final Callable<?> dirs = requireNonNull(probes(p).get("directory.Premised"));
+		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
+		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
+
+		createDirectory(root.toPath());
+		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
+
+		createDirectory(cont.toPath());
+		assertFails(dirs::call, IllegalStateException.class, "missing 0,1,2,3,4,5,6,7,8,9,a,b,c,d,e... (total 16)");
+
+		createDirectory(cont.toPath().resolve("0"));
+		assertFails(dirs::call, IllegalStateException.class, "missing 1,2,3,4,5,6,7,8,9,a,b,c,d,e,f");
+
+		createDirectory(cont.toPath().resolve("1"));
+		assertFails(dirs::call, IllegalStateException.class, "missing 2,3,4,5,6,7,8,9,a,b,c,d,e,f");
+
+		for(final String s : asList("2","3","4","5","6","7","8","9","a","b","c","d","e"))
+			createDirectory(cont.toPath().resolve(s));
+		assertFails(dirs::call, IllegalStateException.class, "missing f");
+
+		createDirectory(cont.toPath().resolve("f"));
 		assertEquals(16, dirs.call());
 	}
 

@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
 public final class VaultFileService implements VaultService
 {
 	private final Path rootDir;
+	private final Path contentDir;
 	private final Set<PosixFilePermission> filePermissions;
 	private final FileAttribute<?>[] fileAttributes;
 	final Set<PosixFilePermission> filePermissionsAfterwards;
@@ -68,6 +69,7 @@ public final class VaultFileService implements VaultService
 	{
 		final boolean writable = parameters.isWritable();
 		this.rootDir = properties.root;
+		this.contentDir = properties.content;
 		this.filePermissions = writable ? properties.filePosixPermissions : null;
 		this.fileAttributes = writable ? asFileAttributes(properties.filePosixPermissions) : null;
 		this.filePermissionsAfterwards = writable ? properties.filePosixPermissionsAfterwards : null;
@@ -210,7 +212,7 @@ public final class VaultFileService implements VaultService
 
 		final String dir = directory.directoryToBeCreated(hash);
 		if(dir!=null)
-			createDirectoryIfNotExists(rootDir.resolve(dir));
+			createDirectoryIfNotExists(contentDir.resolve(dir));
 
 		return moveIfDestDoesNotExist(temp, file);
 	}
@@ -268,7 +270,7 @@ public final class VaultFileService implements VaultService
 
 	private Path file(final String hash)
 	{
-		return rootDir.resolve(directory.path(hash));
+		return contentDir.resolve(directory.path(hash));
 	}
 
 	private Path createTempFile(final String hash) throws IOException
@@ -278,7 +280,7 @@ public final class VaultFileService implements VaultService
 
 	private RuntimeException wrap(final String hash, final IOException exception)
 	{
-		throw new RuntimeException("" + rootDir.toAbsolutePath() + ':' + anonymiseHash(hash), exception);
+		throw new RuntimeException("" + contentDir.toAbsolutePath() + ':' + anonymiseHash(hash), exception);
 	}
 
 
@@ -288,7 +290,7 @@ public final class VaultFileService implements VaultService
 	// so we are free to change signature in the future without breaking API compatibility.
 	public Object probeGenuineServiceKey(final String serviceKey) throws Exception
 	{
-		final Path file = rootDir.resolve(VAULT_GENUINE_SERVICE_KEY).resolve(serviceKey);
+		final Path file = contentDir.resolve(VAULT_GENUINE_SERVICE_KEY).resolve(serviceKey);
 		final BasicFileAttributes attributes =
 				Files.readAttributes(file, BasicFileAttributes.class); // throw NoSuchFileException is file does not exist
 		final Path fileAbsolute = file.toAbsolutePath();
@@ -316,6 +318,7 @@ public final class VaultFileService implements VaultService
 	static final class Props extends PosixProperties
 	{
 		final Path root = valuePath("root");
+		final Path content = valueSP("content", root, true, "");
 		final boolean writable = value("writable", true);
 
 		/**
@@ -346,7 +349,7 @@ public final class VaultFileService implements VaultService
 		final String filePosixGroup = writable ? value("posixGroup", "") : null;
 
 		final VaultDirectory.Properties directory = value("directory", true, s -> new VaultDirectory.Properties(s, writable));
-		private final Path temp = writable ? valueSP("temp", root, ".tempVaultFileService") : null;
+		private final Path temp = writable ? valueSP("temp", root, false, ".tempVaultFileService") : null;
 
 		Props(final Source source)
 		{
@@ -376,6 +379,12 @@ public final class VaultFileService implements VaultService
 			return
 					(store.getUsableSpace()*100/total) + "% of " +
 					(total/(1024*1024*1024)) + "GiB";
+		}
+
+		@Probe(name="content.Exists")
+		private Path probeContentExists()
+		{
+			return probeDirectoryExists(content);
 		}
 
 		@Probe(name="group")
@@ -432,12 +441,12 @@ public final class VaultFileService implements VaultService
 		private FileStore probeTempStore() throws ProbeAbortedException, IOException
 		{
 			final Path tempDir = tempDirForProbe();
-			final FileStore rootStore = Files.getFileStore(root);
+			final FileStore rootStore = Files.getFileStore(content); // TODO rename
 			final FileStore tempStore = Files.getFileStore(tempDir);
 			if(!rootStore.equals(tempStore))
 				throw new IllegalArgumentException( // TODO test
 						"not the same file store: " +
-						"root " + root   .toAbsolutePath() + " on " + rootStore + ", but " +
+						"root " + content.toAbsolutePath() + " on " + rootStore + ", but " + // TODO replace root
 						"temp " + tempDir.toAbsolutePath() + " on " + tempStore);
 			return rootStore;
 		}
@@ -452,7 +461,7 @@ public final class VaultFileService implements VaultService
 			for(final Iterator<String> i = directoryForProbe().iterator(); i.hasNext(); )
 			{
 				final String dirName = i.next();
-				if(Files.isDirectory(root.resolve(dirName)))
+				if(Files.isDirectory(content.resolve(dirName)))
 					ok++;
 				else
 				{

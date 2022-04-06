@@ -31,11 +31,16 @@ import java.util.Set;
 
 abstract class PosixProperties extends Properties
 {
-	final Path valueSP(final String key, final Path root, final String defaultValue)
+	final Path valueSP(final String key, final Path root, final boolean emptyAllowed, final String defaultValue)
 	{
 		final String sub = value(key, defaultValue);
 		if(sub.isEmpty())
-			throw newException(key, "must not be empty");
+		{
+			if(emptyAllowed)
+				return root;
+			else
+				throw newException(key, "must not be empty");
+		}
 		if(!sub.equals(sub.trim()))
 			throw newException(key, "must be trimmed, but was >" + sub + '<');
 		return root.resolve(sub);

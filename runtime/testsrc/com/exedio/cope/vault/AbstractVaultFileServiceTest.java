@@ -237,7 +237,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	@Override
 	@Test protected final void probeGenuineServiceKey() throws Exception
 	{
-		final Path keyDir = getRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getGenuineServiceKeyRoot().toPath().resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
 		assertProbeGenuineServiceKeyFails();
 
@@ -249,7 +249,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	}
 	@Test protected final void probeGenuineServiceKeyNonEmpty() throws Exception
 	{
-		final Path keyDir = getRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getGenuineServiceKeyRoot().toPath().resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
 		assertProbeGenuineServiceKeyFails();
 
@@ -264,7 +264,7 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 	}
 	@Test final void probeGenuineServiceKeyDirectory() throws Exception
 	{
-		final Path keyDir = getRoot().toPath().resolve("VaultGenuineServiceKey");
+		final Path keyDir = getGenuineServiceKeyRoot().toPath().resolve("VaultGenuineServiceKey");
 		final Path keyPath = keyDir.resolve("myKey");
 		assertProbeGenuineServiceKeyFails();
 
@@ -274,18 +274,22 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 		Files.createDirectory(keyPath);
 		assertProbeGenuineServiceKeyFails("is not a regular file");
 	}
+	protected File getGenuineServiceKeyRoot()
+	{
+		return getRoot();
+	}
 	private void assertProbeGenuineServiceKeyFails(final String reason)
 	{
 		assertFails(
 				() -> getService().probeGenuineServiceKey("myKey"),
 				IllegalStateException.class,
-				reason + ": " + getRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
+				reason + ": " + getGenuineServiceKeyRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
 	}
 	private void assertProbeGenuineServiceKeyFails()
 	{
 		assertFails(
 				() -> getService().probeGenuineServiceKey("myKey"),
 				NoSuchFileException.class,
-				getRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
+				getGenuineServiceKeyRoot() + File.separator + "VaultGenuineServiceKey" + File.separator + "myKey");
 	}
 }
