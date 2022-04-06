@@ -28,6 +28,13 @@ import java.util.HashSet;
 
 final class Transactions
 {
+	private final Object modelToString;
+
+	Transactions(final Model model)
+	{
+		modelToString = model;
+	}
+
 	private static final Transaction[] EMPTY_TRANSACTION_ARRAY = new Transaction[0];
 
 	private final HashSet<Transaction> open = new HashSet<>();
@@ -73,7 +80,7 @@ final class Transactions
 	void join(final Transaction tx)
 	{
 		if(hasCurrent())
-			throw new RuntimeException("there is already a transaction bound to current thread");
+			throw new RuntimeException("there is already a transaction bound to current thread for model " + modelToString);
 		setThreadLocal(tx);
 	}
 
@@ -86,7 +93,7 @@ final class Transactions
 	{
 		final Transaction result = currentIfBound();
 		if(result==null)
-			throw new IllegalStateException("there is no cope transaction bound to this thread, see Model#startTransaction");
+			throw new IllegalStateException("there is no cope transaction bound to this thread for model " + modelToString + ", see Model#startTransaction");
 		return result;
 	}
 
@@ -151,6 +158,6 @@ final class Transactions
 	{
 		final Transaction tx = currentIfBound();
 		if(tx!=null)
-			throw new IllegalStateException("must not be called within a transaction: " + tx.getName());
+			throw new IllegalStateException("must not be called within a transaction: " + tx.getName() + " for model " + modelToString);
 	}
 }

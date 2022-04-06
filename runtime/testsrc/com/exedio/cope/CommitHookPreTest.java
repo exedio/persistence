@@ -202,7 +202,7 @@ public class CommitHookPreTest
 		}
 		catch(final IllegalStateException e)
 		{
-			assertEquals("there is no cope transaction bound to this thread, see Model#startTransaction", e.getMessage());
+			assertEquals("there is no cope transaction bound to this thread for model " + model + ", see Model#startTransaction", e.getMessage());
 		}
 	}
 
