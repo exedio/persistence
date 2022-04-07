@@ -136,36 +136,43 @@ public class MapFieldModelTest
 	}
 	@Test void testKeyOptional()
 	{
+		final StringField key = new StringField().optional();
 		assertFails(
-				() -> MapField.create(new StringField().optional(), null),
+				() -> MapField.create(key, null),
 				IllegalArgumentException.class,
 				"key must be mandatory");
 	}
 	@Test void testKeyUnique()
 	{
+		final StringField key = new StringField().unique();
 		assertFails(
-				() -> MapField.create(new StringField().unique(), null),
+				() -> MapField.create(key, null),
 				IllegalArgumentException.class,
 				"key must not be unique");
 	}
 	@Test void testValueNull()
 	{
+		final StringField key = new StringField();
 		assertFails(
-				() -> MapField.create(new StringField(), null),
+				() -> MapField.create(key, null),
 				NullPointerException.class,
 				"value");
 	}
 	@Test void testValueOptional()
 	{
+		final StringField key = new StringField();
+		final StringField value = new StringField().optional();
 		assertFails(
-				() -> MapField.create(new StringField(), new StringField().optional()),
+				() -> MapField.create(key, value),
 				IllegalArgumentException.class,
 				"value must be mandatory");
 	}
 	@Test void testValueUnique()
 	{
+		final StringField key = new StringField();
+		final StringField value = new StringField().unique();
 		assertFails(
-				() -> MapField.create(new StringField(), new StringField().unique()),
+				() -> MapField.create(key, value),
 				IllegalArgumentException.class,
 				"value must not be unique");
 	}
