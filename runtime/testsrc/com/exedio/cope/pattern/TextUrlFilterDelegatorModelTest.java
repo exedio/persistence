@@ -19,9 +19,8 @@
 package com.exedio.cope.pattern;
 
 import static com.exedio.cope.pattern.TextUrlFilterDelegatorItem.fertig;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.nio.charset.StandardCharsets.UTF_8;
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -29,128 +28,82 @@ public class TextUrlFilterDelegatorModelTest
 {
 	@Test void testRawNull()
 	{
-		try
-		{
-			new TextUrlFilterDelegator(null, null, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(null, null, null, null, null, null),
+				NullPointerException.class,
+				"source");
 	}
 
 	@Test void testDelegateNull()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, null, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("delegate", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, null, null, null, null, null),
+				NullPointerException.class,
+				"delegate");
 	}
 
 
 	@Test void testSupportedContentTypeNull()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, fertig, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("supportedContentType", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, fertig, null, null, null, null),
+				NullPointerException.class,
+				"supportedContentType");
 	}
 
 	@Test void testSupportedContentTypeEmpty()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, fertig, "", null, null, null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("supportedContentType must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, fertig, "", null, null, null),
+				IllegalArgumentException.class,
+				"supportedContentType must not be empty");
 	}
 
 	@Test void testCharsetNull()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("charset", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", null, null, null),
+				NullPointerException.class,
+				"charset");
 	}
 
 	@Test void testPasteStartNull()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("pasteStart", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, null, null),
+				NullPointerException.class,
+				"pasteStart");
 	}
 
 	@Test void testPasteStartEmpty()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "", null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteStart must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "", null),
+				IllegalArgumentException.class,
+				"pasteStart must not be empty");
 	}
 
 	@Test void testPasteStopNull()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("pasteStop", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", null),
+				NullPointerException.class,
+				"pasteStop");
 	}
 
 	@Test void testPasteStopEmpty()
 	{
 		final Media roh2 = new Media();
-		try
-		{
-			new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", "");
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteStop must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", ""),
+				IllegalArgumentException.class,
+				"pasteStop must not be empty");
 	}
-
 }

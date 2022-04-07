@@ -18,9 +18,9 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.StringField;
 import org.junit.jupiter.api.Test;
@@ -29,192 +29,122 @@ public class TextUrlFilterModelTest
 {
 	@Test void testRawNull()
 	{
-		try
-		{
-			new TextUrlFilter(null, null, null, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("source", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(null, null, null, null, null, null, null),
+				NullPointerException.class,
+				"source");
 	}
 	@Test void testSupportedContentTypeNull()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, null, null, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("supportedContentType", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, null, null, null, null, null, null),
+				NullPointerException.class,
+				"supportedContentType");
 	}
 	@Test void testSupportedContentTypeEmpty()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "", null, null, null, null, null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("supportedContentType must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "", null, null, null, null, null),
+				IllegalArgumentException.class,
+				"supportedContentType must not be empty");
 	}
 	@Test void testCharsetNull()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", null, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("charset", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", null, null, null, null, null),
+				NullPointerException.class,
+				"charset");
 	}
 	@Test void testPasteStartNull()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, null, null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("pasteStart", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, null, null, null, null),
+				NullPointerException.class,
+				"pasteStart");
 	}
 	@Test void testPasteStartEmpty()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "", null, null, null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteStart must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "", null, null, null),
+				IllegalArgumentException.class,
+				"pasteStart must not be empty");
 	}
 	@Test void testPasteStopNull()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", null, null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("pasteStop", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", null, null, null),
+				NullPointerException.class,
+				"pasteStop");
 	}
 	@Test void testPasteStopEmpty()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", "", null, null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteStop must not be empty", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", "", null, null),
+				IllegalArgumentException.class,
+				"pasteStop must not be empty");
 	}
 	@Test void testPasteKeyNull()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("pasteKey", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", null, null),
+				NullPointerException.class,
+				"pasteKey");
 	}
 	@Test void testPasteKeyOptional()
 	{
 		final Media roh = new Media();
 		final StringField pasteKey = new StringField().optional();
 		final Media pasteValue = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteKey must be mandatory", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue),
+				IllegalArgumentException.class,
+				"pasteKey must be mandatory");
 	}
 	@Test void testPasteKeyUnique()
 	{
 		final Media roh = new Media();
 		final StringField pasteKey = new StringField().unique();
 		final Media pasteValue = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteKey must not be unique", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue),
+				IllegalArgumentException.class,
+				"pasteKey must not be unique");
 	}
 	@Test void testPasteValueNull()
 	{
 		final Media roh = new Media();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", new StringField(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("pasteValue", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", new StringField(), null),
+				NullPointerException.class,
+				"pasteValue");
 	}
 	@Test void testPasteValueFinal()
 	{
 		final Media roh = new Media();
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().toFinal();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteValue must not be final", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue),
+				IllegalArgumentException.class,
+				"pasteValue must not be final");
 	}
 	@Test void testPasteValueOptional()
 	{
 		final Media roh = new Media();
 		final StringField pasteKey = new StringField();
 		final Media pasteValue = new Media().optional();
-		try
-		{
-			new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("pasteValue must be mandatory", e.getMessage());
-		}
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue),
+				IllegalArgumentException.class,
+				"pasteValue must be mandatory");
 	}
 	@Test void testMandatory()
 	{
