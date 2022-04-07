@@ -42,15 +42,17 @@ public class ListFieldModelTest
 	}
 	@Test void testElementFinal()
 	{
+		final StringField element = new StringField().toFinal();
 		assertFails(
-				() -> ListField.create(new StringField().toFinal()),
+				() -> ListField.create(element),
 				IllegalArgumentException.class,
 				"element must not be final");
 	}
 	@Test void testElementUnique()
 	{
+		final StringField element = new StringField().unique();
 		assertFails(
-				() -> ListField.create(new StringField().unique()),
+				() -> ListField.create(element),
 				IllegalArgumentException.class,
 				"element must not be unique");
 	}

@@ -171,24 +171,27 @@ public class SetFieldModelTest
 
 	@Test void testElementFinal()
 	{
+		final StringField element = new StringField().toFinal();
 		assertFails(
-				() -> SetField.create(new StringField().toFinal()),
+				() -> SetField.create(element),
 				IllegalArgumentException.class,
 				"element must not be final");
 	}
 
 	@Test void testElementOptional()
 	{
+		final StringField element = new StringField().optional();
 		assertFails(
-				() -> SetField.create(new StringField().optional()),
+				() -> SetField.create(element),
 				IllegalArgumentException.class,
 				"element must be mandatory");
 	}
 
 	@Test void testElementUnique()
 	{
+		final StringField element = new StringField().unique();
 		assertFails(
-				() -> SetField.create(new StringField().unique()),
+				() -> SetField.create(element),
 				IllegalArgumentException.class,
 				"element must not be unique");
 	}
