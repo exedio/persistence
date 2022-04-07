@@ -33,76 +33,67 @@ public class TextUrlFilterDelegatorModelTest
 				NullPointerException.class,
 				"source");
 	}
-
 	@Test void testDelegateNull()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, null, null, null, null, null),
+				() -> new TextUrlFilterDelegator(roh, null, null, null, null, null),
 				NullPointerException.class,
 				"delegate");
 	}
-
-
 	@Test void testSupportedContentTypeNull()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, fertig, null, null, null, null),
+				() -> new TextUrlFilterDelegator(roh, fertig, null, null, null, null),
 				NullPointerException.class,
 				"supportedContentType");
 	}
-
 	@Test void testSupportedContentTypeEmpty()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, fertig, "", null, null, null),
+				() -> new TextUrlFilterDelegator(roh, fertig, "", null, null, null),
 				IllegalArgumentException.class,
 				"supportedContentType must not be empty");
 	}
-
 	@Test void testCharsetNull()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", null, null, null),
+				() -> new TextUrlFilterDelegator(roh, fertig, "text/plain", null, null, null),
 				NullPointerException.class,
 				"charset");
 	}
-
 	@Test void testPasteStartNull()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, null, null),
+				() -> new TextUrlFilterDelegator(roh, fertig, "text/plain", UTF_8, null, null),
 				NullPointerException.class,
 				"pasteStart");
 	}
-
 	@Test void testPasteStartEmpty()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "", null),
+				() -> new TextUrlFilterDelegator(roh, fertig, "text/plain", UTF_8, "", null),
 				IllegalArgumentException.class,
 				"pasteStart must not be empty");
 	}
-
 	@Test void testPasteStopNull()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", null),
+				() -> new TextUrlFilterDelegator(roh, fertig, "text/plain", UTF_8, "(", null),
 				NullPointerException.class,
 				"pasteStop");
 	}
-
 	@Test void testPasteStopEmpty()
 	{
-		final Media roh2 = new Media();
+		final Media roh = new Media();
 		assertFails(
-				() -> new TextUrlFilterDelegator(roh2, fertig, "text/plain", UTF_8, "(", ""),
+				() -> new TextUrlFilterDelegator(roh, fertig, "text/plain", UTF_8, "(", ""),
 				IllegalArgumentException.class,
 				"pasteStop must not be empty");
 	}
