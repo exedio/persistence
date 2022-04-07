@@ -34,7 +34,7 @@ public class FindItemPatternTest extends TestWithEnvironment
 {
 	public FindItemPatternTest()
 	{
-		super(ListFieldTest.MODEL);
+		super(ListFieldModelTest.MODEL);
 	}
 
 	ListFieldItem item;

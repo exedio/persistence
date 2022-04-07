@@ -40,7 +40,7 @@ import com.exedio.cope.badquery.BadQueryTest;
 import com.exedio.cope.pattern.DispatcherModelTest;
 import com.exedio.cope.pattern.HashTest;
 import com.exedio.cope.pattern.LimitedListFieldModelTest;
-import com.exedio.cope.pattern.ListFieldTest;
+import com.exedio.cope.pattern.ListFieldModelTest;
 import com.exedio.cope.pattern.MD5Test;
 import com.exedio.cope.sampler.Stuff;
 import javax.servlet.ServletContextEvent;
@@ -60,7 +60,7 @@ public final class PropertiesInitializer implements ServletContextListener
 				DataModelTest.MODEL,
 				HashTest.MODEL,
 				MD5Test.MODEL,
-				ListFieldTest.MODEL,
+				ListFieldModelTest.MODEL,
 				LimitedListFieldModelTest.MODEL,
 				CacheIsolationTest.MODEL,
 				NameTest.MODEL,

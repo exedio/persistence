@@ -32,6 +32,7 @@ import static com.exedio.cope.pattern.ListFieldItem.itemsSameValueParent;
 import static com.exedio.cope.pattern.ListFieldItem.strings;
 import static com.exedio.cope.pattern.ListFieldItem.stringsParent;
 import static com.exedio.cope.pattern.ListFieldItem.value;
+import static com.exedio.cope.pattern.ListFieldModelTest.MODEL;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
@@ -50,9 +51,7 @@ import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
-import com.exedio.cope.Model;
 import com.exedio.cope.Query;
-import com.exedio.cope.StringField;
 import com.exedio.cope.StringLengthViolationException;
 import com.exedio.cope.TestWithEnvironment;
 import com.exedio.cope.Type;
@@ -66,15 +65,8 @@ import org.junit.jupiter.api.Test;
 
 public class ListFieldTest extends TestWithEnvironment
 {
-	public static final Model MODEL = new Model(TYPE);
-
 	private static final CopyConstraint copyParent = (CopyConstraint)itemsSameValue.getRelationType().getFeature("valueCopyFromparent");
 	private static final CopyConstraint copyElement = (CopyConstraint)itemsSameValue.getRelationType().getFeature("valueCopyFromelement");
-
-	static
-	{
-		MODEL.enableSerialization(ListFieldTest.class, "MODEL");
-	}
 
 	static final Date date1 = new Date(918756915152l);
 	static final Date date2 = new Date(918756915153l);
@@ -271,23 +263,10 @@ public class ListFieldTest extends TestWithEnvironment
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 		assertTrue(  itemsType.isAnnotationPresent(Computed.class));
 
-		assertSerializedSame(strings, 383);
-		assertSerializedSame(dates  , 381);
-		assertSerializedSame(items  , 381);
-		assertSerializedSame(itemsSameValue, 390);
-
-		assertFails(
-				() -> ListField.create(null),
-				NullPointerException.class,
-				"element");
-		assertFails(
-				() -> ListField.create(new StringField().toFinal()),
-				IllegalArgumentException.class,
-				"element must not be final");
-		assertFails(
-				() -> ListField.create(new StringField().unique()),
-				IllegalArgumentException.class,
-				"element must not be unique");
+		assertSerializedSame(strings, 388);
+		assertSerializedSame(dates  , 386);
+		assertSerializedSame(items  , 386);
+		assertSerializedSame(itemsSameValue, 395);
 
 		// test persistence
 		// test searching
