@@ -127,34 +127,54 @@ public class MapFieldModelTest
 		assertSerializedSame(integer   , 386);
 	}
 
-	@Test void testFailures()
+	@Test void testKeyNull()
 	{
 		assertFails(
 				() -> MapField.create(null, null),
 				NullPointerException.class,
 				"key");
+	}
+	@Test void testKeyOptional()
+	{
 		assertFails(
 				() -> MapField.create(new StringField().optional(), null),
 				IllegalArgumentException.class,
 				"key must be mandatory");
+	}
+	@Test void testKeyUnique()
+	{
 		assertFails(
 				() -> MapField.create(new StringField().unique(), null),
 				IllegalArgumentException.class,
 				"key must not be unique");
+	}
+	@Test void testValueNull()
+	{
 		assertFails(
 				() -> MapField.create(new StringField(), null),
 				NullPointerException.class,
 				"value");
+	}
+	@Test void testValueOptional()
+	{
 		assertFails(
 				() -> MapField.create(new StringField(), new StringField().optional()),
 				IllegalArgumentException.class,
 				"value must be mandatory");
+	}
+	@Test void testValueUnique()
+	{
 		assertFails(
 				() -> MapField.create(new StringField(), new StringField().unique()),
 				IllegalArgumentException.class,
 				"value must not be unique");
+	}
+	@Test void testOk()
+	{
 		MapField.create(new StringField(), new StringField());
-
+	}
+	@Test void testGetParentWrongParentClass()
+	{
 		assertFails(
 				() -> name.getParent(Item.class),
 				ClassCastException.class,

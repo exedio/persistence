@@ -41,7 +41,7 @@ public class ListFieldTest2 extends TestWithEnvironment
 {
 	public ListFieldTest2()
 	{
-		super(ListFieldTest.MODEL);
+		super(ListFieldModelTest.MODEL);
 	}
 
 	ListFieldItem item;
