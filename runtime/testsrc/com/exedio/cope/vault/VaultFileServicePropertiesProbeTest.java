@@ -48,7 +48,6 @@ import java.io.IOException;
 import java.nio.file.FileStore;
 import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
-import java.nio.file.Path;
 import java.nio.file.attribute.PosixFileAttributeView;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
 import java.util.ArrayList;
@@ -77,6 +76,7 @@ public class VaultFileServicePropertiesProbeTest
 	@Test void probe() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final File temp = new File(root, ".tempVaultFileService");
 		final Source source =
 				describe("DESC", cascade(
 						single("root", root)
@@ -97,6 +97,8 @@ public class VaultFileServicePropertiesProbeTest
 				"directory.posixGroup",
 				"temp"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
+		assertEquals(root.toPath(), p.root);
+		assertEquals(temp.toPath(), p.tempDir());
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -127,42 +129,42 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.root.toAbsolutePath());
+				"does not exist: " + root);
 		assertFails(
 				rootFree::call,
 				NoSuchFileException.class,
-				p.root.toAbsolutePath().toString());
+				root.toString());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.tempDir().toAbsolutePath());
+				"does not exist: " + temp);
 		assertFails(
 				tempStore::call,
 				NoSuchFileException.class,
-				p.root.toAbsolutePath().toString());
+				root.toString());
 
-		createDirectory(p.root);
+		createDirectory(root.toPath());
 		final FileStore store = Files.getFileStore(root.toPath());
 		final String free =
 				(store.getUsableSpace()*100/store.getTotalSpace()) + "% of " +
 				(store.getTotalSpace()/(1024*1024*1024)) + "GiB";
 
-		assertEquals(p.root, rootExists.call());
+		assertEquals(root.toPath(), rootExists.call());
 		assertEquals(free, rootFree.call());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.tempDir().toAbsolutePath());
+				"does not exist: " + temp);
 		assertFails(
 				tempStore::call,
 				NoSuchFileException.class,
-				p.tempDir().toAbsolutePath().toString());
+				temp.toString());
 
-		createDirectory(p.tempDir());
+		createDirectory(temp.toPath());
 
-		assertEquals(p.root, rootExists.call());
+		assertEquals(root.toPath(), rootExists.call());
 		assertEquals(free, rootFree.call());
-		assertEquals(p.tempDir(), tempExists.call());
+		assertEquals(temp.toPath(), tempExists.call());
 		assertEquals(store, tempStore.call());
 	}
 
@@ -179,6 +181,11 @@ public class VaultFileServicePropertiesProbeTest
 		assertEquals(
 				asList("root", "writable", "directory", "directory.length"),
 				p.getFields().stream().map(Field::getKey).collect(toList()));
+		assertEquals(root.toPath(), p.root);
+		assertFails(
+				p::tempDir,
+				IllegalArgumentException.class,
+				"non-writable properties cannot be used in writable service");
 
 		final Map<String,Callable<?>> probes = probes(p);
 		assertEquals(asList(
@@ -208,11 +215,11 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.root.toAbsolutePath());
+				"does not exist: " + root);
 		assertFails(
 				rootFree::call,
 				NoSuchFileException.class,
-				p.root.toAbsolutePath().toString());
+				root.toString());
 		assertFails(
 				tempExists::call,
 				ProbeAbortedException.class,
@@ -222,8 +229,8 @@ public class VaultFileServicePropertiesProbeTest
 				ProbeAbortedException.class,
 				"not writable");
 
-		createDirectory(p.root);
-		assertEquals(p.root, rootExists.call());
+		createDirectory(root.toPath());
+		assertEquals(root.toPath(), rootExists.call());
 		assertFails(
 				tempExists::call,
 				ProbeAbortedException.class,
@@ -247,13 +254,13 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.root.toAbsolutePath());
+				"does not exist: " + root);
 
-		Files.createFile(p.root);
+		Files.createFile(root.toPath());
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
-				"is not a directory: " + p.root);
+				"is not a directory: " + root);
 	}
 
 	@Test void probeRootNotWritable() throws Exception
@@ -269,19 +276,20 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.root.toAbsolutePath());
+				"does not exist: " + root);
 
-		assumeSupportsReadOnlyDirectories(p.root);
-		createDirectory(p.root, asFileAttribute(EnumSet.of(OWNER_READ)));
+		assumeSupportsReadOnlyDirectories(root);
+		createDirectory(root.toPath(), asFileAttribute(EnumSet.of(OWNER_READ)));
 		assertFails(
 				rootExists::call,
 				IllegalArgumentException.class,
-				"is not writable: " + p.root);
+				"is not writable: " + root);
 	}
 
 	@Test void probeTempRegularFile() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final File temp = new File(root, ".tempVaultFileService");
 		final Source source =
 				describe("DESC", cascade(
 						single("root", root)
@@ -292,24 +300,25 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.tempDir().toAbsolutePath());
+				"does not exist: " + temp);
 
-		createDirectory(p.root);
+		createDirectory(root.toPath());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.tempDir().toAbsolutePath());
+				"does not exist: " + temp);
 
-		Files.createFile(p.tempDir());
+		Files.createFile(temp.toPath());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"is not a directory: " + p.tempDir().toAbsolutePath());
+				"is not a directory: " + temp);
 	}
 
 	@Test void probeTempNotWritable() throws Exception
 	{
 		final File root = new File(sandbox, "VaultFileServicePropertiesProbeTest");
+		final File temp = new File(root, ".tempVaultFileService");
 		final Source source =
 				describe("DESC", cascade(
 						single("root", root)
@@ -320,26 +329,26 @@ public class VaultFileServicePropertiesProbeTest
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.tempDir().toAbsolutePath());
+				"does not exist: " + temp);
 
-		createDirectory(p.root);
+		createDirectory(root.toPath());
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"does not exist: " + p.tempDir().toAbsolutePath());
+				"does not exist: " + temp);
 
-		assumeSupportsReadOnlyDirectories(p.root);
-		createDirectory(p.tempDir(), asFileAttribute(EnumSet.of(OWNER_READ)));
+		assumeSupportsReadOnlyDirectories(root);
+		createDirectory(temp.toPath(), asFileAttribute(EnumSet.of(OWNER_READ)));
 		assertFails(
 				tempExists::call,
 				IllegalArgumentException.class,
-				"is not writable: " + p.tempDir().toAbsolutePath());
+				"is not writable: " + temp);
 	}
 
-	private static void assumeSupportsReadOnlyDirectories(final Path p)
+	private static void assumeSupportsReadOnlyDirectories(final File p)
 	{
 		assumeTrue(
-				Files.getFileAttributeView(p, PosixFileAttributeView.class)!=null,
+				Files.getFileAttributeView(p.toPath(), PosixFileAttributeView.class)!=null,
 				"does not support read only directories");
 	}
 
