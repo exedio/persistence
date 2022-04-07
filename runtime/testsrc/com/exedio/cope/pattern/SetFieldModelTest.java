@@ -25,11 +25,11 @@ import static com.exedio.cope.pattern.SetFieldItem.datesParent;
 import static com.exedio.cope.pattern.SetFieldItem.strings;
 import static com.exedio.cope.pattern.SetFieldItem.stringsParent;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -151,119 +151,81 @@ public class SetFieldModelTest
 
 	@Test void testComputed()
 	{
-
 		assertTrue(stringsType.isAnnotationPresent(Computed.class));
 		assertTrue(  datesType.isAnnotationPresent(Computed.class));
 	}
 
 	@Test void testSerialize()
 	{
-
 		assertSerializedSame(strings, 386);
 		assertSerializedSame(dates  , 384);
 	}
 
 	@Test void testElementNull()
 	{
-		try
-		{
-			SetField.create(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("element", e.getMessage());
-		}
+		assertFails(
+				() -> SetField.create(null),
+				NullPointerException.class,
+				"element");
 	}
 
 	@Test void testElementFinal()
 	{
-		try
-		{
-			SetField.create(new StringField().toFinal());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must not be final", e.getMessage());
-		}
+		assertFails(
+				() -> SetField.create(new StringField().toFinal()),
+				IllegalArgumentException.class,
+				"element must not be final");
 	}
 
 	@Test void testElementOptional()
 	{
-		try
-		{
-			SetField.create(new StringField().optional());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must be mandatory", e.getMessage());
-		}
+		assertFails(
+				() -> SetField.create(new StringField().optional()),
+				IllegalArgumentException.class,
+				"element must be mandatory");
 	}
 
 	@Test void testElementUnique()
 	{
-		try
-		{
-			SetField.create(new StringField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("element must not be unique", e.getMessage());
-		}
+		assertFails(
+				() -> SetField.create(new StringField().unique()),
+				IllegalArgumentException.class,
+				"element must not be unique");
 	}
 
 	@Test void testGetParentFieldStrings()
 	{
-		try
-		{
-			strings.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> strings.getParent(Item.class),
+				ClassCastException.class,
+				"parentClass requires " + SetFieldItem.class.getName() + ", " +
+				"but was " + Item.class.getName());
 	}
 
 	@Test void testGetParentFieldDates()
 	{
-		try
-		{
-			dates.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> dates.getParent(Item.class),
+				ClassCastException.class,
+				"parentClass requires " + SetFieldItem.class.getName() + ", " +
+				"but was " + Item.class.getName());
 	}
 
 	@Test void testGetParentsStrings()
 	{
-		try
-		{
-			strings.getParents(Item.class, "hallo");
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> strings.getParents(Item.class, "hallo"),
+				ClassCastException.class,
+				"parentClass requires " + SetFieldItem.class.getName() + ", " +
+				"but was " + Item.class.getName());
 	}
 
 	@Test void testGetParentsDates()
 	{
-		try
-		{
-			dates.getParents(Item.class, new Date());
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + SetFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> dates.getParents(Item.class, new Date()),
+				ClassCastException.class,
+				"parentClass requires " + SetFieldItem.class.getName() + ", " +
+				"but was " + Item.class.getName());
 	}
 }

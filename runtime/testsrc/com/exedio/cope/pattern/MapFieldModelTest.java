@@ -25,12 +25,12 @@ import static com.exedio.cope.pattern.MapFieldItem.nameLength;
 import static com.exedio.cope.pattern.MapFieldItem.nameParent;
 import static com.exedio.cope.pattern.MapFieldItem.string;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.Item;
 import com.exedio.cope.ItemField.DeletePolicy;
@@ -129,71 +129,37 @@ public class MapFieldModelTest
 
 	@Test void testFailures()
 	{
-		try
-		{
-			MapField.create(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("key", e.getMessage());
-		}
-		try
-		{
-			MapField.create(new StringField().optional(), null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must be mandatory", e.getMessage());
-		}
-		try
-		{
-			MapField.create(new StringField().unique(), null);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("key must not be unique", e.getMessage());
-		}
-		try
-		{
-			MapField.create(new StringField(), null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("value", e.getMessage());
-		}
-		try
-		{
-			MapField.create(new StringField(), new StringField().optional());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("value must be mandatory", e.getMessage());
-		}
-		try
-		{
-			MapField.create(new StringField(), new StringField().unique());
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("value must not be unique", e.getMessage());
-		}
+		assertFails(
+				() -> MapField.create(null, null),
+				NullPointerException.class,
+				"key");
+		assertFails(
+				() -> MapField.create(new StringField().optional(), null),
+				IllegalArgumentException.class,
+				"key must be mandatory");
+		assertFails(
+				() -> MapField.create(new StringField().unique(), null),
+				IllegalArgumentException.class,
+				"key must not be unique");
+		assertFails(
+				() -> MapField.create(new StringField(), null),
+				NullPointerException.class,
+				"value");
+		assertFails(
+				() -> MapField.create(new StringField(), new StringField().optional()),
+				IllegalArgumentException.class,
+				"value must be mandatory");
+		assertFails(
+				() -> MapField.create(new StringField(), new StringField().unique()),
+				IllegalArgumentException.class,
+				"value must not be unique");
 		MapField.create(new StringField(), new StringField());
 
-		try
-		{
-			name.getParent(Item.class);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals("parentClass requires " + MapFieldItem.class.getName() + ", but was " + Item.class.getName(), e.getMessage());
-		}
+		assertFails(
+				() -> name.getParent(Item.class),
+				ClassCastException.class,
+				"parentClass requires " + MapFieldItem.class.getName() + ", " +
+				"but was " + Item.class.getName());
 	}
 
 	private static void assertSerializedSame(final Serializable value, final int expectedSize)
