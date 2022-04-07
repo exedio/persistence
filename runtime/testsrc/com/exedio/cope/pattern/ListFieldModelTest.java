@@ -48,6 +48,14 @@ public class ListFieldModelTest
 				IllegalArgumentException.class,
 				"element must not be final");
 	}
+	@Test void testElementDefault()
+	{
+		final StringField element = new StringField().defaultTo("someDefault");
+		assertFails(
+				() -> ListField.create(element),
+				IllegalArgumentException.class,
+				"element must not have any default");
+	}
 	@Test void testElementUnique()
 	{
 		final StringField element = new StringField().unique();

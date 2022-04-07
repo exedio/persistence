@@ -142,6 +142,14 @@ public class MapFieldModelTest
 				IllegalArgumentException.class,
 				"key must be mandatory");
 	}
+	@Test void testKeyDefault()
+	{
+		final StringField key = new StringField().defaultTo("someDefault");
+		assertFails(
+				() -> MapField.create(key, null),
+				IllegalArgumentException.class,
+				"key must not have any default");
+	}
 	@Test void testKeyUnique()
 	{
 		final StringField key = new StringField().unique();
@@ -166,6 +174,15 @@ public class MapFieldModelTest
 				() -> MapField.create(key, value),
 				IllegalArgumentException.class,
 				"value must be mandatory");
+	}
+	@Test void testValueDefault()
+	{
+		final StringField key = new StringField();
+		final StringField value = new StringField().defaultTo("someDefault");
+		assertFails(
+				() -> MapField.create(key, value),
+				IllegalArgumentException.class,
+				"value must not have any default");
 	}
 	@Test void testValueUnique()
 	{

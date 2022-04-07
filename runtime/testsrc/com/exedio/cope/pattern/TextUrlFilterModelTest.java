@@ -108,6 +108,16 @@ public class TextUrlFilterModelTest
 				IllegalArgumentException.class,
 				"pasteKey must be mandatory");
 	}
+	@Test void testPasteKeyDefault()
+	{
+		final Media roh = new Media();
+		final StringField pasteKey = new StringField().defaultTo("someDefault");
+		final Media pasteValue = new Media();
+		assertFails(
+				() -> new TextUrlFilter(roh, "text/plain", UTF_8, "(", ")", pasteKey, pasteValue),
+				IllegalArgumentException.class,
+				"pasteKey must not have any default");
+	}
 	@Test void testPasteKeyUnique()
 	{
 		final Media roh = new Media();

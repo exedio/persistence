@@ -187,6 +187,14 @@ public class SetFieldModelTest
 				"element must be mandatory");
 	}
 
+	@Test void testElementDefault()
+	{
+		assertFails(
+				() -> SetField.create(new StringField().defaultTo("someDefault")),
+				IllegalArgumentException.class,
+				"element must not have any default");
+	}
+
 	@Test void testElementUnique()
 	{
 		final StringField element = new StringField().unique();
