@@ -432,7 +432,7 @@ public final class VaultFileService implements VaultService
 			if(!Files.isReadable(directory))
 				throw new IllegalArgumentException("is not readable: " + absolute); // TODO test
 			if(!Files.isWritable(directory))
-				throw new IllegalArgumentException("is not writable: " + absolute); // TODO test
+				throw new IllegalArgumentException("is not writable: " + absolute);
 			return absolute;
 		}
 
