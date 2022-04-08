@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -69,6 +70,12 @@ public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 	void assumePosixBeforeEach()
 	{
 		assumePosix();
+		assumeDisabled();
+	}
+
+	static void assumeDisabled()
+	{
+		assumeTrue(!"true".equals(System.getProperty("VaultFileServicePosixGroupsDisabled")));
 	}
 
 	@Test void serviceProperties()

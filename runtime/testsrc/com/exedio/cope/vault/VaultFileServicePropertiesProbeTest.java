@@ -552,6 +552,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Callable<?> groupd = probes.get("directory.group");
 		final Callable<?> groupf = probes.get("group");
 
+		VaultFileServicePosixGroupTest.assumeDisabled();
 		assertEquals(testGroupDirectory, groupd.call().toString());
 		assertEquals(testGroupFile,      groupf.call().toString());
 	}
