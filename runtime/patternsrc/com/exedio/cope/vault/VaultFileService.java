@@ -346,19 +346,11 @@ public final class VaultFileService implements VaultService
 		final String filePosixGroup = writable ? value("posixGroup", "") : null;
 
 		final VaultDirectory.Properties directory = value("directory", true, s -> new VaultDirectory.Properties(s, writable));
-		private final String temp = writable ? value("temp", ".tempVaultFileService") : null;
+		private final Path temp = writable ? valueSP("temp", root, ".tempVaultFileService") : null;
 
 		Props(final Source source)
 		{
 			super(source);
-
-			if(temp!=null)
-			{
-				if(temp.isEmpty())
-					throw newException("temp", "must not be empty");
-				if(!temp.equals(temp.trim()))
-					throw newException("temp", "must be trimmed, but was >" + temp + '<');
-			}
 		}
 
 		Path tempDir()
@@ -367,7 +359,7 @@ public final class VaultFileService implements VaultService
 				throw new IllegalArgumentException(
 						"non-writable properties cannot be used in writable service");
 
-			return root.resolve(temp);
+			return temp;
 		}
 
 		@Probe(name="root.Exists")
