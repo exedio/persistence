@@ -22,6 +22,7 @@ import static java.util.Arrays.asList;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.util.Properties;
+import java.nio.file.Path;
 import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.util.Collections;
@@ -30,6 +31,17 @@ import java.util.Set;
 
 abstract class PosixProperties extends Properties
 {
+	final Path valueSP(final String key, final Path root, final String defaultValue)
+	{
+		final String sub = value(key, defaultValue);
+		if(sub.isEmpty())
+			throw newException(key, "must not be empty");
+		if(!sub.equals(sub.trim()))
+			throw newException(key, "must be trimmed, but was >" + sub + '<');
+		return root.resolve(sub);
+	}
+
+
 	final Set<PosixFilePermission> valuePP(final String key)
 	{
 		final String DEFAULT = "";
@@ -69,6 +81,7 @@ abstract class PosixProperties extends Properties
 		}
 		return Collections.unmodifiableSet(result);
 	}
+
 
 	PosixProperties(final Source source)
 	{
