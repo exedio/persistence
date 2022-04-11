@@ -441,14 +441,14 @@ public final class VaultFileService implements VaultService
 		private FileStore probeTempStore() throws ProbeAbortedException, IOException
 		{
 			final Path tempDir = tempDirForProbe();
-			final FileStore rootStore = Files.getFileStore(content); // TODO rename
+			final FileStore contStore = Files.getFileStore(content);
 			final FileStore tempStore = Files.getFileStore(tempDir);
-			if(!rootStore.equals(tempStore))
+			if(!contStore.equals(tempStore))
 				throw new IllegalArgumentException( // TODO test
 						"not the same file store: " +
-						"root " + content.toAbsolutePath() + " on " + rootStore + ", but " + // TODO replace root
+						"root " + content.toAbsolutePath() + " on " + contStore + ", but " +
 						"temp " + tempDir.toAbsolutePath() + " on " + tempStore);
-			return rootStore;
+			return contStore;
 		}
 
 		@Probe(name="directory.Premised")
