@@ -50,6 +50,7 @@ public class VaultFileServiceErrorTest
 				"services",
 				"service",
 				"service.root",
+				"service.content",
 				"service.writable",
 				"service.posixPermissions",
 				"service.posixPermissionsAfterwards",
@@ -84,6 +85,7 @@ public class VaultFileServiceErrorTest
 				"services",
 				"service",
 				"service.root",
+				"service.content",
 				"service.writable",
 				"service.directory",
 				"service.directory.length",
@@ -189,6 +191,22 @@ public class VaultFileServiceErrorTest
 		assertEquals(
 				"directory.length must be less the length of algorithm MD5, but was 32>=32",
 				e.getMessage());
+	}
+
+	@Test void contentTrim()
+	{
+		final Properties source = new Properties();
+		source.setProperty("algorithm", "MD5");
+		source.setProperty("service", VaultFileService.class.getName());
+		source.setProperty("service.root", "rootDir");
+		source.setProperty("service.content", " x");
+
+		final Factory<VaultProperties> factory = VaultProperties.factory();
+		final Source sourceView = Sources.view(source, "DESC");
+		assertFails(
+				() -> factory.create(sourceView),
+				IllegalPropertiesException.class,
+				"property service.content in DESC must be trimmed, but was > x<");
 	}
 
 	@Test void tempEmpty()
