@@ -30,7 +30,7 @@ import java.util.Set;
 
 abstract class PosixProperties extends Properties
 {
-	Set<PosixFilePermission> valuePP(final String key)
+	final Set<PosixFilePermission> valuePP(final String key)
 	{
 		final String DEFAULT = "";
 		final String value = value(key, DEFAULT);
@@ -47,7 +47,7 @@ abstract class PosixProperties extends Properties
 	 * <li>{@code defaultValue} accepts duplicates
 	 * </ul>
 	 */
-	Set<PosixFilePermission> valuePP(final String key, final PosixFilePermission... defaultValue)
+	final Set<PosixFilePermission> valuePP(final String key, final PosixFilePermission... defaultValue)
 	{
 		final String value = value(key, PosixFilePermissions.toString(EnumSet.copyOf(asList(requireNonNull(defaultValue)))));
 
