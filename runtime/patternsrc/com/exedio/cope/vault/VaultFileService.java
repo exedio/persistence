@@ -70,7 +70,7 @@ public final class VaultFileService implements VaultService
 		final boolean writable = parameters.isWritable();
 		this.rootDir = properties.root;
 		this.contentDir = properties.content;
-		this.filePermissions = writable ? properties.filePosixPermissions : null;
+		this.filePermissions = writable&&!isWindows() ? properties.filePosixPermissions : null;
 		this.fileAttributes = writable ? asFileAttributes(properties.filePosixPermissions) : null;
 		this.filePermissionsAfterwards = writable ? properties.filePosixPermissionsAfterwards : null;
 		this.fileGroup = writable ? properties.filePosixGroup : null;
@@ -88,9 +88,14 @@ public final class VaultFileService implements VaultService
 			return null;
 
 		return
-				System.getProperty("os.name").toLowerCase().contains("windows")
+				isWindows()
 				? new FileAttribute<?>[] { }
 				: new FileAttribute<?>[] { PosixFilePermissions.asFileAttribute(posixFilePermissions) };
+	}
+
+	private static boolean isWindows()
+	{
+		return System.getProperty("os.name").toLowerCase().contains("windows");
 	}
 
 	// TODO implement purgeSchema, delete old files in tempDir if VaultServiceParameters#isWritable()==false
