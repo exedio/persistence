@@ -125,6 +125,9 @@ public abstract class AbstractVaultFileServiceTest extends VaultServiceTest
 
 	protected final String rootGroup() throws IOException
 	{
+		if(!posixAvailable)
+			return null;
+
 		return
 				Files.getFileAttributeView(root.toPath(), PosixFileAttributeView.class).
 						readAttributes().
