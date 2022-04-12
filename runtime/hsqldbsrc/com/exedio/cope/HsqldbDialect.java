@@ -280,6 +280,7 @@ final class HsqldbDialect extends Dialect
 			final Connection connection,
 			final String name)
 	{
+		//language=SQL
 		final Statement bf = executor.newStatement();
 		bf.append("SELECT NEXT_VALUE" +
 					" FROM INFORMATION_SCHEMA.SYSTEM_SEQUENCES" +

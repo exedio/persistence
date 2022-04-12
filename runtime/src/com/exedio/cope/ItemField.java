@@ -574,6 +574,7 @@ public final class ItemField<E extends Item> extends FunctionField<E>
 		final String alias2 = executor.dialect.dsmfDialect.quoteName(Table.SQL_ALIAS_2);
 
 		final Statement bf = executor.newStatement(false);
+		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(' ').append(alias1).
 			append(',').

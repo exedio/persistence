@@ -1322,6 +1322,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table superTable = supertype.getTable();
 
 		final Statement bf = executor.newStatement(true);
+		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
 			append(" WHERE ").
@@ -1355,6 +1356,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table subTable = subType.getTable();
 
 		final Statement bf = executor.newStatement(true);
+		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").append(table).
 			append(" LEFT JOIN ").append(subTable).
 			append(" ON ").append(table.primaryKey).append('=').append(subTable.primaryKey).
@@ -1381,6 +1383,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final Table superTable = supertype.getTable();
 
 		final Statement bf = executor.newStatement(true);
+		//language=SQL
 		bf.append("SELECT COUNT(*) FROM ").
 			append(table).append(',').append(superTable).
 			append(" WHERE ").
