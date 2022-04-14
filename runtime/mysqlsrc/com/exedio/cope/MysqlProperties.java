@@ -48,8 +48,6 @@ final class MysqlProperties extends Properties
 	final boolean longConstraintNames = value("longConstraintNames", true);
 	final MysqlRowFormat rowFormat = value("rowFormat", MysqlRowFormat.NONE);
 
-	final boolean avoidTruncate = value("avoidTruncate", false);
-
 	/**
 	 * Limits how many rows are purged from sequence tables at once.
 	 * Avoids long write locks on sequence tables.

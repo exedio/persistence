@@ -97,7 +97,6 @@ final class MysqlDialect extends Dialect
 	private final long maxBytesPerChar; // MUST be long to avoid overflow at multiply
 	private final String charset;
 
-	private final String deleteTable;
 	private final boolean smallIntegerTypes;
 	private final boolean shortConstraintNames;
 	private final boolean supportsAnyValue;
@@ -126,7 +125,6 @@ final class MysqlDialect extends Dialect
 		this.maxBytesPerChar = utf8mb4 ? 4 : 3;
 		final String mb4 = utf8mb4 ? "mb4" : "";
 		this.charset = " CHARACTER SET utf8" + mb4 + " COLLATE utf8" + mb4 + "_bin";
-		this.deleteTable = properties.avoidTruncate ? "DELETE FROM " : "TRUNCATE ";
 		this.smallIntegerTypes = properties.smallIntegerTypes;
 		this.shortConstraintNames = !properties.longConstraintNames;
 
@@ -686,12 +684,17 @@ final class MysqlDialect extends Dialect
 	void deleteSchema(
 			final List<Table> tables,
 			final List<SequenceX> sequences,
+			final boolean forTest,
 			final ConnectionPool connectionPool)
 	{
 		final StringBuilder bf = new StringBuilder();
 
 		if(!tables.isEmpty())
 		{
+			// DELETE is faster for tables with few rows, TRUNCATE is faster for tables
+			// with a lot of rows
+			final String deleteTable = forTest ? "DELETE FROM " : "TRUNCATE ";
+
 			bf.append("SET FOREIGN_KEY_CHECKS=0;");
 
 			for(final Table table : tables)

@@ -407,7 +407,7 @@ abstract class Dialect
 				"CharSetCondition not supported by " + getClass().getName());
 	}
 
-	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, ConnectionPool connectionPool);
+	abstract void deleteSchema(List<Table> tables, List<SequenceX> sequences, boolean forTest, ConnectionPool connectionPool);
 	abstract void deleteSequence(
 			StringBuilder bf, String quotedName,
 			long start);
