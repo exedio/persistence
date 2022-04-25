@@ -23,6 +23,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("NewClassNamingConvention")
 public class CopeModelTestTestRestart extends CopeModelTestTest
 {
 	@Test void testRestart()

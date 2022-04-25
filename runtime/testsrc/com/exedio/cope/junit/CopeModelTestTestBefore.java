@@ -20,6 +20,7 @@ package com.exedio.cope.junit;
 
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("NewClassNamingConvention")
 public class CopeModelTestTestBefore extends CopeModelTestTest
 {
 	@Test void testBefore()

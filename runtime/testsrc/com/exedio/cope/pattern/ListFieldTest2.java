@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Test;
 /**
  * Tests complicated situations for the setter.
  */
+@SuppressWarnings("NewClassNamingConvention")
 public class ListFieldTest2 extends TestWithEnvironment
 {
 	public ListFieldTest2()
