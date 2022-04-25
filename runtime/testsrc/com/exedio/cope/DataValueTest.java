@@ -85,9 +85,10 @@ public class DataValueTest
 	}
 	@Test void path()
 	{
-		assertEquals("DataField.Value:hallo.txt", toValue(Paths.get("hallo.txt")).toString());
+		final Path path = Paths.get("hallo.txt");
+		assertEquals("DataField.Value:hallo.txt", toValue(path).toString());
 
-		final SetValue<?> sv = FIELD.map(Paths.get("hallo.txt"));
+		final SetValue<?> sv = FIELD.map(path);
 		assertSame(FIELD, sv.settable);
 		assertEquals("DataField.Value:hallo.txt", sv.value.toString());
 	}
