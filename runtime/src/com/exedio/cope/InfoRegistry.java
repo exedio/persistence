@@ -38,7 +38,6 @@ final class InfoRegistry
 			DataField.class.getName() + '.',
 			"com.exedio.cope.pattern.MediaPath."};
 
-	@SuppressWarnings("MethodOnlyUsedFromInnerClass") // OK: bug in idea, used from class itself as well
 	private static boolean isAccepted(final String name)
 	{
 		for(final String s : ACCEPTED)

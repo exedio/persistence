@@ -41,7 +41,6 @@ public final class RevisionInfoCreate extends RevisionInfo
 	Properties getStore()
 	{
 		final Properties store = super.getStore();
-		//noinspection CallToNumericToString
 		store.setProperty(CREATE, Boolean.TRUE.toString());
 		return store;
 	}
