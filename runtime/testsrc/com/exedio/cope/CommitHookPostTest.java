@@ -19,12 +19,12 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
@@ -100,15 +100,10 @@ public class CommitHookPostTest
 
 		assertEquals("", bf.toString());
 		assertTransaction();
-		try
-		{
-			model.commit();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("thrower", e.getMessage());
-		}
+		assertFails(
+				model::commit,
+				IllegalArgumentException.class,
+				"thrower");
 		assertEquals("one,", bf.toString());
 		assertNoTransaction();
 	}
@@ -140,17 +135,11 @@ public class CommitHookPostTest
 
 		assertEquals("", bf.toString());
 		assertTransaction();
-		try
-		{
-			model.commit();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"there is no cope transaction bound to this thread for model " + model + ", see Model#startTransaction",
-					e.getMessage());
-		}
+		assertFails(
+				model::commit,
+				IllegalStateException.class,
+				"there is no cope transaction bound to this thread for model " + model + ", " +
+				"see Model#startTransaction");
 		assertEquals("beforeAdd", bf.toString());
 		assertNoTransaction();
 	}
@@ -169,17 +158,11 @@ public class CommitHookPostTest
 
 		assertEquals("", bf.toString());
 		assertTransaction();
-		try
-		{
-			model.commit();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"there is no cope transaction bound to this thread for model " + model + ", see Model#startTransaction",
-					e.getMessage());
-		}
+		assertFails(
+				model::commit,
+				IllegalStateException.class,
+				"there is no cope transaction bound to this thread for model " + model + ", " +
+				"see Model#startTransaction");
 		assertEquals("beforeAdd", bf.toString());
 		assertNoTransaction();
 	}
@@ -189,30 +172,21 @@ public class CommitHookPostTest
 		model.startTransaction("tx");
 		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
 		assertEquals(0, model.currentTransaction().getPostCommitHookDuplicates());
-		try
-		{
-			model.addPostCommitHookIfAbsent(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("hook", e.getMessage());
-		}
+		assertFails(
+				() -> model.addPostCommitHookIfAbsent(null),
+				NullPointerException.class,
+				"hook");
 		assertEquals(0, model.currentTransaction().getPostCommitHookCount());
 		assertEquals(0, model.currentTransaction().getPostCommitHookDuplicates());
 	}
 
 	@Test void testNoTransaction()
 	{
-		try
-		{
-			model.addPostCommitHookIfAbsent(null);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("there is no cope transaction bound to this thread for model " + model + ", see Model#startTransaction", e.getMessage());
-		}
+		assertFails(
+				() -> model.addPostCommitHookIfAbsent(null),
+				IllegalStateException.class,
+				"there is no cope transaction bound to this thread for model " + model + ", " +
+				"see Model#startTransaction");
 	}
 
 

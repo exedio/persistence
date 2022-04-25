@@ -22,9 +22,9 @@ import static com.exedio.cope.CommitHookPostTest.FAIL;
 import static com.exedio.cope.CommitHookPostTest.assertNoTransaction;
 import static com.exedio.cope.CommitHookPostTest.assertTransaction;
 import static com.exedio.cope.CommitHookPostTest.model;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.TestSources;
 import org.junit.jupiter.api.AfterEach;
@@ -97,15 +97,10 @@ public class CommitHookPreTest
 
 		assertEquals("", bf.toString());
 		assertTransaction();
-		try
-		{
-			model.commit();
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("thrower", e.getMessage());
-		}
+		assertFails(
+				model::commit,
+				IllegalArgumentException.class,
+				"thrower");
 		assertEquals("one,", bf.toString());
 		assertTransaction();
 	}
@@ -137,17 +132,10 @@ public class CommitHookPreTest
 
 		assertEquals("", bf.toString());
 		assertTransaction();
-		try
-		{
-			model.commit();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(
-					"hooks are or have been handled",
-					e.getMessage());
-		}
+		assertFails(
+				model::commit,
+				IllegalStateException.class,
+				"hooks are or have been handled");
 		assertEquals("beforeAdd", bf.toString());
 		assertTransaction();
 	}
@@ -180,30 +168,21 @@ public class CommitHookPreTest
 		model.startTransaction("tx");
 		assertEquals(0, model.currentTransaction().getPreCommitHookCount());
 		assertEquals(0, model.currentTransaction().getPreCommitHookDuplicates());
-		try
-		{
-			model.addPreCommitHookIfAbsent(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("hook", e.getMessage());
-		}
+		assertFails(
+				() -> model.addPreCommitHookIfAbsent(null),
+				NullPointerException.class,
+				"hook");
 		assertEquals(0, model.currentTransaction().getPreCommitHookCount());
 		assertEquals(0, model.currentTransaction().getPreCommitHookDuplicates());
 	}
 
 	@Test void testNoTransaction()
 	{
-		try
-		{
-			model.addPreCommitHookIfAbsent(null);
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals("there is no cope transaction bound to this thread for model " + model + ", see Model#startTransaction", e.getMessage());
-		}
+		assertFails(
+				() -> model.addPreCommitHookIfAbsent(null),
+				IllegalStateException.class,
+				"there is no cope transaction bound to this thread for model " + model + ", " +
+				"see Model#startTransaction");
 	}
 
 
