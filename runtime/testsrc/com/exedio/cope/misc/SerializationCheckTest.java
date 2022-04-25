@@ -87,6 +87,7 @@ public class SerializationCheckTest
 
 		static int staticField2;
 		transient int transientField2;
+		@SuppressWarnings("UnnecessaryModifier") // OK: testing weird stuff
 		static transient int staticTransientField2;
 
 
@@ -109,6 +110,7 @@ public class SerializationCheckTest
 	{
 		static int staticField1;
 		transient int transientField1;
+		@SuppressWarnings("UnnecessaryModifier") // OK: testing weird stuff
 		static transient int staticTransientField1;
 		int serializedField1;
 
@@ -140,6 +142,7 @@ public class SerializationCheckTest
 
 		static int staticField1;
 		transient int transientField1;
+		@SuppressWarnings("UnnecessaryModifier") // OK: testing weird stuff
 		static transient int staticTransientField1;
 		int serializedField1;
 
@@ -160,6 +163,7 @@ public class SerializationCheckTest
 
 		static int staticField1;
 		transient int transientField1;
+		@SuppressWarnings("UnnecessaryModifier") // OK: testing weird stuff
 		static transient int staticTransientField1;
 		int serializedField1;
 
@@ -195,6 +199,7 @@ public class SerializationCheckTest
 
 		static int staticField1;
 		transient int transientField1;
+		@SuppressWarnings("UnnecessaryModifier") // OK: testing weird stuff
 		static transient int staticTransientField1;
 		int serializedField1;
 
@@ -218,6 +223,7 @@ public class SerializationCheckTest
 
 		static int staticField2;
 		transient int transientField2;
+		@SuppressWarnings("UnnecessaryModifier") // OK: testing weird stuff
 		static transient int staticTransientField2;
 		int serializedField2;
 
