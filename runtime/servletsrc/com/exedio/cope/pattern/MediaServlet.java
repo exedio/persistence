@@ -245,7 +245,7 @@ public class MediaServlet extends HttpServlet
 	 * <p>
 	 * See
 	 * RFC 2616 Section 14.9.3 Modifications of the Basic Expiration Mechanism,
-	 * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist .
+	 * <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist">Specifying the amount of time that CloudFront caches objects</a>.
 	 *
 	 * @param locator the locator of the current request
 	 */
@@ -267,9 +267,9 @@ public class MediaServlet extends HttpServlet
 	 * <p>
 	 * See
 	 * RFC 2616 Section 14.9.1 What is Cacheable,
-	 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control ,
-	 * https://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate , and
-	 * https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist .
+	 * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a>,
+	 * <a href="https://httpd.apache.org/docs/2.2/mod/mod_cache.html#cachestoreprivate">CacheStoreNoStore Directive</a>, and
+	 * <a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Expiration.html#ExpirationDownloadDist">Specifying the amount of time that CloudFront caches objects</a>.
 	 *
 	 * @param locator the locator of the current request
 	 */

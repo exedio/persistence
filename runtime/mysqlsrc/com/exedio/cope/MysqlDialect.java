@@ -92,7 +92,7 @@ final class MysqlDialect extends Dialect
 	private final boolean utf8mb4;
 
 	/**
-	 * See https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html
+	 * See <a href="https://dev.mysql.com/doc/refman/5.5/en/charset-unicode-utf8.html">The utf8 Character Set</a>
 	 */
 	private final long maxBytesPerChar; // MUST be long to avoid overflow at multiply
 	private final String charset;

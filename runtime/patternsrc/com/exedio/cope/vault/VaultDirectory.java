@@ -128,7 +128,7 @@ abstract class VaultDirectory
 		 * however a value of {@code 2} in mod_cache_disk is equivalent to a value of {@code 3} here,
 		 * as mod_cache_disk uses Base64 for encoding hashes and we use hexadecimal representation.
 		 *
-		 * See https://httpd.apache.org/docs/2.4/mod/mod_cache_disk.html#cachedirlength
+		 * See <a href="https://httpd.apache.org/docs/2.4/mod/mod_cache_disk.html#cachedirlength">CacheDirLength Directive</a>
 		 */
 		final int length = value("length", 3, 1);
 
@@ -157,7 +157,7 @@ abstract class VaultDirectory
 		 * specified by this property.
 		 * <p>
 		 * Note, that actual results are affected by {@code umask},
-		 * see https://en.wikipedia.org/wiki/Umask#Mask_effect .
+		 * see <a href="https://en.wikipedia.org/wiki/Umask#Mask_effect">Mask effect</a>.
 		 */
 		final Set<PosixFilePermission> posixPermissions;
 

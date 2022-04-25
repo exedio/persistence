@@ -106,7 +106,7 @@ public final class MediaResponse
 	 * Subsequent calls to this method are ignored.
 	 * <p>
 	 * See
-	 * https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control
+	 * <a href="https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Cache-Control">Cache-Control</a>
 	 */
 	public void addCacheControlNoTransform()
 	{
