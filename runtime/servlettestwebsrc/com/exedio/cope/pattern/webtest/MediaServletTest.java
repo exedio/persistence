@@ -33,14 +33,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.util.StrictFile;
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -562,7 +561,7 @@ public class MediaServletTest
 				"java.lang.RuntimeException",
 				"test error in MediaNameServer"
 		);
-		assertEquals(data, getContentAsString(new FileInputStream(onException)));
+		assertEquals(data, getContentAsString(Files.newInputStream(onException.toPath())));
 		StrictFile.delete(onException);
 	}
 
@@ -610,7 +609,7 @@ public class MediaServletTest
 			final byte[] b = new byte[20000];
 			final File f = createTempFile(MediaServletTest.class.getName(), ".tmp");
 			System.out.println("----------- " + f.getAbsolutePath() + " ---------------");
-			try(OutputStream out = new FileOutputStream(f))
+			try(OutputStream out = Files.newOutputStream(f.toPath()))
 			{
 				for(int len = in.read(b); len>=0; len = in.read(b))
 					out.write(b, 0, len);
