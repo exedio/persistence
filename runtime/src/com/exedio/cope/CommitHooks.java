@@ -28,6 +28,11 @@ final class CommitHooks
 	private volatile boolean expired = false;
 	private volatile Content content = null;
 
+	boolean isAddAllowed()
+	{
+		return !expired;
+	}
+
 	@Nonnull
 	<R extends Runnable> R add(final R hook)
 	{

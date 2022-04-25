@@ -869,6 +869,17 @@ public final class Model implements Serializable
 	}
 
 	/**
+	 * Returns true if {@link #addPreCommitHookIfAbsent(Runnable)} is currently allowed
+	 * to be called. That is, if there is a cope transaction bound to the current thread and
+	 * handling pre commit hooks has not yet been started.
+	 */
+	public boolean isAddPreCommitHookAllowed()
+	{
+		final Transaction tx = transactions.currentIfBound();
+		return tx!=null && tx.preCommitHooks.isAddAllowed();
+	}
+
+	/**
 	 * Adds a hook to the current transaction.
 	 * The hook is called within {@link Model#commit()}.
 	 * When the hook is called, the transaction is not yet committed
@@ -887,6 +898,10 @@ public final class Model implements Serializable
 	 * {@link #addChangeListener(ChangeListener) Change Listeners}.
 	 *
 	 * @return the hook that is present after methods returns.
+	 * @throws IllegalStateException
+	 *         if there is no cope transaction bound to current thread or
+	 *         pre commit hooks are currently handled or have been handled already.
+	 *         Then, {@link #isAddPreCommitHookAllowed()} returns false.
 	 *
 	 * @see Transaction#getPreCommitHookCount()
 	 * @see #addPostCommitHookIfAbsent(Runnable)
@@ -916,6 +931,7 @@ public final class Model implements Serializable
 	 * {@link #addChangeListener(ChangeListener) Change Listeners}.
 	 *
 	 * @return the hook that is present after methods returns.
+	 * @throws IllegalStateException if there is no cope transaction bound to current thread
 	 *
 	 * @see Transaction#getPostCommitHookCount()
 	 * @see #addPreCommitHookIfAbsent(Runnable)
