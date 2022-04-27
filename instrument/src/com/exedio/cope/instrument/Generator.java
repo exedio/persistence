@@ -746,7 +746,7 @@ final class Generator
 
 	/**
 	 * Classes of non-toplevel types must override this constant
-	 * for working around https://bugs.java.com/view_bug.do?bug_id=7101374
+	 * for working around <a href="https://bugs.java.com/view_bug.do?bug_id=7101374">Issue 7101374</a>
 	 */
 	private void writeWildcardClass(final LocalCopeType type)
 	{

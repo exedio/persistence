@@ -65,7 +65,7 @@ final class PostgresqlProperties extends Properties
 	 * \connect database_name
 	 * CREATE EXTENSION pgcrypto WITH SCHEMA "public";
 	 * </pre>
-	 * https://www.postgresql.org/docs/9.6/sql-createextension.html
+	 * <a href="https://www.postgresql.org/docs/9.6/sql-createextension.html">CREATE EXTENSION</a>
 	 */
 	final String pgcryptoSchema = valueX("pgcryptoSchema", "public", '"');
 

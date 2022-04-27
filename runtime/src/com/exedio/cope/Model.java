@@ -353,7 +353,7 @@ public final class Model implements Serializable
 	}
 
 	/**
-	 * https://dev.mysql.com/doc/refman/5.6/en/charset-unicode-utf8mb4.html
+	 * <a href="https://dev.mysql.com/doc/refman/5.6/en/charset-unicode-utf8mb4.html">The utf8mb4 Character Set</a>
 	 */
 	public boolean supportsUTF8mb4()
 	{

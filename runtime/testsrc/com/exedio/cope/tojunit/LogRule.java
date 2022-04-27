@@ -142,7 +142,9 @@ public class LogRule extends MainRule
 				() -> assertEquals(msg, msgFilter.apply(event.getRenderedMessage())));
 	}
 
+	@SuppressWarnings("RegExpSimplifiable") // OK: [0-9] is easier to understand than \d
 	static final Function<String, String> milliSecondsFilter = s -> s.replaceAll(" [0-9]{1,3}ms", " XXms");
+	@SuppressWarnings("RegExpSimplifiable") // OK: [0-9] is easier to understand than \d
 	static final Function<String, String> nanoSecondsFilter  = s -> s.replaceAll(" [0-9]{1,9}ns", " XXns");
 
 	public final void assertEmpty()

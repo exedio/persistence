@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import java.lang.reflect.Method;
+import java.nio.file.Path;
 import java.nio.file.Paths;
 import org.junit.jupiter.api.Test;
 
@@ -58,11 +59,12 @@ public class InMemoryCompilerTest
 	@Test
 	public void sameClassTwoCompilers() throws InMemoryCompiler.CompileException
 	{
+		final Path path = Paths.get("HelloWorld.java");
 		final InMemoryCompiler compilerA = new InMemoryCompiler();
-		compilerA.addJavaFile(Paths.get("HelloWorld.java"), "public class HelloWorld { public static String message() { return \"Hello World A\"; } }");
+		compilerA.addJavaFile(path, "public class HelloWorld { public static String message() { return \"Hello World A\"; } }");
 		final ClassLoader clA = compilerA.compile(JavacRunner.getJavaCompiler(new Params()), "");
 		final InMemoryCompiler compilerB = new InMemoryCompiler();
-		compilerB.addJavaFile(Paths.get("HelloWorld.java"), "public class HelloWorld { public static String message() { return \"Hello World B\"; } }");
+		compilerB.addJavaFile(path, "public class HelloWorld { public static String message() { return \"Hello World B\"; } }");
 		final ClassLoader clB = compilerB.compile(JavacRunner.getJavaCompiler(new Params()), "");
 		assertEquals("Hello World A", invokeStatic(clA, "HelloWorld", "message"));
 		assertEquals("Hello World B", invokeStatic(clB, "HelloWorld", "message"));
@@ -130,11 +132,12 @@ public class InMemoryCompilerTest
 	@Test
 	public void duplicatePath() throws InMemoryCompiler.CompileException
 	{
+		final Path path = Paths.get("HelloWorld.java");
 		final InMemoryCompiler compiler = new InMemoryCompiler();
-		compiler.addJavaFile(Paths.get("HelloWorld.java"), "public class HelloWorld { public int version() { return 1; } }");
+		compiler.addJavaFile(path, "public class HelloWorld { public int version() { return 1; } }");
 		try
 		{
-			compiler.addJavaFile(Paths.get("HelloWorld.java"), "public class HelloWorld { public int version() { return 2; } }");
+			compiler.addJavaFile(path, "public class HelloWorld { public int version() { return 2; } }");
 			fail();
 		}
 		catch (final IllegalArgumentException e)

@@ -22,6 +22,7 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 
 import org.junit.jupiter.api.Test;
 
+@SuppressWarnings("NewClassNamingConvention")
 public class CopeModelTestTestNoTx extends CopeModelTestTest
 {
 	public CopeModelTestTestNoTx()

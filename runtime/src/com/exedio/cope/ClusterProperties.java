@@ -49,7 +49,7 @@ final class ClusterProperties extends Properties
 	/**
 	 * Multicast address for Local subnetwork (Not routable, 224.0.0.0 to 224.0.0.255).
 	 * Not one of the "Notable addresses":
-	 * https://en.wikipedia.org/wiki/Multicast_address
+	 * <a href="https://en.wikipedia.org/wiki/Multicast_address">Multicast address</a>
 	 */
 	private static final String MULTICAST_ADDRESS = "224.0.0.50";
 	private static final int PORT = 14446;

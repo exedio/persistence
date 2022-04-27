@@ -65,7 +65,6 @@ public final class RevisionInfoMutex extends RevisionInfo
 	Properties getStore()
 	{
 		final Properties store = super.getStore();
-		//noinspection CallToNumericToString
 		store.setProperty(MUTEX, Boolean.TRUE.toString());
 		store.setProperty(EXPECTED, String.valueOf(expectedNumber));
 		store.setProperty(ACTUAL,   String.valueOf(actualNumber));

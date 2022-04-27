@@ -334,7 +334,7 @@ public final class Hash extends Pattern implements HashInterface
 	 * Wastes (almost) as much cpu cycles, as a call to
 	 * {@link #check(Item, String)}  would have needed.
 	 * Needed to prevent Timing Attacks.
-	 * See https://en.wikipedia.org/wiki/Timing_attack
+	 * See <a href="https://en.wikipedia.org/wiki/Timing_attack">Timing attack</a>
 	 */
 	@Override
 	@Wrap(order=20, doc={Wrap.HASH_BLIND_DOC_1, Wrap.HASH_BLIND_DOC_2})

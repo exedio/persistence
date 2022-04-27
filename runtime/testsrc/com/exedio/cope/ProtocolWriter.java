@@ -29,6 +29,7 @@ import java.util.Properties;
 import org.junit.jupiter.api.Test;
 
 @ProtocolWriterTag
+@SuppressWarnings("NewClassNamingConvention")
 public class ProtocolWriter extends TestWithEnvironment
 {
 	public ProtocolWriter()

@@ -63,7 +63,7 @@ public final class DayPartView extends NumberView<Integer>
 		 * Weeks start with Monday.
 		 * Each week's year is the Gregorian year in which the Thursday falls.
 		 * The first week of the year, hence, always contains 4 January.
-		 * https://en.wikipedia.org/wiki/ISO_week_date
+		 * <a href="https://en.wikipedia.org/wiki/ISO_week_date">ISO week date</a>
 		 */
 		WEEK_OF_YEAR("weekOfYear")
 		{

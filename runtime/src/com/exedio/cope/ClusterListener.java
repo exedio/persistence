@@ -207,7 +207,6 @@ abstract class ClusterListener
 
 	private static final class Node
 	{
-		@SuppressWarnings("LoggerInitializedWithForeignClass")
 		private static final Logger logger = LoggerFactory.getLogger(ClusterListener.class);
 
 		private final int id;

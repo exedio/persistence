@@ -80,7 +80,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.6/datatype-numeric.html
+	 * See <a href="https://www.postgresql.org/docs/9.6/datatype-numeric.html">Numeric Types</a>
 	 */
 	@Override
 	String getIntegerType(final long minimum, final long maximum)
@@ -106,7 +106,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.6/datatype-character.html
+	 * See <a href="https://www.postgresql.org/docs/9.6/datatype-character.html">Character Types</a>
 	 * Datatype "varchar" can have at most 10485760 characters in postgresql.
 	 * <p>
 	 * Does never return "char(n)", because even if minChars==maxChars,
@@ -127,7 +127,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.6/datatype-datetime.html
+	 * See <a href="https://www.postgresql.org/docs/9.6/datatype-datetime.html">Date/Time Types</a>
 	 */
 	@Override
 	String getDayType()
@@ -194,7 +194,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.6/datatype-binary.html#AEN5318
+	 * See <a href="https://www.postgresql.org/docs/9.6/datatype-binary.html#AEN5318">Binary Data Types</a>
 	 */
 	@Override
 	void addBlobInStatementText(final StringBuilder statementText, final byte[] parameter)
@@ -255,7 +255,7 @@ final class PostgresqlDialect extends Dialect
 	}
 
 	/**
-	 * See https://www.postgresql.org/docs/9.6/pgcrypto.html
+	 * See <a href="https://www.postgresql.org/docs/9.6/pgcrypto.html">pgcrypto</a>
 	 */
 	private void appendDigest(
 			final Statement bf, final BlobColumn column, final Join join,

@@ -75,7 +75,7 @@ public class DispatcherSessionCloseFailsRuntimeTest
 				MyItem::dispatch);
 
 		@WrapInterim(methodBody=false)
-		private void dispatch(final AutoCloseable session)
+		private void dispatch(@SuppressWarnings("unused") final AutoCloseable session)
 		{
 			setDispatchCountCommitted(getDispatchCountCommitted()+1);
 		}

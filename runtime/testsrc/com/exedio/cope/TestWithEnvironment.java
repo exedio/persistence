@@ -315,12 +315,13 @@ public abstract class TestWithEnvironment
 				? "" : s;
 	}
 
+	@SuppressWarnings("RegExpSimplifiable") // OK: [0-9] is easier to understand than \d
 	protected final String dropMariaConnectionId(final String message)
 	{
 		if(!mariaDriver)
 			return message;
 
-		final java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^\\(conn=\\p{Digit}+\\) (.*)$");
+		final java.util.regex.Pattern pattern = java.util.regex.Pattern.compile("^\\(conn=[0-9]+\\) (.*)$");
 		final Matcher matcher = pattern.matcher(message);
 		if(!matcher.matches())
 			return message;

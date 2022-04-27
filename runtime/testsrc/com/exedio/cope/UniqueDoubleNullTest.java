@@ -26,7 +26,7 @@ import com.exedio.cope.instrument.WrapperInitial;
 import org.junit.jupiter.api.Test;
 
 /**
- * See https://bugs.mysql.com/bug.php?id=8173 as well.
+ * See <a href="https://bugs.mysql.com/bug.php?id=8173">unique index allows duplicates with null values</a> as well.
  */
 public class UniqueDoubleNullTest extends TestWithEnvironment
 {

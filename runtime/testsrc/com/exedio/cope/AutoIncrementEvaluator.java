@@ -38,6 +38,7 @@ import org.junit.jupiter.api.Test;
  * There seems to be no such penalty.
  */
 @Disabled
+@SuppressWarnings("NewClassNamingConvention")
 public class AutoIncrementEvaluator extends RawDatabaseTest
 {
 	private static final int ITERATIONS = 100;

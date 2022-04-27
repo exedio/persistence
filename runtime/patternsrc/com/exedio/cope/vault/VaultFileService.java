@@ -331,7 +331,7 @@ public final class VaultFileService implements VaultService
 		 * specified by this property.
 		 * <p>
 		 * Note, that actual results are affected by {@code umask},
-		 * see https://en.wikipedia.org/wiki/Umask#Mask_effect .
+		 * see <a href="https://en.wikipedia.org/wiki/Umask#Mask_effect">Mask effect</a>.
 		 */
 		final Set<PosixFilePermission> filePosixPermissions = writable ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE) : null;
 

@@ -55,6 +55,7 @@ public final class EnvironmentInfo
 				dmd.getDriverMinorVersion());
 	}
 
+	@SuppressWarnings("RegExpSimplifiable") // OK: [0-9] is easier to understand than \d
 	private static final Pattern driverVersionPattern =
 			Pattern.compile("\\b([0-9,a-f]{8})[0-9,a-f]{32}\\b");
 

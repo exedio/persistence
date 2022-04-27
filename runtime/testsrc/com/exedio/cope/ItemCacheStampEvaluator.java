@@ -37,6 +37,7 @@ import org.junit.jupiter.api.Test;
  * AtomicInteger.getAndIncrement() 94 ms
  */
 @Disabled
+@SuppressWarnings("NewClassNamingConvention")
 public class ItemCacheStampEvaluator
 {
 	private static final int ITERATIONS = 10000000;
