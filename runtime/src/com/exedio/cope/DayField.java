@@ -30,6 +30,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.TimeZone;
+import java.util.function.Supplier;
 import javax.annotation.Nonnull;
 
 public final class DayField extends FunctionField<Day>
@@ -123,17 +124,22 @@ public final class DayField extends FunctionField<Day>
 
 	private static final class DefaultNow extends DefaultSupplier<Day>
 	{
-		final ZoneId zone;
+		private final Supplier<ZoneId> zoneSupplier;
 
-		DefaultNow(final ZoneId zone)
+		DefaultNow(final Supplier<ZoneId> zone)
 		{
-			this.zone = requireNonNull(zone, "zone");
+			this.zoneSupplier = requireNonNull(zone, "zone");
+		}
+
+		ZoneId zone()
+		{
+			return requireNonNull(zoneSupplier.get(), "zone supplier did return null");
 		}
 
 		@Override
 		Day generate(final Context ctx)
 		{
-			return Day.from(ctx.currentInstant().atZone(zone).toLocalDate());
+			return Day.from(ctx.currentInstant().atZone(zone()).toLocalDate());
 		}
 
 		@Override
@@ -151,6 +157,12 @@ public final class DayField extends FunctionField<Day>
 
 	public DayField defaultToNow(final ZoneId zone)
 	{
+		requireNonNull(zone, "zone");
+		return defaultToNow(() -> zone);
+	}
+
+	public DayField defaultToNow(final Supplier<ZoneId> zone)
+	{
 		return new DayField(isfinal, optional, unique, copyFrom, new DefaultNow(zone));
 	}
 
@@ -163,7 +175,7 @@ public final class DayField extends FunctionField<Day>
 	{
 		return
 			defaultS instanceof DefaultNow
-			? ((DefaultNow)defaultS).zone
+			? ((DefaultNow)defaultS).zone()
 			: null;
 	}
 

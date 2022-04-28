@@ -30,6 +30,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.util.Day;
 import java.time.ZoneId;
 import java.util.TimeZone;
+import java.util.function.Supplier;
 import org.junit.jupiter.api.Test;
 
 public class DayFieldDefaultToNowModelTest
@@ -97,6 +98,12 @@ public class DayFieldDefaultToNowModelTest
 	{
 		assertFails(
 				() -> none.defaultToNow((ZoneId)null),
+				NullPointerException.class, "zone");
+	}
+	@Test void testZoneSupplierNull()
+	{
+		assertFails(
+				() -> none.defaultToNow((Supplier<ZoneId>)null),
 				NullPointerException.class, "zone");
 	}
 	@SuppressWarnings("deprecation") // OK: testing deprecated API
