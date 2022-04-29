@@ -168,7 +168,8 @@ public class CacheTouchItemTest extends TestWithEnvironment
 			final long stampsPurged)
 	{
 		final boolean st = model.getConnectProperties().cacheStamps;
-		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
+		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
+		final ItemCacheInfo[] icis = statistics.getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo curr = icis[0];
 		assertAll(
@@ -185,6 +186,7 @@ public class CacheTouchItemTest extends TestWithEnvironment
 				() -> assertEquals(st?stampsPurged:0,    curr.getStampsPurged()         - last.getStampsPurged(),         "stampsPurged(8)")
 		);
 		last = curr;
+		assertEquals(curr.getLevel(), statistics.getLevel());
 		assertEquals(curr.getLevel(),  gauge("size"));
 		assertEquals(curr.getHits(),   count("gets", "result", "hit"));
 		assertEquals(curr.getMisses(), count("gets", "result", "miss"));
