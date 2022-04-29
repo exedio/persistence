@@ -36,12 +36,16 @@ public class CommitHookPreTest
 	@Test void testOne()
 	{
 		final StringBuilder bf = new StringBuilder();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		add(1, appender(bf, "one"));
 
 		assertEquals("", bf.toString());
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		model.commit();
 		assertEquals("one,", bf.toString());
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testTwo()
@@ -90,41 +94,52 @@ public class CommitHookPreTest
 	@Test void testThrower()
 	{
 		final StringBuilder bf = new StringBuilder();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		add(1, appender(bf, "one"));
 		add(1, thrower("thrower"));
 		add(1, appender(bf, "two"));
 
 		assertEquals("", bf.toString());
 		assertTransaction();
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		assertFails(
 				model::commit,
 				IllegalArgumentException.class,
 				"thrower");
 		assertEquals("one,", bf.toString());
 		assertTransaction();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testRollback()
 	{
 		final StringBuilder bf = new StringBuilder();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		add(1, appender(bf, "one"));
 
 		assertEquals("", bf.toString());
 		assertTransaction();
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		model.rollback();
 		assertEquals("", bf.toString());
 		assertNoTransaction();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testAddInHook()
 	{
 		final StringBuilder bf = new StringBuilder();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		add(1, () ->
 		{
 			assertTransaction();
+			assertEquals(false, model.isAddPreCommitHookAllowed());
 			bf.append("beforeAdd");
 			model.addPreCommitHookIfAbsent(FAIL);
 			bf.append("afterAdd");
@@ -132,25 +147,31 @@ public class CommitHookPreTest
 
 		assertEquals("", bf.toString());
 		assertTransaction();
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		assertFails(
 				model::commit,
 				IllegalStateException.class,
 				"hooks are or have been handled");
 		assertEquals("beforeAdd", bf.toString());
 		assertTransaction();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testAddPostHookInHook()
 	{
 		final StringBuilder bf = new StringBuilder();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 		model.startTransaction("tx");
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		add(1, () ->
 		{
 			assertTransaction();
+			assertEquals(false, model.isAddPreCommitHookAllowed());
 			bf.append("beforeAdd");
 			model.addPostCommitHookIfAbsent(() ->
 			{
 				assertNoTransaction();
+				assertEquals(false, model.isAddPreCommitHookAllowed());
 				bf.append("inPost");
 			});
 			bf.append("afterAdd");
@@ -158,9 +179,11 @@ public class CommitHookPreTest
 
 		assertEquals("", bf.toString());
 		assertTransaction();
+		assertEquals(true, model.isAddPreCommitHookAllowed());
 		model.commit();
 		assertEquals("beforeAddafterAddinPost", bf.toString());
 		assertNoTransaction();
+		assertEquals(false, model.isAddPreCommitHookAllowed());
 	}
 
 	@Test void testNullHook()
