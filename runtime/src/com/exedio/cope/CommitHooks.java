@@ -25,19 +25,19 @@ import javax.annotation.Nonnull;
 
 final class CommitHooks
 {
-	private volatile boolean expired = false;
+	private volatile boolean addAllowed = true;
 	private volatile Content content = null;
 
 	boolean isAddAllowed()
 	{
-		return !expired;
+		return addAllowed;
 	}
 
 	@Nonnull
 	<R extends Runnable> R add(final R hook)
 	{
 		requireNonNull(hook, "hook");
-		if(expired)
+		if(!addAllowed)
 			throw new IllegalStateException("hooks are or have been handled");
 
 		if(content==null)
@@ -48,7 +48,7 @@ final class CommitHooks
 
 	void handle(final boolean commit)
 	{
-		expired = true;
+		addAllowed = false;
 
 		if(content!=null)
 		{
