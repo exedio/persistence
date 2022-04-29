@@ -33,7 +33,6 @@ import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
-import com.exedio.cope.ItemCacheStatistics;
 import com.exedio.cope.LongField;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.SetValue;
@@ -111,26 +110,24 @@ final class SamplerModel extends Item
 	private static final IntegerField itemCacheStampsHits   = field(0);
 	private static final IntegerField itemCacheStampsPurged = field(0);
 
-	static List<SetValue<?>> mapIt(
-			final ItemCacheStatistics from,
-			final ItemCacheStatistics to)
+	static List<SetValue<?>> mapItemCacheStatisticsDummy()
 	{
 		return Arrays.asList(
-			map(itemCacheLimit, to.getLimit()),
-			map(itemCacheLevel, to.getLevel()),
+			map(itemCacheLimit, DUMMY),
+			map(itemCacheLevel, DUMMY),
 
-			maD(itemCacheHits,   from.getSummarizedHits  (), to.getSummarizedHits  ()),
-			maD(itemCacheMisses, from.getSummarizedMisses(), to.getSummarizedMisses()),
+			map(itemCacheHits,   DUMMY),
+			map(itemCacheMisses, DUMMY),
 
-			maD(itemCacheConcurrentLoads, from.getSummarizedConcurrentLoads(), to.getSummarizedConcurrentLoads()),
-			maD(itemCacheReplacements,    from.getSummarizedReplacements   (), to.getSummarizedReplacements   ()),
+			map(itemCacheConcurrentLoads, DUMMY),
+			map(itemCacheReplacements,    DUMMY),
 
-			maD(itemCacheInvalidationsOrdered, from.getSummarizedInvalidationsOrdered(), to.getSummarizedInvalidationsOrdered()),
-			maD(itemCacheInvalidationsDone,    from.getSummarizedInvalidationsDone   (), to.getSummarizedInvalidationsDone   ()),
+			map(itemCacheInvalidationsOrdered, DUMMY),
+			map(itemCacheInvalidationsDone,    DUMMY),
 
-			map(itemCacheStampsSize,                                     to.getSummarizedStampsSize  ()),
-			maD(itemCacheStampsHits,   from.getSummarizedStampsHits  (), to.getSummarizedStampsHits  ()),
-			maD(itemCacheStampsPurged, from.getSummarizedStampsPurged(), to.getSummarizedStampsPurged()));
+			map(itemCacheStampsSize,   DUMMY),
+			map(itemCacheStampsHits,   DUMMY),
+			map(itemCacheStampsPurged, DUMMY));
 	}
 
 
@@ -247,6 +244,8 @@ final class SamplerModel extends Item
 		);
 	}
 
+
+	private static final Integer DUMMY = 42;
 
 	@SuppressWarnings("unused") private SamplerModel(final ActivationParameters ap){ super(ap); }
 	private static final long serialVersionUID = 1l;

@@ -23,7 +23,6 @@ import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
-import com.exedio.cope.Type;
 import com.exedio.cope.pattern.MediaPath;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -95,18 +94,6 @@ final class Util
 	{
 		assert from==to;
 		return to;
-	}
-
-	/**
-	 * assertSameAndMap
-	 */
-	static SetValue<SamplerTypeId> maS(
-			final ItemField<SamplerTypeId> settable,
-			final Type<?> from,
-			final Type<?> to)
-	{
-		assert from==to;
-		return SetValue.map(settable, SamplerTypeId.get(to));
 	}
 
 	/**

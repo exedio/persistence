@@ -145,7 +145,7 @@ public class Sampler
 			sv.addAll(SamplerModel.mapIt(from.connectionPoolInfo, to.connectionPoolInfo));
 			sv.add(maD(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
 			sv.addAll(SamplerModel.mapIt(from.transactionCounters, to.transactionCounters));
-			sv.addAll(SamplerModel.mapIt(from.itemCacheStatistics, to.itemCacheStatistics));
+			sv.addAll(SamplerModel.mapItemCacheStatisticsDummy());
 			sv.addAll(SamplerModel.mapIt(from.queryCacheInfo, to.queryCacheInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerInfo, to.changeListenerInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
@@ -161,17 +161,6 @@ public class Sampler
 				sv.add(SamplerTransaction.mapIt(model));
 				sv.addAll(SamplerTransaction.mapIt(transaction));
 				SamplerTransaction.TYPE.newItem(sv);
-			}
-			for(int i = 0; i<to.itemCacheInfos.length; i++)
-			{
-				final List<SetValue<?>> payLoad = SamplerItemCache.mapIt(from.itemCacheInfos[i], to.itemCacheInfos[i]);
-				if(payLoad!=null)
-				{
-					sv.clear();
-					sv.add(SamplerItemCache.mapIt(model));
-					sv.addAll(payLoad);
-					SamplerItemCache.TYPE.newItem(sv);
-				}
 			}
 			for(int i = 0; i<to.mediaInfos.length; i++)
 			{
