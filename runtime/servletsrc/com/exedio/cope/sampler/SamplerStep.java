@@ -80,7 +80,7 @@ final class SamplerStep
 		nextTransactionId = sampledModel.getNextTransactionId();
 		transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		itemCacheStatistics = sampledModel.getItemCacheStatistics();
+		itemCacheStatistics = getItemCacheStatistics(sampledModel);
 		queryCacheInfo = sampledModel.getQueryCacheInfo();
 		changeListenerInfo = sampledModel.getChangeListenersInfo();
 		changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
@@ -117,6 +117,12 @@ final class SamplerStep
 		{
 			clusterListenerInfoNodes = null;
 		}
+	}
+
+	@SuppressWarnings("deprecation")
+	private static ItemCacheStatistics getItemCacheStatistics(final Model model)
+	{
+		return model.getItemCacheStatistics();
 	}
 
 	boolean isCompatibleTo(final SamplerStep from)

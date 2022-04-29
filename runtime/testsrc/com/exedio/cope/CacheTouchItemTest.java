@@ -22,6 +22,7 @@ import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -151,7 +152,7 @@ public class CacheTouchItemTest extends TestWithEnvironment
 
 	private void initCache()
 	{
-		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
+		final ItemCacheInfo[] icis = getItemCacheStatistics(model).getDetails();
 		assertEquals(1, icis.length);
 		last = icis[0];
 		assertSame(TYPE, last.getType());
@@ -168,7 +169,7 @@ public class CacheTouchItemTest extends TestWithEnvironment
 			final long stampsPurged)
 	{
 		final boolean st = model.getConnectProperties().cacheStamps;
-		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
+		final ItemCacheStatistics statistics = getItemCacheStatistics(model);
 		final ItemCacheInfo[] icis = statistics.getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo curr = icis[0];
