@@ -4,6 +4,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.testmodel.NullabilityItem;
 import java.io.IOException;
+import javax.annotation.Nonnull;
 import org.junit.jupiter.api.Test;
 
 class NullabilityTest
@@ -23,5 +24,11 @@ class NullabilityTest
 					assertEquals(Nullability.NULLABLE, allCanReturnNull.getMethodNullability());
 				}
 		);
+	}
+
+	@Test
+	void nonnullClassName()
+	{
+		assertEquals(Nonnull.class.getName(), Nullability.NONNULL_CLASS_NAME);
 	}
 }

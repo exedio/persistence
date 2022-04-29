@@ -27,6 +27,28 @@ public enum Nullability
 {
 	NULLABLE, NONNULL, DEFAULT;
 
+	static final String NONNULL_CLASS_NAME = "javax.annotation.Nonnull";
+
+	@SuppressWarnings("NonFinalFieldInEnum")
+	private static Boolean nullabilityClassesAvailable;
+
+	private static boolean nullabilityClassesAreAvailable()
+	{
+		if (nullabilityClassesAvailable==null)
+		{
+			try
+			{
+				Class.forName(NONNULL_CLASS_NAME);
+				nullabilityClassesAvailable = true;
+			}
+			catch (final ClassNotFoundException e)
+			{
+				nullabilityClassesAvailable = false;
+			}
+		}
+		return nullabilityClassesAvailable;
+	}
+
 	public static Nullability forOptional(final boolean optional)
 	{
 		return optional?NULLABLE:NONNULL;
@@ -39,6 +61,10 @@ public enum Nullability
 
 	public static Nullability fromAnnotations(final Annotation[] annotations)
 	{
+		if (!nullabilityClassesAreAvailable())
+		{
+			return DEFAULT;
+		}
 		final Nonnull nonnullAnnotation = getAnnotation(Nonnull.class, annotations);
 		if (nonnullAnnotation!=null)
 		{
