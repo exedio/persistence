@@ -383,7 +383,7 @@ final class ItemCache
 			invalidationsFutile = metrics.counter("invalidations", "effect", "futile", "Invalidations in the item cache, that were futile because the item was not in cache");
 			invalidationsDone   = metrics.counter("invalidations", "effect", "actual", "Invalidations in the item cache, that were effective because the item was in cache");
 			stampsHit           = metrics.counter("stamp.hit",   "How often a stamp prevented an item from being stored");
-			stampsPurged        = metrics.counter("stamp.purge", "How many stamps that were purged because there was no transaction older that the stamp");
+			stampsPurged        = metrics.counter("stamp.purge", "How many stamps were purged because there was no transaction older than the stamp");
 		}
 
 		private static final class Metrics

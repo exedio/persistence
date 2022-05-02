@@ -66,7 +66,7 @@ final class QueryCache
 		replacements    = metrics.counter("evictions",      "Evictions in the query cache, as 'size' exceeded 'maximumSize'."); // name conforms to CacheMeterBinder
 		metrics.gaugeL(c -> c.stampList,  "stamp.transactions", "Number of transactions in stamp list");
 		stampsHit       = metrics.counter("stamp.hit",      "How often a stamp prevented a query from being stored");
-		stampsPurged    = metrics.counter("stamp.purge",    "How many stamps that were purged because there was no transaction older that the stamp");
+		stampsPurged    = metrics.counter("stamp.purge",    "How many stamps were purged because there was no transaction older than the stamp");
 
 		this.map = limit>0 ? new LRUMap<>(limit, x -> replacements.increment()) : null;
 		this.cacheStamp = cacheStamp;
