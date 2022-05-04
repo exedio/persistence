@@ -168,6 +168,11 @@ public final class AntTask extends Task
 		params.useConstantForEmptySetValuesArray = value;
 	}
 
+	public void setSerialAnnotation(final boolean value)
+	{
+		params.serialAnnotation = value;
+	}
+
 	public void setWildcardClass(final boolean value)
 	{
 		throwNoLongerSupported("wildcardClass", true);

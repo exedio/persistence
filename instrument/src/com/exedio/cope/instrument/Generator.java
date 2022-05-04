@@ -72,6 +72,7 @@ final class Generator
 	private final boolean directSetValueMap;
 	private final boolean finalMethodInFinalClass;
 	private final boolean useConstantForEmptySetValuesArray;
+	private final Class<? extends Annotation> serialAnnotation;
 	private final Set<Method> generateDeprecateds;
 	private final Set<Method> disabledWraps;
 	private final Params.Suppressor suppressWarningsType;
@@ -79,6 +80,7 @@ final class Generator
 	private final Params.Suppressor suppressWarningsWrapper;
 
 	Generator(final JavaFile javaFile, final StringBuilder output, final Params params, final Set<Method> generateDeprecateds, final Set<Method> disabledWraps)
+			throws HumanReadableException
 	{
 		this.javaFile = javaFile;
 		this.output = output;
@@ -88,6 +90,7 @@ final class Generator
 		this.directSetValueMap = params.directSetValueMap;
 		this.finalMethodInFinalClass = params.finalMethodInFinalClass;
 		this.useConstantForEmptySetValuesArray = params.useConstantForEmptySetValuesArray;
+		this.serialAnnotation = params.serialAnnotation ? SerialAccess.get() : null;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
 		this.generateDeprecateds = generateDeprecateds;
 		//noinspection AssignmentToCollectionOrArrayFieldFromParameter
@@ -731,6 +734,8 @@ final class Generator
 		write(lineSeparator);
 		writeGeneratedAnnotation(null);
 
+		if(serialAnnotation!=null)
+			writeEmptyAnnotationOnSeparateLine(serialAnnotation);
 		writeIndent();
 		writeModifier(PRIVATE|STATIC|FINAL);
 		write("long serialVersionUID = ");
