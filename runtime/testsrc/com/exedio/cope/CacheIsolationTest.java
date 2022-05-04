@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -58,7 +59,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 		unq = model.connect().supportsUniqueViolation;
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
-			final ItemCacheInfo[] ci = model.getItemCacheStatistics().getDetails();
+			final ItemCacheInfo[] ci = getItemCacheStatistics(model).getDetails();
 			last = ci[0];
 			assertSame(CacheIsolationItem.TYPE, last.getType());
 		}
@@ -175,7 +176,7 @@ public class CacheIsolationTest extends TestWithEnvironment
 
 	private void assertInvalidations(final int ordered, final int done)
 	{
-		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
+		final ItemCacheStatistics statistics = getItemCacheStatistics(model);
 		final ItemCacheInfo[] ci = statistics.getDetails();
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{

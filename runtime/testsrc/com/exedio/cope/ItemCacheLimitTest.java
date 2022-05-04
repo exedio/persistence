@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -49,7 +50,7 @@ public class ItemCacheLimitTest
 
 	private static void assertLimits(final int globalLimit)
 	{
-		final ItemCacheStatistics statistics = model.getItemCacheStatistics();
+		final ItemCacheStatistics statistics = getItemCacheStatistics(model);
 		assertEquals(globalLimit, statistics.getLimit());
 
 		final ItemCacheInfo[] infos=statistics.getDetails();

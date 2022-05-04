@@ -22,6 +22,7 @@ import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -203,7 +204,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 
 	private void initCache()
 	{
-		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
+		final ItemCacheInfo[] icis = getItemCacheStatistics(model).getDetails();
 		assertEquals(1, icis.length);
 		last = icis[0];
 		assertSame(TYPE, last.getType());
@@ -219,7 +220,7 @@ public class ItemCacheStampPurgeTest extends TestWithEnvironment
 			final long stampsHits,
 			final long stampsPurged)
 	{
-		final ItemCacheInfo[] icis = model.getItemCacheStatistics().getDetails();
+		final ItemCacheInfo[] icis = getItemCacheStatistics(model).getDetails();
 		assertEquals(1, icis.length);
 		final ItemCacheInfo curr = icis[0];
 		assertAll(

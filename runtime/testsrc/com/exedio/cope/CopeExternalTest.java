@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
@@ -50,11 +51,11 @@ public class CopeExternalTest extends TestWithEnvironment
 		assertCacheInfo(CachedItem.TYPE);
 		if (model.getConnectProperties().getItemCacheLimit()>0)
 		{
-			assertEquals(0, model.getItemCacheStatistics().getDetails()[0].getLevel());
+			assertEquals(0, getItemCacheStatistics(model).getDetails()[0].getLevel());
 		}
 		else
 		{
-			assertEquals(0, model.getItemCacheStatistics().getDetails().length);
+			assertEquals(0, getItemCacheStatistics(model).getDetails().length);
 		}
 
 		try (TransactionTry tx=model.startTransactionTry("NoCacheTest"))
@@ -66,14 +67,14 @@ public class CopeExternalTest extends TestWithEnvironment
 		}
 		if (model.getConnectProperties().getItemCacheLimit()>0)
 		{
-			final ItemCacheInfo[] itemCacheInfo=model.getItemCacheStatistics().getDetails();
+			final ItemCacheInfo[] itemCacheInfo = getItemCacheStatistics(model).getDetails();
 			assertEquals(1, itemCacheInfo.length);
 			assertEquals(1, itemCacheInfo[0].getLevel());
 			assertEquals(CachedItem.TYPE, itemCacheInfo[0].getType());
 		}
 		else
 		{
-			assertEquals(0, model.getItemCacheStatistics().getDetails().length);
+			assertEquals(0, getItemCacheStatistics(model).getDetails().length);
 		}
 	}
 

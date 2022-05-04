@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -157,7 +158,7 @@ public class HierarchyEmptyTest extends TestWithEnvironment
 				HierarchyEmptySuper.TYPE
 			), model.getConcreteTypes());
 
-		final ItemCacheInfo[] itemCacheInfo = model.getItemCacheStatistics().getDetails();
+		final ItemCacheInfo[] itemCacheInfo = getItemCacheStatistics(model).getDetails();
 		if(model.getConnectProperties().getItemCacheLimit()>0)
 		{
 			// must be the same order as in model constructor

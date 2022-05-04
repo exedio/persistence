@@ -276,7 +276,7 @@ final class RuntimeTester
 	void assertCacheInfo(final Type<?>... types)
 	{
 		final int limit = model.getConnectProperties().getItemCacheLimit();
-		final ItemCacheInfo[] ci = model.getItemCacheStatistics().getDetails();
+		final ItemCacheInfo[] ci = getItemCacheStatistics(model).getDetails();
 		if(limit>0)
 		{
 			assertEquals(types.length, ci.length);
@@ -374,5 +374,11 @@ final class RuntimeTester
 		final ArrayList<Field<?>> consumer = new ArrayList<>();
 		actual.acceptFieldsCovered(consumer::add);
 		assertEquals(expected, consumer);
+	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	static ItemCacheStatistics getItemCacheStatistics(final Model model)
+	{
+		return model.getItemCacheStatistics();
 	}
 }

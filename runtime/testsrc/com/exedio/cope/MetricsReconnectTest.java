@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static java.lang.Double.NaN;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -37,7 +38,7 @@ public class MetricsReconnectTest
 {
 	@Test void testCounter()
 	{
-		assertThrows(Model.NotConnectedException.class, MODEL::getItemCacheStatistics);
+		assertThrows(Model.NotConnectedException.class, () -> getItemCacheStatistics(MODEL));
 
 		connect();
 		assertEquals(0, hits());
@@ -70,7 +71,7 @@ public class MetricsReconnectTest
 
 		MODEL.disconnect();
 		assertEquals(2, hits());
-		assertThrows(Model.NotConnectedException.class, MODEL::getItemCacheStatistics);
+		assertThrows(Model.NotConnectedException.class, () -> getItemCacheStatistics(MODEL));
 
 		connect();
 		assertEquals(2, hits());
@@ -103,7 +104,7 @@ public class MetricsReconnectTest
 
 	@Test void testGauge()
 	{
-		assertThrows(Model.NotConnectedException.class, MODEL::getItemCacheStatistics);
+		assertThrows(Model.NotConnectedException.class, () -> getItemCacheStatistics(MODEL));
 
 		connect();
 		assertEquals(0, level());
@@ -138,7 +139,7 @@ public class MetricsReconnectTest
 
 		MODEL.disconnect();
 		assertEquals(NaN, level());
-		assertThrows(Model.NotConnectedException.class, MODEL::getItemCacheStatistics);
+		assertThrows(Model.NotConnectedException.class, () -> getItemCacheStatistics(MODEL));
 
 		connect();
 		assertEquals(0, level());
@@ -179,7 +180,7 @@ public class MetricsReconnectTest
 
 	private static ItemCacheInfo itemCache()
 	{
-		final ItemCacheInfo result = MODEL.getItemCacheStatistics().getDetails()[0];
+		final ItemCacheInfo result = getItemCacheStatistics(MODEL).getDetails()[0];
 		assertSame(AnItem.TYPE, result.getType());
 		return result;
 	}
