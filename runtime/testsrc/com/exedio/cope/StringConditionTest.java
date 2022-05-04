@@ -207,6 +207,7 @@ public class StringConditionTest extends TestWithEnvironment
 		private MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

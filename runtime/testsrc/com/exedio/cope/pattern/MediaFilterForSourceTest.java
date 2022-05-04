@@ -72,6 +72,7 @@ public class MediaFilterForSourceTest
 		@WrapperIgnore static final AFilter beta1  = new AFilter(beta);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -89,6 +90,7 @@ public class MediaFilterForSourceTest
 		@WrapperIgnore static final Media nothing = new Media();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

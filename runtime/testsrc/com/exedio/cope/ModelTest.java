@@ -44,6 +44,7 @@ public class ModelTest extends TestWithEnvironment
 		static final IntegerField next = new IntegerField().defaultToNext(5);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

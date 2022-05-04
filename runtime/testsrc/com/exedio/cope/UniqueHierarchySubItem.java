@@ -112,6 +112,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -106,6 +106,7 @@ public class HashAlgorithmAdapterTest
 		static final Hash hash = new Hash(new AnAlgorithm());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

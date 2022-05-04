@@ -84,6 +84,7 @@ public class PartOfContainerReuseTest
 	private AContainer(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
@@ -226,6 +227,7 @@ public class PartOfContainerReuseTest
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

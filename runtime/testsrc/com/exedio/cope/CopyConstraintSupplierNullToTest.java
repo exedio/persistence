@@ -47,6 +47,7 @@ public class CopyConstraintSupplierNullToTest
 		static final ItemField<Source> target = ItemField.create(Source.class).toFinal().copyTo(field, () -> null);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

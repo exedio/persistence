@@ -196,6 +196,7 @@ public class DispatcherSessionCloseFailsTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

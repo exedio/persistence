@@ -75,6 +75,7 @@ public class TypeColumnTypeTest
 	private static class StandardSuper extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -88,6 +89,7 @@ public class TypeColumnTypeTest
 	private static final class StandardSub extends StandardSuper
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -102,6 +104,7 @@ public class TypeColumnTypeTest
 	private static class MinLengthSuper extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -115,6 +118,7 @@ public class TypeColumnTypeTest
 	private static class MinLengthSub extends MinLengthSuper
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -128,6 +132,7 @@ public class TypeColumnTypeTest
 	private static final class MinLengthSubber extends MinLengthSub
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -142,6 +147,7 @@ public class TypeColumnTypeTest
 	private static class MinLengthIneffectiveSuper extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -155,6 +161,7 @@ public class TypeColumnTypeTest
 	private static final class MinLengthIneffectiveSub extends MinLengthIneffectiveSuper
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -173,6 +180,7 @@ public class TypeColumnTypeTest
 		@WrapperIgnore static final ItemField<MinLengthIneffectiveSuper> minLengthIneffective = ItemField.create(MinLengthIneffectiveSuper.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

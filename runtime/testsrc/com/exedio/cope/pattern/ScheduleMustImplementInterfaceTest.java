@@ -50,6 +50,7 @@ public class ScheduleMustImplementInterfaceTest
 		static final Schedule wrong = new Schedule(ZoneId.of("Europe/Berlin"));
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

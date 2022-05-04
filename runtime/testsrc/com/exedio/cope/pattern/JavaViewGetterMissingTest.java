@@ -37,6 +37,7 @@ public class JavaViewGetterMissingTest
 		static final JavaView schauHer = new JavaView();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

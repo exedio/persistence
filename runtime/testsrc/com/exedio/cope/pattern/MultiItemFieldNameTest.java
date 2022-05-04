@@ -89,6 +89,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 				canBe(Alpha.class).canBe(Beta.class).canBe(Gamma.class).canBe(Delta.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -102,6 +103,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 	private static final class Alpha extends Item implements MultiItemFieldValuex
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -116,6 +118,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 	private static final class Beta extends Item implements MultiItemFieldValuex
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -130,6 +133,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 	private static final class Gamma extends Item implements MultiItemFieldValuex
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -145,6 +149,7 @@ public class MultiItemFieldNameTest extends TestWithEnvironment
 	private static final class Delta extends Item implements MultiItemFieldValuex
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

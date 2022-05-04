@@ -308,6 +308,7 @@ public class TypesBoundComplexTest
 		@WrapperIgnore static final BooleanField boolField = new BooleanField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -321,6 +322,7 @@ public class TypesBoundComplexTest
 		@WrapperIgnore static final ItemField<AnItem> itemField = ItemField.create(AnItem.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

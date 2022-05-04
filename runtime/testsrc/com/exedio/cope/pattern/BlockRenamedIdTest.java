@@ -76,6 +76,7 @@ public class BlockRenamedIdTest
 		@WrapperIgnore static final StringField wrongTemp = new StringField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -93,6 +94,7 @@ public class BlockRenamedIdTest
 		@WrapperIgnore static final BlockField<MyBlock> wrongComp = BlockField.create(MyBlock.TYPE);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

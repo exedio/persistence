@@ -103,6 +103,7 @@ public class QuerySerializeTest
 		@WrapperIgnore static final EnumField<AnEnum> enumField = EnumField.create(AnEnum.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

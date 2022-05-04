@@ -45,6 +45,7 @@ public class PatternErrorAbstractTest
 		static final MyPattern pattern = new MyPattern(TypeAbstract.class, false);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -55,6 +56,7 @@ public class PatternErrorAbstractTest
 	private abstract static class TypeAbstract extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 2l;
 
 		@com.exedio.cope.instrument.Generated
@@ -79,6 +81,7 @@ public class PatternErrorAbstractTest
 		static final MyPattern pattern = new MyPattern(TypeConcrete.class, true);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -88,6 +91,7 @@ public class PatternErrorAbstractTest
 	private static final class TypeConcrete extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

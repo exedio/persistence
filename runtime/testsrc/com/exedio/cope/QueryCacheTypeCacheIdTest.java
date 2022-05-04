@@ -98,6 +98,7 @@ public class QueryCacheTypeCacheIdTest
 		protected MySuperItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -114,6 +115,7 @@ public class QueryCacheTypeCacheIdTest
 		protected MyItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -130,6 +132,7 @@ public class QueryCacheTypeCacheIdTest
 		private MySubItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -146,6 +149,7 @@ public class QueryCacheTypeCacheIdTest
 		private MyOtherItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

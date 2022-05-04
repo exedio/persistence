@@ -24,6 +24,7 @@ import com.exedio.cope.instrument.testlib.LibBlock;
 class LibBlockUser extends LibBlock
 {
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

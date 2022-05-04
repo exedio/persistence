@@ -101,6 +101,7 @@ public class MoneyFieldUtilTest
 		static final EnumField<CurrencyEnum> currency = EnumField.create(CurrencyEnum.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -118,6 +119,7 @@ public class MoneyFieldUtilTest
 		static final MoneyField<CurrencyEnum> field = MoneyField.shared(CurrencyItem.currency);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

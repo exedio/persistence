@@ -389,6 +389,7 @@ public class IsComparableTest
 	private static class AnItemSuper extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -401,6 +402,7 @@ public class IsComparableTest
 	private static class AnItem extends AnItemSuper
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -413,6 +415,7 @@ public class IsComparableTest
 	private static class AnItemBrother extends AnItemSuper
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -425,6 +428,7 @@ public class IsComparableTest
 	private static final class AnItemSub extends AnItem
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -437,6 +441,7 @@ public class IsComparableTest
 	private static final class AnItemOther extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -484,6 +489,7 @@ public class IsComparableTest
 
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -83,6 +83,7 @@ public class TypesBoundErrorTest
 	private static class NoActivationConstructor extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -98,6 +99,7 @@ public class TypesBoundErrorTest
 	private static class ActivatorMissing extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -113,6 +115,7 @@ public class TypesBoundErrorTest
 	private abstract static class ActivatorSuperfluous extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 2l;
 	}
 
@@ -129,6 +132,7 @@ public class TypesBoundErrorTest
 	private static class WrongActivatorNull extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -149,6 +153,7 @@ public class TypesBoundErrorTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -170,6 +175,7 @@ public class TypesBoundErrorTest
 	private static class WrongActivatorClass extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, activationConstructor=NONE, indent=2, comments=false)
@@ -181,6 +187,7 @@ public class TypesBoundErrorTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -201,6 +208,7 @@ public class TypesBoundErrorTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -226,6 +234,7 @@ public class TypesBoundErrorTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -244,6 +253,7 @@ public class TypesBoundErrorTest
 		static final Feature nullFeature = null;
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -263,6 +273,7 @@ public class TypesBoundErrorTest
 		static final Feature duplicate = origin;
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -290,6 +301,7 @@ public class TypesBoundErrorTest
 		static final ItemField<NullFeature> itemField = ItemField.create(NullFeature.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -317,6 +329,7 @@ public class TypesBoundErrorTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -348,6 +361,7 @@ public class TypesBoundErrorTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -378,6 +392,7 @@ public class TypesBoundErrorTest
 		@WrapperIgnore static final IntegerField superField=new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -396,6 +411,7 @@ public class TypesBoundErrorTest
 		@WrapperIgnore private static final UniqueConstraint superAndSub=UniqueConstraint.create(superField, subField);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

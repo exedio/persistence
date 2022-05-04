@@ -245,6 +245,7 @@ public class BlockMountTest
 		@WrapperIgnore static final IntegerField intMax4 = new IntegerField().max(4);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -51,6 +51,7 @@ public class EnumCopeNameTest
 		@WrapperIgnore static final EnumMapField<MyEnum,String> map = EnumMapField.create(MyEnum.class, new StringField());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

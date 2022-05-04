@@ -67,6 +67,7 @@ public class GenericComplexMid<L extends Collection<String>> extends GenericComp
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -61,6 +61,7 @@ public class MediaServletDefaultTest
 		@WrapperIgnore static final Media path = new Media();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -105,6 +106,7 @@ public class MediaServletDefaultTest
 		@WrapperIgnore static final Media secfin = new Media();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

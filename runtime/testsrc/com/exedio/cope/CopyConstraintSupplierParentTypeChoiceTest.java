@@ -45,6 +45,7 @@ public class CopyConstraintSupplierParentTypeChoiceTest
 		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice(() -> Parent.back);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -58,6 +59,7 @@ public class CopyConstraintSupplierParentTypeChoiceTest
 	private static final class Target extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -74,6 +76,7 @@ public class CopyConstraintSupplierParentTypeChoiceTest
 		static final ItemField<Source> back = ItemField.create(Source.class).toFinal();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

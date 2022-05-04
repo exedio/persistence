@@ -51,6 +51,7 @@ public class CopyConstraintNotOverlapsTest
 		static final BooleanField field = new BooleanField().copyFrom(target, template);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -67,6 +68,7 @@ public class CopyConstraintNotOverlapsTest
 		static final IntegerField field = new IntegerField().toFinal();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

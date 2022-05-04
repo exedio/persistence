@@ -302,6 +302,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
@@ -339,6 +340,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	protected Article(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 2l;
 
 	/**
@@ -376,6 +378,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	protected SpecificArticle(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
@@ -413,6 +416,7 @@ public class JoinWithInheritanceTest extends TestWithEnvironment
 	protected ReallySpecificArticle(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

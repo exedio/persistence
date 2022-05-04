@@ -124,6 +124,7 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 		}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -138,6 +139,7 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 	static final class ItemB extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

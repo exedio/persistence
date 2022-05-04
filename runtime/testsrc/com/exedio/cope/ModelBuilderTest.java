@@ -293,6 +293,7 @@ public class ModelBuilderTest
 	private static class ItemType extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -306,6 +307,7 @@ public class ModelBuilderTest
 	private static class ItemTypeSet extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -319,6 +321,7 @@ public class ModelBuilderTest
 	private static class ItemAllType1 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -332,6 +335,7 @@ public class ModelBuilderTest
 	private static class ItemAllType2 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -345,6 +349,7 @@ public class ModelBuilderTest
 	private static class ItemAllTypeSet1 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -358,6 +363,7 @@ public class ModelBuilderTest
 	private static class ItemAllTypeSet2 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -371,6 +377,7 @@ public class ModelBuilderTest
 	private static class ItemFail extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

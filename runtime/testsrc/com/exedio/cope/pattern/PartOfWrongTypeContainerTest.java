@@ -49,6 +49,7 @@ public class PartOfWrongTypeContainerTest
 		static final ItemField<Container> container = ItemField.create(Container.class).toFinal().cascade();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -65,6 +66,7 @@ public class PartOfWrongTypeContainerTest
 		static final IntegerField order = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

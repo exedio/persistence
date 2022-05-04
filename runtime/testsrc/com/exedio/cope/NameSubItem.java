@@ -333,6 +333,7 @@ public final class NameSubItem extends NameLongItem
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -68,6 +68,7 @@ public class JavaViewWrongItemReflectionTest
 
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -81,6 +82,7 @@ public class JavaViewWrongItemReflectionTest
 	private static final class OtherItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

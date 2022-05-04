@@ -87,6 +87,7 @@ public class PatternComputedTest
 
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -135,6 +136,7 @@ public class PatternComputedTest
 		private static final class VirgnType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
+			@java.io.Serial
 			private static final long serialVersionUID = 1l;
 
 			@com.exedio.cope.instrument.Generated
@@ -146,6 +148,7 @@ public class PatternComputedTest
 		private static final class CompuType extends Item
 		{
 			@com.exedio.cope.instrument.Generated
+			@java.io.Serial
 			private static final long serialVersionUID = 1l;
 
 			@com.exedio.cope.instrument.Generated

@@ -46,6 +46,7 @@ public class MediaFilterFinalTest
 		@WrapperIgnore static final MediaThumbnail filterFinal    = new MediaThumbnail(sourceFinal   , 10, 20);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

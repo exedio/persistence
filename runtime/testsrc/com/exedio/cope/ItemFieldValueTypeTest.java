@@ -121,6 +121,7 @@ public class ItemFieldValueTypeTest
 		private MyComp(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -134,6 +135,7 @@ public class ItemFieldValueTypeTest
 		static final SetField<MyItem> set = SetField.create(ItemField.create(MyItem.class));
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -159,6 +161,7 @@ public class ItemFieldValueTypeTest
 		static final BlockField<MyBlok> blok = BlockField.create(MyBlok.TYPE);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -139,6 +139,7 @@ public class CheckConstraintSuperItem extends Item
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -63,6 +63,7 @@ public class PartOfReverseTest
 	private static class SuperContainer extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -76,6 +77,7 @@ public class PartOfReverseTest
 	private static class Container extends SuperContainer
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -89,6 +91,7 @@ public class PartOfReverseTest
 	private static class SubContainer extends Container
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -102,6 +105,7 @@ public class PartOfReverseTest
 	private static class Order extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -127,6 +131,7 @@ public class PartOfReverseTest
 		static final PartOf<Container> partsOrdered = PartOf.create(containerOrdered, order);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

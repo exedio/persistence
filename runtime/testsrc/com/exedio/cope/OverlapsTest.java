@@ -78,6 +78,7 @@ public class OverlapsTest
 		@WrapperIgnore static final ItemField<AnItem2> item2 = ItemField.create(AnItem2.class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -102,6 +103,7 @@ public class OverlapsTest
 		@WrapperIgnore static final ItemField<AnItem2> item2 = ItemField.create(AnItem2.class).toFinal().optional();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

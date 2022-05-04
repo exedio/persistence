@@ -54,6 +54,7 @@ public class OverlapsHierarchyTest
 	private static class AnItemA extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -67,6 +68,7 @@ public class OverlapsHierarchyTest
 	private static class AnItemB1 extends AnItemA
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -80,6 +82,7 @@ public class OverlapsHierarchyTest
 	private static class AnItemB2 extends AnItemA
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -93,6 +96,7 @@ public class OverlapsHierarchyTest
 	private static class AnItemC extends AnItemB1
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -111,6 +115,7 @@ public class OverlapsHierarchyTest
 		@WrapperIgnore static final ItemField<AnItemC > fieldC  = ItemField.create(AnItemC .class);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -60,6 +60,7 @@ public abstract class HierarchySingleSuper extends Item
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 2l;
 
 	/**

@@ -47,6 +47,7 @@ public class CopyConstraintNotOverlapsChoiceNoItemFieldTest
 		static final ItemField<Target> target = ItemField.create(Target.class).optional().choice("field");
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -63,6 +64,7 @@ public class CopyConstraintNotOverlapsChoiceNoItemFieldTest
 		static final BooleanField field = new BooleanField().toFinal();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

@@ -81,6 +81,7 @@ public class ItemCacheLimitTest
 	private static final class Item1 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -94,6 +95,7 @@ public class ItemCacheLimitTest
 	private static final class Item2 extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

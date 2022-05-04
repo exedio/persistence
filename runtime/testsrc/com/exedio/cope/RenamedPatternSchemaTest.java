@@ -174,6 +174,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -195,6 +196,7 @@ public class RenamedPatternSchemaTest extends TestWithEnvironment
 		static final RenamedSchemaPattern bareF = new RenamedSchemaPattern();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

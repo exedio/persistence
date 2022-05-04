@@ -106,6 +106,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 2l;
 
 	/**
@@ -143,6 +144,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	protected Beta(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
@@ -180,6 +182,7 @@ public class DefaultInheritanceTest extends TestWithEnvironment
 	protected Gamma(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -42,6 +42,7 @@ public final class WrapperTypeGenericConstructorTester
 		protected DefaultNonFinal(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -56,6 +57,7 @@ public final class WrapperTypeGenericConstructorTester
 		private DefaultFinal(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -72,6 +74,7 @@ public final class WrapperTypeGenericConstructorTester
 		public SetPublic(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -87,6 +90,7 @@ public final class WrapperTypeGenericConstructorTester
 		protected SetProtected(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -101,6 +105,7 @@ public final class WrapperTypeGenericConstructorTester
 		SetPackage(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -115,6 +120,7 @@ public final class WrapperTypeGenericConstructorTester
 		private SetPrivate(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 }

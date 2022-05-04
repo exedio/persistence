@@ -65,6 +65,7 @@ public class InstanceOfConditionTest
 	private static class ItemS extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -78,6 +79,7 @@ public class InstanceOfConditionTest
 	private static final class Item1 extends ItemS
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -91,6 +93,7 @@ public class InstanceOfConditionTest
 	private static final class Item2 extends ItemS
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -104,6 +107,7 @@ public class InstanceOfConditionTest
 	private static final class Item3 extends ItemS
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -117,6 +121,7 @@ public class InstanceOfConditionTest
 	private static final class Item4 extends ItemS
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

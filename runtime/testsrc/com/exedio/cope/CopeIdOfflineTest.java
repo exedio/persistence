@@ -96,6 +96,7 @@ public class CopeIdOfflineTest
 	private abstract static class MyAbstractItem extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 2l;
 
 		@com.exedio.cope.instrument.Generated
@@ -109,6 +110,7 @@ public class CopeIdOfflineTest
 	private static final class MyItem extends MyAbstractItem
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -123,6 +125,7 @@ public class CopeIdOfflineTest
 	private static final class My66Item extends Item
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

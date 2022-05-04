@@ -70,6 +70,7 @@ public class EnumMapFieldSchemaNameTest
 		@WrapperIgnore static final EnumMapField<AnEnum, String> beta  = EnumMapField.create(AnEnum.class, new StringField());
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

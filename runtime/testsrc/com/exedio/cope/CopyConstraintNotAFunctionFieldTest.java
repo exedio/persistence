@@ -52,6 +52,7 @@ public class CopyConstraintNotAFunctionFieldTest
 		static final StringField field = new StringField().toFinal().copyFrom(target, template);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -69,6 +70,7 @@ public class CopyConstraintNotAFunctionFieldTest
 		static final DataField field = new DataField().toFinal();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

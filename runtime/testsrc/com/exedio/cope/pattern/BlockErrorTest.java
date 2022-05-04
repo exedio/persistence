@@ -57,6 +57,7 @@ public class BlockErrorTest
 		@WrapperIgnore static final BooleanField field = new BooleanField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -85,6 +86,7 @@ public class BlockErrorTest
 		@WrapperIgnore static final BooleanField field = new BooleanField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -146,6 +148,7 @@ public class BlockErrorTest
 		@WrapperIgnore static final BooleanField field = new BooleanField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -178,6 +181,7 @@ public class BlockErrorTest
 		static final StringField field = new StringField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -198,6 +202,7 @@ public class BlockErrorTest
 	private static class NonFinal extends Block
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -224,6 +229,7 @@ public class BlockErrorTest
 		private NoConstructor() { super(null); }
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 	}
 
@@ -241,6 +247,7 @@ public class BlockErrorTest
 	private static final class NoFields extends Block
 	{
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -285,6 +292,7 @@ public class BlockErrorTest
 		static final NotCopyable notCopyableField = new NotCopyable();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -341,6 +349,7 @@ public class BlockErrorTest
 		static final BooleanField field = new BooleanField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

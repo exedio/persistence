@@ -54,6 +54,7 @@ public class PartOfWrongTypeOrderTest
 		static final IntegerField order = new IntegerField();
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated
@@ -75,6 +76,7 @@ public class PartOfWrongTypeOrderTest
 		static final PartOf<Container> partOf = PartOf.create(container, Container.order);
 
 		@com.exedio.cope.instrument.Generated
+		@java.io.Serial
 		private static final long serialVersionUID = 1l;
 
 		@com.exedio.cope.instrument.Generated

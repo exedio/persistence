@@ -84,6 +84,7 @@ final class HardJoinB3Item extends HardJoinB2Item
 	}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**

@@ -40,6 +40,7 @@ class SchemaNamePolymorphicSuperItem extends Item
 	protected SchemaNamePolymorphicSuperItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
 
 	@com.exedio.cope.instrument.Generated
+	@java.io.Serial
 	private static final long serialVersionUID = 1l;
 
 	/**
