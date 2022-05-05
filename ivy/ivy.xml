@@ -50,7 +50,6 @@
 			<exclude org="io.prometheus" module="simpleclient_tracer_otel_agent" />
 		</dependency>
 		<dependency org="com.exedio" name="copeutil" rev="930" conf="runtime->runtime; build->runtime,sources,changelog" />
-		<dependency org="com.exedio" name="copeservletutil" rev="71" conf="runtime->runtime; build->runtime,sources,changelog" />
 
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.5.1" />
@@ -79,6 +78,7 @@
 		<dependency org="com.google.code.findbugs" name="jsr305" rev="3.0.2" conf="build->default" />
 		<dependency org="com.exedio" name="copeconsole" rev="7051" conf="build->runtime,changelog">
 			<exclude org="com.exedio" module="cope" /><!-- circular dependency -->
+			<exclude org="com.exedio" module="copeservletutil" /><!-- redundant dependency of cope since r10333 -->
 		</dependency>
 	</dependencies>
 </ivy-module>

@@ -283,7 +283,6 @@
 				<pathelement location="build/classes/instrument/annosrc" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
 				<pathelement location="lib/jsr305.jar" />
@@ -485,7 +484,6 @@
 				<pathelement location="lib/simpleclient-bundle.jar" />
 				<pathelement location="lib/simpleclient_common-bundle.jar" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cope-servletutil.jar" />
 			</classpath>
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.multicast"   value="${runtime.test.ClusterNetworkTest.multicast}" />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.A"      value="${runtime.test.ClusterNetworkTest.port.A}"    />
@@ -528,7 +526,6 @@
 						<pathelement location="lib/simpleclient-bundle.jar" />
 						<pathelement location="lib/simpleclient_common-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
-						<pathelement location="lib/exedio-cope-servletutil.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="contextPath" value="/junitContextPath" />
@@ -574,7 +571,6 @@
 						<pathelement location="lib/simpleclient-bundle.jar" />
 						<pathelement location="lib/simpleclient_common-bundle.jar" />
 						<pathelement location="lib/exedio-cope-util.jar" />
-						<pathelement location="lib/exedio-cope-servletutil.jar" />
 					</classpath>
 					<sysproperty key="com.exedio.cope.properties" file="@{env.file}" />
 					<sysproperty key="com.exedio.cope.testprotocol.file" file="build/classes/runtime/src/com/exedio/cope/testprotocol.properties" />
@@ -609,7 +605,6 @@
 					<fileset file="lib/simpleclient_common-bundle.jar" />
 					<fileset file="lib/opentest4j.jar" />
 					<fileset file="lib/exedio-cope-util.jar" />
-					<fileset file="lib/exedio-cope-servletutil.jar" />
 					<fileset file="lib/exedio-cope-console.jar" />
 					<fileset file="lib/exedio-cops.jar" />
 					<fileset file="lib/@{env.driver}" />
@@ -684,7 +679,6 @@
 		<copy todir="runtime/servlettestweb/WEB-INF/lib">
 			<fileset file="lib/trove4j.jar" />
 			<fileset file="lib/exedio-cope-util.jar" />
-			<fileset file="lib/exedio-cope-servletutil.jar" />
 			<fileset file="lib/exedio-cope-console.jar" />
 			<fileset file="lib/exedio-cops.jar" />
 			<fileset file="lib/hsqldb.jar" />
@@ -1081,7 +1075,6 @@
 				<pathelement location="lib/trove4j.jar" />
 				<pathelement location="${ant.core.lib}" />
 				<pathelement location="lib/exedio-cope-util.jar" />
-				<pathelement location="lib/exedio-cope-servletutil.jar" />
 				<pathelement location="lib/javax.servlet-api.jar" />
 				<pathelement location="lib/slf4j-api.jar" />
 				<pathelement location="lib/micrometer-core.jar" />
