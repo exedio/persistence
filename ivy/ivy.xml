@@ -42,10 +42,13 @@
 		<dependency org="net.sf.trove4j" name="trove4j" rev="2.0.2" conf="runtime->default; build->sources" />
 		<dependency org="org.slf4j" name="slf4j-api" rev="1.6.4" conf="runtime->default; build->sources" />
 		<dependency org="org.slf4j" name="slf4j-log4j12" rev="1.6.4" conf="build->default" />
-		<dependency org="io.micrometer" name="micrometer-core" rev="1.3.0" conf="runtime->default; build->sources">
+		<dependency org="io.micrometer" name="micrometer-core" rev="1.8.5" conf="runtime->default; build->sources">
 			<exclude org="org.hdrhistogram" module="HdrHistogram" />
 		</dependency>
-		<dependency org="io.micrometer" name="micrometer-registry-prometheus" rev="1.3.0" conf="build->default" />
+		<dependency org="io.micrometer" name="micrometer-registry-prometheus" rev="1.8.5" conf="build->default">
+			<exclude org="io.prometheus" module="simpleclient_tracer_otel" />
+			<exclude org="io.prometheus" module="simpleclient_tracer_otel_agent" />
+		</dependency>
 		<dependency org="com.exedio" name="copeutil" rev="930" conf="runtime->runtime; build->runtime,sources,changelog" />
 		<dependency org="com.exedio" name="copeservletutil" rev="71" conf="runtime->runtime; build->runtime,sources,changelog" />
 
