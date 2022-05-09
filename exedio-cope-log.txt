@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* copeservletutil dependency dropped.
+	Was redundant since r10333 (Mar 3 2020). You may want to drop
+		<exclude org="com.exedio" module="copeservletutil" />
+	from your cope dependency, if present.
 * EnumMapField obeys defaults of value.
 	This breaks backwards API compatibility:
 	EnumMapField#create no longer drops default (defaultTo, defaultToNow,
