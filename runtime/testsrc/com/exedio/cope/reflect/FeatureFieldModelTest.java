@@ -92,6 +92,9 @@ public class FeatureFieldModelTest
 		assertEquals(null, standard.getIdField().getImplicitUniqueConstraint());
 		assertEquals(list(unique.getIdField()), unique.getImplicitUniqueConstraint().getFields());
 
+		assertEquals(1,  standard.getIdField().getMinimumLength());
+		assertEquals(80, standard.getIdField().getMaximumLength());
+
 		assertSerializedSame(standard, 395);
 
 		assertEqualsUnmodifiable(TYPE.getFeatures(), standard.getValues());
