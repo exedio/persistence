@@ -89,6 +89,11 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		return new FeatureField<>(valueClass, idField.unique());
 	}
 
+	public FeatureField<E> idLengthMax(final int maximumLength)
+	{
+		return new FeatureField<>(valueClass, idField.lengthMax(maximumLength));
+	}
+
 	public Class<E> getValueClass()
 	{
 		return valueClass;

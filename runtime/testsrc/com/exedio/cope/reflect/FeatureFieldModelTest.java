@@ -25,6 +25,7 @@ import static com.exedio.cope.reflect.FeatureFieldItem.integer1;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer2;
 import static com.exedio.cope.reflect.FeatureFieldItem.integer3;
 import static com.exedio.cope.reflect.FeatureFieldItem.isFinal;
+import static com.exedio.cope.reflect.FeatureFieldItem.length;
 import static com.exedio.cope.reflect.FeatureFieldItem.optional;
 import static com.exedio.cope.reflect.FeatureFieldItem.renamed;
 import static com.exedio.cope.reflect.FeatureFieldItem.restricted;
@@ -70,6 +71,7 @@ public class FeatureFieldModelTest
 				isFinal,  isFinal .getIdField(),
 				optional, optional.getIdField(),
 				unique,   unique  .getIdField(), unique.getImplicitUniqueConstraint(),
+				length,   length  .getIdField(),
 				renamed,  renamed .getIdField(),
 				restricted, restricted.getIdField()
 			), TYPE.getFeatures());
@@ -94,6 +96,8 @@ public class FeatureFieldModelTest
 
 		assertEquals(1,  standard.getIdField().getMinimumLength());
 		assertEquals(80, standard.getIdField().getMaximumLength());
+		assertEquals(1,  length  .getIdField().getMinimumLength());
+		assertEquals(66, length  .getIdField().getMaximumLength());
 
 		assertSerializedSame(standard, 395);
 
@@ -104,6 +108,7 @@ public class FeatureFieldModelTest
 				isFinal.getIdField(),
 				optional.getIdField(),
 				unique.getIdField(),
+				length.getIdField(),
 				renamed.getIdField(),
 				restricted.getIdField()), restricted.getValues());
 
@@ -125,6 +130,8 @@ public class FeatureFieldModelTest
 					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique' AND " +
 					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-id' AND " +
 					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-idImplicitUnique' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.length' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.length-id' AND " +
 					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed' AND " +
 					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed-id' AND " +
 					"FeatureFieldItem.standard-id<>'FeatureFieldItem.restricted' AND " +
@@ -140,6 +147,7 @@ public class FeatureFieldModelTest
 					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.isFinal-id' AND " +
 					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.optional-id' AND " +
 					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.unique-id' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.length-id' AND " +
 					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.renamed-id' AND " +
 					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.restricted-id'" +
 				")",

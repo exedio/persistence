@@ -30,6 +30,7 @@ public final class TypeFieldItem extends Item
 	static final TypeField<Item> isFinal  = TypeField.create().toFinal();
 	static final TypeField<Item> optional = TypeField.create().optional();
 	static final TypeField<Item> unique   = TypeField.create().optional().unique();
+	static final TypeField<Item> length   = TypeField.create().optional().idLengthMax(77);
 	@CopeSchemaName("newname")
 	static final TypeField<Item> renamed = TypeField.create().optional();
 	@WrapperInitial
@@ -178,6 +179,29 @@ public final class TypeFieldItem extends Item
 	static TypeFieldItem forUnique(@javax.annotation.Nonnull final com.exedio.cope.Type<? extends Item> unique)
 	{
 		return TypeFieldItem.unique.searchUnique(TypeFieldItem.class,unique);
+	}
+
+	/**
+	 * Returns the value of {@link #length}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	com.exedio.cope.Type<? extends Item> getLength()
+	{
+		return TypeFieldItem.length.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #length}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setLength(@javax.annotation.Nullable final com.exedio.cope.Type<? extends Item> length)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		TypeFieldItem.length.set(this,length);
 	}
 
 	/**
