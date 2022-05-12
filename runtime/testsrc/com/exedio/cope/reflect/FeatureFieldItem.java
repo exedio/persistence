@@ -37,6 +37,7 @@ public final class FeatureFieldItem extends Item
 	static final FeatureField<Feature> isFinal  = FeatureField.create().toFinal();
 	static final FeatureField<Feature> optional = FeatureField.create().optional();
 	static final FeatureField<Feature> unique   = FeatureField.create().optional().unique();
+	static final FeatureField<Feature> length   = FeatureField.create().optional().idLengthMax(66);
 	@CopeSchemaName("newname")
 	static final FeatureField<Feature> renamed = FeatureField.create().optional();
 	static final FeatureField<StringField> restricted = FeatureField.create(StringField.class).optional();
@@ -294,6 +295,29 @@ public final class FeatureFieldItem extends Item
 	static FeatureFieldItem forUnique(@javax.annotation.Nonnull final Feature unique)
 	{
 		return FeatureFieldItem.unique.searchUnique(FeatureFieldItem.class,unique);
+	}
+
+	/**
+	 * Returns the value of {@link #length}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	@javax.annotation.Nullable
+	Feature getLength()
+	{
+		return FeatureFieldItem.length.get(this);
+	}
+
+	/**
+	 * Sets a new value for {@link #length}.
+	 */
+	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+	void setLength(@javax.annotation.Nullable final Feature length)
+			throws
+				com.exedio.cope.StringLengthViolationException
+	{
+		FeatureFieldItem.length.set(this,length);
 	}
 
 	/**

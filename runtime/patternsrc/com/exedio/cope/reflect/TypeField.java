@@ -89,6 +89,11 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		return new TypeField<>(valueClass, idField.unique());
 	}
 
+	public TypeField<E> idLengthMax(final int maximumLength)
+	{
+		return new TypeField<>(valueClass, idField.lengthMax(maximumLength));
+	}
+
 	public Class<E> getValueClass()
 	{
 		return valueClass;

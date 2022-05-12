@@ -22,6 +22,7 @@ import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.reflect.TypeField.create;
 import static com.exedio.cope.reflect.TypeFieldItem.TYPE;
 import static com.exedio.cope.reflect.TypeFieldItem.isFinal;
+import static com.exedio.cope.reflect.TypeFieldItem.length;
 import static com.exedio.cope.reflect.TypeFieldItem.optional;
 import static com.exedio.cope.reflect.TypeFieldItem.renamed;
 import static com.exedio.cope.reflect.TypeFieldItem.restricted;
@@ -62,6 +63,7 @@ public class TypeFieldModelTest
 				isFinal,  isFinal .getIdField(),
 				optional, optional.getIdField(),
 				unique,   unique  .getIdField(), unique.getImplicitUniqueConstraint(),
+				length,   length  .getIdField(),
 				renamed,  renamed .getIdField(),
 				restricted, restricted.getIdField()
 			), TYPE.getFeatures());
@@ -86,6 +88,8 @@ public class TypeFieldModelTest
 
 		assertEquals(1,  standard.getIdField().getMinimumLength());
 		assertEquals(80, standard.getIdField().getMaximumLength());
+		assertEquals(1,  length  .getIdField().getMinimumLength());
+		assertEquals(77, length  .getIdField().getMaximumLength());
 
 		assertSerializedSame(standard, 389);
 
