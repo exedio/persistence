@@ -25,10 +25,10 @@ import static com.exedio.cope.reflect.TypeFieldItem.optional;
 import static com.exedio.cope.reflect.TypeFieldItem.renamed;
 import static com.exedio.cope.reflect.TypeFieldItem.restricted;
 import static com.exedio.cope.reflect.TypeFieldItem.standard;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
@@ -89,16 +89,12 @@ public class TypeFieldTest extends TestWithEnvironment
 	{
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertSame(TYPE, item.getStandard());
-		try
-		{
-			item.setStandard(null);
-			fail();
-		}
-		catch(final MandatoryViolationException e)
-		{
-			assertEquals(standard, e.getFeature());
-			assertEquals(item, e.getItem());
-		}
+		final MandatoryViolationException e = assertFails(
+				() -> item.setStandard(null),
+				MandatoryViolationException.class,
+				"mandatory violation on " + item + " for " + standard);
+		assertEquals(standard, e.getFeature());
+		assertEquals(item, e.getItem());
 		assertSame(TYPE, item.getStandard());
 	}
 
@@ -106,16 +102,12 @@ public class TypeFieldTest extends TestWithEnvironment
 	{
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertSame(TypeFieldSubItem.TYPE, item.getIsFinal());
-		try
-		{
-			isFinal.set(item, TYPE);
-			fail();
-		}
-		catch(final FinalViolationException e)
-		{
-			assertEquals(isFinal, e.getFeature());
-			assertEquals(item, e.getItem());
-		}
+		final FinalViolationException e = assertFails(
+				() -> isFinal.set(item, TYPE),
+				FinalViolationException.class,
+				"final violation on " + item + " for " + isFinal);
+		assertEquals(isFinal, e.getFeature());
+		assertEquals(item, e.getItem());
 		assertSame(TypeFieldSubItem.TYPE, item.getIsFinal());
 	}
 
@@ -124,22 +116,15 @@ public class TypeFieldTest extends TestWithEnvironment
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		standard.getIdField().set(item, "zack");
 		assertEquals("zack", standard.getId(item));
-		try
-		{
-			item.getStandard();
-			fail();
-		}
-		catch(final TypeField.NotFound e)
-		{
-			assertEquals(standard, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals("zack", e.getID());
-			assertEquals(
-					"not found 'zack' on " + item + " " +
-					"for TypeFieldItem.standard, "+
-					"no such id in model.",
-					e.getMessage());
-		}
+		final TypeField.NotFound e = assertFails(
+				item::getStandard,
+				TypeField.NotFound.class,
+				"not found 'zack' on " + item + " " +
+				"for TypeFieldItem.standard, " +
+				"no such id in model.");
+		assertEquals(standard, e.getFeature());
+		assertEquals(item, e.getItem());
+		assertEquals("zack", e.getID());
 		assertEquals("zack", standard.getId(item));
 	}
 
@@ -147,23 +132,16 @@ public class TypeFieldTest extends TestWithEnvironment
 	{
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		restricted.getIdField().set(item, TYPE.getID());
-		try
-		{
-			item.getRestricted();
-			fail();
-		}
-		catch(final TypeField.NotFound e)
-		{
-			assertEquals(restricted, e.getFeature());
-			assertEquals(item, e.getItem());
-			assertEquals(TYPE.getID(), e.getID());
-			assertEquals(
-					"not found '" + TYPE.getID() + "' on " + item + " " +
-					"for TypeFieldItem.restricted, "+
-					"expected instance of com.exedio.cope.reflect.TypeFieldSubItem, " +
-					"but was com.exedio.cope.reflect.TypeFieldItem.",
-					e.getMessage());
-		}
+		final TypeField.NotFound e = assertFails(
+				item::getRestricted,
+				TypeField.NotFound.class,
+				"not found '" + TYPE.getID() + "' on " + item + " " +
+				"for TypeFieldItem.restricted, "+
+				"expected instance of com.exedio.cope.reflect.TypeFieldSubItem, " +
+				"but was com.exedio.cope.reflect.TypeFieldItem.");
+		assertEquals(restricted, e.getFeature());
+		assertEquals(item, e.getItem());
+		assertEquals(TYPE.getID(), e.getID());
 	}
 
 	@Test void testUnique()
@@ -174,31 +152,19 @@ public class TypeFieldTest extends TestWithEnvironment
 		item.setUnique(TYPE);
 		assertEquals(item, forUnique(TYPE));
 		assertEquals(null, forUnique(TypeFieldSubItem.TYPE));
-		try
-		{
-			forUnique(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals(null, e.getMessage());
-		}
+		assertFails(
+				() -> forUnique(null),
+				NullPointerException.class,
+				null);
 	}
 
 	@Test void testRestrictionViolatedExecute()
 	{
-		try
-		{
-			TypeFieldItem.createRestrictedRaw(TYPE);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"expected a Type<? extends com.exedio.cope.reflect.TypeFieldSubItem>, " +
-					"but was a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.",
-					e.getMessage());
-		}
+		assertFails(
+				() -> TypeFieldItem.createRestrictedRaw(TYPE),
+				ClassCastException.class,
+				"expected a Type<? extends com.exedio.cope.reflect.TypeFieldSubItem>, " +
+				"but was a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.");
 	}
 
 	@Test void testRestrictionViolatedSetter()
@@ -206,18 +172,11 @@ public class TypeFieldTest extends TestWithEnvironment
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		assertEquals(null, item.getRestricted());
 
-		try
-		{
-			item.setRestrictedRaw(TYPE);
-			fail();
-		}
-		catch(final ClassCastException e)
-		{
-			assertEquals(
-					"expected a Type<? extends com.exedio.cope.reflect.TypeFieldSubItem>, " +
-					"but was a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.",
-					e.getMessage());
-		}
+		assertFails(
+				() -> item.setRestrictedRaw(TYPE),
+				ClassCastException.class,
+				"expected a Type<? extends com.exedio.cope.reflect.TypeFieldSubItem>, " +
+				"but was a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.");
 		assertEquals(null, item.getRestricted());
 	}
 }
