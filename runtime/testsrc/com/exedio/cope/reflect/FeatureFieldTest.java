@@ -57,6 +57,10 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertSame(string2, item.getIsFinal());
 		assertSame(null, item.getOptional());
 		assertSame(null, item.getRestricted());
+		assertEquals("FeatureFieldItem.string1", standard.getId(item));
+		assertEquals("FeatureFieldItem.string2", isFinal.getId(item));
+		assertEquals(null, optional.getId(item));
+		assertEquals(null, restricted.getId(item));
 
 		item.setOptional(integer1);
 		assertSame(string1, item.getStandard());
@@ -115,6 +119,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		standard.getIdField().set(item, "zack");
+		assertEquals("zack", standard.getId(item));
 		final NotFound e = assertFails(
 				item::getStandard,
 				NotFound.class,
@@ -124,6 +129,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertEquals(standard, e.getFeature());
 		assertEquals(item, e.getItem());
 		assertEquals("zack", e.getID());
+		assertEquals("zack", standard.getId(item));
 	}
 
 	@Test void testNotFoundWrongValueClass()
