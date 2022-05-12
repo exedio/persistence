@@ -37,6 +37,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.reflect.FeatureField.NotFound;
 import org.junit.jupiter.api.Test;
 
 public class FeatureFieldTest extends TestWithEnvironment
@@ -114,9 +115,9 @@ public class FeatureFieldTest extends TestWithEnvironment
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		standard.getIdField().set(item, "zack");
-		final FeatureField.NotFound e = assertFails(
+		final NotFound e = assertFails(
 				item::getStandard,
-				FeatureField.NotFound.class,
+				NotFound.class,
 				"not found 'zack' on " + item + " " +
 				"for FeatureFieldItem.standard, "+
 				"no such id in model.");
@@ -129,9 +130,9 @@ public class FeatureFieldTest extends TestWithEnvironment
 	{
 		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
 		restricted.getIdField().set(item, integer1.getID());
-		final FeatureField.NotFound e = assertFails(
+		final NotFound e = assertFails(
 				item::getRestricted,
-				FeatureField.NotFound.class,
+				NotFound.class,
 				"not found '" + integer1.getID() + "' on " + item + " " +
 				"for FeatureFieldItem.restricted, "+
 				"expected instance of com.exedio.cope.StringField, " +

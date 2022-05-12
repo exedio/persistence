@@ -34,6 +34,7 @@ import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.SchemaInfo;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.reflect.TypeField.NotFound;
 import org.junit.jupiter.api.Test;
 
 public class TypeFieldTest extends TestWithEnvironment
@@ -116,9 +117,9 @@ public class TypeFieldTest extends TestWithEnvironment
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		standard.getIdField().set(item, "zack");
 		assertEquals("zack", standard.getId(item));
-		final TypeField.NotFound e = assertFails(
+		final NotFound e = assertFails(
 				item::getStandard,
-				TypeField.NotFound.class,
+				NotFound.class,
 				"not found 'zack' on " + item + " " +
 				"for TypeFieldItem.standard, " +
 				"no such id in model.");
@@ -132,9 +133,9 @@ public class TypeFieldTest extends TestWithEnvironment
 	{
 		final TypeFieldItem item = new TypeFieldItem(TYPE, TypeFieldSubItem.TYPE, null);
 		restricted.getIdField().set(item, TYPE.getID());
-		final TypeField.NotFound e = assertFails(
+		final NotFound e = assertFails(
 				item::getRestricted,
-				TypeField.NotFound.class,
+				NotFound.class,
 				"not found '" + TYPE.getID() + "' on " + item + " " +
 				"for TypeFieldItem.restricted, "+
 				"expected instance of com.exedio.cope.reflect.TypeFieldSubItem, " +
