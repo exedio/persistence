@@ -247,7 +247,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 		if(value!=null && !isInstance(value))
 			throw new ClassCastException(
 					"expected a " + valueClass.getName() +
-					", but was a " + value.getClass().getName() +
+					", but was " + value + " which is a " + value.getClass().getName() +
 					" for " + this + '.');
 	}
 

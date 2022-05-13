@@ -247,7 +247,7 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 		if(value!=null && !isInstance(value))
 			throw new ClassCastException(
 					"expected a Type<? extends " + valueClass.getName() + ">" +
-					", but was a Type<" + value.getJavaClass().getName() + ">" +
+					", but was " + value + " which is a Type<" + value.getJavaClass().getName() + ">" +
 					" for " + this + '.');
 	}
 

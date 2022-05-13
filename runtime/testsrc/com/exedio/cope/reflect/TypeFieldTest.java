@@ -165,7 +165,7 @@ public class TypeFieldTest extends TestWithEnvironment
 				() -> TypeFieldItem.createRestrictedRaw(TYPE),
 				ClassCastException.class,
 				"expected a Type<? extends com.exedio.cope.reflect.TypeFieldSubItem>, " +
-				"but was a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.");
+				"but was " + TYPE + " which is a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.");
 	}
 
 	@Test void testRestrictionViolatedSetter()
@@ -177,7 +177,7 @@ public class TypeFieldTest extends TestWithEnvironment
 				() -> item.setRestrictedRaw(TYPE),
 				ClassCastException.class,
 				"expected a Type<? extends com.exedio.cope.reflect.TypeFieldSubItem>, " +
-				"but was a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.");
+				"but was " + TYPE + " which is a Type<com.exedio.cope.reflect.TypeFieldItem> for TypeFieldItem.restricted.");
 		assertEquals(null, item.getRestricted());
 	}
 }
