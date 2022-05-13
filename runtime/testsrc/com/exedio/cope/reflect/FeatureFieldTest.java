@@ -52,7 +52,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 		assertEquals("standard", SchemaInfo.getColumnName(standard.getIdField()));
 		assertEquals("newname", SchemaInfo.getColumnName(renamed.getIdField()));
 
-		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
 		assertSame(string1, item.getStandard());
 		assertSame(string2, item.getIsFinal());
 		assertSame(null, item.getOptional());
@@ -91,7 +91,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test void testMandatoryViolation()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
 		assertSame(string1, item.getStandard());
 		final MandatoryViolationException e = assertFails(
 				() -> item.setStandard(null),
@@ -104,7 +104,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test void testFinalViolation()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
 		assertSame(string2, item.getIsFinal());
 		final FinalViolationException e = assertFails(
 				() -> isFinal.set(item, integer1),
@@ -117,7 +117,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test void testNotFoundNoSuchID()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
 		standard.getIdField().set(item, "zack");
 		assertEquals("zack", standard.getId(item));
 		final NotFound e = assertFails(
@@ -134,7 +134,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test void testNotFoundWrongValueClass()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
 		restricted.getIdField().set(item, integer1.getID());
 		final NotFound e = assertFails(
 				item::getRestricted,
@@ -150,7 +150,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 
 	@Test void testUnique()
 	{
-		final FeatureFieldItem item = new FeatureFieldItem(string1, string2);
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
 		assertEquals(null, forUnique(string1));
 		assertEquals(null, forUnique(string2));
 		item.setUnique(string1);

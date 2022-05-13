@@ -23,6 +23,7 @@ import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
+import com.exedio.cope.instrument.WrapperInitial;
 
 public final class FeatureFieldItem extends Item
 {
@@ -40,20 +41,23 @@ public final class FeatureFieldItem extends Item
 	static final FeatureField<Feature> length   = FeatureField.create().optional().idLengthMax(66);
 	@CopeSchemaName("newname")
 	static final FeatureField<Feature> renamed = FeatureField.create().optional();
+	@WrapperInitial // for testing instrumented code
 	static final FeatureField<StringField> restricted = FeatureField.create(StringField.class).optional();
 
 	/**
 	 * Creates a new FeatureFieldItem with all the fields initially needed.
 	 * @param standard the initial value for field {@link #standard}.
 	 * @param isFinal the initial value for field {@link #isFinal}.
+	 * @param restricted the initial value for field {@link #restricted}.
 	 * @throws com.exedio.cope.MandatoryViolationException if standard, isFinal is null.
-	 * @throws com.exedio.cope.StringLengthViolationException if standard, isFinal violates its length constraint.
+	 * @throws com.exedio.cope.StringLengthViolationException if standard, isFinal, restricted violates its length constraint.
 	 */
 	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
 	FeatureFieldItem(
 				@javax.annotation.Nonnull final Feature standard,
-				@javax.annotation.Nonnull final Feature isFinal)
+				@javax.annotation.Nonnull final Feature isFinal,
+				@javax.annotation.Nullable final StringField restricted)
 			throws
 				com.exedio.cope.MandatoryViolationException,
 				com.exedio.cope.StringLengthViolationException
@@ -61,6 +65,7 @@ public final class FeatureFieldItem extends Item
 		this(new com.exedio.cope.SetValue<?>[]{
 			FeatureFieldItem.standard.map(standard),
 			FeatureFieldItem.isFinal.map(isFinal),
+			FeatureFieldItem.restricted.map(restricted),
 		});
 	}
 
