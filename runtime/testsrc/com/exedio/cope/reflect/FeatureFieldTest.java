@@ -161,4 +161,26 @@ public class FeatureFieldTest extends TestWithEnvironment
 				NullPointerException.class,
 				null);
 	}
+
+	@Test void testRestrictionViolatedExecute()
+	{
+		assertFails(
+				() -> FeatureFieldItem.createRestrictedRaw(integer1),
+				ClassCastException.class,
+				"expected a com.exedio.cope.StringField, " +
+				"but was a com.exedio.cope.IntegerField for FeatureFieldItem.restricted.");
+	}
+
+	@Test void testRestrictionViolatedSetter()
+	{
+		final FeatureFieldItem item = new FeatureFieldItem(string1, string2, null);
+		assertEquals(null, item.getRestricted());
+
+		assertFails(
+				() -> item.setRestrictedRaw(integer1),
+				ClassCastException.class,
+				"expected a com.exedio.cope.StringField, " +
+				"but was a com.exedio.cope.IntegerField for FeatureFieldItem.restricted.");
+		assertEquals(null, item.getRestricted());
+	}
 }

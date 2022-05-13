@@ -22,6 +22,7 @@ import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.Feature;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
+import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.instrument.WrapperInitial;
 
@@ -43,6 +44,25 @@ public final class FeatureFieldItem extends Item
 	static final FeatureField<Feature> renamed = FeatureField.create().optional();
 	@WrapperInitial // for testing instrumented code
 	static final FeatureField<StringField> restricted = FeatureField.create(StringField.class).optional();
+
+
+	@SuppressWarnings({"unchecked","UnusedReturnValue","rawtypes"}) // OK: test bad API usage
+	static FeatureFieldItem createRestrictedRaw(final Feature restricted)
+	{
+		//noinspection UnnecessarilyQualifiedStaticUsage
+		return new FeatureFieldItem(new SetValue<?>[]{
+			FeatureFieldItem.standard.map(string1),
+			FeatureFieldItem.isFinal.map(string2),
+			((FeatureField<Feature>)(FeatureField)FeatureFieldItem.restricted).map(restricted),
+		});
+	}
+
+	@SuppressWarnings({"unchecked","rawtypes"}) // OK: test bad API usage
+	void setRestrictedRaw(final Feature restricted)
+	{
+		((FeatureField<Feature>)(FeatureField)FeatureFieldItem.restricted).set(this, restricted);
+	}
+
 
 	/**
 	 * Creates a new FeatureFieldItem with all the fields initially needed.
