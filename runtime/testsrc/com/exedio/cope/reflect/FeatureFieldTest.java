@@ -168,7 +168,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 				() -> FeatureFieldItem.createRestrictedRaw(integer1),
 				ClassCastException.class,
 				"expected a com.exedio.cope.StringField, " +
-				"but was a com.exedio.cope.IntegerField for FeatureFieldItem.restricted.");
+				"but was " + integer1 + " which is a com.exedio.cope.IntegerField for FeatureFieldItem.restricted.");
 	}
 
 	@Test void testRestrictionViolatedSetter()
@@ -180,7 +180,7 @@ public class FeatureFieldTest extends TestWithEnvironment
 				() -> item.setRestrictedRaw(integer1),
 				ClassCastException.class,
 				"expected a com.exedio.cope.StringField, " +
-				"but was a com.exedio.cope.IntegerField for FeatureFieldItem.restricted.");
+				"but was " + integer1 + " which is a com.exedio.cope.IntegerField for FeatureFieldItem.restricted.");
 		assertEquals(null, item.getRestricted());
 	}
 }
