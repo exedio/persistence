@@ -244,6 +244,11 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	{
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
+		if(value!=null && !isInstance(value))
+			throw new ClassCastException(
+					"expected a " + valueClass.getName() +
+					", but was a " + value.getClass().getName() +
+					" for " + this + '.');
 	}
 
 	public List<E> getValues()
