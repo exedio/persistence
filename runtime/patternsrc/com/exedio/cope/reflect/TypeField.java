@@ -227,20 +227,16 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final Type<? extends E> value)
 	{
 		FinalViolationException.check(this, item);
-		check(value, item);
-
-		idField.set(item, value!=null ? value.getID() : null);
+		idField.set(item, executeValue(value, item));
 	}
 
 	@Override
 	public SetValue<?>[] execute(final Type<? extends E> value, final Item exceptionItem)
 	{
-		check(value, exceptionItem);
-
-		return new SetValue<?>[]{ idField.map(value!=null ? value.getID() : null) };
+		return new SetValue<?>[]{ idField.map(executeValue(value, exceptionItem)) };
 	}
 
-	private void check(final Type<? extends E> value, final Item exceptionItem)
+	private String executeValue(final Type<? extends E> value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
@@ -249,6 +245,8 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 					"expected a Type<? extends " + valueClass.getName() + ">" +
 					", but was " + value + " which is a Type<" + value.getJavaClass().getName() + ">" +
 					" for " + this + '.');
+
+		return value!=null ? value.getID() : null;
 	}
 
 	public List<Type<? extends E>> getValues()

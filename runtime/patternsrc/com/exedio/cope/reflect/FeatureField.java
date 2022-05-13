@@ -227,20 +227,16 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		FinalViolationException.check(this, item);
-		check(value, item);
-
-		idField.set(item, value!=null ? value.getID() : null);
+		idField.set(item, executeValue(value, item));
 	}
 
 	@Override
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		check(value, exceptionItem);
-
-		return new SetValue<?>[]{ idField.map(value!=null ? value.getID() : null) };
+		return new SetValue<?>[]{ idField.map(executeValue(value, exceptionItem)) };
 	}
 
-	private void check(final E value, final Item exceptionItem)
+	private String executeValue(final E value, final Item exceptionItem)
 	{
 		if(value==null && mandatory)
 			throw MandatoryViolationException.create(this, exceptionItem);
@@ -249,6 +245,8 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 					"expected a " + valueClass.getName() +
 					", but was " + value + " which is a " + value.getClass().getName() +
 					" for " + this + '.');
+
+		return value!=null ? value.getID() : null;
 	}
 
 	public List<E> getValues()
