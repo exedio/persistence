@@ -33,7 +33,7 @@ public final class TypeFieldItem extends Item
 	static final TypeField<Item> length   = TypeField.create().optional().idLengthMax(77);
 	@CopeSchemaName("newname")
 	static final TypeField<Item> renamed = TypeField.create().optional();
-	@WrapperInitial
+	@WrapperInitial // for testing instrumented code
 	static final TypeField<TypeFieldSubItem> restricted = TypeField.create(TypeFieldSubItem.class).optional();
 
 
