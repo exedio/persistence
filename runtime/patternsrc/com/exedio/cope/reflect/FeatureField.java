@@ -227,8 +227,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	public void set(@Nonnull final Item item, @Parameter(nullability=NullableIfOptional.class) final E value)
 	{
 		FinalViolationException.check(this, item);
-		if(value==null && mandatory)
-			throw MandatoryViolationException.create(this, item);
+		check(value, item);
 
 		idField.set(item, value!=null ? value.getID() : null);
 	}
@@ -236,10 +235,15 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	@Override
 	public SetValue<?>[] execute(final E value, final Item exceptionItem)
 	{
-		if(value==null && mandatory)
-			throw MandatoryViolationException.create(this, exceptionItem);
+		check(value, exceptionItem);
 
 		return new SetValue<?>[]{ idField.map(value!=null ? value.getID() : null) };
+	}
+
+	private void check(final E value, final Item exceptionItem)
+	{
+		if(value==null && mandatory)
+			throw MandatoryViolationException.create(this, exceptionItem);
 	}
 
 	public List<E> getValues()
