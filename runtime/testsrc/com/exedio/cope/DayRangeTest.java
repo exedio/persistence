@@ -94,7 +94,7 @@ public class DayRangeTest extends TestWithEnvironment
 				DayRangeViolationException.class,
 				"range violation on " + item + ", " +
 				"1599/12/31 is too small for MyItem.field, must be at least " +
-				"1600/1/1.");
+				"1600/1/1");
 		assertEquals(item, e.getItem());
 		assertEquals(MyItem.field, e.getFeature());
 		assertEquals(value, e.getValue());

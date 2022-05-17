@@ -136,7 +136,7 @@ public class MediaEnumTest extends TestWithEnvironment
 			assertSame(sheet, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
-			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only.", e.getMessage());
+			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only", e.getMessage());
 			assertContent(bytes6, "image/png", 1, ".png");
 		}
 
@@ -151,7 +151,7 @@ public class MediaEnumTest extends TestWithEnvironment
 			assertSame(sheet, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("image/jpeg", e.getContentType());
-			assertEquals("illegal content type 'image/jpeg' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only.", e.getMessage());
+			assertEquals("illegal content type 'image/jpeg' on " + item + " for MediaItem.sheet, allowed is 'application/pdf,image/png' only", e.getMessage());
 			assertContent(bytes6, "image/png", 1, ".png");
 		}
 

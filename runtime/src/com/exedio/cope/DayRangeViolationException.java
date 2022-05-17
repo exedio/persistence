@@ -87,6 +87,6 @@ public final class DayRangeViolationException extends ConstraintViolationExcepti
 				", " + getValue() + " is too small" +
 				(withFeature ? (" for " + feature) : "") +
 				", must be at least " +
-				border + '.';
+				border;
 	}
 }

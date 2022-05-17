@@ -69,7 +69,7 @@ public class StringCharSetTest extends TestWithEnvironment
 				StringCharSetViolationException.class,
 				"character set violation, " +
 				"'abc1abc' for " + alpha + ", " +
-				"contains forbidden character '1' (U+0031) on position 3.");
+				"contains forbidden character '1' (U+0031) on position 3");
 		assertEquals(alpha, e.getFeature());
 		assertEquals(null, e.getItem());
 	}

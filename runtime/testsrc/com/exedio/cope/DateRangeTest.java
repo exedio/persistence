@@ -96,7 +96,7 @@ public class DateRangeTest extends TestWithEnvironment
 				DateRangeViolationException.class,
 				"range violation on " + item + ", " +
 				"1599-12-31 23:59:59.999 GMT is too small for MyItem.field, must be at least " +
-				"1600-01-01 00:00:00.000.");
+				"1600-01-01 00:00:00.000");
 		assertEquals(item, e.getItem());
 		assertEquals(MyItem.field, e.getFeature());
 		assertEquals(value, e.getValue());
@@ -115,7 +115,7 @@ public class DateRangeTest extends TestWithEnvironment
 				DateRangeViolationException.class,
 				"range violation on " + item + ", " +
 				"10000-01-01 00:00:00.000 GMT is too big for MyItem.field, must be at most" +
-				" 9999-12-31 23:59:59.999.");
+				" 9999-12-31 23:59:59.999");
 		assertEquals(item, e.getItem());
 		assertEquals(MyItem.field, e.getFeature());
 		assertEquals(value, e.getValue());

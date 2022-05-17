@@ -253,7 +253,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 				() -> item.setStrings(listOf("one1", "two", "three3", String.class)),
 				StringLengthViolationException.class,
 				"length violation, 'two' is too short for SetOrderedFieldItem-strings.element, " +
-				"must be at least 4 characters, but was 3.",
+				"must be at least 4 characters, but was 3",
 				strings.getElement());
 		assertEquals("two", e.getValue());
 		item.assertStrings();

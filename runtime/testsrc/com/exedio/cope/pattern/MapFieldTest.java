@@ -233,7 +233,7 @@ public class MapFieldTest extends TestWithEnvironment
 				() -> item.setStringMap(mapU),
 				StringLengthViolationException.class,
 				"length violation, 'two' is too short for MapFieldItem-string.key, " +
-				"must be at least 4 characters, but was 3.",
+				"must be at least 4 characters, but was 3",
 				MapFieldItem.string.getKey());
 		assertEquals("two", e.getValue());
 		assertEquals(emptyMap(), item.getStringMap());
@@ -250,7 +250,7 @@ public class MapFieldTest extends TestWithEnvironment
 				() -> item.setStringMap(mapU),
 				StringLengthViolationException.class,
 				"length violation, 'two' is too short for MapFieldItem-string.value, " +
-				"must be at least 4 characters, but was 3.",
+				"must be at least 4 characters, but was 3",
 				MapFieldItem.string.getValue());
 		assertEquals("two", e.getValue());
 		assertEquals(emptyMap(), item.getStringMap());

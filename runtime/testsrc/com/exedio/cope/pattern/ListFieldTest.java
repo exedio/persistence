@@ -568,7 +568,7 @@ public class ListFieldTest extends TestWithEnvironment
 				() -> item.setStrings(asList("one1", "two", "three3")),
 				StringLengthViolationException.class,
 				"length violation, 'two' is too short for ListFieldItem-strings.element, " +
-				"must be at least 4 characters, but was 3.",
+				"must be at least 4 characters, but was 3",
 				strings.getElement());
 		assertEquals("two", e.getValue());
 		assertEquals(asList(), item.getStrings());

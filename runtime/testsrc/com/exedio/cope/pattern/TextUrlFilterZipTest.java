@@ -112,7 +112,7 @@ public class TextUrlFilterZipTest extends TestWithEnvironment
 		{
 			assertEquals("xxx.jpg", e.getMessage());
 			final IllegalContentTypeException cause = (IllegalContentTypeException)e.getCause();
-			assertEquals("illegal content type 'image/jpeg' for TextUrlFilterItem-fertig.value, allowed is 'image/png' only.", cause.getMessage());
+			assertEquals("illegal content type 'image/jpeg' for TextUrlFilterItem-fertig.value, allowed is 'image/png' only", cause.getMessage());
 		}
 	}
 

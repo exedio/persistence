@@ -300,7 +300,7 @@ public class CompositeMountTest
 						MyComposite.string4.map("12345"),
 						MyComposite.intMax4.map(4)),
 				StringLengthViolationException.class,
-				"length violation, '12345' is too long for " + MyComposite.string4 + ", must be at most 4 characters, but was 5.");
+				"length violation, '12345' is too long for " + MyComposite.string4 + ", must be at most 4 characters, but was 5");
 	}
 
 	@Test void testNewValueNull()

@@ -117,7 +117,7 @@ public class DefaultToModelTest
 					"The default constant '1234' of the field does not comply to one of it's own constraints, " +
 					"caused a StringLengthViolationException: " +
 					"length violation, '1234' is too long, " +
-					"must be at most 3 characters, but was 4.",
+					"must be at most 3 characters, but was 4",
 					e.getMessage());
 		}
 		try

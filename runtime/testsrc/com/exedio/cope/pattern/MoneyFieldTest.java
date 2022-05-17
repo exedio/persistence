@@ -161,7 +161,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(
 					"illegal currency at '5.55fixOther' " +
 					"for MoneyFieldItem.fixeOpt, " +
-					"allowed is 'fix'.",
+					"allowed is 'fix'",
 					e.getMessage());
 		}
 	}
@@ -184,7 +184,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(
 					"illegal currency at '6.66fixOther' " +
 					"on " + i + " for MoneyFieldItem.fixeOpt, " +
-					"allowed is 'fix'.",
+					"allowed is 'fix'",
 					e.getMessage());
 		}
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
@@ -208,7 +208,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(
 					"illegal currency at '6.66fixOther' " +
 					"on " + i + " for MoneyFieldItem.fixeOpt, " +
-					"allowed is 'fix'.",
+					"allowed is 'fix'",
 					e.getMessage());
 		}
 		assertEquals(valueOf(5.55, fix), i.getFixeOpt());
@@ -354,7 +354,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(
 					"illegal currency at '5.55gbp' " +
 					"for MoneyFieldItem.sharOpt, " +
-					"allowed is 'eur'.",
+					"allowed is 'eur'",
 					e.getMessage());
 		}
 	}
@@ -378,7 +378,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(
 					"illegal currency at '6.66gbp' " +
 					"on " + i + " for MoneyFieldItem.sharOpt, " +
-					"allowed is 'eur'.",
+					"allowed is 'eur'",
 					e.getMessage());
 		}
 		assertEquals(eur, i.getCurrency());
@@ -404,7 +404,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(
 					"illegal currency at '6.66gbp' " +
 					"on " + i + " for MoneyFieldItem.sharOpt, " +
-					"allowed is 'eur'.",
+					"allowed is 'eur'",
 					e.getMessage());
 		}
 		assertEquals(eur, i.getCurrency());
@@ -430,7 +430,7 @@ public class MoneyFieldTest extends TestWithEnvironment
 			assertEquals(
 					"illegal currency at '6.66gbp' " +
 					"on " + i + " for MoneyFieldItem.sharOpt, " +
-					"allowed is 'eur'.",
+					"allowed is 'eur'",
 					e.getMessage());
 		}
 		assertEquals(eur, i.getCurrency());

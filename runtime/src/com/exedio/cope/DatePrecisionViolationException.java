@@ -134,7 +134,7 @@ public final class DatePrecisionViolationException extends ConstraintViolationEx
 			append(df.format(getValueAllowedInPast())).
 			append(" in the past or ").
 			append(df.format(getValueAllowedInFuture())).
-			append(" in the future.");
+			append(" in the future");
 
 		return bf.toString();
 	}

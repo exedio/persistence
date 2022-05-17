@@ -100,7 +100,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 			assertEquals(
 					"size violation on " + item.getCopeID() + ", " +
 					"value is too long for LimitedListFieldItem.nums, " +
-					"must be at most 3 elements, but was 4.", e.getMessage());
+					"must be at most 3 elements, but was 4", e.getMessage());
 		}
 		assertEqualsUnmodifiable(list(i2, i1), item.getNums());
 		assertEquals(i2, item.getNum1());

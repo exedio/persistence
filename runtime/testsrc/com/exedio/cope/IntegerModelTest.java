@@ -98,7 +98,7 @@ public class IntegerModelTest
 			assertEquals(
 					"range violation, " +
 					"3 is too small for " + min4 + ", " +
-					"must be at least 4.",
+					"must be at least 4",
 					e.getMessage());
 		}
 		min4.check(4);

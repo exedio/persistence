@@ -88,6 +88,6 @@ public final class ListSizeViolationException extends ConstraintViolationExcepti
 			(withFeature ? (" for "+ feature) : "") +
 			", must be at " + (tooShort?"least":"most") +
 			' ' + border + " elements, " +
-			"but was " + size + '.';
+			"but was " + size;
 	}
 }

@@ -423,7 +423,7 @@ public final class MultiItemField<E> extends Pattern implements Settable<E>
 					"illegal instance" + getItemPhrase() +
 					", value is " + valueClass.getName() +
 					(withFeature ? (" for "+ feature) : "") +
-					", must be one of " + feature.getComponentClasses() + '.';
+					", must be one of " + feature.getComponentClasses();
 		}
 
 		private static final long serialVersionUID = 1l;
