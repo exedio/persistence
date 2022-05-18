@@ -41,8 +41,11 @@ import com.exedio.cope.misc.instrument.InitialExceptionsSettableGetter;
 import com.exedio.cope.misc.instrument.NullableIfOptional;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
@@ -52,6 +55,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	private static final long serialVersionUID = 1l;
 
 	private final Class<E> valueClass;
+	private final SortedSet<Class<? extends E>> forbiddenValueClasses;
 	private final StringField idField;
 	private final boolean isfinal;
 	private final boolean mandatory;
@@ -63,40 +67,78 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 	public static <E extends Feature> FeatureField<E> create(final Class<E> valueClass)
 	{
-		return new FeatureField<>(valueClass, new StringField());
+		return new FeatureField<>(valueClass, Collections.emptySortedSet(), new StringField());
 	}
 
-	private FeatureField(final Class<E> valueClass, final StringField idField)
+	private FeatureField(
+			final Class<E> valueClass,
+			final SortedSet<Class<? extends E>> forbiddenValueClasses,
+			final StringField idField)
 	{
 		this.valueClass = requireNonNull(valueClass, "valueClass");
+		this.forbiddenValueClasses = forbiddenValueClasses;
 		this.idField = addSourceFeature(idField, "id", CustomAnnotatedElement.create(ComputedInstance.getAnnotation(), CopeSchemaNameElement.getEmpty()));
 		this.isfinal = idField.isFinal();
 		this.mandatory = idField.isMandatory();
 	}
 
+	public FeatureField<E> forbid(final Class<? extends E> forbiddenValueClass)
+	{
+		requireNonNull(forbiddenValueClass, "valueClass");
+		if(valueClass.equals(forbiddenValueClass))
+			throw new IllegalArgumentException(
+					"expected a subclass of " + valueClass.getName() + ", " +
+					"but was that class itself");
+		if(!valueClass.isAssignableFrom(forbiddenValueClass))
+			throw new ClassCastException(
+					"expected a subclass of " + valueClass.getName() + ", " +
+					"but was " + forbiddenValueClass.getName());
+		for(final Class<? extends E> f : forbiddenValueClasses)
+		{
+			if(forbiddenValueClass.isAssignableFrom(f))
+				throw new IllegalArgumentException(
+						forbiddenValueClass.getName() + " must not be a super class " +
+						"of the already forbidden class " + f.getName());
+			if(f.isAssignableFrom(forbiddenValueClass))
+				throw new IllegalArgumentException(
+						forbiddenValueClass.getName() + " must not be a subclass " +
+						"of the already forbidden class " + f.getName());
+		}
+
+		final TreeSet<Class<? extends E>> newForbidden = new TreeSet<>(Comparator.comparing(Class::getName));
+		newForbidden.addAll(forbiddenValueClasses);
+		newForbidden.add(forbiddenValueClass);
+		return new FeatureField<>(valueClass, newForbidden, idField.copy());
+	}
+
 	public FeatureField<E> toFinal()
 	{
-		return new FeatureField<>(valueClass, idField.toFinal());
+		return new FeatureField<>(valueClass, forbiddenValueClasses, idField.toFinal());
 	}
 
 	public FeatureField<E> optional()
 	{
-		return new FeatureField<>(valueClass, idField.optional());
+		return new FeatureField<>(valueClass, forbiddenValueClasses, idField.optional());
 	}
 
 	public FeatureField<E> unique()
 	{
-		return new FeatureField<>(valueClass, idField.unique());
+		return new FeatureField<>(valueClass, forbiddenValueClasses, idField.unique());
 	}
 
 	public FeatureField<E> idLengthMax(final int maximumLength)
 	{
-		return new FeatureField<>(valueClass, idField.lengthMax(maximumLength));
+		return new FeatureField<>(valueClass, forbiddenValueClasses, idField.lengthMax(maximumLength));
 	}
 
 	public Class<E> getValueClass()
 	{
 		return valueClass;
+	}
+
+	public SortedSet<Class<? extends E>> getForbiddenValueClasses()
+	{
+		return Collections.unmodifiableSortedSet(forbiddenValueClasses);
 	}
 
 	public StringField getIdField()
@@ -131,7 +173,10 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	@Override
 	public Set<Class<? extends Throwable>> getInitialExceptions()
 	{
-		return idField.getInitialExceptions();
+		final Set<Class<? extends Throwable>> result = idField.getInitialExceptions();
+		if(!forbiddenValueClasses.isEmpty())
+			result.add(ForbiddenFeatureException.class);
+		return result;
 	}
 
 	/**
@@ -245,6 +290,12 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 					"expected a " + valueClass.getName() +
 					", but was " + value + " which is a " + value.getClass().getName() +
 					" for " + this + '.');
+		if(value!=null)
+		{
+			final Class<? extends E> forbidden = getForbidden(value);
+			if(forbidden!=null)
+				throw new ForbiddenFeatureException(this, exceptionItem, value, forbidden);
+		}
 
 		return value!=null ? value.getID() : null;
 	}
@@ -255,7 +306,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
-				if(isInstance(feature))
+				if(isInstance(feature) && getForbidden(feature)==null)
 					result.add(cast(feature));
 
 		return Collections.unmodifiableList(result);
@@ -267,7 +318,7 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 
 		for(final Type<?> type : getType().getModel().getTypes())
 			for(final Feature feature : type.getDeclaredFeatures())
-				if(isInstance(feature))
+				if(isInstance(feature) && getForbidden(feature)==null)
 					conditions.add(idField.notEqual(feature.getID()));
 
 		return Cope.and(conditions);
@@ -293,6 +344,15 @@ public final class FeatureField<E extends Feature> extends Pattern implements Se
 	private boolean isInstance(final Feature feature)
 	{
 		return valueClass.isInstance(feature);
+	}
+
+	private Class<? extends E> getForbidden(final Feature feature)
+	{
+		for(final Class<? extends E> result : forbiddenValueClasses)
+			if(result.isInstance(feature))
+				return result;
+
+		return null;
 	}
 
 	private E cast(final Feature feature)
