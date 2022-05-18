@@ -119,7 +119,7 @@ public class MediaFixedTest extends TestWithEnvironment
 			assertSame(photo, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
-			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.photo, allowed is 'image/jpeg' only.", e.getMessage());
+			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.photo, allowed is 'image/jpeg' only", e.getMessage());
 			assertContent(bytes6);
 		}
 
@@ -134,7 +134,7 @@ public class MediaFixedTest extends TestWithEnvironment
 			assertSame(photo, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("image/png", e.getContentType());
-			assertEquals("illegal content type 'image/png' on " + item + " for MediaItem.photo, allowed is 'image/jpeg' only.", e.getMessage());
+			assertEquals("illegal content type 'image/png' on " + item + " for MediaItem.photo, allowed is 'image/jpeg' only", e.getMessage());
 			assertContent(bytes6);
 		}
 

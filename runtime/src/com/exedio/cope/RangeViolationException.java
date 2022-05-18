@@ -81,6 +81,6 @@ public abstract class RangeViolationException extends ConstraintViolationExcepti
 			(isTooSmall?"small":"big") +
 			(withFeature ? (" for " + feature) : "") +
 			", must be at " + (isTooSmall?"least":"most") +
-			' ' + border + '.';
+			' ' + border;
 	}
 }

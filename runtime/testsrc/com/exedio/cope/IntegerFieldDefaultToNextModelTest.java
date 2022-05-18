@@ -100,7 +100,7 @@ public class IntegerFieldDefaultToNextModelTest
 				"caused a IntegerRangeViolationException: " +
 				"range violation, " +
 				"10001 is too small, " +
-				"must be at least 10002.");
+				"must be at least 10002");
 	}
 	@SuppressWarnings("deprecation") // OK, testing deprecated API
 	@Test void testSequenceBehindNone()

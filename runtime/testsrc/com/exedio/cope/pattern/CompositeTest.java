@@ -54,7 +54,7 @@ public class CompositeTest
 				() -> new Value("12345", 5, 0l, 0.0, false),
 				StringLengthViolationException.class,
 				"length violation, '12345' is too long for " + Value.string4 + ", " +
-				"must be at most 4 characters, but was 5.",
+				"must be at most 4 characters, but was 5",
 				Value.string4);
 		assertFails(
 				() -> new Value(null, 5, 0l, 0.0, false),
@@ -78,7 +78,7 @@ public class CompositeTest
 				() -> value.setString4("12345"),
 				StringLengthViolationException.class,
 				"length violation, '12345' is too long for " + Value.string4 + ", " +
-				"must be at most 4 characters, but was 5.",
+				"must be at most 4 characters, but was 5",
 				Value.string4);
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
@@ -109,7 +109,7 @@ public class CompositeTest
 				() -> value.setIntMax4(5),
 				IntegerRangeViolationException.class,
 				"range violation, 5 is too big for " + Value.intMax4 + ", " +
-				"must be at most 4.",
+				"must be at most 4",
 				Value.intMax4);
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());
@@ -280,7 +280,7 @@ public class CompositeTest
 						Value.doubleField.map(66.6)),
 				IntegerRangeViolationException.class,
 				"range violation, 44 is too big for " + Value.intMax4 + ", " +
-				"must be at most 4.",
+				"must be at most 4",
 				Value.intMax4);
 		assertEquals("1234", value.getString4());
 		assertEquals(4, value.getIntMax4());

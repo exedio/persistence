@@ -78,6 +78,6 @@ public final class IllegalCurrencyException extends ConstraintViolationException
 			"illegal currency at '" + value +
 			'\'' + getItemPhrase() +
 			(withFeature ? (" for " + feature) : "") +
-			", allowed is '" + allowed + "'.";
+			", allowed is '" + allowed + '\'';
 	}
 }

@@ -71,7 +71,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		catch(final IllegalCurrencyException e)
 		{
 			assertEquals(
-					"illegal currency at '4.44pounds' for Source.fixed, allowed is 'euro'.",
+					"illegal currency at '4.44pounds' for Source.fixed, allowed is 'euro'",
 					e.getMessage());
 		}
 	}
@@ -87,7 +87,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		catch(final IllegalCurrencyException e)
 		{
 			assertEquals(
-					"illegal currency at '5.55pounds' for Source.shared, allowed is 'euro'.",
+					"illegal currency at '5.55pounds' for Source.shared, allowed is 'euro'",
 					e.getMessage());
 		}
 	}
@@ -133,7 +133,7 @@ public class MoneyCopyTest extends TestWithEnvironment
 		catch(final IllegalCurrencyException e)
 		{
 			assertEquals(
-					"illegal currency at '6.66euro' on " + source + " for Source.shared, allowed is 'pounds'.",
+					"illegal currency at '6.66euro' on " + source + " for Source.shared, allowed is 'pounds'",
 					e.getMessage());
 		}
 		assertEquals(target, source.getTarget());

@@ -123,7 +123,7 @@ public class LongTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"3 is too small for " + min4 + ", " +
-					"must be at least 4.",
+					"must be at least 4",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4());
@@ -151,7 +151,7 @@ public class LongTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"5 is too big for " + max4 + ", " +
-					"must be at most 4.",
+					"must be at most 4",
 					e.getMessage());
 		}
 		assertEquals(valueOf(4), item.getMax4());
@@ -173,7 +173,7 @@ public class LongTest extends TestWithEnvironment
 			assertEquals(
 					"range violation, " +
 					"5 is too big for " + max4 + ", " +
-					"must be at most 4.",
+					"must be at most 4",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -194,7 +194,7 @@ public class LongTest extends TestWithEnvironment
 			assertEquals(
 					"range violation, " +
 					"5 is too big for " + max4 + ", " +
-					"must be at most 4.",
+					"must be at most 4",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -215,7 +215,7 @@ public class LongTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"3 is too small for " + min4Max8 + ", " +
-					"must be at least 4.",
+					"must be at least 4",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4Max8());
@@ -246,7 +246,7 @@ public class LongTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"9 is too big for " + min4Max8 + ", " +
-					"must be at most 8.",
+					"must be at most 8",
 					e.getMessage());
 		}
 		assertEquals(valueOf(8), item.getMin4Max8());

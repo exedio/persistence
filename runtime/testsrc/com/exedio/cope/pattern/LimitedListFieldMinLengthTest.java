@@ -76,7 +76,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 				() -> new AnItem(asList()),
 				ListSizeViolationException.class,
 				"size violation, value is too short for AnItem.field, " +
-				"must be at least 2 elements, but was 0.");
+				"must be at least 2 elements, but was 0");
 	}
 
 	@Test void testTooShort()
@@ -85,7 +85,7 @@ public class LimitedListFieldMinLengthTest extends TestWithEnvironment
 				() -> new AnItem(asList("one")),
 				ListSizeViolationException.class,
 				"size violation, value is too short for AnItem.field, " +
-				"must be at least 2 elements, but was 1.");
+				"must be at least 2 elements, but was 1");
 	}
 
 	@Test void testCreateWithoutMapping()

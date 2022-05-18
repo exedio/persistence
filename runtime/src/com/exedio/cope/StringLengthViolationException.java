@@ -106,7 +106,7 @@ public final class StringLengthViolationException extends ConstraintViolationExc
 		bf.append(' ').
 			append((len<min)?min:max).
 			append(" characters, but was ").
-			append(len).append('.');
+			append(len);
 
 		return bf.toString();
 	}

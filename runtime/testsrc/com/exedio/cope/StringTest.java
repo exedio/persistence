@@ -87,7 +87,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation, " +
 					"'123' is too short for " + min4 + ", " +
-					"must be at least 4 characters, but was 3.",
+					"must be at least 4 characters, but was 3",
 					e.getMessage());
 		}
 		min4.check("1234");
@@ -189,7 +189,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'123' is too short for " + min4 + ", " +
-					"must be at least 4 characters, but was 3.",
+					"must be at least 4 characters, but was 3",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4());
@@ -217,7 +217,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'12345' is too long for " + max4 + ", " +
-					"must be at most 4 characters, but was 5.",
+					"must be at most 4 characters, but was 5",
 					e.getMessage());
 		}
 		assertEquals("1234", item.getMax4());
@@ -239,7 +239,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation, " +
 					"'12345' is too long for " + max4 + ", " +
-					"must be at most 4 characters, but was 5.",
+					"must be at most 4 characters, but was 5",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -260,7 +260,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation, " +
 					"'12345' is too long for " + max4 + ", " +
-					"must be at most 4 characters, but was 5.",
+					"must be at most 4 characters, but was 5",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -281,7 +281,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'123' is too short for " + min4Max8 + ", " +
-					"must be at least 4 characters, but was 3.",
+					"must be at least 4 characters, but was 3",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4Max8());
@@ -312,7 +312,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'123456789' is too long for " + min4Max8 + ", " +
-					"must be at most 8 characters, but was 9.",
+					"must be at most 8 characters, but was 9",
 					e.getMessage());
 		}
 		assertEquals("12345678", item.getMin4Max8());
@@ -335,7 +335,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'12345' is too short for " + exact6 + ", " +
-					"must be exactly 6 characters, but was 5.",
+					"must be exactly 6 characters, but was 5",
 					e.getMessage());
 		}
 		assertEquals(null, item.getExact6());
@@ -363,7 +363,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation on " + item + ", " +
 					"'1234567' is too long for " + exact6 + ", " +
-					"must be exactly 6 characters, but was 7.",
+					"must be exactly 6 characters, but was 7",
 					e.getMessage());
 		}
 		assertEquals("123456", item.getExact6());
@@ -386,7 +386,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation, " +
 					"'1234567' is too long for " + exact6 + ", " +
-					"must be exactly 6 characters, but was 7.",
+					"must be exactly 6 characters, but was 7",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -408,7 +408,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"length violation, " +
 					"'1234567' is too long for " + exact6 + ", " +
-					"must be exactly 6 characters, but was 7.",
+					"must be exactly 6 characters, but was 7",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -429,7 +429,7 @@ public class StringTest extends TestWithEnvironment
 			assertEquals(
 					"character set violation on " + item + ", " +
 					"'abcABC' for " + lowercase + ", " +
-					"contains forbidden character 'A' (U+0041) on position 3.",
+					"contains forbidden character 'A' (U+0041) on position 3",
 					e.getMessage());
 		}
 		assertEquals(null, item.getLowercase());

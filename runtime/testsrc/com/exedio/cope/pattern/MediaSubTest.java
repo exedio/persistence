@@ -142,7 +142,7 @@ public class MediaSubTest extends TestWithEnvironment
 			assertSame(image, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("illegalContentType", e.getContentType());
-			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.image, allowed is 'image/*' only.", e.getMessage());
+			assertEquals("illegal content type 'illegalContentType' on " + item + " for MediaItem.image, allowed is 'image/*' only", e.getMessage());
 			assertContent(bytes6, "image/jpeg", ".jpg");
 		}
 
@@ -157,7 +157,7 @@ public class MediaSubTest extends TestWithEnvironment
 			assertSame(image, e.getFeature());
 			assertEquals(item, e.getItem());
 			assertEquals("text/html", e.getContentType());
-			assertEquals("illegal content type 'text/html' on " + item + " for MediaItem.image, allowed is 'image/*' only.", e.getMessage());
+			assertEquals("illegal content type 'text/html' on " + item + " for MediaItem.image, allowed is 'image/*' only", e.getMessage());
 			assertContent(bytes6, "image/jpeg", ".jpg");
 		}
 

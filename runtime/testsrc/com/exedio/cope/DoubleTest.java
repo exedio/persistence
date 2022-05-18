@@ -395,7 +395,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"Infinity is too big for " + mandatory + ", " +
-					"must be at most " + MAX + ".",
+					"must be at most " + MAX,
 					e.getMessage());
 		}
 
@@ -413,7 +413,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"-Infinity is too small for " + mandatory + ", " +
-					"must be at least " + MIN + ".",
+					"must be at least " + MIN,
 					e.getMessage());
 		}
 
@@ -433,7 +433,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"3.9 is too small for " + min4 + ", " +
-					"must be at least 4.0.",
+					"must be at least 4.0",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4());
@@ -461,7 +461,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"4.1 is too big for " + max4 + ", " +
-					"must be at most 4.0.",
+					"must be at most 4.0",
 					e.getMessage());
 		}
 		assertEquals(valueOf(4.0), item.getMax4());
@@ -483,7 +483,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation, " +
 					"4.1 is too big for " + max4 + ", " +
-					"must be at most 4.0.",
+					"must be at most 4.0",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -504,7 +504,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation, " +
 					"4.1 is too big for " + max4 + ", " +
-					"must be at most 4.0.",
+					"must be at most 4.0",
 					e.getMessage());
 		}
 		assertEquals(numberOfItems, TYPE.search(null).size());
@@ -525,7 +525,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"3.9 is too small for " + min4Max8 + ", " +
-					"must be at least 4.0.",
+					"must be at least 4.0",
 					e.getMessage());
 		}
 		assertEquals(null, item.getMin4Max8());
@@ -556,7 +556,7 @@ public class DoubleTest extends TestWithEnvironment
 			assertEquals(
 					"range violation on " + item + ", " +
 					"8.1 is too big for " + min4Max8 + ", " +
-					"must be at most 8.0.",
+					"must be at most 8.0",
 					e.getMessage());
 		}
 		assertEquals(valueOf(8.0), item.getMin4Max8());

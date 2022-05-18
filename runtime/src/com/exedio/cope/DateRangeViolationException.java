@@ -93,6 +93,6 @@ public final class DateRangeViolationException extends ConstraintViolationExcept
 				(isTooSmall?"small":"big") +
 				(withFeature ? (" for " + feature) : "") +
 				", must be at " + (isTooSmall?"least":"most") +
-				' ' + format.format(new Date(border)) + '.';
+				' ' + format.format(new Date(border));
 	}
 }

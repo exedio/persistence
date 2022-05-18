@@ -46,7 +46,7 @@ public class DatePrecisionDefaultToTest
 					"precision violation, 1970-01-12 22:44:55.066 GMT (66) is too precise for MINUTE, " +
 					"round either to " +
 					"1970-01-12 22:44:00.000 in the past or " +
-					"1970-01-12 22:45:00.000 in the future.",
+					"1970-01-12 22:45:00.000 in the future",
 					e.getMessage());
 			assertNull(e.getCause());
 		}
