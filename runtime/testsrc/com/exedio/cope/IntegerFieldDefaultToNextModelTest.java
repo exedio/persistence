@@ -96,11 +96,11 @@ public class IntegerFieldDefaultToNextModelTest
 		assertFails(
 				() -> next.min(10002),
 				IllegalArgumentException.class,
-				"The start value for defaultToNext of the field does not comply to one of it's own constraints, " +
+				"The start value 10001 for defaultToNext of the field does not comply to one of it's own constraints, " +
 				"caused a IntegerRangeViolationException: " +
 				"range violation, " +
 				"10001 is too small, " +
-				"must be at least 10002. Start value was '10001'.");
+				"must be at least 10002.");
 	}
 	@SuppressWarnings("deprecation") // OK, testing deprecated API
 	@Test void testSequenceBehindNone()

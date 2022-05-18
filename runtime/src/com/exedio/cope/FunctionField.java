@@ -146,11 +146,10 @@ public abstract class FunctionField<E> extends Field<E>
 				// since it contains a reference to this function field,
 				// which has not been constructed successfully.
 				throw new IllegalArgumentException(
-						"The default constant of the field " +
+						"The default constant '" + value + "' of the field " +
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
-						": " + e.getMessageWithoutFeature() +
-						" Default constant was '" + value + "'.");
+						": " + e.getMessageWithoutFeature());
 			}
 		}
 	}

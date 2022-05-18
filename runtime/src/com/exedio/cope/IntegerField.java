@@ -103,11 +103,10 @@ public final class IntegerField extends NumberField<Integer>
 				// since it contains a reference to this function field,
 				// which has not been constructed successfully.
 				throw new IllegalArgumentException(
-						"The start value for defaultToNext of the field " +
+						"The start value " + start + " for defaultToNext of the field " +
 						"does not comply to one of it's own constraints, " +
 						"caused a " + e.getClass().getSimpleName() +
-						": " + e.getMessageWithoutFeature() +
-						" Start value was '" + start + "'.");
+						": " + e.getMessageWithoutFeature());
 			}
 			assert sequence==null;
 			sequence = new Sequence(f, start, f.getMinimum(), f.getMaximum());
