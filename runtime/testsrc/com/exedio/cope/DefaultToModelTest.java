@@ -114,11 +114,10 @@ public class DefaultToModelTest
 		{
 			//e.printStackTrace();
 			assertEquals(
-					"The default constant of the field does not comply to one of it's own constraints, " +
+					"The default constant '1234' of the field does not comply to one of it's own constraints, " +
 					"caused a StringLengthViolationException: " +
 					"length violation, '1234' is too long, " +
-					"must be at most 3 characters, but was 4. " +
-					"Default constant was '1234'.",
+					"must be at most 3 characters, but was 4.",
 					e.getMessage());
 		}
 		try
