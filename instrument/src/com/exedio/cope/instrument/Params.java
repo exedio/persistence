@@ -41,7 +41,7 @@ final class Params
 	private boolean toolProvider(final String... versions)
 	{
 		for(final String version : versions)
-			if(javaVersion.startsWith(version + "."))
+			if(javaVersion.equals(version) || javaVersion.startsWith(version + "."))
 				return true;
 		return false;
 	}
