@@ -70,15 +70,15 @@ public class ParamsToolProviderTest
 		assertJavaVersion(false,  "8");
 		assertJavaVersion(false,  "9");
 		assertJavaVersion(false, "10");
-		assertJavaVersion(false, "11");
-		assertJavaVersion(false, "12");
-		assertJavaVersion(false, "13");
-		assertJavaVersion(false, "14");
-		assertJavaVersion(false, "15");
-		assertJavaVersion(false, "16");
-		assertJavaVersion(false, "17");
-		assertJavaVersion(false, "18");
-		assertJavaVersion(false, "19");
+		assertJavaVersion(true,  "11");
+		assertJavaVersion(true,  "12");
+		assertJavaVersion(true,  "13");
+		assertJavaVersion(true,  "14");
+		assertJavaVersion(true,  "15");
+		assertJavaVersion(true,  "16");
+		assertJavaVersion(true,  "17");
+		assertJavaVersion(true,  "18");
+		assertJavaVersion(true,  "19");
 		assertJavaVersion(false, "20");
 	}
 
