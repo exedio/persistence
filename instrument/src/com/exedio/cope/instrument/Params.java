@@ -36,7 +36,7 @@ import java.util.regex.Pattern;
 final class Params
 {
 	final String javaVersion = System.getProperty("java.version");
-	boolean toolProvider = toolProvider("11", "12", "13", "14", "15", "16", "17", "18", "19");
+	boolean toolProvider = toolProvider("11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23");
 
 	private boolean toolProvider(final String... versions)
 	{
