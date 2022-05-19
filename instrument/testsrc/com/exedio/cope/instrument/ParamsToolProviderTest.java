@@ -43,7 +43,11 @@ public class ParamsToolProviderTest
 		assertJavaVersion(true,  "17.2");
 		assertJavaVersion(true,  "18.2");
 		assertJavaVersion(true,  "19.2");
-		assertJavaVersion(false, "20.2");
+		assertJavaVersion(true,  "20.2");
+		assertJavaVersion(true,  "21.2");
+		assertJavaVersion(true,  "22.2");
+		assertJavaVersion(true,  "23.2");
+		assertJavaVersion(false, "24.2");
 	}
 
 	@Test void testJustDot()
@@ -61,7 +65,11 @@ public class ParamsToolProviderTest
 		assertJavaVersion(true,  "17.");
 		assertJavaVersion(true,  "18.");
 		assertJavaVersion(true,  "19.");
-		assertJavaVersion(false, "20.");
+		assertJavaVersion(true,  "20.");
+		assertJavaVersion(true,  "21.");
+		assertJavaVersion(true,  "22.");
+		assertJavaVersion(true,  "23.");
+		assertJavaVersion(false, "24.");
 	}
 
 	@Test void testWithoutMinor()
@@ -79,7 +87,11 @@ public class ParamsToolProviderTest
 		assertJavaVersion(true,  "17");
 		assertJavaVersion(true,  "18");
 		assertJavaVersion(true,  "19");
-		assertJavaVersion(false, "20");
+		assertJavaVersion(true,  "20");
+		assertJavaVersion(true,  "21");
+		assertJavaVersion(true,  "22");
+		assertJavaVersion(true,  "23");
+		assertJavaVersion(false, "24");
 	}
 
 	private void assertJavaVersion(final boolean expectedToolProvider, final String actualJavaVersion)
