@@ -28,6 +28,7 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.NoSuchFileException;
@@ -100,11 +101,46 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertPosix(filePerms, rootGroup(), f);
 	}
 
-	@Test void notFoundAnonymous()
+	@Test void notFoundAnonymousLength()
 	{
 		final VaultFileService service = (VaultFileService)getService();
 		final VaultNotFoundException notFound = assertFails(
 				() -> service.getLength("abcdefghijklmnopq"),
+				VaultNotFoundException.class,
+				"hash not found in vault: abcdefghijklmnopxx17");
+		assertEquals("abcdefghijklmnopq", notFound.getHashComplete());
+		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
+
+		final Throwable cause = notFound.getCause();
+		assertEquals(
+				NoSuchFileException.class.getName() + ": " + getRoot() + File.separator + "abc" + File.separator + "defghijklmnopxx17",
+				cause.getMessage());
+		assertEquals(VaultNotFoundException.class.getName() + "$Anonymous", cause.getClass().getName());
+		assertNull(cause.getCause());
+	}
+	@Test void notFoundAnonymousBytes()
+	{
+		final VaultFileService service = (VaultFileService)getService();
+		final VaultNotFoundException notFound = assertFails(
+				() -> service.get("abcdefghijklmnopq"),
+				VaultNotFoundException.class,
+				"hash not found in vault: abcdefghijklmnopxx17");
+		assertEquals("abcdefghijklmnopq", notFound.getHashComplete());
+		assertEquals("abcdefghijklmnopxx17", notFound.getHashAnonymous());
+
+		final Throwable cause = notFound.getCause();
+		assertEquals(
+				NoSuchFileException.class.getName() + ": " + getRoot() + File.separator + "abc" + File.separator + "defghijklmnopxx17",
+				cause.getMessage());
+		assertEquals(VaultNotFoundException.class.getName() + "$Anonymous", cause.getClass().getName());
+		assertNull(cause.getCause());
+	}
+	@Test void notFoundAnonymousSink()
+	{
+		final VaultFileService service = (VaultFileService)getService();
+		final ByteArrayOutputStream sink = new ByteArrayOutputStream();
+		final VaultNotFoundException notFound = assertFails(
+				() -> service.get("abcdefghijklmnopq", sink),
 				VaultNotFoundException.class,
 				"hash not found in vault: abcdefghijklmnopxx17");
 		assertEquals("abcdefghijklmnopq", notFound.getHashComplete());
