@@ -341,7 +341,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 
 	// vault
 
-	final VaultProperties vault = value((value("vault-short-key", true) ? "" : "dataField.") + "vault", false, VaultProperties.factory());
+	final VaultProperties vault = value("vault", false, VaultProperties.factory());
 
 	public VaultProperties getVaultProperties()
 	{

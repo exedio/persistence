@@ -7,6 +7,9 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* ConnectProperties: key "vault-short-key" no longer supported.
+	Check your deployed systems! Probably this key is at its default,
+	then you don't have to do anything.
 * FeatureField#forbid(Class) added.
 * [Type|Feature]Field#idLengthMax added.
 * copeservletutil dependency dropped.
