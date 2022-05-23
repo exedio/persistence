@@ -64,7 +64,7 @@ public final class VaultProperties extends AbstractVaultProperties
 
 
 
-	final Map<String, Service> services = valueServices();
+	final Map<String, Service> services;
 
 	private Map<String, Service> valueServices()
 	{
@@ -208,7 +208,12 @@ public final class VaultProperties extends AbstractVaultProperties
 
 
 
-	private final boolean isAppliedToAllFields = value("isAppliedToAllFields", false);
+	private final boolean isAppliedToAllFields;
+
+	private boolean valueIsAppliedToAllFields()
+	{
+		return value("isAppliedToAllFields", false);
+	}
 
 	public boolean isAppliedToAllFields()
 	{
@@ -309,5 +314,7 @@ public final class VaultProperties extends AbstractVaultProperties
 	private VaultProperties(final Source source)
 	{
 		super(source);
+		services = valueServices();
+		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
 }
