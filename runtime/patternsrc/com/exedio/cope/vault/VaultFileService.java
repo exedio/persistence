@@ -22,6 +22,7 @@ import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 
@@ -353,7 +354,7 @@ public final class VaultFileService implements VaultService
 
 		final String filePosixGroup = writable ? value("posixGroup", "") : null;
 
-		final VaultDirectory.Properties directory = value("directory", true, s -> new VaultDirectory.Properties(s, writable));
+		final DirProps directory = value("directory", true, s -> new DirProps(s, writable));
 		private final Path temp = writable ? valueSP("temp", root, false, ".tempVaultFileService") : null;
 
 		Props(final Source source)
@@ -496,7 +497,7 @@ public final class VaultFileService implements VaultService
 				return missing.toString();
 		}
 
-		private VaultDirectory.Properties directoryForProbe() throws ProbeAbortedException
+		private DirProps directoryForProbe() throws ProbeAbortedException
 		{
 			if(directory==null)
 				throw newProbeAbortedException("directories disabled");
@@ -519,6 +520,44 @@ public final class VaultFileService implements VaultService
 			// stacktrace gives no hint about the name of the group that was
 			// looked up.
 			throw new RuntimeException(e.getName(), e);
+		}
+	}
+
+	static final class DirProps extends VaultDirectory.Properties
+	{
+		/**
+		 * New directories added to the vault will be created with the permissions
+		 * specified by this property.
+		 * <p>
+		 * Note, that actual results are affected by {@code umask},
+		 * see <a href="https://en.wikipedia.org/wiki/Umask#Mask_effect">Mask effect</a>.
+		 */
+		final Set<PosixFilePermission> posixPermissions;
+
+		/**
+		 * If set, new directories added to the vault will be {@code chmod}ed
+		 * to the permissions specified by this property immediately after
+		 * creation.
+		 * <p>
+		 * In contrast to {@link #posixPermissions} permissions set here
+		 * are not affected by {@code umask}.
+		 * <p>
+		 * If this property is not set, permissions won't be changed at all
+		 * after creation of the directory and effects of {@link #posixPermissions}
+		 * are not overwritten.
+		 */
+		final Set<PosixFilePermission> posixPermissionsAfterwards;
+
+		final String posixGroup;
+
+
+		@SuppressWarnings("AssignmentToSuperclassField") // OK: bug in idea, premised is not assigned but just read here
+		DirProps(final Source source, final boolean writable)
+		{
+			super(source, writable);
+			posixPermissions = writable&&!premised ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) : null;
+			posixPermissionsAfterwards = writable&&!premised ? valuePP("posixPermissionsAfterwards") : null;
+			posixGroup = writable&&!premised ? value("posixGroup", "") : null;
 		}
 	}
 
