@@ -36,10 +36,27 @@ try
 					'--build-arg JDK=' + jdk + ' ' +
 					'--build-arg JENKINS_OWNER=' + env.JENKINS_OWNER + ' ' +
 					'conf/main')
+			def apacheImage = docker.build(
+					'exedio-jenkins:' + dockerName + '-' + dockerDate + '-apache',
+					'conf/apache')
+			shSilent "mkdir VaultHttpServiceDocumentRoot"
+			shSilent "mkdir VaultHttpServiceDocumentRoot/myContent"
 
 			withBridge(dockerName + "-net")
 			{
 				bridge ->
+
+				apacheImage.withRun(
+						"--name '" + dockerName + "-apache' " +
+						"--cap-drop all " +
+						"--cap-add SETGID " + // in apache.log get rid of: [unixd:alert] (1)Operation not permitted: AH02156: setgid: unable to set group id to Group 33
+						"--cap-add SETUID " + // in apache.log fixes: [unixd:alert] (1)Operation not permitted: AH02162: setuid: unable to change to uid: 33
+						"--security-opt no-new-privileges " +
+						"--network " + bridge + " " +
+						"--network-alias=test_apache_host " +
+						"--mount type=bind,src=" + env.WORKSPACE + "/VaultHttpServiceDocumentRoot/myContent,target=/usr/local/apache2/htdocs " +
+						"--dns-opt timeout:1 --dns-opt attempts:1") // fail faster
+				{ a ->
 
 				mainImage.inside(
 						"--name '" + dockerName + "' " +
@@ -58,7 +75,12 @@ try
 							' -Druntime.test.ClusterNetworkTest.multicast=' + multicastAddress() +
 							' -Druntime.test.ClusterNetworkTest.port.A=' + port(0) +
 							' -Druntime.test.ClusterNetworkTest.port.B=' + port(1) +
-							' -Druntime.test.ClusterNetworkTest.port.C=' + port(2)
+							' -Druntime.test.ClusterNetworkTest.port.C=' + port(2) +
+							' -Druntime.test.VaultHttpServiceTest.url=http://test_apache_host' +
+							' -Druntime.test.VaultHttpServiceTest.dir=VaultHttpServiceDocumentRoot'
+				}
+					sh "docker logs " + a.id + " &> apache.log"
+					archiveArtifacts 'apache.log'
 				}
 			}
 

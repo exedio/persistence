@@ -66,7 +66,7 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	final Map<String, Service> services;
 
-	private Map<String, Service> valueServices()
+	private Map<String, Service> valueServices(final boolean writable)
 	{
 		final ArrayList<String> serviceKeys = new ArrayList<>();
 		{
@@ -93,12 +93,12 @@ public final class VaultProperties extends AbstractVaultProperties
 		final LinkedHashMap<String, Service> services = new LinkedHashMap<>();
 		if(singletonList(Vault.DEFAULT).equals(serviceKeys))
 		{
-			services.put(Vault.DEFAULT, valueService("service", true));
+			services.put(Vault.DEFAULT, valueService("service", writable));
 		}
 		else
 		{
 			for(final String service : serviceKeys)
-				services.put(service, valueService("service." + service, true));
+				services.put(service, valueService("service." + service, writable));
 		}
 
 		return Collections.unmodifiableMap(services);
@@ -308,13 +308,18 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	public static Factory<VaultProperties> factory()
 	{
-		return VaultProperties::new;
+		return factory(true);
 	}
 
-	private VaultProperties(final Source source)
+	public static Factory<VaultProperties> factory(final boolean writable)
+	{
+		return s -> new VaultProperties(s, writable);
+	}
+
+	private VaultProperties(final Source source, final boolean writable)
 	{
 		super(source);
-		services = valueServices();
+		services = valueServices(writable);
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
 }

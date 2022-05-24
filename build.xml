@@ -489,6 +489,8 @@
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.A"      value="${runtime.test.ClusterNetworkTest.port.A}"    />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.B"      value="${runtime.test.ClusterNetworkTest.port.B}"    />
 			<sysproperty key="com.exedio.cope.ClusterNetworkTest.port.C"      value="${runtime.test.ClusterNetworkTest.port.C}"    />
+			<sysproperty key="com.exedio.cope.vault.VaultHttpServiceTest.url" value="${runtime.test.VaultHttpServiceTest.url}"    />
+			<sysproperty key="com.exedio.cope.vault.VaultHttpServiceTest.dir" value="${runtime.test.VaultHttpServiceTest.dir}"    />
 		</ljunit>
 	</target>
 

@@ -28,6 +28,7 @@ import com.exedio.cope.util.Properties.Source;
 import com.exedio.cope.util.ProxyPropertiesSource;
 import com.exedio.cope.util.Sources;
 import java.io.File;
+import java.nio.file.Path;
 import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -93,6 +94,11 @@ public final class TestSources
 	public static Source single(final String key, final File value)
 	{
 		return single(key, value.getPath());
+	}
+
+	public static Source single(final String key, final Path value)
+	{
+		return single(key, value.toString());
 	}
 
 	public static Source single(final String key, final Duration value)
