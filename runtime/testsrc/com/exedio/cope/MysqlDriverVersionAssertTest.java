@@ -48,12 +48,7 @@ public class MysqlDriverVersionAssertTest
 				"mysql-connector-java-8.0.20 (Revision: 0123456789abcdef)",
 				8, 0);
 
-		assertFails(
-				() -> assertDriverVersion(i),
-				IllegalArgumentException.class,
-				"driver version must be between 8.0.21 and 8.0.27, " +
-				"but was forbidden patch level 20 in version: " +
-				"mysql-connector-java-8.0.20 (Revision: 0123456789abcdef)");
+		assertDriverVersion(i);
 	}
 	@Test void testPatchAfter() throws SQLException
 	{
@@ -64,8 +59,9 @@ public class MysqlDriverVersionAssertTest
 		assertFails(
 				() -> assertDriverVersion(i),
 				IllegalArgumentException.class,
-				"driver version must be between 8.0.21 and 8.0.27, " +
-				"but was forbidden patch level 28 in version: " +
+				"driver version must not be 8.0.28, " +
+				"as it has a disastrous bug (https://bugs.mysql.com/bug.php?id=106435) " +
+				"that lets cope run in auto-commit mode: " +
 				"mysql-connector-java-8.0.28 (Revision: 0123456789abcdef)");
 	}
 	@Test void testPatchIllegalPattern() throws SQLException
@@ -74,12 +70,7 @@ public class MysqlDriverVersionAssertTest
 				"mysql-connector-java-8.0.x (Revision: 0123456789abcdef)",
 				8, 0);
 
-		assertFails(
-				() -> assertDriverVersion(i),
-				IllegalArgumentException.class,
-				"driver version must be between 8.0.21 and 8.0.27, " +
-				"but was illegal pattern: " +
-				"mysql-connector-java-8.0.x (Revision: 0123456789abcdef)");
+		assertDriverVersion(i);
 	}
 	@Test void testPatchIllegalInteger() throws SQLException
 	{
@@ -87,31 +78,19 @@ public class MysqlDriverVersionAssertTest
 				"mysql-connector-java-8.0.99999999999 (Revision: 0123456789abcdef)",
 				8, 0);
 
-		assertFails(
-				() -> assertDriverVersion(i),
-				IllegalArgumentException.class,
-				"driver version must be between 8.0.21 and 8.0.27, " +
-				"but was illegal integer: 99999999999");
+		assertDriverVersion(i);
 	}
 	@Test void testMinorBefore() throws SQLException
 	{
 		final EnvironmentInfo i = newEnvDriver("drXX", 7, 555);
 
-		assertFails(
-				() -> assertDriverVersion(i),
-				IllegalArgumentException.class,
-				"driver version must be between 8.0.21 and 8.0.27, " +
-				"but was forbidden minor level: drXX (7.555)");
+		assertDriverVersion(i);
 	}
 	@Test void testMinorAfter() throws SQLException
 	{
 		final EnvironmentInfo i = newEnvDriver("drXX", 8, 1);
 
-		assertFails(
-				() -> assertDriverVersion(i),
-				IllegalArgumentException.class,
-				"driver version must be between 8.0.21 and 8.0.27, " +
-				"but was forbidden minor level: drXX (8.1)");
+		assertDriverVersion(i);
 	}
 
 	private static EnvironmentInfo newEnvDriver(
