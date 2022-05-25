@@ -19,15 +19,10 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
-import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
-import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
-import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
 
-import java.nio.file.attribute.PosixFilePermission;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
-import java.util.Set;
 
 abstract class VaultDirectory
 {
@@ -144,7 +139,6 @@ abstract class VaultDirectory
 						"but was " + length + ">=" + algorithmLength);
 		}
 
-
 		/**
 		 * Specify, whether directories are created as needed on put operation.
 		 * This is the default.
@@ -152,39 +146,11 @@ abstract class VaultDirectory
 		 */
 		final boolean premised;
 
-		/**
-		 * New directories added to the vault will be created with the permissions
-		 * specified by this property.
-		 * <p>
-		 * Note, that actual results are affected by {@code umask},
-		 * see <a href="https://en.wikipedia.org/wiki/Umask#Mask_effect">Mask effect</a>.
-		 */
-		final Set<PosixFilePermission> posixPermissions;
-
-		/**
-		 * If set, new directories added to the vault will be {@code chmod}ed
-		 * to the permissions specified by this property immediately after
-		 * creation.
-		 * <p>
-		 * In contrast to {@link #posixPermissions} permissions set here
-		 * are not affected by {@code umask}.
-		 * <p>
-		 * If this property is not set, permissions won't be changed at all
-		 * after creation of the directory and effects of {@link #posixPermissions}
-		 * are not overwritten.
-		 */
-		final Set<PosixFilePermission> posixPermissionsAfterwards;
-
-		final String posixGroup;
-
 		Properties(final Source source, final boolean writable)
 		{
 			super(source);
 			//noinspection SimplifiableConditionalExpression
 			premised = writable ? value("premised", false) : false;
-			posixPermissions = writable&&!premised ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) : null;
-			posixPermissionsAfterwards = writable&&!premised ? valuePP("posixPermissionsAfterwards") : null;
-			posixGroup = writable&&!premised ? value("posixGroup", "") : null;
 		}
 
 		Iterator<String> iterator()
