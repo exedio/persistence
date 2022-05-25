@@ -555,9 +555,10 @@ public final class VaultFileService implements VaultService
 		DirProps(final Source source, final boolean writable)
 		{
 			super(source, writable);
-			posixPermissions = writable&&!premised ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) : null;
-			posixPermissionsAfterwards = writable&&!premised ? valuePP("posixPermissionsAfterwards") : null;
-			posixGroup = writable&&!premised ? value("posixGroup", "") : null;
+			final boolean writableReally = writable && !premised;
+			posixPermissions = writableReally ? valuePP("posixPermissions", OWNER_READ, OWNER_WRITE, OWNER_EXECUTE) : null;
+			posixPermissionsAfterwards = writableReally ? valuePP("posixPermissionsAfterwards") : null;
+			posixGroup = writableReally ? value("posixGroup", "") : null;
 		}
 	}
 
