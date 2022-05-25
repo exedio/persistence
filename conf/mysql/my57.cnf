@@ -9,7 +9,7 @@ blackhole=OFF
 
 # Maximum Value
 # https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet
-max_allowed_packet=64000000
+max_allowed_packet=100000000
 
 # Enables binlog
 # https://dev.mysql.com/doc/refman/5.7/en/replication-options-binary-log.html#sysvar_log_bin

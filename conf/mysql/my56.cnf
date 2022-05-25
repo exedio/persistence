@@ -9,7 +9,7 @@ blackhole=OFF
 
 # Maximum Value
 # https://dev.mysql.com/doc/refman/5.7/en/server-system-variables.html#sysvar_max_allowed_packet
-max_allowed_packet=64000000
+max_allowed_packet=100000000
 
 # Prevent the following error:
 # The size of BLOB/TEXT data inserted in one transaction is greater than 10% of

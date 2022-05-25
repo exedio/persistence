@@ -53,7 +53,7 @@
 
 		<!-- dialects -->
 		<dependency conf="hsqldb->default" org="org.hsqldb" name="hsqldb" rev="2.5.1" />
-		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="8.0.21"><!-- when bumping update MysqlDialect#assertDriverVersion as well -->
+		<dependency conf="mysql->default" org="mysql" name="mysql-connector-java" rev="8.0.29">
 			<exclude org="com.google.protobuf" module="protobuf-java" />
 		</dependency>
 		<dependency conf="mariadb->default" org="org.mariadb.jdbc" name="mariadb-java-client" rev="2.7.5" />

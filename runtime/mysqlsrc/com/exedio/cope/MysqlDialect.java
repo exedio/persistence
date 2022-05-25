@@ -158,35 +158,12 @@ final class MysqlDialect extends Dialect
 		if("MariaDB Connector/J".equals(env.getDriverName()))
 			return;
 
-		final String PREFIX = "driver version must be between 8.0.21 and 8.0.27, but was ";
-		if(!env.isDriverVersionAtLeast(8, 0) ||
-			env.isDriverVersionAtLeast(8, 1))
-			throw new IllegalArgumentException(
-					PREFIX + "forbidden minor level: " + env.getDriverVersionDescription());
-
 		final String dv = env.getDriverVersion();
-		@SuppressWarnings("RegExpSimplifiable") // OK: [0-9] is easier to understand than \d
-		final Matcher matcher = Pattern.
-				compile("^mysql-connector-java-8\\.0\\.([0-9]*) \\(Revision: [0-9a-f]*\\)$").
-				matcher(dv);
-		if(!matcher.matches())
+		if(dv.contains("8.0.28"))
 			throw new IllegalArgumentException(
-					PREFIX + "illegal pattern: " + dv);
-
-		final String patchLevelString = matcher.group(1);
-		final int patchLevel;
-		try
-		{
-			patchLevel = Integer.parseInt(patchLevelString);
-		}
-		catch(final NumberFormatException e)
-		{
-			throw new IllegalArgumentException(
-					PREFIX + "illegal integer: " + patchLevelString, e);
-		}
-		if( patchLevel<21 || patchLevel>27 )
-			throw new IllegalArgumentException(
-					PREFIX + "forbidden patch level " + patchLevel + " in version: " + dv);
+					"driver version must not be 8.0.28, " +
+					"as it has a disastrous bug (https://bugs.mysql.com/bug.php?id=106435) " +
+					"that lets cope run in auto-commit mode: " + dv);
 	}
 
 	static final String sequenceColumnName = "COPE_SEQUENCE_AUTO_INCREMENT_COLUMN";
