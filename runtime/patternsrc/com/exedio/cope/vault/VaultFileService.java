@@ -99,7 +99,12 @@ public final class VaultFileService implements VaultService
 		return System.getProperty("os.name").toLowerCase().contains("windows");
 	}
 
-	// TODO implement purgeSchema, delete old files in tempDir if VaultServiceParameters#isWritable()==false
+	// TODO implement purgeSchema:
+	// delete old files in tempDir
+	// * only if VaultServiceParameters#isWritable()==false
+	// * preserve files such as README, NOTICE etc.
+	// * preserve anything, that is not a regular file
+	// * do not purge subdirectories
 
 
 	@Override
