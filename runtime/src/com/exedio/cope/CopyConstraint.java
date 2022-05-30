@@ -154,7 +154,7 @@ public final class CopyConstraint extends Feature
 			if(feature==null)
 				throw new IllegalArgumentException(
 						"insufficient template for CopyConstraint " + constraint + ": " +
-						"not found");
+						"feature >" + name + "< at type " + type + " not found");
 			return feature;
 		};
 	}

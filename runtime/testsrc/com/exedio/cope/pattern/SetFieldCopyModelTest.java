@@ -195,7 +195,7 @@ public class SetFieldCopyModelTest
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("insufficient template for CopyConstraint NoTargetItem-noTarget.fieldCopyFromelement: not found", e.getMessage());
+			assertEquals("insufficient template for CopyConstraint NoTargetItem-noTarget.fieldCopyFromelement: feature >field< at type DoesntHaveField not found", e.getMessage());
 		}
 	}
 

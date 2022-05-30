@@ -39,7 +39,7 @@ public class CopyConstraintNotFoundTest
 		{
 			assertEquals(
 				"insufficient template for CopyConstraint Source.fieldCopyFromtarget: " +
-				"not found",
+				"feature >field< at type Target not found",
 				e.getMessage());
 		}
 	}
