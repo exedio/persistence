@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
@@ -375,7 +376,7 @@ public class HierarchyTest extends TestWithEnvironment
 
 		// must be the same order as in model constructor
 		assertCacheInfo(HierarchyFirstSub.TYPE, HierarchySecondSub.TYPE, HierarchySingleSub.TYPE);
-		assertNotNull(model.getQueryCacheInfo());
+		assertNotNull(getQueryCacheInfo(model));
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());

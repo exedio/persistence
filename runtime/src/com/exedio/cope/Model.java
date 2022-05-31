@@ -647,6 +647,10 @@ public final class Model implements Serializable
 		return connect().itemCache.getStatistics(types.concreteTypes);
 	}
 
+	/**
+	 * @deprecated Statistics are maintained via {@link io.micrometer.core.instrument.Meter micrometer} instead.
+	 */
+	@Deprecated
 	public QueryCacheInfo getQueryCacheInfo()
 	{
 		return connect().queryCache.getInfo();

@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -108,7 +109,7 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 
 	private void initCache()
 	{
-		last = model.getQueryCacheInfo();
+		last = getQueryCacheInfo(model);
 	}
 
 	private void assertCache(
@@ -121,7 +122,7 @@ public class CacheTouchQueryTest extends TestWithEnvironment
 			final long stampsPurged)
 	{
 		final boolean st = model.getConnectProperties().cacheStamps;
-		final QueryCacheInfo curr = model.getQueryCacheInfo();
+		final QueryCacheInfo curr = getQueryCacheInfo(model);
 		assertAll(
 				() -> assertEquals(level,             curr.getLevel(),                                   "level(1)"),
 				() -> assertEquals(hits,              curr.getHits()          - last.getHits(),          "hits(2)"),
