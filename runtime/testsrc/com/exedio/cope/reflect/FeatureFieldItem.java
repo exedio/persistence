@@ -310,7 +310,7 @@ public final class FeatureFieldItem extends Item
 	}
 
 	/**
-	 * Finds a featureFieldItem by it's {@link #unique}.
+	 * Finds a featureFieldItem by its {@link #unique}.
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
 	 */

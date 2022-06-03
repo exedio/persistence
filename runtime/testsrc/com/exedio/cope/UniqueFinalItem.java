@@ -66,7 +66,7 @@ public final class UniqueFinalItem extends Item
 	}
 
 	/**
-	 * Finds a uniqueFinalItem by it's {@link #uniqueFinalString}.
+	 * Finds a uniqueFinalItem by its {@link #uniqueFinalString}.
 	 * @param uniqueFinalString shall be equal to field {@link #uniqueFinalString}.
 	 * @return null if there is no matching item.
 	 */

@@ -80,7 +80,7 @@ public final class UniqueSingleItem extends Item
 	}
 
 	/**
-	 * Finds a uniqueSingleItem by it's {@link #uniqueString}.
+	 * Finds a uniqueSingleItem by its {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
 	 */

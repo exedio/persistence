@@ -169,7 +169,7 @@ public final class TypeFieldItem extends Item
 	}
 
 	/**
-	 * Finds a typeFieldItem by it's {@link #unique}.
+	 * Finds a typeFieldItem by its {@link #unique}.
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
 	 */

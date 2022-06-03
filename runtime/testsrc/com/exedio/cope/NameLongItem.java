@@ -84,7 +84,7 @@ class NameLongItem extends Item
 	}
 
 	/**
-	 * Finds a nameLongItem by it's {@link #code}.
+	 * Finds a nameLongItem by its {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */
@@ -136,7 +136,7 @@ class NameLongItem extends Item
 	}
 
 	/**
-	 * Finds a nameLongItem by it's {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
+	 * Finds a nameLongItem by its {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 * @param codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName shall be equal to field {@link #codeLoooooooooooooooooooooooooooooooooooooooooooooooooooongName}.
 	 * @return null if there is no matching item.
 	 */

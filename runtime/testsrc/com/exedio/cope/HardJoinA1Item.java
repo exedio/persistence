@@ -84,7 +84,7 @@ class HardJoinA1Item extends Item
 	}
 
 	/**
-	 * Finds a hardJoinA1Item by it's {@link #code}.
+	 * Finds a hardJoinA1Item by its {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */

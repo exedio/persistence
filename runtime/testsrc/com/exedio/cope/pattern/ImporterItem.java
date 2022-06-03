@@ -73,7 +73,7 @@ final class ImporterItem extends Item
 	}
 
 	/**
-	 * Finds a importerItem by it's {@link #code}.
+	 * Finds a importerItem by its {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */

@@ -67,7 +67,6 @@ public @interface Wrap
 	String FOR_NAME = "for{0}";
 	String FOR_STRICT_NAME = "for{0}Strict";
 	String FOR_DOC        = "Finds a {2} by its {0}.";
-	String FOR_DOC_BROKEN = "Finds a {2} by it''s {0}.";
 	String FOR_RETURN = "null if there is no matching item.";
 	String FOR_PARAM = "shall be equal to field {0}.";
 	String FOR_STRICT_THROWN = "if there is no matching item.";

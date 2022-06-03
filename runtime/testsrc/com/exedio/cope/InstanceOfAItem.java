@@ -67,7 +67,7 @@ class InstanceOfAItem extends Item
 	}
 
 	/**
-	 * Finds a instanceOfAItem by it's {@link #code}.
+	 * Finds a instanceOfAItem by its {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */

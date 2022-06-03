@@ -74,7 +74,7 @@ public class HierarchyEmptySuper extends Item
 	}
 
 	/**
-	 * Finds a hierarchyEmptySuper by it's {@link #superInt}.
+	 * Finds a hierarchyEmptySuper by its {@link #superInt}.
 	 * @param superInt shall be equal to field {@link #superInt}.
 	 * @return null if there is no matching item.
 	 */

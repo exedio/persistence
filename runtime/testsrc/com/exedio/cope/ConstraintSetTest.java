@@ -231,7 +231,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a anItem by it's {@link #uniqueSingle}.
+		 * Finds a anItem by its {@link #uniqueSingle}.
 		 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
 		 * @return null if there is no matching item.
 		 */

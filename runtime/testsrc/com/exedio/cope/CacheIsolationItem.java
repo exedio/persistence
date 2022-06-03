@@ -74,7 +74,7 @@ public final class CacheIsolationItem extends Item
 	}
 
 	/**
-	 * Finds a cacheIsolationItem by it's {@link #uniqueString}.
+	 * Finds a cacheIsolationItem by its {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
 	 */

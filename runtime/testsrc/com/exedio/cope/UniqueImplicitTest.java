@@ -227,7 +227,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #booleanField}.
+		 * Finds a myItem by its {@link #booleanField}.
 		 * @param booleanField shall be equal to field {@link #booleanField}.
 		 * @return null if there is no matching item.
 		 */
@@ -278,7 +278,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #integerField}.
+		 * Finds a myItem by its {@link #integerField}.
 		 * @param integerField shall be equal to field {@link #integerField}.
 		 * @return null if there is no matching item.
 		 */
@@ -329,7 +329,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #longField}.
+		 * Finds a myItem by its {@link #longField}.
 		 * @param longField shall be equal to field {@link #longField}.
 		 * @return null if there is no matching item.
 		 */
@@ -380,7 +380,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #doubleField}.
+		 * Finds a myItem by its {@link #doubleField}.
 		 * @param doubleField shall be equal to field {@link #doubleField}.
 		 * @return null if there is no matching item.
 		 */
@@ -432,7 +432,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #stringField}.
+		 * Finds a myItem by its {@link #stringField}.
 		 * @param stringField shall be equal to field {@link #stringField}.
 		 * @return null if there is no matching item.
 		 */
@@ -483,7 +483,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #dateField}.
+		 * Finds a myItem by its {@link #dateField}.
 		 * @param dateField shall be equal to field {@link #dateField}.
 		 * @return null if there is no matching item.
 		 */
@@ -544,7 +544,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #dayField}.
+		 * Finds a myItem by its {@link #dayField}.
 		 * @param dayField shall be equal to field {@link #dayField}.
 		 * @return null if there is no matching item.
 		 */
@@ -605,7 +605,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #enumField}.
+		 * Finds a myItem by its {@link #enumField}.
 		 * @param enumField shall be equal to field {@link #enumField}.
 		 * @return null if there is no matching item.
 		 */
@@ -656,7 +656,7 @@ public class UniqueImplicitTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #itemField}.
+		 * Finds a myItem by its {@link #itemField}.
 		 * @param itemField shall be equal to field {@link #itemField}.
 		 * @return null if there is no matching item.
 		 */

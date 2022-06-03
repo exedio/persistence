@@ -116,7 +116,7 @@ package com.exedio.cope;
 	}
 
 	/**
-	 * Finds a renamedSchemaItem by it's {@link #uniqueSingle}.
+	 * Finds a renamedSchemaItem by its {@link #uniqueSingle}.
 	 * @param uniqueSingle shall be equal to field {@link #uniqueSingle}.
 	 * @return null if there is no matching item.
 	 */

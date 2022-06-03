@@ -82,7 +82,7 @@ public final class UniqueSingleNotNullItem extends Item
 	}
 
 	/**
-	 * Finds a uniqueSingleNotNullItem by it's {@link #uniqueNotNullString}.
+	 * Finds a uniqueSingleNotNullItem by its {@link #uniqueNotNullString}.
 	 * @param uniqueNotNullString shall be equal to field {@link #uniqueNotNullString}.
 	 * @return null if there is no matching item.
 	 */

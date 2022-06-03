@@ -430,7 +430,7 @@ public final class Standard extends Item
 	}
 
 	/**
-	 * Finds a standard by it's {@link #uniqueString}.
+	 * Finds a standard by its {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
 	 */
@@ -1220,7 +1220,7 @@ public final class Standard extends Item
 	}
 
 	/**
-	 * Finds a standard by it's {@link #defaultFeature}.
+	 * Finds a standard by its {@link #defaultFeature}.
 	 * @param defaultFeature shall be equal to field {@link #defaultFeature}.
 	 * @return null if there is no matching item.
 	 */

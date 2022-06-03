@@ -210,7 +210,7 @@ public class NameLengthTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Finds a anItem by it's {@link #fieldLong}.
+	 * Finds a anItem by its {@link #fieldLong}.
 	 * @param fieldLong shall be equal to field {@link #fieldLong}.
 	 * @return null if there is no matching item.
 	 */
@@ -249,7 +249,7 @@ public class NameLengthTest extends TestWithEnvironment
 	}
 
 	/**
-	 * Finds a anItem by it's {@link #fieldShort}.
+	 * Finds a anItem by its {@link #fieldShort}.
 	 * @param fieldShort shall be equal to field {@link #fieldShort}.
 	 * @return null if there is no matching item.
 	 */
