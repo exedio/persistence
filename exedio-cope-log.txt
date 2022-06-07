@@ -7,7 +7,7 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
-* Instrumentor uses possessive determiner "its" instead of contracted "it's" for finder javadoc
+* Instrumentor uses possessive determiner "its" instead of contracted "it's" for finder javadoc.
 	Affects instrumented code.
 * ConnectProperties: key "vault-short-key" no longer supported.
 	Check your deployed systems! Probably this key is at its default,
