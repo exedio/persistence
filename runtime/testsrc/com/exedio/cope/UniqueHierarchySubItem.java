@@ -84,7 +84,7 @@ final class UniqueHierarchySubItem extends UniqueHierarchySuperItem
 	}
 
 	/**
-	 * Finds a uniqueHierarchySubItem by it's {@link #subField}.
+	 * Finds a uniqueHierarchySubItem by its {@link #subField}.
 	 * @param subField shall be equal to field {@link #subField}.
 	 * @return null if there is no matching item.
 	 */

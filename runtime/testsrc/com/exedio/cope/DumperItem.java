@@ -132,7 +132,7 @@ public class DumperItem extends Item
 	}
 
 	/**
-	 * Finds a dumperItem by it's {@link #unique}.
+	 * Finds a dumperItem by its {@link #unique}.
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
 	 */

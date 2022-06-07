@@ -72,7 +72,7 @@ public abstract class HierarchySuper extends Item
 	}
 
 	/**
-	 * Finds a hierarchySuper by it's {@link #superInt}.
+	 * Finds a hierarchySuper by its {@link #superInt}.
 	 * @param superInt shall be equal to field {@link #superInt}.
 	 * @return null if there is no matching item.
 	 */

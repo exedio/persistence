@@ -240,12 +240,12 @@ public final class LongField extends NumberField<Long>
 	}
 
 	/**
-	 * Finds an item by it's unique fields.
+	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 * @see FunctionField#searchUnique(Class, Object)
 	 */
 	@Wrap(order=100, name=Wrap.FOR_NAME,
-			doc=Wrap.FOR_DOC_BROKEN,
+			doc=Wrap.FOR_DOC,
 			docReturn=Wrap.FOR_RETURN,
 			hide={OptionalGetter.class, NonUniqueGetter.class})
 	@Nullable

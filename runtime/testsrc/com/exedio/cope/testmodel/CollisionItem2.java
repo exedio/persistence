@@ -63,7 +63,7 @@ public final class CollisionItem2 extends Item
 	}
 
 	/**
-	 * Finds a collisionItem2 by it's {@link #collisionAttribute}.
+	 * Finds a collisionItem2 by its {@link #collisionAttribute}.
 	 * @param collisionAttribute shall be equal to field {@link #collisionAttribute}.
 	 * @return null if there is no matching item.
 	 */

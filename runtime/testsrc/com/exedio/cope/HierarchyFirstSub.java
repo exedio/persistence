@@ -74,7 +74,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	}
 
 	/**
-	 * Finds a hierarchyFirstSub by it's {@link #firstSubString}.
+	 * Finds a hierarchyFirstSub by its {@link #firstSubString}.
 	 * @param firstSubString shall be equal to field {@link #firstSubString}.
 	 * @return null if there is no matching item.
 	 */

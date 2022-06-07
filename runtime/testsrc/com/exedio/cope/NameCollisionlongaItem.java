@@ -97,7 +97,7 @@ final class NameCollisionlongaItem extends Item
 	}
 
 	/**
-	 * Finds a nameCollisionlongaItem by it's {@link #code}.
+	 * Finds a nameCollisionlongaItem by its {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */

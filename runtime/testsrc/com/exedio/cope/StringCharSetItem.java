@@ -110,7 +110,7 @@ final class StringCharSetItem extends Item
 	}
 
 	/**
-	 * Finds a stringCharSetItem by it's {@link #code}.
+	 * Finds a stringCharSetItem by its {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */

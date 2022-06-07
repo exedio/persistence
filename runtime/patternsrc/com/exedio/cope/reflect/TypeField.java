@@ -272,12 +272,12 @@ public final class TypeField<E extends Item> extends Pattern implements Settable
 	}
 
 	/**
-	 * Finds an item by it's unique fields.
+	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
 	@Wrap(order=30, name=Wrap.FOR_NAME,
-			doc=Wrap.FOR_DOC_BROKEN,
+			doc=Wrap.FOR_DOC,
 			docReturn=Wrap.FOR_RETURN,
 			hide=TypeNonUniqueGetter.class)
 	@Nullable

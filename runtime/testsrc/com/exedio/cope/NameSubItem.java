@@ -103,7 +103,7 @@ public final class NameSubItem extends NameLongItem
 	}
 
 	/**
-	 * Finds a nameSubItem by it's {@link #unique}.
+	 * Finds a nameSubItem by its {@link #unique}.
 	 * @param unique shall be equal to field {@link #unique}.
 	 * @return null if there is no matching item.
 	 */
@@ -229,7 +229,7 @@ public final class NameSubItem extends NameLongItem
 	}
 
 	/**
-	 * Finds a nameSubItem by it's {@link #uniqueX}.
+	 * Finds a nameSubItem by its {@link #uniqueX}.
 	 * @param uniqueX shall be equal to field {@link #uniqueX}.
 	 * @return null if there is no matching item.
 	 */

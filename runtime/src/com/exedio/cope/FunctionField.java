@@ -378,7 +378,7 @@ public abstract class FunctionField<E> extends Field<E>
 	}
 
 	/**
-	 * Finds an item by it's unique fields.
+	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
@@ -391,12 +391,12 @@ public abstract class FunctionField<E> extends Field<E>
 	}
 
 	/**
-	 * Finds an item by it's unique fields.
+	 * Finds an item by its unique fields.
 	 * @return null if there is no matching item.
 	 * @throws NullPointerException if value is null.
 	 */
 	@Wrap(order=100, name=Wrap.FOR_NAME,
-			doc=Wrap.FOR_DOC_BROKEN,
+			doc=Wrap.FOR_DOC,
 			docReturn=Wrap.FOR_RETURN,
 			hide={NonUniqueGetter.class, PrimitiveGetter.class})
 	@Nullable

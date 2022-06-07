@@ -141,7 +141,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #booleanField}.
+		 * Finds a myItem by its {@link #booleanField}.
 		 * @param booleanField shall be equal to field {@link #booleanField}.
 		 * @return null if there is no matching item.
 		 */
@@ -191,7 +191,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #integerField}.
+		 * Finds a myItem by its {@link #integerField}.
 		 * @param integerField shall be equal to field {@link #integerField}.
 		 * @return null if there is no matching item.
 		 */
@@ -241,7 +241,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #longField}.
+		 * Finds a myItem by its {@link #longField}.
 		 * @param longField shall be equal to field {@link #longField}.
 		 * @return null if there is no matching item.
 		 */
@@ -291,7 +291,7 @@ public class UniquePrimitiveTest extends TestWithEnvironment
 		}
 
 		/**
-		 * Finds a myItem by it's {@link #doubleField}.
+		 * Finds a myItem by its {@link #doubleField}.
 		 * @param doubleField shall be equal to field {@link #doubleField}.
 		 * @return null if there is no matching item.
 		 */

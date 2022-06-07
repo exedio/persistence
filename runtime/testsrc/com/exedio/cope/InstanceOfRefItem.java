@@ -93,7 +93,7 @@ final class InstanceOfRefItem extends Item
 	}
 
 	/**
-	 * Finds a instanceOfRefItem by it's {@link #code}.
+	 * Finds a instanceOfRefItem by its {@link #code}.
 	 * @param code shall be equal to field {@link #code}.
 	 * @return null if there is no matching item.
 	 */

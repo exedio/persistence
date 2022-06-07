@@ -85,7 +85,7 @@ public final class DeleteAfterUniqueViolationItem extends Item
 	}
 
 	/**
-	 * Finds a deleteAfterUniqueViolationItem by it's {@link #uniqueString}.
+	 * Finds a deleteAfterUniqueViolationItem by its {@link #uniqueString}.
 	 * @param uniqueString shall be equal to field {@link #uniqueString}.
 	 * @return null if there is no matching item.
 	 */
