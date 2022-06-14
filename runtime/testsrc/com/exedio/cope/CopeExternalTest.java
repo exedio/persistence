@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
+import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.WrapperType;
@@ -83,28 +84,28 @@ public class CopeExternalTest extends TestWithEnvironment
 		final int oneIfCacheActive=model.getConnectProperties().getQueryCacheLimit()>0 ? 1 : 0;
 
 		CachedItem.TYPE.search();
-		assertEquals(oneIfCacheActive, model.getQueryCacheInfo().getLevel());
+		assertEquals(oneIfCacheActive, getQueryCacheInfo(model).getLevel());
 		model.clearCache();
 
 		NoCacheItem.TYPE.search();
-		assertEquals(0, model.getQueryCacheInfo().getLevel());
+		assertEquals(0, getQueryCacheInfo(model).getLevel());
 
 		WeightZeroItem.TYPE.search();
-		assertEquals(oneIfCacheActive, model.getQueryCacheInfo().getLevel());
+		assertEquals(oneIfCacheActive, getQueryCacheInfo(model).getLevel());
 		model.clearCache();
 
 		searchJoin(CachedItem.TYPE, CachedItem.TYPE);
-		assertEquals(oneIfCacheActive, model.getQueryCacheInfo().getLevel());
+		assertEquals(oneIfCacheActive, getQueryCacheInfo(model).getLevel());
 		model.clearCache();
 
 		searchJoin(CachedItem.TYPE, NoCacheItem.TYPE);
-		assertEquals(0, model.getQueryCacheInfo().getLevel());
+		assertEquals(0, getQueryCacheInfo(model).getLevel());
 
 		searchJoin(CachedItem.TYPE, NoCacheItem.TYPE);
-		assertEquals(0, model.getQueryCacheInfo().getLevel());
+		assertEquals(0, getQueryCacheInfo(model).getLevel());
 
 		searchJoin(NoCacheItem.TYPE, CachedItem.TYPE);
-		assertEquals(0, model.getQueryCacheInfo().getLevel());
+		assertEquals(0, getQueryCacheInfo(model).getLevel());
 	}
 
 	private static void searchJoin(final Type<?> queryType, final Type<?> joinType)

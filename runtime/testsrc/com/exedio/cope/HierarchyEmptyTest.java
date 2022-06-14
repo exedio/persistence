@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
+import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.list;
@@ -169,7 +170,7 @@ public class HierarchyEmptyTest extends TestWithEnvironment
 		else
 			assertEquals(0, itemCacheInfo.length);
 
-		assertNotNull(model.getQueryCacheInfo());
+		assertNotNull(getQueryCacheInfo(model));
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());

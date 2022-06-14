@@ -381,4 +381,10 @@ final class RuntimeTester
 	{
 		return model.getItemCacheStatistics();
 	}
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	static QueryCacheInfo getQueryCacheInfo(final Model model)
+	{
+		return model.getQueryCacheInfo();
+	}
 }

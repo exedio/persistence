@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.AbstractRuntimeTest.assertDelete;
 import static com.exedio.cope.CompareAssert.assertCompare;
 import static com.exedio.cope.RuntimeTester.getItemCacheStatistics;
+import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
 import static com.exedio.cope.SequenceInfoAssert.assertInfo;
 import static com.exedio.cope.testmodel.EmptyItem.TYPE;
 import static com.exedio.cope.tojunit.Assert.assertContains;
@@ -165,7 +166,7 @@ public class ItemTest extends TestmodelTest
 		model.dropSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 		model.createSchemaConstraints(EnumSet.of(Constraint.Type.Check));
 		assertNotNull(getItemCacheStatistics(model).getDetails());
-		assertNotNull(model.getQueryCacheInfo());
+		assertNotNull(getQueryCacheInfo(model));
 		assertNotNull(model.getQueryCacheHistogram());
 		assertNotNull(model.getConnectionPoolInfo());
 		assertNotNull(model.getConnectionPoolInfo().getCounter());

@@ -22,6 +22,7 @@ import static com.exedio.cope.CacheIsolationItem.TYPE;
 import static com.exedio.cope.CacheIsolationItem.name;
 import static com.exedio.cope.PrometheusMeterRegistrar.meterCope;
 import static com.exedio.cope.PrometheusMeterRegistrar.tag;
+import static com.exedio.cope.RuntimeTester.getQueryCacheInfo;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -203,7 +204,7 @@ public class QueryCacheStampPurgeTest extends TestWithEnvironment
 
 	private void initCache()
 	{
-		last = model.getQueryCacheInfo();
+		last = getQueryCacheInfo(model);
 	}
 
 	private void assertCache(
@@ -215,7 +216,7 @@ public class QueryCacheStampPurgeTest extends TestWithEnvironment
 			final long stampsHits,
 			final long stampsPurged)
 	{
-		final QueryCacheInfo curr = model.getQueryCacheInfo();
+		final QueryCacheInfo curr = getQueryCacheInfo(model);
 		assertAll(
 				() -> assertEquals(level,         curr.getLevel(),                                   "level(1)"),
 				() -> assertEquals(hits,          curr.getHits()          - last.getHits(),          "hits(2)"),

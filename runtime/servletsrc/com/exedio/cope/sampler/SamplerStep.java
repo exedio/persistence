@@ -81,7 +81,7 @@ final class SamplerStep
 		transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
 		itemCacheStatistics = getItemCacheStatistics(sampledModel);
-		queryCacheInfo = sampledModel.getQueryCacheInfo();
+		queryCacheInfo = getQueryCacheInfo(sampledModel);
 		changeListenerInfo = sampledModel.getChangeListenersInfo();
 		changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
 		mediasNoSuchPath = MediaPath.getNoSuchPath();
@@ -123,6 +123,12 @@ final class SamplerStep
 	private static ItemCacheStatistics getItemCacheStatistics(final Model model)
 	{
 		return model.getItemCacheStatistics();
+	}
+
+	@SuppressWarnings("deprecation")
+	private static QueryCacheInfo getQueryCacheInfo(final Model model)
+	{
+		return model.getQueryCacheInfo();
 	}
 
 	boolean isCompatibleTo(final SamplerStep from)
