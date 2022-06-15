@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
 import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.describe;
@@ -740,7 +741,7 @@ public class VaultFileServicePropertiesProbeTest
 		final Callable<?> groupd = probes.get("directory.group");
 		final Callable<?> groupf = probes.get("group");
 
-		VaultFileServicePosixGroupTest.assumeDisabled();
+		assumeNotGithub();
 		assertEquals(testGroupDirectory, groupd.call().toString());
 		assertEquals(testGroupFile,      groupf.call().toString());
 	}

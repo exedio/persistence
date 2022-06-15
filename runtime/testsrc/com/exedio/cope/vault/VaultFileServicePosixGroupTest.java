@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
@@ -25,7 +26,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -70,12 +70,7 @@ public class VaultFileServicePosixGroupTest extends AbstractVaultFileServiceTest
 	void assumePosixBeforeEach()
 	{
 		assumePosix();
-		assumeDisabled();
-	}
-
-	static void assumeDisabled()
-	{
-		assumeTrue(!"true".equals(System.getProperty("VaultFileServicePosixGroupsDisabled")));
+		assumeNotGithub();
 	}
 
 	@Test void serviceProperties()
