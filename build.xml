@@ -104,7 +104,7 @@
 				<sysproperty key="user.timezone" value="${test-DefaultTimeZone}" />
 				<sysproperty key="user.country"  value="${test-DefaultCountry}" />
 				<sysproperty key="user.language" value="${test-DefaultLanguage}" />
-				<sysproperty key="VaultFileServicePosixGroupsDisabled" value="${test-VaultFileServicePosixGroupsDisabled}" />
+				<sysproperty key="github" value="${github}" />
 				<assertions><enable/></assertions>
 			</java>
 		</sequential>

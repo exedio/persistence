@@ -26,6 +26,7 @@ import static java.util.stream.Collectors.toMap;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.fail;
+import static org.junit.jupiter.api.Assumptions.assumeFalse;
 
 import com.exedio.cope.util.Properties;
 import java.io.Serializable;
@@ -180,5 +181,11 @@ public final class RuntimeAssert
 				x -> x,
 				(x,y) -> { throw new AssertionFailedError(x.toString()); },
 				LinkedHashMap::new));
+	}
+
+
+	public static void assumeNotGithub()
+	{
+		assumeFalse("true".equals(System.getProperty("github")));
 	}
 }

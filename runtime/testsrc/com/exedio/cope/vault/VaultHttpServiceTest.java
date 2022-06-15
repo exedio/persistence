@@ -18,6 +18,7 @@
 
 package com.exedio.cope.vault;
 
+import static com.exedio.cope.RuntimeAssert.assumeNotGithub;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static java.lang.System.getProperty;
@@ -110,6 +111,7 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 
 	@BeforeEach private void setUp() throws IOException
 	{
+		assumeNotGithub();
 		flushDir();
 		createDirectoryIfNotExists(DIR); // may exist already, because flushDir does not delete it
 		createDirectoryIfNotExists(DIR.resolve(CONTENT_DIR)); // may exist already, because flushDir does not delete it
