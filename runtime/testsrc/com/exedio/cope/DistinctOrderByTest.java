@@ -182,7 +182,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"order by numA",
 				query.toString());
 		assertEquals(
-				"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+				"SELECT DISTINCT " + SI.pk(TYPE) + withoutAny("," + SI.col(numA)) + " " +
 				"FROM " + SI.tab(TYPE) + " " +
 				"ORDER BY " + ANY_VALUE(SI.col(numA)) + NULLS_FIRST,
 				SchemaInfo.search(query));
@@ -201,28 +201,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
 
-		switch(dialect)
-		{
-			case hsqldb:
-				notAllowed(query,
-						"invalid ORDER BY expression" +
-						ifPrep(
-								" in statement [" +
-								"SELECT DISTINCT " + SI.pk(TYPE) + " " +
-								"FROM " + SI.tab(TYPE) + " " +
-								"ORDER BY \"numA\"]"));
-				break;
-			case mysql:
-				assertContains(item2, item3, item1, query.search());
-				break;
-			case postgresql:
-				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
-						postgresqlPosition(56));
-				break;
-			default:
-				throw new RuntimeException(dialect.name());
-		}
+		assertContains(item2, item3, item1, query.search());
 	}
 
 	@Test void problemWithJoin()
@@ -239,7 +218,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"order by numA",
 				query.toString());
 		assertEquals(
-				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + withoutAny("," + ALIAS + "0." + SI.col(numA)) + " " +
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
 				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
@@ -264,29 +243,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
 
-		switch(dialect)
-		{
-			case hsqldb:
-				notAllowed(query,
-						"invalid ORDER BY expression" +
-						ifPrep(
-								" in statement [" +
-								"SELECT DISTINCT PlusIntegerItem0." + SI.pk(TYPE) + " " +
-								"FROM " + SI.tab(TYPE) + " PlusIntegerItem0 " +
-								"JOIN " + SI.tab(TYPE) + " PlusIntegerItem1 ON PlusIntegerItem0.\"numC\"=PlusIntegerItem1.\"numC\" " +
-								"ORDER BY PlusIntegerItem0.\"numA\"]"));
-				break;
-			case mysql:
-				assertContains(item2, item3, item1, query.search());
-				break;
-			case postgresql:
-				notAllowed(query,
-						"ERROR: for SELECT DISTINCT, ORDER BY expressions must appear in select list" +
-						postgresqlPosition(181));
-				break;
-			default:
-				throw new RuntimeException(dialect.name());
-		}
+		assertContains(item2, item3, item1, query.search());
 	}
 
 	@Test void problemWithJoinAndOtherOrder()
@@ -433,6 +390,14 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		}
 	}
 
+
+	private String withoutAny(final String s)
+	{
+		return
+				(mysql && model.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 7))
+				? ""
+				: s;
+	}
 
 	private String ANY_VALUE(final String s)
 	{
