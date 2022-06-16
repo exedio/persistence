@@ -49,6 +49,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 
 	private static final String ALIAS = "PlusIntegerItem";
 	private String NULLS_FIRST;
+	private String cope_total_distinct;
 
 	@BeforeEach final void setUp()
 	{
@@ -56,6 +57,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		item2 = new PlusIntegerItem(1, 4, 5);
 		item3 = new PlusIntegerItem(1, 4, 5);
 		NULLS_FIRST = postgresql ? " NULLS FIRST" : "";
+		cope_total_distinct = !hsqldb ? " AS cope_total_distinct" : "";
 	}
 
 	@Test void noDistinctOrOrder()
@@ -74,6 +76,19 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
 				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC),
 				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC),
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				SchemaInfo.exists(query));
 
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 		assertEquals(9, query.total());
@@ -97,6 +112,21 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
 				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC),
 				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) FROM ( " +
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) +
+				" )" + cope_total_distinct,
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				SchemaInfo.exists(query));
 
 		assertContains(item1, item2, item3, query.search());
 		assertEquals(3, query.total());
@@ -122,6 +152,19 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
 				"ORDER BY " + ALIAS+"0." + SI.col(numA) + NULLS_FIRST,
 				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC),
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				SchemaInfo.exists(query));
 
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
 		assertEquals(9, query.total());
@@ -143,6 +186,17 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"FROM " + SI.tab(TYPE) + " " +
 				"ORDER BY " + ANY_VALUE(SI.col(numA)) + NULLS_FIRST,
 				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) FROM ( " +
+				"SELECT DISTINCT " + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " +
+				")" + cope_total_distinct,
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+				"SELECT " + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " "),
+				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
@@ -191,6 +245,21 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
 				"ORDER BY " + ANY_VALUE(ALIAS+"0." + SI.col(numA)) + NULLS_FIRST,
 				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) FROM ( " +
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
+				")" + cope_total_distinct,
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
@@ -240,6 +309,21 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
 				"ORDER BY " + ALIAS+"1." + SI.col(numA) + NULLS_FIRST,
 				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) FROM ( " +
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
+				")" + cope_total_distinct,
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
@@ -289,6 +373,28 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"join PlusIntegerItem p1 on numC=p1.numC " +
 				"order by any(numA)",
 				query.toString());
+		assertEquals(
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
+				"ORDER BY ANY_VALUE(" + ALIAS+"0." + SI.col(numA) + ")" + NULLS_FIRST,
+				SchemaInfo.search(query));
+		assertEquals(
+				"SELECT COUNT(*) FROM ( " +
+				"SELECT DISTINCT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " " +
+				")" + cope_total_distinct,
+				SchemaInfo.total(query));
+		assertEquals(
+				SELECT_EXISTS(
+				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
+				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
+				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
 		assertTrue(query.exists());
@@ -334,6 +440,19 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				(mysql && model.getEnvironmentInfo().isDatabaseVersionAtLeast(5, 7))
 				? ("ANY_VALUE(" + s + ")")
 				: s;
+	}
+
+	private String SELECT_EXISTS(final String s)
+	{
+		final StringBuilder bf = new StringBuilder();
+		bf.append(mysql ? "SELECT EXISTS ( " : "SELECT COUNT(*) FROM (");
+		bf.append(s);
+		if(!mysql)
+			bf.append("LIMIT 1");
+		bf.append(")");
+		if(!hsqldb)
+			bf.append(" AS cope_exists");
+		return bf.toString();
 	}
 
 	static void notAllowedStartsWith(final Query<?> query, final String message)
