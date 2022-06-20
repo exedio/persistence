@@ -1076,8 +1076,7 @@ public final class Query<R> implements Serializable
 			{
 				for(final Selectable<?> selectable : orderBy)
 				{
-					if(selectable instanceof FunctionField && // TODO could be broader, same join as select
-						selectable.getType()==type)
+					if(isOrderByDependent(selectable))
 					{
 						bf.append(',');
 						bf.appendSelect(selectable, null);
@@ -1140,8 +1139,7 @@ public final class Query<R> implements Serializable
 
 					final boolean anyValue =
 							anyValuePossible &&
-							orderBy[i] instanceof FunctionField && // TODO could be broader, same join as select
-							orderBy[i].getType()==type;
+							isOrderByDependent(orderBy[i]);
 					if(anyValue)
 						bf.append("ANY_VALUE(");
 
@@ -1237,6 +1235,13 @@ public final class Query<R> implements Serializable
 		);
 
 		return result;
+	}
+
+	private boolean isOrderByDependent(final Selectable<?> selectable)
+	{
+		return
+				selectable instanceof FunctionField && // TODO could be broader, same join as select
+				selectable.getType()==type;
 	}
 
 
