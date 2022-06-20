@@ -234,74 +234,52 @@ public class GroupByTest extends TestWithEnvironment
 		return "\n" + "  Position: " + value;
 	}
 
+	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
 	static final class AnItem extends Item
 	{
 		static final StringField string = new StringField().toFinal();
 		static final IntegerField integer = new IntegerField().toFinal();
 
-	/**
-	 * Creates a new AnItem with all the fields initially needed.
-	 * @param string the initial value for field {@link #string}.
-	 * @param integer the initial value for field {@link #integer}.
-	 * @throws com.exedio.cope.MandatoryViolationException if string is null.
-	 * @throws com.exedio.cope.StringLengthViolationException if string violates its length constraint.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(constructor=...) and @WrapperInitial
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
-	AnItem(
-				@javax.annotation.Nonnull final java.lang.String string,
-				final int integer)
-			throws
-				com.exedio.cope.MandatoryViolationException,
-				com.exedio.cope.StringLengthViolationException
-	{
-		this(new com.exedio.cope.SetValue<?>[]{
-			AnItem.string.map(string),
-			AnItem.integer.map(integer),
-		});
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedInnerClassAccess"})
+		AnItem(
+					@javax.annotation.Nonnull final java.lang.String string,
+					final int integer)
+				throws
+					com.exedio.cope.MandatoryViolationException,
+					com.exedio.cope.StringLengthViolationException
+		{
+			this(new com.exedio.cope.SetValue<?>[]{
+				AnItem.string.map(string),
+				AnItem.integer.map(integer),
+			});
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		java.lang.String getString()
+		{
+			return AnItem.string.get(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		int getInteger()
+		{
+			return AnItem.integer.getMandatory(this);
+		}
+
+		@com.exedio.cope.instrument.Generated
+		private static final long serialVersionUID = 1l;
+
+		@com.exedio.cope.instrument.Generated
+		static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
+
+		@com.exedio.cope.instrument.Generated
+		private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 	}
-
-	/**
-	 * Creates a new AnItem and sets the given fields initially.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(genericConstructor=...)
-	private AnItem(final com.exedio.cope.SetValue<?>... setValues){super(setValues);}
-
-	/**
-	 * Returns the value of {@link #string}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	@javax.annotation.Nonnull
-	java.lang.String getString()
-	{
-		return AnItem.string.get(this);
-	}
-
-	/**
-	 * Returns the value of {@link #integer}.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
-	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-	int getInteger()
-	{
-		return AnItem.integer.getMandatory(this);
-	}
-
-	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 1l;
-
-	/**
-	 * The persistent type information for anItem.
-	 */
-	@com.exedio.cope.instrument.Generated // customize with @WrapperType(type=...)
-	static final com.exedio.cope.Type<AnItem> TYPE = com.exedio.cope.TypesBound.newType(AnItem.class);
-
-	/**
-	 * Activation constructor. Used for internal purposes only.
-	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
-	 */
-	@com.exedio.cope.instrument.Generated
-	private AnItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
-}
 }
