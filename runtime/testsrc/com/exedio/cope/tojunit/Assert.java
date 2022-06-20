@@ -199,6 +199,11 @@ public final class Assert
 		assertContainsList(Arrays.asList(o1, o2, o3, o4, o5, o6, o7), actual);
 	}
 
+	public static void assertContains(final Object o1, final Object o2, final Object o3, final Object o4, final Object o5, final Object o6, final Object o7, final Object o8, final Collection<?> actual)
+	{
+		assertContainsList(Arrays.asList(o1, o2, o3, o4, o5, o6, o7, o8), actual);
+	}
+
 	@SuppressWarnings("unused") // OK: for later use
 	public static void assertContainsUnmodifiable(final Collection<?> actual)
 	{

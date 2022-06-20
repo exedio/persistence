@@ -220,6 +220,99 @@ public class GroupByTest extends TestWithEnvironment
 		}
 	}
 
+	/**
+	 * DISTINCT clause is the same as the GROUP BY clause.
+	 */
+	@Test void testDistinctSame()
+	{
+		final Query<String> query = new Query<>(string);
+		query.setGroupBy(string);
+
+		assertContains("bar", "car", "foo", "goo", query.search());
+		assertEquals(4, query.total());
+		assertTrue(query.exists());
+
+		query.setDistinct(true);
+		assertContains("bar", "car", "foo", "goo", query.search());
+		assertEquals(4, query.total());
+		assertTrue(query.exists());
+	}
+
+	/**
+	 * DISTINCT clause has fewer columns than the GROUP BY clause,
+	 * DISTINCT is stricter and wins.
+	 */
+	@Test void testDistinctFewer()
+	{
+		final Query<String> query = new Query<>(string);
+		query.setGroupBy(string, integer);
+
+		assertContains("foo", "foo", "foo", "bar", "bar", "goo", "car", "car", query.search());
+		assertEquals(8, query.total());
+		assertTrue(query.exists());
+
+		query.setDistinct(true);
+		assertContains("bar", "car", "foo", "goo", query.search());
+		assertEquals(4, query.total());
+		assertTrue(query.exists());
+	}
+
+	/**
+	 * DISTINCT clause has more columns than the GROUP BY clause,
+	 * GROUP BY is stricter and wins.
+	 */
+	@Test void testDistinctMore()
+	{
+		final Query<List<Object>> query = Query.newQuery(new Selectable<?>[]{string, integer}, TYPE, null);
+		query.setGroupBy(string);
+		query.setDistinct(true);
+
+		final String table = getTableName(TYPE);
+		final String column = getColumnName(integer);
+		final EnvironmentInfo env = model.getEnvironmentInfo();
+		switch(dialect)
+		{
+			case hsqldb:
+			{
+				final String message =
+						"expression not in aggregate or GROUP BY columns: " +
+						"PUBLIC.\"" + table + "\".\"" + column + "\"" + ifPrep(" in statement ");
+				notAllowed(query, message + ifPrep("[SELECT DISTINCT \"string\",\"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\"]"));
+				notAllowedTotal(query, message + ifPrep("[SELECT COUNT(*) FROM ( SELECT DISTINCT \"string\",\"integer\" FROM " + SI.tab(TYPE) + " GROUP BY \"string\" )]"));
+				break;
+			}
+			case mysql:
+			{
+				final String message =
+						env.isDatabaseVersionAtLeast(5, 7)
+						?
+						"Expression #2 of SELECT list is not in GROUP BY clause and " +
+						"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+						"which is not functionally dependent on columns in GROUP BY clause; " +
+						"this is incompatible with sql_mode=only_full_group_by"
+						:
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+
+				notAllowed(query, message);
+				notAllowedTotal(query, message);
+				break;
+			}
+			case postgresql:
+			{
+				final String message =
+						"ERROR: column \"" + table + "." + column + "\" must appear " +
+						"in the GROUP BY clause or be used in an aggregate function";
+				restartTransaction();
+				notAllowed(query, message + postgresqlPosition(26));
+				restartTransaction();
+				notAllowedTotal(query, message + postgresqlPosition(49));
+				break;
+			}
+			default:
+				throw new RuntimeException("" + dialect);
+		}
+	}
+
 	private static void assertCount(final Query<?> items, final int expectedSize, final int expectedTotal)
 	{
 		assertEquals(expectedSize, items.search().size());
