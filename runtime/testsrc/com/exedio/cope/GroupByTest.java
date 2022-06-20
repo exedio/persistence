@@ -106,16 +106,15 @@ public class GroupByTest extends TestWithEnvironment
 			}
 			case mysql:
 			{
-				final String message;
-				if(env.isDatabaseVersionAtLeast(5, 7))
-					message =
-							"Expression #1 of SELECT list is not in GROUP BY clause and " +
-							"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
-							"which is not functionally dependent on columns in GROUP BY clause; " +
-							"this is incompatible with sql_mode=only_full_group_by";
-				else
-					message =
-							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
+				final String message =
+						env.isDatabaseVersionAtLeast(5, 7)
+						?
+						"Expression #1 of SELECT list is not in GROUP BY clause and " +
+						"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+						"which is not functionally dependent on columns in GROUP BY clause; " +
+						"this is incompatible with sql_mode=only_full_group_by"
+						:
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY";
 
 				notAllowed(query, message);
 				notAllowedTotal(query, message);
@@ -161,15 +160,15 @@ public class GroupByTest extends TestWithEnvironment
 								"GROUP BY \"string\" ORDER BY \"integer\"]"));
 				break;
 			case mysql:
-				if(env.isDatabaseVersionAtLeast(5, 7))
-					notAllowed(query,
-							"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
-							"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
-							"which is not functionally dependent on columns in GROUP BY clause; " +
-							"this is incompatible with sql_mode=only_full_group_by");
-				else
-					notAllowed(query,
-							"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
+				notAllowed(query,
+						env.isDatabaseVersionAtLeast(5, 7)
+						?
+						"Expression #1 of ORDER BY clause is not in GROUP BY clause and " +
+						"contains nonaggregated column '" + env.getCatalog() + ".AnItem.integer' " +
+						"which is not functionally dependent on columns in GROUP BY clause; " +
+						"this is incompatible with sql_mode=only_full_group_by"
+						:
+						"'" + env.getCatalog() + "." + table + "." + column + "' isn't in GROUP BY");
 				break;
 			case postgresql:
 				notAllowed(query,
