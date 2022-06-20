@@ -456,13 +456,13 @@ final class MysqlDialect extends Dialect
 	@Override
 	String getExistsPrefix()
 	{
-		return "SELECT EXISTS ( ";
+		return "SELECT EXISTS (";
 	}
 
 	@Override
 	String getExistsPostfix()
 	{
-		return " )";
+		return ")";
 	}
 
 	@Override

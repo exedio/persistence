@@ -87,7 +87,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
-				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC)),
 				SchemaInfo.exists(query));
 
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
@@ -125,7 +125,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
-				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC)),
 				SchemaInfo.exists(query));
 
 		assertContains(item1, item2, item3, query.search());
@@ -163,7 +163,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
-				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC)),
 				SchemaInfo.exists(query));
 
 		assertContainsList(asList(item1, item1, item1, item2, item2, item2, item3, item3, item3), query.search());
@@ -195,7 +195,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 		assertEquals(
 				SELECT_EXISTS(
 				"SELECT " + SI.pk(TYPE) + " " +
-				"FROM " + SI.tab(TYPE) + " "),
+				"FROM " + SI.tab(TYPE)),
 				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
@@ -258,7 +258,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
-				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC)),
 				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
@@ -322,7 +322,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
-				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC)),
 				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
@@ -393,7 +393,7 @@ public class DistinctOrderByTest extends TestWithEnvironment
 				"SELECT " + ALIAS+"0." + SI.pk(TYPE) + " " +
 				"FROM " + SI.tab(TYPE) + " " + ALIAS+"0 " +
 				"JOIN " + SI.tab(TYPE) + " " + ALIAS+"1 " +
-				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC) + " "),
+				"ON " + ALIAS+"0." + SI.col(numC) + "=" + ALIAS+"1." + SI.col(numC)),
 				SchemaInfo.exists(query));
 
 		assertEquals(3, query.total());
@@ -445,10 +445,10 @@ public class DistinctOrderByTest extends TestWithEnvironment
 	private String SELECT_EXISTS(final String s)
 	{
 		final StringBuilder bf = new StringBuilder();
-		bf.append(mysql ? "SELECT EXISTS ( " : "SELECT COUNT(*) FROM (");
+		bf.append(mysql ? "SELECT EXISTS (" : "SELECT COUNT(*) FROM (");
 		bf.append(s);
 		if(!mysql)
-			bf.append("LIMIT 1");
+			bf.append(" LIMIT 1");
 		bf.append(")");
 		if(!hsqldb)
 			bf.append(" AS cope_exists");
