@@ -32,7 +32,6 @@ import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 public class GroupByTest extends TestWithEnvironment
 {
 	private static final Model MODEL = new Model(TYPE);
@@ -228,6 +227,7 @@ public class GroupByTest extends TestWithEnvironment
 		assertEquals(expectedTotal>0, items.exists());
 	}
 
+	@SuppressWarnings("HardcodedLineSeparator") // OK: newline in sql error
 	static final String postgresqlPosition(final int value)
 	{
 		return "\n" + "  Position: " + value;
