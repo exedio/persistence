@@ -1039,6 +1039,14 @@ public final class Query<R> implements Serializable
 		final Selectable<?>[] selects = selects();
 		final Marshaller<?>[] selectMarshallers;
 
+		final boolean anyValuePossibleInOrderBy =
+				mode.isSearch() &&
+				orderBy!=null &&
+				distinct &&
+				selects.length==1 &&
+				selects[0] instanceof This && // TODO could be broader
+				selects[0].getType()==type;
+
 		if(!countSubSelect && mode.isTotal())
 		{
 			bf.append("COUNT(*)");
@@ -1061,6 +1069,19 @@ public final class Query<R> implements Serializable
 				if(mode.isTotal() && distinct && (selects.length>1) && dialect.subqueryRequiresAliasInSelect())
 					bf.append(" as cope_total_distinct" + (copeTotalDistinctCount++));
 				selectMarshallers[i] = marshallers.get(selects[i]);
+			}
+			// The following content of the SELECT clause is just for satisfying databases:
+			// for SELECT DISTINCT, ORDER BY expressions must appear in select list
+			if(anyValuePossibleInOrderBy && !dialect.supportsAnyValue())
+			{
+				for(final Selectable<?> selectable : orderBy)
+				{
+					if(isOrderByDependent(selectable))
+					{
+						bf.append(',');
+						bf.appendSelect(selectable, null);
+					}
+				}
 			}
 		}
 
@@ -1105,10 +1126,7 @@ public final class Query<R> implements Serializable
 			if(orderBy!=null)
 			{
 				final boolean anyValuePossible =
-						distinct &&
-						selects.length==1 &&
-						selects[0] instanceof This && // TODO could be broader
-						selects[0].getType()==type &&
+						anyValuePossibleInOrderBy &&
 						dialect.supportsAnyValue();
 
 				final boolean[] orderAscending = this.orderAscending;
@@ -1121,8 +1139,7 @@ public final class Query<R> implements Serializable
 
 					final boolean anyValue =
 							anyValuePossible &&
-							orderBy[i] instanceof FunctionField && // TODO could be broader, same join as select
-							orderBy[i].getType()==type;
+							isOrderByDependent(orderBy[i]);
 					if(anyValue)
 						bf.append("ANY_VALUE(");
 
@@ -1218,6 +1235,13 @@ public final class Query<R> implements Serializable
 		);
 
 		return result;
+	}
+
+	private boolean isOrderByDependent(final Selectable<?> selectable)
+	{
+		return
+				selectable instanceof FunctionField && // TODO could be broader, same join as select
+				selectable.getType()==type;
 	}
 
 
