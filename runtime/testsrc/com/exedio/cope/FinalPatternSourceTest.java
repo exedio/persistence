@@ -23,6 +23,7 @@ import static com.exedio.cope.instrument.Visibility.NONE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.instrument.WrapperType;
 import java.util.Set;
 import org.junit.jupiter.api.Test;
 
@@ -120,7 +121,7 @@ public class FinalPatternSourceTest extends TestWithEnvironment
 		private static final long serialVersionUID = 1l;
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final MyPattern pattern = new MyPattern();

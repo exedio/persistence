@@ -33,6 +33,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.CounterDeferredTester;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
@@ -261,7 +262,7 @@ public class DataVaultInfoTest
 
 	static final Model model = new Model(MyItem.TYPE);
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
 	private static class MyItem extends Item
 	{
 		@Vault

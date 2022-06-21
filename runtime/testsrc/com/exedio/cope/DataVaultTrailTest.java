@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assumptions.assumeTrue;
 
 import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.ConnectionRule;
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
@@ -429,7 +430,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 
 	private static final Model model = new Model(MyItem.TYPE);
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
 	private static class MyItem extends Item
 	{
 		@Vault("myService-Key")

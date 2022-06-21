@@ -23,6 +23,7 @@ import static com.exedio.cope.pattern.SettableMandatorySyntheticTest.AnItem.mand
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
@@ -70,7 +71,7 @@ public class SettableMandatorySyntheticTest extends TestWithEnvironment
 	}
 
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AnItem extends Item
 	{
 		static final SettableSyntheticField mandatory = new SettableSyntheticField();
 

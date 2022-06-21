@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.FinalViolationException;
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TestWithEnvironment;
@@ -59,7 +60,7 @@ public class SettableFinalPriceTest extends TestWithEnvironment
 	}
 
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AnItem extends Item
 	{
 		static final PriceField isfinal = new PriceField().toFinal().optional();
 

@@ -90,7 +90,7 @@ public class PatternCacheWeightTest
 	private static final int ABSENT = -123456789;
 
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		static final MyPattern absent = new MyPattern();

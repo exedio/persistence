@@ -25,6 +25,7 @@ import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.MainRule;
 import org.junit.jupiter.api.Test;
 
@@ -66,7 +67,7 @@ public class CheckConstraintViewTest extends TestWithEnvironment
 		assertEquals(asList(), TYPE.search());
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
 	static final class AnItem extends Item
 	{
 		@Wrapper(wrap="set", visibility=NONE)

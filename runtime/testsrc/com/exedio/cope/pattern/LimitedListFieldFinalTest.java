@@ -27,11 +27,13 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.IntegerField;
+import com.exedio.cope.Item;
 import com.exedio.cope.MandatoryViolationException;
 import com.exedio.cope.Model;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.StringField;
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.instrument.WrapperType;
 import java.util.Collection;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -130,8 +132,8 @@ public class LimitedListFieldFinalTest extends TestWithEnvironment
 				"mandatory violation for " + field);
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
+	static final class AnItem extends Item
 	{
 		static final LimitedListField<String> field =
 				LimitedListField.create(new StringField().toFinal().optional(), 3);

@@ -436,7 +436,7 @@ public class IsComparableTest
 	}
 
 
-	@com.exedio.cope.instrument.WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	static final class MyItem extends Item
 	{
 		@WrapperIgnore static final StringField stringA = new StringField();

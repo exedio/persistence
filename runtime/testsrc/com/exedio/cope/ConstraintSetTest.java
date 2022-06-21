@@ -146,7 +146,7 @@ public class ConstraintSetTest extends TestWithEnvironment
 		}
 	}
 
-	@com.exedio.cope.instrument.WrapperType(constructor=NONE, indent=2) // TODO use import, but this is not accepted by javac
+	@WrapperType(constructor=NONE, indent=2)
 	static class AnItem extends Item
 	{
 		static final BooleanField field = new BooleanField().optional();

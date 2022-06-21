@@ -25,6 +25,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 import com.exedio.cope.CopyConstraint;
 import com.exedio.cope.CopyViolationException;
 import com.exedio.cope.FunctionField;
+import com.exedio.cope.Item;
 import com.exedio.cope.ItemField;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
@@ -172,7 +173,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	private static final class DoubleCopyConstraintItem extends com.exedio.cope.Item
+	private static final class DoubleCopyConstraintItem extends Item
 	{
 		static final StringField value = new StringField().toFinal();
 		static final StringField template = new StringField().toFinal();
@@ -264,7 +265,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	private static final class AllCopyConstraintItem extends com.exedio.cope.Item
+	private static final class AllCopyConstraintItem extends Item
 	{
 		static final StringField value = new StringField().toFinal();
 
@@ -341,7 +342,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	private static final class PartialCopyConstraintItem extends com.exedio.cope.Item
+	private static final class PartialCopyConstraintItem extends Item
 	{
 		static final StringField value = new StringField().toFinal();
 
@@ -418,7 +419,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	private static final class A extends com.exedio.cope.Item implements MultiItemFieldValuex
+	private static final class A extends Item implements MultiItemFieldValuex
 	{
 		public static final StringField value = new StringField().toFinal();
 
@@ -478,7 +479,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	private static final class B extends com.exedio.cope.Item implements MultiItemFieldValuex
+	private static final class B extends Item implements MultiItemFieldValuex
 	{
 		public static final StringField value = new StringField().toFinal();
 
@@ -538,7 +539,7 @@ public class MultiItemFieldCopyConstraintTest extends TestWithEnvironment
 	}
 
 	@WrapperType(indent=2)
-	private static final class C extends com.exedio.cope.Item implements MultiItemFieldValuex
+	private static final class C extends Item implements MultiItemFieldValuex
 	{
 		public static final StringField value = new StringField().toFinal();
 		public static final StringField template = new StringField().toFinal();

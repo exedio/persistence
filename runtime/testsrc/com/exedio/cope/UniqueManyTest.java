@@ -25,6 +25,7 @@ import static com.exedio.cope.instrument.Visibility.PACKAGE;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
+import com.exedio.cope.instrument.WrapperType;
 import java.util.ArrayList;
 import org.junit.jupiter.api.Test;
 
@@ -61,7 +62,7 @@ public class UniqueManyTest extends TestWithEnvironment
 			assertEquals("value" + index, field(index).get(i));
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, constructor=NONE, genericConstructor=PACKAGE, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, constructor=NONE, genericConstructor=PACKAGE, comments=false)
 	static final class MyItem extends Item
 	{
 		static final StringField field1 = new StringField();

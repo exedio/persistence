@@ -28,6 +28,7 @@ import static com.exedio.cope.pattern.EnumMapFieldFallbackModelTest.AnItem.noneO
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.fail;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.StringField;
 import org.junit.jupiter.api.Test;
@@ -123,7 +124,7 @@ public class EnumMapFieldFallbackModelTest
 		one, two, @CopeEnumFallback fall
 	}
 
-	static final class AnItem extends com.exedio.cope.Item // TODO use import, but this is not accepted by javac
+	static final class AnItem extends Item
 	{
 		static final EnumMapField<AnEnum, String> noneMand = EnumMapField.create(AnEnum.class, new StringField());
 		static final EnumMapField<AnEnum, String> noneOpt  = EnumMapField.create(AnEnum.class, new StringField().optional());

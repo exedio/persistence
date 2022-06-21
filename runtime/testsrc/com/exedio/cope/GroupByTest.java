@@ -27,6 +27,7 @@ import static com.exedio.cope.tojunit.Assert.assertContains;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.SI;
 import java.util.List;
 import org.junit.jupiter.api.BeforeEach;
@@ -326,7 +327,7 @@ public class GroupByTest extends TestWithEnvironment
 		return "\n" + "  Position: " + value;
 	}
 
-	@com.exedio.cope.instrument.WrapperType(indent=2, comments=false) // TODO use import, but this is not accepted by javac
+	@WrapperType(indent=2, comments=false)
 	static final class AnItem extends Item
 	{
 		static final StringField string = new StringField().toFinal();
