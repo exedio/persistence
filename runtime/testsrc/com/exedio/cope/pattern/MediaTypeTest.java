@@ -134,7 +134,7 @@ public class MediaTypeTest
 
 	@Test void testForMagic() throws IOException
 	{
-		assertEquals(8, MediaType.magicMaxLength());
+		assertEquals(12, MediaType.magicMaxLength());
 
 		final MediaType jpg = forName("image/jpeg");
 		final MediaType png = forName("image/png");
@@ -160,6 +160,7 @@ public class MediaTypeTest
 		assertEquals(Set.of(forName(MediaType.PNG )), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.png" )));
 		assertEquals(Set.of(forName(MediaType.GIF )), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.gif" )));
 		assertEquals(Set.of(forName(MediaType.WEBP)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.webp")));
+		assertEquals(Set.of(forName(MediaType.AVIF)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.avif")));
 		assertEquals(Set.of(forName(MediaType.TIFF)), forMagics(files.newPath(MediaTypeTest.class, "thumbnail-test.tiff")));
 		assertEquals(Set.of(
 				forName(MediaType.ZIP),

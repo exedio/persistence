@@ -18,6 +18,7 @@
 
 package com.exedio.cope.pattern;
 
+import static com.exedio.cope.util.Check.requireNonNegative;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.Condition;
@@ -27,26 +28,33 @@ import java.util.Arrays;
 
 final class StartsWith
 {
+	private final int offset;
 	private final byte[] value;
 
 	StartsWith(final byte... value)
 	{
+		this(0, value);
+	}
+
+	StartsWith(final int offset, final byte... value)
+	{
+		this.offset = requireNonNegative(offset, "offset");
 		this.value = requireNonNull(value);
 
-		if(value.length<3 || value.length>MAX_LENGTH)
+		if(value.length<3 || offset+value.length > MAX_LENGTH)
 			throw new IllegalArgumentException(toString());
 	}
 
-	static final int MAX_LENGTH = 8;
+	static final int MAX_LENGTH = 12;
 
 	boolean matches(final byte[] magic)
 	{
 		final int l = value.length;
-		if(magic.length<l)
+		if(magic.length < offset+l)
 			return false;
 
 		for(int i = 0; i<l; i++)
-			if(value[i]!=magic[i])
+			if(value[i]!=magic[offset+i])
 				return false;
 
 		return true;
@@ -54,7 +62,7 @@ final class StartsWith
 
 	Condition matchesIfSupported(final DataField field)
 	{
-		return field.startsWithIfSupported(value);
+		return field.startsWithIfSupported(offset, value);
 	}
 
 	@Override
@@ -66,18 +74,18 @@ final class StartsWith
 			return false;
 
 		final StartsWith o = (StartsWith)other;
-		return Arrays.equals(value, o.value);
+		return offset==o.offset && Arrays.equals(value, o.value);
 	}
 
 	@Override
 	public int hashCode()
 	{
-		return Arrays.hashCode(value);
+		return offset ^ Arrays.hashCode(value);
 	}
 
 	@Override
 	public String toString()
 	{
-		return Hex.encodeLower(value);
+		return "(" + offset + ')' + Hex.encodeLower(value);
 	}
 }

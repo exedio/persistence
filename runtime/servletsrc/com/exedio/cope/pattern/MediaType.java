@@ -137,6 +137,7 @@ public final class MediaType
 	public static final String PNG  = "image/png";
 	public static final String GIF  = "image/gif";
 	public static final String WEBP = "image/webp";
+	public static final String AVIF = "image/avif";
 	public static final String TIFF = "image/tiff";
 	public static final String ICON = "image/vnd.microsoft.icon";
 	public static final String SVG  = "image/svg+xml";
@@ -193,6 +194,11 @@ public final class MediaType
 					// https://en.wikipedia.org/wiki/WebP
 					new StartsWith((byte)'R', (byte)'I', (byte)'F', (byte)'F'),
 					WEBP),
+			new MediaType(
+					".avif",
+					// https://en.wikipedia.org/wiki/AVIF
+					new StartsWith(4, (byte)'f', (byte)'t', (byte)'y', (byte)'p', (byte)'a', (byte)'v', (byte)'i', (byte)'f'),
+					AVIF),
 			new MediaType(
 					new String[]{".tif",".tiff"},
 					// https://en.wikipedia.org/wiki/Magic_number_(programming)#Magic_numbers_in_files

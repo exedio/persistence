@@ -20,6 +20,7 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.pattern.MediaLocatorAssert.assertLocator;
+import static com.exedio.cope.pattern.MediaType.AVIF;
 import static com.exedio.cope.pattern.MediaType.GIF;
 import static com.exedio.cope.pattern.MediaType.JPEG;
 import static com.exedio.cope.pattern.MediaType.PNG;
@@ -66,7 +67,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		super(MODEL);
 	}
 
-	private ThumbnailItem jpg, png, gif, wep, txt, emp;
+	private ThumbnailItem jpg, png, gif, wep, txt, emp, avif;
 	private final byte[] data  = {-86,122,-8,23};
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
@@ -78,10 +79,12 @@ public final class ThumbnailTest extends TestWithEnvironment
 		wep = new ThumbnailItem();
 		txt = new ThumbnailItem();
 		emp = new ThumbnailItem();
+		avif = new ThumbnailItem();
 		jpg.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.jpg"), JPEG);
 		png.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.png"), PNG);
 		gif.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.gif"), GIF);
 		wep.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.webp"), WEBP);
+		avif.setFile(ThumbnailTest.class.getResourceAsStream("thumbnail-test.avif"), AVIF);
 		txt.setFile(data, "text/plain");
 	}
 
@@ -157,6 +160,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals(null, wep.getThumbContentType());
 		assertEquals(null, txt.getThumbContentType());
 		assertEquals(null, emp.getThumbContentType());
+		assertEquals(null, avif.getThumbContentType());
 
 		// url
 		assertLocator("ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocator());
@@ -165,6 +169,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertLocator(null, wep.getThumbLocator());
 		assertLocator(null, txt.getThumbLocator());
 		assertLocator(null, emp.getThumbLocator());
+		assertLocator(null, avif.getThumbLocator());
 
 		// url fallback
 		assertEquals(jpg.getThumbLocator().getURLByConnect(), jpg.getThumbURLWithFallbackToSource());
@@ -173,6 +178,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals(wep.getFileLocator ().getURLByConnect(), wep.getThumbURLWithFallbackToSource());
 		assertEquals(txt.getFileLocator ().getURLByConnect(), txt.getThumbURLWithFallbackToSource());
 		assertEquals(null, emp.getThumbURLWithFallbackToSource());
+		assertEquals(avif.getFileLocator ().getURLByConnect(), avif.getThumbURLWithFallbackToSource());
 
 		// locator fallback
 		assertEquals("ThumbnailItem/thumb/" + jpg.getCopeID() + ".jpg", jpg.getThumbLocatorWithFallbackToSource().getPath());
@@ -181,12 +187,13 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertEquals("ThumbnailItem/file/"  + wep.getCopeID() + ".webp",wep.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals("ThumbnailItem/file/"  + txt.getCopeID() + ".txt", txt.getThumbLocatorWithFallbackToSource().getPath());
 		assertEquals(null, emp.getThumbLocatorWithFallbackToSource());
+		assertEquals("ThumbnailItem/file/"  + avif.getCopeID() + ".avif", avif.getThumbLocatorWithFallbackToSource().getPath());
 
 		// isNull
 		assertContains(emp, TYPE.search(file.isNull()));
-		assertContains(jpg, png, gif, wep, txt, TYPE.search(file.isNotNull()));
+		assertContains(jpg, png, gif, wep, txt, avif, TYPE.search(file.isNotNull()));
 		assertContains(emp , TYPE.search(thumb.isNull())); // TODO check for getSupportedSourceContentTypes, add text
-		assertContains(jpg, png, gif, wep, txt, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
+		assertContains(jpg, png, gif, wep, txt, avif, TYPE.search(thumb.isNotNull())); // TODO check for getSupportedSourceContentTypes, remove text
 
 		// test get
 		assertAndWrite(jpg.getThumb(), "thumbnail-test-jpg.jpg");
@@ -195,6 +202,7 @@ public final class ThumbnailTest extends TestWithEnvironment
 		assertNull(wep.getThumb());
 		assertNull(txt.getThumb());
 		assertNull(emp.getThumb());
+		assertNull(avif.getThumb());
 	}
 
 	// Ok, because Media#set(Item,InputStream,String) closes the stream.
