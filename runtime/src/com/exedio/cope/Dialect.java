@@ -375,7 +375,7 @@ abstract class Dialect
 		return "OCTET_LENGTH";
 	}
 
-	abstract void appendStartsWith(Statement bf, BlobColumn column, byte[] value);
+	abstract void appendStartsWith(Statement bf, BlobColumn column, int offset, byte[] value);
 
 	String getAveragePrefix()
 	{

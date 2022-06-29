@@ -85,7 +85,7 @@ class AssertionFailedDialect extends Dialect
 		throw new AssertionError();
 	}
 	@Override
-	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
+	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
 	{
 		throw new AssertionError();
 	}

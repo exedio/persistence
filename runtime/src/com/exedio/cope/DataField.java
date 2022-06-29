@@ -993,6 +993,15 @@ public final class DataField extends Field<DataField.Value>
 		return new StartsWithCondition(this, value);
 	}
 
+	/**
+	 * The result may cause an {@link UnsupportedQueryException} when used,
+	 * if the field is stored in a {@link Vault vault}.
+	 */
+	public Condition startsWithIfSupported(final int offset, final byte[] value)
+	{
+		return new StartsWithCondition(this, offset, value);
+	}
+
 	// ------------------- deprecated stuff -------------------
 
 	/**

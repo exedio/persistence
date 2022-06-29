@@ -188,12 +188,16 @@ final class HsqldbDialect extends Dialect
 	}
 
 	@Override
-	void appendStartsWith(final Statement bf, final BlobColumn column, final byte[] value)
+	void appendStartsWith(final Statement bf, final BlobColumn column, final int offset, final byte[] value)
 	{
-		bf.append("LEFT(RAWTOHEX(").
+		bf.append( offset>0 ? "SUBSTR" : "LEFT" ).
+			append("(RAWTOHEX(").
 			append(column).
-			append("),").
-			appendParameter(2*value.length).
+			append("),");
+		if(offset>0)
+			bf.appendParameter(2*offset+1).
+				append(',');
+		bf.appendParameter(2*value.length).
 			append(")=").
 			appendParameter(Hex.encodeLower(value));
 	}
