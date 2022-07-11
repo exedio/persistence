@@ -392,13 +392,7 @@ public final class ConnectProperties extends FactoryProperties<ConnectProperties
 			final Duration defaultValue,
 			final Duration minimum)
 	{
-		final Duration result = value(key, defaultValue, minimum);
-		final Duration maximum = ofMillis(Integer.MAX_VALUE);
-		if(result.compareTo(maximum)>0)
-			throw newException(key,
-					"must be a duration less or equal " + maximum + ", " +
-					"but was " + result);
-		return result;
+		return value(key, defaultValue, minimum, ofMillis(Integer.MAX_VALUE));
 	}
 
 	private String valueMediaUrlSecret(final String key)

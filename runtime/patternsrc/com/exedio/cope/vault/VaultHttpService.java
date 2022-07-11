@@ -23,6 +23,7 @@ import static java.lang.Math.toIntExact;
 import static java.net.HttpURLConnection.HTTP_FORBIDDEN;
 import static java.net.HttpURLConnection.HTTP_NOT_FOUND;
 import static java.net.HttpURLConnection.HTTP_OK;
+import static java.time.Duration.ofMillis;
 import static java.time.Duration.ofSeconds;
 
 import com.exedio.cope.util.Properties;
@@ -196,10 +197,18 @@ public final class VaultHttpService extends VaultNonWritableService
 			}
 		}
 
-		private final int connectTimeout = toIntExact(value("connectTimeout", ofSeconds(3), Duration.ZERO).toMillis());
-		private final int readTimeout    = toIntExact(value("readTimeout",    ofSeconds(3), Duration.ZERO).toMillis());
+		private final int connectTimeout = valueTimeout("connectTimeout", ofSeconds(3));
+		private final int    readTimeout = valueTimeout(   "readTimeout", ofSeconds(3));
 		private final boolean useCaches       = value("useCaches", false);
 		private final boolean followRedirects = value("followRedirects", false);
+
+		private int valueTimeout(
+				final String key,
+				final Duration defaultValue)
+		{
+			return toIntExact( // toIntExact cannot fail because of maximum duration
+					value(key, defaultValue, ofSeconds(1), ofMillis(Integer.MAX_VALUE)).toMillis());
+		}
 
 		void setConnection(final HttpURLConnection connection, final boolean useCaches)
 		{
