@@ -156,8 +156,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purge.transaction in desc1 / desc2 " +
-					"must be less or equal purge.model=PT12000H, " +
-					"but was PT12024H",
+					"must be a duration between P1D and P500D, " +
+					"but was P501D",
 					e.getMessage());
 		}
 	}
@@ -179,8 +179,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purge.itemCache in desc1 / desc2 " +
-					"must be less or equal purge.model=PT12000H, " +
-					"but was PT12024H",
+					"must be a duration between P1D and P500D, " +
+					"but was P501D",
 					e.getMessage());
 		}
 	}
@@ -202,8 +202,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purge.clusterNode in desc1 / desc2 " +
-					"must be less or equal purge.model=PT12000H, " +
-					"but was PT12024H",
+					"must be a duration between P1D and P500D, " +
+					"but was P501D",
 					e.getMessage());
 		}
 	}
@@ -225,8 +225,8 @@ public class PurgePropertiesTest extends ConnectedTest
 		{
 			assertEquals(
 					"property purge.media in desc1 / desc2 " +
-					"must be less or equal purge.model=PT12000H, " +
-					"but was PT12024H",
+					"must be a duration between P1D and P500D, " +
+					"but was P501D",
 					e.getMessage());
 		}
 	}

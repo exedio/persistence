@@ -84,12 +84,12 @@ public final class SamplerProperties extends Properties
 
 		private Duration subVl(final String key, final Duration defaultValue, final Duration maximum)
 		{
-			final Duration result = value(key, defaultValue, Duration.ofDays(1));
-			if(result.compareTo(maximum)>0)
-				throw newException(key,
-						"must be less or equal purge.model=" + maximum + ", " +
-						"but was " + result);
-			return result;
+			return value(key, min(defaultValue, maximum), Duration.ofDays(1), maximum);
+		}
+
+		private static Duration min(final Duration a, final Duration b)
+		{
+			return a.compareTo(b)>0 ? b : a;
 		}
 
 		void purge(final Sampler sampler, final JobContext ctx)

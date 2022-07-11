@@ -724,8 +724,8 @@ public class ConnectPropertiesTest
 				() -> ConnectProperties.create(s),
 				IllegalPropertiesException.class,
 				"property media.offsetExpires in DESC " +
-				"must be a duration less or equal PT596H31M23.647S, " +
-				"but was "+                      "PT596H31M23.648S");
+				"must be a duration between PT0S and P24DT20H31M23.647S, " +
+				"but was "+                         "P24DT20H31M23.648S");
 	}
 
 	@Test void testMediaMaxAgeNegative()
@@ -739,7 +739,7 @@ public class ConnectPropertiesTest
 				() -> ConnectProperties.create(s),
 				IllegalPropertiesException.class,
 				"property media.offsetExpires in DESC " +
-				"must be a duration greater or equal PT0S, " +
+				"must be a duration between PT0S and P24DT20H31M23.647S, " +
 				"but was PT-0.001S");
 	}
 
