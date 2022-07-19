@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import com.exedio.cope.instrument.Visibility;
 import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.tojunit.CounterDeferredTester;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.Hex;
@@ -49,45 +50,45 @@ public class DataVaultInfoTest
 {
 	@Test void testGetLength()
 	{
-		assertIt(0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
-		assertIt(0, 0, 0, 1, 0);
+		assertIt(0, 0, 0, 1, 3, 0, 0);
 
 		assertEquals(3, item.getFieldLength());
-		assertIt(1, 0, 0, 1, 0);
+		assertIt(1, 0, 0, 1, 3, 0, 0);
 
 		assertEquals(3, item.getFieldLength());
-		assertIt(2, 0, 0, 1, 0);
+		assertIt(2, 0, 0, 1, 3, 0, 0);
 	}
 	@Test void testGetBytes()
 	{
-		assertIt(0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
-		assertIt(0, 0, 0, 1, 0);
+		assertIt(0, 0, 0, 1, 3, 0, 0);
 
 		assertEquals("abcdef", Hex.encodeLower(item.getFieldArray()));
-		assertIt(0, 1, 0, 1, 0);
+		assertIt(0, 1, 0, 1, 3, 0, 0);
 
 		assertEquals("abcdef", Hex.encodeLower(item.getFieldArray()));
-		assertIt(0, 2, 0, 1, 0);
+		assertIt(0, 2, 0, 1, 3, 0, 0);
 	}
 	@Test void testGetStream() throws IOException
 	{
-		assertIt(0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
-		assertIt(0, 0, 0, 1, 0);
+		assertIt(0, 0, 0, 1, 3, 0, 0);
 
 		final NonCloseableOrFlushableOutputStream s = new NonCloseableOrFlushableOutputStream();
 		item.getField(s);
-		assertIt(0, 0, 1, 1, 0);
+		assertIt(0, 0, 1, 1, 3, 0, 0);
 		assertEquals("abcdef", Hex.encodeLower(s.toByteArray()));
 
 		s.reset();
 		item.getField(s);
-		assertIt(0, 0, 2, 1, 0);
+		assertIt(0, 0, 2, 1, 3, 0, 0);
 		assertEquals("abcdef", Hex.encodeLower(s.toByteArray()));
 	}
 	@Test void testPutBytes()
@@ -115,22 +116,22 @@ public class DataVaultInfoTest
 	private final MyTemporaryFolder files = new MyTemporaryFolder();
 	private void testPut(final java.util.function.Function<String, DataField.Value> f)
 	{
-		assertIt(0, 0, 0, 0, 0);
+		assertIt(0, 0, 0, 0, 0, 0, 0);
 
 		final MyItem item = new MyItem(f.apply("abcdef"));
-		assertIt(0, 0, 0, 1, 0);
+		assertIt(0, 0, 0, 1, 3, 0, 0);
 
 		item.setField(f.apply("abcdef"));
-		assertIt(0, 0, 0, 1, 1);
+		assertIt(0, 0, 0, 1, 3, 1, 3);
 
 		item.setField(f.apply("abcdef"));
-		assertIt(0, 0, 0, 1, 2);
+		assertIt(0, 0, 0, 1, 3, 2, 6);
 
 		item.setField(f.apply("abcde0"));
-		assertIt(0, 0, 0, 2, 2);
+		assertIt(0, 0, 0, 2, 6, 2, 6);
 
 		item.setField(f.apply("abcde01234"));
-		assertIt(0, 0, 0, 3, 2);
+		assertIt(0, 0, 0, 3, 11, 2, 6);
 	}
 
 
@@ -139,7 +140,9 @@ public class DataVaultInfoTest
 			final int getBytes,
 			final int getStream,
 			final int putInitial,
-			final int putRedundant)
+			final int putInitialSize,
+			final int putRedundant,
+			final int putRedundantSize)
 	{
 		assertEquals(Vault.DEFAULT, MyItem.field.getVaultServiceKey());
 
@@ -161,6 +164,8 @@ public class DataVaultInfoTest
 		assertCount("get", Tags.of("sink", "stream"), actual.getGetStreamCount());
 		assertCount("put", Tags.of("result", "initial"),   actual.getPutInitialCount());
 		assertCount("put", Tags.of("result", "redundant"), actual.getPutRedundantCount());
+		this.putInitialSize  .assertCount(putInitialSize);
+		this.putRedundantSize.assertCount(putRedundantSize);
 	}
 
 	@Test void testDisconnected()
@@ -179,6 +184,8 @@ public class DataVaultInfoTest
 		assertCount("get", Tags.of("sink", "stream"), onSetup.getGetStreamCount());
 		assertCount("put", Tags.of("result", "initial"),   onSetup.getPutInitialCount());
 		assertCount("put", Tags.of("result", "redundant"), onSetup.getPutRedundantCount());
+		this.putInitialSize  .assertCount(0);
+		this.putRedundantSize.assertCount(0);
 	}
 
 	private static void assertCount(final String nameSuffix, final Tags tags, final long actual)
@@ -190,6 +197,17 @@ public class DataVaultInfoTest
 				actual,
 				nameSuffix);
 	}
+
+	private final CounterDeferredTester putInitialSize   = counter("putSize", Tags.of("result", "initial"));
+	private final CounterDeferredTester putRedundantSize = counter("putSize", Tags.of("result", "redundant"));
+
+	private static CounterDeferredTester counter(final String name, final Tags tags)
+	{
+		return new CounterDeferredTester(
+				DataField.class, "vault." + name,
+				tag(MyItem.field).and("service", "default").and(tags));
+	}
+
 
 	private DataFieldVaultInfo onSetup;
 

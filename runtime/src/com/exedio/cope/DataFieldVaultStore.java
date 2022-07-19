@@ -44,7 +44,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final String algorithmName;
 	private final String serviceKey;
 	private final VaultService service;
-	private final Counter getLength, getBytes, getStream, putInitial, putRedundant;
+	private final Counter getLength, getBytes, getStream, putInitial, putRedundant, putInitialSize, putRedundantSize;
 
 	DataFieldVaultStore(
 			final DataField field,
@@ -72,6 +72,8 @@ final class DataFieldVaultStore extends DataFieldStore
 		getStream = metrics.counter("get", "sink", "stream");
 		putInitial   = metrics.counter("put", "result", "initial");
 		putRedundant = metrics.counter("put", "result", "redundant");
+		putInitialSize   = metrics.counter("putSize", "result", "initial");
+		putRedundantSize = metrics.counter("putSize", "result", "redundant");
 	}
 
 	private static final class Metrics
@@ -237,9 +239,10 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 
 		final MessageDigest messageDigest = algorithm.newInstance();
+		final LengthConsumer length = new LengthConsumer();
 		try
 		{
-			data = data.update(messageDigest, field,
+			data = data.update(messageDigest, length, field,
 					exceptionItem); // BEWARE: is not the same as entity.getItem()
 		}
 		catch(final IOException e)
@@ -284,6 +287,7 @@ final class DataFieldVaultStore extends DataFieldStore
 			throw new RuntimeException(field.toString(), e);
 		}
 		(result ? putInitial : putRedundant).increment();
+		(result ? putInitialSize : putRedundantSize).increment(length.value());
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();

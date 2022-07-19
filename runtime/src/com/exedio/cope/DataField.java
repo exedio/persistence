@@ -43,6 +43,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.StandardOpenOption;
 import java.security.MessageDigest;
+import java.util.function.LongConsumer;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import javax.annotation.Nonnull;
@@ -576,7 +577,7 @@ public final class DataField extends Field<DataField.Value>
 		 * Additionally checks for {@link #getMaximumLength() maximum length} and
 		 * throw {@link DataLengthViolationException} if exceeded.
 		 */
-		abstract Value update(MessageDigest digest, DataField field, Item exceptionItem) throws IOException;
+		abstract Value update(MessageDigest digest, LongConsumer length, DataField field, Item exceptionItem) throws IOException;
 
 		@Override
 		public abstract String toString();
@@ -652,6 +653,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		Value update(
 				final MessageDigest digest,
+				final LongConsumer length,
 				final DataField field,
 				final Item exceptionItem)
 		{
@@ -659,6 +661,7 @@ public final class DataField extends Field<DataField.Value>
 			if(array.length>field.maximumLength)
 				throw new DataLengthViolationException(field, exceptionItem, array.length, true);
 			digest.update(array, 0, array.length);
+			length.accept(array.length);
 			return new ArrayValue(array);
 		}
 
@@ -723,6 +726,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		final Value update(
 				final MessageDigest digest,
+				final LongConsumer length,
 				final DataField field,
 				final Item exceptionItem) throws IOException
 		{
@@ -749,6 +753,7 @@ public final class DataField extends Field<DataField.Value>
 						bf.write(buf, 0, len);
 					}
 				}
+				length.accept(transferredLength);
 				return new ArrayValue(bf.toByteArray());
 			}
 			else
@@ -764,6 +769,7 @@ public final class DataField extends Field<DataField.Value>
 						digest.update(buf, 0, len);
 					}
 				}
+				length.accept(transferredLength);
 				return copyAfterExhaustion();
 			}
 		}
