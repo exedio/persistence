@@ -212,6 +212,44 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		log.assertEmpty();
 	}
 
+	@Test void testMarkPutInitial() throws SQLException
+	{
+		assertEquals(false, model.isVaultRequiredToMarkPut("myService-Key"));
+		queryTrail("myService_Key", rs -> {});
+
+		model.setVaultRequiredToMarkPut("myService-Key", true);
+		assertEquals(true, model.isVaultRequiredToMarkPut("myService-Key"));
+
+		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
+		queryTrail("myService_Key", rs ->
+				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
+
+		item.setField(toValue(decodeLower("abcdef")));
+		queryTrail("myService_Key", rs ->
+				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
+
+		log.assertEmpty();
+	}
+
+	@Test void testMarkPutRedundant() throws SQLException
+	{
+		assertEquals(false, model.isVaultRequiredToMarkPut("myService-Key"));
+		queryTrail("myService_Key", rs -> {});
+
+		final MyItem item = new MyItem(toValue(decodeLower("abcdef")));
+		queryTrail("myService_Key", rs ->
+				assertRow(abcdefHash, 3, "abcdef", "MyItem.field", rs));
+
+		model.setVaultRequiredToMarkPut("myService-Key", true);
+		assertEquals(true, model.isVaultRequiredToMarkPut("myService-Key"));
+
+		item.setField(toValue(decodeLower("abcdef")));
+		queryTrail("myService_Key", rs ->
+				assertRow(abcdefHash, 3, "abcdef", 1, "MyItem.field", rs));
+
+		log.assertEmpty();
+	}
+
 	@Test void testFieldLong() throws SQLException
 	{
 		queryTrail("myService_Key", rs -> {});
@@ -250,6 +288,7 @@ public class DataVaultTrailTest extends TestWithEnvironment
 			assertEquals("hash",    md.getColumnName(column++));
 			assertEquals("length",  md.getColumnName(column++));
 			assertEquals("start20", md.getColumnName(column++));
+			assertEquals("markPut", md.getColumnName(column++));
 			assertEquals("date",    md.getColumnName(column++));
 			assertEquals("field",   md.getColumnName(column++));
 			assertEquals("origin",  md.getColumnName(column++));
@@ -268,11 +307,23 @@ public class DataVaultTrailTest extends TestWithEnvironment
 			final String field,
 			final ResultSet rs) throws SQLException
 	{
+		assertRow(hash, length, start, null, field, rs);
+	}
+
+	private static void assertRow(
+			final String hash,
+			final int length,
+			final String start,
+			final Integer markPut,
+			final String field,
+			final ResultSet rs) throws SQLException
+	{
 		assertTrue(rs.next());
 		int column = 1;
 		assertEquals(hash,    rs.getString(column++), "hash");
 		assertEquals(length,  rs.getInt   (column++), "length");
 		assertEquals(start,   encodeLower(rs.getBytes(column++)), "start");
+		assertEquals(markPut, rs.getObject(column++), "markPut");
 		assertNotNull(        rs.getDate  (column++), "date");
 		assertEquals(field,   rs.getString(column++), "field");
 		//noinspection UnusedAssignment OK: bug in idea
@@ -344,6 +395,8 @@ public class DataVaultTrailTest extends TestWithEnvironment
 	{
 		final VaultProperties vaultProperties = model.getConnectProperties().getVaultProperties();
 		assumeTrue(vaultProperties!=null && vaultProperties.isTrailEnabled());
+		model.setVaultRequiredToMarkPut("myService-Key", false);
+		model.setVaultRequiredToMarkPut("default", false);
 		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_myService_Key"));
 		connection.executeUpdate("DELETE FROM " + quoteName(model, "VaultTrail_default"));
 		model.startTransaction(DataVaultTrailTest.class.getName());
