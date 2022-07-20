@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.vault.VaultProperties;
 import com.exedio.dsmf.ConnectionProvider;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
@@ -29,7 +30,10 @@ import java.util.Collections;
 import java.util.EnumMap;
 import java.util.EnumSet;
 import java.util.IdentityHashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -47,6 +51,7 @@ final class Database
 	private final RevisionsConnect revisions;
 	private final ConnectionPool connectionPool;
 	final Executor executor;
+	final Map<String, VaultTrail> vaultTrails;
 
 	Database(
 			final com.exedio.dsmf.Dialect dsmfDialect,
@@ -55,6 +60,7 @@ final class Database
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Transactions transactions,
+			final Set<String> vaultServiceKeys,
 			final RevisionsConnect revisions)
 	{
 		this.properties = probe.properties;
@@ -70,7 +76,24 @@ final class Database
 		if(nameTrimmers.size()!=TrimClass.values().length)
 			throw new RuntimeException("" + nameTrimmers);
 
-		//System.out.println("using database "+getClass());
+		final VaultProperties vp = properties.getVaultProperties();
+		if(vp!=null)
+		{
+			if(vp.isTrailEnabled())
+			{
+				final Trimmer trimmer = nameTrimmers.get(TrimClass.PrimaryKeyCheckConstraint); // is correct, 60 character from the beginning
+				final LinkedHashMap<String, VaultTrail> vaultTrails = new LinkedHashMap<>();
+				for(final String serviceKey : vaultServiceKeys)
+				{
+					vaultTrails.put(serviceKey, new VaultTrail(serviceKey, connectionPool, executor, trimmer, vp));
+				}
+				this.vaultTrails = Collections.unmodifiableMap(vaultTrails);
+			}
+			else
+				vaultTrails = Collections.emptyMap();
+		}
+		else
+			vaultTrails = null;
 	}
 
 	SequenceImpl newSequenceImpl(
@@ -522,6 +545,9 @@ final class Database
 			Revisions.makeSchema(result, properties, dialect);
 		for(final SequenceX sequence : sequences)
 			sequence.makeSchema(result);
+		if(vaultTrails!=null)
+			for(final VaultTrail vt : vaultTrails.values())
+				vt.makeSchema(result, dialect);
 
 		return result;
 	}

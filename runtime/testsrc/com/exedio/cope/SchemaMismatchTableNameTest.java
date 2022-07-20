@@ -98,7 +98,7 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 				assertIt("unused",   WARNING, WARNING, seqA = schema.getTable   (nameSeq(ItemA.TYPE.getThis())));
 				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
 
-				assertEqualsUnmodifiable(asList(tableB, tableA, seqA), schema.getTables());
+				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA, seqA), schema.getTables());
 				assertEqualsUnmodifiable(asList(seqB), schema.getSequences());
 			}
 			else
@@ -107,13 +107,13 @@ public class SchemaMismatchTableNameTest extends SchemaMismatchTest
 				assertIt("unused",   WARNING, WARNING, seqA = schema.getSequence(nameSeq(ItemA.TYPE.getThis())));
 				assertIt("missing",  ERROR,   ERROR,   seqB = schema.getSequence(nameSeq(ItemB.TYPE.getThis())));
 
-				assertEqualsUnmodifiable(asList(tableB, tableA), schema.getTables());
+				assertEqualsUnmodifiable(withTrail(schema, tableB, tableA), schema.getTables());
 				assertEqualsUnmodifiable(asList(seqB, seqA), schema.getSequences());
 			}
 		}
 		else
 		{
-			assertEqualsUnmodifiable(asList(tableB, tableA), schema.getTables());
+			assertEqualsUnmodifiable(withTrail(schema, tableB, tableA), schema.getTables());
 			assertEqualsUnmodifiable(asList(), schema.getSequences());
 		}
 	}

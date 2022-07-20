@@ -45,6 +45,11 @@ abstract class DataFieldStore
 		return null;
 	}
 
+	long checkVaultTrail()
+	{
+		throw new IllegalStateException("vault is disabled");
+	}
+
 	DataFieldVaultInfo getVaultInfo()
 	{
 		return null;

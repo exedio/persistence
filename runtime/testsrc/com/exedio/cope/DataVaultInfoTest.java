@@ -25,6 +25,7 @@ import static com.exedio.cope.tojunit.TestSources.minimal;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Sources.cascade;
+import static java.util.stream.Collectors.toList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
@@ -38,9 +39,11 @@ import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
+import com.exedio.dsmf.Column;
 import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Tags;
 import java.io.IOException;
+import java.util.Arrays;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -177,6 +180,9 @@ public class DataVaultInfoTest
 				MyItem.field::getVaultServiceKey);
 		assertThrows(
 				Model.NotConnectedException.class,
+				MyItem.field::checkVaultTrail);
+		assertThrows(
+				Model.NotConnectedException.class,
 				MyItem.field::getVaultInfo);
 
 		assertCount("getLength", Tags.empty(), onSetup.getGetLengthCount());
@@ -206,6 +212,22 @@ public class DataVaultInfoTest
 		return new CounterDeferredTester(
 				DataField.class, "vault." + name,
 				tag(MyItem.field).and("service", "default").and(tags));
+	}
+
+
+	@Test void testSchema()
+	{
+		final com.exedio.dsmf.Table tab = model.getSchema().getTable("VaultTrail_default");
+		assertNotNull(tab);
+		assertEquals(
+				Arrays.asList("hash", "length", "start20", "date", "field", "origin"),
+				tab.getColumns().stream().map(Column::getName).collect(toList()));
+		assertEquals("VARCHAR(128)"     + " not null", tab.getColumn("hash")   .getType());
+		assertEquals("BIGINT"           + " not null", tab.getColumn("length") .getType());
+		assertEquals("BLOB"             + " not null", tab.getColumn("start20").getType());
+		assertEquals("TIMESTAMP(3) WITHOUT TIME ZONE", tab.getColumn("date")   .getType());
+		assertEquals("VARCHAR(80)",                    tab.getColumn("field")  .getType());
+		assertEquals("VARCHAR(80)",                    tab.getColumn("origin") .getType());
 	}
 
 

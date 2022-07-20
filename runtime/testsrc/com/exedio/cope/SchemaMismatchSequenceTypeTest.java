@@ -55,7 +55,7 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 		assertIt(
 				"unexpected type >" + type(ItemA.TYPE.getThis()) + NOT_NULL + "<",
 				ERROR, ERROR, table.getColumn(name(ItemA.TYPE.getThis())));
-		assertEqualsUnmodifiable(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(withTrail(schema, table), schema.getTables());
 
 		if(model.getConnectProperties().primaryKeyGenerator.persistent)
 		{

@@ -109,6 +109,7 @@ final class Connect
 				connectionPool,
 				executor,
 				transactions,
+				vaults.keySet(),
 				revisions);
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);

@@ -66,4 +66,19 @@ public class ProxyResultSet extends AssertionErrorResultSet
 	{
 		return origin.getLong(columnIndex);
 	}
+	@Override
+	public java.sql.Date getDate(final int columnIndex) throws SQLException
+	{
+		return origin.getDate(columnIndex);
+	}
+	@Override
+	public byte[] getBytes(final int columnIndex) throws SQLException
+	{
+		return origin.getBytes(columnIndex);
+	}
+	@Override
+	public Object getObject(final int columnIndex) throws SQLException
+	{
+		return origin.getObject(columnIndex);
+	}
 }

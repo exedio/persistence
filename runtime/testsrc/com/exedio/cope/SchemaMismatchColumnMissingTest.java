@@ -97,7 +97,7 @@ public class SchemaMismatchColumnMissingTest extends SchemaMismatchTest
 			assertSame(field, checkA.getColumn());
 		}
 
-		assertEqualsUnmodifiable(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(withTrail(schema, table), schema.getTables());
 	}
 
 	static final Model modelA = SchemaMismatchColumnUnusedTest.modelB;

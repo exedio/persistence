@@ -7,6 +7,11 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Vault Trails introduced.
+	Does not affect you, if vaults are not enabled in your project.
+	Otherwise, affects database schema, adds a new table for each vault service.
+	To disable vault trails set ConnectProperties key:
+		vault.trail=false
 * Primary key columns are declared 'not null'.
 	Does *not* affect database schema. Primary key columns are 'not null' regardless
 	whether declared explicitly or not. You will get a huge diff in MainSchemaTestSchema.txt,

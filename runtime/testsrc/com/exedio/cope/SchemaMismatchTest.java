@@ -23,9 +23,15 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.exedio.cope.instrument.WrapInterim;
+import com.exedio.cope.vault.VaultProperties;
 import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Node;
 import com.exedio.dsmf.Node.Color;
+import com.exedio.dsmf.Schema;
+import com.exedio.dsmf.Table;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 
@@ -151,5 +157,37 @@ public abstract class SchemaMismatchTest extends TestWithEnvironment
 	{
 		assertIt(expectedError, expectedParticularColor, expectedCumulativeColor, actual);
 		assertEquals(expectedType, actual.getType(), "type");
+	}
+
+	protected List<Table> withTrail(
+			final Schema schema,
+			final Table... tables)
+	{
+		final List<Table> plain = Arrays.asList(tables);
+
+		final VaultProperties vaultProperties =
+				model.getConnectProperties().getVaultProperties();
+		if(vaultProperties==null ||
+			!vaultProperties.isTrailEnabled())
+			return plain;
+
+		// insert trailTable before the first unused table, or append to the end if there is no unused table
+		final Table trailTable = schema.getTable("VaultTrail_default");
+		assertNotNull(trailTable);
+		final ArrayList<Table> withTrail = new ArrayList<>();
+		boolean done = false;
+		for(final Table tab : plain)
+		{
+			if(!done && !tab.required())
+			{
+				withTrail.add(trailTable);
+				done = true;
+			}
+			withTrail.add(tab);
+		}
+		if(!done)
+			withTrail.add(trailTable);
+
+		return withTrail;
 	}
 }

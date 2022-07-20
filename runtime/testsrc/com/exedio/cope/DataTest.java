@@ -32,6 +32,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 import com.exedio.cope.tojunit.MainRule;
 import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.Hex;
+import com.exedio.cope.vault.VaultProperties;
 import com.exedio.cope.vaulttest.VaultServiceTest.AssertionErrorOutputStream;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
 import java.io.File;
@@ -430,6 +431,17 @@ public class DataTest extends TestWithEnvironment
 	@Test void testSchema()
 	{
 		assertSchema();
+	}
+
+	@Test void testCheckVaultTrail()
+	{
+		final VaultProperties vp = model.getConnectProperties().getVaultProperties();
+		if(vp==null)
+			assertFails(data::checkVaultTrail, IllegalStateException.class, "vault is disabled");
+		else if(!vp.isTrailEnabled())
+			assertFails(data::checkVaultTrail, IllegalStateException.class, "trail is disabled");
+		else
+			assertEquals(0, data.checkVaultTrail());
 	}
 
 	private static final byte[] bytes0  = {};

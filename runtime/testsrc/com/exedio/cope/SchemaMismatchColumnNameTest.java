@@ -111,7 +111,7 @@ public class SchemaMismatchColumnNameTest extends SchemaMismatchTest
 			assertSame(fieldB, checkB.getColumn());
 		}
 
-		assertEqualsUnmodifiable(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(withTrail(schema, table), schema.getTables());
 	}
 
 	@CopeName("ItemAB")
