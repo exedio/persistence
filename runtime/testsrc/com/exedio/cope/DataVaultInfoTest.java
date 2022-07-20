@@ -30,6 +30,10 @@ import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
+import com.exedio.cope.instrument.Visibility;
+import com.exedio.cope.instrument.Wrapper;
+import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.tojunit.MyTemporaryFolder;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.vaultmock.VaultMockService;
 import com.exedio.cope.vaulttest.VaultServiceTest.NonCloseableOrFlushableOutputStream;
@@ -40,6 +44,7 @@ import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+@MainRule.Tag
 public class DataVaultInfoTest
 {
 	@Test void testGetLength()
@@ -85,21 +90,47 @@ public class DataVaultInfoTest
 		assertIt(0, 0, 2, 1, 0);
 		assertEquals("abcdef", Hex.encodeLower(s.toByteArray()));
 	}
-	@Test void testPut()
+	@Test void testPutBytes()
+	{
+		testPut(s -> toValue(Hex.decodeLower(s)));
+	}
+	@Test void testPutStream()
+	{
+		testPut(s -> toValue(new TestByteArrayInputStream(Hex.decodeLower(s))));
+	}
+	@Test void testPutPath()
+	{
+		testPut(s ->
+		{
+			try
+			{
+				return toValue(files.newPath(Hex.decodeLower(s)));
+			}
+			catch(final IOException e)
+			{
+				throw new RuntimeException(e);
+			}
+		});
+	}
+	private final MyTemporaryFolder files = new MyTemporaryFolder();
+	private void testPut(final java.util.function.Function<String, DataField.Value> f)
 	{
 		assertIt(0, 0, 0, 0, 0);
 
-		final MyItem item = new MyItem(toValue(Hex.decodeLower("abcdef")));
+		final MyItem item = new MyItem(f.apply("abcdef"));
 		assertIt(0, 0, 0, 1, 0);
 
-		item.setField(Hex.decodeLower("abcdef"));
+		item.setField(f.apply("abcdef"));
 		assertIt(0, 0, 0, 1, 1);
 
-		item.setField(Hex.decodeLower("abcdef"));
+		item.setField(f.apply("abcdef"));
 		assertIt(0, 0, 0, 1, 2);
 
-		item.setField(Hex.decodeLower("abcde0"));
+		item.setField(f.apply("abcde0"));
 		assertIt(0, 0, 0, 2, 2);
+
+		item.setField(f.apply("abcde01234"));
+		assertIt(0, 0, 0, 3, 2);
 	}
 
 
@@ -190,6 +221,8 @@ public class DataVaultInfoTest
 	private static class MyItem extends Item
 	{
 		@Vault
+		@Wrapper(wrap="set", visibility=Visibility.NONE)
+		@Wrapper(wrap="set", parameters=DataField.Value.class, visibility=Visibility.DEFAULT)
 		static final DataField field = new DataField();
 
 		@com.exedio.cope.instrument.Generated
@@ -261,45 +294,6 @@ public class DataVaultInfoTest
 		final void setField(@javax.annotation.Nonnull final com.exedio.cope.DataField.Value field)
 				throws
 					com.exedio.cope.MandatoryViolationException
-		{
-			MyItem.field.set(this,field);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		final void setField(@javax.annotation.Nonnull final byte[] field)
-				throws
-					com.exedio.cope.MandatoryViolationException
-		{
-			MyItem.field.set(this,field);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		final void setField(@javax.annotation.Nonnull final java.io.InputStream field)
-				throws
-					com.exedio.cope.MandatoryViolationException,
-					java.io.IOException
-		{
-			MyItem.field.set(this,field);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		final void setField(@javax.annotation.Nonnull final java.nio.file.Path field)
-				throws
-					com.exedio.cope.MandatoryViolationException,
-					java.io.IOException
-		{
-			MyItem.field.set(this,field);
-		}
-
-		@com.exedio.cope.instrument.Generated
-		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
-		final void setField(@javax.annotation.Nonnull final java.io.File field)
-				throws
-					com.exedio.cope.MandatoryViolationException,
-					java.io.IOException
 		{
 			MyItem.field.set(this,field);
 		}
