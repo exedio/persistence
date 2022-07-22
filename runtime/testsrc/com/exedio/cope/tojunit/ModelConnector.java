@@ -21,7 +21,7 @@ package com.exedio.cope.tojunit;
 import com.exedio.cope.ConnectProperties;
 import com.exedio.cope.Model;
 
-final class ModelConnector implements Runnable
+public final class ModelConnector implements Runnable
 {
 	private static Model createdSchema = null;
 	private static boolean registeredDropSchemaHook = false;
@@ -75,6 +75,11 @@ final class ModelConnector implements Runnable
 
 	@Override
 	public void run()
+	{
+		dropAndDisconnectIfNeeded();
+	}
+
+	public static void reset()
 	{
 		dropAndDisconnectIfNeeded();
 	}
