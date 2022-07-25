@@ -109,10 +109,12 @@ public abstract class VaultServiceTest
 			source.setProperty("service." + key, sp.getProperty(key));
 
 		properties = VaultProperties.factory(isServiceWritable()).create(Sources.view(source, "DESC"));
-		final VaultService service = properties.newServicesUnsanitized(DEFAULT).get(DEFAULT);
+		final VaultService service = properties.newServicesUnsanitized(() -> markPut, DEFAULT).get(DEFAULT);
 		this.service = maskService(service);
 		this.servicePut = maskServicePut(service);
 	}
+
+	protected boolean markPut = false;
 
 	@AfterEach final void tearDownVaultServiceTest()
 	{
@@ -203,6 +205,18 @@ public abstract class VaultServiceTest
 		assertEquals(7, service.getLength(hash));
 	}
 
+	@Test final void putBytesMarked() throws VaultNotFoundException
+	{
+		markPut = true;
+		final String hash = hash("abcdef01234567");
+		assertTrue(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO));
+
+		assertEquals("abcdef01234567", hex(service.get(hash)));
+		assertEquals(7, service.getLength(hash));
+
+		assertFalse(servicePut.put(hash, unhex("abcdef01234567"), PUT_INFO));
+	}
+
 	@Test final void putBytesInfo() throws VaultNotFoundException
 	{
 		final String hash = hash("abcdef01234567");
@@ -220,6 +234,20 @@ public abstract class VaultServiceTest
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
+	}
+
+	@Test final void putStreamMarked() throws VaultNotFoundException, IOException
+	{
+		markPut = true;
+		final String hash = hash("abcdef01234567");
+		final ByteArrayInputStream value = new ByteArrayInputStream(unhex("abcdef01234567"));
+		assertTrue(servicePut.put(hash, value, PUT_INFO));
+
+		assertEquals("abcdef01234567", hex(service.get(hash)));
+		assertEquals(7, service.getLength(hash));
+
+		final ByteArrayInputStream value2 = new ByteArrayInputStream(unhex("abcdef01234567"));
+		assertFalse(servicePut.put(hash, value2, PUT_INFO));
 	}
 
 	@Test final void putStreamInfo() throws VaultNotFoundException, IOException
@@ -244,6 +272,23 @@ public abstract class VaultServiceTest
 
 		assertEquals("abcdef01234567", hex(service.get(hash)));
 		assertEquals(7, service.getLength(hash));
+	}
+
+	@Test final void putPathMarked() throws VaultNotFoundException, IOException
+	{
+		markPut = true;
+		final String hash = hash("abcdef01234567");
+		final Path value = Files.createTempFile("VaultServiceTest", ".dat");
+		try(OutputStream s = Files.newOutputStream(value))
+		{
+			s.write(unhex("abcdef01234567"));
+		}
+		assertTrue(servicePut.put(hash, value, PUT_INFO));
+
+		assertEquals("abcdef01234567", hex(service.get(hash)));
+		assertEquals(7, service.getLength(hash));
+
+		assertFalse(servicePut.put(hash, value, PUT_INFO));
 	}
 
 	@Test final void putPathInfo() throws VaultNotFoundException, IOException

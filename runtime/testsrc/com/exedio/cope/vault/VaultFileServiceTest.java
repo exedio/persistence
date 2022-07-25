@@ -19,22 +19,34 @@
 package com.exedio.cope.vault;
 
 import static com.exedio.cope.tojunit.Assert.assertFails;
+import static java.nio.file.Files.getLastModifiedTime;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
+import static java.time.Month.JULY;
+import static java.time.Month.JUNE;
+import static java.time.ZoneOffset.UTC;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+import com.exedio.cope.tojunit.AssertionFailedClock;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.nio.file.NoSuchFileException;
+import java.nio.file.Path;
+import java.nio.file.attribute.FileTime;
 import java.nio.file.attribute.PosixFilePermission;
+import java.time.Clock;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 
 public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 {
@@ -99,6 +111,56 @@ public class VaultFileServiceTest extends AbstractVaultFileServiceTest
 		assertPosix(dirPerms, rootGroup(), abc);
 		assertPosix(filePerms, rootGroup(), d);
 		assertPosix(filePerms, rootGroup(), f);
+	}
+
+	@ExtendWith(MarkPutClock.class)
+	@Test void putRedundantAndMarkFile(final MarkPutClock clock) throws IOException
+	{
+		clock.override(new AssertionFailedClock());
+
+		final Path file = getRoot().toPath().resolve("abc").resolve("d");
+		assertFalse(Files.exists(file));
+
+		final byte[] value = {1,2,3};
+		final VaultFileService service = (VaultFileService)getService();
+		assertTrue(service.put("abcd", value, PUT_INFO));
+		assertTrue(Files.isRegularFile(file));
+
+		assertFalse(service.put("abcd", value, PUT_INFO));
+
+		markPut = true;
+		clock.override(new AssertionFailedClock()
+		{
+			@Override
+			public long millis()
+			{
+				return markPutInstant.toEpochMilli();
+			}
+		});
+		final Instant instant1 = LocalDateTime.of(2022, JULY, 23, 6, 7, 32).toInstant(UTC);
+		markPutInstant = instant1;
+		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertEquals(FileTime.from(instant1), getLastModifiedTime(file));
+
+		final Instant instant2 = LocalDateTime.of(2021, JUNE, 22, 5, 6, 21).toInstant(UTC);
+		markPutInstant = instant2;
+		markPut = false;
+		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertEquals(FileTime.from(instant1), getLastModifiedTime(file));
+
+		markPut = true;
+		assertFalse(service.put("abcd", value, PUT_INFO));
+		assertEquals(FileTime.from(instant2), getLastModifiedTime(file));
+	}
+
+	private Instant markPutInstant = null;
+
+	public static final class MarkPutClock extends HolderExtension<Clock>
+	{
+		public MarkPutClock()
+		{
+			super(VaultFileService.markRedundantPutClock);
+		}
 	}
 
 	@Test void notFoundAnonymousLength()

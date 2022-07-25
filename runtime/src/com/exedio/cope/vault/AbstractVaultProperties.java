@@ -20,6 +20,7 @@ package com.exedio.cope.vault;
 
 import com.exedio.cope.util.Properties;
 import com.exedio.cope.util.ServiceFactory;
+import java.util.function.BooleanSupplier;
 
 abstract class AbstractVaultProperties extends Properties
 {
@@ -44,10 +45,13 @@ abstract class AbstractVaultProperties extends Properties
 			this.writable = writable;
 		}
 
-		VaultService newService(final VaultProperties vaultProperties, final String serviceKey)
+		VaultService newService(
+				final VaultProperties vaultProperties,
+				final String serviceKey,
+				final BooleanSupplier markPut)
 		{
 			return factory.newInstance(new VaultServiceParameters(
-					vaultProperties, serviceKey, writable));
+					vaultProperties, serviceKey, writable, markPut));
 		}
 
 		VaultService newService(final VaultServiceParameters parameters)

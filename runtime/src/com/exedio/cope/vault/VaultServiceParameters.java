@@ -21,6 +21,7 @@ package com.exedio.cope.vault;
 import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.DataFieldVaultInfo;
+import java.util.function.BooleanSupplier;
 import javax.annotation.Nonnull;
 
 public final class VaultServiceParameters
@@ -28,15 +29,18 @@ public final class VaultServiceParameters
 	private final VaultProperties vaultProperties;
 	private final String serviceKey;
 	private final boolean writable;
+	private final BooleanSupplier markPut;
 
 	VaultServiceParameters(
 			final VaultProperties vaultProperties,
 			final String serviceKey,
-			final boolean writable)
+			final boolean writable,
+			final BooleanSupplier markPut)
 	{
 		this.vaultProperties = requireNonNull(vaultProperties, "vaultProperties");
 		this.serviceKey = requireNonNull(serviceKey, "serviceKey");
 		this.writable = writable;
+		this.markPut = requireNonNull(markPut, "markPut");
 	}
 
 	@Nonnull
@@ -73,7 +77,29 @@ public final class VaultServiceParameters
 		// result.writable -> writable&&this.writable
 		return
 				(this.writable && !writable)
-				? new VaultServiceParameters(vaultProperties, serviceKey, false)
+				? new VaultServiceParameters(vaultProperties, serviceKey, false, markPut)
 				: this;
+	}
+
+	/**
+	 * Whenever {@link BooleanSupplier#getAsBoolean() getAsBoolean} of the result
+	 * of this method returns true, an instance of {@link VaultService} (the service)
+	 * must consider itself in <i>mark-put</i> mode.
+	 * While <i>mark-put</i> mode is active a call to any put method for a certain hash
+	 * must mark the hash entry of that certain hash within the services' storage.
+	 * <p>
+	 * This mark is implementation-specific.
+	 * A process analyzing the services' storage must be able to distinguish between
+	 * hash entries marked and hash entry not marked.
+	 * <p>
+	 * This functionality is required for garbage collection of the services' storage.
+	 * <p>
+	 * It is safe to store the result of this method
+	 * (but not the result of {@link BooleanSupplier#getAsBoolean() getAsBoolean})
+	 * for the lifetime of the service.
+	 */
+	public BooleanSupplier requiresToMarkPut()
+	{
+		return markPut;
 	}
 }

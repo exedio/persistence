@@ -359,6 +359,7 @@
 		<pathelement location="lib/trove4j.jar" />
 		<pathelement location="lib/javax.servlet-api.jar" />
 		<pathelement location="lib/junit-jupiter-api.jar" />
+		<pathelement location="lib/junit-platform-commons.jar" />
 		<pathelement location="lib/apiguardian-api.jar" />
 		<pathelement location="lib/opentest4j.jar" />
 		<pathelement location="lib/slf4j-api.jar" />

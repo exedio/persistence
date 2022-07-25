@@ -26,6 +26,7 @@ import static com.exedio.cope.DataField.toValue;
 import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.TestSources.setupSchemaMinimal;
 import static com.exedio.cope.tojunit.TestSources.single;
 import static com.exedio.cope.util.Hex.decodeLower;
@@ -206,6 +207,78 @@ public class VaultMultiTest
 		serviceBeta.assertIt(HASH1, VALUE1,
 				"getBytes\n" +
 				"getBytes\n");
+	}
+
+	@Test void testRequiredToMarkPut()
+	{
+		assertFails(
+				() -> MODEL.isVaultRequiredToMarkPut(null),
+				NullPointerException.class,
+				"serviceKey");
+		assertFails(
+				() -> MODEL.isVaultRequiredToMarkPut(""),
+				IllegalArgumentException.class,
+				"serviceKey must not be empty");
+		assertFails(
+				() -> MODEL.isVaultRequiredToMarkPut("zack"),
+				IllegalArgumentException.class,
+				"serviceKey zack does not exist, use one of [default, alpha, beta]");
+		assertFails(
+				() -> MODEL.setVaultRequiredToMarkPut(null, false),
+				NullPointerException.class,
+				"serviceKey");
+		assertFails(
+				() -> MODEL.setVaultRequiredToMarkPut("", false),
+				IllegalArgumentException.class,
+				"serviceKey must not be empty");
+		assertFails(
+				() -> MODEL.setVaultRequiredToMarkPut("zack", false),
+				IllegalArgumentException.class,
+				"serviceKey zack does not exist, use one of [default, alpha, beta]");
+
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("default"));
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("alpha"));
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("beta"));
+		assertEquals(false, serviceDefault.requiresToMarkPut.getAsBoolean());
+		assertEquals(false, serviceAlpha  .requiresToMarkPut.getAsBoolean());
+		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+
+		MODEL.setVaultRequiredToMarkPut("default", true);
+		assertEquals(true,  MODEL.isVaultRequiredToMarkPut("default"));
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("alpha"));
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("beta"));
+		assertEquals(true,  serviceDefault.requiresToMarkPut.getAsBoolean());
+		assertEquals(false, serviceAlpha  .requiresToMarkPut.getAsBoolean());
+		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+
+		MODEL.setVaultRequiredToMarkPut("alpha", true);
+		assertEquals(true,  MODEL.isVaultRequiredToMarkPut("default"));
+		assertEquals(true,  MODEL.isVaultRequiredToMarkPut("alpha"));
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("beta"));
+		assertEquals(true,  serviceDefault.requiresToMarkPut.getAsBoolean());
+		assertEquals(true,  serviceAlpha  .requiresToMarkPut.getAsBoolean());
+		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+
+		MODEL.setVaultRequiredToMarkPut("default", false);
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("default"));
+		assertEquals(true,  MODEL.isVaultRequiredToMarkPut("alpha"));
+		assertEquals(false, MODEL.isVaultRequiredToMarkPut("beta"));
+		assertEquals(false, serviceDefault.requiresToMarkPut.getAsBoolean());
+		assertEquals(true,  serviceAlpha  .requiresToMarkPut.getAsBoolean());
+		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+
+		MODEL.disconnect();
+		assertFails(
+				() -> MODEL.isVaultRequiredToMarkPut("default"),
+				Model.NotConnectedException.class,
+				"model not connected, use Model#connect for "  + MODEL);
+		assertFails(
+				() -> MODEL.setVaultRequiredToMarkPut("default", false),
+				Model.NotConnectedException.class,
+				"model not connected, use Model#connect for "  + MODEL);
+		assertEquals(false, serviceDefault.requiresToMarkPut.getAsBoolean());
+		assertEquals(true,  serviceAlpha  .requiresToMarkPut.getAsBoolean());
+		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
 	}
 
 	@AfterEach void tearDown()

@@ -25,7 +25,9 @@ import static org.junit.jupiter.api.Assertions.assertNotSame;
 import static org.junit.jupiter.api.Assertions.assertSame;
 
 import com.exedio.cope.vaultmock.VaultMockService;
+import java.util.function.BooleanSupplier;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class VaultServiceParametersTest
 {
@@ -33,8 +35,8 @@ public class VaultServiceParametersTest
 	{
 		final VaultProperties props = VaultProperties.factory().create(cascade(
 				single("service", VaultMockService.class)));
-		final VaultServiceParameters w = new VaultServiceParameters(props, "serviceKeyW", true);
-		final VaultServiceParameters r = new VaultServiceParameters(props, "serviceKeyR", false);
+		final VaultServiceParameters w = new VaultServiceParameters(props, "serviceKeyW", true,  BSW);
+		final VaultServiceParameters r = new VaultServiceParameters(props, "serviceKeyR", false, BSR);
 		final VaultServiceParameters ww = w.withWritable(true);
 		final VaultServiceParameters wr = w.withWritable(false);
 		final VaultServiceParameters rw = r.withWritable(true);
@@ -59,5 +61,13 @@ public class VaultServiceParametersTest
 		assertNotSame(wr, w);
 		assertSame(rw, r);
 		assertSame(rr, r);
+
+		assertSame(BSW, ww.requiresToMarkPut());
+		assertSame(BSW, wr.requiresToMarkPut());
+		assertSame(BSR, rw.requiresToMarkPut());
+		assertSame(BSR, rr.requiresToMarkPut());
 	}
+
+	private static final BooleanSupplier BSW = () -> { throw new AssertionFailedError(); };
+	private static final BooleanSupplier BSR = () -> { throw new AssertionFailedError(); };
 }
