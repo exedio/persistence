@@ -55,6 +55,13 @@ timestamps
 						'schema.primaryKeyGenerator=sequence\n' +
 						'dialect.pgcryptoSchema=<disabled>\n'
 				)
+				writeEnv(
+						'pg11-vault',
+						'vault=true\n' +
+						'vault.service=com.exedio.cope.vaultmock.VaultMockService\n' +
+						'vault.isAppliedToAllFields=true\n' +
+						'schema.primaryKeyGenerator=sequence\n'
+				)
 
 				def dockerName = env.JOB_NAME.replace("/", "-") + "-" + env.BUILD_NUMBER
 				def dockerDate = new Date().format("yyyyMMdd")
