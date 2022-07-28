@@ -103,7 +103,7 @@ class IntegerColumn extends Column
 	 */
 	IntegerColumn(final Table table, final long maximum)
 	{
-		super(table, Table.PK_COLUMN_NAME, true, true, true);
+		super(table, Table.PK_COLUMN_NAME, true, true, false);
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = maximum;
 		this.longInsteadOfInt = true;

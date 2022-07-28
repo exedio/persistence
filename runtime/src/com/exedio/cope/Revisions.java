@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.Executor.integerResultSetHandler;
 import static com.exedio.cope.util.Check.requireNonEmptyAndCopy;
 import static com.exedio.cope.util.Check.requireNonNegative;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 
 import com.exedio.dsmf.Column;
 import com.exedio.dsmf.SQLRuntimeException;
@@ -120,7 +121,7 @@ public final class Revisions
 			final Dialect dialect)
 	{
 		final Table table = result.newTable(properties.revisionTableName);
-		final Column pk = table.newColumn(COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE));
+		final Column pk = table.newColumn(COLUMN_NUMBER_NAME, dialect.getIntegerType(RevisionInfoMutex.NUMBER, Integer.MAX_VALUE) + NOT_NULL);
 		table.newColumn(COLUMN_INFO_NAME, dialect.getBlobType(100*1000));
 		pk.newPrimaryKey(properties.revisionPrimaryKeyName);
 	}

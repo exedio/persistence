@@ -25,6 +25,7 @@ import static com.exedio.cope.SchemaInfo.getPrimaryKeySequenceName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.SchemaInfo.quoteName;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.Sequence.Type.bit31;
 import static com.exedio.dsmf.Sequence.Type.bit63;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -316,7 +317,7 @@ public class IntegerTypeTest extends TestWithEnvironment
 			}
 
 			assertEquals(
-					expectedDataType,
+					expectedDataType + (columnName.equals(getPrimaryKeyColumnName(type))?NOT_NULL:""),
 					table.getColumn(columnName).getRequiredType(),
 					"tableName: " + tableName + " columnName: " + columnName);
 		}

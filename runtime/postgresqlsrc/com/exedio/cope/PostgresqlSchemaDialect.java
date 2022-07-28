@@ -125,8 +125,7 @@ final class PostgresqlSchemaDialect extends Dialect
 				final String columnName = resultSet.getString(2);
 
 				final String notNull =
-					(getBooleanStrict(resultSet, 3, "YES", "NO") ||
-						"this".equals(columnName)) // TODO does not work with primary key of table 'while'
+					getBooleanStrict(resultSet, 3, "YES", "NO")
 					? ""
 					: NOT_NULL;
 

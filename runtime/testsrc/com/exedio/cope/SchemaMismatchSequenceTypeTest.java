@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static java.util.Arrays.asList;
@@ -52,7 +53,7 @@ public class SchemaMismatchSequenceTypeTest extends SchemaMismatchTest
 		final Table table = schema.getTable(name(ItemA.TYPE));
 		assertIt(null, OK, ERROR, table);
 		assertIt(
-				"unexpected type >" + type(ItemA.TYPE.getThis()) + "<",
+				"unexpected type >" + type(ItemA.TYPE.getThis()) + NOT_NULL + "<",
 				ERROR, ERROR, table.getColumn(name(ItemA.TYPE.getThis())));
 		assertEqualsUnmodifiable(asList(table), schema.getTables());
 

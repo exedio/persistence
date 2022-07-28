@@ -7,6 +7,10 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Primary key columns are declared 'not null'.
+	Does *not* affect database schema. Primary key columns are 'not null' regardless
+	whether declared explicitly or not. You will get a huge diff in MainSchemaTestSchema.txt,
+	but you don't have to patch the database schema.
 * Instrumentor uses possessive determiner "its" instead of contracted "it's" for finder javadoc.
 	Affects instrumented code.
 * ConnectProperties: key "vault-short-key" no longer supported.
