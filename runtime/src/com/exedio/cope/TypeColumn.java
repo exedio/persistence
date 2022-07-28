@@ -40,7 +40,7 @@ final class TypeColumn extends StringColumn
 	{
 		super.makeSchema(dsmf);
 
-		if(!optional)
+		if(kind.forbidsNull())
 			return;
 
 		newCheck(dsmf, "NS",
