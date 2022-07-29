@@ -36,7 +36,7 @@ final class DayColumn extends Column
 			final Day minimum,
 			final Day maximum)
 	{
-		super(table, id, false, Kind.of(false, optional));
+		super(table, id, false, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 	}

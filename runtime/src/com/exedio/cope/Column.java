@@ -57,18 +57,9 @@ abstract class Column
 	{
 		primaryKey, notNull, nullable;
 
-		static Kind of(final boolean primaryKey, final boolean optional)
+		static Kind nonPrimaryKey(final boolean optional)
 		{
-			if(primaryKey)
-				if(optional)
-					throw new RuntimeException();
-				else
-					return Kind.primaryKey;
-			else
-				if(optional)
-					return nullable;
-				else
-					return notNull;
+			return  optional ? nullable : notNull;
 		}
 
 		boolean primaryKey()
