@@ -55,7 +55,7 @@ class IntegerColumn extends Column
 			final boolean longInsteadOfInt,
 			final Precision precision)
 	{
-		super(table, id, synthetic, Kind.of(false, optional));
+		super(table, id, synthetic, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.longInsteadOfInt = longInsteadOfInt;
@@ -71,7 +71,7 @@ class IntegerColumn extends Column
 			final boolean optional,
 			final int[] allowedValues)
 	{
-		super(table, id, false, Kind.of(false, optional));
+		super(table, id, false, Kind.nonPrimaryKey(optional));
 		this.longInsteadOfInt = false;
 		this.allowedValues = strictlyMonotonicallyIncreasing(allowedValues);
 		this.minimum = allowedValues[0];
@@ -103,7 +103,7 @@ class IntegerColumn extends Column
 	 */
 	IntegerColumn(final Table table, final long maximum)
 	{
-		super(table, Table.PK_COLUMN_NAME, true, Kind.of(true, false));
+		super(table, Table.PK_COLUMN_NAME, true, Kind.primaryKey);
 		this.minimum = PK.MIN_VALUE;
 		this.maximum = maximum;
 		this.longInsteadOfInt = true;

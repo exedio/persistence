@@ -46,7 +46,7 @@ final class TimestampColumn extends Column
 			final long maximum,
 			final Precision precision)
 	{
-		super(table, id, false, Kind.of(false, optional));
+		super(table, id, false, Kind.nonPrimaryKey(optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 		this.precision = precision;
