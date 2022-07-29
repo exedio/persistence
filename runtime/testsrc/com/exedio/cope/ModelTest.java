@@ -31,6 +31,7 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @author baumgaertel
@@ -54,7 +55,7 @@ public class ModelTest extends TestWithEnvironment
  	}
 
 	private static final Model model = Model.builder().
-			add(DirectRevisionsFactory.make(new Revisions(0))).
+			add(DirectRevisionsFactory.make(new Revisions(0))). // needed for testing schema verification of table "while" via assertSchema
 			add(ModelTestItem.TYPE).
 			build();
 
@@ -185,5 +186,16 @@ public class ModelTest extends TestWithEnvironment
 		model.rollback();
 		assertNotNull(model.getVerifiedSchema());
 		model.startTransaction(ModelTest.class.getName());
+	}
+
+	@Test void testSchema()
+	{
+		if(postgresql)
+			assertFails(
+					this::assertSchema,
+					AssertionFailedError.class,
+					"while#v#integer ==> expected: <null> but was: <unexpected type >integer not null<>");
+		else
+			assertSchema();
 	}
 }
