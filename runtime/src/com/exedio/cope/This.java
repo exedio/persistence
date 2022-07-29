@@ -85,7 +85,7 @@ public final class This<E extends Item> extends Feature
 		bf.appendPK(selectType, join);
 
 		final IntegerColumn column = selectType.getTable().primaryKey;
-		assert column.primaryKey;
+		assert column.kind.primaryKey();
 
 		final StringColumn typeColumn = column.table.typeColumn;
 		if(typeColumn!=null)

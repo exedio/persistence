@@ -62,7 +62,7 @@ enum PrimaryKeyGenerator
 				final ConnectionPool connectionPool,
 				final Database database)
 		{
-			return column.primaryKey
+			return column.kind.primaryKey()
 				? new SequenceImplBatchedSequence(timer, column, type, start, connectionPool, database)
 				: new SequenceImplSequence       (timer, column, type, start, connectionPool, database, "")
 			;

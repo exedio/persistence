@@ -40,7 +40,7 @@ class StringColumn extends Column
 			final CharSet charSet,
 			final MysqlExtendedVarchar mysqlExtendedVarchar)
 	{
-		super(table, id, false, false, optional);
+		super(table, id, false, Kind.of(false, optional));
 		this.minimumLength = minimumLength;
 		this.maximumLength = maximumLength;
 		this.charSet = charSet;
@@ -59,7 +59,7 @@ class StringColumn extends Column
 			final int minLength,
 			final SortedSet<String> allowedValues)
 	{
-		super(table, id, synthetic, false, optional);
+		super(table, id, synthetic, Kind.of(false, optional));
 		this.minimumLength = 0;
 		this.maximumLength = Math.max(minLength, maxLength(allowedValues));
 		this.charSet  = null;

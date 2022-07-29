@@ -31,15 +31,13 @@ abstract class Column
 	final String quotedID;
 	final String idForGlobal;
 	final boolean synthetic;
-	final boolean primaryKey;
-	final boolean optional;
+	final Kind kind;
 
 	Column(
 			final Table table,
 			final String id,
 			final boolean synthetic,
-			final boolean primaryKey,
-			final boolean optional)
+			final Kind kind)
 	{
 		final Database database = table.database;
 		this.table = table;
@@ -48,14 +46,40 @@ abstract class Column
 		this.quotedID = intern(database.dsmfDialect.quoteName(this.id));
 		this.idForGlobal = id;
 		this.synthetic = synthetic;
-		this.primaryKey = primaryKey;
-		this.optional = optional;
+		this.kind = kind;
 		//noinspection ThisEscapedInObjectConstruction
 		table.addColumn(this);
 
-		assert !primaryKey || synthetic : table.id+':'+id;
-		if(primaryKey && optional)
-			throw new RuntimeException(table.id+':'+id);
+		assert !kind.primaryKey() || synthetic : table.id+':'+id;
+	}
+
+	protected enum Kind
+	{
+		primaryKey, notNull, nullable;
+
+		static Kind of(final boolean primaryKey, final boolean optional)
+		{
+			if(primaryKey)
+				if(optional)
+					throw new RuntimeException();
+				else
+					return Kind.primaryKey;
+			else
+				if(optional)
+					return nullable;
+				else
+					return notNull;
+		}
+
+		boolean primaryKey()
+		{
+			return this==primaryKey;
+		}
+
+		boolean forbidsNull()
+		{
+			return this!=nullable;
+		}
 	}
 
 	abstract String getDatabaseType();
@@ -91,14 +115,14 @@ abstract class Column
 	{
 		final String databaseType = getDatabaseType();
 		final String databaseTypeClause =
-			!optional
+			kind.forbidsNull()
 			? databaseType + NOT_NULL
 			: databaseType;
 
 		final com.exedio.dsmf.Column dsmfColumn =
 				dsmf.newColumn(id, databaseTypeClause);
 
-		if(primaryKey)
+		if(kind.primaryKey())
 			dsmfColumn.newPrimaryKey(table.makeGlobalID(TrimClass.PrimaryKeyCheckConstraint, "PK"));
 
 		makeSchema(dsmfColumn);

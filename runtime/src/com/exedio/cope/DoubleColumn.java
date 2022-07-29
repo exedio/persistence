@@ -33,7 +33,7 @@ final class DoubleColumn extends Column
 			final double minimum,
 			final double maximum)
 	{
-		super(table, id, false, false, optional);
+		super(table, id, false, Kind.of(false, optional));
 		this.minimum = minimum;
 		this.maximum = maximum;
 

@@ -34,7 +34,7 @@ final class BlobColumn extends Column
 			final boolean optional,
 			final long maximumLength)
 	{
-		super(table, id, false, false, optional);
+		super(table, id, false, Kind.of(false, optional));
 		this.maximumLength = maximumLength;
 	}
 
