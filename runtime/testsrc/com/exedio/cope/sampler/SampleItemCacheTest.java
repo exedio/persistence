@@ -22,11 +22,10 @@ import static com.exedio.cope.sampler.Stuff.MODEL;
 import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
+import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
-import com.exedio.cope.Type;
 import org.junit.jupiter.api.Test;
 
 public class SampleItemCacheTest extends ConnectedTest
@@ -46,25 +45,22 @@ public class SampleItemCacheTest extends ConnectedTest
 		sleepLongerThan(1);
 		touch();
 		{
-			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE);
-			assertIt(model, SampledModelItem2.TYPE, 1);
+			assertNotNull(sampler.sampleInternal());
+			assertIt();
 		}
 
 		sleepLongerThan(1);
 		touch();
 		{
-			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE);
-			assertIt(model, SampledModelItem2.TYPE, 1);
+			assertNotNull(sampler.sampleInternal());
+			assertIt();
 		}
 
 		sleepLongerThan(1);
 		touch();
 		{
-			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE);
-			assertIt(model, SampledModelItem2.TYPE, 1);
+			assertNotNull(sampler.sampleInternal());
+			assertIt();
 		}
 	}
 
@@ -76,24 +72,21 @@ public class SampleItemCacheTest extends ConnectedTest
 
 		sleepLongerThan(1);
 		{
-			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE);
-			assertIt(model, SampledModelItem2.TYPE);
+			assertNotNull(sampler.sampleInternal());
+			assertIt();
 		}
 
 		sleepLongerThan(1);
 		{
-			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE);
-			assertIt(model, SampledModelItem2.TYPE);
+			assertNotNull(sampler.sampleInternal());
+			assertIt();
 		}
 
 		sleepLongerThan(1);
 		touch();
 		{
-			final SamplerModel model = sampler.sampleInternal();
-			assertIt(model, SampledModelItem .TYPE);
-			assertIt(model, SampledModelItem2.TYPE, 1);
+			assertNotNull(sampler.sampleInternal());
+			assertIt();
 		}
 	}
 
@@ -104,31 +97,10 @@ public class SampleItemCacheTest extends ConnectedTest
 		MODEL.commit();
 	}
 
-	private void assertIt(
-			final SamplerModel model,
-			final Type<?> type,
-			final int invalidationsOrdered)
+	private static void assertIt()
 	{
 		samplerModel.startTransaction("HistoryTest2");
-		final SamplerItemCache i = SamplerItemCache.forModelAndType(model, type);
-		if(c)
-		{
-			assertNotNull(i);
-			assertEquals(invalidationsOrdered, i.getInvalidationsOrdered(), "invalidationsOrdered");
-		}
-		else
-		{
-			assertNull(i);
-		}
-		samplerModel.commit();
-	}
-
-	private static void assertIt(
-			final SamplerModel model,
-			final Type<?> type)
-	{
-		samplerModel.startTransaction("HistoryTest2");
-		assertNull(SamplerItemCache.forModelAndType(model, type));
+		assertEquals(asList(), SamplerItemCache.TYPE.search());
 		samplerModel.commit();
 	}
 }

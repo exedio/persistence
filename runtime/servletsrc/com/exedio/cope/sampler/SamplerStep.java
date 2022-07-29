@@ -22,8 +22,6 @@ import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.ClusterSenderInfo;
-import com.exedio.cope.ItemCacheInfo;
-import com.exedio.cope.ItemCacheStatistics;
 import com.exedio.cope.Model;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Transaction;
@@ -48,7 +46,6 @@ final class SamplerStep
 	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final TransactionCounters transactionCounters;
-	final ItemCacheStatistics itemCacheStatistics;
 	final QueryCacheInfo queryCacheInfo;
 	final ChangeListenerInfo changeListenerInfo;
 	final ChangeListenerDispatcherInfo changeListenerDispatcherInfo;
@@ -59,7 +56,6 @@ final class SamplerStep
 	private final HashMap<Integer, ClusterListenerInfo.Node> clusterListenerInfoNodes;
 	final long duration;
 
-	final ItemCacheInfo[] itemCacheInfos;
 	final MediaSummary mediaSummary;
 	final ArrayList<Transaction> transactions;
 
@@ -80,7 +76,6 @@ final class SamplerStep
 		nextTransactionId = sampledModel.getNextTransactionId();
 		transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		itemCacheStatistics = getItemCacheStatistics(sampledModel);
 		queryCacheInfo = getQueryCacheInfo(sampledModel);
 		changeListenerInfo = sampledModel.getChangeListenersInfo();
 		changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
@@ -95,7 +90,6 @@ final class SamplerStep
 		duration = Sampler.stop(start, sampledModel, "gather");
 
 		// process data
-		itemCacheInfos = itemCacheStatistics.getDetails();
 		mediaSummary = new MediaSummary(mediaInfos);
 		transactions = new ArrayList<>(openTransactions.size());
 		{
@@ -120,12 +114,6 @@ final class SamplerStep
 	}
 
 	@SuppressWarnings("deprecation")
-	private static ItemCacheStatistics getItemCacheStatistics(final Model model)
-	{
-		return model.getItemCacheStatistics();
-	}
-
-	@SuppressWarnings("deprecation")
 	private static QueryCacheInfo getQueryCacheInfo(final Model model)
 	{
 		return model.getQueryCacheInfo();
@@ -136,7 +124,6 @@ final class SamplerStep
 		if(from==null)
 			return false;
 
-		assert  itemCacheInfos.length          == from.itemCacheInfos.length;
 		assert  mediaInfos.length              == from.mediaInfos.length;
 		assert (clusterSenderInfo!=null)       ==(from.clusterSenderInfo!=null);
 		assert (clusterListenerInfo!=null)     ==(from.clusterListenerInfo!=null);

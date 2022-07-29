@@ -26,28 +26,8 @@ import com.exedio.cope.TypesBound;
 
 final class SamplerTypeId extends Item
 {
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final StringField id = new StringField().toFinal().unique();
-
-
-	static SamplerTypeId get(final Type<?> type)
-	{
-		final String id = type.getID();
-		SamplerTypeId result = forId(id);
-		if(result==null)
-			result = TYPE.newItem(SamplerTypeId.id.map(id));
-		return result;
-	}
-
-
-	String getID()
-	{
-		return id.get(this);
-	}
-
-	static SamplerTypeId forId(final String id)
-	{
-		return SamplerTypeId.id.searchUnique(SamplerTypeId.class, id);
-	}
 
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerTypeId> TYPE = TypesBound.newType(SamplerTypeId.class);
