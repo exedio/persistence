@@ -21,6 +21,7 @@ package com.exedio.cope;
 import static com.exedio.cope.SchemaInfo.getPrimaryKeyColumnName;
 import static com.exedio.cope.SchemaInfo.getTableName;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.dsmf.Dialect.NOT_NULL;
 import static com.exedio.dsmf.Node.Color.ERROR;
 import static com.exedio.dsmf.Node.Color.OK;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -63,7 +64,7 @@ public class MysqlSchemaEngineTest extends TestWithEnvironment
 				getColumn(getPrimaryKeyColumnName(MyItem.TYPE)).
 				modify("bigint");
 
-		assertSchema("unexpected engine >MyISAM<", ERROR, "unexpected type >bigint<", ERROR);
+		assertSchema("unexpected engine >MyISAM<", ERROR, "unexpected type >bigint" + NOT_NULL + "<", ERROR);
 	}
 
 	private void assertSchema(

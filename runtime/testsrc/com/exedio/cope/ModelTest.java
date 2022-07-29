@@ -31,7 +31,6 @@ import com.exedio.dsmf.Constraint;
 import com.exedio.dsmf.Schema;
 import java.util.EnumSet;
 import org.junit.jupiter.api.Test;
-import org.opentest4j.AssertionFailedError;
 
 /**
  * @author baumgaertel
@@ -190,12 +189,6 @@ public class ModelTest extends TestWithEnvironment
 
 	@Test void testSchema()
 	{
-		if(postgresql)
-			assertFails(
-					this::assertSchema,
-					AssertionFailedError.class,
-					"while#v#integer ==> expected: <null> but was: <unexpected type >integer not null<>");
-		else
-			assertSchema();
+		assertSchema();
 	}
 }

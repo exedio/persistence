@@ -114,8 +114,7 @@ final class MysqlSchemaDialect extends Dialect
 						"c.CHARACTER_MAXIMUM_LENGTH," + // 5
 						"c.DATETIME_PRECISION," + // 6
 						"c.CHARACTER_SET_NAME," + // 7
-						"c.COLLATION_NAME," + // 8
-						"c.COLUMN_KEY " + // 9
+						"c.COLLATION_NAME " + // 8
 				"FROM information_schema.COLUMNS c " +
 				"WHERE c.TABLE_SCHEMA=" + catalog + " " +
 				"AND c.TABLE_NAME IN " +
@@ -164,8 +163,7 @@ final class MysqlSchemaDialect extends Dialect
 						type.append(" COLLATE ").append(collation);
 				}
 
-				if(!getBooleanStrict(resultSet, 3, "YES", "NO") &&
-						!"PRI".equals(resultSet.getString(9)))
+				if(!getBooleanStrict(resultSet, 3, "YES", "NO"))
 					type.append(NOT_NULL);
 
 				final Table table = getTableStrict(schema, resultSet, 1);

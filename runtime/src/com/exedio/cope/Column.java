@@ -54,7 +54,7 @@ abstract class Column
 		table.addColumn(this);
 
 		assert !primaryKey || synthetic : table.id+':'+id;
-		if(primaryKey && !optional)
+		if(primaryKey && optional)
 			throw new RuntimeException(table.id+':'+id);
 	}
 
