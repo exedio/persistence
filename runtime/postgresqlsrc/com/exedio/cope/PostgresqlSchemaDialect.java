@@ -121,33 +121,31 @@ final class PostgresqlSchemaDialect extends Dialect
 		{
 			while(resultSet.next())
 			{
-				final Table table = getTableStrict(schema, resultSet, 1);
 				final String columnName = resultSet.getString(2);
-
-				final String notNull =
-					getBooleanStrict(resultSet, 3, "YES", "NO")
-					? ""
-					: NOT_NULL;
-
 				final String dataType = resultSet.getString(4);
-				final String type;
+
+				final StringBuilder type = new StringBuilder();
 				switch(dataType)
 				{
 					case "character varying":
-						type = dataType + '(' + resultSet.getInt(5) + ')' + notNull;
+						type.append(dataType).append('(').append(resultSet.getInt(5)).append(')');
 						break;
 					case "timestamp without time zone":
-						type = "timestamp (" + resultSet.getInt(6) + ") without time zone" + notNull;
+						type.append("timestamp (").append(resultSet.getInt(6)).append(") without time zone");
 						break;
 					case "timestamp with time zone": // is never created by cope
-						type = "timestamp (" + resultSet.getInt(6) + ") with time zone" + notNull;
+						type.append("timestamp (").append(resultSet.getInt(6)).append(") with time zone");
 						break;
 					default:
-						type = dataType + notNull;
+						type.append(dataType);
 						break;
 				}
 
-				notifyExistentColumn(table, columnName, type);
+				if(!getBooleanStrict(resultSet, 3, "YES", "NO"))
+					type.append(NOT_NULL);
+
+				final Table table = getTableStrict(schema, resultSet, 1);
+				notifyExistentColumn(table, columnName, type.toString());
 			}
 		});
 
