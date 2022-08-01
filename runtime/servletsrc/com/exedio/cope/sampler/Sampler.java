@@ -134,7 +134,7 @@ public class Sampler
 			sv.add(maD(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
 			sv.addAll(SamplerModel.mapIt(from.transactionCounters, to.transactionCounters));
 			sv.addAll(SamplerModel.mapItemCacheStatisticsDummy());
-			sv.addAll(SamplerModel.mapIt(from.queryCacheInfo, to.queryCacheInfo));
+			sv.addAll(SamplerModel.mapQueryCacheInfoDummy());
 			sv.addAll(SamplerModel.mapIt(from.changeListenerInfo, to.changeListenerInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
 			sv.add(SamplerModel.mediasNoSuchPath.map(SamplerModel.DUMMY));

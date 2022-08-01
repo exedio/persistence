@@ -32,7 +32,6 @@ import com.exedio.cope.DateField;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
-import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
@@ -137,19 +136,17 @@ final class SamplerModel extends Item
 	private static final IntegerField queryCacheStampsHits      = field(0);
 	private static final IntegerField queryCacheStampsPurged    = field(0);
 
-	static List<SetValue<?>> mapIt(
-			final QueryCacheInfo from,
-			final QueryCacheInfo to)
+	static List<SetValue<?>> mapQueryCacheInfoDummy()
 	{
 		return Arrays.asList(
-			maD(queryCacheHits,            from.getHits           (), to.getHits           ()),
-			maD(queryCacheMisses,          from.getMisses         (), to.getMisses         ()),
-			maD(queryCacheReplacements,    from.getReplacements   (), to.getReplacements   ()),
-			maD(queryCacheInvalidations,   from.getInvalidations  (), to.getInvalidations  ()),
-			maD(queryCacheConcurrentLoads, from.getConcurrentLoads(), to.getConcurrentLoads()),
-			map(queryCacheStampsSize,                                 to.getStampsSize     ()),
-			maD(queryCacheStampsHits,      from.getStampsHits     (), to.getStampsHits     ()),
-			maD(queryCacheStampsPurged,    from.getStampsPurged   (), to.getStampsPurged   ()));
+			map(queryCacheHits,            DUMMY),
+			map(queryCacheMisses,          DUMMY),
+			map(queryCacheReplacements,    DUMMY),
+			map(queryCacheInvalidations,   DUMMY),
+			map(queryCacheConcurrentLoads, DUMMY),
+			map(queryCacheStampsSize,      DUMMY),
+			map(queryCacheStampsHits,      DUMMY),
+			map(queryCacheStampsPurged,    DUMMY));
 	}
 
 

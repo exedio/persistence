@@ -21,7 +21,6 @@ package com.exedio.cope.sampler;
 import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.Model;
-import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.util.Pool;
@@ -40,7 +39,6 @@ final class SamplerStep
 	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final TransactionCounters transactionCounters;
-	final QueryCacheInfo queryCacheInfo;
 	final ChangeListenerInfo changeListenerInfo;
 	final ChangeListenerDispatcherInfo changeListenerDispatcherInfo;
 	final long duration;
@@ -60,7 +58,6 @@ final class SamplerStep
 		nextTransactionId = sampledModel.getNextTransactionId();
 		transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		queryCacheInfo = getQueryCacheInfo(sampledModel);
 		changeListenerInfo = sampledModel.getChangeListenersInfo();
 		changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
 		duration = Sampler.stop(start, sampledModel, "gather");
@@ -75,12 +72,6 @@ final class SamplerStep
 					transactions.add(transaction);
 			}
 		}
-	}
-
-	@SuppressWarnings("deprecation")
-	private static QueryCacheInfo getQueryCacheInfo(final Model model)
-	{
-		return model.getQueryCacheInfo();
 	}
 
 	boolean isCompatibleTo(final SamplerStep from)
