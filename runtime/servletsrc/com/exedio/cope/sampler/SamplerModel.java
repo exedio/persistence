@@ -23,7 +23,6 @@ import static com.exedio.cope.sampler.Util.field;
 import static com.exedio.cope.sampler.Util.maD;
 
 import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.CopeExternal;
@@ -171,14 +170,12 @@ final class SamplerModel extends Item
 	private static final IntegerField changeListenerException = field(0);
 	private static final IntegerField changeListenerPending   = field(0);
 
-	static List<SetValue<?>> mapIt(
-			final ChangeListenerDispatcherInfo from,
-			final ChangeListenerDispatcherInfo to)
+	static List<SetValue<?>> mapChangeListenerDispatcherInfoDummy()
 	{
 		return Arrays.asList(
-			maD(changeListenerOverflow,  from.getOverflow (), to.getOverflow ()),
-			maD(changeListenerException, from.getException(), to.getException()),
-			map(changeListenerPending,                        to.getPending  ()));
+			map(changeListenerOverflow,  DUMMY),
+			map(changeListenerException, DUMMY),
+			map(changeListenerPending,   DUMMY));
 	}
 
 

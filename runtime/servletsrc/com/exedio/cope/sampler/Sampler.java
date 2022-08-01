@@ -136,7 +136,7 @@ public class Sampler
 			sv.addAll(SamplerModel.mapItemCacheStatisticsDummy());
 			sv.addAll(SamplerModel.mapQueryCacheInfoDummy());
 			sv.addAll(SamplerModel.mapIt(from.changeListenerInfo, to.changeListenerInfo));
-			sv.addAll(SamplerModel.mapIt(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
+			sv.addAll(SamplerModel.mapChangeListenerDispatcherInfoDummy());
 			sv.add(SamplerModel.mediasNoSuchPath.map(SamplerModel.DUMMY));
 			sv.addAll(SamplerModel.mapMediaSummaryDummy());
 			sv.add(SamplerModel.mapClusterSenderInfoDummy());
