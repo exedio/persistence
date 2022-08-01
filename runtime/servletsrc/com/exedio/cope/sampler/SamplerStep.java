@@ -26,9 +26,6 @@ import com.exedio.cope.Model;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
-import com.exedio.cope.misc.MediaSummary;
-import com.exedio.cope.pattern.MediaInfo;
-import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Pool;
 import io.micrometer.core.instrument.Timer;
 import java.time.Duration;
@@ -49,24 +46,17 @@ final class SamplerStep
 	final QueryCacheInfo queryCacheInfo;
 	final ChangeListenerInfo changeListenerInfo;
 	final ChangeListenerDispatcherInfo changeListenerDispatcherInfo;
-	final MediaInfo[] mediaInfos;
-	final int mediasNoSuchPath;
 	final ClusterSenderInfo clusterSenderInfo;
 	final ClusterListenerInfo clusterListenerInfo;
 	private final HashMap<Integer, ClusterListenerInfo.Node> clusterListenerInfoNodes;
 	final long duration;
 
-	final MediaSummary mediaSummary;
 	final ArrayList<Transaction> transactions;
 
 	SamplerStep(
 			final Model sampledModel,
-			final MediaPath[] medias,
 			final Duration transactionDuration)
 	{
-		// prepare
-		this.mediaInfos = new MediaInfo[medias.length];
-
 		// gather data
 		final Timer.Sample start = Timer.start();
 		date = new Date();
@@ -79,18 +69,11 @@ final class SamplerStep
 		queryCacheInfo = getQueryCacheInfo(sampledModel);
 		changeListenerInfo = sampledModel.getChangeListenersInfo();
 		changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
-		mediasNoSuchPath = MediaPath.getNoSuchPath();
-		{
-			int i = 0;
-			for(final MediaPath path : medias)
-				mediaInfos[i++] = path.getInfo();
-		}
 		clusterSenderInfo = sampledModel.getClusterSenderInfo();
 		clusterListenerInfo = sampledModel.getClusterListenerInfo();
 		duration = Sampler.stop(start, sampledModel, "gather");
 
 		// process data
-		mediaSummary = new MediaSummary(mediaInfos);
 		transactions = new ArrayList<>(openTransactions.size());
 		{
 			final long threshold = date.getTime() - transactionDuration.toMillis();
@@ -124,7 +107,6 @@ final class SamplerStep
 		if(from==null)
 			return false;
 
-		assert  mediaInfos.length              == from.mediaInfos.length;
 		assert (clusterSenderInfo!=null)       ==(from.clusterSenderInfo!=null);
 		assert (clusterListenerInfo!=null)     ==(from.clusterListenerInfo!=null);
 		assert (clusterListenerInfoNodes!=null)==(from.clusterListenerInfoNodes!=null);

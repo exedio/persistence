@@ -23,27 +23,10 @@ import com.exedio.cope.Item;
 import com.exedio.cope.StringField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.pattern.MediaPath;
 
 final class SamplerMediaId extends Item
 {
 	private static final StringField id = new StringField().toFinal().unique();
-
-
-	static SamplerMediaId get(final MediaPath type)
-	{
-		final String id = type.getID();
-		SamplerMediaId result = forId(id);
-		if(result==null)
-			result = TYPE.newItem(SamplerMediaId.id.map(id));
-		return result;
-	}
-
-
-	String getID()
-	{
-		return id.get(this);
-	}
 
 	static SamplerMediaId forId(final String id)
 	{

@@ -39,7 +39,6 @@ import com.exedio.cope.SetValue;
 import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
-import com.exedio.cope.misc.MediaSummary;
 import com.exedio.cope.pattern.CompositeField;
 import com.exedio.cope.util.Pool;
 import java.util.Arrays;
@@ -202,22 +201,20 @@ final class SamplerModel extends Item
 	private static final IntegerField mediasNotModified    = field(0);
 	private static final IntegerField mediasDelivered      = field(0);
 
-	static List<SetValue<?>> mapIt(
-			final MediaSummary from,
-			final MediaSummary to)
+	static List<SetValue<?>> mapMediaSummaryDummy()
 	{
 		return Arrays.asList(
-			maD(mediasRedirectFrom,   from.getRedirectFrom  (), to.getRedirectFrom  ()),
-			maD(mediasException,      from.getException     (), to.getException     ()),
-			maD(mediasInvalidSpecial, from.getInvalidSpecial(), to.getInvalidSpecial()),
-			maD(mediasGuessedUrl,     from.getGuessedUrl    (), to.getGuessedUrl    ()),
-			maD(mediasNotAnItem,      from.getNotAnItem     (), to.getNotAnItem     ()),
-			maD(mediasNoSuchItem,     from.getNoSuchItem    (), to.getNoSuchItem    ()),
-			maD(mediasMoved,          from.getMoved         (), to.getMoved         ()),
-			maD(mediasIsNull,         from.getIsNull        (), to.getIsNull        ()),
-			mediasNotComputable.map(0),
-			maD(mediasNotModified,    from.getNotModified   (), to.getNotModified   ()),
-			maD(mediasDelivered,      from.getDelivered     (), to.getDelivered     ()));
+			map(mediasRedirectFrom,   DUMMY),
+			map(mediasException,      DUMMY),
+			map(mediasInvalidSpecial, DUMMY),
+			map(mediasGuessedUrl,     DUMMY),
+			map(mediasNotAnItem,      DUMMY),
+			map(mediasNoSuchItem,     DUMMY),
+			map(mediasMoved,          DUMMY),
+			map(mediasIsNull,         DUMMY),
+			map(mediasNotComputable,  DUMMY),
+			map(mediasNotModified,    DUMMY),
+			map(mediasDelivered,      DUMMY));
 	}
 
 
@@ -245,7 +242,7 @@ final class SamplerModel extends Item
 	}
 
 
-	private static final Integer DUMMY = 42;
+	static final Integer DUMMY = 42;
 
 	@SuppressWarnings("unused") private SamplerModel(final ActivationParameters ap){ super(ap); }
 	private static final long serialVersionUID = 1l;

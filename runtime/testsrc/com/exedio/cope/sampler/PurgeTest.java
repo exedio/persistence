@@ -79,7 +79,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(1, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(2, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		touch();
 		sleepLongerThan( 1 );
@@ -88,7 +88,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(2, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 
 		final Date date;
 		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
@@ -101,7 +101,7 @@ public class PurgeTest extends ConnectedTest
 		assertEquals(2, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerClusterNode.TYPE));
-		assertEquals(4, sampler.analyzeCount(SamplerMedia.TYPE));
+		assertEquals(0, sampler.analyzeCount(SamplerMedia.TYPE));
 		try(TransactionTry tx = samplerModel.startTransactionTry(PurgeTest.class.getName()))
 		{
 			final Iterator<SamplerPurge> i = iterator();
@@ -122,7 +122,7 @@ public class PurgeTest extends ConnectedTest
 			tx.commit();
 		}
 		final Date purgeDate = new Date(dateMax.getTime()+1);
-		assertPurge(purgeDate, 2, 0, 0, 4, 2);
+		assertPurge(purgeDate, 2, 0, 0, 0, 2);
 		assertEquals(0, sampler.analyzeCount(SamplerModel.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerTransaction.TYPE));
 		assertEquals(0, sampler.analyzeCount(SamplerItemCache.TYPE));
@@ -134,7 +134,7 @@ public class PurgeTest extends ConnectedTest
 			assertIt("SamplerTransaction", purgeDate, 2, i.next());
 			assertIt("SamplerItemCache",   purgeDate, 0, i.next());
 			assertIt("SamplerClusterNode", purgeDate, 0, i.next());
-			assertIt("SamplerMedia",       purgeDate, 4, i.next());
+			assertIt("SamplerMedia",       purgeDate, 0, i.next());
 			assertIt("SamplerModel",       purgeDate, 2, i.next());
 			tx.commit();
 			assertFalse(i.hasNext());

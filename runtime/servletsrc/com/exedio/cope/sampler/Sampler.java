@@ -25,7 +25,6 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.DateField;
-import com.exedio.cope.Feature;
 import com.exedio.cope.Model;
 import com.exedio.cope.Selectable;
 import com.exedio.cope.SetValue;
@@ -33,7 +32,6 @@ import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionTry;
 import com.exedio.cope.Type;
 import com.exedio.cope.misc.ConnectToken;
-import com.exedio.cope.pattern.MediaPath;
 import com.exedio.cope.util.Clock;
 import com.exedio.cope.util.JobContext;
 import com.exedio.cope.util.Properties;
@@ -51,12 +49,9 @@ import java.util.Map;
 
 public class Sampler
 {
-	private static final MediaPath[] EMPTY_MEDIA_PATH_ARRAY = new MediaPath[0];
-
 	private final Model samplerModel;
 
 	private final Model sampledModel;
-	private final MediaPath[] medias;
 
 	public Sampler(final Model sampledModel)
 	{
@@ -78,12 +73,6 @@ public class Sampler
 					SamplerEnvironment.TYPE,
 					SamplerPurge.TYPE).
 				build();
-		final ArrayList<MediaPath> medias = new ArrayList<>();
-		for(final Type<?> type : sampledModel.getTypes())
-			for(final Feature feature : type.getDeclaredFeatures())
-				if(feature instanceof MediaPath)
-					medias.add((MediaPath)feature);
-		this.medias = medias.toArray(EMPTY_MEDIA_PATH_ARRAY);
 	}
 
 	public final Model getModel()
@@ -124,7 +113,7 @@ public class Sampler
 			tx.commit();
 		}
 
-		final SamplerStep to = new SamplerStep(sampledModel, medias, transactionDuration);
+		final SamplerStep to = new SamplerStep(sampledModel, transactionDuration);
 		final SamplerStep from = lastStep;
 		lastStep = to;
 		if(!to.isCompatibleTo(from))
@@ -149,8 +138,8 @@ public class Sampler
 			sv.addAll(SamplerModel.mapIt(from.queryCacheInfo, to.queryCacheInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerInfo, to.changeListenerInfo));
 			sv.addAll(SamplerModel.mapIt(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
-			sv.add(maD(SamplerModel.mediasNoSuchPath, from.mediasNoSuchPath, to.mediasNoSuchPath));
-			sv.addAll(SamplerModel.mapIt(from.mediaSummary, to.mediaSummary));
+			sv.add(SamplerModel.mediasNoSuchPath.map(SamplerModel.DUMMY));
+			sv.addAll(SamplerModel.mapMediaSummaryDummy());
 			sv.add(SamplerModel.mapIt(from.clusterSenderInfo, to.clusterSenderInfo));
 			sv.add(SamplerModel.mapIt(from.clusterListenerInfo, to.clusterListenerInfo));
 			final SamplerModel model = SamplerModel.TYPE.newItem(sv);
@@ -161,17 +150,6 @@ public class Sampler
 				sv.add(SamplerTransaction.mapIt(model));
 				sv.addAll(SamplerTransaction.mapIt(transaction));
 				SamplerTransaction.TYPE.newItem(sv);
-			}
-			for(int i = 0; i<to.mediaInfos.length; i++)
-			{
-				final List<SetValue<?>> payLoad = SamplerMedia.mapIt(from.mediaInfos[i], to.mediaInfos[i]);
-				if(payLoad!=null)
-				{
-					sv.clear();
-					sv.add(SamplerMedia.mapIt(model));
-					sv.addAll(payLoad);
-					SamplerMedia.TYPE.newItem(sv);
-				}
 			}
 			if(to.clusterListenerInfo!=null)
 			{
