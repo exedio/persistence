@@ -21,7 +21,6 @@ package com.exedio.cope.sampler;
 import static com.exedio.cope.sampler.Util.field;
 
 import com.exedio.cope.ActivationParameters;
-import com.exedio.cope.Cope;
 import com.exedio.cope.CopeExternal;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
@@ -31,7 +30,6 @@ import com.exedio.cope.ItemField;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.UniqueConstraint;
-import com.exedio.cope.pattern.MediaPath;
 
 @Purgeable
 @CopeExternal
@@ -43,15 +41,6 @@ final class SamplerMedia extends Item
 
 	private static final DateField date = new DateField().toFinal().copyFrom(model);
 	@SuppressWarnings("unused") private static final UniqueConstraint dateAndMedia = UniqueConstraint.create(date, media); // date must be first, so purging can use the index
-
-	static SamplerMedia forModelAndType(final SamplerModel model, final MediaPath media)
-	{
-		return TYPE.searchSingleton(Cope.and(
-				SamplerMedia.model.equal(model),
-				SamplerMedia.media.equal(SamplerMediaId.forId(media.getID()))
-		));
-	}
-
 
 	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField redirectFrom   = field(0);

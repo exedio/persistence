@@ -22,9 +22,9 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.pattern.Media;
+import java.util.Arrays;
 import org.junit.jupiter.api.Test;
 
 public class SampleMediaTest extends ConnectedTest
@@ -101,12 +101,11 @@ public class SampleMediaTest extends ConnectedTest
 	}
 
 	private static void assertIt(
-			final SamplerModel model,
-			final Media media)
+			@SuppressWarnings("unused") final SamplerModel model,
+			@SuppressWarnings("unused") final Media media)
 	{
 		samplerModel.startTransaction("HistoryTest2");
-		final SamplerMedia i = SamplerMedia.forModelAndType(model, media);
-		assertNull(i);
+		assertEquals(Arrays.asList(), SamplerMedia.TYPE.search());
 		samplerModel.commit();
 	}
 }
