@@ -20,8 +20,6 @@ package com.exedio.cope.sampler;
 
 import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
-import com.exedio.cope.ClusterListenerInfo;
-import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.Model;
 import com.exedio.cope.QueryCacheInfo;
 import com.exedio.cope.Transaction;
@@ -33,7 +31,6 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
-import java.util.HashMap;
 
 final class SamplerStep
 {
@@ -46,9 +43,6 @@ final class SamplerStep
 	final QueryCacheInfo queryCacheInfo;
 	final ChangeListenerInfo changeListenerInfo;
 	final ChangeListenerDispatcherInfo changeListenerDispatcherInfo;
-	final ClusterSenderInfo clusterSenderInfo;
-	final ClusterListenerInfo clusterListenerInfo;
-	private final HashMap<Integer, ClusterListenerInfo.Node> clusterListenerInfoNodes;
 	final long duration;
 
 	final ArrayList<Transaction> transactions;
@@ -69,8 +63,6 @@ final class SamplerStep
 		queryCacheInfo = getQueryCacheInfo(sampledModel);
 		changeListenerInfo = sampledModel.getChangeListenersInfo();
 		changeListenerDispatcherInfo = sampledModel.getChangeListenerDispatcherInfo();
-		clusterSenderInfo = sampledModel.getClusterSenderInfo();
-		clusterListenerInfo = sampledModel.getClusterListenerInfo();
 		duration = Sampler.stop(start, sampledModel, "gather");
 
 		// process data
@@ -82,17 +74,6 @@ final class SamplerStep
 				if(transaction.getStartDate().getTime()<=threshold)
 					transactions.add(transaction);
 			}
-		}
-		if(clusterListenerInfo!=null)
-		{
-			clusterListenerInfoNodes = new HashMap<>();
-			for(final ClusterListenerInfo.Node node : clusterListenerInfo.getNodes())
-				if(clusterListenerInfoNodes.putIfAbsent(node.getID(), node)!=null)
-					throw new RuntimeException("" + node.getID());
-		}
-		else
-		{
-			clusterListenerInfoNodes = null;
 		}
 	}
 
@@ -107,17 +88,8 @@ final class SamplerStep
 		if(from==null)
 			return false;
 
-		assert (clusterSenderInfo!=null)       ==(from.clusterSenderInfo!=null);
-		assert (clusterListenerInfo!=null)     ==(from.clusterListenerInfo!=null);
-		assert (clusterListenerInfoNodes!=null)==(from.clusterListenerInfoNodes!=null);
-
 		return
 			initialized.equals(from.initialized) &&
 			connected.equals(from.connected);
-	}
-
-	ClusterListenerInfo.Node map(final ClusterListenerInfo.Node node)
-	{
-		return clusterListenerInfoNodes.get(node.getID());
 	}
 }

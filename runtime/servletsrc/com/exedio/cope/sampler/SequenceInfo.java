@@ -18,37 +18,26 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.SetValue.map;
-import static com.exedio.cope.sampler.Util.maD;
-
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
-import com.exedio.cope.util.SequenceChecker;
 
 final class SequenceInfo extends Composite
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField inOrder    = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField outOfOrder = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField duplicate  = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField lost       = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField late       = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField pending    = new IntegerField().min(0);
-
-	SequenceInfo(
-			final SequenceChecker.Info from,
-			final SequenceChecker.Info to)
-	{
-		this(
-			maD(inOrder,    from.getInOrder   (), to.getInOrder   ()),
-			maD(outOfOrder, from.getOutOfOrder(), to.getOutOfOrder()),
-			maD(duplicate,  from.getDuplicate (), to.getDuplicate ()),
-			maD(lost,       from.getLost      (), to.getLost      ()),
-			maD(late,       from.getLate      (), to.getLate      ()),
-			map(pending,    to.getPending     ()  ));
-	}
 
 	private SequenceInfo(final SetValue<?>... setValues)
 	{
