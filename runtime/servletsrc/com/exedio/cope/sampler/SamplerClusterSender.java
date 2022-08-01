@@ -18,9 +18,6 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.maD;
-
-import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
@@ -29,15 +26,8 @@ final class SamplerClusterSender extends Composite
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField invalidationSplit = new IntegerField().min(0);
-
-	SamplerClusterSender(
-			final ClusterSenderInfo from,
-			final ClusterSenderInfo to)
-	{
-		this(
-			maD(invalidationSplit, from.getInvalidationSplit(), to.getInvalidationSplit()));
-	}
 
 	private SamplerClusterSender(final SetValue<?>... setValues)
 	{

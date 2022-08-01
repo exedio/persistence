@@ -89,12 +89,6 @@ final class Util
 		return SetValue.map(settable, (int)result);
 	}
 
-	static int same(final int from, final int to)
-	{
-		assert from==to;
-		return to;
-	}
-
 
 	static IntegerField field(final int minimum)
 	{

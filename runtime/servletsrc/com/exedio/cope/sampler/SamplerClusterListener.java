@@ -18,9 +18,6 @@
 
 package com.exedio.cope.sampler;
 
-import static com.exedio.cope.sampler.Util.maD;
-
-import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.IntegerField;
 import com.exedio.cope.SetValue;
 import com.exedio.cope.pattern.Composite;
@@ -29,21 +26,14 @@ final class SamplerClusterListener extends Composite
 {
 	private static final long serialVersionUID = 1l;
 
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField exception    = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField missingMagic = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField wrongSecret  = new IntegerField().min(0);
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final IntegerField fromMyself   = new IntegerField().min(0);
-
-	SamplerClusterListener(
-			final ClusterListenerInfo from,
-			final ClusterListenerInfo to)
-	{
-		this(
-			maD(exception,    from.getException   (), to.getException   ()),
-			maD(missingMagic, from.getMissingMagic(), to.getMissingMagic()),
-			maD(wrongSecret,  from.getWrongSecret (), to.getWrongSecret ()),
-			maD(fromMyself,   from.getFromMyself  (), to.getFromMyself  ()));
-	}
 
 	private SamplerClusterListener(final SetValue<?>... setValues)
 	{

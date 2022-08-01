@@ -23,7 +23,6 @@ import static com.exedio.cope.SchemaInfo.newConnection;
 import static com.exedio.cope.sampler.Util.maD;
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.ClusterListenerInfo;
 import com.exedio.cope.DateField;
 import com.exedio.cope.Model;
 import com.exedio.cope.Selectable;
@@ -140,8 +139,8 @@ public class Sampler
 			sv.addAll(SamplerModel.mapIt(from.changeListenerDispatcherInfo, to.changeListenerDispatcherInfo));
 			sv.add(SamplerModel.mediasNoSuchPath.map(SamplerModel.DUMMY));
 			sv.addAll(SamplerModel.mapMediaSummaryDummy());
-			sv.add(SamplerModel.mapIt(from.clusterSenderInfo, to.clusterSenderInfo));
-			sv.add(SamplerModel.mapIt(from.clusterListenerInfo, to.clusterListenerInfo));
+			sv.add(SamplerModel.mapClusterSenderInfoDummy());
+			sv.add(SamplerModel.mapClusterListenerInfoDummy());
 			final SamplerModel model = SamplerModel.TYPE.newItem(sv);
 
 			for(final Transaction transaction : to.transactions)
@@ -150,20 +149,6 @@ public class Sampler
 				sv.add(SamplerTransaction.mapIt(model));
 				sv.addAll(SamplerTransaction.mapIt(transaction));
 				SamplerTransaction.TYPE.newItem(sv);
-			}
-			if(to.clusterListenerInfo!=null)
-			{
-				for(final ClusterListenerInfo.Node toNode : to.clusterListenerInfo.getNodes())
-				{
-					final ClusterListenerInfo.Node fromNode = from.map(toNode);
-					if(fromNode!=null)
-					{
-						sv.clear();
-						sv.add(SamplerClusterNode.mapIt(model));
-						sv.addAll(SamplerClusterNode.mapIt(fromNode, toNode));
-						SamplerClusterNode.TYPE.newItem(sv);
-					}
-				}
 			}
 			tx.commit();
 			stop(start, sampledModel, "store");

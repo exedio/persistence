@@ -26,8 +26,6 @@ import com.exedio.cope.ActivationParameters;
 import com.exedio.cope.ChangeListenerDispatcherInfo;
 import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.CheckConstraint;
-import com.exedio.cope.ClusterListenerInfo;
-import com.exedio.cope.ClusterSenderInfo;
 import com.exedio.cope.CopeExternal;
 import com.exedio.cope.CopeSchemaName;
 import com.exedio.cope.DateField;
@@ -220,24 +218,20 @@ final class SamplerModel extends Item
 
 	private static final CompositeField<SamplerClusterSender> clusterSender = CompositeField.create(SamplerClusterSender.class).toFinal().optional();
 
-	static SetValue<?> mapIt(
-			final ClusterSenderInfo from,
-			final ClusterSenderInfo to)
+	static SetValue<?> mapClusterSenderInfoDummy()
 	{
 		return map(clusterSender,
-			(from!=null&&to!=null) ? new SamplerClusterSender(from, to) : null
+			null
 		);
 	}
 
 
 	private static final CompositeField<SamplerClusterListener> clusterListener = CompositeField.create(SamplerClusterListener.class).toFinal().optional();
 
-	static SetValue<?> mapIt(
-			final ClusterListenerInfo from,
-			final ClusterListenerInfo to)
+	static SetValue<?> mapClusterListenerInfoDummy()
 	{
 		return map(clusterListener,
-			(from!=null&&to!=null) ? new SamplerClusterListener(from, to) : null
+			null
 		);
 	}
 
