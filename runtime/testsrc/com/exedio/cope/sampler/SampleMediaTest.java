@@ -22,7 +22,6 @@ import static com.exedio.cope.sampler.Stuff.sampler;
 import static com.exedio.cope.sampler.Stuff.samplerModel;
 import static com.exedio.cope.tojunit.Assert.sleepLongerThan;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertNull;
 
 import com.exedio.cope.pattern.Media;
@@ -47,7 +46,7 @@ public class SampleMediaTest extends ConnectedTest
 		{
 			final SamplerModel model = sampler.sampleInternal();
 			assertIt(model, SampledModelItem.mediaA);
-			assertIt(model, SampledModelItem.mediaB, 1);
+			assertIt(model, SampledModelItem.mediaB);
 		}
 
 		sleepLongerThan(1);
@@ -55,7 +54,7 @@ public class SampleMediaTest extends ConnectedTest
 		{
 			final SamplerModel model = sampler.sampleInternal();
 			assertIt(model, SampledModelItem.mediaA);
-			assertIt(model, SampledModelItem.mediaB, 1);
+			assertIt(model, SampledModelItem.mediaB);
 		}
 
 		sleepLongerThan(1);
@@ -63,7 +62,7 @@ public class SampleMediaTest extends ConnectedTest
 		{
 			final SamplerModel model = sampler.sampleInternal();
 			assertIt(model, SampledModelItem.mediaA);
-			assertIt(model, SampledModelItem.mediaB, 1);
+			assertIt(model, SampledModelItem.mediaB);
 		}
 	}
 
@@ -92,25 +91,13 @@ public class SampleMediaTest extends ConnectedTest
 		{
 			final SamplerModel model = sampler.sampleInternal();
 			assertIt(model, SampledModelItem.mediaA);
-			assertIt(model, SampledModelItem.mediaB, 1);
+			assertIt(model, SampledModelItem.mediaB);
 		}
 	}
 
 	private static void touch()
 	{
 		SampledModelItem.mediaB.incrementDelivered();
-	}
-
-	private static void assertIt(
-			final SamplerModel model,
-			final Media media,
-			final int delivered)
-	{
-		samplerModel.startTransaction("HistoryTest2");
-		final SamplerMedia i = SamplerMedia.forModelAndType(model, media);
-		assertNotNull(i);
-		assertEquals(delivered, i.getDelivered(), "delivered");
-		samplerModel.commit();
 	}
 
 	private static void assertIt(
