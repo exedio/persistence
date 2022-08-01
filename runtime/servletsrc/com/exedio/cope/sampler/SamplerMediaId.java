@@ -26,12 +26,8 @@ import com.exedio.cope.TypesBound;
 
 final class SamplerMediaId extends Item
 {
+	@SuppressWarnings("unused") // OK: just for keeping metrics sampled in the past
 	private static final StringField id = new StringField().toFinal().unique();
-
-	static SamplerMediaId forId(final String id)
-	{
-		return SamplerMediaId.id.searchUnique(SamplerMediaId.class, id);
-	}
 
 	private static final long serialVersionUID = 1l;
 	static final Type<SamplerMediaId> TYPE = TypesBound.newType(SamplerMediaId.class);
