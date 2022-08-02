@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import io.micrometer.core.instrument.Timer;
+
 public final class TransactionCounters
 {
 	private final long commitWithout;
@@ -26,15 +28,15 @@ public final class TransactionCounters
 	private final long rollbackWith;
 
 	TransactionCounters(
-			final long commitWithout,
-			final long commitWith,
-			final long rollbackWithout,
-			final long rollbackWith)
+			final Timer commitWithout,
+			final Timer commitWith,
+			final Timer rollbackWithout,
+			final Timer rollbackWith)
 	{
-		this.commitWithout = commitWithout;
-		this.commitWith = commitWith;
-		this.rollbackWithout = rollbackWithout;
-		this.rollbackWith = rollbackWith;
+		this.commitWithout   = commitWithout  .count();
+		this.commitWith      = commitWith     .count();
+		this.rollbackWithout = rollbackWithout.count();
+		this.rollbackWith    = rollbackWith   .count();
 	}
 
 	public long getCommit()
