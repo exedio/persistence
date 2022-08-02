@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.InfoRegistry.count;
 import static java.util.Objects.requireNonNull;
 
 import gnu.trove.TLongHashSet;
@@ -98,7 +97,7 @@ final class ChangeListenerDispatcher implements Runnable
 
 	ChangeListenerDispatcherInfo getInfo()
 	{
-		return new ChangeListenerDispatcherInfo(count(overflow), count(exception), queue.size());
+		return new ChangeListenerDispatcherInfo(overflow, exception, queue.size());
 	}
 
 	void invalidate(final TLongHashSet[] invalidations, final TransactionInfo transactionInfo)
