@@ -132,7 +132,7 @@ public class Sampler
 			sv.add(SamplerModel.connected.map(Date.from(to.connected)));
 			sv.addAll(SamplerModel.mapIt(from.connectionPoolInfo, to.connectionPoolInfo));
 			sv.add(maD(SamplerModel.nextTransactionId, from.nextTransactionId, to.nextTransactionId));
-			sv.addAll(SamplerModel.mapIt(from.transactionCounters, to.transactionCounters));
+			sv.addAll(SamplerModel.mapTransactionCountersDummy());
 			sv.addAll(SamplerModel.mapItemCacheStatisticsDummy());
 			sv.addAll(SamplerModel.mapQueryCacheInfoDummy());
 			sv.addAll(SamplerModel.mapChangeListenerInfoDummy());
