@@ -31,7 +31,6 @@ import com.exedio.cope.IntegerField;
 import com.exedio.cope.Item;
 import com.exedio.cope.LongField;
 import com.exedio.cope.SetValue;
-import com.exedio.cope.TransactionCounters;
 import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.pattern.CompositeField;
@@ -80,15 +79,13 @@ final class SamplerModel extends Item
 	private static final IntegerField rollbackWithoutConnection = field(0);
 	private static final IntegerField rollbackWithConnection    = field(0);
 
-	static List<SetValue<?>> mapIt(
-			final TransactionCounters from,
-			final TransactionCounters to)
+	static List<SetValue<?>> mapTransactionCountersDummy()
 	{
 		return Arrays.asList(
-			maD(commitWithoutConnection,   from.getCommitWithoutConnection  (), to.getCommitWithoutConnection  ()),
-			maD(commitWithConnection,      from.getCommitWithConnection     (), to.getCommitWithConnection     ()),
-			maD(rollbackWithoutConnection, from.getRollbackWithoutConnection(), to.getRollbackWithoutConnection()),
-			maD(rollbackWithConnection,    from.getRollbackWithConnection   (), to.getRollbackWithConnection   ()));
+			map(commitWithoutConnection,   DUMMY),
+			map(commitWithConnection,      DUMMY),
+			map(rollbackWithoutConnection, DUMMY),
+			map(rollbackWithConnection,    DUMMY));
 	}
 
 
