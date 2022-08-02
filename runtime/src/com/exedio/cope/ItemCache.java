@@ -18,8 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.InfoRegistry.count;
-
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongIterator;
 import io.micrometer.core.instrument.Counter;
@@ -419,13 +417,13 @@ final class ItemCache
 			return new ItemCacheInfo(
 				type,
 				levels[type.cacheIdTransiently],
-				count(hits),
-				count(misses),
-				count(concurrentLoads),
-				count(replacements),
-				count(invalidationsFutile), count(invalidationsDone),
+				hits,
+				misses,
+				concurrentLoads,
+				replacements,
+				invalidationsFutile, invalidationsDone,
 				stampsSizes[type.cacheIdTransiently],
-				count(stampsHit), count(stampsPurged)
+				stampsHit, stampsPurged
 			);
 		}
 	}

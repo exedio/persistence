@@ -19,7 +19,9 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.CastUtils.toIntCapped;
+import static com.exedio.cope.InfoRegistry.count;
 
+import io.micrometer.core.instrument.Counter;
 import java.util.Date;
 
 public final class ItemCacheInfo
@@ -39,24 +41,24 @@ public final class ItemCacheInfo
 	ItemCacheInfo(
 			final Type<?> type,
 			final int level,
-			final long hits, final long misses,
-			final long concurrentLoads,
-			final long replacements,
-			final long invalidationsFutile, final long invalidationsDone,
-			final int stampsSize, final long stampsHits, final long stampsPurged
+			final Counter hits, final Counter misses,
+			final Counter concurrentLoads,
+			final Counter replacements,
+			final Counter invalidationsFutile, final Counter invalidationsDone,
+			final int stampsSize, final Counter stampsHits, final Counter stampsPurged
 			)
 	{
 		this.type = type;
 		this.level = level;
-		this.hits = hits;
-		this.misses = misses;
-		this.concurrentLoads = concurrentLoads;
-		this.replacements = replacements;
-		this.invalidationsOrdered = invalidationsFutile + invalidationsDone;
-		this.invalidationsDone = invalidationsDone;
+		this.hits = count(hits);
+		this.misses = count(misses);
+		this.concurrentLoads = count(concurrentLoads);
+		this.replacements = count(replacements);
+		this.invalidationsDone = count(invalidationsDone);
+		this.invalidationsOrdered = count(invalidationsFutile) + this.invalidationsDone;
 		this.stampsSize   = stampsSize;
-		this.stampsHits   = stampsHits;
-		this.stampsPurged = stampsPurged;
+		this.stampsHits   = count(stampsHits);
+		this.stampsPurged = count(stampsPurged);
 	}
 
 	public Type<?> getType()
