@@ -69,9 +69,9 @@ final class TransactionCounter
 	TransactionCounters get()
 	{
 		return new TransactionCounters(
-				commitWithout.count(),
-				commitWith.count(),
-				rollbackWithout.count(),
-				rollbackWith.count());
+				commitWithout,
+				commitWith,
+				rollbackWithout,
+				rollbackWith);
 	}
 }
