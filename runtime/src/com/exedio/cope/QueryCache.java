@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.InfoRegistry.count;
 import static java.nio.charset.StandardCharsets.UTF_8;
 
 import gnu.trove.TIntArrayList;
@@ -355,14 +354,14 @@ final class QueryCache
 		}
 
 		return new QueryCacheInfo(
-				count(hits),
-				count(misses),
-				count(replacements),
-				count(invalidations),
-				count(concurrentLoads),
+				hits,
+				misses,
+				replacements,
+				invalidations,
+				concurrentLoads,
 				stampListSize,
-				count(stampsHit),
-				count(stampsPurged),
+				stampsHit,
+				stampsPurged,
 				level);
 	}
 

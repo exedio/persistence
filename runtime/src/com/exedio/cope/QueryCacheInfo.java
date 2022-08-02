@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.count;
+
+import io.micrometer.core.instrument.Counter;
+
 public final class QueryCacheInfo
 {
 	private final long hits;
@@ -31,24 +35,24 @@ public final class QueryCacheInfo
 	private final int level;
 
 	QueryCacheInfo(
-			final long hits,
-			final long misses,
-			final long replacements,
-			final long invalidations,
-			final long concurrentLoads,
+			final Counter hits,
+			final Counter misses,
+			final Counter replacements,
+			final Counter invalidations,
+			final Counter concurrentLoads,
 			final int  stampsSize,
-			final long stampsHits,
-			final long stampsPurged,
+			final Counter stampsHits,
+			final Counter stampsPurged,
 			final int level)
 	{
-		this.hits = hits;
-		this.misses = misses;
-		this.replacements = replacements;
-		this.invalidations = invalidations;
-		this.concurrentLoads = concurrentLoads;
+		this.hits = count(hits);
+		this.misses = count(misses);
+		this.replacements = count(replacements);
+		this.invalidations = count(invalidations);
+		this.concurrentLoads = count(concurrentLoads);
 		this.stampsSize   = stampsSize;
-		this.stampsHits   = stampsHits;
-		this.stampsPurged = stampsPurged;
+		this.stampsHits   = count(stampsHits);
+		this.stampsPurged = count(stampsPurged);
 		this.level = level;
 	}
 
