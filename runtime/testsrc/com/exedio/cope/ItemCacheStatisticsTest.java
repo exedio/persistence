@@ -20,15 +20,17 @@ package com.exedio.cope;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+import io.micrometer.core.instrument.Counter;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 public class ItemCacheStatisticsTest
 {
 	@Test void summarizedFields()
 	{
-		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, 31, 41, 51, 71, 111, 121, 141, 151, 161);
-		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, 33, 43, 53, 73, 113, 123, 143, 153, 163);
-		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0,  0,  0,  0,  0,   0,   0,   0,   0,   0);
+		final ItemCacheInfo i1 = new ItemCacheInfo(null, 21, c(31), c(41), c(51), c(71), c(111), c(121), 141, c(151), c(161));
+		final ItemCacheInfo i2 = new ItemCacheInfo(null, 23, c(33), c(43), c(53), c(73), c(113), c(123), 143, c(153), c(163));
+		final ItemCacheInfo i0 = new ItemCacheInfo(null,  0, c( 0), c( 0), c( 0), c( 0), c(  0), c(  0),   0, c(  0), c(  0));
 		assertEquals(111+121, i1.getInvalidationsOrdered());
 		assertEquals(113+123, i2.getInvalidationsOrdered());
 		assertEquals(0,       i0.getInvalidationsOrdered());
@@ -57,5 +59,29 @@ public class ItemCacheStatisticsTest
 		assertEquals(0, ms.getSummarizedStampsSize());
 		assertEquals(0, ms.getSummarizedStampsHits());
 		assertEquals(0, ms.getSummarizedStampsPurged());
+	}
+
+	static Counter c(final long count)
+	{
+		return new Counter()
+		{
+			@Override
+			public void increment(final double amount)
+			{
+				throw new AssertionFailedError("" + amount);
+			}
+
+			@Override
+			public double count()
+			{
+				return count;
+			}
+
+			@Override
+			public Id getId()
+			{
+				throw new AssertionFailedError();
+			}
+		};
 	}
 }
