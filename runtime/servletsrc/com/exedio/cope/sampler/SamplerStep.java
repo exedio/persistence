@@ -18,7 +18,6 @@
 
 package com.exedio.cope.sampler;
 
-import com.exedio.cope.ChangeListenerInfo;
 import com.exedio.cope.Model;
 import com.exedio.cope.Transaction;
 import com.exedio.cope.TransactionCounters;
@@ -38,7 +37,6 @@ final class SamplerStep
 	final Pool.Info connectionPoolInfo;
 	final long nextTransactionId;
 	final TransactionCounters transactionCounters;
-	final ChangeListenerInfo changeListenerInfo;
 	final long duration;
 
 	final ArrayList<Transaction> transactions;
@@ -56,7 +54,6 @@ final class SamplerStep
 		nextTransactionId = sampledModel.getNextTransactionId();
 		transactionCounters = sampledModel.getTransactionCounters();
 		final Collection<Transaction> openTransactions = sampledModel.getOpenTransactions();
-		changeListenerInfo = sampledModel.getChangeListenersInfo();
 		duration = Sampler.stop(start, sampledModel, "gather");
 
 		// process data
