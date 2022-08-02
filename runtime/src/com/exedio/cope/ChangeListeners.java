@@ -18,7 +18,6 @@
 
 package com.exedio.cope;
 
-import static com.exedio.cope.InfoRegistry.countInt;
 import static java.util.Objects.requireNonNull;
 
 import io.micrometer.core.instrument.Counter;
@@ -106,7 +105,7 @@ final class ChangeListeners
 		{
 			size = list.size();
 		}
-		return new ChangeListenerInfo(size, countInt(cleared), countInt(removed), countInt(failed));
+		return new ChangeListenerInfo(size, cleared, removed, failed);
 	}
 
 	void add(final ChangeListener listener)

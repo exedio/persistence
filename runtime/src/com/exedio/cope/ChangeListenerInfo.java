@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.countInt;
+
+import io.micrometer.core.instrument.Counter;
+import io.micrometer.core.instrument.Timer;
+
 public final class ChangeListenerInfo
 {
 	private final int size;
@@ -27,14 +32,14 @@ public final class ChangeListenerInfo
 
 	ChangeListenerInfo(
 			final int size,
-			final int cleared,
-			final int removed,
-			final int failed)
+			final Counter cleared,
+			final Counter removed,
+			final Timer failed)
 	{
 		this.size = size;
-		this.cleared = cleared;
-		this.removed = removed;
-		this.failed  = failed;
+		this.cleared = countInt(cleared);
+		this.removed = countInt(removed);
+		this.failed  = countInt(failed);
 	}
 
 	public int getSize()
