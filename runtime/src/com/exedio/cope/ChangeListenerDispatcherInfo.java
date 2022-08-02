@@ -18,6 +18,10 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.InfoRegistry.count;
+
+import io.micrometer.core.instrument.Counter;
+
 public final class ChangeListenerDispatcherInfo
 {
 	private final long overflow;
@@ -25,12 +29,12 @@ public final class ChangeListenerDispatcherInfo
 	private final int pending;
 
 	ChangeListenerDispatcherInfo(
-			final long overflow,
-			final long exception,
+			final Counter overflow,
+			final Counter exception,
 			final int pending)
 	{
-		this.overflow = overflow;
-		this.exception = exception;
+		this.overflow = count(overflow);
+		this.exception = count(exception);
 		this.pending  = pending;
 	}
 
