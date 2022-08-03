@@ -34,6 +34,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.tojunit.LogRule;
 import com.exedio.cope.tojunit.MainRule;
+import com.exedio.cope.tojunit.ModelConnector;
 import com.exedio.cope.tojunit.SI;
 import com.exedio.cope.util.Hex;
 import com.exedio.cope.util.Properties.Source;
@@ -52,6 +53,7 @@ import java.util.LinkedHashMap;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Properties;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -88,8 +90,33 @@ public class ReviseTest
 
 	@BeforeEach final void setUp() throws UnknownHostException
 	{
+		ModelConnector.reset();
 		hostname = InetAddress.getLocalHost().getHostName();
 		props = ConnectProperties.create(source(true));
+
+		if(!model5.isConnected())
+			model5.connect(props);
+		model5.tearDownSchema();
+		model5.disconnect();
+
+		if(!model7.isConnected())
+			model7.connect(props);
+		model7.tearDownSchema();
+		model7.disconnect();
+	}
+
+	@AfterEach void tearDown()
+	{
+		if(model5.isConnected())
+		{
+			model5.tearDownSchema();
+			model5.disconnect();
+		}
+		if(model7.isConnected())
+		{
+			model7.tearDownSchema();
+			model7.disconnect();
+		}
 	}
 
 	String connectionUrl;

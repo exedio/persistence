@@ -21,6 +21,7 @@ package com.exedio.dsmf;
 import static com.exedio.cope.ConnectProperties.getDefaultPropertyFile;
 
 import com.exedio.cope.TestWithEnvironment;
+import com.exedio.cope.tojunit.ModelConnector;
 import com.exedio.cope.util.Sources;
 import java.lang.reflect.Constructor;
 import java.sql.Connection;
@@ -61,6 +62,7 @@ public abstract class SchemaTest
 
 	@BeforeEach final void setUpSchemaTest() throws SQLException, ReflectiveOperationException
 	{
+		ModelConnector.reset();
 		final Properties config = new Properties();
 		final String url = config.connectionUrl;
 		final String username = config.connectionUsername;
