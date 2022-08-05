@@ -220,11 +220,12 @@ public class DataVaultInfoTest
 		final com.exedio.dsmf.Table tab = model.getSchema().getTable("VaultTrail_default");
 		assertNotNull(tab);
 		assertEquals(
-				Arrays.asList("hash", "length", "start20", "date", "field", "origin"),
+				Arrays.asList("hash", "length", "start20", "markPut", "date", "field", "origin"),
 				tab.getColumns().stream().map(Column::getName).collect(toList()));
 		assertEquals("VARCHAR(128)"     + " not null", tab.getColumn("hash")   .getType());
 		assertEquals("BIGINT"           + " not null", tab.getColumn("length") .getType());
 		assertEquals("BLOB"             + " not null", tab.getColumn("start20").getType());
+		assertEquals("TINYINT",                        tab.getColumn("markPut").getType());
 		assertEquals("TIMESTAMP(3) WITHOUT TIME ZONE", tab.getColumn("date")   .getType());
 		assertEquals("VARCHAR(80)",                    tab.getColumn("field")  .getType());
 		assertEquals("VARCHAR(80)",                    tab.getColumn("origin") .getType());

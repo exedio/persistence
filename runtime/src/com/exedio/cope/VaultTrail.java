@@ -36,6 +36,7 @@ final class VaultTrail
 {
 	private final ConnectionPool connectionPool;
 	private final Executor executor;
+	private final VaultMarkPut markPutSupplier;
 
 	private final VaultProperties props;
 	private final int startLimit;
@@ -47,6 +48,7 @@ final class VaultTrail
 	private final String hashPK;
 	private final String length;
 	private final String start;
+	private final String markPut;
 	private final String date;
 	private final String field;
 	private final String origin;
@@ -55,6 +57,7 @@ final class VaultTrail
 	private final String hashQuoted;
 	private final String lengthQuoted;
 	private final String startQuoted;
+	private final String markPutQuoted;
 	private final String dateQuoted;
 	private final String fieldQuoted;
 	private final String originQuoted;
@@ -64,10 +67,12 @@ final class VaultTrail
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Trimmer trimmer,
+			final VaultMarkPut markPutSupplier,
 			final VaultProperties props)
 	{
 		this.connectionPool = connectionPool;
 		this.executor = executor;
+		this.markPutSupplier = markPutSupplier;
 
 		this.props = props;
 		this.startLimit = props.getTrailStartLimit();
@@ -79,6 +84,7 @@ final class VaultTrail
 		hashPK  = trimmer.trimString(table + "_PK");
 		length  = trimmer.trimString("length");
 		start   = trimmer.trimString("start" + startLimit); // TODO use for StartsWithCondition
+		markPut = trimmer.trimString("markPut");
 		date    = trimmer.trimString("date");
 		field   = trimmer.trimString("field");
 		origin  = trimmer.trimString("origin");
@@ -88,6 +94,7 @@ final class VaultTrail
 		hashQuoted    = d.quoteName(hash);
 		lengthQuoted  = d.quoteName(length);
 		startQuoted   = d.quoteName(start);
+		markPutQuoted = d.quoteName(markPut);
 		dateQuoted    = d.quoteName(date);
 		fieldQuoted   = d.quoteName(field);
 		originQuoted  = d.quoteName(origin);
@@ -103,6 +110,7 @@ final class VaultTrail
 				newPrimaryKey(hashPK);
 		tab.newColumn(length,  dialect.getIntegerType(0, Long.MAX_VALUE) + NOT_NULL);
 		tab.newColumn(start,   dialect.getBlobType(startLimit) + NOT_NULL);
+		tab.newColumn(markPut, dialect.getIntegerType(0, MARK_PUT_VALUE));
 		tab.newColumn(date,    dialect.getDateTimestampType()); // always use dateTimestamp, ignore supportsNativeDate
 		tab.newColumn(field,   dialect.getStringType(fieldLimit, null));
 		tab.newColumn(origin,  dialect.getStringType(originLimit, null));
@@ -119,14 +127,28 @@ final class VaultTrail
 			final VaultPutInfo putInfo,
 			final boolean result)
 	{
-		if(!result)
-			return;
+		if(result)
+			putInitial(hashValue, consumer, putInfo);
+		else
+			putRedundant(hashValue);
+	}
+
+	private void putInitial(
+			final String hashValue,
+			final DataConsumer consumer,
+			final VaultPutInfo putInfo)
+	{
+		final boolean markPutEnabled = markPutSupplier.value;
 
 		final Statement bf = executor.newStatement();
 		bf.append("INSERT INTO ").append(tableQuoted).
 				append('(').append(hashQuoted).
 				append(',').append(lengthQuoted).
 				append(',').append(startQuoted);
+
+		if(markPutEnabled)
+			bf.append(',').append(markPutQuoted);
+
 		bf.
 				append(',').append(dateQuoted).
 				append(',').append(fieldQuoted).
@@ -137,6 +159,10 @@ final class VaultTrail
 				appendParameter(consumer.length()).
 				append(',').
 				appendParameterBlob(consumer.start());
+
+		if(markPutEnabled)
+			bf.append(',').appendParameter(MARK_PUT_VALUE);
+
 		bf.
 				append(',').
 				appendParameterAny(new Date()).
@@ -163,6 +189,31 @@ final class VaultTrail
 			connectionPool.put(connection);
 		}
 	}
+
+	private void putRedundant(
+			final String hashValue)
+	{
+		if(!markPutSupplier.value)
+			return;
+
+		final Statement bf = executor.newStatement();
+		bf.
+				append("UPDATE ").append(tableQuoted).
+				append(" SET ").append(markPutQuoted).append('=').appendParameter(MARK_PUT_VALUE).
+				append(" WHERE ").append(hashQuoted).append('=').appendParameter(hashValue);
+
+		final Connection connection = connectionPool.get(true);
+		try
+		{
+			executor.update(connection, null, bf);
+		}
+		finally
+		{
+			connectionPool.put(connection);
+		}
+	}
+
+	private static final int MARK_PUT_VALUE = 1; // TODO could be customizable to avoid resetting the column between vault garbage collections
 
 	private static final Logger logger = LoggerFactory.getLogger(VaultTrail.class);
 

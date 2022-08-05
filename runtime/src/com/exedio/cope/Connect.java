@@ -123,7 +123,7 @@ final class Connect
 				connectionPool,
 				executor,
 				transactions,
-				vaults.keySet(),
+				vaultMarkPut,
 				revisions);
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);

@@ -33,7 +33,6 @@ import java.util.IdentityHashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -60,7 +59,7 @@ final class Database
 			final ConnectionPool connectionPool,
 			final Executor executor,
 			final Transactions transactions,
-			final Set<String> vaultServiceKeys,
+			final Map<String, VaultMarkPut> vaultMarkPut,
 			final RevisionsConnect revisions)
 	{
 		this.properties = probe.properties;
@@ -83,9 +82,10 @@ final class Database
 			{
 				final Trimmer trimmer = nameTrimmers.get(TrimClass.PrimaryKeyCheckConstraint); // is correct, 60 character from the beginning
 				final LinkedHashMap<String, VaultTrail> vaultTrails = new LinkedHashMap<>();
-				for(final String serviceKey : vaultServiceKeys)
+				for(final Map.Entry<String, VaultMarkPut> e : vaultMarkPut.entrySet())
 				{
-					vaultTrails.put(serviceKey, new VaultTrail(serviceKey, connectionPool, executor, trimmer, vp));
+					final String serviceKey = e.getKey();
+					vaultTrails.put(serviceKey, new VaultTrail(serviceKey, connectionPool, executor, trimmer, e.getValue(), vp));
 				}
 				this.vaultTrails = Collections.unmodifiableMap(vaultTrails);
 			}
