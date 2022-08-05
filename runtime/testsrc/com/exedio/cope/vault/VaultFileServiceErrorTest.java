@@ -62,6 +62,10 @@ public class VaultFileServiceErrorTest
 				"service.directory.posixPermissionsAfterwards",
 				"service.directory.posixGroup",
 				"service.temp",
+				"trail",
+				"trail.startLimit",
+				"trail.fieldLimit",
+				"trail.originLimit",
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
 
@@ -89,6 +93,10 @@ public class VaultFileServiceErrorTest
 				"service.writable",
 				"service.directory",
 				"service.directory.length",
+				"trail",
+				"trail.startLimit",
+				"trail.fieldLimit",
+				"trail.originLimit",
 				"isAppliedToAllFields"),
 				properties.getFields().stream().map(Field::getKey).collect(toList()));
 

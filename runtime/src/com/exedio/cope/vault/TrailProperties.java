@@ -16,27 +16,18 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-package com.exedio.cope.tojunit;
+package com.exedio.cope.vault;
 
-import com.exedio.cope.ConnectProperties;
-import com.exedio.cope.Model;
-import com.exedio.cope.TestWithEnvironment;
-import com.exedio.cope.util.Sources;
+import com.exedio.cope.util.Properties;
 
-public final class CopeRuntimeRule extends CopeRule
+public final class TrailProperties extends Properties
 {
-	private final TestWithEnvironment test;
+	final int startLimit  = value("startLimit",  20, 4);
+	final int fieldLimit  = value("fieldLimit",  80, 4); // 4 is minimum for VaultTrail#truncate
+	final int originLimit = value("originLimit", 80, 4); // 4 is minimum for VaultTrail#truncate
 
-	public CopeRuntimeRule(final Model model, final TestWithEnvironment test)
+	TrailProperties(final Source source)
 	{
-		super(model);
-		this.test = test;
-	}
-
-	@Override
-	public ConnectProperties getConnectProperties()
-	{
-		return ConnectProperties.create(test.override(
-				Sources.load(ConnectProperties.getDefaultPropertyFile())));
+		super(source);
 	}
 }

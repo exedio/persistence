@@ -44,6 +44,7 @@ final class DataFieldVaultStore extends DataFieldStore
 	private final String algorithmName;
 	private final String serviceKey;
 	private final VaultService service;
+	private final VaultTrail trail;
 	private final Counter getLength, getBytes, getStream, putInitial, putRedundant, putInitialSize, putRedundantSize;
 
 	DataFieldVaultStore(
@@ -65,6 +66,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		final String serviceKeyExplicit = field.getAnnotatedVaultValue();
 		this.serviceKey = serviceKeyExplicit!=null ? serviceKeyExplicit : Vault.DEFAULT;
 		this.service = requireNonNull(connect.vaults.get(serviceKey));
+		this.trail = connect.database.vaultTrails.get(serviceKey);
 
 		final Metrics metrics = new Metrics(field, serviceKey);
 		getLength = metrics.counter("getLength");
@@ -112,7 +114,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 	}
 
-	private static final MysqlExtendedVarchar mysqlExtendedVarchar = new MysqlExtendedVarchar() { @Override public Class<? extends Annotation> annotationType() { return MysqlExtendedVarchar.class; } };
+	static final MysqlExtendedVarchar mysqlExtendedVarchar = new MysqlExtendedVarchar() { @Override public Class<? extends Annotation> annotationType() { return MysqlExtendedVarchar.class; } };
 
 	@Override
 	Column column()
@@ -239,7 +241,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 
 		final MessageDigest messageDigest = algorithm.newInstance();
-		final LengthConsumer length = new LengthConsumer();
+		final LengthConsumer length = trail!=null ? trail.newDataConsumer() : new LengthConsumer(0);
 		try
 		{
 			data = data.update(messageDigest, length, field,
@@ -288,6 +290,8 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 		(result ? putInitial : putRedundant).increment();
 		(result ? putInitialSize : putRedundantSize).increment(length.value());
+		if(trail!=null)
+			trail.put(hash, length, info, result);
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
@@ -296,6 +300,15 @@ final class DataFieldVaultStore extends DataFieldStore
 	String getVaultServiceKey()
 	{
 		return serviceKey;
+	}
+
+	@Override
+	long checkVaultTrail()
+	{
+		if(trail==null)
+			throw new IllegalStateException("trail is disabled");
+
+		return trail.check(field);
 	}
 
 	@Override

@@ -491,6 +491,98 @@ public class VaultPropertiesTest
 	}
 
 
+	@Test void trailDefault()
+	{
+		final Source source = describe("DESC", cascade(
+				single("service", VaultMockService.class)
+		));
+		final VaultProperties props = factory.create(source);
+		assertEquals(true, props.isTrailEnabled());
+		assertEquals(20, props.getTrailStartLimit());
+		assertEquals(80, props.getTrailFieldLimit());
+		assertEquals(80, props.getTrailOriginLimit());
+	}
+	@Test void trailCustom()
+	{
+		final Source source = describe("DESC", cascade(
+				single("service", VaultMockService.class),
+				single("trail.startLimit", 66),
+				single("trail.fieldLimit", 77),
+				single("trail.originLimit", 88)
+		));
+		final VaultProperties props = factory.create(source);
+		assertEquals(true, props.isTrailEnabled());
+		assertEquals(66, props.getTrailStartLimit());
+		assertEquals(77, props.getTrailFieldLimit());
+		assertEquals(88, props.getTrailOriginLimit());
+	}
+	@Test void trailMinimum()
+	{
+		final Source source = describe("DESC", cascade(
+				single("service", VaultMockService.class),
+				single("trail.startLimit", 4),
+				single("trail.fieldLimit", 4),
+				single("trail.originLimit", 4)
+		));
+		final VaultProperties props = factory.create(source);
+		assertEquals(true, props.isTrailEnabled());
+		assertEquals(4, props.getTrailStartLimit());
+		assertEquals(4, props.getTrailFieldLimit());
+		assertEquals(4, props.getTrailOriginLimit());
+	}
+	@Test void trailStartTooSmall()
+	{
+		final Source source = describe("DESC", cascade(
+				single("service", VaultMockService.class),
+				single("trail.startLimit", 3)
+		));
+		assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property trail.startLimit in DESC " +
+				"must be an integer greater or equal 4, " +
+				"but was 3");
+	}
+	@Test void trailFieldTooSmall()
+	{
+		final Source source = describe("DESC", cascade(
+				single("service", VaultMockService.class),
+				single("trail.fieldLimit", 3)
+		));
+		assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property trail.fieldLimit in DESC " +
+				"must be an integer greater or equal 4, " +
+				"but was 3");
+	}
+	@Test void trailOriginTooSmall()
+	{
+		final Source source = describe("DESC", cascade(
+				single("service", VaultMockService.class),
+				single("trail.originLimit", 3)
+		));
+		assertFails(
+				() -> factory.create(source),
+				IllegalPropertiesException.class,
+				"property trail.originLimit in DESC " +
+				"must be an integer greater or equal 4, " +
+				"but was 3");
+	}
+	@Test void trailDisabled()
+	{
+		final Source source = describe("DESC", cascade(
+				single("service", VaultMockService.class),
+				single("trail", false)
+		));
+		final VaultProperties props = factory.create(source);
+		assertEquals(false, props.isTrailEnabled());
+		assertFails(props::getTrailStartLimit,  IllegalStateException.class, "trail is disabled");
+		assertFails(props::getTrailFieldLimit,  IllegalStateException.class, "trail is disabled");
+		assertFails(props::getTrailOriginLimit, IllegalStateException.class, "trail is disabled");
+	}
+
+
 
 	private static final Properties.Factory<VaultProperties> factory = VaultProperties.factory();
 
@@ -506,7 +598,7 @@ public class VaultPropertiesTest
 		return Collections.unmodifiableMap(result);
 	}
 
-	static VaultService unsanitize(final VaultService service)
+	public static VaultService unsanitize(final VaultService service)
 	{
 		assertEquals(VaultSanitizedService.class, service.getClass());
 		return ((VaultSanitizedService)service).service;

@@ -58,7 +58,7 @@ public class SchemaMismatchColumnTypeTest extends SchemaMismatchTest
 				ERROR, ERROR, field = table.getColumn(name(ItemA.field)));
 
 		assertEqualsUnmodifiable(asList(pk, field), table.getColumns());
-		assertEqualsUnmodifiable(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(withTrail(schema, table), schema.getTables());
 	}
 
 	@CopeName("ItemAB")

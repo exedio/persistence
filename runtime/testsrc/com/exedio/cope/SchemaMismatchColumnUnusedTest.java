@@ -105,7 +105,7 @@ public class SchemaMismatchColumnUnusedTest extends SchemaMismatchTest
 				assertSame(null, checkA.getColumn()); // TODO should be field
 		}
 
-		assertEqualsUnmodifiable(asList(table), schema.getTables());
+		assertEqualsUnmodifiable(withTrail(schema, table), schema.getTables());
 	}
 
 	@CopeName("ItemAB")

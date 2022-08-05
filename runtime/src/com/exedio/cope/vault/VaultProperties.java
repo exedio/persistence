@@ -209,6 +209,43 @@ public final class VaultProperties extends AbstractVaultProperties
 
 
 
+	private final TrailProperties trail;
+
+	private TrailProperties valueTrail()
+	{
+		return value("trail", true, TrailProperties::new);
+	}
+
+	public boolean isTrailEnabled()
+	{
+		return trail!=null;
+	}
+
+	public int getTrailStartLimit()
+	{
+		return trail().startLimit;
+	}
+
+	public int getTrailFieldLimit()
+	{
+		return trail().fieldLimit;
+	}
+
+	public int getTrailOriginLimit()
+	{
+		return trail().originLimit;
+	}
+
+	private TrailProperties trail()
+	{
+		if(trail==null)
+			throw new IllegalStateException("trail is disabled");
+
+		return trail;
+	}
+
+
+
 	private final boolean isAppliedToAllFields;
 
 	private boolean valueIsAppliedToAllFields()
@@ -321,6 +358,7 @@ public final class VaultProperties extends AbstractVaultProperties
 	{
 		super(source);
 		services = valueServices(writable);
+		trail = valueTrail();
 		isAppliedToAllFields = valueIsAppliedToAllFields();
 	}
 }

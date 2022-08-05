@@ -51,7 +51,8 @@ public abstract class ConnectedTest extends TestWithEnvironment
 		return
 				erase("schema.revision.table",
 				erase("schema.revision.unique",
-				original));
+				erase("vault",
+				original)));
 	}
 
 	@AfterEach final void tearDownConnectedTest()

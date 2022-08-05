@@ -66,9 +66,15 @@ public abstract class TestWithEnvironment
 
 	protected TestWithEnvironment(final Model model)
 	{
-		copeRule = new CopeRuntimeRule(model);
+		//noinspection ThisEscapedInObjectConstruction
+		copeRule = new CopeRuntimeRule(model, this);
 		this.model = model;
 		tester = new RuntimeTester(model);
+	}
+
+	public Properties.Source override(final Properties.Source s)
+	{
+		return s;
 	}
 
 	protected RuntimeTester.Dialect dialect = null;

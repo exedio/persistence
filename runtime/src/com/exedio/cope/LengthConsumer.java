@@ -18,15 +18,47 @@
 
 package com.exedio.cope;
 
-import java.util.function.LongConsumer;
+import static java.lang.System.arraycopy;
 
-final class LengthConsumer implements LongConsumer
+final class LengthConsumer // TODO rename to DataConsumer
 {
+	private final int startLimit;
+	private final byte[] start;
+	private int startLength;
+
+	LengthConsumer(final int startLimit)
+	{
+		this.startLimit = startLimit;
+		this.start = new byte[startLimit];
+	}
+
+	void acceptBytes(final byte[] input, final int length)
+	{
+		if(startLimit<=startLength)
+			return;
+
+		final int toCopy = Math.min(length, startLimit - startLength);
+		arraycopy(input, 0, start, startLength, toCopy);
+		startLength += toCopy;
+	}
+
+	byte[] start()
+	{
+		if(!set)
+			throw new IllegalStateException();
+
+		final byte[] result = new byte[startLength];
+		arraycopy(start, 0, result, 0, startLength);
+		return result;
+	}
+
+
+
 	private long value;
 	private boolean set = false;
 
-	@Override
-	public void accept(final long value)
+	// TODO rename to length
+	void accept(final long value)
 	{
 		if(set)
 			throw new IllegalStateException();

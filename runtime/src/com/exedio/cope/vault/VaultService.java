@@ -73,8 +73,8 @@ public interface VaultService extends AutoCloseable
 	 * Is not called, if service instance was created with
 	 * {@link VaultServiceParameters#isWritable()}==false.
 	 * @return {@code true} if {@code hash} has been initially stored in the vault by this call.
-	 * The result is used for statistics only.
-	 * If the implementation does not have this information available, simply return {@code true}.
+	 * The result is used for VaultTrail and statistics.
+	 * If the implementation does not have this information available, return {@code true}.
 	 */
 	boolean put(@Nonnull String hash, @Nonnull byte[] value, @Nonnull VaultPutInfo info);
 
@@ -82,8 +82,8 @@ public interface VaultService extends AutoCloseable
 	 * Is not called, if service instance was created with
 	 * {@link VaultServiceParameters#isWritable()}==false.
 	 * @return {@code true} if {@code hash} has been initially stored in the vault by this call.
-	 * The result is used for statistics only.
-	 * If the implementation does not have this information available, simply return {@code true}.
+	 * The result is used for VaultTrail and statistics.
+	 * If the implementation does not have this information available, return {@code true}.
 	 */
 	boolean put(@Nonnull String hash, @Nonnull InputStream value, @Nonnull VaultPutInfo info) throws IOException;
 
@@ -92,8 +92,8 @@ public interface VaultService extends AutoCloseable
 	 * Is not called, if service instance was created with
 	 * {@link VaultServiceParameters#isWritable()}==false.
 	 * @return {@code true} if {@code hash} has been initially stored in the vault by this call.
-	 * The result is used for statistics only.
-	 * If the implementation does not have this information available, simply return {@code true}.
+	 * The result is used for VaultTrail and statistics.
+	 * If the implementation does not have this information available, return {@code true}.
 	 */
 	boolean put(@Nonnull String hash, @Nonnull Path value, @Nonnull VaultPutInfo info) throws IOException;
 
