@@ -241,7 +241,7 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 
 		final MessageDigest messageDigest = algorithm.newInstance();
-		final LengthConsumer length = trail!=null ? trail.newDataConsumer() : new LengthConsumer(0);
+		final DataConsumer length = trail!=null ? trail.newDataConsumer() : new DataConsumer(0);
 		try
 		{
 			data = data.update(messageDigest, length, field,
@@ -289,7 +289,7 @@ final class DataFieldVaultStore extends DataFieldStore
 			throw new RuntimeException(field.toString(), e);
 		}
 		(result ? putInitial : putRedundant).increment();
-		(result ? putInitialSize : putRedundantSize).increment(length.value());
+		(result ? putInitialSize : putRedundantSize).increment(length.length());
 		if(trail!=null)
 			trail.put(hash, length, info, result);
 	}
