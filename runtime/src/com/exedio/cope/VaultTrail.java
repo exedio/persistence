@@ -115,7 +115,7 @@ final class VaultTrail
 
 	void put(
 			final String hashValue,
-			final DataConsumer lengthValue,
+			final DataConsumer consumer,
 			final VaultPutInfo putInfo,
 			final boolean result)
 	{
@@ -134,9 +134,9 @@ final class VaultTrail
 				append(")VALUES(").
 				appendParameter(hashValue).
 				append(',').
-				appendParameter(lengthValue.length()).
+				appendParameter(consumer.length()).
 				append(',').
-				appendParameterBlob(lengthValue.start());
+				appendParameterBlob(consumer.start());
 		bf.
 				append(',').
 				appendParameterAny(new Date()).
