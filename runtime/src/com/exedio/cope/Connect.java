@@ -98,6 +98,10 @@ final class Connect
 		this.connectionPool = new ConnectionPool(pool);
 		this.marshallers = new Marshallers(dialect, supportsNativeDate);
 		this.executor = new Executor(dialect, supportsUniqueViolation, properties, marshallers);
+		{
+			final VaultProperties props = properties.vault;
+			this.vaults = props!=null ? props.newServices() : emptyMap();
+		}
 		this.database = new Database(
 				dialect.dsmfDialect,
 				probe,
@@ -106,10 +110,6 @@ final class Connect
 				executor,
 				transactions,
 				revisions);
-		{
-			final VaultProperties props = properties.vault;
-			this.vaults = props!=null ? props.newServices() : emptyMap();
-		}
 
 		this.cacheStamp = new CacheStamp(properties.cacheStamps);
 		this.itemCache = new ItemCache(model, properties, cacheStamp);
