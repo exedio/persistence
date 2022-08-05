@@ -19,6 +19,7 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.MetricsBuilder.tag;
+import static com.exedio.cope.util.Check.requireNonEmpty;
 import static com.exedio.cope.util.JobContext.deferOrStopIfRequested;
 import static java.util.Collections.emptyMap;
 
@@ -34,10 +35,13 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.SortedSet;
 import java.util.TreeSet;
+import java.util.function.BooleanSupplier;
+import java.util.function.Function;
 
 final class Connect
 {
@@ -58,6 +62,7 @@ final class Connect
 	final Marshallers marshallers;
 	final Executor executor;
 	final Database database;
+	private final Map<String, VaultMarkPut> vaultMarkPut;
 	final Map<String, VaultService> vaults;
 	final CacheStamp cacheStamp;
 	final ItemCache itemCache;
@@ -99,8 +104,17 @@ final class Connect
 		this.marshallers = new Marshallers(dialect, supportsNativeDate);
 		this.executor = new Executor(dialect, supportsUniqueViolation, properties, marshallers);
 		{
+			final HashMap<String, VaultMarkPut> vaultMarkPut = new HashMap<>();
 			final VaultProperties props = properties.vault;
-			this.vaults = props!=null ? props.newServices() : emptyMap();
+			final Function<String, BooleanSupplier> markPut = key ->
+			{
+				final VaultMarkPut result = new VaultMarkPut();
+				if(vaultMarkPut.putIfAbsent(key, result)!=null)
+					throw new RuntimeException(key);
+				return result;
+			};
+			this.vaults = props!=null ? props.newServices(markPut) : emptyMap();
+			this.vaultMarkPut = Collections.unmodifiableMap(vaultMarkPut);
 		}
 		this.database = new Database(
 				dialect.dsmfDialect,
@@ -138,6 +152,17 @@ final class Connect
 
 		return Collections.unmodifiableSortedSet(
 				new TreeSet<>(Arrays.asList(array)));
+	}
+
+	VaultMarkPut vaultMarkPut(final String serviceKey)
+	{
+		final VaultMarkPut result =
+				vaultMarkPut.get(requireNonEmpty(serviceKey, "serviceKey"));
+		if(result==null)
+			throw new IllegalArgumentException(
+					"serviceKey " + serviceKey + " does not exist, " +
+					"use one of " + vaults.keySet());
+		return result;
 	}
 
 	void close()

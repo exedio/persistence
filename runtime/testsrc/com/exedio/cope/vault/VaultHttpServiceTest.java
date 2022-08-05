@@ -103,7 +103,8 @@ public abstract class VaultHttpServiceTest extends VaultServiceTest
 						single("service", VaultFileService.class),
 						single("service.root", DIR))),
 						"testServiceKey",
-						true), // writable
+						true, // writable
+						() -> false), // markPut
 				props);
 	}
 

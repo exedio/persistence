@@ -42,6 +42,7 @@ import java.nio.file.Path;
 import java.util.Collections;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.function.BooleanSupplier;
 
 @SuppressWarnings("HardcodedLineSeparator")
 @ServiceProperties(VaultMockService.Props.class)
@@ -53,6 +54,7 @@ public final class VaultMockService implements VaultService
 	public final Props serviceProperties;
 	public final String serviceKey;
 	public final boolean writable;
+	public final BooleanSupplier requiresToMarkPut;
 	private boolean closed = false;
 
 	private VaultMockService(
@@ -63,9 +65,11 @@ public final class VaultMockService implements VaultService
 		this.serviceProperties = properties;
 		this.serviceKey = parameters.getServiceKey();
 		this.writable = parameters.isWritable();
+		this.requiresToMarkPut = parameters.requiresToMarkPut();
 		assertNotNull(vaultProperties);
 		assertNotNull(serviceProperties);
 		assertNotNull(serviceKey);
+		assertNotNull(requiresToMarkPut);
 	}
 
 	@Override

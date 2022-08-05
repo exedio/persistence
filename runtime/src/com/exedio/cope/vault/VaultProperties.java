@@ -37,6 +37,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.StringTokenizer;
 import java.util.concurrent.Callable;
+import java.util.function.BooleanSupplier;
+import java.util.function.Function;
 
 public final class VaultProperties extends AbstractVaultProperties
 {
@@ -162,6 +164,13 @@ public final class VaultProperties extends AbstractVaultProperties
 
 	public Map<String, VaultService> newServicesUnsanitized(final String... keys)
 	{
+		return newServicesUnsanitized(() -> false, keys);
+	}
+
+	public Map<String, VaultService> newServicesUnsanitized(
+			final BooleanSupplier markPut,
+			final String... keys)
+	{
 		requireNonNull(keys, "keys");
 		int keyIndex = 0;
 		final HashMap<String, Integer> keysSeen = new HashMap<>();
@@ -186,18 +195,23 @@ public final class VaultProperties extends AbstractVaultProperties
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final String key : keys)
 		{
-			result.put(key, services.get(key).newService(this, key));
+			result.put(key, services.get(key).newService(this, key, markPut));
 		}
 		return Collections.unmodifiableMap(result);
 	}
 
 	public Map<String, VaultService> newServices()
 	{
+		return newServices(key -> () -> false);
+	}
+
+	public Map<String, VaultService> newServices(final Function<String, BooleanSupplier> markPut)
+	{
 		final LinkedHashMap<String, VaultService> result = new LinkedHashMap<>();
 		for(final Map.Entry<String, Service> e : services.entrySet())
 		{
 			final String key = e.getKey();
-			result.put(key, sanitize(e.getValue().newService(this, key)));
+			result.put(key, sanitize(e.getValue().newService(this, key, markPut.apply(key))));
 		}
 		return Collections.unmodifiableMap(result);
 	}
@@ -315,7 +329,7 @@ public final class VaultProperties extends AbstractVaultProperties
 		@Override
 		public Object call() throws Exception
 		{
-			try(VaultService s = service.newService(VaultProperties.this, key))
+			try(VaultService s = service.newService(VaultProperties.this, key, () -> false))
 			{
 				return s.probeGenuineServiceKey(key);
 			}

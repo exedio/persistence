@@ -561,6 +561,16 @@ public final class Model implements Serializable
 		return connect().getSchemaSavepoint();
 	}
 
+	public boolean isVaultRequiredToMarkPut(final String serviceKey)
+	{
+		return connect().vaultMarkPut(serviceKey).value;
+	}
+
+	public void setVaultRequiredToMarkPut(final String serviceKey, final boolean value)
+	{
+		connect().vaultMarkPut(serviceKey).value = value;
+	}
+
 	/**
 	 * Returns the item with the given ID.
 	 * Always returns {@link Item#activeCopeItem() active} objects.

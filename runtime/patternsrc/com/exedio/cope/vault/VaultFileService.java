@@ -22,6 +22,7 @@ import static com.exedio.cope.vault.VaultNotFoundException.anonymiseHash;
 import static java.nio.file.StandardCopyOption.ATOMIC_MOVE;
 import static java.nio.file.StandardCopyOption.REPLACE_EXISTING;
 import static java.nio.file.StandardOpenOption.TRUNCATE_EXISTING;
+import static java.nio.file.attribute.FileTime.fromMillis;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_EXECUTE;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_READ;
 import static java.nio.file.attribute.PosixFilePermission.OWNER_WRITE;
@@ -43,8 +44,10 @@ import java.nio.file.attribute.PosixFilePermission;
 import java.nio.file.attribute.PosixFilePermissions;
 import java.nio.file.attribute.UserPrincipalLookupService;
 import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.time.Clock;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.function.BooleanSupplier;
 import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -63,6 +66,7 @@ public final class VaultFileService implements VaultService
 	final Set<PosixFilePermission> directoryPermissionsAfterwards;
 	final String directoryGroup;
 	final Path tempDir;
+	final BooleanSupplier requiresToMarkPut;
 
 	VaultFileService(
 			final VaultServiceParameters parameters,
@@ -80,6 +84,7 @@ public final class VaultFileService implements VaultService
 		this.directoryPermissionsAfterwards = properties.directory!=null&&writable ? properties.directory.posixPermissionsAfterwards : null;
 		this.directoryGroup = properties.directory!=null&&writable ? properties.directory.posixGroup : null;
 		this.tempDir = writable ? properties.tempDir() : null;
+		this.requiresToMarkPut = writable ? parameters.requiresToMarkPut() : null;
 	}
 
 	@SuppressWarnings("ZeroLengthArrayAllocation") // OK: just for Windows
@@ -213,7 +218,10 @@ public final class VaultFileService implements VaultService
 	{
 		final Path file = file(hash);
 		if(Files.exists(file))
+		{
+			markRedundantPut(file);
 			return false;
+		}
 
 		final Path temp = createTempFile(hash);
 
@@ -227,6 +235,14 @@ public final class VaultFileService implements VaultService
 
 		return moveIfDestDoesNotExist(temp, file);
 	}
+
+	private void markRedundantPut(final Path file) throws IOException
+	{
+		if(requiresToMarkPut.getAsBoolean())
+			Files.setLastModifiedTime(file, fromMillis(markRedundantPutClock.get().millis()));
+	}
+
+	static final Holder<Clock> markRedundantPutClock = new Holder<>(Clock.systemUTC());
 
 	private void createDirectoryIfNotExists(final Path file) throws IOException
 	{
@@ -258,7 +274,7 @@ public final class VaultFileService implements VaultService
 		}
 	}
 
-	private static boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
+	private boolean moveIfDestDoesNotExist(final Path file, final Path dest) throws IOException
 	{
 		try
 		{
@@ -267,6 +283,7 @@ public final class VaultFileService implements VaultService
 		catch(final FileAlreadyExistsException e)
 		{
 			logger.error("concurrent upload (should happen rarely)", e); // may be just warn
+			markRedundantPut(file);
 			return false;
 		}
 		return true;
