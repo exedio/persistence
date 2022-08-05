@@ -241,10 +241,10 @@ final class DataFieldVaultStore extends DataFieldStore
 		}
 
 		final MessageDigest messageDigest = algorithm.newInstance();
-		final DataConsumer length = trail!=null ? trail.newDataConsumer() : new DataConsumer(0);
+		final DataConsumer consumer = trail!=null ? trail.newDataConsumer() : new DataConsumer(0);
 		try
 		{
-			data = data.update(messageDigest, length, field,
+			data = data.update(messageDigest, consumer, field,
 					exceptionItem); // BEWARE: is not the same as entity.getItem()
 		}
 		catch(final IOException e)
@@ -289,9 +289,9 @@ final class DataFieldVaultStore extends DataFieldStore
 			throw new RuntimeException(field.toString(), e);
 		}
 		(result ? putInitial : putRedundant).increment();
-		(result ? putInitialSize : putRedundantSize).increment(length.length());
+		(result ? putInitialSize : putRedundantSize).increment(consumer.length());
 		if(trail!=null)
-			trail.put(hash, length, info, result);
+			trail.put(hash, consumer, info, result);
 	}
 
 	private static final String ORIGIN = VaultPutInfo.getOriginDefault();
