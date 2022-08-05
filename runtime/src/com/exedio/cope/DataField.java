@@ -576,7 +576,7 @@ public final class DataField extends Field<DataField.Value>
 		 * Additionally checks for {@link #getMaximumLength() maximum length} and
 		 * throw {@link DataLengthViolationException} if exceeded.
 		 */
-		abstract Value update(MessageDigest digest, LengthConsumer length, DataField field, Item exceptionItem) throws IOException;
+		abstract Value update(MessageDigest digest, DataConsumer consumer, DataField field, Item exceptionItem) throws IOException;
 
 		@Override
 		public abstract String toString();
@@ -652,7 +652,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		Value update(
 				final MessageDigest digest,
-				final LengthConsumer length,
+				final DataConsumer consumer,
 				final DataField field,
 				final Item exceptionItem)
 		{
@@ -660,8 +660,8 @@ public final class DataField extends Field<DataField.Value>
 			if(array.length>field.maximumLength)
 				throw new DataLengthViolationException(field, exceptionItem, array.length, true);
 			digest.update(array, 0, array.length);
-			length.acceptBytes(array, array.length);
-			length.accept(array.length);
+			consumer.acceptBytes(array, array.length);
+			consumer.acceptLength(array.length);
 			return new ArrayValue(array);
 		}
 
@@ -726,7 +726,7 @@ public final class DataField extends Field<DataField.Value>
 		@Override
 		final Value update(
 				final MessageDigest digest,
-				final LengthConsumer length,
+				final DataConsumer consumer,
 				final DataField field,
 				final Item exceptionItem) throws IOException
 		{
@@ -751,10 +751,10 @@ public final class DataField extends Field<DataField.Value>
 
 						digest.update(buf, 0, len);
 						bf.write(buf, 0, len);
-						length.acceptBytes(buf, len);
+						consumer.acceptBytes(buf, len);
 					}
 				}
-				length.accept(transferredLength);
+				consumer.acceptLength(transferredLength);
 				return new ArrayValue(bf.toByteArray());
 			}
 			else
@@ -768,10 +768,10 @@ public final class DataField extends Field<DataField.Value>
 							throw new DataLengthViolationException(field, exceptionItem, transferredLength, false);
 
 						digest.update(buf, 0, len);
-						length.acceptBytes(buf, len);
+						consumer.acceptBytes(buf, len);
 					}
 				}
-				length.accept(transferredLength);
+				consumer.acceptLength(transferredLength);
 				return copyAfterExhaustion();
 			}
 		}

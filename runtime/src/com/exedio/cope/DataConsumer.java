@@ -20,13 +20,13 @@ package com.exedio.cope;
 
 import static java.lang.System.arraycopy;
 
-final class LengthConsumer // TODO rename to DataConsumer
+final class DataConsumer
 {
 	private final int startLimit;
 	private final byte[] start;
 	private int startLength;
 
-	LengthConsumer(final int startLimit)
+	DataConsumer(final int startLimit)
 	{
 		this.startLimit = startLimit;
 		this.start = new byte[startLimit];
@@ -44,7 +44,7 @@ final class LengthConsumer // TODO rename to DataConsumer
 
 	byte[] start()
 	{
-		if(!set)
+		if(!lengthSet)
 			throw new IllegalStateException();
 
 		final byte[] result = new byte[startLength];
@@ -54,22 +54,22 @@ final class LengthConsumer // TODO rename to DataConsumer
 
 
 
-	private long value;
-	private boolean set = false;
+	private long length;
+	private boolean lengthSet = false;
 
 	// TODO rename to length
-	void accept(final long value)
+	void acceptLength(final long value)
 	{
-		if(set)
+		if(lengthSet)
 			throw new IllegalStateException();
-		this.value = value;
-		this.set = true;
+		this.length = value;
+		this.lengthSet = true;
 	}
 
-	long value()
+	long length()
 	{
-		if(!set)
+		if(!lengthSet)
 			throw new IllegalStateException();
-		return value;
+		return length;
 	}
 }

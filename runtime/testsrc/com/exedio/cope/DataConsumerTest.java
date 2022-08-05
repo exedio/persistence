@@ -28,8 +28,8 @@ public class DataConsumerTest
 {
 	@Test void testOneUpdate()
 	{
-		final LengthConsumer c = new LengthConsumer(4);
-		c.accept(50);
+		final DataConsumer c = new DataConsumer(4);
+		c.acceptLength(50);
 		assertEquals("", Hex.encodeLower(c.start()));
 
 		c.acceptBytes(Hex.decodeLower("01020304"), 4);
@@ -40,8 +40,8 @@ public class DataConsumerTest
 	}
 	@Test void testOneUpdateOver()
 	{
-		final LengthConsumer c = new LengthConsumer(4);
-		c.accept(50);
+		final DataConsumer c = new DataConsumer(4);
+		c.acceptLength(50);
 		assertEquals("", Hex.encodeLower(c.start()));
 
 		c.acceptBytes(Hex.decodeLower("0102030405"), 5);
@@ -52,8 +52,8 @@ public class DataConsumerTest
 	}
 	@Test void testTwoUpdates()
 	{
-		final LengthConsumer c = new LengthConsumer(6);
-		c.accept(50);
+		final DataConsumer c = new DataConsumer(6);
+		c.acceptLength(50);
 		assertEquals("", Hex.encodeLower(c.start()));
 
 		c.acceptBytes(Hex.decodeLower("01020304"), 4);
@@ -67,8 +67,8 @@ public class DataConsumerTest
 	}
 	@Test void testEmptyUpdate()
 	{
-		final LengthConsumer c = new LengthConsumer(4);
-		c.accept(50);
+		final DataConsumer c = new DataConsumer(4);
+		c.acceptLength(50);
 		assertEquals("", Hex.encodeLower(c.start()));
 
 		c.acceptBytes(Hex.decodeLower(""), 0);
@@ -76,15 +76,15 @@ public class DataConsumerTest
 	}
 	@Test void testLengthMore()
 	{
-		final LengthConsumer c = new LengthConsumer(20);
-		c.accept(50);
+		final DataConsumer c = new DataConsumer(20);
+		c.acceptLength(50);
 		c.acceptBytes(Hex.decodeLower("01020304"), 3);
 		assertEquals("010203", Hex.encodeLower(c.start()));
 	}
 	@Test void testLengthLess()
 	{
-		final LengthConsumer c = new LengthConsumer(20);
-		c.accept(50);
+		final DataConsumer c = new DataConsumer(20);
+		c.acceptLength(50);
 		final byte[] input = Hex.decodeLower("01020304");
 		assertFails(
 				() -> c.acceptBytes(input, 5),
@@ -93,8 +93,8 @@ public class DataConsumerTest
 	}
 	@Test void testDisabled()
 	{
-		final LengthConsumer c = new LengthConsumer(0);
-		c.accept(50);
+		final DataConsumer c = new DataConsumer(0);
+		c.acceptLength(50);
 		assertEquals("", Hex.encodeLower(c.start()));
 		c.acceptBytes(Hex.decodeLower("010203"), 3);
 		assertEquals("", Hex.encodeLower(c.start()));

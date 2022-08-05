@@ -108,14 +108,14 @@ final class VaultTrail
 		tab.newColumn(origin,  dialect.getStringType(originLimit, null));
 	}
 
-	LengthConsumer newDataConsumer()
+	DataConsumer newDataConsumer()
 	{
-		return new LengthConsumer(startLimit);
+		return new DataConsumer(startLimit);
 	}
 
 	void put(
 			final String hashValue,
-			final LengthConsumer lengthValue,
+			final DataConsumer lengthValue,
 			final VaultPutInfo putInfo,
 			final boolean result)
 	{
@@ -134,7 +134,7 @@ final class VaultTrail
 				append(")VALUES(").
 				appendParameter(hashValue).
 				append(',').
-				appendParameter(lengthValue.value()).
+				appendParameter(lengthValue.length()).
 				append(',').
 				appendParameterBlob(lengthValue.start());
 		bf.
