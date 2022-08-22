@@ -48,7 +48,7 @@ public final class Query<R> implements Serializable
 	private Condition condition;
 
 	// groupBy-arrays must never be modified, because they are reused by copy constructor
-	private Selectable<?>[] groupBy;
+	private Function<?>[] groupBy;
 
 	private Condition having;
 
@@ -279,6 +279,10 @@ public final class Query<R> implements Serializable
 
 	// groupBy
 
+	/**
+	 * @deprecated Use {@link #getGroupBys()} instead.
+	 */
+	@Deprecated
 	public List<Selectable<?>> getGroupBy()
 	{
 		return
@@ -287,7 +291,26 @@ public final class Query<R> implements Serializable
 			: Collections.unmodifiableList(Arrays.asList(groupBy));
 	}
 
+	public List<? extends Function<?>> getGroupBys()
+	{
+		return
+			groupBy==null
+			? Collections.emptyList()
+			: Collections.unmodifiableList(Arrays.asList(groupBy));
+	}
+
+	/**
+	 * @deprecated
+	 * Use {@link #setGroupBy(Function[])})} instead,
+	 * any non-Function will cause this method to fail.
+	 */
+	@Deprecated
 	public void setGroupBy(final Selectable<?>... groupBy)
+	{
+		setGroupBy(function(groupBy, "groupBy"));
+	}
+
+	public void setGroupBy(final Function<?>... groupBy)
 	{
 		requireNonNull(groupBy, "groupBy");
 		if(groupBy.length==0)
@@ -429,6 +452,29 @@ public final class Query<R> implements Serializable
 		orderAscending = null;
 	}
 
+
+	@Deprecated
+	private static <E> Function<E> function(final Selectable<E> selectable, final String message)
+	{
+		if(selectable==null)
+			return null;
+		if(!(selectable instanceof Function))
+			throw new IllegalArgumentException(message + " is no Function but " + selectable);
+
+		return (Function<E>)selectable;
+	}
+
+	@Deprecated
+	private static Function<?>[] function(final Selectable<?>[] selectable, final String message)
+	{
+		if(selectable==null)
+			return null;
+
+		final Function<?>[] result = new Function<?>[selectable.length];
+		for(int i = 0; i<selectable.length; i++)
+			result[i] = function(selectable[i], message + '[' + i + ']');
+		return result;
+	}
 
 	// offset / limit
 

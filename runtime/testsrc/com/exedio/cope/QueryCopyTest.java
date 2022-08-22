@@ -226,7 +226,7 @@ public class QueryCopyTest
 		assertSame(condition, query.getCondition());
 		assertEquals(nullToEmpty(orderBy), query.getOrderByFunctions());
 		assertEquals(nullToEmpty(orderByAscending), query.getOrderByAscending());
-		assertEquals(nullToEmpty(groupBy), query.getGroupBy());
+		assertEquals(nullToEmpty(groupBy), query.getGroupBys());
 		assertEquals(offset, query.getPageOffset());
 		assertEquals(limit, query.getPageLimitOrMinusOne());
 		assertEquals(toString, query.toString());

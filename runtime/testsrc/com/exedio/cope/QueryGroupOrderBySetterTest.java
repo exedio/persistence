@@ -36,7 +36,7 @@ public class QueryGroupOrderBySetterTest
 	@Test void testEmpty()
 	{
 		final Query<?> q = TYPE.newQuery(null);
-		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
@@ -45,19 +45,19 @@ public class QueryGroupOrderBySetterTest
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setGroupBy(alpha);
-		assertEqualsUnmodifiable(asList(alpha), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(alpha), q.getGroupBys());
 	}
 	@Test void testSetGroupByEmpty()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setGroupBy();
-		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
 
 		q.setGroupBy(alpha);
-		assertEqualsUnmodifiable(asList(alpha), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(alpha), q.getGroupBys());
 
 		q.setGroupBy();
-		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
 	}
 	@Test void testSetGroupByNull()
 	{
@@ -66,7 +66,7 @@ public class QueryGroupOrderBySetterTest
 				() -> q.setGroupBy((Function<?>[])null),
 				NullPointerException.class,
 				"groupBy");
-		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
 	}
 	@Test void testSetGroupByNullElement()
 	{
@@ -75,7 +75,7 @@ public class QueryGroupOrderBySetterTest
 				() -> q.setGroupBy(new Function<?>[]{alpha, null}),
 				NullPointerException.class,
 				"groupBy[1]");
-		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
 	}
 
 	@Test void testSetOrderByThisAscending()
