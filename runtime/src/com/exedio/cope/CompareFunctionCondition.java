@@ -83,7 +83,14 @@ public final class CompareFunctionCondition<E> extends Condition
 	}
 
 	@Override
-	Trilean getTri(final FieldValues item)
+	void requireSupportForGetTri() throws UnsupportedGetException
+	{
+		left.requireSupportForGet();
+		right.requireSupportForGet();
+	}
+
+	@Override
+	Trilean getTri(final FieldValues item) throws UnsupportedGetException
 	{
 		return operator.evaluate(left.get(item), right.get(item));
 	}

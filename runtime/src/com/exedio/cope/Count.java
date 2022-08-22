@@ -25,7 +25,7 @@ import java.util.function.Consumer;
  * <p>
  * Grouping functionality is 'beta' - API may change
  */
-public final class Count implements Selectable<Integer>
+public final class Count implements Function<Integer>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -89,40 +89,16 @@ public final class Count implements Selectable<Integer>
 		bf.append("COUNT(*)");
 	}
 
-	// convenience methods for conditions and views ---------------------------------
 
-	public Condition equal(final Integer value)
+	@Override
+	public void requireSupportForGet() throws UnsupportedGetException
 	{
-		return value!=null ? new CompareCondition<>(CompareFunctionCondition.Operator.Equal, this, value) : new IsNullCondition<>(this, false);
+		throw new UnsupportedGetException(this);
 	}
 
-	public Condition notEqual(final Integer value)
+	@Override
+	public Integer get(final Item item) throws UnsupportedGetException
 	{
-		return value!=null ? new CompareCondition<>(CompareFunctionCondition.Operator.NotEqual, this, value) : new IsNullCondition<>(this, true);
-	}
-
-	public CompareCondition<Integer> less(final Integer value)
-	{
-		return new CompareCondition<>(CompareFunctionCondition.Operator.Less, this, value);
-	}
-
-	public CompareCondition<Integer> lessOrEqual(final Integer value)
-	{
-		return new CompareCondition<>(CompareFunctionCondition.Operator.LessEqual, this, value);
-	}
-
-	public CompareCondition<Integer> greater(final Integer value)
-	{
-		return new CompareCondition<>(CompareFunctionCondition.Operator.Greater, this, value);
-	}
-
-	public CompareCondition<Integer> greaterOrEqual(final Integer value)
-	{
-		return new CompareCondition<>(CompareFunctionCondition.Operator.GreaterEqual, this, value);
-	}
-
-	public Condition between(final Integer lowerBound, final Integer upperBound)
-	{
-		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
+		throw new UnsupportedGetException(this);
 	}
 }

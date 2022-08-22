@@ -128,7 +128,7 @@ public final class DivideDoubleItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Double getDivideAB()
 	{
-		return DivideDoubleItem.divideAB.get(this);
+		return DivideDoubleItem.divideAB.getSupported(this);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public final class DivideDoubleItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Double getDivideAC()
 	{
-		return DivideDoubleItem.divideAC.get(this);
+		return DivideDoubleItem.divideAC.getSupported(this);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class DivideDoubleItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Double getDivideBC()
 	{
-		return DivideDoubleItem.divideBC.get(this);
+		return DivideDoubleItem.divideBC.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

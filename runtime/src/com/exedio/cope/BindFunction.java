@@ -41,7 +41,13 @@ public class BindFunction<E> implements Function<E>
 	}
 
 	@Override
-	public final E get(final Item item)
+	public final void requireSupportForGet() throws UnsupportedGetException
+	{
+		function.requireSupportForGet();
+	}
+
+	@Override
+	public final E get(final Item item) throws UnsupportedGetException
 	{
 		return function.get(item);
 	}

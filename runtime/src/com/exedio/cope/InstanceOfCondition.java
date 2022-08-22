@@ -153,7 +153,13 @@ public final class InstanceOfCondition<E extends Item> extends Condition
 	}
 
 	@Override
-	Trilean getTri(final FieldValues item)
+	void requireSupportForGetTri() throws UnsupportedGetException
+	{
+		function.requireSupportForGet();
+	}
+
+	@Override
+	Trilean getTri(final FieldValues item) throws UnsupportedGetException
 	{
 		final Item value = function.get(item);
 		if(value==null)

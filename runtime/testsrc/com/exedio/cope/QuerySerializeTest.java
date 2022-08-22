@@ -44,10 +44,10 @@ public class QuerySerializeTest
 		assertSerializedEquals(q, size += 253);
 
 		j.setCondition(field.equal("zack"));
-		assertSerializedEquals(q, size += 248);
+		assertSerializedEquals(q, size += 272);
 
 		q.addOrderBy(field);
-		assertSerializedEquals(q, size += 77);
+		assertSerializedEquals(q, size += 75);
 
 		q.setHaving(field.equal("zick"));
 		assertSerializedEquals(q, size += 22);
@@ -56,7 +56,7 @@ public class QuerySerializeTest
 		assertSerializedEquals(q, size);
 
 		final Query<List<Object>> qMulti = Query.newQuery(new Selectable<?>[]{field, TYPE.getThis()}, TYPE, null);
-		assertSerializedEquals(qMulti, size - 660);
+		assertSerializedEquals(qMulti, size - 682);
 	}
 
 	@Test void aggregateOfStringQuery()

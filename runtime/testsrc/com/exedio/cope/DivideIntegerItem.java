@@ -128,7 +128,7 @@ public final class DivideIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getDivideAB()
 	{
-		return DivideIntegerItem.divideAB.get(this);
+		return DivideIntegerItem.divideAB.getSupported(this);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public final class DivideIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getDivideAC()
 	{
-		return DivideIntegerItem.divideAC.get(this);
+		return DivideIntegerItem.divideAC.getSupported(this);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class DivideIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getDivideBC()
 	{
-		return DivideIntegerItem.divideBC.get(this);
+		return DivideIntegerItem.divideBC.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

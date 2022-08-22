@@ -118,7 +118,7 @@ public class CheckConstraintModelTest
 		assertFails(
 				() -> new CheckConstraint(unsupportedFunctionCondition),
 				IllegalArgumentException.class,
-				"not supported for non-function: " + unsupportedFunction);
+				"check constraint condition contains unsupported function: " + unsupportedFunction);
 
 		assertSerializedSame(alphaToBeta, 381);
 	}

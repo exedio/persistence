@@ -93,14 +93,33 @@ public abstract class View<E> extends Feature
 	}
 
 	@Override
-	@Wrap(order=10, doc=Wrap.GET_DOC) // TODO box into primitives
-	public final E get(@Nonnull final Item item)
+	public final void requireSupportForGet() throws UnsupportedGetException
+	{
+		for(final Function<?> source : sources)
+			source.requireSupportForGet();
+	}
+
+	@Wrap(order=10, name="get{0}", doc=Wrap.GET_DOC) // TODO box into primitives
+	public final E getSupported(@Nonnull final Item item)
+	{
+		try
+		{
+			return get(item);
+		}
+		catch(final UnsupportedGetException e)
+		{
+			throw new RuntimeException(e);
+		}
+	}
+
+	@Override
+	public final E get(@Nonnull final Item item) throws UnsupportedGetException
 	{
 		return get(new FieldValues(item));
 	}
 
 	@Override
-	public final E get(final FieldValues item)
+	public final E get(final FieldValues item) throws UnsupportedGetException
 	{
 		final Object[] values = new Object[sources.length];
 		int pos = 0;
@@ -179,6 +198,17 @@ public abstract class View<E> extends Feature
 	{
 		if(sourceType!=null && type!=sourceType)
 			throw new RuntimeException();
+
+		try
+		{
+			for(final Function<?> source : sources)
+				source.requireSupportForGet();
+		}
+		catch(final UnsupportedGetException e)
+		{
+			throw new IllegalArgumentException(
+					"view contains unsupported function: " + e.function);
+		}
 
 		super.mount(type, name, annotationSource);
 	}

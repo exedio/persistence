@@ -20,10 +20,9 @@ package com.exedio.cope;
 
 import static java.util.Objects.requireNonNull;
 
-import com.exedio.cope.CompareFunctionCondition.Operator;
 import java.util.function.Consumer;
 
-public abstract class Aggregate<E> implements Selectable<E>
+public abstract class Aggregate<E> implements Function<E>
 {
 	private static final long serialVersionUID = 1l;
 
@@ -111,6 +110,20 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append(')');
 	}
 
+
+	@Override
+	public final void requireSupportForGet() throws UnsupportedGetException
+	{
+		throw new UnsupportedGetException(this);
+	}
+
+	@Override
+	public final E get(final Item item) throws UnsupportedGetException
+	{
+		throw new UnsupportedGetException(this);
+	}
+
+
 	@Override
 	public final boolean equals(final Object other)
 	{
@@ -141,42 +154,5 @@ public abstract class Aggregate<E> implements Selectable<E>
 			append('(');
 		source.toString(bf, defaultType);
 		bf.append(')');
-	}
-
-	// convenience methods for conditions and views ---------------------------------
-
-	public final Condition equal(final E value)
-	{
-		return value!=null ? new CompareCondition<>(Operator.Equal, this, value) : new IsNullCondition<>(this, false);
-	}
-
-	public final Condition notEqual(final E value)
-	{
-		return value!=null ? new CompareCondition<>(Operator.NotEqual, this, value) : new IsNullCondition<>(this, true);
-	}
-
-	public final CompareCondition<E> less(final E value)
-	{
-		return new CompareCondition<>(Operator.Less, this, value);
-	}
-
-	public final CompareCondition<E> lessOrEqual(final E value)
-	{
-		return new CompareCondition<>(Operator.LessEqual, this, value);
-	}
-
-	public final CompareCondition<E> greater(final E value)
-	{
-		return new CompareCondition<>(Operator.Greater, this, value);
-	}
-
-	public final CompareCondition<E> greaterOrEqual(final E value)
-	{
-		return new CompareCondition<>(Operator.GreaterEqual, this, value);
-	}
-
-	public final Condition between(final E lowerBound, final E upperBound)
-	{
-		return greaterOrEqual(lowerBound).and(lessOrEqual(upperBound));
 	}
 }

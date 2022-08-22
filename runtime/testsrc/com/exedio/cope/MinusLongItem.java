@@ -128,7 +128,7 @@ public final class MinusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getViewAB()
 	{
-		return MinusLongItem.viewAB.get(this);
+		return MinusLongItem.viewAB.getSupported(this);
 	}
 
 	/**
@@ -138,7 +138,7 @@ public final class MinusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getViewAC()
 	{
-		return MinusLongItem.viewAC.get(this);
+		return MinusLongItem.viewAC.getSupported(this);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class MinusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getViewBC()
 	{
-		return MinusLongItem.viewBC.get(this);
+		return MinusLongItem.viewBC.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

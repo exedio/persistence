@@ -47,6 +47,12 @@ public final class This<E extends Item> extends Feature
 	}
 
 	@Override
+	public void requireSupportForGet()
+	{
+		// always supported
+	}
+
+	@Override
 	public E get(final Item item)
 	{
 		return type.cast(item);

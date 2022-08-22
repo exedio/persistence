@@ -53,13 +53,13 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	void requireSupportForGetTri()
+	void requireSupportForGetTri() throws UnsupportedGetException
 	{
 		argument.requireSupportForGetTri();
 	}
 
 	@Override
-	Trilean getTri(final FieldValues item)
+	Trilean getTri(final FieldValues item) throws UnsupportedGetException
 	{
 		return argument.getTri(item).not();
 	}

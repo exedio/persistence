@@ -424,7 +424,7 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertFails(
 				() -> c.get(item),
 				IllegalArgumentException.class,
-				"not supported for non-function: max(CompareConditionItem.day)");
+				"condition contains unsupported function: max(CompareConditionItem.day)");
 	}
 
 	@Test void testGetAggregateIsNull()
@@ -434,6 +434,6 @@ public class CompareConditionTest extends TestWithEnvironment
 		assertFails(
 				() -> c.get(item),
 				IllegalArgumentException.class,
-				"not supported for non-function: max(CompareConditionItem.day)");
+				"condition contains unsupported function: max(CompareConditionItem.day)");
 	}
 }

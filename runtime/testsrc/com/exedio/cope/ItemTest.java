@@ -52,7 +52,7 @@ public class ItemTest extends TestmodelTest
 	 * Test getType, ID, equals, hashCode etc.
 	 */
 	@Test void testItemMethods()
-			throws IntegrityViolationException, NoSuchIDException
+			throws IntegrityViolationException, NoSuchIDException, UnsupportedGetException
 	{
 		assertEquals(TYPE, TypesBound.forClass(EmptyItem.class));
 		assertEquals(EmptyItem2.TYPE, TypesBound.forClass(EmptyItem2.class));

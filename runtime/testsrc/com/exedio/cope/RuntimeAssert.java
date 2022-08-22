@@ -151,6 +151,10 @@ public final class RuntimeAssert
 			// supports stays false
 			assertSame(IllegalArgumentException.class, e.getClass());
 		}
+		catch(final UnsupportedGetException e)
+		{
+			throw new AssertionFailedError(e.getMessage(), e);
+		}
 		for(final T item : type.search())
 		{
 			if(supportsGetTri)

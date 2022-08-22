@@ -175,14 +175,14 @@ public class CaseViewTest extends TestWithEnvironment
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		java.lang.String getFieldLower()
 		{
-			return AnItem.fieldLower.get(this);
+			return AnItem.fieldLower.getSupported(this);
 		}
 
 		@com.exedio.cope.instrument.Generated
 		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 		java.lang.String getFieldUpper()
 		{
-			return AnItem.fieldUpper.get(this);
+			return AnItem.fieldUpper.getSupported(this);
 		}
 
 		@com.exedio.cope.instrument.Generated

@@ -251,6 +251,12 @@ public abstract class FunctionField<E> extends Field<E>
 	abstract E get(final Row row);
 	abstract void set(final Row row, final E surface);
 
+	@Override
+	public final void requireSupportForGet()
+	{
+		// always supported
+	}
+
 	@Wrap(order=10, doc=Wrap.GET_DOC, hide=PrimitiveGetter.class, nullability=NullableIfOptional.class)
 	@Override
 	public final E get(@Nonnull final Item item)

@@ -53,7 +53,7 @@ public final class Query<R> implements Serializable
 	private Condition having;
 
 	// orderBy-arrays must never be modified, because they are reused by copy constructor
-	private Selectable<?>[] orderBy = null;
+	private Function<?>[] orderBy = null;
 	private boolean[] orderAscending;
 
 	private int pageOffset = 0;
@@ -341,7 +341,19 @@ public final class Query<R> implements Serializable
 
 	// orderBy
 
+	/**
+	 * @deprecated Use {@link #getOrderBys()} instead.
+	 */
+	@Deprecated
 	public List<Selectable<?>> getOrderByFunctions()
+	{
+		return
+			orderBy==null
+			? Collections.emptyList()
+			: Collections.unmodifiableList(Arrays.asList(orderBy));
+	}
+
+	public List<? extends Function<?>> getOrderBys()
 	{
 		return
 			orderBy==null
@@ -362,30 +374,63 @@ public final class Query<R> implements Serializable
 
 	public void setOrderByThis(final boolean ascending)
 	{
-		this.orderBy = new Selectable<?>[]{type.thisFunction};
+		this.orderBy = new Function<?>[]{type.thisFunction};
 		this.orderAscending = new boolean[]{ascending};
 	}
 
+	/**
+	 * @deprecated
+	 * Use {@link #setOrderBy(Function,boolean)})} instead,
+	 * any non-Function will cause this method to fail.
+	 */
+	@Deprecated
 	public void setOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
-		requireNonNull(orderBy, "orderBy");
-
-		this.orderBy = new Selectable<?>[]{orderBy};
-		this.orderAscending = new boolean[]{ascending};
+		setOrderBy(function(orderBy, "orderBy"), ascending);
 	}
 
-	public void setOrderByAndThis(final Selectable<?> orderBy, final boolean ascending)
+	public void setOrderBy(final Function<?> orderBy, final boolean ascending)
 	{
 		requireNonNull(orderBy, "orderBy");
 
-		this.orderBy = new Selectable<?>[]{orderBy, type.thisFunction};
+		this.orderBy = new Function<?>[]{orderBy};
+		this.orderAscending = new boolean[]{ascending};
+	}
+
+	/**
+	 * @deprecated
+	 * Use {@link #setOrderByAndThis(Function,boolean)})} instead,
+	 * any non-Function will cause this method to fail.
+	 */
+	@Deprecated
+	public void setOrderByAndThis(final Selectable<?> orderBy, final boolean ascending)
+	{
+		setOrderByAndThis(function(orderBy, "orderBy"), ascending);
+	}
+
+	public void setOrderByAndThis(final Function<?> orderBy, final boolean ascending)
+	{
+		requireNonNull(orderBy, "orderBy");
+
+		this.orderBy = new Function<?>[]{orderBy, type.thisFunction};
 		this.orderAscending = new boolean[]{ascending, true};
+	}
+
+	/**
+	 * @deprecated
+	 * Use {@link #setOrderBy(Function[],boolean[])})} instead,
+	 * any non-Function will cause this method to fail.
+	 */
+	@Deprecated
+	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
+	{
+		setOrderBy(function(orderBy, "orderBy"), ascending);
 	}
 
 	/**
 	 * @throws IllegalArgumentException if {@code orderBy.length!=ascending.length}
 	 */
-	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
+	public void setOrderBy(final Function<?>[] orderBy, final boolean[] ascending)
 	{
 		requireNonNull(orderBy, "orderBy");
 		requireNonNull(ascending, "ascending");
@@ -409,26 +454,59 @@ public final class Query<R> implements Serializable
 		this.orderAscending = com.exedio.cope.misc.Arrays.copyOf(ascending);
 	}
 
+	/**
+	 * @deprecated
+	 * Use {@link #addOrderBy(Function)})} instead,
+	 * any non-Function will cause this method to fail.
+	 */
+	@Deprecated
 	public void addOrderBy(final Selectable<?> orderBy)
+	{
+		addOrderBy(function(orderBy, "orderBy"));
+	}
+
+	public void addOrderBy(final Function<?> orderBy)
 	{
 		addOrderBy(orderBy, true);
 	}
 
+	/**
+	 * @deprecated
+	 * Use {@link #addOrderByDescending(Function)})} instead,
+	 * any non-Function will cause this method to fail.
+	 */
+	@Deprecated
 	public void addOrderByDescending(final Selectable<?> orderBy)
+	{
+		addOrderByDescending(function(orderBy, "orderBy"));
+	}
+
+	public void addOrderByDescending(final Function<?> orderBy)
 	{
 		addOrderBy(orderBy, false);
 	}
 
+	/**
+	 * @deprecated
+	 * Use {@link #addOrderBy(Function,boolean)})} instead,
+	 * any non-Function will cause this method to fail.
+	 */
+	@Deprecated
 	public void addOrderBy(final Selectable<?> orderBy, final boolean ascending)
+	{
+		addOrderBy(function(orderBy, "orderBy"), ascending);
+	}
+
+	public void addOrderBy(final Function<?> orderBy, final boolean ascending)
 	{
 		requireNonNull(orderBy, "orderBy");
 
 		if(this.orderBy==null)
-			this.orderBy = new Selectable<?>[]{ orderBy };
+			this.orderBy = new Function<?>[]{ orderBy };
 		else
 		{
 			final int l = this.orderBy.length;
-			final Selectable<?>[] result = new Selectable<?>[l+1];
+			final Function<?>[] result = new Function<?>[l+1];
 			System.arraycopy(this.orderBy, 0, result, 0, l);
 			result[l] = orderBy;
 			this.orderBy = result;
@@ -454,7 +532,7 @@ public final class Query<R> implements Serializable
 
 
 	@Deprecated
-	private static <E> Function<E> function(final Selectable<E> selectable, final String message)
+	static <E> Function<E> function(final Selectable<E> selectable, final String message)
 	{
 		if(selectable==null)
 			return null;
@@ -1326,38 +1404,6 @@ public final class Query<R> implements Serializable
 			types.add(t.cacheIdTransiently);
 	}
 
-
-	// ------------------- binary compatibility -------------------
-
-	public void setOrderBy(final Function<?> orderBy, final boolean ascending)
-	{
-		setOrderBy((Selectable<?>)orderBy, ascending);
-	}
-
-	public void setOrderByAndThis(final Function<?> orderBy, final boolean ascending)
-	{
-		setOrderByAndThis((Selectable<?>)orderBy, ascending);
-	}
-
-	public void setOrderBy(final Function<?>[] orderBy, final boolean[] ascending)
-	{
-		setOrderBy((Selectable<?>[])orderBy, ascending);
-	}
-
-	public void addOrderBy(final Function<?> orderBy)
-	{
-		addOrderBy((Selectable<?>)orderBy);
-	}
-
-	public void addOrderByDescending(final Function<?> orderBy)
-	{
-		addOrderByDescending((Selectable<?>)orderBy);
-	}
-
-	public void addOrderBy(final Function<?> orderBy, final boolean ascending)
-	{
-		addOrderBy((Selectable<?>)orderBy, ascending);
-	}
 
 	// ------------------- deprecated stuff -------------------
 

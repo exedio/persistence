@@ -87,20 +87,23 @@ public class QueryGroupOrderBySetterSelectableTest
 		assertEqualsUnmodifiable(asList(), q.getGroupBys());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByAscending()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setOrderBy(alpha, true);
-		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(true), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByDescending()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setOrderBy(alpha, false);
-		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(false), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByNull()
 	{
 		final Query<?> q = TYPE.newQuery(null);
@@ -108,24 +111,38 @@ public class QueryGroupOrderBySetterSelectableTest
 				() -> q.setOrderBy((Selectable<?>)null, false),
 				NullPointerException.class,
 				"orderBy");
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
+		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetOrderByNonFunction()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertFails(
+				() -> q.setOrderBy(nonFunction, false),
+				IllegalArgumentException.class,
+				"orderBy is no Function but " + nonFunction);
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByAndThisAscending()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setOrderByAndThis(alpha, true);
-		assertEqualsUnmodifiable(asList(alpha, TYPE.getThis()), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha, TYPE.getThis()), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(true, true), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByAndThisDescending()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setOrderByAndThis(alpha, false);
-		assertEqualsUnmodifiable(asList(alpha, TYPE.getThis()), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha, TYPE.getThis()), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(false, true), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByAndThisNull()
 	{
 		final Query<?> q = TYPE.newQuery(null);
@@ -133,36 +150,50 @@ public class QueryGroupOrderBySetterSelectableTest
 				() -> q.setOrderByAndThis((Selectable<?>)null, false),
 				NullPointerException.class,
 				"orderBy");
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
+		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetOrderByAndThisNonFunction()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertFails(
+				() -> q.setOrderByAndThis(nonFunction, false),
+				IllegalArgumentException.class,
+				"orderBy is no Function but " + nonFunction);
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderBy()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setOrderBy(new Selectable<?>[]{alpha, beta}, new boolean[]{false, true});
-		assertEqualsUnmodifiable(asList(alpha, beta), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha, beta), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(false, true), q.getOrderByAscending());
 
 		q.resetOrderBy();
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByEmpty()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.setOrderBy(new Selectable<?>[]{}, new boolean[]{});
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 
 		q.addOrderBy(alpha);
-		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(true), q.getOrderByAscending());
 
 		q.setOrderBy(new Selectable<?>[]{}, new boolean[]{});
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByLengthMismatch()
 	{
 		final Query<?> q = TYPE.newQuery(null);
@@ -171,9 +202,10 @@ public class QueryGroupOrderBySetterSelectableTest
 				IllegalArgumentException.class,
 				"orderBy and ascending must have same length, " +
 				"but was 2 and 1");
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByNullOrderBy()
 	{
 		final Query<?> q = TYPE.newQuery(null);
@@ -181,9 +213,10 @@ public class QueryGroupOrderBySetterSelectableTest
 				() -> q.setOrderBy((Selectable<?>[])null, new boolean[]{true, true}),
 				NullPointerException.class,
 				"orderBy");
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByNullAscending()
 	{
 		final Query<?> q = TYPE.newQuery(null);
@@ -191,9 +224,10 @@ public class QueryGroupOrderBySetterSelectableTest
 				() -> q.setOrderBy(new Selectable<?>[]{alpha, null}, null),
 				NullPointerException.class,
 				"ascending");
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testSetOrderByNullElement()
 	{
 		final Query<?> q = TYPE.newQuery(null);
@@ -201,40 +235,55 @@ public class QueryGroupOrderBySetterSelectableTest
 				() -> q.setOrderBy(new Selectable<?>[]{alpha, null}, new boolean[]{true, true}),
 				NullPointerException.class,
 				"orderBy[1]");
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
+		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetOrderByArrayNonFunction()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertFails(
+				() -> q.setOrderBy(new Selectable<?>[]{alpha, nonFunction}, new boolean[]{true, true}),
+				IllegalArgumentException.class,
+				"orderBy[1] is no Function but " + nonFunction);
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testAddOrderByAscending()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.addOrderBy(alpha);
-		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(true), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testAddOrderByDescending()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.addOrderByDescending(alpha);
-		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(false), q.getOrderByAscending());
 	}
 
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testAddOrderBy()
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		q.addOrderBy(alpha, false);
-		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(false), q.getOrderByAscending());
 
 		q.addOrderBy(beta, true);
-		assertEqualsUnmodifiable(asList(alpha, beta), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha, beta), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(false, true), q.getOrderByAscending());
 
 		q.addOrderBy(gamma, false);
-		assertEqualsUnmodifiable(asList(alpha, beta, gamma), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(alpha, beta, gamma), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(false, true, false), q.getOrderByAscending());
 	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
 	@Test void testAddOrderByNull()
 	{
 		final Query<?> q = TYPE.newQuery(null);
@@ -242,7 +291,18 @@ public class QueryGroupOrderBySetterSelectableTest
 				() -> q.addOrderBy((Selectable<?>)null, false),
 				NullPointerException.class,
 				"orderBy");
-		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
+		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testAddOrderByNonFunction()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertFails(
+				() -> q.addOrderBy(nonFunction, false),
+				IllegalArgumentException.class,
+				"orderBy is no Function but " + nonFunction);
+		assertEqualsUnmodifiable(asList(), q.getOrderBys());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
 
@@ -299,8 +359,11 @@ public class QueryGroupOrderBySetterSelectableTest
 	{
 		final Query<?> q = TYPE.newQuery(null);
 		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		q.setGroupBy(alpha);
+		q.setOrderBy(beta, true);
 		assertEqualsUnmodifiable(asList(alpha), q.getGroupBy());
+		assertEqualsUnmodifiable(asList(beta), q.getOrderByFunctions());
 	}
 
 	@SuppressWarnings("unused") // OK: Model that is never connected

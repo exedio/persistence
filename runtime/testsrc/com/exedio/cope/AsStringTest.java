@@ -52,7 +52,7 @@ public class AsStringTest extends TestWithEnvironment
 		itemX = new AsStringItem(null, null, null);
 	}
 
-	@Test void testIt()
+	@Test void testIt() throws UnsupportedGetException
 	{
 		assertEquals("13",   intx   .asString().get(item1));
 		assertEquals("15",   longx  .asString().get(item1));

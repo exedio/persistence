@@ -18,18 +18,22 @@
 
 package com.exedio.cope;
 
-public final class SumAggregate<E extends Number> extends Aggregate<E> implements NumberFunction<E>
-{
-	private static final long serialVersionUID = 1l;
+import static java.util.Objects.requireNonNull;
 
-	/**
-	 * Creates a new SumAggregate.
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
-	 * @see com.exedio.cope.NumberFunction#sum()
-	 */
-	public SumAggregate(final Function<E> source)
+public final class UnsupportedGetException extends Exception
+{
+	final Function<?> function;
+
+	UnsupportedGetException(final Function<?> function)
 	{
-		super(source, "sum", "SUM", source.getValueType());
+		this.function = requireNonNull(function);
 	}
+
+	@Override
+	public String getMessage()
+	{
+		return function.toString();
+	}
+
+	private static final long serialVersionUID = 1l;
 }

@@ -50,7 +50,13 @@ public final class CharSetCondition extends Condition
 	}
 
 	@Override
-	Trilean getTri(final FieldValues item)
+	void requireSupportForGetTri() throws UnsupportedGetException
+	{
+		function.requireSupportForGet();
+	}
+
+	@Override
+	Trilean getTri(final FieldValues item) throws UnsupportedGetException
 	{
 		final String s = function.get(item);
 		if(s==null)

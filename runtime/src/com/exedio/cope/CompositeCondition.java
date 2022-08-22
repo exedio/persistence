@@ -83,14 +83,14 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	void requireSupportForGetTri()
+	void requireSupportForGetTri() throws UnsupportedGetException
 	{
 		for(final Condition condition : conditions)
 			condition.requireSupportForGetTri();
 	}
 
 	@Override
-	Trilean getTri(final FieldValues item)
+	Trilean getTri(final FieldValues item) throws UnsupportedGetException
 	{
 		final Trilean absorber = operator.absorber.valueTri;
 		Trilean resultWithoutAbsorber = operator.identity.valueTri;

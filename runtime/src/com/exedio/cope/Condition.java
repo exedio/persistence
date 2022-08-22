@@ -35,20 +35,25 @@ public abstract class Condition implements Serializable
 		// ensures same behaviour for different implementations of getTri, avoid hiding bugs
 		requireNonNull(item, "item");
 
-		requireSupportForGetTri();
-		return getTri(new FieldValues(item)).applies;
+		try
+		{
+			requireSupportForGetTri();
+			return getTri(new FieldValues(item)).applies;
+		}
+		catch(final UnsupportedGetException e)
+		{
+			throw new IllegalArgumentException(
+					"condition contains unsupported function: " + e.function);
+		}
 	}
 
 	/**
 	 * Must throw the same {@link IllegalArgumentException} under the same circumstances as
 	 * {@link #getTri(FieldValues)}.
 	 */
-	void requireSupportForGetTri()
-	{
-		// empty default implementation means condition does always support getTri
-	}
+	abstract void requireSupportForGetTri() throws UnsupportedGetException;
 
-	abstract Trilean getTri(@Nonnull FieldValues item);
+	abstract Trilean getTri(@Nonnull FieldValues item) throws UnsupportedGetException;
 
 	abstract void check(TC tc);
 
@@ -102,6 +107,12 @@ public abstract class Condition implements Serializable
 		void append(final Statement statment)
 		{
 			throw new RuntimeException();
+		}
+
+		@Override
+		void requireSupportForGetTri()
+		{
+			// always support getTri
 		}
 
 		@Override

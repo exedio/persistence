@@ -36,9 +36,15 @@ public final class Random implements NumberFunction<Double>
 	}
 
 	@Override
-	public Double get(final Item item)
+	public void requireSupportForGet() throws UnsupportedGetException
 	{
-		throw new RuntimeException();
+		throw new UnsupportedGetException(this);
+	}
+
+	@Override
+	public Double get(final Item item) throws UnsupportedGetException
+	{
+		throw new UnsupportedGetException(this);
 	}
 
 	@Override
