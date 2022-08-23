@@ -230,9 +230,12 @@ public class QueryGroupOrderBySetterTest
 	@Test void testAddOrderByNull()
 	{
 		final Query<?> q = TYPE.newQuery(null);
-		q.addOrderBy(null, false);
-		assertEqualsUnmodifiable(asList(new Object[]{null}), q.getOrderByFunctions()); // TODO this is a bug
-		assertEqualsUnmodifiable(asList(false), q.getOrderByAscending()); // TODO this is a bug
+		assertFails(
+				() -> q.addOrderBy(null, false),
+				NullPointerException.class,
+				"orderBy");
+		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
 
 	@SuppressWarnings("unused") // OK: Model that is never connected
