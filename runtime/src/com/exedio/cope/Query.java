@@ -287,10 +287,14 @@ public final class Query<R> implements Serializable
 			: Collections.unmodifiableList(Arrays.asList(groupBy));
 	}
 
-	// TODO deal with empty array
 	public void setGroupBy(final Selectable<?>... groupBy)
 	{
 		requireNonNull(groupBy, "groupBy");
+		if(groupBy.length==0)
+		{
+			this.groupBy = null;
+			return;
+		}
 		for(int i = 0; i<groupBy.length; i++)
 			if(groupBy[i]==null)
 				throw new NullPointerException("groupBy[" + i + ']');
@@ -358,7 +362,6 @@ public final class Query<R> implements Serializable
 	/**
 	 * @throws IllegalArgumentException if {@code orderBy.length!=ascending.length}
 	 */
-	// TODO deal with empty arrays
 	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
 	{
 		requireNonNull(orderBy, "orderBy");
@@ -369,6 +372,12 @@ public final class Query<R> implements Serializable
 					"orderBy and ascending must have same length, " +
 					"but was " + orderBy.length +
 					" and " + ascending.length);
+		if(orderBy.length==0)
+		{
+			this.orderBy = null;
+			this.orderAscending = null;
+			return;
+		}
 		for(int i = 0; i<orderBy.length; i++)
 			if(orderBy[i]==null)
 				throw new NullPointerException("orderBy" + '[' + i + ']');
