@@ -19,24 +19,15 @@
 package com.exedio.cope;
 
 import static com.exedio.cope.testmodel.AttributeItem.TYPE;
-import static com.exedio.cope.testmodel.AttributeItem.day;
-import static com.exedio.cope.testmodel.AttributeItem.someBoolean;
-import static com.exedio.cope.testmodel.AttributeItem.someDate;
-import static com.exedio.cope.testmodel.AttributeItem.someDouble;
-import static com.exedio.cope.testmodel.AttributeItem.someEnum;
-import static com.exedio.cope.testmodel.AttributeItem.someItem;
-import static com.exedio.cope.testmodel.AttributeItem.someLong;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullBoolean;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullDouble;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullEnum;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullInteger;
 import static com.exedio.cope.testmodel.AttributeItem.someNotNullString;
-import static com.exedio.cope.testmodel.AttributeItem.someString;
 import static com.exedio.cope.tojunit.Assert.assertContains;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import com.exedio.cope.testmodel.AttributeItem;
 import com.exedio.cope.testmodel.EmptyItem;
@@ -65,52 +56,6 @@ public class OrderByTest extends TestmodelTest
 
 	@Test void testOrderBy()
 	{
-		{
-			final Query<AttributeItem> q = TYPE.newQuery(null);
-			assertEquals(list(), q.getOrderByFunctions());
-			assertEquals(list(), q.getOrderByAscending());
-
-			q.setOrderByThis(false);
-			assertEquals(list(TYPE.getThis()), q.getOrderByFunctions());
-			assertEquals(list(false), q.getOrderByAscending());
-
-			q.setOrderBy(day, true);
-			assertEquals(list(day), q.getOrderByFunctions());
-			assertEquals(list(true), q.getOrderByAscending());
-
-			q.setOrderBy(someBoolean, false);
-			assertEquals(list(someBoolean), q.getOrderByFunctions());
-			assertEquals(list(false), q.getOrderByAscending());
-
-			q.setOrderByAndThis(someBoolean, false);
-			assertEquals(list(someBoolean, TYPE.getThis()), q.getOrderByFunctions());
-			assertEquals(list(false, true), q.getOrderByAscending());
-
-			q.setOrderBy(new Function<?>[]{someString, someDate}, new boolean[]{false, true});
-			assertEquals(list(someString, someDate), q.getOrderByFunctions());
-			assertEquals(list(false, true), q.getOrderByAscending());
-
-			q.addOrderBy(someEnum, true);
-			assertEquals(list(someString, someDate, someEnum), q.getOrderByFunctions());
-			assertEquals(list(false, true, true), q.getOrderByAscending());
-
-			q.resetOrderBy();
-			assertEquals(list(), q.getOrderByFunctions());
-			assertEquals(list(), q.getOrderByAscending());
-
-			q.addOrderBy(someDouble, false);
-			assertEquals(list(someDouble), q.getOrderByFunctions());
-			assertEquals(list(false), q.getOrderByAscending());
-
-			q.addOrderBy(someItem);
-			assertEquals(list(someDouble, someItem), q.getOrderByFunctions());
-			assertEquals(list(false, true), q.getOrderByAscending());
-
-			q.addOrderByDescending(someLong);
-			assertEquals(list(someDouble, someItem, someLong), q.getOrderByFunctions());
-			assertEquals(list(false, true, false), q.getOrderByAscending());
-		}
-
 		// no order at all
 		assertContains(item4, item2, item1, item3, item5, TYPE.newQuery(null).search());
 
@@ -147,35 +92,6 @@ public class OrderByTest extends TestmodelTest
 
 			query.setOrderBy(new Function<?>[]{someNotNullEnum,someNotNullString}, new boolean[]{true, true});
 			assertEquals(list(item1, item4, item2, item5, item3), query.search());
-
-			// bad queries
-			try
-			{
-				query.setOrderBy(new Function<?>[]{someNotNullBoolean,someNotNullInteger}, new boolean[]{true});
-				fail();
-			}
-			catch(final IllegalArgumentException e)
-			{
-				assertEquals("orderBy and ascending must have same length, but was 2 and 1", e.getMessage());
-			}
-			try
-			{
-				query.setOrderBy(new Function<?>[]{someNotNullBoolean,null}, new boolean[]{true, true});
-				fail();
-			}
-			catch(final NullPointerException e)
-			{
-				assertEquals("orderBy[1]", e.getMessage());
-			}
-			try
-			{
-				query.setOrderBy(null, true);
-				fail();
-			}
-			catch(final NullPointerException e)
-			{
-				assertEquals("orderBy", e.getMessage());
-			}
 		}
 		assertOrder(list(item1, item5, item2, item4, item3), list(item3, item4, item2, item5, item1), someNotNullInteger, 0, -1);
 		assertOrder(list(item1, item5), list(item3, item4), someNotNullInteger, 0, 2);
