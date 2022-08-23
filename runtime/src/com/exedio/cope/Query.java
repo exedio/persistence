@@ -290,6 +290,8 @@ public final class Query<R> implements Serializable
 	// TODO deal with empty array
 	public void setGroupBy(final Selectable<?>... groupBy)
 	{
+		requireNonNull(groupBy, "groupBy");
+
 		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
 	}
 
@@ -356,6 +358,9 @@ public final class Query<R> implements Serializable
 	// TODO deal with empty arrays
 	public void setOrderBy(final Selectable<?>[] orderBy, final boolean[] ascending)
 	{
+		requireNonNull(orderBy, "orderBy");
+		requireNonNull(ascending, "ascending");
+
 		if(orderBy.length!=ascending.length)
 			throw new IllegalArgumentException(
 					"orderBy and ascending must have same length, " +

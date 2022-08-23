@@ -119,7 +119,7 @@ public class QueryGroupOrderBySetterSelectableTest
 		assertFails(
 				() -> q.setOrderBy(null, new boolean[]{true, true}),
 				NullPointerException.class,
-				null);
+				"orderBy");
 		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
@@ -129,7 +129,7 @@ public class QueryGroupOrderBySetterSelectableTest
 		assertFails(
 				() -> q.setOrderBy(new Selectable<?>[]{alpha, null}, null),
 				NullPointerException.class,
-				null);
+				"ascending");
 		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
