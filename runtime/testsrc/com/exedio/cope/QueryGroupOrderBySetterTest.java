@@ -52,6 +52,12 @@ public class QueryGroupOrderBySetterTest
 		final Query<?> q = TYPE.newQuery(null);
 		q.setGroupBy();
 		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+
+		q.setGroupBy(alpha);
+		assertEqualsUnmodifiable(asList(alpha), q.getGroupBy());
+
+		q.setGroupBy();
+		assertEqualsUnmodifiable(asList(), q.getGroupBy());
 	}
 	@Test void testSetGroupByNull()
 	{
@@ -151,6 +157,14 @@ public class QueryGroupOrderBySetterTest
 	@Test void testSetOrderByEmpty()
 	{
 		final Query<?> q = TYPE.newQuery(null);
+		q.setOrderBy(new Function<?>[]{}, new boolean[]{});
+		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
+
+		q.addOrderBy(alpha);
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(true), q.getOrderByAscending());
+
 		q.setOrderBy(new Function<?>[]{}, new boolean[]{});
 		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());

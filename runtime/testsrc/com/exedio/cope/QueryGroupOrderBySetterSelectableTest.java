@@ -101,6 +101,14 @@ public class QueryGroupOrderBySetterSelectableTest
 		q.setOrderBy(new Selectable<?>[]{}, new boolean[]{});
 		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
+
+		q.addOrderBy(alpha);
+		assertEqualsUnmodifiable(asList(alpha), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(true), q.getOrderByAscending());
+
+		q.setOrderBy(new Selectable<?>[]{}, new boolean[]{});
+		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
+		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
 	}
 	@Test void testSetOrderByLengthMismatch()
 	{
