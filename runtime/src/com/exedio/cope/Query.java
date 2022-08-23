@@ -291,6 +291,9 @@ public final class Query<R> implements Serializable
 	public void setGroupBy(final Selectable<?>... groupBy)
 	{
 		requireNonNull(groupBy, "groupBy");
+		for(int i = 0; i<groupBy.length; i++)
+			if(groupBy[i]==null)
+				throw new NullPointerException("groupBy[" + i + ']');
 
 		this.groupBy = com.exedio.cope.misc.Arrays.copyOf( groupBy );
 	}

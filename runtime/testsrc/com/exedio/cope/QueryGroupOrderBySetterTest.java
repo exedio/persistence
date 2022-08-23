@@ -65,8 +65,11 @@ public class QueryGroupOrderBySetterTest
 	@Test void testSetGroupByNullElement()
 	{
 		final Query<?> q = TYPE.newQuery(null);
-		q.setGroupBy(new Function<?>[]{alpha, null});
-		assertEqualsUnmodifiable(asList(alpha, null), q.getGroupBy()); // TODO this is a bug
+		assertFails(
+				() -> q.setGroupBy(new Function<?>[]{alpha, null}),
+				NullPointerException.class,
+				"groupBy[1]");
+		assertEqualsUnmodifiable(asList(), q.getGroupBy());
 	}
 
 	@Test void testSetOrderByThisAscending()
