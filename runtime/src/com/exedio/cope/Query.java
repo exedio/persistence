@@ -389,6 +389,8 @@ public final class Query<R> implements Serializable
 
 	public void addOrderBy(final Selectable<?> orderBy, final boolean ascending)
 	{
+		requireNonNull(orderBy, "orderBy");
+
 		if(this.orderBy==null)
 			this.orderBy = new Selectable<?>[]{ orderBy };
 		else
