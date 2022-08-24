@@ -30,9 +30,9 @@ import static com.exedio.cope.CheckConstraintSuperItem.einsToZwei;
 import static com.exedio.cope.CheckConstraintSuperItem.zwei;
 import static com.exedio.cope.RuntimeAssert.assertSerializedSame;
 import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import org.junit.jupiter.api.Test;
 
@@ -94,43 +94,25 @@ public class CheckConstraintModelTest
 		assertEquals(alpha.less(beta), alphaToBeta.getCondition());
 		assertEquals(eins.greaterOrEqual(zwei), einsToZwei.getCondition());
 
-		try
-		{
-			new CheckConstraint(null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("condition", e.getMessage());
-		}
-		try
-		{
-			new CheckConstraint(Condition.TRUE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("literal condition makes no sense, but was Condition.TRUE", e.getMessage());
-		}
-		try
-		{
-			new CheckConstraint(Condition.FALSE);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("literal condition makes no sense, but was Condition.FALSE", e.getMessage());
-		}
+		assertFails(
+				() -> new CheckConstraint(null),
+				NullPointerException.class,
+				"condition");
+		assertFails(
+				() -> new CheckConstraint(Condition.TRUE),
+				IllegalArgumentException.class,
+				"literal condition makes no sense, " +
+				"but was Condition.TRUE");
+		assertFails(
+				() -> new CheckConstraint(Condition.FALSE),
+				IllegalArgumentException.class,
+				"literal condition makes no sense, " +
+				"but was Condition.FALSE");
 		final Condition unsupportedCondition = new MatchCondition(new StringField(), "literal");
-		try
-		{
-			new CheckConstraint(unsupportedCondition);
-			fail();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("not yet implemented: " + unsupportedCondition, e.getMessage());
-		}
+		assertFails(
+				() -> new CheckConstraint(unsupportedCondition),
+				IllegalArgumentException.class,
+				"not yet implemented: " + unsupportedCondition);
 
 		assertSerializedSame(alphaToBeta, 381);
 	}
