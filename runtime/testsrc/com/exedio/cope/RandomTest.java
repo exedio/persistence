@@ -20,14 +20,15 @@ package com.exedio.cope;
 
 import static com.exedio.cope.CompareConditionItem.TYPE;
 import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.list;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.fail;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -82,14 +83,14 @@ public class RandomTest extends TestWithEnvironment
 		// test toString
 		assertEquals("CompareConditionItem.rand(5)", TYPE.random(5).toString());
 
-		try
+		assertFails(
+				() -> new Random(null, 5),
+				NullPointerException.class,
+				"type");
 		{
-			new Random(null, 5);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("type", e.getMessage());
+			final Condition c = TYPE.random(5).equal(6.6);
+			final CheckConstraint cc = new CheckConstraint(c); // TODO should fail
+			assertSame(c, cc.getCondition());
 		}
 
 		// start new transaction, otherwise query cache will not work,
@@ -207,13 +208,9 @@ public class RandomTest extends TestWithEnvironment
 
 	private static void assertNotSupported(final Query<?> q)
 	{
-		try
-		{
-			q.search();
-		}
-		catch(final IllegalArgumentException e)
-		{
-			assertEquals("random not supported by this dialect", e.getMessage());
-		}
+		assertFails(
+				q::search,
+				IllegalArgumentException.class,
+				"random not supported by this dialect");
 	}
 }
