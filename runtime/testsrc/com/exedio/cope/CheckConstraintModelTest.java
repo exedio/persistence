@@ -113,6 +113,12 @@ public class CheckConstraintModelTest
 				() -> new CheckConstraint(unsupportedCondition),
 				IllegalArgumentException.class,
 				"not yet implemented: " + unsupportedCondition);
+		final ExtremumAggregate<Integer> unsupportedFunction = new IntegerField().max();
+		final Condition unsupportedFunctionCondition = unsupportedFunction.equal(5);
+		assertFails(
+				() -> new CheckConstraint(unsupportedFunctionCondition),
+				IllegalArgumentException.class,
+				"not supported for non-function: " + unsupportedFunction);
 
 		assertSerializedSame(alphaToBeta, 381);
 	}
