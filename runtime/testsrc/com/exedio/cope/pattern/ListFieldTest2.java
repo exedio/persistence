@@ -70,12 +70,12 @@ public class ListFieldTest2 extends TestWithEnvironment
 			r2 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("0zero", r0.get(element));
-		assertEquals("1one",  r1.get(element));
-		assertEquals("2two",  r2.get(element));
-		assertEquals(0, r0.get(order).intValue());
-		assertEquals(1, r1.get(order).intValue());
-		assertEquals(2, r2.get(order).intValue());
+		assertEquals("0zero", element.get(r0));
+		assertEquals("1one",  element.get(r1));
+		assertEquals("2two",  element.get(r2));
+		assertEquals(0, order.getMandatory(r0));
+		assertEquals(1, order.getMandatory(r1));
+		assertEquals(2, order.getMandatory(r2));
 
 		r1.deleteCopeItem(); // could happen, if element was a CASCADE ItemField
 		assertEquals(list("0zero", "2two"), item.getStrings());
@@ -90,12 +90,12 @@ public class ListFieldTest2 extends TestWithEnvironment
 			r3 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("0zero", r0.get(element));
-		assertEquals("1one",  r2.get(element));
-		assertEquals("2two",  r3.get(element));
-		assertEquals(0, r0.get(order).intValue());
-		assertEquals(2, r2.get(order).intValue());
-		assertEquals(3, r3.get(order).intValue());
+		assertEquals("0zero", element.get(r0));
+		assertEquals("1one",  element.get(r2));
+		assertEquals("2two",  element.get(r3));
+		assertEquals(0, order.getMandatory(r0));
+		assertEquals(2, order.getMandatory(r2));
+		assertEquals(3, order.getMandatory(r3));
 		assertFalse(r1.existsCopeItem());
 	}
 }

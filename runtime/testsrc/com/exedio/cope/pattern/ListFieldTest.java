@@ -312,10 +312,10 @@ public class ListFieldTest extends TestWithEnvironment
 			r1 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("hallo", r0.get(stringsElement));
-		assertEquals("bello", r1.get(stringsElement));
-		assertEquals(0, r0.get(stringsOrder).intValue());
-		assertEquals(1, r1.get(stringsOrder).intValue());
+		assertEquals("hallo", stringsElement.get(r0));
+		assertEquals("bello", stringsElement.get(r1));
+		assertEquals(0, stringsOrder.getMandatory(r0));
+		assertEquals(1, stringsOrder.getMandatory(r1));
 
 		item.setStrings(listOf("zack1", "zack2", "zack3", String.class));
 		assertEqualsUnmodifiable(list("zack1", "zack2", "zack3"), item.getStrings());
@@ -332,12 +332,12 @@ public class ListFieldTest extends TestWithEnvironment
 			r2 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("zack1", r0.get(stringsElement));
-		assertEquals("zack2", r1.get(stringsElement));
-		assertEquals("zack3", r2.get(stringsElement));
-		assertEquals(0, r0.get(stringsOrder).intValue());
-		assertEquals(1, r1.get(stringsOrder).intValue());
-		assertEquals(2, r2.get(stringsOrder).intValue());
+		assertEquals("zack1", stringsElement.get(r0));
+		assertEquals("zack2", stringsElement.get(r1));
+		assertEquals("zack3", stringsElement.get(r2));
+		assertEquals(0, stringsOrder.getMandatory(r0));
+		assertEquals(1, stringsOrder.getMandatory(r1));
+		assertEquals(2, stringsOrder.getMandatory(r2));
 
 		item.setStrings(listOf("null1", null, "null3", "null4", String.class));
 		assertEqualsUnmodifiable(list("null1", null, "null3", "null4"), item.getStrings());
@@ -355,14 +355,14 @@ public class ListFieldTest extends TestWithEnvironment
 			r3 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("null1", r0.get(stringsElement));
-		assertEquals(null, r1.get(stringsElement));
-		assertEquals("null3", r2.get(stringsElement));
-		assertEquals("null4", r3.get(stringsElement));
-		assertEquals(0, r0.get(stringsOrder).intValue());
-		assertEquals(1, r1.get(stringsOrder).intValue());
-		assertEquals(2, r2.get(stringsOrder).intValue());
-		assertEquals(3, r3.get(stringsOrder).intValue());
+		assertEquals("null1", stringsElement.get(r0));
+		assertEquals(null, stringsElement.get(r1));
+		assertEquals("null3", stringsElement.get(r2));
+		assertEquals("null4", stringsElement.get(r3));
+		assertEquals(0, stringsOrder.getMandatory(r0));
+		assertEquals(1, stringsOrder.getMandatory(r1));
+		assertEquals(2, stringsOrder.getMandatory(r2));
+		assertEquals(3, stringsOrder.getMandatory(r3));
 
 		item.setStrings(listOf("dup1", "dup2", "dup1", String.class));
 		assertEqualsUnmodifiable(list("dup1", "dup2", "dup1"), item.getStrings());
@@ -377,12 +377,12 @@ public class ListFieldTest extends TestWithEnvironment
 			assertSame(r2, i.next());
 			assertFalse(i.hasNext());
 		}
-		assertEquals("dup1", r0.get(stringsElement));
-		assertEquals("dup2", r1.get(stringsElement));
-		assertEquals("dup1", r2.get(stringsElement));
-		assertEquals(0, r0.get(stringsOrder).intValue());
-		assertEquals(1, r1.get(stringsOrder).intValue());
-		assertEquals(2, r2.get(stringsOrder).intValue());
+		assertEquals("dup1", stringsElement.get(r0));
+		assertEquals("dup2", stringsElement.get(r1));
+		assertEquals("dup1", stringsElement.get(r2));
+		assertEquals(0, stringsOrder.getMandatory(r0));
+		assertEquals(1, stringsOrder.getMandatory(r1));
+		assertEquals(2, stringsOrder.getMandatory(r2));
 		assertFalse(r3.existsCopeItem());
 
 		item.addToStrings("dup3");
@@ -400,14 +400,14 @@ public class ListFieldTest extends TestWithEnvironment
 			r4 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("dup1", r0.get(stringsElement));
-		assertEquals("dup2", r1.get(stringsElement));
-		assertEquals("dup1", r2.get(stringsElement));
-		assertEquals("dup3", r4.get(stringsElement));
-		assertEquals(0, r0.get(stringsOrder).intValue());
-		assertEquals(1, r1.get(stringsOrder).intValue());
-		assertEquals(2, r2.get(stringsOrder).intValue());
-		assertEquals(3, r4.get(stringsOrder).intValue());
+		assertEquals("dup1", stringsElement.get(r0));
+		assertEquals("dup2", stringsElement.get(r1));
+		assertEquals("dup1", stringsElement.get(r2));
+		assertEquals("dup3", stringsElement.get(r4));
+		assertEquals(0, stringsOrder.getMandatory(r0));
+		assertEquals(1, stringsOrder.getMandatory(r1));
+		assertEquals(2, stringsOrder.getMandatory(r2));
+		assertEquals(3, stringsOrder.getMandatory(r4));
 		assertFalse(r3.existsCopeItem());
 
 		item.setStrings(listOf(String.class));
@@ -432,8 +432,8 @@ public class ListFieldTest extends TestWithEnvironment
 			r5 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("dup4", r5.get(stringsElement));
-		assertEquals(0, r5.get(stringsOrder).intValue());
+		assertEquals("dup4", stringsElement.get(r5));
+		assertEquals(0, stringsOrder.getMandatory(r5));
 
 		// dates
 		assertEqualsUnmodifiable(list(), item.getDates());

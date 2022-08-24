@@ -86,8 +86,8 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			r1 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("1hallo", r0.get(stringsElement));
-		assertEquals("2bello", r1.get(stringsElement));
+		assertEquals("1hallo", stringsElement.get(r0));
+		assertEquals("2bello", stringsElement.get(r1));
 
 		item.setStrings(listOf("2bello", "3knollo", String.class));
 		item.assertStrings("2bello", "3knollo");
@@ -103,8 +103,8 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			r3 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("3knollo", r3.get(stringsElement));
-		assertEquals("2bello", r2.get(stringsElement));
+		assertEquals("3knollo", stringsElement.get(r3));
+		assertEquals("2bello", stringsElement.get(r2));
 		assertFalse(r0.existsCopeItem());
 		assertFalse(r1.existsCopeItem());
 
@@ -120,7 +120,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			r4 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("3knollo", r4.get(stringsElement));
+		assertEquals("3knollo", stringsElement.get(r4));
 		assertFalse(r2.existsCopeItem());
 		assertFalse(r3.existsCopeItem());
 
@@ -136,10 +136,10 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			r7 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("zack1", r5.get(stringsElement));
+		assertEquals("zack1", stringsElement.get(r5));
 		assertFalse(r4.existsCopeItem());
-		assertEquals("zack2", r6.get(stringsElement));
-		assertEquals("zack3", r7.get(stringsElement));
+		assertEquals("zack2", stringsElement.get(r6));
+		assertEquals("zack3", stringsElement.get(r7));
 
 		item.setStrings(listOf("null1", "null2", "null3", "null4", String.class));
 		item.assertStrings("null1", "null2", "null3", "null4");
@@ -158,10 +158,10 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			r11 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("null1", r8.get(stringsElement));
-		assertEquals("null2", r9.get(stringsElement));
-		assertEquals("null3", r10.get(stringsElement));
-		assertEquals("null4", r11.get(stringsElement));
+		assertEquals("null1", stringsElement.get(r8));
+		assertEquals("null2", stringsElement.get(r9));
+		assertEquals("null3", stringsElement.get(r10));
+		assertEquals("null4", stringsElement.get(r11));
 		assertFalse(r5.existsCopeItem());
 		assertFalse(r6.existsCopeItem());
 		assertFalse(r7.existsCopeItem());
@@ -184,7 +184,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			r4 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("bing", r4.get(strings.getElement()));
+		assertEquals("bing", strings.getElement().get(r4));
 
 		assertEquals(false, item.addToStrings("bing"));
 		item.assertStrings("bing");
@@ -193,7 +193,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			assertSame(r4, i.next());
 			assertFalse(i.hasNext());
 		}
-		assertEquals("bing", r4.get(strings.getElement()));
+		assertEquals("bing", strings.getElement().get(r4));
 
 		assertEquals(true, item.addToStrings("bong"));
 		item.assertStrings("bing", "bong");
@@ -204,8 +204,8 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			r5 = i.next();
 			assertFalse(i.hasNext());
 		}
-		assertEquals("bing", r4.get(strings.getElement()));
-		assertEquals("bong", r5.get(strings.getElement()));
+		assertEquals("bing", strings.getElement().get(r4));
+		assertEquals("bong", strings.getElement().get(r5));
 
 		assertEquals(true, item.removeFromStrings("bing"));
 		item.assertStrings("bong");
@@ -215,7 +215,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			assertFalse(i.hasNext());
 		}
 		assertFalse(r4.existsCopeItem());
-		assertEquals("bong", r5.get(strings.getElement()));
+		assertEquals("bong", strings.getElement().get(r5));
 
 		assertEquals(false, item.removeFromStrings("bing"));
 		item.assertStrings("bong");
@@ -225,7 +225,7 @@ public class SetOrderedFieldTest extends TestWithEnvironment
 			assertFalse(i.hasNext());
 		}
 		assertFalse(r4.existsCopeItem());
-		assertEquals("bong", r5.get(strings.getElement()));
+		assertEquals("bong", strings.getElement().get(r5));
 
 		assertEquals(true, item.removeFromStrings("bong"));
 		item.assertStrings();
