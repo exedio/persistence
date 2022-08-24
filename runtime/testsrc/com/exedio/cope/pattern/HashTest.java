@@ -132,13 +132,13 @@ public class HashTest extends TestWithEnvironment
 		assertContains(implicitExternal.getInitialExceptions());
 		assertTrue(implicitExternal.getStorage().isAnnotationPresent(Computed.class));
 
-		assertEquals(null, item.get(implicitExternal.getStorage()));
+		assertEquals(null, implicitExternal.getStorage().get(item));
 		assertTrue(item.checkImplicitExternal(null));
 		assertFalse(item.checkImplicitExternal(""));
 		assertFalse(item.checkImplicitExternal("zack"));
 
 		item.setImplicitExternal("03affe05");
-		assertEquals("[03affe05]", item.get(implicitExternal.getStorage()));
+		assertEquals("[03affe05]", implicitExternal.getStorage().get(item));
 		assertFalse(item.checkImplicitExternal(null));
 		assertFalse(item.checkImplicitExternal("0"));
 		assertTrue(item.checkImplicitExternal("03affe05"));
@@ -158,7 +158,7 @@ public class HashTest extends TestWithEnvironment
 		assertContains(internal.getInitialExceptions());
 		assertTrue(internal.getStorage().isAnnotationPresent(Computed.class));
 
-		assertEquals(null, item.get(internal.getStorage()));
+		assertEquals(null, internal.getStorage().get(item));
 		assertTrue(item.checkInternal(null));
 		assertFalse(item.checkInternal(""));
 		assertFalse(item.checkInternal("zack"));
@@ -167,7 +167,7 @@ public class HashTest extends TestWithEnvironment
 		hashT.assertCount(0);
 		item.setInternal("03affe07");
 		hashT.assertCount(1);
-		assertEquals("[03affe07]", item.get(internal.getStorage()));
+		assertEquals("[03affe07]", internal.getStorage().get(item));
 		assertFalse(item.checkInternal(null));
 		checkMatchT.assertCount(0);
 		checkMismatchT.assertCount(0);
@@ -180,7 +180,7 @@ public class HashTest extends TestWithEnvironment
 		hashT.assertCount(0);
 		item.set(internal.map("03affe08"));
 		hashT.assertCount(1);
-		assertEquals("[03affe08]", item.get(internal.getStorage()));
+		assertEquals("[03affe08]", internal.getStorage().get(item));
 		assertFalse(item.checkInternal(null));
 		checkMatchT.assertCount(0);
 		checkMismatchT.assertCount(0);
@@ -195,14 +195,14 @@ public class HashTest extends TestWithEnvironment
 		hashT.assertCount(0);
 		final HashItem item2 = new HashItem(internal.map("03affe09"));
 		hashT.assertCount(1);
-		assertEquals("[03affe09]", item2.get(internal.getStorage()));
+		assertEquals("[03affe09]", internal.getStorage().get(item2));
 		assertFalse(item2.checkInternal(null));
 		assertFalse(item2.checkInternal("03affe10"));
 		assertTrue(item2.checkInternal("03affe09"));
 		assertFalse(item2.isInternalNull());
 
 		final HashItem item3 = TYPE.newItem(internal.map("03affe10"));
-		assertEquals("[03affe10]", item3.get(internal.getStorage()));
+		assertEquals("[03affe10]", internal.getStorage().get(item3));
 		assertFalse(item3.checkInternal(null));
 		assertFalse(item3.checkInternal("03affe09"));
 		assertTrue(item3.checkInternal("03affe10"));
@@ -229,14 +229,14 @@ public class HashTest extends TestWithEnvironment
 				() -> item.setInternal(RETURN_NULL),
 				NullPointerException.class,
 				"wrap");
-		assertEquals(null, item.get(internal.getStorage()));
+		assertEquals(null, internal.getStorage().get(item));
 
 		final SetValue<String> sv = internal.map(RETURN_NULL);
 		assertFails(
 				() -> item.set(sv),
 				NullPointerException.class,
 				"wrap");
-		assertEquals(null, item.get(internal.getStorage()));
+		assertEquals(null, internal.getStorage().get(item));
 
 		assertFails(
 				() -> new HashItem(sv),
@@ -535,7 +535,7 @@ public class HashTest extends TestWithEnvironment
 		with3PinValidator.checkPlainText("978");
 		final SetValue<?> setValue = with3PinValidator.map("978");
 		final HashItem anItem = TYPE.newItem(setValue);
-		assertEquals("[978]", anItem.get(with3PinValidator.getStorage()));
+		assertEquals("[978]", with3PinValidator.getStorage().get(anItem));
 	}
 
 	@SuppressWarnings("SerializableInnerClassWithNonSerializableOuterClass")

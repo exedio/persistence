@@ -80,7 +80,7 @@ public class SetFieldCopyTest extends TestWithEnvironment
 		final Item relationItem = ParentInCatalog.elementsSameCatalog.getRelationType().searchSingletonStrict(
 			ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog).equal(c)
 		);
-		assertEquals(c, relationItem.get(ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog)));
+		assertEquals(c, ParentInCatalog.elementsSameCatalog.getCopyWithCopyField(ParentInCatalog.catalog).get(relationItem));
 	}
 
 	@Test void addToUnorderedItems()
