@@ -59,6 +59,7 @@ public class BlockFieldStandardModelTest
 				eins,
 				eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem),
 				eins.of(aColor), eins.of(aColor).getRGB(),
+				eins.of(aRange), eins.of(aRange).getFrom(), eins.of(aRange).getTo(), eins.of(aRange).getUnison(),
 				eins.of(aMedia), eins.of(aMedia).getBody(), eins.of(aMedia).getContentType(), eins.of(aMedia).getLastModified(), eins.of(aMedia).getUnison(),
 				eins.of(aList),
 				eins.of(aSet),
@@ -68,6 +69,7 @@ public class BlockFieldStandardModelTest
 				zwei,
 				zwei.of(aString), zwei.of(anInt), zwei.of(anEnum), zwei.of(anItem),
 				zwei.of(aColor), zwei.of(aColor).getRGB(),
+				zwei.of(aRange), zwei.of(aRange).getFrom(), zwei.of(aRange).getTo(), zwei.of(aRange).getUnison(),
 				zwei.of(aMedia), zwei.of(aMedia).getBody(), zwei.of(aMedia).getContentType(), zwei.of(aMedia).getLastModified(), zwei.of(aMedia).getUnison(),
 				zwei.of(aList),
 				zwei.of(aSet),
@@ -85,7 +87,7 @@ public class BlockFieldStandardModelTest
 		assertEquals("AnItem.eins-aString", eins.of(aString).toString());
 		assertEquals("AnItem.eins", eins.toString());
 		assertEquals(eins, eins.of(aString).getPattern());
-		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet), eins.of(anEnumMap)), eins.getSourceFeatures());
+		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aRange), eins.of(aMedia), eins.of(aList), eins.of(aSet), eins.of(anEnumMap)), eins.getSourceFeatures());
 
 		assertEquals(true,  eins.of(aString).isInitial());
 		assertEquals(false, eins.of(aString).isFinal());
@@ -94,8 +96,8 @@ public class BlockFieldStandardModelTest
 		assertEquals(ABlock.class, ABlock.TYPE.getJavaClass());
 		assertEquals(null, ABlock.TYPE.getSupertype());
 		assertEqualsUnmodifiable(list(), ABlock.TYPE.getSubtypes());
-		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet, anEnumMap), ABlock.TYPE.getDeclaredFeatures());
-		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet, anEnumMap), ABlock.TYPE.getFeatures());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aRange, aMedia, aList, aSet, anEnumMap), ABlock.TYPE.getDeclaredFeatures());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aRange, aMedia, aList, aSet, anEnumMap), ABlock.TYPE.getFeatures());
 		assertSame(anInt, ABlock.TYPE.getDeclaredFeature("anInt"));
 		assertSame(anInt, ABlock.TYPE.getFeature("anInt"));
 		assertSame(null, ABlock.TYPE.getDeclaredFeature(""));
@@ -109,8 +111,8 @@ public class BlockFieldStandardModelTest
 		assertSame(aString, eins.getTemplate(eins.of(aString)));
 		assertSame(anInt,   eins.getTemplate(eins.of(anInt)));
 
-		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aMedia, aList, aSet, anEnumMap), eins.getTemplates());
-		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aMedia), eins.of(aList), eins.of(aSet), eins.of(anEnumMap)), eins.getComponents());
+		assertEqualsUnmodifiable(list(aString, anInt, anEnum, anItem, aColor, aRange, aMedia, aList, aSet, anEnumMap), eins.getTemplates());
+		assertEqualsUnmodifiable(list(eins.of(aString), eins.of(anInt), eins.of(anEnum), eins.of(anItem), eins.of(aColor), eins.of(aRange), eins.of(aMedia), eins.of(aList), eins.of(aSet), eins.of(anEnumMap)), eins.getComponents());
 
 		assertSerializedSame(aString, 339);
 		assertSerializedSame(aColor , 338);
@@ -148,6 +150,7 @@ public class BlockFieldStandardModelTest
 		static final EnumField<AnEnum> anEnum = EnumField.create(AnEnum.class);
 		static final ItemField<AnItem> anItem = ItemField.create(AnItem.class).optional();
 		static final ColorField aColor = new ColorField();
+		static final RangeField<Integer> aRange = RangeField.create(new IntegerField().optional());
 		@Wrapper(wrap="getURL", visibility=NONE)
 		static final Media aMedia = new Media().optional().contentTypes("text/plain", "text/html");
 		static final ListField<String> aList = ListField.create(new StringField());
@@ -265,6 +268,58 @@ public class BlockFieldStandardModelTest
 					com.exedio.cope.pattern.ColorAlphaViolationException
 		{
 			field().of(ABlock.aColor).set(item(),aColor);
+		}
+
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="get")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nonnull
+		com.exedio.cope.pattern.Range<Integer> getARange()
+		{
+			return field().of(ABlock.aRange).get(item());
+		}
+
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="set")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setARange(@javax.annotation.Nonnull final com.exedio.cope.pattern.Range<? extends Integer> aRange)
+		{
+			field().of(ABlock.aRange).set(item(),aRange);
+		}
+
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getFrom")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		Integer getARangeFrom()
+		{
+			return field().of(ABlock.aRange).getFrom(item());
+		}
+
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="getTo")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		@javax.annotation.Nullable
+		Integer getARangeTo()
+		{
+			return field().of(ABlock.aRange).getTo(item());
+		}
+
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setFrom")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setARangeFrom(@javax.annotation.Nullable final Integer aRange)
+		{
+			field().of(ABlock.aRange).setFrom(item(),aRange);
+		}
+
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="setTo")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		void setARangeTo(@javax.annotation.Nullable final Integer aRange)
+		{
+			field().of(ABlock.aRange).setTo(item(),aRange);
+		}
+
+		@com.exedio.cope.instrument.Generated // customize with @Wrapper(wrap="doesContain")
+		@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
+		boolean doesARangeContain(@javax.annotation.Nonnull final Integer aRange)
+		{
+			return field().of(ABlock.aRange).doesContain(item(),aRange);
 		}
 
 		/**
@@ -718,6 +773,7 @@ public class BlockFieldStandardModelTest
 	static final EnumField<ABlock.AnEnum> anEnum = ABlock.anEnum;
 	private static final ItemField<AnItem> anItem = ABlock.anItem;
 	static final ColorField aColor = ABlock.aColor;
+	private static final RangeField<Integer> aRange = ABlock.aRange;
 	private static final Media aMedia = ABlock.aMedia;
 	private static final ListField<String> aList = ABlock.aList;
 	private static final SetField<Integer> aSet = ABlock.aSet;
