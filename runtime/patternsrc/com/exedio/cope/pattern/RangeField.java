@@ -22,6 +22,8 @@ import static java.util.Objects.requireNonNull;
 
 import com.exedio.cope.CheckConstraint;
 import com.exedio.cope.Condition;
+import com.exedio.cope.CopyMapper;
+import com.exedio.cope.Copyable;
 import com.exedio.cope.FinalViolationException;
 import com.exedio.cope.FunctionField;
 import com.exedio.cope.Item;
@@ -39,7 +41,7 @@ import java.util.Set;
 import javax.annotation.Nonnull;
 
 @WrapFeature
-public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>
+public final class RangeField<E extends Comparable<E>> extends Pattern implements Settable<Range<E>>, Copyable
 {
 	private static final long serialVersionUID = 1l;
 
@@ -48,10 +50,10 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 	private final CheckConstraint unison;
 	private final boolean isfinal;
 
-	private RangeField(final FunctionField<E> borderTemplate)
+	private RangeField(final FunctionField<E> from, final FunctionField<E> to)
 	{
-		this.from = addSourceFeature(borderTemplate.copy(), "from");
-		this.to   = addSourceFeature(borderTemplate.copy(), "to");
+		this.from = addSourceFeature(from, "from");
+		this.to   = addSourceFeature(to, "to");
 		this.unison = addSourceFeature(new CheckConstraint(from.lessOrEqual(to)), "unison");
 		this.isfinal = from.isFinal();
 	}
@@ -61,7 +63,13 @@ public final class RangeField<E extends Comparable<E>> extends Pattern implement
 		if(borderTemplate.getImplicitUniqueConstraint()!=null)
 			throw new IllegalArgumentException("unique borderTemplate is not supported");
 
-		return new RangeField<>(borderTemplate);
+		return new RangeField<>(borderTemplate.copy(), borderTemplate.copy());
+	}
+
+	@Override
+	public RangeField<E> copy(final CopyMapper mapper)
+	{
+		return new RangeField<>(mapper.copy(from), mapper.copy(to));
 	}
 
 	public FunctionField<E> getFrom()
