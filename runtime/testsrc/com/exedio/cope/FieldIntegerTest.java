@@ -38,6 +38,7 @@ public class FieldIntegerTest extends FieldTest
 		assertSerializedSame(someInteger, 380);
 
 		assertEquals(null, item.getSomeInteger());
+		assertEquals(null, item.get(someInteger));
 		assertContains(item, item2, TYPE.search(someInteger.equal((Integer)null)));
 		assertContains(item, item2, TYPE.search(someInteger.isNull()));
 		assertContains(TYPE.search(someInteger.notEqual((Integer)null)));
@@ -45,6 +46,7 @@ public class FieldIntegerTest extends FieldTest
 
 		someInteger.set(item, Integer.valueOf(14));
 		assertEquals(Integer.valueOf(14), item.getSomeInteger());
+		assertEquals(Integer.valueOf(14), item.get(someInteger));
 
 		someInteger.set(item, 12);
 		assertEquals(Integer.valueOf(12), item.getSomeInteger());
