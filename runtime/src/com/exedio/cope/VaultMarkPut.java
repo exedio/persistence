@@ -18,11 +18,25 @@
 
 package com.exedio.cope;
 
+import com.exedio.cope.vault.VaultService;
+import io.micrometer.core.instrument.Tags;
 import java.util.function.BooleanSupplier;
 
 final class VaultMarkPut implements BooleanSupplier
 {
 	volatile boolean value = false;
+
+	VaultMarkPut(
+			final Model model,
+			final String serviceKey)
+	{
+		new MetricsBuilder(VaultService.class, model).gauge(
+				model,
+				m -> m.connect().vaultMarkPut(serviceKey).value ? 1.0 : 0.0,
+				"markPut",
+				"Model#isVaultRequiredToMarkPut",
+				Tags.of("service", serviceKey));
+	}
 
 	@Override
 	public boolean getAsBoolean()

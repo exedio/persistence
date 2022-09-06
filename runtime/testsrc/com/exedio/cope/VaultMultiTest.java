@@ -23,6 +23,8 @@ import static com.exedio.cope.ConnectPropertiesTest.assertIt;
 import static com.exedio.cope.ConnectPropertiesTest.getProbeTest;
 import static com.exedio.cope.ConnectPropertiesTest.probe;
 import static com.exedio.cope.DataField.toValue;
+import static com.exedio.cope.PrometheusMeterRegistrar.meter;
+import static com.exedio.cope.PrometheusMeterRegistrar.tag;
 import static com.exedio.cope.RuntimeAssert.probes;
 import static com.exedio.cope.instrument.Visibility.DEFAULT;
 import static com.exedio.cope.instrument.Visibility.NONE;
@@ -33,6 +35,7 @@ import static com.exedio.cope.util.Hex.decodeLower;
 import static com.exedio.cope.util.Hex.encodeLower;
 import static com.exedio.cope.util.Sources.cascade;
 import static com.exedio.cope.vault.VaultPropertiesTest.unsanitize;
+import static java.lang.Double.NaN;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -41,6 +44,8 @@ import com.exedio.cope.instrument.WrapperType;
 import com.exedio.cope.tojunit.TestSources;
 import com.exedio.cope.vault.VaultService;
 import com.exedio.cope.vaultmock.VaultMockService;
+import io.micrometer.core.instrument.Gauge;
+import io.micrometer.core.instrument.Tags;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -236,12 +241,19 @@ public class VaultMultiTest
 				IllegalArgumentException.class,
 				"serviceKey zack does not exist, use one of [default, alpha, beta]");
 
+		final Gauge gaugeDefault = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "default").and(tag(MODEL)));
+		final Gauge gaugeAlpha   = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "alpha"  ).and(tag(MODEL)));
+		final Gauge gaugeBeta    = (Gauge)meter(VaultService.class, "markPut", Tags.of("service", "beta"   ).and(tag(MODEL)));
+
 		assertEquals(false, MODEL.isVaultRequiredToMarkPut("default"));
 		assertEquals(false, MODEL.isVaultRequiredToMarkPut("alpha"));
 		assertEquals(false, MODEL.isVaultRequiredToMarkPut("beta"));
 		assertEquals(false, serviceDefault.requiresToMarkPut.getAsBoolean());
 		assertEquals(false, serviceAlpha  .requiresToMarkPut.getAsBoolean());
 		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+		assertEquals(0, gaugeDefault.value());
+		assertEquals(0, gaugeAlpha  .value());
+		assertEquals(0, gaugeBeta   .value());
 
 		MODEL.setVaultRequiredToMarkPut("default", true);
 		assertEquals(true,  MODEL.isVaultRequiredToMarkPut("default"));
@@ -250,6 +262,9 @@ public class VaultMultiTest
 		assertEquals(true,  serviceDefault.requiresToMarkPut.getAsBoolean());
 		assertEquals(false, serviceAlpha  .requiresToMarkPut.getAsBoolean());
 		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+		assertEquals(1, gaugeDefault.value());
+		assertEquals(0, gaugeAlpha  .value());
+		assertEquals(0, gaugeBeta   .value());
 
 		MODEL.setVaultRequiredToMarkPut("alpha", true);
 		assertEquals(true,  MODEL.isVaultRequiredToMarkPut("default"));
@@ -258,6 +273,9 @@ public class VaultMultiTest
 		assertEquals(true,  serviceDefault.requiresToMarkPut.getAsBoolean());
 		assertEquals(true,  serviceAlpha  .requiresToMarkPut.getAsBoolean());
 		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+		assertEquals(1, gaugeDefault.value());
+		assertEquals(1, gaugeAlpha  .value());
+		assertEquals(0, gaugeBeta   .value());
 
 		MODEL.setVaultRequiredToMarkPut("default", false);
 		assertEquals(false, MODEL.isVaultRequiredToMarkPut("default"));
@@ -266,6 +284,9 @@ public class VaultMultiTest
 		assertEquals(false, serviceDefault.requiresToMarkPut.getAsBoolean());
 		assertEquals(true,  serviceAlpha  .requiresToMarkPut.getAsBoolean());
 		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+		assertEquals(0, gaugeDefault.value());
+		assertEquals(1, gaugeAlpha  .value());
+		assertEquals(0, gaugeBeta   .value());
 
 		MODEL.disconnect();
 		assertFails(
@@ -279,6 +300,9 @@ public class VaultMultiTest
 		assertEquals(false, serviceDefault.requiresToMarkPut.getAsBoolean());
 		assertEquals(true,  serviceAlpha  .requiresToMarkPut.getAsBoolean());
 		assertEquals(false, serviceBeta   .requiresToMarkPut.getAsBoolean());
+		assertEquals(NaN, gaugeDefault.value());
+		assertEquals(NaN, gaugeAlpha  .value());
+		assertEquals(NaN, gaugeBeta   .value());
 	}
 
 	@AfterEach void tearDown()

@@ -108,7 +108,7 @@ final class Connect
 			final VaultProperties props = properties.vault;
 			final Function<String, BooleanSupplier> markPut = key ->
 			{
-				final VaultMarkPut result = new VaultMarkPut();
+				final VaultMarkPut result = new VaultMarkPut(model, key);
 				if(vaultMarkPut.putIfAbsent(key, result)!=null)
 					throw new RuntimeException(key);
 				return result;
