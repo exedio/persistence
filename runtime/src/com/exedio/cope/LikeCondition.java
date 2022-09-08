@@ -52,7 +52,7 @@ public final class LikeCondition extends Condition
 	}
 
 	@Override
-	void supportsGetTri()
+	void requireSupportForGetTri()
 	{
 		throw new IllegalArgumentException("not yet implemented: " + this); // TODO
 	}

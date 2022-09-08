@@ -54,7 +54,7 @@ public final class StartsWithCondition extends Condition
 	}
 
 	@Override
-	void supportsGetTri()
+	void requireSupportForGetTri()
 	{
 		throw new IllegalArgumentException("not yet implemented: " + this); // TODO
 	}

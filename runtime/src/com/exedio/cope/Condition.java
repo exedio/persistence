@@ -35,7 +35,7 @@ public abstract class Condition implements Serializable
 		// ensures same behaviour for different implementations of getTri, avoid hiding bugs
 		requireNonNull(item, "item");
 
-		supportsGetTri();
+		requireSupportForGetTri();
 		return getTri(new FieldValues(item)).applies;
 	}
 
@@ -43,7 +43,7 @@ public abstract class Condition implements Serializable
 	 * Must throw the same {@link IllegalArgumentException} under the same circumstances as
 	 * {@link #getTri(FieldValues)}.
 	 */
-	void supportsGetTri()
+	void requireSupportForGetTri()
 	{
 		// empty default implementation means condition does always support getTri
 	}

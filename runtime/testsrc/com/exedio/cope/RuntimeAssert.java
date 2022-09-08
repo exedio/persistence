@@ -143,7 +143,7 @@ public final class RuntimeAssert
 		boolean supportsGetTri = false;
 		try
 		{
-			actual.supportsGetTri();
+			actual.requireSupportForGetTri();
 			supportsGetTri = true;
 		}
 		catch(final IllegalArgumentException e)
