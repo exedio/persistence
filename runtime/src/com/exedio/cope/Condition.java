@@ -39,6 +39,10 @@ public abstract class Condition implements Serializable
 		return getTri(new FieldValues(item)).applies;
 	}
 
+	/**
+	 * Must throw the same {@link IllegalArgumentException} under the same circumstances as
+	 * {@link #getTri(FieldValues)}.
+	 */
 	void supportsGetTri()
 	{
 		// empty default implementation means condition does always support getTri
