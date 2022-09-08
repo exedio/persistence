@@ -23,7 +23,9 @@ import static com.exedio.cope.tojunit.Assert.assertEqualsUnmodifiable;
 import static com.exedio.cope.tojunit.Assert.assertFails;
 import static java.util.Arrays.asList;
 
+import java.util.function.Consumer;
 import org.junit.jupiter.api.Test;
+import org.opentest4j.AssertionFailedError;
 
 /**
  * @see QueryGroupOrderBySetterTest
@@ -33,6 +35,57 @@ public class QueryGroupOrderBySetterSelectableTest
 	private static final Selectable<?> alpha = QueryGroupOrderBySetterItem.alpha;
 	private static final Selectable<?> beta  = QueryGroupOrderBySetterItem.beta;
 	private static final Selectable<?> gamma = QueryGroupOrderBySetterItem.gamma;
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetGroupBy()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		q.setGroupBy(alpha);
+		assertEqualsUnmodifiable(asList(alpha), q.getGroupBys());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetGroupByEmpty()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		q.setGroupBy(new Selectable<?>[]{});
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
+
+		q.setGroupBy(alpha);
+		assertEqualsUnmodifiable(asList(alpha), q.getGroupBys());
+
+		q.setGroupBy(new Selectable<?>[]{});
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetGroupByNull()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertFails(
+				() -> q.setGroupBy((Selectable<?>[])null),
+				NullPointerException.class,
+				"groupBy");
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetGroupByNullElement()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertFails(
+				() -> q.setGroupBy(new Selectable<?>[]{alpha, null}),
+				NullPointerException.class,
+				"groupBy[1]");
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
+	}
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testSetGroupByNonFunction()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertFails(
+				() -> q.setGroupBy(new Selectable<?>[]{null, nonFunction}),
+				IllegalArgumentException.class,
+				"groupBy[1] is no Function but " + nonFunction);
+		assertEqualsUnmodifiable(asList(), q.getGroupBys());
+	}
 
 	@Test void testSetOrderByAscending()
 	{
@@ -191,6 +244,63 @@ public class QueryGroupOrderBySetterSelectableTest
 				"orderBy");
 		assertEqualsUnmodifiable(asList(), q.getOrderByFunctions());
 		assertEqualsUnmodifiable(asList(), q.getOrderByAscending());
+	}
+
+	private static final Selectable<?> nonFunction = new Selectable<Object>()
+	{
+		@Override
+		public Class<Object> getValueClass()
+		{
+			throw new AssertionFailedError();
+		}
+		@Override
+		public SelectType<Object> getValueType()
+		{
+			throw new AssertionFailedError();
+		}
+		@Override
+		public Type<?> getType()
+		{
+			throw new AssertionFailedError();
+		}
+		@Override
+		public void toString(final StringBuilder bf, final Type<?> defaultType)
+		{
+			throw new AssertionFailedError();
+		}
+		@Override
+		@Deprecated
+		public void check(final TC tc, final Join join)
+		{
+			throw new AssertionFailedError();
+		}
+		@Override
+		public void acceptFieldsCovered(final Consumer<Field<?>> consumer)
+		{
+			throw new AssertionFailedError();
+		}
+		@Override
+		@Deprecated
+		public void append(final Statement bf, final Join join)
+		{
+			throw new AssertionFailedError();
+		}
+		@Override
+		@Deprecated
+		public void appendSelect(final Statement bf, final Join join)
+		{
+			throw new AssertionFailedError();
+		}
+		private static final long serialVersionUID = -1l;
+	};
+
+	@SuppressWarnings("deprecation") // OK: testing deprecated API
+	@Test void testGetterDeprecated()
+	{
+		final Query<?> q = TYPE.newQuery(null);
+		assertEqualsUnmodifiable(asList(), q.getGroupBy());
+		q.setGroupBy(alpha);
+		assertEqualsUnmodifiable(asList(alpha), q.getGroupBy());
 	}
 
 	@SuppressWarnings("unused") // OK: Model that is never connected
