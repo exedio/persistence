@@ -129,7 +129,7 @@ public abstract class HierarchySuper extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public final java.lang.String getSuperStringUpper()
 	{
-		return HierarchySuper.superStringUpper.get(this);
+		return HierarchySuper.superStringUpper.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

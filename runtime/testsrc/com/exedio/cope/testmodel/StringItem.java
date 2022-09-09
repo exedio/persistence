@@ -380,7 +380,7 @@ public final class StringItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getMin4Upper()
 	{
-		return StringItem.min4Upper.get(this);
+		return StringItem.min4Upper.getSupported(this);
 	}
 
 	/**
@@ -390,7 +390,7 @@ public final class StringItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getMax4Upper()
 	{
-		return StringItem.max4Upper.get(this);
+		return StringItem.max4Upper.getSupported(this);
 	}
 
 	/**
@@ -400,7 +400,7 @@ public final class StringItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.Integer getMin4UpperLength()
 	{
-		return StringItem.min4UpperLength.get(this);
+		return StringItem.min4UpperLength.getSupported(this);
 	}
 
 	/**
@@ -410,7 +410,7 @@ public final class StringItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.Integer getMax4UpperLength()
 	{
-		return StringItem.max4UpperLength.get(this);
+		return StringItem.max4UpperLength.getSupported(this);
 	}
 
 	/**
@@ -420,7 +420,7 @@ public final class StringItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getMin4AndMax4UpperLength()
 	{
-		return StringItem.min4AndMax4UpperLength.get(this);
+		return StringItem.min4AndMax4UpperLength.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

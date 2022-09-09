@@ -28,13 +28,14 @@ public final class CompareCondition<E> extends Condition
 	private static final long serialVersionUID = 1l;
 
 	private final CompareFunctionCondition.Operator operator;
-	private final Selectable<E> left;
+	private final Function<E> left;
 	private final E right;
 
 	/**
 	 * Creates a new CompareCondition.
-	 * Instead of using this constructor directly,
-	 * you may want to use the convenience methods.
+	 * @deprecated
+	 * Use the convenience methods instead,
+	 * any non-Function will cause this method to fail.
 	 * @see com.exedio.cope.Function#equal(Object)
 	 * @see com.exedio.cope.Function#notEqual(Object)
 	 * @see com.exedio.cope.Function#less(Object)
@@ -42,9 +43,18 @@ public final class CompareCondition<E> extends Condition
 	 * @see com.exedio.cope.Function#greater(Object)
 	 * @see com.exedio.cope.Function#greaterOrEqual(Object)
 	 */
+	@Deprecated
 	public CompareCondition(
 			final CompareFunctionCondition.Operator operator,
 			final Selectable<E> left,
+			final E right)
+	{
+		this(operator, Query.function(left, "left"), right);
+	}
+
+	CompareCondition(
+			final CompareFunctionCondition.Operator operator,
+			final Function<E> left,
 			final E right)
 	{
 		this.operator = requireNonNull(operator, "operator");
@@ -132,17 +142,15 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	void requireSupportForGetTri()
+	void requireSupportForGetTri() throws UnsupportedGetException
 	{
-		// TODO do something nicer
-		if(!(left instanceof Function))
-			throw new IllegalArgumentException("not supported for non-function: " + left);
+		left.requireSupportForGet();
 	}
 
 	@Override
-	Trilean getTri(final FieldValues item)
+	Trilean getTri(final FieldValues item) throws UnsupportedGetException
 	{
-		return operator.evaluate(((Function<E>)left).get(item), right);
+		return operator.evaluate(left.get(item), right);
 	}
 
 	@Override

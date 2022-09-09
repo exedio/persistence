@@ -108,7 +108,7 @@ public final class HierarchyFirstSub extends HierarchySuper
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getFirstSubStringUpper()
 	{
-		return HierarchyFirstSub.firstSubStringUpper.get(this);
+		return HierarchyFirstSub.firstSubStringUpper.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

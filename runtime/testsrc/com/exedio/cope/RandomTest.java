@@ -27,7 +27,6 @@ import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
 import static java.util.Arrays.asList;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
-import static org.junit.jupiter.api.Assertions.assertSame;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import java.util.ArrayList;
@@ -89,8 +88,10 @@ public class RandomTest extends TestWithEnvironment
 				"type");
 		{
 			final Condition c = TYPE.random(5).equal(6.6);
-			final CheckConstraint cc = new CheckConstraint(c); // TODO should fail
-			assertSame(c, cc.getCondition());
+			assertFails(
+					() -> new CheckConstraint(c),
+					IllegalArgumentException.class,
+					"check constraint condition contains unsupported function: " + TYPE.random(5));
 		}
 
 		// start new transaction, otherwise query cache will not work,

@@ -25,10 +25,17 @@ import java.util.Collection;
 
 public interface Function<E> extends Selectable<E>
 {
-	E get(Item item);
+	/**
+	 * Must throw the same {@link UnsupportedGetException} under the same circumstances as
+	 * {@link #get(Item)} and {@link #get(FieldValues)}.
+	 */
+	void requireSupportForGet() throws UnsupportedGetException;
 
-	default E get(final FieldValues item)
+	E get(Item item) throws UnsupportedGetException;
+
+	default E get(final FieldValues item) throws UnsupportedGetException
 	{
+		// TODO may be we should throw UnsupportedGetException if item.getBackingItem()==null
 		return get(requireNonNull(item.getBackingItem(), "backingItem"));
 	}
 

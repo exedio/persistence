@@ -147,7 +147,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusA9()
 	{
-		return PlusIntegerItem.plusA9.get(this);
+		return PlusIntegerItem.plusA9.getSupported(this);
 	}
 
 	/**
@@ -157,7 +157,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusAB()
 	{
-		return PlusIntegerItem.plusAB.get(this);
+		return PlusIntegerItem.plusAB.getSupported(this);
 	}
 
 	/**
@@ -167,7 +167,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusAC()
 	{
-		return PlusIntegerItem.plusAC.get(this);
+		return PlusIntegerItem.plusAC.getSupported(this);
 	}
 
 	/**
@@ -177,7 +177,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusBC()
 	{
-		return PlusIntegerItem.plusBC.get(this);
+		return PlusIntegerItem.plusBC.getSupported(this);
 	}
 
 	/**
@@ -187,7 +187,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusABC()
 	{
-		return PlusIntegerItem.plusABC.get(this);
+		return PlusIntegerItem.plusABC.getSupported(this);
 	}
 
 	/**
@@ -197,7 +197,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getPlusABaC()
 	{
-		return PlusIntegerItem.plusABaC.get(this);
+		return PlusIntegerItem.plusABaC.getSupported(this);
 	}
 
 	/**
@@ -207,7 +207,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getMultiplyB9()
 	{
-		return PlusIntegerItem.multiplyB9.get(this);
+		return PlusIntegerItem.multiplyB9.getSupported(this);
 	}
 
 	/**
@@ -217,7 +217,7 @@ public final class PlusIntegerItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Integer getMultiplyBC()
 	{
-		return PlusIntegerItem.multiplyBC.get(this);
+		return PlusIntegerItem.multiplyBC.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

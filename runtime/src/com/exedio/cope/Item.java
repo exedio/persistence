@@ -124,7 +124,7 @@ public abstract class Item implements Serializable, Comparable<Item>
 
 	/**
 	 * Defines an order consistent to the query result order when using
-	 * {@link Query#setOrderBy(Selectable, boolean) Query.setOrderBy}
+	 * {@link Query#setOrderBy(Function, boolean) Query.setOrderBy}
 	 * methods with any {@link ItemFunction}.
 	 */
 	@Override
@@ -268,9 +268,14 @@ public abstract class Item implements Serializable, Comparable<Item>
 		assert PK.isValid(pk) : pk;
 	}
 
-	public final <E> E get(final Function<E> function)
+	public final <E> E get(final Function<E> function) throws UnsupportedGetException
 	{
 		return function.get(this);
+	}
+
+	public final <E> E get(final FunctionField<E> field)
+	{
+		return field.get(this);
 	}
 
 	/**

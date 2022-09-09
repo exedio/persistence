@@ -138,7 +138,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusA9()
 	{
-		return PlusLongItem.plusA9.get(this);
+		return PlusLongItem.plusA9.getSupported(this);
 	}
 
 	/**
@@ -148,7 +148,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusAB()
 	{
-		return PlusLongItem.plusAB.get(this);
+		return PlusLongItem.plusAB.getSupported(this);
 	}
 
 	/**
@@ -158,7 +158,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusAC()
 	{
-		return PlusLongItem.plusAC.get(this);
+		return PlusLongItem.plusAC.getSupported(this);
 	}
 
 	/**
@@ -168,7 +168,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusBC()
 	{
-		return PlusLongItem.plusBC.get(this);
+		return PlusLongItem.plusBC.getSupported(this);
 	}
 
 	/**
@@ -178,7 +178,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusABC()
 	{
-		return PlusLongItem.plusABC.get(this);
+		return PlusLongItem.plusABC.getSupported(this);
 	}
 
 	/**
@@ -188,7 +188,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getPlusABaC()
 	{
-		return PlusLongItem.plusABaC.get(this);
+		return PlusLongItem.plusABaC.getSupported(this);
 	}
 
 	/**
@@ -198,7 +198,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getMultiplyB9()
 	{
-		return PlusLongItem.multiplyB9.get(this);
+		return PlusLongItem.multiplyB9.getSupported(this);
 	}
 
 	/**
@@ -208,7 +208,7 @@ public final class PlusLongItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public Long getMultiplyBC()
 	{
-		return PlusLongItem.multiplyBC.get(this);
+		return PlusLongItem.multiplyBC.getSupported(this);
 	}
 
 	@com.exedio.cope.instrument.Generated

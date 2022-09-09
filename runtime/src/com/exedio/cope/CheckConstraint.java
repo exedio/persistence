@@ -36,7 +36,15 @@ public final class CheckConstraint extends Feature implements Copyable
 
 		if(condition instanceof Condition.Literal)
 			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition);
-		condition.requireSupportForGetTri();
+		try
+		{
+			condition.requireSupportForGetTri();
+		}
+		catch(final UnsupportedGetException e)
+		{
+			throw new IllegalArgumentException(
+					"check constraint condition contains unsupported function: " + e.function);
+		}
 	}
 
 	@Override
@@ -52,8 +60,16 @@ public final class CheckConstraint extends Feature implements Copyable
 
 	void check(final FieldValues item)
 	{
-		if(condition.getTri(item)==Trilean.False)
-			throw new CheckViolationException(item, this);
+		try
+		{
+			if(condition.getTri(item)==Trilean.False)
+				throw new CheckViolationException(item, this);
+		}
+		catch(final UnsupportedGetException e)
+		{
+			throw new RuntimeException(
+					"should not happen, as condition has been tested for support in constructor", e);
+		}
 	}
 
 	public void check(final Map<FunctionField<?>, Object> values)

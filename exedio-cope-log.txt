@@ -7,6 +7,8 @@ omit bug fixes.
 The items are sorted inversely, i.e. latest items are on top
 
 --------------------------------------------------------------------------
+* Aggregate becomes Function, Function#get becomes optional operation.
+	This breaks backwards API compatibility, causes compiler errors.
 * Vault Trails introduced.
 	Does not affect you, if vaults are not enabled in your project.
 	Otherwise, affects database schema, adds a new table for each vault service.

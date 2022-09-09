@@ -146,7 +146,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertEquals(null, item.getOptional());
 	}
 
-	@Test void testDayPartViews()
+	@Test void testDayPartViews() throws UnsupportedGetException
 	{
 		final DayPartView dayDpv = mandatory.dayOfMonth();
 		final DayPartView monthDpv = mandatory.month();
@@ -239,7 +239,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertContains(item, TYPE.search(optionalWeekDpv.isNotNull()));
 	}
 
-	@Test void testDayPartViewsWeekAroundNewYear()
+	@Test void testDayPartViewsWeekAroundNewYear() throws UnsupportedGetException
 	{
 		// The first week of the year always contains 4 January.
 		// https://en.wikipedia.org/wiki/ISO_week_date
@@ -300,7 +300,7 @@ public class DayFieldTest extends TestWithEnvironment
 		assertWeek(new Day(2006,  1,  4),  1); // Wednesday
 	}
 
-	private void assertWeek(final Day value, final int week)
+	private void assertWeek(final Day value, final int week) throws UnsupportedGetException
 	{
 		final DayPartView view = mandatory.weekOfYear();
 		item.setMandatory(value);

@@ -223,7 +223,7 @@ public final class AttributeItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.String getSomeStringUpperCase()
 	{
-		return AttributeItem.someStringUpperCase.get(this);
+		return AttributeItem.someStringUpperCase.getSupported(this);
 	}
 
 	/**
@@ -233,7 +233,7 @@ public final class AttributeItem extends Item
 	@java.lang.SuppressWarnings({"RedundantSuppression","TypeParameterExtendsFinalClass","UnnecessarilyQualifiedStaticUsage"})
 	public java.lang.Integer getSomeStringLength()
 	{
-		return AttributeItem.someStringLength.get(this);
+		return AttributeItem.someStringLength.getSupported(this);
 	}
 
 	/**

@@ -58,7 +58,7 @@ public class StringTest extends TestWithEnvironment
 		numberOfItems = 2;
 	}
 
-	@Test void testStrings()
+	@Test void testStrings() throws UnsupportedGetException
 	{
 		// test check method
 		try
@@ -478,6 +478,7 @@ public class StringTest extends TestWithEnvironment
 	}
 
 	void assertString(final Item item, final Item item2, final StringField sa)
+			throws UnsupportedGetException
 	{
 		final Type<?> type = item.getCopeType();
 		assertEquals(type, item2.getCopeType());
@@ -629,6 +630,7 @@ public class StringTest extends TestWithEnvironment
 	}
 
 	private void assertStringSet(final Item item, final StringField sa, final String value)
+			throws UnsupportedGetException
 	{
 		//if(value.length()<=100) System.out.println("---------"+value+"------------");
 

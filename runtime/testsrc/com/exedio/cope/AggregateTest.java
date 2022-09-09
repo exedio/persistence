@@ -20,6 +20,7 @@ package com.exedio.cope;
 
 import static com.exedio.cope.RuntimeTester.assertFieldsCovered;
 import static com.exedio.cope.instrument.Visibility.NONE;
+import static com.exedio.cope.tojunit.Assert.assertFails;
 import static com.exedio.cope.tojunit.Assert.reserialize;
 import static com.exedio.cope.tojunit.EqualsAssert.assertEqualsAndHash;
 import static com.exedio.cope.tojunit.EqualsAssert.assertNotEqualsAndHash;
@@ -52,6 +53,11 @@ class AggregateTest
 				MyItem.field.any(),
 				new IntegerField().min());
 
+		assertFails(
+				() -> a.get((Item)null),
+				UnsupportedGetException.class,
+				"min(MyItem.field)");
+
 		final ExtremumAggregate<Integer> as = reserialize(a, 740);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("min", as.getName());
@@ -73,6 +79,11 @@ class AggregateTest
 		assertFieldsCovered(asList(MyItem.field), a);
 		assertEquals("max(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.max());
+
+		assertFails(
+				() -> a.get((Item)null),
+				UnsupportedGetException.class,
+				"max(MyItem.field)");
 
 		final ExtremumAggregate<Integer> as = reserialize(a, 740);
 		assertSame(MyItem.field, as.getSource());
@@ -96,6 +107,11 @@ class AggregateTest
 		assertEquals("sum(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.sum());
 
+		assertFails(
+				() -> a.get((Item)null),
+				UnsupportedGetException.class,
+				"sum(MyItem.field)");
+
 		final SumAggregate<Integer> as = reserialize(a, 724);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("sum", as.getName());
@@ -118,6 +134,11 @@ class AggregateTest
 		assertEquals("avg(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.average());
 
+		assertFails(
+				() -> a.get((Item)null),
+				UnsupportedGetException.class,
+				"avg(MyItem.field)");
+
 		final AverageAggregate as = reserialize(a, 727);
 		assertSame(MyItem.field, as.getSource());
 		assertEquals("avg", as.getName());
@@ -139,6 +160,11 @@ class AggregateTest
 		assertFieldsCovered(asList(MyItem.field), a);
 		assertEquals("any(MyItem.field)", a.toString());
 		assertEqualsAndHash(a, MyItem.field.any());
+
+		assertFails(
+				() -> a.get((Item)null),
+				UnsupportedGetException.class,
+				"any(MyItem.field)");
 
 		final Aggregate<Integer> as = reserialize(a, 730);
 		assertSame(MyItem.field, as.getSource());
