@@ -83,10 +83,10 @@ public final class CompositeCondition extends Condition
 	}
 
 	@Override
-	void supportsGetTri()
+	void requireSupportForGetTri()
 	{
 		for(final Condition condition : conditions)
-			condition.supportsGetTri();
+			condition.requireSupportForGetTri();
 	}
 
 	@Override

@@ -53,9 +53,9 @@ public final class NotCondition extends Condition
 	}
 
 	@Override
-	void supportsGetTri()
+	void requireSupportForGetTri()
 	{
-		argument.supportsGetTri();
+		argument.requireSupportForGetTri();
 	}
 
 	@Override

@@ -59,7 +59,7 @@ public final class IsNullCondition<E> extends Condition
 	}
 
 	@Override
-	void supportsGetTri()
+	void requireSupportForGetTri()
 	{
 		// TODO do something nicer
 		if(!(function instanceof Function))
@@ -69,7 +69,7 @@ public final class IsNullCondition<E> extends Condition
 	@Override
 	Trilean getTri(final FieldValues item)
 	{
-		supportsGetTri();
+		requireSupportForGetTri();
 		return Trilean.valueOf( (((Function<E>)function).get(item)==null) ^ not );
 	}
 

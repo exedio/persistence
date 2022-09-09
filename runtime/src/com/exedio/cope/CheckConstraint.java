@@ -36,7 +36,7 @@ public final class CheckConstraint extends Feature implements Copyable
 
 		if(condition instanceof Condition.Literal)
 			throw new IllegalArgumentException("literal condition makes no sense, but was Condition." + condition);
-		condition.supportsGetTri();
+		condition.requireSupportForGetTri();
 	}
 
 	@Override

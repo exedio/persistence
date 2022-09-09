@@ -132,7 +132,7 @@ public final class CompareCondition<E> extends Condition
 	}
 
 	@Override
-	void supportsGetTri()
+	void requireSupportForGetTri()
 	{
 		// TODO do something nicer
 		if(!(left instanceof Function))
