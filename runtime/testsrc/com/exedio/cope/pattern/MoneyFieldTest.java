@@ -98,8 +98,8 @@ public class MoneyFieldTest extends TestWithEnvironment
 		assertEquals(null, sharMan.getUnison());
 		assertEquals(null, exclMan.getUnison());
 		assertEquals("(" +
-				"(MoneyFieldItem.exclOpt-amount-int is "+ "null AND MoneyFieldItem.exclOpt-currency "+ "is null) OR " +
-				"(MoneyFieldItem.exclOpt-amount-int is not null AND MoneyFieldItem.exclOpt-currency is not null))",
+				"(MoneyFieldItem.exclOpt-amount-int is "+ "null and MoneyFieldItem.exclOpt-currency "+ "is null) or " +
+				"(MoneyFieldItem.exclOpt-amount-int is not null and MoneyFieldItem.exclOpt-currency is not null))",
 				exclOpt.getUnison().getCondition().toString());
 
 		assertEquals("com.exedio.cope.pattern.Money<" + CurrFix .class.getName() + ">", fixeOpt.getInitialType().toString());

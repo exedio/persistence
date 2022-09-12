@@ -71,7 +71,7 @@ public class PartOfTest extends TestWithEnvironment
 		{
 			final String expected =
 					"select this from PartOfItem " +
-					"where (container='" + container + "' AND partString='part1') " +
+					"where (container='" + container + "' and partString='part1') " +
 					"order by this";
 			assertEquals(expected, PartOfItem.unordered.getPartsQuery(PartOfItem.class, container, part1Condition).toString());
 			assertEquals(expected, PartOfItem.unordered.getPartsQuery(                  container, part1Condition).toString());
@@ -116,7 +116,7 @@ public class PartOfTest extends TestWithEnvironment
 		{
 			final String expected =
 					"select this from PartOfItem " +
-					"where (container='" + container + "' AND partString='part1') " +
+					"where (container='" + container + "' and partString='part1') " +
 					"order by order, this";
 			assertEquals(expected, PartOfItem.ordered.getPartsQuery(PartOfItem.class, container, part1Condition).toString());
 			assertEquals(expected, PartOfItem.ordered.getPartsQuery(                  container, part1Condition).toString());

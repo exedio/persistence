@@ -68,8 +68,8 @@ public class PriceFieldConditionsStringTest
 		assertEquals("p1."+s+">='222'", b.greaterOrEqual(v2).toString());
 		assertEquals(      s+">'222'" , f.greater       (v2).toString());
 		assertEquals("p1."+s+">'222'" , b.greater       (v2).toString());
-		assertEquals("("   +s+">='222' AND "   +s+"<='333')", f.between(v2, v3).toString());
-		assertEquals("(p1."+s+">='222' AND p1."+s+"<='333')", b.between(v2, v3).toString());
+		assertEquals("("   +s+">='222' and "   +s+"<='333')", f.between(v2, v3).toString());
+		assertEquals("(p1."+s+">='222' and p1."+s+"<='333')", b.between(v2, v3).toString());
 	}
 
 	@Test void testJoinNull()

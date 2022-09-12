@@ -114,41 +114,41 @@ public class FeatureFieldModelTest
 
 		assertEquals(
 				"(" +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.this' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer1' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer2' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer3' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string1' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string2' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string3' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.standard' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.standard-id' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.isFinal' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.isFinal-id' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.optional' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.optional-id' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-id' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-idImplicitUnique' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.length' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.length-id' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed-id' AND " +
-					"FeatureFieldItem.standard-id<>'FeatureFieldItem.restricted' AND " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.this' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer1' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer2' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.integer3' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string1' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string2' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.string3' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.standard' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.standard-id' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.isFinal' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.isFinal-id' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.optional' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.optional-id' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-id' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.unique-idImplicitUnique' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.length' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.length-id' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.renamed-id' and " +
+					"FeatureFieldItem.standard-id<>'FeatureFieldItem.restricted' and " +
 					"FeatureFieldItem.standard-id<>'FeatureFieldItem.restricted-id'" +
 				")",
 			standard.isInvalid().toString());
 		assertEquals(
 				"(" +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string1' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string2' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string3' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.standard-id' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.isFinal-id' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.optional-id' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.unique-id' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.length-id' AND " +
-					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.renamed-id' AND " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string1' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string2' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.string3' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.standard-id' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.isFinal-id' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.optional-id' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.unique-id' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.length-id' and " +
+					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.renamed-id' and " +
 					"FeatureFieldItem.restricted-id<>'FeatureFieldItem.restricted-id'" +
 				")",
 			restricted.isInvalid().toString());

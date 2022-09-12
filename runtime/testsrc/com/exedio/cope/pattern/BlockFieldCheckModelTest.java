@@ -84,7 +84,7 @@ public class BlockFieldCheckModelTest
 		assertEquals(zwei.of(alpha)+">="+zwei.of(beta), zwei.of(greater).getCondition().toString());
 
 		assertEquals(eins.of(alpha)+"<'200'", eins.of(compare).getCondition().toString());
-		assertEquals("("+eins.of(alpha)+"<'300' AND "+eins.of(beta)+"<'500')" , eins.of(composite).getCondition().toString());
+		assertEquals("("+eins.of(alpha)+"<'300' and "+eins.of(beta)+"<'500')" , eins.of(composite).getCondition().toString());
 		assertEquals(eins.of(alpha)+" is not null" , eins.of(isnull).getCondition().toString());
 		assertEquals("!("+eins.of(alpha)+">'600')" , eins.of(not).getCondition().toString());
 

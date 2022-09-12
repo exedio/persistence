@@ -168,9 +168,7 @@ public final class CompositeCondition extends Condition
 		conditions[0].toString(bf, key, defaultType);
 		for(int i = 1; i<conditions.length; i++)
 		{
-			bf.append(' ').
-				append(operator).
-				append(' ');
+			bf.append(operator.forToString);
 			conditions[i].toString(bf, key, defaultType);
 		}
 		bf.append(')');
@@ -217,18 +215,21 @@ public final class CompositeCondition extends Condition
 
 	public enum Operator
 	{
-		AND(" AND ", FALSE, TRUE),
-		OR (" OR ",  TRUE, FALSE);
+		AND(" and ", " AND ", FALSE, TRUE),
+		OR (" or ",  " OR ",  TRUE, FALSE);
 
+		final String forToString;
 		final String sql;
 		final Literal absorber;
 		final Literal identity;
 
 		Operator(
+				final String forToString,
 				final String sql,
 				final Literal absorber,
 				final Literal identity)
 		{
+			this.forToString = forToString;
 			this.sql = sql;
 			this.absorber = absorber;
 			this.identity = identity;

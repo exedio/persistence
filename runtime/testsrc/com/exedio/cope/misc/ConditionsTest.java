@@ -40,8 +40,8 @@ public class ConditionsTest
 	@Test void testEqual()
 	{
 		assertEquals(
-				"((AnItem.name1='alpha' AND AnItem.name1='beta') OR" +
-				" (!(AnItem.name1='alpha') AND !(AnItem.name1='beta')))",
+				"((AnItem.name1='alpha' and AnItem.name1='beta') or" +
+				" (!(AnItem.name1='alpha') and !(AnItem.name1='beta')))",
 				equal(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
@@ -71,7 +71,7 @@ public class ConditionsTest
 	@Test void testImplies()
 	{
 		assertEquals(
-				"(!(AnItem.name1='alpha') OR AnItem.name1='beta')",
+				"(!(AnItem.name1='alpha') or AnItem.name1='beta')",
 				implies(name1.equal("alpha"), name1.equal("beta")).toString());
 	}
 
@@ -103,12 +103,12 @@ public class ConditionsTest
 		assertEquals("TRUE", unisonNull(Collections.emptyList()).toString());
 		assertEquals("TRUE", unisonNull(asList(name1)).toString());
 		assertEquals("(" +
-			"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null) OR " +
-			"(AnItem.name1 is not null AND AnItem.name2 is not null))",
+			"(AnItem.name1 is "+ "null and AnItem.name2 is "+ "null) or " +
+			"(AnItem.name1 is not null and AnItem.name2 is not null))",
 			unisonNull(asList(name1, name2)).toString());
 		assertEquals("(" +
-			"(AnItem.name1 is "+ "null AND AnItem.name2 is "+ "null AND AnItem.name3 is "+ "null) OR " +
-			"(AnItem.name1 is not null AND AnItem.name2 is not null AND AnItem.name3 is not null))",
+			"(AnItem.name1 is "+ "null and AnItem.name2 is "+ "null and AnItem.name3 is "+ "null) or " +
+			"(AnItem.name1 is not null and AnItem.name2 is not null and AnItem.name3 is not null))",
 			unisonNull(asList(name1, name2, name3)).toString());
 	}
 

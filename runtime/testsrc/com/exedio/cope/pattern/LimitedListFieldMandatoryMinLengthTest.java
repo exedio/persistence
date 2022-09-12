@@ -60,8 +60,8 @@ public class LimitedListFieldMandatoryMinLengthTest extends TestWithEnvironment
 		assertEquals(false, sources.get(3).isMandatory());
 		assertEquals(
 				"(" +
-				"((AnItem.field-Len>'2' AND AnItem.field-2 is not null) OR (AnItem.field-Len<='2' AND AnItem.field-2 is null)) AND " +
-				"((AnItem.field-Len>'3' AND AnItem.field-3 is not null) OR (AnItem.field-Len<='3' AND AnItem.field-3 is null)))",
+				"((AnItem.field-Len>'2' and AnItem.field-2 is not null) or (AnItem.field-Len<='2' and AnItem.field-2 is null)) and " +
+				"((AnItem.field-Len>'3' and AnItem.field-3 is not null) or (AnItem.field-Len<='3' and AnItem.field-3 is null)))",
 				field.getUnison().getCondition().toString());
 		assertEquals(2, field.getMinimumSize());
 		assertEquals(4, field.getMaximumSize());

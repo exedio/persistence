@@ -67,7 +67,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 	@Test void testEqualConditionNull()
 	{
 		assertEquals(
-				"(MultiItemFieldItem.field-MultiItemFieldComponentxA is null AND" +
+				"(MultiItemFieldItem.field-MultiItemFieldComponentxA is null and" +
 				" MultiItemFieldItem.field-MultiItemFieldComponentxB is null)",
 				MultiItemFieldItem.field.equal(null).toString());
 	}
@@ -196,7 +196,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(
 				"(" +
 				"MultiItemFieldItem.field-MultiItemFieldComponentxA is null" +
-				" AND " +
+				" and " +
 				"MultiItemFieldItem.field-MultiItemFieldComponentxB is null" +
 				")",
 				MultiItemFieldItem.field.isNull().toString());
@@ -207,7 +207,7 @@ public class MultiItemFieldTest extends TestWithEnvironment
 		assertEquals(
 				"(" +
 				"MultiItemFieldItem.field-MultiItemFieldComponentxA is not null" +
-				" OR " +
+				" or " +
 				"MultiItemFieldItem.field-MultiItemFieldComponentxB is not null" +
 				")",
 				MultiItemFieldItem.field.isNotNull().toString());

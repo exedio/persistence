@@ -138,7 +138,7 @@ public class DispatcherConfigTest
 		assertEquals(66, config2.getSearchSize());
 		assertEquals(100, config2.getSessionLimit());
 		assertEquals(condition1.and(condition2), config2.getNarrowCondition());
-		assertEquals("("+f+"='1' AND "+f+"='2')", config2.getNarrowCondition().toString());
+		assertEquals("("+f+"='1' and "+f+"='2')", config2.getNarrowCondition().toString());
 	}
 	@Test void testNarrowReset()
 	{

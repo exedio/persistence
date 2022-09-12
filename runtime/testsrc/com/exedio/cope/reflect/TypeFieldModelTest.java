@@ -98,7 +98,7 @@ public class TypeFieldModelTest
 
 		assertEquals(
 				"(" +
-					"TypeFieldItem.standard-id<>'TypeFieldItem' AND " +
+					"TypeFieldItem.standard-id<>'TypeFieldItem' and " +
 					"TypeFieldItem.standard-id<>'TypeFieldSubItem'" +
 				")",
 			standard.isInvalid().toString());

@@ -135,7 +135,7 @@ public class TypeIteratorTest extends TestWithEnvironment
 			assertEquals(asList(item0, item1, item2), l(iterateType(TYPE, intx.less(3), 3)));
 			assertEquals(list(
 					pre + "where intx<'3'" + post,
-					pre + "where (intx<'3' AND this>'" + item2 + "')" + post),
+					pre + "where (intx<'3' and this>'" + item2 + "')" + post),
 				toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
@@ -143,7 +143,7 @@ public class TypeIteratorTest extends TestWithEnvironment
 			assertEquals(asList(item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(3), 3)));
 			assertEquals(list(
 					pre + "where intx<'3'" + postDesc,
-					pre + "where (intx<'3' AND this<'" + item0 + "')" + postDesc),
+					pre + "where (intx<'3' and this<'" + item0 + "')" + postDesc),
 					toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
@@ -151,7 +151,7 @@ public class TypeIteratorTest extends TestWithEnvironment
 			assertEquals(asList(item0, item1, item2, item3), l(iterateType(TYPE, intx.less(4), 3)));
 			assertEquals(list(
 					pre + "where intx<'4'" + post,
-					pre + "where (intx<'4' AND this>'" + item2 + "')" + post),
+					pre + "where (intx<'4' and this>'" + item2 + "')" + post),
 				toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 
@@ -159,7 +159,7 @@ public class TypeIteratorTest extends TestWithEnvironment
 			assertEquals(asList(item3, item2, item1, item0), l(iterateTypeDescending(TYPE, intx.less(4), 3)));
 			assertEquals(list(
 					pre + "where intx<'4'" + postDesc,
-					pre + "where (intx<'4' AND this<'" + item1 + "')" + postDesc),
+					pre + "where (intx<'4' and this<'" + item1 + "')" + postDesc),
 					toString(tx.getQueryInfos()));
 			tx.setQueryInfoEnabled(false);
 		}

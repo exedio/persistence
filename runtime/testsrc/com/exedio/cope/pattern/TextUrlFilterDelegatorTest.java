@@ -95,7 +95,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
 	}
@@ -111,7 +111,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
 	}
@@ -139,7 +139,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 	}
 
@@ -152,7 +152,7 @@ public class TextUrlFilterDelegatorTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterDelegatorItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 	}
 

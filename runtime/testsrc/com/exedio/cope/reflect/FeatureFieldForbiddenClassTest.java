@@ -57,9 +57,9 @@ public class FeatureFieldForbiddenClassTest extends TestWithEnvironment
 				MyItem.field.getValues());
 		assertEquals(
 				"(" +
-				"MyItem.field-id<>'MyItem.this' AND " +
-				"MyItem.field-id<>'MyItem.field-id' AND " +
-				"MyItem.field-id<>'MyItem.booleanF' AND " +
+				"MyItem.field-id<>'MyItem.this' and " +
+				"MyItem.field-id<>'MyItem.field-id' and " +
+				"MyItem.field-id<>'MyItem.booleanF' and " +
 				"MyItem.field-id<>'MyItem.priceF-int')",
 				MyItem.field.isInvalid().toString());
 

@@ -96,12 +96,12 @@ public class BlockFieldMediaUnisonTest extends TestWithEnvironment
 		assertEqualsUnmodifiable(list(uno, duo, chk), eins.getTemplates());
 
 		assertEquals("(" +
-				"(AnItem.eins-uno-lastModified is "+ "null AND AnItem.eins-duo-lastModified is "+ "null) OR " +
-				"(AnItem.eins-uno-lastModified is not null AND AnItem.eins-duo-lastModified is not null))",
+				"(AnItem.eins-uno-lastModified is "+ "null and AnItem.eins-duo-lastModified is "+ "null) or " +
+				"(AnItem.eins-uno-lastModified is not null and AnItem.eins-duo-lastModified is not null))",
 				eins.of(chk).getCondition().toString());
 		assertEquals("(" +
-				"(AnItem.zwei-uno-lastModified is "+ "null AND AnItem.zwei-duo-lastModified is "+ "null) OR " +
-				"(AnItem.zwei-uno-lastModified is not null AND AnItem.zwei-duo-lastModified is not null))",
+				"(AnItem.zwei-uno-lastModified is "+ "null and AnItem.zwei-duo-lastModified is "+ "null) or " +
+				"(AnItem.zwei-uno-lastModified is not null and AnItem.zwei-duo-lastModified is not null))",
 				zwei.of(chk).getCondition().toString());
 
 		// test persistence
