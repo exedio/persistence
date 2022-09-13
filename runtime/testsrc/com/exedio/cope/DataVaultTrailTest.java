@@ -323,11 +323,17 @@ public class DataVaultTrailTest extends TestWithEnvironment
 		assertEquals(hash,    rs.getString(column++), "hash");
 		assertEquals(length,  rs.getInt   (column++), "length");
 		assertEquals(start,   encodeLower(rs.getBytes(column++)), "start");
-		assertEquals(markPut, rs.getObject(column++), "markPut");
+		assertEquals(markPut, integer(rs,  column++), "markPut");
 		assertNotNull(        rs.getDate  (column++), "date");
 		assertEquals(field,   rs.getString(column++), "field");
 		//noinspection UnusedAssignment OK: bug in idea
 		assertEquals(ORIGIN,  rs.getString(column++), "origin");
+	}
+
+	private static Integer integer(final ResultSet rs, final int columnIndex) throws SQLException
+	{
+		final int result = rs.getInt(columnIndex);
+		return rs.wasNull() ? null : result;
 	}
 
 	private void updateTrail(final String sql) throws SQLException
