@@ -81,4 +81,9 @@ public class ProxyResultSet extends AssertionErrorResultSet
 	{
 		return origin.getObject(columnIndex);
 	}
+	@Override
+	public boolean wasNull() throws SQLException
+	{
+		return origin.wasNull();
+	}
 }
