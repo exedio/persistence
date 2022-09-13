@@ -190,9 +190,9 @@ public class LimitedListFieldModelTest
 
 		assertEquals(
 			"select this from LimitedListFieldItem where (" +
-				"(nums-Len>'0' OR num1 is null) AND " +
-				"(nums-Len>'1' OR num2 is null) AND " +
-				"(nums-Len>'2' OR num3 is null)" +
+				"(nums-Len>'0' or num1 is null) and " +
+				"(nums-Len>'1' or num2 is null) and " +
+				"(nums-Len>'2' or num3 is null)" +
 			")",
 			TYPE.newQuery(nums.getUnison().getCondition()).toString());
 
@@ -272,8 +272,8 @@ public class LimitedListFieldModelTest
 		assertEquals(null, sources.get(1).getDefaultConstant());
 		assertEquals(
 				"(" +
-				"(("+length+">'0' AND "+sources.get(0)+" is not null) OR ("+length+"<='0' AND "+sources.get(0)+" is null)) AND " +
-				"(("+length+">'1' AND "+sources.get(1)+" is not null) OR ("+length+"<='1' AND "+sources.get(1)+" is null)))",
+				"(("+length+">'0' and "+sources.get(0)+" is not null) or ("+length+"<='0' and "+sources.get(0)+" is null)) and " +
+				"(("+length+">'1' and "+sources.get(1)+" is not null) or ("+length+"<='1' and "+sources.get(1)+" is null)))",
 				f.getUnison().getCondition().toString());
 		assertEquals(0, f.getMinimumSize());
 		assertEquals(2, f.getMaximumSize());
@@ -315,17 +315,17 @@ public class LimitedListFieldModelTest
 	{
 		final List<FunctionField<String>> s = strings.getListSources();
 		assertEquals("(" +
-				s.get(0) + "='hallo' OR " +
-				s.get(1) + "='hallo' OR " +
-				s.get(2) + "='hallo' OR " +
+				s.get(0) + "='hallo' or " +
+				s.get(1) + "='hallo' or " +
+				s.get(2) + "='hallo' or " +
 				s.get(3) + "='hallo')",
 				strings.contains("hallo").toString());
 		final IntegerField l = strings.getLengthIfExists();
 		assertEquals("(" +
-				"("+s.get(0) + " is null AND "+l+">'0') OR " +
-				"("+s.get(1) + " is null AND "+l+">'1') OR " +
-				"("+s.get(2) + " is null AND "+l+">'2') OR " +
-				"("+s.get(3) + " is null AND "+l+">'3'))",
+				"("+s.get(0) + " is null and "+l+">'0') or " +
+				"("+s.get(1) + " is null and "+l+">'1') or " +
+				"("+s.get(2) + " is null and "+l+">'2') or " +
+				"("+s.get(3) + " is null and "+l+">'3'))",
 				strings.contains((String)null).toString());
 	}
 }

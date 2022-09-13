@@ -109,16 +109,16 @@ public class EnumMapFieldModelTest
 	{
 		assertEquals(
 				"(" +
-				"EnumMapFieldItem.name-DE is null AND " +
-				"EnumMapFieldItem.name-EN is null AND " +
-				"EnumMapFieldItem.name-PL is null AND " +
+				"EnumMapFieldItem.name-DE is null and " +
+				"EnumMapFieldItem.name-EN is null and " +
+				"EnumMapFieldItem.name-PL is null and " +
 				"EnumMapFieldItem.name-SUBCLASS is null)",
 				name.isEmpty().toString());
 		assertEquals(
 				"(" +
-				"EnumMapFieldItem.name-DE is not null OR " +
-				"EnumMapFieldItem.name-EN is not null OR " +
-				"EnumMapFieldItem.name-PL is not null OR " +
+				"EnumMapFieldItem.name-DE is not null or " +
+				"EnumMapFieldItem.name-EN is not null or " +
+				"EnumMapFieldItem.name-PL is not null or " +
 				"EnumMapFieldItem.name-SUBCLASS is not null)",
 				name.isNotEmpty().toString());
 	}

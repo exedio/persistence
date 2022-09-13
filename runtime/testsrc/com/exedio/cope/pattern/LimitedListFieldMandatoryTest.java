@@ -58,9 +58,9 @@ public class LimitedListFieldMandatoryTest extends TestWithEnvironment
 		assertEquals(false, sources.get(2).isMandatory());
 		assertEquals(
 				"(" +
-				"((AnItem.field-Len>'0' AND AnItem.field-0 is not null) OR (AnItem.field-Len<='0' AND AnItem.field-0 is null)) AND " +
-				"((AnItem.field-Len>'1' AND AnItem.field-1 is not null) OR (AnItem.field-Len<='1' AND AnItem.field-1 is null)) AND " +
-				"((AnItem.field-Len>'2' AND AnItem.field-2 is not null) OR (AnItem.field-Len<='2' AND AnItem.field-2 is null)))",
+				"((AnItem.field-Len>'0' and AnItem.field-0 is not null) or (AnItem.field-Len<='0' and AnItem.field-0 is null)) and " +
+				"((AnItem.field-Len>'1' and AnItem.field-1 is not null) or (AnItem.field-Len<='1' and AnItem.field-1 is null)) and " +
+				"((AnItem.field-Len>'2' and AnItem.field-2 is not null) or (AnItem.field-Len<='2' and AnItem.field-2 is null)))",
 				field.getUnison().getCondition().toString());
 		assertEquals(0, field.getMinimumSize());
 		assertEquals(3, field.getMaximumSize());

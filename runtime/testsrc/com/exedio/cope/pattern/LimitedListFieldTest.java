@@ -303,15 +303,15 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
-		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
+		assertEquals("("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a')",
 			strings.contains(j, "a").toString());
 
 		final String l = "l1.LimitedListFieldItem.strings-Len";
 		assertEquals("(" +
-				"("+f+"0 is null AND "+l+">'0') OR " +
-				"("+f+"1 is null AND "+l+">'1') OR " +
-				"("+f+"2 is null AND "+l+">'2') OR " +
-				"("+f+"3 is null AND "+l+">'3'))",
+				"("+f+"0 is null and "+l+">'0') or " +
+				"("+f+"1 is null and "+l+">'1') or " +
+				"("+f+"2 is null and "+l+">'2') or " +
+				"("+f+"3 is null and "+l+">'3'))",
 			strings.contains(j, (String)null).toString());
 	}
 
@@ -322,7 +322,7 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		q.join(ItemWithSimpleFields.TYPE);
 
 		final String f = "l1.LimitedListFieldItem.strings-";
-		assertEquals("("+f+"0=ItemWithSimpleFields.string OR "+f+"1=ItemWithSimpleFields.string OR "+f+"2=ItemWithSimpleFields.string OR "+f+"3=ItemWithSimpleFields.string)",
+		assertEquals("("+f+"0=ItemWithSimpleFields.string or "+f+"1=ItemWithSimpleFields.string or "+f+"2=ItemWithSimpleFields.string or "+f+"3=ItemWithSimpleFields.string)",
 				strings.contains(j, ItemWithSimpleFields.string).toString());
 	}
 
@@ -330,11 +330,11 @@ public class LimitedListFieldTest extends TestWithEnvironment
 	{
 		final String f = "LimitedListFieldItem.strings-";
 		assertEquals("FALSE", strings.containsAny(Collections.emptyList()).toString());
-		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
+		assertEquals("("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a')",
 			strings.containsAny(asList("a")).toString());
 		assertEquals(
-			"(("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a') " +
-			 "OR ("+f+"0='b' OR "+f+"1='b' OR "+f+"2='b' OR "+f+"3='b'))",
+			"(("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a') " +
+			 "or ("+f+"0='b' or "+f+"1='b' or "+f+"2='b' or "+f+"3='b'))",
 			strings.containsAny(asList("a","b")).toString());
 	}
 
@@ -346,11 +346,11 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		final String f = "l1.LimitedListFieldItem.strings-";
 
 		assertEquals("FALSE", strings.containsAny(join, Collections.emptyList()).toString());
-		assertEquals("("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a')",
+		assertEquals("("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a')",
 			strings.containsAny(join, asList("a")).toString());
 		assertEquals(
-			"(("+f+"0='a' OR "+f+"1='a' OR "+f+"2='a' OR "+f+"3='a') " +
-				"OR ("+f+"0='b' OR "+f+"1='b' OR "+f+"2='b' OR "+f+"3='b'))",
+			"(("+f+"0='a' or "+f+"1='a' or "+f+"2='a' or "+f+"3='a') " +
+				"or ("+f+"0='b' or "+f+"1='b' or "+f+"2='b' or "+f+"3='b'))",
 			strings.containsAny(join, asList("a","b")).toString());
 	}
 
@@ -360,10 +360,10 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
-		assertEquals("("+f+"0='a' AND "+f+"1='b' AND "+f+"2 is null AND "+f+"3 is null)",
+		assertEquals("("+f+"0='a' and "+f+"1='b' and "+f+"2 is null and "+f+"3 is null)",
 				strings.equal(j, asList("a", "b")).toString());
 
-		assertEquals("("+f+"0 is null AND "+f+"1 is null AND "+f+"2 is null AND "+f+"3 is null)",
+		assertEquals("("+f+"0 is null and "+f+"1 is null and "+f+"2 is null and "+f+"3 is null)",
 				strings.equal(j, Collections.emptyList()).toString());
 	}
 
@@ -373,10 +373,10 @@ public class LimitedListFieldTest extends TestWithEnvironment
 		final Join j = q.join(TYPE, limitedListFieldItem.equalTarget());
 
 		final String f = "l1.LimitedListFieldItem.strings-";
-		assertEquals("(("+f+"0<>'a' OR "+f+"0 is null) OR ("+f+"1<>'b' OR "+f+"1 is null) OR "+f+"2 is not null OR "+f+"3 is not null)",
+		assertEquals("(("+f+"0<>'a' or "+f+"0 is null) or ("+f+"1<>'b' or "+f+"1 is null) or "+f+"2 is not null or "+f+"3 is not null)",
 				strings.notEqual(j, asList("a", "b")).toString());
 
-		assertEquals("("+f+"0 is not null OR "+f+"1 is not null OR "+f+"2 is not null OR "+f+"3 is not null)",
+		assertEquals("("+f+"0 is not null or "+f+"1 is not null or "+f+"2 is not null or "+f+"3 is not null)",
 				strings.notEqual(j, Collections.emptyList()).toString());
 	}
 

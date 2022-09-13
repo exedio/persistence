@@ -69,8 +69,8 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
-				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
+				"and toTarget-noPurge='false' " +
+				"and toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 12));
 
 		assertPurged(false, false, 1);
@@ -83,10 +83,10 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
-				"AND toTarget-noPurge='false' " +
-				"AND (" +
-					"(toTarget-unpend-success='true' AND toTarget-unpend-date<'1970-01-09 00:00:00.555') OR " +
-					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1970-01-06 00:00:00.555')))",
+				"and toTarget-noPurge='false' " +
+				"and (" +
+					"(toTarget-unpend-success='true' and toTarget-unpend-date<'1970-01-09 00:00:00.555') or " +
+					"(toTarget-unpend-success='false' and toTarget-unpend-date<'1970-01-06 00:00:00.555')))",
 				purge(555+20*day, 12, 15));
 
 		assertPurged(false, false, 1);
@@ -106,10 +106,10 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
-				"AND toTarget-noPurge='false' " +
-				"AND (" +
-					"(toTarget-unpend-success='true' AND toTarget-unpend-date<'1970-01-09 00:00:00.555') OR " +
-					"(toTarget-unpend-success='false' AND toTarget-unpend-date<'1970-01-06 00:00:00.555')))",
+				"and toTarget-noPurge='false' " +
+				"and (" +
+					"(toTarget-unpend-success='true' and toTarget-unpend-date<'1970-01-09 00:00:00.555') or " +
+					"(toTarget-unpend-success='false' and toTarget-unpend-date<'1970-01-06 00:00:00.555')))",
 				purge(555+20*day, 12, 15));
 
 		assertPurged(true, true, 1);
@@ -122,8 +122,8 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
-				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpend-success='false' AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
+				"and toTarget-noPurge='false' " +
+				"and toTarget-unpend-success='false' and toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 0, 12));
 
 		assertPurged(true, false, 1);
@@ -136,8 +136,8 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
-				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpend-success='true' AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
+				"and toTarget-noPurge='false' " +
+				"and toTarget-unpend-success='true' and toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 0));
 
 		assertPurged(false, true, 1);
@@ -161,9 +161,9 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
-				"AND toTarget-noPurge='false' " +
-				"AND body='bodyMismatch' " +
-				"AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
+				"and toTarget-noPurge='false' " +
+				"and body='bodyMismatch' " +
+				"and toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 12, DispatcherItem.body.equal("bodyMismatch")));
 
 		assertPurged(true, true, 1);
@@ -171,8 +171,8 @@ public class DispatcherPurgeTest extends TestWithEnvironment
 		assertEquals(
 				"select this from DispatcherItem " +
 				"where (toTarget-pending='false' " +
-				"AND toTarget-noPurge='false' " +
-				"AND toTarget-unpend-date<'1970-01-09 00:00:00.555')",
+				"and toTarget-noPurge='false' " +
+				"and toTarget-unpend-date<'1970-01-09 00:00:00.555')",
 				purge(555+20*day, 12, 12));
 
 		assertPurged(false, false, 1);

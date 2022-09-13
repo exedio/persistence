@@ -47,18 +47,18 @@ public class MediaTypeMediaTest
 		final StringField c = (StringField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='image/jpeg' OR "+c+"='image/pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"(("+c+"='image/png' OR "+c+"='image/x-png') AND !("+b+" startsWith '"+PNG+"')) OR " +
-				"("+c+"='image/gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
-				"("+c+"='image/webp' AND !("+b+" startsWith '"+WEBP+"')) OR " +
-				"("+c+"='image/tiff' AND !("+b+" startsWith '"+TIFF+"')) OR " +
-				"(("+c+"='image/vnd.microsoft.icon' OR "+c+"='image/icon' OR "+c+"='image/x-icon') AND !("+b+" startsWith '"+ICO+"')) OR " +
-				"(("+c+"='application/zip' OR "+c+"='application/java-archive' OR "+c+"='application/vnd.openxmlformats-officedocument.wordprocessingml.document' OR "+c+"='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' OR "+c+"='application/x-zip-compressed') AND !("+b+" startsWith '"+ZIP+"')) OR " +
-				"(("+c+"='application/font-woff' OR "+c+"='font/woff' OR "+c+"='font/x-woff') AND !("+b+" startsWith '774f4646')) OR " +
-				"("+c+"='font/woff2' AND !("+b+" startsWith '774f4632')) OR " +
-				"(("+c+"='application/x-font-ttf' OR "+c+"='application/x-font-truetype' OR "+c+"='font/ttf') AND !("+b+" startsWith '0001000000')) OR " +
-				"(("+c+"='application/pdf' OR "+c+"='text/pdf') AND !("+b+" startsWith '"+PDF+"')) OR " +
-				"(("+c+"='model/stl' OR "+c+"='model/x.stl-ascii') AND !("+b+" startsWith '"+STL+"'))" +
+				"(("+c+"='image/jpeg' or "+c+"='image/pjpeg') and !("+b+" startsWith '"+JPEG+"')) or " +
+				"(("+c+"='image/png' or "+c+"='image/x-png') and !("+b+" startsWith '"+PNG+"')) or " +
+				"("+c+"='image/gif' and !("+b+" startsWith '"+GIF+"')) or " +
+				"("+c+"='image/webp' and !("+b+" startsWith '"+WEBP+"')) or " +
+				"("+c+"='image/tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
+				"(("+c+"='image/vnd.microsoft.icon' or "+c+"='image/icon' or "+c+"='image/x-icon') and !("+b+" startsWith '"+ICO+"')) or " +
+				"(("+c+"='application/zip' or "+c+"='application/java-archive' or "+c+"='application/vnd.openxmlformats-officedocument.wordprocessingml.document' or "+c+"='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' or "+c+"='application/x-zip-compressed') and !("+b+" startsWith '"+ZIP+"')) or " +
+				"(("+c+"='application/font-woff' or "+c+"='font/woff' or "+c+"='font/x-woff') and !("+b+" startsWith '774f4646')) or " +
+				"("+c+"='font/woff2' and !("+b+" startsWith '774f4632')) or " +
+				"(("+c+"='application/x-font-ttf' or "+c+"='application/x-font-truetype' or "+c+"='font/ttf') and !("+b+" startsWith '0001000000')) or " +
+				"(("+c+"='application/pdf' or "+c+"='text/pdf') and !("+b+" startsWith '"+PDF+"')) or " +
+				"(("+c+"='model/stl' or "+c+"='model/x.stl-ascii') and !("+b+" startsWith '"+STL+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
@@ -85,8 +85,8 @@ public class MediaTypeMediaTest
 		final IntegerField c = (IntegerField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='0' OR "+c+"='1') AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"("+c+"='2' AND !("+b+" startsWith '"+PNG+"'))" +
+				"(("+c+"='0' or "+c+"='1') and !("+b+" startsWith '"+JPEG+"')) or " +
+				"("+c+"='2' and !("+b+" startsWith '"+PNG+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
@@ -98,8 +98,8 @@ public class MediaTypeMediaTest
 		final IntegerField c = (IntegerField)m.getContentType();
 		assertEquals(
 				"(" +
-				"("+c+"='0' AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"("+c+"='1' AND !("+b+" startsWith '"+PNG+"'))" +
+				"("+c+"='0' and !("+b+" startsWith '"+JPEG+"')) or " +
+				"("+c+"='1' and !("+b+" startsWith '"+PNG+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}
@@ -139,12 +139,12 @@ public class MediaTypeMediaTest
 		final StringField c = (StringField)m.getContentType();
 		assertEquals(
 				"(" +
-				"(("+c+"='jpeg' OR "+c+"='pjpeg') AND !("+b+" startsWith '"+JPEG+"')) OR " +
-				"(("+c+"='png' OR "+c+"='x-png') AND !("+b+" startsWith '"+PNG+"')) OR " +
-				"("+c+"='gif' AND !("+b+" startsWith '"+GIF+"')) OR " +
-				"("+c+"='webp' AND !("+b+" startsWith '"+WEBP+"')) OR " +
-				"("+c+"='tiff' AND !("+b+" startsWith '"+TIFF+"')) OR " +
-				"(("+c+"='vnd.microsoft.icon' OR "+c+"='icon' OR "+c+"='x-icon') AND !("+b+" startsWith '"+ICO+"'))" +
+				"(("+c+"='jpeg' or "+c+"='pjpeg') and !("+b+" startsWith '"+JPEG+"')) or " +
+				"(("+c+"='png' or "+c+"='x-png') and !("+b+" startsWith '"+PNG+"')) or " +
+				"("+c+"='gif' and !("+b+" startsWith '"+GIF+"')) or " +
+				"("+c+"='webp' and !("+b+" startsWith '"+WEBP+"')) or " +
+				"("+c+"='tiff' and !("+b+" startsWith '"+TIFF+"')) or " +
+				"(("+c+"='vnd.microsoft.icon' or "+c+"='icon' or "+c+"='x-icon') and !("+b+" startsWith '"+ICO+"'))" +
 				")",
 				m.bodyMismatchesContentTypeIfSupported().toString());
 	}

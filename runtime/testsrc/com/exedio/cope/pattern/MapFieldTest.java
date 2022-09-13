@@ -83,7 +83,7 @@ public class MapFieldTest extends TestWithEnvironment
 			assertEquals(Join.Kind.OUTER_LEFT, join.getKind());
 			assertEquals(name.getRelationType(), join.getType());
 			assertEquals(
-					"(MapFieldItem-name.parent=MapFieldItem.this AND MapFieldItem-name.key='DE')",
+					"(MapFieldItem-name.parent=MapFieldItem.this and MapFieldItem-name.key='DE')",
 					join.getCondition().toString());
 			assertContains(item, q.search());
 		}

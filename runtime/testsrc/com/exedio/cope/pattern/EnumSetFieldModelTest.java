@@ -89,16 +89,16 @@ public class EnumSetFieldModelTest
 	{
 		assertEquals(
 				"(" +
-				"EnumSetFieldItem.activeLanguage-DE='false' AND " +
-				"EnumSetFieldItem.activeLanguage-EN='false' AND " +
-				"EnumSetFieldItem.activeLanguage-PL='false' AND " +
+				"EnumSetFieldItem.activeLanguage-DE='false' and " +
+				"EnumSetFieldItem.activeLanguage-EN='false' and " +
+				"EnumSetFieldItem.activeLanguage-PL='false' and " +
 				"EnumSetFieldItem.activeLanguage-SUBCLASS='false')",
 				activeLanguage.isEmpty().toString());
 		assertEquals(
 				"(" +
-				"EnumSetFieldItem.activeLanguage-DE='true' OR " +
-				"EnumSetFieldItem.activeLanguage-EN='true' OR " +
-				"EnumSetFieldItem.activeLanguage-PL='true' OR " +
+				"EnumSetFieldItem.activeLanguage-DE='true' or " +
+				"EnumSetFieldItem.activeLanguage-EN='true' or " +
+				"EnumSetFieldItem.activeLanguage-PL='true' or " +
 				"EnumSetFieldItem.activeLanguage-SUBCLASS='true')",
 				activeLanguage.isNotEmpty().toString());
 	}

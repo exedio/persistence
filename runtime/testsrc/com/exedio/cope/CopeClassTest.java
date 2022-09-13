@@ -113,7 +113,7 @@ public class CopeClassTest
 	{
 		final IntegerField f = new IntegerField();
 		assertEquals(
-				"(" + f + ">='55' AND " + f + "<='66')",
+				"(" + f + ">='55' and " + f + "<='66')",
 				betweenAndCast(f, 55, 66).toString());
 	}
 }

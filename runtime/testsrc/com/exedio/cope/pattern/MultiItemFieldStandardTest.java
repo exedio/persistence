@@ -462,42 +462,42 @@ public class MultiItemFieldStandardTest
 	{
 		assertEquals(
 			"(" +
-			"(AnMandatoryItem.field-MultiItemFieldComponentA is not null AND" +
-			" AnMandatoryItem.field-MultiItemFieldComponentB is null) OR " +
-			"(AnMandatoryItem.field-MultiItemFieldComponentA is null AND" +
+			"(AnMandatoryItem.field-MultiItemFieldComponentA is not null and" +
+			" AnMandatoryItem.field-MultiItemFieldComponentB is null) or " +
+			"(AnMandatoryItem.field-MultiItemFieldComponentA is null and" +
 			" AnMandatoryItem.field-MultiItemFieldComponentB is not null)" +
 			")",
 			check(AnMandatoryItem.field).getCondition().toString());
 		assertEquals(
 			"(" +
-			"(ThreeItem.mandatory-MultiItemFieldComponentA is not null AND" +
-			" ThreeItem.mandatory-MultiItemFieldComponentB is null AND" +
-			" ThreeItem.mandatory-MultiItemFieldComponentC is null) OR " +
-			"(ThreeItem.mandatory-MultiItemFieldComponentA is null AND" +
-			" ThreeItem.mandatory-MultiItemFieldComponentB is not null AND" +
-			" ThreeItem.mandatory-MultiItemFieldComponentC is null) OR " +
-			"(ThreeItem.mandatory-MultiItemFieldComponentA is null AND" +
-			" ThreeItem.mandatory-MultiItemFieldComponentB is null AND" +
+			"(ThreeItem.mandatory-MultiItemFieldComponentA is not null and" +
+			" ThreeItem.mandatory-MultiItemFieldComponentB is null and" +
+			" ThreeItem.mandatory-MultiItemFieldComponentC is null) or " +
+			"(ThreeItem.mandatory-MultiItemFieldComponentA is null and" +
+			" ThreeItem.mandatory-MultiItemFieldComponentB is not null and" +
+			" ThreeItem.mandatory-MultiItemFieldComponentC is null) or " +
+			"(ThreeItem.mandatory-MultiItemFieldComponentA is null and" +
+			" ThreeItem.mandatory-MultiItemFieldComponentB is null and" +
 			" ThreeItem.mandatory-MultiItemFieldComponentC is not null)" +
 			")",
 			check(ThreeItem.mandatory).getCondition().toString());
 		assertEquals(
 				"(" +
-				"(FourItem.mandatory-MultiItemFieldComponentA is not null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentD is null) OR " +
-				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentB is not null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentD is null) OR " +
-				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentC is not null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentD is null) OR " +
-				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
+				"(FourItem.mandatory-MultiItemFieldComponentA is not null and" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentD is null) or " +
+				"(FourItem.mandatory-MultiItemFieldComponentA is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentB is not null and" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentD is null) or " +
+				"(FourItem.mandatory-MultiItemFieldComponentA is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentC is not null and" +
+				" FourItem.mandatory-MultiItemFieldComponentD is null) or " +
+				"(FourItem.mandatory-MultiItemFieldComponentA is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null and" +
 				" FourItem.mandatory-MultiItemFieldComponentD is not null)" +
 				")",
 				check(FourItem.mandatory).getCondition().toString());
@@ -506,32 +506,32 @@ public class MultiItemFieldStandardTest
 	@Test void testOptionalCheckConstraint()
 	{
 		assertEquals(
-			"(AnOptionalItem.field-MultiItemFieldComponentB is null OR" +
+			"(AnOptionalItem.field-MultiItemFieldComponentB is null or" +
 			" AnOptionalItem.field-MultiItemFieldComponentA is null)",
 			check(AnOptionalItem.field).getCondition().toString());
 		assertEquals(
 			"(" +
-			"(ThreeItem.optional-MultiItemFieldComponentB is null AND" +
-			" ThreeItem.optional-MultiItemFieldComponentC is null) OR " +
-			"(ThreeItem.optional-MultiItemFieldComponentA is null AND" +
-			" ThreeItem.optional-MultiItemFieldComponentC is null) OR " +
-			"(ThreeItem.optional-MultiItemFieldComponentA is null AND" +
+			"(ThreeItem.optional-MultiItemFieldComponentB is null and" +
+			" ThreeItem.optional-MultiItemFieldComponentC is null) or " +
+			"(ThreeItem.optional-MultiItemFieldComponentA is null and" +
+			" ThreeItem.optional-MultiItemFieldComponentC is null) or " +
+			"(ThreeItem.optional-MultiItemFieldComponentA is null and" +
 			" ThreeItem.optional-MultiItemFieldComponentB is null)" +
 			")",
 			check(ThreeItem.optional).getCondition().toString());
 		assertEquals(
 				"(" +
-				"(FourItem.optional-MultiItemFieldComponentB is null AND" +
-				" FourItem.optional-MultiItemFieldComponentC is null AND" +
-				" FourItem.optional-MultiItemFieldComponentD is null) OR " +
-				"(FourItem.optional-MultiItemFieldComponentA is null AND" +
-				" FourItem.optional-MultiItemFieldComponentC is null AND" +
-				" FourItem.optional-MultiItemFieldComponentD is null) OR " +
-				"(FourItem.optional-MultiItemFieldComponentA is null AND" +
-				" FourItem.optional-MultiItemFieldComponentB is null AND" +
-				" FourItem.optional-MultiItemFieldComponentD is null) OR " +
-				"(FourItem.optional-MultiItemFieldComponentA is null AND" +
-				" FourItem.optional-MultiItemFieldComponentB is null AND" +
+				"(FourItem.optional-MultiItemFieldComponentB is null and" +
+				" FourItem.optional-MultiItemFieldComponentC is null and" +
+				" FourItem.optional-MultiItemFieldComponentD is null) or " +
+				"(FourItem.optional-MultiItemFieldComponentA is null and" +
+				" FourItem.optional-MultiItemFieldComponentC is null and" +
+				" FourItem.optional-MultiItemFieldComponentD is null) or " +
+				"(FourItem.optional-MultiItemFieldComponentA is null and" +
+				" FourItem.optional-MultiItemFieldComponentB is null and" +
+				" FourItem.optional-MultiItemFieldComponentD is null) or " +
+				"(FourItem.optional-MultiItemFieldComponentA is null and" +
+				" FourItem.optional-MultiItemFieldComponentB is null and" +
 				" FourItem.optional-MultiItemFieldComponentC is null)" +
 				")",
 				check(FourItem.optional).getCondition().toString());
@@ -559,8 +559,8 @@ public class MultiItemFieldStandardTest
 	@Test void testEqualConditionNull3Classes()
 	{
 		assertEquals(
-				"(ThreeItem.mandatory-MultiItemFieldComponentA is null AND" +
-				" ThreeItem.mandatory-MultiItemFieldComponentB is null AND" +
+				"(ThreeItem.mandatory-MultiItemFieldComponentA is null and" +
+				" ThreeItem.mandatory-MultiItemFieldComponentB is null and" +
 				" ThreeItem.mandatory-MultiItemFieldComponentC is null)",
 				ThreeItem.mandatory.equal(null).toString());
 	}
@@ -568,9 +568,9 @@ public class MultiItemFieldStandardTest
 	@Test void testEqualConditionNull4Classes()
 	{
 		assertEquals(
-				"(FourItem.mandatory-MultiItemFieldComponentA is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentB is null AND" +
-				" FourItem.mandatory-MultiItemFieldComponentC is null AND" +
+				"(FourItem.mandatory-MultiItemFieldComponentA is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentB is null and" +
+				" FourItem.mandatory-MultiItemFieldComponentC is null and" +
 				" FourItem.mandatory-MultiItemFieldComponentD is null)",
 				FourItem.mandatory.equal(null).toString());
 	}

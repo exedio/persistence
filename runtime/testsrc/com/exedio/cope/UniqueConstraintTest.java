@@ -57,7 +57,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='a' AND b='2')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='a' and b='2')", e.getMessage());
 		}
 		try
 		{
@@ -66,7 +66,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' AND b='1')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' and b='1')", e.getMessage());
 		}
 		assertEquals(item, UniqueConstraintItem.forAAndBStrict("a", 1));
 		try
@@ -76,7 +76,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='a' AND b='2')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='a' and b='2')", e.getMessage());
 		}
 		try
 		{
@@ -85,7 +85,7 @@ public class UniqueConstraintTest extends TestWithEnvironment
 		}
 		catch (final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' AND b='1')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from UniqueConstraintItem where (a='b' and b='1')", e.getMessage());
 		}
 	}
 

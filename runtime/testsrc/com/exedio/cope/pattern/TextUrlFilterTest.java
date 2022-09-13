@@ -93,7 +93,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
 	}
@@ -109,7 +109,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 		assertTrue(model.hasCurrentTransaction());
 	}
@@ -134,7 +134,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 	}
 
@@ -147,7 +147,7 @@ public class TextUrlFilterTest extends TestWithEnvironment
 		}
 		catch(final IllegalArgumentException e)
 		{
-			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' AND key='uno')", e.getMessage());
+			assertEquals("expected result of size one, but was empty for query: select this from TextUrlFilterItem-fertig where (parent='" + item + "' and key='uno')", e.getMessage());
 		}
 	}
 
