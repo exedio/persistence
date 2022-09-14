@@ -12,7 +12,7 @@ def ant = 'ant/bin/ant -noinput'
 properties([
 		gitLabConnection(env.GITLAB_CONNECTION),
 		buildDiscarder(logRotator(
-				numToKeepStr         : isRelease ? '1000' : '30',
+				numToKeepStr         : isRelease ?  '500' : '30',
 				artifactNumToKeepStr : isRelease ?   '20' :  '2'
 		))
 ])
