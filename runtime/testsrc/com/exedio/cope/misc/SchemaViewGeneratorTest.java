@@ -115,23 +115,23 @@ public class SchemaViewGeneratorTest extends TestWithEnvironment
 
 			assertResult(
 					"0", "511", "beta", "711", "alpha",
-					"1959-10-04 00:43:39.123" + (mariaDriver?"":nnd), rs);
+					"1959-10-04 00:43:39.123"+nnd, rs);
 
 			assertResult(
 					"1", "522", "delta", "722", "delta",
-					"2018-12-07 18:23:11.123" + (mariaDriver?"":nnd), rs);
+					"2018-12-07 18:23:11.123"+nnd, rs);
 
 			assertResult("2", null, null, null, null, null, rs);
 
 			assertResult(
 					"3", "888", "delta", "777", "delta",
-					"2020-05-08 20:23:44.12" + (mariaDriver?"":("0"+nnd)), rs);
+					"2020-05-08 20:23:44.120"+nnd, rs);
 			assertResult(
 					"4", "888", "delta", "777", "delta",
-					"2020-05-08 21:23:44.1" + (mariaDriver?"":("00"+nnd)), rs);
+					"2020-05-08 21:23:44.100"+nnd, rs);
 			assertResult(
 					"5", "888", "delta", "777", "delta",
-					"2020-05-08 22:23:44" + (!mariaDriver ? "" : ".0"), rs);
+					"2020-05-08 22:23:44" + (!mariaDriver ? "" : (".000"+nnd)), rs);
 
 			assertFalse(rs.next());
 		}

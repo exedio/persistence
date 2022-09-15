@@ -135,7 +135,7 @@ public class OverflowIntegerSumTest extends TestWithEnvironment
 						break;
 					case mysql:
 						if(mariaDriver)
-							expectedArithmeticException = "Out of range value for column 'SUM(`field`)' : value " + expected + " is not in class java.lang.Integer range";
+							expectedArithmeticException = "integer overflow";
 						else
 							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Integer";
 						break;

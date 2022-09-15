@@ -143,7 +143,7 @@ public class OverflowLongSumTest extends TestWithEnvironment
 						break;
 					case mysql:
 						if(mariaDriver)
-							expectedArithmeticException = "Out of range value for column 'SUM(`field`)' : value " + expected;
+							expectedArithmeticException = "value '" + expected + "' cannot be decoded as Long";
 						else
 							expectedArithmeticException = "Value '" + mysqlFormat(expected) + "' is outside of valid range for type java.lang.Long";
 						break;
