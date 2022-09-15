@@ -41,11 +41,7 @@ import com.exedio.cope.Item;
 import com.exedio.cope.Model;
 import com.exedio.cope.misc.Computed;
 import com.exedio.cope.util.EmptyJobContext;
-import com.exedio.cope.util.TimeZoneStrict;
 import java.time.ZoneId;
-import java.util.GregorianCalendar;
-import java.util.Locale;
-import java.util.TimeZone;
 import org.junit.jupiter.api.Test;
 
 public class ScheduleModelTest
@@ -119,41 +115,6 @@ public class ScheduleModelTest
 		assertEquals("Europe/Berlin", report.getTimeZone().getID());
 	}
 
-	@Deprecated // OK: testing deprecated api
-	@Test void testConstructionParametersDeprecated()
-	{
-		try
-		{
-			report.getLocale();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(report.getID(), e.getMessage());
-		}
-		try
-		{
-			report.newGregorianCalendar();
-			fail();
-		}
-		catch(final IllegalStateException e)
-		{
-			assertEquals(report.getID(), e.getMessage());
-		}
-	}
-
-	@Deprecated // OK: testing deprecated api
-	@Test void testConstructionParametersByTimeZone()
-	{
-		final Schedule s = new Schedule(TimeZoneStrict.getTimeZone("Europe/Berlin"), Locale.GERMAN);
-		assertEquals(ZoneId.of("Europe/Berlin"), s.getZoneId());
-		assertEquals("Europe/Berlin", s.getTimeZone().getID());
-		assertSame(Locale.GERMAN, s.getLocale());
-		final GregorianCalendar cal = s.newGregorianCalendar();
-		assertEquals("Europe/Berlin", cal.getTimeZone().getID());
-		assertEquals(false, cal.isLenient());
-	}
-
 	@Test void testCreateTargetNull()
 	{
 		assertFails(
@@ -181,35 +142,6 @@ public class ScheduleModelTest
 		catch(final NullPointerException e)
 		{
 			assertEquals("zoneId", e.getMessage());
-		}
-	}
-
-	@Deprecated // OK: testing deprecated api
-	@Test void testTimeZoneNull()
-	{
-		try
-		{
-			new Schedule(null, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("timeZone", e.getMessage());
-		}
-	}
-
-	@Deprecated // OK: testing deprecated api
-	@Test void testLocaleNull()
-	{
-		final TimeZone tz = TimeZone.getDefault();
-		try
-		{
-			new Schedule(tz, null);
-			fail();
-		}
-		catch(final NullPointerException e)
-		{
-			assertEquals("locale", e.getMessage());
 		}
 	}
 

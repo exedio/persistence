@@ -62,10 +62,8 @@ import java.time.ZoneId;
 import java.time.ZonedDateTime;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.Iterator;
 import java.util.LinkedList;
-import java.util.Locale;
 import java.util.TimeZone;
 import javax.annotation.Nonnull;
 import org.slf4j.Logger;
@@ -168,21 +166,20 @@ public final class Schedule extends Pattern
 	@Deprecated
 	public Schedule(final ZoneId zoneId)
 	{
-		this(zoneId, INTERFACE_VARIANT, null);
+		this(zoneId, INTERFACE_VARIANT);
 	}
 
 	public static <I extends Item> Schedule create(
 			final ZoneId zoneId,
 			final Target<I> target)
 	{
-		return new Schedule(zoneId, new TargetVariant(target), null);
+		return new Schedule(zoneId, new TargetVariant(target));
 	}
 
-	private Schedule(final ZoneId zoneId, final Variant variant, final Locale locale)
+	private Schedule(final ZoneId zoneId, final Variant variant)
 	{
 		this.zoneId = requireNonNull(zoneId, "zoneId");
 		this.variant = requireNonNull(variant);
-		this.localeIfSupported = locale;
 		addSourceFeature(enabled,  "enabled");
 		addSourceFeature(interval, "interval");
 	}
@@ -636,50 +633,4 @@ public final class Schedule extends Pattern
 	}
 
 	private final FeatureTimer runTimer = timer("run", "The schedule was run for an item");
-
-	// ------------------- deprecated stuff -------------------
-
-	@Deprecated
-	private final Locale localeIfSupported;
-
-	/**
-	 * @deprecated Use {@link #Schedule(ZoneId)} instead
-	 * @param locale
-	 *        specifies the locale used for creating the {@link GregorianCalendar}
-	 *        that does all the date computations.
-	 *        Is important for specifying the first day of week (Monday vs. Sunday)
-	 */
-	@Deprecated
-	public Schedule(final TimeZone timeZone, final Locale locale)
-	{
-		this(
-			requireNonNull(timeZone, "timeZone").toZoneId(),
-			INTERFACE_VARIANT,
-			requireNonNull(locale, "locale"));
-	}
-
-	/**
-	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
-	 * @throws IllegalStateException if not supported
-	 */
-	@Deprecated
-	public Locale getLocale()
-	{
-		if(localeIfSupported==null)
-			throw new IllegalStateException(toString());
-
-		return localeIfSupported;
-	}
-
-	/**
-	 * @deprecated Supported only if constructed by {@link #Schedule(TimeZone, Locale)}.
-	 * @throws IllegalStateException if not supported
-	 */
-	@Deprecated
-	public GregorianCalendar newGregorianCalendar()
-	{
-		final GregorianCalendar result = new GregorianCalendar(getTimeZone(), getLocale());
-		result.setLenient(false);
-		return result;
-	}
 }
