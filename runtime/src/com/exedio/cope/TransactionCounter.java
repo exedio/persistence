@@ -48,7 +48,7 @@ final class TransactionCounter
 				register(Metrics.globalRegistry);
 	}
 
-	void count(final Timer.Sample start, final boolean commit, final boolean hadConnection)
+	long countAndReturnNanos(final Timer.Sample start, final boolean commit, final boolean hadConnection)
 	{
 		final Timer c;
 
@@ -63,7 +63,7 @@ final class TransactionCounter
 			else
 				c = rollbackWithout;
 
-		start.stop(c);
+		return start.stop(c);
 	}
 
 	TransactionCounters get()

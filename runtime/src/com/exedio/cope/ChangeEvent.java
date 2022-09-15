@@ -18,6 +18,7 @@
 
 package com.exedio.cope;
 
+import java.time.Duration;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -100,6 +101,14 @@ public final class ChangeEvent
 	public Date getTransactionStartDate() throws NotAvailableException
 	{
 		return transactionInfo.getStartDate();
+	}
+
+	/**
+	 * @throws NotAvailableException if that information is not available
+	 */
+	public Duration getTransactionDuration() throws NotAvailableException
+	{
+		return transactionInfo.getDuration();
 	}
 
 	public static final class NotAvailableException extends Exception

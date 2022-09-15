@@ -42,6 +42,7 @@ import io.micrometer.core.instrument.Counter;
 import io.micrometer.core.instrument.Gauge;
 import io.micrometer.core.instrument.Timer;
 import java.io.IOException;
+import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -181,6 +182,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 				assertTrue(event.getTransactionID()>=0);
 				assertNotNull(event.getTransactionName());
 				assertNotNull(event.getTransactionStartDate());
+				assertTrue(event.getTransactionDuration().compareTo(Duration.ZERO) > 0);
 			}
 			catch(final NotAvailableException e)
 			{
@@ -220,6 +222,7 @@ public class ChangeListenerTest extends TestWithEnvironment
 				assertEquals(expectedTransaction.getID(), event.getTransactionID());
 				assertEquals(expectedTransaction.getName(), event.getTransactionName());
 				assertEquals(expectedTransaction.getStartDate(), event.getTransactionStartDate());
+				assertTrue(event.getTransactionDuration().compareTo(Duration.ZERO) > 0);
 				assertEquals(event.getItems().toString() + ' ' + expectedTransaction.getID() + ' ' + expectedTransaction.getName(), event.toString());
 				assertNull(expectedTransaction.getBoundThread());
 				assertTrue(expectedTransaction.isClosed());

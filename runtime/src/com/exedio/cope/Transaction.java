@@ -18,6 +18,8 @@
 
 package com.exedio.cope;
 
+import static java.time.Duration.ofNanos;
+
 import com.exedio.dsmf.SQLRuntimeException;
 import gnu.trove.TLongHashSet;
 import gnu.trove.TLongObjectHashMap;
@@ -383,16 +385,17 @@ public final class Transaction
 			unbindThread();
 		}
 
+		final long durationNanos =
+				transactionCounter.countAndReturnNanos(startSample, commit, hadConnection);
+
 		if(invalidations!=null)
 		{
 			if(commit) // notify global cache
-				connect.invalidate(invalidations, new TransactionInfoLocal(this));
+				connect.invalidate(invalidations, new TransactionInfoLocal(this, durationNanos));
 		}
 
-		transactionCounter.count(startSample, commit, hadConnection);
-
 		if(logger.isDebugEnabled())
-			logger.debug(MessageFormat.format("{0} {2}: {1}", id, name, (commit ? "commit" : "rollback")));
+			logger.debug(MessageFormat.format("{0} {2} ({3}): {1}", id, name, (commit ? "commit" : "rollback"), ofNanos(durationNanos)));
 
 		// cleanup
 		// do this at the end, because there is no hurry with cleanup
