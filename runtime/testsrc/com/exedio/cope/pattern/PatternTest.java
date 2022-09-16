@@ -120,7 +120,7 @@ public class PatternTest extends TestWithEnvironment
 		assertTestAnnotation("ownItemAnn", PatternTestItem.testPattern2.getOwnItem());
 
 		// superType
-		final Type<PatternTestTypeItem> superType = PatternTestItem.testPattern.getPatternSuperType();
+		final Type<PatternTestTypeAbstractItem> superType = PatternTestItem.testPattern.getPatternSuperType();
 		assertSame(PatternTestItem.testPattern.superTypeString, superType.getFeature(PatternTestPattern.SUPER_TYPE_STRING));
 		assertSame(PatternTestItem.testPattern.superTypeBoolean, superType.getFeature(PatternTestPattern.SUPER_TYPE_BOOLEAN));
 
@@ -128,7 +128,7 @@ public class PatternTest extends TestWithEnvironment
 		final Type<PatternTestTypeItem> subType = PatternTestItem.testPattern.getPatternSubType();
 		assertSame(PatternTestItem.testPattern.subTypeInteger, subType.getFeature(PatternTestPattern.SUBTYPE_INTEGER));
 
-		assertSame(PatternTestTypeItem.class, superType.getJavaClass());
+		assertSame(PatternTestTypeAbstractItem.class, superType.getJavaClass());
 		assertSame(PatternTestTypeItem.class, subType.getJavaClass());
 		assertEquals(false, superType.isBound());
 		assertEquals(false, subType.isBound());

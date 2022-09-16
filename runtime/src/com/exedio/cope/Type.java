@@ -173,8 +173,8 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		if(annotationSource==null)
 			throw new NullPointerException(javaClass.getName());
-		if(!isAbstract && Modifier.isAbstract(javaClass.getModifiers()))
-			throw new IllegalArgumentException("Cannot make a non-abstract type for abstract " + javaClass + '.'); // TODO test
+		if(isAbstract != Modifier.isAbstract(javaClass.getModifiers()))
+			throw new IllegalArgumentException(javaClass + " must" + (isAbstract?"":" not") + " be abstract");
 		if(id==null)
 			throw new NullPointerException("id for " + javaClass); // TODO test
 		{

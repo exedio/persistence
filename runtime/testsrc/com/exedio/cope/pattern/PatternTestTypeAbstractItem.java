@@ -20,16 +20,17 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 
+import com.exedio.cope.Item;
 import com.exedio.cope.TestAnnotation;
 import com.exedio.cope.instrument.WrapperType;
 
 @TestAnnotation("PatternTestTypeItemAnn")
 @WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, comments=false)
-final class PatternTestTypeItem extends PatternTestTypeAbstractItem
+abstract class PatternTestTypeAbstractItem extends Item
 {
 	@com.exedio.cope.instrument.Generated
-	private static final long serialVersionUID = 1l;
+	private static final long serialVersionUID = 2l;
 
 	@com.exedio.cope.instrument.Generated
-	private PatternTestTypeItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	protected PatternTestTypeAbstractItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

@@ -41,7 +41,7 @@ class PatternTestPattern extends Pattern
 	@TestAnnotation("ownItemAnn")
 	private ItemField<PatternTestTypeItem> ownItem;
 
-	private Type<PatternTestTypeItem> superType = null;
+	private Type<PatternTestTypeAbstractItem> superType = null;
 	static final String SUPER_TYPE_POSTFIX = "UperType";
 
 	@TestAnnotation("superTypeStringAnn")
@@ -73,7 +73,7 @@ class PatternTestPattern extends Pattern
 		final Features features = new Features();
 		features.put(SUPER_TYPE_STRING, superTypeString, af("superTypeString"));
 		features.put(SUPER_TYPE_BOOLEAN, superTypeBoolean, af("superTypeBoolean"));
-		this.superType = newSourceType(PatternTestTypeItem.class, true, null, features, SUPER_TYPE_POSTFIX);
+		this.superType = newSourceType(PatternTestTypeAbstractItem.class, true, null, features, SUPER_TYPE_POSTFIX);
 
 		//Create sub type
 		features.clear();
@@ -89,7 +89,7 @@ class PatternTestPattern extends Pattern
 		return ownItem;
 	}
 
-	public Type<PatternTestTypeItem> getPatternSuperType()
+	public Type<PatternTestTypeAbstractItem> getPatternSuperType()
 	{
 		return superType;
 	}
