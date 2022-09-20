@@ -20,12 +20,10 @@ package com.exedio.cope.pattern;
 
 import static com.exedio.cope.instrument.Visibility.NONE;
 import static com.exedio.cope.tojunit.Assert.assertFails;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import com.exedio.cope.Features;
 import com.exedio.cope.Item;
 import com.exedio.cope.Pattern;
-import com.exedio.cope.Type;
 import com.exedio.cope.TypesBound;
 import com.exedio.cope.instrument.WrapperType;
 import org.junit.jupiter.api.Test;
@@ -37,7 +35,7 @@ public class PatternErrorAbstractTest
 		assertFails(
 				() -> TypesBound.newType(ContainerAbstract.class),
 				IllegalArgumentException.class,
-				"Cannot make a non-abstract type for abstract " + TypeAbstract.class + ".");
+				TypeAbstract.class + " must not be abstract");
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ContainerAbstract extends Item
@@ -68,10 +66,10 @@ public class PatternErrorAbstractTest
 
 	@Test void testConcrete()
 	{
-		final Type<ContainerConcrete> t = TypesBound.newType(ContainerConcrete.class);
-		assertEquals(ContainerConcrete.class, t.getJavaClass());
-		assertEquals(TypeConcrete.class, ContainerConcrete.pattern.javaClass);
-		assertEquals(true, ContainerConcrete.pattern.isAbstract);
+		assertFails(
+				() -> TypesBound.newType(ContainerConcrete.class),
+				IllegalArgumentException.class,
+				TypeConcrete.class + " must be abstract");
 	}
 	@WrapperType(type=NONE, constructor=NONE, genericConstructor=NONE, indent=2, comments=false)
 	private static final class ContainerConcrete extends Item
