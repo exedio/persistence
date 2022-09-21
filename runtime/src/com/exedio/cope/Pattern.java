@@ -27,6 +27,7 @@ import com.exedio.cope.misc.CopeSchemaNameElement;
 import com.exedio.cope.misc.ListUtil;
 import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedElement;
+import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -208,7 +209,26 @@ public abstract class Pattern extends Feature
 			final Features features,
 			final String postfix)
 	{
-		return newSourceType(javaClass, false, null, features, postfix);
+		return newSourceType(javaClass, null, features, postfix);
+	}
+
+	/**
+	 * @see #getSourceTypes()
+	 * Use {@link #newSourceType(Class, Type, Features, String)} instead,
+	 * <tt>isAbstract</tt> is taken from <tt>javaClass</tt>.
+	 */
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final boolean isAbstract,
+			final Type<? super T> supertype,
+			final Features features,
+			final String postfix)
+	{
+		if(javaClass!=null &&
+			(isAbstract != Modifier.isAbstract(javaClass.getModifiers())))
+			throw new IllegalArgumentException(javaClass + " must" + (isAbstract?"":" not") + " be abstract");
+
+		return newSourceType(javaClass, supertype, features, postfix);
 	}
 
 	/**
@@ -216,7 +236,6 @@ public abstract class Pattern extends Feature
 	 */
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
-			final boolean isAbstract,
 			final Type<? super T> supertype,
 			final Features features,
 			final String postfix)
@@ -227,7 +246,7 @@ public abstract class Pattern extends Feature
 			throw new IllegalStateException("newSourceType can be called only until pattern is mounted, not afterwards");
 		assert sourceTypes==null;
 		final String id = newSourceTypeId(getType().getID(), getName(), postfix);
-		final Type<T> result = new Type<>(javaClass, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, isAbstract, supertype, features);
+		final Type<T> result = new Type<>(javaClass, new SourceTypeAnnotationProxy(javaClass, postfix), false, id, this, supertype, features);
 		sourceTypesWhileGather.add(result);
 		return result;
 	}

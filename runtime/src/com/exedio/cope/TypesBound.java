@@ -68,9 +68,6 @@ public final class TypesBound
 		// id
 		final String id = CopeNameUtil.getAndFallbackToSimpleName(javaClass);
 
-		// abstract
-		final boolean isAbstract = Modifier.isAbstract(javaClass.getModifiers());
-
 		// supertype
 		final Class<?> superclass = javaClass.getSuperclass();
 
@@ -97,7 +94,6 @@ public final class TypesBound
 				true, // bound
 				id,
 				null, // pattern
-				isAbstract,
 				supertype,
 				features);
 

@@ -161,7 +161,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			final boolean bound,
 			final String id,
 			final Pattern pattern,
-			final boolean isAbstract,
 			final Type<? super T> supertype,
 			final Features featuresParameter)
 	{
@@ -173,8 +172,6 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 
 		if(annotationSource==null)
 			throw new NullPointerException(javaClass.getName());
-		if(isAbstract != Modifier.isAbstract(javaClass.getModifiers()))
-			throw new IllegalArgumentException(javaClass + " must" + (isAbstract?"":" not") + " be abstract");
 		if(id==null)
 			throw new NullPointerException("id for " + javaClass); // TODO test
 		{
@@ -192,7 +189,7 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		final CopeSchemaName schemaNameAnnotation = getAnnotation(CopeSchemaName.class);
 		this.schemaId = intern(schemaNameAnnotation!=null ? schemaNameAnnotation.value() : id);
 		this.pattern = pattern;
-		this.isAbstract = isAbstract;
+		this.isAbstract = Modifier.isAbstract(javaClass.getModifiers());
 		this.supertype = supertype;
 		this.typeColumnMinLength = getTypeColumnMinLength();
 
