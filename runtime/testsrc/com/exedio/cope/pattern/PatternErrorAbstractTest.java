@@ -111,6 +111,7 @@ public class PatternErrorAbstractTest
 		}
 
 		@Override
+		@SuppressWarnings("deprecation") // OK: testing deprecated API
 		protected void onMount()
 		{
 			super.onMount();
