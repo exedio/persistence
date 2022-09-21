@@ -214,27 +214,6 @@ public abstract class Pattern extends Feature
 
 	/**
 	 * @see #getSourceTypes()
-	 * @deprecated
-	 * Use {@link #newSourceType(Class, Type, Features, String)} instead,
-	 * <tt>isAbstract</tt> is taken from <tt>javaClass</tt>.
-	 */
-	@Deprecated
-	protected final <T extends Item> Type<T> newSourceType(
-			final Class<T> javaClass,
-			final boolean isAbstract,
-			final Type<? super T> supertype,
-			final Features features,
-			final String postfix)
-	{
-		if(javaClass!=null &&
-			(isAbstract != Modifier.isAbstract(javaClass.getModifiers())))
-			throw new IllegalArgumentException(javaClass + " must" + (isAbstract?"":" not") + " be abstract");
-
-		return newSourceType(javaClass, supertype, features, postfix);
-	}
-
-	/**
-	 * @see #getSourceTypes()
 	 */
 	protected final <T extends Item> Type<T> newSourceType(
 			final Class<T> javaClass,
@@ -444,6 +423,27 @@ public abstract class Pattern extends Feature
 	}
 
 	// ------------------- deprecated stuff -------------------
+
+	/**
+	 * @see #getSourceTypes()
+	 * @deprecated
+	 * Use {@link #newSourceType(Class, Type, Features, String)} instead,
+	 * <tt>isAbstract</tt> is taken from <tt>javaClass</tt>.
+	 */
+	@Deprecated
+	protected final <T extends Item> Type<T> newSourceType(
+			final Class<T> javaClass,
+			final boolean isAbstract,
+			final Type<? super T> supertype,
+			final Features features,
+			final String postfix)
+	{
+		if(javaClass!=null &&
+			(isAbstract != Modifier.isAbstract(javaClass.getModifiers())))
+			throw new IllegalArgumentException(javaClass + " must" + (isAbstract?"":" not") + " be abstract");
+
+		return newSourceType(javaClass, supertype, features, postfix);
+	}
 
 	/**
 	 * @deprecated Use {@link #addSourceFeature(Feature, String)} instead and benefit from result.
