@@ -88,7 +88,7 @@ public class TypesBoundErrorTest
 		assertFails(
 				() -> new Model(wrongActivationConstructor),
 				IllegalArgumentException.class,
-				"WrongActivationConstructor/" + WrongActivationConstructor.class.getName());
+				"WrongActivationConstructor/" + WrongActivationConstructor.class.getName() + "/pk:2147483646/2147483647");
 		assertFails(
 				() -> newType(WrongActivationConstructor.class),
 				IllegalArgumentException.class,

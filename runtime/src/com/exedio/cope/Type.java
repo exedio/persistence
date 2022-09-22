@@ -1304,11 +1304,11 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 		if(item==null)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.type!=this)
-			throw new IllegalArgumentException(id + '/' + javaClass.getName());
+			throw new IllegalArgumentException(id + '/' + javaClass.getName() + "/type:" + item.type.id);
 		if(item.getClass()!=javaClass)
-			throw new IllegalArgumentException(id + '/' + javaClass.getName());
+			throw new IllegalArgumentException(id + '/' + javaClass.getName() + "/class:" + item.getClass().getName());
 		if(item.pk!=createLimit)
-			throw new IllegalArgumentException(id + '/' + javaClass.getName());
+			throw new IllegalArgumentException(id + '/' + javaClass.getName() + "/pk:" + item.pk + '/' + createLimit);
 	}
 
 	boolean needsCheckTypeColumn()
