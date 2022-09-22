@@ -428,7 +428,7 @@ public abstract class Pattern extends Feature
 	 * @see #getSourceTypes()
 	 * @deprecated
 	 * Use {@link #newSourceType(Class, Type, Features, String)} instead,
-	 * <tt>isAbstract</tt> is taken from <tt>javaClass</tt>.
+	 * {@code isAbstract} is taken from {@code javaClass}.
 	 */
 	@Deprecated
 	protected final <T extends Item> Type<T> newSourceType(
