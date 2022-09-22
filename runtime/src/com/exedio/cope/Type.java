@@ -1300,7 +1300,12 @@ public final class Type<T extends Item> implements SelectType<T>, Comparable<Typ
 			return;
 
 		final T item = activate(createLimit);
+		//noinspection ConstantConditions OkK: prepares Activation constructor can be called without reflection
+		if(item==null)
+			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.type!=this)
+			throw new IllegalArgumentException(id + '/' + javaClass.getName());
+		if(item.getClass()!=javaClass)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
 		if(item.pk!=createLimit)
 			throw new IllegalArgumentException(id + '/' + javaClass.getName());
