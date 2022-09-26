@@ -165,7 +165,7 @@ final class VaultTrail
 
 		bf.
 				append(',').
-				appendParameterAny(new Date()).
+				appendParameterDateNativelyEvenIfSupportDisabled(new Date()).
 				append(',').
 				appendParameter(truncate(putInfo.getFieldString(), fieldLimit)).
 				append(',').
