@@ -335,6 +335,23 @@ final class Statement
 		return this;
 	}
 
+	/**
+	 * <b>BEWARE:</b>
+	 * Does not consider {@link ConnectProperties#isSupportDisabledForNativeDate()}.
+	 */
+	<E> Statement appendParameterDateNativelyEvenIfSupportDisabled(final Date value)
+	{
+		if(parameters==null)
+			text.append(dialect.toLiteral(value));
+		else
+		{
+			this.text.append(QUESTION_MARK);
+			this.parameters.add(new Timestamp(value.getTime()));
+		}
+
+		return this;
+	}
+
 	@SuppressWarnings("UnusedReturnValue") // OK: is always the last in chain
 	Statement appendParameters(final Statement other)
 	{
