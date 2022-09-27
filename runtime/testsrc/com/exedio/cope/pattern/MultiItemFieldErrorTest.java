@@ -48,7 +48,7 @@ public class MultiItemFieldErrorTest
 	{
 		try
 		{
-			TypesBound.newType(TestCreateNoComponentClass.class);
+			TypesBound.newType(TestCreateNoComponentClass.class, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)
@@ -73,7 +73,7 @@ public class MultiItemFieldErrorTest
 	{
 		try
 		{
-			TypesBound.newType(TestCreateOnlyOneComponent.class);
+			TypesBound.newType(TestCreateOnlyOneComponent.class, null);
 			fail();
 		}
 		catch(final IllegalArgumentException e)

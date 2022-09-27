@@ -18,6 +18,11 @@
 
 package com.exedio.cope;
 
+import static com.exedio.cope.instrument.Visibility.PACKAGE;
+
+import com.exedio.cope.instrument.WrapperType;
+
+@WrapperType(activationConstructor=PACKAGE)
 final class EnumItem extends Item
 {
 	@SuppressWarnings("unused") // OK: Enum for EnumField must not be empty
@@ -118,5 +123,5 @@ final class EnumItem extends Item
 	 * @see com.exedio.cope.Item#Item(com.exedio.cope.ActivationParameters)
 	 */
 	@com.exedio.cope.instrument.Generated
-	private EnumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
+	EnumItem(final com.exedio.cope.ActivationParameters ap){super(ap);}
 }

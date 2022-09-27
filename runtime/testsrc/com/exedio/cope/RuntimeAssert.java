@@ -37,6 +37,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+import java.util.function.Function;
 import org.opentest4j.AssertionFailedError;
 
 public final class RuntimeAssert
@@ -185,6 +186,11 @@ public final class RuntimeAssert
 				x -> x,
 				(x,y) -> { throw new AssertionFailedError(x.toString()); },
 				LinkedHashMap::new));
+	}
+
+	public static <T> Function<ActivationParameters,T> failingActivator()
+	{
+		return (ap) -> { throw new AssertionFailedError(ap!=null ? ap.toString() : null); };
 	}
 
 
